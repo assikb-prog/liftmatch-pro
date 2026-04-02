@@ -102,7 +102,9 @@ async function _loadRentalCompaniesFromFirestore() {
         baseCity: d.city || '', serviceRadiusKm: d.serviceRadiusKm || 75,
         cities: [d.city || ''], machines: (d.sectors||[]).join(', '),
         sectors: d.sectors || [], active: true,
-        ruralOptIn: d.ruralOptIn || false, ruralRadiusKm: d.ruralRadiusKm || 0
+        ruralOptIn: d.ruralOptIn || false, ruralRadiusKm: d.ruralRadiusKm || 0,
+        plan: d.plan || null, enquiriesUsed: d.enquiriesUsed || 0,
+        planActiveSince: d.planActiveSince || '',
       };
       const existIdx = RENTAL_COMPANIES.findIndex(c => c.email === d.email);
       if (existIdx > -1) RENTAL_COMPANIES[existIdx] = { ...RENTAL_COMPANIES[existIdx], ...entry };

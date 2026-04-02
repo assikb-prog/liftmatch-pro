@@ -2865,19 +2865,7 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:1.0,kg:3500},{h:0.5,r:1.5,kg:3500},{h:0.5,r:2.5,kg:3150},{h:0.5,r:3.0,kg:2600},{h:0.5,r:4.0,kg:1900},{h:0.5,r:5.0,kg:1350},{h:0.5,r:6.0,kg:950},{h:0.5,r:6.4,kg:750},{h:1.1,r:0.0,kg:3500},{h:1.1,r:1.0,kg:3500},{h:1.1,r:1.5,kg:3500},{h:1.1,r:2.5,kg:3150},{h:1.1,r:3.0,kg:2600},{h:1.1,r:4.0,kg:1900},{h:1.1,r:5.0,kg:1350},{h:1.1,r:6.0,kg:950},{h:1.1,r:6.4,kg:750},{h:2.2,r:0.0,kg:3500},{h:2.2,r:0.5,kg:3500},{h:2.2,r:1.5,kg:3500},{h:2.2,r:2.5,kg:3150},{h:2.2,r:3.0,kg:2600},{h:2.2,r:4.0,kg:1900},{h:2.2,r:5.0,kg:1350},{h:2.2,r:5.5,kg:950},{h:2.2,r:6.0,kg:750},{h:3.4,r:0.0,kg:3500},{h:3.4,r:0.5,kg:3500},{h:3.4,r:1.5,kg:3500},{h:3.4,r:2.0,kg:3150},{h:3.4,r:3.0,kg:2600},{h:3.4,r:4.0,kg:1900},{h:3.4,r:4.5,kg:1350},{h:3.4,r:5.5,kg:950},{h:3.4,r:5.9,kg:750},{h:4.5,r:0.0,kg:3500},{h:4.5,r:0.5,kg:3500},{h:4.5,r:1.5,kg:3500},{h:4.5,r:2.0,kg:3150},{h:4.5,r:2.5,kg:2600},{h:4.5,r:3.5,kg:1900},{h:4.5,r:4.5,kg:1350},{h:4.5,r:5.0,kg:950},{h:4.5,r:5.4,kg:750},{h:5.6,r:0.0,kg:3500},{h:5.6,r:0.5,kg:3500},{h:5.6,r:1.0,kg:3500},{h:5.6,r:2.0,kg:3150},{h:5.6,r:2.5,kg:2600},{h:5.6,r:3.0,kg:1900},{h:5.6,r:4.0,kg:1300},{h:5.6,r:4.5,kg:950},{h:5.6,r:4.8,kg:750},{h:6.5,r:0.0,kg:3400},{h:6.5,r:0.5,kg:3400},{h:6.5,r:1.0,kg:3400},{h:6.5,r:1.5,kg:3050},{h:6.5,r:2.0,kg:2550},{h:6.5,r:2.5,kg:1850},{h:6.5,r:3.0,kg:1300},{h:6.5,r:3.5,kg:950},{h:6.5,r:4.0,kg:750},{h:7.4,r:0.0,kg:3300},{h:7.4,r:0.5,kg:3300},{h:7.4,r:1.0,kg:3300},{h:7.4,r:1.5,kg:2500},{h:7.4,r:2.0,kg:1800},{h:7.4,r:2.5,kg:1250},{h:7.4,r:3.0,kg:900},{h:8.1,r:0.0,kg:3250},{h:8.1,r:0.5,kg:3250},{h:8.1,r:1.0,kg:2900},{h:8.1,r:1.5,kg:1750},{h:8.1,r:2.0,kg:1250},{h:8.6,r:0.0,kg:3150},{h:8.6,r:0.5,kg:3150},{h:8.6,r:1.0,kg:2350},{h:8.6,r:1.5,kg:850},{h:9.0,r:0.0,kg:3100},{h:9.0,r:0.5,kg:2750},{h:9.0,r:1.0,kg:1150}],
       filters:['telehandler','rough']
     },
-    {
-      id:'manitou-mt1135', brand:'Manitou', emoji:'🏗️', brandColor:'#E30613',
-      name:'Manitou MT-X 1135', shortName:'Manitou MT-X 1135',
-      capacity:3.5, liftHeight:10.85, maxReach:7.30, engine:'Yanmar 70kW (94hp) Stage V',
-      machineWeight:9600, machineWidth:2350, machineLength:5600, machineHeight:2350,
-      terrain:'rough', maxSpeed:30,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Rotator'],
-      bestFor:'3.5T at 11m — 3 to 4-storey construction, cladding and frame work',
-      note:'Manitou MT-X 1135 — 3.5T, 10.85m lift, 7.3m reach. Popular mid-range 11m construction telehandler. MT-X range with E-Reco recognition, 3-steering modes, Stage V engine. Covers most 3-storey commercial and residential requirements with good reach.',
-      tags:['3.5T','10.85m','7.3m Reach','MT-X','Stage V'],
-      loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:1.0,kg:3500},{h:0.5,r:2.0,kg:3500},{h:0.5,r:3.0,kg:3150},{h:0.5,r:3.5,kg:2600},{h:0.5,r:4.5,kg:1900},{h:0.5,r:6.0,kg:1350},{h:0.5,r:6.5,kg:950},{h:0.5,r:7.3,kg:750},{h:1.3,r:0.0,kg:3500},{h:1.3,r:1.0,kg:3500},{h:1.3,r:2.0,kg:3500},{h:1.3,r:3.0,kg:3150},{h:1.3,r:3.5,kg:2600},{h:1.3,r:4.5,kg:1900},{h:1.3,r:6.0,kg:1350},{h:1.3,r:6.5,kg:950},{h:1.3,r:7.3,kg:750},{h:2.7,r:0.0,kg:3500},{h:2.7,r:1.0,kg:3500},{h:2.7,r:2.0,kg:3500},{h:2.7,r:2.5,kg:3150},{h:2.7,r:3.5,kg:2600},{h:2.7,r:4.5,kg:1900},{h:2.7,r:5.5,kg:1350},{h:2.7,r:6.5,kg:950},{h:2.7,r:7.0,kg:750},{h:4.1,r:0.0,kg:3500},{h:4.1,r:1.0,kg:3500},{h:4.1,r:1.5,kg:3500},{h:4.1,r:2.5,kg:3150},{h:4.1,r:3.5,kg:2600},{h:4.1,r:4.5,kg:1900},{h:4.1,r:5.5,kg:1350},{h:4.1,r:6.0,kg:950},{h:4.1,r:6.5,kg:750},{h:5.4,r:0.0,kg:3500},{h:5.4,r:0.5,kg:3500},{h:5.4,r:1.5,kg:3500},{h:5.4,r:2.5,kg:3150},{h:5.4,r:3.0,kg:2600},{h:5.4,r:4.0,kg:1900},{h:5.4,r:5.0,kg:1350},{h:5.4,r:5.5,kg:950},{h:5.4,r:6.0,kg:750},{h:6.7,r:0.0,kg:3500},{h:6.7,r:0.5,kg:3500},{h:6.7,r:1.5,kg:3500},{h:6.7,r:2.0,kg:3150},{h:6.7,r:2.5,kg:2600},{h:6.7,r:3.5,kg:1900},{h:6.7,r:4.5,kg:1300},{h:6.7,r:5.0,kg:950},{h:6.7,r:5.4,kg:750},{h:7.8,r:0.0,kg:3400},{h:7.8,r:0.5,kg:3400},{h:7.8,r:1.0,kg:3400},{h:7.8,r:1.5,kg:3050},{h:7.8,r:2.5,kg:2550},{h:7.8,r:3.0,kg:1850},{h:7.8,r:3.5,kg:1300},{h:7.8,r:4.0,kg:950},{h:7.8,r:4.5,kg:750},{h:8.9,r:0.0,kg:3300},{h:8.9,r:0.5,kg:3300},{h:8.9,r:1.0,kg:3300},{h:8.9,r:1.5,kg:3000},{h:8.9,r:2.0,kg:2500},{h:8.9,r:2.5,kg:1800},{h:8.9,r:3.0,kg:1250},{h:8.9,r:3.5,kg:750},{h:9.8,r:0.0,kg:3250},{h:9.8,r:0.5,kg:3250},{h:9.8,r:1.0,kg:2900},{h:9.8,r:1.5,kg:1750},{h:9.8,r:2.0,kg:1250},{h:9.8,r:2.5,kg:900},{h:10.4,r:0.0,kg:3150},{h:10.4,r:0.5,kg:3150},{h:10.4,r:1.0,kg:2350},{h:10.4,r:1.5,kg:1200},{h:10.8,r:0.0,kg:3100},{h:10.8,r:0.5,kg:3100},{h:10.8,r:1.0,kg:1150}],
-      filters:['telehandler','rough']
-    },
+    
     {
       id:'manitou-mt1335', brand:'Manitou', emoji:'🏗️', brandColor:'#E30613',
       name:'Manitou MT 1335 75D ST5', shortName:'Manitou MT 1335',
@@ -11900,19 +11888,7 @@ const MACHINES = {
     },
 
     // ── JCB ROTATING TELEHANDLERS ────────────────────────────────────────
-    {
-      id:'jcb-555-210r', brand:'JCB', emoji:'🔄', brandColor:'#FFDA00',
-      name:'JCB 555-210R Rotating', shortName:'JCB 555-210R',
-      isRotating:true, capacityOnTyres:3.5, tyreCapacityNote:'On rubber (tyres only — no outriggers): max ~3.5T at limited height/reach. Full 5.5T rated capacity requires outriggers deployed. Consult load chart.', capacity:5.5, liftHeight:20.90, maxReach:17.50, engine:'JCB DieselMax Stage V 74kW',
-      machineWeight:17000, machineWidth:2490, machineLength:7100, machineHeight:2980,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Man Basket','Work Platform','Hook'],
-      bestFor:'JCB rotating 5.5T at 21m — construction sites preferring JCB ecosystem',
-      note:'JCB 555-210R — 5.5T, 20.9m lift, 17.5m outreach. 360° continuous rotation. Scissor stabilizers. JCB EasyStart. Full load moment indicator. HiViz optional for improved visibility.',
-      tags:['Rotating 360°','5.5T','20.9m','JCB','Scissor Stabilizers'],
-      loadMatrix:[{h:0.5,r:0.0,kg:5500},{h:0.5,r:1.8,kg:5500},{h:0.5,r:3.5,kg:5500},{h:0.5,r:5.2,kg:5300},{h:0.5,r:7.0,kg:4700},{h:0.5,r:8.8,kg:3850},{h:0.5,r:11.4,kg:2650},{h:0.5,r:13.1,kg:2000},{h:0.5,r:14.9,kg:1500},{h:0.5,r:17.5,kg:1000},{h:5.2,r:0.0,kg:5500},{h:5.2,r:1.8,kg:5500},{h:5.2,r:3.5,kg:5500},{h:5.2,r:5.2,kg:5300},{h:5.2,r:7.0,kg:4700},{h:5.2,r:8.8,kg:3850},{h:5.2,r:11.4,kg:2650},{h:5.2,r:13.1,kg:2000},{h:5.2,r:14.9,kg:1500},{h:5.2,r:17.5,kg:1000},{h:10.4,r:0.0,kg:5500},{h:10.4,r:1.8,kg:5500},{h:10.4,r:3.5,kg:5500},{h:10.4,r:5.2,kg:5300},{h:10.4,r:7.0,kg:4700},{h:10.4,r:8.8,kg:3850},{h:10.4,r:11.4,kg:2650},{h:10.4,r:13.1,kg:2000},{h:10.4,r:14.9,kg:1500},{h:10.4,r:17.5,kg:1000},{h:14.6,r:0.0,kg:5200},{h:14.6,r:1.8,kg:5200},{h:14.6,r:3.5,kg:5200},{h:14.6,r:5.2,kg:5000},{h:14.6,r:7.0,kg:4450},{h:14.6,r:8.8,kg:3650},{h:14.6,r:11.4,kg:2500},{h:14.6,r:13.1,kg:1900},{h:14.6,r:14.9,kg:1400},{h:14.6,r:17.5,kg:950},{h:17.8,r:0.0,kg:4850},{h:17.8,r:1.8,kg:4850},{h:17.8,r:3.5,kg:4850},{h:17.8,r:5.2,kg:4650},{h:17.8,r:7.0,kg:4100},{h:17.8,r:8.8,kg:3400},{h:17.8,r:11.4,kg:2300},{h:17.8,r:13.1,kg:1750},{h:17.8,r:14.9,kg:1300},{h:17.8,r:17.5,kg:850},{h:20.9,r:0.0,kg:4300},{h:20.9,r:1.8,kg:4300},{h:20.9,r:3.5,kg:4300},{h:20.9,r:5.2,kg:4100},{h:20.9,r:7.0,kg:3650},{h:20.9,r:8.8,kg:3000},{h:20.9,r:11.4,kg:2050},{h:20.9,r:13.1,kg:1550},{h:20.9,r:14.9,kg:1150},{h:20.9,r:17.5,kg:750}],
-      filters:['telehandler','rough','heavy']
-    },
+    
 
 
     {
@@ -12382,19 +12358,7 @@ const MACHINES = {
     },
 
     // ── Manitou MT Series – Full Construction Range ───────────────────────
-    {
-      id:'manitou-mt420', brand:'Manitou', emoji:'🏗️', brandColor:'#E30613',
-      name:'Manitou MT 420 H', shortName:'Manitou MT 420',
-      capacity:2.0, liftHeight:4.30, maxReach:2.60, engine:'Kubota 37kW (50hp) Stage V',
-      machineWeight:4350, machineWidth:1490, machineLength:3650, machineHeight:2370,
-      terrain:'rough/outdoor', maxSpeed:25,
-      attachments:['Standard Forks','GP Bucket'],
-      bestFor:'Ultra-compact 2T — indoor or very tight access, fits through doorways',
-      note:'Manitou MT 420 — super-compact at 1.49m wide. 2T at 4.3m. Fits through standard doorways. Hydrostatic transmission, 3-mode steering (2WS/4WS/Crab). Kubota 37kW Stage V engine. Smallest MT range machine.',
-      tags:['2T','4.3m','Ultra Compact','Narrow Access','Indoor Capable'],
-      loadMatrix:[{h:0.5,r:0.0,kg:2000},{h:0.5,r:0.5,kg:2000},{h:0.5,r:1.0,kg:1800},{h:0.5,r:1.5,kg:1500},{h:0.5,r:2.0,kg:750},{h:0.5,r:2.5,kg:550},{h:1.1,r:0.0,kg:2000},{h:1.1,r:0.5,kg:2000},{h:1.1,r:1.0,kg:1800},{h:1.1,r:1.5,kg:1100},{h:1.1,r:2.0,kg:750},{h:1.1,r:2.5,kg:550},{h:1.6,r:0.0,kg:2000},{h:1.6,r:0.5,kg:2000},{h:1.6,r:1.0,kg:1800},{h:1.6,r:1.5,kg:1100},{h:1.6,r:2.0,kg:750},{h:1.6,r:2.4,kg:450},{h:2.1,r:0.0,kg:2000},{h:2.1,r:0.5,kg:2000},{h:2.1,r:1.0,kg:1800},{h:2.1,r:1.5,kg:1100},{h:2.1,r:2.0,kg:750},{h:2.7,r:0.0,kg:2000},{h:2.7,r:0.5,kg:2000},{h:2.7,r:1.0,kg:1500},{h:2.7,r:1.5,kg:750},{h:2.7,r:1.9,kg:450},{h:3.1,r:0.0,kg:1950},{h:3.1,r:0.5,kg:1950},{h:3.1,r:1.0,kg:1450},{h:3.1,r:1.5,kg:750},{h:3.5,r:0.0,kg:1900},{h:3.5,r:0.5,kg:1900},{h:3.5,r:1.0,kg:1050},{h:3.5,r:1.3,kg:400},{h:3.9,r:0.0,kg:1850},{h:3.9,r:0.5,kg:1650},{h:3.9,r:0.9,kg:500},{h:4.1,r:0.0,kg:1800},{h:4.1,r:0.5,kg:1350},{h:4.3,r:0.0,kg:1750},{h:4.3,r:0.4,kg:950}],
-      filters:['telehandler','compact']
-    },
+    
     {
       id:'manitou-mt835', brand:'Manitou', emoji:'🏗️', brandColor:'#E30613',
       name:'Manitou MT 835 H', shortName:'Manitou MT 835',
@@ -12460,19 +12424,7 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:1.0,kg:3500},{h:0.5,r:2.0,kg:3500},{h:0.5,r:2.5,kg:3150},{h:0.5,r:3.5,kg:2600},{h:0.5,r:4.5,kg:1900},{h:0.5,r:6.0,kg:1350},{h:0.5,r:6.5,kg:950},{h:0.5,r:7.0,kg:750},{h:1.3,r:0.0,kg:3500},{h:1.3,r:1.0,kg:3500},{h:1.3,r:2.0,kg:3500},{h:1.3,r:2.5,kg:3150},{h:1.3,r:3.5,kg:2600},{h:1.3,r:4.5,kg:1900},{h:1.3,r:6.0,kg:1350},{h:1.3,r:6.5,kg:950},{h:1.3,r:7.0,kg:750},{h:2.7,r:0.0,kg:3500},{h:2.7,r:1.0,kg:3500},{h:2.7,r:2.0,kg:3500},{h:2.7,r:2.5,kg:3150},{h:2.7,r:3.5,kg:2600},{h:2.7,r:4.5,kg:1900},{h:2.7,r:5.5,kg:1350},{h:2.7,r:6.5,kg:950},{h:2.7,r:7.0,kg:750},{h:4.1,r:0.0,kg:3500},{h:4.1,r:1.0,kg:3500},{h:4.1,r:1.5,kg:3500},{h:4.1,r:2.5,kg:3150},{h:4.1,r:3.5,kg:2600},{h:4.1,r:4.5,kg:1900},{h:4.1,r:5.5,kg:1350},{h:4.1,r:6.0,kg:950},{h:4.1,r:6.5,kg:750},{h:5.3,r:0.0,kg:3500},{h:5.3,r:0.5,kg:3500},{h:5.3,r:1.5,kg:3500},{h:5.3,r:2.5,kg:3150},{h:5.3,r:3.0,kg:2600},{h:5.3,r:4.0,kg:1900},{h:5.3,r:5.0,kg:1350},{h:5.3,r:5.5,kg:950},{h:5.3,r:6.0,kg:750},{h:6.6,r:0.0,kg:3500},{h:6.6,r:0.5,kg:3500},{h:6.6,r:1.5,kg:3500},{h:6.6,r:2.0,kg:3150},{h:6.6,r:2.5,kg:2600},{h:6.6,r:3.5,kg:1900},{h:6.6,r:4.5,kg:1300},{h:6.6,r:5.0,kg:950},{h:6.6,r:5.4,kg:750},{h:7.7,r:0.0,kg:3400},{h:7.7,r:0.5,kg:3400},{h:7.7,r:1.0,kg:3400},{h:7.7,r:1.5,kg:3050},{h:7.7,r:2.0,kg:2550},{h:7.7,r:3.0,kg:1850},{h:7.7,r:3.5,kg:1300},{h:7.7,r:4.0,kg:950},{h:7.7,r:4.5,kg:750},{h:8.8,r:0.0,kg:3300},{h:8.8,r:0.5,kg:3300},{h:8.8,r:1.0,kg:3300},{h:8.8,r:1.5,kg:3000},{h:8.8,r:2.0,kg:2500},{h:8.8,r:2.5,kg:1800},{h:8.8,r:3.0,kg:1250},{h:8.8,r:3.5,kg:750},{h:9.6,r:0.0,kg:3250},{h:9.6,r:0.5,kg:3250},{h:9.6,r:1.0,kg:2900},{h:9.6,r:1.5,kg:1750},{h:9.6,r:2.0,kg:1250},{h:9.6,r:2.5,kg:900},{h:10.3,r:0.0,kg:3150},{h:10.3,r:0.5,kg:3150},{h:10.3,r:1.0,kg:2350},{h:10.3,r:1.5,kg:1200},{h:10.7,r:0.0,kg:3100},{h:10.7,r:0.5,kg:3100},{h:10.7,r:1.0,kg:1150}],
       filters:['telehandler','rough']
     },
-    {
-      id:'manitou-mt1335', brand:'Manitou', emoji:'🏗️', brandColor:'#E30613',
-      name:'Manitou MT 1335 H', shortName:'Manitou MT 1335',
-      capacity:3.5, liftHeight:12.50, maxReach:9.10, engine:'Perkins 74kW Stage V',
-      machineWeight:10800, machineWidth:2320, machineLength:6200, machineHeight:2810,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Work Platform'],
-      bestFor:'3.5T at 12.5m — 4-storey construction reach with strong cross-brand popularity',
-      note:'Manitou MT 1335 — 3.5T capacity, 12.5m lift, 9.1m reach. Perkins 74kW Stage V. Pushes above 12m for 4-storey + commercial construction. JSM joystick, 4-mode steering, hydrostatic. Strong performer in its class.',
-      tags:['3.5T','12.5m','4-Storey','Construction'],
-      loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:1.0,kg:3500},{h:0.5,r:2.5,kg:3500},{h:0.5,r:3.5,kg:3150},{h:0.5,r:4.5,kg:2600},{h:0.5,r:6.0,kg:1900},{h:0.5,r:7.5,kg:1350},{h:0.5,r:8.5,kg:950},{h:0.5,r:9.0,kg:750},{h:1.5,r:0.0,kg:3500},{h:1.5,r:1.0,kg:3500},{h:1.5,r:2.5,kg:3500},{h:1.5,r:3.5,kg:3150},{h:1.5,r:4.5,kg:2600},{h:1.5,r:6.0,kg:1900},{h:1.5,r:7.5,kg:1350},{h:1.5,r:8.5,kg:950},{h:1.5,r:9.0,kg:750},{h:3.1,r:0.0,kg:3500},{h:3.1,r:1.0,kg:3500},{h:3.1,r:2.0,kg:3500},{h:3.1,r:3.5,kg:3150},{h:3.1,r:4.5,kg:2600},{h:3.1,r:6.0,kg:1900},{h:3.1,r:7.0,kg:1350},{h:3.1,r:8.0,kg:950},{h:3.1,r:8.9,kg:750},{h:4.8,r:0.0,kg:3500},{h:4.8,r:1.0,kg:3500},{h:4.8,r:2.0,kg:3500},{h:4.8,r:3.0,kg:3150},{h:4.8,r:4.0,kg:2600},{h:4.8,r:5.5,kg:1900},{h:4.8,r:6.5,kg:1350},{h:4.8,r:7.5,kg:950},{h:4.8,r:8.4,kg:750},{h:6.2,r:0.0,kg:3500},{h:6.2,r:1.0,kg:3500},{h:6.2,r:2.0,kg:3500},{h:6.2,r:3.0,kg:3150},{h:6.2,r:4.0,kg:2600},{h:6.2,r:5.0,kg:1900},{h:6.2,r:6.0,kg:1350},{h:6.2,r:7.0,kg:950},{h:6.2,r:7.5,kg:750},{h:7.8,r:0.0,kg:3500},{h:7.8,r:1.0,kg:3500},{h:7.8,r:1.5,kg:3500},{h:7.8,r:2.5,kg:3150},{h:7.8,r:3.5,kg:2600},{h:7.8,r:4.5,kg:1900},{h:7.8,r:5.5,kg:1300},{h:7.8,r:6.0,kg:950},{h:7.8,r:6.5,kg:750},{h:9.0,r:0.0,kg:3400},{h:9.0,r:0.5,kg:3400},{h:9.0,r:1.5,kg:3400},{h:9.0,r:2.0,kg:3050},{h:9.0,r:3.0,kg:2550},{h:9.0,r:3.5,kg:1850},{h:9.0,r:4.5,kg:1300},{h:9.0,r:5.0,kg:950},{h:9.0,r:5.5,kg:750},{h:10.2,r:0.0,kg:3300},{h:10.2,r:0.5,kg:3300},{h:10.2,r:1.0,kg:3300},{h:10.2,r:1.5,kg:3000},{h:10.2,r:2.0,kg:2500},{h:10.2,r:3.0,kg:1800},{h:10.2,r:3.5,kg:1250},{h:10.2,r:4.0,kg:900},{h:10.2,r:4.3,kg:750},{h:11.2,r:0.0,kg:3250},{h:11.2,r:0.5,kg:3250},{h:11.2,r:1.0,kg:3250},{h:11.2,r:1.5,kg:2400},{h:11.2,r:2.0,kg:1750},{h:11.2,r:2.5,kg:1250},{h:11.2,r:3.0,kg:900},{h:12.0,r:0.0,kg:3150},{h:12.0,r:0.5,kg:3150},{h:12.0,r:1.0,kg:2800},{h:12.0,r:1.5,kg:1700},{h:12.0,r:2.0,kg:850},{h:12.5,r:0.0,kg:3100},{h:12.5,r:0.5,kg:3100},{h:12.5,r:1.0,kg:1700}],
-      filters:['telehandler','rough','heavy']
-    },
+    
     {
       id:'manitou-mt1440-easy', brand:'Manitou', emoji:'🏗️', brandColor:'#E30613',
       name:'Manitou MT 1440 Easy', shortName:'Manitou MT 1440 Easy',
@@ -12646,19 +12598,7 @@ const MACHINES = {
     },
 
     // ── JCB Loadall Telehandlers – Extended Range ─────────────────────────
-    {
-      id:'jcb-520-40', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 520-40 Loadall', shortName:'JCB 520-40',
-      capacity:2.0, liftHeight:4.00, maxReach:2.30, engine:'JCB EcoMAX 55kW Stage V',
-      machineWeight:5440, machineWidth:1850, machineLength:3700, machineHeight:2400,
-      terrain:'outdoor/rough', maxSpeed:30,
-      attachments:['Standard Forks','GP Bucket'],
-      bestFor:'2T ultra-compact — narrow access, indoor-capable, warehouse and site use',
-      note:'JCB 520-40 Loadall — 2T, 4m lift, 2.3m reach. The smallest Loadall. Extremely compact, well-suited to tight access applications. JCB EcoMAX 55kW Stage V. Single side cab for maximum visibility.',
-      tags:['2T','4m','Ultra Compact','JCB Loadall','Narrow Access'],
-      loadMatrix:[{h:0.5,r:0.0,kg:2000},{h:0.5,r:0.5,kg:2000},{h:0.5,r:1.0,kg:1800},{h:0.5,r:1.5,kg:1100},{h:0.5,r:2.0,kg:750},{h:0.5,r:2.3,kg:450},{h:1.0,r:0.0,kg:2000},{h:1.0,r:0.5,kg:2000},{h:1.0,r:1.0,kg:1800},{h:1.0,r:1.5,kg:1100},{h:1.0,r:2.0,kg:750},{h:1.5,r:0.0,kg:2000},{h:1.5,r:0.5,kg:2000},{h:1.5,r:1.0,kg:1800},{h:1.5,r:1.5,kg:1100},{h:1.5,r:2.0,kg:550},{h:2.0,r:0.0,kg:2000},{h:2.0,r:0.5,kg:2000},{h:2.0,r:1.0,kg:1800},{h:2.0,r:1.5,kg:1100},{h:2.0,r:2.0,kg:550},{h:2.5,r:0.0,kg:2000},{h:2.5,r:0.5,kg:2000},{h:2.5,r:1.0,kg:1500},{h:2.5,r:1.5,kg:750},{h:2.9,r:0.0,kg:1950},{h:2.9,r:0.5,kg:1950},{h:2.9,r:1.0,kg:1450},{h:2.9,r:1.5,kg:550},{h:3.3,r:0.0,kg:1900},{h:3.3,r:0.5,kg:1900},{h:3.3,r:1.0,kg:700},{h:3.6,r:0.0,kg:1850},{h:3.6,r:0.5,kg:1650},{h:3.6,r:0.8,kg:400},{h:3.8,r:0.0,kg:1800},{h:3.8,r:0.5,kg:1350},{h:4.0,r:0.0,kg:1750},{h:4.0,r:0.4,kg:950}],
-      filters:['telehandler','compact']
-    },
+    
     {
       id:'jcb-520-50', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
       name:'JCB 520-50 Loadall', shortName:'JCB 520-50',
@@ -12685,32 +12625,8 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:2500},{h:0.5,r:0.5,kg:2500},{h:0.5,r:1.0,kg:2500},{h:0.5,r:1.5,kg:2250},{h:0.5,r:2.0,kg:1850},{h:0.5,r:2.5,kg:1350},{h:0.5,r:3.0,kg:950},{h:0.5,r:3.5,kg:700},{h:0.5,r:3.9,kg:550},{h:0.7,r:0.0,kg:2500},{h:0.7,r:0.5,kg:2500},{h:0.7,r:1.0,kg:2500},{h:0.7,r:1.5,kg:2250},{h:0.7,r:2.0,kg:1850},{h:0.7,r:2.5,kg:1350},{h:0.7,r:3.0,kg:950},{h:0.7,r:3.5,kg:700},{h:0.7,r:3.9,kg:550},{h:1.4,r:0.0,kg:2500},{h:1.4,r:0.5,kg:2500},{h:1.4,r:1.0,kg:2500},{h:1.4,r:1.5,kg:2250},{h:1.4,r:2.0,kg:1850},{h:1.4,r:2.5,kg:1350},{h:1.4,r:3.0,kg:950},{h:1.4,r:3.5,kg:700},{h:1.4,r:3.8,kg:550},{h:2.2,r:0.0,kg:2500},{h:2.2,r:0.5,kg:2500},{h:2.2,r:1.0,kg:2500},{h:2.2,r:1.5,kg:2250},{h:2.2,r:2.0,kg:1850},{h:2.2,r:2.5,kg:1350},{h:2.2,r:3.0,kg:950},{h:2.2,r:3.5,kg:700},{h:2.9,r:0.0,kg:2500},{h:2.9,r:0.5,kg:2500},{h:2.9,r:1.0,kg:2500},{h:2.9,r:1.5,kg:2250},{h:2.9,r:2.0,kg:1350},{h:2.9,r:2.5,kg:950},{h:2.9,r:3.0,kg:700},{h:2.9,r:3.3,kg:550},{h:3.6,r:0.0,kg:2500},{h:3.6,r:0.5,kg:2500},{h:3.6,r:1.0,kg:2250},{h:3.6,r:1.5,kg:1850},{h:3.6,r:2.0,kg:1350},{h:3.6,r:2.5,kg:950},{h:3.6,r:2.9,kg:550},{h:4.2,r:0.0,kg:2450},{h:4.2,r:0.5,kg:2450},{h:4.2,r:1.0,kg:2200},{h:4.2,r:1.5,kg:1350},{h:4.2,r:2.0,kg:950},{h:4.2,r:2.4,kg:550},{h:4.8,r:0.0,kg:2350},{h:4.8,r:0.5,kg:2350},{h:4.8,r:1.0,kg:1750},{h:4.8,r:1.5,kg:900},{h:4.8,r:1.9,kg:500},{h:5.2,r:0.0,kg:2300},{h:5.2,r:0.5,kg:2300},{h:5.2,r:1.0,kg:1250},{h:5.2,r:1.4,kg:650},{h:5.6,r:0.0,kg:2250},{h:5.6,r:0.5,kg:2000},{h:5.6,r:0.9,kg:600},{h:5.8,r:0.0,kg:2200},{h:5.8,r:0.5,kg:1650}],
       filters:['telehandler','compact']
     },
-    {
-      id:'jcb-525-60e', brand:'JCB', emoji:'⚡', brandColor:'#F5D800',
-      name:'JCB 525-60E Loadall Electric', shortName:'JCB 525-60E',
-      capacity:2.5, liftHeight:5.80, maxReach:3.90, engine:'Electric — 48V lithium battery',
-      machineWeight:6600, machineWidth:2100, machineLength:4300, machineHeight:2520,
-      terrain:'outdoor/indoor', maxSpeed:25, power:'electric',
-      attachments:['Standard Forks','GP Bucket','Man Basket'],
-      bestFor:'2.5T electric telehandler — zero emissions, indoor and outdoor, silent operation',
-      note:'JCB 525-60E Loadall Electric — 2.5T, 5.8m, battery electric. Zero emissions, quiet operation for indoor, hospital, school, urban sites. Same form factor as 525-60. Lithium battery. JCB\'s first electric telehandler. Fully capable of all-day outdoor use.',
-      tags:['Electric','2.5T','5.8m','JCB E-Tech','Zero Emissions','Indoor'],
-      loadMatrix:[{h:0.5,r:0.0,kg:2500},{h:0.5,r:0.5,kg:2500},{h:0.5,r:1.0,kg:2500},{h:0.5,r:1.5,kg:2250},{h:0.5,r:2.0,kg:1850},{h:0.5,r:2.5,kg:1350},{h:0.5,r:3.0,kg:950},{h:0.5,r:3.5,kg:700},{h:0.5,r:3.9,kg:550},{h:0.7,r:0.0,kg:2500},{h:0.7,r:0.5,kg:2500},{h:0.7,r:1.0,kg:2500},{h:0.7,r:1.5,kg:2250},{h:0.7,r:2.0,kg:1850},{h:0.7,r:2.5,kg:1350},{h:0.7,r:3.0,kg:950},{h:0.7,r:3.5,kg:700},{h:0.7,r:3.9,kg:550},{h:1.4,r:0.0,kg:2500},{h:1.4,r:0.5,kg:2500},{h:1.4,r:1.0,kg:2500},{h:1.4,r:1.5,kg:2250},{h:1.4,r:2.0,kg:1850},{h:1.4,r:2.5,kg:1350},{h:1.4,r:3.0,kg:950},{h:1.4,r:3.5,kg:700},{h:1.4,r:3.8,kg:550},{h:2.2,r:0.0,kg:2500},{h:2.2,r:0.5,kg:2500},{h:2.2,r:1.0,kg:2500},{h:2.2,r:1.5,kg:2250},{h:2.2,r:2.0,kg:1850},{h:2.2,r:2.5,kg:1350},{h:2.2,r:3.0,kg:950},{h:2.2,r:3.5,kg:700},{h:2.9,r:0.0,kg:2500},{h:2.9,r:0.5,kg:2500},{h:2.9,r:1.0,kg:2500},{h:2.9,r:1.5,kg:2250},{h:2.9,r:2.0,kg:1350},{h:2.9,r:2.5,kg:950},{h:2.9,r:3.0,kg:700},{h:2.9,r:3.3,kg:550},{h:3.6,r:0.0,kg:2500},{h:3.6,r:0.5,kg:2500},{h:3.6,r:1.0,kg:2250},{h:3.6,r:1.5,kg:1850},{h:3.6,r:2.0,kg:1350},{h:3.6,r:2.5,kg:950},{h:3.6,r:2.9,kg:550},{h:4.2,r:0.0,kg:2450},{h:4.2,r:0.5,kg:2450},{h:4.2,r:1.0,kg:2200},{h:4.2,r:1.5,kg:1350},{h:4.2,r:2.0,kg:950},{h:4.2,r:2.4,kg:550},{h:4.8,r:0.0,kg:2350},{h:4.8,r:0.5,kg:2350},{h:4.8,r:1.0,kg:1750},{h:4.8,r:1.5,kg:900},{h:4.8,r:1.9,kg:500},{h:5.2,r:0.0,kg:2300},{h:5.2,r:0.5,kg:2300},{h:5.2,r:1.0,kg:1250},{h:5.2,r:1.4,kg:650},{h:5.6,r:0.0,kg:2250},{h:5.6,r:0.5,kg:2000},{h:5.6,r:0.9,kg:600},{h:5.8,r:0.0,kg:2200},{h:5.8,r:0.5,kg:1650}],
-      filters:['telehandler','electric','compact']
-    },
-    {
-      id:'jcb-531-70', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 531-70 Loadall', shortName:'JCB 531-70',
-      capacity:3.1, liftHeight:6.70, maxReach:4.80, engine:'JCB EcoMAX 74kW Stage V',
-      machineWeight:7350, machineWidth:2300, machineLength:5200, machineHeight:2700,
-      terrain:'outdoor/rough', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket'],
-      bestFor:'3.1T mid-range — popular JCB Loadall for 2-storey construction',
-      note:'JCB 531-70 Loadall — 3.1T, 6.7m lift, 4.8m reach. JCB EcoMAX 74kW Stage V. Popular mid-range telehandler well suited to double-storey residential construction and light commercial. LiveLink telematics standard. Smooth and responsive JSM controls.',
-      tags:['3.1T','6.7m','JCB Loadall','Mid-Range','2-Storey'],
-      loadMatrix:[{h:0.5,r:0.0,kg:3100},{h:0.5,r:0.5,kg:3100},{h:0.5,r:1.0,kg:3100},{h:0.5,r:2.0,kg:2800},{h:0.5,r:2.5,kg:2300},{h:0.5,r:3.0,kg:1700},{h:0.5,r:4.0,kg:1200},{h:0.5,r:4.5,kg:850},{h:0.5,r:4.8,kg:700},{h:0.8,r:0.0,kg:3100},{h:0.8,r:0.5,kg:3100},{h:0.8,r:1.0,kg:3100},{h:0.8,r:2.0,kg:2800},{h:0.8,r:2.5,kg:2300},{h:0.8,r:3.0,kg:1700},{h:0.8,r:4.0,kg:1200},{h:0.8,r:4.5,kg:850},{h:0.8,r:4.8,kg:700},{h:1.7,r:0.0,kg:3100},{h:1.7,r:0.5,kg:3100},{h:1.7,r:1.0,kg:3100},{h:1.7,r:2.0,kg:2800},{h:1.7,r:2.5,kg:2300},{h:1.7,r:3.0,kg:1700},{h:1.7,r:4.0,kg:1200},{h:1.7,r:4.5,kg:850},{h:2.5,r:0.0,kg:3100},{h:2.5,r:0.5,kg:3100},{h:2.5,r:1.0,kg:3100},{h:2.5,r:1.5,kg:2800},{h:2.5,r:2.0,kg:2300},{h:2.5,r:3.0,kg:1700},{h:2.5,r:3.5,kg:1200},{h:2.5,r:4.0,kg:850},{h:2.5,r:4.4,kg:700},{h:3.4,r:0.0,kg:3100},{h:3.4,r:0.5,kg:3100},{h:3.4,r:1.0,kg:3100},{h:3.4,r:1.5,kg:2800},{h:3.4,r:2.0,kg:2300},{h:3.4,r:2.5,kg:1700},{h:3.4,r:3.5,kg:1200},{h:3.4,r:4.0,kg:850},{h:4.2,r:0.0,kg:3100},{h:4.2,r:0.5,kg:3100},{h:4.2,r:1.0,kg:3100},{h:4.2,r:1.5,kg:2800},{h:4.2,r:2.0,kg:2300},{h:4.2,r:2.5,kg:1700},{h:4.2,r:3.0,kg:1150},{h:4.2,r:3.5,kg:850},{h:4.8,r:0.0,kg:3050},{h:4.8,r:0.5,kg:3050},{h:4.8,r:1.0,kg:3050},{h:4.8,r:1.5,kg:2250},{h:4.8,r:2.0,kg:1650},{h:4.8,r:2.5,kg:1150},{h:4.8,r:3.0,kg:850},{h:5.5,r:0.0,kg:2950},{h:5.5,r:0.5,kg:2950},{h:5.5,r:1.0,kg:2650},{h:5.5,r:1.5,kg:1600},{h:5.5,r:2.0,kg:1100},{h:5.5,r:2.3,kg:650},{h:6.0,r:0.0,kg:2850},{h:6.0,r:0.5,kg:2850},{h:6.0,r:1.0,kg:2150},{h:6.0,r:1.5,kg:1100},{h:6.4,r:0.0,kg:2800},{h:6.4,r:0.5,kg:2800},{h:6.4,r:1.0,kg:1050},{h:6.7,r:0.0,kg:2750},{h:6.7,r:0.5,kg:2450}],
-      filters:['telehandler','rough']
-    },
+    
+    
     {
       id:'jcb-532-70', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
       name:'JCB 532-70 Loadall', shortName:'JCB 532-70',
@@ -12737,32 +12653,8 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:3300},{h:0.5,r:1.0,kg:3300},{h:0.5,r:2.0,kg:3300},{h:0.5,r:3.0,kg:2950},{h:0.5,r:3.5,kg:2450},{h:0.5,r:4.5,kg:1800},{h:0.5,r:6.0,kg:1250},{h:0.5,r:6.5,kg:900},{h:0.5,r:7.3,kg:750},{h:1.2,r:0.0,kg:3300},{h:1.2,r:1.0,kg:3300},{h:1.2,r:2.0,kg:3300},{h:1.2,r:3.0,kg:2950},{h:1.2,r:3.5,kg:2450},{h:1.2,r:4.5,kg:1800},{h:1.2,r:6.0,kg:1250},{h:1.2,r:6.5,kg:900},{h:1.2,r:7.3,kg:750},{h:2.5,r:0.0,kg:3300},{h:2.5,r:1.0,kg:3300},{h:2.5,r:2.0,kg:3300},{h:2.5,r:2.5,kg:2950},{h:2.5,r:3.5,kg:2450},{h:2.5,r:4.5,kg:1800},{h:2.5,r:5.5,kg:1250},{h:2.5,r:6.5,kg:900},{h:2.5,r:7.0,kg:750},{h:3.9,r:0.0,kg:3300},{h:3.9,r:1.0,kg:3300},{h:3.9,r:1.5,kg:3300},{h:3.9,r:2.5,kg:2950},{h:3.9,r:3.5,kg:2450},{h:3.9,r:4.5,kg:1800},{h:3.9,r:5.5,kg:1250},{h:3.9,r:6.0,kg:900},{h:3.9,r:6.5,kg:750},{h:5.1,r:0.0,kg:3300},{h:5.1,r:0.5,kg:3300},{h:5.1,r:1.5,kg:3300},{h:5.1,r:2.5,kg:2950},{h:5.1,r:3.0,kg:2450},{h:5.1,r:4.0,kg:1800},{h:5.1,r:5.0,kg:1250},{h:5.1,r:5.5,kg:900},{h:5.1,r:6.0,kg:750},{h:6.3,r:0.0,kg:3300},{h:6.3,r:0.5,kg:3300},{h:6.3,r:1.5,kg:3300},{h:6.3,r:2.0,kg:2950},{h:6.3,r:2.5,kg:2450},{h:6.3,r:3.5,kg:1800},{h:6.3,r:4.5,kg:1250},{h:6.3,r:5.0,kg:900},{h:6.3,r:5.4,kg:700},{h:7.3,r:0.0,kg:3200},{h:7.3,r:0.5,kg:3200},{h:7.3,r:1.0,kg:3200},{h:7.3,r:1.5,kg:2900},{h:7.3,r:2.5,kg:2400},{h:7.3,r:3.0,kg:1750},{h:7.3,r:3.5,kg:1200},{h:7.3,r:4.0,kg:900},{h:7.3,r:4.5,kg:700},{h:8.4,r:0.0,kg:3150},{h:8.4,r:0.5,kg:3150},{h:8.4,r:1.0,kg:3150},{h:8.4,r:1.5,kg:2800},{h:8.4,r:2.0,kg:2350},{h:8.4,r:2.5,kg:1700},{h:8.4,r:3.0,kg:1200},{h:8.4,r:3.5,kg:700},{h:9.2,r:0.0,kg:3050},{h:9.2,r:0.5,kg:3050},{h:9.2,r:1.0,kg:2750},{h:9.2,r:1.5,kg:1650},{h:9.2,r:2.0,kg:1150},{h:9.2,r:2.5,kg:850},{h:9.8,r:0.0,kg:2950},{h:9.8,r:0.5,kg:2950},{h:9.8,r:1.0,kg:2200},{h:9.8,r:1.5,kg:1100},{h:10.2,r:0.0,kg:2900},{h:10.2,r:0.5,kg:2900},{h:10.2,r:1.0,kg:1100}],
       filters:['telehandler','rough']
     },
-    {
-      id:'jcb-535-95', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 535-95 Loadall', shortName:'JCB 535-95',
-      capacity:3.5, liftHeight:9.10, maxReach:6.20, engine:'JCB EcoMAX 74kW Stage V',
-      machineWeight:9500, machineWidth:2400, machineLength:5750, machineHeight:2780,
-      terrain:'outdoor/rough', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Work Platform'],
-      bestFor:'3.5T at 9.1m — JCB workhorse, cross-site all-rounder',
-      note:'JCB 535-95 Loadall — 3.5T, 9.1m lift, 6.2m reach. JCB EcoMAX 74kW Stage V. Classic workhorse configuration. Very popular rental unit. Strong load charts. JSM controls. Preferred JCB for general construction work.',
-      tags:['3.5T','9.1m','JCB Loadall','Workhorse','Popular'],
-      loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:0.5,kg:3500},{h:0.5,r:1.5,kg:3500},{h:0.5,r:2.5,kg:3150},{h:0.5,r:3.0,kg:2600},{h:0.5,r:4.0,kg:1900},{h:0.5,r:5.0,kg:1350},{h:0.5,r:5.5,kg:950},{h:0.5,r:6.0,kg:750},{h:1.1,r:0.0,kg:3500},{h:1.1,r:0.5,kg:3500},{h:1.1,r:1.5,kg:3500},{h:1.1,r:2.5,kg:3150},{h:1.1,r:3.0,kg:2600},{h:1.1,r:4.0,kg:1900},{h:1.1,r:5.0,kg:1350},{h:1.1,r:5.5,kg:950},{h:1.1,r:6.0,kg:750},{h:2.3,r:0.0,kg:3500},{h:2.3,r:0.5,kg:3500},{h:2.3,r:1.5,kg:3500},{h:2.3,r:2.5,kg:3150},{h:2.3,r:3.0,kg:2600},{h:2.3,r:4.0,kg:1900},{h:2.3,r:5.0,kg:1350},{h:2.3,r:5.5,kg:950},{h:2.3,r:6.0,kg:750},{h:3.5,r:0.0,kg:3500},{h:3.5,r:0.5,kg:3500},{h:3.5,r:1.5,kg:3500},{h:3.5,r:2.0,kg:3150},{h:3.5,r:3.0,kg:2600},{h:3.5,r:3.5,kg:1900},{h:3.5,r:4.5,kg:1350},{h:3.5,r:5.0,kg:950},{h:3.5,r:5.5,kg:750},{h:4.5,r:0.0,kg:3500},{h:4.5,r:0.5,kg:3500},{h:4.5,r:1.5,kg:3500},{h:4.5,r:2.0,kg:3150},{h:4.5,r:2.5,kg:2600},{h:4.5,r:3.5,kg:1900},{h:4.5,r:4.0,kg:1350},{h:4.5,r:5.0,kg:950},{h:4.5,r:5.3,kg:750},{h:5.6,r:0.0,kg:3500},{h:5.6,r:0.5,kg:3500},{h:5.6,r:1.0,kg:3500},{h:5.6,r:1.5,kg:3150},{h:5.6,r:2.5,kg:2600},{h:5.6,r:3.0,kg:1900},{h:5.6,r:3.5,kg:1300},{h:5.6,r:4.0,kg:950},{h:5.6,r:4.5,kg:750},{h:6.6,r:0.0,kg:3400},{h:6.6,r:0.5,kg:3400},{h:6.6,r:1.0,kg:3400},{h:6.6,r:1.5,kg:3050},{h:6.6,r:2.0,kg:2550},{h:6.6,r:2.5,kg:1850},{h:6.6,r:3.0,kg:1300},{h:6.6,r:3.5,kg:950},{h:6.6,r:3.9,kg:750},{h:7.5,r:0.0,kg:3300},{h:7.5,r:0.5,kg:3300},{h:7.5,r:1.0,kg:3300},{h:7.5,r:1.5,kg:2500},{h:7.5,r:2.0,kg:1800},{h:7.5,r:2.5,kg:1250},{h:7.5,r:3.0,kg:900},{h:8.2,r:0.0,kg:3250},{h:8.2,r:0.5,kg:3250},{h:8.2,r:1.0,kg:2900},{h:8.2,r:1.5,kg:1750},{h:8.2,r:2.0,kg:1250},{h:8.7,r:0.0,kg:3150},{h:8.7,r:0.5,kg:3150},{h:8.7,r:1.0,kg:2350},{h:8.7,r:1.5,kg:850},{h:9.1,r:0.0,kg:3100},{h:9.1,r:0.5,kg:2750},{h:9.1,r:0.9,kg:850}],
-      filters:['telehandler','rough']
-    },
-    {
-      id:'jcb-535-125', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 535-125 Loadall', shortName:'JCB 535-125',
-      capacity:3.5, liftHeight:12.30, maxReach:9.00, engine:'JCB EcoMAX 74kW Stage V',
-      machineWeight:10500, machineWidth:2420, machineLength:6100, machineHeight:2830,
-      terrain:'outdoor/rough', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Work Platform'],
-      bestFor:'3.5T at 12.3m — 4-storey height JCB, very popular multi-storey telehandler',
-      note:'JCB 535-125 Loadall — 3.5T, 12.3m lift, 9m reach. JCB EcoMAX 74kW Stage V. One of JCB\'s most popular Loadall models globally. Excellent 4-storey height reach. Strong brand support and parts availability.',
-      tags:['3.5T','12.3m','JCB Loadall','4-Storey','Popular Model'],
-      loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:1.0,kg:3500},{h:0.5,r:2.0,kg:3500},{h:0.5,r:3.5,kg:3150},{h:0.5,r:4.5,kg:2600},{h:0.5,r:6.0,kg:1900},{h:0.5,r:7.0,kg:1350},{h:0.5,r:8.5,kg:950},{h:0.5,r:9.0,kg:750},{h:1.5,r:0.0,kg:3500},{h:1.5,r:1.0,kg:3500},{h:1.5,r:2.0,kg:3500},{h:1.5,r:3.5,kg:3150},{h:1.5,r:4.5,kg:2600},{h:1.5,r:6.0,kg:1900},{h:1.5,r:7.0,kg:1350},{h:1.5,r:8.5,kg:950},{h:1.5,r:9.0,kg:750},{h:3.1,r:0.0,kg:3500},{h:3.1,r:1.0,kg:3500},{h:3.1,r:2.0,kg:3500},{h:3.1,r:3.5,kg:3150},{h:3.1,r:4.5,kg:2600},{h:3.1,r:5.5,kg:1900},{h:3.1,r:7.0,kg:1350},{h:3.1,r:8.0,kg:950},{h:3.1,r:8.8,kg:750},{h:4.7,r:0.0,kg:3500},{h:4.7,r:1.0,kg:3500},{h:4.7,r:2.0,kg:3500},{h:4.7,r:3.0,kg:3150},{h:4.7,r:4.0,kg:2600},{h:4.7,r:5.5,kg:1900},{h:4.7,r:6.5,kg:1350},{h:4.7,r:7.5,kg:950},{h:4.7,r:8.3,kg:750},{h:6.2,r:0.0,kg:3500},{h:6.2,r:1.0,kg:3500},{h:6.2,r:2.0,kg:3500},{h:6.2,r:3.0,kg:3150},{h:6.2,r:4.0,kg:2600},{h:6.2,r:5.0,kg:1900},{h:6.2,r:6.0,kg:1350},{h:6.2,r:7.0,kg:950},{h:6.2,r:7.5,kg:750},{h:7.6,r:0.0,kg:3500},{h:7.6,r:1.0,kg:3500},{h:7.6,r:1.5,kg:3500},{h:7.6,r:2.5,kg:3150},{h:7.6,r:3.5,kg:2600},{h:7.6,r:4.5,kg:1900},{h:7.6,r:5.5,kg:1300},{h:7.6,r:6.0,kg:950},{h:7.6,r:6.5,kg:750},{h:8.9,r:0.0,kg:3400},{h:8.9,r:0.5,kg:3400},{h:8.9,r:1.5,kg:3400},{h:8.9,r:2.0,kg:3050},{h:8.9,r:3.0,kg:2550},{h:8.9,r:3.5,kg:1850},{h:8.9,r:4.5,kg:1300},{h:8.9,r:5.0,kg:950},{h:8.9,r:5.5,kg:750},{h:10.1,r:0.0,kg:3300},{h:10.1,r:0.5,kg:3300},{h:10.1,r:1.0,kg:3300},{h:10.1,r:1.5,kg:3000},{h:10.1,r:2.0,kg:2500},{h:10.1,r:2.5,kg:1800},{h:10.1,r:3.5,kg:1250},{h:10.1,r:4.0,kg:900},{h:11.1,r:0.0,kg:3250},{h:11.1,r:0.5,kg:3250},{h:11.1,r:1.0,kg:2900},{h:11.1,r:1.5,kg:2400},{h:11.1,r:2.0,kg:1750},{h:11.1,r:2.5,kg:1250},{h:11.1,r:2.9,kg:700},{h:11.8,r:0.0,kg:3150},{h:11.8,r:0.5,kg:3150},{h:11.8,r:1.0,kg:2350},{h:11.8,r:1.5,kg:1200},{h:11.8,r:1.9,kg:700},{h:12.3,r:0.0,kg:3100},{h:12.3,r:0.5,kg:3100},{h:12.3,r:1.0,kg:1150}],
-      filters:['telehandler','rough']
-    },
+    
+    
     {
       id:'jcb-535-140', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
       name:'JCB 535-140 Loadall', shortName:'JCB 535-140',
@@ -12776,19 +12668,7 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:1.5,kg:3500},{h:0.5,r:2.5,kg:3500},{h:0.5,r:4.0,kg:3150},{h:0.5,r:5.5,kg:2600},{h:0.5,r:7.0,kg:1900},{h:0.5,r:8.5,kg:1350},{h:0.5,r:10.0,kg:950},{h:0.5,r:10.5,kg:750},{h:1.7,r:0.0,kg:3500},{h:1.7,r:1.5,kg:3500},{h:1.7,r:2.5,kg:3500},{h:1.7,r:4.0,kg:3150},{h:1.7,r:5.5,kg:2600},{h:1.7,r:7.0,kg:1900},{h:1.7,r:8.5,kg:1350},{h:1.7,r:10.0,kg:950},{h:1.7,r:10.5,kg:750},{h:3.5,r:0.0,kg:3500},{h:3.5,r:1.0,kg:3500},{h:3.5,r:2.5,kg:3500},{h:3.5,r:4.0,kg:3150},{h:3.5,r:5.0,kg:2600},{h:3.5,r:6.5,kg:1900},{h:3.5,r:8.0,kg:1350},{h:3.5,r:9.5,kg:950},{h:3.5,r:10.3,kg:750},{h:5.2,r:0.0,kg:3500},{h:5.2,r:1.0,kg:3500},{h:5.2,r:2.5,kg:3500},{h:5.2,r:3.5,kg:3150},{h:5.2,r:5.0,kg:2600},{h:5.2,r:6.5,kg:1900},{h:5.2,r:8.0,kg:1350},{h:5.2,r:9.0,kg:950},{h:5.2,r:9.8,kg:750},{h:6.9,r:0.0,kg:3500},{h:6.9,r:1.0,kg:3500},{h:6.9,r:2.0,kg:3500},{h:6.9,r:3.5,kg:3150},{h:6.9,r:4.5,kg:2600},{h:6.9,r:6.0,kg:1900},{h:6.9,r:7.0,kg:1350},{h:6.9,r:8.0,kg:950},{h:6.9,r:8.9,kg:750},{h:8.6,r:0.0,kg:3500},{h:8.6,r:1.0,kg:3500},{h:8.6,r:2.0,kg:3500},{h:8.6,r:3.0,kg:3150},{h:8.6,r:4.0,kg:2600},{h:8.6,r:5.0,kg:1900},{h:8.6,r:6.0,kg:1300},{h:8.6,r:7.0,kg:950},{h:8.6,r:7.8,kg:750},{h:9.9,r:0.0,kg:3400},{h:9.9,r:1.0,kg:3400},{h:9.9,r:1.5,kg:3400},{h:9.9,r:2.5,kg:3050},{h:9.9,r:3.0,kg:2550},{h:9.9,r:4.0,kg:1850},{h:9.9,r:5.0,kg:1300},{h:9.9,r:6.0,kg:950},{h:9.9,r:6.5,kg:750},{h:11.3,r:0.0,kg:3300},{h:11.3,r:0.5,kg:3300},{h:11.3,r:1.0,kg:3300},{h:11.3,r:2.0,kg:3000},{h:11.3,r:2.5,kg:2500},{h:11.3,r:3.0,kg:1800},{h:11.3,r:4.0,kg:1250},{h:11.3,r:4.5,kg:900},{h:11.3,r:4.9,kg:750},{h:12.4,r:0.0,kg:3250},{h:12.4,r:0.5,kg:3250},{h:12.4,r:1.0,kg:3250},{h:12.4,r:1.5,kg:2900},{h:12.4,r:2.0,kg:1750},{h:12.4,r:2.5,kg:1250},{h:12.4,r:3.0,kg:900},{h:12.4,r:3.4,kg:700},{h:13.2,r:0.0,kg:3150},{h:13.2,r:0.5,kg:3150},{h:13.2,r:1.0,kg:2800},{h:13.2,r:1.5,kg:1700},{h:13.2,r:2.0,kg:850},{h:13.8,r:0.0,kg:3100},{h:13.8,r:0.5,kg:3100},{h:13.8,r:1.0,kg:1700}],
       filters:['telehandler','rough']
     },
-    {
-      id:'jcb-540-140', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 540-140 Loadall', shortName:'JCB 540-140',
-      capacity:4.0, liftHeight:13.80, maxReach:10.60, engine:'JCB EcoMAX 74kW Stage V',
-      machineWeight:12400, machineWidth:2460, machineLength:6500, machineHeight:2900,
-      terrain:'outdoor/rough', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Work Platform','Hook'],
-      bestFor:'4T at 13.8m — heavy capacity 5-storey machine, JCB flagship mid-range',
-      note:'JCB 540-140 Loadall — 4T, 13.8m lift, 10.6m reach. JCB EcoMAX 74kW Stage V. Heavy payload, 5-storey reach. One of JCB\'s strongest mid-range Loadalls. Ideal for concrete blocks, heavy roofing, commercial construction.',
-      tags:['4T','13.8m','JCB Loadall','Heavy','5-Storey'],
-      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:1.5,kg:4000},{h:0.5,r:2.5,kg:4000},{h:0.5,r:4.0,kg:3600},{h:0.5,r:5.5,kg:3000},{h:0.5,r:7.0,kg:2200},{h:0.5,r:8.5,kg:1500},{h:0.5,r:10.0,kg:1100},{h:0.5,r:10.5,kg:900},{h:1.7,r:0.0,kg:4000},{h:1.7,r:1.5,kg:4000},{h:1.7,r:2.5,kg:4000},{h:1.7,r:4.0,kg:3600},{h:1.7,r:5.5,kg:3000},{h:1.7,r:7.0,kg:2200},{h:1.7,r:8.5,kg:1500},{h:1.7,r:10.0,kg:1100},{h:1.7,r:10.5,kg:900},{h:3.5,r:0.0,kg:4000},{h:3.5,r:1.0,kg:4000},{h:3.5,r:2.5,kg:4000},{h:3.5,r:4.0,kg:3600},{h:3.5,r:5.0,kg:3000},{h:3.5,r:6.5,kg:2200},{h:3.5,r:8.0,kg:1500},{h:3.5,r:9.5,kg:1100},{h:3.5,r:10.3,kg:900},{h:5.2,r:0.0,kg:4000},{h:5.2,r:1.0,kg:4000},{h:5.2,r:2.5,kg:4000},{h:5.2,r:3.5,kg:3600},{h:5.2,r:5.0,kg:3000},{h:5.2,r:6.5,kg:2200},{h:5.2,r:8.0,kg:1500},{h:5.2,r:9.0,kg:1100},{h:5.2,r:9.8,kg:900},{h:6.9,r:0.0,kg:4000},{h:6.9,r:1.0,kg:4000},{h:6.9,r:2.0,kg:4000},{h:6.9,r:3.5,kg:3600},{h:6.9,r:4.5,kg:3000},{h:6.9,r:6.0,kg:2200},{h:6.9,r:7.0,kg:1500},{h:6.9,r:8.5,kg:1100},{h:6.9,r:9.0,kg:900},{h:8.6,r:0.0,kg:4000},{h:8.6,r:1.0,kg:4000},{h:8.6,r:2.0,kg:4000},{h:8.6,r:3.0,kg:3600},{h:8.6,r:4.0,kg:2950},{h:8.6,r:5.0,kg:2200},{h:8.6,r:6.0,kg:1500},{h:8.6,r:7.0,kg:1100},{h:8.6,r:7.8,kg:900},{h:9.9,r:0.0,kg:3900},{h:9.9,r:1.0,kg:3900},{h:9.9,r:1.5,kg:3900},{h:9.9,r:2.5,kg:3500},{h:9.9,r:3.0,kg:2900},{h:9.9,r:4.0,kg:2150},{h:9.9,r:5.0,kg:1500},{h:9.9,r:6.0,kg:1050},{h:9.9,r:6.5,kg:850},{h:11.3,r:0.0,kg:3800},{h:11.3,r:0.5,kg:3800},{h:11.3,r:1.0,kg:3800},{h:11.3,r:2.0,kg:3400},{h:11.3,r:2.5,kg:2850},{h:11.3,r:3.0,kg:2100},{h:11.3,r:4.0,kg:1450},{h:11.3,r:4.5,kg:1050},{h:11.3,r:4.9,kg:850},{h:12.4,r:0.0,kg:3700},{h:12.4,r:0.5,kg:3700},{h:12.4,r:1.0,kg:3700},{h:12.4,r:1.5,kg:3300},{h:12.4,r:2.0,kg:2750},{h:12.4,r:2.5,kg:2000},{h:12.4,r:3.0,kg:1400},{h:12.4,r:3.5,kg:800},{h:13.2,r:0.0,kg:3600},{h:13.2,r:0.5,kg:3600},{h:13.2,r:1.0,kg:3250},{h:13.2,r:1.5,kg:1950},{h:13.2,r:2.0,kg:1350},{h:13.8,r:0.0,kg:3500},{h:13.8,r:0.5,kg:3500},{h:13.8,r:1.0,kg:1950},{h:13.8,r:1.3,kg:750}],
-      filters:['telehandler','rough','heavy']
-    },
+    
     {
       id:'jcb-540-170', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
       name:'JCB 540-170 Loadall', shortName:'JCB 540-170',
@@ -12802,19 +12682,7 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:1.5,kg:4000},{h:0.5,r:3.0,kg:4000},{h:0.5,r:5.0,kg:3600},{h:0.5,r:6.5,kg:3000},{h:0.5,r:8.5,kg:2200},{h:0.5,r:10.5,kg:1500},{h:0.5,r:12.0,kg:1100},{h:0.5,r:13.0,kg:900},{h:2.0,r:0.0,kg:4000},{h:2.0,r:1.5,kg:4000},{h:2.0,r:3.0,kg:4000},{h:2.0,r:5.0,kg:3600},{h:2.0,r:6.5,kg:3000},{h:2.0,r:8.5,kg:2200},{h:2.0,r:10.5,kg:1500},{h:2.0,r:12.0,kg:1100},{h:2.0,r:12.9,kg:900},{h:4.2,r:0.0,kg:4000},{h:4.2,r:1.5,kg:4000},{h:4.2,r:3.0,kg:4000},{h:4.2,r:5.0,kg:3600},{h:4.2,r:6.5,kg:3000},{h:4.2,r:8.0,kg:2200},{h:4.2,r:10.0,kg:1500},{h:4.2,r:11.5,kg:1100},{h:4.2,r:12.5,kg:900},{h:6.3,r:0.0,kg:4000},{h:6.3,r:1.5,kg:4000},{h:6.3,r:3.0,kg:4000},{h:6.3,r:4.5,kg:3600},{h:6.3,r:6.0,kg:3000},{h:6.3,r:8.0,kg:2200},{h:6.3,r:9.5,kg:1500},{h:6.3,r:11.0,kg:1100},{h:6.3,r:12.0,kg:900},{h:8.3,r:0.0,kg:4000},{h:8.3,r:1.5,kg:4000},{h:8.3,r:2.5,kg:4000},{h:8.3,r:4.0,kg:3600},{h:8.3,r:5.5,kg:3000},{h:8.3,r:7.0,kg:2200},{h:8.3,r:8.5,kg:1500},{h:8.3,r:10.0,kg:1100},{h:8.3,r:10.9,kg:900},{h:10.3,r:0.0,kg:4000},{h:10.3,r:1.0,kg:4000},{h:10.3,r:2.5,kg:4000},{h:10.3,r:3.5,kg:3600},{h:10.3,r:5.0,kg:2950},{h:10.3,r:6.0,kg:2200},{h:10.3,r:7.5,kg:1500},{h:10.3,r:8.5,kg:1100},{h:10.3,r:9.5,kg:900},{h:12.0,r:0.0,kg:3900},{h:12.0,r:1.0,kg:3900},{h:12.0,r:2.0,kg:3900},{h:12.0,r:3.0,kg:3500},{h:12.0,r:4.0,kg:2900},{h:12.0,r:5.0,kg:2150},{h:12.0,r:6.5,kg:1500},{h:12.0,r:7.5,kg:1050},{h:12.0,r:7.9,kg:850},{h:13.6,r:0.0,kg:3800},{h:13.6,r:0.5,kg:3800},{h:13.6,r:1.5,kg:3800},{h:13.6,r:2.0,kg:3400},{h:13.6,r:3.0,kg:2850},{h:13.6,r:4.0,kg:2100},{h:13.6,r:4.5,kg:1450},{h:13.6,r:5.5,kg:1050},{h:13.6,r:5.9,kg:850},{h:14.9,r:0.0,kg:3700},{h:14.9,r:0.5,kg:3700},{h:14.9,r:1.0,kg:3700},{h:14.9,r:1.5,kg:3300},{h:14.9,r:2.0,kg:2750},{h:14.9,r:2.5,kg:2000},{h:14.9,r:3.5,kg:1400},{h:14.9,r:4.0,kg:1000},{h:15.9,r:0.0,kg:3600},{h:15.9,r:0.5,kg:3600},{h:15.9,r:1.0,kg:3250},{h:15.9,r:1.5,kg:1950},{h:15.9,r:2.0,kg:1350},{h:15.9,r:2.5,kg:1000},{h:16.6,r:0.0,kg:3500},{h:16.6,r:0.5,kg:3500},{h:16.6,r:1.0,kg:1950},{h:16.6,r:1.4,kg:950}],
       filters:['telehandler','rough','heavy']
     },
-    {
-      id:'jcb-540-180', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 540-180 Loadall', shortName:'JCB 540-180',
-      capacity:4.0, liftHeight:17.50, maxReach:14.00, engine:'JCB EcoMAX 93kW Stage V',
-      machineWeight:14100, machineWidth:2500, machineLength:7100, machineHeight:3000,
-      terrain:'outdoor/rough', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Work Platform','Hook'],
-      bestFor:'4T at 17.5m — near-18m reach, equivalent to Manitou MT 1840 in JCB range',
-      note:'JCB 540-180 Loadall — 4T, 17.5m lift, 14m reach. JCB EcoMAX 93kW Stage V. Direct competitor to Manitou MT 1840. Strong high-reach performance with JCB\'s well-regarded service network. Ideal for 6-storey residential and commercial construction.',
-      tags:['4T','17.5m','JCB Loadall','High Reach','Manitou MT 1840 Alternative'],
-      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:1.5,kg:4000},{h:0.5,r:3.5,kg:4000},{h:0.5,r:5.5,kg:3600},{h:0.5,r:7.0,kg:3000},{h:0.5,r:9.0,kg:2200},{h:0.5,r:11.0,kg:1500},{h:0.5,r:13.0,kg:1100},{h:0.5,r:14.0,kg:900},{h:2.1,r:0.0,kg:4000},{h:2.1,r:1.5,kg:4000},{h:2.1,r:3.5,kg:4000},{h:2.1,r:5.5,kg:3600},{h:2.1,r:7.0,kg:3000},{h:2.1,r:9.0,kg:2200},{h:2.1,r:11.0,kg:1500},{h:2.1,r:13.0,kg:1100},{h:2.1,r:13.9,kg:900},{h:4.4,r:0.0,kg:4000},{h:4.4,r:1.5,kg:4000},{h:4.4,r:3.5,kg:4000},{h:4.4,r:5.0,kg:3600},{h:4.4,r:7.0,kg:3000},{h:4.4,r:9.0,kg:2200},{h:4.4,r:11.0,kg:1500},{h:4.4,r:12.5,kg:1100},{h:4.4,r:13.5,kg:900},{h:6.7,r:0.0,kg:4000},{h:6.7,r:1.5,kg:4000},{h:6.7,r:3.0,kg:4000},{h:6.7,r:5.0,kg:3600},{h:6.7,r:6.5,kg:3000},{h:6.7,r:8.5,kg:2200},{h:6.7,r:10.5,kg:1500},{h:6.7,r:12.0,kg:1100},{h:6.7,r:12.9,kg:900},{h:8.8,r:0.0,kg:4000},{h:8.8,r:1.5,kg:4000},{h:8.8,r:3.0,kg:4000},{h:8.8,r:4.5,kg:3600},{h:8.8,r:6.0,kg:3000},{h:8.8,r:7.5,kg:2200},{h:8.8,r:9.5,kg:1500},{h:8.8,r:11.0,kg:1100},{h:8.8,r:11.8,kg:900},{h:10.8,r:0.0,kg:4000},{h:10.8,r:1.0,kg:4000},{h:10.8,r:2.5,kg:4000},{h:10.8,r:4.0,kg:3600},{h:10.8,r:5.0,kg:2950},{h:10.8,r:6.5,kg:2200},{h:10.8,r:8.0,kg:1500},{h:10.8,r:9.5,kg:1100},{h:10.8,r:10.0,kg:900},{h:12.6,r:0.0,kg:3900},{h:12.6,r:1.0,kg:3900},{h:12.6,r:2.0,kg:3900},{h:12.6,r:3.0,kg:3500},{h:12.6,r:4.0,kg:2900},{h:12.6,r:5.5,kg:2150},{h:12.6,r:7.0,kg:1500},{h:12.6,r:8.0,kg:1050},{h:12.6,r:8.5,kg:850},{h:14.3,r:0.0,kg:3800},{h:14.3,r:1.0,kg:3800},{h:14.3,r:1.5,kg:3800},{h:14.3,r:2.5,kg:3400},{h:14.3,r:3.0,kg:2850},{h:14.3,r:4.0,kg:2100},{h:14.3,r:5.0,kg:1450},{h:14.3,r:6.0,kg:1050},{h:14.3,r:6.4,kg:850},{h:15.8,r:0.0,kg:3700},{h:15.8,r:0.5,kg:3700},{h:15.8,r:1.0,kg:3700},{h:15.8,r:1.5,kg:3300},{h:15.8,r:2.0,kg:2750},{h:15.8,r:3.0,kg:2000},{h:15.8,r:3.5,kg:1400},{h:15.8,r:4.0,kg:1000},{h:15.8,r:4.4,kg:800},{h:16.8,r:0.0,kg:3600},{h:16.8,r:0.5,kg:3600},{h:16.8,r:1.0,kg:3250},{h:16.8,r:1.5,kg:2700},{h:16.8,r:2.0,kg:1950},{h:16.8,r:2.5,kg:1000},{h:17.5,r:0.0,kg:3500},{h:17.5,r:0.5,kg:3500},{h:17.5,r:1.0,kg:2650},{h:17.5,r:1.5,kg:950}],
-      filters:['telehandler','rough','heavy']
-    },
+    
     {
       id:'jcb-540-200', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
       name:'JCB 540-200 Loadall', shortName:'JCB 540-200',
@@ -12828,19 +12696,7 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:2.0,kg:4000},{h:0.5,r:4.0,kg:4000},{h:0.5,r:6.5,kg:3600},{h:0.5,r:8.0,kg:3000},{h:0.5,r:10.5,kg:2200},{h:0.5,r:13.0,kg:1500},{h:0.5,r:15.0,kg:1100},{h:0.5,r:16.5,kg:900},{h:2.4,r:0.0,kg:4000},{h:2.4,r:2.0,kg:4000},{h:2.4,r:4.0,kg:4000},{h:2.4,r:6.0,kg:3600},{h:2.4,r:8.0,kg:3000},{h:2.4,r:10.5,kg:2200},{h:2.4,r:13.0,kg:1500},{h:2.4,r:15.0,kg:1100},{h:2.4,r:16.4,kg:900},{h:4.9,r:0.0,kg:4000},{h:4.9,r:2.0,kg:4000},{h:4.9,r:4.0,kg:4000},{h:4.9,r:6.0,kg:3600},{h:4.9,r:8.0,kg:3000},{h:4.9,r:10.5,kg:2200},{h:4.9,r:13.0,kg:1500},{h:4.9,r:14.5,kg:1100},{h:4.9,r:16.0,kg:900},{h:7.5,r:0.0,kg:4000},{h:7.5,r:2.0,kg:4000},{h:7.5,r:4.0,kg:4000},{h:7.5,r:6.0,kg:3600},{h:7.5,r:7.5,kg:3000},{h:7.5,r:10.0,kg:2200},{h:7.5,r:12.0,kg:1500},{h:7.5,r:14.0,kg:1100},{h:7.5,r:15.0,kg:900},{h:9.8,r:0.0,kg:4000},{h:9.8,r:1.5,kg:4000},{h:9.8,r:3.5,kg:4000},{h:9.8,r:5.5,kg:3600},{h:9.8,r:7.0,kg:3000},{h:9.8,r:9.0,kg:2200},{h:9.8,r:11.0,kg:1500},{h:9.8,r:13.0,kg:1100},{h:9.8,r:13.9,kg:900},{h:12.2,r:0.0,kg:4000},{h:12.2,r:1.5,kg:4000},{h:12.2,r:3.0,kg:4000},{h:12.2,r:4.5,kg:3600},{h:12.2,r:6.0,kg:2950},{h:12.2,r:8.0,kg:2200},{h:12.2,r:9.5,kg:1500},{h:12.2,r:11.0,kg:1100},{h:12.2,r:12.0,kg:900},{h:14.2,r:0.0,kg:3900},{h:14.2,r:1.0,kg:3900},{h:14.2,r:2.5,kg:3900},{h:14.2,r:4.0,kg:3500},{h:14.2,r:5.0,kg:2900},{h:14.2,r:6.5,kg:2150},{h:14.2,r:8.0,kg:1500},{h:14.2,r:9.0,kg:1050},{h:14.2,r:9.9,kg:850},{h:16.2,r:0.0,kg:3800},{h:16.2,r:1.0,kg:3800},{h:16.2,r:2.0,kg:3800},{h:16.2,r:3.0,kg:3400},{h:16.2,r:3.5,kg:2850},{h:16.2,r:5.0,kg:2100},{h:16.2,r:6.0,kg:1450},{h:16.2,r:7.0,kg:1050},{h:16.2,r:7.4,kg:850},{h:17.7,r:0.0,kg:3700},{h:17.7,r:0.5,kg:3700},{h:17.7,r:1.5,kg:3700},{h:17.7,r:2.0,kg:3300},{h:17.7,r:2.5,kg:2750},{h:17.7,r:3.5,kg:2000},{h:17.7,r:4.0,kg:1400},{h:17.7,r:4.5,kg:1000},{h:17.7,r:5.0,kg:800},{h:18.9,r:0.0,kg:3600},{h:18.9,r:0.5,kg:3600},{h:18.9,r:1.0,kg:3600},{h:18.9,r:1.5,kg:2700},{h:18.9,r:2.0,kg:1950},{h:18.9,r:2.5,kg:1350},{h:18.9,r:3.0,kg:1000},{h:19.7,r:0.0,kg:3500},{h:19.7,r:0.5,kg:3500},{h:19.7,r:1.0,kg:2650},{h:19.7,r:1.5,kg:1350}],
       filters:['telehandler','rough','heavy']
     },
-    {
-      id:'jcb-541-70', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 541-70 Loadall', shortName:'JCB 541-70',
-      capacity:4.1, liftHeight:6.70, maxReach:4.80, engine:'JCB EcoMAX 74kW Stage V',
-      machineWeight:8200, machineWidth:2310, machineLength:5350, machineHeight:2720,
-      terrain:'outdoor/rough', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket'],
-      bestFor:'4.1T compact — heaviest load in a short-reach compact JCB',
-      note:'JCB 541-70 Loadall — 4.1T, 6.7m lift, 4.8m reach. High capacity in a compact mid-range form factor. Best for heavy loads on tight sites where height requirements are modest. JCB EcoMAX 74kW Stage V.',
-      tags:['4.1T','6.7m','JCB Loadall','Heavy Compact'],
-      loadMatrix:[{h:0.5,r:0.0,kg:4100},{h:0.5,r:0.5,kg:4100},{h:0.5,r:1.0,kg:4100},{h:0.5,r:2.0,kg:3700},{h:0.5,r:2.5,kg:3050},{h:0.5,r:3.0,kg:2250},{h:0.5,r:4.0,kg:1550},{h:0.5,r:4.5,kg:1100},{h:0.5,r:4.8,kg:900},{h:0.8,r:0.0,kg:4100},{h:0.8,r:0.5,kg:4100},{h:0.8,r:1.0,kg:4100},{h:0.8,r:2.0,kg:3700},{h:0.8,r:2.5,kg:3050},{h:0.8,r:3.0,kg:2250},{h:0.8,r:4.0,kg:1550},{h:0.8,r:4.5,kg:1100},{h:0.8,r:4.8,kg:900},{h:1.7,r:0.0,kg:4100},{h:1.7,r:0.5,kg:4100},{h:1.7,r:1.0,kg:4100},{h:1.7,r:2.0,kg:3700},{h:1.7,r:2.5,kg:3050},{h:1.7,r:3.0,kg:2250},{h:1.7,r:4.0,kg:1550},{h:1.7,r:4.5,kg:1100},{h:2.5,r:0.0,kg:4100},{h:2.5,r:0.5,kg:4100},{h:2.5,r:1.0,kg:4100},{h:2.5,r:1.5,kg:3700},{h:2.5,r:2.0,kg:3050},{h:2.5,r:3.0,kg:2250},{h:2.5,r:3.5,kg:1550},{h:2.5,r:4.0,kg:1100},{h:2.5,r:4.4,kg:900},{h:3.4,r:0.0,kg:4100},{h:3.4,r:0.5,kg:4100},{h:3.4,r:1.0,kg:4100},{h:3.4,r:1.5,kg:3700},{h:3.4,r:2.0,kg:3050},{h:3.4,r:2.5,kg:2250},{h:3.4,r:3.5,kg:1550},{h:3.4,r:4.0,kg:1100},{h:4.2,r:0.0,kg:4100},{h:4.2,r:0.5,kg:4100},{h:4.2,r:1.0,kg:4100},{h:4.2,r:1.5,kg:3700},{h:4.2,r:2.0,kg:3050},{h:4.2,r:2.5,kg:2250},{h:4.2,r:3.0,kg:1550},{h:4.2,r:3.5,kg:1100},{h:4.8,r:0.0,kg:4000},{h:4.8,r:0.5,kg:4000},{h:4.8,r:1.0,kg:4000},{h:4.8,r:1.5,kg:3000},{h:4.8,r:2.0,kg:2200},{h:4.8,r:2.5,kg:1500},{h:4.8,r:3.0,kg:1100},{h:5.5,r:0.0,kg:3900},{h:5.5,r:0.5,kg:3900},{h:5.5,r:1.0,kg:3500},{h:5.5,r:1.5,kg:2150},{h:5.5,r:2.0,kg:1500},{h:5.5,r:2.3,kg:850},{h:6.0,r:0.0,kg:3800},{h:6.0,r:0.5,kg:3800},{h:6.0,r:1.0,kg:2800},{h:6.0,r:1.5,kg:1450},{h:6.4,r:0.0,kg:3700},{h:6.4,r:0.5,kg:3700},{h:6.4,r:1.0,kg:1400},{h:6.7,r:0.0,kg:3600},{h:6.7,r:0.5,kg:3250}],
-      filters:['telehandler','rough','heavy']
-    },
+    
     {
       id:'jcb-550-80', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
       name:'JCB 550-80 Loadall', shortName:'JCB 550-80',
@@ -12854,60 +12710,12 @@ const MACHINES = {
       loadMatrix:[{h:0.5,r:0.0,kg:5000},{h:0.5,r:0.5,kg:5000},{h:0.5,r:1.0,kg:5000},{h:0.5,r:2.0,kg:4500},{h:0.5,r:2.5,kg:3750},{h:0.5,r:3.0,kg:2750},{h:0.5,r:4.0,kg:1900},{h:0.5,r:4.5,kg:1350},{h:0.5,r:5.0,kg:1100},{h:0.9,r:0.0,kg:5000},{h:0.9,r:0.5,kg:5000},{h:0.9,r:1.0,kg:5000},{h:0.9,r:2.0,kg:4500},{h:0.9,r:2.5,kg:3750},{h:0.9,r:3.0,kg:2750},{h:0.9,r:4.0,kg:1900},{h:0.9,r:4.5,kg:1350},{h:0.9,r:5.0,kg:1100},{h:1.9,r:0.0,kg:5000},{h:1.9,r:0.5,kg:5000},{h:1.9,r:1.0,kg:5000},{h:1.9,r:2.0,kg:4500},{h:1.9,r:2.5,kg:3750},{h:1.9,r:3.0,kg:2750},{h:1.9,r:4.0,kg:1900},{h:1.9,r:4.5,kg:1350},{h:1.9,r:4.9,kg:1100},{h:3.0,r:0.0,kg:5000},{h:3.0,r:0.5,kg:5000},{h:3.0,r:1.0,kg:5000},{h:3.0,r:1.5,kg:4500},{h:3.0,r:2.5,kg:3750},{h:3.0,r:3.0,kg:2750},{h:3.0,r:3.5,kg:1900},{h:3.0,r:4.0,kg:1350},{h:3.0,r:4.5,kg:1100},{h:3.9,r:0.0,kg:5000},{h:3.9,r:0.5,kg:5000},{h:3.9,r:1.0,kg:5000},{h:3.9,r:1.5,kg:4500},{h:3.9,r:2.0,kg:3750},{h:3.9,r:3.0,kg:2750},{h:3.9,r:3.5,kg:1900},{h:3.9,r:4.0,kg:1350},{h:3.9,r:4.3,kg:1100},{h:4.8,r:0.0,kg:5000},{h:4.8,r:0.5,kg:5000},{h:4.8,r:1.0,kg:5000},{h:4.8,r:1.5,kg:4500},{h:4.8,r:2.0,kg:3700},{h:4.8,r:2.5,kg:2750},{h:4.8,r:3.0,kg:1900},{h:4.8,r:3.5,kg:1350},{h:5.6,r:0.0,kg:4900},{h:5.6,r:0.5,kg:4900},{h:5.6,r:1.0,kg:4900},{h:5.6,r:1.5,kg:3650},{h:5.6,r:2.0,kg:2700},{h:5.6,r:2.5,kg:1850},{h:5.6,r:3.0,kg:1350},{h:6.4,r:0.0,kg:4750},{h:6.4,r:0.5,kg:4750},{h:6.4,r:1.0,kg:4250},{h:6.4,r:1.5,kg:2600},{h:6.4,r:2.0,kg:1800},{h:6.4,r:2.4,kg:1050},{h:7.0,r:0.0,kg:4600},{h:7.0,r:0.5,kg:4600},{h:7.0,r:1.0,kg:3450},{h:7.0,r:1.5,kg:1750},{h:7.0,r:1.8,kg:1000},{h:7.5,r:0.0,kg:4500},{h:7.5,r:0.5,kg:4500},{h:7.5,r:1.0,kg:2450},{h:7.8,r:0.0,kg:4400},{h:7.8,r:0.5,kg:3950},{h:7.8,r:0.8,kg:950}],
       filters:['telehandler','rough','heavy']
     },
-    {
-      id:'jcb-560-80', brand:'JCB', emoji:'🏗️', brandColor:'#F5D800',
-      name:'JCB 560-80 Loadall', shortName:'JCB 560-80',
-      capacity:6.0, liftHeight:7.80, maxReach:5.00, engine:'JCB EcoMAX 129kW Stage V',
-      machineWeight:13500, machineWidth:2600, machineLength:6200, machineHeight:3000,
-      terrain:'outdoor/rough', maxSpeed:35,
-      attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Hook'],
-      bestFor:'6T heavy-lift telehandler — precast, steel, large structural elements',
-      note:'JCB 560-80 Loadall — 6T, 7.8m lift, 5m reach. JCB EcoMAX 129kW Stage V. JCB\'s highest-capacity fixed telehandler. Designed for precast panels, structural steel, and heavy industrial loads where a small crane is otherwise needed. 2.6m wide — class leader.',
-      tags:['6T','7.8m','JCB Loadall','Heaviest JCB','Precast','Industrial'],
-      loadMatrix:[{h:0.5,r:0.0,kg:6000},{h:0.5,r:0.5,kg:6000},{h:0.5,r:1.0,kg:6000},{h:0.5,r:2.0,kg:5400},{h:0.5,r:2.5,kg:4500},{h:0.5,r:3.0,kg:3300},{h:0.5,r:4.0,kg:2300},{h:0.5,r:4.5,kg:1650},{h:0.5,r:5.0,kg:1300},{h:0.9,r:0.0,kg:6000},{h:0.9,r:0.5,kg:6000},{h:0.9,r:1.0,kg:6000},{h:0.9,r:2.0,kg:5400},{h:0.9,r:2.5,kg:4500},{h:0.9,r:3.0,kg:3300},{h:0.9,r:4.0,kg:2300},{h:0.9,r:4.5,kg:1650},{h:0.9,r:5.0,kg:1300},{h:1.9,r:0.0,kg:6000},{h:1.9,r:0.5,kg:6000},{h:1.9,r:1.0,kg:6000},{h:1.9,r:2.0,kg:5400},{h:1.9,r:2.5,kg:4500},{h:1.9,r:3.0,kg:3300},{h:1.9,r:4.0,kg:2300},{h:1.9,r:4.5,kg:1650},{h:1.9,r:4.9,kg:1300},{h:3.0,r:0.0,kg:6000},{h:3.0,r:0.5,kg:6000},{h:3.0,r:1.0,kg:6000},{h:3.0,r:1.5,kg:5400},{h:3.0,r:2.5,kg:4500},{h:3.0,r:3.0,kg:3300},{h:3.0,r:3.5,kg:2300},{h:3.0,r:4.0,kg:1650},{h:3.0,r:4.5,kg:1300},{h:3.9,r:0.0,kg:6000},{h:3.9,r:0.5,kg:6000},{h:3.9,r:1.0,kg:6000},{h:3.9,r:1.5,kg:5400},{h:3.9,r:2.0,kg:4500},{h:3.9,r:3.0,kg:3300},{h:3.9,r:3.5,kg:2300},{h:3.9,r:4.0,kg:1650},{h:3.9,r:4.3,kg:1300},{h:4.8,r:0.0,kg:6000},{h:4.8,r:0.5,kg:6000},{h:4.8,r:1.0,kg:6000},{h:4.8,r:1.5,kg:5400},{h:4.8,r:2.0,kg:4450},{h:4.8,r:2.5,kg:3300},{h:4.8,r:3.0,kg:2250},{h:4.8,r:3.5,kg:1650},{h:5.6,r:0.0,kg:5850},{h:5.6,r:0.5,kg:5850},{h:5.6,r:1.0,kg:5850},{h:5.6,r:1.5,kg:4350},{h:5.6,r:2.0,kg:3200},{h:5.6,r:2.5,kg:2250},{h:5.6,r:3.0,kg:1600},{h:6.4,r:0.0,kg:5700},{h:6.4,r:0.5,kg:5700},{h:6.4,r:1.0,kg:5100},{h:6.4,r:1.5,kg:3100},{h:6.4,r:2.0,kg:2150},{h:6.4,r:2.4,kg:1250},{h:7.0,r:0.0,kg:5550},{h:7.0,r:0.5,kg:5550},{h:7.0,r:1.0,kg:4150},{h:7.0,r:1.5,kg:2100},{h:7.0,r:1.8,kg:1200},{h:7.5,r:0.0,kg:5400},{h:7.5,r:0.5,kg:5400},{h:7.5,r:1.0,kg:2950},{h:7.8,r:0.0,kg:5300},{h:7.8,r:0.5,kg:4750},{h:7.8,r:0.8,kg:1150}],
-      filters:['telehandler','rough','heavy']
-    },
+    
 
     // ── JCB Rotating Telehandlers ─────────────────────────────────────────
-    {
-      id:'jcb-555-210r', brand:'JCB', emoji:'🔄', brandColor:'#F5D800',
-      name:'JCB 555-210R Rotating', shortName:'JCB 555-210R',
-      isRotating:true, capacityOnTyres:3.5, tyreCapacityNote:'On rubber (tyres only — no outriggers): max ~3.5T at limited height/reach. Full 5.5T rated capacity requires outriggers deployed. Consult load chart.', capacity:5.5, liftHeight:20.50, maxReach:16.80, engine:'JCB EcoMAX 93kW Stage V',
-      machineWeight:18500, machineWidth:2500, machineLength:7400, machineHeight:3100,
-      terrain:'rough/outdoor', maxSpeed:30,
-      attachments:['Standard Forks','Jib','Man Basket','Work Platform','Hook'],
-      bestFor:'5.5T rotating at 20.5m — JCB crane-replacement for 6–7 storey construction',
-      note:'JCB 555-210R — 5.5T capacity, 360° rotation, 20.5m lift, 16.8m reach. JCB EcoMAX 93kW Stage V. Scissor-style outriggers. Competes directly with Manitou MRT 2150 and Magni RTH 6.21. Strong service network in Australia.',
-      tags:['Rotating 360°','5.5T','20.5m','JCB Rotating','Crane Replacement'],
-      loadMatrix:[{h:0.5,r:0.0,kg:5500},{h:0.5,r:1.7,kg:5500},{h:0.5,r:3.4,kg:5500},{h:0.5,r:5.0,kg:5300},{h:0.5,r:6.7,kg:4700},{h:0.5,r:8.4,kg:3850},{h:0.5,r:10.9,kg:2650},{h:0.5,r:12.6,kg:2000},{h:0.5,r:14.3,kg:1500},{h:0.5,r:16.8,kg:1000},{h:5.1,r:0.0,kg:5500},{h:5.1,r:1.7,kg:5500},{h:5.1,r:3.4,kg:5500},{h:5.1,r:5.0,kg:5300},{h:5.1,r:6.7,kg:4700},{h:5.1,r:8.4,kg:3850},{h:5.1,r:10.9,kg:2650},{h:5.1,r:12.6,kg:2000},{h:5.1,r:14.3,kg:1500},{h:5.1,r:16.8,kg:1000},{h:10.2,r:0.0,kg:5500},{h:10.2,r:1.7,kg:5500},{h:10.2,r:3.4,kg:5500},{h:10.2,r:5.0,kg:5300},{h:10.2,r:6.7,kg:4700},{h:10.2,r:8.4,kg:3850},{h:10.2,r:10.9,kg:2650},{h:10.2,r:12.6,kg:2000},{h:10.2,r:14.3,kg:1500},{h:10.2,r:16.8,kg:1000},{h:14.3,r:0.0,kg:5200},{h:14.3,r:1.7,kg:5200},{h:14.3,r:3.4,kg:5200},{h:14.3,r:5.0,kg:5000},{h:14.3,r:6.7,kg:4450},{h:14.3,r:8.4,kg:3650},{h:14.3,r:10.9,kg:2500},{h:14.3,r:12.6,kg:1900},{h:14.3,r:14.3,kg:1400},{h:14.3,r:16.8,kg:950},{h:17.4,r:0.0,kg:4850},{h:17.4,r:1.7,kg:4850},{h:17.4,r:3.4,kg:4850},{h:17.4,r:5.0,kg:4650},{h:17.4,r:6.7,kg:4100},{h:17.4,r:8.4,kg:3400},{h:17.4,r:10.9,kg:2300},{h:17.4,r:12.6,kg:1750},{h:17.4,r:14.3,kg:1300},{h:17.4,r:16.8,kg:850},{h:20.5,r:0.0,kg:4300},{h:20.5,r:1.7,kg:4300},{h:20.5,r:3.4,kg:4300},{h:20.5,r:5.0,kg:4100},{h:20.5,r:6.7,kg:3650},{h:20.5,r:8.4,kg:3000},{h:20.5,r:10.9,kg:2050},{h:20.5,r:12.6,kg:1550},{h:20.5,r:14.3,kg:1150},{h:20.5,r:16.8,kg:750}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'jcb-555-260r', brand:'JCB', emoji:'🔄', brandColor:'#F5D800',
-      name:'JCB 555-260R Rotating', shortName:'JCB 555-260R',
-      isRotating:true, capacityOnTyres:3.5, tyreCapacityNote:'On rubber (tyres only — no outriggers): max ~3.5T at limited height/reach. Full 5.5T rated capacity requires outriggers deployed. Consult load chart.', capacity:5.5, liftHeight:25.50, maxReach:21.30, engine:'JCB EcoMAX 93kW Stage V',
-      machineWeight:22000, machineWidth:2540, machineLength:8000, machineHeight:3250,
-      terrain:'rough/outdoor', maxSpeed:30,
-      attachments:['Standard Forks','Jib','Man Basket','Work Platform','Hook'],
-      bestFor:'5.5T rotating at 25.5m — high-rise JCB rotating, 8-storey construction',
-      note:'JCB 555-260R — 5.5T, 360° rotation, 25.5m lift, 21.3m reach. The tallest standard JCB rotating telehandler. Competes with Manitou MRT 2540 and Magni RTH 6.26. Strong for 7–8 storey construction and crane replacement.',
-      tags:['Rotating 360°','5.5T','25.5m','JCB Rotating','High Rise'],
-      loadMatrix:[{h:0.5,r:0.0,kg:5500},{h:0.5,r:2.1,kg:5500},{h:0.5,r:4.3,kg:5500},{h:0.5,r:6.4,kg:5300},{h:0.5,r:8.5,kg:4700},{h:0.5,r:10.7,kg:3850},{h:0.5,r:13.8,kg:2650},{h:0.5,r:16.0,kg:2000},{h:0.5,r:18.1,kg:1500},{h:0.5,r:21.3,kg:1000},{h:6.4,r:0.0,kg:5500},{h:6.4,r:2.1,kg:5500},{h:6.4,r:4.3,kg:5500},{h:6.4,r:6.4,kg:5300},{h:6.4,r:8.5,kg:4700},{h:6.4,r:10.7,kg:3850},{h:6.4,r:13.8,kg:2650},{h:6.4,r:16.0,kg:2000},{h:6.4,r:18.1,kg:1500},{h:6.4,r:21.3,kg:1000},{h:12.8,r:0.0,kg:5500},{h:12.8,r:2.1,kg:5500},{h:12.8,r:4.3,kg:5500},{h:12.8,r:6.4,kg:5300},{h:12.8,r:8.5,kg:4700},{h:12.8,r:10.7,kg:3850},{h:12.8,r:13.8,kg:2650},{h:12.8,r:16.0,kg:2000},{h:12.8,r:18.1,kg:1500},{h:12.8,r:21.3,kg:1000},{h:17.8,r:0.0,kg:5200},{h:17.8,r:2.1,kg:5200},{h:17.8,r:4.3,kg:5200},{h:17.8,r:6.4,kg:5000},{h:17.8,r:8.5,kg:4450},{h:17.8,r:10.7,kg:3650},{h:17.8,r:13.8,kg:2500},{h:17.8,r:16.0,kg:1900},{h:17.8,r:18.1,kg:1400},{h:17.8,r:21.3,kg:950},{h:21.7,r:0.0,kg:4850},{h:21.7,r:2.1,kg:4850},{h:21.7,r:4.3,kg:4850},{h:21.7,r:6.4,kg:4650},{h:21.7,r:8.5,kg:4100},{h:21.7,r:10.7,kg:3400},{h:21.7,r:13.8,kg:2300},{h:21.7,r:16.0,kg:1750},{h:21.7,r:18.1,kg:1300},{h:21.7,r:21.3,kg:850},{h:25.5,r:0.0,kg:4300},{h:25.5,r:2.1,kg:4300},{h:25.5,r:4.3,kg:4300},{h:25.5,r:6.4,kg:4100},{h:25.5,r:8.5,kg:3650},{h:25.5,r:10.7,kg:3000},{h:25.5,r:13.8,kg:2050},{h:25.5,r:16.0,kg:1550},{h:25.5,r:18.1,kg:1150},{h:25.5,r:21.3,kg:750}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'jcb-555-210r-hiviz', brand:'JCB', emoji:'🔄', brandColor:'#F5D800',
-      name:'JCB 555-210R HiViz Rotating', shortName:'JCB 555-210R HiViz',
-      isRotating:true, capacityOnTyres:3.5, tyreCapacityNote:'On rubber (tyres only — no outriggers): max ~3.5T at limited height/reach. Full 5.5T rated capacity requires outriggers deployed. Consult load chart.', capacity:5.5, liftHeight:20.50, maxReach:16.80, engine:'JCB EcoMAX 93kW Stage V',
-      machineWeight:18800, machineWidth:2500, machineLength:7400, machineHeight:3100,
-      terrain:'rough/outdoor', maxSpeed:30,
-      attachments:['Standard Forks','Jib','Man Basket','Work Platform','Hook'],
-      bestFor:'5.5T rotating with enhanced visibility cab — improved sight lines for high placement',
-      note:'JCB 555-210R HiViz — same as 555-210R but with JCB\'s HiViz enhanced visibility cab featuring lower dashboard and larger glass area. Improves sight lines when working at height. Premium choice for precision placement work.',
-      tags:['Rotating 360°','5.5T','20.5m','JCB HiViz','Enhanced Visibility'],
-      loadMatrix:[{h:0.5,r:0.0,kg:5500},{h:0.5,r:1.7,kg:5500},{h:0.5,r:3.4,kg:5500},{h:0.5,r:5.0,kg:5300},{h:0.5,r:6.7,kg:4700},{h:0.5,r:8.4,kg:3850},{h:0.5,r:10.9,kg:2650},{h:0.5,r:12.6,kg:2000},{h:0.5,r:14.3,kg:1500},{h:0.5,r:16.8,kg:1000},{h:5.1,r:0.0,kg:5500},{h:5.1,r:1.7,kg:5500},{h:5.1,r:3.4,kg:5500},{h:5.1,r:5.0,kg:5300},{h:5.1,r:6.7,kg:4700},{h:5.1,r:8.4,kg:3850},{h:5.1,r:10.9,kg:2650},{h:5.1,r:12.6,kg:2000},{h:5.1,r:14.3,kg:1500},{h:5.1,r:16.8,kg:1000},{h:10.2,r:0.0,kg:5500},{h:10.2,r:1.7,kg:5500},{h:10.2,r:3.4,kg:5500},{h:10.2,r:5.0,kg:5300},{h:10.2,r:6.7,kg:4700},{h:10.2,r:8.4,kg:3850},{h:10.2,r:10.9,kg:2650},{h:10.2,r:12.6,kg:2000},{h:10.2,r:14.3,kg:1500},{h:10.2,r:16.8,kg:1000},{h:14.3,r:0.0,kg:5200},{h:14.3,r:1.7,kg:5200},{h:14.3,r:3.4,kg:5200},{h:14.3,r:5.0,kg:5000},{h:14.3,r:6.7,kg:4450},{h:14.3,r:8.4,kg:3650},{h:14.3,r:10.9,kg:2500},{h:14.3,r:12.6,kg:1900},{h:14.3,r:14.3,kg:1400},{h:14.3,r:16.8,kg:950},{h:17.4,r:0.0,kg:4850},{h:17.4,r:1.7,kg:4850},{h:17.4,r:3.4,kg:4850},{h:17.4,r:5.0,kg:4650},{h:17.4,r:6.7,kg:4100},{h:17.4,r:8.4,kg:3400},{h:17.4,r:10.9,kg:2300},{h:17.4,r:12.6,kg:1750},{h:17.4,r:14.3,kg:1300},{h:17.4,r:16.8,kg:850},{h:20.5,r:0.0,kg:4300},{h:20.5,r:1.7,kg:4300},{h:20.5,r:3.4,kg:4300},{h:20.5,r:5.0,kg:4100},{h:20.5,r:6.7,kg:3650},{h:20.5,r:8.4,kg:3000},{h:20.5,r:10.9,kg:2050},{h:20.5,r:12.6,kg:1550},{h:20.5,r:14.3,kg:1150},{h:20.5,r:16.8,kg:750}],
-      filters:['telehandler','rough','heavy']
-    },
+    
+    
+    
 
     // ── Dieci Complete Range – Fixed, Agri, Heavy Duty ─────────────────────
     {
@@ -27365,7 +27173,7 @@ function showResults() {
         <div style="margin-top:1rem;background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.75rem 1rem;font-size:.82rem;color:#166534;line-height:1.7">
           <strong style="display:block;margin-bottom:.2rem">📬 Contact Noyo directly</strong>
           📞 <a href="tel:+61450133133" style="color:#166534;font-weight:700">+61 450 133 133</a> &nbsp;|&nbsp; ✉️ <a href="javascript:void(0)" onclick="(function(){var e='sales@noyo.com.au';window.location.href='mailto:'+e})()" style="color:#166534;font-weight:700">sales@noyo.com.au</a>
-          <br><span style="color:#64748B;font-size:.76rem">Mon–Fri 7am–6pm AEST</span>
+          <br><span style="color:#64748B;font-size:.76rem">Mon–Fri 7am–6pm <span class="tz-badge">${tzAbbr(Date.now(), 'QLD')}</span></span>
         </div>
       </div>`;
     // Hide sort bar — no results to sort
@@ -27385,6 +27193,63 @@ function _renderCards(matches, machineType, answers) {
   const container = document.getElementById('rec-cards');
   if (!container) return;
   container.innerHTML = '';
+
+  // ── Sponsored ads — injected before organic results ────────────
+  // Determine which category key applies for this result set
+  const _firstMachine   = matches[0];
+  const _catKey         = _resultCatKey(machineType, _firstMachine);
+  const _sponsoredForCat = _getSponsoredForCategory(_catKey);
+
+  _sponsoredForCat.forEach(ad => {
+    const spMachine = ALL_MACHINES.find(m => m.id === ad.machineId);
+    if (!spMachine) return;
+    const spCard = document.createElement('div');
+    spCard.className = 'rec-card sponsored-card';
+    const spPhoto = getMachinePhoto(spMachine, machineType);
+    spCard.innerHTML = `
+      <div style="background:linear-gradient(90deg,#FEF9C3,#FFFBEB);border-bottom:2px solid #FCD34D;padding:.35rem 1rem;display:flex;align-items:center;gap:.5rem;border-radius:14px 14px 0 0;margin:-0px">
+        <span style="font-size:.85rem">⭐</span>
+        <span style="font-size:.74rem;font-weight:900;color:#92400E;letter-spacing:.04em;text-transform:uppercase">Sponsored</span>
+        ${ad.note ? `<span style="font-size:.72rem;color:#B45309;margin-left:auto;font-style:italic">${ad.note}</span>` : ''}
+      </div>
+      <div class="rec-photo-wrap">
+        <img class="rec-photo" src="${spPhoto}" alt="${spMachine.name}" loading="lazy"
+          onerror="this.onerror=null;this.style.cssText='background:linear-gradient(135deg,#001133,#0052CC);display:block';this.src=''">
+      </div>
+      <div style="padding:1.2rem 1.4rem 0">
+        <div class="rec-top">
+          <div class="rec-emoji">${spMachine.emoji}</div>
+          <div class="rec-title-wrap">
+            <div class="rec-brand">${spMachine.brand}</div>
+            <div class="rec-name">${ad.label || spMachine.name}</div>
+            <span class="badge-best" style="background:linear-gradient(135deg,#FEF9C3,#FEF3C7);color:#92400E;border:1.5px solid #FCD34D">⭐ Sponsored</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:.5rem 1.4rem 1rem;font-size:.83rem;color:#475569;line-height:1.6">
+        ${spMachine.bestFor ? `<div style="margin-bottom:.4rem">✅ ${spMachine.bestFor}</div>` : ''}
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.3rem">
+          ${spMachine.capacity ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">⚖️ ${spMachine.capacity}T</span>` : ''}
+          ${spMachine.liftHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">📏 ${spMachine.liftHeight}m lift</span>` : ''}
+          ${spMachine.platformHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">📏 ${spMachine.platformHeight}m platform</span>` : ''}
+          ${spMachine.swl ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">👷 ${spMachine.swl}kg SWL</span>` : ''}
+          ${spMachine.maxReach ? `<span style="background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">↔️ ${spMachine.maxReach}m reach</span>` : ''}
+        </div>
+        <div style="margin-top:.7rem;display:flex;gap:.5rem;flex-wrap:wrap">
+          <button onclick="requestQuote('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\\'")}')"
+            style="flex:1;min-width:120px;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.55rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
+            ⭐ Get Quote →
+          </button>
+          <button onclick="addToCartDirect('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\\'")}')"
+            style="flex:1;min-width:120px;background:#fff;border:1.5px solid #FCD34D;color:#92400E;border-radius:10px;padding:.55rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
+            🛒 Add to Cart
+          </button>
+        </div>
+      </div>`;
+    container.appendChild(spCard);
+  });
+
+  // ── Organic results ────────────────────────────────────────────
   matches.forEach((m,i)=>{
     const rankClass=['rank-1','rank-2','rank-3'][i]||'';
     const isOverSpec = !!(m._overSpec);
@@ -28286,8 +28151,10 @@ function _renderCards(matches, machineType, answers) {
       })()}
       <div class="rec-tags">${m.tags.map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
-        ${(!currentUser || currentUser.role !== 'rental') ? `
+        ${(!currentUser || (currentUser.role !== 'rental' && currentUser.role !== 'lite')) ? `
         <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
+        ` : (currentUser && currentUser.role === 'lite') ? `
+        <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.55rem .8rem;font-size:.78rem;font-weight:700;color:#38BDF8;text-align:center;width:100%">ℹ️ For information only — contact a rental company to hire</div>
         ` : ''}
       </div>
       </div>
@@ -28862,9 +28729,9 @@ function _readCache() {
   try { const r = localStorage.getItem(INBOX_STORAGE_KEY); return r ? JSON.parse(r) : []; } catch(e) { return []; }
 }
 
-// ── Save quote inbox to Firestore ────────────────────────────
+// ── Save quote inbox — Firestore PRIMARY, localStorage cache ──
 function saveInbox() {
-  _cacheInbox(quoteInbox); // always cache locally first
+  _cacheInbox(quoteInbox); // local cache for instant reads
   if (!currentUser || !currentUser.uid) return;
   (async () => {
     try {
@@ -28878,7 +28745,11 @@ function saveInbox() {
   })();
 }
 
-function loadInbox() { return _readCache(); }
+// loadInbox: always try Firestore first, fall back to cache
+function loadInbox() {
+  // Return cache immediately for fast startup — Firestore sync happens after login
+  return _readCache();
+}
 
 // ── Smart merge helper (same logic as before) ─────────────────
 function _mergeInboxArrays(remote, local) {
@@ -28970,13 +28841,15 @@ function _showFirebaseStatus() {
 var quoteInbox = loadInbox();
 let currentModalMachine = null; // {id, name, emoji, type}
 
-// ── Cart persistence (Firestore-backed, localStorage as fallback cache) ──
+// ── Cart persistence (Firestore PRIMARY, localStorage fallback cache) ──
 function cartStorageKey(email) {
   return 'noyoCart_' + (email || 'guest');
 }
 function saveCartToStorage() {
   if (!currentUser) return;
+  // Write to localStorage cache immediately (fast)
   try { localStorage.setItem(cartStorageKey(currentUser.email), JSON.stringify(quoteCart)); } catch(e) {}
+  // Write to Firestore (persistent across devices)
   if (currentUser.uid) {
     _fbDb.collection('users').doc(currentUser.uid).set(
       { cart: quoteCart, cartUpdatedAt: firebase.firestore.FieldValue.serverTimestamp() },
@@ -28985,15 +28858,21 @@ function saveCartToStorage() {
   }
 }
 function loadCartFromStorage(email) {
+  // Step 1: Load from localStorage immediately (fast, may be stale)
   try {
     const raw = localStorage.getItem(cartStorageKey(email));
     if (raw) { quoteCart = JSON.parse(raw); } else { quoteCart = []; }
   } catch(e) { quoteCart = []; }
+  // Step 2: Overwrite with Firestore version (authoritative, cross-device)
   if (currentUser && currentUser.uid) {
     _fbDb.collection('users').doc(currentUser.uid).get().then(snap => {
-      if (snap.exists && snap.data().cart) {
-        quoteCart = snap.data().cart;
-        try { localStorage.setItem(cartStorageKey(email), JSON.stringify(quoteCart)); } catch(e) {}
+      if (snap.exists && Array.isArray(snap.data().cart)) {
+        const cloudCart = snap.data().cart;
+        // Use whichever has more items (merge conflict resolution)
+        if (cloudCart.length >= quoteCart.length) {
+          quoteCart = cloudCart;
+          try { localStorage.setItem(cartStorageKey(email), JSON.stringify(quoteCart)); } catch(e) {}
+        }
         updateCartUI();
       }
     }).catch(e => console.warn('Cart load from Firestore failed:', e.message));
@@ -29067,15 +28946,43 @@ function renderCartItems() {
           ${jr.siteAccessRestrictions.map(r=>`<div style="font-size:.78rem;color:#78350F">• ${r}</div>`).join('')}
         </div>` : '';
 
-    const attHtml = jr.attachmentsRequired
-      ? `<div class="cart-attachments"><span class="cart-att-label">🔩 Attachments:</span> ${jr.attachmentsRequired.split(', ').map(a=>`<span class="cart-att-pill">${a}</span>`).join(' ')}</div>`
-      : '';
+    // ── Attachment breakdown: included (forks/slippers) vs chargeable (jib, rotator) ──
+    const chargeableAtts = jr.chargeableAttachments || [];
+    const attHtml = (() => {
+      const parts = [];
+      // Standard forks always included
+      parts.push(`<span style="background:#DCFCE7;color:#166534;border:1px solid #86EFAC;border-radius:6px;padding:.15rem .5rem;font-size:.74rem;font-weight:700">🍴 Standard forks — included</span>`);
+      // Chargeable attachments — shown as separate quotable items
+      chargeableAtts.forEach(att => {
+        parts.push(`<span style="background:#FEF3C7;color:#92400E;border:1.5px solid #FCD34D;border-radius:6px;padding:.15rem .5rem;font-size:.74rem;font-weight:800">🔩 ${att} — quoted separately ↓</span>`);
+      });
+      // Legacy attachmentsRequired (telehandler attachments not in chargeableAtts)
+      if (jr.attachmentsRequired && chargeableAtts.length === 0) {
+        jr.attachmentsRequired.split(', ').forEach(a => {
+          parts.push(`<span class="cart-att-pill">${a}</span>`);
+        });
+      }
+      return parts.length ? `<div class="cart-attachments" style="display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.35rem">${parts.join('')}</div>` : '';
+    })();
+
+    // Chargeable attachment line items (shown as sub-items below the machine)
+    const chargeableAttLineItems = chargeableAtts.length ? `
+      <div style="margin-top:.5rem;background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px;padding:.55rem .75rem">
+        <div style="font-size:.7rem;font-weight:800;color:#92400E;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.4px">🔩 Chargeable Accessories — Quoted Separately by Rental Company</div>
+        ${chargeableAtts.map(att => `
+          <div style="display:flex;align-items:center;gap:.5rem;padding:.3rem 0;border-bottom:1px dashed #FDE68A">
+            <span style="font-size:.82rem;font-weight:700;color:#78350F;flex:1">${att}</span>
+            <span style="background:#F59E0B;color:#fff;border-radius:20px;padding:.12rem .55rem;font-size:.7rem;font-weight:800">Add-on</span>
+          </div>`).join('')}
+        <div style="font-size:.71rem;color:#92400E;margin-top:.3rem;font-style:italic">Standard forks are included. The above attachment(s) will appear as separate line items in the rental company's quote with their own day/week rates.</div>
+      </div>` : '';
+
     const loadDesc = jr.loadDescription
       ? `<div class="cart-load-desc">📦 ${jr.loadDescription}</div>` : '';
     const siteNotes = jr.siteNotes
       ? `<div style="margin-top:.3rem;font-size:.78rem;color:#374151;background:#F0F9FF;border-left:3px solid #38BDF8;padding:.4rem .6rem;border-radius:0 6px 6px 0">📋 Site notes: ${jr.siteNotes}</div>` : '';
     const capturedAt = jr._capturedAt
-      ? `<div style="font-size:.7rem;color:#94A3B8;margin-top:.3rem">📅 Requirements captured: ${jr._capturedAt}</div>` : '';
+      ? `<div style="font-size:.7rem;color:#94A3B8;margin-top:.3rem">📅 Requirements captured: ${formatTsInState(jr._capturedAt, '')}</div>` : '';
 
     // Disclaimer block
     const disclaimerHtml = jr._disclaimer
@@ -29104,6 +29011,7 @@ function renderCartItems() {
             ${pills ? `<div class="cart-req-pills">${pills}</div>` : ''}
             ${dimPills ? `<div class="cart-req-pills" style="margin-top:.25rem">${dimPills}</div>` : ''}
             ${attHtml}
+            ${chargeableAttLineItems}
             ${siteRestrHtml}
             ${siteNotes}
             ${kymdTynesHtml}
@@ -29354,6 +29262,17 @@ function getJobRequirements() {
   };
   if (a.fork_attachment) req.forkAttachment = forkAttMap[a.fork_attachment] || a.fork_attachment;
 
+  // ── Chargeable attachments — jib and rotator are extras, forks/slippers are standard ──
+  // These populate as separate quotable line items in the cart and RC respond modal
+  const CHARGEABLE_FORK_ATTS = {
+    fork_jib: '🏗️ Fork-mounted jib',
+    rotator:  '🔄 Fork rotator',
+  };
+  if (a.fork_attachment && CHARGEABLE_FORK_ATTS[a.fork_attachment]) {
+    req.chargeableAttachments = [CHARGEABLE_FORK_ATTS[a.fork_attachment]];
+    req.attachmentsRequired   = CHARGEABLE_FORK_ATTS[a.fork_attachment]; // ensures RC modal shows acc section
+  }
+
   const pwrForkMap = { electric:'Electric / battery', lpg:'LPG / gas', diesel:'Diesel', any:'No preference' };
   if (a.fork_power_pref) req.forkPowerPreference = pwrForkMap[a.fork_power_pref] || a.fork_power_pref;
   if (a.fork_3phase === 'yes') req.threePhaseCharging = 'Yes — 3-phase charging required';
@@ -29407,7 +29326,7 @@ function getJobRequirements() {
   ].join(' ');
 
   // ── Snapshot timestamp ────────────────────────────────────────────────
-  req._capturedAt = new Date().toLocaleString('en-AU', { timeZone: 'Australia/Sydney' });
+  req._capturedAt = Date.now();
   req._answersSnapshot = { ...a }; // full raw answers object archived
 
   return req;
@@ -31411,6 +31330,7 @@ function openViewQuoteModal(reqId) {
   </div>`;
 
   if (myResp.notes) html += `<div style="margin-top:.6rem;font-size:.82rem;color:#475569;font-style:italic">"${myResp.notes}"</div>`;
+  if (myResp.mhtRequired) html += `<div style="margin-top:.6rem;padding:.55rem .75rem;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #F59E0B;border-radius:9px;display:flex;align-items:center;gap:.5rem"><span style="font-size:1.1rem">⏳</span><div><div style="font-weight:800;color:#92400E;font-size:.82rem">Minimum Hire Term: ${myResp.mhtMonths} month${myResp.mhtMonths>1?'s':''}</div><div style="font-size:.73rem;color:#B45309">You specified this rate requires a committed ${myResp.mhtMonths}-month hire term. The customer has been notified.</div></div></div>`;
   if (myResp.altMachine) html += `<div style="margin-top:.6rem;padding:.55rem .75rem;background:#FFF7ED;border:1.5px solid #FCD34D;border-radius:9px;font-size:.82rem;font-weight:700;color:#92400E">🔄 Offering: ${myResp.altMachine}</div>`;
   if (myResp.question) {
     html += `<div style="margin-top:.6rem;padding:.6rem .75rem;background:#EFF6FF;border:1.5px solid #93C5FD;border-radius:9px;font-size:.82rem">
@@ -31457,11 +31377,11 @@ function sqmSelectWindow(el) {
   const warn = document.getElementById('sqm-urgent-warning');
   if (warn) {
     if (val === '2' || val === '4') {
-      const TZ = 10 * 60 * 60000;
-      const local = new Date(Date.now() + TZ);
-      const h = local.getUTCHours();
-      const d = local.getUTCDay();
-      const isWork = d >= 1 && d <= 5 && h >= 7 && h < 17 && isWorkingDay(local);
+      const _warnState = _sqmResolvedCluster ? _sqmResolvedCluster[1] : '';
+      const _warnWc    = _wcParts(Date.now(), stateToTZ(_warnState));
+      const isWork     = _warnWc.dow >= 1 && _warnWc.dow <= 5
+                      && _warnWc.hour >= 7 && _warnWc.hour < 17
+                      && _isWorkingIso(_warnWc.iso);
       warn.style.display = isWork ? 'none' : 'block';
     } else {
       warn.style.display = 'none';
@@ -31551,7 +31471,7 @@ function submitQuoteRequest() {
     notes:          document.getElementById('sqm-notes').value.trim(),
     date:           document.getElementById('sqm-date').value || new Date().toLocaleDateString('en-AU'),
     ts:             Date.now(),
-    expires:        calcWorkingDeadline(Date.now(), _sqmWindowHours()),
+    expires:        calcWorkingDeadline(Date.now(), _sqmWindowHours(), clusterResult[1]),
     responseWindowHours: _sqmWindowHours(),
     responded:      false,
     acceptedBy:     null,  // company name that was accepted
@@ -31622,7 +31542,7 @@ function buildBlindedEnquiryEmail(req) {
     if (jr.siteNotes)      lines.push(`    – Site notes: ${jr.siteNotes}`);
     if (m.tynes && m.tynes.length) lines.push(`    – Tyne size required: ${m.tynes.join(', ')}`);
     if (m.attachments && m.attachments.length) lines.push(`    – Accessories: ${m.attachments.join(', ')} (quote separately)`);
-    if (jr._capturedAt)    lines.push(`    – Requirements captured: ${jr._capturedAt}`);
+    if (jr._capturedAt)    lines.push(`    – Requirements captured: ${formatTsPlain(jr._capturedAt, req.state)}`);
     return lines.join('\n');
   }).join('\n\n');
 
@@ -31734,7 +31654,7 @@ function confirmBroadcast() {
 
   // Mark as broadcast on the req
   req.broadcastSent = true;
-  req.broadcastAt   = new Date().toLocaleString('en-AU');
+  req.broadcastAt   = formatTsPlain(Date.now(), req.state);
   req.broadcastCount = matchedCos.length;
 
   closeBroadcastModal();
@@ -31761,6 +31681,106 @@ function getCompanyCluster(company) {
 // AUSTRALIAN WORKING HOURS DEADLINE
 // =====================================================================
 // AU national public holidays (fixed + approximate recurring dates through 2030)
+// ── Australian timezone helpers ────────────────────────────────────────────
+// Maps AU state abbreviation → IANA timezone zone identifier.
+// QLD and NT have no DST; SA/WA/TAS/NSW/VIC/ACT follow standard rules.
+const _AU_TZ_MAP = {
+  WA:  'Australia/Perth',      // AWST UTC+8  — no DST
+  SA:  'Australia/Adelaide',   // ACST UTC+9:30 / ACDT UTC+10:30
+  NT:  'Australia/Darwin',     // ACST UTC+9:30 — no DST
+  QLD: 'Australia/Brisbane',   // AEST UTC+10  — no DST
+  TAS: 'Australia/Hobart',     // AEST/AEDT    — same transitions as Sydney
+  NSW: 'Australia/Sydney',
+  VIC: 'Australia/Sydney',
+  ACT: 'Australia/Sydney',
+};
+function stateToTZ(state) {
+  return _AU_TZ_MAP[(state || '').toUpperCase()] || 'Australia/Sydney';
+}
+
+// Wall-clock parts for a UTC timestamp in an IANA timezone.
+// Returns { dow (0=Sun), hour (0-23), min, iso ('YYYY-MM-DD' local date) }
+function _wcParts(tsMs, tz) {
+  const p = {};
+  new Intl.DateTimeFormat('en-AU', {
+    timeZone: tz, weekday: 'short',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hour12: false,
+  }).formatToParts(new Date(tsMs)).forEach(x => { p[x.type] = x.value; });
+  return {
+    dow:  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday),
+    hour: parseInt(p.hour) % 24,   // handle Intl '24' midnight edge case
+    min:  parseInt(p.minute),
+    iso:  `${p.year}-${p.month}-${p.day}`,
+  };
+}
+
+// Returns ISO date string for the next calendar day
+function _nextIsoDate(isoDate) {
+  const [y, m, d] = isoDate.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d + 1)).toISOString().slice(0, 10);
+}
+
+// UTC ms for localHour:00:00 on a given local ISO date in tz.
+// Reliable for all Australian offsets (UTC+8 to UTC+11 incl. DST).
+function _localHourToUtc(isoLocalDate, localHour, tz) {
+  const [y, m, d] = isoLocalDate.split('-').map(Number);
+  // Start search early enough to cover UTC+8 → UTC+11 spread
+  const start = Date.UTC(y, m - 1, d, Math.max(0, localHour - 11), 0, 0);
+  for (let h = 0; h <= 6; h++) {
+    const c = start + h * 3600000;
+    const wc = _wcParts(c, tz);
+    if (wc.iso === isoLocalDate && wc.hour === localHour) return c;
+  }
+  return start + 3 * 3600000; // fallback (should never be needed)
+}
+
+// True if the local ISO date is Mon–Fri and not an AU public holiday
+function _isWorkingIso(isoDate) {
+  const [y, m, d] = isoDate.split('-').map(Number);
+  const dow = new Date(Date.UTC(y, m - 1, d, 12, 0, 0)).getUTCDay(); // noon UTC = stable day-of-week
+  return dow !== 0 && dow !== 6 && !AU_PUBLIC_HOLIDAYS.has(isoDate);
+}
+
+// Short TZ abbreviation for a UTC timestamp in a given AU state.
+// e.g. 'AEST', 'AEDT', 'ACST', 'ACDT', 'AWST'
+function tzAbbr(tsMs, state) {
+  const tz = stateToTZ(state);
+  const wc = _wcParts(tsMs, tz);
+  const d  = new Date(tsMs);
+  let off = (wc.hour * 60 + wc.min) - (d.getUTCHours() * 60 + d.getUTCMinutes());
+  if (off > 720) off -= 1440;
+  if (off < -60)  off += 1440;
+  if (off === 480) return 'AWST';
+  if (off === 570) return 'ACST';
+  if (off === 600) return 'AEST';
+  if (off === 630) return 'ACDT';
+  if (off === 660) return 'AEDT';
+  return `UTC+${(off/60).toFixed(off%60 ? 1 : 0)}`;
+}
+
+// HTML-formatted timestamp in the site state's local timezone, with inline TZ badge
+function formatTsInState(tsMs, state) {
+  if (!tsMs) return '';
+  const tz = stateToTZ(state || '');
+  const s = new Intl.DateTimeFormat('en-AU', {
+    timeZone: tz, day: '2-digit', month: 'short',
+    hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(new Date(tsMs));
+  return `${s}\u202F<span class="tz-badge">${tzAbbr(tsMs, state || '')}</span>`;
+}
+
+// Plain-text version for emails / plain strings
+function formatTsPlain(tsMs, state) {
+  if (!tsMs) return '';
+  const tz = stateToTZ(state || '');
+  const s = new Intl.DateTimeFormat('en-AU', {
+    timeZone: tz, day: '2-digit', month: 'short',
+    hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(new Date(tsMs));
+  return `${s} ${tzAbbr(tsMs, state || '')}`;
+}
+
 const AU_PUBLIC_HOLIDAYS = new Set([
   // New Year's Day
   '2025-01-01','2026-01-01','2027-01-01','2028-01-03','2029-01-01','2030-01-01',
@@ -31780,114 +31800,86 @@ const AU_PUBLIC_HOLIDAYS = new Set([
   '2025-12-26','2026-12-28','2027-12-28','2028-12-26','2029-12-26','2030-12-26',
 ]);
 
+// isWorkingDay kept for any external callers — delegates to _isWorkingIso
 function isWorkingDay(date) {
-  const d = date.getDay(); // 0=Sun 6=Sat
-  if (d === 0 || d === 6) return false;
-  const iso = date.toISOString().slice(0,10);
-  return !AU_PUBLIC_HOLIDAYS.has(iso);
+  const iso = date.toISOString().slice(0, 10); // UTC date — acceptable for legacy callers
+  return _isWorkingIso(iso);
 }
 
-// Given a start timestamp, calculate the deadline that is
-// exactly targetWorkingHours of working time later.
-// Working hours = Mon–Fri 7am–5pm AEST (UTC+10), excluding AU public holidays.
-function calcWorkingDeadline(startTs, targetWorkingHours) {
-  const WORK_START = 7, WORK_END = 17; // hours in local time (7am–5pm)
-  const TZ_OFFSET = 10 * 60; // AEST UTC+10 in minutes
-  let remaining = targetWorkingHours * 60; // in minutes
-  let cursor = new Date(startTs);
+// Given a start timestamp, calculate the deadline that is exactly
+// targetWorkingHours of working time later, using the site state's timezone.
+// Working hours = Mon–Fri 7am–5pm local time, excluding AU public holidays.
+function calcWorkingDeadline(startTs, targetWorkingHours, siteState) {
+  const tz = stateToTZ(siteState);
+  const WORK_START = 7, WORK_END = 17;
+  let remaining = targetWorkingHours * 60; // minutes
+  let cursor = startTs;
 
-  // Advance to next working minute if we start outside working hours
-  function advanceToWork(d) {
-    for (let safety = 0; safety < 30; safety++) {
-      const local = new Date(d.getTime() + TZ_OFFSET * 60000);
-      const dayOfWeek = local.getUTCDay();
-      const hour = local.getUTCHours();
-      if (!isWorkingDay(local) || hour >= WORK_END) {
-        // skip to next day 8am
-        local.setUTCHours(WORK_START, 0, 0, 0);
-        local.setUTCDate(local.getUTCDate() + 1);
-        d = new Date(local.getTime() - TZ_OFFSET * 60000);
-      } else if (hour < WORK_START) {
-        local.setUTCHours(WORK_START, 0, 0, 0);
-        d = new Date(local.getTime() - TZ_OFFSET * 60000);
+  function advanceToWork(ts) {
+    for (let s = 0; s < 30; s++) {
+      const wc = _wcParts(ts, tz);
+      if (!_isWorkingIso(wc.iso) || wc.hour >= WORK_END) {
+        ts = _localHourToUtc(_nextIsoDate(wc.iso), WORK_START, tz);
+      } else if (wc.hour < WORK_START) {
+        ts = _localHourToUtc(wc.iso, WORK_START, tz);
         break;
       } else {
         break;
       }
     }
-    return d;
+    return ts;
   }
 
   cursor = advanceToWork(cursor);
 
   while (remaining > 0) {
-    const local = new Date(cursor.getTime() + TZ_OFFSET * 60000);
-    if (!isWorkingDay(local)) {
-      local.setUTCHours(WORK_START, 0, 0, 0);
-      local.setUTCDate(local.getUTCDate() + 1);
-      cursor = new Date(local.getTime() - TZ_OFFSET * 60000);
+    const wc = _wcParts(cursor, tz);
+    if (!_isWorkingIso(wc.iso)) {
+      cursor = _localHourToUtc(_nextIsoDate(wc.iso), WORK_START, tz);
       continue;
     }
-    const curHour = local.getUTCHours();
-    if (curHour < WORK_START) {
-      local.setUTCHours(WORK_START, 0, 0, 0);
-      cursor = new Date(local.getTime() - TZ_OFFSET * 60000);
+    if (wc.hour < WORK_START) {
+      cursor = _localHourToUtc(wc.iso, WORK_START, tz);
       continue;
     }
-    if (curHour >= WORK_END) {
-      local.setUTCHours(WORK_START, 0, 0, 0);
-      local.setUTCDate(local.getUTCDate() + 1);
-      cursor = new Date(local.getTime() - TZ_OFFSET * 60000);
+    if (wc.hour >= WORK_END) {
+      cursor = _localHourToUtc(_nextIsoDate(wc.iso), WORK_START, tz);
       continue;
     }
-    // Minutes left in current working day
-    const endOfDay = new Date(local.getTime());
-    endOfDay.setUTCHours(WORK_END, 0, 0, 0);
-    const minsToEnd = (endOfDay.getTime() - (cursor.getTime() + TZ_OFFSET*60000)) / 60000;
-    const take = Math.min(minsToEnd, remaining);
-    cursor = new Date(cursor.getTime() + take * 60000);
-    remaining -= take;
-    if (remaining <= 0) break;
-    // End of day — jump to next working day start
-    const nextLocal = new Date(cursor.getTime() + TZ_OFFSET * 60000);
-    nextLocal.setUTCHours(WORK_START, 0, 0, 0);
-    nextLocal.setUTCDate(nextLocal.getUTCDate() + 1);
-    cursor = new Date(nextLocal.getTime() - TZ_OFFSET * 60000);
+    const eod     = _localHourToUtc(wc.iso, WORK_END, tz);
+    const take    = Math.min((eod - cursor) / 60000, remaining);
+    cursor       += take * 60000;
+    remaining    -= take;
+    if (remaining > 0) {
+      cursor = _localHourToUtc(_nextIsoDate(_wcParts(cursor, tz).iso), WORK_START, tz);
+    }
   }
-  return cursor.getTime();
+  return cursor;
 }
 
-// Calculate remaining working minutes between now and deadline
-function workingMinsRemaining(nowTs, deadlineTs) {
-  const TZ_OFFSET = 10 * 60;
-  const WORK_START = 7, WORK_END = 17; // 7am–5pm
+// Calculate remaining working minutes between now and deadline,
+// using the site state's local timezone.
+function workingMinsRemaining(nowTs, deadlineTs, siteState) {
+  const tz = stateToTZ(siteState);
+  const WORK_START = 7, WORK_END = 17;
   if (deadlineTs <= nowTs) return 0;
   let remaining = 0;
-  let cursor = nowTs;
-  const limit = Math.min(deadlineTs, nowTs + 7*24*60*60*1000); // cap search
+  let cursor    = nowTs;
+  const limit   = Math.min(deadlineTs, nowTs + 7 * 24 * 60 * 60 * 1000);
 
   while (cursor < limit) {
-    const local = new Date(cursor + TZ_OFFSET * 60000);
-    const hour = local.getUTCHours();
-    if (!isWorkingDay(local) || hour >= WORK_END || hour < WORK_START) {
-      // advance to next working start
-      const next = new Date(local.getTime());
-      if (!isWorkingDay(local) || hour >= WORK_END) {
-        next.setUTCDate(next.getUTCDate() + 1);
-        next.setUTCHours(WORK_START, 0, 0, 0);
-      } else {
-        next.setUTCHours(WORK_START, 0, 0, 0);
-      }
-      cursor = next.getTime() - TZ_OFFSET * 60000;
+    const wc = _wcParts(cursor, tz);
+    if (!_isWorkingIso(wc.iso) || wc.hour >= WORK_END || wc.hour < WORK_START) {
+      cursor = (!_isWorkingIso(wc.iso) || wc.hour >= WORK_END)
+        ? _localHourToUtc(_nextIsoDate(wc.iso), WORK_START, tz)
+        : _localHourToUtc(wc.iso, WORK_START, tz);
       if (cursor >= deadlineTs) break;
       continue;
     }
-    // In working time — count up to end of working day or deadline
-    const endLocal = new Date(local.getTime());
-    endLocal.setUTCHours(WORK_END, 0, 0, 0);
-    const endTs = Math.min(endLocal.getTime() - TZ_OFFSET * 60000, deadlineTs);
-    remaining += (endTs - cursor) / 60000;
-    cursor = endTs;
+    const eod   = _localHourToUtc(wc.iso, WORK_END, tz);
+    const endTs = Math.min(eod, deadlineTs);
+    remaining  += (endTs - cursor) / 60000;
+    cursor      = endTs;
   }
   return Math.max(0, Math.round(remaining));
 }
@@ -32220,6 +32212,59 @@ function inboxRejectQuote(reqId, responseIdx) {
   showToast('Quote declined', '#64748B');
 }
 
+// ── Plan quota banner rendered above the RC inbox ─────────────────────
+function _renderPlanBanner() {
+  const el = document.getElementById('rc-plan-banner');
+  if (!el) return;
+  const isRcRole = currentUser && ['rental','staff','manager'].includes(currentUser.role);
+  if (!isRcRole) { el.style.display = 'none'; return; }
+
+  const p = _rcPlan();
+  if (!p || !p.hasSubscription) {
+    // No plan — show upgrade prompt
+    el.style.display = 'block';
+    el.innerHTML = `
+      <div style="background:linear-gradient(135deg,#0052CC,#003D99);color:#fff;border-radius:12px;padding:.9rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:900;font-size:.95rem;margin-bottom:.15rem">🔒 No Active Plan</div>
+          <div style="font-size:.78rem;opacity:.85">Subscribe to receive and unlock enquiries from customers in your service area.</div>
+        </div>
+        <button onclick="openSubscribeModal()" style="background:#fff;color:#0052CC;border:none;border-radius:9px;padding:.55rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer;white-space:nowrap">
+          View Plans →
+        </button>
+      </div>`;
+    return;
+  }
+
+  const { cfg, included, used, remaining } = p;
+  const pct     = Math.round((used / included) * 100);
+  const barFill = Math.min(100, pct);
+  const urgent  = remaining <= 2;
+  const barColor = urgent ? '#EF4444' : remaining <= Math.ceil(included * 0.3) ? '#F59E0B' : '#16A34A';
+  const extraCost = cfg.extraPrice;
+
+  el.style.display = 'block';
+  el.innerHTML = `
+    <div style="background:${cfg.badge};border:1.5px solid ${urgent?'#FCA5A5':'#E2E8F0'};border-radius:12px;padding:.8rem 1.1rem;margin-bottom:.8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <span style="font-weight:900;font-size:.9rem;color:${cfg.color}">📦 ${cfg.label} Plan</span>
+          <span style="font-size:.75rem;color:#64748B">$${cfg.price}/mo</span>
+          ${urgent ? '<span style="background:#FEF2F2;color:#DC2626;font-size:.72rem;font-weight:800;padding:.1rem .45rem;border-radius:20px;border:1px solid #FCA5A5">⚠️ Almost out</span>' : ''}
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span style="font-size:.82rem;font-weight:700;color:${remaining===0?'#DC2626':cfg.color}">${remaining} enquir${remaining===1?'y':'ies'} left</span>
+          <span style="font-size:.75rem;color:#94A3B8">of ${included} this month</span>
+          <button onclick="openSubscribeModal()" style="background:none;border:1.5px solid ${cfg.color};border-radius:8px;padding:.22rem .65rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.73rem;color:${cfg.color};cursor:pointer">Manage</button>
+        </div>
+      </div>
+      <div style="background:#E2E8F0;border-radius:99px;height:6px;overflow:hidden">
+        <div style="background:${barColor};width:${barFill}%;height:100%;border-radius:99px;transition:width .4s"></div>
+      </div>
+      ${remaining === 0 ? `<div style="margin-top:.45rem;font-size:.77rem;color:#DC2626;font-weight:700">All included enquiries used — extra enquiries $${extraCost} each. <button onclick="openExtraEnquiryModal()" style="background:none;border:none;color:#0052CC;font-weight:800;font-size:.77rem;cursor:pointer;text-decoration:underline">Top up now</button></div>` : ''}
+    </div>`;
+}
+
 function renderQuoteInbox() {
   const list  = document.getElementById('quote-inbox-list');
   const badge = document.getElementById('inbox-badge');
@@ -32227,6 +32272,9 @@ function renderQuoteInbox() {
   const pending = quoteInbox.filter(r => !r.responded);
   if (badge) badge.textContent = pending.length;
   if (badge) badge.style.display = pending.length ? 'inline' : 'none';
+
+  // ── Plan quota banner ──────────────────────────────────────────────
+  _renderPlanBanner();
 
   if (quoteInbox.length === 0) {
     list.innerHTML = '<div style="padding:1.5rem;text-align:center;color:#94A3B8;font-size:.9rem">No pending enquiries.</div>';
@@ -32256,8 +32304,8 @@ function renderQuoteInbox() {
     const bExpired  = !b.responded && (b.expires - _now0) <= 0;
     const aMsLeft   = a.expires - _now0;
     const bMsLeft   = b.expires - _now0;
-    const aUrgent   = aActive && workingMinsRemaining(_now0, a.expires) < 120;
-    const bUrgent   = bActive && workingMinsRemaining(_now0, b.expires) < 120;
+    const aUrgent   = aActive && workingMinsRemaining(_now0, a.expires, a.state) < 120;
+    const bUrgent   = bActive && workingMinsRemaining(_now0, b.expires, b.state) < 120;
 
     // Tier 1: urgent active (sorted by time left ascending — most urgent first)
     if (aUrgent && !bUrgent) return -1;
@@ -32295,7 +32343,7 @@ function renderQuoteInbox() {
     } else if (msLeft <= 0) {
       timerHtml = '<span class="blind-enq-timer" style="color:#94a3b8;background:#f1f5f9">Expired</span>';
     } else {
-      const wMins = workingMinsRemaining(now, req.expires);
+      const wMins = workingMinsRemaining(now, req.expires, req.state);
       const wHrs = Math.floor(wMins/60), wMin = wMins%60;
       const urgent = wMins < 120; // < 2 working hours
       urgentCard = urgent;
@@ -32492,17 +32540,22 @@ function renderQuoteInbox() {
               </div>`;
             }
 
-            // Accept/Reject buttons
+            // Accept/Reject buttons — only unlocked after the quote window has closed
+            const _inbWindowOpen = req.expires && Date.now() <= req.expires;
             let actBtns = '';
             if (isAcc) {
               actBtns = `<span style="background:#DCFCE7;color:#166534;font-size:.75rem;font-weight:800;padding:.25rem .7rem;border-radius:20px;margin-top:.5rem;display:inline-block">✅ Accepted by Customer</span>`;
             } else if (isRej) {
               actBtns = `<span style="background:#F1F5F9;color:#94A3B8;font-size:.75rem;font-weight:800;padding:.25rem .7rem;border-radius:20px;margin-top:.5rem;display:inline-block">${p.autoRejected?'✗ Auto-rejected':'✗ Declined by Customer'}</span>`;
             } else if (!req.acceptedBy) {
-              actBtns = `<div style="display:flex;gap:.4rem;margin-top:.55rem">
-                <button onclick="inboxAcceptQuote('${req.id}',${ri})" style="flex:1;background:#16A34A;color:#fff;border:none;border-radius:7px;padding:.38rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✅ Accept</button>
-                <button onclick="inboxRejectQuote('${req.id}',${ri})" style="flex:1;background:#F1F5F9;color:#64748B;border:none;border-radius:7px;padding:.38rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✗ Decline</button>
-              </div>`;
+              if (_inbWindowOpen) {
+                actBtns = `<div style="margin-top:.45rem;padding:.3rem .65rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:7px;font-size:.75rem;color:#B45309;font-weight:700">⏳ Window open — accept options unlock once the quote window closes</div>`;
+              } else {
+                actBtns = `<div style="display:flex;gap:.4rem;margin-top:.55rem">
+                  <button onclick="inboxAcceptQuote('${req.id}',${ri})" style="flex:1;background:#16A34A;color:#fff;border:none;border-radius:7px;padding:.38rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✅ Accept</button>
+                  <button onclick="inboxRejectQuote('${req.id}',${ri})" style="flex:1;background:#F1F5F9;color:#64748B;border:none;border-radius:7px;padding:.38rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✗ Decline</button>
+                </div>`;
+              }
             }
 
             return `<div style="background:${isAcc?'#F0FDF4':isRej?'#F8FAFC':'#fff'};border:1.5px solid ${isAcc?'#86EFAC':isRej?'#E2E8F0':isLow?'#BFDBFE':'#E2E8F0'};border-radius:10px;padding:.7rem .85rem;margin-bottom:.45rem">
@@ -32756,6 +32809,13 @@ function openRespondModal(reqId) {
   // Reset shared fields — pre-fill from previous response if editing
   document.getElementById('rq-insurance-pct').value = myPrev ? (myPrev.insurePct ?? '') : '';
   document.getElementById('respond-notes').value    = myPrev ? (myPrev.notes    || '') : '';
+  // Restore MHT state
+  const mhtCb = document.getElementById('rq-mht-enabled');
+  const mhtOpts = document.getElementById('rq-mht-options');
+  const mhtSel  = document.getElementById('rq-mht-months');
+  if (mhtCb) mhtCb.checked = myPrev ? (myPrev.mhtRequired || false) : false;
+  if (mhtOpts) mhtOpts.style.display = (myPrev && myPrev.mhtRequired) ? 'block' : 'none';
+  if (mhtSel && myPrev && myPrev.mhtMonths) mhtSel.value = String(myPrev.mhtMonths);
   const _amEl = document.getElementById('rq-alt-machine'); if (_amEl) _amEl.value = myPrev ? (myPrev.altMachine || '') : '';
   const _atEl = document.getElementById('rq-alt-type');    if (_atEl) _atEl.value = myPrev ? (myPrev.altType    || '') : '';
   const _rqEl = document.getElementById('rq-question');    if (_rqEl) _rqEl.value = myPrev ? (myPrev.question   || '') : '';
@@ -32797,6 +32857,13 @@ function openRespondModal(reqId) {
         }
       });
     }
+    // ── Also inject chargeable fork attachments (jib, rotator) ──────────
+    const chargeableAttsForRC = jr.chargeableAttachments || [];
+    chargeableAttsForRC.forEach(att => {
+      if (!attachmentLineItems.some(a => a.toLowerCase().includes(att.toLowerCase().split(' ')[1] || att))) {
+        attachmentLineItems.push(att);
+      }
+    });
     const hasAccs = attachmentLineItems.length > 0;
     const accPreRows = attachmentLineItems.map((a,ai) => `
       <div data-acc-machine="${i}" style="background:#fff;border:1.5px solid #FCA572;border-radius:9px;padding:.55rem .7rem;margin-top:.45rem">
@@ -33047,6 +33114,10 @@ async function submitResponse() {
   const altType    = document.getElementById('rq-alt-type')?.value    || '';
   const question   = document.getElementById('rq-question')?.value?.trim()    || '';
 
+  // ── Minimum Hire Term ─────────────────────────────────────────────────
+  const mhtEnabled = document.getElementById('rq-mht-enabled')?.checked || false;
+  const mhtMonths  = mhtEnabled ? parseInt(document.getElementById('rq-mht-months')?.value || '6', 10) : 0;
+
   // Read all file slots
   const attachedFiles = await rqReadAllFileSlots();
   // Legacy compat: first quote-type file = quoteFileUrl, first cod-type = codFileUrl
@@ -33111,6 +33182,8 @@ async function submitResponse() {
     gst: tot.gst,
     grandTotal: tot.grandTotal,
     notes,
+    mhtRequired: mhtEnabled || false,
+    mhtMonths:   mhtEnabled ? mhtMonths : 0,
     altMachine: altMachine || undefined,
     altType: altType || undefined,
     question: question || undefined,
@@ -33128,7 +33201,7 @@ async function submitResponse() {
   // On first response: set customer acceptance window = same hours as the response window
   if ((req.responses||[]).length === 1 && !req.customerAcceptExpires) {
     const windowHrs = req.responseWindowHours || 4;
-    req.customerAcceptExpires = calcWorkingDeadline(Date.now(), windowHrs);
+    req.customerAcceptExpires = calcWorkingDeadline(Date.now(), windowHrs, req.state);
     req.customerAcceptWindowHours = windowHrs;
   }
 
@@ -33767,7 +33840,9 @@ function kymRender() {
 
       ${currentUser && currentUser.role === 'rental'
         ? `<div style="margin-top:.7rem;background:#F1F5F9;border:1.5px solid #E2E8F0;border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#94A3B8;font-weight:700;text-align:center">🔒 Log in as a customer to add to cart</div>`
-        : `<button class="kym-add-btn${inCart ? ' in-cart' : ''}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name||'').replace(/'/g,"\\'")}','${catKey}',this)" ${inCart ? 'disabled' : ''}>${inCart ? '✓ In Cart' : '🛒 Add to Quote'}</button>`
+        : currentUser && currentUser.role === 'lite'
+          ? `<div style="margin-top:.7rem;background:rgba(14,165,233,.07);border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#38BDF8;font-weight:700;text-align:center">ℹ️ For information only — contact a rental company to hire</div>`
+          : `<button class="kym-add-btn${inCart ? ' in-cart' : ''}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name||'').replace(/'/g,"\\'")}','${catKey}',this)" ${inCart ? 'disabled' : ''}>${inCart ? '✓ In Cart' : '🛒 Add to Quote'}</button>`
       }
     </div>`;
   }).join('');
@@ -33827,7 +33902,8 @@ setInterval(() => { if (quoteInbox.length) renderQuoteInbox(); }, 30000);
 // ── Toast helper ─────────────────────────────────────────────
 function showToast(msg, bg='#27AE60') {
   const t = document.createElement('div');
-  t.style.cssText = `position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:${bg};color:#fff;padding:.8rem 1.8rem;border-radius:50px;font-weight:800;font-size:.95rem;box-shadow:0 4px 20px rgba(0,0,0,.2);z-index:99999;animation:fadeUp .3s ease;white-space:nowrap;max-width:90vw;text-align:center`;
+  t.className = 'noyo-toast';
+  t.style.background = bg;
   t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(()=>t.remove(), 3500);
@@ -34136,6 +34212,113 @@ function _renderSectorGrid(gridId, selectedSectors) {
 function qdmAccept(reqId, responseIdx) {
   const req = quoteInbox.find(r => r.id === reqId);
   if (!req || !req.responses[responseIdx]) return;
+  const resp = req.responses[responseIdx];
+
+  // ── GATE 1: Quote document must be attached ───────────────────────────
+  const hasQuoteDoc = !!(resp.quoteFileUrl ||
+    (resp.attachedFiles && resp.attachedFiles.some(f => f.docType === 'quote' || f.docType === 'formal_quote')));
+  if (!hasQuoteDoc) {
+    // Show blocking modal — cannot accept without formal quote
+    const overlay = document.createElement('div');
+    overlay.id = 'no-quote-doc-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9990;display:flex;align-items:center;justify-content:center;padding:1rem';
+    overlay.innerHTML = `
+      <div style="background:#fff;border-radius:18px;padding:1.6rem 1.5rem;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+        <div style="font-size:2.5rem;text-align:center;margin-bottom:.7rem">🚫</div>
+        <div style="font-weight:900;color:#DC2626;font-size:1.05rem;text-align:center;margin-bottom:.5rem">Cannot Accept — No Formal Quote Attached</div>
+        <div style="font-size:.84rem;color:#475569;line-height:1.65;margin-bottom:1rem;text-align:center">
+          The rental company has not attached a formal quote document to this response.<br><br>
+          <strong>Noyo requires a formal quote document before you can accept.</strong> This protects you and ensures there is a clear record of what you are agreeing to.<br><br>
+          Please contact <strong>${resp.company||'the rental company'}</strong> and ask them to resubmit with a quote document attached.
+        </div>
+        <button onclick="document.getElementById('no-quote-doc-overlay').remove()"
+          style="width:100%;background:#0052CC;color:#fff;border:none;border-radius:10px;padding:.7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer">
+          OK — I'll Request a Formal Quote
+        </button>
+      </div>`;
+    document.body.appendChild(overlay);
+    return;
+  }
+
+  // ── GATE 2: T&C acknowledgment modal ─────────────────────────────────
+  const mhtNote = resp.mhtRequired
+    ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #F59E0B;border-radius:10px;padding:.65rem .9rem;margin:.8rem 0;display:flex;align-items:center;gap:.5rem">
+        <span style="font-size:1.2rem;flex-shrink:0">⏳</span>
+        <div>
+          <div style="font-weight:800;color:#92400E;font-size:.82rem">Minimum Hire Term: ${resp.mhtMonths} month${resp.mhtMonths>1?'s':''}</div>
+          <div style="font-size:.75rem;color:#B45309;margin-top:.1rem">By accepting, you are committing to a minimum hire period of <strong>${resp.mhtMonths} month${resp.mhtMonths>1?'s':''}</strong>. Early termination terms are set by the rental company.</div>
+        </div>
+      </div>` : '';
+
+  const overlay2 = document.createElement('div');
+  overlay2.id = 'accept-tnc-overlay';
+  overlay2.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9990;display:flex;align-items:center;justify-content:center;padding:1rem';
+  overlay2.innerHTML = `
+    <div style="background:#fff;border-radius:18px;padding:1.6rem 1.5rem;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:92vh;overflow-y:auto">
+      <div style="font-size:2rem;text-align:center;margin-bottom:.5rem">📋</div>
+      <div style="font-weight:900;color:#0F172A;font-size:1.05rem;text-align:center;margin-bottom:.35rem">Before You Accept</div>
+      <div style="font-size:.8rem;color:#64748B;text-align:center;margin-bottom:.9rem">Please read and confirm the following before accepting the quote from <strong>${resp.company||'this rental company'}</strong></div>
+
+      ${mhtNote}
+
+      <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:.85rem 1rem;margin-bottom:.85rem;font-size:.78rem;color:#475569;line-height:1.7">
+        <div style="font-weight:800;color:#0F172A;font-size:.84rem;margin-bottom:.5rem">⚠️ Noyo Platform — Important Notice</div>
+        <p style="margin:.2rem 0"><strong>Noyo is a platform only.</strong> Noyo introduces you to rental companies but is <strong>not a party</strong> to any hire agreement, rental contract, or transaction between you and the rental company.</p>
+        <p style="margin:.4rem 0">Noyo accepts <strong>no responsibility or liability</strong> for: the hire agreement, pricing, equipment condition or suitability, transport, damage, disputes, or any other outcome of this transaction. All of these matters are solely between you and <strong>${resp.company||'the rental company'}</strong>.</p>
+        <p style="margin:.4rem 0">The contract of hire is directly between <strong>you and the rental company</strong>. You are responsible for verifying the equipment is appropriate for your application and site conditions before signing any hire agreement.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:.55rem;margin-bottom:1rem">
+        <label style="display:flex;align-items:flex-start;gap:.6rem;cursor:pointer;padding:.55rem .7rem;background:#F0F9FF;border:1.5px solid #BAE6FD;border-radius:10px">
+          <input type="checkbox" id="tnc-cb-1" onchange="qdmCheckTncReady()"
+            style="margin-top:.1rem;width:18px;height:18px;accent-color:#0052CC;flex-shrink:0">
+          <span style="font-size:.8rem;color:#0F172A;line-height:1.5">I have read and understood the formal quote document attached by <strong>${resp.company||'the rental company'}</strong>, and I agree to the rates, terms, and conditions set out in that document.</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:.6rem;cursor:pointer;padding:.55rem .7rem;background:#F0F9FF;border:1.5px solid #BAE6FD;border-radius:10px">
+          <input type="checkbox" id="tnc-cb-2" onchange="qdmCheckTncReady()"
+            style="margin-top:.1rem;width:18px;height:18px;accent-color:#0052CC;flex-shrink:0">
+          <span style="font-size:.8rem;color:#0F172A;line-height:1.5">I acknowledge that Noyo is an introduction platform only and accepts no responsibility for any hire agreement, dispute, equipment condition, transport, or any other outcome of this transaction. My contract is with <strong>${resp.company||'the rental company'}</strong> directly.</span>
+        </label>
+        ${resp.mhtRequired ? `
+        <label style="display:flex;align-items:flex-start;gap:.6rem;cursor:pointer;padding:.55rem .7rem;background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px">
+          <input type="checkbox" id="tnc-cb-3" onchange="qdmCheckTncReady()"
+            style="margin-top:.1rem;width:18px;height:18px;accent-color:#F59E0B;flex-shrink:0">
+          <span style="font-size:.8rem;color:#78350F;line-height:1.5">I understand this rate is subject to a <strong>minimum hire term of ${resp.mhtMonths} month${resp.mhtMonths>1?'s':''}</strong> and I am committing to this period by accepting. Early termination terms are governed by the rental company's hire agreement.</span>
+        </label>` : ''}
+      </div>
+
+      <button id="tnc-confirm-btn" onclick="qdmConfirmAccept('${reqId}',${responseIdx})"
+        disabled
+        style="width:100%;background:#CBD5E1;color:#fff;border:none;border-radius:12px;padding:.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:not-allowed;transition:all .2s;margin-bottom:.5rem">
+        ✅ Accept Quote — I Confirm All of the Above
+      </button>
+      <button onclick="document.getElementById('accept-tnc-overlay').remove()"
+        style="width:100%;background:none;border:1.5px solid #CBD5E1;border-radius:12px;padding:.65rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.88rem;color:#64748B;cursor:pointer">
+        Cancel — Go Back
+      </button>
+    </div>`;
+  document.body.appendChild(overlay2);
+}
+
+function qdmCheckTncReady() {
+  const cb1 = document.getElementById('tnc-cb-1');
+  const cb2 = document.getElementById('tnc-cb-2');
+  const cb3 = document.getElementById('tnc-cb-3'); // may not exist (no MHT)
+  const btn = document.getElementById('tnc-confirm-btn');
+  if (!btn) return;
+  const allTicked = cb1?.checked && cb2?.checked && (!cb3 || cb3.checked);
+  btn.disabled = !allTicked;
+  btn.style.background    = allTicked ? '#16A34A' : '#CBD5E1';
+  btn.style.cursor        = allTicked ? 'pointer'  : 'not-allowed';
+}
+
+function qdmConfirmAccept(reqId, responseIdx) {
+  // Remove T&C overlay
+  const ov = document.getElementById('accept-tnc-overlay');
+  if (ov) ov.remove();
+  // Now perform the actual accept
+  const req = quoteInbox.find(r => r.id === reqId);
+  if (!req || !req.responses[responseIdx]) return;
   const acceptedCompany = req.responses[responseIdx].company;
   // Accept this one, auto-reject all others
   (req.responses||[]).forEach((r, i) => {
@@ -34144,11 +34327,14 @@ function qdmAccept(reqId, responseIdx) {
   });
   req.acceptedBy = acceptedCompany;
   req.responded  = true;
+  req.acceptedAt = Date.now();
   saveInbox();
   saveQuoteToFirebase(req);
   renderMyQuotes();
+  renderQuoteInbox();
   openQuoteDetailModal(reqId);
   showToast(`✅ Quote from ${acceptedCompany} accepted! Others notified.`, '#16A34A');
+  setTimeout(() => openRateNoyo(reqId), 1200);
 }
 
 function qdmReject(reqId, responseIdx) {
@@ -34171,7 +34357,7 @@ function openQuoteDetailModal(reqId) {
   const windowLabel = req.responseWindowHours===2 ? '🚨 Express — 2h window' : req.responseWindowHours===4 ? '⚡ Same Day — 4h window' : '📋 Project / Bulk — 8h window';
   const expired = req.expires && Date.now() > req.expires;
   const timeLeft = !expired && req.expires ? (() => {
-    const wMins = workingMinsRemaining(Date.now(), req.expires);
+    const wMins = workingMinsRemaining(Date.now(), req.expires, req.state);
     return wMins > 60 ? `${Math.floor(wMins/60)}h ${wMins%60}m left` : `${wMins}m left`;
   })() : 'Closed';
   document.getElementById('qdm-meta').innerHTML =
@@ -34185,7 +34371,7 @@ function openQuoteDetailModal(reqId) {
     if (!req.acceptedBy && req.responses && (req.responses||[]).length > 0 && _aDeadline) {
       const _aExp = _now3 > _aDeadline;
       if (!_aExp) {
-        const _aMins = workingMinsRemaining(_now3, _aDeadline);
+        const _aMins = workingMinsRemaining(_now3, _aDeadline, req.state);
         const _aLabel = _aMins > 60 ? `${Math.floor(_aMins/60)}h ${_aMins%60}m` : `${_aMins}m`;
         const _urg = _aMins < 60;
         _qdmAccEl.innerHTML = `<div style="padding:.5rem .8rem;background:${_urg?'#FEF2F2':'#FFFBEB'};border:1.5px solid ${_urg?'#FCA5A5':'#FCD34D'};border-radius:9px;font-size:.82rem;font-weight:700;color:${_urg?'#DC2626':'#B45309'};display:flex;align-items:center;gap:.5rem">${_urg?'🚨':'⏱️'} Customer acceptance window: <strong>${_aLabel} remaining</strong></div>`;
@@ -34280,14 +34466,17 @@ function openQuoteDetailModal(reqId) {
           </div>`;
         }
 
-        // Accept/Reject state
+        // Accept/Reject state — buttons only appear after the quote window has closed
         const isAccepted = p.accepted === true;
         const isRejected = p.rejected === true || p.autoRejected === true;
+        const _qdmWindowOpen = req.expires && Date.now() <= req.expires;
         let actionHtml = '';
         if (isAccepted) {
           actionHtml = `<div style="background:#DCFCE7;color:#166534;font-weight:800;font-size:.82rem;padding:.4rem .9rem;border-radius:8px;display:inline-block;margin-top:.6rem">✅ Accepted</div>`;
         } else if (isRejected) {
           actionHtml = `<div style="background:#F1F5F9;color:#94A3B8;font-weight:800;font-size:.82rem;padding:.4rem .9rem;border-radius:8px;display:inline-block;margin-top:.6rem">${p.autoRejected ? '✗ Auto-rejected — another quote was accepted' : '✗ Declined'}</div>`;
+        } else if (_qdmWindowOpen) {
+          actionHtml = `<div style="margin-top:.65rem;padding:.38rem .8rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:8px;font-size:.78rem;color:#B45309;font-weight:700">⏳ Accepting unlocks once the quote window closes</div>`;
         } else {
           actionHtml = `<div style="display:flex;gap:.5rem;margin-top:.7rem">
             <button onclick="qdmAccept('${req.id}',${idx})" style="flex:1;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">✅ Accept</button>
@@ -34307,6 +34496,14 @@ function openQuoteDetailModal(reqId) {
             </div>
             ${p.notes ? `<div style="font-size:.78rem;color:#64748B;margin-top:.25rem;font-style:italic">"${p.notes}"</div>` : ''}
           </div>
+          ${p.mhtRequired ? `
+          <div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #F59E0B;border-radius:9px;padding:.55rem .85rem;margin-top:.55rem;display:flex;align-items:center;gap:.6rem">
+            <span style="font-size:1.3rem;flex-shrink:0">⏳</span>
+            <div>
+              <div style="font-weight:800;color:#92400E;font-size:.82rem">Minimum Hire Term: ${p.mhtMonths} month${p.mhtMonths>1?'s':''}</div>
+              <div style="font-size:.74rem;color:#B45309;margin-top:.1rem;line-height:1.4">This special rate requires a committed hire period of <strong>${p.mhtMonths} month${p.mhtMonths>1?'s':''}</strong>. If you accept this quote, you agree to the minimum hire term. Confirm the full term details with the rental company before accepting.</div>
+            </div>
+          </div>` : ''}
           ${breakdownHtml}
           ${actionHtml}
         </div>`;
@@ -34318,8 +34515,9 @@ function openQuoteDetailModal(reqId) {
 }
 
 function mqClearFilters() {
-  const s = document.getElementById('mq-sort-select');     if (s) s.value = 'newest';
+  const s = document.getElementById('mq-sort-select');     if (s) s.value = 'expiry';
   const f = document.getElementById('mq-status-filter');   if (f) f.value = 'all';
+  const e = document.getElementById('mq-expiry-filter');   if (e) e.value = 'all';
   const df = document.getElementById('mq-date-from');      if (df) df.value = '';
   const dt = document.getElementById('mq-date-to');        if (dt) dt.value = '';
   renderMyQuotes();
@@ -34339,23 +34537,37 @@ function renderMyQuotes() {
   });
 
   // ── Read filter/sort controls ────────────────────────────────
-  const sortVal   = document.getElementById('mq-sort-select')?.value   || 'newest';
+  const sortVal   = document.getElementById('mq-sort-select')?.value   || 'expiry';
   const statusF   = document.getElementById('mq-status-filter')?.value || 'all';
+  const expiryF   = document.getElementById('mq-expiry-filter')?.value || 'all';
   const dateFrom  = document.getElementById('mq-date-from')?.value     || '';
   const dateTo    = document.getElementById('mq-date-to')?.value       || '';
 
   // Filter
   let myReqs = allMyReqs.filter(r => {
-    // Status filter
-    const hasResp = (r.responses||[]).length > 0;
-    const isAccepted = !!r.acceptedBy;
     const now = Date.now();
-    const isExpired = !isAccepted && !hasResp && r.expires && now > r.expires;
-    if (statusF === 'accepted'  && !isAccepted) return false;
-    if (statusF === 'responded' && !hasResp)     return false;
-    if (statusF === 'pending'   && (hasResp || isExpired || isAccepted)) return false;
-    if (statusF === 'closed'    && !(isExpired || (isAccepted && !hasResp)))  return false;
-    // Date filter
+    const hasResp    = (r.responses||[]).length > 0;
+    const isAccepted = !!r.acceptedBy;
+    const windowOpen = r.expires && now <= r.expires;
+    const isExpired  = !isAccepted && r.expires && now > r.expires;
+
+    // ── Status filter ─────────────────────────────────────────
+    if (statusF === 'accepted'     && !isAccepted)              return false;
+    if (statusF === 'has-responses'&& !hasResp)                 return false;
+    if (statusF === 'responded'    && !hasResp)                 return false;
+    if (statusF === 'pending'      && (hasResp || isExpired || isAccepted)) return false;
+    if (statusF === 'closed'       && !(isExpired || (isAccepted && !hasResp))) return false;
+
+    // ── Expiry-time filter ────────────────────────────────────
+    if (expiryF === 'open' && !windowOpen)         return false;
+    if (expiryF === 'closed' && windowOpen)        return false;
+    if (expiryF === 'closing-soon') {
+      if (!windowOpen) return false;
+      const wm = workingMinsRemaining(now, r.expires, r.state);
+      if (wm >= 120) return false;
+    }
+
+    // ── Date filter ───────────────────────────────────────────
     if (dateFrom || dateTo) {
       const ts = r.ts ? new Date(r.ts) : null;
       if (!ts) return false;
@@ -34368,7 +34580,43 @@ function renderMyQuotes() {
 
   // Sort
   myReqs = myReqs.sort((a, b) => {
+    const now = Date.now();
+
+    // ── Expiring soonest (default) ────────────────────────────
+    // Tier 0: window open  → sort by expires ASC (most urgent first)
+    // Tier 1: window closed, not accepted → sort by expires DESC (most recently closed first)
+    // Tier 2: accepted → sort by ts DESC
+    if (sortVal === 'expiry') {
+      const tier = r => {
+        if (r.acceptedBy) return 2;
+        if (!r.expires || now > r.expires) return 1;
+        return 0;
+      };
+      const ta = tier(a), tb = tier(b);
+      if (ta !== tb) return ta - tb;
+      if (ta === 0) return (a.expires||0) - (b.expires||0); // soonest first
+      if (ta === 1) return (b.expires||0) - (a.expires||0); // most recently closed first
+      return (b.ts||0) - (a.ts||0);
+    }
+
+    // ── First response received ───────────────────────────────
+    // Quotes where a rental company responded earliest come first.
+    // Quotes with no response yet go to the bottom (sorted newest first).
+    if (sortVal === 'first-in') {
+      const firstTs = r => {
+        const resps = r.responses || [];
+        if (!resps.length) return Infinity;
+        return Math.min(...resps.map(p => p.ts || Infinity));
+      };
+      const fa = firstTs(a), fb = firstTs(b);
+      if (fa === Infinity && fb === Infinity) return (b.ts||0) - (a.ts||0);
+      if (fa === Infinity) return 1;
+      if (fb === Infinity) return -1;
+      return fa - fb;
+    }
+
     if (sortVal === 'oldest') return (a.ts||0) - (b.ts||0);
+
     if (sortVal === 'lowest' || sortVal === 'highest') {
       const priceOf = r => {
         const prices = (r.responses||[]).map(p => parseFloat(String(p.grandTotal||p.price||'').replace(/[^0-9.]/g,''))).filter(n=>!isNaN(n));
@@ -34376,17 +34624,19 @@ function renderMyQuotes() {
       };
       return sortVal === 'lowest' ? priceOf(a) - priceOf(b) : priceOf(b) - priceOf(a);
     }
+
     if (sortVal === 'status') {
       const tier = r => {
         const hasR = (r.responses||[]).length > 0;
-        if (hasR && !r.acceptedBy) return 0;  // active with responses — first
-        if (!hasR && r.expires && Date.now() < r.expires) return 1; // pending
-        if (r.acceptedBy) return 2; // accepted
-        return 3; // expired/closed
+        if (hasR && !r.acceptedBy) return 0;
+        if (!hasR && r.expires && now < r.expires) return 1;
+        if (r.acceptedBy) return 2;
+        return 3;
       };
       return tier(a) - tier(b);
     }
-    return (b.ts||0) - (a.ts||0); // newest
+
+    return (b.ts||0) - (a.ts||0); // newest (fallback)
   });
 
   // ── Summary stats (always from ALL requests, not filtered) ───
@@ -34595,14 +34845,17 @@ function renderMyQuotes() {
                   } else if (isRej2) {
                     btnHtml = `<div style="background:#F1F5F9;color:#94A3B8;font-weight:700;font-size:.75rem;padding:.3rem .6rem;border-radius:8px;text-align:center">✗ Declined</div>`;
                   } else if (!req.acceptedBy) {
+                    const _mqWinOpen3 = req.expires && Date.now() <= req.expires;
                     const _aExp3 = req.customerAcceptExpires && Date.now() > req.customerAcceptExpires;
-                    btnHtml = _aExp3
-                      ? `<div style="color:#94A3B8;font-size:.74rem;font-weight:700;text-align:center">🔒 Window closed</div>`
-                      : `<div style="display:flex;flex-direction:column;gap:.3rem">
-                          <button onclick="mqAccept('${req.id}',${origIdxC})" style="width:100%;background:${isPart3?'#D97706':'#16A34A'};color:#fff;border:none;border-radius:7px;padding:.42rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer">✅ Accept${isPart3?' Partial':''}</button>
-                          <button onclick="mqReject('${req.id}',${origIdxC})" style="width:100%;background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer">✗ Decline</button>
-                          ${(() => { const _rn = r.notes||r.altMachine||r.question; return _rn ? `<button onclick="var d=document.getElementById('mq-notes-pop-${origIdxC}-${req.id.replace(/[^a-z0-9]/gi,'')}');if(d)d.style.display=d.style.display==='none'?'block':'none'" style="width:100%;background:#FFF7ED;color:#C2410C;border:1.5px solid #FCD34D;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer">📝 Read Notes</button><div id="mq-notes-pop-${origIdxC}-${req.id.replace(/[^a-z0-9]/gi,'')}" style="display:none;background:#FFF7ED;border:1px solid #FCD34D;border-radius:8px;padding:.5rem .65rem;font-size:.77rem;color:#78350F;margin-top:.1rem;text-align:left;line-height:1.5">${r.altMachine?`<strong>🔄 Offering:</strong> ${r.altMachine}<br>`:''}${r.altType&&r.altType!=='Exact match'?`<em>${r.altType}</em><br>`:''}${r.notes?`<strong>Note:</strong> "${r.notes}"<br>`:''}${r.question?`<strong>❓ Question:</strong> "${r.question}"`:''}</div>` : `<div style="width:100%;background:#F8FAFC;color:#CBD5E1;border:1.5px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;text-align:center">📝 No Notes</div>`; })()}
-                        </div>`;
+                    btnHtml = _mqWinOpen3
+                      ? `<div style="color:#B45309;font-size:.73rem;font-weight:700;text-align:center;padding:.25rem .3rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:7px">⏳ Window open</div>`
+                      : _aExp3
+                        ? `<div style="color:#94A3B8;font-size:.74rem;font-weight:700;text-align:center">🔒 Window closed</div>`
+                        : `<div style="display:flex;flex-direction:column;gap:.3rem">
+                            <button onclick="mqAccept('${req.id}',${origIdxC})" style="width:100%;background:${isPart3?'#D97706':'#16A34A'};color:#fff;border:none;border-radius:7px;padding:.42rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer">✅ Accept${isPart3?' Partial':''}</button>
+                            <button onclick="mqReject('${req.id}',${origIdxC})" style="width:100%;background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer">✗ Decline</button>
+                            ${(() => { const _rn = r.notes||r.altMachine||r.question; return _rn ? `<button onclick="var d=document.getElementById('mq-notes-pop-${origIdxC}-${req.id.replace(/[^a-z0-9]/gi,'')}');if(d)d.style.display=d.style.display==='none'?'block':'none'" style="width:100%;background:#FFF7ED;color:#C2410C;border:1.5px solid #FCD34D;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer">📝 Read Notes</button><div id="mq-notes-pop-${origIdxC}-${req.id.replace(/[^a-z0-9]/gi,'')}" style="display:none;background:#FFF7ED;border:1px solid #FCD34D;border-radius:8px;padding:.5rem .65rem;font-size:.77rem;color:#78350F;margin-top:.1rem;text-align:left;line-height:1.5">${r.altMachine?`<strong>🔄 Offering:</strong> ${r.altMachine}<br>`:''}${r.altType&&r.altType!=='Exact match'?`<em>${r.altType}</em><br>`:''}${r.notes?`<strong>Note:</strong> "${r.notes}"<br>`:''}${r.question?`<strong>❓ Question:</strong> "${r.question}"`:''}</div>` : `<div style="width:100%;background:#F8FAFC;color:#CBD5E1;border:1.5px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;text-align:center">📝 No Notes</div>`; })()}
+                          </div>`;
                   }
                   return `<td style="padding:.5rem .5rem;text-align:center;background:${isLow?'#F0FDF4':'#F8FAFC'};border-top:2px solid ${isLow?'#86EFAC':'#E2E8F0'}">${btnHtml}</td>`;
                 }).join('')}
@@ -34620,7 +34873,7 @@ function renderMyQuotes() {
     let _acceptCountdownHtml = '';
     if (!req.acceptedBy && responses.length > 0) {
       if (_acceptDeadline && !_acceptExpired) {
-        const _wMins = workingMinsRemaining(_now2, _acceptDeadline);
+        const _wMins = workingMinsRemaining(_now2, _acceptDeadline, req.state);
         const _tLabel = _wMins > 60 ? `${Math.floor(_wMins/60)}h ${_wMins%60}m` : `${_wMins}m`;
         const _urgent = _wMins < 60;
         _acceptCountdownHtml = `<div style="margin-top:.7rem;padding:.6rem .9rem;background:${_urgent?'#FEF2F2':'#FFFBEB'};border:1.5px solid ${_urgent?'#FCA5A5':'#FCD34D'};border-radius:10px;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
@@ -34694,6 +34947,7 @@ function renderMyQuotes() {
                 <span style="font-weight:900;color:#0052CC">Total inc. GST</span><span style="font-weight:900;color:#0052CC;text-align:right">$${(!isNaN(pNum)?pNum:0).toFixed(2)}</span>
               </div>
               ${p.notes?`<div style="font-size:.77rem;color:#64748B;font-style:italic;margin-top:.35rem">"${p.notes}"</div>`:''}
+              ${p.mhtRequired ? `<div style="margin-top:.5rem;padding:.5rem .75rem;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #F59E0B;border-radius:9px;display:flex;align-items:center;gap:.5rem"><span style="font-size:1.1rem;flex-shrink:0">⏳</span><div><div style="font-weight:800;color:#92400E;font-size:.8rem">Minimum Hire Term: ${p.mhtMonths} month${p.mhtMonths>1?'s':''}</div><div style="font-size:.72rem;color:#B45309;margin-top:.1rem">This rate requires a committed ${p.mhtMonths}-month hire. Confirm full term details with the rental company before accepting.</div></div></div>` : ''}
               ${p.altMachine ? `<div style="margin-top:.55rem;padding:.55rem .75rem;background:#FFF7ED;border:1.5px solid #FCD34D;border-radius:9px">
                 <div style="font-size:.72rem;font-weight:800;color:#92400E;margin-bottom:.2rem">🔄 Machine Being Offered</div>
                 <div style="font-size:.83rem;font-weight:700;color:#1E293B">${p.altMachine}</div>
@@ -34727,10 +34981,14 @@ function renderMyQuotes() {
             mqActBtns = `<div style="background:#F1F5F9;color:#94A3B8;font-weight:700;font-size:.75rem;padding:.25rem .7rem;border-radius:20px;display:inline-block;margin-top:.4rem">${p.autoRejected?'✗ Auto-rejected':'✗ Declined'}</div>`;
           } else if (!req.acceptedBy && sortedResponses.length < 2) {
             // Only show buttons on card if there's no comparison table (single response)
+            const _mqWinOpen4 = req.expires && Date.now() <= req.expires;
             const _aExp4 = req.customerAcceptExpires && Date.now() > req.customerAcceptExpires;
-            mqActBtns = _aExp4
-              ? `<div style="margin-top:.5rem;padding:.35rem .7rem;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:.78rem;color:#94A3B8;font-weight:700;text-align:center">🔒 Acceptance window closed</div>`
-              : `<div style="display:flex;flex-direction:column;gap:.3rem;margin-top:.55rem">
+            if (_mqWinOpen4) {
+              mqActBtns = `<div style="margin-top:.5rem;padding:.38rem .75rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:8px;font-size:.78rem;color:#B45309;font-weight:700">⏳ Accepting unlocks once the quote window closes</div>`;
+            } else if (_aExp4) {
+              mqActBtns = `<div style="margin-top:.5rem;padding:.35rem .7rem;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:.78rem;color:#94A3B8;font-weight:700;text-align:center">🔒 Acceptance window closed</div>`;
+            } else {
+              mqActBtns = `<div style="display:flex;flex-direction:column;gap:.3rem;margin-top:.55rem">
                   <div style="display:flex;gap:.4rem">
                     <button onclick="mqAccept('${req.id}',${origIdx})" style="flex:1;background:${isPartial?'#D97706':'#16A34A'};color:#fff;border:none;border-radius:8px;padding:.4rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">✅ Accept${isPartial?' Partial Quote':''}</button>
                     <button onclick="mqReject('${req.id}',${origIdx})" style="flex:1;background:#F1F5F9;color:#64748B;border:none;border-radius:8px;padding:.4rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">✗ Decline</button>
@@ -34744,6 +35002,7 @@ function renderMyQuotes() {
                     return `<div style="display:flex;gap:.3rem;flex-wrap:wrap">${_rn?`<button onclick="var d=document.getElementById('${cid}-notepop');if(d)d.style.display=d.style.display==='none'?'block':'none'" style="flex:1;min-width:100px;background:#FFF7ED;color:#C2410C;border:1.5px solid #FCD34D;border-radius:8px;padding:.38rem .6rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer">📝 Read Notes</button>`:`<div style="flex:1;min-width:100px;background:#F8FAFC;color:#CBD5E1;border:1.5px solid #E2E8F0;border-radius:8px;padding:.38rem .6rem;text-align:center;font-weight:700;font-size:.79rem">📝 No Notes</div>`}${allFiles.map(f=>`<a href="${f.url}" target="_blank" download="${f.name}" style="flex:1;min-width:100px;background:${f.docType==='cod'||f.docType==='account'?'#F0FDF4':'#EFF6FF'};color:${f.docType==='cod'||f.docType==='account'?'#15803D':'#1D4ED8'};border:1.5px solid ${f.docType==='cod'||f.docType==='account'?'#86EFAC':'#93C5FD'};border-radius:8px;padding:.38rem .6rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.77rem;cursor:pointer;text-align:center;text-decoration:none;white-space:nowrap">📎 ${f.docLabel||f.name}</a>`).join('')}
                     </div>${_rn?`<div id="${cid}-notepop" style="display:none;background:#FFF7ED;border:1.5px solid #FCD34D;border-radius:9px;padding:.6rem .75rem;font-size:.8rem;color:#78350F;line-height:1.6">${p.altMachine?`<div><strong>🔄 Overall:</strong> ${p.altMachine}${p.altType&&p.altType!=='Exact match'?' — '+p.altType:''}</div>`:''} ${p.notes?`<div><strong>📝 Note:</strong> "${p.notes}"</div>`:''} ${p.question?`<div><strong>❓ Question:</strong> "${p.question}"</div>`:''} ${(p.machineBreakdowns||[]).filter(mb=>mb.altMachine||mb.question).map(mb=>`<div style="border-top:1px solid #FDE68A;margin-top:.3rem;padding-top:.3rem">${mb.emoji||'🏗️'} <strong>${mb.name}:</strong>${mb.altMachine?` 🔄 ${mb.altMachine}`:''} ${mb.question?`<br>❓ "${mb.question}"`:''}</div>`).join('')}</div>`:''}`; })()}
                 </div>`;
+            }
           }
 
           return `<div style="background:${cardBg};border:1.5px solid ${cardBdr};border-radius:11px;padding:.75rem .9rem;margin-bottom:.45rem;opacity:${isRej&&!isAcc?'.5':'1'}">
@@ -34989,23 +35248,8 @@ function mqSendAnswer(reqId, responseIdx, cid) {
 }
 
 function mqAccept(reqId, responseIdx) {
-  const req = quoteInbox.find(r => r.id === reqId);
-  if (!req || !req.responses[responseIdx]) return;
-  const acceptedCompany = req.responses[responseIdx].company;
-  (req.responses||[]).forEach((r, i) => {
-    if (i === responseIdx) { r.accepted = true; r.rejected = false; }
-    else { r.rejected = true; r.accepted = false; r.autoRejected = true; }
-  });
-  req.acceptedBy = acceptedCompany;
-  req.acceptedAt = Date.now();
-  req.responded  = true;
-  saveInbox();
-  saveQuoteToFirebase(req);
-  renderMyQuotes();
-  renderQuoteInbox();
-  showToast(`✅ Quote from ${acceptedCompany} accepted! They have been notified.`, '#16A34A');
-  // Prompt customer to rate Noyo after accepting
-  setTimeout(() => openRateNoyo(reqId), 1200);
+  // Route through the same T&C gate as qdmAccept (detail modal path)
+  qdmAccept(reqId, responseIdx);
 }
 
 function mqReject(reqId, responseIdx) {
@@ -35343,6 +35587,10 @@ function openForm(type, pendingView) {
     if (title) title.textContent = 'Rental Company Portal';
     if (sub) sub.textContent   = 'Sign in or register your company';
     if (btn) { btn.className = 'lp-submit rental'; btn.textContent = 'Sign In'; }
+  } else if (type === 'lite') {
+    if (title) title.textContent = 'Noyo Lite — Machine Finder';
+    if (sub) sub.textContent   = 'For information only — no quoting or pricing';
+    if (btn) { btn.className = 'lp-submit lite'; btn.textContent = 'Sign In'; }
   } else {
     if (title) title.textContent = 'Customer Access';
     if (sub) sub.textContent   = 'Sign in or create an account';
@@ -35364,27 +35612,41 @@ function setAuthMode(mode) {
   const regFields = document.querySelectorAll('.lp-reg-only');
 
   const isRental = (wrap._loginType === 'rental');
+  const isLite   = (wrap._loginType === 'lite');
   if (mode === 'register') {
     // Clear all fields fresh every time Register tab is opened — never carry over data from a previous session
-    ['lp-name','lp-company','lp-abn','lp-mobile','lp-address','lp-suburb','lp-city','lp-state']
+    ['lp-name','lp-company','lp-abn','lp-mobile','lp-address','lp-suburb','lp-city','lp-state','lp-lite-address']
       .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    const liteDepot = document.getElementById('lp-lite-depot');
+    if (liteDepot) liteDepot.value = '';
     document.querySelectorAll('#lp-cats-grid input[type=checkbox]').forEach(cb => cb.checked = false);
     regFields.forEach(el => {
       if (el.classList.contains('lp-rental-only')) {
         el.style.display = isRental ? '' : 'none';
       } else if (el.classList.contains('lp-customer-only')) {
-        el.style.display = isRental ? 'none' : '';
+        el.style.display = (isRental || isLite) ? 'none' : '';
+      } else if (el.classList.contains('lp-lite-only')) {
+        el.style.display = isLite ? '' : 'none';
       } else {
-        el.style.display = el.classList.contains('lp-row-2') ? 'flex' : '';
+        // shared reg fields: hide company row for lite
+        if (isLite && el.querySelector && el.querySelector('#lp-company')) {
+          el.style.display = 'none';
+        } else {
+          el.style.display = el.classList.contains('lp-row-2') ? 'flex' : '';
+        }
       }
     });
     // Reset T&C checkboxes every time Register tab opens
     const rCb = document.getElementById('lp-tnc-rental-cb');
     const cCb = document.getElementById('lp-tnc-customer-cb');
+    const lCb = document.getElementById('lp-tnc-lite-cb');
     if (rCb) rCb.checked = false;
     if (cCb) cCb.checked = false;
+    if (lCb) lCb.checked = false;
     form.classList.add('register-mode');
-    btn.textContent = isRental ? 'Register Company' : 'Create Account';
+    btn.textContent = isRental ? 'Register Company' : isLite ? 'Create Lite Account' : 'Create Account';
+    // update button colour for lite
+    if (isLite) { btn.className = 'lp-submit lite'; }
     signinTab.classList.remove('active');
     regTab.classList.add('active');
     _initAddressAutocomplete();
@@ -35723,6 +35985,57 @@ function doLogin() {
     return;
   }
 
+  }
+
+  // ── LITE REGISTRATION ─────────────────────────────────────────────────
+  if (type === 'lite' && mode === 'register') {
+    const tncCbLite = document.getElementById('lp-tnc-lite-cb');
+    if (!tncCbLite || !tncCbLite.checked) {
+      errEl.textContent = '⚠️ Please read and accept the Noyo Lite Terms of Use to register.';
+      document.getElementById('lp-tnc-lite').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    const fullName  = (document.getElementById('lp-name').value      || '').trim();
+    const mobile    = (document.getElementById('lp-mobile').value     || '').trim();
+    const address   = (document.getElementById('lp-lite-address').value || '').trim();
+    const depot     = (document.getElementById('lp-lite-depot').value  || '').trim();
+
+    if (!fullName) { errEl.textContent = 'Please enter your full name.';       return; }
+    if (!mobile)   { errEl.textContent = 'Please enter your mobile number.';   return; }
+    if (!address)  { errEl.textContent = 'Please enter your street address.';  return; }
+    if (!depot)    { errEl.textContent = 'Please select your nearest depot city.'; return; }
+
+    errEl.textContent = '';
+    const btn = document.getElementById('lp-submit-btn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Registering…'; }
+
+    _fbAuth.createUserWithEmailAndPassword(email, pass)
+      .then(async cred => {
+        const uid = cred.user.uid;
+        const userDoc = {
+          uid, email, fullName, role: 'lite', active: true,
+          phone: mobile, address, depot,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        await _fbDb.collection('users').doc(uid).set(userDoc);
+        _userProfileCache[uid] = userDoc;
+        if (btn) { btn.disabled = false; btn.textContent = 'Create Lite Account'; }
+        loginSuccess({ name: fullName, role: 'lite', email, uid, depot });
+      })
+      .catch(err => {
+        if (btn) { btn.disabled = false; btn.textContent = 'Create Lite Account'; }
+        if (err.code === 'auth/email-already-in-use') {
+          errEl.textContent = 'This email is already registered. Please sign in instead.';
+        } else if (err.code === 'auth/weak-password') {
+          errEl.textContent = 'Password must be at least 6 characters.';
+        } else {
+          errEl.textContent = 'Registration failed: ' + err.message;
+        }
+        shake();
+      });
+    return;
+  }
+
   // ── CUSTOMER REGISTRATION ────────────────────────────────────────────
   if (type !== 'rental' && mode === 'register') {
     const tncCbCust = document.getElementById('lp-tnc-customer-cb');
@@ -35827,7 +36140,7 @@ function doLogin() {
       }
 
       if (btn) { btn.disabled = false; btn.textContent = 'Sign In'; }
-      loginSuccess({ name, role, email, uid });
+      loginSuccess({ name, role, email, uid, depot: profile.depot || '' });
     })
     .catch(err => {
       if (btn) { btn.disabled = false; btn.textContent = 'Sign In'; }
@@ -35891,7 +36204,8 @@ function loginSuccess(user) {
       const tabMQ2 = document.getElementById('tab-my-quotes-wrap');
       if (tabMQ2) tabMQ2.style.display = 'inline-flex';
       _resetWizardToHome();
-      renderAdminDashboard();
+      // Load historical analytics from Firestore, then render dashboard
+      _loadAdminAnalyticsFromFirestore().then(() => renderAdminDashboard()).catch(() => renderAdminDashboard());
       switchView('admin', tabAdm || document.getElementById('tab-admin'));
     } else {
       // Show Quote Requests for rental company
@@ -35914,9 +36228,15 @@ function loginSuccess(user) {
     if (_ffab) _ffab.style.display = 'none';
     // Load latest quotes from Firebase
     loadInboxFromFirebase().then(() => { renderQuoteInbox(); renderMyQuotes(); updateQRUnreadBadge(); updateMQUnreadBadge(); }).catch(()=>{});
+    _loadNotificationStateFromFirestore().catch(() => {});
   } else {
-    if (avatar)  avatar.className  = 'nav-avatar customer-av';
-    if (roleTag) roleTag.textContent = 'Customer';
+    if (user.role === 'lite') {
+      if (avatar)  avatar.className  = 'nav-avatar lite-av';
+      if (roleTag) roleTag.textContent = '🔵 Lite';
+    } else {
+      if (avatar)  avatar.className  = 'nav-avatar customer-av';
+      if (roleTag) roleTag.textContent = 'Customer';
+    }
     const tabs = document.querySelectorAll('.nav-tab');
     tabs.forEach(t => { if(t.dataset.view==='staff') t.style.display='none'; });
     const tabAdm2 = document.getElementById('tab-admin');
@@ -35939,6 +36259,7 @@ function loginSuccess(user) {
     setTimeout(updateQRUnreadBadge, 200);
     // Reload inbox from Firebase to pick up latest quotes from all devices
     loadInboxFromFirebase().then(() => { renderMyQuotes(); updateQRUnreadBadge(); updateMQUnreadBadge(); }).catch(()=>{});
+    _loadNotificationStateFromFirestore().catch(() => {});
     // Show feedback FAB for customers
     const _ffab2 = document.getElementById('feedback-fab');
     if (_ffab2) _ffab2.style.display = 'flex';
@@ -35947,6 +36268,17 @@ function loginSuccess(user) {
       ['cart-fab','hero-cart-btn','cart-sidebar','cart-overlay'].forEach(id => {
         const el = document.getElementById(id); if (el) el.style.display = 'none';
       });
+    }
+    // ── LITE MODE: hide all quoting/cart UI ──────────────────────────
+    if (user.role === 'lite') {
+      ['cart-fab','hero-cart-btn','cart-sidebar','cart-overlay'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.style.display = 'none';
+      });
+      // Hide My Quotes tab — lite users cannot quote
+      const tabMQLite = document.getElementById('tab-my-quotes-wrap');
+      if (tabMQLite) tabMQLite.style.display = 'none';
+      // Mark body so CSS/JS can suppress cart buttons globally
+      document.body.setAttribute('data-portal', 'lite');
     }
   }
 }
@@ -35989,6 +36321,8 @@ function logOut() {
   _portal2.removeAttribute('aria-hidden');
   if (_portal2) _portal2.classList.remove('hidden');
   document.getElementById('lp-form-wrap').classList.remove('visible');
+  // Clear portal mode flag
+  document.body.removeAttribute('data-portal');
 }
 
 // =====================================================================
@@ -36010,7 +36344,6 @@ function adminTrackLogin(user) {
   const now = Date.now();
   const sid = 'sess_' + now;
   adminData.sessions.push({ id: sid, user: user.name, email: user.email, role: user.role, loginAt: now, logoutAt: null, searchCount: 0, quoteCount: 0 });
-  // Update registry
   if (!customerRegistry[user.email]) {
     customerRegistry[user.email] = { name: user.name, role: user.role, loginCount: 0, lastSeen: now, searchCount: 0, quoteCount: 0, status: 'online' };
   }
@@ -36018,7 +36351,18 @@ function adminTrackLogin(user) {
   reg.loginCount++;
   reg.lastSeen = now;
   reg.status = 'online';
-  adminData.activityLog.unshift({ ts: now, type: 'login', icon: '🔐', colorClass: 'login', title: user.name + ' signed in', meta: user.role + ' · ' + user.email });
+  const logEntry = { ts: now, type: 'login', icon: '🔐', colorClass: 'login', title: user.name + ' signed in', meta: user.role + ' · ' + user.email };
+  adminData.activityLog.unshift(logEntry);
+  // ── Firestore: persist login event ──
+  if (_fbDb) {
+    _fbDb.collection('admin_analytics').doc('activity_log').collection('events').add({
+      ...logEntry, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
+    _fbDb.collection('admin_analytics').doc('user_registry').set(
+      { [user.email]: { name: user.name, role: user.role, lastSeen: now, updatedAt: firebase.firestore.FieldValue.serverTimestamp() } },
+      { merge: true }
+    ).catch(() => {});
+  }
 }
 
 function adminTrackLogout(user) {
@@ -36027,7 +36371,14 @@ function adminTrackLogout(user) {
   const sess = [...adminData.sessions].reverse().find(s => s.email === user.email && !s.logoutAt);
   if (sess) sess.logoutAt = now;
   if (customerRegistry[user.email]) customerRegistry[user.email].status = 'inactive';
-  adminData.activityLog.unshift({ ts: now, type: 'logout', icon: '🚪', colorClass: 'logout', title: user.name + ' signed out', meta: user.role });
+  const logEntry = { ts: now, type: 'logout', icon: '🚪', colorClass: 'logout', title: user.name + ' signed out', meta: user.role };
+  adminData.activityLog.unshift(logEntry);
+  // ── Firestore: persist logout event ──
+  if (_fbDb) {
+    _fbDb.collection('admin_analytics').doc('activity_log').collection('events').add({
+      ...logEntry, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
+  }
 }
 
 function adminTrackSearch(result) {
@@ -36035,6 +36386,9 @@ function adminTrackSearch(result) {
   const user = currentUser || { name: 'Customer', email: 'unknown', role: 'customer' };
   const rec = {
     id: 'srch_' + now, ts: now, user: user.name, email: user.email,
+    role: user.role || 'customer',
+    depot: user.depot || '—',
+    isLite: user.role === 'lite',
     jobType:     result.jobType     || '—',
     machineType: result.machineType || '—',
     machineName: result.machineName || '—',
@@ -36043,7 +36397,7 @@ function adminTrackSearch(result) {
     height:      result.height      || '—',
     terrain:     result.terrain     || '—',
     power:       result.power       || result.powerPreference || '—',
-    city:        result.city        || '—',
+    city:        result.city        || (user.role === 'lite' ? user.depot || '—' : '—'),
     cartAdded: false
   };
   adminData.searches.push(rec);
@@ -36055,23 +36409,42 @@ function adminTrackSearch(result) {
   }
   const sess = [...adminData.sessions].reverse().find(s => s.email === user.email && !s.logoutAt);
   if (sess) sess.searchCount++;
-  adminData.activityLog.unshift({ ts: now, type: 'search', icon: '🔍', colorClass: 'search',
+  const logEntry = { ts: now, type: 'search', icon: '🔍', colorClass: 'search',
     title: 'Search → ' + rec.machineName,
     meta: user.name + ' · ' + rec.jobType + (rec.city!=='—'?' · 📍'+rec.city:'') + (rec.height!=='—'?' · '+rec.height:'')
-  });
+  };
+  adminData.activityLog.unshift(logEntry);
+  // ── Firestore: persist search record + activity event ──
+  if (_fbDb) {
+    _fbDb.collection('admin_analytics').doc('searches').collection('records').doc(rec.id).set({
+      ...rec, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
+    _fbDb.collection('admin_analytics').doc('activity_log').collection('events').add({
+      ...logEntry, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
+  }
   return rec.id;
 }
 
 function adminTrackCartAdd(searchId, machineName) {
   const rec = adminData.searches.find(s => s.id === searchId);
-  if (rec) { rec.cartAdded = true; rec.machineName = machineName || rec.machineName; }
+  if (rec) {
+    rec.cartAdded = true;
+    rec.machineName = machineName || rec.machineName;
+    // Update Firestore record
+    if (_fbDb) {
+      _fbDb.collection('admin_analytics').doc('searches').collection('records').doc(searchId)
+        .set({ cartAdded: true, machineName: rec.machineName }, { merge: true }).catch(() => {});
+    }
+  }
 }
 
 function adminTrackQuote(type, req) {
   const now = Date.now();
   const user = currentUser || { name: 'Unknown', email: '—' };
   const machines = (req.machines || []).map(m => m.name || m).join(', ') || '—';
-  adminData.quoteEvents.push({ ts: now, type, quoteId: req.id, ref: req.ref || req.id, user: user.name, email: user.email, machines, company: req.company || '—', req });
+  const quoteEvent = { ts: now, type, quoteId: req.id, ref: req.ref || req.id, user: user.name, email: user.email, machines, company: req.company || '—' };
+  adminData.quoteEvents.push({ ...quoteEvent, req });
   if (customerRegistry[user.email]) {
     customerRegistry[user.email].quoteCount++;
     customerRegistry[user.email].lastSeen = now;
@@ -36080,7 +36453,18 @@ function adminTrackQuote(type, req) {
   if (sess) sess.quoteCount++;
   const icons = { sent: '📤', responded: '✅', broadcast: '📡' };
   const labels = { sent: 'Quote request sent', responded: 'Quote responded', broadcast: 'Enquiry broadcast to all companies' };
-  adminData.activityLog.unshift({ ts: now, type: 'quote', icon: icons[type] || '📨', colorClass: type === 'responded' ? 'respond' : 'quote', title: (labels[type] || 'Quote event') + ' · ' + (req.ref || req.id || ''), meta: user.name + ' · ' + machines });
+  const logEntry = { ts: now, type: 'quote', icon: icons[type] || '📨', colorClass: type === 'responded' ? 'respond' : 'quote',
+    title: (labels[type] || 'Quote event') + ' · ' + (req.ref || req.id || ''), meta: user.name + ' · ' + machines };
+  adminData.activityLog.unshift(logEntry);
+  // ── Firestore: persist quote event + activity entry ──
+  if (_fbDb) {
+    _fbDb.collection('admin_analytics').doc('quote_events').collection('records').add({
+      ...quoteEvent, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
+    _fbDb.collection('admin_analytics').doc('activity_log').collection('events').add({
+      ...logEntry, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(() => {});
+  }
 }
 
 function adminFmt(ts) {
@@ -36098,6 +36482,48 @@ function adminFmtFull(ts) {
 }
 
 // ── Rendering ─────────────────────────────────────────────────────────
+
+// ── Load admin analytics from Firestore (called when admin panel opens) ──
+async function _loadAdminAnalyticsFromFirestore() {
+  if (!_fbDb) return;
+  try {
+    // Load searches (last 500, ordered by time)
+    const searchSnap = await _fbDb.collection('admin_analytics').doc('searches')
+      .collection('records').orderBy('ts', 'desc').limit(500).get();
+    const fsSearches = [];
+    searchSnap.forEach(doc => fsSearches.push({ id: doc.id, ...doc.data() }));
+    // Merge with in-memory (deduplicate by id)
+    const searchMap = new Map();
+    adminData.searches.forEach(s => searchMap.set(s.id, s));
+    fsSearches.forEach(s => { if (!searchMap.has(s.id)) searchMap.set(s.id, s); });
+    adminData.searches = [...searchMap.values()].sort((a, b) => (a.ts||0) - (b.ts||0));
+
+    // Load activity log (last 200 events)
+    const actSnap = await _fbDb.collection('admin_analytics').doc('activity_log')
+      .collection('events').orderBy('ts', 'desc').limit(200).get();
+    const fsActivity = [];
+    actSnap.forEach(doc => fsActivity.push(doc.data()));
+    // Merge with in-memory (deduplicate by ts+type+title)
+    const actMap = new Map();
+    adminData.activityLog.forEach(e => actMap.set(e.ts + '_' + e.type, e));
+    fsActivity.forEach(e => { const k = e.ts + '_' + e.type; if (!actMap.has(k)) actMap.set(k, e); });
+    adminData.activityLog = [...actMap.values()].sort((a, b) => (b.ts||0) - (a.ts||0));
+
+    // Load quote events (last 200)
+    const qeSnap = await _fbDb.collection('admin_analytics').doc('quote_events')
+      .collection('records').orderBy('ts', 'desc').limit(200).get();
+    const fsQE = [];
+    qeSnap.forEach(doc => fsQE.push(doc.data()));
+    const qeMap = new Map();
+    adminData.quoteEvents.forEach(e => qeMap.set(e.ts + '_' + (e.quoteId||''), e));
+    fsQE.forEach(e => { const k = e.ts + '_' + (e.quoteId||''); if (!qeMap.has(k)) qeMap.set(k, e); });
+    adminData.quoteEvents = [...qeMap.values()].sort((a, b) => (a.ts||0) - (b.ts||0));
+
+    console.log(`📊 Admin analytics loaded from Firestore: ${adminData.searches.length} searches, ${adminData.activityLog.length} activity events`);
+  } catch(e) {
+    console.warn('Admin analytics Firestore load failed:', e.message);
+  }
+}
 
 function renderAdminDashboard() {
   // Update pending rental company badge in tab
@@ -36359,7 +36785,9 @@ async function _getAllRegisteredRentalCos() {
         ruralOptIn: d.ruralOptIn || false, ruralRadiusKm: d.ruralRadiusKm || 0,
         sectors: d.sectors || [], approvalStatus: d.approvalStatus || 'approved',
         registeredAt: d.registeredAt || '', active: d.active !== false,
-        isHardcoded: false, id: doc.id
+        isHardcoded: false, id: doc.id,
+        plan: d.plan || null, enquiriesUsed: parseInt(d.enquiriesUsed || 0, 10),
+        planActiveSince: d.planActiveSince || '',
       });
     });
   } catch(e) { console.warn('Could not load rental cos:', e.message); }
@@ -36410,6 +36838,91 @@ async function adminRejectRentalCo(email) {
   _updateRcTabBadge();
   renderAdminDashboard();
   showToast('Application rejected.', '#EF4444');
+}
+
+// ── Admin plan management ────────────────────────────────────────────
+
+function openAdminPlanModal(email, currentPlan, usedStr) {
+  const modal = document.getElementById('admin-plan-modal');
+  if (!modal) return;
+  const used = parseInt(usedStr || 0, 10);
+
+  const planOpt = (key) => {
+    const cfg = NOYO_PLANS[key];
+    const isCur = key === currentPlan;
+    return `<label style="display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;border:2px solid ${isCur ? cfg.color : '#E2E8F0'};border-radius:10px;cursor:pointer;background:${isCur ? cfg.badge : '#fff'}">
+      <input type="radio" name="adm-plan" value="${key}" ${isCur ? 'checked' : ''} style="accent-color:${cfg.color}">
+      <div>
+        <div style="font-weight:800;color:${cfg.color};font-size:.9rem">${cfg.label} — $${cfg.price}/mo</div>
+        <div style="font-size:.75rem;color:#64748B">${cfg.included} enquiries included · $${cfg.extraPrice} extra</div>
+      </div>
+    </label>`;
+  };
+
+  modal.querySelector('.modal').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">
+      <h3 style="margin:0">📦 Set Plan — ${email}</h3>
+      <button onclick="document.getElementById('admin-plan-modal').classList.remove('open')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem">
+      <label style="display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;border:2px solid ${!currentPlan ? '#94A3B8' : '#E2E8F0'};border-radius:10px;cursor:pointer;background:${!currentPlan ? '#F1F5F9' : '#fff'}">
+        <input type="radio" name="adm-plan" value="" ${!currentPlan ? 'checked' : ''} style="accent-color:#64748B">
+        <div>
+          <div style="font-weight:800;color:#64748B;font-size:.9rem">No Plan</div>
+          <div style="font-size:.75rem;color:#94A3B8">RC will see upgrade prompt — cannot unlock enquiries</div>
+        </div>
+      </label>
+      ${planOpt('starter')}${planOpt('growth')}${planOpt('pro')}
+    </div>
+    <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.65rem .9rem;margin-bottom:1rem">
+      <div style="font-size:.78rem;font-weight:800;color:#475569;margin-bottom:.4rem">Adjust usage counter (current month)</div>
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <label style="font-size:.8rem;color:#64748B">Enquiries used:</label>
+        <input type="number" id="adm-plan-used" value="${used}" min="0" max="999"
+          style="width:70px;border:1.5px solid #CBD5E1;border-radius:7px;padding:.3rem .5rem;font-size:.88rem;font-family:inherit;text-align:center">
+        <span style="font-size:.75rem;color:#94A3B8">(0 = full quota available)</span>
+      </div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn-cancel" onclick="document.getElementById('admin-plan-modal').classList.remove('open')">Cancel</button>
+      <button class="btn-submit" onclick="adminSavePlan('${email}')">Save Plan →</button>
+    </div>`;
+
+  modal.classList.add('open');
+}
+
+async function adminSavePlan(email) {
+  const planKey  = document.querySelector('input[name="adm-plan"]:checked')?.value || '';
+  const usedInput = document.getElementById('adm-plan-used');
+  const used     = Math.max(0, parseInt(usedInput?.value || 0, 10));
+  const month    = _billingMonth();
+
+  const update = {
+    plan:             planKey || null,
+    planActiveSince:  planKey ? month : null,
+    enquiriesUsed:    planKey ? used : 0,
+  };
+
+  try {
+    const snap = await _fbDb.collection('rental_profiles').where('email','==',email).get();
+    if (!snap.empty) {
+      await snap.docs[0].ref.update(update);
+      // Patch in-memory RENTAL_COMPANIES entry so admin table refreshes immediately
+      const idx = RENTAL_COMPANIES.findIndex(c => c.email === email);
+      if (idx > -1) Object.assign(RENTAL_COMPANIES[idx], update);
+    } else {
+      showToast('Rental profile not found in Firestore.', '#EF4444');
+      return;
+    }
+  } catch(e) {
+    showToast('Save failed: ' + e.message, '#EF4444');
+    return;
+  }
+
+  document.getElementById('admin-plan-modal').classList.remove('open');
+  renderAdminRentalCos();
+  const planLabel = planKey ? NOYO_PLANS[planKey].label : 'No Plan';
+  showToast(`✅ ${email} — plan set to ${planLabel}${planKey ? ` · ${Math.max(0, NOYO_PLANS[planKey].included - used)} enquiries available` : ''}`, '#16A34A');
 }
 
 async function _updateRcTabBadge() {
@@ -36495,7 +37008,17 @@ async function renderAdminRentalCos() {
     return '<span style="color:#94A3B8">—</span>';
   };
 
-  tbody.innerHTML = filtered.length ? filtered.map(c => `
+  tbody.innerHTML = filtered.length ? filtered.map(c => {
+    const planKey  = c.plan || null;
+    const planCfg  = planKey ? NOYO_PLANS[planKey] : null;
+    const used     = parseInt(c.enquiriesUsed || 0, 10);
+    const included = planCfg ? planCfg.included : 0;
+    const rem      = planCfg ? Math.max(0, included - used) : 0;
+    const planBadge = planCfg
+      ? `<div style="font-weight:800;font-size:.78rem;color:${planCfg.color}">${planCfg.label}</div>
+         <div style="font-size:.7rem;color:#64748B">${rem}/${included} left</div>`
+      : `<span style="color:#CBD5E1;font-size:.75rem">—</span>`;
+    return `
     <tr style="background:${c.approvalStatus==='pending'?'#FFFBEB':c.approvalStatus==='rejected'?'#FEF2F2':''}">
       <td><strong>${c.company || '—'}</strong></td>
       <td style="font-size:.82rem">${c.name}</td>
@@ -36515,6 +37038,7 @@ async function renderAdminRentalCos() {
       })()}</td>
       <td style="font-size:.74rem;max-width:220px;white-space:normal;line-height:1.4;color:#475569">${(c.sectors||[]).slice(0,3).join(', ')}${(c.sectors||[]).length>3?' …':''}</td>
       <td style="font-size:.75rem;color:#64748B">${c.registeredAt ? new Date(c.registeredAt).toLocaleDateString('en-AU') : c.isHardcoded?'Pre-loaded':'—'}</td>
+      <td>${planBadge}</td>
       <td>${statusBadge(c.approvalStatus)}</td>
       <td style="white-space:nowrap">
         ${c.approvalStatus==='pending' ? `
@@ -36523,9 +37047,11 @@ async function renderAdminRentalCos() {
         ` : c.approvalStatus==='approved' && !c.isHardcoded ? `
           <button onclick="adminRejectRentalCo('${c.email}')" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:6px;padding:.25rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer">Revoke</button>
         ` : '<span style="color:#CBD5E1;font-size:.75rem">—</span>'}
+        ${!c.isHardcoded ? `<button onclick="openAdminPlanModal('${c.email}','${c.plan||''}','${c.enquiriesUsed||0}')" style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">📦 Plan</button>` : ''}
       </td>
-    </tr>`).join('')
-    : '<tr><td colspan="14" style="text-align:center;color:#94a3b8;padding:2rem">No rental companies found.</td></tr>';
+    </tr>`;
+  }).join('')
+    : '<tr><td colspan="15" style="text-align:center;color:#94a3b8;padding:2rem">No rental companies found.</td></tr>';
 
   _updateRcTabBadge();
 }
@@ -36926,6 +37452,1721 @@ function adminShowRevenueModal() {
   overlay.addEventListener('click', e => { if(e.target===overlay) overlay.remove(); });
 }
 
+// ══════════════════════════════════════════════════════════════════
+// ADD MACHINE — AI-POWERED SPEC EXTRACTION
+// ══════════════════════════════════════════════════════════════════
+
+var _amwFileData   = null;  // { base64, mediaType, fileName }
+var _amwExtracted  = null;  // last raw AI JSON
+
+function amwHandleFiles(files) {
+  const file = files[0];
+  if (!file) return;
+
+  const allowed = ['application/pdf','image/png','image/jpeg','image/webp','text/plain'];
+  const ext     = file.name.split('.').pop().toLowerCase();
+  const mimeMap = { pdf:'application/pdf', png:'image/png', jpg:'image/jpeg',
+                    jpeg:'image/jpeg', webp:'image/webp', txt:'text/plain' };
+  const mediaType = mimeMap[ext] || file.type;
+
+  if (!allowed.includes(mediaType)) {
+    showToast('Please upload a PDF, PNG, JPG, WEBP or TXT file.', '#EF4444');
+    return;
+  }
+
+  const nameEl = document.getElementById('amw-file-name');
+  if (nameEl) { nameEl.textContent = '📎 ' + file.name; nameEl.style.display = 'block'; }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const result = e.target.result;
+    const base64 = result.includes(',') ? result.split(',')[1] : btoa(result);
+    _amwFileData = { base64, mediaType, fileName: file.name };
+
+    const btn = document.getElementById('amw-extract-btn');
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function amwExtract() {
+  if (!_amwFileData) { showToast('Please upload a file first.', '#EF4444'); return; }
+
+  const btn    = document.getElementById('amw-extract-btn');
+  const status = document.getElementById('amw-extract-status');
+  if (btn)    { btn.disabled = true; btn.textContent = '⏳ Reading specs…'; }
+  if (status) status.textContent = 'Sending to Claude AI — this takes 10–30 seconds for a full brochure…';
+
+  const systemPrompt = `You are a specialist equipment data engineer for Noyo, an Australian heavy equipment rental marketplace.
+Your job: extract ALL technical specifications from the uploaded document and return them as a single JSON object.
+Return ONLY valid JSON — no markdown, no backticks, no explanation.
+
+Extract every field you can find. Use these exact JSON keys:
+{
+  "brand": "string",
+  "name": "string — full model name",
+  "shortName": "string — abbreviated name",
+  "machineType": "one of: boom | scissor | forklift | telehandler | telehandler-rotating | material | pushAround | palletJack",
+  "power": "string — e.g. Diesel, Electric, LPG, Hybrid, Bi-Energy",
+  "engine": "string — full engine spec if present",
+  "terrain": "string — e.g. indoor, outdoor, rough terrain, crawler, all-terrain",
+  "driveType": "string — e.g. 2WD, 4WD, AWD, Tracks",
+  "capacity": number_in_tonnes,
+  "liftHeight": number_metres,
+  "workingHeight": number_metres,
+  "platformHeight": number_metres,
+  "maxReach": number_metres,
+  "swl": number_kg,
+  "maxOccupancy": integer,
+  "capacityOnTyres": number_tonnes_or_null,
+  "turretRotation": number_degrees_or_null,
+  "isRotating": boolean,
+  "jibLength": number_metres_or_null,
+  "jibCapacity": number_kg_or_null,
+  "hookCapacity": number_kg_or_null,
+  "winchCapacity": number_kg_or_null,
+  "deckExtension": number_metres_or_null,
+  "machineWeight": number_kg,
+  "machineWidth": number_metres,
+  "machineLength": number_metres,
+  "stowedHeight": number_metres_or_null,
+  "groundClearance": number_mm_or_null,
+  "turningRadius": number_metres_or_null,
+  "gradeability": number_percent_or_null,
+  "maxSpeed": number_kmh_or_null,
+  "stabilisers": "string description of outriggers/stabilisers or null",
+  "stabilizerSpreadM": number_metres_or_null,
+  "tyneOptions": ["array","of","tyne","sizes"] or null,
+  "attachments": ["array","of","available","attachments"] or null,
+  "tyreCapacityNote": "string — multi-mode capacity note for rotating telehandlers or null",
+  "bestFor": "1–2 sentence best use description",
+  "note": "comprehensive technical summary — include all key specs, compliance standards, options, warnings",
+  "liftChart": "key load chart data extracted — capacities at specific heights/reaches/configurations",
+  "tags": ["array","of","keyword","tags"],
+  "supplier": "Australian distributor name, website, phone if present",
+  "filters": ["array of applicable filter keys from: forklift, indoor, outdoor, rough, telehandler, boom, scissor, crawler, material, palletJack, pushAround"]
+}
+
+Rules:
+- If a field is not present in the document, use null (not empty string or 0).
+- Capacities: capacity field = rated max capacity in TONNES (not kg). swl in kg.
+- Heights: always in metres.
+- Weights: always in kg.
+- Extract load chart data carefully — note capacity at different heights, reaches, configurations (on outriggers, on tyres, rotating vs frontal, etc.)
+- For rotating telehandlers: isRotating = true, turretRotation = degrees of rotation.
+- For scissor lifts: include both indoor and outdoor heights if different (liftHeight = indoor, liftHeightOutdoor = outdoor).
+- Include ALL attachment options, jib specs, winch specs, EWP basket specs if present.
+- Extract compliance standards (EN, AS/NZS) and include in note field.
+- Be thorough — this data will directly power a live rental marketplace.`;
+
+  const userContent = _amwFileData.mediaType === 'text/plain'
+    ? [{ type: 'text', text: 'Extract all machine specs from this document:\n\n' + atob(_amwFileData.base64) }]
+    : [
+        { type: _amwFileData.mediaType === 'application/pdf' ? 'document' : 'image',
+          source: { type: 'base64', media_type: _amwFileData.mediaType, data: _amwFileData.base64 } },
+        { type: 'text', text: 'Extract every technical specification, dimension, capacity, load chart data point, and attachment detail from this spec sheet into the JSON structure specified.' }
+      ];
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userContent }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    const data = await response.json();
+    const raw  = data.content?.find(b => b.type === 'text')?.text || '';
+
+    // Strip any accidental markdown fences
+    const clean = raw.replace(/^```json?\s*/,'').replace(/```\s*$/,'').trim();
+    let parsed;
+    try { parsed = JSON.parse(clean); }
+    catch(e) { throw new Error('AI returned invalid JSON. Try again or use a cleaner file.'); }
+
+    _amwExtracted = parsed;
+    amwPopulateForm(parsed);
+
+    const rawEl = document.getElementById('amw-raw-json');
+    if (rawEl) rawEl.textContent = JSON.stringify(parsed, null, 2);
+
+    document.getElementById('amw-form-wrap').style.display = 'block';
+    document.getElementById('amw-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (btn)    { btn.textContent = '🔍 Extract Specs with AI'; btn.disabled = false; }
+    if (status) status.textContent = '';
+
+  } catch(e) {
+    console.error('AMW extract error:', e);
+    if (btn)    { btn.textContent = '🔍 Extract Specs with AI'; btn.disabled = false; }
+    if (status) status.textContent = '';
+    showToast('Extraction failed: ' + e.message, '#EF4444');
+  }
+}
+
+function amwSet(id, val) {
+  const el = document.getElementById(id);
+  if (!el || val == null) return;
+  el.value = Array.isArray(val) ? val.join(', ') : String(val);
+}
+
+function amwPopulateForm(d) {
+  amwSet('amw-brand',          d.brand);
+  amwSet('amw-name',           d.name);
+  amwSet('amw-shortname',      d.shortName);
+  amwSet('amw-power',          d.power);
+  amwSet('amw-engine',         d.engine);
+  amwSet('amw-terrain',        d.terrain);
+  amwSet('amw-capacity',       d.capacity);
+  amwSet('amw-liftHeight',     d.liftHeight || d.platformHeight);
+  amwSet('amw-workingHeight',  d.workingHeight);
+  amwSet('amw-maxReach',       d.maxReach);
+  amwSet('amw-swl',            d.swl);
+  amwSet('amw-maxOccupancy',   d.maxOccupancy);
+  amwSet('amw-capacityOnTyres',d.capacityOnTyres);
+  amwSet('amw-turretRotation', d.turretRotation);
+  amwSet('amw-jibLength',      d.jibLength);
+  amwSet('amw-jibCapacity',    d.jibCapacity);
+  amwSet('amw-hookCapacity',   d.hookCapacity || d.winchCapacity);
+  amwSet('amw-deckExtension',  d.deckExtension);
+  amwSet('amw-machineWeight',  d.machineWeight);
+  amwSet('amw-machineWidth',   d.machineWidth);
+  amwSet('amw-machineLength',  d.machineLength);
+  amwSet('amw-stowedHeight',   d.stowedHeight);
+  amwSet('amw-groundClearance',d.groundClearance);
+  amwSet('amw-turningRadius',  d.turningRadius);
+  amwSet('amw-gradeability',   d.gradeability);
+  amwSet('amw-maxSpeed',       d.maxSpeed);
+  amwSet('amw-tyneOptions',    d.tyneOptions);
+  amwSet('amw-attachments',    d.attachments);
+  amwSet('amw-bestFor',        d.bestFor);
+  amwSet('amw-note',           d.note);
+  amwSet('amw-liftChart',      d.liftChart);
+  amwSet('amw-tags',           d.tags);
+  amwSet('amw-supplier',       d.supplier);
+
+  // Select dropdowns
+  const typeEl = document.getElementById('amw-type');
+  if (typeEl && d.machineType) typeEl.value = d.machineType;
+  const driveEl = document.getElementById('amw-driveType');
+  if (driveEl && d.driveType) driveEl.value = d.driveType;
+  const stabEl = document.getElementById('amw-stabilisers');
+  if (stabEl && d.stabilisers) {
+    // Try to match an option, otherwise leave as-is
+    const opts = [...stabEl.options].map(o => o.value.toLowerCase());
+    const match = opts.findIndex(o => d.stabilisers.toLowerCase().includes(o.replace(/\s.*$/,'')));
+    if (match > 0) stabEl.selectedIndex = match;
+  }
+}
+
+function amwTypeChange() {
+  // Could show/hide relevant sections based on type — future enhancement
+}
+
+function amwReadField(id, asNumber) {
+  const el = document.getElementById(id);
+  if (!el) return null;
+  const v = el.value.trim();
+  if (!v) return null;
+  if (asNumber) {
+    const n = parseFloat(v);
+    return isNaN(n) ? null : n;
+  }
+  return v;
+}
+
+function amwReadCsvField(id) {
+  const v = amwReadField(id);
+  if (!v) return null;
+  return v.split(',').map(s => s.trim()).filter(Boolean);
+}
+
+async function amwSaveMachine() {
+  const brand = amwReadField('amw-brand');
+  const name  = amwReadField('amw-name');
+  const type  = amwReadField('amw-type');
+
+  if (!brand || !name || !type) {
+    showToast('Brand, Name, and Machine Type are required.', '#EF4444');
+    return;
+  }
+
+  // Build machine ID from brand + model
+  const id = (brand + '-' + name).toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 48);
+
+  // Detect if already exists
+  if (ALL_MACHINES.some(m => m.id === id)) {
+    showToast(`⚠️ Machine ID "${id}" already exists. Rename the model or check for duplicates.`, '#F59E0B');
+  }
+
+  const isRotating    = type === 'telehandler-rotating';
+  const machineTypeFS = isRotating ? 'telehandler' : type;
+
+  // Emoji per type
+  const emojiMap = { boom:'💥', scissor:'✂️', forklift:'🍴', telehandler:'🏗️',
+                     'telehandler-rotating':'🔄', material:'📦', pushAround:'🧍', palletJack:'🔄' };
+
+  // Filters array
+  const filtersRaw = amwReadCsvField('amw-filters') || [];
+  let filters = filtersRaw.length ? filtersRaw : [machineTypeFS];
+  const terrain = amwReadField('amw-terrain') || '';
+  if (terrain.includes('indoor') && !filters.includes('indoor')) filters.push('indoor');
+  if (terrain.includes('outdoor') && !filters.includes('outdoor')) filters.push('outdoor');
+  if (terrain.includes('rough') && !filters.includes('rough')) filters.push('rough');
+  if (terrain.includes('crawler') && !filters.includes('crawler')) filters.push('crawler');
+
+  const machine = {
+    id,
+    brand,
+    emoji:            emojiMap[type] || '🏗️',
+    name:             name,
+    shortName:        amwReadField('amw-shortname') || name,
+    power:            amwReadField('amw-power'),
+    engine:           amwReadField('amw-engine'),
+    terrain,
+    driveType:        amwReadField('amw-driveType'),
+    capacity:         amwReadField('amw-capacity',     true),
+    liftHeight:       amwReadField('amw-liftHeight',   true),
+    workingHeight:    amwReadField('amw-workingHeight', true),
+    maxReach:         amwReadField('amw-maxReach',     true),
+    swl:              amwReadField('amw-swl',           true),
+    maxOccupancy:     amwReadField('amw-maxOccupancy', true),
+    capacityOnTyres:  amwReadField('amw-capacityOnTyres', true),
+    turretRotation:   amwReadField('amw-turretRotation', true),
+    isRotating:       isRotating || false,
+    jibLength:        amwReadField('amw-jibLength',     true),
+    jibCapacity:      amwReadField('amw-jibCapacity',   true),
+    hookCapacity:     amwReadField('amw-hookCapacity',  true),
+    deckExtension:    amwReadField('amw-deckExtension', true),
+    machineWeight:    amwReadField('amw-machineWeight', true),
+    machineWidth:     amwReadField('amw-machineWidth',  true),
+    machineLength:    amwReadField('amw-machineLength', true),
+    stowedHeight:     amwReadField('amw-stowedHeight',  true),
+    groundClearance:  amwReadField('amw-groundClearance', true),
+    turningRadius:    amwReadField('amw-turningRadius',  true),
+    gradeability:     amwReadField('amw-gradeability',   true),
+    maxSpeed:         amwReadField('amw-maxSpeed',       true),
+    stabilisers:      amwReadField('amw-stabilisers'),
+    tyneOptions:      amwReadCsvField('amw-tyneOptions'),
+    attachments:      amwReadCsvField('amw-attachments'),
+    tyreCapacityNote: _amwExtracted?.tyreCapacityNote || null,
+    bestFor:          amwReadField('amw-bestFor'),
+    note:             amwReadField('amw-note'),
+    liftChart:        amwReadField('amw-liftChart'),
+    tags:             amwReadCsvField('amw-tags'),
+    supplier:         amwReadField('amw-supplier'),
+    filters,
+    _addedViaAdmin:   true,
+    _addedAt:         new Date().toISOString(),
+    _addedBy:         currentUser ? currentUser.email : 'admin',
+    _sourceFile:      _amwFileData?.fileName || null,
+  };
+
+  // Strip null values to keep Firestore clean
+  Object.keys(machine).forEach(k => { if (machine[k] === null) delete machine[k]; });
+
+  const statusEl = document.getElementById('amw-save-status');
+  try {
+    if (statusEl) statusEl.textContent = '⏳ Saving to Firestore…';
+
+    // Save to Firestore
+    await _fbDb.collection('machines').doc(id).set(machine);
+
+    // Add to in-memory arrays so it appears immediately in results
+    ALL_MACHINES.push(machine);
+    if (MACHINES[machineTypeFS]) MACHINES[machineTypeFS].push(machine);
+    else MACHINES[machineTypeFS] = [machine];
+
+    if (statusEl) {
+      statusEl.style.color = '#16A34A';
+      statusEl.textContent = `✅ "${name}" saved to Noyo database — it will appear in results immediately.`;
+    }
+    showToast(`✅ ${brand} ${name} added to Noyo — appearing in ${machineTypeFS} results now!`, '#16A34A');
+
+  } catch(e) {
+    if (statusEl) { statusEl.style.color = '#DC2626'; statusEl.textContent = '❌ Save failed: ' + e.message; }
+    showToast('Save failed: ' + e.message, '#EF4444');
+  }
+}
+
+function amwReset() {
+  _amwFileData  = null;
+  _amwExtracted = null;
+  const fileInput = document.getElementById('amw-file-input');
+  if (fileInput) fileInput.value = '';
+  const nameEl = document.getElementById('amw-file-name');
+  if (nameEl) { nameEl.textContent = ''; nameEl.style.display = 'none'; }
+  const btn = document.getElementById('amw-extract-btn');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.5'; btn.style.cursor = 'not-allowed'; btn.textContent = '🔍 Extract Specs with AI'; }
+  document.getElementById('amw-form-wrap').style.display = 'none';
+  const statusEl = document.getElementById('amw-save-status');
+  if (statusEl) statusEl.textContent = '';
+  // Clear all form fields
+  ['amw-brand','amw-name','amw-shortname','amw-power','amw-engine','amw-terrain',
+   'amw-capacity','amw-liftHeight','amw-workingHeight','amw-maxReach','amw-swl',
+   'amw-maxOccupancy','amw-capacityOnTyres','amw-turretRotation','amw-jibLength',
+   'amw-jibCapacity','amw-hookCapacity','amw-deckExtension','amw-machineWeight',
+   'amw-machineWidth','amw-machineLength','amw-stowedHeight','amw-groundClearance',
+   'amw-turningRadius','amw-gradeability','amw-maxSpeed','amw-tyneOptions',
+   'amw-attachments','amw-bestFor','amw-note','amw-liftChart','amw-tags','amw-supplier',
+  ].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const typeEl = document.getElementById('amw-type'); if (typeEl) typeEl.value = '';
+  const driveEl = document.getElementById('amw-driveType'); if (driveEl) driveEl.value = '';
+  const stabEl = document.getElementById('amw-stabilisers'); if (stabEl) stabEl.value = '';
+  const rawEl = document.getElementById('amw-raw-json'); if (rawEl) rawEl.textContent = '';
+}
+
+
+
+// Category definitions — expandable
+const SPONSORED_CATEGORIES = [
+  { key: 'boom',       label: 'Boom Lifts',               emoji: '💥' },
+  { key: 'scissor',    label: 'Scissor Lifts',             emoji: '✂️' },
+  { key: 'forklift',   label: 'Forklifts',                 emoji: '🍴' },
+  { key: 'telehandler',label: 'Telehandlers',              emoji: '🏗️' },
+  { key: 'rotating',   label: 'Rotational Telehandlers',   emoji: '🔄' },
+];
+
+// In-memory sponsored ads store — loaded from Firestore on boot
+var _sponsoredAds = []; // [{ id, category, machineId, brand, label, note, monthlyFee, active, addedAt }]
+var _sponsoredLoaded = false;
+
+async function _loadSponsoredAds() {
+  try {
+    const snap = await _fbDb.collection('sponsored_ads').orderBy('addedAt','desc').get();
+    _sponsoredAds = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    _sponsoredLoaded = true;
+  } catch(e) {
+    console.warn('Could not load sponsored ads:', e.message);
+    _sponsoredLoaded = true;
+  }
+}
+
+// Return active sponsored ads for a given result category key
+function _getSponsoredForCategory(catKey) {
+  return _sponsoredAds.filter(a => a.active && a.category === catKey);
+}
+
+// Map machineType + isRotating → sponsored category key
+function _resultCatKey(machineType, machine) {
+  if (machineType === 'telehandler' && machine && machine.isRotating) return 'rotating';
+  return machineType;
+}
+
+// Load sponsored ads on page load
+window.addEventListener('load', () => {
+  if (typeof _fbDb !== 'undefined') _loadSponsoredAds();
+});
+
+// ── Admin: render sponsored ads panel ────────────────────────────
+
+function renderAdminSponsored() {
+  const sec = document.getElementById('admin-sec-sponsored');
+  if (!sec) return;
+
+  const totalMonthly = _sponsoredAds.filter(a => a.active).reduce((s, a) => s + (parseFloat(a.monthlyFee) || 0), 0);
+
+  sec.innerHTML = `
+    <div class="admin-section-title">⭐ Sponsored Ads</div>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
+      <div style="background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px;padding:.55rem 1rem;font-size:.85rem;font-weight:700;color:#92400E">
+        💰 Active monthly revenue: <strong>$${totalMonthly.toLocaleString('en-AU',{minimumFractionDigits:0,maximumFractionDigits:0})}</strong>
+      </div>
+      <div style="font-size:.8rem;color:#64748B">${_sponsoredAds.filter(a=>a.active).length} active · ${_sponsoredAds.filter(a=>!a.active).length} paused</div>
+    </div>
+    ${SPONSORED_CATEGORIES.map(cat => _renderSponsoredCategory(cat)).join('')}
+    <div style="margin-top:1.5rem;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:12px;padding:1rem 1.2rem">
+      <div style="font-weight:800;color:#475569;margin-bottom:.4rem">➕ Add New Category</div>
+      <div style="font-size:.8rem;color:#64748B;margin-bottom:.6rem">Need a new equipment category? Add it to <code>SPONSORED_CATEGORIES</code> in app.js and it will appear here automatically.</div>
+      <div style="font-size:.75rem;color:#94A3B8">Current categories: ${SPONSORED_CATEGORIES.map(c => c.emoji + ' ' + c.label).join(' · ')}</div>
+    </div>`;
+}
+
+function _renderSponsoredCategory(cat) {
+  const ads = _sponsoredAds.filter(a => a.category === cat.key);
+  const machines = ALL_MACHINES.filter(m => {
+    if (cat.key === 'rotating')    return m.isRotating;
+    if (cat.key === 'telehandler') return (m.filters||[]).includes('telehandler') && !m.isRotating;
+    return (m.filters||[]).includes(cat.key);
+  });
+
+  const adsHtml = ads.length === 0
+    ? `<div style="padding:.8rem;text-align:center;color:#94A3B8;font-size:.83rem">No sponsored ads in this category yet.</div>`
+    : ads.map(ad => {
+        const machine = ALL_MACHINES.find(m => m.id === ad.machineId);
+        return `
+        <div style="display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:${ad.active?'#FFFBEB':'#F8FAFC'};border:1.5px solid ${ad.active?'#FCD34D':'#E2E8F0'};border-radius:10px;margin-bottom:.45rem;flex-wrap:wrap">
+          <div style="font-size:1.1rem">${cat.emoji}</div>
+          <div style="flex:1;min-width:160px">
+            <div style="font-weight:800;color:#0F172A;font-size:.9rem">${ad.label || (machine ? machine.name : ad.brand)}</div>
+            <div style="font-size:.75rem;color:#64748B">${ad.brand}${machine ? ' · ' + machine.name : ''}</div>
+            ${ad.note ? `<div style="font-size:.73rem;color:#B45309;margin-top:.1rem;font-style:italic">${ad.note}</div>` : ''}
+          </div>
+          <div style="text-align:right;white-space:nowrap">
+            <div style="font-weight:800;color:#16A34A;font-size:.88rem">$${parseFloat(ad.monthlyFee||0).toLocaleString('en-AU',{minimumFractionDigits:0})}/mo</div>
+            <div style="font-size:.72rem;color:#64748B">${ad.active ? '🟢 Active' : '⏸️ Paused'}</div>
+          </div>
+          <div style="display:flex;gap:.3rem">
+            <button onclick="adminToggleSponsoredAd('${ad.id}',${!ad.active})"
+              style="background:${ad.active?'#FEF3C7':'#F0FDF4'};color:${ad.active?'#92400E':'#15803D'};border:1px solid ${ad.active?'#FCD34D':'#86EFAC'};border-radius:6px;padding:.22rem .55rem;font-size:.73rem;font-weight:700;cursor:pointer">
+              ${ad.active ? '⏸ Pause' : '▶ Activate'}
+            </button>
+            <button onclick="adminDeleteSponsoredAd('${ad.id}')"
+              style="background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:6px;padding:.22rem .55rem;font-size:.73rem;font-weight:700;cursor:pointer">
+              🗑
+            </button>
+          </div>
+        </div>`;
+      }).join('');
+
+  // Build machine options for this category
+  const machineOptions = machines.map(m =>
+    `<option value="${m.id}">${m.brand} — ${m.name}</option>`
+  ).join('');
+
+  return `
+    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;margin-bottom:.9rem;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:#F8FAFC;border-bottom:1px solid #E2E8F0;cursor:pointer"
+        onclick="var b=this.nextElementSibling;b.style.display=b.style.display==='none'?'block':'none';this.querySelector('.spn-chev').textContent=b.style.display==='none'?'▶':'▼'">
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <span style="font-size:1.2rem">${cat.emoji}</span>
+          <span style="font-weight:900;color:#0F172A">${cat.label}</span>
+          <span style="background:${ads.filter(a=>a.active).length?'#DCFCE7':'#F1F5F9'};color:${ads.filter(a=>a.active).length?'#15803D':'#94A3B8'};font-size:.72rem;font-weight:800;padding:.1rem .5rem;border-radius:20px">${ads.filter(a=>a.active).length} active</span>
+        </div>
+        <span class="spn-chev" style="color:#94A3B8;font-size:.85rem">▶</span>
+      </div>
+      <div style="display:none;padding:.9rem 1rem">
+        ${adsHtml}
+        <!-- Add new ad form -->
+        <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.8rem 1rem;margin-top:.6rem">
+          <div style="font-weight:800;color:#1E40AF;font-size:.83rem;margin-bottom:.6rem">➕ Add Sponsored Ad — ${cat.label}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem">
+            <div>
+              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Machine</label>
+              <select id="spn-machine-${cat.key}" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff">
+                <option value="">— select machine —</option>
+                ${machineOptions}
+              </select>
+            </div>
+            <div>
+              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Display Label (optional override)</label>
+              <input type="text" id="spn-label-${cat.key}" placeholder="e.g. JLG 1350SJP — Premium Boom" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
+            </div>
+            <div>
+              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Monthly Fee (AUD)</label>
+              <input type="number" id="spn-fee-${cat.key}" placeholder="299" min="0" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
+            </div>
+            <div>
+              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Sponsor Note (optional)</label>
+              <input type="text" id="spn-note-${cat.key}" placeholder="e.g. Nationally stocked, fast delivery" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
+            </div>
+          </div>
+          <button onclick="adminAddSponsoredAd('${cat.key}')"
+            style="background:#0052CC;color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
+            ➕ Add Sponsored Ad
+          </button>
+        </div>
+      </div>
+    </div>`;
+}
+
+async function adminAddSponsoredAd(catKey) {
+  const machineId = document.getElementById(`spn-machine-${catKey}`)?.value;
+  const label     = document.getElementById(`spn-label-${catKey}`)?.value.trim();
+  const feeStr    = document.getElementById(`spn-fee-${catKey}`)?.value;
+  const note      = document.getElementById(`spn-note-${catKey}`)?.value.trim();
+
+  if (!machineId) { showToast('Please select a machine.', '#EF4444'); return; }
+
+  const machine   = ALL_MACHINES.find(m => m.id === machineId);
+  if (!machine)   { showToast('Machine not found.', '#EF4444'); return; }
+
+  const fee = parseFloat(feeStr) || 0;
+
+  const ad = {
+    category:   catKey,
+    machineId,
+    brand:      machine.brand,
+    label:      label || machine.name,
+    note:       note || '',
+    monthlyFee: fee,
+    active:     true,
+    addedAt:    new Date().toISOString(),
+    addedBy:    currentUser ? currentUser.email : 'admin',
+  };
+
+  try {
+    const docRef = await _fbDb.collection('sponsored_ads').add(ad);
+    _sponsoredAds.unshift({ id: docRef.id, ...ad });
+    showToast(`⭐ Sponsored ad added — ${machine.name} in ${SPONSORED_CATEGORIES.find(c=>c.key===catKey)?.label}`, '#16A34A');
+    renderAdminSponsored();
+  } catch(e) {
+    showToast('Save failed: ' + e.message, '#EF4444');
+  }
+}
+
+async function adminToggleSponsoredAd(adId, newActive) {
+  try {
+    await _fbDb.collection('sponsored_ads').doc(adId).update({ active: newActive });
+    const ad = _sponsoredAds.find(a => a.id === adId);
+    if (ad) ad.active = newActive;
+    renderAdminSponsored();
+    showToast(newActive ? '▶ Sponsored ad activated.' : '⏸ Sponsored ad paused.', '#0052CC');
+  } catch(e) { showToast('Update failed: ' + e.message, '#EF4444'); }
+}
+
+async function adminDeleteSponsoredAd(adId) {
+  const ad = _sponsoredAds.find(a => a.id === adId);
+  if (!ad) return;
+  if (!confirm(`Delete sponsored ad for "${ad.label}"? This cannot be undone.`)) return;
+  try {
+    await _fbDb.collection('sponsored_ads').doc(adId).delete();
+    _sponsoredAds = _sponsoredAds.filter(a => a.id !== adId);
+    renderAdminSponsored();
+    showToast('Sponsored ad deleted.', '#EF4444');
+  } catch(e) { showToast('Delete failed: ' + e.message, '#EF4444'); }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ADD MACHINE FROM SPEC SHEET — Claude Vision extraction
+// ══════════════════════════════════════════════════════════════════
+
+var _amExtracted = null; // last extracted machine object
+
+function renderAdminAddMachine() {
+  // No-op — the section HTML is static in index.html; just reset state
+  _amExtracted = null;
+  const form   = document.getElementById('am-review-form');
+  const status = document.getElementById('am-status');
+  if (form)   { form.style.display = 'none'; form.innerHTML = ''; }
+  if (status) { status.style.display = 'none'; status.innerHTML = ''; }
+  const fi = document.getElementById('am-file-input');
+  if (fi) fi.value = '';
+}
+
+async function amHandleFile(file) {
+  if (!file) return;
+  const maxBytes = 20 * 1024 * 1024;
+  if (file.size > maxBytes) { amStatus('❌ File too large (max 20 MB).', 'error'); return; }
+
+  const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+  const isImg = file.type.startsWith('image/') || /\.(png|jpg|jpeg|heic|webp)$/i.test(file.name);
+  if (!isPdf && !isImg) { amStatus('❌ Unsupported file type. Use PDF, PNG, JPG, HEIC, or WEBP.', 'error'); return; }
+
+  amStatus('📄 Reading file…', 'loading');
+
+  // Convert to base64
+  const base64 = await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(',')[1]);
+    r.onerror = () => rej(new Error('File read failed'));
+    r.readAsDataURL(file);
+  });
+
+  const mediaType = isPdf ? 'application/pdf' : (file.type || 'image/jpeg');
+
+  amStatus('🤖 Sending to Claude for extraction… this takes 15–30 seconds.', 'loading');
+
+  const extractionPrompt = `You are a technical specification extractor for heavy equipment hire machines. Carefully read every part of this document and extract ALL specifications into a single JSON object.
+
+REQUIRED OUTPUT: Return ONLY a valid JSON object — no markdown, no backticks, no explanation. Start with { and end with }.
+
+Extract every field you can find. Use null for anything not found. Numbers as numbers, not strings.
+
+JSON schema:
+
+{
+  "brand": "string — manufacturer name e.g. JLG, Genie, Toyota, Manitou",
+  "model": "string — model number/name e.g. 1350SJP, GT-5519",
+  "name": "string — full display name e.g. JLG 1350SJP Boom Lift",
+  "shortName": "string — short display name",
+  "machineType": "one of: boom | scissor | telehandler | forklift | material | pushAround | palletJack",
+  "isRotating": "boolean — true only for telehandlers with 360° slewing turret",
+  "emoji": "single emoji representing the machine type",
+
+  "capacity": "number — max rated capacity in TONNES (e.g. 4.0)",
+  "capacityKg": "number — max rated capacity in kg",
+  "capacityOnTyres": "number — capacity on tyres only in tonnes (for telehandlers/forklifts)",
+  "capacityOnTyresKg": "number — capacity on tyres only in kg",
+  "capacityOnOutriggers": "number — capacity with outriggers/stabilisers deployed in tonnes",
+  "capacityOnOutriggersKg": "number — capacity with outriggers/stabilisers deployed in kg",
+  "capacityOnJib": "number — capacity when jib attachment fitted in tonnes",
+  "capacityOnJibKg": "number — capacity when jib attachment fitted in kg",
+  "capacityOnRotator": "number — capacity when rotator fitted in tonnes",
+  "capacityOnRotatorKg": "number — capacity when rotator fitted in kg",
+
+  "liftHeight": "number — maximum lift/working height in metres",
+  "platformHeight": "number — maximum platform height in metres",
+  "workingHeight": "number — working height (platform + 2m) in metres",
+  "maxReach": "number — maximum horizontal outreach in metres",
+  "maxOutreach": "number — same as maxReach if separately stated",
+  "upAndOverHeight": "number — maximum up-and-over height in metres",
+
+  "swl": "number — Safe Working Load in kg (for EWP/scissor/boom)",
+  "basketSWL": "number — basket/platform SWL in kg",
+  "occupants": "number — maximum persons in basket",
+
+  "jibWeight": "number — jib attachment weight in kg",
+  "jibLength": "number — jib length in metres",
+  "jibCapacity": "number — jib rated capacity in kg",
+  "jibAngle": "string — jib articulation range e.g. '135°'",
+  "rotatorWeight": "number — rotator attachment weight in kg",
+  "rotatorCapacity": "number — rotator rated capacity in kg",
+
+  "turretRotation": "number — turret slewing range in degrees (360 for continuous)",
+  "boomRotation": "string — boom rotation description if applicable",
+
+  "stabWidth": "number — outrigger/stabiliser spread width in mm when deployed",
+  "stabDepth": "number — outrigger/stabiliser depth in mm when deployed",
+  "stowedWidth": "number — machine stowed/transport width in mm",
+  "stowedLength": "number — machine stowed/transport length in mm",
+  "stowedHeight": "number — machine stowed/transport height in mm",
+  "machineWeight": "number — machine weight in kg",
+  "machineWidth": "number — machine width in mm",
+  "machineLength": "number — machine length in mm",
+  "machineHeight": "number — machine height in mm",
+
+  "undercarriage": "one of: tyres | tracks | crawler | outriggers | skids",
+  "tyreSize": "string — tyre size spec e.g. '400/80-24'",
+  "trackWidth": "number — track width in mm (for crawler machines)",
+  "gradeability": "string — max grade/slope e.g. '45%' or '24°'",
+  "groundClearance": "number — ground clearance in mm",
+  "turningRadius": "number — minimum turning radius in metres",
+
+  "engine": "string — engine description e.g. 'Deutz D2011 L3 diesel 36kW'",
+  "power": "string — power source: Diesel | Electric | LPG | Petrol | Hybrid | Dual Power",
+  "enginePower": "number — engine power in kW",
+  "fuelCapacity": "number — fuel tank capacity in litres",
+  "hydraulicPressure": "number — hydraulic system pressure in bar",
+  "hydraulicFlow": "number — hydraulic flow rate in L/min",
+
+  "terrain": "one of: indoor | outdoor | indoor/outdoor | rough-terrain | crawler",
+  "driveType": "string — e.g. '4WD', '2WD', 'Hydrostatic'",
+  "steeringModes": "string — steering modes available",
+
+  "loadChart": "string — brief summary of load chart information",
+  "loadMatrix": "array of {height:number, reach:number, capacityKg:number} objects — extract key load chart data points if a load chart table is present",
+
+  "certifications": "array of strings — e.g. ['AS/NZS 1418', 'EN280', 'ROPS', 'FOPS']",
+  "attachments": "array of strings — available attachments/accessories",
+  "tyneOptions": "array of strings — available tyne lengths (forklifts)",
+  "filters": "array of strings — category filters that apply e.g. ['telehandler','outdoor']",
+  "tags": "array of strings — searchable feature tags",
+
+  "bestFor": "string — 1-2 sentences on best applications",
+  "note": "string — comprehensive technical note capturing all important specs and warnings",
+
+  "source": "string — document title, date, version if visible",
+  "supplier": "string — Australian distributor/supplier if mentioned"
+}`;
+
+  try {
+    const contentBlock = isPdf
+      ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: base64 } }
+      : { type: 'image',    source: { type: 'base64', media_type: mediaType,           data: base64 } };
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        messages: [{
+          role: 'user',
+          content: [
+            contentBlock,
+            { type: 'text', text: extractionPrompt }
+          ]
+        }]
+      })
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${resp.status}`);
+    }
+
+    const data = await resp.json();
+    const rawText = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+
+    // Strip any accidental markdown fences
+    const cleaned = rawText.replace(/^```json\s*/i,'').replace(/```$/,'').trim();
+    let extracted;
+    try {
+      extracted = JSON.parse(cleaned);
+    } catch(parseErr) {
+      // Try to extract just the JSON object if there's surrounding text
+      const match = cleaned.match(/\{[\s\S]*\}/);
+      if (match) extracted = JSON.parse(match[0]);
+      else throw new Error('Could not parse JSON from response. Try a cleaner PDF.');
+    }
+
+    _amExtracted = extracted;
+    amStatus('✅ Extraction complete — review and edit the fields below, then save.', 'success');
+    amRenderReviewForm(extracted, file.name);
+
+  } catch(e) {
+    amStatus(`❌ Extraction failed: ${e.message}`, 'error');
+  }
+}
+
+function amStatus(msg, type) {
+  const el = document.getElementById('am-status');
+  if (!el) return;
+  const colors = {
+    loading: { bg:'#EFF6FF', border:'#BFDBFE', color:'#1E40AF' },
+    success: { bg:'#F0FDF4', border:'#86EFAC', color:'#15803D' },
+    error:   { bg:'#FEF2F2', border:'#FCA5A5', color:'#DC2626' },
+  };
+  const c = colors[type] || colors.loading;
+  el.style.display = 'block';
+  el.innerHTML = `<div style="background:${c.bg};border:1.5px solid ${c.border};border-radius:10px;padding:.75rem 1rem;font-size:.85rem;font-weight:700;color:${c.color};display:flex;align-items:center;gap:.6rem">
+    ${type === 'loading' ? '<span style="display:inline-block;animation:spin 1s linear infinite">⏳</span>' : ''}
+    ${msg}
+  </div>`;
+}
+
+function _amField(id, label, val, type='text', opts=null) {
+  const v = val != null ? val : '';
+  if (type === 'select' && opts) {
+    const options = opts.map(o => `<option value="${o}" ${o===v?'selected':''}>${o}</option>`).join('');
+    return `<div style="display:flex;flex-direction:column;gap:.2rem">
+      <label style="font-size:.73rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.03em">${label}</label>
+      <select id="${id}" style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .55rem;font-size:.83rem;font-family:inherit;background:#fff">
+        <option value="">—</option>${options}
+      </select></div>`;
+  }
+  if (type === 'textarea') {
+    return `<div style="display:flex;flex-direction:column;gap:.2rem">
+      <label style="font-size:.73rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.03em">${label}</label>
+      <textarea id="${id}" rows="3" style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .55rem;font-size:.83rem;font-family:inherit;resize:vertical;background:#fff">${v}</textarea></div>`;
+  }
+  if (type === 'array') {
+    const arrVal = Array.isArray(val) ? val.join(', ') : (val||'');
+    return `<div style="display:flex;flex-direction:column;gap:.2rem">
+      <label style="font-size:.73rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.03em">${label} <span style="font-weight:400;color:#94A3B8">(comma-separated)</span></label>
+      <input type="text" id="${id}" value="${arrVal.replace(/"/g,'&quot;')}" style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .55rem;font-size:.83rem;font-family:inherit;background:#fff"></div>`;
+  }
+  return `<div style="display:flex;flex-direction:column;gap:.2rem">
+    <label style="font-size:.73rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.03em">${label}</label>
+    <input type="${type}" id="${id}" value="${String(v).replace(/"/g,'&quot;')}" style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .55rem;font-size:.83rem;font-family:inherit;background:#fff"></div>`;
+}
+
+function amRenderReviewForm(d, fileName) {
+  const form = document.getElementById('am-review-form');
+  if (!form) return;
+
+  const g2 = 'display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.9rem';
+  const g3 = 'display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem;margin-bottom:.9rem';
+  const g1 = 'display:grid;grid-template-columns:1fr;gap:.65rem;margin-bottom:.9rem';
+  const sh = (t) => `<div style="font-size:.8rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.05em;margin:.9rem 0 .4rem;border-bottom:2px solid #EFF6FF;padding-bottom:.25rem">${t}</div>`;
+
+  form.style.display = 'block';
+  form.innerHTML = `
+    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1.2rem 1.4rem">
+      <div style="font-weight:900;color:#0F172A;font-size:1rem;margin-bottom:.2rem">📋 Review Extracted Data — ${fileName}</div>
+      <div style="font-size:.78rem;color:#64748B;margin-bottom:1.1rem">Edit any field before saving. Greyed values were not found in the document — fill them in manually if known.</div>
+
+      ${sh('Identity')}
+      <div style="${g3}">
+        ${_amField('am-brand','Brand',d.brand)}
+        ${_amField('am-model','Model',d.model)}
+        ${_amField('am-name','Full Name',d.name)}
+      </div>
+      <div style="${g3}">
+        ${_amField('am-shortName','Short Name',d.shortName)}
+        ${_amField('am-machineType','Machine Type',d.machineType,'select',['boom','scissor','telehandler','forklift','material','pushAround','palletJack'])}
+        ${_amField('am-isRotating','Rotating Telehandler?',d.isRotating?'yes':'no','select',['no','yes'])}
+      </div>
+
+      ${sh('Capacity')}
+      <div style="${g3}">
+        ${_amField('am-capacity','Max Capacity (T)',d.capacity,'number')}
+        ${_amField('am-capacityOnTyres','On Tyres (T)',d.capacityOnTyres,'number')}
+        ${_amField('am-capacityOnOutriggers','On Outriggers (T)',d.capacityOnOutriggers,'number')}
+      </div>
+      <div style="${g3}">
+        ${_amField('am-capacityOnJib','On Jib (T)',d.capacityOnJib,'number')}
+        ${_amField('am-capacityOnRotator','On Rotator (T)',d.capacityOnRotator,'number')}
+        ${_amField('am-swl','SWL / Basket SWL (kg)',d.swl||d.basketSWL,'number')}
+      </div>
+
+      ${sh('Height & Reach')}
+      <div style="${g3}">
+        ${_amField('am-liftHeight','Max Lift Height (m)',d.liftHeight,'number')}
+        ${_amField('am-platformHeight','Platform Height (m)',d.platformHeight,'number')}
+        ${_amField('am-workingHeight','Working Height (m)',d.workingHeight,'number')}
+      </div>
+      <div style="${g3}">
+        ${_amField('am-maxReach','Max Reach / Outreach (m)',d.maxReach||d.maxOutreach,'number')}
+        ${_amField('am-upAndOverHeight','Up-and-Over Height (m)',d.upAndOverHeight,'number')}
+        ${_amField('am-occupants','Max Occupants',d.occupants,'number')}
+      </div>
+
+      ${sh('Jib & Rotator')}
+      <div style="${g3}">
+        ${_amField('am-jibWeight','Jib Weight (kg)',d.jibWeight,'number')}
+        ${_amField('am-jibLength','Jib Length (m)',d.jibLength,'number')}
+        ${_amField('am-jibCapacity','Jib Capacity (kg)',d.jibCapacity,'number')}
+      </div>
+      <div style="${g3}">
+        ${_amField('am-jibAngle','Jib Angle Range',d.jibAngle)}
+        ${_amField('am-rotatorWeight','Rotator Weight (kg)',d.rotatorWeight,'number')}
+        ${_amField('am-rotatorCapacity','Rotator Capacity (kg)',d.rotatorCapacity,'number')}
+      </div>
+      <div style="${g2}">
+        ${_amField('am-turretRotation','Turret Rotation (°)',d.turretRotation,'number')}
+        ${_amField('am-boomRotation','Boom Rotation',d.boomRotation)}
+      </div>
+
+      ${sh('Dimensions & Weight')}
+      <div style="${g3}">
+        ${_amField('am-stowedWidth','Stowed Width (mm)',d.stowedWidth,'number')}
+        ${_amField('am-stowedLength','Stowed Length (mm)',d.stowedLength,'number')}
+        ${_amField('am-stowedHeight','Stowed Height (mm)',d.stowedHeight,'number')}
+      </div>
+      <div style="${g3}">
+        ${_amField('am-machineWeight','Machine Weight (kg)',d.machineWeight,'number')}
+        ${_amField('am-stabWidth','Outrigger Spread Width (mm)',d.stabWidth,'number')}
+        ${_amField('am-stabDepth','Outrigger Spread Depth (mm)',d.stabDepth,'number')}
+      </div>
+
+      ${sh('Undercarriage & Mobility')}
+      <div style="${g3}">
+        ${_amField('am-undercarriage','Undercarriage',d.undercarriage,'select',['tyres','tracks','crawler','outriggers','skids'])}
+        ${_amField('am-tyreSize','Tyre Size',d.tyreSize)}
+        ${_amField('am-trackWidth','Track Width (mm)',d.trackWidth,'number')}
+      </div>
+      <div style="${g3}">
+        ${_amField('am-gradeability','Gradeability',d.gradeability)}
+        ${_amField('am-groundClearance','Ground Clearance (mm)',d.groundClearance,'number')}
+        ${_amField('am-turningRadius','Turning Radius (m)',d.turningRadius,'number')}
+      </div>
+
+      ${sh('Engine & Power')}
+      <div style="${g3}">
+        ${_amField('am-power','Power Source',d.power,'select',['Diesel','Electric','LPG','Petrol','Hybrid','Dual Power'])}
+        ${_amField('am-engine','Engine Description',d.engine)}
+        ${_amField('am-enginePower','Engine Power (kW)',d.enginePower,'number')}
+      </div>
+      <div style="${g3}">
+        ${_amField('am-terrain','Terrain',d.terrain,'select',['indoor','outdoor','indoor/outdoor','rough-terrain','crawler'])}
+        ${_amField('am-driveType','Drive Type',d.driveType)}
+        ${_amField('am-steeringModes','Steering Modes',d.steeringModes)}
+      </div>
+
+      ${sh('Attachments & Tags')}
+      <div style="${g1}">
+        ${_amField('am-attachments','Attachments',d.attachments,'array')}
+        ${_amField('am-tyneOptions','Tyne Options',d.tyneOptions,'array')}
+        ${_amField('am-certifications','Certifications',d.certifications,'array')}
+        ${_amField('am-tags','Tags',d.tags,'array')}
+        ${_amField('am-filters','Filters',d.filters,'array')}
+      </div>
+
+      ${sh('Description')}
+      <div style="${g1}">
+        ${_amField('am-bestFor','Best For',d.bestFor,'textarea')}
+        ${_amField('am-note','Full Technical Note',d.note,'textarea')}
+        ${_amField('am-loadChart','Load Chart Summary',d.loadChart,'textarea')}
+        ${_amField('am-source','Source Document',d.source)}
+        ${_amField('am-supplier','Australian Supplier',d.supplier)}
+      </div>
+
+      <div style="display:flex;gap:.7rem;margin-top:1.2rem;flex-wrap:wrap">
+        <button onclick="amSaveMachine()" style="flex:1;min-width:180px;background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;border:none;border-radius:10px;padding:.65rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.92rem;cursor:pointer">
+          💾 Save to Machine Database
+        </button>
+        <button onclick="renderAdminAddMachine()" style="background:#F1F5F9;color:#475569;border:1.5px solid #E2E8F0;border-radius:10px;padding:.65rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer">
+          ↺ Upload Another
+        </button>
+      </div>
+      <div id="am-save-status" style="margin-top:.7rem"></div>
+    </div>`;
+}
+
+function amReadForm() {
+  const g  = (id) => document.getElementById(id)?.value?.trim() || null;
+  const gn = (id) => { const v = g(id); return v ? parseFloat(v) : null; };
+  const ga = (id) => {
+    const v = g(id);
+    if (!v) return [];
+    return v.split(',').map(s => s.trim()).filter(Boolean);
+  };
+
+  const isRotating = g('am-isRotating') === 'yes';
+  const brand = g('am-brand') || 'Unknown';
+  const model = g('am-model') || '';
+  const name  = g('am-name') || `${brand} ${model}`.trim();
+  const id    = (brand + '-' + model).toLowerCase().replace(/[^a-z0-9]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'') || `machine-${Date.now()}`;
+
+  const typeEmojis = { boom:'💥', scissor:'✂️', telehandler: isRotating ? '🔄' : '🏗️', forklift:'🍴', material:'📦', pushAround:'🧍', palletJack:'🔄' };
+  const machineType = g('am-machineType') || 'boom';
+
+  return {
+    id, brand, model, name,
+    shortName:              g('am-shortName') || name,
+    emoji:                  typeEmojis[machineType] || '🏗️',
+    machineType,
+    isRotating,
+    capacity:               gn('am-capacity'),
+    capacityOnTyres:        gn('am-capacityOnTyres'),
+    capacityOnOutriggers:   gn('am-capacityOnOutriggers'),
+    capacityOnJib:          gn('am-capacityOnJib'),
+    capacityOnRotator:      gn('am-capacityOnRotator'),
+    swl:                    gn('am-swl'),
+    liftHeight:             gn('am-liftHeight'),
+    platformHeight:         gn('am-platformHeight'),
+    workingHeight:          gn('am-workingHeight'),
+    maxReach:               gn('am-maxReach'),
+    upAndOverHeight:        gn('am-upAndOverHeight'),
+    occupants:              gn('am-occupants'),
+    jibWeight:              gn('am-jibWeight'),
+    jibLength:              gn('am-jibLength'),
+    jibCapacity:            gn('am-jibCapacity'),
+    jibAngle:               g('am-jibAngle'),
+    rotatorWeight:          gn('am-rotatorWeight'),
+    rotatorCapacity:        gn('am-rotatorCapacity'),
+    turretRotation:         gn('am-turretRotation'),
+    boomRotation:           g('am-boomRotation'),
+    stowedWidth:            gn('am-stowedWidth'),
+    stowedLength:           gn('am-stowedLength'),
+    stowedHeight:           gn('am-stowedHeight'),
+    machineWeight:          gn('am-machineWeight'),
+    stabWidth:              gn('am-stabWidth'),
+    stabDepth:              gn('am-stabDepth'),
+    undercarriage:          g('am-undercarriage'),
+    tyreSize:               g('am-tyreSize'),
+    trackWidth:             gn('am-trackWidth'),
+    gradeability:           g('am-gradeability'),
+    groundClearance:        gn('am-groundClearance'),
+    turningRadius:          gn('am-turningRadius'),
+    power:                  g('am-power'),
+    engine:                 g('am-engine'),
+    enginePower:            gn('am-enginePower'),
+    terrain:                g('am-terrain') || 'outdoor',
+    driveType:              g('am-driveType'),
+    steeringModes:          g('am-steeringModes'),
+    attachments:            ga('am-attachments'),
+    tyneOptions:            ga('am-tyneOptions'),
+    certifications:         ga('am-certifications'),
+    tags:                   ga('am-tags'),
+    filters:                ga('am-filters').length ? ga('am-filters') : [machineType],
+    bestFor:                g('am-bestFor'),
+    note:                   g('am-note'),
+    loadChart:              g('am-loadChart'),
+    source:                 g('am-source'),
+    supplier:               g('am-supplier'),
+    _customAdded:           true,
+    _addedAt:               new Date().toISOString(),
+    _addedBy:               currentUser ? currentUser.email : 'admin',
+  };
+}
+
+async function amSaveMachine() {
+  const machine = amReadForm();
+  const saveStatus = document.getElementById('am-save-status');
+
+  if (!machine.brand || machine.brand === 'Unknown') {
+    if (saveStatus) saveStatus.innerHTML = `<div style="color:#DC2626;font-size:.83rem;font-weight:700">⚠️ Please fill in at least Brand and Machine Type before saving.</div>`;
+    return;
+  }
+
+  // ── 1. Save to Firestore custom_machines collection ─────────────
+  try {
+    await _fbDb.collection('custom_machines').doc(machine.id).set(machine);
+  } catch(e) {
+    if (saveStatus) saveStatus.innerHTML = `<div style="color:#DC2626;font-size:.83rem;font-weight:700">❌ Firestore save failed: ${e.message}</div>`;
+    return;
+  }
+
+  // ── 2. Push to in-memory ALL_MACHINES and MACHINES[type] ────────
+  // Remove any existing entry with same id first
+  const existIdx = ALL_MACHINES.findIndex(m => m.id === machine.id);
+  if (existIdx > -1) ALL_MACHINES.splice(existIdx, 1);
+  ALL_MACHINES.push(machine);
+
+  const typeKey = machine.machineType;
+  if (MACHINES[typeKey]) {
+    const tIdx = MACHINES[typeKey].findIndex(m => m.id === machine.id);
+    if (tIdx > -1) MACHINES[typeKey].splice(tIdx, 1);
+    MACHINES[typeKey].push(machine);
+  }
+
+  // ── 3. Success feedback ─────────────────────────────────────────
+  if (saveStatus) saveStatus.innerHTML = `
+    <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:9px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;color:#15803D">
+      ✅ <strong>${machine.name}</strong> saved to database and immediately active in search results.
+      <div style="font-size:.75rem;color:#16A34A;margin-top:.2rem">Firestore: custom_machines/${machine.id}</div>
+    </div>`;
+
+  showToast(`✅ ${machine.name} added — appears in ${machine.machineType} results immediately.`, '#16A34A');
+}
+
+// Load any previously saved custom machines from Firestore on boot
+async function _loadCustomMachines() {
+  try {
+    const snap = await _fbDb.collection('custom_machines').get();
+    snap.forEach(doc => {
+      const m = doc.data();
+      if (!m.id || ALL_MACHINES.find(x => x.id === m.id)) return; // skip duplicates
+      ALL_MACHINES.push(m);
+      const typeKey = m.machineType;
+      if (typeKey && MACHINES[typeKey]) {
+        if (!MACHINES[typeKey].find(x => x.id === m.id)) MACHINES[typeKey].push(m);
+      }
+    });
+    if (snap.size > 0) console.log(`Loaded ${snap.size} custom machine(s) from Firestore.`);
+  } catch(e) { console.warn('Could not load custom machines:', e.message); }
+}
+
+window.addEventListener('load', () => {
+  if (typeof _fbDb !== 'undefined') _loadCustomMachines();
+});
+
+async function renderAdminBilling() {
+  const el = document.getElementById('admin-sec-billing');
+  if (!el) return;
+  el.innerHTML = `<div style="color:#94A3B8;padding:2rem;text-align:center">Loading billing data…</div>`;
+
+  // ── Load all rental companies from Firestore ──────────────────────────
+  let allRcos = [];
+  try { allRcos = await _getAllRegisteredRentalCos(); } catch(e) {}
+
+  // ── Helper: compute monthly billing for one company ───────────────────
+  // Returns { base, overage, overageCount, total, included, used, remaining }
+  function _billing(c) {
+    const planKey  = c.plan || null;
+    const cfg      = planKey ? NOYO_PLANS[planKey] : null;
+    if (!cfg) return { base:0, overage:0, overageCount:0, total:0, included:0, used:0, remaining:0, cfg:null };
+    const used      = parseInt(c.enquiriesUsed || 0, 10);
+    const included  = cfg.included;
+    const overCount = Math.max(0, used - included);
+    const overage   = overCount * cfg.extraPrice;
+    return { base: cfg.price, overage, overageCount: overCount, total: cfg.price + overage,
+             included, used, remaining: Math.max(0, included - used), cfg };
+  }
+
+  // ── MRR calculations ──────────────────────────────────────────────────
+  const activeRcos = allRcos.filter(c => c.approvalStatus === 'approved' && c.plan);
+  const byPlan = { starter:[], growth:[], pro:[] };
+  activeRcos.forEach(c => { if (byPlan[c.plan]) byPlan[c.plan].push(c); });
+
+  const mrrBase    = activeRcos.reduce((s,c) => s + (_billing(c).base), 0);
+  const mrrOverage = activeRcos.reduce((s,c) => s + (_billing(c).overage), 0);
+  const mrrTotal   = mrrBase + mrrOverage;
+
+  const planMRR = (key) => byPlan[key].reduce((s,c) => s + _billing(c).total, 0);
+  const starterMRR = planMRR('starter'), growthMRR = planMRR('growth'), proMRR = planMRR('pro');
+
+  // ── Quote revenue: earned vs rejected per company ─────────────────────
+  // For each response on each quote: accepted=earned, rejected=lost
+  const coStats = {}; // keyed by company name
+  const _initCo = (name) => {
+    if (!coStats[name]) coStats[name] = {
+      name, quotesReceived:0, quotesResponded:0, quotesWon:0, quotesLost:0,
+      earnedRevenue:0, rejectedRevenue:0, pendingRevenue:0
+    };
+    return coStats[name];
+  };
+  quoteInbox.forEach(req => {
+    (req.responses||[]).forEach(r => {
+      if (!r.company) return;
+      const co = _initCo(r.company);
+      co.quotesReceived++;
+      co.quotesResponded++;
+      const val = r.grandTotal || 0;
+      if (r.accepted) {
+        co.quotesWon++;
+        co.earnedRevenue += val;
+      } else if (r.rejected) {
+        co.quotesLost++;
+        co.rejectedRevenue += val;
+      } else {
+        // awaiting customer decision
+        co.pendingRevenue += val;
+      }
+    });
+  });
+  // Also count quote requests received (not just responded)
+  quoteInbox.forEach(req => {
+    // Each rental company that was a recipient
+    (req.responses||[]).forEach(r => {
+      if (r.company) _initCo(r.company);
+    });
+  });
+  const coStatsList = Object.values(coStats).sort((a,b) => b.earnedRevenue - a.earnedRevenue);
+
+  // ── By-region breakdown: quote activity by state/city ────────────────
+  const regionStats = {}; // keyed by state
+  const depotStats  = {}; // keyed by city
+  quoteInbox.forEach(req => {
+    const state = req.state || (req.suburb ? '' : '') || '—';
+    const city  = req.city  || req.suburb || '—';
+    const val   = (req.responses||[]).find(r=>r.accepted)?.grandTotal || 0;
+    const hasResp = (req.responses||[]).length > 0;
+    const won  = !!req.acceptedBy;
+
+    if (state && state !== '—') {
+      if (!regionStats[state]) regionStats[state] = { quotes:0, responses:0, won:0, earnedRevenue:0 };
+      regionStats[state].quotes++;
+      if (hasResp)  regionStats[state].responses++;
+      if (won)     { regionStats[state].won++; regionStats[state].earnedRevenue += val; }
+    }
+    if (city && city !== '—') {
+      if (!depotStats[city]) depotStats[city] = { quotes:0, responses:0, won:0, earnedRevenue:0 };
+      depotStats[city].quotes++;
+      if (hasResp)  depotStats[city].responses++;
+      if (won)     { depotStats[city].won++; depotStats[city].earnedRevenue += val; }
+    }
+  });
+
+  // ── Plan comparison averages ──────────────────────────────────────────
+  function _planAvg(planKey) {
+    const cos = byPlan[planKey] || [];
+    if (!cos.length) return { count:0, avgLeads:0, avgWinRate:0, avgEarned:0, avgTotal:0 };
+    let totalLeads=0, totalWon=0, totalEarned=0, totalBilled=0;
+    cos.forEach(c => {
+      const b = _billing(c);
+      const st = coStats[c.name] || coStats[c.company] || {};
+      totalLeads  += b.used;
+      totalWon    += st.quotesWon   || 0;
+      totalEarned += st.earnedRevenue || 0;
+      totalBilled += b.total;
+    });
+    const n = cos.length;
+    return {
+      count: n,
+      avgLeads:   (totalLeads/n).toFixed(1),
+      avgWinRate: totalLeads > 0 ? Math.round(totalWon/totalLeads*100) : 0,
+      avgEarned:  Math.round(totalEarned/n),
+      avgTotal:   Math.round(totalBilled/n),
+    };
+  }
+  const sAvg = _planAvg('starter'), gAvg = _planAvg('growth'), pAvg = _planAvg('pro');
+
+  // ── AU dollar formatter ───────────────────────────────────────────────
+  const $$ = (n) => '$' + (n||0).toLocaleString('en-AU',{minimumFractionDigits:0,maximumFractionDigits:0});
+
+  // ── Plan badge helper ─────────────────────────────────────────────────
+  function planBadgeHtml(key) {
+    if (!key) return '<span style="color:#94A3B8;font-size:.75rem">No Plan</span>';
+    const c = NOYO_PLANS[key];
+    const colors = { starter:'#64748B', growth:'#0052CC', pro:'#7C3AED' };
+    const bgs    = { starter:'#F1F5F9', growth:'#EFF6FF', pro:'#F5F3FF' };
+    return `<span style="background:${bgs[key]||'#F1F5F9'};color:${colors[key]||'#334155'};border-radius:20px;padding:.18rem .6rem;font-size:.74rem;font-weight:800">${c.label}${key==='growth'?' ⭐':''}</span>`;
+  }
+
+  // ── RENDER ────────────────────────────────────────────────────────────
+  el.innerHTML = `
+    <div class="admin-section-title">💳 Billing & Revenue</div>
+
+    <!-- ═══ MRR OVERVIEW ═══ -->
+    <div style="background:linear-gradient(135deg,#0F172A,#1E293B);border:1.5px solid rgba(255,255,255,.08);border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:1.4rem">
+      <div style="font-size:.72rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.6px;margin-bottom:1rem">💰 Monthly Recurring Revenue — ${new Date().toLocaleString('en-AU',{month:'long',year:'numeric'})}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.2rem">
+        ${[
+          ['Total MRR', $$(mrrTotal),  'Base + overage combined',      '#22C55E','rgba(34,197,94,.12)'],
+          ['Base MRR',  $$(mrrBase),   'Subscriptions only',           '#3B82F6','rgba(59,130,246,.1)'],
+          ['Overage',   $$(mrrOverage),'Extra enquiries billed',       '#F59E0B','rgba(245,158,11,.1)'],
+          ['Active Cos',activeRcos.length,'On a paid plan',            '#A78BFA','rgba(167,139,250,.1)'],
+        ].map(([l,v,s,col,bg]) => `
+          <div style="background:${bg};border:1.5px solid ${col}33;border-radius:14px;padding:1rem 1.1rem;text-align:center">
+            <div style="font-size:1.6rem;font-weight:900;color:${col}">${v}</div>
+            <div style="font-size:.78rem;font-weight:800;color:#CBD5E1;margin-top:.1rem">${l}</div>
+            <div style="font-size:.68rem;color:#64748B">${s}</div>
+          </div>`).join('')}
+      </div>
+      <!-- Plan tier MRR bars -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem">
+        ${[
+          ['Starter', starterMRR, byPlan.starter.length, '#64748B', '#F1F5F9'],
+          ['Growth ⭐', growthMRR, byPlan.growth.length, '#0052CC', '#EFF6FF'],
+          ['Pro',      proMRR,    byPlan.pro.length,     '#7C3AED', '#F5F3FF'],
+        ].map(([label, mrr, count, col, bg]) => {
+          const pct = mrrTotal > 0 ? Math.round(mrr/mrrTotal*100) : 0;
+          return `
+          <div style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.07);border-radius:12px;padding:.85rem 1rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem">
+              <span style="font-weight:800;color:#E2E8F0;font-size:.82rem">${label}</span>
+              <span style="font-size:.72rem;color:#64748B">${count} co${count!==1?'s':''}</span>
+            </div>
+            <div style="font-size:1.25rem;font-weight:900;color:${col};margin-bottom:.4rem">${$$(mrr)}/mo</div>
+            <div style="background:rgba(255,255,255,.06);border-radius:4px;height:8px;overflow:hidden">
+              <div style="width:${pct}%;height:100%;background:${col};border-radius:4px"></div>
+            </div>
+            <div style="font-size:.68rem;color:#64748B;margin-top:.3rem">${pct}% of total MRR</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- ═══ STRIPE INTEGRATION STATUS ═══ -->
+    <div style="background:rgba(99,102,241,.06);border:1.5px solid rgba(99,102,241,.25);border-radius:14px;padding:.9rem 1.2rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div style="font-size:1.4rem">💳</div>
+      <div style="flex:1;min-width:200px">
+        <div style="font-weight:800;color:#A5B4FC;font-size:.88rem">Stripe Integration</div>
+        <div style="font-size:.76rem;color:#64748B;margin-top:.15rem">Connect Stripe to auto-sync subscription status, payment history, and failed payment alerts.</div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <div style="background:rgba(255,200,50,.1);border:1px solid rgba(255,200,50,.35);border-radius:8px;padding:.35rem .75rem;font-size:.75rem;font-weight:800;color:#FCD34D">⚠️ Stripe keys not yet set</div>
+        <button onclick="adminOpenStripeSetup()" style="background:#6366F1;color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">Configure →</button>
+      </div>
+    </div>
+
+    <!-- ═══ PER-COMPANY BILLING TABLE ═══ -->
+    <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">📋 Per-Company Billing — Current Month</div>
+    <div style="overflow-x:auto;margin-bottom:1.6rem">
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem">
+        <thead>
+          <tr style="background:rgba(255,255,255,.04);border-bottom:2px solid rgba(255,255,255,.08)">
+            <th style="padding:.5rem .7rem;text-align:left;color:#94A3B8;font-weight:800;white-space:nowrap">Company</th>
+            <th style="padding:.5rem .7rem;text-align:left;color:#94A3B8;font-weight:800">Plan</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Included</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Used</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Remaining</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Overage</th>
+            <th style="padding:.5rem .7rem;text-align:right;color:#94A3B8;font-weight:800">Base Fee</th>
+            <th style="padding:.5rem .7rem;text-align:right;color:#94A3B8;font-weight:800">Overage $</th>
+            <th style="padding:.5rem .7rem;text-align:right;color:#94A3B8;font-weight:800">Total Bill</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Status</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${activeRcos.length ? activeRcos.map(c => {
+            const b = _billing(c);
+            const overBg = b.overageCount > 0 ? 'rgba(245,158,11,.08)' : '';
+            const remColor = b.remaining <= 2 ? '#EF4444' : b.remaining <= 5 ? '#F59E0B' : '#22C55E';
+            return `<tr style="border-bottom:1px solid rgba(255,255,255,.05);background:${overBg}">
+              <td style="padding:.45rem .7rem;font-weight:800;color:#E2E8F0">${c.company||c.name||'—'}<br><span style="font-size:.68rem;color:#475569;font-weight:400">${c.email}</span></td>
+              <td style="padding:.45rem .7rem">${planBadgeHtml(c.plan)}</td>
+              <td style="padding:.45rem .7rem;text-align:center;color:#94A3B8">${b.included}</td>
+              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:#CBD5E1">${b.used}</td>
+              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:${remColor}">${b.remaining}</td>
+              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:${b.overageCount>0?'#F59E0B':'#475569'}">${b.overageCount>0?b.overageCount+'×':'—'}</td>
+              <td style="padding:.45rem .7rem;text-align:right;color:#94A3B8">${$$(b.base)}</td>
+              <td style="padding:.45rem .7rem;text-align:right;font-weight:${b.overage>0?800:400};color:${b.overage>0?'#F59E0B':'#475569'}">${b.overage>0?$$(b.overage):'—'}</td>
+              <td style="padding:.45rem .7rem;text-align:right;font-weight:900;color:#22C55E">${$$(b.total)}</td>
+              <td style="padding:.45rem .7rem;text-align:center">
+                <span style="background:#DCFCE7;color:#16A34A;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">✅ Active</span>
+              </td>
+              <td style="padding:.45rem .7rem;text-align:center">
+                <button onclick="openAdminPlanModal('${c.email}','${c.plan||''}','${b.used}')"
+                  style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.22rem .55rem;font-size:.72rem;font-weight:800;cursor:pointer">✏️ Plan</button>
+              </td>
+            </tr>`;
+          }).join('') : `<tr><td colspan="11" style="text-align:center;color:#475569;padding:2rem">No active subscriptions yet.</td></tr>`}
+        </tbody>
+        ${activeRcos.length ? `
+        <tfoot>
+          <tr style="background:rgba(34,197,94,.06);border-top:2px solid rgba(34,197,94,.2)">
+            <td colspan="6" style="padding:.5rem .7rem;font-weight:800;color:#94A3B8;font-size:.78rem">TOTALS</td>
+            <td style="padding:.5rem .7rem;text-align:right;font-weight:800;color:#94A3B8">${$$(mrrBase)}</td>
+            <td style="padding:.5rem .7rem;text-align:right;font-weight:800;color:#F59E0B">${$$(mrrOverage)}</td>
+            <td style="padding:.5rem .7rem;text-align:right;font-weight:900;font-size:.9rem;color:#22C55E">${$$(mrrTotal)}</td>
+            <td colspan="2"></td>
+          </tr>
+        </tfoot>` : ''}
+      </table>
+    </div>
+
+    <!-- ═══ EARNED vs REJECTED REVENUE ═══ -->
+    <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">📊 Quote Revenue — Earned vs Rejected by Company</div>
+    <div style="overflow-x:auto;margin-bottom:1.6rem">
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem">
+        <thead>
+          <tr style="background:rgba(255,255,255,.04);border-bottom:2px solid rgba(255,255,255,.08)">
+            <th style="padding:.5rem .7rem;text-align:left;color:#94A3B8;font-weight:800">Company</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Plan</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Quotes Rec'd</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Responded</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#22C55E;font-weight:800">Won ✅</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#EF4444;font-weight:800">Lost ❌</th>
+            <th style="padding:.5rem .7rem;text-align:right;color:#22C55E;font-weight:800">Earned $</th>
+            <th style="padding:.5rem .7rem;text-align:right;color:#EF4444;font-weight:800">Rejected $</th>
+            <th style="padding:.5rem .7rem;text-align:right;color:#F59E0B;font-weight:800">Pending $</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Win Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${coStatsList.length ? coStatsList.map(co => {
+            const winRate = co.quotesResponded > 0 ? Math.round(co.quotesWon/co.quotesResponded*100) : 0;
+            const winCol  = winRate >= 50 ? '#22C55E' : winRate >= 25 ? '#F59E0B' : '#EF4444';
+            // Try to find plan for this company
+            const rcMatch = allRcos.find(r => r.name === co.name || r.company === co.name);
+            return `<tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+              <td style="padding:.42rem .7rem;font-weight:800;color:#E2E8F0">${co.name}</td>
+              <td style="padding:.42rem .7rem;text-align:center">${planBadgeHtml(rcMatch?.plan||null)}</td>
+              <td style="padding:.42rem .7rem;text-align:center;color:#CBD5E1;font-weight:700">${co.quotesReceived}</td>
+              <td style="padding:.42rem .7rem;text-align:center;color:#94A3B8">${co.quotesResponded}</td>
+              <td style="padding:.42rem .7rem;text-align:center;font-weight:800;color:#22C55E">${co.quotesWon}</td>
+              <td style="padding:.42rem .7rem;text-align:center;font-weight:800;color:#EF4444">${co.quotesLost}</td>
+              <td style="padding:.42rem .7rem;text-align:right;font-weight:900;color:#22C55E">${co.earnedRevenue>0?$$(co.earnedRevenue):'—'}</td>
+              <td style="padding:.42rem .7rem;text-align:right;font-weight:700;color:#EF4444">${co.rejectedRevenue>0?$$(co.rejectedRevenue):'—'}</td>
+              <td style="padding:.42rem .7rem;text-align:right;font-weight:700;color:#F59E0B">${co.pendingRevenue>0?$$(co.pendingRevenue):'—'}</td>
+              <td style="padding:.42rem .7rem;text-align:center">
+                <span style="background:${winCol}22;color:${winCol};border-radius:20px;padding:.15rem .6rem;font-size:.8rem;font-weight:900">${winRate}%</span>
+              </td>
+            </tr>`;
+          }).join('') : `<tr><td colspan="10" style="text-align:center;color:#475569;padding:2rem">No quote data yet.</td></tr>`}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ PLAN COMPARISON ═══ -->
+    <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">📦 Plan Performance Comparison</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.6rem">
+      ${[
+        ['starter','Starter','#64748B','rgba(100,116,139,.1)', sAvg],
+        ['growth', 'Growth ⭐','#0052CC','rgba(0,82,204,.1)',   gAvg],
+        ['pro',    'Pro',    '#7C3AED','rgba(124,58,237,.1)',  pAvg],
+      ].map(([key,label,col,bg,avg]) => `
+        <div style="background:${bg};border:2px solid ${col}44;border-radius:16px;padding:1.1rem 1.2rem">
+          <div style="font-weight:900;color:${col};font-size:.95rem;margin-bottom:.8rem">${label}</div>
+          <div style="font-size:.72rem;color:#64748B;margin-bottom:.2rem">Companies on plan</div>
+          <div style="font-size:1.3rem;font-weight:900;color:#E2E8F0;margin-bottom:.9rem">${avg.count}</div>
+          ${[
+            ['Avg enquiries/mo', avg.avgLeads],
+            ['Avg win rate',     avg.avgWinRate + '%'],
+            ['Avg earned/mo',    avg.avgEarned > 0 ? $$(avg.avgEarned) : '—'],
+            ['Avg monthly bill', avg.avgTotal   > 0 ? $$(avg.avgTotal)  : $$(NOYO_PLANS[key].price)],
+          ].map(([l,v]) => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.06)">
+              <span style="font-size:.74rem;color:#94A3B8">${l}</span>
+              <span style="font-size:.82rem;font-weight:800;color:#CBD5E1">${v}</span>
+            </div>`).join('')}
+          <div style="margin-top:.8rem;font-size:.74rem;color:${col};font-weight:700">
+            Base: ${$$(NOYO_PLANS[key].price)}/mo · ${NOYO_PLANS[key].included} enquiries
+          </div>
+          <div style="font-size:.71rem;color:#64748B">Overage: ${$$(NOYO_PLANS[key].extraPrice)}/extra</div>
+        </div>`).join('')}
+    </div>
+
+    <!-- ═══ BY REGION / DEPOT / STATE ═══ -->
+    <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">🗺️ Quote Activity by Region</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem">
+      <!-- By State -->
+      <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem">
+        <div style="font-size:.75rem;font-weight:800;color:#CBD5E1;margin-bottom:.8rem">📍 By State</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.75rem">
+          <thead><tr>
+            <th style="text-align:left;color:#64748B;font-weight:700;padding:.25rem .35rem">State</th>
+            <th style="text-align:center;color:#64748B;font-weight:700;padding:.25rem .35rem">Quotes</th>
+            <th style="text-align:center;color:#64748B;font-weight:700;padding:.25rem .35rem">Won</th>
+            <th style="text-align:right;color:#64748B;font-weight:700;padding:.25rem .35rem">Revenue</th>
+          </tr></thead>
+          <tbody>
+            ${Object.entries(regionStats).sort((a,b)=>b[1].quotes-a[1].quotes).slice(0,12).map(([state,s]) => {
+              const wr = s.quotes > 0 ? Math.round(s.won/s.quotes*100) : 0;
+              return `<tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+                <td style="padding:.3rem .35rem;font-weight:700;color:#CBD5E1">${state}</td>
+                <td style="padding:.3rem .35rem;text-align:center;color:#94A3B8">${s.quotes}</td>
+                <td style="padding:.3rem .35rem;text-align:center;color:#22C55E;font-weight:700">${s.won} <span style="font-size:.65rem;color:#64748B">(${wr}%)</span></td>
+                <td style="padding:.3rem .35rem;text-align:right;color:#22C55E;font-weight:700">${s.earnedRevenue>0?$$(s.earnedRevenue):'—'}</td>
+              </tr>`;
+            }).join('') || '<tr><td colspan="4" style="text-align:center;color:#475569;padding:1rem">No regional data yet.</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+      <!-- By Depot/City -->
+      <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem">
+        <div style="font-size:.75rem;font-weight:800;color:#CBD5E1;margin-bottom:.8rem">🏙️ By Depot City</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.75rem">
+          <thead><tr>
+            <th style="text-align:left;color:#64748B;font-weight:700;padding:.25rem .35rem">Depot</th>
+            <th style="text-align:center;color:#64748B;font-weight:700;padding:.25rem .35rem">Quotes</th>
+            <th style="text-align:center;color:#64748B;font-weight:700;padding:.25rem .35rem">Won</th>
+            <th style="text-align:right;color:#64748B;font-weight:700;padding:.25rem .35rem">Revenue</th>
+          </tr></thead>
+          <tbody>
+            ${Object.entries(depotStats).sort((a,b)=>b[1].quotes-a[1].quotes).slice(0,12).map(([city,s]) => {
+              const wr = s.quotes > 0 ? Math.round(s.won/s.quotes*100) : 0;
+              return `<tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+                <td style="padding:.3rem .35rem;font-weight:700;color:#CBD5E1">${city}</td>
+                <td style="padding:.3rem .35rem;text-align:center;color:#94A3B8">${s.quotes}</td>
+                <td style="padding:.3rem .35rem;text-align:center;color:#22C55E;font-weight:700">${s.won} <span style="font-size:.65rem;color:#64748B">(${wr}%)</span></td>
+                <td style="padding:.3rem .35rem;text-align:right;color:#22C55E;font-weight:700">${s.earnedRevenue>0?$$(s.earnedRevenue):'—'}</td>
+              </tr>`;
+            }).join('') || '<tr><td colspan="4" style="text-align:center;color:#475569;padding:1rem">No depot data yet.</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ STRIPE SETUP MODAL PLACEHOLDER ═══ -->
+    <div id="billing-stripe-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:none;align-items:center;justify-content:center">
+      <div style="background:#1E293B;border:1.5px solid rgba(99,102,241,.4);border-radius:18px;padding:1.8rem;max-width:480px;width:90%;position:relative">
+        <button onclick="document.getElementById('billing-stripe-modal').style.display='none'"
+          style="position:absolute;top:.8rem;right:.8rem;background:none;border:none;color:#94A3B8;font-size:1.3rem;cursor:pointer">×</button>
+        <div style="font-weight:900;color:#A5B4FC;font-size:1.1rem;margin-bottom:.4rem">💳 Stripe Setup</div>
+        <div style="font-size:.82rem;color:#64748B;margin-bottom:1.2rem">Configure your Stripe integration for automatic billing, payment tracking, and webhook events.</div>
+        <div style="display:flex;flex-direction:column;gap:.7rem">
+          <div>
+            <div style="font-size:.75rem;font-weight:800;color:#94A3B8;margin-bottom:.3rem">Publishable Key</div>
+            <input id="stripe-pk-input" class="lp-input" placeholder="pk_live_…" style="font-size:.82rem;background:#0F172A;color:#E2E8F0">
+          </div>
+          <div>
+            <div style="font-size:.75rem;font-weight:800;color:#94A3B8;margin-bottom:.3rem">Webhook Secret</div>
+            <input id="stripe-wh-input" class="lp-input" type="password" placeholder="whsec_…" style="font-size:.82rem;background:#0F172A;color:#E2E8F0">
+          </div>
+          <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:.7rem .9rem;font-size:.76rem;color:#FCD34D;line-height:1.6">
+            ⚠️ <strong>Cloudflare Worker webhook endpoint:</strong><br>
+            Deploy the Noyo billing worker at <code style="background:rgba(0,0,0,.3);padding:.1rem .3rem;border-radius:4px">https://billing.noyo.com.au/stripe-webhook</code><br>
+            Point your Stripe webhook to this URL. The worker writes payment events to Firestore <code style="background:rgba(0,0,0,.3);padding:.1rem .3rem;border-radius:4px">billing_events</code> collection automatically.
+          </div>
+          <button onclick="adminSaveStripeKeys()"
+            style="background:#6366F1;color:#fff;border:none;border-radius:10px;padding:.65rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;margin-top:.3rem">
+            Save & Test Connection
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function adminOpenStripeSetup() {
+  const modal = document.getElementById('billing-stripe-modal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function adminSaveStripeKeys() {
+  const pk = (document.getElementById('stripe-pk-input')?.value || '').trim();
+  const wh = (document.getElementById('stripe-wh-input')?.value || '').trim();
+  if (!pk || !pk.startsWith('pk_')) { showToast('⚠️ Enter a valid Stripe publishable key (starts with pk_)', '#EF4444'); return; }
+  if (!wh || !wh.startsWith('whsec_')) { showToast('⚠️ Enter a valid webhook secret (starts with whsec_)', '#EF4444'); return; }
+  // In production: save to Firestore config collection (admin-only doc)
+  try {
+    _fbDb.collection('_config').doc('stripe').set({ publishableKey: pk, webhookSecretHint: wh.slice(0,12)+'…', updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+  } catch(e) {}
+  document.getElementById('billing-stripe-modal').style.display = 'none';
+  showToast('✅ Stripe keys saved. Deploy the Cloudflare Worker to activate webhook sync.', '#16A34A');
+}
+
+function renderAdminLiteAnalytics() {
+  const el = document.getElementById('admin-sec-liteanalytics');
+  if (!el) return;
+
+  // Pull lite-only searches
+  const liteSearches = adminData.searches.filter(s => s.isLite || s.role === 'lite');
+  const allSearches  = adminData.searches;
+
+  // ── Helper: bar chart HTML ──────────────────────────────────────────────
+  function barChart(counts, colorA, colorB) {
+    const entries = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+    if (!entries.length) return '<div style="color:#94A3B8;font-size:.82rem;padding:.5rem">No data yet</div>';
+    const max = entries[0][1] || 1;
+    return entries.map(([k,v]) => `
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.35rem">
+        <div style="flex:0 0 130px;font-size:.75rem;font-weight:700;color:#CBD5E1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${k}">${k}</div>
+        <div style="flex:1;background:rgba(255,255,255,.06);border-radius:6px;height:18px;overflow:hidden">
+          <div style="width:${Math.round(v/max*100)}%;height:100%;background:linear-gradient(90deg,${colorA},${colorB});border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px">
+            <span style="font-size:.68rem;font-weight:800;color:#fff">${v}</span>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Depot frequency ─────────────────────────────────────────────────────
+  const depotCounts = {};
+  liteSearches.forEach(s => {
+    const d = s.depot && s.depot !== '—' ? s.depot : (s.city && s.city !== '—' ? s.city : 'Unknown');
+    depotCounts[d] = (depotCounts[d]||0) + 1;
+  });
+
+  // ── Machine types ────────────────────────────────────────────────────────
+  const typeCounts = {};
+  liteSearches.forEach(s => {
+    const t = s.machineName || s.machineType || 'Unknown';
+    typeCounts[t] = (typeCounts[t]||0) + 1;
+  });
+
+  // ── Time-of-day heatmap (0-23 hours) ────────────────────────────────────
+  const hourBuckets = Array(24).fill(0);
+  liteSearches.forEach(s => { if (s.ts) hourBuckets[new Date(s.ts).getHours()]++; });
+  const hourMax = Math.max(...hourBuckets, 1);
+  const hourHtml = hourBuckets.map((v,h) => {
+    const pct = Math.round(v/hourMax*100);
+    const label = h === 0 ? '12am' : h === 12 ? '12pm' : h < 12 ? h+'am' : (h-12)+'pm';
+    const bg = pct === 0 ? 'rgba(14,165,233,.04)' : `rgba(14,165,233,${(0.1 + pct/100*0.85).toFixed(2)})`;
+    return `<div style="flex:1;min-width:28px;text-align:center">
+      <div style="background:${bg};border-radius:4px;height:${Math.max(6, Math.round(pct*0.5))}px;margin-bottom:3px;transition:height .3s" title="${label}: ${v} searches"></div>
+      <div style="font-size:.58rem;color:#64748B;font-weight:600">${label}</div>
+    </div>`;
+  }).join('');
+
+  // ── Day-of-week ──────────────────────────────────────────────────────────
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const dowBuckets = Array(7).fill(0);
+  liteSearches.forEach(s => { if (s.ts) dowBuckets[new Date(s.ts).getDay()]++; });
+  const dowMax = Math.max(...dowBuckets, 1);
+  const dowHtml = dowBuckets.map((v,d) => {
+    const pct = Math.round(v/dowMax*100);
+    const bg = pct === 0 ? 'rgba(14,165,233,.04)' : `rgba(14,165,233,${(0.15 + pct/100*0.8).toFixed(2)})`;
+    return `<div style="flex:1;text-align:center">
+      <div style="background:${bg};border-radius:5px;height:${Math.max(8, Math.round(pct*0.6))}px;margin-bottom:4px" title="${days[d]}: ${v}"></div>
+      <div style="font-size:.7rem;color:#94A3B8;font-weight:700">${days[d]}</div>
+      <div style="font-size:.65rem;color:#64748B">${v}</div>
+    </div>`;
+  }).join('');
+
+  // ── Per-day trend (last 30 days) ─────────────────────────────────────────
+  const perDay = {};
+  const now30 = Date.now();
+  liteSearches.forEach(s => {
+    if (!s.ts || now30 - s.ts > 30*86400000) return;
+    const day = new Date(s.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short'});
+    perDay[day] = (perDay[day]||0) + 1;
+  });
+  const dayEntries = Object.entries(perDay).slice(-30);
+  const dayMax = Math.max(...dayEntries.map(e=>e[1]), 1);
+  const dayHtml = dayEntries.length ? dayEntries.map(([d,v]) => `
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
+      <div style="flex:0 0 60px;font-size:.72rem;color:#94A3B8;font-weight:600">${d}</div>
+      <div style="flex:1;background:rgba(255,255,255,.06);border-radius:4px;height:14px;overflow:hidden">
+        <div style="width:${Math.round(v/dayMax*100)}%;height:100%;background:linear-gradient(90deg,#0EA5E9,#38BDF8);border-radius:4px"></div>
+      </div>
+      <div style="font-size:.72rem;color:#38BDF8;font-weight:800;flex:0 0 20px;text-align:right">${v}</div>
+    </div>`).join('') : '<div style="color:#94A3B8;font-size:.82rem">No searches in last 30 days</div>';
+
+  // ── Per-month trend ───────────────────────────────────────────────────────
+  const perMonth = {};
+  liteSearches.forEach(s => {
+    if (!s.ts) return;
+    const mo = new Date(s.ts).toLocaleDateString('en-AU',{month:'short',year:'numeric'});
+    perMonth[mo] = (perMonth[mo]||0) + 1;
+  });
+  const moEntries = Object.entries(perMonth);
+  const moMax = Math.max(...moEntries.map(e=>e[1]), 1);
+  const moHtml = moEntries.length ? moEntries.map(([m,v]) => `
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+      <div style="flex:0 0 75px;font-size:.75rem;color:#94A3B8;font-weight:600">${m}</div>
+      <div style="flex:1;background:rgba(255,255,255,.06);border-radius:4px;height:16px;overflow:hidden">
+        <div style="width:${Math.round(v/moMax*100)}%;height:100%;background:linear-gradient(90deg,#0369A1,#0EA5E9);border-radius:4px"></div>
+      </div>
+      <div style="font-size:.75rem;color:#0EA5E9;font-weight:800;flex:0 0 20px;text-align:right">${v}</div>
+    </div>`).join('') : '<div style="color:#94A3B8;font-size:.82rem">No monthly data yet</div>';
+
+  // ── Registered lite users ─────────────────────────────────────────────────
+  const liteUsers = Object.values(customerRegistry).filter(u => u.role === 'lite');
+  const liteUserCount = liteUsers.length;
+  const liteSearchCount = liteSearches.length;
+  const avgPerUser = liteUserCount > 0 ? (liteSearchCount / liteUserCount).toFixed(1) : '0';
+
+  // ── Top job types from lite searches ─────────────────────────────────────
+  const jobCounts = {};
+  liteSearches.forEach(s => { if (s.jobType && s.jobType !== '—') jobCounts[s.jobType] = (jobCounts[s.jobType]||0)+1; });
+
+  // ── Render ────────────────────────────────────────────────────────────────
+  el.innerHTML = `
+    <div class="admin-section-title" style="color:#38BDF8">🔵 Lite Portal Analytics</div>
+    <div style="background:rgba(14,165,233,.06);border:1.5px solid rgba(14,165,233,.2);border-radius:12px;padding:.7rem 1rem;margin-bottom:1.2rem;font-size:.78rem;color:#7DD3FC;line-height:1.6">
+      ℹ️ <strong>Lite Portal</strong> users search for machine information only — no quoting, no cart. These analytics track what machines people want to know about, and from which depots, helping identify unmet demand.
+    </div>
+
+    <!-- KPI row -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1.4rem">
+      ${[
+        ['🔵','Lite Users', liteUserCount,'Registered'],
+        ['🔍','Lite Searches', liteSearchCount,'Total'],
+        ['📊','Avg / User', avgPerUser,'Searches per user'],
+        ['🏙️','Depots Active', Object.keys(depotCounts).length,'Unique depots'],
+        ['⚙️','Machine Types', Object.keys(typeCounts).length,'Unique types searched'],
+      ].map(([icon,label,val,sub]) => `
+        <div style="background:linear-gradient(135deg,rgba(14,165,233,.10),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.22);border-radius:14px;padding:.9rem 1rem;text-align:center">
+          <div style="font-size:1.5rem">${icon}</div>
+          <div style="font-size:1.35rem;font-weight:900;color:#38BDF8">${val}</div>
+          <div style="font-size:.75rem;font-weight:800;color:#CBD5E1">${label}</div>
+          <div style="font-size:.68rem;color:#64748B">${sub}</div>
+        </div>`).join('')}
+    </div>
+
+    <!-- Depot + Machine type side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">
+      <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem">
+        <div style="font-size:.75rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.8rem">🏙️ Depot Search Frequency</div>
+        ${barChart(depotCounts,'#0EA5E9','#38BDF8') || '<div style="color:#94A3B8;font-size:.82rem">No depot data yet</div>'}
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem">
+        <div style="font-size:.75rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.8rem">⚙️ Machine Types Searched</div>
+        ${barChart(typeCounts,'#0369A1','#0EA5E9') || '<div style="color:#94A3B8;font-size:.82rem">No type data yet</div>'}
+      </div>
+    </div>
+
+    <!-- Job type pills -->
+    ${Object.keys(jobCounts).length ? `
+    <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem;margin-bottom:1.2rem">
+      <div style="font-size:.75rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">🎯 Job Types Searched</div>
+      <div>${Object.entries(jobCounts).sort((a,b)=>b[1]-a[1]).map(([k,v]) =>
+        `<span style="background:rgba(14,165,233,.12);color:#38BDF8;border:1px solid rgba(14,165,233,.3);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;font-weight:700;margin:.18rem;display:inline-block">${k} <strong>${v}×</strong></span>`
+      ).join('')}</div>
+    </div>` : ''}
+
+    <!-- Time of day heatmap -->
+    <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem;margin-bottom:1.2rem">
+      <div style="font-size:.75rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.9rem">🕐 Time of Day Pattern</div>
+      <div style="display:flex;gap:2px;align-items:flex-end;min-height:50px">${hourHtml}</div>
+    </div>
+
+    <!-- Day of week + monthly side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">
+      <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem">
+        <div style="font-size:.75rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.9rem">📅 Day of Week</div>
+        <div style="display:flex;gap:4px;align-items:flex-end;min-height:60px">${dowHtml}</div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem">
+        <div style="font-size:.75rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">📆 Per Month</div>
+        ${moHtml}
+      </div>
+    </div>
+
+    <!-- Per-day last 30 days -->
+    <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;padding:1rem;margin-bottom:1.2rem">
+      <div style="font-size:.75rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">📈 Daily Searches — Last 30 Days</div>
+      ${dayHtml}
+    </div>
+
+    <!-- Recent lite search log -->
+    <div style="font-size:.78rem;font-weight:800;color:#38BDF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem">📋 Recent Lite Searches</div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem">
+        <thead>
+          <tr style="background:rgba(14,165,233,.1)">
+            <th style="padding:.45rem .6rem;text-align:left;color:#7DD3FC;font-weight:800;white-space:nowrap">Time</th>
+            <th style="padding:.45rem .6rem;text-align:left;color:#7DD3FC;font-weight:800">User</th>
+            <th style="padding:.45rem .6rem;text-align:left;color:#7DD3FC;font-weight:800">Depot</th>
+            <th style="padding:.45rem .6rem;text-align:left;color:#7DD3FC;font-weight:800">Machine Type</th>
+            <th style="padding:.45rem .6rem;text-align:left;color:#7DD3FC;font-weight:800">Job</th>
+            <th style="padding:.45rem .6rem;text-align:left;color:#7DD3FC;font-weight:800">Height</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${liteSearches.length ? [...liteSearches].reverse().slice(0,50).map(s => `
+            <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+              <td style="padding:.38rem .6rem;color:#64748B;white-space:nowrap;font-size:.72rem">${s.ts ? new Date(s.ts).toLocaleString('en-AU',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—'}</td>
+              <td style="padding:.38rem .6rem;font-weight:700;color:#CBD5E1">${s.user||'—'}<br><span style="font-size:.68rem;color:#475569">${s.email||''}</span></td>
+              <td style="padding:.38rem .6rem;color:#38BDF8;font-weight:700">${s.depot && s.depot!=='—' ? s.depot : s.city||'—'}</td>
+              <td style="padding:.38rem .6rem;font-weight:700;color:#E2E8F0">${s.machineName||s.machineType||'—'}</td>
+              <td style="padding:.38rem .6rem;color:#94A3B8;font-size:.74rem">${s.jobType||'—'}</td>
+              <td style="padding:.38rem .6rem;color:#94A3B8">${s.height||'—'}</td>
+            </tr>`).join('')
+          : '<tr><td colspan="6" style="text-align:center;color:#475569;padding:2rem">No Lite portal searches recorded yet.</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
 function showAdminSection(name, btn) {
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -36933,13 +39174,17 @@ function showAdminSection(name, btn) {
   if (sec) sec.classList.add('active');
   if (btn) btn.classList.add('active');
   // Trigger renders for new sections
-  if (name === 'customers')  renderAdminCustomers();
-  if (name === 'rentalcos')  renderAdminRentalCos();
-  if (name === 'users')      renderAdminUsers();
-  if (name === 'searches')   renderAdminSearches();
-  if (name === 'activity')   renderAdminActivity();
-  if (name === 'analytics')  renderAnalytics();
-  if (name === 'feedback')   renderAdminFeedback();
+  if (name === 'customers')     renderAdminCustomers();
+  if (name === 'rentalcos')     renderAdminRentalCos();
+  if (name === 'users')         renderAdminUsers();
+  if (name === 'searches')      renderAdminSearches();
+  if (name === 'activity')      renderAdminActivity();
+  if (name === 'analytics')     renderAnalytics();
+  if (name === 'liteanalytics') renderAdminLiteAnalytics();
+  if (name === 'billing')       renderAdminBilling();
+  if (name === 'sponsored')     renderAdminSponsored();
+  if (name === 'addmachine')    renderAdminAddMachine();
+  if (name === 'addmachine')  { /* panel is static HTML — nothing to render */ }
 }
 
 
@@ -37534,17 +39779,95 @@ function onSuburbBlur() {
 // BUY LEAD SYSTEM
 // =====================================================================
 
+// ── Subscription plans ────────────────────────────────────────────────
+const NOYO_PLANS = {
+  starter: {
+    label:       'Starter',
+    price:       79,
+    included:    8,
+    extraPrice:  18,
+    color:       '#64748B',
+    badge:       '#F1F5F9',
+    // Stripe Price IDs — fill in after creating products in Stripe dashboard
+    stripePriceId:      'price_starter_monthly',   // ← replace
+    stripeExtraPriceId: 'price_starter_extra',     // ← replace
+  },
+  growth: {
+    label:       'Growth',
+    price:       149,
+    included:    20,
+    extraPrice:  12,
+    color:       '#0052CC',
+    badge:       '#EFF6FF',
+    popular:     true,
+    stripePriceId:      'price_growth_monthly',    // ← replace
+    stripeExtraPriceId: 'price_growth_extra',      // ← replace
+  },
+  pro: {
+    label:       'Pro',
+    price:       299,
+    included:    50,
+    extraPrice:  8,
+    color:       '#7C3AED',
+    badge:       '#F5F3FF',
+    stripePriceId:      'price_pro_monthly',       // ← replace
+    stripeExtraPriceId: 'price_pro_extra',         // ← replace
+  },
+};
+
+// Stripe publishable key — replace with your live/test key
+const STRIPE_PK = 'pk_test_REPLACE_WITH_YOUR_STRIPE_KEY';
+
+// Current billing month key e.g. '2026-03'
+function _billingMonth() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+}
+
+// Read plan state from profile cache (synchronous — populated on login)
+// Returns { plan, cfg, included, extraPrice, used, remaining, month, hasSubscription }
+function _rcPlan() {
+  if (!currentUser || !currentUser.uid) return null;
+  const profile = _userProfileCache[currentUser.uid] || {};
+  const planKey = profile.plan || null;
+  const cfg     = NOYO_PLANS[planKey] || null;
+  if (!planKey || !cfg) return { plan: null, cfg: null, hasSubscription: false };
+
+  const month   = _billingMonth();
+  const storedMonth = profile.planActiveSince || '';
+
+  // Month rolled over — reset counter in Firestore (fire-and-forget)
+  let used = parseInt(profile.enquiriesUsed || 0, 10);
+  if (storedMonth !== month) {
+    used = 0;
+    _fbSaveRentalProfile(currentUser.uid, { planActiveSince: month, enquiriesUsed: 0 });
+    _userProfileCache[currentUser.uid] = { ..._userProfileCache[currentUser.uid], planActiveSince: month, enquiriesUsed: 0 };
+  }
+
+  const included  = cfg.included;
+  const remaining = Math.max(0, included - used);
+  return { plan: planKey, cfg, included, extraPrice: cfg.extraPrice, used, remaining, month, hasSubscription: true };
+}
+
+// Decrement one enquiry from quota and persist
+async function _rcDecrementQuota() {
+  if (!currentUser || !currentUser.uid) return;
+  const p = _rcPlan();
+  if (!p || !p.hasSubscription) return;
+  const newUsed = (p.used || 0) + 1;
+  _userProfileCache[currentUser.uid] = { ..._userProfileCache[currentUser.uid], enquiriesUsed: newUsed };
+  await _fbSaveRentalProfile(currentUser.uid, { enquiriesUsed: newUsed });
+}
+
 var _buyLeadReqId = null;
-const LEAD_PRICE  = 29; // dollars
 
 function openBuyLeadModal(reqId) {
   _buyLeadReqId = reqId;
   const req = quoteInbox.find(r => r.id === reqId);
   if (!req) return;
 
-  // Show blinded preview in modal
   const machines = (req.machines||[]).map(m => `<span style="font-size:.9rem">${m.emoji||'🏗️'}</span> ${m.name}`).join(' · ');
-  document.getElementById('buy-lead-preview').innerHTML = `
+  const previewHtml = `
     <div style="font-size:.85rem;line-height:1.8">
       <div><strong>📍 Location:</strong> ${req.suburb||req.city||'—'}${req.state?', '+req.state:''}</div>
       <div><strong>🏗️ Machines:</strong> ${machines}</div>
@@ -37552,11 +39875,61 @@ function openBuyLeadModal(reqId) {
       ${req.cluster ? `<div><strong>📡 Cluster:</strong> ${req.cluster}</div>` : ''}
     </div>`;
 
-  { const _el_buy_lead_price = document.getElementById('buy-lead-price'); if (_el_buy_lead_price) _el_buy_lead_price.textContent = '$' + LEAD_PRICE; }
-  { const _el_buy_lead_price_badge = document.getElementById('buy-lead-price-badge'); if (_el_buy_lead_price_badge) _el_buy_lead_price_badge.textContent = '$' + LEAD_PRICE; }
-  { const _r = document.getElementById('buy-lead-revealed'); if (_r) _r.style.display = 'none'; }
-  { const _p = document.getElementById('buy-lead-pay-row'); if (_p) _p.style.display = 'block'; }
-  document.getElementById('buy-lead-modal').classList.add('open');
+  const p = _rcPlan();
+  const modal = document.getElementById('buy-lead-modal');
+  const inner = modal.querySelector('.modal');
+
+  if (!p || !p.hasSubscription) {
+    // No plan — show upgrade prompt
+    inner.innerHTML = `
+      <h3 style="margin-bottom:.3rem">🔒 Subscription Required</h3>
+      <p style="color:#64748B;font-size:.85rem;margin-bottom:1rem">You need an active Noyo plan to unlock enquiries.</p>
+      <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;font-size:.88rem">${previewHtml}</div>
+      <div class="modal-acts">
+        <button class="btn-cancel" onclick="closeBuyLeadModal()">Cancel</button>
+        <button class="btn-submit" onclick="closeBuyLeadModal();openSubscribeModal()">View Plans →</button>
+      </div>`;
+  } else if (p.remaining > 0) {
+    // Has quota — free unlock from plan
+    inner.innerHTML = `
+      <h3 style="margin-bottom:.3rem">🔓 Unlock Enquiry</h3>
+      <p style="color:#64748B;font-size:.85rem;margin-bottom:1rem">This will use <strong>1 of your ${p.remaining} remaining</strong> enquiries this month.</p>
+      <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;font-size:.88rem">${previewHtml}</div>
+      <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.65rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem">
+        <span style="font-size:1.3rem">📦</span>
+        <div>
+          <div style="font-weight:800;color:#15803D;font-size:.9rem">${p.cfg.label} Plan — ${p.remaining} enquir${p.remaining===1?'y':'ies'} remaining</div>
+          <div style="font-size:.76rem;color:#16A34A">No extra charge — included in your $${p.cfg.price}/month plan</div>
+        </div>
+      </div>
+      <div class="modal-acts">
+        <button class="btn-cancel" onclick="closeBuyLeadModal()">Cancel</button>
+        <button class="btn-submit" onclick="confirmUnlockLead(false)">Use 1 Enquiry &amp; Reveal Contact →</button>
+      </div>`;
+  } else {
+    // Quota exhausted — offer extra at per-enquiry rate
+    inner.innerHTML = `
+      <h3 style="margin-bottom:.3rem">📭 Monthly Quota Used</h3>
+      <p style="color:#64748B;font-size:.85rem;margin-bottom:1rem">All ${p.included} included enquiries for ${p.month} have been used. Purchase an extra enquiry or upgrade your plan.</p>
+      <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;font-size:.88rem">${previewHtml}</div>
+      <div style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:10px;padding:.75rem 1rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem">
+        <span style="font-size:1.4rem">💳</span>
+        <div>
+          <div style="font-weight:800;color:#92400E;font-size:.95rem">Extra enquiry — $${p.extraPrice}</div>
+          <div style="font-size:.76rem;color:#B45309">One-time charge via Stripe. Or upgrade your plan for a lower per-enquiry rate.</div>
+        </div>
+      </div>
+      <div class="modal-acts" style="flex-direction:column;gap:.45rem">
+        <button class="btn-submit" onclick="confirmUnlockLead(true)" style="width:100%">Pay $${p.extraPrice} &amp; Reveal Contact →</button>
+        <button onclick="closeBuyLeadModal();openSubscribeModal()" style="width:100%;background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:9px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Upgrade Plan</button>
+        <button class="btn-cancel" onclick="closeBuyLeadModal()" style="width:100%">Cancel</button>
+      </div>`;
+  }
+
+  // Reset revealed pane from any previous open
+  const revealed = document.getElementById('buy-lead-revealed');
+  if (revealed) { revealed.style.display = 'none'; revealed.innerHTML = ''; }
+  modal.classList.add('open');
 }
 
 function closeBuyLeadModal() {
@@ -37564,35 +39937,210 @@ function closeBuyLeadModal() {
   _buyLeadReqId = null;
 }
 
-function confirmBuyLead() {
-  // In production this would trigger a payment flow (Stripe, etc.)
-  // Here we simulate a successful purchase
+// Called for both plan-included (isExtra=false) and paid extra (isExtra=true) unlocks
+async function confirmUnlockLead(isExtra) {
   const req = quoteInbox.find(r => r.id === _buyLeadReqId);
   if (!req) return;
+  const p = _rcPlan();
 
+  if (isExtra) {
+    // ── Stripe Checkout for one extra enquiry ─────────────────────────
+    if (!p || !p.cfg) { showToast('Plan not found — cannot charge.', '#EF4444'); return; }
+    if (typeof Stripe === 'undefined') {
+      showToast('Stripe.js not loaded — check network connection.', '#EF4444');
+      return;
+    }
+    // Store the reqId in sessionStorage so we can unlock it after redirect return
+    try { sessionStorage.setItem('noyo_pending_unlock', _buyLeadReqId); } catch(e) {}
+    const stripe = Stripe(STRIPE_PK);
+    stripe.redirectToCheckout({
+      lineItems: [{ price: p.cfg.stripeExtraPriceId, quantity: 1 }],
+      mode: 'payment',
+      successUrl: window.location.origin + window.location.pathname + '?unlock=' + encodeURIComponent(_buyLeadReqId),
+      cancelUrl:  window.location.href,
+    }).then(result => {
+      if (result.error) showToast(result.error.message, '#EF4444');
+    });
+    return;
+  }
+
+  // ── Plan-included unlock (no charge) ─────────────────────────────
   const userEmail = currentUser ? currentUser.email : 'staff';
   if (!req.leadsPurchased) req.leadsPurchased = [];
   if (!req.leadsPurchased.includes(userEmail)) req.leadsPurchased.push(userEmail);
   saveInbox();
+  await _rcDecrementQuota();
 
-  // Show revealed details
-  const machines = (req.machines||[]).map(m => `${m.emoji||'🏗️'} ${m.name||m.id||'Unknown'}`).join(', ');
-  document.getElementById('buy-lead-details').innerHTML = `
-    <div class="lead-reveal-row"><span class="lead-reveal-icon">👤</span><span class="lead-reveal-label">Customer</span><span class="lead-reveal-value">${req.customer||'—'}</span></div>
-    ${req.company && req.company !== '—' ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🏢</span><span class="lead-reveal-label">Company</span><span class="lead-reveal-value">${req.company}</span></div>` : ''}
-    <div class="lead-reveal-row"><span class="lead-reveal-icon">📧</span><span class="lead-reveal-label">Email</span><span class="lead-reveal-value" style="color:#0052cc">${req.email||'—'}</span></div>
-    <div class="lead-reveal-row"><span class="lead-reveal-icon">📱</span><span class="lead-reveal-label">Mobile</span><span class="lead-reveal-value">${req.mobile||'—'}</span></div>
-    <div class="lead-reveal-row"><span class="lead-reveal-icon">📍</span><span class="lead-reveal-label">Site</span><span class="lead-reveal-value">${req.siteAddress||req.suburb||'—'}</span></div>
-    ${req.abn ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🔢</span><span class="lead-reveal-label">ABN</span><span class="lead-reveal-value" style="font-family:monospace">${req.abn}</span></div>` : ''}
-    <div class="lead-reveal-row"><span class="lead-reveal-icon">🏗️</span><span class="lead-reveal-label">Machines</span><span class="lead-reveal-value">${machines}</span></div>`;
-
-  { const _r2 = document.getElementById('buy-lead-revealed'); if (_r2) _r2.style.display = 'block'; }
-  { const _p2 = document.getElementById('buy-lead-pay-row'); if (_p2) _p2.style.display = 'none'; }
-
-  // Re-render inbox so the card shows unlocked state
+  _revealLeadInModal(req);
   renderQuoteInbox();
-  showToast(`🔓 Lead unlocked — $${LEAD_PRICE} charged. Full contact details visible in the inbox.`, '#0052CC');
+  const p2 = _rcPlan();
+  showToast(`🔓 Enquiry unlocked — ${p2 ? p2.remaining + ' remaining this month' : ''}`, '#16A34A');
 }
+
+// Unlock a lead that was paid via Stripe (called on redirect return with ?unlock=...)
+async function _stripeUnlockOnReturn(reqId) {
+  const req = quoteInbox.find(r => r.id === reqId);
+  if (!req) return;
+  const userEmail = currentUser ? currentUser.email : 'staff';
+  if (!req.leadsPurchased) req.leadsPurchased = [];
+  if (!req.leadsPurchased.includes(userEmail)) {
+    req.leadsPurchased.push(userEmail);
+    saveInbox();
+    // Extra enquiry does NOT decrement the monthly quota
+  }
+  renderQuoteInbox();
+  showToast('🔓 Extra enquiry unlocked via Stripe — contact details now visible.', '#16A34A');
+}
+
+// Reveal contact details inside the buy-lead-modal
+function _revealLeadInModal(req) {
+  const machines = (req.machines||[]).map(m => `${m.emoji||'🏗️'} ${m.name||m.id||'Unknown'}`).join(', ');
+  const inner = document.getElementById('buy-lead-modal')?.querySelector('.modal');
+  if (!inner) return;
+  inner.innerHTML = `
+    <h3 style="margin-bottom:.3rem">✅ Enquiry Unlocked</h3>
+    <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem">
+      <div style="font-weight:800;color:#15803D;font-size:.9rem;margin-bottom:.5rem">Customer Contact Details</div>
+      <div class="lead-reveal-row"><span class="lead-reveal-icon">👤</span><span class="lead-reveal-label">Customer</span><span class="lead-reveal-value">${req.customer||'—'}</span></div>
+      ${req.company && req.company !== '—' ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🏢</span><span class="lead-reveal-label">Company</span><span class="lead-reveal-value">${req.company}</span></div>` : ''}
+      <div class="lead-reveal-row"><span class="lead-reveal-icon">📧</span><span class="lead-reveal-label">Email</span><span class="lead-reveal-value"><a href="mailto:${req.email||''}" style="color:#0052CC;font-weight:700">${req.email||'—'}</a></span></div>
+      <div class="lead-reveal-row"><span class="lead-reveal-icon">📱</span><span class="lead-reveal-label">Mobile</span><span class="lead-reveal-value"><a href="tel:${req.mobile||''}" style="color:#0052CC;font-weight:700">${req.mobile||'—'}</a></span></div>
+      <div class="lead-reveal-row"><span class="lead-reveal-icon">📍</span><span class="lead-reveal-label">Site</span><span class="lead-reveal-value">${req.siteAddress||req.suburb||'—'}</span></div>
+      ${req.abn ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🔢</span><span class="lead-reveal-label">ABN</span><span class="lead-reveal-value" style="font-family:monospace">${req.abn}</span></div>` : ''}
+      <div class="lead-reveal-row"><span class="lead-reveal-icon">🏗️</span><span class="lead-reveal-label">Machines</span><span class="lead-reveal-value">${machines}</span></div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn-submit" onclick="closeBuyLeadModal();openRespondModal('${req.id}')">💬 Quote Now →</button>
+      <button class="btn-cancel" onclick="closeBuyLeadModal()">Close</button>
+    </div>`;
+}
+
+
+// =====================================================================
+// SUBSCRIPTION — plan selection modal + Stripe portal
+// =====================================================================
+
+function openSubscribeModal() {
+  const modal = document.getElementById('subscribe-modal');
+  if (!modal) return;
+  const p = _rcPlan();
+  const currentPlan = p ? p.plan : null;
+
+  const planCard = (key) => {
+    const c = NOYO_PLANS[key];
+    const isCurrent = key === currentPlan;
+    return `
+      <div style="flex:1;min-width:200px;background:${isCurrent?c.badge:'#fff'};border:2px solid ${isCurrent?c.color:'#E2E8F0'};border-radius:14px;padding:1.1rem 1rem;text-align:center;position:relative">
+        ${c.popular ? '<div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#0052CC;color:#fff;font-size:.68rem;font-weight:900;padding:.2rem .7rem;border-radius:20px;white-space:nowrap">⭐ MOST POPULAR</div>' : ''}
+        ${isCurrent ? '<div style="position:absolute;top:-11px;right:.8rem;background:#16A34A;color:#fff;font-size:.68rem;font-weight:900;padding:.2rem .7rem;border-radius:20px">✓ CURRENT</div>' : ''}
+        <div style="font-weight:900;font-size:1rem;color:${c.color};margin-bottom:.3rem">${c.label}</div>
+        <div style="font-size:1.8rem;font-weight:900;color:#0F172A">$${c.price}<span style="font-size:.8rem;font-weight:600;color:#64748B">/mo</span></div>
+        <div style="font-size:.8rem;color:#475569;margin:.5rem 0 .3rem"><strong>${c.included}</strong> enquiries included</div>
+        <div style="font-size:.75rem;color:#64748B;margin-bottom:.9rem">Extra: $${c.extraPrice} each</div>
+        ${isCurrent
+          ? `<button onclick="openStripePortal()" style="width:100%;background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:9px;padding:.5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.83rem;cursor:pointer">Manage Subscription</button>`
+          : `<button onclick="redirectToStripeSubscribe('${key}')" style="width:100%;background:${c.color};color:#fff;border:none;border-radius:9px;padding:.5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.83rem;cursor:pointer">${currentPlan ? 'Switch to '+c.label : 'Subscribe'} →</button>`
+        }
+      </div>`;
+  };
+
+  modal.querySelector('.modal').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem">
+      <h3 style="margin:0">📦 Noyo Plans for Rental Companies</h3>
+      <button onclick="document.getElementById('subscribe-modal').classList.remove('open')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8">✕</button>
+    </div>
+    <p style="color:#64748B;font-size:.84rem;margin-bottom:1.2rem">Enquiries roll monthly — unused enquiries don't carry over. Cancel anytime.</p>
+    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.2rem">
+      ${planCard('starter')}${planCard('growth')}${planCard('pro')}
+    </div>
+    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:.7rem 1rem;font-size:.78rem;color:#64748B;line-height:1.6">
+      💳 Payments processed securely by Stripe. Your card is not stored on Noyo servers.<br>
+      Subscriptions renew on the same date each month. Cancel from your Stripe Customer Portal at any time.
+    </div>`;
+
+  modal.classList.add('open');
+}
+
+function redirectToStripeSubscribe(planKey) {
+  const cfg = NOYO_PLANS[planKey];
+  if (!cfg) return;
+  if (typeof Stripe === 'undefined') {
+    showToast('Stripe not loaded — check your connection.', '#EF4444');
+    return;
+  }
+  const stripe = Stripe(STRIPE_PK);
+  stripe.redirectToCheckout({
+    lineItems: [{ price: cfg.stripePriceId, quantity: 1 }],
+    mode: 'subscription',
+    successUrl: window.location.origin + window.location.pathname + '?subscribed=' + planKey,
+    cancelUrl:  window.location.href,
+    clientReferenceId: currentUser ? currentUser.uid : undefined,
+  }).then(r => { if (r.error) showToast(r.error.message, '#EF4444'); });
+}
+
+function openStripePortal() {
+  // The Stripe Customer Portal URL is set up in your Stripe dashboard.
+  // After a user subscribes, store their stripeCustomerId in rental_profiles/{uid}.
+  // Then use a Firebase Function or your backend to create a portal session and redirect.
+  // For now, open the Stripe dashboard billing portal default URL (test mode placeholder).
+  const profile = currentUser ? (_userProfileCache[currentUser.uid] || {}) : {};
+  if (profile.stripePortalUrl) {
+    window.open(profile.stripePortalUrl, '_blank');
+  } else {
+    showToast('Stripe portal link not yet set up — contact support@noyo.com.au', '#64748B');
+  }
+}
+
+function openExtraEnquiryModal() {
+  // Re-open the buy-lead modal in "extra" state if _buyLeadReqId is still set,
+  // otherwise just open subscribe modal so they can upgrade
+  if (_buyLeadReqId) {
+    openBuyLeadModal(_buyLeadReqId);
+  } else {
+    openSubscribeModal();
+  }
+}
+
+// ── On page load: handle Stripe redirect return ──────────────────────
+(function _handleStripeReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const unlockId     = params.get('unlock');
+  const subscribedPlan = params.get('subscribed');
+
+  if (unlockId) {
+    // Clean URL
+    history.replaceState({}, '', window.location.pathname);
+    // Wait for auth + inbox load, then unlock
+    const _tryUnlock = setInterval(() => {
+      if (currentUser && quoteInbox.length >= 0) {
+        clearInterval(_tryUnlock);
+        _stripeUnlockOnReturn(decodeURIComponent(unlockId));
+      }
+    }, 400);
+  }
+
+  if (subscribedPlan && NOYO_PLANS[subscribedPlan]) {
+    history.replaceState({}, '', window.location.pathname);
+    // Wait for auth, then save plan to profile
+    const _tryPlan = setInterval(() => {
+      if (currentUser && currentUser.uid) {
+        clearInterval(_tryPlan);
+        const month = _billingMonth();
+        _fbSaveRentalProfile(currentUser.uid, {
+          plan: subscribedPlan,
+          planActiveSince: month,
+          enquiriesUsed: 0,
+        });
+        _userProfileCache[currentUser.uid] = {
+          ..._userProfileCache[currentUser.uid],
+          plan: subscribedPlan, planActiveSince: month, enquiriesUsed: 0,
+        };
+        showToast(`🎉 ${NOYO_PLANS[subscribedPlan].label} plan activated — ${NOYO_PLANS[subscribedPlan].included} enquiries ready!`, '#16A34A');
+        renderQuoteInbox();
+      }
+    }, 400);
+  }
+})();
 
 // =====================================================================
 // CITY CLUSTER ENHANCEMENTS FOR RENTAL COMPANIES
@@ -37656,11 +40204,31 @@ function getSeenMyQuoteIds() {
   try { return new Set(JSON.parse(localStorage.getItem(_seenMQKey()) || '[]')); } catch(e) { return new Set(); }
 }
 
+// ── Load notification state from Firestore on login ───────────
+async function _loadNotificationStateFromFirestore() {
+  if (!_fbDb || !currentUser || !currentUser.uid) return;
+  try {
+    const snap = await _fbDb.collection('notification_state').doc(currentUser.uid).get();
+    if (snap.exists) {
+      const data = snap.data();
+      if (data.seenQuoteIds)   try { localStorage.setItem(_seenKey(),    JSON.stringify(data.seenQuoteIds));   } catch(e) {}
+      if (data.seenMyQuoteIds) try { localStorage.setItem(_seenMQKey(),  JSON.stringify(data.seenMyQuoteIds)); } catch(e) {}
+    }
+  } catch(e) { console.warn('Notification state load failed:', e.message); }
+}
+
 // ── RENTAL: mark all QR as seen when tab opened ──
 function markQuotesRead() {
   if (!currentUser || currentUser.role !== 'rental') return;
   const allIds = quoteInbox.map(r => r.id);
   try { localStorage.setItem(_seenKey(), JSON.stringify(allIds)); } catch(e) {}
+  // Persist to Firestore
+  if (_fbDb && currentUser.uid) {
+    _fbDb.collection('notification_state').doc(currentUser.uid).set(
+      { seenQuoteIds: allIds, updatedAt: firebase.firestore.FieldValue.serverTimestamp() },
+      { merge: true }
+    ).catch(() => {});
+  }
   updateQRUnreadBadge();
 }
 
@@ -37670,6 +40238,13 @@ function markMyQuotesRead() {
   const myEmail = currentUser.email.toLowerCase();
   const allIds = quoteInbox.filter(r => (r.email||'').toLowerCase() === myEmail).map(r => r.id);
   try { localStorage.setItem(_seenMQKey(), JSON.stringify(allIds)); } catch(e) {}
+  // Persist to Firestore
+  if (_fbDb && currentUser.uid) {
+    _fbDb.collection('notification_state').doc(currentUser.uid).set(
+      { seenMyQuoteIds: allIds, updatedAt: firebase.firestore.FieldValue.serverTimestamp() },
+      { merge: true }
+    ).catch(() => {});
+  }
   updateMQUnreadBadge();
 }
 
@@ -37785,7 +40360,7 @@ function renderQuoteRequests() {
 
   const myWon      = myLeads.filter(r => r.acceptedBy === currentUser?.name).length;
   const myLost     = myLeads.filter(r => r.acceptedBy && r.acceptedBy !== currentUser?.name).length;
-  const urgent     = myLeads.filter(r => !r.responded && r.expires && workingMinsRemaining(Date.now(), r.expires) < 120 && workingMinsRemaining(Date.now(), r.expires) > 0).length;
+  const urgent     = myLeads.filter(r => !r.responded && r.expires && workingMinsRemaining(Date.now(), r.expires, r.state) < 120 && workingMinsRemaining(Date.now(), r.expires, r.state) > 0).length;
   const unquotedOpen = myLeads.filter(r => !myLeads.find(x=>x===r) || true).filter(r => {
     const hasMyQ = (r.responses||[]).some(rsp => rsp.company === currentUser?.name);
     return !hasMyQ && !r.acceptedBy && r.expires && Date.now() < r.expires;
@@ -37850,7 +40425,7 @@ function renderQuoteRequests() {
     } else if (expired) {
       statusBadge = `<span style="background:#F1F5F9;color:#94A3B8;font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px">Closed</span>`;
     } else {
-      const wMins = workingMinsRemaining(now, req.expires);
+      const wMins = workingMinsRemaining(now, req.expires, req.state);
       const wHrs = Math.floor(wMins/60), wMin = wMins%60;
       const urgent = wMins < 120;
       statusBadge = `<span style="background:${urgent?'#FEF2F2':'#FFFBEB'};color:${urgent?'#B91C1C':'#B45309'};font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px">⏱ ${wHrs}h ${wMin}m left</span>`;
@@ -37881,21 +40456,21 @@ function renderQuoteRequests() {
       : myResp && !expired                 ? '#FFFDF0'
       : myResp && expired                  ? '#F8FAFC'
       : expired                            ? '#F9FAFB'
-      : (() => { const _wm = workingMinsRemaining(now, req.expires); return _wm < 120 ? '#FFF5F5' : '#F0F7FF'; })()
+      : (() => { const _wm = workingMinsRemaining(now, req.expires, req.state); return _wm < 120 ? '#FFF5F5' : '#F0F7FF'; })()
     };border:1.5px solid ${
       req.acceptedBy === currentUser?.name ? '#86EFAC'
       : req.acceptedBy                     ? '#E2E8F0'
       : myResp && !expired                 ? '#FCD34D'
       : myResp && expired                  ? '#E2E8F0'
       : expired                            ? '#E2E8F0'
-      : (() => { const _wm = workingMinsRemaining(now, req.expires); return _wm < 120 ? '#FCA5A5' : '#BFDBFE'; })()
+      : (() => { const _wm = workingMinsRemaining(now, req.expires, req.state); return _wm < 120 ? '#FCA5A5' : '#BFDBFE'; })()
     };border-left:5px solid ${
       req.acceptedBy === currentUser?.name ? '#16A34A'
       : req.acceptedBy                     ? '#CBD5E1'
       : myResp && !expired                 ? '#F59E0B'
       : myResp && expired                  ? '#CBD5E1'
       : expired                            ? '#CBD5E1'
-      : (() => { const _wm = workingMinsRemaining(now, req.expires); return _wm < 120 ? '#EF4444' : '#0052CC'; })()
+      : (() => { const _wm = workingMinsRemaining(now, req.expires, req.state); return _wm < 120 ? '#EF4444' : '#0052CC'; })()
     };border-radius:14px;padding:1rem 1rem 1rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.05)">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-bottom:.7rem">
         <div>
@@ -37920,7 +40495,7 @@ function renderQuoteRequests() {
         if (_aExp) {
           return '<div style="margin-bottom:.6rem;padding:.35rem .75rem;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:.76rem;color:#94A3B8;font-weight:700">🔒 Customer acceptance window closed</div>';
         }
-        const _aMins = workingMinsRemaining(_now4, _aDeadline);
+        const _aMins = workingMinsRemaining(_now4, _aDeadline, req.state);
         const _aLabel = _aMins > 60 ? Math.floor(_aMins/60)+'h '+(_aMins%60)+'m' : _aMins+'m';
         const _urg = _aMins < 60;
         const _bg = _urg ? '#FEF2F2' : '#FFFBEB';
@@ -38025,16 +40600,39 @@ function _nmKey(reqId, company) {
   return 'noyo_msg_' + reqId + '_' + (company||'').replace(/[^a-z0-9]/gi,'-').toLowerCase();
 }
 
+// ── Messages: Firestore PRIMARY, localStorage cache ───────────
 function _nmLoad(reqId, company) {
+  // Return from localStorage cache immediately, Firestore sync happens async
   try { return JSON.parse(localStorage.getItem(_nmKey(reqId, company)) || '[]'); } catch(e) { return []; }
 }
 
 function _nmSave(reqId, company, msgs) {
+  // Save to localStorage cache immediately
   try { localStorage.setItem(_nmKey(reqId, company), JSON.stringify(msgs)); } catch(e) {}
+  // Save to Firestore persistently
+  if (_fbDb) {
+    const docId = reqId + '_' + (company||'').replace(/[^a-z0-9]/gi,'-').toLowerCase();
+    _fbDb.collection('messages').doc(docId).set({
+      reqId, company, messages: msgs,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true }).catch(e => console.warn('Message save to Firestore failed:', e.message));
+  }
+}
+
+// Load messages from Firestore and update cache + UI
+function _nmLoadFromFirestore(reqId, company, callbackFn) {
+  if (!_fbDb) return;
+  const docId = reqId + '_' + (company||'').replace(/[^a-z0-9]/gi,'-').toLowerCase();
+  _fbDb.collection('messages').doc(docId).get().then(snap => {
+    if (snap.exists && Array.isArray(snap.data().messages)) {
+      const msgs = snap.data().messages;
+      try { localStorage.setItem(_nmKey(reqId, company), JSON.stringify(msgs)); } catch(e) {}
+      if (typeof callbackFn === 'function') callbackFn(msgs);
+    }
+  }).catch(e => console.warn('Message load from Firestore failed:', e.message));
 }
 
 function _nmUnreadCount(reqId, company, myRole) {
-  // Count messages from the other party that haven't been "seen"
   const msgs = _nmLoad(reqId, company);
   const otherRole = myRole === 'customer' ? 'company' : 'customer';
   const seenKey = 'noyo_msg_seen_' + reqId + '_' + (company||'').replace(/[^a-z0-9]/gi,'-').toLowerCase() + '_' + myRole;
@@ -38045,6 +40643,15 @@ function _nmUnreadCount(reqId, company, myRole) {
 function _nmMarkSeen(reqId, company, myRole) {
   const seenKey = 'noyo_msg_seen_' + reqId + '_' + (company||'').replace(/[^a-z0-9]/gi,'-').toLowerCase() + '_' + myRole;
   try { localStorage.setItem(seenKey, String(Date.now())); } catch(e) {}
+  // Persist seen state to Firestore so it's consistent across devices
+  if (_fbDb && currentUser && currentUser.uid) {
+    const docId = 'seen_' + currentUser.uid;
+    const fieldKey = reqId + '_' + (company||'').replace(/[^a-z0-9]/gi,'-').toLowerCase() + '_' + myRole;
+    _fbDb.collection('notification_state').doc(docId).set(
+      { [fieldKey]: Date.now(), updatedAt: firebase.firestore.FieldValue.serverTimestamp() },
+      { merge: true }
+    ).catch(() => {});
+  }
 }
 
 function nmToggle(reqId, company, myRole, threadId) {
@@ -38356,10 +40963,17 @@ function submitFeedback() {
     ts: Date.now(),
     date: new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}),
   };
-  // Store feedback
+  // Save to localStorage cache
   const existing = JSON.parse(localStorage.getItem('noyo_feedback') || '[]');
   existing.push(entry);
   localStorage.setItem('noyo_feedback', JSON.stringify(existing));
+  // Save to Firestore (persistent, cross-device, visible to admin)
+  if (_fbDb) {
+    _fbDb.collection('feedback').add({
+      ...entry,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(e => console.warn('Feedback Firestore save failed:', e.message));
+  }
   // Close modal
   const el = document.getElementById('feedback-modal');
   if (el) el.style.display = 'none';
@@ -38425,6 +41039,13 @@ function saveRating(type, reqId, stars, comment) {
   }
   _noyoRatings.push(entry);
   localStorage.setItem('noyo_ratings', JSON.stringify(_noyoRatings));
+  // Persist to Firestore
+  if (_fbDb) {
+    _fbDb.collection('ratings').add({
+      ...entry,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(e => console.warn('Rating Firestore save failed:', e.message));
+  }
   // Mark on the request so we don't prompt again
   const req = quoteInbox.find(r => r.id === reqId);
   if (req) {
@@ -38555,6 +41176,13 @@ function submitRentalRating(reqId) {
   const existing = JSON.parse(localStorage.getItem('noyo_ratings') || '[]');
   existing.push(entry);
   localStorage.setItem('noyo_ratings', JSON.stringify(existing));
+  // Persist to Firestore (permanent, cross-device, admin-visible)
+  if (_fbDb) {
+    _fbDb.collection('ratings').add({
+      ...entry,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(e => console.warn('Rental rating Firestore save failed:', e.message));
+  }
 
   // Mark request as rated
   req._ratedRental = overall;
