@@ -479,9 +479,10 @@ select.q-input{cursor:pointer}
 .lp-logo span{color:#fff}
 .lp-tagline{color:rgba(255,255,255,.5);font-size:.95rem;margin-bottom:2.5rem;letter-spacing:.5px;margin-top:.4rem}
 
-.lp-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;width:100%;max-width:740px}
+.lp-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;width:100%;max-width:1060px}
 .lp-cards-col{display:flex;flex-direction:column;gap:1.5rem}
-@media(max-width:580px){.lp-cards{grid-template-columns:1fr}}
+@media(max-width:800px){.lp-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.lp-cards{grid-template-columns:1fr}}
 
 /* Know Your Machines chips */
 .kym-chip{background:#fff;border:2px solid #E2E8F0;border-radius:50px;padding:.38rem 1rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;color:#475569;cursor:pointer;transition:all .15s}
@@ -516,7 +517,10 @@ select.q-input{cursor:pointer}
 }
 .lp-card.customer:hover{border-color:rgba(255,107,53,.5);box-shadow:0 20px 60px rgba(255,107,53,.15),0 0 0 1px rgba(255,107,53,.2)}
 .lp-card.know:hover{border-color:rgba(34,197,94,.5);box-shadow:0 20px 60px rgba(34,197,94,.15),0 0 0 1px rgba(34,197,94,.2)}
+.lp-card.lite-card:hover{border-color:rgba(14,165,233,.5);box-shadow:0 20px 60px rgba(14,165,233,.15),0 0 0 1px rgba(14,165,233,.2)}
 .lp-enter-btn.know{background:linear-gradient(135deg,#16A34A,#22C55E)}
+.lp-enter-btn.lite{background:linear-gradient(135deg,#0EA5E9,#38BDF8);color:#fff}
+.lp-enter-btn.lite:hover{box-shadow:0 6px 24px rgba(14,165,233,.45);transform:translateY(-1px)}
 .lp-badge.know{background:rgba(34,197,94,.15);color:#22C55E}
 
 .lp-card-emoji{font-size:3rem;margin-bottom:1rem;display:block}
@@ -531,6 +535,7 @@ select.q-input{cursor:pointer}
 }
 .lp-badge.rental{background:rgba(0,102,255,.18);color:#66AAFF;border:1px solid rgba(0,102,255,.35)}
 .lp-badge.customer{background:rgba(255,107,53,.15);color:#FF8F6B;border:1px solid rgba(255,107,53,.3)}
+.lp-badge.lite{background:rgba(14,165,233,.15);color:#38BDF8;border:1px solid rgba(14,165,233,.35)}
 
 .lp-enter-btn{
   width:100%;padding:.85rem 1.5rem;border-radius:14px;border:none;
@@ -597,6 +602,8 @@ select.lp-input option {
 .lp-submit.rental:hover{background:#FF8C5A}
 .lp-submit.customer-s{background:linear-gradient(135deg,#FF6B35,#FF8F6B);color:#fff}
 .lp-submit.customer-s:hover{box-shadow:0 6px 20px rgba(255,107,53,.4)}
+.lp-submit.lite{background:linear-gradient(135deg,#0EA5E9,#0369A1);color:#fff}
+.lp-submit.lite:hover{box-shadow:0 6px 20px rgba(14,165,233,.45)}
 .lp-error{color:#FF6B6B;font-size:.82rem;margin-top:.6rem;text-align:center;min-height:1.1rem}
 .lp-back{
   background:none;border:none;color:rgba(255,255,255,.4);
@@ -642,6 +649,7 @@ select.lp-input option {
 }
 .nav-avatar.rental-av{background:var(--yellow);color:var(--navy)}
 .nav-avatar.customer-av{background:var(--orange);color:#fff}
+.nav-avatar.lite-av{background:linear-gradient(135deg,#0EA5E9,#38BDF8);color:#fff}
 .nav-uname{font-size:.8rem;font-weight:700;color:rgba(255,255,255,.8)}
 .nav-role-tag{font-size:.68rem;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase}
 
@@ -764,8 +772,8 @@ select.lp-input option {
 .activity-meta{font-size:.75rem;color:#94a3b8;margin-top:.15rem}
 .activity-time{font-size:.72rem;color:#cbd5e1;white-space:nowrap;margin-top:.2rem}
 /* User table */
-.admin-table-wrap{background:#fff;border-radius:14px;border:1.5px solid #e2e8f0;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.admin-table{width:100%;border-collapse:collapse}
+.admin-table-wrap{background:#fff;border-radius:14px;border:1.5px solid #e2e8f0;overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.admin-table{width:100%;border-collapse:collapse;min-width:640px}
 .admin-table th{background:#f8fafc;padding:.65rem 1rem;font-size:.75rem;font-weight:800;color:#64748b;text-align:left;text-transform:uppercase;letter-spacing:.05em;border-bottom:1.5px solid #e2e8f0}
 .admin-table td{padding:.65rem 1rem;font-size:.83rem;color:#1e293b;border-bottom:1px solid #f1f5f9}
 .admin-table tr:last-child td{border-bottom:none}
@@ -820,3 +828,553 @@ select.lp-input option {
 .nm-send{background:#0052CC;color:#fff;border:none;border-radius:10px;padding:.45rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:opacity .15s}
 .nm-send:hover{opacity:.88}
 .nm-lock{font-size:.72rem;color:#94A3B8;text-align:center;padding:.55rem;background:#F8FAFC;border:1px dashed #E2E8F0;border-radius:8px;margin-top:.5rem}
+/* ── Timezone badge ─────────────────────────────────────────── */
+.tz-badge{
+  display:inline-block;
+  font-size:.68rem;font-weight:800;letter-spacing:.04em;
+  color:#0052CC;background:#EFF6FF;
+  border:1px solid #BFDBFE;border-radius:4px;
+  padding:.05rem .32rem;vertical-align:middle;
+  line-height:1.5;white-space:nowrap;
+}
+
+/* ── Sponsored ad cards ─────────────────────────────────────────── */
+.sponsored-card {
+  border: 2px solid #FCD34D !important;
+  background: linear-gradient(135deg, #FFFBEB, #fff) !important;
+  box-shadow: 0 4px 20px rgba(251,191,36,.22) !important;
+  position: relative;
+}
+.sponsored-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* ── Add Machine panel ──────────────────────────────────────────── */
+.amw-lbl {
+  display: block;
+  font-size: .72rem;
+  font-weight: 800;
+  color: #475569;
+  margin-bottom: .18rem;
+  letter-spacing: .02em;
+}
+.amw-inp {
+  width: 100%;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  padding: .32rem .55rem;
+  font-size: .82rem;
+  font-family: 'Nunito', sans-serif;
+  color: #0F172A;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color .15s;
+}
+.amw-inp:focus {
+  outline: none;
+  border-color: #0052CC;
+}
+
+/* ── Add Machine upload zone ─────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+#am-upload-zone:hover { background: #DBEAFE !important; }
+
+
+/* =====================================================================
+   MOBILE RESPONSIVENESS — FULL OVERHAUL
+   Breakpoints: 768px (tablet), 520px (phone), 380px (small phone)
+   ===================================================================== */
+
+/* ── 1. NAV BAR ─────────────────────────────────────────────────────── */
+@media(max-width:768px){
+  nav{padding:0 .85rem;height:56px}
+  .logo{font-size:1.2rem}
+  .nav-tabs{gap:.1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .nav-tabs::-webkit-scrollbar{display:none}
+  .nav-tab{font-size:.75rem;padding:.38rem .65rem;white-space:nowrap;flex-shrink:0}
+  #nav-user-pill{flex-shrink:0}
+  .nav-uname{display:none}
+  .nav-avatar{width:34px;height:34px;font-size:.9rem}
+}
+@media(max-width:520px){
+  nav{padding:0 .6rem;height:52px}
+  .logo{font-size:1rem}
+  .nav-tab{font-size:.7rem;padding:.32rem .5rem}
+  .nav-role-tag{display:none}
+}
+
+/* ── 2. HERO ────────────────────────────────────────────────────────── */
+@media(max-width:768px){
+  .hero{padding:2rem 1rem 1.8rem}
+  .hero h1{font-size:clamp(1.4rem,5vw,2rem)}
+  .hero p{font-size:.9rem;margin:0 auto 1.2rem}
+  .hero-emoji{font-size:2.5rem;margin-bottom:.6rem}
+  .start-btn{font-size:.9rem;padding:.75rem 1.8rem}
+}
+
+/* ── 3. MACHINE GRID (KYM browse) ───────────────────────────────────── */
+@media(max-width:768px){
+  .machine-grid{grid-template-columns:repeat(2,1fr);gap:.85rem;padding:0 .85rem;margin:1.5rem auto}
+}
+@media(max-width:480px){
+  .machine-grid{grid-template-columns:1fr;padding:0 .75rem}
+}
+
+/* ── 4. QUIZ / WIZARD ───────────────────────────────────────────────── */
+@media(max-width:768px){
+  .quiz-wrap{padding:1.2rem .85rem}
+  .q-card{padding:1.4rem 1.1rem 1.1rem;border-radius:16px}
+  .q-text{font-size:1.2rem}
+  .opts-grid{grid-template-columns:1fr!important}
+  .opts-grid.cols-3{grid-template-columns:1fr 1fr!important}
+  .opt-btn{padding:.75rem .85rem}
+  .nav-btns{flex-direction:column;gap:.6rem}
+  .nav-btns button{width:100%}
+  .btn-back{order:2}
+}
+@media(max-width:480px){
+  .q-text{font-size:1.05rem}
+  .opts-grid.cols-3{grid-template-columns:1fr!important}
+}
+
+/* ── 5. RESULTS / REC CARDS ─────────────────────────────────────────── */
+@media(max-width:768px){
+  .result-wrap{padding:1.2rem .85rem}
+  .result-header h2{font-size:1.4rem}
+  .result-header p{font-size:.85rem}
+  .rec-card{padding:1.1rem 1rem;border-radius:14px}
+  .rec-tags{flex-wrap:wrap;gap:.3rem}
+  .sum-row{flex-wrap:wrap;gap:.35rem}
+}
+
+/* ── 6. INTERNAL WRAP (rental company view) ─────────────────────────── */
+@media(max-width:768px){
+  .internal-wrap{padding:1rem .75rem}
+}
+
+/* ── 7. CART SIDEBAR ────────────────────────────────────────────────── */
+@media(max-width:520px){
+  .cart-sidebar{width:100vw;right:-100vw}
+  .cart-sidebar.open{right:0}
+}
+
+/* ── 8. CART & FEEDBACK FABS ────────────────────────────────────────── */
+@media(max-width:520px){
+  .cart-fab{bottom:4.8rem;right:.9rem;font-size:.8rem;padding:.48rem .9rem}
+  .feedback-fab{bottom:1.2rem;right:.9rem;font-size:.75rem;padding:.42rem .8rem}
+}
+
+/* ── 9. MODALS ──────────────────────────────────────────────────────── */
+@media(max-width:600px){
+  .modal-overlay{padding:.5rem}
+  .modal{padding:1.3rem 1rem;border-radius:16px;max-height:92vh;overflow-y:auto}
+  .modal-wide{width:100%;max-width:100%}
+  .broadcast-modal-inner{border-radius:16px;max-height:94vh}
+  #respond-modal .modal{width:100%;max-width:100%;border-radius:16px 16px 0 0;margin-top:auto}
+}
+
+/* ── 10. LOGIN PORTAL CARDS ─────────────────────────────────────────── */
+@media(max-width:800px){
+  .lp-cards{grid-template-columns:1fr 1fr;max-width:600px}
+}
+@media(max-width:520px){
+  .lp-cards{grid-template-columns:1fr;max-width:380px}
+  #login-portal{align-items:flex-start;padding-top:2rem}
+}
+@media(max-width:380px){
+  .lp-card{padding:1.2rem}
+  .lp-card-emoji{font-size:2.2rem;margin-bottom:.6rem}
+  .lp-card-title{font-size:1.05rem}
+}
+
+/* ── 11. LOGIN FORM ─────────────────────────────────────────────────── */
+@media(max-width:520px){
+  .lp-form-wrap{padding:.5rem}
+  .lp-form{padding:1.4rem 1.1rem;border-radius:16px;max-height:95vh}
+  .lp-form-title{font-size:1.2rem}
+  .lp-row-2{flex-direction:column;gap:0}
+  .lp-input{font-size:.9rem;padding:.6rem .85rem}
+  .lp-cats-grid{grid-template-columns:1fr}
+}
+
+/* ── 12. ADMIN — TABS ───────────────────────────────────────────────── */
+@media(max-width:768px){
+  .admin-wrap{padding:1rem .6rem 3rem}
+  .admin-tabs{gap:.3rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex-wrap:nowrap;padding-bottom:4px}
+  .admin-tabs::-webkit-scrollbar{display:none}
+  .admin-tab{font-size:.75rem;padding:.4rem .75rem;white-space:nowrap;flex-shrink:0}
+  .admin-section-title{font-size:1rem}
+}
+
+/* ── 13. ADMIN — STAT GRID ──────────────────────────────────────────── */
+@media(max-width:768px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:.7rem}
+  .stat-card{padding:.9rem .85rem}
+  .stat-value{font-size:1.4rem}
+}
+@media(max-width:380px){
+  .stat-grid{grid-template-columns:1fr}
+}
+
+/* ── 14. ADMIN — TWO-COL LAYOUTS ───────────────────────────────────── */
+@media(max-width:640px){
+  .admin-two-col{grid-template-columns:1fr!important}
+}
+
+/* ── 15. ADMIN — TABLES (horizontal scroll wrapper) ────────────────── */
+@media(max-width:768px){
+  .admin-section table{font-size:.72rem}
+  .admin-section th,.admin-section td{padding:.35rem .45rem}
+  /* Wrap overflow tables in a scroll container */
+  .admin-section .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px}
+}
+
+/* ── 16. SEND QUOTE / BROADCAST MODAL ──────────────────────────────── */
+@media(max-width:640px){
+  .bc-section-title{font-size:.8rem}
+  #bc-email-preview{font-size:.78rem}
+}
+
+/* ── 17. QUOTE INBOX CARDS ──────────────────────────────────────────── */
+@media(max-width:640px){
+  .qrc-row,.qrc-meta-row{flex-direction:column;gap:.35rem;align-items:flex-start}
+  .qrc-actions{flex-wrap:wrap;gap:.4rem}
+  .qrc-actions button{flex:1;min-width:120px}
+}
+
+/* ── 18. AI ADVISOR PANEL ───────────────────────────────────────────── */
+@media(max-width:640px){
+  .ai-body{max-height:220px}
+  .ai-input-row{flex-direction:column;gap:.5rem}
+  .ai-input-row input{width:100%}
+  .ai-input-row button{width:100%}
+}
+
+/* ── 19. PHOTO MEASUREMENT MODAL ────────────────────────────────────── */
+@media(max-width:640px){
+  #photo-modal{border-radius:16px 16px 0 0;max-height:95vh}
+  .pm-steps-bar{gap:0;overflow-x:auto}
+  .pm-step small{display:none}
+}
+
+/* ── 20. SUMMARY PILLS (wizard answer summary) ──────────────────────── */
+@media(max-width:640px){
+  .summary-pills{flex-wrap:wrap;gap:.3rem}
+  .sum-q{font-size:.72rem}
+  .sum-opt-btn{font-size:.72rem}
+}
+
+/* ── 21. PLAN CARDS (subscription) ─────────────────────────────────── */
+@media(max-width:640px){
+  .plan-cards-row{flex-direction:column!important;gap:1rem}
+  .plan-card{width:100%!important}
+}
+
+/* ── 22. SPONSORED AD CARDS ─────────────────────────────────────────── */
+@media(max-width:640px){
+  .sponsored-card-wrap{flex-direction:column}
+}
+
+/* ── 23. MY QUOTES VIEW ─────────────────────────────────────────────── */
+@media(max-width:640px){
+  .mq-filter-row{flex-wrap:wrap;gap:.4rem}
+  .mq-filter-row select,.mq-filter-row button{flex:1;min-width:120px}
+}
+
+/* ── 24. GENERAL TOUCH TARGETS ──────────────────────────────────────── */
+@media(max-width:768px){
+  button,select,input[type="checkbox"],input[type="radio"]{
+    min-height:40px
+  }
+  select{font-size:16px!important} /* prevent iOS auto-zoom on select */
+  input[type="text"],input[type="email"],input[type="tel"],
+  input[type="password"],input[type="number"],textarea{
+    font-size:16px!important; /* prevent iOS auto-zoom on inputs */
+  }
+}
+
+/* ── 25. RECOMMENDATION CARD BUTTON ROW ─────────────────────────────── */
+@media(max-width:520px){
+  .rec-card > div > div[style*="display:flex"][style*="gap:.6rem"]{
+    flex-direction:column
+  }
+}
+
+/* ── 26. STEP PROGRESS BAR ──────────────────────────────────────────── */
+@media(max-width:520px){
+  .step-tracker{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .step-tracker::-webkit-scrollbar{display:none}
+  .step-dot-label{display:none}
+}
+
+/* ── 27. NOTIFICATION MESSAGES ──────────────────────────────────────── */
+@media(max-width:520px){
+  .nm-msg{max-width:95%}
+  #nm-panel{bottom:4.5rem;right:.5rem;left:.5rem;max-width:none}
+}
+
+/* ── 28. LITE ANALYTICS CHARTS ──────────────────────────────────────── */
+@media(max-width:640px){
+  #admin-sec-liteanalytics > div > div[style*="grid-template-columns:1fr 1fr"]{
+    grid-template-columns:1fr!important
+  }
+}
+
+/* ── 29. BILLING TABLE SCROLL ───────────────────────────────────────── */
+@media(max-width:768px){
+  #admin-sec-billing .overflow-x-auto,
+  #admin-sec-billing > div > div[style*="overflow-x:auto"]{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch
+  }
+}
+
+/* ── 30. SAFE AREA INSETS (iPhone notch / home bar) ─────────────────── */
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+  .cart-fab{bottom:calc(1.5rem + env(safe-area-inset-bottom))}
+  .feedback-fab{bottom:calc(1.4rem + env(safe-area-inset-bottom))}
+  nav{padding-left:max(.85rem,env(safe-area-inset-left));padding-right:max(.85rem,env(safe-area-inset-right))}
+}
+@media(max-width:520px){
+  @supports(padding-bottom:env(safe-area-inset-bottom)){
+    .cart-fab{bottom:calc(4.8rem + env(safe-area-inset-bottom))}
+    .feedback-fab{bottom:calc(1.2rem + env(safe-area-inset-bottom))}
+  }
+}
+
+
+/* =====================================================================
+   VISUAL POLISH & REMAINING FIXES — Desktop + Mobile
+   ===================================================================== */
+
+/* ── 1. NAV ACTIVE TAB — cleaner indicator ──────────────────────────── */
+.nav-tab.active{
+  background:var(--yellow);color:var(--navy);
+  box-shadow:0 2px 8px rgba(255,210,63,.35);
+  position:relative;
+}
+
+/* ── 2. ADMIN TAB BAR — bottom border indicator + active polish ─────── */
+.admin-tabs{
+  border-bottom:2px solid #E2E8F0;
+  padding-bottom:0;
+  margin-bottom:1.4rem;
+}
+.admin-tab{
+  border-radius:8px 8px 0 0;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  transition:all .18s;
+}
+.admin-tab.active{
+  background:var(--navy);color:#fff;
+  border-bottom:3px solid var(--yellow);
+  box-shadow:0 -2px 8px rgba(10,22,40,.12);
+}
+.admin-tab:hover:not(.active){
+  background:#E2E8F0;color:#334155;
+}
+
+/* ── 3. TOAST — allow wrapping on small screens ─────────────────────── */
+.noyo-toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);
+  color:#fff;padding:.8rem 1.6rem;border-radius:50px;
+  font-weight:800;font-size:.95rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.22);z-index:99999;
+  animation:fadeUp .3s ease;
+  max-width:88vw;text-align:center;white-space:normal;
+  word-break:break-word;line-height:1.4;
+}
+@media(max-width:520px){
+  .noyo-toast{bottom:5.5rem;font-size:.85rem;padding:.7rem 1.2rem;border-radius:16px}
+}
+
+/* ── 4. HERO BUTTONS — consistent sizing & gap ──────────────────────── */
+@media(max-width:520px){
+  #sec-hero .hero{padding:1.8rem .85rem 1.6rem}
+  #sec-hero .start-btn,
+  #sec-hero .hero button{width:100%;box-sizing:border-box;max-width:320px}
+  #sec-hero .hero > button+button{margin-top:.6rem}
+  #hero-cart-btn{margin-top:.7rem}
+  #hero-cart-btn button{font-size:.85rem;padding:.7rem 1.2rem}
+}
+
+/* ── 5. RESULT ACTION BUTTONS — stack on mobile ─────────────────────── */
+@media(max-width:520px){
+  .result-actions{flex-direction:column;align-items:stretch;gap:.6rem}
+  .result-actions button{width:100%;text-align:center}
+}
+
+/* ── 6. VIEW HEADERS — scale down on mobile ─────────────────────────── */
+@media(max-width:520px){
+  .int-header h2{font-size:1.25rem}
+  .int-header p{font-size:.83rem}
+}
+
+/* ── 7. MY QUOTES FILTER TOOLBAR — wrap into 2 rows cleanly ─────────── */
+@media(max-width:768px){
+  #view-my-quotes .internal-wrap > div[style*="background:#F8FAFC"] > div{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:.4rem;
+  }
+  #view-my-quotes select,
+  #view-my-quotes input[type="date"]{width:100%;box-sizing:border-box}
+}
+@media(max-width:480px){
+  #view-my-quotes .internal-wrap > div[style*="background:#F8FAFC"] > div{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ── 8. KYM SEARCH BAR — stack on mobile ───────────────────────────── */
+@media(max-width:600px){
+  #kym-panel > div > div[style*="display:flex"][style*="gap:.6rem"]{
+    flex-direction:column;
+  }
+  #kym-panel > div > div[style*="display:flex"][style*="gap:.6rem"] input,
+  #kym-panel > div > div[style*="display:flex"][style*="gap:.6rem"] button{
+    width:100%;
+  }
+  #kym-cat-chips{gap:.35rem}
+  .kym-chip{font-size:.76rem;padding:.3rem .75rem}
+}
+
+/* ── 9. MACHINE TABLE (RC view) — better mobile collapse ────────────── */
+@media(max-width:640px){
+  .machine-table{border-radius:12px}
+  .trow{
+    grid-template-columns:40px 1fr 80px !important;
+    padding:.65rem .75rem;gap:.4rem;
+  }
+  .trow .hm{display:none !important}
+  .trow:not(.hdr) > div:nth-child(6){ /* Best For */
+    grid-column:2/-1;font-size:.78rem;color:#64748B;
+  }
+}
+@media(max-width:400px){
+  .trow{grid-template-columns:36px 1fr 70px !important}
+}
+
+/* ── 10. LOGIN PORTAL — 3-card tablet fix ───────────────────────────── */
+@media(min-width:521px) and (max-width:800px){
+  .lp-cards{grid-template-columns:1fr 1fr}
+  .lp-card.lite-card{grid-column:1 / -1;max-width:380px;margin:0 auto;width:100%}
+}
+
+/* ── 11. CART SIDEBAR — better close button and header on mobile ─────── */
+@media(max-width:520px){
+  .cart-sidebar > div:first-child{padding:.85rem 1rem}
+  .cart-sidebar h3{font-size:1rem}
+}
+
+/* ── 12. PROGRESS BAR — thicker on mobile ──────────────────────────── */
+@media(max-width:520px){
+  .progress-bar-wrap{height:12px}
+  .progress-bar-fill{height:12px}
+  .progress-row{gap:.75rem;margin-bottom:1.4rem}
+}
+
+/* ── 13. ADMIN STAT CARDS — tighter on small screens ───────────────── */
+@media(max-width:480px){
+  .stat-card{padding:.75rem .7rem}
+  .stat-value{font-size:1.3rem !important}
+  .stat-label{font-size:.72rem}
+  .stat-sub{font-size:.67rem}
+}
+
+/* ── 14. QUOTE INBOX CARDS (RC view) — mobile layout ───────────────── */
+@media(max-width:640px){
+  .quote-inbox-header{padding:.75rem 1rem;flex-wrap:wrap;gap:.4rem}
+  .qrc-grid{grid-template-columns:1fr !important}
+}
+
+/* ── 15. QR SUMMARY BADGES — wrap cleanly ──────────────────────────── */
+@media(max-width:520px){
+  #qr-summary-badges{gap:.35rem}
+  #qr-summary-badges > *{font-size:.76rem !important;padding:.25rem .6rem !important}
+  #mqv-summary > *{font-size:.76rem !important}
+}
+
+/* ── 16. SORT BAR on results — tighter on mobile ────────────────────── */
+@media(max-width:520px){
+  #result-sort-bar{padding:.55rem .7rem}
+  #result-sort-bar > div{gap:.3rem}
+  #sort-dir-btn,#result-sort-bar button{font-size:.72rem;padding:.25rem .5rem}
+}
+
+/* ── 17. DISCLAIMER CHECKBOX — bigger tap target on mobile ──────────── */
+@media(max-width:520px){
+  #result-disclaimer-wrap{padding:.85rem .9rem}
+  #result-disclaimer-check{width:24px;height:24px;flex-shrink:0}
+}
+
+/* ── 18. SEND QUOTE MODAL — mobile full screen ──────────────────────── */
+@media(max-width:600px){
+  #send-quotes-modal .modal-wide{
+    max-height:96vh;border-radius:16px 16px 0 0;
+    margin-top:auto;padding:1.1rem .9rem;
+  }
+  #send-quotes-modal .lp-row-2{flex-direction:column}
+}
+
+/* ── 19. AI PANEL (RC view) — input row stacks on mobile ─────────────── */
+@media(max-width:640px){
+  .ai-panel{border-radius:14px}
+  .ai-panel .ai-inp{flex-direction:column;padding:.6rem .75rem}
+  .ai-panel .ai-inp input{width:100%;font-size:16px}
+  .ai-panel .ai-inp button{width:100%}
+}
+
+/* ── 20. DESKTOP POLISH — hover states, focus rings, transitions ─────── */
+@media(min-width:769px){
+  .nav-tab{transition:background .15s,color .15s,box-shadow .15s}
+  .opt-btn:focus-visible,.lp-input:focus-visible,.q-input:focus-visible{
+    outline:3px solid rgba(255,107,53,.4);outline-offset:2px
+  }
+  .fchip:focus-visible,.kym-chip:focus-visible,.admin-tab:focus-visible{
+    outline:3px solid rgba(0,82,204,.35);outline-offset:2px
+  }
+  /* Subtle card lift on hover for machine results */
+  .rec-card:hover{transform:translateY(-2px) translateX(2px);transition:all .22s}
+  /* Admin table row hover — smoother */
+  .admin-table tr:hover td{background:#F0F7FF;transition:background .12s}
+}
+
+/* ── 21. DESKTOP — better spacing on wide screens ───────────────────── */
+@media(min-width:1200px){
+  .internal-wrap{padding:2.5rem 2rem}
+  .quiz-wrap{padding:3rem 2rem}
+  .result-wrap{padding:3rem 2rem}
+}
+
+/* ── 22. MOBILE — bottom padding so FABs don't cover content ─────────── */
+@media(max-width:768px){
+  .view.active{padding-bottom:80px}
+}
+
+/* ── 23. SCROLLBAR POLISH (Webkit) ─────────────────────────────────── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.32)}
+
+/* ── 24. FOCUS VISIBLE — keyboard nav polish ────────────────────────── */
+:focus-visible{outline:3px solid rgba(0,82,204,.45);outline-offset:2px}
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible){outline:none}
+
+/* ── 25. IMAGE HANDLING — prevent broken image icons ───────────────── */
+img{max-width:100%;height:auto}
+img[src=""]{display:none}
+
+/* ── 26. PRINT STYLES ───────────────────────────────────────────────── */
+@media print{
+  nav,.cart-fab,.feedback-fab,#nm-panel{display:none!important}
+  .view{display:block!important}
+  .rec-card{break-inside:avoid}
+}
