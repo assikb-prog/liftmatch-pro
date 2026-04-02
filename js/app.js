@@ -23636,6 +23636,254 @@ const MACHINES = {
 
   ],
 
+  // ═══════════════════════════════════════════════════════════════
+  //  EARTH WORKS — Excavators, Bobcats, Dozers, Compactors,
+  //                Dump Trucks, Water Carts, Graders
+  // ═══════════════════════════════════════════════════════════════
+  earthworks: [
+
+    // ── MINI EXCAVATORS (1–3t) ───────────────────────────────────
+    {
+      id:'ex-mini-1t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Mini Excavator 1.0–1.5t', shortName:'Mini Excavator 1.5t',
+      weightClass:'mini', operatingWeightT:1.5,
+      digDepthM:1.8, bucketCapM3:0.03,
+      tags:['tight access','backyard','shallow dig','indoor'],
+      note:'1.0–1.5t class. Rubber tracks protect indoor and paved surfaces. Ideal for tight backyards, trenching under structures, or access through narrow gates (from ~750mm wide). Brands: Kubota U10, Yanmar SV08, Caterpillar 301.7.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'ex-mini-2t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Mini Excavator 2.0–2.5t', shortName:'Mini Excavator 2t',
+      weightClass:'mini', operatingWeightT:2.5,
+      digDepthM:2.5, bucketCapM3:0.06,
+      tags:['tight access','backyard','residential','trench'],
+      note:'2–2.5t class. Most common backyard and residential excavator. Fits through standard gates (~900mm+). Dig depth 2.2–2.6m. Brands: Kubota U20, Yanmar SV26, JCB 26C, Bobcat E26.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'ex-mini-3t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Mini Excavator 3.0t', shortName:'Mini Excavator 3t',
+      weightClass:'mini', operatingWeightT:3.0,
+      digDepthM:3.0, bucketCapM3:0.09,
+      tags:['residential','standard access','trench','pool'],
+      note:'3t class. Handles pool excavations, deeper residential trenching, and small commercial footings. Needs ~1.2m gate access. Dig depth up to 3m. Brands: Kubota KX030, Yanmar SV40, Caterpillar 303.7.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── MIDI EXCAVATORS (3–8t) ───────────────────────────────────
+    {
+      id:'ex-midi-5t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Midi Excavator 4.5–5.5t', shortName:'Midi Excavator 5t',
+      weightClass:'midi', operatingWeightT:5.0,
+      digDepthM:3.8, bucketCapM3:0.16,
+      tags:['residential','commercial','footing','trench','standard site'],
+      note:'4.5–5.5t class. Handles residential footings, commercial trenches, and medium-scale earthworks. Good balance of reach and access. Dig depth 3.5–4m. Brands: Kubota KX057, Caterpillar 305, JCB 48Z.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'ex-midi-8t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Midi Excavator 7–8t', shortName:'Midi Excavator 8t',
+      weightClass:'midi', operatingWeightT:8.0,
+      digDepthM:4.2, bucketCapM3:0.24,
+      tags:['commercial','deep trench','footing','civil light'],
+      note:'7–8t class. Commercial footings, deeper service trenches, subdivision works. Suits standard site access. Dig depth 4–4.5m. Brands: Caterpillar 308, Komatsu PC80, Volvo EC80.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── STANDARD EXCAVATORS (8–20t) ──────────────────────────────
+    {
+      id:'ex-std-13t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Standard Excavator 12–14t', shortName:'Excavator 13t',
+      weightClass:'standard', operatingWeightT:13.0,
+      digDepthM:5.5, bucketCapM3:0.50,
+      tags:['commercial','civil','bulk excavation','deep','basement'],
+      note:'12–14t class. The most common commercial excavator. Bulk residential cut, commercial basement, civil trenching, road works. Dig depth 5–5.5m. Brands: Caterpillar 313, Komatsu PC130, Hitachi ZX135, Volvo EC140.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'ex-std-20t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Standard Excavator 18–22t', shortName:'Excavator 20t',
+      weightClass:'standard', operatingWeightT:20.0,
+      digDepthM:6.5, bucketCapM3:0.90,
+      tags:['civil','bulk','deep','heavy commercial'],
+      note:'18–22t class. Civil works, major bulk excavation, quarry face work, heavy road construction. Dig depth 6–7m. Brands: Caterpillar 320, Komatsu PC200, Hitachi ZX200, Liebherr R922.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── LARGE EXCAVATORS (30t+) ───────────────────────────────────
+    {
+      id:'ex-large-30t', brand:'Various', emoji:'⛏️', type:'excavator',
+      name:'Large Excavator 30t+', shortName:'Large Excavator 30t+',
+      weightClass:'large', operatingWeightT:35.0,
+      digDepthM:8.0, bucketCapM3:1.80,
+      tags:['civil','mining','bulk','deep','shaft'],
+      note:'30–50t+ class. Major civil earthworks, mine cut, dam works, large infrastructure. Dig depth 7–9m+. Brands: Caterpillar 330/336, Komatsu PC300/PC360, Hitachi ZX350/ZX450, Liebherr R936.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── BOBCAT / SKID STEER ───────────────────────────────────────
+    {
+      id:'em-bobcat-small', brand:'Various', emoji:'🚜', type:'bobcat',
+      name:'Bobcat / Skid Steer — Small', shortName:'Bobcat Small',
+      operatingWeightT:1.8, bucketCapM3:0.28,
+      tags:['tight access','small site','clearing','loading','landscaping'],
+      note:'Small skid steer — 800–900mm wide. Tight access, driveways, indoor demolition, landscaping, material loading. Tipping load ~750kg. Brands: Bobcat S70, Mustang 2200, Caterpillar 226.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'em-bobcat-std', brand:'Various', emoji:'🚜', type:'bobcat',
+      name:'Bobcat / Skid Steer — Standard', shortName:'Bobcat Standard',
+      operatingWeightT:3.5, bucketCapM3:0.45,
+      tags:['standard site','clearing','loading','landscaping','material movement'],
+      note:'Standard skid steer — most common size. Site cleanup, clearing, loading trucks, gravel spreading, demolition debris. Tipping load 1,000–1,300kg. Brands: Bobcat S650, Caterpillar 262, JCB 330.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'em-bobcat-track', brand:'Various', emoji:'🚜', type:'bobcat',
+      name:'Tracked Bobcat / CTL — Standard', shortName:'Tracked Bobcat',
+      operatingWeightT:4.5, bucketCapM3:0.45,
+      tags:['soft ground','wet ground','slopes','landscaping','tracked'],
+      note:'Compact track loader — lower ground pressure than wheeled skid steer. Better on soft, wet or sloped ground. Landscaping, turf prep, sloped sites. Brands: Bobcat T650, Caterpillar 259D, JCB 320T.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── WHEEL LOADER ─────────────────────────────────────────────
+    {
+      id:'em-loader-small', brand:'Various', emoji:'🚜', type:'loader',
+      name:'Wheel Loader — Small (2–4t payload)', shortName:'Wheel Loader Small',
+      operatingWeightT:8.0,
+      tags:['stockpile','loading trucks','aggregate','gravel','open site'],
+      note:'Small wheel loader — 2–4t payload. Stockpile management, loading trucks, spreading aggregate. Fast cycle time on open sites. Brands: Caterpillar 906, Komatsu WA100, Volvo L60.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── BULLDOZER ────────────────────────────────────────────────
+    {
+      id:'em-dozer-small', brand:'Various', emoji:'🏔️', type:'dozer',
+      name:'Bulldozer — Small (D3–D4 class)', shortName:'Dozer Small',
+      operatingWeightT:8.0,
+      tags:['clearing','levelling','small site','grading','tracked'],
+      note:'Small dozer — D3/D4 class. Residential site prep, backfill pushing, light clearing, small earthworks. Very tight turning radius. Brands: Caterpillar D3, Komatsu D37, John Deere 450.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'em-dozer-std', brand:'Various', emoji:'🏔️', type:'dozer',
+      name:'Bulldozer — Standard (D5–D6 class)', shortName:'Dozer D6',
+      operatingWeightT:18.0,
+      tags:['clearing','bulk pushing','civil','subdivision','large site'],
+      note:'Standard dozer — D5/D6 class. Subdivision bulk earthworks, road formation, land clearing, large site prep. The most common commercial dozer. Brands: Caterpillar D5, Komatsu D65, John Deere 750.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── MOTOR GRADER ─────────────────────────────────────────────
+    {
+      id:'em-grader-std', brand:'Various', emoji:'🛣️', type:'grader',
+      name:'Motor Grader — Standard', shortName:'Motor Grader',
+      operatingWeightT:14.0,
+      tags:['road grading','levelling','final trim','driveway','road base'],
+      note:'Motor grader — standard class. Road base grading, driveway formation, final levelling and trim, subdivision road works. Precise blade control for accurate gradients. Brands: Caterpillar 12M, Komatsu GD555, John Deere 670.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── COMPACTOR / ROLLER ────────────────────────────────────────
+    {
+      id:'em-plate-compact', brand:'Various', emoji:'🔄', type:'compactor',
+      name:'Walk-Behind Plate Compactor', shortName:'Plate Compactor',
+      operatingWeightT:0.15,
+      tags:['small','trench','backfill','tight access','compact'],
+      note:'Walk-behind plate compactor. Trench backfill, small area compaction, paving base, tight access. Typical compaction depth 150–200mm per pass. Brands: Wacker Neuson, Dynapac, Bomag.',
+      hireRateType:'dry',
+    },
+    {
+      id:'em-roller-pedestrian', brand:'Various', emoji:'🔄', type:'roller',
+      name:'Pedestrian Roller — Smooth Drum', shortName:'Pedestrian Roller',
+      operatingWeightT:1.5,
+      tags:['small area','road base','gravel','compaction'],
+      note:'Pedestrian roller — smooth drum, 1–2t class. Road base, gravel driveways, small asphalt patches. Compaction width ~800mm. Brands: Dynapac CC900, Bomag BW120, Wacker Neuson RD12.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'em-roller-rideon', brand:'Various', emoji:'🔄', type:'roller',
+      name:'Ride-On Roller — Smooth Drum (Road Roller)', shortName:'Ride-On Roller',
+      operatingWeightT:8.0,
+      tags:['asphalt','road','large area','road base'],
+      note:'Ride-on smooth drum roller — 6–10t class. Asphalt compaction, road base, large hardstand areas. Brands: Caterpillar CB10, Dynapac CC4200, Bomag BW213.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'em-roller-padfoot', brand:'Various', emoji:'🔄', type:'roller',
+      name:'Padfoot / Sheepsfoot Roller', shortName:'Padfoot Roller',
+      operatingWeightT:11.0,
+      tags:['earth compaction','embankment','civil','subgrade'],
+      note:'Padfoot compactor — 10–12t class. Compacting cohesive soils, embankments, road subgrade. Not for asphalt. Brands: Caterpillar CP56B, Komatsu JV80CP, Bomag BW219.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── DUMP TRUCK / SITE DUMPER ──────────────────────────────────
+    {
+      id:'em-dumper-small', brand:'Various', emoji:'🚛', type:'dumper',
+      name:'Site Dumper — 1–3t payload', shortName:'Site Dumper',
+      operatingWeightT:3.0,
+      tags:['on-site','small','tight','material movement','landscaping'],
+      note:'Walk-behind or ride-on site dumper — 1–3t payload. Moving soil, spoil or material short distances on site. Very tight turning circle. Brands: Wacker Neuson DW15, Thwaites 3T.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'em-truck-6wheel', brand:'Various', emoji:'🚛', type:'truck',
+      name:'Tip Truck — 6-Wheel (8–10t payload)', shortName:'6-Wheel Tip Truck',
+      operatingWeightT:16.0,
+      tags:['off-site','cartage','soil','spoil','aggregate'],
+      note:'6-wheel tip truck — 8–10t payload. Residential to medium commercial cartage of soil, rubble, aggregate or fill. Registered for public roads. Wet hire only (requires licensed driver). Brands: Hino, Isuzu, UD, Volvo.',
+      hireRateType:'wet',
+    },
+    {
+      id:'em-adt', brand:'Various', emoji:'🚛', type:'adt',
+      name:'Articulated Dump Truck (ADT) — 25–30t payload', shortName:'ADT',
+      operatingWeightT:32.0,
+      tags:['civil','large volume','rough terrain','mining','bulk cartage'],
+      note:'Articulated dump truck — 25–30t payload. Major civil earthworks, mine haulage, bulk fill operations. Operates on rough, soft, or steep terrain where rigid trucks cannot go. Brands: Caterpillar 730, Volvo A30, Bell B30.',
+      hireRateType:'wet',
+    },
+
+    // ── WATER CART ────────────────────────────────────────────────
+    {
+      id:'em-water-small', brand:'Various', emoji:'💧', type:'water_cart',
+      name:'Water Cart — 5,000L', shortName:'Water Cart 5,000L',
+      operatingWeightT:8.0,
+      tags:['dust suppression','small site','compaction moisture'],
+      note:'5,000L towed or self-propelled water cart. Dust suppression on small construction sites, road works, or compaction moisture. Typically towed by ute or mounted on small truck.',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'em-water-med', brand:'Various', emoji:'💧', type:'water_cart',
+      name:'Water Cart — 10,000–12,000L', shortName:'Water Cart 10,000L',
+      operatingWeightT:16.0,
+      tags:['dust suppression','medium site','road works','compaction'],
+      note:'10,000–12,000L truck-mounted water cart. Medium construction sites, subdivision road watering, mine site dust suppression. Registered for road use.',
+      hireRateType:'wet',
+    },
+    {
+      id:'em-water-large', brand:'Various', emoji:'💧', type:'water_cart',
+      name:'Water Cart — 20,000–25,000L', shortName:'Water Cart 20,000L',
+      operatingWeightT:30.0,
+      tags:['dust suppression','large site','mine','ongoing'],
+      note:'20,000–25,000L articulated water truck. Large mining, quarry, or infrastructure sites requiring continuous dust suppression or high-volume compaction moisture. Wet hire only.',
+      hireRateType:'wet',
+    },
+
+    // ── FORESTRY MULCHER ──────────────────────────────────────────
+    {
+      id:'em-mulcher', brand:'Various', emoji:'🌿', type:'mulcher',
+      name:'Excavator / Dozer with Mulching Head', shortName:'Forestry Mulcher',
+      operatingWeightT:20.0,
+      tags:['vegetation clearing','scrub','bush','land clearing','stumps'],
+      note:'Excavator or dozer fitted with a forestry mulching head. Clears scrub, small trees, stumps and regrowth in one pass — material is mulched in place, no separate disposal needed. Suitable for medium to heavy clearing.',
+      hireRateType:'wet',
+    },
+
+  ],
+
 };
 
 
@@ -23647,7 +23895,8 @@ const ALL_MACHINES = [
   ...MACHINES.verticalMast,
   ...MACHINES.telehandler,
   ...MACHINES.scissor,
-  ...MACHINES.boom
+  ...MACHINES.boom,
+  ...MACHINES.earthworks
 ];
 
 // =====================================================================
@@ -23669,6 +23918,7 @@ const GENERAL_QS = [
     options:[
       {ico:'🧑‍🔧', lbl:'People', sub:'Workers need to reach height to do their job', val:'people'},
       {ico:'📦',         lbl:'Materials', sub:'Lifting goods, ductwork, panels, pallets or construction loads', val:'materials'},
+      {ico:'🚜',         lbl:'Earth Works', sub:'Excavation, earthmoving, clearing, compaction, cartage or dust suppression', val:'earthmoving'},
     ]
   },
 
@@ -23841,6 +24091,240 @@ const GENERAL_QS = [
       {ico:'⛰️', lbl:'Outdoors — rough terrain',     sub:'Construction site, paddock, soft or uneven ground',        val:'mat_outdoor_rough'},
       {ico:'🔄', lbl:'Both indoor & outdoor',        sub:'Moving between areas',                                      val:'mat_both'},
     ]
+  },
+
+  // ══ EARTHMOVING BRANCH ════════════════════════════════════════════════════
+
+  // EM-Q1: What type of earthmoving job?
+  {
+    id:'em_job', icon:'🚜',
+    text:'What do you need to do?',
+    hint:'Pick the task that best describes your job — we\'ll find the right machine from there.',
+    showIf:{key:'lifting_for', val:'earthmoving'},
+    type:'options',
+    options:[
+      {ico:'⛏️', lbl:'Dig',                 sub:'Trenches, holes, foundations, pools, bulk excavation',         val:'dig'},
+      {ico:'🏔️', lbl:'Push, clear or level', sub:'Move material, clear a site, grade or level ground',          val:'push_clear'},
+      {ico:'🪨', lbl:'Break rock or concrete',sub:'Break up slabs, footings, hard rock, asphalt',               val:'break'},
+      {ico:'🚛', lbl:'Cart material on site', sub:'Move soil, rock, fill, spoil around the site or off-site',   val:'cart'},
+      {ico:'🔄', lbl:'Compact or flatten',    sub:'Compact soil, road base, gravel, asphalt, trench backfill',  val:'compact'},
+      {ico:'💧', lbl:'Water the site',        sub:'Dust suppression, road watering, compaction moisture',       val:'water'},
+      {ico:'🌿', lbl:'Clear scrub or vegetation', sub:'Remove grass, scrub, small trees, regrowth',             val:'clear_veg'},
+    ]
+  },
+
+  // EM-Q2a: Dig — how deep?
+  {
+    id:'em_dig_depth', icon:'📏',
+    text:'How deep do you need to dig?',
+    showIf:{key:'em_job', val:'dig'},
+    type:'options',
+    options:[
+      {ico:'🌱', lbl:'Under 1.5m',  sub:'Shallow trench, garden, drainage, surface services',       val:'shallow'},
+      {ico:'🏗️', lbl:'1.5m to 3m',  sub:'Standard footings, deeper service trenches',               val:'medium'},
+      {ico:'🏢', lbl:'3m to 6m',    sub:'Commercial footings, deep service trenches, basements',    val:'deep'},
+      {ico:'⛏️', lbl:'Over 6m',     sub:'Heavy civil, shaft sinking, mining, tunnelling',           val:'very_deep'},
+    ]
+  },
+
+  // EM-Q2b: Dig — access on site?
+  {
+    id:'em_dig_access', icon:'🚧',
+    text:'How tight is the access on your site?',
+    showIf:{key:'em_job', val:'dig'},
+    type:'options',
+    options:[
+      {ico:'🏠', lbl:'Very tight',           sub:'Backyard, narrow gate under 900mm, between buildings',    val:'tight'},
+      {ico:'🏗️', lbl:'Standard site access', sub:'Normal construction site, wide enough for a standard machine', val:'standard'},
+      {ico:'🌾', lbl:'Open land',            sub:'No restrictions — paddock, quarry, open site',            val:'open'},
+    ]
+  },
+
+  // EM-Q2c: Dig — attachments?
+  {
+    id:'em_dig_attachment', icon:'🔩',
+    text:'Do you need any attachments?',
+    hint:'A standard bucket is included. Select if you need anything else.',
+    showIf:{key:'em_job', val:'dig'},
+    type:'options',
+    optional:true,
+    options:[
+      {ico:'🪣', lbl:'Standard bucket only',     sub:'Digging and scooping — no extra attachment needed',      val:'bucket_only'},
+      {ico:'🪨', lbl:'Rock breaker / hammer',     sub:'To break up concrete, rock or hard ground',             val:'breaker'},
+      {ico:'🔩', lbl:'Auger / boring head',       sub:'Post holes, piers, pole foundations',                   val:'auger'},
+      {ico:'🤏', lbl:'Grab / grapple bucket',     sub:'For picking up rocks, logs, irregular material',        val:'grab'},
+      {ico:'🌿', lbl:'Mulching head',             sub:'To mulch stumps, roots or vegetation while digging',    val:'mulcher'},
+    ]
+  },
+
+  // EM-Q3a: Push/clear — ground condition?
+  {
+    id:'em_push_ground', icon:'🌍',
+    text:'What does the ground look like?',
+    showIf:{key:'em_job', val:'push_clear'},
+    type:'options',
+    options:[
+      {ico:'🌿', lbl:'Soft — grass, clay or wet ground', sub:'Tracked machine will handle this better',         val:'soft'},
+      {ico:'🏗️', lbl:'Standard compacted dirt',          sub:'Normal site conditions',                          val:'standard'},
+      {ico:'🪨', lbl:'Rock, rubble or heavy fill',        sub:'Hard material requiring a heavy machine',         val:'hard'},
+      {ico:'✅', lbl:'Already cleared — final grading',  sub:'Just need to level or grade the surface',         val:'grading'},
+    ]
+  },
+
+  // EM-Q3b: Push/clear — area size?
+  {
+    id:'em_push_area', icon:'📐',
+    text:'How large is the area?',
+    showIf:{key:'em_job', val:'push_clear'},
+    type:'options',
+    options:[
+      {ico:'🏠', lbl:'Small — under 500m²',      sub:'Typical backyard, small building pad',                   val:'small'},
+      {ico:'🏗️', lbl:'Medium — 500m² to 5,000m²',sub:'Standard residential or small commercial site',         val:'medium'},
+      {ico:'🌾', lbl:'Large — over 5,000m²',     sub:'Subdivision, civil, major earthworks',                   val:'large'},
+    ]
+  },
+
+  // EM-Q4a: Break — what are you breaking?
+  {
+    id:'em_break_material', icon:'🪨',
+    text:'What are you breaking?',
+    showIf:{key:'em_job', val:'break'},
+    type:'options',
+    options:[
+      {ico:'🏗️', lbl:'Concrete slab or footing',  sub:'Driveways, slabs, footings, walls',                    val:'concrete'},
+      {ico:'⛏️', lbl:'Rock / hard ground',          sub:'Natural rock, hardpan, hard subsoil',                  val:'rock'},
+      {ico:'🛣️', lbl:'Asphalt / road surface',     sub:'Removing bitumen or road base',                        val:'asphalt'},
+    ]
+  },
+
+  // EM-Q4b: Break — how much?
+  {
+    id:'em_break_volume', icon:'📦',
+    text:'How much material needs breaking?',
+    showIf:{key:'em_job', val:'break'},
+    type:'options',
+    options:[
+      {ico:'🧱', lbl:'Small — a few square metres', sub:'Up to 20m² or a few cubic metres',                   val:'small'},
+      {ico:'🏗️', lbl:'Medium — up to 100m²',        sub:'Larger driveway, multiple slabs or a footing area',  val:'medium'},
+      {ico:'🏢', lbl:'Large — over 100m²',           sub:'Major demolition, road removal, large area',         val:'large'},
+    ]
+  },
+
+  // EM-Q5a: Cart — how far?
+  {
+    id:'em_cart_distance', icon:'🚛',
+    text:'How far are you moving the material?',
+    showIf:{key:'em_job', val:'cart'},
+    type:'options',
+    options:[
+      {ico:'↔️', lbl:'Short push — under 50m on site',   sub:'Bobcat or loader, moving material within a tight area', val:'short'},
+      {ico:'🏗️', lbl:'Longer haul — 50m to 500m on site',sub:'Site dumper or small dump truck within site',           val:'medium'},
+      {ico:'🚛', lbl:'Off-site cartage',                  sub:'Loading and trucking material away from the site',      val:'offsite'},
+    ]
+  },
+
+  // EM-Q5b: Cart — how much?
+  {
+    id:'em_cart_volume', icon:'📊',
+    text:'How much material needs to be moved?',
+    showIf:{key:'em_job', val:'cart'},
+    type:'options',
+    options:[
+      {ico:'🪣', lbl:'A few loads — under 10 trips',  sub:'Small job, one day or less',                        val:'small'},
+      {ico:'🚛', lbl:'Medium — 10 to 50 loads',        sub:'Several days of carting',                           val:'medium'},
+      {ico:'🏗️', lbl:'Large — 50+ loads or ongoing',  sub:'Major earthworks, subdivision, mine haulage',       val:'large'},
+    ]
+  },
+
+  // EM-Q6a: Compact — what surface?
+  {
+    id:'em_compact_surface', icon:'🔄',
+    text:'What are you compacting?',
+    showIf:{key:'em_job', val:'compact'},
+    type:'options',
+    options:[
+      {ico:'🌍', lbl:'Soil / earth / backfill',       sub:'Trenches, embankments, general earthworks',          val:'soil'},
+      {ico:'🪨', lbl:'Gravel / road base / crushed rock',sub:'Sub-base for roads, driveways, hardstand',        val:'gravel'},
+      {ico:'🛣️', lbl:'Asphalt / bitumen',              sub:'Road surfaces, car parks, pathways',                val:'asphalt'},
+      {ico:'🏗️', lbl:'Trench or tight area backfill',  sub:'Needs a narrow or remote-controlled machine',      val:'trench'},
+    ]
+  },
+
+  // EM-Q6b: Compact — area size?
+  {
+    id:'em_compact_area', icon:'📐',
+    text:'How large is the area to compact?',
+    showIf:{key:'em_job', val:'compact'},
+    type:'options',
+    options:[
+      {ico:'🏠', lbl:'Very small — trench or tight spot', sub:'Walk-behind plate compactor',                    val:'tiny'},
+      {ico:'🏗️', lbl:'Small — under 500m²',               sub:'Pedestrian roller or plate compactor',           val:'small'},
+      {ico:'🏢', lbl:'Medium — 500m² to 2,000m²',         sub:'Ride-on roller or trench compactor',             val:'medium'},
+      {ico:'🌾', lbl:'Large — over 2,000m²',              sub:'Heavy ride-on roller, padfoot or smooth drum',   val:'large'},
+    ]
+  },
+
+  // EM-Q7a: Water — area size?
+  {
+    id:'em_water_area', icon:'💧',
+    text:'How large is the area you need to water?',
+    showIf:{key:'em_job', val:'water'},
+    type:'options',
+    options:[
+      {ico:'🏗️', lbl:'Small site — under 1 hectare',   sub:'5,000L water cart is typically sufficient',        val:'small'},
+      {ico:'🌾', lbl:'Medium — 1 to 5 hectares',        sub:'10,000L water cart recommended',                   val:'medium'},
+      {ico:'🏜️', lbl:'Large — over 5 hectares or ongoing', sub:'20,000L articulated water truck or multiple carts', val:'large'},
+    ]
+  },
+
+  // EM-Q8a: Clear veg — what type?
+  {
+    id:'em_veg_type', icon:'🌿',
+    text:'What type of vegetation are you clearing?',
+    showIf:{key:'em_job', val:'clear_veg'},
+    type:'options',
+    options:[
+      {ico:'🌱', lbl:'Light scrub, grass or low regrowth', sub:'Bobcat with mulching head or slasher',           val:'light'},
+      {ico:'🌳', lbl:'Medium scrub, small trees up to 150mm trunk', sub:'Excavator or bobcat with mulching head', val:'medium'},
+      {ico:'🌲', lbl:'Heavy bush, large trees over 150mm trunk',    sub:'Dozer or forestry mulcher',              val:'heavy'},
+    ]
+  },
+
+  // EM-Q8b: Clear veg — area?
+  {
+    id:'em_veg_area', icon:'📐',
+    text:'How large is the area to clear?',
+    showIf:{key:'em_job', val:'clear_veg'},
+    type:'options',
+    options:[
+      {ico:'🏠', lbl:'Small — under 2,000m²', sub:'Half day or less',                                          val:'small'},
+      {ico:'🌾', lbl:'Medium — up to 2 hectares', sub:'One to several days',                                   val:'medium'},
+      {ico:'🏜️', lbl:'Large — over 2 hectares', sub:'Major clearing contract, ongoing work',                  val:'large'},
+    ]
+  },
+
+  // EM — Wet hire or dry hire? (shown for all earthmoving jobs)
+  {
+    id:'em_hire_type', icon:'👷',
+    text:'Do you need an operator supplied with the machine?',
+    hint:'Wet hire means the machine and an operator come together — you pay a combined rate. Dry hire means machine only — you supply your own licensed operator.',
+    showIf:{key:'lifting_for', val:'earthmoving'},
+    type:'options',
+    options:[
+      {ico:'👷', lbl:'Wet hire — machine and operator', sub:'Operator is supplied by the rental company. Rate is per hour or per day inclusive.', val:'wet'},
+      {ico:'🔑', lbl:'Dry hire — machine only',          sub:'I have my own licensed operator. Rate is for the machine alone.',                    val:'dry'},
+    ]
+  },
+
+  // EM — Site address / location (reuse existing city question framing)
+  {
+    id:'em_site_city', icon:'📍',
+    text:'What city or town is the job site in?',
+    hint:'This helps us find rental companies closest to your job site.',
+    showIf:{key:'lifting_for', val:'earthmoving'},
+    type:'text',
+    placeholder:'e.g. Brisbane, Mackay, Perth…',
+    optional:true,
   },
 
 ];
@@ -25580,6 +26064,158 @@ function matchMachines(ans, type) {
 }
 
 // ── matchMaterial — material lifts ───────────────────────────────────────────
+// ── matchEarthworks — Earth Works machines ─────────────────────────────────
+function matchEarthworks(ans) {
+  const job      = ans.em_job        || '';
+  const depth    = ans.em_dig_depth  || '';
+  const access   = ans.em_dig_access || '';
+  const att      = ans.em_dig_attachment || '';
+  const ground   = ans.em_push_ground   || '';
+  const area     = ans.em_push_area || ans.em_veg_area || ans.em_compact_area || '';
+  const breakMat = ans.em_break_material || '';
+  const breakVol = ans.em_break_volume  || '';
+  const cartDist = ans.em_cart_distance || '';
+  const cartVol  = ans.em_cart_volume   || '';
+  const compact  = ans.em_compact_surface || '';
+  const waterArea= ans.em_water_area     || '';
+  const vegType  = ans.em_veg_type       || '';
+  const hireType = ans.em_hire_type      || ''; // 'wet' | 'dry'
+
+  const pool = MACHINES.earthworks || [];
+
+  // Score helper
+  function score(m, checks) {
+    let s = 0;
+    checks.forEach(([condition, pts]) => { if (condition) s += pts; });
+    return s;
+  }
+
+  // Filter to the right machine types then rank
+  let candidates = [];
+
+  // ── DIG ─────────────────────────────────────────────────────────
+  if (job === 'dig' || job === 'break') {
+    candidates = pool.filter(m => m.type === 'excavator');
+    candidates = candidates.map(m => {
+      let s = 0;
+      // Depth matching
+      if (depth === 'shallow')   s += m.weightClass === 'mini'     ? 4 : m.weightClass === 'midi'     ? 2 : 0;
+      if (depth === 'medium')    s += m.weightClass === 'mini'     ? 2 : m.weightClass === 'midi'     ? 4 : m.weightClass === 'standard' ? 2 : 0;
+      if (depth === 'deep')      s += m.weightClass === 'midi'     ? 2 : m.weightClass === 'standard' ? 4 : 0;
+      if (depth === 'very_deep') s += m.weightClass === 'standard' ? 3 : m.weightClass === 'large'    ? 5 : 0;
+      // Access matching
+      if (access === 'tight')    s += m.id.includes('mini') ? 4 : -2;
+      if (access === 'standard') s += m.weightClass === 'mini' ? 1 : m.weightClass === 'midi' ? 3 : m.weightClass === 'standard' ? 3 : 1;
+      if (access === 'open')     s += m.weightClass === 'standard' ? 3 : m.weightClass === 'large' ? 4 : 1;
+      // Breaker job → prefer standard+ (more hydraulic flow)
+      if (job === 'break') {
+        if (breakMat === 'rock')     s += m.weightClass === 'standard' ? 3 : m.weightClass === 'large' ? 4 : 0;
+        if (breakMat === 'concrete') s += m.weightClass === 'midi'     ? 3 : m.weightClass === 'standard' ? 3 : 1;
+        if (breakVol === 'large')    s += m.weightClass === 'standard' ? 2 : m.weightClass === 'large'    ? 4 : 0;
+      }
+      return { ...m, _score: s };
+    }).sort((a,b) => b._score - a._score);
+  }
+
+  // ── PUSH / CLEAR / LEVEL ─────────────────────────────────────────
+  else if (job === 'push_clear') {
+    candidates = pool.filter(m => ['bobcat','dozer','loader','grader'].includes(m.type));
+    candidates = candidates.map(m => {
+      let s = 0;
+      if (ground === 'grading')  s += m.type === 'grader'  ? 5 : m.type === 'dozer'  ? 2 : 0;
+      if (ground === 'soft')     s += m.id.includes('track') ? 4 : m.type === 'dozer' ? 3 : 0;
+      if (ground === 'standard') s += m.type === 'bobcat'  ? 3 : m.type === 'dozer'   ? 3 : m.type === 'loader' ? 2 : 0;
+      if (ground === 'hard')     s += m.type === 'dozer'   ? 4 : m.type === 'loader'  ? 2 : 0;
+      if (area === 'small')      s += m.type === 'bobcat'  ? 4 : m.type === 'dozer'   ? 1 : 0;
+      if (area === 'medium')     s += m.type === 'bobcat'  ? 2 : m.type === 'dozer'   ? 3 : m.type === 'grader' ? 2 : 0;
+      if (area === 'large')      s += m.type === 'dozer'   ? 4 : m.type === 'loader'  ? 3 : m.type === 'grader' ? 3 : 0;
+      return { ...m, _score: s };
+    }).sort((a,b) => b._score - a._score);
+  }
+
+  // ── CART MATERIAL ────────────────────────────────────────────────
+  else if (job === 'cart') {
+    candidates = pool.filter(m => ['bobcat','dumper','truck','adt','loader'].includes(m.type));
+    candidates = candidates.map(m => {
+      let s = 0;
+      if (cartDist === 'short')  s += m.type === 'bobcat'  ? 4 : m.type === 'dumper'  ? 3 : 0;
+      if (cartDist === 'medium') s += m.type === 'dumper'  ? 4 : m.type === 'bobcat'  ? 2 : m.type === 'loader' ? 2 : 0;
+      if (cartDist === 'offsite')s += m.type === 'truck'   ? 5 : m.type === 'adt'     ? 4 : 0;
+      if (cartVol === 'small')   s += m.type === 'bobcat'  ? 3 : m.type === 'dumper'  ? 3 : 0;
+      if (cartVol === 'medium')  s += m.type === 'dumper'  ? 3 : m.type === 'truck'   ? 3 : 0;
+      if (cartVol === 'large')   s += m.type === 'truck'   ? 4 : m.type === 'adt'     ? 5 : 0;
+      return { ...m, _score: s };
+    }).sort((a,b) => b._score - a._score);
+  }
+
+  // ── COMPACT ──────────────────────────────────────────────────────
+  else if (job === 'compact') {
+    candidates = pool.filter(m => ['compactor','roller'].includes(m.type));
+    candidates = candidates.map(m => {
+      let s = 0;
+      if (compact === 'trench')   s += m.id.includes('plate')  ? 5 : 0;
+      if (compact === 'soil')     s += m.id.includes('padfoot') ? 5 : m.id.includes('pedestrian') ? 2 : 0;
+      if (compact === 'gravel')   s += m.id.includes('rideon')  ? 4 : m.id.includes('pedestrian') ? 3 : 0;
+      if (compact === 'asphalt')  s += m.id.includes('rideon')  ? 5 : m.id.includes('pedestrian') ? 2 : 0;
+      const areaStr = ans.em_compact_area || '';
+      if (areaStr === 'tiny')    s += m.id.includes('plate')      ? 5 : 0;
+      if (areaStr === 'small')   s += m.id.includes('pedestrian') ? 4 : m.id.includes('plate') ? 3 : 0;
+      if (areaStr === 'medium')  s += m.id.includes('rideon')     ? 3 : m.id.includes('pedestrian') ? 3 : 0;
+      if (areaStr === 'large')   s += m.id.includes('rideon')     ? 5 : m.id.includes('padfoot')    ? 4 : 0;
+      return { ...m, _score: s };
+    }).sort((a,b) => b._score - a._score);
+  }
+
+  // ── WATER ────────────────────────────────────────────────────────
+  else if (job === 'water') {
+    candidates = pool.filter(m => m.type === 'water_cart');
+    candidates = candidates.map(m => {
+      let s = 0;
+      if (waterArea === 'small')  s += m.id.includes('small') ? 5 : m.id.includes('med') ? 2 : 0;
+      if (waterArea === 'medium') s += m.id.includes('med')   ? 5 : m.id.includes('small') ? 1 : m.id.includes('large') ? 2 : 0;
+      if (waterArea === 'large')  s += m.id.includes('large') ? 5 : m.id.includes('med')   ? 2 : 0;
+      return { ...m, _score: s };
+    }).sort((a,b) => b._score - a._score);
+  }
+
+  // ── CLEAR VEGETATION ─────────────────────────────────────────────
+  else if (job === 'clear_veg') {
+    candidates = pool.filter(m => ['bobcat','dozer','mulcher'].includes(m.type));
+    candidates = candidates.map(m => {
+      let s = 0;
+      if (vegType === 'light')  s += m.type === 'bobcat'  ? 4 : m.type === 'mulcher' ? 2 : 0;
+      if (vegType === 'medium') s += m.type === 'mulcher' ? 5 : m.type === 'bobcat'  ? 2 : 0;
+      if (vegType === 'heavy')  s += m.type === 'dozer'   ? 4 : m.type === 'mulcher' ? 5 : 0;
+      if (area === 'small')     s += m.type === 'bobcat'  ? 3 : 0;
+      if (area === 'medium')    s += m.type === 'mulcher' ? 3 : m.type === 'bobcat'  ? 2 : 0;
+      if (area === 'large')     s += m.type === 'dozer'   ? 4 : m.type === 'mulcher' ? 3 : 0;
+      return { ...m, _score: s };
+    }).sort((a,b) => b._score - a._score);
+  }
+
+  // Fallback — show all earthworks machines sorted by type
+  if (!candidates.length) candidates = pool.map(m => ({ ...m, _score: 1 }));
+
+  // Filter by hire type preference (wet=operator supplied, dry=machine only)
+  // wet-only machines (e.g. trucks with driver) are removed if customer chose dry hire
+  if (hireType === 'dry') {
+    candidates = candidates.filter(m => m.hireRateType !== 'wet');
+  }
+
+  // Return top 5 (never show zero results)
+  return candidates.slice(0, 6).map(m => ({
+    id: m.id, name: m.name, shortName: m.shortName || m.name,
+    brand: m.brand, emoji: m.emoji || '🚜', type: m.type,
+    note: m.note || '', tags: m.tags || [],
+    operatingWeightT: m.operatingWeightT,
+    digDepthM: m.digDepthM, bucketCapM3: m.bucketCapM3,
+    hireRateType: m.hireRateType || 'wet_or_dry',
+    _score: m._score || 0,
+    _isEarthworks: true,
+    filters: ['earthworks', m.type],
+  }));
+}
+
 function matchPalletJack(ans) {
   let pool = [...MACHINES.palletJack];
   const kg        = parseFloat(ans.mat_kg) || 0;
@@ -25718,6 +26354,19 @@ function determineMachineType(ans) {
 
     // Scissor: straight up, level surface, single or multi person
     return 'scissor';
+  }
+
+  // ── EARTHMOVING ───────────────────────────────────────────────────────────
+  if (lift === 'earthmoving') {
+    const job = ans.em_job;
+    if (job === 'dig')        return 'em_excavator';
+    if (job === 'push_clear') return 'em_dozer';
+    if (job === 'break')      return 'em_excavator'; // excavator + breaker attachment
+    if (job === 'cart')       return 'em_dumper';
+    if (job === 'compact')    return 'em_compactor';
+    if (job === 'water')      return 'em_water_cart';
+    if (job === 'clear_veg')  return 'em_dozer';
+    return 'em_excavator'; // default
   }
 
   // ── MATERIALS ─────────────────────────────────────────────────────────────
@@ -26853,8 +27502,8 @@ function showResults() {
   const MAX_BOOM_SWL = 454;
   if (machineType === 'boom' && _swlCheck > MAX_BOOM_SWL) machineType = 'scissor';
 
-  const typeEmojis={forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄'};
-  const typeNames={forklift:'Forklift',telehandler:'Telehandler',scissor:'Scissor Lift',boom:'Boom Lift',material:'Material Lift / Duct Lifter',pushAround:'Push-Around Manlift',palletJack:'Pallet Jack / Floor Mover'};
+  const typeEmojis={forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
+  const typeNames={forklift:'Forklift',telehandler:'Telehandler',scissor:'Scissor Lift',boom:'Boom Lift',material:'Material Lift / Duct Lifter',pushAround:'Push-Around Manlift',palletJack:'Pallet Jack / Floor Mover',em_excavator:'Excavator',em_bobcat:'Bobcat / Skid Steer',em_dozer:'Bulldozer',em_grader:'Motor Grader',em_compactor:'Compactor / Roller',em_dumper:'Dump Truck / Dumper',em_water_cart:'Water Cart',em_mulcher:'Forestry Mulcher'};
 
   // ── Admin tracking: record this search ──
   try {
@@ -27070,6 +27719,7 @@ function showResults() {
   if (machineType === 'palletJack')  matches = matchPalletJack(answers);
   else if (machineType === 'material')    matches = matchMaterial(answers);
   else if (machineType === 'pushAround') matches = matchPushAround(answers);
+  else if (machineType && machineType.startsWith('em_')) matches = matchEarthworks(answers);
   else matches = matchMachines(answers, machineType);
 
   // Store globally for sort/filter re-renders
@@ -28149,6 +28799,21 @@ function _renderCards(matches, machineType, answers) {
         }
         return cmBadge + chartHtml;
       })()}
+      ${m._isEarthworks ? `
+        <div style="margin:.5rem 0;display:flex;flex-wrap:wrap;gap:.35rem">
+          ${m.operatingWeightT ? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⚖️ ${m.operatingWeightT}t operating weight</span>` : ''}
+          ${m.digDepthM ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⛏️ ${m.digDepthM}m max dig depth</span>` : ''}
+          ${m.bucketCapM3 ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">🪣 ${m.bucketCapM3}m³ bucket</span>` : ''}
+          ${m.hireRateType === 'wet' ? `<span style="background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">👷 Wet hire only — operator included</span>`
+          : m.hireRateType === 'dry' ? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">🔑 Dry hire — machine only</span>`
+          : `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">✅ Wet or dry hire available</span>`}
+        </div>
+        <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:.5rem .75rem;font-size:.78rem;color:#92400E;margin:.4rem 0;line-height:1.55">
+          🚜 <strong>Earth Works quote:</strong> Rental companies quote a combined rate per hour or per day.
+          ${answers.em_hire_type === 'wet' ? 'Rate includes machine + operator. A mobilisation/demobilisation fee may apply.' : answers.em_hire_type === 'dry' ? 'Machine-only rate. Your operator must hold the appropriate ticket for this machine.' : 'Ask the rental company whether they include an operator in their rate.'}
+          A minimum call-out of 4 hours is standard.
+        </div>
+      ` : ''}
       <div class="rec-tags">${m.tags.map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
         ${(!currentUser || (currentUser.role !== 'rental' && currentUser.role !== 'lite')) ? `
@@ -28907,7 +29572,7 @@ function renderCartItems() {
     if (list) list.innerHTML = '<div class="cart-empty-msg">No machines added yet.<br>Click \"Add to Cart\" on any recommendation.</div>';
     return;
   }
-  const typeNames = {forklift:'Forklift',telehandler:'Telehandler',scissor:'Scissor Lift',boom:'Boom Lift',material:'Material Lift',pushAround:'Push-Around',palletJack:'Pallet Jack'};
+  const typeNames = {forklift:'Forklift',telehandler:'Telehandler',scissor:'Scissor Lift',boom:'Boom Lift',material:'Material Lift',pushAround:'Push-Around',palletJack:'Pallet Jack',em_excavator:'Excavator',em_bobcat:'Bobcat / Skid Steer',em_dozer:'Bulldozer',em_grader:'Motor Grader',em_compactor:'Compactor / Roller',em_dumper:'Dump Truck',em_water_cart:'Water Cart',em_mulcher:'Forestry Mulcher'};
   list.innerHTML = quoteCart.map((m,i) => {
     const jr = m.jobRequirements || {};
     // Build comprehensive requirement pills
@@ -28929,6 +29594,17 @@ function renderCartItems() {
       jr.basketSWL         && `<span class="cart-req-pill">⚖️ Basket SWL: ${jr.basketSWL}</span>`,
       jr.accessType        && `<span class="cart-req-pill">🎯 ${jr.accessType}</span>`,
       jr.brandPreference   && `<span class="cart-req-pill">🏷️ Brand pref: ${jr.brandPreference}</span>`,
+      // ── Earth Works pills ──────────────────────────────────────────────
+      jr.earthworksJob     && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🚜 ${jr.earthworksJob}</span>`,
+      jr.digDepth          && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">⛏️ Dig depth: ${jr.digDepth}</span>`,
+      jr.siteAccess        && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🚧 Access: ${jr.siteAccess}</span>`,
+      jr.groundCondition   && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🌍 Ground: ${jr.groundCondition}</span>`,
+      jr.areaSize          && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">📐 Area: ${jr.areaSize}</span>`,
+      jr.cartDistance      && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🚛 ${jr.cartDistance}</span>`,
+      jr.cartVolume        && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">📊 Volume: ${jr.cartVolume}</span>`,
+      jr.compactSurface    && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🔄 Surface: ${jr.compactSurface}</span>`,
+      jr.hireArrangement   && jr._isEarthworks && `<span class="cart-req-pill" style="background:#F0FDF4;border-color:#86EFAC;color:#166534">👷 ${jr.hireArrangement}</span>`,
+      jr.earthworksAttachment && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🔩 ${jr.earthworksAttachment}</span>`,
     ].filter(Boolean).join('');
 
     // Machine dimension limits
@@ -29325,6 +30001,60 @@ function getJobRequirements() {
     'on information submitted through this platform.'
   ].join(' ');
 
+  // ── Earth Works specifics ──────────────────────────────────────────────
+  if (a.lifting_for === 'earthmoving') {
+    const emJobMap = {
+      dig:'Excavation / dig', push_clear:'Push, clear or level',
+      break:'Break rock or concrete', cart:'Cart material',
+      compact:'Compact / flatten', water:'Water the site',
+      clear_veg:'Clear vegetation'
+    };
+    if (a.em_job) req.earthworksJob = emJobMap[a.em_job] || a.em_job;
+
+    const emDepthMap = { shallow:'Under 1.5m', medium:'1.5m to 3m', deep:'3m to 6m', very_deep:'Over 6m' };
+    if (a.em_dig_depth) req.digDepth = emDepthMap[a.em_dig_depth] || a.em_dig_depth;
+
+    const emAccessMap = { tight:'Very tight / confined', standard:'Standard site access', open:'Open land' };
+    if (a.em_dig_access) req.siteAccess = emAccessMap[a.em_dig_access] || a.em_dig_access;
+
+    const emAttMap = { bucket_only:'Standard bucket', breaker:'Rock breaker / hammer', auger:'Auger / boring head', grab:'Grab / grapple', mulcher:'Mulching head' };
+    if (a.em_dig_attachment) req.earthworksAttachment = emAttMap[a.em_dig_attachment] || a.em_dig_attachment;
+
+    const emGroundMap = { soft:'Soft / clay / wet', standard:'Standard compacted dirt', hard:'Rock / rubble / heavy fill', grading:'Already cleared — final grading' };
+    if (a.em_push_ground) req.groundCondition = emGroundMap[a.em_push_ground] || a.em_push_ground;
+
+    const emAreaMap = { small:'Small (under 500m²)', medium:'Medium (500m²–5,000m²)', large:'Large (over 5,000m²)', tiny:'Very small / trench' };
+    if (a.em_push_area || a.em_compact_area || a.em_veg_area) {
+      req.areaSize = emAreaMap[a.em_push_area || a.em_compact_area || a.em_veg_area] || (a.em_push_area || a.em_compact_area || a.em_veg_area);
+    }
+
+    const emBreakMap = { concrete:'Concrete slab or footing', rock:'Rock / hard ground', asphalt:'Asphalt / road surface' };
+    if (a.em_break_material) req.breakMaterial = emBreakMap[a.em_break_material] || a.em_break_material;
+
+    const emCartMap = { short:'Short push — under 50m on site', medium:'Medium haul — 50m–500m on site', offsite:'Off-site cartage' };
+    if (a.em_cart_distance) req.cartDistance = emCartMap[a.em_cart_distance] || a.em_cart_distance;
+
+    const emVolMap = { small:'Small (under 10 loads)', medium:'Medium (10–50 loads)', large:'Large (50+ loads / ongoing)' };
+    if (a.em_cart_volume) req.cartVolume = emVolMap[a.em_cart_volume] || a.em_cart_volume;
+
+    const emCompMap = { soil:'Soil / earth / backfill', gravel:'Gravel / road base', asphalt:'Asphalt / bitumen', trench:'Trench or tight area' };
+    if (a.em_compact_surface) req.compactSurface = emCompMap[a.em_compact_surface] || a.em_compact_surface;
+
+    const emWaterMap = { small:'Small site (under 1ha)', medium:'Medium (1–5ha)', large:'Large (over 5ha / ongoing)' };
+    if (a.em_water_area) req.waterArea = emWaterMap[a.em_water_area] || a.em_water_area;
+
+    const emVegMap = { light:'Light scrub / grass', medium:'Medium scrub / small trees', heavy:'Heavy bush / large trees' };
+    if (a.em_veg_type) req.vegetationType = emVegMap[a.em_veg_type] || a.em_veg_type;
+
+    req.hireArrangement = a.em_hire_type === 'wet' ? 'Wet hire — machine and operator supplied'
+                        : a.em_hire_type === 'dry' ? 'Dry hire — machine only'
+                        : 'Not specified';
+
+    if (a.em_site_city) req.siteCity = a.em_site_city;
+
+    req._isEarthworks = true;
+  }
+
   // ── Snapshot timestamp ────────────────────────────────────────────────
   req._capturedAt = Date.now();
   req._answersSnapshot = { ...a }; // full raw answers object archived
@@ -29333,7 +30063,7 @@ function getJobRequirements() {
 }
 
 function requestQuote(machineId, machineName) {
-  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄'};
+  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
   currentModalMachine = {
     id: machineId,
     name: machineName,
@@ -32525,7 +33255,7 @@ function renderQuoteInbox() {
                   <div style="margin-bottom:.45rem;padding-bottom:.45rem;border-bottom:1px dashed #F1F5F9">
                     <div style="font-weight:700;color:#334155;margin-bottom:.15rem">${mb.emoji||'🏗️'} ${mb.name} <span style="font-weight:400;color:#94A3B8">(${DUR_LABEL[mb.duration]||mb.duration||'—'})</span></div>
                     <div style="display:grid;grid-template-columns:1fr auto;gap:.1rem .5rem;color:#475569">
-                      <span>$${mb.rateDay||0}/day &nbsp;·&nbsp; $${mb.rateWeek||0}/wk</span><span></span>
+                      <span>${mb.rateHour?`$${mb.rateHour}/hr`:`$${mb.rateDay||0}/day · $${mb.rateWeek||0}/wk`}</span><span></span>
                       <span>Hire total</span><span style="font-weight:700;text-align:right">$${(mb.rentalCost||0).toFixed(2)}</span>
                       ${(mb.accs||[]).map(a=>`<span style="color:#C2410C">↳ ${a.name}</span><span style="font-weight:700;text-align:right;color:#C2410C">$${(a.total||0).toFixed(2)}</span>`).join('')}
                       ${mb.insurance > 0 ? `<span style="color:#64748B">Insurance (${p.insurePct||0}%)</span><span style="font-weight:700;text-align:right">$${(mb.insurance||0).toFixed(2)}</span>` : ''}
@@ -32602,21 +33332,25 @@ function rqDays(dur) { return DUR_MAP[dur] || 1; }
 
 function rqCalcMachineTotal(idx) {
   const m        = window._rqReq ? (window._rqReq.machines[idx] || {}) : {};
+  const jr       = (m.jobRequirements || m.jobRequirements) || {};
+  const isEarth  = !!(jr._isEarthworks);
   const days     = rqDays(m.duration || '1-day');
+  const rateHour = parseFloat(document.getElementById(`rq-rate-hour-${idx}`)?.value) || 0;
   const rateDay  = parseFloat(document.getElementById(`rq-rate-day-${idx}`)?.value) || 0;
   const rateWeek = parseFloat(document.getElementById(`rq-rate-week-${idx}`)?.value) || 0;
   const transIn  = parseFloat(document.getElementById(`rq-trans-in-${idx}`)?.value)  || 0;
   const transOut = parseFloat(document.getElementById(`rq-trans-out-${idx}`)?.value) || 0;
   const insurePct = parseFloat(document.getElementById('rq-insurance-pct')?.value) || 0;
 
-  // Rental cost: weekly rate prorated if >= 5 working days, else day rate
+  // Rental cost: earthworks uses hourly (8h/day) or day rate; lifting uses day/week
   let rentalCost = 0;
-  if (days >= 5 && rateWeek > 0) {
-    rentalCost = (days / 5) * rateWeek;
-  } else if (rateDay > 0) {
-    rentalCost = days * rateDay;
-  } else if (rateWeek > 0) {
-    rentalCost = (days / 5) * rateWeek;
+  if (isEarth) {
+    if (rateDay > 0)       rentalCost = days * rateDay;
+    else if (rateHour > 0) rentalCost = days * 8 * rateHour; // 8 hour day
+  } else {
+    if (days >= 5 && rateWeek > 0) rentalCost = (days / 5) * rateWeek;
+    else if (rateDay > 0)           rentalCost = days * rateDay;
+    else if (rateWeek > 0)          rentalCost = (days / 5) * rateWeek;
   }
 
   // Accessories — use day rate or weekly rate prorated
@@ -32906,7 +33640,43 @@ function openRespondModal(reqId) {
         </div>
       </div>
 
-      <!-- Hire rates -->
+      <!-- Hire rates — earthworks shows hourly + day + mob/demob; lifting shows day + week -->
+      ${jr._isEarthworks ? `
+      <div style="background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:10px;padding:.65rem .85rem;margin-bottom:.65rem">
+        <div style="font-size:.72rem;font-weight:800;color:#92400E;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.4px">🚜 Earth Works Rate</div>
+        <div style="font-size:.72rem;color:#B45309;margin-bottom:.5rem;line-height:1.5">Quote your rate inclusive of fuel. Wet hire includes the operator. Dry hire is machine only. A minimum 4-hour call-out is standard — note this in your quote.</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.45rem">
+          <div style="flex:1;min-width:90px">
+            <label style="font-size:.71rem;font-weight:700;color:#92400E;display:block;margin-bottom:.18rem">Rate / Hour ($)</label>
+            <input id="rq-rate-hour-${i}" type="number" min="0" step="1" placeholder="e.g. 180" value="${prevMB.rateHour||''}"
+              style="width:100%;border:1.5px solid #FDE68A;border-radius:7px;padding:.32rem .5rem;font-size:.92rem;font-weight:700;font-family:inherit;box-sizing:border-box;background:#fff"
+              oninput="rqRecalcAll()">
+          </div>
+          <div style="flex:1;min-width:90px">
+            <label style="font-size:.71rem;font-weight:700;color:#92400E;display:block;margin-bottom:.18rem">Rate / Day ($)</label>
+            <input id="rq-rate-day-${i}" type="number" min="0" step="1" placeholder="e.g. 1200" value="${prevMB.rateDay||''}"
+              style="width:100%;border:1.5px solid #FDE68A;border-radius:7px;padding:.32rem .5rem;font-size:.92rem;font-weight:700;font-family:inherit;box-sizing:border-box;background:#fff"
+              oninput="rqRecalcAll()">
+          </div>
+          <input id="rq-rate-week-${i}" type="hidden" value="">
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <div style="flex:1;min-width:90px">
+            <label style="font-size:.71rem;font-weight:700;color:#1E40AF;display:block;margin-bottom:.18rem">🚛 Mob fee ($)</label>
+            <input id="rq-trans-in-${i}" type="number" min="0" step="1" placeholder="e.g. 350" value="${prevMB.transIn||''}"
+              style="width:100%;border:1.5px solid #93C5FD;border-radius:7px;padding:.32rem .5rem;font-size:.92rem;font-weight:700;font-family:inherit;box-sizing:border-box;background:#F0F7FF"
+              oninput="rqRecalcAll()">
+          </div>
+          <div style="flex:1;min-width:90px">
+            <label style="font-size:.71rem;font-weight:700;color:#1E40AF;display:block;margin-bottom:.18rem">🚛 Demob fee ($)</label>
+            <input id="rq-trans-out-${i}" type="number" min="0" step="1" placeholder="e.g. 350" value="${prevMB.transOut||''}"
+              style="width:100%;border:1.5px solid #93C5FD;border-radius:7px;padding:.32rem .5rem;font-size:.92rem;font-weight:700;font-family:inherit;box-sizing:border-box;background:#F0F7FF"
+              oninput="rqRecalcAll()">
+          </div>
+        </div>
+        <div style="font-size:.71rem;color:#92400E;margin-top:.45rem;font-style:italic">System calculates total from day rate × number of days, or hourly rate × hours if no day rate entered. Add mob/demob separately.</div>
+      </div>
+      ` : `
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem">
         <div style="flex:1;min-width:100px">
           <label style="font-size:.71rem;font-weight:700;color:#64748B;display:block;margin-bottom:.18rem">Rate / Day ($)</label>
@@ -32937,6 +33707,7 @@ function openRespondModal(reqId) {
             oninput="rqRecalcAll()">
         </div>
       </div>
+      `}
 
       <!-- Accessories — only shown when customer requested attachments -->
       ${hasAccs ? `
@@ -33139,6 +33910,12 @@ async function submitResponse() {
     if (days >= 5 && rateWeek > 0)  rentalCost = (days/5)*rateWeek;
     else if (rateDay > 0)           rentalCost = days*rateDay;
     else if (rateWeek > 0)          rentalCost = (days/5)*rateWeek;
+    // Earthworks hourly fallback
+    const rateHour = parseFloat(document.getElementById(`rq-rate-hour-${i}`)?.value) || 0;
+    const jr_m = m.jobRequirements || {};
+    if (jr_m._isEarthworks && rentalCost === 0 && rateHour > 0) {
+      rentalCost = days * 8 * rateHour;
+    }
 
     const accs = [];
     document.querySelectorAll(`[data-acc-machine="${i}"]`).forEach(row => {
@@ -33158,7 +33935,7 @@ async function submitResponse() {
     const mAltMachine = document.getElementById(`rq-alt-machine-${i}`)?.value?.trim() || '';
     const mAltType    = document.getElementById(`rq-alt-type-${i}`)?.value || '';
     const mQuestion   = document.getElementById(`rq-question-${i}`)?.value?.trim() || '';
-    return { name:m.name, emoji:m.emoji, duration:m.duration, rateDay, rateWeek, rentalCost, accs, accTotal, hireTotal, insurance, transIn:mTransIn, transOut:mTransOut, transport,
+    return { name:m.name, emoji:m.emoji, duration:m.duration, rateDay, rateWeek, rateHour: rateHour||undefined, rentalCost, accs, accTotal, hireTotal, insurance, transIn:mTransIn, transOut:mTransOut, transport,
       altMachine: mAltMachine || undefined, altType: mAltType || undefined, question: mQuestion || undefined };
   });
 
@@ -33887,7 +34664,7 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
 // ── end Know Your Machines ───────────────────────────────────────────
 
 function addToCartDirect(machineId, machineName) {
-  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄'};
+  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
   const already = quoteCart.find(m => m.id === machineId);
   if (already) { showToast('Already in cart','#64748B'); return; }
   quoteCart.push({ id:machineId, name:machineName, emoji:typeEmojis[machineType]||'💥', type:machineType, jobRequirements:getJobRequirements() });
@@ -35983,8 +36760,6 @@ function doLogin() {
         shake();
       });
     return;
-  }
-
   }
 
   // ── LITE REGISTRATION ─────────────────────────────────────────────────
