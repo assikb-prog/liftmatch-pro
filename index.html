@@ -95,6 +95,13 @@
         <label class="lp-label">Password</label>
         <input class="lp-input" id="lp-pass" type="password" placeholder="••••••••" autocomplete="current-password"
           onkeydown="if(event.key==='Enter'&&document.getElementById('lp-form-wrap')._authMode!=='register')doLogin()">
+        <!-- Forgot password link — shown only on sign-in mode -->
+        <div id="lp-forgot-wrap" style="text-align:right;margin-top:-.1rem;margin-bottom:.1rem">
+          <button type="button" onclick="showForgotPassword()"
+            style="background:none;border:none;color:#0052CC;font-size:.78rem;font-weight:700;cursor:pointer;padding:.1rem 0;font-family:'Nunito',sans-serif;text-decoration:underline">
+            Forgot password?
+          </button>
+        </div>
       </div>
 
       <!-- MORE REGISTER-ONLY FIELDS -->
@@ -634,6 +641,7 @@
         <button class="kym-chip" onclick="kymSetCat('pushAround',this)">🧍 Push-Around Lifts</button>
         <button class="kym-chip" onclick="kymSetCat('verticalMast',this)">🏢 Vertical Mast Lifts</button>
         <button class="kym-chip" onclick="kymSetCat('palletJack',this)">🔄 Pallet Jacks</button>
+        <button class="kym-chip" onclick="kymSetCat('dozer',this)">🏔️ Dozers</button>
       </div>
 
       <!-- Result count -->
@@ -697,6 +705,7 @@
       <button class="kym-chip" onclick="kymSetCat2('pushAround',this)">🧍 Push-Around Lifts</button>
       <button class="kym-chip" onclick="kymSetCat2('verticalMast',this)">🏢 Vertical Mast Lifts</button>
       <button class="kym-chip" onclick="kymSetCat2('palletJack',this)">🔄 Pallet Jacks</button>
+      <button class="kym-chip" onclick="kymSetCat2('dozer',this)">🏔️ Dozers</button>
     </div>
 
     <!-- Result count -->
@@ -2260,5 +2269,28 @@
       </button>
     </div>
   </div>
+<!-- ── FORGOT PASSWORD MODAL ──────────────────────────────────────────── -->
+<div id="forgot-pw-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9995;align-items:center;justify-content:center;padding:1rem">
+  <div style="background:#fff;border-radius:18px;padding:1.8rem 1.6rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="font-size:2rem;text-align:center;margin-bottom:.5rem">🔑</div>
+    <div style="font-weight:900;font-size:1.05rem;color:#0F172A;text-align:center;margin-bottom:.3rem">Reset Your Password</div>
+    <div style="font-size:.82rem;color:#64748B;text-align:center;margin-bottom:1.1rem;line-height:1.5">
+      Enter your email address and we'll send you a link to reset your password.
+    </div>
+    <div id="forgot-pw-msg" style="display:none;margin-bottom:.8rem"></div>
+    <input id="forgot-pw-email" type="email" placeholder="your@email.com"
+      style="width:100%;border:1.5px solid #CBD5E1;border-radius:10px;padding:.65rem .9rem;font-size:.95rem;font-family:'Nunito',sans-serif;box-sizing:border-box;margin-bottom:.75rem;outline:none"
+      onkeydown="if(event.key==='Enter')sendPasswordReset()">
+    <button onclick="sendPasswordReset()"
+      style="width:100%;background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:12px;padding:.75rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;margin-bottom:.55rem">
+      📧 Send Reset Link
+    </button>
+    <button onclick="closeForgotPassword()"
+      style="width:100%;background:none;border:1.5px solid #CBD5E1;border-radius:12px;padding:.6rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.88rem;color:#64748B;cursor:pointer">
+      Cancel
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
