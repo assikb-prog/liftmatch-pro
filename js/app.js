@@ -23692,6 +23692,7 @@ const MACHINES = {
     },
 
     // ── STANDARD EXCAVATORS (8–20t) ──────────────────────────────
+
     {
       id:'ex-std-13t', brand:'Various', emoji:'⛏️', type:'excavator',
       name:'Standard Excavator 12–14t', shortName:'Excavator 13t',
@@ -23701,6 +23702,7 @@ const MACHINES = {
       note:'12–14t class. The most common commercial excavator. Bulk residential cut, commercial basement, civil trenching, road works. Dig depth 5–5.5m. Brands: Caterpillar 313, Komatsu PC130, Hitachi ZX135, Volvo EC140.',
       hireRateType:'wet_or_dry',
     },
+
     {
       id:'ex-std-20t', brand:'Various', emoji:'⛏️', type:'excavator',
       name:'Standard Excavator 18–22t', shortName:'Excavator 20t',
@@ -23787,37 +23789,1043 @@ const MACHINES = {
     },
 
     // ── COMPACTOR / ROLLER ────────────────────────────────────────
+
+    // Walk-behind plate compactor (generic — tight access / trench)
     {
-      id:'em-plate-compact', brand:'Various', emoji:'🔄', type:'compactor',
+      id:'em-plate-compact', brand:'Various', emoji:'🔄', type:'compactor', subtype:'plate',
       name:'Walk-Behind Plate Compactor', shortName:'Plate Compactor',
       operatingWeightT:0.15,
       tags:['small','trench','backfill','tight access','compact'],
       note:'Walk-behind plate compactor. Trench backfill, small area compaction, paving base, tight access. Typical compaction depth 150–200mm per pass. Brands: Wacker Neuson, Dynapac, Bomag.',
       hireRateType:'dry',
     },
+
+    // ── Cat Utility Compactors (Tandem Drum) ─────────────────────
     {
-      id:'em-roller-pedestrian', brand:'Various', emoji:'🔄', type:'roller',
-      name:'Pedestrian Roller — Smooth Drum', shortName:'Pedestrian Roller',
-      operatingWeightT:1.5,
-      tags:['small area','road base','gravel','compaction'],
-      note:'Pedestrian roller — smooth drum, 1–2t class. Road base, gravel driveways, small asphalt patches. Compaction width ~800mm. Brands: Dynapac CC900, Bomag BW120, Wacker Neuson RD12.',
+      id:'cat-cb17', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_drum',
+      name:'Cat CB1.7 Utility Compactor', shortName:'Cat CB1.7',
+      // ── Engine ──
+      engineModel:'Cat C1.1T', engineCylinders:3, engineRatedRpm:2800,
+      engineEmissions:'U.S. EPA Tier 4 Final / EU Stage V',
+      enginePowerISOkW:18.4, enginePowerISO_hp:24.7,
+      engineNetPowerISO_kW:17.8, engineNetPowerISO_hp:23.9,
+      exhaustAftertreatment:'Muffler',
+      // ── Weights ──
+      operatingWeightT:1.605, maxWeightT:1.808,       // operating=ROPS+coolant+lub+full fuel+50%water+80kg op; max=all options+full fluids+80kg op
+      staticLinearLoadKgCm:9.4,                         // 72 lb/in
+      // ── Performance ──
+      maxSpeedKmh:8.6, gradeabilityPct:36,
+      // ── Vibratory ──
+      freqHz:57, freqVpm:3420,
+      amplitudeMm:0.50,                                 // 0.019 in
+      centrifugalForceKn:13.6,                          // 3057 lb/ft — shared both drums
+      // ── Drums ──
+      drumWidthMm:900, drumDiameterMm:null,             // diameter not stated in brochure
+      // ── Electrical ──
+      systemVoltage:12, batteryCCA:650, alternatorAmp:40,
+      // ── Dimensions ──
+      overallLengthMm:2040,                             // 80 in
+      overallWidthMm:1012,                              // 40 in
+      drumWidthDisplayMm:900,                           // 35 in
+      overallHeightROPSMm:2400,                         // 94.5 in — w/ROPS/FOPS
+      transportHeightFoldROPSMm:1630,                   // 64 in
+      wheelbaseMm:1376,                                 // 54 in
+      curbClearanceMm:403,                              // 16 in
+      groundClearanceMm:251,                            // 10 in
+      insideTurningRadiusMm:1950,                       // 77 in
+      outsideTurningRadiusMm:2850,                      // 112 in
+      articulationAngleDeg:32, oscillationAngleDeg:8,
+      // ── Service Refills ──
+      fuelTankL:30, waterTankL:145, coolantL:3.9, engineOilL:4.4, hydraulicTankL:34,
+      // ── Maintenance ──
+      oilChangeIntervalHr:500, vibDrumServiceIntervalHr:3000, vibDrumServiceIntervalYr:3,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'ROPS Folding','Operator Console w/ Emergency Stop, Simple Rocker Switches & Machine Warning Indicator Lights',
+        'Dual 12-volt Power Outlet','Horn, Backup Alarm','Folding Scrapers',
+        'Vibe Selection – Front, Rear, or both','Pressurized Triple-Filtration Spray System',
+        'Air Cleaner Dual Element','Engine Belt Guard','Telematics – ProductLink™','Working Lights',
+        'Vandal Protection (lockable hood and controls cover)','Machine Lift and Tiedowns',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Adjustable Suspension Seat w/ Operator Presence Switch','ROPS Fixed','Battery Disconnect',
+        'Roading Lights','Rotating Amber Beacon','Light Guards','Single Point Lift',
+      ],
+      // ── Sound ──
+      operatorSoundPressureDB_A:93, exteriorSoundPowerDB_A:106,
+      // ── Application Ratings (from Cat Application Guide) ──
+      applicationRatings:{
+        asphalt:{walkingPathsDriveways_25_50:'Best', walkingPathsDriveways_50_100:'Best',
+                 parkingLotsUrbanStreets_25_50:'Better', parkingLotsUrbanStreets_50_100:'Better',
+                 roadsHighways_25_50:'Good', roadsHighways_50_100:'Good'},
+        soil:{landscaping:'Best', smallJobSites:'Good', mediumJobSites:'Good'},
+      },
+      tags:['utility roller','asphalt','small','driveways','paths','patchwork','landscaping','tandem drum','1.5 ton','tight access','trench'],
+      // ── Imperial equivalents ──
+      operatingWeightLb:3538, maxWeightLb:3985,
+      staticLinearLoadLbIn:72,
+      fuelTankGal:7.9, waterTankGal:38, coolantGal:1.0, engineOilGal:1.1, hydraulicTankGal:8.9,
+      // ── Cooling capability ──
+      coolingSystemMaxTempC:49, coolingSystemMaxTempF:120,
+      // ── Engine power standards ──
+      enginePowerStandard:'ISO 14396:2002', engineNetPowerStandard:'ISO 9249:2007',
+      // ── Sound measurement standards ──
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'70% of maximum fan speed',
+      exteriorSoundFanCondition:'70% of maximum fan speed',
+      // ── Environmental Declaration ──
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'ULSD (ultra-low sulfur diesel, ≤15ppm sulfur) or ULSD blended with: up to 20% biodiesel FAME (fatty acid methyl ester); or 100% renewable diesel / HVO (hydrogenated vegetable oil) / GTL (gas-to-liquid)',
+      coolantType:'Factory fill: ethylene glycol. Cat DEAC (Diesel Engine Antifreeze/Coolant) and Cat ELC (Extended Life Coolant) are recyclable.',
+      hydraulicOilBiodegradable:'Cat BIO HYDO™ Advanced — EU Ecolabel approved biodegradable hydraulic oil (available)',
+      environmentalFeatures:[
+        'Advanced hydraulic systems balances power and efficiency',
+        'Extended maintenance intervals reduce fluid and filter consumption',
+        'Variable speed cooling fan helps reduce fuel consumption',
+      ],
+      note:'Cat CB1.7 Utility Compactor. ENGINE: Cat C1.1T, 3-cyl, 2800rpm, EPA Tier 4 Final/EU Stage V, muffler aftertreatment. ISO power 18.4kW/24.7hp, net 17.8kW/23.9hp. WEIGHTS: Operating (ROPS+full fuel+50% water+80kg op) 1,605kg / 3,538lb; max (all options+full fluids+80kg op) 1,808kg / 3,985lb. Static linear load 9.4 kg/cm / 72 lb/in. PERFORMANCE: Max speed 8.6km/h / 5.3mph. Theoretical gradeability (no vibe) 36%. VIBRATORY: Single frequency 57Hz / 3,420vpm. Amplitude 0.50mm / 0.019in. Centrifugal force 13.6kN / 3,057 lbf. DRUMS: Width 900mm / 35in. ELECTRICAL: 12V system, 650 CCA battery, 40 Amp alternator. DIMENSIONS (mm): Overall length 2,040 (80in); overall width 1,012 (40in); drum width 900 (35in); height w/ROPS/FOPS 2,400 (94.5in); transport height w/foldable ROPS 1,630 (64in); wheelbase 1,376 (54in); curb clearance 403 (16in); ground clearance 251 (10in); inside turning radius 1,950 (77in); outside turning radius 2,850 (112in). Articulation angle 32°; oscillation angle 8°. SERVICE REFILLS: Fuel 30L / 7.9gal; water spray 145L / 38gal; cooling system 3.9L / 1.0gal; engine oil w/filter 4.4L / 1.1gal; hydraulic tank 34L / 8.9gal. MAINTENANCE: 500hr oil change interval; 3yr/3,000hr vibratory drum service interval. STANDARD: ROPS folding, operator console w/emergency stop & warning lights, dual 12V outlet, horn/backup alarm, folding scrapers, vibe selection (front/rear/both), pressurised triple-filtration spray system, dual element air cleaner, engine belt guard, ProductLink™ telematics, working lights, vandal protection (lockable hood & controls cover), machine lift & tiedowns. OPTIONAL: Adjustable suspension seat w/operator presence switch, ROPS fixed, battery disconnect, roading lights, rotating amber beacon, light guards, single point lift. SOUND: Operator 93 dB(A), exterior 106 dB(A) (ISO, 70% fan). APPLICATION: Walking paths/driveways/patchwork — Best (25–100mm); parking lots/urban streets — Better; roads/highways — Good; landscaping — Best; small job sites — Good; medium job sites — Good. For: walking paths, driveways, patchwork, trench work, tight access landscaping. Source: Cat CB1.7/CB1.8 Utility Compactors Brochure QEHQ2351-02 (Jul 2022).',
       hireRateType:'wet_or_dry',
     },
     {
-      id:'em-roller-rideon', brand:'Various', emoji:'🔄', type:'roller',
-      name:'Ride-On Roller — Smooth Drum (Road Roller)', shortName:'Ride-On Roller',
-      operatingWeightT:8.0,
-      tags:['asphalt','road','large area','road base'],
-      note:'Ride-on smooth drum roller — 6–10t class. Asphalt compaction, road base, large hardstand areas. Brands: Caterpillar CB10, Dynapac CC4200, Bomag BW213.',
+      id:'cat-cb18', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_drum',
+      name:'Cat CB1.8 Utility Compactor', shortName:'Cat CB1.8',
+      // ── Engine ──
+      engineModel:'Cat C1.1T', engineCylinders:3, engineRatedRpm:2800,
+      engineEmissions:'U.S. EPA Tier 4 Final / EU Stage V',
+      enginePowerISOkW:18.4, enginePowerISO_hp:24.7,
+      engineNetPowerISO_kW:17.8, engineNetPowerISO_hp:23.9,
+      exhaustAftertreatment:'Muffler',
+      // ── Weights ──
+      operatingWeightT:1.735, maxWeightT:1.953,
+      staticLinearLoadKgCm:9.1,                         // 63 lb/in
+      // ── Performance ──
+      maxSpeedKmh:8.6, gradeabilityPct:33,
+      // ── Vibratory ──
+      freqHz:57, freqVpm:3420,
+      amplitudeMm:0.47,                                 // 0.018 in
+      centrifugalForceKn:13.6,                          // 3057 lb/ft — same both models
+      // ── Drums ──
+      drumWidthMm:1000, drumDiameterMm:null,
+      // ── Electrical ──
+      systemVoltage:12, batteryCCA:650, alternatorAmp:40,
+      // ── Dimensions ──
+      overallLengthMm:2040,                             // 80 in
+      overallWidthMm:1112,                              // 44 in
+      drumWidthDisplayMm:1000,                          // 39 in
+      overallHeightROPSMm:2400,                         // 94.5 in
+      transportHeightFoldROPSMm:1630,                   // 64 in
+      wheelbaseMm:1376,                                 // 54 in
+      curbClearanceMm:403,                              // 16 in
+      groundClearanceMm:251,                            // 10 in
+      insideTurningRadiusMm:1900,                       // 75 in
+      outsideTurningRadiusMm:2900,                      // 114 in
+      articulationAngleDeg:32, oscillationAngleDeg:8,
+      // ── Service Refills ──
+      fuelTankL:30, waterTankL:145, coolantL:3.9, engineOilL:4.4, hydraulicTankL:34,
+      // ── Maintenance ──
+      oilChangeIntervalHr:500, vibDrumServiceIntervalHr:3000, vibDrumServiceIntervalYr:3,
+      // ── Standard / Optional Equipment — identical to CB1.7 ──
+      standardEquipment:[
+        'ROPS Folding','Operator Console w/ Emergency Stop, Simple Rocker Switches & Machine Warning Indicator Lights',
+        'Dual 12-volt Power Outlet','Horn, Backup Alarm','Folding Scrapers',
+        'Vibe Selection – Front, Rear, or both','Pressurized Triple-Filtration Spray System',
+        'Air Cleaner Dual Element','Engine Belt Guard','Telematics – ProductLink™','Working Lights',
+        'Vandal Protection (lockable hood and controls cover)','Machine Lift and Tiedowns',
+      ],
+      optionalEquipment:[
+        'Adjustable Suspension Seat w/ Operator Presence Switch','ROPS Fixed','Battery Disconnect',
+        'Roading Lights','Rotating Amber Beacon','Light Guards','Single Point Lift',
+      ],
+      // ── Sound ──
+      operatorSoundPressureDB_A:93, exteriorSoundPowerDB_A:106,
+      // ── Application Ratings ──
+      applicationRatings:{
+        asphalt:{walkingPathsDriveways_25_50:'Best', walkingPathsDriveways_50_100:'Best',
+                 parkingLotsUrbanStreets_25_50:'Better', parkingLotsUrbanStreets_50_100:'Better',
+                 roadsHighways_25_50:'Good', roadsHighways_50_100:'Good'},
+        soil:{landscaping:'Best', smallJobSites:'Good', mediumJobSites:'Good'},
+      },
+      tags:['utility roller','asphalt','small','driveways','paths','patchwork','landscaping','tandem drum','1.7 ton'],
+      // ── Imperial equivalents ──
+      operatingWeightLb:3825, maxWeightLb:4305,
+      staticLinearLoadLbIn:63,
+      fuelTankGal:7.9, waterTankGal:38, coolantGal:1.0, engineOilGal:1.1, hydraulicTankGal:8.9,
+      // ── Cooling capability ──
+      coolingSystemMaxTempC:49, coolingSystemMaxTempF:120,
+      // ── Engine power standards ──
+      enginePowerStandard:'ISO 14396:2002', engineNetPowerStandard:'ISO 9249:2007',
+      // ── Sound measurement standards ──
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'70% of maximum fan speed',
+      exteriorSoundFanCondition:'70% of maximum fan speed',
+      // ── Environmental Declaration ──
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'ULSD (ultra-low sulfur diesel, ≤15ppm sulfur) or ULSD blended with: up to 20% biodiesel FAME (fatty acid methyl ester); or 100% renewable diesel / HVO (hydrogenated vegetable oil) / GTL (gas-to-liquid)',
+      coolantType:'Factory fill: ethylene glycol. Cat DEAC (Diesel Engine Antifreeze/Coolant) and Cat ELC (Extended Life Coolant) are recyclable.',
+      hydraulicOilBiodegradable:'Cat BIO HYDO™ Advanced — EU Ecolabel approved biodegradable hydraulic oil (available)',
+      environmentalFeatures:[
+        'Advanced hydraulic systems balances power and efficiency',
+        'Extended maintenance intervals reduce fluid and filter consumption',
+        'Variable speed cooling fan helps reduce fuel consumption',
+      ],
+      note:'Cat CB1.8 Utility Compactor. ENGINE: Cat C1.1T, 3-cyl, 2800rpm, EPA Tier 4 Final/EU Stage V, muffler aftertreatment. ISO power 18.4kW/24.7hp, net 17.8kW/23.9hp. WEIGHTS: Operating 1,735kg / 3,825lb; max 1,953kg / 4,305lb. Static linear load 9.1 kg/cm / 63 lb/in. PERFORMANCE: Max speed 8.6km/h / 5.3mph. Theoretical gradeability (no vibe) 33%. VIBRATORY: Single frequency 57Hz / 3,420vpm. Amplitude 0.47mm / 0.018in. Centrifugal force 13.6kN / 3,057 lbf. DRUMS: Width 1,000mm / 39in. ELECTRICAL: 12V system, 650 CCA battery, 40 Amp alternator. DIMENSIONS (mm): Overall length 2,040 (80in); overall width 1,112 (44in); drum width 1,000 (39in); height w/ROPS/FOPS 2,400 (94.5in); transport height w/foldable ROPS 1,630 (64in); wheelbase 1,376 (54in); curb clearance 403 (16in); ground clearance 251 (10in); inside turning radius 1,900 (75in); outside turning radius 2,900 (114in). Articulation angle 32°; oscillation angle 8°. SERVICE REFILLS: Fuel 30L / 7.9gal; water spray 145L / 38gal; cooling system 3.9L / 1.0gal; engine oil w/filter 4.4L / 1.1gal; hydraulic tank 34L / 8.9gal. MAINTENANCE: 500hr oil change interval; 3yr/3,000hr vibratory drum service interval. STANDARD: ROPS folding, operator console w/emergency stop & warning lights, dual 12V outlet, horn/backup alarm, folding scrapers, vibe selection (front/rear/both), pressurised triple-filtration spray system, dual element air cleaner, engine belt guard, ProductLink™ telematics, working lights, vandal protection, machine lift & tiedowns. OPTIONAL: Adjustable suspension seat w/operator presence switch, ROPS fixed, battery disconnect, roading lights, rotating amber beacon, light guards, single point lift (for trench/alternative transport). SOUND: Operator 93 dB(A), exterior 106 dB(A) (ISO, 70% fan). APPLICATION: Walking paths/driveways/patchwork — Best (25–100mm); parking lots/urban streets — Better; roads/highways — Good; landscaping — Best; small job sites — Good; medium job sites — Good. For: walking paths, driveways, patchwork, landscaping. Source: Cat CB1.7/CB1.8 Utility Compactors Brochure QEHQ2351-02 (Jul 2022).',
       hireRateType:'wet_or_dry',
     },
     {
-      id:'em-roller-padfoot', brand:'Various', emoji:'🔄', type:'roller',
-      name:'Padfoot / Sheepsfoot Roller', shortName:'Padfoot Roller',
-      operatingWeightT:11.0,
-      tags:['earth compaction','embankment','civil','subgrade'],
-      note:'Padfoot compactor — 10–12t class. Compacting cohesive soils, embankments, road subgrade. Not for asphalt. Brands: Caterpillar CP56B, Komatsu JV80CP, Bomag BW219.',
+      id:'cat-cb25gc', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_drum',
+      name:'Cat CB2.5 GC Utility Compactor', shortName:'Cat CB2.5 GC',
+      operatingWeightT:2.521, maxWeightT:3.021,
+      drumWidthMm:1000, drumDiameterMm:720,
+      engineKw:18.4, engineModel:'Cat C1.7T',
+      maxSpeedKmh:9.4, freqHzHigh:62, freqHzLow:50,
+      centrifugalForceKn:26.2, waterTankL:200,
+      tags:['utility roller','asphalt','gravel','driveways','paths','small area','tandem drum'],
+      note:'Cat CB2.5 GC Utility Compactor. Cat C1.7T engine 18.4kW (24.7hp). 2,521kg operating weight. 1,000mm drum width — ideal for narrow driveways and footpaths. Dual frequency: 50Hz (3,000vpm) or 62Hz (3,720vpm). Max centrifugal force 26.2kN. 200L pressurized water spray system with triple filtration. Max speed 9.4km/h. Ballast options up to +500kg for added compaction. For: walking paths, driveways, patchwork, small landscaping. Source: Cat CB2.5 GC/CB2.7 GC/CC2.7 GC Brochure (Feb 2025).',
       hireRateType:'wet_or_dry',
+    },
+    {
+      id:'cat-cb27gc', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_drum',
+      name:'Cat CB2.7 GC Utility Compactor', shortName:'Cat CB2.7 GC',
+      operatingWeightT:2.698, maxWeightT:3.198,
+      drumWidthMm:1200, drumDiameterMm:720,
+      engineKw:18.4, engineModel:'Cat C1.7T',
+      maxSpeedKmh:9.4, freqHzHigh:62, freqHzLow:50,
+      centrifugalForceKn:31.0, waterTankL:200,
+      tags:['utility roller','asphalt','gravel','parking lots','urban streets','tandem drum'],
+      note:'Cat CB2.7 GC Utility Compactor. Cat C1.7T engine 18.4kW (24.7hp). 2,698kg operating weight. 1,200mm drum width — broader coverage for parking lots and urban streets. Dual frequency: 50Hz or 62Hz. Max centrifugal force 31.0kN. 200L pressurized water spray system. Max speed 9.4km/h. Ballast options up to +500kg. For: parking lots, urban streets, medium driveways, asphalt patching. Source: Cat CB2.5 GC/CB2.7 GC/CC2.7 GC Brochure (Feb 2025).',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'cat-cc27gc', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_combo',
+      name:'Cat CC2.7 GC Combination Compactor', shortName:'Cat CC2.7 GC',
+      operatingWeightT:2.599, maxWeightT:2.799,
+      drumWidthMm:1200, drumDiameterMm:720,
+      engineKw:18.4, engineModel:'Cat C1.7T',
+      maxSpeedKmh:8.6, freqHzHigh:62, freqHzLow:50,
+      centrifugalForceKn:31.0, waterTankL:160,
+      tags:['combination roller','asphalt','finishing','rubber tyre','tandem'],
+      note:'Cat CC2.7 GC Combination Compactor. Cat C1.7T engine 18.4kW. 2,599kg operating weight. Front vibratory drum (1,200mm) + 4 rear pneumatic tyres — ideal for asphalt sealing and surface finishing. 50/62Hz dual frequency. 31.0kN centrifugal force. 160L water tank. Max speed 8.6km/h. For: asphalt finishing, surface sealing, intermediate compaction passes. Source: Cat CB2.5 GC/CB2.7 GC/CC2.7 GC Brochure (Feb 2025).',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'cat-cb40', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_drum',
+      name:'Cat CB4.0 Utility Compactor', shortName:'Cat CB4.0',
+      // ── Engine ──
+      engineModel:'Cat C2.2', engineCylinders:4, engineRatedRpm:2800,
+      engineEmissions:'Brazil MAR-1 / U.S. EPA Tier 4 Interim / EU Stage IIIA',
+      engineGrossPowerISO_kW:36.6, engineGrossPowerISO_hp:49.1,
+      engineNetPowerISO_kW:36.1, engineNetPowerISO_hp:48.4,
+      exhaustAftertreatment:'Muffler',
+      // ── Weights ──
+      operatingWeightT:3.700, maxWeightT:4.313,     // max includes all options, heaviest ballast (+400kg), full fluids, 80kg op
+      staticLinearLoadKgCm:14.2,                      // 80.0 lb/in
+      // ── Performance ──
+      maxSpeedKmh:13.5, gradeabilityPct:46,
+      // ── Vibratory ──
+      freqHzHigh:55, freqVpmHigh:3300, freqHzLow:48, freqVpmLow:2880,
+      amplitudeMm:0.50,                               // 0.020 in — same for both drums
+      centrifugalForceKn:33.9,                        // 7621 lbf
+      vibeSelectionFrontRearBoth:true,
+      // ── Drums ──
+      drumWidthMm:1300, drumDiameterMm:800, drumShellThicknessMm:16, drumOffsetMm:50,
+      // ── Water System ──
+      waterTankL:308,                                 // 81 gal — up to 10hrs without refilling
+      waterSystemType:'Pressurized Triple-Filtration with Test Mode, self-adjusting spring-loaded scrapers',
+      // ── Ballast ──
+      ballastKg:400,                                  // optional +400 kg kit
+      // ── Electrical ──
+      systemVoltage:12, batteryCCA:880, alternatorAmp:65,
+      // ── Dimensions ──
+      overallLengthMm:2859,                           // 113.0 in
+      overallWidthMm:1400,                            // 55.1 in
+      drumWidthDisplayMm:1300,                        // 51.2 in
+      overallHeightROPS_Mm:2660,                      // 104.7 in
+      overallHeightROPSCanopy_Mm:2765,                // 109.0 in (beacon adds 175mm)
+      transportHeightFoldROPS_Mm:1932,                // 76.1 in
+      wheelbaseMm:2050,                               // 80.7 in
+      curbClearanceMm:520,                            // 20.0 in
+      groundClearanceMm:284,                          // 11.2 in
+      insideTurningRadiusMm:2926,                     // 115.2 in
+      outsideTurningRadiusMm:4226,                    // 166.4 in
+      articulationAngleDeg:32, oscillationAngleDeg:10,
+      // ── Service Refills ──
+      fuelTankL:91, coolantL:13.0, engineOilL:10.5, hydraulicTankL:22,
+      // ── Maintenance ──
+      oilChangeIntervalHr:500,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'ROPS Folding','Operator Console w/ LCD Display and Emergency Stop',
+        'Dual 12-volt Power Outlets','Horn, Backup Alarm','Folding Scrapers',
+        'Vibe Selection – Front, Rear, or both',
+        'Pressurized Triple-Filtration Spray System with Test Mode',
+        'Auto Warm-up','Air Cleaner Dual Element','Engine Belt Guard',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'On-demand Hydraulic Cooling Fan','Telematics – VisionLink®',
+        'Vandal Protection (lockable hood, fuel fill, and controls cover)',
+        'Machine Life and Tiedowns','Offsets Hitch',
+      ],
+      optionalEquipment:[
+        'Adjustable Suspension Seat w/ Operator Presence Switch','ROPS Fixed',
+        'Seat Belt – 75mm (3in) high visibility orange','Sun Canopy','Seat – Side Shift',
+        'Dual Propel Levers','Cocoa Mats','Edge Cutter Ready','Water Sprayer Antifreeze Kit',
+        'Ballast Kit – 400 kg (880 lb)','Traction Control',
+        'Battery Disconnect','LED Roading Lights','Rotating Amber Beacon',
+        'Biodegradable Hydraulic Oil','Custom Paint',
+      ],
+      // ── Sound ──
+      operatorSoundPressureDB_A:81, exteriorSoundPowerDB_A:106,
+      // ── Application Ratings ──
+      applicationRatings:{
+        asphalt:{walkingPathsDriveways_25_50:'Good', walkingPathsDriveways_50_100:'Good',
+                 parkingLotsUrbanStreets_25_50:'Better', parkingLotsUrbanStreets_50_100:'Better',
+                 roadsHighways_25_50:'Best', roadsHighways_50_100:'Best'},
+        soil:{landscaping:'Good', smallJobSites:'Better', mediumJobSites:'Best'},
+      },
+      tags:['utility roller','asphalt','road base','medium area','3-5 ton','tandem drum'],
+      // ── Imperial equivalents ──
+      operatingWeightLb:8157, maxWeightLb:9508,
+      staticLinearLoadLbIn:80.0,
+      fuelTankGal:24.0, waterTankGal:81, waterTankDurationHr:10, coolantGal:3.4, engineOilGal:2.8, hydraulicTankGal:5.8,
+      beaconAddsHeightMm:175,                          // beacon option adds 175mm to overall height
+      amplitudeIn:0.020, centrifugalForceLbF:7621,
+      drumShellThicknessIn:0.6, drumDiameterIn:31.5, drumOffsetIn:2.0,
+      // ── Engine power standards ──
+      engineGrossPowerStandard:'ISO 14396', engineNetPowerStandard:'ISO 9249',
+      engineNetPowerNote:'Net Power calculated at maximum cooling fan speed',
+      engineOperatingWeightMethodology:'Includes coolant, lubricants, full fuel tank, 50% water, 80 kg (176 lb) operator',
+      engineMaxWeightMethodology:'Includes all options, heaviest ballast configuration, full fluids, 80 kg (176 lb) operator',
+      // ── Sound measurement standards ──
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'maximum fan speed',
+      exteriorSoundFanCondition:'70% of maximum fan speed',
+      // ── Environmental Declaration ──
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'ULSD (ultra-low sulfur diesel, ≤15ppm sulfur) or ULSD blended with: up to 20% biodiesel FAME (fatty acid methyl ester)*; 100% renewable diesel / HVO (hydrotreated vegetable oil) / GTL (gas-to-liquid). *Engines with no aftertreatment devices can use higher blends up to 100% biodiesel (consult Cat dealer).',
+      coolantType:'Factory fill: ethylene glycol. Cat DEAC (Diesel Engine Antifreeze/Coolant) and Cat ELC (Extended Life Coolant) are recyclable.',
+      hydraulicOilBiodegradable:'Cat BIO HYDO™ Advanced — EU Ecolabel approved biodegradable hydraulic oil (available)',
+      environmentalFeatures:[
+        'Advanced hydraulic system balances power and efficiency',
+        'Hydraulic on demand fan changes speed with temperature',
+        'Extended maintenance intervals reduce fluid and filter consumption',
+        'Standard eco-mode limits engine RPM, lowering overall fuel consumption compared to high idle',
+      ],
+      // ── Recycling (per ISO 16714) ──
+      recyclabilityPct:96,
+      recyclingMaterialPct:{
+        steel:78.92, iron:11.31, nonferrousMetal:2.84, plastic:1.87,
+        uncategorized:1.23, fluid:1.12, mixedMetalNonmetal:1.04, other:0.77,
+        mixedMetal:0.58, rubber:0.31, mixedNonmetallic:0.00,
+      },
+      note:'Cat CB4.0 Utility Compactor. ENGINE: Cat C2.2, 4-cyl, 2800rpm. Emissions: Brazil MAR-1 / EPA Tier 4 Interim / EU Stage IIIA, muffler aftertreatment. Gross power ISO 14396: 36.6kW/49.1hp. Net power ISO 9249: 36.1kW/48.4hp. WEIGHTS: Operating (ROPS+coolant+lub+full fuel+50% water+80kg op) 3,700kg/8,157lb; maximum (all options+heaviest ballast+full fluids+80kg op) 4,313kg/9,508lb. Static linear load 14.2 kg/cm/80.0 lb/in. PERFORMANCE: Max speed 13.5km/h/8.0mph. Theoretical gradeability (no vibe) 46%. VIBRATORY: High 55Hz/3,300vpm; Low 48Hz/2,880vpm. Amplitude 0.50mm/0.020in (both drums). Max centrifugal force 33.9kN/7,621lbf. DRUMS: Width 1,300mm/51.2in; diameter 800mm/31.5in; shell thickness 16mm/0.6in; drum offset 50mm/2.0in. WATER SYSTEM: 308L/81gal — up to 10hrs without refilling. Variable spray modes, triple filtration, self-adjusting spring-loaded scrapers. BALLAST: Optional +400kg kit. ELECTRICAL: 12V system, 880 CCA battery, 65 Amp alternator. DIMENSIONS (mm): Overall length 2,859 (113.0in); overall width 1,400 (55.1in); drum width 1,300 (51.2in); height w/ROPS 2,660 (104.7in); height w/ROPS+canopy 2,765 (109.0in) [beacon adds 175mm]; transport height foldable ROPS 1,932 (76.1in); wheelbase 2,050 (80.7in); curb clearance 520 (20.0in); ground clearance 284 (11.2in); inside turning radius 2,926 (115.2in); outside turning radius 4,226 (166.4in). Articulation angle 32°; oscillation angle 10°. SERVICE REFILLS: Fuel 91L/24.0gal; water spray 308L/81gal; cooling system 13.0L/3.4gal; engine oil w/filter 10.5L/2.8gal; hydraulic tank 22L/5.8gal. MAINTENANCE: 500hr oil change interval. VisionLink remote monitoring standard. STANDARD: ROPS folding, LCD display console w/emergency stop, dual 12V outlets, horn/backup alarm, folding scrapers, vibe selection front/rear/both, pressurised triple-filtration spray system w/test mode, auto warm-up, dual element air cleaner, engine belt guard, fuel filter/water separator/priming pump/water indicator, on-demand hydraulic cooling fan, VisionLink® telematics, vandal protection (lockable hood, fuel fill, controls cover), machine life & tiedowns, offsets hitch. OPTIONAL: Adjustable suspension seat w/operator presence switch, ROPS fixed, seat belt 75mm hi-vis orange, sun canopy, seat side shift, dual propel levers, cocoa mats, edge cutter ready, water sprayer antifreeze kit, ballast kit +400kg, traction control, battery disconnect, LED roading lights, rotating amber beacon, biodegradable hydraulic oil, custom paint. SOUND: Operator 81 dB(A), exterior 106 dB(A) (max fan). APPLICATION: Driveways/paths/patchwork — Good; parking lots/urban streets — Better; roads/highways — Best; landscaping — Good; small job sites — Better; medium job sites — Best. For: roads, highways, parking lots, medium-large asphalt and road base projects. Source: Cat CB4.0/CB4.4/CC4.0 Utility Compactors Brochure QEHQ3246 Build 02A (Aug 2023).',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'cat-cb44', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_drum',
+      name:'Cat CB4.4 Utility Compactor', shortName:'Cat CB4.4',
+      // ── Engine — identical to CB4.0 ──
+      engineModel:'Cat C2.2', engineCylinders:4, engineRatedRpm:2800,
+      engineEmissions:'Brazil MAR-1 / U.S. EPA Tier 4 Interim / EU Stage IIIA',
+      engineGrossPowerISO_kW:36.6, engineGrossPowerISO_hp:49.1,
+      engineNetPowerISO_kW:36.1, engineNetPowerISO_hp:48.4,
+      exhaustAftertreatment:'Muffler',
+      // ── Weights ──
+      operatingWeightT:3.803, maxWeightT:4.417,     // max includes ballast +542kg
+      staticLinearLoadKgCm:13.6,                      // 76.0 lb/in
+      // ── Performance ──
+      maxSpeedKmh:13.5, gradeabilityPct:44,
+      // ── Vibratory ──
+      freqHzHigh:55, freqVpmHigh:3300, freqHzLow:48, freqVpmLow:2880,
+      amplitudeMm:0.50,
+      centrifugalForceKn:35.9,                        // 8071 lbf — highest in the CB4 range
+      vibeSelectionFrontRearBoth:true,
+      // ── Drums ──
+      drumWidthMm:1400, drumDiameterMm:800, drumShellThicknessMm:16, drumOffsetMm:50,
+      // ── Water System ──
+      waterTankL:308,
+      waterSystemType:'Pressurized Triple-Filtration with Test Mode, self-adjusting spring-loaded scrapers',
+      // ── Ballast ──
+      ballastKg:542,                                  // optional +542kg kit
+      // ── Electrical ──
+      systemVoltage:12, batteryCCA:880, alternatorAmp:65,
+      // ── Dimensions ──
+      overallLengthMm:2859,                           // 113.0 in (same as CB4.0)
+      overallWidthMm:1500,                            // 59.1 in
+      drumWidthDisplayMm:1400,                        // 55.1 in
+      overallHeightROPS_Mm:2660, overallHeightROPSCanopy_Mm:2765,
+      transportHeightFoldROPS_Mm:1932,
+      wheelbaseMm:2050,
+      curbClearanceMm:520, groundClearanceMm:284,
+      insideTurningRadiusMm:2876,                     // 113.2 in
+      outsideTurningRadiusMm:4276,                    // 168.3 in
+      articulationAngleDeg:32, oscillationAngleDeg:10,
+      // ── Service Refills ──
+      fuelTankL:91, coolantL:13.0, engineOilL:10.5, hydraulicTankL:22,
+      oilChangeIntervalHr:500,
+      // ── Standard / Optional — same as CB4.0 except ballast kit ──
+      standardEquipment:[
+        'ROPS Folding','Operator Console w/ LCD Display and Emergency Stop',
+        'Dual 12-volt Power Outlets','Horn, Backup Alarm','Folding Scrapers',
+        'Vibe Selection – Front, Rear, or both',
+        'Pressurized Triple-Filtration Spray System with Test Mode',
+        'Auto Warm-up','Air Cleaner Dual Element','Engine Belt Guard',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'On-demand Hydraulic Cooling Fan','Telematics – VisionLink®',
+        'Vandal Protection (lockable hood, fuel fill, and controls cover)',
+        'Machine Life and Tiedowns','Offsets Hitch',
+      ],
+      optionalEquipment:[
+        'Adjustable Suspension Seat w/ Operator Presence Switch','ROPS Fixed',
+        'Seat Belt – 75mm (3in) high visibility orange','Sun Canopy','Seat – Side Shift',
+        'Dual Propel Levers','Cocoa Mats','Edge Cutter Ready','Water Sprayer Antifreeze Kit',
+        'Ballast Kit – 542 kg (1,194.91 lb)','Traction Control',
+        'Battery Disconnect','LED Roading Lights','Rotating Amber Beacon',
+        'Biodegradable Hydraulic Oil','Custom Paint',
+      ],
+      operatorSoundPressureDB_A:81, exteriorSoundPowerDB_A:106,
+      applicationRatings:{
+        asphalt:{walkingPathsDriveways_25_50:'Good', walkingPathsDriveways_50_100:'Good',
+                 parkingLotsUrbanStreets_25_50:'Better', parkingLotsUrbanStreets_50_100:'Better',
+                 roadsHighways_25_50:'Best', roadsHighways_50_100:'Best'},
+        soil:{landscaping:'Good', smallJobSites:'Better', mediumJobSites:'Best'},
+      },
+      tags:['utility roller','asphalt','road','highway','wide drum','4-5 ton'],
+      // ── Imperial equivalents ──
+      operatingWeightLb:8385, maxWeightLb:9738,
+      staticLinearLoadLbIn:76.0,
+      fuelTankGal:24.0, waterTankGal:81, waterTankDurationHr:10, coolantGal:3.4, engineOilGal:2.8, hydraulicTankGal:5.8,
+      beaconAddsHeightMm:175,
+      amplitudeIn:0.020, centrifugalForceLbF:8071,
+      drumShellThicknessIn:0.6, drumDiameterIn:31.5, drumOffsetIn:2.0,
+      // ── Engine power standards ──
+      engineGrossPowerStandard:'ISO 14396', engineNetPowerStandard:'ISO 9249',
+      engineNetPowerNote:'Net Power calculated at maximum cooling fan speed',
+      engineOperatingWeightMethodology:'Includes coolant, lubricants, full fuel tank, 50% water, 80 kg (176 lb) operator',
+      engineMaxWeightMethodology:'Includes all options, heaviest ballast configuration, full fluids, 80 kg (176 lb) operator',
+      // ── Sound measurement standards ──
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'maximum fan speed',
+      exteriorSoundFanCondition:'70% of maximum fan speed',
+      // ── Environmental Declaration ──
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'ULSD (ultra-low sulfur diesel, ≤15ppm sulfur) or ULSD blended with: up to 20% biodiesel FAME (fatty acid methyl ester)*; 100% renewable diesel / HVO (hydrotreated vegetable oil) / GTL (gas-to-liquid). *Engines with no aftertreatment devices can use higher blends up to 100% biodiesel.',
+      coolantType:'Factory fill: ethylene glycol. Cat DEAC and Cat ELC are recyclable.',
+      hydraulicOilBiodegradable:'Cat BIO HYDO™ Advanced — EU Ecolabel approved biodegradable hydraulic oil (available)',
+      environmentalFeatures:[
+        'Advanced hydraulic system balances power and efficiency',
+        'Hydraulic on demand fan changes speed with temperature',
+        'Extended maintenance intervals reduce fluid and filter consumption',
+        'Standard eco-mode limits engine RPM, lowering overall fuel consumption compared to high idle',
+      ],
+      // ── Recycling (per ISO 16714) ──
+      recyclabilityPct:96,
+      recyclingMaterialPct:{
+        steel:78.61, iron:12.31, nonferrousMetal:2.81, plastic:1.50,
+        uncategorized:1.25, fluid:1.09, mixedMetalNonmetal:1.03, other:0.64,
+        mixedMetal:0.45, rubber:0.30, mixedNonmetallic:0.00,
+      },
+      note:'Cat CB4.4 Utility Compactor. ENGINE: Cat C2.2, 4-cyl, 2800rpm. Emissions: Brazil MAR-1 / EPA Tier 4 Interim / EU Stage IIIA, muffler. Gross power 36.6kW/49.1hp; net 36.1kW/48.4hp. WEIGHTS: Operating 3,803kg/8,385lb; maximum (incl. ballast +542kg) 4,417kg/9,738lb. Static linear load 13.6 kg/cm/76.0 lb/in. PERFORMANCE: Max speed 13.5km/h/8.0mph. Theoretical gradeability (no vibe) 44%. VIBRATORY: High 55Hz/3,300vpm; Low 48Hz/2,880vpm. Amplitude 0.50mm/0.020in. Centrifugal force 35.9kN/8,071lbf — highest in the CB4 range. DRUMS: Width 1,400mm/55.1in (widest in CB series for faster highway coverage); diameter 800mm/31.5in; shell thickness 16mm/0.6in; drum offset 50mm/2.0in. WATER SYSTEM: 308L/81gal, up to 10hrs. Triple filtration, variable spray modes, spring-loaded scrapers. BALLAST: Optional +542kg kit. ELECTRICAL: 12V, 880 CCA, 65 Amp alt. DIMENSIONS (mm): Length 2,859 (113.0in); width 1,500 (59.1in); drum width 1,400 (55.1in); height w/ROPS 2,660 (104.7in); w/ROPS+canopy 2,765 (109.0in); transport h foldable ROPS 1,932 (76.1in); wheelbase 2,050 (80.7in); curb clearance 520 (20.0in); ground clearance 284 (11.2in); inside turning radius 2,876 (113.2in); outside turning radius 4,276 (168.3in). Articulation 32°; oscillation 10°. SERVICE REFILLS: Fuel 91L/24.0gal; water spray 308L/81gal; coolant 13.0L/3.4gal; engine oil 10.5L/2.8gal; hydraulic tank 22L/5.8gal. MAINTENANCE: 500hr oil change. VisionLink standard. STANDARD/OPTIONAL: Same as CB4.0 except ballast kit is +542kg. SOUND: Operator 81 dB(A), exterior 106 dB(A). APPLICATION: Same as CB4.0. For: highways, large road projects, major parking lots, high-output asphalt work. Source: Cat CB4.0/CB4.4/CC4.0 Brochure QEHQ3246 (Aug 2023).',
+      hireRateType:'wet_or_dry',
+    },
+    {
+      id:'cat-cc40', brand:'Cat', emoji:'🔄', type:'roller', subtype:'utility_combo',
+      name:'Cat CC4.0 Combination Compactor', shortName:'Cat CC4.0',
+      // ── Engine — identical to CB4 series ──
+      engineModel:'Cat C2.2', engineCylinders:4, engineRatedRpm:2800,
+      engineEmissions:'Brazil MAR-1 / U.S. EPA Tier 4 Interim / EU Stage IIIA',
+      engineGrossPowerISO_kW:36.6, engineGrossPowerISO_hp:49.1,
+      engineNetPowerISO_kW:36.1, engineNetPowerISO_hp:48.4,
+      exhaustAftertreatment:'Muffler',
+      // ── Weights ──
+      operatingWeightT:3.378, maxWeightT:3.792,     // max includes ballast +200kg
+      staticLinearLoadKgCm:13.0,                      // 73.0 lb/in
+      // ── Performance ──
+      maxSpeedKmh:12.0, gradeabilityPct:49,
+      // ── Vibratory (front drum only — rear is pneumatic tyres) ──
+      freqHzHigh:55, freqVpmHigh:3300, freqHzLow:48, freqVpmLow:2880,
+      amplitudeMm:0.50,
+      centrifugalForceKn:33.9,                        // 7621 lbf
+      vibeSelectionFrontRearBoth:true,
+      // ── Drums / Tyres ──
+      drumWidthMm:1300, drumDiameterMm:800, drumShellThicknessMm:16, drumOffsetMm:50,
+      numRearTyres:4,                                 // CC4.0 only: 4 rear pneumatic tyres
+      // ── Water / Emulsion ──
+      waterTankL:241,                                 // 64 gal (smaller than CB models)
+      emulsionTankL:34.7,                             // 9.2 gal — CC4.0 only
+      waterSystemType:'Pressurized Triple-Filtration with Test Mode, self-adjusting spring-loaded scrapers',
+      // ── Ballast ──
+      ballastKg:200,                                  // optional +200kg kit
+      // ── Electrical ──
+      systemVoltage:12, batteryCCA:880, alternatorAmp:65,
+      // ── Dimensions ──
+      overallLengthMm:2859,
+      overallWidthMm:1400,                            // 55.1 in
+      drumWidthDisplayMm:1300,                        // 51.2 in
+      overallHeightROPS_Mm:2660, overallHeightROPSCanopy_Mm:2765,
+      transportHeightFoldROPS_Mm:1932,
+      wheelbaseMm:2050,
+      curbClearanceMm:520, groundClearanceMm:284,
+      insideTurningRadiusMm:2926,                     // 115.2 in
+      outsideTurningRadiusMm:4226,                    // 166.4 in
+      articulationAngleDeg:32, oscillationAngleDeg:10,
+      // ── Service Refills ──
+      fuelTankL:91, coolantL:13.0, engineOilL:10.5, hydraulicTankL:22,
+      oilChangeIntervalHr:500,
+      standardEquipment:[
+        'ROPS Folding','Operator Console w/ LCD Display and Emergency Stop',
+        'Dual 12-volt Power Outlets','Horn, Backup Alarm','Folding Scrapers',
+        'Vibe Selection – Front, Rear, or both',
+        'Pressurized Triple-Filtration Spray System with Test Mode',
+        'Auto Warm-up','Air Cleaner Dual Element','Engine Belt Guard',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'On-demand Hydraulic Cooling Fan','Telematics – VisionLink®',
+        'Vandal Protection (lockable hood, fuel fill, and controls cover)',
+        'Machine Life and Tiedowns','Offsets Hitch',
+      ],
+      optionalEquipment:[
+        'Adjustable Suspension Seat w/ Operator Presence Switch','ROPS Fixed',
+        'Seat Belt – 75mm (3in) high visibility orange','Sun Canopy','Seat – Side Shift',
+        'Dual Propel Levers','Cocoa Mats','Edge Cutter Ready','Water Sprayer Antifreeze Kit',
+        'Ballast Kit – 200 kg (440.6 lb)',
+        'Battery Disconnect','LED Roading Lights','Rotating Amber Beacon',
+        'Biodegradable Hydraulic Oil','Custom Paint',
+      ],
+      operatorSoundPressureDB_A:81, exteriorSoundPowerDB_A:106,
+      applicationRatings:{
+        asphalt:{walkingPathsDriveways_25_50:'Good', walkingPathsDriveways_50_100:'Good',
+                 parkingLotsUrbanStreets_25_50:'Better', parkingLotsUrbanStreets_50_100:'Best',
+                 roadsHighways_25_50:'Best', roadsHighways_50_100:'Best'},
+        soil:{landscaping:'Good', smallJobSites:'Better', mediumJobSites:'Best'},
+      },
+      tags:['combination roller','asphalt','finishing','pneumatic tyre','sealing','combo'],
+      // ── Imperial equivalents ──
+      operatingWeightLb:7446, maxWeightLb:8342,
+      staticLinearLoadLbIn:73.0,
+      fuelTankGal:24.0, waterTankGal:64, emulsionTankGal:9.2, coolantGal:3.4, engineOilGal:2.8, hydraulicTankGal:5.8,
+      beaconAddsHeightMm:175,
+      amplitudeIn:0.020, centrifugalForceLbF:7621,
+      drumShellThicknessIn:0.6, drumDiameterIn:31.5, drumOffsetIn:2.0,
+      // ── Engine power standards ──
+      engineGrossPowerStandard:'ISO 14396', engineNetPowerStandard:'ISO 9249',
+      engineNetPowerNote:'Net Power calculated at maximum cooling fan speed',
+      engineOperatingWeightMethodology:'Includes coolant, lubricants, full fuel tank, 50% water, 80 kg (176 lb) operator',
+      engineMaxWeightMethodology:'Includes all options, heaviest ballast configuration, full fluids, 80 kg (176 lb) operator',
+      // ── Sound measurement standards ──
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'maximum fan speed',
+      exteriorSoundFanCondition:'70% of maximum fan speed',
+      // ── Environmental Declaration ──
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'ULSD (ultra-low sulfur diesel, ≤15ppm sulfur) or ULSD blended with: up to 20% biodiesel FAME (fatty acid methyl ester)*; 100% renewable diesel / HVO (hydrotreated vegetable oil) / GTL (gas-to-liquid). *Engines with no aftertreatment devices can use higher blends up to 100% biodiesel.',
+      coolantType:'Factory fill: ethylene glycol. Cat DEAC and Cat ELC are recyclable.',
+      hydraulicOilBiodegradable:'Cat BIO HYDO™ Advanced — EU Ecolabel approved biodegradable hydraulic oil (available)',
+      environmentalFeatures:[
+        'Advanced hydraulic system balances power and efficiency',
+        'Hydraulic on demand fan changes speed with temperature',
+        'Extended maintenance intervals reduce fluid and filter consumption',
+        'Standard eco-mode limits engine RPM, lowering overall fuel consumption compared to high idle',
+      ],
+      // ── Recycling (per ISO 16714) ──
+      recyclabilityPct:97,
+      recyclingMaterialPct:{
+        steel:75.34, iron:10.08, nonferrousMetal:3.05, plastic:1.61,
+        uncategorized:0.84, fluid:1.13, mixedMetalNonmetal:0.90, other:0.67,
+        mixedMetal:0.44, rubber:5.94, mixedNonmetallic:0.00,       // Note: CC4.0 has high rubber % due to pneumatic tyres
+      },
+      note:'Cat CC4.0 Combination Compactor. ENGINE: Cat C2.2, 4-cyl, 2800rpm. Brazil MAR-1 / EPA Tier 4 Interim / EU Stage IIIA. Gross power 36.6kW/49.1hp; net 36.1kW/48.4hp, muffler. WEIGHTS: Operating 3,378kg/7,446lb; maximum (incl. ballast +200kg) 3,792kg/8,342lb. Static linear load 13.0 kg/cm/73.0 lb/in. PERFORMANCE: Max speed 12.0km/h/7.5mph. Theoretical gradeability (no vibe) 49% — highest in the CB4/CC4 family. CONFIGURATION: Front vibratory drum (1,300mm) + 4 rear pneumatic tyres — delivers kneading/ironing action for dense, sealed asphalt mats. VIBRATORY (front drum): High 55Hz/3,300vpm; Low 48Hz/2,880vpm. Amplitude 0.50mm. Centrifugal force 33.9kN/7,621lbf. DRUMS: Width 1,300mm/51.2in; diameter 800mm/31.5in; shell 16mm; offset 50mm. Rear tyres: 4. WATER SYSTEM: 241L/64gal (smaller than CB models as rear is tyres). EMULSION TANK (CC4.0 only): 34.7L/9.2gal. BALLAST: Optional +200kg. ELECTRICAL: 12V, 880 CCA, 65 Amp alt. DIMENSIONS (mm): Length 2,859 (113.0in); width 1,400 (55.1in); drum width 1,300 (51.2in); h w/ROPS 2,660 (104.7in); h w/ROPS+canopy 2,765 (109.0in); transport h 1,932 (76.1in); wheelbase 2,050 (80.7in); curb clearance 520 (20.0in); ground clearance 284 (11.2in); inside turning radius 2,926 (115.2in); outside turning radius 4,226 (166.4in). Articulation 32°; oscillation 10°. Tires: 4 rear pneumatic. SERVICE REFILLS: Fuel 91L/24.0gal; water spray 241L/64gal; emulsion 34.7L/9.2gal; coolant 13.0L/3.4gal; engine oil 10.5L/2.8gal; hydraulic tank 22L/5.8gal. MAINTENANCE: 500hr oil change. VisionLink standard. SOUND: Operator 81 dB(A), exterior 106 dB(A). APPLICATION: Driveways/paths — Good; parking lots/urban streets — Better to Best; roads/highways — Best; landscaping — Good; small job sites — Better; medium job sites — Best. For: asphalt sealing and finishing passes, intermediate compaction, surface-critical jobs, rubber-tyre kneading action. Source: Cat CB4.0/CB4.4/CC4.0 Utility Compactors Brochure QEHQ3246 (Aug 2023).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── Cat Tandem Vibratory Roller (Medium) ─────────────────────
+    {
+      id:'cat-cb7', brand:'Cat', emoji:'🔄', type:'roller', subtype:'tandem_vibratory',
+      name:'Cat CB7 Tandem Vibratory Roller', shortName:'Cat CB7',
+      // ── Engine ──
+      engineModel:'Cat C4.4', engineCylinders:4, engineRatedRpm:2200,
+      engineBoreMm:105, engineStrokeMm:127,
+      engineEmissions:'Tier 3 / EU Stage IIIA / China Stage III / Brazil MAR-1',
+      engineGrossPowerKw:82, engineGrossPower_hp_I:110, engineGrossPower_hp_m:111.5,
+      // ── Weights — two configs ──
+      // w/ROPS/FOPS/CAB
+      operatingWeightT:8.190, maxWeightT:8.940,       // cab config standard / max
+      staticLinearLoadKgCmCab:26.9,                   // 151 lb/in
+      // w/ROPS/FOPS/CANOPY (lighter)
+      operatingWeightCanopyT:7.990, maxWeightCanopyT:8.720,
+      staticLinearLoadKgCmCanopy:26.3,                // 147 lb/in
+      // ── Performance ──
+      maxSpeedKmhLow:7, maxSpeedKmhHigh:12,
+      gradeabilityDeg:35,
+      steeringInsideM:4.4,
+      articulationAngleDeg:35, hitchOscillationDeg:6,  // ±6°
+      // ── Vibratory — 5-Amplitude (Standard) ──
+      vibSystem5Amp:{
+        freqHz:53.3, freqVpm:3200,
+        amplitudeHighMm:0.64,     amplitudeHighIn:0.025,
+        amplitudeMedHighMm:0.56,  amplitudeMedHighIn:0.022,
+        amplitudeMedMm:0.45,      amplitudeMedIn:0.018,
+        amplitudeMedLowMm:0.35,   amplitudeMedLowIn:0.014,
+        amplitudeLowMm:0.25,      amplitudeLowIn:0.010,
+        centrifugalForceHighKn:76.9,   centrifugalForceHigh_lbF:17288,
+        centrifugalForceLowKn:30.2,    centrifugalForceLow_lbF:6789,
+      },
+      // ── Vibratory — 2-Amplitude/2-Frequency (Optional) ──
+      vibSystem2Amp2Freq:{
+        freqHzHigh:63.3, freqHzLow:53.3, freqVpmHigh:3800, freqVpmLow:3200,
+        amplitudeHighMm:0.65, amplitudeLowMm:0.31,
+        centrifugalForceHighKn:78.3,  centrifugalForceHigh_lbF:17603,
+        centrifugalForceLowKn:53.3,   centrifugalForceLow_lbF:11982,
+      },
+      // ── Vibratory — 2-Amplitude/2-Frequency CE (Optional) ──
+      vibSystem2Amp2FreqCE:{
+        freqHzHigh:57, freqHzLow:50, freqVpmHigh:3420, freqVpmLow:3000,
+        amplitudeHighMm:0.65, amplitudeLowMm:0.31,
+        centrifugalForceHighKn:68.8, centrifugalForceLowKn:43.2,
+      },
+      // ── Drums ──
+      drumWidthMm:1500, drumDiameterMm:1108, drumShellThicknessMm:17, drumOffsetMm:170,
+      drumModels:'Solid or split drum models available',
+      // ── Fluids ──
+      waterTankL:700, fuelTankL:208,
+      fuelUsage50DutyHr:12,                           // ~12 hours at 50% duty cycle
+      coolantL:18, engineOilL:9, hydraulicTankL:36,
+      // ── Electrical ──
+      systemVoltage:12, alternatorAmp:150,
+      // ── Dimensions ──
+      overallLengthMm:4565,                           // 14' 5"
+      drumWidthDisplayMm:1500,                        // 59"
+      overallWidthMm:1670,                            // 5' 5"
+      overallHeightROPS_Mm:2980,                      // 9' 9" — same for ROPS/FOPS and cab
+      wheelbaseMm:3300,                               // 10' 10"
+      curbClearanceMm:898,                            // 35"
+      groundClearanceMm:226,                          // 9"
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '5-Amplitude Vibratory System','700 L (185 gal) Water Tank',
+        '12-Volt Electrical System','150 Amp Alternator',
+        'Locking Engine Compartment','ROPS/FOPS Platform',
+        'Sealed Pod Vibratory System','Suspension Seat',
+        '2-Speed Hydrostatic Transmission','Triple Filtered Water Spray System','Working Lights',
+      ],
+      optionalEquipment:[
+        'Air Conditioning','Air Suspension Seat w/Heat',
+        'Cat Compaction Control (Temperature and Pass-Count Mapping)',
+        'CMV Sensor','Edge Cutter','Freeze Protection Kit',
+        'Halogen Lights w/Drum Edge Lights','High Ambient Cooling System',
+        'High Intensity Discharge (HID) w/Drum Edge Lighting','LED Lighting',
+        'Machine to Machine Communication','Mirrors','Product Link',
+        'ROPS/FOPS Cab','Roading Lights','Temperature Gauge (single sensor)',
+        '2-Amplitude 2-Frequency Vibratory System',
+        'Water Distribution Mats (cocoa)','Water Distribution Mats (rubber)','Warning Beacon',
+      ],
+      tags:['tandem roller','asphalt','road','highway','7 ton','medium roller','vibratory','split drum','5-amplitude'],
+      // ── Imperial equivalents ──
+      operatingWeightCab_lb:18056, maxWeightCab_lb:19709, staticLinearLoadCab_lbIn:151,
+      operatingWeightCanopy_lb:17615, maxWeightCanopy_lb:19224, staticLinearLoadCanopy_lbIn:147,
+      fuelTankGal:55, fuelUsage50DutyHr:12, waterTankGal:185, coolantGal:4.7, engineOilGal:2.4, hydraulicTankGal:9.5,
+      drumDiameterIn:44, drumShellThicknessIn:0.67, drumOffsetIn:6, drumWidthIn:59,
+      overallLengthFt:'14ft 5in', overallWidthFt:'5ft 5in',
+      heightROPS_ft:'9ft 9in', heightCab_ft:'9ft 9in',
+      wheelbaseFt:'10ft 10in', curbClearanceIn:35, groundClearanceIn:9,
+      steeringInsideFt:'14ft 8in',
+      // ── Engine bore/stroke imperial ──
+      engineBoreIn:4.1, engineStrokeIn:5,
+      // ── Note: CB7 brochure (Sep 2017) does not include an Environmental Declaration section ──
+      note:'Cat CB7 Tandem Vibratory Roller. ENGINE: Cat C4.4, 4-cyl, 2200rpm, bore 105mm, stroke 127mm. Gross power 82kW/110hp (I), 111.5hp (m). Emissions: Tier 3/Stage IIIA/China Stage III/Brazil MAR-1. WEIGHTS (ROPS/FOPS/CAB): Standard 8,190kg/18,056lb; maximum 8,940kg/19,709lb. Static linear load 26.9 kg/cm/151 lb/in. WEIGHTS (ROPS/FOPS/CANOPY): Standard 7,990kg/17,615lb; maximum 8,720kg/19,224lb. Static linear load 26.3 kg/cm/147 lb/in. PERFORMANCE: Speed low 0–7km/h/4.3mph; high 0–12km/h/7.5mph. Gradeability (no vibe) 35°. Steering inside 4.4m/14\'8". Articulation angle 35°; hitch oscillation ±6°. VIBRATORY — 5-AMPLITUDE SYSTEM (standard): 53.3Hz/3,200vpm. Amplitudes: high 0.64mm/0.025in, med-high 0.56mm/0.022in, medium 0.45mm/0.018in, med-low 0.35mm/0.014in, low 0.25mm/0.010in. Centrifugal force: high 76.9kN/17,288lbF; low 30.2kN/6,789lbF. VIBRATORY — 2-AMP/2-FREQ SYSTEM (optional): 53.3/63.3Hz (3200/3800vpm); amplitude 0.31–0.65mm; high 78.3kN/17,603lbF; low 53.3kN/11,982lbF. VIBRATORY — 2-AMP/2-FREQ CE (optional): 50/57Hz (3000/3420vpm); amplitude 0.31–0.65mm; high 68.8kN/15,467lbF; low 43.2kN/9,712lbF. DRUMS: Width 1,500mm/59"; diameter 1,108mm/44"; shell 17mm/0.67"; offset 170mm/6". Solid or split drum models. FLUIDS: Water tank 700L/185gal; fuel 208L/55gal (approx. 12hr at 50% duty); cooling system 18L/4.7gal; engine oil 9L/2.4gal; hydraulic tank 36L/9.5gal. ELECTRICAL: 12V system, 150 Amp alternator. DIMENSIONS: Overall length 4,565mm/14\'5"; drum width 1,500mm/59"; drum offset 170mm/6"; drum shell 17mm/0.67"; drum diameter 1,108mm/44"; overall width 1,670mm/5\'5"; height ROPS/FOPS and cab 2,980mm/9\'9"; wheelbase 3,300mm/10\'10"; curb clearance 898mm/35"; ground clearance 226mm/9". STANDARD: 5-amplitude vibratory system, 700L water tank, 12V electrical, 150A alternator, locking engine compartment, ROPS/FOPS platform, sealed pod vibratory system, suspension seat, 2-speed hydrostatic transmission, triple filtered water spray, working lights. OPTIONAL: A/C, air suspension seat w/heat, Cat Compaction Control (temperature+pass-count mapping), CMV sensor, edge cutter, freeze protection kit, halogen/HID/LED lights w/drum edge lighting, high ambient cooling, machine-to-machine communication, mirrors, Product Link, ROPS/FOPS cab, roading lights, temperature gauge, 2-amp/2-freq vib system, water distribution mats (cocoa or rubber), warning beacon. For: asphalt roads, highways, large parking lots, medium–large commercial paving. Source: Cat CB7 Tandem Vibratory Roller Brochure QEHQ2343 (Sep 2017).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat Padfoot Drum Vibratory Soil Compactors ────────────────
+    {
+      id:'cat-cp13gc', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'padfoot_compactor',
+      name:'Cat CP13 GC Padfoot Vibratory Soil Compactor', shortName:'Cat CP13 GC',
+      // ── Engine ──
+      engineModel:'Cat C4.4', engineCylinders:4,
+      engineDisplacementL:4.4, engineDisplacementIn3:268.5,
+      engineStrokeMm:127, engineBoreMm:105,
+      engineEmissions:'Brazil MAR-1 / U.S. EPA Tier 3 / EU Stage IIIA',
+      enginePowerISO_kW:83, enginePowerISO_hp:111.3,
+      engineGrossPowerSAE_kW:83.8, engineGrossPowerSAE_hp:112.4,
+      engineNetPowerISO_kW:79.4, engineNetPowerISO_hp:106.5,
+      engineNetPowerSAE_kW:78.5, engineNetPowerSAE_hp:105.3,
+      // ── Performance ──
+      maxSpeedKmh:11, maxSpeedMph:6.84,
+      tractionControlAdvancedMaxKmh:10,               // 6.2 mph
+      gradeabilityPct:50,                             // with or without vibration
+      // ── Vibratory ──
+      // High amplitude
+      ampHighMm:1.8, ampHighIn:0.071,
+      freqHighAmpHighIdleHz:30,   freqHighAmpHighIdleVpm:1800,
+      freqHighAmpEcoHz:28.6,      freqHighAmpEcoVpm:1716,
+      // Low amplitude
+      ampLowMm:0.89, ampLowIn:0.035,
+      freqLowAmpHighIdleHz:33,    freqLowAmpHighIdleVpm:1980,
+      freqLowAmpEcoHz:31.5,       freqLowAmpEcoVpm:1890,
+      // Centrifugal force
+      centrifugalForceMaxKn:249, centrifugalForceMax_lb:55932,  // @ 30Hz/1800vpm high amp
+      centrifugalForceMinKn:148, centrifugalForceMin_lb:33249,  // @ 33Hz/1980vpm low amp
+      vmClassHighAmpCab:'VM3',
+      // ── Weights — all configs ──
+      // Sun Canopy
+      opWeightSunCanopyOvalT:12.307,   opWeightSunCanopyOval_lb:27132,
+      opWeightSunCanopySquareT:12.339, opWeightSunCanopySquare_lb:27203,
+      // ROPS/FOPS Canopy
+      opWeightROPSCanopyOvalT:12.485,   opWeightROPSCanopyOval_lb:27524,
+      opWeightROPSCanopySquareT:12.517, opWeightROPSCanopySquare_lb:27594,
+      // ROPS/FOPS Cab
+      opWeightROPSCabOvalT:12.639,   opWeightROPSCabOval_lb:27863,
+      opWeightROPSCabSquareT:12.671, opWeightROPSCabSquare_lb:27934,
+      // Weight at drum — Sun Canopy
+      drumWeightSunCanopyOvalKg:7655, drumWeightSunCanopySquareKg:7687,
+      // Weight at drum — ROPS/FOPS Canopy
+      drumWeightROPSCanopyOvalKg:7725, drumWeightROPSCanopySquareKg:7757,
+      // Weight at drum — ROPS/FOPS Cab
+      drumWeightROPSCabOvalKg:7767, drumWeightROPSCabSquareKg:7800,
+      // Primary/default weight fields
+      operatingWeightT:12.307, weightAtDrumT:7.655,
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:25, drumShellThicknessIn:1,
+      drumDiameterMm:1549, drumDiameterIn:60.9,
+      // Padfoot pad specs
+      numPads:140, numChevrons:14,
+      ovalPadHeightMm:127, ovalPadFaceAreaCm2:74.4,
+      squarePadHeightMm:100, squarePadFaceAreaCm2:123,
+      // ── Service Refills ──
+      fuelTankL:248, fuelTankGal:65.5,
+      coolantL:18.5, coolantGal:4.9,
+      engineOilL:9.5, engineOilGal:2.5,
+      eccentricHousingsCombinedL:26, eccentricHousingsGal:6.9,
+      axleAndFinalDrivesL:10, axleAndFinalDrivesGal:2.6,
+      hydraulicTankL:23, hydraulicTankGal:6.1,
+      // ── Maintenance intervals ──
+      engineOilIntervalHr:500, eccentricHousingIntervalHr:3000,
+      hydraulicOilIntervalHr:3000, coolantIntervalHr:12000,
+      vibDrumServiceIntervalHr:3000, vibDrumServiceIntervalYr:3,
+      // ── Electrical ──
+      systemVoltage:12, alternatorAmp:120, batteryCCA:900,
+      // ── Dimensions ──
+      overallLengthM:5.7, overallLengthFt:18.7,
+      overallWidthM:2.3, overallWidthFt:7.5,
+      drumWidthDisplayMm:2134,
+      drumShellThicknessDisplayMm:25,
+      drumDiameterDisplayMm:1549,
+      overallHeightM:3.0, overallHeightFt:9.8,
+      wheelbaseM:3.0, wheelbaseFt:9.8,
+      groundClearanceMm:516, groundClearanceIn:20.3,
+      curbClearanceMm:496, curbClearanceIn:19.5,
+      insideTurningRadiusM:3.9, insideTurningRadiusFt:12.7,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Propel System ──
+      propelSystem:'Single pump — flat to moderate grades',
+      transmission:'Two-Speed Hydrostatic',
+      limitedSlipDifferential:true,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Sun Canopy with Handrails, Floor Mat, Interior Rear View Mirror',
+        'Vinyl Adjustable Seat','Adjustable Tilting Steering Column',
+        'High Visibility 76mm (3in) Seat Belt','12-Volt Power Outlet',
+        'Horn, Backup Alarm','Padfoot Drum – Oval or Square Pads',
+        'Pod-Style Eccentric Weight Housings','Dual Amplitude Dual Frequency Vibratory System',
+        'Auto-vibe Function','Dual Adjustable Steel Scrapers',
+        'VisionLink® Telematics','Cat C4.4 Engine','Single Propel Pump',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Eco-Mode','Radiator/Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '12-Volt Electrical System','120-Amp Alternator','900 CCA Battery',
+        'Battery Disconnect Switch',
+        'Sight Gauges (Hydraulic Oil Level and Radiator Coolant Level)',
+        'Scheduled Oil Sampling (S•O•S℠) Ports – Engine Oil, Hydraulic Oil, Coolant',
+        'Lug Tread Tyres','Working Lights (2 Forward, 2 Rear)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Interior Rear View Mirror',
+        'ROPS/FOPS Cab with Climate Control, Floor Mat, Exterior Rear View Mirrors',
+        'Vinyl Suspension Seat','Deluxe High-back Air-ride Seat (Cab)',
+        'Sun/Debris Shields (Canopy)','Roll-down Sun Screen (Cab)',
+        'Interior Rear View Mirror (Cab)','Exterior Rear View Mirrors (Canopy)',
+        'Rear View Camera with Color Touchscreen Display',
+        'Seat Belt Switch','Sound Reduction Kit',
+        'Remote Disable','Measure – Machine Drive Power (MDP)','Machine Speed Sensor',
+        'Traction Control Basic','Traction Control Advanced',
+        'Transmission Guard','High Ambient Hydraulic Oil (Factory Fill)',
+        'Upgraded Lighting Package (4 Forward, 4 Rear)','Amber Rotating Beacon',
+      ],
+      // ── Sound ──
+      operatorSoundPressureDB_A:85, exteriorSoundPowerDB_A:111,  // cab config, max fan
+      // ── Application (from Selection Guide) ──
+      applicationSuitability:'Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation projects, following a motor grader, production ~200m³',
+      soilTypes:'Cohesive and semi-cohesive soils (clay/silt). Passes: 4–10 (clay/silt, compaction strongly depends on moisture content).',
+      tags:['padfoot compactor','soil compactor','vibratory','earthworks','civil','clay','silt','road subgrade','12 ton','residential','aggregate base'],
+      // ── Drum weight lb equivalents ──
+      drumWeightSunCanopyOvalLb:16877, drumWeightSunCanopySquareLb:16947,
+      drumWeightROPSCanopyOvalLb:17030, drumWeightROPSCanopySquareLb:17100,
+      drumWeightROPSCabOvalLb:17123, drumWeightROPSCabSquareLb:17195,
+      // ── Pad dimensions imperial ──
+      ovalPadHeightIn:5, ovalPadFaceAreaIn2:11.5,
+      squarePadHeightIn:3.9, squarePadFaceAreaIn2:19.1,
+      // ── Performance imperial ──
+      maxSpeedMph:6.84, tractionControlAdvancedMaxMph:6.2, ampHighIn:0.071, ampLowIn:0.035,
+      // ── Engine power standards ──
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2014', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      engineNetPowerNote:'Net power is the power available at the engine flywheel when equipped with a fan at maximum speed, air cleaner, and alternator',
+      gradeabilityNote:'Actual gradeability may vary based on site conditions and machine configuration',
+      operatingWeightNote:'Weights are approximate and include full fluids and 75 kg (165 lb) operator. Cab weights include heat and air conditioning.',
+      // ── Sound measurement standards ──
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'100% of maximum engine cooling fan speed (cab, doors/windows closed)',
+      exteriorSoundFanCondition:'100% of maximum engine cooling fan speed',
+      // ── AC refrigerant (cab option) ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:2.2, acRefrigerantLb:4.91,
+      acCO2EquivalentMetricT:3.146, acCO2EquivalentTons:3.468,
+      // ── Environmental Declaration ──
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with diesel fuel blended with: up to 20% biodiesel FAME (fatty acid methyl ester); 100% renewable diesel / HVO (hydrotreated vegetable oil) / GTL (gas-to-liquid). Note: tailpipe GHG emissions from lower-carbon intensity fuels are essentially the same as traditional fuels.',
+      coolantType:'Factory fill: ethylene glycol. Cat DEAC (Diesel Engine Antifreeze/Coolant) and Cat ELC (Extended Life Coolant) are recyclable.',
+      hydraulicOilBiodegradable:'Cat BIO HYDO™ Advanced — EU Ecolabel approved biodegradable hydraulic oil (available)',
+      environmentalFeatures:[
+        'Standard Eco-mode limits engine RPM, lowering overall fuel consumption',
+        'Optional compaction control technology reduces unnecessary passes, increasing operating efficiency',
+        'Extended maintenance intervals reduce fluid and filter consumption',
+      ],
+      // ── Recycling (per ISO 16714:2008 and Japan CEMA) ──
+      recyclabilityPct:95,
+      recyclingMaterialPct:{
+        steel:71.01, iron:9.02, plastic:7.11, other:3.39, fluid:3.12, rubber:2.32,
+        nonferrousMetal:1.93, uncategorized:1.55, mixedMetalNonmetal:0.42,
+        mixedMetal:0.12, mixedNonmetallic:0.00,
+      },
+      note:'Cat CP13 GC Padfoot Drum Vibratory Soil Compactor. ENGINE: Cat C4.4, 4-cyl, 4.4L/268.5in³ displacement, bore 105mm, stroke 127mm. Emissions: Brazil MAR-1/Tier 3/Stage IIIA. ISO power 83kW/111.3hp; gross SAE 83.8kW/112.4hp; net ISO 79.4kW/106.5hp; net SAE 78.5kW/105.3hp. PERFORMANCE: Max speed 11km/h/6.84mph; with traction control advanced 10km/h/6.2mph. Theoretical gradeability 50% (with or without vibration). VIBRATORY — HIGH AMPLITUDE: 1.8mm/0.071in @ 30Hz/1800vpm high idle (28.6Hz/1716vpm eco-mode); centrifugal force 249kN/55,932lb. LOW AMPLITUDE: 0.89mm/0.035in @ 33Hz/1980vpm high idle (31.5Hz/1890vpm eco-mode); centrifugal force 148kN/33,249lb. VM Class at high amplitude (cab): VM3. WEIGHTS — SUN CANOPY: oval pads 12,307kg/27,132lb, square pads 12,339kg/27,203lb; ROPS/FOPS CANOPY: oval 12,485kg/27,524lb, square 12,517kg/27,594lb; ROPS/FOPS CAB: oval 12,639kg/27,863lb, square 12,671kg/27,934lb. Weight at drum — sun canopy oval 7,655kg/16,877lb, sq 7,687kg; ROPS canopy oval 7,725kg, sq 7,757kg; cab oval 7,767kg, sq 7,800kg/17,195lb. (Weights include full fluids + 75kg/165lb op; cab includes H&A.) DRUM: Width 2,134mm/84in; shell 25mm/1in; diameter 1,549mm/60.9in. 140 padfoot pads, 14 chevrons. Oval pads: 127mm/5in height, 74.4cm²/11.5in² face area. Square pads: 100mm/3.9in height, 123cm²/19.1in² face area. SERVICE REFILLS: Fuel 248L/65.5gal; coolant 18.5L/4.9gal; engine oil 9.5L/2.5gal; eccentric weight housings (combined) 26L/6.9gal; axle and final drives 10L/2.6gal; hydraulic tank 23L/6.1gal. MAINTENANCE: Engine oil 500hr; eccentric housings & hydraulic oil 3,000hr; coolant 12,000hr; 3yr/3,000hr sealed pod vibratory system. ELECTRICAL: 12V system, 120-Amp alternator, 900 CCA battery, battery disconnect. DIMENSIONS: Length 5.7m/18.7ft; width 2.3m/7.5ft; drum width 2,134mm/84in; drum shell 25mm/1in; drum diameter 1,549mm/60.9in; overall height 3.0m/9.8ft; wheelbase 3.0m/9.8ft; ground clearance 516mm/20.3in; curb clearance 496mm/19.5in; inside turning radius 3.9m/12.7ft; hitch articulation 34°; hitch oscillation 15°. PROPEL: Single pump design — ideal flat to moderate grades. Two-speed hydrostatic transmission. Limited slip differential. STANDARD: Sun canopy w/handrails+floor mat+mirror, vinyl adjustable seat, tilting steering column, 76mm hi-vis seat belt, 12V outlet, horn/backup alarm, padfoot drum (oval or square pads), pod-style eccentric weight housings, dual amplitude/dual frequency, auto-vibe, dual adjustable steel scrapers, VisionLink® telematics, C4.4 engine, single propel pump, fuel filter/water sep/priming pump/water indicator, eco-mode, radiator/hydraulic oil cooler, dual braking system, 2-speed hydrostatic trans, limited slip diff, 12V electrical, 120A alternator, 900 CCA battery, battery disconnect, sight gauges, S•O•S℠ sampling ports, lug tread tyres, working lights (2F+2R). OPTIONAL: ROPS/FOPS canopy, ROPS/FOPS cab w/climate control, vinyl suspension seat, deluxe high-back air-ride seat (cab), sun/debris shields, roll-down sun screen (cab), mirrors, rear view camera w/colour touchscreen, seat belt switch, sound reduction kit, remote disable, MDP (Machine Drive Power), machine speed sensor, traction control basic, traction control advanced, transmission guard, high ambient hydraulic oil, upgraded lighting (4F+4R), amber rotating beacon. SOUND (cab, max fan): Operator 85 dB(A); exterior 111 dB(A). APPLICATION: Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation, following motor grader, ~200m³ production. Clay/silt: 4–10 passes. Compaction in cohesive soils strongly depends on moisture content. Source: Cat CP13 GC Padfoot Compactor Brochure QEHQ3127-02 (Dec 2024).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-cp16', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'padfoot_compactor',
+      name:'Cat CP16 Padfoot Vibratory Soil Compactor', shortName:'Cat CP16',
+      // ── Engine ──
+      engineModel:'Cat C7.1', engineCylinders:6,
+      engineDisplacementL:7.0, engineDisplacementIn3:427.8,
+      engineStrokeMm:135, engineBoreMm:105,
+      engineEmissions:'U.S. EPA Tier 3 / EU Stage IIIA equivalent',
+      enginePowerISO_kW:129, enginePowerISO_hp:173,
+      engineGrossPowerSAE_kW:130.2, engineGrossPowerSAE_hp:174.6,
+      engineNetPowerISO_kW:108.5, engineNetPowerISO_hp:145.5,
+      engineNetPowerSAE_kW:107.2, engineNetPowerSAE_hp:143.8,
+      // ── Performance ──
+      maxSpeedKmh:11.4, maxSpeedMph:7.1,
+      gradeabilityPct:57,                             // with or without vibration
+      // ── Vibratory — Standard Dual Amplitude, Single Frequency ──
+      freqStdHz:28, freqStdVpm:1680,
+      freqEcoHz:25.5, freqEcoVpm:1527,
+      freqOptVarHzMin:23.3, freqOptVarHzMax:30.5,    // optional variable frequency
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1680,
+      ampHighMm:2.1, ampHighIn:0.083,                 // @ 28Hz/1680vpm
+      ampLowMm:0.98, ampLowIn:0.039,                  // @ 28Hz/1680vpm
+      centrifugalForceMaxKn:335, centrifugalForceMax_lb:75234,
+      centrifugalForceMinKn:156, centrifugalForceMin_lb:35163,
+      vmClassHighAmpCab:'VM5',
+      // ── Weights ──
+      // Operating weight with Oval Padfoot Drum
+      opWeightSunCanopyT:15.925,   opWeightSunCanopy_lb:35109,
+      opWeightROPSCanopyT:16.100,  opWeightROPSCanopy_lb:35494,
+      opWeightROPSCabT:16.506,     opWeightROPSCab_lb:36390,
+      // Weight at drum — Oval padfoot
+      drumWeightSunCanopyKg:10540, drumWeightSunCanopy_lb:23237,
+      drumWeightROPSCanopyKg:10595, drumWeightROPSCanopy_lb:23358,
+      drumWeightROPSCabKg:10643,   drumWeightROPSCab_lb:23464,
+      // Optional leveling blade weight increase
+      levelingBladeWeightKg:653,   levelingBladeWeight_lb:1440,
+      // Primary weight fields
+      operatingWeightT:16.100, weightAtDrumT:10.595,
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:40, drumShellThicknessIn:1.6,
+      drumDiameterOvalPadsMm:1550, drumDiameterOvalPadsIn:61,
+      drumDiameterSquarePadsMm:1495, drumDiameterSquarePadsIn:58.9,
+      numPads:140, numChevrons:14,
+      ovalPadHeightMm:127, ovalPadFaceAreaCm2:74.4,
+      squarePadHeightMm:100, squarePadFaceAreaCm2:123.1,
+      // ── Service Refills ──
+      fuelTankL:332, fuelTankGal:87.7,
+      coolantL:28.3, coolantGal:7.5,
+      heatingSystemL:1.2, heatingSystemGal:0.3,
+      engineOilL:17.4, engineOilGal:4.6,
+      eccentricHousingsCombinedL:26, eccentricHousingsGal:6.9,
+      axleAndFinalDrivesL:24, axleAndFinalDrivesGal:6.3,
+      hydraulicTankL:50, hydraulicTankGal:13.2,
+      // ── Maintenance intervals ──
+      engineOilIntervalHr:500, eccentricHousingIntervalHr:3000,
+      hydraulicOilIntervalHr:3000, coolantIntervalHr:12000,
+      // ── Electrical ──
+      systemVoltage:24,                               // 24V — differs from CP13 GC
+      alternatorAmp:100, batteryCCA:750,
+      // ── Dimensions ──
+      overallLengthM:6.1, overallLengthFt:19.8,
+      overallLengthWithBladeFt:21.5, overallLengthWithBladeM:6.5,
+      overallWidthM:2.3, overallWidthFt:7.7,
+      overallWidthWithBladeM:2.5, overallWidthWithBladeFt:8.2,
+      drumWidthDisplayMm:2134,
+      drumShellThicknessDisplayMm:40,
+      overallHeightCanopyM:3.1, overallHeightCabM:3.1,
+      wheelbaseM:2.9, wheelbaseFt:9.5,
+      groundClearanceMm:436, groundClearanceIn:17.2,
+      curbClearanceMm:497, curbClearanceIn:19.6,
+      levelingBladeHeightMm:683,                      // optional
+      insideTurningRadiusM:3.7, insideTurningRadiusFt:12.1,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Propel System ──
+      propelSystem:'Dual pump — dedicated flow to drum drive motor and rear axle motor for exceptional gradeability/traction in both directions',
+      transmission:'Two-Speed Hydrostatic',
+      limitedSlipDifferential:true, automaticSpeedControl:true,
+      // ── Features ──
+      idleShutdownTimer:true, variableSpeedCoolingFan:true,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Steel Sun Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'Adjustable Seat with Integrated Console',
+        'LCD Display with Lockable Vandalism Guard',
+        'Adjustable Tilting Steering Column with Integrated Cup Holders',
+        'Rear Vision Camera System with Color Touchscreen Display',
+        'High Visibility 50mm (2in) Seat Belt','12-volt Power Outlet',
+        'Horn, Backup Alarm',
+        'Padfoot Drum – Oval or Square Pads',
+        'Pod-Style Eccentric Weight Housings',
+        'Dual Amplitude Single Frequency Vibratory System',
+        'Auto-vibe Function','Dual Adjustable Steel Scrapers',
+        'VisionLink® Telematics','Cat C7.1 Engine',
+        'Air Cleaner Dual Element',
+        'Three Speed Throttle Switch including Eco-mode',
+        'Automatic Speed Control (ASC)',
+        'Dual Propel Pumps (one for drum drive, one for rear axle)',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Tilting Radiator / Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '24-volt Electrical System','100 ampere Alternator',
+        '750 Cold-cranking Amps Battery Capacity',
+        'Lockable Engine Enclosure, Hydraulic and Fuel Tanks',
+        'Sight Gauges (Hydraulic Oil Level and Radiator Coolant Level)',
+        'S•O•S℠ Sampling Values – Engine Oil, Hydraulic Oil, Coolant',
+        'Halogen Working Lights (4)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'ROPS/FOPS Cab with Climate Control, Cloth Seat, Exterior Rear View Mirrors',
+        'Sun Visor (Cab)','Roll-Down Screen (Cab)',
+        'Variable Frequency (23.3–30.5 Hz)',
+        'Measure – Machine Drive Power (MDP)',
+        'Transmission Guard','Leveling Blade',
+        'Halogen Working Lights (8)','Amber Rotating Beacon',
+      ],
+      // ── Sound ──
+      operatorSoundPressureDB_A:80,   // cab, 70% fan speed
+      exteriorSoundPowerDB_A:109,     // 100% fan speed
+      // ── Application ──
+      applicationSuitability:'Airport construction, railway foundations, dams and large embankment fills, rock fills, mining applications (drying beds, waste tanks, embankments), recycling, rock crushing, following a tractor/scraper, land reclamation (dredging), production ~500m³',
+      soilTypes:'Cohesive and semi-cohesive soils (clay/silt). Passes: 4–10. Compaction strongly depends on moisture content.',
+      tags:['padfoot compactor','soil compactor','vibratory','large civil','earthworks','airport','dam','embankment','16 ton','railway','mining','land reclamation'],
+      // ── Drum weight lb equivalents ──
+      drumWeightSunCanopy_lb:23237, drumWeightROPSCanopy_lb:23358, drumWeightROPSCab_lb:23464,
+      // ── Pad dimensions imperial ──
+      ovalPadHeightIn:5, ovalPadFaceAreaIn2:11.5,
+      squarePadHeightIn:3.9, squarePadFaceAreaIn2:19.1,
+      // ── Performance imperial ──
+      maxSpeedMph:7.1,
+      ampHighIn:0.083, ampLowIn:0.039,
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1680,
+      centrifugalForceMax_lb:75234, centrifugalForceMin_lb:35163,
+      // ── Engine power standards ──
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2007', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      engineNetPowerNote:'Net power is the power available at the engine flywheel when equipped with a fan at maximum speed, air cleaner, and alternator',
+      gradeabilityNote:'Actual gradeability may vary based on site conditions and machine configuration',
+      operatingWeightNote:'Weights are approximate and include full fluids and 80 kg (176 lb) operator. Cab weights include heat and air conditioning. Leveling blade weight reflects the attachment itself, not installed-on-machine weight.',
+      // ── Sound measurement standards ──
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'70% of maximum engine cooling fan speed (cab, doors/windows closed)',
+      exteriorSoundFanCondition:'100% of maximum engine cooling fan speed',
+      // ── AC refrigerant (cab option) ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:0.8, acRefrigerantLb:1.8,
+      acCO2EquivalentMetricT:1.144, acCO2EquivalentTons:1.261,
+      // ── Environmental Declaration ──
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with diesel fuel blended with: up to 20% biodiesel FAME (fatty acid methyl ester); 100% renewable diesel / HVO (hydrotreated vegetable oil) / GTL (gas-to-liquid). Note: tailpipe GHG emissions from lower-carbon intensity fuels are essentially the same as traditional fuels.',
+      coolantType:'Factory fill: ethylene glycol. Cat DEAC and Cat ELC are recyclable.',
+      hydraulicOilBiodegradable:'Cat BIO HYDO™ Advanced — EU Ecolabel approved biodegradable hydraulic oil (available)',
+      environmentalFeatures:[
+        'Standard Eco-mode limits engine RPM, lowering overall fuel consumption',
+        'Optional compaction control technology reduces unnecessary passes, increasing operating efficiency',
+        'Extended maintenance intervals reduce fluid and filter consumption',
+        'Engine Idle Shutdown Timer reduces unproductive hours and fuel burned',
+        'Variable speed cooling fan operates at the lowest speed for optimal cooling',
+      ],
+      // ── Recycling (per ISO 16714:2008 and Japan CEMA) ──
+      recyclabilityPct:97,
+      recyclingMaterialPct:{
+        steel:81.81, iron:10.93, nonferrousMetal:0.97, mixedMetal:0.19,
+        mixedMetalNonmetal:0.37, plastic:0.79, rubber:2.15, mixedNonmetallic:0.00,
+        fluid:0.99, leadBatteries:0.30, other:0.90, uncategorized:0.60,
+      },
+      note:'Cat CP16 Padfoot Drum Vibratory Soil Compactor. ENGINE: Cat C7.1, 6-cyl, 7.0L/427.8in³, bore 105mm, stroke 135mm. Tier 3/Stage IIIA equivalent. ISO power 129kW/173hp; gross SAE 130.2kW/174.6hp; net ISO 108.5kW/145.5hp; net SAE 107.2kW/143.8hp. PERFORMANCE: Max speed 11.4km/h/7.1mph. Theoretical gradeability 57% (with or without vibration). VIBRATORY — STD DUAL AMPLITUDE SINGLE FREQ: 28Hz/1,680vpm (eco-mode 25.5Hz/1,527vpm). High amplitude 2.1mm/0.083in, 335kN/75,234lb; low amplitude 0.98mm/0.039in, 156kN/35,163lb. OPTIONAL VARIABLE FREQ: 23.3–30.5Hz/1,400–1,680vpm. VM Class (high amplitude, cab): VM5. WEIGHTS (oval padfoot drum) — SUN CANOPY: 15,925kg/35,109lb; ROPS/FOPS CANOPY: 16,100kg/35,494lb; ROPS/FOPS CAB: 16,506kg/36,390lb. Weight at drum (oval) — sun canopy 10,540kg/23,237lb; ROPS canopy 10,595kg/23,358lb; cab 10,643kg/23,464lb. Leveling blade adds 653kg/1,440lb. (Weights include full fluids+80kg/176lb op; cab includes H&A.) DRUM: Width 2,134mm/84in; shell 40mm/1.6in; diameter over oval pads 1,550mm/61in, over square pads 1,495mm/58.9in. 140 padfoot pads, 14 chevrons. Oval pads: 127mm/5in height, 74.4cm²/11.5in² face. Square pads: 100mm/3.9in height, 123.1cm²/19.1in² face. SERVICE REFILLS: Fuel 332L/87.7gal; coolant 28.3L/7.5gal; heating system 1.2L/0.3gal; engine oil 17.4L/4.6gal; eccentric housings (combined) 26L/6.9gal; axle & final drives 24L/6.3gal; hydraulic tank 50L/13.2gal. MAINTENANCE: Engine oil 500hr; eccentric housings & hydraulic oil 3,000hr; coolant 12,000hr. ELECTRICAL: 24V system, 100A alternator, 750 CCA battery. DIMENSIONS: Length 6.1m/19.8ft (with blade 6.5m/21.5ft); width 2.3m/7.7ft (with blade 2.5m/8.2ft); drum width 2,134mm/84in; drum shell 40mm/1.6in; drum diameter (oval) 1,550mm/61in; height canopy & cab 3.1m/10.2ft; wheelbase 2.9m/9.5ft; ground clearance 436mm/17.2in; curb clearance 497mm/19.6in; optional blade height 683mm/26.9in; inside turning radius 3.7m/12.1ft; hitch articulation 34°; hitch oscillation 15°. PROPEL: Dual pump system — dedicated separate flow to drum drive motor AND rear axle motor for exceptional gradeability/traction in forward and reverse. Two-speed hydrostatic transmission. Limited slip differential. Automatic Speed Control (ASC). Engine Idle Shutdown Timer (pre-set idle shutdown). Variable speed cooling fan. STANDARD: Steel sun canopy w/handrails+floor mat+vinyl seat, adjustable seat w/integrated console, LCD display w/lockable vandalism guard, tilting steering column w/cup holders, rear vision camera w/colour touchscreen, 50mm hi-vis seat belt, 12V outlet, horn/backup alarm, padfoot drum (oval or square), pod-style eccentric weight housings, dual amplitude single frequency, auto-vibe, dual adjustable steel scrapers, VisionLink® telematics, C7.1 engine, dual element air cleaner, 3-speed throttle w/eco-mode, ASC, dual propel pumps, fuel filter/water sep/priming pump, tilting radiator/hydraulic oil cooler, dual braking system, 2-speed hydrostatic trans, limited slip diff, 24V electrical, 100A alt, 750 CCA battery, lockable enclosures, sight gauges, S•O•S℠ sampling ports, halogen working lights (4). OPTIONAL: ROPS/FOPS canopy, ROPS/FOPS cab w/climate control+cloth seat+mirrors, sun visor (cab), roll-down screen (cab), variable frequency (23.3–30.5Hz), MDP, transmission guard, leveling blade, halogen lights (8), amber rotating beacon. SOUND (cab): Operator 80 dB(A) @ 70% fan; exterior 109 dB(A) @ 100% fan. APPLICATION: Airport construction, railway foundations, dams/large embankment fills, rock fills, mining (drying beds, waste tanks, embankments), recycling, rock crushing, following tractor/scraper, land reclamation (dredging), ~500m³ production. Clay/silt: 4–10 passes; compaction strongly depends on moisture content. Source: Cat CP16 Padfoot Compactor Brochure QEHQ3082 Build 03A (Dec 2023).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat Soil Compactors (Tamping Foot — Large Civil) ─────────
+    {
+      id:'cat-815', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'soil_compactor',
+      name:'Cat 815 Soil Compactor', shortName:'Cat 815',
+      operatingWeightT:22.522,
+      engineKw:205, engineModel:'Cat C7.1',
+      maxSpeedKmh:18.2, gears:'3F/3R',
+      fuelTankL:500,
+      drumWidthMm:991, outsideDiameterMm:1412, tipsPerWheel:60, tipRows:12,
+      widthOverDrumsMm:3243,
+      tags:['soil compactor','large civil','embankment','road subgrade','tamping foot','padfoot','earthworks','22t'],
+      note:'Cat 815 Soil Compactor. Cat C7.1 engine 205kW (275hp). 22,522kg operating weight. 4 tamping-foot wheels — chevron tip design for greater ground pressure, traction and smooth ride. 60 tips per wheel, 12 per row. Drum width 991mm, outside diameter 1,412mm, width over drums 3,243mm. 3F/3R planetary power shift transmission, max speed 18.2km/h. 500L fuel tank. Two cleaner bars per wheel to eliminate carryover dirt. GPS mapping standard + optional Cat Compact 3D mapping. VIMS monitoring, STIC single-lever control. For: large civil earthworks, embankments, road subgrade, subdivision fill, mining. Source: Cat 815 Soil Compactor Brochure (Nov 2024).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-825', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'soil_compactor',
+      name:'Cat 825 Soil Compactor', shortName:'Cat 825',
+      operatingWeightT:35.528,
+      engineKw:302, engineModel:'Cat C15',
+      maxSpeedKmh:17.8, gears:'3F/3R',
+      fuelTankL:782,
+      drumWidthMm:1125, outsideDiameterMm:1672, tipsPerWheel:65,
+      widthOverDrumsMm:3650,
+      tags:['soil compactor','major civil','dam','road construction','tamping foot','padfoot','35t','heavy civil'],
+      note:'Cat 825 Soil Compactor. Cat C15 engine 302kW (405hp). 35,528kg operating weight. 4 tamping-foot wheels — 65 tips per wheel, 1,125mm drum width, outside diameter 1,672mm, width over drums 3,650mm. Auto shift 3F/3R planetary powershift-ECPC. Max speed 17.8km/h. 782L fuel tank. Cat Compact 3D mapping optional. Cat Compaction Control with MDP (Machine Drive Power) measures soil stiffness. Cat Product Link standard. For: major civil projects, dams, road construction, heavy embankments, mining fill compaction. Source: Cat 825 Soil Compactor Brochure (Dec 2024).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat Landfill Compactors ───────────────────────────────────
+    {
+      id:'cat-826', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'landfill_compactor',
+      name:'Cat 826 Landfill Compactor', shortName:'Cat 826',
+      operatingWeightT:40.917, maxOperatingWeightT:41.988,
+      engineKw:302, engineModel:'Cat C15',
+      maxSpeedKmh:12.1, gears:'2F/2R',
+      fuelTankL:782,
+      drumWidthMm:1200, outsideDiameterMm:1971, tipsPerWheel:30,
+      widthOverDrumsMm:3800,
+      tipOptions:['Paddle','Plus','Combination','Diamond'],
+      tags:['landfill compactor','waste compaction','refuse','council','landfill','40t'],
+      note:'Cat 826 Landfill Compactor. Cat C15 engine 302kW (405hp). 40,917kg standard operating weight (max 41,988kg). In service since 1978 — 45+ year legacy. 4 waste-specific wheel options: Paddle (traction/fuel economy), Plus (side-slope stability), Combination (best of both), Diamond (longest life, world-class in waste). Drum width 1,200mm, outside diameter 1,971mm, width over drums 3,800mm. 2F/2R planetary powershift-ECPC, max speed 12.1km/h. 782L fuel tank. Comprehensive waste guarding: engine/powertrain guards, front frame guards, axle wrapping guards, air inlet screen, extended roof, under-hood ventilation. VIMS monitoring, Cat Compact with Elevation Mapping optional. For: landfill operations, waste transfer stations, council refuse sites. Source: Cat 826 Landfill Compactor Brochure (Jan 2025).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-836', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'landfill_compactor',
+      name:'Cat 836 Landfill Compactor', shortName:'Cat 836',
+      operatingWeightT:56.275, maxOperatingWeightT:57.318,
+      engineKw:412, engineModel:'Cat C18',
+      maxSpeedKmh:12.6, gears:'2F/2R',
+      fuelTankL:793,
+      drumWidthMm:1400, outsideDiameterMm:2128, tipsPerWheel:40,
+      widthOverDrumsMm:4280,
+      tipOptions:['Paddle','Plus','Combination','Diamond (15,000hr warranty)'],
+      tags:['landfill compactor','large landfill','waste compaction','56t','heavy','major council'],
+      note:'Cat 836 Landfill Compactor. Cat C18 engine 412kW (553hp). 56,275kg operating weight (max 57,318kg) — largest Cat landfill compactor. Cat Locker differentials provide 2x component life improvement over standard diffs: consistent torque transition, constant power to wheels. 4 tip options with Diamond providing full-rated 15,000hr warranty (designed to last until powertrain rebuild). Drum width 1,400mm, OD 2,128mm, width over drums 4,280mm. ICTC (Impeller Clutch Torque Converter) modulates rimpull 100→20% to reduce wheel slippage and tip wear. 43° steering articulation. Standard Cat Compact with Pass Mapping. 2F/2R, max speed 12.6km/h. 793L fuel tank. Redesigned eyebrow guards, belly guards, duo-cone seal guards, reversing fan guard. For: major council landfills, large regional waste operations, high-volume continuous compaction. Source: Cat 836 Landfill Compactor Brochure (Sep 2025).',
+      hireRateType:'wet',
     },
 
     // ── DUMP TRUCK / SITE DUMPER ──────────────────────────────────
@@ -23882,10 +24890,8592 @@ const MACHINES = {
       hireRateType:'wet',
     },
 
+    // ═══════════════════════════════════════════════════════════════
+    //  EXCAVATORS — Real Brands & Models
+    // ═══════════════════════════════════════════════════════════════
+
+    // ── CATERPILLAR EXCAVATORS ───────────────────────────────────────
+    // ── CAT 301.5 — FULLY BROCHURE-SPECIFIED ─────────────────────
+    // Source: Cat 301.5 Mini Excavator Brochure AEHQ8144-08 (08-2024)
+    // Every number below is read directly from the brochure. Nothing estimated.
+    {
+      id:'cat-3015', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 301.5 Mini Excavator', shortName:'Cat 301.5',
+      weightClass:'mini',
+
+      // ── ENGINE (Brochure p.2) ────────────────────────────────────
+      engineModel:          'Cat C1.1',
+      engineNetKW:          15.7,
+      engineNetHP:          21,
+      engineISO14396KW:     16.1,
+      engineRatedRPM:       2400,
+      engineDisplacementL:  1.1,
+      engineBoreMm:         77.0,
+      engineStrokeMm:       81.0,
+      emissionStandard:     'EPA Tier 4 Final / EU Stage V',
+
+      // ── WEIGHTS (Brochure p.2) ────────────────────────────────────
+      // Min = rubber tracks + canopy + operator + fixed u/c + full fuel
+      // Max = steel tracks + canopy + operator + expandable u/c + full fuel
+      operatingWeightMinKg:  1580,
+      operatingWeightMaxKg:  1775,
+      operatingWeightT:      1.775,   // max used for matching
+      weightIncLongStickKg:  8,       // additional kg for long stick option
+      weightIncSteelTracksKg:57,
+      weightIncExpandUCKg:   129,
+
+      // ── TRAVEL & GROUND PRESSURE (Brochure p.2) ──────────────────
+      travelSpeedHighKmh:    4.4,
+      travelSpeedLowKmh:     2.9,
+      tractionForceHighKN:   10.3,
+      tractionForceLowKN:    16.0,
+      groundPressureMinKPa:  27.3,    // minimum weight config
+      groundPressureMaxKPa:  30.6,    // maximum weight config
+      gradeabilityDeg:       30,
+
+      // ── HYDRAULICS (Brochure p.2) ─────────────────────────────────
+      pumpFlowLpm:           66,
+      workingPressureBar:    213,
+      swingPressureBar:      103,
+      digForceStickStdKN:    8.2,
+      digForceStickLongKN:   7.2,
+      digForceBucketKN:      14.1,
+      swingSpeedRpm:         9.8,
+      auxFlowPrimaryLpm:     33,
+      auxFlowSecondaryLpm:   14,
+
+      // ── BLADE (Brochure p.2) ─────────────────────────────────────
+      bladeWidthMm:          990,
+      bladeWidthExpandedMm:  1300,
+      bladeHeightMm:         225,
+      bladeDepthMaxMm:       260,
+      bladeHeightMaxMm:      275,
+
+      // ── TRANSPORT / SHIPPING DIMENSIONS (Brochure p.3) ───────────
+      // Standard stick / Long stick (same for most transport dims)
+      transportLengthStdMm:  3620,
+      transportLengthLongMm: 3590,
+      transportHeightMm:     2310,   // overall shipping height (both sticks)
+      undercarriageLengthMm: 1460,
+      tailSwingMm:           820,
+      swingBearingHeightMm:  445,
+      groundClearanceMm:     155,
+      trackShoeWidthMm:      230,
+      trackWidthRetractedMm: 990,
+      trackWidthExpandedMm:  1300,
+
+      // ── WORKING DIMENSIONS — STANDARD STICK (Brochure p.3) ───────
+      digDepthM:             2.34,
+      digDepthMm:            2340,
+      verticalWallMm:        1800,
+      maxReachGroundMm:      3730,
+      maxReachMm:            3800,
+      maxDigHeightMm:        3430,
+      maxDumpClearanceMm:    2450,
+      boomInReachMm:         1460,
+      stickLengthStdMm:      960,
+      boomSwingRightDeg:     50,
+      boomSwingLeftDeg:      65,
+
+      // ── WORKING DIMENSIONS — LONG STICK (Brochure p.3) ───────────
+      longStickDigDepthMm:       2540,
+      longStickVerticalWallMm:   1890,
+      longStickMaxReachGroundMm: 3890,
+      longStickMaxReachMm:       3960,
+      longStickMaxDigHeightMm:   3490,
+      longStickDumpClearanceMm:  2510,
+      stickLengthLongMm:         1160,
+
+      // ── SERVICE CAPACITIES (Brochure p.2) ────────────────────────
+      fuelTankL:             22.0,
+      hydraulicTankL:        18.0,
+      hydraulicSystemL:      26.0,
+      engineOilL:            4.4,
+      coolingSystemL:        3.9,
+
+      // ── SOUND (Brochure p.7) ──────────────────────────────────────
+      operatorSoundPressureDBA: 72,
+      exteriorSoundPowerDBA:    99,
+
+      // ── LIFT CHART — MINIMUM CONFIG (Brochure p.4) ───────────────
+      // Minimum: rubber tracks, canopy, operator, full fuel, expanded u/c, no bucket
+      // Columns: blade up / blade down / over side blade up
+      liftChartMin: {
+        note: 'Rubber tracks, canopy, operator, full fuel, expanded undercarriage, no bucket.',
+        stdStick: [
+          { heightM:2.0, maxRadiusM:2.9, overFrontBladeUpKg:242,  overFrontBladeDownKg:290,  overSideBladeUpKg:182,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.2, overFrontBladeUpKg:384,  overFrontBladeDownKg:384,  overSideBladeUpKg:212,  overSideBladeDownKg:159  },
+          { heightM:1.0, maxRadiusM:3.3, overFrontBladeUpKg:412,  overFrontBladeDownKg:584,  overSideBladeUpKg:198,  overSideBladeDownKg:147  },
+          { heightM:0,   maxRadiusM:3.2, overFrontBladeUpKg:379,  overFrontBladeDownKg:704,  overSideBladeUpKg:197,  overSideBladeDownKg:146  },
+        ],
+        longStick: [
+          { heightM:2.0, maxRadiusM:3.1, overFrontBladeUpKg:218,  overFrontBladeDownKg:230,  overSideBladeUpKg:164,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.3, overFrontBladeUpKg:194,  overFrontBladeDownKg:227,  overSideBladeUpKg:144,  overSideBladeDownKg:null },
+          { heightM:1.0, maxRadiusM:3.4, overFrontBladeUpKg:415,  overFrontBladeDownKg:495,  overSideBladeUpKg:181,  overSideBladeDownKg:134  },
+          { heightM:0,   maxRadiusM:3.4, overFrontBladeUpKg:375,  overFrontBladeDownKg:703,  overSideBladeUpKg:179,  overSideBladeDownKg:131  },
+        ],
+      },
+
+      // ── LIFT CHART — MAXIMUM CONFIG (Brochure p.4) ───────────────
+      // Maximum: steel tracks, canopy, operator, full fuel, expanded u/c, no bucket
+      liftChartMax: {
+        note: 'Steel tracks, canopy, operator, full fuel, expanded undercarriage, no bucket.',
+        stdStick: [
+          { heightM:2.0, maxRadiusM:2.9, overFrontBladeUpKg:269,  overFrontBladeDownKg:290,  overSideBladeUpKg:290,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.2, overFrontBladeUpKg:384,  overFrontBladeDownKg:384,  overSideBladeUpKg:237,  overSideBladeDownKg:272  },
+          { heightM:1.0, maxRadiusM:3.3, overFrontBladeUpKg:456,  overFrontBladeDownKg:584,  overSideBladeUpKg:222,  overSideBladeDownKg:254  },
+          { heightM:0,   maxRadiusM:3.2, overFrontBladeUpKg:424,  overFrontBladeDownKg:704,  overSideBladeUpKg:222,  overSideBladeDownKg:255  },
+        ],
+        longStick: [
+          { heightM:2.0, maxRadiusM:3.1, overFrontBladeUpKg:230,  overFrontBladeDownKg:230,  overSideBladeUpKg:230,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.3, overFrontBladeUpKg:217,  overFrontBladeDownKg:227,  overSideBladeUpKg:null, overSideBladeDownKg:null },
+          { heightM:1.0, maxRadiusM:3.4, overFrontBladeUpKg:459,  overFrontBladeDownKg:495,  overSideBladeUpKg:203,  overSideBladeDownKg:234  },
+          { heightM:0,   maxRadiusM:3.4, overFrontBladeUpKg:419,  overFrontBladeDownKg:703,  overSideBladeUpKg:202,  overSideBladeDownKg:233  },
+        ],
+      },
+
+      brochureRef: 'AEHQ8144-08 (08-2024)',
+
+      tags: ['mini','tight access','backyard','indoor','expandable undercarriage','rubber tracks','zero tail swing','1.5t class'],
+
+      note: 'Cat 301.5 Mini Excavator — 1.58t–1.78t (min/max). 15.7kW Cat C1.1 engine. EPA Tier 4 Final / EU Stage V. Expandable undercarriage retracts to 990mm (fits narrow gates) and expands to 1,300mm for stability. Tail swing 820mm — works close to walls and fences. Dig depth 2.34m standard stick (2.54m long stick option). Max reach 3.8m. Dump clearance 2.45m. Ground pressure from 27.3 kPa — suitable for most paved and grassed surfaces. Dozer blade standard. Source: Cat Brochure AEHQ8144-08 (08-2024).',
+
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT 301.7 CR — FULLY BROCHURE-SPECIFIED ──────────────────
+    // Source: Cat 301.7 CR Mini Excavator Brochure AEHQ8145-07 (10-2024)
+    // Every number below is read directly from the brochure. Nothing estimated.
+    {
+      id:'cat-301cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 301.7 CR Mini Excavator', shortName:'Cat 301.7 CR',
+      weightClass:'mini',
+
+      // ── ENGINE (Brochure p.2) ─────────────────────────────────────
+      engineModel:          'Cat C1.1',
+      engineNetKW:          15.7,
+      engineNetHP:          21,
+      engineISO14396KW:     16.1,
+      engineRatedRPM:       2400,
+      engineDisplacementL:  1.1,
+      engineBoreMm:         77.0,
+      engineStrokeMm:       81.0,
+      emissionStandard:     'EPA Tier 4 Final / EU Stage V',
+
+      // ── WEIGHTS (Brochure p.2) ────────────────────────────────────
+      // Min = rubber tracks + canopy + operator + expandable u/c + full fuel
+      // Max = steel tracks + canopy + operator + expandable u/c + full fuel + heavy counterweight
+      operatingWeightMinKg:  1790,
+      operatingWeightMaxKg:  1915,
+      operatingWeightT:      1.915,
+      weightIncLongStickKg:  10,
+      weightIncSteelTracksKg:50,
+      weightIncHeavyCWKg:    67,
+
+      // ── TRAVEL & GROUND PRESSURE (Brochure p.2) ──────────────────
+      travelSpeedHighKmh:    4.4,
+      travelSpeedLowKmh:     2.9,
+      tractionForceHighKN:   11.9,
+      tractionForceLowKN:    18.4,
+      groundPressureMinKPa:  27.9,
+      groundPressureMaxKPa:  30.0,
+      gradeabilityDeg:       30,
+
+      // ── HYDRAULICS (Brochure p.2) ─────────────────────────────────
+      pumpFlowLpm:           66,
+      workingPressureBar:    245,
+      swingPressureBar:      147,
+      digForceStickStdKN:    9.5,
+      digForceStickLongKN:   8.3,
+      digForceBucketKN:      16.2,
+      swingSpeedRpm:         9.8,
+      auxFlowPrimaryLpm:     33,
+      auxFlowSecondaryLpm:   14,
+
+      // ── BLADE (Brochure p.2) ──────────────────────────────────────
+      bladeWidthMm:          990,
+      bladeWidthExpandedMm:  1300,
+      bladeHeightMm:         225,
+      bladeDepthMaxMm:       265,
+      bladeHeightMaxMm:      270,
+
+      // ── TRANSPORT / SHIPPING DIMENSIONS (Brochure p.3) ───────────
+      transportLengthStdMm:  3620,
+      transportLengthLongMm: 3590,
+      transportHeightMm:     2300,
+      undercarriageLengthMm: 1590,
+      tailSwingMm:           650,   // CR = Compact Radius — 650mm tail swing
+      swingBearingHeightMm:  442,
+      groundClearanceMm:     140,
+      trackShoeWidthMm:      230,
+      trackWidthRetractedMm: 990,
+      trackWidthExpandedMm:  1300,
+
+      // ── WORKING DIMENSIONS — STANDARD STICK (Brochure p.3) ───────
+      digDepthM:             2.35,
+      digDepthMm:            2350,
+      verticalWallMm:        1800,
+      maxReachGroundMm:      3900,
+      maxReachMm:            3970,
+      maxDigHeightMm:        3430,
+      maxDumpClearanceMm:    2450,
+      boomInReachMm:         1630,
+      stickLengthStdMm:      960,
+      boomSwingRightDeg:     50,
+      boomSwingLeftDeg:      65,
+
+      // ── WORKING DIMENSIONS — LONG STICK (Brochure p.3) ───────────
+      longStickDigDepthMm:       2540,
+      longStickVerticalWallMm:   1890,
+      longStickMaxReachGroundMm: 4060,
+      longStickMaxReachMm:       4130,
+      longStickMaxDigHeightMm:   3490,
+      longStickDumpClearanceMm:  2510,
+      stickLengthLongMm:         1160,
+
+      // ── SERVICE CAPACITIES (Brochure p.2) ─────────────────────────
+      fuelTankL:             22.0,
+      hydraulicTankL:        18.0,
+      hydraulicSystemL:      26.0,
+      engineOilL:            4.4,
+      coolingSystemL:        3.9,
+
+      // ── SOUND (Brochure p.7) ──────────────────────────────────────
+      exteriorSoundPowerDBA: 93,
+
+      // ── LIFT CHART — MINIMUM CONFIG (Brochure p.4) ───────────────
+      // Minimum: rubber tracks, canopy, operator, full fuel, expanded u/c, no bucket
+      liftChartMin: {
+        note: 'Rubber tracks, canopy, operator, full fuel, expanded undercarriage, no bucket.',
+        stdStick: [
+          { heightM:2.0, maxRadiusM:3.1, overFrontBladeUpKg:232,  overFrontBladeDownKg:336,  overSideBladeUpKg:246,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.3, overFrontBladeUpKg:442,  overFrontBladeDownKg:442,  overSideBladeUpKg:204,  overSideBladeDownKg:217  },
+          { heightM:1.0, maxRadiusM:3.4, overFrontBladeUpKg:435,  overFrontBladeDownKg:775,  overSideBladeUpKg:190,  overSideBladeDownKg:203  },
+          { heightM:0,   maxRadiusM:3.4, overFrontBladeUpKg:398,  overFrontBladeDownKg:938,  overSideBladeUpKg:189,  overSideBladeDownKg:202  },
+        ],
+        longStick: [
+          { heightM:2.0, maxRadiusM:3.3, overFrontBladeUpKg:210,  overFrontBladeDownKg:268,  overSideBladeUpKg:223,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.5, overFrontBladeUpKg:186,  overFrontBladeDownKg:265,  overSideBladeUpKg:199,  overSideBladeDownKg:null },
+          { heightM:1.0, maxRadiusM:3.6, overFrontBladeUpKg:441,  overFrontBladeDownKg:636,  overSideBladeUpKg:174,  overSideBladeDownKg:186  },
+          { heightM:0,   maxRadiusM:3.6, overFrontBladeUpKg:394,  overFrontBladeDownKg:946,  overSideBladeUpKg:172,  overSideBladeDownKg:185  },
+        ],
+      },
+
+      // ── LIFT CHART — MAXIMUM CONFIG (Brochure p.4) ───────────────
+      // Maximum: steel tracks, canopy, operator, full fuel, expanded u/c, heavy counterweight, no bucket
+      liftChartMax: {
+        note: 'Steel tracks, canopy, operator, full fuel, expanded undercarriage, heavy counterweight, no bucket.',
+        stdStick: [
+          { heightM:2.0, maxRadiusM:3.1, overFrontBladeUpKg:264,  overFrontBladeDownKg:336,  overSideBladeUpKg:278,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.3, overFrontBladeUpKg:442,  overFrontBladeDownKg:442,  overSideBladeUpKg:233,  overSideBladeDownKg:246  },
+          { heightM:1.0, maxRadiusM:3.4, overFrontBladeUpKg:491,  overFrontBladeDownKg:775,  overSideBladeUpKg:218,  overSideBladeDownKg:231  },
+          { heightM:0,   maxRadiusM:3.4, overFrontBladeUpKg:455,  overFrontBladeDownKg:938,  overSideBladeUpKg:218,  overSideBladeDownKg:231  },
+        ],
+        longStick: [
+          { heightM:2.0, maxRadiusM:3.3, overFrontBladeUpKg:239,  overFrontBladeDownKg:268,  overSideBladeUpKg:253,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.5, overFrontBladeUpKg:213,  overFrontBladeDownKg:265,  overSideBladeUpKg:226,  overSideBladeDownKg:null },
+          { heightM:1.0, maxRadiusM:3.6, overFrontBladeUpKg:497,  overFrontBladeDownKg:636,  overSideBladeUpKg:200,  overSideBladeDownKg:212  },
+          { heightM:0,   maxRadiusM:3.6, overFrontBladeUpKg:450,  overFrontBladeDownKg:946,  overSideBladeUpKg:199,  overSideBladeDownKg:211  },
+        ],
+      },
+
+      brochureRef: 'AEHQ8145-07 (10-2024)',
+
+      tags:['mini','tight access','compact radius','backyard','indoor','expandable undercarriage','rubber tracks','1.9t class'],
+
+      note: 'Cat 301.7 CR Mini Excavator — 1.79t–1.92t (min/max). CR = Compact Radius — 650mm tail swing enables work in extremely confined spaces. 15.7kW Cat C1.1 engine, EPA Tier 4 Final/EU Stage V. Expandable undercarriage: 990mm retracted (gate access) to 1,300mm expanded. Dig depth 2.35m standard (2.54m long stick). Max reach 3.97m standard (4.13m long stick). Ground pressure 27.9–30.0 kPa. Dozer blade standard. Source: Cat Brochure AEHQ8145-07 (10-2024).',
+
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT 301.8 — FULLY BROCHURE-SPECIFIED ─────────────────────
+    // Source: Cat 301.8 Mini Excavator Brochure AEHQ8148-07 (09-2025)
+    // Every number below is read directly from the brochure. Nothing estimated.
+    // Key difference from 301.5 and 301.7 CR: AVAILABLE WITH SEALED CAB + A/C
+    {
+      id:'cat-3018', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 301.8 Mini Excavator', shortName:'Cat 301.8',
+      weightClass:'mini',
+
+      // ── ENGINE (Brochure p.2) ─────────────────────────────────────
+      engineModel:          'Cat C1.1',
+      engineNetKW:          15.7,
+      engineNetHP:          21,
+      engineISO14396KW:     16.1,
+      engineRatedRPM:       2400,
+      engineDisplacementL:  1.1,
+      engineBoreMm:         77.0,
+      engineStrokeMm:       81.0,
+      emissionStandard:     'EPA Tier 4 Final / EU Stage V',
+
+      // ── WEIGHTS (Brochure p.2) ────────────────────────────────────
+      // Min canopy = rubber tracks + operator + fixed u/c + full fuel
+      // Max canopy = steel tracks + operator + expandable u/c + full fuel
+      // Min cab    = rubber tracks + operator + fixed u/c + full fuel
+      // Max cab    = steel tracks + operator + expandable u/c + full fuel
+      operatingWeightMinKg:        1725,   // canopy, rubber tracks, fixed u/c
+      operatingWeightMaxKg:        1905,   // canopy, steel tracks, expandable u/c
+      operatingWeightMinCabKg:     1848,   // sealed cab, rubber tracks, fixed u/c
+      operatingWeightMaxCabKg:     2029,   // sealed cab, steel tracks, expandable u/c
+      operatingWeightT:            1.905,  // canopy max used for matching
+      weightIncLongStickKg:        8,
+      weightIncSteelTracksKg:      50,
+      weightIncExpandUCKg:         123,
+      cabAvailable:                true,   // SEALED CAB WITH A/C AVAILABLE
+
+      // ── TRAVEL & GROUND PRESSURE (Brochure p.2) ──────────────────
+      travelSpeedHighKmh:    4.4,
+      travelSpeedLowKmh:     2.9,
+      tractionForceHighKN:   11.9,
+      tractionForceLowKN:    18.4,
+      groundPressureMinKPa:  26.8,
+      groundPressureMaxKPa:  29.6,
+      gradeabilityDeg:       30,
+
+      // ── HYDRAULICS (Brochure p.2) ─────────────────────────────────
+      pumpFlowLpm:           66,
+      workingPressureBar:    245,
+      swingPressureBar:      147,
+      digForceStickStdKN:    11.3,   // strongest stick force in this mini series
+      digForceStickLongKN:   9.8,
+      digForceBucketKN:      19.6,   // strongest bucket force in this mini series
+      swingSpeedRpm:         9.8,
+      auxFlowPrimaryLpm:     33,
+      auxFlowSecondaryLpm:   14,
+
+      // ── BLADE (Brochure p.2) ──────────────────────────────────────
+      bladeWidthMm:          990,
+      bladeWidthExpandedMm:  1300,
+      bladeHeightMm:         225,
+      bladeDepthMaxMm:       265,
+      bladeHeightMaxMm:      270,
+
+      // ── TRANSPORT / SHIPPING DIMENSIONS (Brochure p.3) ───────────
+      transportLengthStdMm:  3720,
+      transportLengthLongMm: 3710,
+      transportHeightMm:     2300,
+      undercarriageLengthMm: 1590,
+      tailSwingMm:           995,   // NOT compact radius — wider tail swing
+      swingBearingHeightMm:  442,
+      groundClearanceMm:     150,
+      trackShoeWidthMm:      250,   // wider track than 301.5/301.7 (250mm vs 230mm)
+      trackWidthRetractedMm: 990,
+      trackWidthExpandedMm:  1300,
+
+      // ── WORKING DIMENSIONS — STANDARD STICK (Brochure p.3) ───────
+      digDepthM:             2.37,
+      digDepthMm:            2370,
+      verticalWallMm:        1850,
+      maxReachGroundMm:      3800,
+      maxReachMm:            3870,
+      maxDigHeightMm:        3550,   // 120mm taller than 301.5/301.7 — picks up higher
+      maxDumpClearanceMm:    2560,   // 110mm more dump clearance than 301.5/301.7
+      boomInReachMm:         1420,
+      stickLengthStdMm:      960,
+      boomLengthMm:          1850,   // longer boom than 301.5/301.7 (1,780mm)
+      boomSwingRightDeg:     50,
+      boomSwingLeftDeg:      65,
+
+      // ── WORKING DIMENSIONS — LONG STICK (Brochure p.3) ───────────
+      longStickDigDepthMm:       2570,
+      longStickVerticalWallMm:   1940,
+      longStickMaxReachGroundMm: 3960,
+      longStickMaxReachMm:       4030,
+      longStickMaxDigHeightMm:   3620,
+      longStickDumpClearanceMm:  2640,
+      stickLengthLongMm:         1160,
+
+      // ── SERVICE CAPACITIES (Brochure p.2) ─────────────────────────
+      fuelTankL:             26.0,   // larger fuel tank than 301.5/301.7 (22.0L)
+      hydraulicTankL:        18.0,
+      hydraulicSystemL:      26.0,
+      engineOilL:            4.4,
+      coolingSystemL:        3.9,
+
+      // ── SOUND (Brochure p.7) ──────────────────────────────────────
+      operatorSoundPressureDBA: 72,
+      exteriorSoundPowerDBA:    99,
+
+      // ── LIFT CHART — MINIMUM CONFIG (Brochure p.4) ───────────────
+      // Minimum: rubber tracks, canopy, operator, full fuel, FIXED u/c, no bucket
+      liftChartMin: {
+        note: 'Rubber tracks, canopy, operator, full fuel, fixed undercarriage, no bucket.',
+        stdStick: [
+          { heightM:2.0, maxRadiusM:3.0, overFrontBladeUpKg:320,  overFrontBladeDownKg:377,  overSideBladeUpKg:230,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.2, overFrontBladeUpKg:502,  overFrontBladeDownKg:502,  overSideBladeUpKg:284,  overSideBladeDownKg:203  },
+          { heightM:1.0, maxRadiusM:3.3, overFrontBladeUpKg:568,  overFrontBladeDownKg:718,  overSideBladeUpKg:266,  overSideBladeDownKg:190  },
+          { heightM:0,   maxRadiusM:3.3, overFrontBladeUpKg:533,  overFrontBladeDownKg:811,  overSideBladeUpKg:267,  overSideBladeDownKg:189  },
+        ],
+        longStick: [
+          { heightM:2.0, maxRadiusM:3.2, overFrontBladeUpKg:291,  overFrontBladeDownKg:302,  overSideBladeUpKg:208,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.4, overFrontBladeUpKg:379,  overFrontBladeDownKg:379,  overSideBladeUpKg:261,  overSideBladeDownKg:186  },
+          { heightM:1.0, maxRadiusM:3.5, overFrontBladeUpKg:573,  overFrontBladeDownKg:627,  overSideBladeUpKg:245,  overSideBladeDownKg:174  },
+          { heightM:0,   maxRadiusM:3.5, overFrontBladeUpKg:528,  overFrontBladeDownKg:818,  overSideBladeUpKg:245,  overSideBladeDownKg:172  },
+        ],
+      },
+
+      // ── LIFT CHART — MAXIMUM CONFIG (Brochure p.4) ───────────────
+      // Maximum: steel tracks, CAB (not canopy), operator, full fuel, expandable u/c, no bucket
+      liftChartMax: {
+        note: 'Steel tracks, cab, operator, full fuel, expandable undercarriage, no bucket.',
+        stdStick: [
+          { heightM:2.0, maxRadiusM:3.0, overFrontBladeUpKg:377,  overFrontBladeDownKg:377,  overSideBladeUpKg:377,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.2, overFrontBladeUpKg:502,  overFrontBladeDownKg:502,  overSideBladeUpKg:341,  overSideBladeDownKg:354  },
+          { heightM:1.0, maxRadiusM:3.3, overFrontBladeUpKg:675,  overFrontBladeDownKg:718,  overSideBladeUpKg:321,  overSideBladeDownKg:333  },
+          { heightM:0,   maxRadiusM:3.3, overFrontBladeUpKg:640,  overFrontBladeDownKg:811,  overSideBladeUpKg:323,  overSideBladeDownKg:335  },
+        ],
+        longStick: [
+          { heightM:2.0, maxRadiusM:3.2, overFrontBladeUpKg:302,  overFrontBladeDownKg:302,  overSideBladeUpKg:302,  overSideBladeDownKg:null },
+          { heightM:1.5, maxRadiusM:3.4, overFrontBladeUpKg:379,  overFrontBladeDownKg:379,  overSideBladeUpKg:300,  overSideBladeDownKg:300  },
+          { heightM:1.0, maxRadiusM:3.5, overFrontBladeUpKg:627,  overFrontBladeDownKg:627,  overSideBladeUpKg:297,  overSideBladeDownKg:308  },
+          { heightM:0,   maxRadiusM:3.5, overFrontBladeUpKg:636,  overFrontBladeDownKg:818,  overSideBladeUpKg:297,  overSideBladeDownKg:309  },
+        ],
+      },
+
+      brochureRef: 'AEHQ8148-07 (09-2025)',
+
+      tags:['mini','backyard','residential','cab available','air conditioning','expandable undercarriage','rubber tracks','2t class'],
+
+      note: 'Cat 301.8 Mini Excavator — 1.73t–2.03t. Only Cat mini in this range available with a SEALED CAB + AIR CONDITIONING — ideal for hot or dusty Australian sites. 15.7kW Cat C1.1 engine, EPA Tier 4 Final/EU Stage V. Expandable undercarriage: 990mm retracted to 1,300mm. Tail swing 995mm. Dig depth 2.37m standard (2.57m long stick). Max reach 3.87m. Dump clearance 2.56m (best in class for this weight range). Highest digging forces in the Cat mini range: 11.3 kN stick, 19.6 kN bucket. Larger 26L fuel tank for longer run time. Source: Cat Brochure AEHQ8148-07 (09-2025).',
+
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT 302 CR (EXPANDABLE UNDERCARRIAGE) — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 302 CR Mini Excavator Brochure AEHQ8146-09 (09-2025)
+    // NOTE: Expandable undercarriage (retracts to 1,090mm / expands to 1,400mm)
+    // Different machine from cat-302cr (302.7 CR) which has fixed undercarriage.
+    {
+      id:'cat-302', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 302 CR Mini Excavator', shortName:'Cat 302 CR',
+      weightClass:'mini',
+      engineModel:'Cat C1.1', engineNetKW:15.7, engineNetHP:21,
+      engineISO14396KW:16.1, engineRatedRPM:2400, engineDisplacementL:1.1,
+      engineBoreMm:77.0, engineStrokeMm:81.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:1918, operatingWeightMaxKg:2081,
+      operatingWeightMinCabKg:2057, operatingWeightMaxCabKg:2262,
+      operatingWeightT:2.081,
+      weightIncLongStickKg:8, weightIncSteelTracksKg:60, weightIncExpandUCKg:96,
+      cabAvailable:true,
+      travelSpeedHighKmh:4.4, travelSpeedLowKmh:2.9,
+      tractionForceHighKN:13.2, tractionForceLowKN:20.0,
+      groundPressureMinKPa:23.7, groundPressureMaxKPa:26.8,
+      gradeabilityDeg:30,
+      pumpFlowLpm:66, workingPressureBar:245, swingPressureBar:147,
+      digForceStickStdKN:11.3, digForceStickLongKN:9.8, digForceBucketKN:19.6,
+      swingSpeedRpm:9.8, auxFlowPrimaryLpm:33, auxFlowSecondaryLpm:14,
+      bladeWidthMm:1090, bladeWidthExpandedMm:1400, bladeHeightMm:225,
+      bladeDepthMaxMm:295, bladeHeightMaxMm:285,
+      transportLengthStdMm:3900, transportLengthLongMm:3880,
+      transportHeightMm:2300, undercarriageLengthMm:1850,
+      tailSwingMm:750,
+      swingBearingHeightMm:442, groundClearanceMm:150,
+      trackShoeWidthMm:250,
+      trackWidthRetractedMm:1090, trackWidthExpandedMm:1400,
+      boomLengthMm:1850,
+      digDepthM:2.37, digDepthMm:2370, verticalWallMm:1850,
+      maxReachGroundMm:4040, maxReachMm:4110,
+      maxDigHeightMm:3550, maxDumpClearanceMm:2560,
+      boomInReachMm:1660, stickLengthStdMm:960,
+      boomSwingRightDeg:50, boomSwingLeftDeg:65,
+      longStickDigDepthMm:2570, longStickVerticalWallMm:1940,
+      longStickMaxReachGroundMm:4210, longStickMaxReachMm:4270,
+      longStickMaxDigHeightMm:3620, longStickDumpClearanceMm:2640,
+      stickLengthLongMm:1160,
+      fuelTankL:26.0, hydraulicTankL:18.0, hydraulicSystemL:26.0,
+      engineOilL:4.4, coolingSystemL:3.9,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:99,
+      liftChartMin: {
+        note:'Rubber tracks, canopy, fixed undercarriage, operator, full fuel, no bucket.',
+        stdStick:[
+          {heightM:2.0,maxRadiusM:3.3,overFrontBladeUpKg:346,overFrontBladeDownKg:376,overSideBladeUpKg:294,overSideBladeDownKg:null},
+          {heightM:1.5,maxRadiusM:3.5,overFrontBladeUpKg:549,overFrontBladeDownKg:549,overSideBladeUpKg:311,overSideBladeDownKg:264},
+          {heightM:1.0,maxRadiusM:3.6,overFrontBladeUpKg:711,overFrontBladeDownKg:906,overSideBladeUpKg:293,overSideBladeDownKg:249},
+          {heightM:0,  maxRadiusM:3.5,overFrontBladeUpKg:675,overFrontBladeDownKg:959,overSideBladeUpKg:296,overSideBladeDownKg:251},
+        ],
+        longStick:[
+          {heightM:2.0,maxRadiusM:3.5,overFrontBladeUpKg:301,overFrontBladeDownKg:301,overSideBladeUpKg:269,overSideBladeDownKg:null},
+          {heightM:1.5,maxRadiusM:3.7,overFrontBladeUpKg:287,overFrontBladeDownKg:300,overSideBladeUpKg:243,overSideBladeDownKg:null},
+          {heightM:1.0,maxRadiusM:3.8,overFrontBladeUpKg:720,overFrontBladeDownKg:771,overSideBladeUpKg:272,overSideBladeDownKg:230},
+          {heightM:0,  maxRadiusM:3.7,overFrontBladeUpKg:668,overFrontBladeDownKg:988,overSideBladeUpKg:273,overSideBladeDownKg:230},
+        ],
+      },
+      liftChartMax: {
+        note:'Steel tracks, cab, expandable undercarriage, operator, full fuel, no bucket.',
+        stdStick:[
+          {heightM:2.0,maxRadiusM:3.3,overFrontBladeUpKg:377,overFrontBladeDownKg:377,overSideBladeUpKg:344,overSideBladeDownKg:null},
+          {heightM:1.5,maxRadiusM:3.5,overFrontBladeUpKg:526,overFrontBladeDownKg:526,overSideBladeUpKg:361,overSideBladeDownKg:309},
+          {heightM:1.0,maxRadiusM:3.6,overFrontBladeUpKg:820,overFrontBladeDownKg:890,overSideBladeUpKg:341,overSideBladeDownKg:292},
+          {heightM:0,  maxRadiusM:3.5,overFrontBladeUpKg:781,overFrontBladeDownKg:964,overSideBladeUpKg:343,overSideBladeDownKg:293},
+        ],
+        longStick:[
+          {heightM:2.0,maxRadiusM:3.5,overFrontBladeUpKg:302,overFrontBladeDownKg:302,overSideBladeUpKg:302,overSideBladeDownKg:null},
+          {heightM:1.5,maxRadiusM:3.7,overFrontBladeUpKg:300,overFrontBladeDownKg:300,overSideBladeUpKg:286,overSideBladeDownKg:null},
+          {heightM:1.0,maxRadiusM:3.8,overFrontBladeUpKg:749,overFrontBladeDownKg:749,overSideBladeUpKg:308,overSideBladeDownKg:271},
+          {heightM:0,  maxRadiusM:3.7,overFrontBladeUpKg:775,overFrontBladeDownKg:992,overSideBladeUpKg:318,overSideBladeDownKg:271},
+        ],
+      },
+      brochureRef:'AEHQ8146-09 (09-2025)',
+      tags:['mini','compact radius','backyard','residential','cab available','expandable undercarriage','2t class'],
+      note:'Cat 302 CR Mini Excavator — 1.9t–2.3t. CR = Compact Radius — 750mm tail swing. Expandable undercarriage retracts to 1,090mm (gate access) / expands to 1,400mm. 15.7kW Cat C1.1 engine. Dig depth 2.37m std / 2.57m long stick. Max reach 4.11m. Dump clearance 2.56m. Ground pressure 23.7–26.8 kPa. Cab with A/C available. Source: Cat Brochure AEHQ8146-09 (09-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 302.7 CR (FIXED UNDERCARRIAGE) — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 302.7 CR Mini Excavator Brochure AEHQ8349-06 (09-2025)
+    // Every number below is read directly from the brochure. Nothing estimated.
+    // KEY DIFFERENCES: TURBO engine, FIXED undercarriage (1,570mm — cannot retract),
+    // counterweight options change tail swing, 4 separate lift charts.
+    {
+      id:'cat-302cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 302.7 CR Mini Excavator', shortName:'Cat 302.7 CR',
+      weightClass:'midi',
+
+      // ── ENGINE (Brochure p.2) ─────────────────────────────────────
+      // NOTE: C1.1 TURBO — more power than 301.5/301.7/301.8 (non-turbo)
+      engineModel:          'Cat C1.1 Turbo',
+      engineNetKW:          17.6,
+      engineNetHP:          23.6,
+      engineISO14396KW:     18.4,
+      engineRatedRPM:       2400,
+      engineDisplacementL:  1.1,
+      engineBoreMm:         77.0,
+      engineStrokeMm:       81.0,
+      emissionStandard:     'EPA Tier 4 Final / EU Stage V',
+
+      // ── WEIGHTS (Brochure p.2) ────────────────────────────────────
+      // Min canopy = rubber tracks, std stick, blade, no bucket, no extra CW
+      // Max canopy = steel tracks, long stick, blade, no bucket, extra CW
+      operatingWeightMinKg:      2560,
+      operatingWeightMaxKg:      2925,
+      operatingWeightMinCabKg:   2680,
+      operatingWeightMaxCabKg:   3050,
+      operatingWeightT:          2.925,
+      weightIncCabKg:            125,
+      weightIncCWLightKg:        100,
+      weightIncCWExtraKg:        250,
+      weightIncLongStickKg:      15,
+      weightIncSteelTracksKg:    100,
+      cabAvailable:              true,
+
+      // ── TRAVEL & GROUND PRESSURE (Brochure p.2) ──────────────────
+      travelSpeedHighKmh:    4.5,
+      travelSpeedLowKmh:     2.6,
+      tractionForceHighKN:   15.6,
+      tractionForceLowKN:    26.8,
+      groundPressureMinKPa:  24.2,
+      groundPressureMaxKPa:  29.0,
+      gradeabilityDeg:       30,
+
+      // ── HYDRAULICS (Brochure p.2) ─────────────────────────────────
+      pumpFlowLpm:           100,    // significantly higher than 301-series (66 L/min)
+      workingPressureBar:    245,
+      swingPressureBar:      176,
+      digForceStickStdKN:    13.8,
+      digForceStickLongKN:   12.3,
+      digForceBucketKN:      23.3,
+      swingSpeedRpm:         9.0,
+      auxFlowPrimaryLpm:     65,
+      auxFlowSecondaryLpm:   25,
+
+      // ── BLADE (Brochure p.2) ──────────────────────────────────────
+      // Fixed undercarriage — blade matches track width (1,570mm). No expandable.
+      bladeWidthMm:          1570,
+      bladeHeightMm:         320,
+      bladeDepthMaxMm:       515,
+      bladeHeightMaxMm:      395,
+
+      // ── TRANSPORT / SHIPPING DIMENSIONS (Brochure p.3) ───────────
+      transportLengthStdMm:  4240,
+      transportLengthLongMm: 4280,
+      transportHeightMm:     2480,
+      undercarriageLengthMm: 2010,
+      // TAIL SWING VARIES BY COUNTERWEIGHT CONFIG (Brochure p.3):
+      tailSwingMm:           775,    // without counterweight
+      tailSwingCWLightMm:    845,    // with light counterweight (100kg)
+      tailSwingCWExtraMm:    890,    // with extra counterweight (250kg)
+      swingBearingHeightMm:  560,
+      groundClearanceMm:     310,
+      trackShoeWidthMm:      300,
+      // FIXED UNDERCARRIAGE — track width cannot retract
+      trackWidthMm:          1570,   // fixed, no retract/expand
+      trackWidthRetractedMm: 1570,   // same — fixed undercarriage
+      trackWidthExpandedMm:  1570,   // same — fixed undercarriage
+      fixedUndercarriage:    true,
+
+      // ── WORKING DIMENSIONS — STANDARD STICK (Brochure p.3) ───────
+      digDepthM:             2.51,
+      digDepthMm:            2510,
+      verticalWallMm:        1870,
+      maxReachGroundMm:      4510,
+      maxReachMm:            4660,
+      maxDigHeightMm:        4270,
+      maxDumpClearanceMm:    2950,
+      boomInReachMm:         1710,
+      stickLengthStdMm:      1060,
+      boomLengthMm:          2085,
+      boomSwingRightDeg:     50,
+      boomSwingLeftDeg:      75,     // wider left swing than 301-series (65°)
+      boomSwingRightOffsetMm:830,
+      boomSwingLeftOffsetMm: 605,
+
+      // ── WORKING DIMENSIONS — LONG STICK (Brochure p.3) ───────────
+      longStickDigDepthMm:       2710,
+      longStickVerticalWallMm:   2050,
+      longStickMaxReachGroundMm: 4710,
+      longStickMaxReachMm:       4850,
+      longStickMaxDigHeightMm:   4390,
+      longStickDumpClearanceMm:  3070,
+      stickLengthLongMm:         1260,
+
+      // ── SERVICE CAPACITIES (Brochure p.2) ─────────────────────────
+      fuelTankL:             45.0,   // much larger than 301-series (22–26L)
+      hydraulicTankL:        18.0,
+      hydraulicSystemL:      35.0,
+      engineOilL:            4.0,
+      coolingSystemL:        4.0,
+
+      // ── SOUND (Brochure p.7) ──────────────────────────────────────
+      operatorSoundPressureDBA: 78,
+      exteriorSoundPowerDBA:    94,
+
+      // ── LIFT CHARTS (Brochure p.4) ───────────────────────────────
+      // This machine has 4 separate charts: cab/canopy × min/max config
+      // * = at or exceeding 87% hydraulic or 75% tipping limit (ISO 10567:2007)
+      // Format: [heightM, radius2m_OF_BD, radius2m_OF_BU, radius2m_OS_BD, radius2m_OS_BU,
+      //          radius3m_OF_BD, radius3m_OF_BU, radius3m_OS_BD, radius3m_OS_BU,
+      //          maxRadiusM, maxR_OF_BD, maxR_OF_BU, maxR_OS_BD, maxR_OS_BU]
+
+      liftChartCabMin: {
+        note: 'Cab, rubber tracks, no extra counterweight, operator, full fuel, blade.',
+        stdStick: [
+          { heightM:3.0, r2m_OF_BD:'*777', r2m_OF_BU:567,  r2m_OS_BD:493,  r3m_OF_BD:'*470', r3m_OF_BU:'*470', r3m_OS_BD:416,  maxRm:3.30, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:2.0, r2m_OF_BD:'*886', r2m_OF_BU:553,  r2m_OS_BD:479,  r3m_OF_BD:'*426', r3m_OF_BU:363,   r3m_OS_BD:315,  maxRm:3.86, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1162',r2m_OF_BU:517,  r2m_OS_BD:445,  r3m_OF_BD:'*443', r3m_OF_BU:330,   r3m_OS_BD:286,  maxRm:4.03, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1194',r2m_OF_BU:928,  r2m_OS_BD:767,  r3m_OF_BD:'*1299',r3m_OF_BU:493,   r3m_OS_BD:422,  maxRm:3.85, mx_OF_BD:'*525', mx_OF_BU:345, mx_OS_BD:298 },
+        ],
+        longStick: [
+          { heightM:3.0, r2m_OF_BD:null, r2m_OF_BU:null, r2m_OS_BD:null, r3m_OF_BD:null, r3m_OF_BU:null, r3m_OS_BD:null, maxRm:3.54, mx_OF_BD:'*378', mx_OF_BU:'*378', mx_OS_BD:368 },
+          { heightM:2.0, r2m_OF_BD:'*799', r2m_OF_BU:553, r2m_OS_BD:479, r3m_OF_BD:'*347', r3m_OF_BU:331, r3m_OS_BD:287, maxRm:4.06, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1097',r2m_OF_BU:515, r2m_OS_BD:443, r3m_OF_BD:'*360', r3m_OF_BU:303, r3m_OS_BD:262, maxRm:4.22, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1190',r2m_OF_BU:914, r2m_OS_BD:754, r3m_OF_BD:'*1282',r3m_OF_BU:486, r3m_OS_BD:415, maxRm:4.05, mx_OF_BD:'*420', mx_OF_BU:313, mx_OS_BD:270 },
+        ],
+      },
+
+      liftChartCabMax: {
+        note: 'Cab, steel tracks, extra counterweight (250kg), operator, full fuel, blade.',
+        stdStick: [
+          { heightM:3.0, r2m_OF_BD:'*777', r2m_OF_BU:734,  r2m_OS_BD:595,  r3m_OF_BD:'*470', r3m_OF_BU:'*470', r3m_OS_BD:'*470',maxRm:3.30, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:2.0, r2m_OF_BD:'*886', r2m_OF_BU:719,  r2m_OS_BD:581,  r3m_OF_BD:'*426', r3m_OF_BU:'*426', r3m_OS_BD:392,  maxRm:3.86, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1162',r2m_OF_BU:684,  r2m_OS_BD:548,  r3m_OF_BD:'*443', r3m_OF_BU:'*443', r3m_OS_BD:360,  maxRm:4.03, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1194',r2m_OF_BU:'*1194',r2m_OS_BD:939, r3m_OF_BD:'*1299',r3m_OF_BU:659,   r3m_OS_BD:525,  maxRm:3.85, mx_OF_BD:'*525', mx_OF_BU:464, mx_OS_BD:375 },
+        ],
+        longStick: [
+          { heightM:3.0, r2m_OF_BD:null, r2m_OF_BU:null, r2m_OS_BD:null, r3m_OF_BD:null, r3m_OF_BU:null, r3m_OS_BD:null, maxRm:3.54, mx_OF_BD:'*378', mx_OF_BU:'*378', mx_OS_BD:'*378' },
+          { heightM:2.0, r2m_OF_BD:'*799', r2m_OF_BU:721, r2m_OS_BD:583, r3m_OF_BD:'*347', r3m_OF_BU:'*347', r3m_OS_BD:'*347', maxRm:4.06, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1097',r2m_OF_BU:683, r2m_OS_BD:547, r3m_OF_BD:'*360', r3m_OF_BU:'*360', r3m_OS_BD:332,   maxRm:4.22, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1190',r2m_OF_BU:'*1190',r2m_OS_BD:928, r3m_OF_BD:'*1282',r3m_OF_BU:653, r3m_OS_BD:519, maxRm:4.05, mx_OF_BD:'*420', mx_OF_BU:'*420', mx_OS_BD:344 },
+        ],
+      },
+
+      liftChartCanopyMin: {
+        note: 'Canopy, rubber tracks, no extra counterweight, operator, full fuel, blade.',
+        stdStick: [
+          { heightM:3.0, r2m_OF_BD:'*777', r2m_OF_BU:535,  r2m_OS_BD:466,  r3m_OF_BD:'*470', r3m_OF_BU:450,  r3m_OS_BD:393,  maxRm:3.30, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:2.0, r2m_OF_BD:'*886', r2m_OF_BU:520,  r2m_OS_BD:452,  r3m_OF_BD:'*426', r3m_OF_BU:340,  r3m_OS_BD:296,  maxRm:3.86, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1162',r2m_OF_BU:485,  r2m_OS_BD:418,  r3m_OF_BD:'*443', r3m_OF_BU:308,  r3m_OS_BD:268,  maxRm:4.03, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1194',r2m_OF_BU:868,  r2m_OS_BD:719,  r3m_OF_BD:'*1299',r3m_OF_BU:460,  r3m_OS_BD:395,  maxRm:3.85, mx_OF_BD:'*525', mx_OF_BU:321, mx_OS_BD:278 },
+        ],
+        longStick: [
+          { heightM:3.0, r2m_OF_BD:null, r2m_OF_BU:null, r2m_OS_BD:null, r3m_OF_BD:null, r3m_OF_BU:null, r3m_OS_BD:null, maxRm:3.54, mx_OF_BD:'*378', mx_OF_BU:'*378', mx_OS_BD:348 },
+          { heightM:2.0, r2m_OF_BD:'*799', r2m_OF_BU:523, r2m_OS_BD:455, r3m_OF_BD:'*347', r3m_OF_BU:311, r3m_OS_BD:270, maxRm:4.06, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1097',r2m_OF_BU:485, r2m_OS_BD:418, r3m_OF_BD:'*360', r3m_OF_BU:284, r3m_OS_BD:246, maxRm:4.22, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1190',r2m_OF_BU:860, r2m_OS_BD:711, r3m_OF_BD:'*1282',r3m_OF_BU:456, r3m_OS_BD:390, maxRm:4.05, mx_OF_BD:'*420', mx_OF_BU:293, mx_OS_BD:253 },
+        ],
+      },
+
+      liftChartCanopyMax: {
+        note: 'Canopy, steel tracks, extra counterweight (250kg), operator, full fuel, blade.',
+        stdStick: [
+          { heightM:3.0, r2m_OF_BD:'*777', r2m_OF_BU:703,  r2m_OS_BD:572,  r3m_OF_BD:'*470', r3m_OF_BU:'*470', r3m_OS_BD:'*470',maxRm:3.30, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:2.0, r2m_OF_BD:'*886', r2m_OF_BU:688,  r2m_OS_BD:558,  r3m_OF_BD:'*426', r3m_OF_BU:'*426', r3m_OS_BD:375,  maxRm:3.86, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1162',r2m_OF_BU:653,  r2m_OS_BD:524,  r3m_OF_BD:'*443', r3m_OF_BU:423,   r3m_OS_BD:343,  maxRm:4.03, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1194',r2m_OF_BU:1177, r2m_OS_BD:897,  r3m_OF_BD:'*1299',r3m_OF_BU:628,   r3m_OS_BD:501,  maxRm:3.85, mx_OF_BD:'*525', mx_OF_BU:442, mx_OS_BD:357 },
+        ],
+        longStick: [
+          { heightM:3.0, r2m_OF_BD:null, r2m_OF_BU:null, r2m_OS_BD:null, r3m_OF_BD:null, r3m_OF_BU:null, r3m_OS_BD:null, maxRm:3.54, mx_OF_BD:'*378', mx_OF_BU:'*378', mx_OS_BD:'*378' },
+          { heightM:2.0, r2m_OF_BD:'*799', r2m_OF_BU:690, r2m_OS_BD:559, r3m_OF_BD:'*347', r3m_OF_BU:'*347', r3m_OS_BD:344, maxRm:4.06, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:1.0, r2m_OF_BD:'*1097',r2m_OF_BU:652, r2m_OS_BD:523, r3m_OF_BD:'*360', r3m_OF_BU:'*360', r3m_OS_BD:316, maxRm:4.22, mx_OF_BD:null, mx_OF_BU:null, mx_OS_BD:null },
+          { heightM:0,   r2m_OF_BD:'*1190',r2m_OF_BU:1166,r2m_OS_BD:887, r3m_OF_BD:'*1282',r3m_OF_BU:622,   r3m_OS_BD:495, maxRm:4.05, mx_OF_BD:'*420', mx_OF_BU:406, mx_OS_BD:327 },
+        ],
+      },
+
+      // For the standard card lift chart display, use cab max (heaviest, best stability)
+      get liftChartMax() { return this.liftChartCabMax; },
+      get liftChartMin() { return this.liftChartCabMin; },
+
+      brochureRef: 'AEHQ8349-06 (09-2025)',
+
+      tags:['midi','residential','commercial','trench','cab available','air conditioning','fixed undercarriage','turbo','2.5t class'],
+
+      note: 'Cat 302.7 CR Mini Excavator (Fixed Undercarriage) — 2.56t–3.05t. TURBO engine (Cat C1.1 Turbo, 17.6kW/23.6hp) — more power and attachment capability than the 301-series. FIXED undercarriage 1,570mm wide (cannot retract). Cab with A/C available. Counterweight options (none/light 100kg/extra 250kg) alter tail swing from 775mm to 890mm. Dig depth 2.51m standard (2.71m long stick). Max reach 4.66m — significantly greater than 301-series. Dump clearance 2.95m. Digging forces: 13.8kN stick, 23.3kN bucket. 45L fuel tank for all-day operation. Source: Cat Brochure AEHQ8349-06 (09-2025).',
+
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT 303 CR — FULLY BROCHURE-SPECIFIED ───────────────────────
+    // Source: Cat 303 CR Mini Excavator Brochure AEHQ8350-04 (09-2025)
+    {
+      id:'cat-303cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 303 CR Mini Excavator', shortName:'Cat 303 CR',
+      weightClass:'midi',
+      engineModel:'Cat C1.1 Turbo', engineNetKW:17.6, engineNetHP:23.6,
+      engineISO14396KW:18.4, engineRatedRPM:2400, engineDisplacementL:1.1,
+      engineBoreMm:77.0, engineStrokeMm:81.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:3025, operatingWeightMaxKg:3425,
+      operatingWeightMinCabKg:3140, operatingWeightMaxCabKg:3545,
+      operatingWeightT:3.425,
+      weightIncCabKg:115, weightIncCWLightKg:100, weightIncCWExtraKg:250,
+      weightIncLongStickKg:25, weightIncSteelTracksKg:125,
+      cabAvailable:true,
+      travelSpeedHighKmh:4.5, travelSpeedLowKmh:2.6,
+      tractionForceHighKN:14.7, tractionForceLowKN:31.4,
+      groundPressureMinKPa:27.6, groundPressureMaxKPa:32.3,
+      gradeabilityDeg:30,
+      pumpFlowLpm:100, workingPressureBar:245, swingPressureBar:176,
+      digForceStickStdKN:16.6, digForceStickLongKN:14.8, digForceBucketKN:28.4,
+      swingSpeedRpm:9.0, auxFlowPrimaryLpm:65, auxFlowSecondaryLpm:25,
+      bladeWidthMm:1550, bladeHeightMm:350,
+      bladeDepthMaxMm:535, bladeHeightMaxMm:385,
+      transportLengthStdMm:4510, transportLengthLongMm:4560,
+      transportHeightMm:2480, undercarriageLengthMm:2070,
+      tailSwingMm:775, tailSwingCWLightMm:845, tailSwingCWExtraMm:890,
+      swingBearingHeightMm:570, groundClearanceMm:310,
+      trackShoeWidthMm:300, trackWidthMm:1550,
+      trackWidthRetractedMm:1550, trackWidthExpandedMm:1550,
+      fixedUndercarriage:true, boomLengthMm:2200,
+      digDepthM:2.65, digDepthMm:2650, verticalWallMm:1820,
+      maxReachGroundMm:4830, maxReachMm:4980,
+      maxDigHeightMm:4510, maxDumpClearanceMm:3170,
+      boomInReachMm:1750, stickLengthStdMm:1260,
+      boomSwingRightDeg:50, boomSwingLeftDeg:75,
+      boomSwingRightOffsetMm:870, boomSwingLeftOffsetMm:640,
+      longStickDigDepthMm:2950, longStickVerticalWallMm:2070,
+      longStickMaxReachGroundMm:5110, longStickMaxReachMm:5240,
+      longStickMaxDigHeightMm:4650, longStickDumpClearanceMm:3310,
+      stickLengthLongMm:1560,
+      fuelTankL:45.0, hydraulicTankL:18.0, hydraulicSystemL:35.0,
+      engineOilL:4.0, coolingSystemL:4.0,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:99,
+      liftChartCabMin:{
+        note:'Cab, rubber tracks, no extra counterweight, operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*792',r2m_OF_BU:630, r2m_OS_BD:548, r3m_OF_BD:'*848',r3m_OF_BU:441,r3m_OS_BD:385,maxRm:3.67,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:2.0,r2m_OF_BD:'*998',r2m_OF_BU:601, r2m_OS_BD:520, r3m_OF_BD:'*864',r3m_OF_BU:349,r3m_OS_BD:303,maxRm:4.16,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1352',r2m_OF_BU:553,r2m_OS_BD:475, r3m_OF_BD:'*903',r3m_OF_BU:321,r3m_OS_BD:278,maxRm:4.29,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1280',r2m_OF_BU:1003,r2m_OS_BD:823,r3m_OF_BD:'*1522',r3m_OF_BU:525,r3m_OS_BD:448,maxRm:4.11,mx_OF_BD:'*955',mx_OF_BU:335,mx_OS_BD:289},
+        ],
+        longStick:[
+          {heightM:3.0,r2m_OF_BD:null,r2m_OF_BU:null,r2m_OS_BD:null,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,maxRm:3.99,mx_OF_BD:'*741',mx_OF_BU:376,mx_OS_BD:327},
+          {heightM:2.0,r2m_OF_BD:'*839',r2m_OF_BU:604, r2m_OS_BD:522, r3m_OF_BD:'*767',r3m_OF_BU:304,r3m_OS_BD:263,maxRm:4.43,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1227',r2m_OF_BU:549,r2m_OS_BD:470, r3m_OF_BD:'*808',r3m_OF_BU:281,r3m_OS_BD:242,maxRm:4.55,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1277',r2m_OF_BU:974,r2m_OS_BD:795, r3m_OF_BD:'*1480',r3m_OF_BU:511,r3m_OS_BD:433,maxRm:4.39,mx_OF_BD:'*862',mx_OF_BU:290,mx_OS_BD:249},
+        ],
+      },
+      liftChartCabMax:{
+        note:'Cab, steel tracks, extra counterweight (250kg), operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*792',r2m_OF_BU:'*792',r2m_OS_BD:647, r3m_OF_BD:'*848',r3m_OF_BU:573,r3m_OS_BD:464,maxRm:3.67,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:2.0,r2m_OF_BD:'*998',r2m_OF_BU:773,  r2m_OS_BD:620, r3m_OF_BD:'*864',r3m_OF_BU:461,r3m_OS_BD:372,maxRm:4.16,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1352',r2m_OF_BU:725,  r2m_OS_BD:576, r3m_OF_BD:'*903',r3m_OF_BU:429,r3m_OS_BD:345,maxRm:4.29,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1280',r2m_OF_BU:'*1280',r2m_OS_BD:990,r3m_OF_BD:'*1522',r3m_OF_BU:697,r3m_OS_BD:549,maxRm:4.11,mx_OF_BD:'*955',mx_OF_BU:449,mx_OS_BD:360},
+        ],
+        longStick:[
+          {heightM:3.0,r2m_OF_BD:null,r2m_OF_BU:null,r2m_OS_BD:null,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,maxRm:3.99,mx_OF_BD:'*741',mx_OF_BU:495,mx_OS_BD:399},
+          {heightM:2.0,r2m_OF_BD:'*839',r2m_OF_BU:776,r2m_OS_BD:622,r3m_OF_BD:'*767',r3m_OF_BU:408,r3m_OS_BD:328,maxRm:4.43,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1227',r2m_OF_BU:721,r2m_OS_BD:571,r3m_OF_BD:'*808',r3m_OF_BU:381,r3m_OS_BD:304,maxRm:4.55,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1277',r2m_OF_BU:'*1277',r2m_OS_BD:962,r3m_OF_BD:'*1480',r3m_OF_BU:683,r3m_OS_BD:535,maxRm:4.39,mx_OF_BD:'*862',mx_OF_BU:395,mx_OS_BD:314},
+        ],
+      },
+      liftChartCanopyMin:{
+        note:'Canopy, rubber tracks, no extra counterweight, operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*792',r2m_OF_BU:603, r2m_OS_BD:526, r3m_OF_BD:'*848',r3m_OF_BU:420,r3m_OS_BD:368,maxRm:3.67,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:2.0,r2m_OF_BD:'*998',r2m_OF_BU:574, r2m_OS_BD:498, r3m_OF_BD:'*864',r3m_OF_BU:331,r3m_OS_BD:289,maxRm:4.16,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1352',r2m_OF_BU:526,r2m_OS_BD:453, r3m_OF_BD:'*903',r3m_OF_BU:304,r3m_OS_BD:264,maxRm:4.29,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1280',r2m_OF_BU:952,r2m_OS_BD:784, r3m_OF_BD:'*1522',r3m_OF_BU:498,r3m_OS_BD:426,maxRm:4.11,mx_OF_BD:'*955',mx_OF_BU:317,mx_OS_BD:275},
+        ],
+        longStick:[
+          {heightM:3.0,r2m_OF_BD:null,r2m_OF_BU:null,r2m_OS_BD:null,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,maxRm:3.99,mx_OF_BD:'*741',mx_OF_BU:357,mx_OS_BD:312},
+          {heightM:2.0,r2m_OF_BD:'*839',r2m_OF_BU:576, r2m_OS_BD:500, r3m_OF_BD:'*767',r3m_OF_BU:288,r3m_OS_BD:250,maxRm:4.43,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1227',r2m_OF_BU:522,r2m_OS_BD:448, r3m_OF_BD:'*808',r3m_OF_BU:264,r3m_OS_BD:228,maxRm:4.55,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1277',r2m_OF_BU:923,r2m_OS_BD:756, r3m_OF_BD:'*1480',r3m_OF_BU:483,r3m_OS_BD:411,maxRm:4.39,mx_OF_BD:'*862',mx_OF_BU:273,mx_OS_BD:235},
+        ],
+      },
+      liftChartCanopyMax:{
+        note:'Canopy, steel tracks, extra counterweight (250kg), operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*792',r2m_OF_BU:774, r2m_OS_BD:627, r3m_OF_BD:'*848',r3m_OF_BU:552,r3m_OS_BD:449,maxRm:3.67,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:2.0,r2m_OF_BD:'*998',r2m_OF_BU:746, r2m_OS_BD:600, r3m_OF_BD:'*864',r3m_OF_BU:443,r3m_OS_BD:359,maxRm:4.16,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1352',r2m_OF_BU:698,r2m_OS_BD:555, r3m_OF_BD:'*903',r3m_OF_BU:412,r3m_OS_BD:332,maxRm:4.29,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1280',r2m_OF_BU:1269,r2m_OS_BD:954,r3m_OF_BD:'*1522',r3m_OF_BU:670,r3m_OS_BD:529,maxRm:4.11,mx_OF_BD:'*955',mx_OF_BU:431,mx_OS_BD:346},
+        ],
+        longStick:[
+          {heightM:3.0,r2m_OF_BD:null,r2m_OF_BU:null,r2m_OS_BD:null,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,maxRm:3.99,mx_OF_BD:'*741',mx_OF_BU:476,mx_OS_BD:385},
+          {heightM:2.0,r2m_OF_BD:'*839',r2m_OF_BU:748,r2m_OS_BD:601,r3m_OF_BD:'*767',r3m_OF_BU:391,r3m_OS_BD:315,maxRm:4.43,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1227',r2m_OF_BU:694,r2m_OS_BD:550,r3m_OF_BD:'*808',r3m_OF_BU:365,r3m_OS_BD:292,maxRm:4.55,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1280',r2m_OF_BU:1240,r2m_OS_BD:927,r3m_OF_BD:'*1480',r3m_OF_BU:655,r3m_OS_BD:514,maxRm:4.39,mx_OF_BD:'*862',mx_OF_BU:378,mx_OS_BD:301},
+        ],
+      },
+      get liftChartMax(){return this.liftChartCabMax;},
+      get liftChartMin(){return this.liftChartCabMin;},
+      brochureRef:'AEHQ8350-04 (09-2025)',
+      tags:['midi','commercial','trench','civil light','cab available','fixed undercarriage','turbo','3t class'],
+      note:'Cat 303 CR Mini Excavator — 3.0t–3.5t. C1.1 Turbo, 17.6kW. Fixed undercarriage 1,550mm. Tail swing 775mm without CW (845/890mm with CW). Dig depth 2.65m std / 2.95m long stick. Max reach 4.98m. Dump clearance 3.17m. Cab + A/C available. 45L fuel tank. Source: Cat Brochure AEHQ8350-04 (09-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 303.5 CR — FULLY BROCHURE-SPECIFIED ─────────────────────
+    // Source: Cat 303.5 CR Mini Excavator Brochure AEHQ8351-04 (09-2025)
+    // KEY: C1.7 NA (naturally aspirated, NOT turbo), rated at 2,200 rpm, 1.7L displacement
+    // Fixed undercarriage 1,780mm. Optional ANGLE BLADE for finished grading.
+    {
+      id:'cat-3035cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 303.5 CR Mini Excavator', shortName:'Cat 303.5 CR',
+      weightClass:'midi',
+      engineModel:'Cat C1.7 NA', engineNetKW:17.6, engineNetHP:23.6,
+      engineISO14396KW:18.4, engineRatedRPM:2200,
+      engineDisplacementL:1.7, engineBoreMm:84.0, engineStrokeMm:100.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:3480, operatingWeightMaxKg:4050,
+      operatingWeightMinCabKg:3620, operatingWeightMaxCabKg:4190,
+      operatingWeightT:4.050,
+      weightIncCabKg:140, weightIncCWLightKg:100, weightIncCWExtraKg:250,
+      weightIncLongStickKg:20, weightIncSteelTracksKg:130,
+      weightIncAngleBlade:160, cabAvailable:true, angleBlade:true,
+      travelSpeedHighKmh:4.5, travelSpeedLowKmh:2.6,
+      tractionForceHighKN:16.9, tractionForceLowKN:31.0,
+      groundPressureMinKPa:29.6, groundPressureMaxKPa:35.7,
+      gradeabilityDeg:30,
+      pumpFlowLpm:100, workingPressureBar:245, swingPressureBar:181,
+      digForceStickStdKN:18.9, digForceStickLongKN:16.9, digForceBucketKN:33.0,
+      swingSpeedRpm:9.0, auxFlowPrimaryLpm:70, auxFlowSecondaryLpm:25,
+      bladeWidthMm:1780, bladeHeightMm:350,
+      bladeDepthMaxMm:535, bladeHeightMaxMm:385,
+      transportLengthStdMm:4800, transportLengthLongMm:4850,
+      transportHeightMm:2480, undercarriageLengthMm:2220,
+      tailSwingMm:890, tailSwingCWLightMm:960, tailSwingCWExtraMm:1005,
+      swingBearingHeightMm:565, groundClearanceMm:310,
+      trackShoeWidthMm:300, trackWidthMm:1780,
+      trackWidthRetractedMm:1780, trackWidthExpandedMm:1780,
+      fixedUndercarriage:true, boomLengthMm:2400,
+      digDepthM:2.81, digDepthMm:2810, verticalWallMm:2250,
+      maxReachGroundMm:5130, maxReachMm:5270,
+      maxDigHeightMm:4920, maxDumpClearanceMm:3490,
+      boomInReachMm:1760, stickLengthStdMm:1260,
+      boomSwingRightDeg:50, boomSwingLeftDeg:75,
+      boomSwingRightOffsetMm:870, boomSwingLeftOffsetMm:640,
+      longStickDigDepthMm:3110, longStickVerticalWallMm:2390,
+      longStickMaxReachGroundMm:5380, longStickMaxReachMm:5510,
+      longStickMaxDigHeightMm:5020, longStickDumpClearanceMm:3600,
+      stickLengthLongMm:1560,
+      fuelTankL:45.0, hydraulicTankL:20.0, hydraulicSystemL:45.0,
+      engineOilL:6.0, coolingSystemL:7.0,
+      operatorSoundPressureDBA:78, exteriorSoundPowerDBA:94,
+      liftChartCabMin:{
+        note:'Cab, rubber tracks, no extra counterweight, operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*917',r2m_OF_BU:'*917',r2m_OS_BD:904, r3m_OF_BD:'*835',r3m_OF_BU:583,r3m_OS_BD:575,maxRm:3.95,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:2.0,r2m_OF_BD:'*1176',r2m_OF_BU:888,r2m_OS_BD:867,r3m_OF_BD:'*809',r3m_OF_BU:483,r3m_OS_BD:478,maxRm:4.41,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1547',r2m_OF_BU:833,r2m_OS_BD:813,r3m_OF_BD:'*860',r3m_OF_BU:454,r3m_OS_BD:449,maxRm:4.54,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1676',r2m_OF_BU:805,r2m_OS_BD:786, r3m_OF_BD:'*947',r3m_OF_BU:472,r3m_OS_BD:466,maxRm:4.39,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+        ],
+        longStick:[
+          {heightM:3.0,r2m_OF_BD:null,r2m_OF_BU:null,r2m_OS_BD:null,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,maxRm:4.26,mx_OF_BD:'*758',mx_OF_BU:514,mx_OS_BD:507},
+          {heightM:2.0,r2m_OF_BD:'*1033',r2m_OF_BU:892,r2m_OS_BD:870,r3m_OF_BD:'*750',r3m_OF_BU:435,r3m_OS_BD:430,maxRm:4.67,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1462',r2m_OF_BU:831,r2m_OS_BD:811,r3m_OF_BD:'*805',r3m_OF_BU:410,r3m_OS_BD:406,maxRm:4.79,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1345',r2m_OF_BU:'*1345',r2m_OS_BD:'*1345',r3m_OF_BD:'*1696',r3m_OF_BU:793,r3m_OS_BD:774,maxRm:4.63,mx_OF_BD:'*907',mx_OF_BU:424,mx_OS_BD:420},
+        ],
+      },
+      liftChartCabMax:{
+        note:'Cab, steel tracks, extra counterweight (250kg), operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*917',r2m_OF_BU:'*917',r2m_OS_BD:'*917',r3m_OF_BD:'*835',r3m_OF_BU:720,r3m_OS_BD:663,maxRm:3.95,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:2.0,r2m_OF_BD:'*1176',r2m_OF_BU:1086,r2m_OS_BD:988,r3m_OF_BD:'*809',r3m_OF_BU:602,r3m_OS_BD:556,maxRm:4.41,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1547',r2m_OF_BU:1031,r2m_OS_BD:936,r3m_OF_BD:'*860',r3m_OF_BU:568,r3m_OS_BD:524,maxRm:4.54,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1676',r2m_OF_BU:1003,r2m_OS_BD:909,r3m_OF_BD:'*947',r3m_OF_BU:591,r3m_OS_BD:545,maxRm:4.39,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+        ],
+        longStick:[
+          {heightM:3.0,r2m_OF_BD:null,r2m_OF_BU:null,r2m_OS_BD:null,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,maxRm:4.26,mx_OF_BD:'*758',mx_OF_BU:638,mx_OS_BD:588},
+          {heightM:2.0,r2m_OF_BD:'*1033',r2m_OF_BU:'*1033',r2m_OS_BD:992,r3m_OF_BD:'*750',r3m_OF_BU:546,r3m_OS_BD:504,maxRm:4.67,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.0,r2m_OF_BD:'*1462',r2m_OF_BU:1029,r2m_OS_BD:933,r3m_OF_BD:'*805',r3m_OF_BU:518,r3m_OS_BD:477,maxRm:4.79,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r2m_OF_BD:'*1345',r2m_OF_BU:'*1345',r2m_OS_BD:'*1345',r3m_OF_BD:'*1696',r3m_OF_BU:991,r3m_OS_BD:897,maxRm:4.63,mx_OF_BD:'*907',mx_OF_BU:536,mx_OS_BD:494},
+        ],
+      },
+      liftChartCanopyMin:{
+        note:'Canopy, rubber tracks, no extra counterweight, operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*917',r2m_OF_BU:884,r2m_OS_BD:866,r3m_OF_BD:'*835',r3m_OF_BU:555,r3m_OS_BD:549,maxRm:3.95},
+          {heightM:2.0,r2m_OF_BD:'*1176',r2m_OF_BU:846,r2m_OS_BD:829,r3m_OF_BD:'*809',r3m_OF_BU:458,r3m_OS_BD:455,maxRm:4.41},
+          {heightM:1.0,r2m_OF_BD:'*1547',r2m_OF_BU:791,r2m_OS_BD:776,r3m_OF_BD:'*860',r3m_OF_BU:429,r3m_OS_BD:427,maxRm:4.54},
+          {heightM:0,  r2m_OF_BD:'*1676',r2m_OF_BU:763,r2m_OS_BD:749,r3m_OF_BD:'*947',r3m_OF_BU:446,r3m_OS_BD:443,maxRm:4.39},
+        ],
+        longStick:[
+          {heightM:3.0,maxRm:4.26,mx_OF_BD:'*764',mx_OF_BU:490,mx_OS_BD:485},
+          {heightM:2.0,r2m_OF_BD:'*1034',r2m_OF_BU:851,r2m_OS_BD:834,r3m_OF_BD:'*755',r3m_OF_BU:413,r3m_OS_BD:411,maxRm:4.67},
+          {heightM:1.0,r2m_OF_BD:'*1461',r2m_OF_BU:788,r2m_OS_BD:772,r3m_OF_BD:'*809',r3m_OF_BU:389,r3m_OS_BD:387,maxRm:4.79},
+          {heightM:0,  r2m_OF_BD:'*1351',r2m_OF_BU:'*1351',r2m_OS_BD:'*1351',r3m_OF_BD:'*1694',r3m_OF_BU:749,r3m_OS_BD:735,maxRm:4.63,mx_OF_BD:'*908',mx_OF_BU:402,mx_OS_BD:399},
+        ],
+      },
+      liftChartCanopyMax:{
+        note:'Canopy, steel tracks, extra counterweight (250kg), operator, full fuel, blade.',
+        stdStick:[
+          {heightM:3.0,r2m_OF_BD:'*917',r2m_OF_BU:'*917',r2m_OS_BD:'*917',r3m_OF_BD:'*835',r3m_OF_BU:691,r3m_OS_BD:639,maxRm:3.95},
+          {heightM:2.0,r2m_OF_BD:'*1176',r2m_OF_BU:1044,r2m_OS_BD:953,r3m_OF_BD:'*809',r3m_OF_BU:577,r3m_OS_BD:534,maxRm:4.41},
+          {heightM:1.0,r2m_OF_BD:'*1547',r2m_OF_BU:989, r2m_OS_BD:901,r3m_OF_BD:'*860',r3m_OF_BU:544,r3m_OS_BD:504,maxRm:4.54},
+          {heightM:0,  r2m_OF_BD:'*1676',r2m_OF_BU:961, r2m_OS_BD:874,r3m_OF_BD:'*947',r3m_OF_BU:566,r3m_OS_BD:523,maxRm:4.39},
+        ],
+        longStick:[
+          {heightM:3.0,maxRm:4.26,mx_OF_BD:'*758',mx_OF_BU:612,mx_OS_BD:566},
+          {heightM:2.0,r2m_OF_BD:'*1033',r2m_OF_BU:'*1033',r2m_OS_BD:956,r3m_OF_BD:'*750',r3m_OF_BU:523,r3m_OS_BD:483,maxRm:4.67},
+          {heightM:1.0,r2m_OF_BD:'*1462',r2m_OF_BU:987, r2m_OS_BD:898,r3m_OF_BD:'*805',r3m_OF_BU:495,r3m_OS_BD:458,maxRm:4.79},
+          {heightM:0,  r2m_OF_BD:'*1345',r2m_OF_BU:'*1345',r2m_OS_BD:'*1345',r3m_OF_BD:'*1696',r3m_OF_BU:949,r3m_OS_BD:862,maxRm:4.63,mx_OF_BD:'*907',mx_OF_BU:513,mx_OS_BD:473},
+        ],
+      },
+      get liftChartMax(){return this.liftChartCabMax;},
+      get liftChartMin(){return this.liftChartCabMin;},
+      brochureRef:'AEHQ8351-04 (09-2025)',
+      tags:['midi','commercial','civil','trench','cab available','fixed undercarriage','angle blade','3.5t class'],
+      note:'Cat 303.5 CR Mini Excavator — 3.5t–4.2t. C1.7 NA engine (1.7L, naturally aspirated, 17.6kW). Fixed undercarriage 1,780mm. Tail swing 890mm–1,005mm depending on counterweight. Dig depth 2.81m std / 3.11m long stick. Max reach 5.27m. Dump clearance 3.49m. Optional angle blade for finished grading. Cab + A/C available. Grade control (2D/3D) available. Source: Cat Brochure AEHQ8351-04 (09-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 304 — FULLY BROCHURE-SPECIFIED ──────────────────────────
+    // Source: Cat 304 Mini Excavator Brochure AEHQ8377-04 (09-2025)
+    // North America, Europe, Australia/New Zealand edition.
+    // KEY: C1.7 TURBO — 33.6kW/45hp (biggest power jump in this series).
+    // Fixed undercarriage 1,700mm. Lift chart uses 3m/4.5m/max radii (different from smaller machines).
+    {
+      id:'cat-304', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 304 Mini Excavator', shortName:'Cat 304',
+      weightClass:'midi',
+      engineModel:'Cat C1.7 Turbo', engineNetKW:33.6, engineNetHP:45.0,
+      engineISO14396KW:36.1, engineRatedRPM:2400,
+      engineDisplacementL:1.662, engineBoreMm:84.0, engineStrokeMm:100.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:3925, operatingWeightMaxKg:4375,
+      operatingWeightMinCabKg:4025, operatingWeightMaxCabKg:4475,
+      operatingWeightT:4.375,
+      weightIncCWKg:225, weightIncLongStickKg:30, weightIncSteelTracksKg:195,
+      weightIncAngleBlade:110, cabAvailable:true, angleBlade:true,
+      travelSpeedHighKmh:5.2, travelSpeedLowKmh:3.5,
+      tractionForceHighKN:19.0, tractionForceLowKN:32.6,
+      groundPressureMinKPa:28.7, groundPressureMaxKPa:33.8,
+      gradeabilityDeg:30,
+      pumpFlowLpm:96, workingPressureBar:245, swingPressureBar:180,
+      digForceStickStdKN:21.0, digForceStickLongKN:19.2, digForceBucketKN:38.2,
+      swingSpeedRpm:9.0, auxFlowPrimaryLpm:65, auxFlowSecondaryLpm:28,
+      bladeWidthMm:1700, bladeHeightMm:360,
+      bladeDepthMaxMm:475, bladeHeightMaxMm:420,
+      transportLengthStdMm:4950, transportLengthLongMm:4950,
+      transportHeightMm:2540, undercarriageLengthMm:2210,
+      tailSwingMm:1205, tailSwingCWMm:1300,
+      swingBearingHeightMm:557, groundClearanceMm:305,
+      trackShoeWidthMm:350, trackWidthMm:1700,
+      trackWidthRetractedMm:1700, trackWidthExpandedMm:1700,
+      fixedUndercarriage:true, boomLengthMm:2500,
+      digDepthM:3.21, digDepthMm:3210, verticalWallMm:2395,
+      maxReachGroundMm:5200, maxReachMm:5330,
+      maxDigHeightMm:5040, maxDumpClearanceMm:3645,
+      boomInReachMm:2255, stickLengthStdMm:1395,
+      boomSwingRightDeg:50, boomSwingLeftDeg:78,
+      boomSwingRightOffsetMm:730, boomSwingLeftOffsetMm:530,
+      longStickDigDepthMm:3510, longStickVerticalWallMm:2535,
+      longStickMaxReachGroundMm:5445, longStickMaxReachMm:5570,
+      longStickMaxDigHeightMm:5125, longStickDumpClearanceMm:3740,
+      stickLengthLongMm:1695,
+      fuelTankL:64.0, hydraulicTankL:52.0, hydraulicSystemL:65.0,
+      engineOilL:6.0, coolingSystemL:11.0,
+      operatorSoundPressureDBA:76, exteriorSoundPowerDBA:97,
+      // Lift charts use 3m / 4.5m / max radii (larger machine)
+      liftChartCabMin:{
+        note:'Cab, rubber tracks, no counterweight, operator, full fuel, straight blade.',
+        stdStick:[
+          {heightM:3.0, r3m_OF_BD:'*941', r3m_OF_BU:'*941',r3m_OS_BD:'*941', r4p5m_OF_BD:'*698',r4p5m_OF_BU:'*698',r4p5m_OS_BD:'*698',maxRm:4.09,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.5, r3m_OF_BD:'*1522',r3m_OF_BU:1213, r3m_OS_BD:1031,  r4p5m_OF_BD:'*1040',r4p5m_OF_BU:662,r4p5m_OS_BD:573,maxRm:4.59,mx_OF_BD:'*698',mx_OF_BU:'*698',mx_OS_BD:555},
+          {heightM:0,   r3m_OF_BD:'*2006',r3m_OF_BU:1148, r3m_OS_BD:969,   r4p5m_OF_BD:'*846', r4p5m_OF_BU:656,r4p5m_OS_BD:566,maxRm:4.46,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+        ],
+        longStick:[
+          {heightM:3.0, r3m_OF_BD:null,  r3m_OF_BU:null,  r3m_OS_BD:null,   r4p5m_OF_BD:null,   r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:4.37,mx_OF_BD:'*699',mx_OF_BU:'*699',mx_OS_BD:'*699'},
+          {heightM:1.5, r3m_OF_BD:'*1333',r3m_OF_BU:'*1333',r3m_OS_BD:1029, r4p5m_OF_BD:'*1008',r4p5m_OF_BU:652,r4p5m_OS_BD:562,maxRm:4.84,mx_OF_BD:'*711',mx_OF_BU:582,mx_OS_BD:502},
+          {heightM:0,   r3m_OF_BD:'*1933',r3m_OF_BU:1128, r3m_OS_BD:950,   r4p5m_OF_BD:'*1142',r4p5m_OF_BU:630,r4p5m_OS_BD:541,maxRm:4.71,mx_OF_BD:'*861',mx_OF_BU:591,mx_OS_BD:508},
+        ],
+      },
+      liftChartCabMax:{
+        note:'Cab, steel tracks, counterweight (225kg), operator, full fuel, angle blade.',
+        stdStick:[
+          {heightM:3.0, r3m_OF_BD:'*941', r3m_OF_BU:'*941',r3m_OS_BD:'*941', r4p5m_OF_BD:'*698',r4p5m_OF_BU:'*698',r4p5m_OS_BD:'*698',maxRm:4.09},
+          {heightM:1.5, r3m_OF_BD:'*1522',r3m_OF_BU:'*1522',r3m_OS_BD:1266, r4p5m_OF_BD:'*1040',r4p5m_OF_BU:780,r4p5m_OS_BD:714,maxRm:4.59,mx_OF_BD:'*698',mx_OF_BU:'*698',mx_OS_BD:'*698'},
+          {heightM:0,   r3m_OF_BD:'*2006',r3m_OF_BU:1349, r3m_OS_BD:1204,  r4p5m_OF_BD:'*846', r4p5m_OF_BU:'*846',r4p5m_OS_BD:709,maxRm:4.46},
+        ],
+        longStick:[
+          {heightM:3.0, maxRm:4.37,mx_OF_BD:'*699',mx_OF_BU:'*699',mx_OS_BD:'*699'},
+          {heightM:1.5, r3m_OF_BD:'*1333',r3m_OF_BU:'*1333',r3m_OS_BD:'*1333',r4p5m_OF_BD:'*1008',r4p5m_OF_BU:769,r4p5m_OS_BD:703,maxRm:4.84,mx_OF_BD:'*711',mx_OF_BU:'*711',mx_OS_BD:'*711'},
+          {heightM:0,   r3m_OF_BD:'*1933',r3m_OF_BU:1329, r3m_OS_BD:1185,  r4p5m_OF_BD:'*1142',r4p5m_OF_BU:748,r4p5m_OS_BD:682,maxRm:4.71,mx_OF_BD:'*861',mx_OF_BU:702,mx_OS_BD:641},
+        ],
+      },
+      liftChartCanopyMin:{
+        note:'Canopy, rubber tracks, no counterweight, operator, full fuel, straight blade.',
+        stdStick:[
+          {heightM:3.0, r3m_OF_BD:'*941',r3m_OF_BU:'*941',r3m_OS_BD:'*941',r4p5m_OF_BD:'*698',r4p5m_OF_BU:'*698',r4p5m_OS_BD:'*698',maxRm:4.09},
+          {heightM:1.5, r3m_OF_BD:'*1522',r3m_OF_BU:1176,r3m_OS_BD:1000,r4p5m_OF_BD:'*1040',r4p5m_OF_BU:640,r4p5m_OS_BD:555,maxRm:4.59,mx_OF_BD:'*698',mx_OF_BU:'*698',mx_OS_BD:537},
+          {heightM:0,   r3m_OF_BD:'*2006',r3m_OF_BU:1111,r3m_OS_BD:939, r4p5m_OF_BD:'*846',r4p5m_OF_BU:634,r4p5m_OS_BD:548,maxRm:4.46},
+        ],
+        longStick:[
+          {heightM:3.0, maxRm:4.37,mx_OF_BD:'*699',mx_OF_BU:'*699',mx_OS_BD:585},
+          {heightM:1.5, r3m_OF_BD:'*1333',r3m_OF_BU:'*1333',r3m_OS_BD:999,r4p5m_OF_BD:'*1008',r4p5m_OF_BU:630,r4p5m_OS_BD:544,maxRm:4.84,mx_OF_BD:'*711',mx_OF_BU:562,mx_OS_BD:485},
+          {heightM:0,   r3m_OF_BD:'*1933',r3m_OF_BU:1091,r3m_OS_BD:919,r4p5m_OF_BD:'*1142',r4p5m_OF_BU:608,r4p5m_OS_BD:523,maxRm:4.71,mx_OF_BD:'*861',mx_OF_BU:570,mx_OS_BD:490},
+        ],
+      },
+      liftChartCanopyMax:{
+        note:'Canopy, steel tracks, counterweight (225kg), operator, full fuel, angle blade.',
+        stdStick:[
+          {heightM:3.0, r3m_OF_BD:'*941',r3m_OF_BU:'*941',r3m_OS_BD:'*941',r4p5m_OF_BD:'*698',r4p5m_OF_BU:'*698',r4p5m_OS_BD:'*698',maxRm:4.09},
+          {heightM:1.5, r3m_OF_BD:'*1522',r3m_OF_BU:'*1522',r3m_OS_BD:1235,r4p5m_OF_BD:'*1040',r4p5m_OF_BU:758,r4p5m_OS_BD:696,maxRm:4.59,mx_OF_BD:'*698',mx_OF_BU:'*698',mx_OS_BD:'*698'},
+          {heightM:0,   r3m_OF_BD:'*2006',r3m_OF_BU:1312,r3m_OS_BD:1174,r4p5m_OF_BD:'*846',r4p5m_OF_BU:'*846',r4p5m_OS_BD:691,maxRm:4.46},
+        ],
+        longStick:[
+          {heightM:3.0, maxRm:4.37,mx_OF_BD:'*699',mx_OF_BU:'*699',mx_OS_BD:'*699'},
+          {heightM:1.5, r3m_OF_BD:'*1333',r3m_OF_BU:'*1333',r3m_OS_BD:'*1333',r4p5m_OF_BD:'*1008',r4p5m_OF_BU:748,r4p5m_OS_BD:685,maxRm:4.84,mx_OF_BD:'*711',mx_OF_BU:'*711',mx_OS_BD:'*711'},
+          {heightM:0,   r3m_OF_BD:'*1933',r3m_OF_BU:1292,r3m_OS_BD:1154,r4p5m_OF_BD:'*1142',r4p5m_OF_BU:726,r4p5m_OS_BD:664,maxRm:4.71,mx_OF_BD:'*861',mx_OF_BU:681,mx_OS_BD:624},
+        ],
+      },
+      get liftChartMax(){return this.liftChartCabMax;},
+      get liftChartMin(){return this.liftChartCabMin;},
+      brochureRef:'AEHQ8377-04 (09-2025)',
+      tags:['midi','commercial','civil','trench','cab available','fixed undercarriage','turbo','angle blade','4t class'],
+      note:'Cat 304 Mini Excavator — 3.9t–4.5t. C1.7 Turbo, 33.6kW/45hp — significant power step up from 303-series. Fixed undercarriage 1,700mm wide. Tail swing 1,205mm (no CW) / 1,300mm (with 225kg CW). Dig depth 3.21m std / 3.51m long. Max reach 5.33m. Dump clearance 3.65m. 64L fuel tank for full-day site work. Angle blade option for finished grading and backfilling. Grade control (2D/3D) available. Confirmed for Australia/NZ market. Source: Cat Brochure AEHQ8377-04 (09-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 305 CR — FULLY BROCHURE-SPECIFIED ───────────────────────
+    // Source: Cat 305 CR Mini Excavator Brochure AEHQ8394-05 (09-2025)
+    // Europe, Turkey, Australia/New Zealand. Confirmed for AU market.
+    {
+      id:'cat-305cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 305 CR Mini Excavator', shortName:'Cat 305 CR',
+      weightClass:'midi',
+      engineModel:'Cat C1.7 Turbo', engineNetKW:33.6, engineNetHP:45.0,
+      engineISO14396KW:36.1, engineRatedRPM:2400,
+      engineDisplacementL:1.662, engineBoreMm:84.0, engineStrokeMm:100.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:5006, operatingWeightMaxKg:5665,
+      operatingWeightMinCabKg:5105, operatingWeightMaxCabKg:5764,
+      operatingWeightT:5.665,
+      weightIncCWKg:242, weightIncLongStickKg:34,
+      weightIncSteelTracksPadsKg:375, weightIncAngleBlade:92,
+      cabAvailable:true, angleBlade:true,
+      travelSpeedHighKmh:5.0, travelSpeedLowKmh:2.8,
+      tractionForceHighKN:24.7, tractionForceLowKN:50.5,
+      groundPressureMinKPa:27.3, groundPressureMaxKPa:32.2,
+      gradeabilityDeg:30,
+      pumpFlowLpm:133, workingPressureBar:265, swingPressureBar:200,
+      digForceStickStdKN:28.3, digForceStickLongKN:25.2, digForceBucketKN:49.2,
+      swingSpeedRpm:9.0, auxFlowPrimaryLpm:80, auxFlowSecondaryLpm:28,
+      bladeWidthMm:1980, bladeHeightMm:390, bladeDepthMaxMm:650, bladeHeightMaxMm:400,
+      transportLengthStdMm:5305, transportLengthLongMm:5340,
+      transportHeightMm:2550, undercarriageLengthMm:2580,
+      tailSwingMm:1095, tailSwingCWMm:1200,
+      swingBearingHeightMm:619, groundClearanceMm:335,
+      trackShoeWidthMm:400, trackWidthMm:1980,
+      trackWidthRetractedMm:1980, trackWidthExpandedMm:1980,
+      fixedUndercarriage:true, boomLengthMm:2716,
+      digDepthM:3.42, digDepthMm:3420, verticalWallMm:2335,
+      maxReachGroundMm:5590, maxReachMm:5755,
+      maxDigHeightMm:5215, maxDumpClearanceMm:3700,
+      boomInReachMm:2570, stickLengthStdMm:1351,
+      boomSwingRightDeg:50, boomSwingLeftDeg:72, // 72° left — narrower than 303/304
+      boomSwingRightOffsetMm:865, boomSwingLeftOffsetMm:615,
+      longStickDigDepthMm:3670, longStickVerticalWallMm:2560,
+      longStickMaxReachGroundMm:5835, longStickMaxReachMm:5990,
+      longStickMaxDigHeightMm:5355, longStickDumpClearanceMm:3845,
+      stickLengthLongMm:1601,
+      fuelTankL:68.0, hydraulicTankL:60.0, hydraulicSystemL:75.0,
+      engineOilL:6.0, coolingSystemL:11.0,
+      operatorSoundPressureDBA:76, exteriorSoundPowerDBA:97,
+      liftChartCabMin:{
+        note:'Cab, rubber tracks, no counterweight, operator, full fuel, straight blade.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:null,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:3.0,r3m_OF_BD:'*1206',r3m_OF_BU:908, r3m_OS_BD:721, r4p5m_OF_BD:'*953',r4p5m_OF_BU:'*953',r4p5m_OS_BD:707, maxRm:4.55,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.5,r3m_OF_BD:'*2587',r3m_OF_BU:1641,r3m_OS_BD:1257,r4p5m_OF_BD:'*1615',r4p5m_OF_BU:882,r4p5m_OS_BD:696, maxRm:4.96,mx_OF_BD:'*975',mx_OF_BU:759,mx_OS_BD:599},
+          {heightM:0,  r3m_OF_BD:'*3260',r3m_OF_BU:1559,r3m_OS_BD:1183,r4p5m_OF_BD:'*1825',r4p5m_OF_BU:855,r4p5m_OS_BD:670, maxRm:4.77,mx_OF_BD:'*1190',mx_OF_BU:787,mx_OS_BD:619},
+        ],
+        longStick:[
+          {heightM:4.5,maxRm:3.63,mx_OF_BD:'*949',mx_OF_BU:'*949',mx_OS_BD:'*949'},
+          {heightM:3.0,r3m_OF_BD:'*1249',r3m_OF_BU:903,r3m_OS_BD:714,r4p5m_OF_BD:'*778',r4p5m_OF_BU:'*778',r4p5m_OS_BD:634,maxRm:4.81,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.5,r3m_OF_BD:'*2236',r3m_OF_BU:1641,r3m_OS_BD:1255,r4p5m_OF_BD:'*1508',r4p5m_OF_BU:868,r4p5m_OS_BD:682,maxRm:5.19,mx_OF_BD:'*794',mx_OF_BU:'*794',mx_OS_BD:541},
+          {heightM:0,  r3m_OF_BD:'*3193',r3m_OF_BU:1534,r3m_OS_BD:1158,r4p5m_OF_BD:'*1781',r4p5m_OF_BU:833,r4p5m_OS_BD:648,maxRm:5.02,mx_OF_BD:'*953',mx_OF_BU:711,mx_OS_BD:555},
+        ],
+      },
+      liftChartCabMax:{
+        note:'Cab, steel tracks with pads, counterweight (242kg), operator, full fuel, angle blade.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:null},
+          {heightM:3.0,r3m_OF_BD:'*1206',r3m_OF_BU:'*1206',r3m_OS_BD:911,r4p5m_OF_BD:'*953',r4p5m_OF_BU:'*953',r4p5m_OS_BD:'*953',maxRm:4.55},
+          {heightM:1.5,r3m_OF_BD:'*2587',r3m_OF_BU:1953,r3m_OS_BD:1579,r4p5m_OF_BD:'*1615',r4p5m_OF_BU:1059,r4p5m_OS_BD:886,maxRm:4.96,mx_OF_BD:'*975',mx_OF_BU:'*975',mx_OS_BD:768},
+          {heightM:0,  r3m_OF_BD:'*3260',r3m_OF_BU:1871,r3m_OS_BD:1505,r4p5m_OF_BD:'*1825',r4p5m_OF_BU:1032,r4p5m_OS_BD:860,maxRm:4.77,mx_OF_BD:'*1190',mx_OF_BU:951,mx_OS_BD:795},
+        ],
+        longStick:[
+          {heightM:4.5,maxRm:3.63,mx_OF_BD:'*949',mx_OF_BU:'*949',mx_OS_BD:'*949'},
+          {heightM:3.0,r3m_OF_BD:'*1249',r3m_OF_BU:'*1249',r3m_OS_BD:904,r4p5m_OF_BD:'*778',r4p5m_OF_BU:'*778',r4p5m_OS_BD:'*778',maxRm:4.81},
+          {heightM:1.5,r3m_OF_BD:'*2236',r3m_OF_BU:1953,r3m_OS_BD:1577,r4p5m_OF_BD:'*1508',r4p5m_OF_BU:1045,r4p5m_OS_BD:872,maxRm:5.19,mx_OF_BD:'*794',mx_OF_BU:'*794',mx_OS_BD:'*794'},
+          {heightM:0,  r3m_OF_BD:'*3193',r3m_OF_BU:1847,r3m_OS_BD:1480,r4p5m_OF_BD:'*1781',r4p5m_OF_BU:1010,r4p5m_OS_BD:838,maxRm:5.02,mx_OF_BD:'*953',mx_OF_BU:'*953',mx_OS_BD:721},
+        ],
+      },
+      liftChartCanopyMin:{
+        note:'Canopy, rubber tracks, no counterweight, operator, full fuel, straight blade.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:null},
+          {heightM:3.0,r3m_OF_BD:'*1206',r3m_OF_BU:887,r3m_OS_BD:705,r4p5m_OF_BD:'*953',r4p5m_OF_BU:'*953',r4p5m_OS_BD:691,maxRm:4.55},
+          {heightM:1.5,r3m_OF_BD:'*2587',r3m_OF_BU:1603,r3m_OS_BD:1230,r4p5m_OF_BD:'*1615',r4p5m_OF_BU:861,r4p5m_OS_BD:680,maxRm:4.96,mx_OF_BD:'*975',mx_OF_BU:740,mx_OS_BD:585},
+          {heightM:0,  r3m_OF_BD:'*3260',r3m_OF_BU:1521,r3m_OS_BD:1155,r4p5m_OF_BD:'*1825',r4p5m_OF_BU:833,r4p5m_OS_BD:654,maxRm:4.77,mx_OF_BD:'*1190',mx_OF_BU:767,mx_OS_BD:603},
+        ],
+        longStick:[
+          {heightM:4.5,maxRm:3.63,mx_OF_BD:'*949',mx_OF_BU:'*949',mx_OS_BD:'*949'},
+          {heightM:3.0,r3m_OF_BD:'*1249',r3m_OF_BU:881,r3m_OS_BD:698,r4p5m_OF_BD:'*778',r4p5m_OF_BU:'*778',r4p5m_OS_BD:619,maxRm:4.81},
+          {heightM:1.5,r3m_OF_BD:'*2236',r3m_OF_BU:1603,r3m_OS_BD:1228,r4p5m_OF_BD:'*1508',r4p5m_OF_BU:847,r4p5m_OS_BD:665,maxRm:5.19,mx_OF_BD:'*794',mx_OF_BU:672,mx_OS_BD:528},
+          {heightM:0,  r3m_OF_BD:'*3193',r3m_OF_BU:1497,r3m_OS_BD:1131,r4p5m_OF_BD:'*1781',r4p5m_OF_BU:812,r4p5m_OS_BD:632,maxRm:5.02,mx_OF_BD:'*953',mx_OF_BU:692,mx_OS_BD:541},
+        ],
+      },
+      liftChartCanopyMax:{
+        note:'Canopy, steel tracks with pads, counterweight (242kg), operator, full fuel, angle blade.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:null},
+          {heightM:3.0,r3m_OF_BD:'*1206',r3m_OF_BU:'*1206',r3m_OS_BD:895,r4p5m_OF_BD:'*953',r4p5m_OF_BU:'*953',r4p5m_OS_BD:'*953',maxRm:4.55},
+          {heightM:1.5,r3m_OF_BD:'*2587',r3m_OF_BU:1915,r3m_OS_BD:1552,r4p5m_OF_BD:'*1615',r4p5m_OF_BU:1038,r4p5m_OS_BD:870,maxRm:4.96,mx_OF_BD:'*975',mx_OF_BU:'*975',mx_OS_BD:754},
+          {heightM:0,  r3m_OF_BD:'*3260',r3m_OF_BU:1833,r3m_OS_BD:1477,r4p5m_OF_BD:'*1825',r4p5m_OF_BU:1010,r4p5m_OS_BD:844,maxRm:4.77,mx_OF_BD:'*1190',mx_OF_BU:931,mx_OS_BD:780},
+        ],
+        longStick:[
+          {heightM:4.5,maxRm:3.63,mx_OF_BD:'*949',mx_OF_BU:'*949',mx_OS_BD:'*949'},
+          {heightM:3.0,r3m_OF_BD:'*1249',r3m_OF_BU:1059,r3m_OS_BD:888,r4p5m_OF_BD:'*778',r4p5m_OF_BU:'*778',r4p5m_OS_BD:'*778',maxRm:4.81},
+          {heightM:1.5,r3m_OF_BD:'*2236',r3m_OF_BU:1915,r3m_OS_BD:1550,r4p5m_OF_BD:'*1508',r4p5m_OF_BU:1024,r4p5m_OS_BD:855,maxRm:5.19,mx_OF_BD:'*794',mx_OF_BU:'*794',mx_OS_BD:'*794'},
+          {heightM:0,  r3m_OF_BD:'*3193',r3m_OF_BU:1809,r3m_OS_BD:1453,r4p5m_OF_BD:'*1781',r4p5m_OF_BU:989,r4p5m_OS_BD:822,maxRm:5.02,mx_OF_BD:'*953',mx_OF_BU:'*953',mx_OS_BD:707},
+        ],
+      },
+      get liftChartMax(){return this.liftChartCabMax;},
+      get liftChartMin(){return this.liftChartCabMin;},
+      brochureRef:'AEHQ8394-05 (09-2025)',
+      tags:['midi','commercial','civil','trench','cab available','fixed undercarriage','angle blade','5t class','grade control'],
+      note:'Cat 305 CR Mini Excavator — 5.0t–5.8t. C1.7 Turbo, 33.6kW/45hp. Fixed undercarriage 1,980mm. Tail swing 1,095mm (no CW) / 1,200mm (with CW). Dig depth 3.42m std / 3.67m long. Max reach 5.76m. Dump clearance 3.70m. Bucket force 49.2 kN. 68L fuel tank. Angle blade option. Grade control (2D/3D) available. Confirmed for Australia/NZ. Source: Cat Brochure AEHQ8394-05 (09-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 306 CR — FULLY BROCHURE-SPECIFIED ───────────────────────
+    // Source: Cat 306 CR Mini Hydraulic Excavator Brochure AEHQ8236-04 (12-2025)
+    // North America, Chile, Europe, Australia/New Zealand.
+    // KEY: C2.4 Turbo (new engine family, 2.43L, rated at 2,200 rpm).
+    // Swing speed 11 rpm — fastest in the Cat mini range.
+    // UNIQUE: Boom swing LEFT 60° / RIGHT 65° — reversed from all other models (normally left is wider).
+    {
+      id:'cat-306cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 306 CR Mini Hydraulic Excavator', shortName:'Cat 306 CR',
+      weightClass:'standard',
+      engineModel:'Cat C2.4 Turbo', engineNetKW:41.7, engineNetHP:55.9,
+      engineISO14396KW:42.6, engineRatedRPM:2200,
+      engineDisplacementL:2.43, engineBoreMm:87.0, engineStrokeMm:102.4,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:6310, operatingWeightMaxKg:7240,
+      operatingWeightMinCabKg:6370, operatingWeightMaxCabKg:7300,
+      operatingWeightT:7.240,
+      weightIncCW250Kg:250, weightIncCW500Kg:500,
+      weightIncLongStickKg:44, weightIncSteelTracksPadsKg:375,
+      weightIncAngleBlade:102, cabAvailable:true, angleBlade:true,
+      travelSpeedHighKmh:5.0, travelSpeedLowKmh:2.8,
+      tractionForceHighKN:31.0, tractionForceLowKN:56.0,
+      groundPressureMinKPa:34.4, groundPressureMaxKPa:40.4,
+      gradeabilityDeg:30,
+      pumpFlowLpm:151, workingPressureBar:245, swingPressureBar:225,
+      digForceStickStdKN:29.5, digForceStickLongKN:26.5, digForceBucketKN:51.5,
+      swingSpeedRpm:11.0, // fastest in cat mini range
+      auxFlowPrimaryLpm:90, auxFlowSecondaryLpm:33,
+      bladeWidthMm:1980, bladeHeightMm:390, bladeDepthMaxMm:600, bladeHeightMaxMm:415,
+      transportLengthStdMm:5975, transportLengthLongMm:5950,
+      transportHeightMm:2545, undercarriageLengthMm:2580,
+      tailSwingMm:1350, tailSwingCW250Mm:1475, tailSwingCW500Mm:1516,
+      swingBearingHeightMm:672, groundClearanceMm:306,
+      trackShoeWidthMm:400, trackWidthMm:1980,
+      trackWidthRetractedMm:1980, trackWidthExpandedMm:1980,
+      fixedUndercarriage:true, boomLengthMm:3055,
+      digDepthM:3.71, digDepthMm:3710, verticalWallMm:2710,
+      maxReachGroundMm:6130, maxReachMm:6295,
+      maxDigHeightMm:5835, maxDumpClearanceMm:4325,
+      boomInReachMm:2485, stickLengthStdMm:1580,
+      boomSwingRightDeg:65, boomSwingLeftDeg:60, // NOTE: right(65°) wider than left(60°) — unique reversal
+      boomSwingRightOffsetMm:910, boomSwingLeftOffsetMm:735,
+      upperHouseWidthMm:1950,
+      longStickDigDepthMm:4110, longStickVerticalWallMm:3165,
+      longStickMaxReachGroundMm:6535, longStickMaxReachMm:6685,
+      longStickMaxDigHeightMm:6130, longStickDumpClearanceMm:4610,
+      stickLengthLongMm:1980,
+      fuelTankL:130.0, hydraulicTankL:53.0, hydraulicSystemL:104.0,
+      engineOilL:8.0, coolingSystemL:10.0,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:98,
+      // 306 CR lift charts: canopy min/max identical to cab min/max
+      // Std stick for min config; long stick for max config
+      liftChartCabMin:{
+        note:'Cab or canopy, rubber tracks, no extra counterweight, std stick, operator, full fuel, fixed blade.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:4.16,mx_OF_BD:'*1228',mx_OF_BU:'*1228',mx_OS_BD:'*1228'},
+          {heightM:3.0,r3m_OF_BD:'*1717',r3m_OF_BU:1236,r3m_OS_BD:1010,r4p5m_OF_BD:'*1118',r4p5m_OF_BU:'*1118',r4p5m_OS_BD:806,maxRm:5.18,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.5,r3m_OF_BD:'*3698',r3m_OF_BU:2150,r3m_OS_BD:1685,r4p5m_OF_BD:'*2070',r4p5m_OF_BU:1180,r4p5m_OS_BD:957,maxRm:5.51,mx_OF_BD:'*1193',mx_OF_BU:874,mx_OS_BD:712},
+          {heightM:0,  r3m_OF_BD:'*3775',r3m_OF_BU:2061,r3m_OS_BD:1604,r4p5m_OF_BD:'*2277',r4p5m_OF_BU:1137,r4p5m_OS_BD:916,maxRm:5.32,mx_OF_BD:'*1474',mx_OF_BU:903,mx_OS_BD:733},
+        ],
+        longStick:[],
+      },
+      liftChartCabMax:{
+        note:'Cab or canopy, steel tracks with pads, extra counterweight (500kg), long stick, operator, full fuel, fixed blade.',
+        stdStick:[],
+        longStick:[
+          {heightM:4.5,r3m_OF_BD:'*1452',r3m_OF_BU:'*1452',r3m_OS_BD:'*1452',r4p5m_OF_BD:'*1212',r4p5m_OF_BU:'*1212',r4p5m_OS_BD:'*1212',maxRm:4.7},
+          {heightM:3.0,r3m_OF_BD:'*1512',r3m_OF_BU:'*1512',r3m_OS_BD:'*1512',r4p5m_OF_BD:'*1116',r4p5m_OF_BU:'*1116',r4p5m_OS_BD:936,maxRm:5.6},
+          {heightM:1.5,r3m_OF_BD:'*1915',r3m_OF_BU:1497,r3m_OS_BD:1252,r4p5m_OF_BD:'*1172',r4p5m_OF_BU:1006,r4p5m_OS_BD:847,maxRm:5.9},
+          {heightM:0,  r3m_OF_BD:'*3709',r3m_OF_BU:2596,r3m_OS_BD:2090,r4p5m_OF_BD:'*2225',r4p5m_OF_BU:1439,r4p5m_OS_BD:1197,maxRm:5.73,mx_OF_BD:'*1386',mx_OF_BU:1033,mx_OS_BD:867},
+        ],
+      },
+      get liftChartMax(){return this.liftChartCabMax;},
+      get liftChartMin(){return this.liftChartCabMin;},
+      get liftChartCanopyMin(){return this.liftChartCabMin;},
+      get liftChartCanopyMax(){return this.liftChartCabMax;},
+      brochureRef:'AEHQ8236-04 (12-2025)',
+      tags:['standard','civil','commercial','trench','cab available','fixed undercarriage','angle blade','6t class','grade control'],
+      note:'Cat 306 CR Mini Hydraulic Excavator — 6.3t–7.3t. C2.4 Turbo, 41.7kW/55.9hp (new engine family). 11 rpm swing — fastest Cat mini. BOOM SWING: right(65°) wider than left(60°) — unique. Fixed 1,980mm. Tail swing 1,350mm–1,516mm. Dig depth 3.71m std / 4.11m long. Max reach 6.30m. Dump clearance 4.33m. 130L fuel tank. Confirmed Australia/NZ. Source: Cat Brochure AEHQ8236-04 (12-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 308 CR — FULLY BROCHURE-SPECIFIED ───────────────────────
+    // Source: Cat 308 CR Mini Hydraulic Excavator Brochure AEHQ8518-01 (10-2025)
+    // North America, Chile, Europe, Turkey, ANZP. Confirmed for AU market.
+    // C2.8 Turbo. 8.5-9.4t. Standard boom. Optional Variable Angle Boom (see cat-308vab).
+    {
+      id:'cat-308cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 308 CR Mini Hydraulic Excavator', shortName:'Cat 308 CR',
+      weightClass:'standard',
+      engineModel:'Cat C2.8 Turbo', engineNetKW:51.2, engineNetHP:69.0,
+      engineISO14396KW:55.4, engineRatedRPM:2200,
+      engineDisplacementL:2.8, engineBoreMm:90.0, engineStrokeMm:110.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:8505, operatingWeightMaxKg:9420,
+      operatingWeightT:9.420,
+      weightIncCW250Kg:250, weightIncCW500Kg:500,
+      weightIncLongStickKg:66, weightIncSteelTracksPadsKg:341,
+      weightIncAngleBlade:222, cabAvailable:true, angleBlade:true,
+      travelSpeedHighKmh:5.1, travelSpeedLowKmh:3.1,
+      tractionForceHighKN:27.8, tractionForceLowKN:67.5,
+      groundPressureMinKPa:37.2, groundPressureMaxKPa:41.2,
+      gradeabilityDeg:30,
+      pumpFlowLpm:167, workingPressureBar:285, swingPressureBar:250,
+      digForceStickStdKN:42.3, digForceStickLongKN:35.7, digForceBucketKN:62.0,
+      swingSpeedRpm:10.6, auxFlowPrimaryLpm:131, auxFlowSecondaryLpm:33,
+      bladeWidthMm:2300, bladeWidthWideMm:2450, bladeHeightMm:431,
+      bladeDepthMaxMm:407, bladeHeightMaxMm:370,
+      transportLengthStdMm:6574, transportLengthLongMm:6872,
+      transportHeightMm:2541, undercarriageLengthMm:2880,
+      tailSwingMm:1450, tailSwingCW250Mm:1585, tailSwingCW500Mm:1626,
+      swingBearingHeightMm:756, groundClearanceMm:350,
+      trackShoeWidthMm:450, trackWidthMm:2300,
+      trackWidthRetractedMm:2300, trackWidthExpandedMm:2300,
+      fixedUndercarriage:true, boomLengthMm:3400,
+      digDepthM:4.11, digDepthMm:4108, verticalWallMm:2991,
+      maxReachGroundMm:6949, maxReachMm:7141,
+      maxDigHeightMm:6736, maxDumpClearanceMm:4760,
+      boomInReachMm:3059, stickLengthStdMm:1820,
+      boomSwingRightDeg:50, boomSwingLeftDeg:60,
+      boomSwingRightOffsetMm:935, boomSwingLeftOffsetMm:604,
+      longStickDigDepthMm:4643, longStickVerticalWallMm:3404,
+      longStickMaxReachGroundMm:7460, longStickMaxReachMm:7637,
+      longStickMaxDigHeightMm:7039, longStickDumpClearanceMm:5072,
+      stickLengthLongMm:2358,
+      fuelTankL:147.0, hydraulicTankL:53.0, hydraulicSystemL:110.0,
+      engineOilL:8.8, coolingSystemL:10.0,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:99,
+      liftChartMin:{
+        note:'Rubber belts, cab, no counterweight, operator, full fuel, no bucket.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*2444',r4p5m_OF_BU:1880,r4p5m_OS_BD:1635,maxRm:5.13,mx_OF_BD:'*2195',mx_OF_BU:1496,mx_OS_BD:1304},
+          {heightM:3.0,r3m_OF_BD:'*2767',r3m_OF_BU:1814,r3m_OS_BD:1572,r4p5m_OF_BD:'*2130',r4p5m_OF_BU:1164,r4p5m_OS_BD:1013,maxRm:5.9,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:1.5,r3m_OF_BD:'*3346',r3m_OF_BU:1693,r3m_OS_BD:1456,r4p5m_OF_BD:'*2307',r4p5m_OF_BU:1063,r4p5m_OS_BD:921,maxRm:6.13,mx_OF_BD:null,mx_OF_BU:null,mx_OS_BD:null},
+          {heightM:0,  r3m_OF_BD:'*3749',r3m_OF_BU:2987,r3m_OS_BD:2470,r4p5m_OF_BD:'*3533',r4p5m_OF_BU:1610,r4p5m_OS_BD:1377,maxRm:5.89,mx_OF_BD:'*2365',mx_OF_BU:1098,mx_OS_BD:949},
+        ],
+        longStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:5.74,mx_OF_BD:'*1625',mx_OF_BU:1240,mx_OS_BD:1079},
+          {heightM:3.0,r3m_OF_BD:'*2401',r3m_OF_BU:1833,r3m_OS_BD:1587,r4p5m_OF_BD:'*1584',r4p5m_OF_BU:1001,r4p5m_OS_BD:867,maxRm:6.42},
+          {heightM:1.5,r3m_OF_BD:'*3079',r3m_OF_BU:1693,r3m_OS_BD:1454,r4p5m_OF_BD:'*1692',r4p5m_OF_BU:920,r4p5m_OS_BD:793,maxRm:6.63},
+          {heightM:0,  r3m_OF_BD:'*3845',r3m_OF_BU:2934,r3m_OS_BD:2417,r4p5m_OF_BD:'*3480',r4p5m_OF_BU:1579,r4p5m_OS_BD:1346,maxRm:6.42,mx_OF_BD:'*1991',mx_OF_BU:939,mx_OS_BD:807},
+        ],
+      },
+      liftChartMax:{
+        note:'Steel tracks with pads, cab, counterweight (500kg), operator, full fuel, no bucket.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*2444',r4p5m_OF_BU:'*2444',r4p5m_OS_BD:1966,maxRm:5.13,mx_OF_BD:'*2195',mx_OF_BU:1810,mx_OS_BD:1584},
+          {heightM:3.0,r3m_OF_BD:'*2767',r3m_OF_BU:2186,r3m_OS_BD:1903,r4p5m_OF_BD:'*2130',r4p5m_OF_BU:1427,r4p5m_OS_BD:1250,maxRm:5.9},
+          {heightM:1.5,r3m_OF_BD:'*3346',r3m_OF_BU:2065,r3m_OS_BD:1788,r4p5m_OF_BD:'*2307',r4p5m_OF_BU:1314,r4p5m_OS_BD:1148,maxRm:6.13},
+          {heightM:0,  r3m_OF_BD:'*3749',r3m_OF_BU:'*3749',r3m_OS_BD:3048,r4p5m_OF_BD:'*3533',r4p5m_OF_BU:1982,r4p5m_OS_BD:1709,maxRm:5.89,mx_OF_BD:'*2365',mx_OF_BU:1361,mx_OS_BD:1186},
+        ],
+        longStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:5.74,mx_OF_BD:'*1625',mx_OF_BU:'*1625',mx_OS_BD:1324},
+          {heightM:3.0,r3m_OF_BD:'*2401',r3m_OF_BU:'*2401',r3m_OS_BD:1918,r4p5m_OF_BD:'*1584',r4p5m_OF_BU:1238,r4p5m_OS_BD:1082,maxRm:6.42},
+          {heightM:1.5,r3m_OF_BD:'*3079',r3m_OF_BU:2065,r3m_OS_BD:1785,r4p5m_OF_BD:'*1692',r4p5m_OF_BU:1147,r4p5m_OS_BD:999,maxRm:6.63},
+          {heightM:0,  r3m_OF_BD:'*3845',r3m_OF_BU:'*3845',r3m_OS_BD:2995,r4p5m_OF_BD:'*3480',r4p5m_OF_BU:1952,r4p5m_OS_BD:1677,maxRm:6.42,mx_OF_BD:'*1991',mx_OF_BU:1176,mx_OS_BD:1022},
+        ],
+      },
+      brochureRef:'AEHQ8518-01 (10-2025)',
+      tags:['standard','civil','heavy commercial','trench','basement','cab only','fixed undercarriage','angle blade','8t class','grade control'],
+      note:'Cat 308 CR Mini Hydraulic Excavator — 8.5t–9.4t. C2.8 Turbo, 51.2kW/69hp. Cab only (no canopy option). Fixed 2,300mm (wide blade 2,450mm). Tail swing 1,450mm–1,626mm. Dig depth 4.11m std / 4.64m long. Max reach 7.14m std / 7.64m long (largest working envelope in the Cat mini range). Dump clearance 4.76m. Bucket force 62.0 kN. 147L fuel tank. Variable Angle Boom option available (see 308 CR VAB). Source: Cat Brochure AEHQ8518-01 (10-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 308 CR VAB — FULLY BROCHURE-SPECIFIED ───────────────────
+    // Source: Cat 308 CR VAB Mini Hydraulic Excavator Brochure AEHQ8519-01 (10-2025)
+    // North America, Chile, Europe, Turkey, ANZP.
+    // VAB = Variable Angle Boom. The boom hydraulically changes angle, transforming the machine:
+    // VAB IN: deep dig mode — 3,815mm dig depth, 6,515mm reach (conventional excavator profile)
+    // VAB OUT: extended reach mode — 7,885mm reach, 8,180mm dig height, 6,285mm dump clearance
+    {
+      id:'cat-308vab', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 308 CR VAB Mini Hydraulic Excavator', shortName:'Cat 308 CR VAB',
+      weightClass:'standard',
+      engineModel:'Cat C2.8 Turbo', engineNetKW:51.2, engineNetHP:69.0,
+      engineISO14396KW:55.4, engineRatedRPM:2200,
+      engineDisplacementL:2.8, engineBoreMm:90.0, engineStrokeMm:110.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:8720, operatingWeightMaxKg:9560,
+      operatingWeightT:9.560,
+      weightIncCW250Kg:250, weightIncCW500Kg:500,
+      weightIncSteelTracksPadsKg:341,
+      cabAvailable:true, variableAngleBoom:true,
+      travelSpeedHighKmh:5.1, travelSpeedLowKmh:3.1,
+      tractionForceHighKN:27.8, tractionForceLowKN:67.5,
+      groundPressureMinKPa:38.2, groundPressureMaxKPa:41.8,
+      gradeabilityDeg:30,
+      pumpFlowLpm:167, workingPressureBar:285, swingPressureBar:250,
+      digForceStickStdKN:42.3, digForceBucketKN:62.0,
+      swingSpeedRpm:10.6, auxFlowPrimaryLpm:131, auxFlowSecondaryLpm:33,
+      bladeWidthMm:2300, bladeWidthWideMm:2450, bladeHeightMm:431,
+      bladeDepthMaxMm:407, bladeHeightMaxMm:370,
+      // BOTH positions share same transport/undercarriage dimensions
+      transportLengthMm:6450, transportHeightMm:2541,
+      undercarriageLengthMm:2880,
+      tailSwingMm:1450, tailSwingCW250Mm:1585, tailSwingCW500Mm:1626,
+      swingBearingHeightMm:756, groundClearanceMm:350,
+      trackShoeWidthMm:450, trackWidthMm:2300,
+      trackWidthRetractedMm:2300, trackWidthExpandedMm:2300,
+      fixedUndercarriage:true, stickLengthStdMm:1820,
+      boomSwingRightDeg:50, boomSwingLeftDeg:60,
+      boomSwingRightOffsetMm:935, boomSwingLeftOffsetMm:605,
+      // VAB IN — conventional deep dig position
+      vabInDigDepthMm:3815, vabInVerticalWallMm:2520,
+      vabInMaxReachGroundMm:6300, vabInMaxReachMm:6515,
+      vabInMaxDigHeightMm:5220, vabInMaxDumpClearanceMm:3450,
+      vabInBoomInReachMm:3120,
+      digDepthM:3.815, digDepthMm:3815,
+      maxReachGroundMm:6300, maxReachMm:6515,
+      maxDigHeightMm:5220, maxDumpClearanceMm:3450,
+      // VAB OUT — extended reach / high reach position
+      vabOutDigDepthMm:3460, vabOutVerticalWallMm:3725,
+      vabOutMaxReachGroundMm:7715, vabOutMaxReachMm:7885,
+      vabOutMaxDigHeightMm:8180, vabOutMaxDumpClearanceMm:6285,
+      vabOutBoomInReachMm:2710,
+      fuelTankL:147.0, hydraulicTankL:53.0, hydraulicSystemL:110.0,
+      engineOilL:8.8, coolingSystemL:10.0,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:99,
+      // Lift chart uses VAB position rows (VAB In / VAB Out) rather than std/long stick
+      // Stored as liftChartMin / liftChartMax with vabIn/vabOut sub-objects
+      liftChartMin:{
+        note:'Rubber belts, cab, no counterweight, operator, full fuel, no bucket. * = at or exceeding 87% hydraulic or 75% tipping limit.',
+        vabIn:[
+          {heightM:3.0,r3m_OF_BD:'*1968',r3m_OF_BU:'*1968',r3m_OS_BD:1595,r4p5m_OF_BD:'*1910',r4p5m_OF_BU:1398,r4p5m_OS_BD:1204,maxRm:5.24},
+          {heightM:1.5,r3m_OF_BD:'*4542',r3m_OF_BU:3200, r3m_OS_BD:2645,r4p5m_OF_BD:'*2563',r4p5m_OF_BU:1687,r4p5m_OS_BD:1439,maxRm:5.5,mx_OF_BD:'*2172',mx_OF_BU:1203,mx_OS_BD:1028},
+          {heightM:0,  r3m_OF_BD:'*5637',r3m_OF_BU:2836, r3m_OS_BD:2310,r4p5m_OF_BD:'*3027',r4p5m_OF_BU:1532,r4p5m_OS_BD:1292,maxRm:5.24,mx_OF_BD:'*2488',mx_OF_BU:1217,mx_OS_BD:1030},
+        ],
+        vabOut:[
+          {heightM:4.5,r3m_OF_BD:'*2324',r3m_OF_BU:'*2324',r3m_OS_BD:'*2324',r4p5m_OF_BD:'*2582',r4p5m_OF_BU:1763,r4p5m_OS_BD:1511,maxRm:6.03,mx_OF_BD:'*2030',mx_OF_BU:1020,mx_OS_BD:868},
+          {heightM:3.0,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*2847',r4p5m_OF_BU:1639,r4p5m_OS_BD:1393,maxRm:6.67,mx_OF_BD:'*1758',mx_OF_BU:827,mx_OS_BD:699},
+          {heightM:1.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*3009',r4p5m_OF_BU:1461,r4p5m_OS_BD:1223,maxRm:6.87,mx_OF_BD:'*1534',mx_OF_BU:764,mx_OS_BD:641},
+          {heightM:0,  r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*2646',r4p5m_OF_BU:1374,r4p5m_OS_BD:1140,maxRm:6.67,mx_OF_BD:'*1256',mx_OF_BU:789,mx_OS_BD:662},
+        ],
+      },
+      liftChartMax:{
+        note:'Steel tracks with pads, cab, counterweight (500kg), operator, full fuel, no bucket.',
+        vabIn:[
+          {heightM:3.0,r3m_OF_BD:'*1968',r3m_OF_BU:'*1968',r3m_OS_BD:'*1968',r4p5m_OF_BD:'*1910',r4p5m_OF_BU:'*1910',r4p5m_OS_BD:1478,maxRm:5.24},
+          {heightM:1.5,r3m_OF_BD:'*4542',r3m_OF_BU:3874, r3m_OS_BD:3223,r4p5m_OF_BD:'*2563',r4p5m_OF_BU:2059,r4p5m_OS_BD:1770,maxRm:5.5,mx_OF_BD:'*2172',mx_OF_BU:1490,mx_OS_BD:1285},
+          {heightM:0,  r3m_OF_BD:'*5637',r3m_OF_BU:3509, r3m_OS_BD:2888,r4p5m_OF_BD:'*3027',r4p5m_OF_BU:1905,r4p5m_OS_BD:1623,maxRm:5.24,mx_OF_BD:'*2488',mx_OF_BU:1522,mx_OS_BD:1304},
+        ],
+        vabOut:[
+          {heightM:4.5,r3m_OF_BD:'*2324',r3m_OF_BU:'*2324',r3m_OS_BD:'*2324',r4p5m_OF_BD:'*2582',r4p5m_OF_BU:2153,r4p5m_OS_BD:1859,maxRm:6.03,mx_OF_BD:'*2030',mx_OF_BU:1275,mx_OS_BD:1099},
+          {heightM:3.0,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*2847',r4p5m_OF_BU:2011,r4p5m_OS_BD:1725,maxRm:6.67,mx_OF_BD:'*1758',mx_OF_BU:1053,mx_OS_BD:903},
+          {heightM:1.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*3009',r4p5m_OF_BU:1833,r4p5m_OS_BD:1555,maxRm:6.87,mx_OF_BD:'*1534',mx_OF_BU:982,mx_OS_BD:839},
+          {heightM:0,  r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:'*2646',r4p5m_OF_BU:1746,r4p5m_OS_BD:1471,maxRm:6.67,mx_OF_BD:'*1256',mx_OF_BU:1015,mx_OS_BD:867},
+        ],
+      },
+      brochureRef:'AEHQ8519-01 (10-2025)',
+      tags:['standard','civil','heavy commercial','variable angle boom','high reach','cab only','fixed undercarriage','8t class','grade control'],
+      note:'Cat 308 CR VAB Mini Hydraulic Excavator — 8.7t–9.6t. C2.8 Turbo, 51.2kW/69hp. VARIABLE ANGLE BOOM — hydraulically changes working position: VAB IN (deep dig: 3,815mm depth, 6,515mm reach) or VAB OUT (extended reach/high reach: 7,885mm reach, 8,180mm dig height, 6,285mm dump clearance). Ideal for lifting over obstacles, loading trucks at height, high-reach demolition and deep trenching. Fixed 2,300mm undercarriage. 147L fuel tank. Source: Cat Brochure AEHQ8519-01 (10-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 309 CR (LONG UNDERCARRIAGE) — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 309 CR Mini Hydraulic Excavator Brochure AEHQ8511-01 (10-2025)
+    // North America, Chile, Europe, Turkey, ANZP. Long undercarriage only.
+    // Standard stick (1820mm) or Long stick (2358mm) available.
+    {
+      id:'cat-309cr', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 309 CR Mini Hydraulic Excavator', shortName:'Cat 309 CR',
+      weightClass:'standard',
+      engineModel:'Cat C2.8 Turbo', engineNetKW:51.2, engineNetHP:69.0,
+      engineISO14396KW:55.4, engineRatedRPM:2200,
+      engineDisplacementL:2.8, engineBoreMm:90.0, engineStrokeMm:110.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:9015, operatingWeightMaxKg:9880,
+      operatingWeightT:9.880,
+      weightIncCW250Kg:250, weightIncCW500Kg:500,
+      weightIncLongStickKg:66, weightIncSteelTracksPadsKg:330,
+      cabAvailable:true,
+      travelSpeedHighKmh:4.7, travelSpeedLowKmh:2.6,
+      tractionForceHighKN:33, tractionForceLowKN:84.8,
+      groundPressureMinKPa:35.0, groundPressureMaxKPa:38.3,
+      gradeabilityDeg:30,
+      pumpFlowLpm:233, workingPressureBar:285, swingPressureBar:250,
+      digForceStickStdKN:42.3, digForceStickLongKN:35.7, digForceBucketKN:62.0,
+      swingSpeedRpm:10, auxFlowPrimaryLpm:140, auxFlowSecondaryLpm:33,
+      bladeWidthMm:2470, bladeWidthWideMm:2640, bladeHeightMm:431,
+      bladeDepthMaxMm:671, bladeHeightMaxMm:408,
+      digDepthM:4.108, digDepthMm:4108, verticalWallMm:2991,
+      maxReachGroundMm:6949, maxReachMm:7141,
+      maxDigHeightMm:6736, maxDumpClearanceMm:4760,
+      boomInReachMm:3059, stickLengthStdMm:1820,
+      transportLengthStdMm:6774, transportLengthLongMm:7052,
+      transportHeightStdMm:2430, transportHeightLongMm:2260,
+      workingHeightStdMm:2660, workingHeightLongMm:3050,
+      cabHeightMm:2541, undercarriageLengthMm:3200,
+      tailSwingMm:1450, tailSwingCW250Mm:1585, tailSwingCW500Mm:1626,
+      swingBearingHeightMm:756, groundClearanceMm:356,
+      trackShoeWidthMm:450, trackWidthMm:2470,
+      boomSwingRightDeg:50, boomSwingLeftDeg:60,
+      boomSwingRightOffsetMm:935, boomSwingLeftOffsetMm:604,
+      longStickDigDepthMm:4642, longStickVerticalWallMm:3404,
+      longStickMaxReachGroundMm:7460, longStickMaxReachMm:7637,
+      longStickMaxDigHeightMm:7039, longStickDumpClearanceMm:5072,
+      longStickBoomInReachMm:3215, stickLengthLongMm:2358,
+      fuelTankL:147.0, hydraulicTankL:53.0, hydraulicSystemL:110.0,
+      engineOilL:8.8, coolingSystemL:10.0,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:99,
+      liftChartMin:{
+        note:'Steel tracks, cab, no counterweight, operator, full fuel, no bucket. * = at or exceeding 87% hydraulic or 75% tipping limit.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:'*2444',r3m_OF_BU:'*2444',r3m_OS_BD:1943,r4p5m_OF_BD:'*2195',r4p5m_OF_BU:'*2195',r4p5m_OS_BD:1557,maxRm:5.13},
+          {heightM:3.0,r3m_OF_BD:'*2767',r3m_OF_BU:2350,r3m_OS_BD:1879,r4p5m_OF_BD:'*2130',r4p5m_OF_BU:1515,r4p5m_OS_BD:1221,maxRm:5.9},
+          {heightM:1.5,r3m_OF_BD:'*3346',r3m_OF_BU:2223,r3m_OS_BD:1760,r4p5m_OF_BD:'*2307',r4p5m_OF_BU:1393,r4p5m_OS_BD:1118,maxRm:6.13},
+          {heightM:0,  r3m_OF_BD:'*3749',r3m_OF_BU:'*3749',r3m_OS_BD:3055,r4p5m_OF_BD:'*3533',r4p5m_OF_BU:2136,r4p5m_OS_BD:1680,maxRm:5.89,mx_OF_BD:'*2365',mx_OF_BU:1447,mx_OS_BD:1156},
+        ],
+        longStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:5.74,mx_OF_BD:'*1625',mx_OF_BU:'*1625',mx_OS_BD:1296},
+          {heightM:3.0,r3m_OF_BD:'*2401',r3m_OF_BU:'*2401',r3m_OS_BD:1896,r4p5m_OF_BD:'*1584',r4p5m_OF_BU:1312,r4p5m_OS_BD:1054,maxRm:6.42},
+          {heightM:1.5,r3m_OF_BD:'*3079',r3m_OF_BU:2225,r3m_OS_BD:1759,r4p5m_OF_BD:'*1692',r4p5m_OF_BU:1216,r4p5m_OS_BD:971,maxRm:6.63},
+          {heightM:0,  r3m_OF_BD:'*3845',r3m_OF_BU:'*3845',r3m_OS_BD:3002,r4p5m_OF_BD:'*3480',r4p5m_OF_BU:2106,r4p5m_OS_BD:1648,maxRm:6.42,mx_OF_BD:'*1991',mx_OF_BU:1249,mx_OS_BD:993},
+        ],
+      },
+      liftChartMax:{
+        note:'Steel tracks with pads, cab, counterweight (500kg), operator, full fuel, no bucket.',
+        stdStick:[
+          {heightM:4.5,r3m_OF_BD:'*2444',r3m_OF_BU:'*2444',r3m_OS_BD:'*2444',r4p5m_OF_BD:'*2195',r4p5m_OF_BU:'*2195',r4p5m_OS_BD:1859,maxRm:5.13},
+          {heightM:3.0,r3m_OF_BD:'*2767',r3m_OF_BU:'*2767',r3m_OS_BD:2236,r4p5m_OF_BD:'*2130',r4p5m_OF_BU:1815,r4p5m_OS_BD:1475,maxRm:5.9},
+          {heightM:1.5,r3m_OF_BD:'*3346',r3m_OF_BU:2654,r3m_OS_BD:2118,r4p5m_OF_BD:'*2307',r4p5m_OF_BU:1679,r4p5m_OS_BD:1361,maxRm:6.13},
+          {heightM:0,  r3m_OF_BD:'*3749',r3m_OF_BU:'*3749',r3m_OS_BD:'*3749',r4p5m_OF_BD:'*3533',r4p5m_OF_BU:2567,r4p5m_OS_BD:2037,maxRm:5.89,mx_OF_BD:'*2365',mx_OF_BU:1747,mx_OS_BD:1410},
+        ],
+        longStick:[
+          {heightM:4.5,r3m_OF_BD:null,r3m_OF_BU:null,r3m_OS_BD:null,r4p5m_OF_BD:null,r4p5m_OF_BU:null,r4p5m_OS_BD:null,maxRm:5.74,mx_OF_BD:'*1625',mx_OF_BU:'*1625',mx_OS_BD:'*1625'},
+          {heightM:3.0,r3m_OF_BD:'*2401',r3m_OF_BU:'*2401',r3m_OS_BD:'*2401',r4p5m_OF_BD:'*1584',r4p5m_OF_BU:'*1584',r4p5m_OS_BD:1283,maxRm:6.42},
+          {heightM:1.5,r3m_OF_BD:'*3079',r3m_OF_BU:'*3079',r3m_OS_BD:2116,r4p5m_OF_BD:'*1692',r4p5m_OF_BU:'*1692',r4p5m_OS_BD:1192,maxRm:6.63},
+          {heightM:0,  r3m_OF_BD:'*3845',r3m_OF_BU:'*3845',r3m_OS_BD:'*3845',r4p5m_OF_BD:'*3480',r4p5m_OF_BU:2538,r4p5m_OS_BD:2005,maxRm:6.42,mx_OF_BD:'*1991',mx_OF_BU:1518,mx_OS_BD:1222},
+        ],
+      },
+      brochureRef:'AEHQ8511-01 (10-2025)',
+      tags:['standard','civil','heavy commercial','trench','basement','cab only','long undercarriage','9t class','grade control'],
+      note:'Cat 309 CR Mini Hydraulic Excavator (Long Undercarriage) — 9.0t–9.9t. C2.8 Turbo, 51.2kW/69hp. EPA Tier 4 Final / EU Stage V. Long undercarriage (3,200mm) for improved stability. Standard stick 1,820mm (dig depth 4.11m, reach 7.14m) or Long stick 2,358mm (dig depth 4.64m, reach 7.64m). Blade 2,470mm std / 2,640mm wide. Tail swing 1,450mm–1,626mm. 147L fuel. Variable Angle Boom option available (see 309 CR VAB). Source: Cat Brochure AEHQ8511-01 (10-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 309 CR VAB (LONG UNDERCARRIAGE) — FULLY BROCHURE-SPECIFIED ─
+    // Source: Cat 309 CR VAB Mini Hydraulic Excavator Brochure AEHQ8513-01 (10-2025)
+    // North America, Chile, Europe, Turkey, ANZP. Long undercarriage only.
+    // For Standard Undercarriage VAB, refer to 308 CR VAB.
+    // VAB IN: deep dig (3,815mm depth, 6,515mm reach)
+    // VAB OUT: extended reach / high reach (7,885mm reach, 8,180mm dig height)
+    {
+      id:'cat-309vab', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 309 CR VAB Mini Hydraulic Excavator', shortName:'Cat 309 CR VAB',
+      weightClass:'standard',
+      engineModel:'Cat C2.8 Turbo', engineNetKW:51.2, engineNetHP:69.0,
+      engineISO14396KW:55.4, engineRatedRPM:2200,
+      engineDisplacementL:2.8, engineBoreMm:90.0, engineStrokeMm:110.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:9190, operatingWeightMaxKg:10020,
+      operatingWeightT:10.020,
+      weightIncCW250Kg:250, weightIncCW500Kg:500,
+      weightIncStdStickKg:35, weightIncSteelTracksPadsKg:330,
+      cabAvailable:true, variableAngleBoom:true,
+      travelSpeedHighKmh:4.7, travelSpeedLowKmh:2.6,
+      tractionForceHighKN:33, tractionForceLowKN:84.8,
+      groundPressureMinKPa:35.6, groundPressureMaxKPa:38.9,
+      gradeabilityDeg:30,
+      pumpFlowLpm:233, workingPressureBar:285, swingPressureBar:250,
+      digForceStickStdKN:42.3, digForceBucketKN:62.0,
+      swingSpeedRpm:10, auxFlowPrimaryLpm:140, auxFlowSecondaryLpm:33,
+      bladeWidthMm:2470, bladeWidthWideMm:2640, bladeHeightMm:431,
+      bladeDepthMaxMm:484, bladeHeightMaxMm:408,
+      transportLengthMm:6495, boomHeightShippingMm:2475,
+      cabHeightMm:2541, undercarriageLengthMm:3200,
+      tailSwingMm:1450, tailSwingCW250Mm:1585, tailSwingCW500Mm:1626,
+      swingBearingHeightMm:756, groundClearanceMm:356,
+      trackShoeWidthMm:450, trackWidthMm:2470,
+      stickLengthStdMm:1820,
+      boomSwingRightDeg:50, boomSwingLeftDeg:60,
+      boomSwingRightOffsetMm:935, boomSwingLeftOffsetMm:605,
+      vabInDigDepthMm:3815, vabInVerticalWallMm:2520,
+      vabInMaxReachGroundMm:6300, vabInMaxReachMm:6515,
+      vabInMaxDigHeightMm:5220, vabInMaxDumpClearanceMm:3450,
+      vabInBoomInReachMm:3120,
+      digDepthM:3.815, digDepthMm:3815,
+      maxReachGroundMm:6300, maxReachMm:6515,
+      maxDigHeightMm:5220, maxDumpClearanceMm:3450,
+      vabOutDigDepthMm:3460, vabOutVerticalWallMm:3725,
+      vabOutMaxReachGroundMm:7715, vabOutMaxReachMm:7885,
+      vabOutMaxDigHeightMm:8180, vabOutMaxDumpClearanceMm:6285,
+      vabOutBoomInReachMm:2710,
+      fuelTankL:147.0, hydraulicTankL:53.0, hydraulicSystemL:110.0,
+      engineOilL:8.8, coolingSystemL:10.0,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:99,
+      liftChartMin:{
+        note:'Steel tracks, cab, no counterweight, operator, full fuel, no bucket. * = at or exceeding 87% hydraulic or 75% tipping limit.',
+        vabIn:[
+          {heightM:3.0,r3m_OF_BD:'*1968',r3m_OF_BU:'*1968',r3m_OS_BD:'*1968',r4p5m_OF_BD:'*1910',r4p5m_OF_BU:'*1910',r4p5m_OS_BD:1454,maxRm:5.24},
+          {heightM:1.5,r3m_OF_BD:'*4542',r3m_OF_BU:'*4542',r3m_OS_BD:3248,r4p5m_OF_BD:'*2563',r4p5m_OF_BU:'*2563',r4p5m_OS_BD:1748,maxRm:5.5,mx_OF_BD:'*2172',mx_OF_BU:1597,mx_OS_BD:1259},
+          {heightM:0,  r3m_OF_BD:'*5637',r3m_OF_BU:3967,r3m_OS_BD:2899,r4p5m_OF_BD:'*3027',r4p5m_OF_BU:2067,r4p5m_OS_BD:1597,maxRm:5.24,mx_OF_BD:'*2488',mx_OF_BU:1639,mx_OS_BD:1277},
+        ],
+        vabOut:[
+          {heightM:4.5,r3m_OF_BD:'*2324',r3m_OF_BU:'*2324',r3m_OS_BD:'*2324',r4p5m_OF_BD:'*2582',r4p5m_OF_BU:'*2582',r4p5m_OS_BD:1840,maxRm:6.03,mx_OF_BD:'*2030',mx_OF_BU:1364,mx_OS_BD:1073},
+          {heightM:3.0,r3m_OF_BD:'*2847',r3m_OF_BU:2179,r3m_OS_BD:1702,r4p5m_OF_BD:'*1758',r4p5m_OF_BU:1124,r4p5m_OS_BD:877,maxRm:6.67},
+          {heightM:1.5,r3m_OF_BD:'*3009',r3m_OF_BU:1992,r3m_OS_BD:1528,r4p5m_OF_BD:'*1534',r4p5m_OF_BU:1049,r4p5m_OS_BD:813,maxRm:6.87},
+          {heightM:0,  r3m_OF_BD:'*2646',r3m_OF_BU:1900,r3m_OS_BD:1442,r4p5m_OF_BD:'*1256',r4p5m_OF_BU:'*1256',r4p5m_OS_BD:840,maxRm:6.67},
+        ],
+      },
+      liftChartMax:{
+        note:'Steel tracks with pads, cab, counterweight (500kg), operator, full fuel, no bucket.',
+        vabIn:[
+          {heightM:3.0,r3m_OF_BD:'*1968',r3m_OF_BU:'*1968',r3m_OS_BD:'*1968',r4p5m_OF_BD:'*1910',r4p5m_OF_BU:'*1910',r4p5m_OS_BD:'*1910',maxRm:5.24},
+          {heightM:1.5,r3m_OF_BD:'*4542',r3m_OF_BU:'*4542',r3m_OS_BD:3883,r4p5m_OF_BD:'*2563',r4p5m_OF_BU:'*2563',r4p5m_OS_BD:2105,maxRm:5.5,mx_OF_BD:'*2172',mx_OF_BU:'*2172',mx_OS_BD:1535},
+          {heightM:0,  r3m_OF_BD:'*5637',r3m_OF_BU:4781,r3m_OS_BD:3534,r4p5m_OF_BD:'*3027',r4p5m_OF_BU:2498,r4p5m_OS_BD:1954,maxRm:5.24,mx_OF_BD:'*2488',mx_OF_BU:1989,mx_OS_BD:1570},
+        ],
+        vabOut:[
+          {heightM:4.5,r3m_OF_BD:'*2324',r3m_OF_BU:'*2324',r3m_OS_BD:'*2324',r4p5m_OF_BD:'*2582',r4p5m_OF_BU:'*2582',r4p5m_OS_BD:2197,maxRm:6.03,mx_OF_BD:'*2030',mx_OF_BU:1655,mx_OS_BD:1320},
+          {heightM:3.0,r3m_OF_BD:'*2847',r3m_OF_BU:'*2847',r3m_OS_BD:2059,r4p5m_OF_BD:'*1758',r4p5m_OF_BU:1381,r4p5m_OS_BD:1095,maxRm:6.67},
+          {heightM:1.5,r3m_OF_BD:'*3009',r3m_OF_BU:2423,r3m_OS_BD:1885,r4p5m_OF_BD:'*1534',r4p5m_OF_BU:1296,r4p5m_OS_BD:1024,maxRm:6.87},
+          {heightM:0,  r3m_OF_BD:'*2646',r3m_OF_BU:'*2646',r3m_OS_BD:1799,r4p5m_OF_BD:'*1256',r4p5m_OF_BU:'*1256',r4p5m_OS_BD:1058,maxRm:6.67},
+        ],
+      },
+      brochureRef:'AEHQ8513-01 (10-2025)',
+      tags:['standard','civil','heavy commercial','variable angle boom','high reach','cab only','long undercarriage','9t class','grade control'],
+      note:'Cat 309 CR VAB Mini Hydraulic Excavator (Long Undercarriage) — 9.2t–10.0t. C2.8 Turbo, 51.2kW/69hp. VARIABLE ANGLE BOOM on long undercarriage: VAB IN (deep dig: 3,815mm depth, 6,515mm reach) or VAB OUT (extended reach: 7,885mm reach, 8,180mm dig height, 6,285mm dump clearance). Long undercarriage (3,200mm) improves stability. 147L fuel. For Standard Undercarriage VAB see 308 CR VAB. Source: Cat Brochure AEHQ8513-01 (10-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 310 MINI HYDRAULIC EXCAVATOR — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 310 Mini Hydraulic Excavator Brochure AEHQ8156-07 (04-2025)
+    // North America, Chile, Europe, Turkey, ANZP.
+    // Long stick (2500mm) is the only stick option on this model.
+    // Larger tail swing (1800mm no CW) — not a zero/reduced tail swing machine.
+    {
+      id:'cat-310', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 310 Mini Hydraulic Excavator', shortName:'Cat 310',
+      weightClass:'standard',
+      engineModel:'Cat C3.3B', engineNetKW:51.8, engineNetHP:69.5,
+      engineISO14396KW:55.4, engineRatedRPM:2200,
+      engineDisplacementL:3.33, engineBoreMm:94.0, engineStrokeMm:120.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightMinKg:9601, operatingWeightMaxKg:10432,
+      operatingWeightT:10.432,
+      weightIncCW250Kg:250, weightIncCW500Kg:500,
+      weightIncSteelTracksPadsKg:330,
+      cabAvailable:true,
+      travelSpeedHighKmh:4.7, travelSpeedLowKmh:2.6,
+      tractionForceHighKN:28.9, tractionForceLowKN:84.8,
+      groundPressureMinKPa:37.2, groundPressureMaxKPa:40.5,
+      gradeabilityDeg:30,
+      pumpFlowLpm:233, workingPressureBar:285, swingPressureBar:230,
+      digForceStickKN:49.2, digForceBucketKN:77.7,
+      swingSpeedRpm:10.6, auxFlowPrimaryLpm:131, auxFlowSecondaryLpm:33,
+      bladeWidthMm:2470, bladeWidthWideMm:2640, bladeHeightMm:431,
+      bladeDepthMaxMm:478, bladeHeightMaxMm:421,
+      digDepthM:5.211, digDepthMm:5211, verticalWallMm:4385,
+      maxReachGroundMm:7570, maxReachMm:7695,
+      maxDigHeightMm:7970, maxDumpClearanceMm:5829,
+      boomInReachMm:2116, stickLengthMm:2500,
+      transportHeightMm:2550, workingHeightMm:2700,
+      cabHeightMm:2541, undercarriageLengthMm:3200,
+      tailSwingMm:1800, tailSwingCW250Mm:1933, tailSwingCW500Mm:1974,
+      swingBearingHeightMm:735, groundClearanceMm:356,
+      trackShoeWidthMm:450, trackWidthMm:2470,
+      shippingLengthNoCWMm:6850, shippingLengthCW250Mm:6983, shippingLengthCW500Mm:7024,
+      fuelTankL:145.0, hydraulicTankL:53.0, hydraulicSystemL:140.0,
+      engineOilL:11.2, coolingSystemL:10.0,
+      operatorSoundPressureDBA:72, exteriorSoundPowerDBA:99,
+      liftChartMin:{
+        note:'Steel tracks, no counterweight, operator, full fuel, long stick, blade, no bucket. * = at or exceeding 87% hydraulic or 75% tipping limit.',
+        longStick:[
+          {heightM:4.5,r3m_OF_BD:'*2677',r3m_OF_BU:'*2677',r3m_OS_BD:'*2677',r4p5m_OF_BD:'*1527',r4p5m_OF_BU:'*1527',r4p5m_OS_BD:'*1527',maxRm:5.81},
+          {heightM:3.0,r3m_OF_BD:'*3998',r3m_OF_BU:'*3998',r3m_OS_BD:'*3998',r4p5m_OF_BD:'*2989',r4p5m_OF_BU:'*2989',r4p5m_OS_BD:2438,maxRm:6.39,mx_OF_BD:'*1514',mx_OF_BU:'*1514',mx_OS_BD:'*1514'},
+          {heightM:1.5,r3m_OF_BD:'*5147',r3m_OF_BU:'*5147',r3m_OS_BD:4192,r4p5m_OF_BD:'*3381',r4p5m_OF_BU:2796,r4p5m_OS_BD:2261,maxRm:6.59,mx_OF_BD:'*1601',mx_OF_BU:'*1601',mx_OS_BD:1248},
+          {heightM:0,  r3m_OF_BD:'*5431',r3m_OF_BU:'*5431',r3m_OS_BD:3876,r4p5m_OF_BD:'*3548',r4p5m_OF_BU:2643,r4p5m_OS_BD:2118,maxRm:6.43,mx_OF_BD:'*1812',mx_OF_BU:1545,mx_OS_BD:1258},
+        ],
+      },
+      liftChartMax:{
+        note:'Steel tracks with rubber pads, counterweight (500kg), operator, full fuel, long stick, blade, no bucket.',
+        longStick:[
+          {heightM:4.5,r3m_OF_BD:'*2677',r3m_OF_BU:'*2677',r3m_OS_BD:'*2677',r4p5m_OF_BD:'*1527',r4p5m_OF_BU:'*1527',r4p5m_OS_BD:'*1527',maxRm:5.81},
+          {heightM:3.0,r3m_OF_BD:'*3998',r3m_OF_BU:'*3998',r3m_OS_BD:'*3998',r4p5m_OF_BD:'*2989',r4p5m_OF_BU:'*2989',r4p5m_OS_BD:'*2989',maxRm:6.39,mx_OF_BD:'*1514',mx_OF_BU:'*1514',mx_OS_BD:'*1514'},
+          {heightM:1.5,r3m_OF_BD:'*5147',r3m_OF_BU:'*5147',r3m_OS_BD:'*5147',r4p5m_OF_BD:'*3381',r4p5m_OF_BU:'*3381',r4p5m_OS_BD:2652,maxRm:6.59,mx_OF_BD:'*1601',mx_OF_BU:'*1601',mx_OS_BD:'*1601'},
+          {heightM:0,  r3m_OF_BD:'*5431',r3m_OF_BU:'*5431',r3m_OS_BD:4571,r4p5m_OF_BD:'*3548',r4p5m_OF_BU:'*3548',r4p5m_OS_BD:2510,maxRm:6.43,mx_OF_BD:'*1812',mx_OF_BU:'*1812',mx_OS_BD:1508},
+        ],
+      },
+      brochureRef:'AEHQ8156-07 (04-2025)',
+      tags:['standard','civil','heavy commercial','trench','basement','cab only','10t class','grade control'],
+      note:'Cat 310 Mini Hydraulic Excavator — 9.6t–10.4t. C3.3B, 51.8kW/69.5hp. EPA Tier 4 Final / EU Stage V. One-piece boom (4,300mm) with long stick (2,500mm) standard. Dig depth 5.21m — deepest in the Cat mini range at this weight. Max reach 7.70m. Bucket force 77.7kN. Tail swing 1,800mm (no CW) — larger than CR-series. 145L fuel. Source: Cat Brochure AEHQ8156-07 (04-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 313 HYDRAULIC EXCAVATOR — FULLY BROCHURE-SPECIFIED ──────
+    // Source: Cat 313 Hydraulic Excavator Brochure AEXQ4366-00 (12-2024)
+    // North America, Chile, Europe, Aus-NZ, Colombia. Build Number: 07H.
+    // Standard hydraulic excavator (NOT mini). Long undercarriage standard.
+    // Stick options: 2.2m, 2.5m, 2.8m, 3.0m Reach sticks.
+    // Specs based on 4.65m Reach boom + R3.0 stick + 0.53m³ GD bucket.
+    {
+      id:'cat-313', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 313 Hydraulic Excavator', shortName:'Cat 313',
+      weightClass:'standard',
+      engineModel:'Cat C3.6', engineNetKW:80.9, engineNetHP:108,
+      engineISO14396KW:82, engineRatedRPM:2400,
+      engineDisplacementL:3.6, engineBoreMm:98.0, engineStrokeMm:120.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014',
+      operatingWeightKg:13800, operatingWeightT:13.8,
+      pumpFlowLpm:247, workingPressureBar:350, swingPressureBar:260,
+      swingSpeedRpm:11.5, maxSwingTorqueKNm:35,
+      digDepthM:6.040, digDepthMm:6040,
+      maxReachGroundMm:8660, maxCuttingHeightMm:8830,
+      maxLoadingHeightMm:6420, minLoadingHeightMm:1600,
+      verticalWallMm:5190, levelBottomMm:5860, minWorkingRadiusMm:2570,
+      bucketDigForceKN:98.67, stickDigForceKN:59.29,
+      boomReachM:4.65, stickReachM:3.0, bucketCapM3:0.53,
+      tailSwingRadiusMm:2190, counterweightClearanceMm:915,
+      groundClearanceMm:445, trackLengthMm:3750,
+      lengthCentreRollersMm:3040, trackGaugeMm:1990,
+      transportWidthWith500mmMm:2490,
+      shippingHeightCabMm:2810, shippingLengthMm:7690, shippingLengthWithBladeMm:7970,
+      fuelTankL:258.0, coolingSystemL:15.0, engineOilL:8.0,
+      finalDriveEachL:3.0, hydraulicSystemInclTankL:85.0, hydraulicTankL:70.0, defTankL:21.0,
+      brochureRef:'AEXQ4366-00 (12-2024)',
+      tags:['standard','civil','commercial','bulk excavation','trench','deep','basement','13t class','grade control','payload'],
+      note:'Cat 313 Hydraulic Excavator — 13.8t. C3.6, 80.9kW/108hp. EPA Tier 4 Final/EU Stage V/Japan 2014. Standard hydraulic excavator (not mini). 4.65m Reach boom; stick options 2.2m–3.0m. Dig depth 6.04m (R3.0 stick). Max reach 8.66m. Bucket force 98.67kN. Standard Cat Grade 2D and Payload. Tail swing 2,190mm. 258L fuel. Bulk residential cut, commercial basement, civil trenching, road works. Source: Cat Brochure AEXQ4366-00 (12-2024).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 315 HYDRAULIC EXCAVATOR — FULLY BROCHURE-SPECIFIED ──────
+    // Source: Cat 315 Hydraulic Excavator Technical Specifications AEXQ4119-00 (11-2024)
+    // Aus-NZ, Singapore build (Build 07H). Long undercarriage + Reach boom (4.65m) standard.
+    // Stick options: R2.5m and R3.0m. 3.83mt counterweight standard.
+    // Lift chart uses per-radius format (1.5m, 3m, 4.5m, 6m radii; blade-down).
+    {
+      id:'cat-315', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 315 Hydraulic Excavator', shortName:'Cat 315',
+      weightClass:'standard',
+      engineModel:'Cat C3.6', engineNetKW:80.9, engineNetHP:108,
+      engineISO14396KW:82, engineRatedRPM:2200,
+      engineDisplacementL:3.6, engineBoreMm:98.0, engineStrokeMm:120.0,
+      emissionStandard:'Equivalent to EPA Tier 3',
+      operatingWeightKg:14700, operatingWeightT:14.7,
+      counterweightKg:3830,
+      gradeabilityDeg:35, gradeabilityPct:70,
+      travelSpeedMaxKmh:5.6, maxDrawbarPullKN:129,
+      pumpFlowLpm:276, workingPressureBar:350, swingPressureBar:260,
+      swingSpeedRpm:12.0, maxSwingTorqueKNm:35,
+      // R2.5 stick working ranges
+      digDepthM:5.490, digDepthMm:5490,
+      maxReachGroundMm:8230, maxCuttingHeightMm:9330,
+      maxLoadingHeightMm:6850, minLoadingHeightMm:2530,
+      verticalWallMm:4740, levelBottomMm:5280, minWorkingRadiusMm:1990,
+      bucketDigForceR2p5KN:98.45, stickDigForceR2p5KN:66.75,
+      // R3.0 stick working ranges
+      digDepthR3p0Mm:5990, maxReachGroundR3p0Mm:8690,
+      maxCuttingHeightR3p0Mm:9690, maxLoadingHeightR3p0Mm:7220,
+      minLoadingHeightR3p0Mm:2080, verticalWallR3p0Mm:5180,
+      levelBottomR3p0Mm:5810, minWorkingRadiusR3p0Mm:2240,
+      bucketDigForceR3p0KN:98.67, stickDigForceR3p0KN:59.29,
+      boomReachM:4.65, bucketCapM3:0.53,
+      cabHeightMm:2810, tailSwingRadiusMm:1570,
+      counterweightClearanceMm:880, groundClearanceMm:440,
+      trackLengthMm:3750, lengthCentreRollersMm:3040, trackGaugeMm:1990,
+      transportWidthWith500mmMm:2490, transportWidthWith600mmMm:2590,
+      shippingLengthR2p5Mm:7450, shippingLengthR3p0Mm:7440,
+      fuelTankL:187.0, coolingSystemL:15.0, engineOilL:8.0,
+      finalDriveEachL:3.0, hydraulicSystemInclTankL:85.0, hydraulicTankL:72.0,
+      // Lift chart — blade down, 3830kg CW, no bucket. ISO 10567:2007.
+      // Per-radius format: each row = {hmm, r1500_OF, r1500_OS, r3000_OF, r3000_OS, r4500_OF, r4500_OS, r6000_OF, r6000_OS, [r7500_OF, r7500_OS], maxMm}
+      // * = hydraulically limited (does not exceed 87% hydraulic or 75% tipping)
+      liftChartR2p5BD:[
+        {hmm:7500,r1500_OF:null,r1500_OS:null,r3000_OF:null,r3000_OS:null,r4500_OF:'*4350',r4500_OS:'*4350',r6000_OF:'*3250',r6000_OS:'*3250',maxMm:3710},
+        {hmm:6000,r1500_OF:null,r1500_OS:null,r3000_OF:'*4050',r3000_OS:'*4050',r4500_OF:'*2600',r4500_OS:'*2600',r6000_OF:null,r6000_OS:null,maxMm:5490},
+        {hmm:4500,r1500_OF:'*4150',r1500_OS:'*4150',r3000_OF:'*4500',r3000_OS:4100,r4500_OF:'*3700',r4500_OS:2600,r6000_OF:'*2450',r6000_OS:2300,maxMm:6460},
+        {hmm:3000,r1500_OF:'*7400',r1500_OS:7250,r3000_OF:'*5150',r3000_OS:3900,r4500_OF:3950,r4500_OS:2550,r6000_OF:'*2450',r6000_OS:2000,maxMm:6970},
+        {hmm:1500,r1500_OF:'*6800',r1500_OS:6500,r3000_OF:'*5850',r3000_OS:3650,r4500_OF:3800,r4500_OS:2400,r6000_OF:'*2550',r6000_OS:1900,maxMm:7130},
+        {hmm:0,   r1500_OF:'*6250',r1500_OS:6200,r3000_OF:5700,r3000_OS:3450,r4500_OF:3750,r4500_OS:2350,r6000_OF:'*2850',r6000_OS:1900,maxMm:6960},
+        {hmm:-1500,r1500_OF:'*4750',r1500_OS:'*4750',r3000_OF:'*7900',r3000_OS:6150,r4500_OF:'*5550',r4500_OS:3400,r6000_OF:3700,r6000_OS:2300,r7500_OF:3350,r7500_OS:2100,maxMm:6440},
+        {hmm:-3000,r1500_OF:'*7300',r1500_OS:'*7300',r3000_OF:'*5750',r3000_OS:'*5750',r4500_OF:'*4150',r4500_OS:3400,r6000_OF:'*2950',r6000_OS:2650,maxMm:5460},
+      ],
+      liftChartR3p0BD:[
+        {hmm:7500,r1500_OF:null,r1500_OS:null,r3000_OF:null,r3000_OS:null,r4500_OF:'*2700',r4500_OS:'*2700',r6000_OF:'*2600',r6000_OS:'*2600',maxMm:4540},
+        {hmm:6000,r1500_OF:null,r1500_OS:null,r3000_OF:'*3450',r3000_OS:'*3450',r4500_OF:'*2400',r4500_OS:'*2400',r6000_OF:'*2200',r6000_OS:'*2200',maxMm:6070},
+        {hmm:4500,r1500_OF:'*3650',r1500_OS:'*3650',r3000_OF:'*3450',r3000_OS:2650,r4500_OF:'*2050',r4500_OS:2050,r6000_OF:null,r6000_OS:null,maxMm:6960},
+        {hmm:3000,r1500_OF:'*5850',r1500_OS:'*5850',r3000_OF:'*4800',r3000_OS:3950,r4500_OF:'*3950',r4500_OS:2550,r6000_OF:'*2050',r6000_OS:1800,maxMm:7440},
+        {hmm:1500,r1500_OF:'*8750',r1500_OS:6650,r3000_OF:'*5600',r3000_OS:3650,r4500_OF:3850,r4500_OS:2400,r6000_OF:'*2500',r6000_OS:1750,r7500_OF:'*2150',r7500_OS:1700,maxMm:7590},
+        {hmm:0,   r1500_OF:'*7000',r1500_OS:6200,r3000_OF:5700,r3000_OS:3450,r4500_OF:3700,r4500_OS:2300,r6000_OF:'*2400',r6000_OS:1700,maxMm:7430},
+        {hmm:-1500,r1500_OF:'*4300',r1500_OS:'*4300',r3000_OF:'*8500',r3000_OS:6100,r4500_OF:5600,r4500_OS:3350,r6000_OF:3650,r6000_OS:2250,r7500_OF:'*2850',r7500_OS:1850,maxMm:6940},
+        {hmm:-3000,r1500_OF:'*7450',r1500_OS:'*7450',r3000_OF:'*6650',r3000_OS:6150,r4500_OF:'*4700',r4500_OS:3350,r6000_OF:'*3000',r6000_OS:2300,r7500_OF:'*2950',r7500_OS:2250,maxMm:6050},
+        {hmm:-4500,r1500_OF:null,r1500_OS:null,r3000_OF:'*3450',r3000_OS:'*3450',r4500_OF:'*2050',r4500_OS:'*2050',r6000_OF:null,r6000_OS:null,maxMm:4490},
+      ],
+      brochureRef:'AEXQ4119-00 (11-2024)',
+      tags:['standard','civil','commercial','bulk excavation','trench','deep','basement','14t class','grade control','anzp'],
+      note:'Cat 315 Hydraulic Excavator — 14.7t. C3.6, 80.9kW/108hp. Aus-NZ spec (AEXQ4119-00). Standard hydraulic excavator. 4.65m Reach boom. R2.5 stick: dig depth 5.49m, reach 8.23m, bucket force 98.45kN. R3.0 stick: dig depth 5.99m, reach 8.69m. 3.83t counterweight standard. Tail swing 1,570mm. 500mm or 600mm track shoes. 187L fuel. Blade (2500/2600mm) optional. Cat Grade 2D standard. Source: Cat Technical Specifications AEXQ4119-00 (11-2024).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 315 GC — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 315 GC Technical Specifications AEXQ4100-00 (11-2024) Aus-NZ, Singapore
+    {
+      id:'cat-315gc', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 315 GC Hydraulic Excavator', shortName:'Cat 315 GC',
+      weightClass:'standard',
+      engineModel:'Cat C3.6', engineNetKW:73.3, engineNetHP:98,
+      engineISO14396KW:74.4, engineNetHPISO14396:100, engineRatedRPM:2200,
+      engineDisplacementL:3.6, engineBoreMm:98.0, engineStrokeMm:120.0,
+      emissionStandard:'Equivalent to U.S. EPA Tier 3',
+      operatingWeightKg:14700, operatingWeightT:14.7,
+      counterweightKg:3830,
+      gradeabilityDeg:35, gradeabilityPct:70,
+      travelSpeedMaxKmh:5.4, maxDrawbarPullKN:117,
+      swingSpeedRpm:11.5, maxSwingTorqueKNm:35,
+      pumpFlowLpm:247, workingPressureBar:350, swingPressureBar:260,
+      boomCylBoreMm:105, boomCylStrokeMm:1023,
+      stickCylBoreMm:115, stickCylStrokeMm:1147,
+      bucketCylBoreMm:95, bucketCylStrokeMm:939,
+      // Working ranges — R2.5 stick
+      digDepthR2p5Mm:5490, maxReachGroundR2p5Mm:8230, maxCuttingHeightR2p5Mm:9330,
+      maxLoadingHeightR2p5Mm:6850, minLoadingHeightR2p5Mm:2530,
+      levelBottomR2p5Mm:5280, verticalWallR2p5Mm:4740, minWorkingRadiusR2p5Mm:1990,
+      bucketDigForceR2p5KN:98.45, stickDigForceR2p5KN:66.68,
+      // Working ranges — R3.0 stick
+      digDepthR3p0Mm:5990, maxReachGroundR3p0Mm:8690, maxCuttingHeightR3p0Mm:9690,
+      maxLoadingHeightR3p0Mm:7220, minLoadingHeightR3p0Mm:2080,
+      levelBottomR3p0Mm:5810, verticalWallR3p0Mm:5180, minWorkingRadiusR3p0Mm:2240,
+      bucketDigForceR3p0KN:98.67, stickDigForceR3p0KN:59.29,
+      boomReachM:4.65, bucketCapM3:0.53,
+      // Dimensions
+      cabHeightMm:2810, tailSwingRadiusMm:1570, counterweightClearanceMm:880,
+      groundClearanceMm:440, trackLengthMm:3750, lengthCentreRollersMm:3040,
+      trackGaugeMm:1990, transportWidthWith500mmMm:2490, transportWidthWith600mmMm:2590, transportWidthWith700mmMm:2690,
+      shippingLengthR2p5Mm:7450, shippingLengthR3p0Mm:7440,
+      // Blade
+      bladeWidth2500Mm:2500, bladeWidth2600Mm:2600, bladeHeightMm:616,
+      bladeLoweringMm:550, bladeRaisingMm:1018, bladeApproachDeg:26,
+      // Fluids
+      fuelTankL:187.0, coolingSystemL:15.0, engineOilL:8.0,
+      finalDriveEachL:3.0, hydraulicSystemInclTankL:85.0, hydraulicTankL:72.0,
+      // Lift charts — 500mm triple grouser shoes, 3.83t CW, blade down, no bucket. ISO 10567:2007
+      // * = hydraulically limited
+      liftChartR2p5BD:[
+        {hmm:7500,r3000_OF:'*4350',r3000_OS:'*4350',r4500_OF:null,r4500_OS:null,r6000_OF:'*3250',r6000_OS:'*3250',maxMm:3710},
+        {hmm:6000,r3000_OF:'*4050',r3000_OS:'*4050',r4500_OF:null,r4500_OS:null,r6000_OF:'*2600',r6000_OS:'*2600',maxMm:5490},
+        {hmm:4500,r1500_OF:'*4150',r1500_OS:'*4150',r3000_OF:'*4500',r3000_OS:4050,r4500_OF:'*3700',r4500_OS:2550,r6000_OF:'*2450',r6000_OS:2250,maxMm:6460},
+        {hmm:3000,r1500_OF:'*7400',r1500_OS:7200,r3000_OF:'*5150',r3000_OS:3850,r4500_OF:3900,r4500_OS:2500,r6000_OF:'*2450',r6000_OS:1950,maxMm:6970},
+        {hmm:1500,r1500_OF:'*6800',r1500_OS:6400,r3000_OF:'*5850',r3000_OS:3600,r4500_OF:3800,r4500_OS:2400,r6000_OF:'*2550',r6000_OS:1850,maxMm:7130},
+        {hmm:0,   r1500_OF:'*6250',r1500_OS:6100,r3000_OF:5650,r3000_OS:3400,r4500_OF:3700,r4500_OS:2300,r6000_OF:'*2850',r6000_OS:1900,maxMm:6960},
+        {hmm:-1500,r1500_OF:'*4750',r1500_OS:'*4750',r3000_OF:'*7900',r3000_OS:6100,r4500_OF:'*5550',r4500_OS:3350,r6000_OF:3650,r6000_OS:2250,r7500_OF:3300,r7500_OS:2100,maxMm:6440},
+        {hmm:-3000,r1500_OF:'*7300',r1500_OS:'*7300',r3000_OF:'*5750',r3000_OS:'*5750',r4500_OF:'*4150',r4500_OS:3400,r6000_OF:'*2950',r6000_OS:2650,maxMm:5460},
+      ],
+      liftChartR3p0BD:[
+        {hmm:7500,r4500_OF:'*2700',r4500_OS:'*2700',r6000_OF:'*2600',r6000_OS:'*2600',maxMm:4540},
+        {hmm:6000,r3000_OF:'*3450',r3000_OS:'*3450',r4500_OF:'*2400',r4500_OS:'*2400',r6000_OF:'*2200',r6000_OS:'*2200',maxMm:6070},
+        {hmm:4500,r1500_OF:'*3650',r1500_OS:'*3650',r3000_OF:'*3450',r3000_OS:2600,r4500_OF:'*2050',r4500_OS:2000,maxMm:6960},
+        {hmm:3000,r1500_OF:'*5850',r1500_OS:'*5850',r3000_OF:'*4800',r3000_OS:3900,r4500_OF:3950,r4500_OS:2500,r6000_OF:'*2050',r6000_OS:1800,maxMm:7440},
+        {hmm:1500,r1500_OF:'*8750',r1500_OS:6600,r3000_OF:'*5600',r3000_OS:3650,r4500_OF:3800,r4500_OS:2400,r6000_OF:'*2500',r6000_OS:1700,r7500_OF:'*2150',r7500_OS:1700,maxMm:7590},
+        {hmm:0,   r1500_OF:'*7000',r1500_OS:6150,r3000_OF:5650,r3000_OS:3400,r4500_OF:3650,r4500_OS:2300,r6000_OF:'*2400',r6000_OS:1700,maxMm:7430},
+        {hmm:-1500,r1500_OF:'*4300',r1500_OS:'*4300',r3000_OF:'*8500',r3000_OS:6000,r4500_OF:5550,r4500_OS:3300,r6000_OF:3600,r6000_OS:2250,r7500_OF:'*2850',r7500_OS:1850,maxMm:6940},
+        {hmm:-3000,r1500_OF:'*7450',r1500_OS:'*7450',r3000_OF:'*6650',r3000_OS:6050,r4500_OF:'*4700',r4500_OS:3300,r6000_OF:'*3000',r6000_OS:2250,r7500_OF:'*2950',r7500_OS:2250,maxMm:6050},
+        {hmm:-4500,r3000_OF:'*3450',r3000_OS:'*3450',r4500_OF:'*2050',r4500_OS:'*2050',maxMm:4490},
+      ],
+      brochureRef:'AEXQ4100-00 (11-2024)',
+      tags:['standard','civil','commercial','bulk excavation','trench','deep','basement','15t class','gc','anzp','singapore'],
+      note:'Cat 315 GC Hydraulic Excavator — 14.7t. C3.6, 73.3kW/98hp. EPA Tier 3 equivalent (GC = economy tier, lower power than Cat 315). Aus-NZ + Singapore spec. 4.65m Reach boom. R2.5 stick: dig depth 5.49m, reach 8.23m, bucket force 98.45kN, stick 66.68kN. R3.0 stick: dig depth 5.99m, reach 8.69m, bucket force 98.67kN, stick 59.29kN. 3.83t counterweight. Tail swing 1,570mm. 500mm standard, 600mm or 700mm track shoes optional. 187L fuel. Blade optional (2500mm or 2600mm). Source: Cat Technical Specifications AEXQ4100-00 (11-2024).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 317 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 317 Hydraulic Excavator AEXQ4373-00 (12-2024) Aus-NZ, Europe
+    {
+      id:'cat-317', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 317 Hydraulic Excavator', shortName:'Cat 317',
+      weightClass:'standard',
+      engineModel:'Cat C3.6', engineNetKW:98.9, engineNetHP:133,
+      engineISO14396KW:100, engineNetHPISO14396:134, engineRatedRPM:2200,
+      engineDisplacementL:3.6, engineBoreMm:98.0, engineStrokeMm:120.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014',
+      operatingWeightKg:17800, operatingWeightT:17.8,
+      counterweightKg:3770,
+      swingSpeedRpm:8.7, maxSwingTorqueKNm:64.6,
+      pumpFlowLpm:296, workingPressureKPa:35000, swingPressureKPa:25800,
+      // Working ranges — Boom 5.1m, Stick R3.1m (10'2"), Bucket GD 1m³
+      digDepthMm:6600, maxReachGroundMm:9200, maxCuttingHeightMm:8990,
+      maxLoadingHeightMm:6370, minLoadingHeightMm:1790,
+      levelBottomMm:6380, verticalWallMm:5150, minWorkingRadiusMm:2390,
+      bucketDigForceKN:123, stickDigForceKN:71,
+      boomReachM:5.1, stdStickReachM:3.1, bucketCapM3:1.0,
+      // Dimensions
+      cabHeightMm:2930, handrailHeightMm:2940,
+      shippingLengthNoBladeMm:8580, shippingLengthWithBladeMm:8620,
+      tailSwingRadiusMm:2500, counterweightClearanceMm:1010,
+      groundClearanceMm:430, trackLengthMm:3970, lengthCentreRollersMm:3170,
+      trackGaugeMm:1990, transportWidthWith500mmMm:2490,
+      // Fluids
+      fuelTankL:271, coolingSystemL:22, engineOilL:11,
+      finalDriveEachL:6, hydraulicSystemInclTankL:94, hydraulicTankL:87, defTankL:22,
+      // Stick options: 2.6m (R2.5), 3.1m (standard Aus-NZ), 2.25m (Europe only)
+      // Blade options: 2500mm, 2600mm, 2700mm
+      // No lift chart available in marketing brochure — confirm with Cat dealer
+      brochureRef:'AEXQ4373-00 (12-2024)',
+      tags:['standard','civil','commercial','bulk excavation','trench','deep','18t class','grade control','anzp'],
+      note:'Cat 317 Hydraulic Excavator — 17.8t. C3.6, 98.9kW/133hp. EPA Tier 4 Final / EU Stage V / Japan 2014. Larger than Cat 313 and 315, bridging 13–20t gap. Boom 5.1m; standard stick R3.1m (dig depth 6.6m, reach 9.2m). Bucket force 123kN — significantly stronger than 313. Swing 8.7rpm, 64.6kN·m torque. 271L fuel. 3.77t counterweight. Blade options 2500/2600/2700mm. Standard Cat Grade 2D, Payload, VisionLink, 2D E-Fence. Source: Cat Brochure AEXQ4373-00 (12-2024).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 320 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 320 Hydraulic Excavator Technical Specifications AEXQ3756-01 (11-2025) Aus-NZ
+    {
+      id:'cat-320', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 320 Hydraulic Excavator', shortName:'Cat 320',
+      weightClass:'standard',
+      engineModel:'Cat C4.4', engineNetKW:128.5, engineNetHP:172,
+      engineISO14396KW:129.4, engineNetHPISO14396:174, engineRatedRPM:2200,
+      engineDisplacementL:4.4, engineBoreMm:105.0, engineStrokeMm:127.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014',
+      operatingWeightKg:21900, operatingWeightT:21.9,
+      counterweightKg:4200, counterweightSLRKg:4700,
+      gradeabilityDeg:35, gradeabilityPct:70,
+      travelSpeedMaxKmh:5.7, maxDrawbarPullKN:205,
+      swingSpeedRpm:11.25, maxSwingTorqueKNm:82,
+      pumpFlowLpm:429, workingPressureKPa:35000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:34300, swingPressureKPa:27500,
+      boomCylBoreMm:120, boomCylStrokeMm:1260,
+      stickCylBoreMm:140, stickCylStrokeMm:1504,
+      bucketCylBoreMm:120, bucketCylStrokeMm:1104,
+      // Working ranges — Reach/HD Reach Boom 5.7m + R2.9 stick + HD bucket 1.19m³
+      digDepthMm:6720, maxReachGroundMm:9860, maxCuttingHeightMm:9370,
+      maxLoadingHeightMm:6490, minLoadingHeightMm:2170,
+      levelBottomMm:6550, verticalWallMm:5190,
+      bucketDigForceKN:141, stickDigForceKN:107,
+      bucketDigForceAutoBoostKN:153, stickDigForceAutoBoostKN:116,
+      boomReachM:5.7, stdStickReachM:2.9, bucketCapM3:1.19,
+      // SLR (Super Long Reach) working ranges — 8.85m boom + 6.28m stick
+      slrBoomM:8.85, slrStickM:6.28,
+      slrDigDepthMm:11540, slrMaxReachGroundMm:15570, slrMaxCuttingHeightMm:13540,
+      slrBucketForceKN:62, slrStickForceKN:49,
+      // Dimensions
+      cabHeightMm:2960, tailSwingRadiusMm:2830, counterweightClearanceMm:1050,
+      groundClearanceMm:470, trackLengthMm:4450, lengthCentreRollersMm:3650,
+      trackGaugeMm:2380, transportWidthWith600mmMm:2980, transportWidthWith700mmMm:3080,
+      machineLength9530Mm:9530,
+      // Fluids
+      fuelTankL:345, coolingSystemL:25, engineOilL:15,
+      swingDriveEachL:6, finalDriveEachL:4, hydraulicSystemInclTankL:234, hydraulicTankL:115, defTankL:39,
+      // Sound
+      externalSoundDBA:99, internalSoundDBA:70,
+      // Lift chart — Reach boom 5.7m, R2.9B1 stick, 600mm triple grouser shoes, 4.2t CW, no bucket. ISO 10567:2007.
+      // Over Front (OF) and Over Side (OS) pairs per radius.
+      // * = hydraulically limited
+      liftChartReachR2p9:[
+        {hmm:7500, r1500_OF:'*4950',r1500_OS:'*4950',r3000_OF:'*4300',r3000_OS:'*4300',maxMm:6150},
+        {hmm:6000, r1500_OF:'*5450',r1500_OS:5400, r3000_OF:'*4000',r3000_OS:3950,maxMm:7290},
+        {hmm:4500, r1500_OF:'*6000',r1500_OS:5250, r3000_OF:'*5650',r3000_OS:3700,r4500_OF:'*3900',r4500_OS:3350,maxMm:7990},
+        {hmm:3000, r1500_OF:'*8700',r1500_OS:7650, r3000_OF:'*6850',r3000_OS:5000,r4500_OF:5550,r4500_OS:3600,r6000_OF:'*4000',r6000_OS:3050,maxMm:8360},
+        {hmm:1500, r1500_OF:'*10550',r1500_OS:7150,r3000_OF:7600,r3000_OS:4800,r4500_OF:5450,r4500_OS:3500,r6000_OF:'*4250',r6000_OS:2950,maxMm:8450},
+        {hmm:0,    r1500_OF:'*6600',r1500_OS:'*6600',r3000_OF:'*11600',r3000_OS:6850,r4500_OF:7400,r4500_OS:4600,r6000_OF:5350,r6000_OS:3400,r7500_OF:4700,r7500_OS:3000,maxMm:8260},
+        {hmm:-1500,r1500_OF:'*7100',r1500_OS:'*7100',r3000_OF:'*11400',r3000_OS:'*11400',r4500_OF:11550,r4500_OS:6750,r6000_OF:7300,r6000_OS:4550,r7500_OF:5300,r7500_OS:3400,r9000_OF:5050,r9000_OS:3250,maxMm:7780},
+        {hmm:-3000,r1500_OF:'*12100',r1500_OS:'*12100',r3000_OF:'*15500',r3000_OS:13200,r4500_OF:'*10950',r4500_OS:6850,r6000_OF:7350,r6000_OS:4600,r7500_OF:6000,r7500_OS:3800,maxMm:6950},
+        {hmm:-4500,r1500_OF:'*12400',r1500_OS:'*12400',r3000_OF:'*8950',r3000_OS:7050,r4500_OF:'*6750',r4500_OS:5250,maxMm:5600},
+      ],
+      brochureRef:'AEXQ3756-01 (11-2025)',
+      tags:['standard','civil','bulk','heavy commercial','deep','20t class','grade control','slr','super long reach','anzp'],
+      note:'Cat 320 Hydraulic Excavator — 21.9t. C4.4 twin turbo, 128.5kW/172hp. EPA Tier 4 Final / Stage V / Japan 2014. Reach boom 5.7m; R2.9 stick: dig depth 6.72m, reach 9.86m, bucket force 141kN (153kN auto dig boost). Optional Super Long Reach boom 8.85m + 6.28m stick: dig 11.54m, reach 15.57m. Optional HD Reach boom also available. 4.2t CW standard (4.7t for SLR). 345L fuel. Tail swing 2,830mm. 600mm std or 700mm track shoes. Cat Grade 2D, Payload, VisionLink, 2D E-Fence, Cat Command, 360° visibility all available. Source: Cat Technical Specifications AEXQ3756-01 (11-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    { id:'cat-313gc',  brand:'Caterpillar', emoji:'⛏️', type:'excavator', name:'Caterpillar 313 GC', shortName:'Cat 313 GC',
+      weightClass:'standard', operatingWeightT:13.4, digDepthM:5.5, bucketCapM3:0.52,
+      tags:['standard','commercial','civil','bulk excavation','deep'],
+      note:'Cat 313 GC — 13.4t standard excavator. 67.8kW engine. Dig depth 5.5m. Most common commercial excavator in Australia — bulk residential cut, commercial basements, road works. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    // ── CAT 320 GC — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 320 GC Hydraulic Excavator Brochure AEXQ4154-01 (11-2025)
+    // Aus-NZ, Afr-ME, Eurasia, HK, Pacific Islands, SE Asia, Taiwan. Build Number: 07H.
+    // Marketing brochure — no lift chart available. Specs: Medium undercarriage, Reach boom 5.7m,
+    // R2.9 stick, GD 1.0m³ bucket, 600mm triple grouser shoes, 3.7t CW.
+    {
+      id:'cat-320gc', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 320 GC Hydraulic Excavator', shortName:'Cat 320 GC',
+      weightClass:'standard',
+      engineModel:'Cat C4.4', engineNetKW:107, engineNetHP:143,
+      engineISO14396KW:108, engineNetHPISO14396:145,
+      engineDisplacementL:4.4, engineBoreMm:105.0, engineStrokeMm:127.0,
+      emissionStandard:'Brazil MAR-1 (equiv. U.S. EPA Tier 3 / EU Stage IIIA)',
+      operatingWeightKg:20400, operatingWeightT:20.4,
+      counterweightKg:3700, counterweightANZKg:4200,
+      pumpFlowLpm:429, workingPressureKPa:35000, travelPressureKPa:34300, swingPressureKPa:25000,
+      swingSpeedRpm:11.3, maxSwingTorqueKNm:74.4,
+      digDepthMm:6630, digDepthM:6.630,
+      maxReachGroundMm:9770, maxCuttingHeightMm:9440,
+      maxLoadingHeightMm:6580, minLoadingHeightMm:2260,
+      levelBottomMm:6460, verticalWallMm:6010,
+      bucketDigForceKN:129, stickDigForceKN:99,
+      boomReachM:5.7, stdStickReachM:2.9, bucketCapM3:1.0,
+      cabHeightMm:2960, handrailHeightMm:2950,
+      shippingLengthMm:9530, tailSwingRadiusMm:2830, counterweightClearanceMm:1050,
+      groundClearanceMm:470, trackLengthMm:4250, lengthCentreRollersMm:3450,
+      trackGaugeMm:2380, transportWidthWith600mmMm:2980,
+      fuelTankL:345, coolingSystemL:25, engineOilL:15,
+      swingDriveEachL:12, finalDriveEachL:4, hydraulicSystemInclTankL:234, hydraulicTankL:115,
+      brochureRef:'AEXQ4154-01 (11-2025)',
+      tags:['standard','civil','bulk','heavy commercial','deep','20t class','gc','low cost per hour'],
+      note:'Cat 320 GC Hydraulic Excavator — 20.4t. C4.4, 107kW/143hp. Brazil MAR-1 (equiv. EPA Tier 3/EU Stage IIIA). Medium undercarriage. Reach boom 5.7m; R2.9 stick: dig depth 6.63m, reach 9.77m, bucket force 129kN, stick force 99kN. 3.7t CW std (4.2t Aus-NZ optional). Tail swing 2,830mm. 345L fuel. Two selectable power modes + Smart mode. Lower-spec variant of Cat 320 optimised for light-to-medium duty applications at lower cost per hour. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4154-01 (11-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 323 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 323 Hydraulic Excavator Brochure AEXQ4337-01 (10-2025)
+    // Aus-NZ, Chile, Colombia, Europe, N Am, Türkiye. Build Number: 07H.
+    // Marketing brochure — no lift chart available. Specs: Long undercarriage, Reach boom 5.7m,
+    // R2.9 stick, HD 1.38m³ bucket, 790mm HD triple grouser, 5.4t CW.
+    {
+      id:'cat-323', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 323 Hydraulic Excavator', shortName:'Cat 323',
+      weightClass:'standard',
+      engineModel:'Cat C7.1', engineNetKW:128.5, engineNetHP:172,
+      engineISO14396KW:129.4, engineNetHPISO14396:174, engineRatedRPM:2200,
+      engineDisplacementL:7.01, engineBoreMm:105.0, engineStrokeMm:135.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014',
+      operatingWeightKg:25000, operatingWeightT:25.0,
+      counterweightKg:5400, counterweightOptKg:4200,
+      pumpFlowLpm:429, workingPressureKPa:35000, travelPressureKPa:34300, swingPressureKPa:27500,
+      swingSpeedRpm:11.25, maxSwingTorqueKNm:82,
+      digDepthMm:6730, digDepthM:6.730,
+      maxReachGroundMm:9870, maxCuttingHeightMm:9450,
+      maxLoadingHeightMm:6480, minLoadingHeightMm:2160,
+      levelBottomMm:6560, verticalWallMm:5740,
+      bucketDigForceKN:140, stickDigForceKN:107,
+      bucketDigForceAutoBoostKN:152, stickDigForceAutoBoostKN:116,
+      boomReachM:5.7, stdStickReachM:2.9, bucketCapM3:1.30,
+      cabHeightMm:2960, handrailHeightMm:2950,
+      shippingLengthMm:9530, tailSwingRadiusMm:2830, counterweightClearanceMm:1050,
+      groundClearanceMm:470, trackLengthMm:4450, lengthCentreRollersMm:3650,
+      trackGaugeMm:2380, transportWidthWith790mmMm:3170,
+      fuelTankL:345, coolingSystemL:25, engineOilL:25,
+      swingDriveEachL:6, finalDriveEachL:5, hydraulicSystemInclTankL:234, hydraulicTankL:115, defTankL:41,
+      brochureRef:'AEXQ4337-01 (10-2025)',
+      tags:['standard','civil','bulk','heavy commercial','deep','25t class','grade control','payload','tier4'],
+      note:'Cat 323 Hydraulic Excavator — 25.0t. C7.1, 128.5kW/172hp. EPA Tier 4 Final / EU Stage V / Japan 2014. Long undercarriage. Reach boom 5.7m; R2.9 stick: dig depth 6.73m, reach 9.87m, bucket force 140kN (152kN auto dig boost). 5.4t CW std. Tail swing 2,830mm. 345L fuel + 41L DEF. Standard Cat Grade 2D, Grade with Assist, Payload, E-Fence. Variable angle boom and Super Long Reach boom options available. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4337-01 (10-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 325 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 325 Hydraulic Excavator Brochure AEXQ4138-00
+    // Aus-NZ, Europe, N Am. Build Number: 07H. COMPACT RADIUS design.
+    // Marketing brochure — no lift chart available. Specs: Long undercarriage, Reach boom 5.7m,
+    // R2.9B1 stick, HD 1.19m³ bucket, 790mm HD triple grouser, 8.3t CW.
+    {
+      id:'cat-325', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 325 Hydraulic Excavator', shortName:'Cat 325',
+      weightClass:'standard',
+      engineModel:'Cat C4.4', engineNetKW:128.5, engineNetHP:172,
+      engineISO14396KW:129.4, engineNetHPISO14396:174, engineRatedRPM:2200,
+      engineDisplacementL:4.4, engineBoreMm:105.0, engineStrokeMm:127.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014',
+      operatingWeightKg:28500, operatingWeightT:28.5,
+      counterweightKg:8300, counterweightOpt1Kg:4900, counterweightOpt2Kg:6700,
+      compactRadius:true,
+      pumpFlowLpm:429, workingPressureKPa:35000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:35000, swingPressureKPa:27500,
+      swingSpeedRpm:11.12, maxSwingTorqueKNm:82,
+      digDepthMm:6700, digDepthM:6.700,
+      maxReachGroundMm:9780, maxCuttingHeightMm:10970,
+      maxLoadingHeightMm:7900, minLoadingHeightMm:2980,
+      levelBottomMm:6520, verticalWallMm:4880,
+      bucketDigForceKN:150, stickDigForceKN:106,
+      boomReachM:5.7, stdStickReachM:2.9, bucketCapM3:1.19,
+      cabHeightMm:3080, handrailHeightMm:3190,
+      shippingLengthMm:8890, tailSwingRadiusMm:1810, counterweightClearanceMm:1020,
+      groundClearanceMm:440, trackLengthMm:4460, lengthCentreRollersMm:3650,
+      trackGaugeMm:2380, transportWidthWith600mmMm:2980, transportWidthWith790mmMm:3170,
+      fuelTankL:313, coolingSystemL:11.8, engineOilL:15,
+      swingDriveL:5.5, finalDriveEachL:4.5, hydraulicSystemInclTankL:230, hydraulicTankL:111, defTankL:26,
+      brochureRef:'AEXQ4138-00',
+      tags:['standard','compact radius','civil','road','tight access','heavy commercial','deep','28t class','grade control','payload','tier4'],
+      note:'Cat 325 Hydraulic Excavator — 28.5t. COMPACT RADIUS — tail swing only 1,810mm (fits single lane closure). C4.4, 128.5kW/172hp. EPA Tier 4 Final / EU Stage V / Japan 2014. Reach boom 5.7m; R2.9 stick: dig depth 6.70m, reach 9.78m, bucket force 150kN. Heavy counterweight 8.3t. Optional blade. Lift Assist standard. Ideal for road works with lane closures, urban construction. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4138-00.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 326 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 326 Hydraulic Excavator Brochure AEXQ4157-01 (11-2025)
+    // Aus-NZ, Chile, Colombia, Europe, Japan, N Am, Türkiye. Build Number: 07H.
+    // Marketing brochure — no lift chart available. Specs: Long undercarriage, Reach boom 5.9m,
+    // R2.95m stick, HD 1.54m³ bucket, 600mm triple grouser, 4.6t CW.
+    {
+      id:'cat-326', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 326 Hydraulic Excavator', shortName:'Cat 326',
+      weightClass:'standard',
+      engineModel:'Cat C7.1', engineNetKW:149.8, engineNetHP:201,
+      engineISO14396KW:151, engineNetHPISO14396:202, engineRatedRPM:2000,
+      engineDisplacementL:7.01, engineBoreMm:105.0, engineStrokeMm:135.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014',
+      operatingWeightKg:25600, operatingWeightT:25.6,
+      counterweightKg:4600, counterweightSLRKg:7400,
+      pumpFlowLpm:481, workingPressureKPa:35000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:35000, swingPressureKPa:28400,
+      swingSpeedRpm:9.9, maxSwingTorqueKNm:106,
+      digDepthMm:6820, digDepthM:6.820,
+      maxReachGroundMm:10120, maxCuttingHeightMm:9680,
+      maxLoadingHeightMm:6610, minLoadingHeightMm:2390,
+      levelBottomMm:6650, verticalWallMm:5340,
+      bucketDigForceKN:166, stickDigForceKN:121,
+      boomReachM:5.9, stdStickReachM:2.95, bucketCapM3:1.54,
+      cabHeightMm:3000, handrailHeightMm:3000,
+      shippingLengthMm:10060, tailSwingRadiusMm:3000, counterweightClearanceMm:1060,
+      groundClearanceMm:440, trackLengthMm:4640, lengthCentreRollersMm:3830,
+      trackGaugeMm:2590, transportWidthWith600mmMm:3190,
+      fuelTankL:474, coolingSystemL:25, engineOilL:25,
+      swingDriveL:11.5, finalDriveEachL:4.5, hydraulicSystemInclTankL:310, hydraulicTankL:147, defTankL:41,
+      brochureRef:'AEXQ4157-01 (11-2025)',
+      tags:['standard','civil','bulk','heavy commercial','deep','25t class','heavy lift','grade control','payload','tier4'],
+      note:'Cat 326 Hydraulic Excavator — 25.6t. C7.1, 149.8kW/201hp. EPA Tier 4 Final / EU Stage V / Japan 2014. Long undercarriage. Reach boom 5.9m; R2.95 stick: dig depth 6.82m, reach 10.12m, bucket force 166kN. High swing torque 106kN·m. 481L/min pump flow. Heavy lift mode 38,000kPa. Auto Dig Boost and Auto Heavy Lift standard. Variable angle boom, Super Long Reach boom options. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4157-01 (11-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 330 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 330 Hydraulic Excavator Brochure AEXQ4338-01 (11-2025)
+    // Aus-NZ, Chile, Colombia, Europe, Japan, N Am, Korea, Türkiye. Build Number: 07H.
+    // Marketing brochure — no lift chart available. Specs: Long undercarriage, Reach boom 6.15m,
+    // R3.2m stick, HD 1.76m³ bucket, 800mm triple grouser, 6.7t CW.
+    {
+      id:'cat-330', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 330 Hydraulic Excavator', shortName:'Cat 330',
+      weightClass:'large',
+      engineModel:'Cat C7.1', engineNetKW:203.7, engineNetHP:273,
+      engineISO14396KW:205, engineNetHPISO14396:275, engineRatedRPM:2200,
+      engineDisplacementL:7.01, engineBoreMm:105.0, engineStrokeMm:135.0,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V',
+      operatingWeightKg:31400, operatingWeightT:31.4,
+      counterweightKg:6700,
+      pumpFlowLpm:560, workingPressureKPa:35000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:35000, swingPressureKPa:29800,
+      swingSpeedRpm:11.5, maxSwingTorqueKNm:110,
+      digDepthMm:7240, digDepthM:7.240,
+      maxReachGroundMm:10680, maxCuttingHeightMm:10030,
+      maxLoadingHeightMm:6950, minLoadingHeightMm:2300,
+      levelBottomMm:7090, verticalWallMm:6010,
+      bucketDigForceKN:179, stickDigForceKN:126,
+      boomReachM:6.15, stdStickReachM:3.2, bucketCapM3:1.76,
+      cabHeightMm:3060, handrailHeightMm:3060,
+      shippingLengthMm:10420, tailSwingRadiusMm:3130, counterweightClearanceMm:1120,
+      groundClearanceMm:490, trackLengthMm:4860, lengthCentreRollersMm:3990,
+      trackGaugeMm:2590, transportWidthWith800mmMm:3390,
+      fuelTankL:474, coolingSystemL:25, engineOilL:25,
+      swingDriveL:10, finalDriveEachL:5.5, hydraulicSystemInclTankL:310, hydraulicTankL:147, defTankL:41,
+      brochureRef:'AEXQ4338-01 (11-2025)',
+      tags:['large','civil','mining','dam','infrastructure','bulk','deep','30t class','grade control','payload','tier4','super long reach'],
+      note:'Cat 330 Hydraulic Excavator — 31.4t. C7.1 twin turbo, 203.7kW/273hp. EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V. Long undercarriage. Reach boom 6.15m; R3.2 stick: dig depth 7.24m, reach 10.68m, bucket force 179kN. 560L/min pump. Heavy lift mode 38,000kPa. Auto Dig Boost and Auto Heavy Lift standard. Super Long Reach boom 10.2m available. Major civil earthworks, mine cut, dam works, large infrastructure. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4338-01 (11-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 330 GC — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 330 GC Hydraulic Excavator Brochure AEXQ3934-01 (11-2025)
+    // Afr-ME, Aus-NZ, Eurasia, HK, India, Indonesia, Pacific Islands, SE Asia, Taiwan. Build Number: 07H.
+    // Marketing brochure — no lift chart available. Specs: Standard undercarriage, Reach boom 6.15m,
+    // R3.2m stick, HD 1.60m³ bucket, 600mm triple grouser, 6.7t CW.
+    {
+      id:'cat-330gc', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 330 GC Hydraulic Excavator', shortName:'Cat 330 GC',
+      weightClass:'large',
+      engineModel:'Cat C7.1', engineNetKW:157.8, engineNetHP:212,
+      engineISO14396KW:159, engineNetHPISO14396:213, engineRatedRPM:1800,
+      engineDisplacementL:7.01, engineBoreMm:105.0, engineStrokeMm:135.0,
+      emissionStandard:'Brazil MAR-1 (equiv. U.S. EPA Tier 3 / EU Stage IIIA)',
+      operatingWeightKg:28900, operatingWeightT:28.9,
+      counterweightKg:6700, counterweightOpt2Kg:5800,
+      pumpFlowLpm:560, workingPressureKPa:35000, travelPressureKPa:35000, swingPressureKPa:28400,
+      swingSpeedRpm:11.5, maxSwingTorqueKNm:105,
+      digDepthMm:7260, digDepthM:7.260,
+      maxReachGroundMm:10690, maxCuttingHeightMm:9980,
+      maxLoadingHeightMm:6930, minLoadingHeightMm:2280,
+      levelBottomMm:7100, verticalWallMm:5800,
+      bucketDigForceKN:179, stickDigForceKN:126,
+      boomReachM:6.15, stdStickReachM:3.2, bucketCapM3:1.60,
+      cabHeightMm:3050, handrailHeightMm:3050,
+      shippingLengthMm:10420, tailSwingRadiusMm:3130, counterweightClearanceMm:1110,
+      groundClearanceMm:490, trackLengthMm:4350, lengthCentreRollersMm:3490,
+      trackGaugeMm:2390, transportWidthWith600mmMm:2990,
+      fuelTankL:474, coolingSystemL:25, engineOilL:25,
+      swingDriveEachL:10, finalDriveEachL:5.5, hydraulicSystemInclTankL:310, hydraulicTankL:147,
+      brochureRef:'AEXQ3934-01 (11-2025)',
+      tags:['large','civil','mining','bulk','infrastructure','deep','30t class','gc','low cost per hour'],
+      note:'Cat 330 GC Hydraulic Excavator — 28.9t. C7.1 single turbo, 157.8kW/212hp. Brazil MAR-1 (equiv. EPA Tier 3/EU Stage IIIA). Standard undercarriage. Reach boom 6.15m; R3.2 stick: dig depth 7.26m, reach 10.69m, bucket force 179kN. Same pump and digging forces as full Cat 330 but lower-emissions-tier engine at reduced cost per hour. 6.7t CW standard. Tail swing 3,130mm. 474L fuel. Two selectable power modes. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ3934-01 (11-2025).',
+      hireRateType:'wet_or_dry',
+    },
+    // ── CAT 335 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 335 Hydraulic Excavator Brochure AEXQ3931-01 (10-2025)
+    // Aus-NZ, Europe, Hong Kong, N Am, Taiwan. Build Number: 07H.
+    // Marketing brochure — no lift chart. Specs: Long undercarriage, Reach boom 6.15m,
+    // R3.2 stick, HD 1.54m³ bucket, 600mm triple grouser, 5000kg CW, 3440mm blade.
+    // NOTE: Compact radius design — tail swing only 1,900mm.
+    {
+      id:'cat-335', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 335 Hydraulic Excavator', shortName:'Cat 335',
+      weightClass:'large',
+      engineModel:'Cat C7.1', engineNetKW:203.7, engineNetHP:273,
+      engineISO14396KW:205, engineNetHPISO14396:275, engineRatedRPM:2200,
+      engineDisplacementL:7.01, engineBoreMm:105, engineStrokeMm:135,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Japan 2014',
+      operatingWeightKg:34900, operatingWeightT:34.9,
+      counterweightKg:5000, counterweightOptKg:7700,
+      compactRadius:true,
+      pumpFlowLpm:560, workingPressureKPa:35000, travelPressureKPa:35000, swingPressureKPa:28800,
+      swingSpeedRpm:10.8, maxSwingTorqueKNm:107.7,
+      digDepthMm:6990, digDepthM:6.99,
+      maxReachGroundMm:10640, maxCuttingHeightMm:11150,
+      maxLoadingHeightMm:7960, minLoadingHeightMm:2910,
+      levelBottomMm:6840, verticalWallMm:5790,
+      bucketDigForceKN:207, stickDigForceKN:144,
+      boomReachM:6.15, stdStickReachM:3.2, optStickReachM:3.75, bucketCapM3:1.54,
+      cabHeightMm:3270, handrailHeightMm:3430,
+      shippingLengthMm:9830, tailSwingRadiusMm:1900, counterweightClearanceMm:1170,
+      groundClearanceMm:480, trackLengthMm:5030, lengthCentreRollersMm:4040,
+      trackGaugeMm:2740, transportWidthMm:3340,
+      fuelTankL:368, coolingSystemL:13, engineOilL:25,
+      swingDriveEachL:11, finalDriveEachL:7, hydraulicSystemInclTankL:350, hydraulicTankL:154, defTankL:26,
+      brochureRef:'AEXQ3931-01 (10-2025)',
+      tags:['large','compact radius','civil','road','infrastructure','bulk','35t class','grade control','payload','tier4'],
+      note:'Cat 335 Hydraulic Excavator — 34.9t. COMPACT RADIUS — tail swing only 1,900mm; ideal for road works with lane closures and urban sites. C7.1, 203.7kW/273hp. EPA Tier 4 Final / EU Stage V / Japan 2014. Long undercarriage. Reach boom 6.15m; R3.2 stick (3.75m optional): dig depth 6.99m, reach 10.64m, bucket force 207kN, stick force 144kN. 5.0t CW std (7.7t optional). 560L/min pump. Standard Cat Grade 2D, Grade with Assist, Payload, E-Fence, Lift Assist. SmartBoom optional. Blade widths 3,440mm or 3,660mm. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ3931-01 (10-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 336 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 336 Hydraulic Excavator Brochure AEXQ4353-01 (11-2025)
+    // Afr-ME, Eurasia, India, Indonesia, S Am (excl. Chile/Colombia). Build Number: 08D.
+    // Marketing brochure — no lift chart. Specs: HD Reach boom 6.5m,
+    // HD Reach stick 3.2m, HD 2.12m³ bucket, 600mm double/triple grouser, 6.8mt CW.
+    {
+      id:'cat-336', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 336 Hydraulic Excavator', shortName:'Cat 336',
+      weightClass:'large',
+      engineModel:'Cat C7.1 TTA', engineNetKW:223.5, engineNetHP:300,
+      engineISO14396KW:225, engineNetHPISO14396:302, engineRatedRPM:2000,
+      engineDisplacementL:7.01, engineBoreMm:105, engineStrokeMm:135,
+      emissionStandard:'Brazil MAR-1 (equiv. U.S. EPA Tier 3 / EU Stage IIIA)',
+      operatingWeightKg:37500, operatingWeightT:37.5,
+      counterweightKg:6800, counterweightOptKg:7560,
+      pumpFlowLpm:560, workingPressureKPa:35000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:35000, swingPressureKPa:29400,
+      swingSpeedRpm:8.84, maxSwingTorqueKNm:143,
+      digDepthMm:7510, digDepthM:7.51,
+      maxReachGroundMm:11060, maxCuttingHeightMm:10320,
+      maxLoadingHeightMm:7080, minLoadingHeightMm:2590,
+      levelBottomMm:7360, verticalWallMm:5690,
+      bucketDigForceKN:210, stickDigForceKN:166,
+      boomReachM:6.5, stdStickReachM:3.2, bucketCapM3:2.12,
+      cabHeightMm:3180, handrailHeightMm:3180,
+      shippingLengthMm:11170, tailSwingRadiusMm:3530, counterweightClearanceMm:1260,
+      groundClearanceMm:510, trackLengthMm:5030, lengthCentreRollersMm:4040,
+      trackGaugeMm:2740, transportWidthMm:3340,
+      fuelTankL:600, coolingSystemL:39, engineOilL:25,
+      swingDriveEachL:18, finalDriveEachL:8, hydraulicSystemInclTankL:373, hydraulicTankL:161,
+      brochureRef:'AEXQ4353-01 (11-2025)',
+      tags:['large','civil','mining','dam','infrastructure','bulk','heavy lift','37t class'],
+      note:'Cat 336 Hydraulic Excavator — 37.5t. C7.1 TTA, 223.5kW/300hp. Brazil MAR-1 (equiv. EPA Tier 3/EU Stage IIIA). HD Reach boom 6.5m; HD Reach stick 3.2m: dig depth 7.51m, reach 11.06m, bucket force 210kN, stick force 166kN. Heavy lift mode 38,000kPa. Swing torque 143kN·m. 600L fuel. 6.8t CW std (7.56t opt). Reinforced booms/sticks/frame for challenging heavy work. HD undercarriage standard. Mass boom and shorter sticks available for high-production bulk. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4353-01 (11-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 340 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 340 Hydraulic Excavator Brochure AEXQ4349-01 (12-2025)
+    // Afr-ME, Eurasia, Indonesia, S Am, SE Asia. Build Number: 08D.
+    // Marketing brochure — no lift chart. Specs: HD Reach boom 6.5m,
+    // HD Reach stick 3.2m, GD 2.50m³ bucket, 600mm double/triple grouser, 7.56mt CW.
+    {
+      id:'cat-340', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 340 Hydraulic Excavator', shortName:'Cat 340',
+      weightClass:'large',
+      engineModel:'Cat C9.3B', engineNetKW:258.3, engineNetHP:346,
+      engineISO14396KW:259, engineNetHPISO14396:347, engineRatedRPM:2000,
+      engineDisplacementL:9.3, engineBoreMm:115, engineStrokeMm:149,
+      emissionStandard:'UN ECE R96 Stage IIIA (equiv. U.S. EPA Tier 3 / EU Stage IIIA)',
+      operatingWeightKg:36800, operatingWeightT:36.8,
+      counterweightKg:7560,
+      pumpFlowLpm:560, workingPressureKPa:35000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:35000, swingPressureKPa:29400,
+      swingSpeedRpm:8.84, maxSwingTorqueKNm:143,
+      digDepthMm:7480, digDepthM:7.48,
+      maxReachGroundMm:11020, maxCuttingHeightMm:10360,
+      maxLoadingHeightMm:7120,
+      levelBottomMm:7320, verticalWallMm:5550,
+      bucketDigForceKN:209, stickDigForceKN:165,
+      boomReachM:6.5, stdStickReachM:3.2, bucketCapM3:2.50,
+      cabHeightMm:3180, handrailHeightMm:3180,
+      shippingLengthMm:11160, tailSwingRadiusMm:3530, counterweightClearanceMm:1260,
+      groundClearanceMm:510, trackLengthMm:5030, lengthCentreRollersMm:4040,
+      trackGaugeMm:2740, transportWidthMm:3340,
+      fuelTankL:600, coolingSystemL:40, engineOilL:32,
+      swingDriveEachL:18, finalDriveEachL:8, hydraulicSystemInclTankL:373, hydraulicTankL:161,
+      brochureRef:'AEXQ4349-01 (12-2025)',
+      tags:['large','civil','mining','dam','infrastructure','bulk','heavy lift','36t class','high power'],
+      note:'Cat 340 Hydraulic Excavator — 36.8t. C9.3B, 258.3kW/346hp. UN ECE R96 Stage IIIA (equiv. EPA Tier 3/EU Stage IIIA). HD Reach boom 6.5m; HD Reach stick 3.2m: dig depth 7.48m, reach 11.02m, bucket force 209kN, stick force 165kN. Heavy lift mode 38,000kPa. Swing torque 143kN·m. 600L fuel. 7.56t CW. Wide undercarriage, Mass boom 6.18m and sticks from 2.55–3.9m also available. Optional heavy counterweight. Long Reach Excavation (LRE) variant available with 10.6m boom, 7.1m stick, reach 18m. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4349-01 (12-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 345 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 345 Hydraulic Excavator Brochure AEXQ4568-00 (12-2025)
+    // Afr-ME, Aus-NZ, Eurasia, Indonesia, SE Asia. Build Number: 07H.
+    // Marketing brochure — no lift chart. Primary config: Reach boom 6.9m, R2.9TB stick,
+    // HD 2.41m³ bucket, 600mm DG shoes, 9.0mt CW. Alt config: Mass boom 6.55m,
+    // M3.0UB stick, SDV 2.77m³ bucket. Digging forces NOT listed in this brochure.
+    {
+      id:'cat-345', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 345 Hydraulic Excavator', shortName:'Cat 345',
+      weightClass:'large',
+      engineModel:'Cat C9.3B', engineNetKW:258, engineNetHP:346,
+      engineISO14396KW:259, engineNetHPISO14396:347, engineRatedRPM:1900,
+      engineDisplacementL:9.3, engineBoreMm:115, engineStrokeMm:149,
+      emissionStandard:'China Nonroad Stage IV (equiv. U.S. EPA Tier 3 / EU Stage IIIA)',
+      operatingWeightKg:42200, operatingWeightT:42.2,
+      counterweightKg:9000,
+      pumpFlowLpm:630, workingPressureKPa:35000, travelPressureKPa:35000, swingPressureKPa:28000,
+      swingSpeedRpm:8.27, maxSwingTorqueKNm:155,
+      // Dig depth, reach, and cutting height from brochure narrative (page 9)
+      digDepthMm:7300, digDepthM:7.3,
+      maxReachGroundMm:11300, maxCuttingHeightMm:10500,
+      // Bucket/stick digging forces NOT published in this brochure
+      bucketDigForceKN:null, stickDigForceKN:null,
+      boomReachM:6.9, massBoomReachM:6.55, stdStickReachM:2.9, bucketCapM3:2.41,
+      // Cylinder dimensions from brochure (page 14)
+      boomCylBoreMm:160, boomCylStrokeMm:1392,
+      stickCylBoreMm:180, stickCylStrokeMm:1758,
+      tbBucketCylBoreMm:150, tbBucketCylStrokeMm:1356,
+      ubBucketCylBoreMm:160, ubBucketCylStrokeMm:1396,
+      maxTravelSpeedKmh:5.2, maxDrawbarPullKN:292,
+      gradabilityDeg:35,
+      fuelTankL:600, coolingSystemL:40, engineOilL:32,
+      swingDriveL:13.5, finalDriveEachL:8, hydraulicSystemInclTankL:423, hydraulicTankL:186,
+      brochureRef:'AEXQ4568-00 (12-2025)',
+      tags:['large','civil','mining','quarry','dam','infrastructure','bulk','42t class','high production'],
+      note:'Cat 345 Hydraulic Excavator — 42.2t. C9.3B, 258kW/346hp. China Nonroad Stage IV (equiv. EPA Tier 3/EU Stage IIIA). Two boom options: Reach boom 6.9m or Mass boom 6.55m. Stick options 2.55–3.35m. Dig depth 7.3m, reach 11.3m, cutting height 10.5m. 9.0t CW. 630L/min pump (dual pump). Swing torque 155kN·m. 600L fuel. Optimised for high-production truck loading, quarry, and civil bulk work. Buckets 2.2–3.2m³. Bucket/stick digging forces not published in this brochure — confirm with Cat dealer. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4568-00 (12-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 350 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 350 Hydraulic Excavator Brochure AEXQ4345-01 (11-2025)
+    // Afr-ME, Aus-NZ, Eurasia, S Am, SE Asia. Build Number: 06D.
+    // Marketing brochure — no lift chart. Specs: Reach boom 6.9m, Reach stick 3.35m,
+    // SD 2.70m³ bucket, 600mm DG shoes, 9mt CW.
+    {
+      id:'cat-350', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 350 Hydraulic Excavator', shortName:'Cat 350',
+      weightClass:'large',
+      engineModel:'Cat C9.3B', engineNetKW:309, engineNetHP:414,
+      engineISO14396KW:310, engineNetHPISO14396:416, engineRatedRPM:2000,
+      engineDisplacementL:9.3, engineBoreMm:115, engineStrokeMm:149,
+      emissionStandard:'Brazil MAR-1 (equiv. U.S. EPA Tier 3 / EU Stage IIIA)',
+      operatingWeightKg:47600, operatingWeightT:47.6,
+      counterweightKg:9000,
+      pumpFlowLpm:779, workingPressureKPa:35000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:35000, swingPressureKPa:25700,
+      swingSpeedRpm:7.94, maxSwingTorqueKNm:189,
+      digDepthMm:7690, digDepthM:7.69,
+      maxReachGroundMm:11760, maxCuttingHeightMm:10700,
+      maxLoadingHeightMm:7380, minLoadingHeightMm:2710,
+      levelBottomMm:7550, verticalWallMm:5630,
+      bucketDigForceKN:266, stickDigForceKN:200,
+      boomReachM:6.9, stdStickReachM:3.35, bucketCapM3:2.70,
+      cabHeightMm:3260, handrailHeightMm:3400,
+      shippingLengthMm:11950, tailSwingRadiusMm:3760, counterweightClearanceMm:1340,
+      groundClearanceMm:520, trackLengthMm:5400, lengthCentreRollersMm:4360,
+      trackGaugeMm:2740, transportWidthMm:3340,
+      fuelTankL:680, coolingSystemL:48, engineOilL:32,
+      swingDriveEachL:15, finalDriveEachL:11, hydraulicSystemInclTankL:550, hydraulicTankL:217,
+      brochureRef:'AEXQ4345-01 (11-2025)',
+      tags:['large','civil','mining','quarry','dam','infrastructure','bulk','heavy lift','47t class','high power'],
+      note:'Cat 350 Hydraulic Excavator — 47.6t. C9.3B, 309kW/414hp. Brazil MAR-1 (equiv. EPA Tier 3/EU Stage IIIA). Reach boom 6.9m; Reach stick 3.35m: dig depth 7.69m, reach 11.76m, bucket force 266kN, stick force 200kN. Heavy lift mode 38,000kPa. High swing torque 189kN·m. 779L/min pump. 680L fuel. 9t CW. Bucket capacity up to 3.2m³. Compatible with hammers up to 200mm (7.87in). Long Reach Excavation (LRE) variant available. Major civil, quarry, mining and dam earthworks. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4345-01 (11-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 352 LRE — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat Super Long Reach & Long Reach Excavation Brochure AEXQ3108-02 (12-2023)
+    // N Am, Europe. Summary brochure — detailed tech spec sheet at cat.com.
+    // LRE = Long Reach Excavation. Variable gauge undercarriage (retractable for transport).
+    // 352 LRE uses Cat B linkage. 12.0mt CW. Boom 11.5m, Stick 8.5m.
+    {
+      id:'cat-352-lre', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 352 LRE Long Reach Excavator', shortName:'Cat 352 LRE',
+      weightClass:'large',
+      engineModel:'Cat C13', engineISO14396KW:317, engineNetHPISO14396:425,
+      emissionStandard:'Confirm with Cat dealer',
+      operatingWeightKg:58400, operatingWeightT:58.4,
+      counterweightKg:12000,
+      digDepthMm:13040, digDepthM:13.04,
+      maxReachGroundMm:19640,
+      bucketDigForceKN:141, stickDigForceKN:104,
+      boomReachM:11.5, stdStickReachM:8.5,
+      bucketCapM3:1.38, // Max HD bucket
+      undercarriageType:'Variable Gauge HDHW',
+      brochureRef:'AEXQ3108-02 (12-2023)',
+      tags:['large','long reach','dredging','waterway','canal','wetlands','environmental','58t class'],
+      note:'Cat 352 LRE Long Reach Excavation Excavator — 58.4t. C13, 317kW/425hp. Variable gauge heavy-duty high-wide undercarriage (retracts for transport). Long reach excavation configuration: boom 11.5m, stick 8.5m. Max dig depth 13.04m, max reach at ground 19.64m. Bucket digging force 141kN, stick digging force 104kN. Bucket size range: HD 1.0–1.38m³, GD 0.46–1.0m³, DC 0.86–1.5m³, DCT 0.9–1.23m³ (B linkage). Applications: dredging, canal/waterway maintenance, settling pond cleanout, loose material transfer, vegetation control with mulcher. Reaches ~35% farther than standard reach config with ~66% of digging force. 12t counterweight. Waterproof sensors to 4.5m standard (20m dredging kit optional). Cat Grade 2D, E-Fence, Payload, Cat Assist (optional). Detailed technical specifications available at cat.com. Source: Cat Brochure AEXQ3108-02 (12-2023).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 374 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 374 Hydraulic Excavator Brochure AEXQ4339-01 (12-2025)
+    // Afr-ME, Aus-NZ, Eurasia, S Am, SE Asia, Hong Kong, Taiwan. Build Number: 07H.
+    // Marketing brochure — no lift chart. Specs: Long Variable Gauge undercarriage,
+    // Mass boom 7.0m, Mass stick 2.57m, XD 4.4m³ bucket, 650mm HD double-grouser, standard CW.
+    {
+      id:'cat-374', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 374 Hydraulic Excavator', shortName:'Cat 374',
+      weightClass:'large',
+      engineModel:'Cat C15', engineNetKW:358, engineNetHP:480,
+      engineISO14396KW:359, engineNetHPISO14396:481,
+      engineDisplacementL:15.2, engineBoreMm:137, engineStrokeMm:171,
+      emissionStandard:'Brazil MAR-1 (equiv. U.S. EPA Tier 3 / EU Stage IIIA)',
+      operatingWeightKg:74000, operatingWeightT:74.0,
+      pumpFlowLpm:896, workingPressureKPa:37000, workingPressureHeavyLiftKPa:38000,
+      travelPressureKPa:35000, swingPressureKPa:35000,
+      swingSpeedRpm:6.34, maxSwingTorqueKNm:298,
+      digDepthMm:7660, digDepthM:7.66,
+      maxReachGroundMm:11470, maxCuttingHeightMm:11000,
+      maxLoadingHeightMm:7050, minLoadingHeightMm:3470,
+      levelBottomMm:7080, verticalWallMm:3710,
+      bucketDigForceKN:405, stickDigForceKN:352,
+      boomReachM:7.0, stdStickReachM:2.57, bucketCapM3:4.4,
+      cabHeightMm:3559, handrailHeightMm:3982,
+      shippingLengthMm:12978, tailSwingRadiusMm:4171, counterweightClearanceMm:1494,
+      groundClearanceMm:782, trackLengthMm:5873, lengthCentreRollersMm:4705,
+      trackGaugeMm:3410, transportWidthMm:3400,
+      fuelTankL:920, coolingSystemL:71, engineOilL:62,
+      swingDriveEachL:20, finalDriveEachL:32, hydraulicSystemInclTankL:620, hydraulicTankL:326,
+      brochureRef:'AEXQ4339-01 (12-2025)',
+      tags:['large','mining','quarry','civil','bulk','heavy lift','74t class','high power'],
+      note:'Cat 374 Hydraulic Excavator — 74.0t. Cat C15, 358kW/480hp. Brazil MAR-1 (equiv. EPA Tier 3/EU Stage IIIA). Long Variable Gauge undercarriage. Mass boom 7.0m; Mass stick 2.57m: dig depth 7.66m, reach 11.47m, cutting height 11.0m, bucket force 405kN, stick force 352kN. Heavy lift mode 38,000kPa. Swing torque 298kN·m. 896L/min pump. 920L fuel. SD 4.60m³ bucket standard. Boom options: 7.0m Mass, 7.8m Reach. Stick options: 2.57m–4.67m. Three operating modes: Power, Smart, ECO. Standard: Cat Grade 2D, Payload, Lift Assist, 2D E-Fence, VisionLink. Cat Grade 3D Ready option. Works to 3,000m altitude without de-rating. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4339-01 (12-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT 395 — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat 395 Hydraulic Excavator Brochure AEXQ4375-01 (12-2025)
+    // Aus-NZ, Colombia, Chile, Europe, N Am, S Korea, Türkiye. Build Number: 07H.
+    // Marketing brochure — no lift chart. Specs: Long Variable Gauge undercarriage,
+    // Mass boom GP 8.4m, Stick R4.4m, SD 5.2m³ bucket, 650mm DG shoes, 15.4mt CW with removal device.
+    {
+      id:'cat-395', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar 395 Hydraulic Excavator', shortName:'Cat 395',
+      weightClass:'large',
+      engineModel:'Cat C18', engineNetKW:404, engineNetHP:542,
+      engineISO14396KW:405, engineNetHPISO14396:543,
+      engineDisplacementL:18.1, engineBoreMm:145, engineStrokeMm:183,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Korea Stage V / Japan 2014',
+      operatingWeightKg:94100, operatingWeightT:94.1,
+      counterweightKg:15400,
+      pumpFlowLpm:1064, workingPressureKPa:37000, travelPressureKPa:35000, swingPressureKPa:31000,
+      swingSpeedRpm:6.26, maxSwingTorqueKNm:362,
+      digDepthMm:9670, digDepthM:9.67,
+      maxReachGroundMm:14710, maxCuttingHeightMm:13540,
+      maxLoadingHeightMm:9250, minLoadingHeightMm:3030,
+      levelBottomMm:9560, verticalWallMm:6770,
+      bucketDigForceKN:383, stickDigForceKN:305,
+      boomReachM:8.4, stdStickReachM:4.4, bucketCapM3:5.2,
+      cabHeightMm:3670, handrailHeightMm:3750,
+      shippingLengthMm:15090, tailSwingRadiusMm:4840, counterweightClearanceMm:1640,
+      groundClearanceMm:830, trackLengthMm:6350, lengthCentreRollersMm:5120,
+      trackGaugeMm:3510, transportWidthMm:3880,
+      fuelTankL:1220, defTankL:80, coolingSystemL:71, engineOilL:67,
+      swingDriveEachL:24, finalDriveEachL:20, hydraulicSystemInclTankL:740, hydraulicTankL:372,
+      brochureRef:'AEXQ4375-01 (12-2025)',
+      tags:['large','mining','quarry','civil','bulk','heavy lift','94t class','ultra high power'],
+      note:'Cat 395 Hydraulic Excavator — 94.1t. Cat C18, 404kW/542hp. EPA Tier 4 Final / EU Stage V / Korea Stage V / Japan 2014. Long Variable Gauge undercarriage. GP boom 8.4m; R4.4m stick: dig depth 9.67m, reach 14.71m, cutting height 13.54m, bucket force 383kN, stick force 305kN. Swing torque 362kN·m. 1,064L/min pump. 1,220L fuel. SD 5.2m³ (6.8yd³) bucket. Three operating modes: Power, Smart, ECO. Standard: Cat Grade 2D, Grade with Assist, Payload, Lift Assist, 2D E-Fence, VisionLink. Smart Boom optional. Maximum digging depths from 7.2m up to 11.7m across boom/stick configurations. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4375-01 (12-2025).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT M314 WHEEL EXCAVATOR — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat M314 Wheel Excavator Brochure AEXQ4193-01 (02-2026)
+    // Aus-NZ, Europe, N Am, S Korea. Build Number: 07E.
+    // Marketing brochure — no lift chart. Specs: Variable Adjustable Boom 5m, 2.2m stick,
+    // GD 0.76m³ bucket, dual pneumatic tires, 3,300kg CW.
+    {
+      id:'cat-m314', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar M314 Wheel Excavator', shortName:'Cat M314',
+      weightClass:'standard',
+      wheelExcavator:true,
+      engineModel:'Cat C3.6', engineNetKW:95, engineNetHP:127,
+      engineISO14396KW:100, engineNetHPISO14396:134, engineRatedRPM:2000,
+      engineDisplacementL:3.6, engineBoreMm:98, engineStrokeMm:120,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Korea Stage V',
+      operatingWeightKg:18000, operatingWeightMinKg:14600, operatingWeightT:18.0,
+      counterweightKg:3300,
+      maxTravelSpeedKmh:37,
+      pumpFlowLpm:270, workingPressureKPa:35000, workingPressureHeavyLiftKPa:37000,
+      swingSpeedRpm:9.1, maxSwingTorqueKNm:41.3,
+      digDepthMm:5290, digDepthM:5.29,
+      maxReachGroundMm:8650, maxCuttingHeightMm:9780,
+      maxLoadingHeightMm:7010,
+      verticalWallMm:4250,
+      bucketDigForceKN:105, stickDigForceKN:71,
+      boomReachM:5.0, stdStickReachM:2.2, bucketCapM3:0.76,
+      cabHeightMm:3315, shippingLengthMm:8210,
+      tailSwingRadiusMm:2150, counterweightClearanceMm:1260,
+      groundClearanceMm:335, wheelBaseMm:2500,
+      fuelTankL:295, defTankL:20, coolingSystemL:20, hydraulicSystemInclTankL:220, hydraulicTankL:90,
+      brochureRef:'AEXQ4193-01 (02-2026)',
+      tags:['standard','wheel excavator','road works','municipal','utility','urban','multi-site','18t class'],
+      note:'Cat M314 Wheel Excavator — 14.6–18.0t. Cat C3.6, 95kW/127hp (ISO 9249). EPA Tier 4 Final / EU Stage V / Korea Stage V. Wheeled — travels between sites at up to 37 km/h. Variable Adjustable Boom 5.0m; 2.2m stick (2.5m optional): dig depth 5.29m, reach 8.65m, bucket force 105kN, stick force 71kN. Swing torque 41.3kN·m. All-wheel drive. Automatic axle lock. Cat tiltrotator (TRS) integration. Optional Cat Grade 2D, Grade with Assist, Payload, E-Fence, Grade 3D Ready. Standard VisionLink, Remote Flash, Remote Troubleshoot. Low DEF consumption. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4193-01 (02-2026).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT M315 WHEEL EXCAVATOR — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat M315 Wheel Excavator Brochure AEXQ4212-01 (02-2026)
+    // Aus-NZ, Europe, N Am. Build Number: 07E.
+    // COMPACT RADIUS design — tail swing only 1,750mm.
+    // Specs: Variable Adjustable Boom 5.02m, 2.2m stick, GD 0.76m³ bucket, dual pneumatic tires, 4,000kg CW.
+    {
+      id:'cat-m315', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar M315 Wheel Excavator', shortName:'Cat M315',
+      weightClass:'standard',
+      wheelExcavator:true,
+      compactRadius:true,
+      engineModel:'Cat C4.4', engineNetKW:105, engineNetHP:141,
+      engineISO14396KW:110, engineNetHPISO14396:148, engineRatedRPM:2200,
+      engineDisplacementL:4.4, engineBoreMm:105, engineStrokeMm:127,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightKg:18000, operatingWeightMinKg:15700, operatingWeightT:18.0,
+      counterweightKg:4000,
+      maxTravelSpeedKmh:35,
+      pumpFlowLpm:275, workingPressureKPa:35000, workingPressureHeavyLiftKPa:37000,
+      swingSpeedRpm:9.1, maxSwingTorqueKNm:39,
+      digDepthMm:5290, digDepthM:5.29,
+      maxReachGroundMm:8680, maxCuttingHeightMm:10140,
+      maxLoadingHeightMm:7400,
+      verticalWallMm:4250,
+      bucketDigForceKN:106, stickDigForceKN:71,
+      boomReachM:5.02, stdStickReachM:2.2, optStickReachM:2.5, bucketCapM3:0.76,
+      cabHeightMm:3280, shippingLengthMm:8500,
+      tailSwingRadiusMm:1750, counterweightClearanceMm:1260,
+      groundClearanceMm:335, wheelBaseMm:2550,
+      fuelTankL:280, defTankL:20, coolingSystemL:24, hydraulicSystemInclTankL:220, hydraulicTankL:92,
+      brochureRef:'AEXQ4212-01 (02-2026)',
+      tags:['standard','wheel excavator','compact radius','road works','municipal','utility','urban','multi-site','18t class'],
+      note:'Cat M315 Wheel Excavator — 15.7–18.0t. Cat C4.4, 105kW/141hp (ISO 9249). EPA Tier 4 Final / EU Stage V. COMPACT RADIUS — tail swing only 1,750mm; ideal for restricted urban environments. Wheeled — travels between sites at up to 35 km/h. Variable Adjustable Boom 5.02m; 2.2m stick (2.5m optional): dig depth 5.29m, reach 8.68m, bucket force 106kN, stick force 71kN. Swing torque 39kN·m. All-wheel drive. Automatic axle lock. Cat tiltrotator (TRS) integration. Optional Cat Grade 2D, Grade with Assist, Payload, E-Fence, Grade 3D Ready. Standard VisionLink, Remote Flash, Remote Troubleshoot. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4212-01 (02-2026).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT M316 WHEEL EXCAVATOR — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat M316 Wheel Excavator Brochure AEXQ4196-01 (02-2026)
+    // Europe only. Build Number: 07E.
+    // Specs: Variable Adjustable Boom 5.2m, 2.2m std stick (2.5m opt), GD 0.8m³ bucket,
+    // dual pneumatic tires, 3,300kg CW. Higher swing speed (10.2 rpm) vs M315.
+    {
+      id:'cat-m316', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar M316 Wheel Excavator', shortName:'Cat M316',
+      weightClass:'standard',
+      wheelExcavator:true,
+      engineModel:'Cat C4.4', engineNetKW:104.9, engineNetHP:141,
+      engineISO14396KW:110, engineNetHPISO14396:148, engineRatedRPM:2000,
+      engineDisplacementL:4.4, engineBoreMm:105, engineStrokeMm:127,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightKg:18400, operatingWeightMinKg:17000, operatingWeightT:18.4,
+      counterweightKg:3300,
+      maxTravelSpeedKmh:35,
+      pumpFlowLpm:275, workingPressureKPa:35000, workingPressureHeavyLiftKPa:37000,
+      swingSpeedRpm:10.2, maxSwingTorqueKNm:43.8,
+      digDepthMm:5630, digDepthM:5.63,
+      maxReachGroundMm:8970, maxCuttingHeightMm:10110,
+      maxLoadingHeightMm:7140,
+      verticalWallMm:4410,
+      bucketDigForceKN:119, stickDigForceKN:75,
+      boomReachM:5.2, stdStickReachM:2.2, optStickReachM:2.5, bucketCapM3:0.8,
+      cabHeightMm:3300, shippingLengthMm:8640,
+      tailSwingRadiusMm:2350, counterweightClearanceMm:1301,
+      groundClearanceMm:395, wheelBaseMm:2550,
+      fuelTankL:350, defTankL:20, coolingSystemL:24, hydraulicSystemInclTankL:260, hydraulicTankL:120,
+      brochureRef:'AEXQ4196-01 (02-2026)',
+      tags:['standard','wheel excavator','road works','municipal','utility','urban','multi-site','18t class'],
+      note:'Cat M316 Wheel Excavator — 17.0–18.4t. Cat C4.4, 104.9kW/141hp (ISO 9249). EPA Tier 4 Final / EU Stage V. Wheeled — travels between sites at up to 35 km/h. Variable Adjustable Boom 5.2m; 2.2m stick (2.5m optional): dig depth 5.63m, reach 8.97m, cutting height 10.11m, bucket force 119kN, stick force 75kN. High swing speed 10.2 rpm, swing torque 43.8kN·m. All-wheel drive. Automatic axle lock. Cat tiltrotator (TRS) integration. Larger 350L fuel tank and 0.8m³ GD bucket vs M315. Optional Cat Grade 2D, Grade with Assist, Payload, E-Fence, Grade 3D Ready. Standard VisionLink, Remote Flash, Remote Troubleshoot. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4196-01 (02-2026).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT M318 WHEEL EXCAVATOR — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat M318 Wheel Excavator Brochure AEXQ4204-01 (02-2026)
+    // Aus-NZ, Europe, N Am, Türkiye. Build Number: 07E.
+    // Largest in the M-series wheel excavator range. Cat C4.4 boosted to 129kW/174hp.
+    // Specs: Variable Adjustable Boom 5.2m, 2.5m stick, GD 0.91m³ bucket,
+    // dual pneumatic tires, 3,700kg CW (Europe) / 4,200kg CW.
+    {
+      id:'cat-m318', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar M318 Wheel Excavator', shortName:'Cat M318',
+      weightClass:'standard',
+      wheelExcavator:true,
+      engineModel:'Cat C4.4', engineNetKW:128, engineNetHP:171,
+      engineISO14396KW:129, engineNetHPISO14396:174, engineRatedRPM:2200,
+      engineDisplacementL:4.4, engineBoreMm:105, engineStrokeMm:127,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V / Korea Stage V',
+      operatingWeightKg:19950, operatingWeightMinKg:17100, operatingWeightT:19.95,
+      counterweightKg:4200, counterweightOptKg:3700,
+      maxTravelSpeedKmh:35,
+      pumpFlowLpm:254, workingPressureKPa:35000, workingPressureHeavyLiftKPa:37000,
+      swingSpeedRpm:9.4, maxSwingTorqueKNm:47.1,
+      digDepthMm:5890, digDepthM:5.89,
+      maxReachGroundMm:9210, maxCuttingHeightMm:10260,
+      maxLoadingHeightMm:7300,
+      verticalWallMm:4600,
+      bucketDigForceKN:119, stickDigForceKN:75,
+      boomReachM:5.2, stdStickReachM:2.5, optStickReachM:2.9, bucketCapM3:0.91,
+      cabHeightMm:3360, shippingLengthMm:8360,
+      tailSwingRadiusMm:2350, counterweightClearanceMm:1300,
+      groundClearanceMm:325, wheelBaseMm:2700,
+      fuelTankL:350, defTankL:20, coolingSystemL:32, hydraulicSystemInclTankL:260, hydraulicTankL:120,
+      brochureRef:'AEXQ4204-01 (02-2026)',
+      tags:['standard','wheel excavator','road works','municipal','utility','urban','multi-site','20t class'],
+      note:'Cat M318 Wheel Excavator — 17.1–20.0t. Cat C4.4, 128kW/171hp (ISO 9249). EPA Tier 4 Final / EU Stage V / Korea Stage V. Largest Cat wheeled excavator — travels between sites at up to 35 km/h. Variable Adjustable Boom 5.2m; 2.5m stick (2.9m optional): dig depth 5.89m, reach 9.21m, cutting height 10.26m, bucket force 119kN, stick force 75kN. Swing torque 47.1kN·m. All-wheel drive. Automatic axle lock. Cat tiltrotator (TRS) integration. One-piece boom 5.1m also available. Optional Cat Grade 2D, Grade with Assist, Payload, E-Fence, Grade 3D Ready. Standard VisionLink, Remote Flash, Remote Troubleshoot. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4204-01 (02-2026).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT M320 WHEEL EXCAVATOR — FULLY BROCHURE-SPECIFIED ──────────
+    // Source: Cat M320 Wheel Excavator Brochure AEXQ4205-01 (02-2026)
+    {
+      id:'cat-m320', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar M320 Wheel Excavator', shortName:'Cat M320',
+      weightClass:'standard',
+      wheelExcavator:true,
+      engineModel:'Cat C4.4',
+      engineISO14396KW:129.4, engineISO14396HP:174,
+      engineNetKW:127.8, engineNetHP:171,
+      engineRatedRPM:2200,
+      engineDisplacementL:4.4, engineBoreMm:105, engineStrokeMm:135,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightKg:21200, operatingWeightMinKg:18800, operatingWeightT:21.2,
+      counterweightKg:3600, counterweightOptKg:4200,
+      maxTravelSpeedKmh:35,
+      pumpFlowLpm:306, workingPressureKPa:35000, workingPressureHeavyLiftKPa:37000,
+      swingSpeedRpm:9.2, maxSwingTorqueKNm:52.5,
+      digDepthMm:6030, digDepthM:6.03,
+      maxReachGroundMm:9290, maxCuttingHeightMm:9950,
+      maxLoadingHeightMm:6960,
+      verticalWallMm:4230,
+      bucketDigForceKN:137, stickDigForceKN:92,
+      boomReachM:5.26, stdStickReachM:2.5, optStickReachM:2.9, bucketCapM3:0.98,
+      cabHeightMm:3370, shippingLengthMm:8925,
+      tailSwingRadiusMm:2600, counterweightClearanceMm:1306,
+      groundClearanceMm:420, wheelBaseMm:2700,
+      undercarriageLengthMm:5050,
+      fuelTankL:470, defTankL:30, coolingSystemL:31.7,
+      hydraulicTankL:155, hydraulicSystemInclTankL:270,
+      brochureRef:'AEXQ4205-01 (02-2026)',
+      tags:['standard','wheel excavator','road works','municipal','utility','urban','multi-site','21t class'],
+      note:'Cat M320 Wheel Excavator — 18.8–21.2t (min/max). Cat C4.4 engine, 129.4kW/174hp (ISO 14396), net 127.8kW/171hp (ISO 9249). EPA Tier 4 Final / EU Stage V. Travels between sites at 35 km/h — no low-loader required for short moves. Variable Adjustable Boom 5,260mm; standard 2,500mm stick (2,900mm optional): dig depth 6.03m, max reach 9.29m, cutting height 9.95m, loading height 6.96m. Bucket force 137kN, stick force 92kN. Swing torque 52.5kN·m @ 9.2rpm. Dedicated swing pump. All-wheel drive standard. Automatic axle lock at zero speed. Heavy lift mode standard. Standard counterweight 3,600kg (4,200kg optional). Optional one-piece 5,650mm boom. Optional Cat Grade 2D, Grade with Assist, Grade 3D Ready, Payload, E-Fence, Cat Tiltrotator (TRS) integration. Standard VisionLink, Remote Flash, Remote Troubleshoot. No lift chart in brochure — confirm with Cat dealer. Source: Cat Brochure AEXQ4205-01 (02-2026).',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── CAT M323F RAILROAD HYDRAULIC EXCAVATOR — FULLY BROCHURE-SPECIFIED ──
+    // Source: Cat M323F Railroad Hydraulic Excavator Brochure AEXQ3285-01
+    {
+      id:'cat-m323f', brand:'Caterpillar', emoji:'⛏️', type:'excavator',
+      name:'Caterpillar M323F Railroad Hydraulic Excavator', shortName:'Cat M323F',
+      weightClass:'standard',
+      wheelExcavator:true,
+      railExcavator:true,
+      engineModel:'Cat C4.4',
+      engineNetKW:127, engineNetHP:170,
+      engineRatedRPM:1900,
+      engineDisplacementL:4.4, engineBoreMm:105, engineStrokeMm:127,
+      maxTorqueNm:750, maxTorqueRpm:1400,
+      emissionStandard:'EU Stage V',
+      operatingWeightKg:22900, operatingWeightMaxKg:23900, operatingWeightT:22.9,
+      counterweightKg:6400, counterweightOptKg:7400,
+      maxTravelSpeedKmh:20,
+      pumpFlowLpm:260, workingPressureKPa:35000, workingPressureHeavyLiftKPa:37500,
+      swingSpeedRpm:11, maxSwingTorqueKNm:42,
+      // Working range dimensions not stated in brochure — confirm with Cat dealer
+      digDepthM:null,
+      maxReachGroundMm:null,
+      maxCuttingHeightMm:null,
+      maxLoadingHeightMm:null,
+      boomReachM:5.2, stdStickReachM:2.0, bucketCapM3:null,
+      drawbarPullRoadKN:104, drawbarPullRailKN:45,
+      maxGradeabilityPct:53,
+      railGaugeUICMm:1435, railGaugeMetricMm:1000, railGaugeBroadMm:1600,
+      railWheelUICDiamMm:632, railWheelMetricDiamMm:638,
+      railGroundClearanceMm:184, roadGroundClearanceMm:370,
+      maxSteeringAngleDeg:35,
+      auxiliaryLiftingSWLt:8,
+      fuelTankL:240, defTankL:19, coolingSystemL:30,
+      hydraulicTankL:122, hydraulicSystemInclTankL:240,
+      brochureRef:'AEXQ3285-01',
+      tags:['standard','wheel excavator','railroad','rail excavator','infrastructure','utility','specialist','23t class'],
+      note:'Cat M323F Railroad Hydraulic Excavator — 22.9–23.9t. Cat C4.4, 127kW/170hp, EU Stage V. Specialist road-rail excavator: travels on road (up to 20 km/h) and rail (UIC 1,435mm, Metric 1,000mm, or Broad Gauge 1,600mm). EN15746 compliant. Variable Adjustable Boom 5.2m / 2.0m stick; working range dimensions not stated in brochure — confirm with Cat dealer. Auxiliary Lifting Point (ALP) at powerlink rated 8t SWL. Standard Rated Capacity Indicator (RCI) and Limiter (RCL) systems. Standard Smart Control System with automatic motion limiting and oscillating axle lock. Drawbar pull: 104kN road / 45kN rail. Max gradeability 53%. Backup electro-hydraulic pump for rail emergencies. 6,400kg standard counterweight (7,400kg optional). Second cab standard for railway safety attendant (EN15746 compliance). No working range dimensions confirmed in brochure — confirm all lifting and reach figures with Cat dealer. Source: Cat Brochure AEXQ3285-01.',
+      hireRateType:'wet_or_dry',
+    },
+
+    // ── KOMATSU EXCAVATORS ───────────────────────────────────────────
+    // Source: Komatsu PC30MR-5 / PC35MR-5 Brochure ZESS000100-FEB2018 (Australia & NZ Specifications)
+    { id:'kom-pc30',   brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC30MR-5 Mini Excavator', shortName:'Komatsu PC30MR-5',
+      weightClass:'mini',
+      // Engine (shared with PC35MR-5)
+      engineModel:'Komatsu 3D88E-7',
+      engineType:'Water-cooled, 4-cycle direct injection',
+      engineAspiration:'Cooled EGR',
+      engineCylinders:3,
+      engineBoreMm:88, engineStrokeMm:90,
+      engineGrossKW:18.2, engineGrossHP:24.4,
+      engineNetKW:17.4, engineNetHP:23.3,
+      engineRatedRPM:2200,
+      engineFanDrive:'Mechanical',
+      engineGovernor:'All-speed control, electronic',
+      emissionStandard:'U.S. EPA Tier 4 Final / EU Stage 3A',
+      engineDisplacementL:1.642,
+      // Operating weights — 300mm rubber shoe (ANZ spec)
+      operatingWeightKg:3150, operatingWeightT:3.15,
+      opWeightCanopyKg:3150, groundPressureCanopyKPa:28.5, groundPressureCanopyKgCm2:0.29,
+      opWeightCabKg:3300, groundPressureCabKPa:29.8, groundPressureCabKgCm2:0.30,
+      // Short tail swing
+      shortTailSwing:true,
+      tailOverhangCanopyMm:95, // rear overhang from track (canopy)
+      tailOverhangCabMm:80,    // rear overhang from track (cab)
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:4.6, maxTravelSpeedLowKmh:2.6,
+      travelSpeedNote:'Auto-shift two-speed',
+      maxDrawbarPullKN:33.2, maxDrawbarPullKg:3400,
+      gradeabilityDeg:30,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingLock:'Mechanical disc brake',
+      swingSpeedRpm:9,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design)',
+      workingModes:2,
+      // Main pump 1 — boom, arm, bucket, travel
+      hydraulicPump1Circuits:'Boom, arm, bucket and travel circuits',
+      hydraulicPump1Type:'Variable displacement, axial piston',
+      hydraulicPump1FlowLpm:69.8,
+      // Main pump 2 — swing and blade
+      hydraulicPump2Circuits:'Swing and blade',
+      hydraulicPump2Type:'Fixed displacement gear',
+      hydraulicPump2FlowLpm:17.4,
+      // Hydraulic motors
+      hydraulicTravelMotors:'2 x axial piston motors with parking brake',
+      hydraulicSwingMotor:'1 x axial piston motor with swing holding brake',
+      // Relief valves
+      reliefPressureImplementMPa:26.0, reliefPressureImplementKgCm2:265,
+      reliefPressureTravelMPa:26.0,
+      reliefPressureSwingMPa:21.6, reliefPressureSwingKgCm2:220,
+      reliefPressurePilotMPa:3.14, reliefPressurePilotKgCm2:32,
+      reliefPressureBladeMPa:21.6, reliefPressureBladeKgCm2:220,
+      // Hydraulic cylinder dimensions (bore x stroke x rod)
+      boomCylCount:1, boomCylBoreMm:80, boomCylStrokeMm:550, boomCylRodMm:45,
+      armCylCount:1, armCylBoreMm:75, armCylStrokeMm:495, armCylRodMm:45,
+      bucketCylCount:1, bucketCylBoreMm:65, bucketCylStrokeMm:490, bucketCylRodMm:40,
+      boomSwingCylCount:1, boomSwingCylBoreMm:80, boomSwingCylStrokeMm:500, boomSwingCylRodMm:40,
+      bladeCylCount:1, bladeCylBoreMm:85, bladeCylStrokeMm:135, bladeCylRodMm:45,
+      // Digging forces ISO 6015
+      bucketDigForceKN:29.5, bucketDigForceKg:3000,
+      stickDigForceKN:17.7, stickDigForceKg:1800,
+      // Working range (boom 2285mm, arm 1240mm)
+      stdBoomLengthMm:2285, stdArmLengthMm:1240,
+      digDepthMm:2760, digDepthM:2.76,
+      maxCuttingHeightMm:4840, maxLoadingHeightMm:3350,
+      verticalWallMm:2400,
+      maxReachMm:5050, maxReachGroundMm:4910,
+      minSwingRadiusMm:2055, minSwingRadiusBoomSwingMm:1560,
+      maxBladeLiftMm:360, maxBladeDepthMm:310,
+      // Boom swing angles
+      boomSwingAngleLHDeg:80, boomSwingAngleRHDeg:50,
+      bucketOffsetLHMm:580, bucketOffsetRHMm:845,
+      // Body dimensions (with 300mm rubber shoe)
+      overallLengthMm:4560, overallHeightMm:2520, overallWidthMm:1550,
+      counterweightClearanceMm:545, groundClearanceMm:305,
+      tailSwingRadiusMm:870,
+      trackLengthOnGroundMm:1650, trackLengthMm:2105,
+      trackGaugeMm:1250, shoeWidthMm:300,
+      machineUpperWidthMm:1500,
+      distanceSwingCentreToRearMm:1050,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:44,
+      carrierRollersPerSide:1,
+      trackRollersPerSide:4,
+      // Coolant & lubricant capacities (refill)
+      fuelTankL:40.6, coolantL:3.3, engineOilL:6.7, finalDriveEachL:0.6, hydraulicTankL:34,
+      // Maintenance intervals
+      engineOilFilterIntervalHr:500,
+      hydraulicOilFilterIntervalHr:1000,
+      hydraulicOilIntervalHr:2000,
+      // Bucket options (ISO 7451 heaped / CECE — standard ● optional ○ not available X)
+      buckets:[
+        {iso:0.035,cece:0.03,widthMm:250,widthWithSCMm:320,weightKg:52,teeth:3,pc30:'optional',pc35:'not_available'},
+        {iso:0.044,cece:0.04,widthMm:280,widthWithSCMm:350,weightPC30Kg:53,weightPC35Kg:60,teeth:3,pc30:'optional',pc35:'optional'},
+        {iso:0.055,cece:0.05,widthMm:350,widthWithSCMm:420,weightPC30Kg:60,weightPC35Kg:67,teeth:3,pc30:'optional',pc35:'optional'},
+        {iso:0.09, cece:0.08,widthMm:430,widthWithSCMm:500,weightPC30Kg:63,weightPC35Kg:78,teeth:4,pc30:'standard',pc35:'optional'},
+        {iso:0.11, cece:0.10,widthMm:530,widthWithSCMm:600,weightPC30Kg:81,weightPC35Kg:79,teeth:4,pc30:'optional',pc35:'standard'},
+        {iso:0.13, cece:0.12,widthMm:630,widthWithSCMm:700,weightPC35Kg:98,teeth:5,pc30:'not_available',pc35:'optional'},
+      ],
+      bucketCapM3:0.09,
+      // Lift capacities — PC30MR-5 canopy, 2285mm boom, 1240mm arm, 0.09m³ bucket, 300mm rubber shoe, blade on ground (kg, Cf/Cs)
+      // Note: all loads hydraulically limited per brochure
+      pc30LiftCap_max_3m:{cf:760,cs:430}, pc30LiftCap_3m_3m:{cf:880,cs:615},
+      pc30LiftCap_max_2m:{cf:735,cs:330}, pc30LiftCap_4m_2m:{cf:960,cs:360}, pc30LiftCap_3m_2m:{cf:1060,cs:595},
+      pc30LiftCap_max_1m:{cf:795,cs:295}, pc30LiftCap_4m_1m:{cf:1065,cs:345}, pc30LiftCap_3m_1m:{cf:1455,cs:555},
+      pc30LiftCap_max_0m:{cf:950,cs:295}, pc30LiftCap_4m_0m:{cf:1145,cs:335}, pc30LiftCap_3m_0m:{cf:1720,cs:515}, pc30LiftCap_2m_0m:{cf:1485,cs:965},
+      pc30LiftCap_max_n1m:{cf:1075,cs:345}, pc30LiftCap_3m_n1m:{cf:1645,cs:510}, pc30LiftCap_2m_n1m:{cf:2355,cs:970},
+      komtrax:true,
+      brochureRef:'Komatsu PC30MR-5/PC35MR-5 ANZ Brochure ZESS000100-FEB2018',
+      tags:['mini','residential','trench','tight access','short tail swing','confined','3t class'],
+      note:'Komatsu PC30MR-5 — 3.15–3.3t mini excavator (ANZ spec). Komatsu 3D88E-7, 3-cyl 88×90mm, 1.642L, 18.2kW/24.4hp gross, 17.4kW/23.3hp net @ 2,200rpm, EPA Tier 4 Final. Short tail swing: 95mm rear overhang (canopy), 80mm (cab). Bucket force 29.5kN, arm force 17.7kN (ISO 6015). Dig depth 2.76m, reach 5.05m, cut height 4.84m, dump height 3.35m. Min swing radius 2055mm (1560mm with boom swing). Max drawbar pull 33.2kN. Swing 9 rpm. 2 working modes. Blade: lift 360mm, depth 310mm. Two-speed auto-shift travel (4.6/2.6 km/h). Boom swing LH80°/RH50°. HydrauMind hydraulics. ROPS canopy (ISO 3471), OPG Level 1. ANZ spec: enclosed cab with A/C, AM/FM radio, pattern change valve, quick coupler unit. KOMTRAX standard. Source: Komatsu PC30MR-5/PC35MR-5 ANZ Brochure ZESS000100-FEB2018.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC30MR-5 / PC35MR-5 Brochure ZESS000100-FEB2018 (Australia & NZ Specifications)
+    { id:'kom-pc35mr5', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC35MR-5 Mini Excavator', shortName:'Komatsu PC35MR-5',
+      weightClass:'mini',
+      // Engine (same as PC30MR-5)
+      engineModel:'Komatsu 3D88E-7',
+      engineType:'Water-cooled, 4-cycle direct injection',
+      engineAspiration:'Cooled EGR',
+      engineCylinders:3,
+      engineBoreMm:88, engineStrokeMm:90,
+      engineGrossKW:18.2, engineGrossHP:24.4,
+      engineNetKW:17.4, engineNetHP:23.3,
+      engineRatedRPM:2200,
+      engineFanDrive:'Mechanical',
+      engineGovernor:'All-speed control, electronic',
+      emissionStandard:'U.S. EPA Tier 4 Final / EU Stage 3A',
+      engineDisplacementL:1.642,
+      // Operating weights — 300mm rubber shoe (ANZ spec)
+      operatingWeightKg:3620, operatingWeightT:3.62,
+      opWeightCanopyKg:3620, groundPressureCanopyKPa:35.8, groundPressureCanopyKgCm2:0.37,
+      opWeightCabKg:3770, groundPressureCabKPa:37.2, groundPressureCabKgCm2:0.38,
+      shortTailSwing:true,
+      tailOverhangCanopyMm:80,
+      tailOverhangCabMm:40,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:4.6, maxTravelSpeedLowKmh:2.6,
+      travelSpeedNote:'Auto-shift two-speed',
+      maxDrawbarPullKN:33.2, maxDrawbarPullKg:3400,
+      gradeabilityDeg:30,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingLock:'Mechanical disc brake',
+      swingSpeedRpm:9,
+      // Hydraulics (same as PC30MR-5)
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design)',
+      workingModes:2,
+      hydraulicPump1Circuits:'Boom, arm, bucket and travel circuits',
+      hydraulicPump1Type:'Variable displacement, axial piston',
+      hydraulicPump1FlowLpm:69.8,
+      hydraulicPump2Circuits:'Swing and blade',
+      hydraulicPump2Type:'Fixed displacement gear',
+      hydraulicPump2FlowLpm:17.4,
+      hydraulicTravelMotors:'2 x axial piston motors with parking brake',
+      hydraulicSwingMotor:'1 x axial piston motor with swing holding brake',
+      reliefPressureImplementMPa:26.0, reliefPressureImplementKgCm2:265,
+      reliefPressureTravelMPa:26.0,
+      reliefPressureSwingMPa:21.6, reliefPressureSwingKgCm2:220,
+      reliefPressurePilotMPa:3.14, reliefPressurePilotKgCm2:32,
+      reliefPressureBladeMPa:21.6, reliefPressureBladeKgCm2:220,
+      // Hydraulic cylinder dimensions — PC35MR-5 specific
+      boomCylCount:1, boomCylBoreMm:80, boomCylStrokeMm:585, boomCylRodMm:45,
+      armCylCount:1, armCylBoreMm:75, armCylStrokeMm:595, armCylRodMm:45,
+      bucketCylCount:1, bucketCylBoreMm:65, bucketCylStrokeMm:490, bucketCylRodMm:40,
+      boomSwingCylCount:1, boomSwingCylBoreMm:95, boomSwingCylStrokeMm:482, boomSwingCylRodMm:50,
+      bladeCylCount:1, bladeCylBoreMm:95, bladeCylStrokeMm:140, bladeCylRodMm:45,
+      // Digging forces ISO 6015
+      bucketDigForceKN:29.9, bucketDigForceKg:3050,
+      stickDigForceKN:20.6, stickDigForceKg:2100,
+      // Working range (boom 2540mm, arm 1370mm)
+      stdBoomLengthMm:2540, stdArmLengthMm:1370,
+      digDepthMm:3110, digDepthM:3.11,
+      maxCuttingHeightMm:5000, maxLoadingHeightMm:3530,
+      verticalWallMm:2690,
+      maxReachMm:5300, maxReachGroundMm:5170,
+      minSwingRadiusMm:2030, minSwingRadiusBoomSwingMm:1600,
+      maxBladeLiftMm:360, maxBladeDepthMm:390,
+      boomSwingAngleLHDeg:75, boomSwingAngleRHDeg:55,
+      bucketOffsetLHMm:580, bucketOffsetRHMm:770,
+      // Body dimensions (with 300mm rubber shoe)
+      overallLengthMm:4905, overallHeightMm:2520, overallWidthMm:1740,
+      counterweightClearanceMm:545, groundClearanceMm:290,
+      tailSwingRadiusMm:950,
+      trackLengthOnGroundMm:1650, trackLengthMm:2105,
+      trackGaugeMm:1440, shoeWidthMm:300,
+      machineUpperWidthMm:1500,
+      distanceSwingCentreToRearMm:1050,
+      // Undercarriage (same as PC30MR-5)
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:44,
+      carrierRollersPerSide:1,
+      trackRollersPerSide:4,
+      // Coolant & lubricant capacities (refill)
+      fuelTankL:40.6, coolantL:3.3, engineOilL:6.7, finalDriveEachL:0.6, hydraulicTankL:39,
+      engineOilFilterIntervalHr:500,
+      hydraulicOilFilterIntervalHr:1000,
+      hydraulicOilIntervalHr:2000,
+      // Lift capacities — PC35MR-5 canopy, 2540mm boom, 1370mm arm, 0.09m³ bucket, 300mm rubber shoe, blade on ground
+      pc35LiftCap_max_3m:{cf:775,cs:450}, pc35LiftCap_4m_3m:{cf:800,cs:450},
+      pc35LiftCap_max_2m:{cf:780,cs:360}, pc35LiftCap_4m_2m:{cf:885,cs:445}, pc35LiftCap_3m_2m:{cf:1005,cs:730},
+      pc35LiftCap_max_1m:{cf:855,cs:330}, pc35LiftCap_4m_1m:{cf:1030,cs:430}, pc35LiftCap_3m_1m:{cf:1425,cs:680},
+      pc35LiftCap_max_0m:{cf:965,cs:335}, pc35LiftCap_4m_0m:{cf:1145,cs:410}, pc35LiftCap_3m_0m:{cf:1710,cs:640}, pc35LiftCap_2m_0m:{cf:1545,cs:1220},
+      pc35LiftCap_max_n1m:{cf:1035,cs:380}, pc35LiftCap_4m_n1m:{cf:1120,cs:405}, pc35LiftCap_3m_n1m:{cf:1705,cs:630}, pc35LiftCap_2m_n1m:{cf:2600,cs:1235},
+      bucketCapM3:0.11,
+      komtrax:true,
+      brochureRef:'Komatsu PC30MR-5/PC35MR-5 ANZ Brochure ZESS000100-FEB2018',
+      tags:['mini','residential','trench','tight access','short tail swing','confined','3.5t class'],
+      note:'Komatsu PC35MR-5 — 3.62–3.77t mini excavator (ANZ spec). Komatsu 3D88E-7, 3-cyl 88×90mm, 1.642L, 18.2kW/24.4hp gross, 17.4kW/23.3hp net @ 2,200rpm, EPA Tier 4 Final. Short tail swing: 80mm rear overhang (canopy), 40mm (cab). Bucket force 29.9kN, arm force 20.6kN (ISO 6015). Dig depth 3.11m, reach 5.30m, cut height 5.00m, dump height 3.53m. Min swing radius 2030mm (1600mm with boom swing). Max drawbar pull 33.2kN. Swing 9 rpm. 2 working modes. Blade: lift 360mm, depth 390mm. Two-speed auto-shift travel (4.6/2.6 km/h). Boom swing LH75°/RH55°. Larger than PC30MR-5: wider track (1440mm vs 1250mm gauge). HydrauMind hydraulics. ROPS canopy (ISO 3471), OPG Level 1. ANZ spec: enclosed cab with A/C, AM/FM radio, pattern change valve, quick coupler unit. KOMTRAX standard. Source: Komatsu PC30MR-5/PC35MR-5 ANZ Brochure ZESS000100-FEB2018.',
+      hireRateType:'wet_or_dry' },
+
+
+    // ── KOMATSU PC45MR-5 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC45MR-5/PC55MR-5 ANZ Brochure ZESS000200-FEB2018 (Australia-NZ Specifications)
+    { id:'kom-pc45mr5', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC45MR-5 Compact Excavator', shortName:'Komatsu PC45MR-5',
+      // Engine
+      engineModel:'Komatsu 4D88E-7', engineCylinders:4, engineBoreMm:88, engineStrokeMm:90,
+      engineDisplacementL:2.189, engineAspiration:'Cooled EGR',
+      engineGrossKw:29.1, engineGrossHp:39, engineNetKw:28.3, engineNetHp:38,
+      engineRatedRpm:2400, engineFanDrive:'mechanical', engineTierLevel:'EPA Tier 4 Final & EU Stage 3A',
+      // Electrical
+      alternatorV:12, alternatorA:55, batteryV:12, batteryAh:72, batteryCount:1,
+      startingMotorKw:1.7, startingMotorV:12,
+      // Hydraulics
+      hydraulicType:'HydrauMind New Design (variable displacement axial piston + fixed gear)',
+      hydraulicWorkingModes:2,
+      // Main pump (implement): variable displacement axial piston; swing+blade: fixed displacement gear
+      hydraulicPumpFlowLpm_implement:153.3, hydraulicPumpFlowLpm_swingBlade:63,
+      hydraulicReliefPressureMpa_implement:26.5, hydraulicReliefPressureMpa_travel:26.5,
+      hydraulicReliefPressureMpa_swing:21.6, hydraulicReliefPressureMpa_pilot:3.14,
+      hydraulicReliefPressureMpa_blade:21.6,
+      // Cylinder dimensions (bore×stroke×rod)
+      cylBoomMm:'1–90×691×50mm', cylArmMm:'1–80×649×50mm', cylBucketMm:'1–70×580×45mm',
+      cylBoomSwingMm:'1–90×630×50mm', cylBladeMm:'1–110×140×50mm',
+      // Travel / drives
+      travelSpeedHiKph:4.6, travelSpeedLoKph:2.6, travelAutoShift:true, gradeabilityDeg:30,
+      maxDrawbarPullKn:42, maxDrawbarPullKg:4280,
+      serviceBrake:'hydraulic lock', parkingBrake:'mechanical disc',
+      // Swing
+      swingSpeedRpm:9, swingReduction:'planetary gear', swingCircleLubrication:'grease-bathed',
+      swingLock:'mechanical disc brake', swingDrive:'hydrostatic',
+      // Undercarriage
+      centreFrame:'X-frame', trackFrame:'box-section', trackType:'sealed track', trackAdjuster:'hydraulic',
+      shoesPerSide:39, carrierRollersPerSide:1, trackRollersPerSide:4,
+      // Operating weights (400mm rubber shoe, canopy/cab)
+      operatingWeightKg_canopy:4860, operatingWeightKg_cab:4980, operatingWeightT:4.86,
+      groundPressureKPa_canopy:26.4, groundPressureKPa_cab:27.3,
+      groundPressureKgCm2_canopy:0.27, groundPressureKgCm2_cab:0.28,
+      // Operating weight basis: 2640mm boom, 1375mm arm, ISO 7451 heaped 0.14m³ bucket, blade, full fluids, operator, std equipment
+      operatingWeightBasis:'2640mm boom, 1375mm arm, 0.14m³ bucket (ISO 7451), blade, full fluids, operator, std equip',
+      // Coolant & lubricant capacities (refill)
+      fuelTankL:65, coolantL:8.9, engineOilL:8.1, finalDriveOilL_eachSide:0.7, hydraulicTankL:55,
+      hydraulicTankTotalL:55, hydraulicSystemL:20, // (20) = system remainder
+      // Maintenance intervals
+      maintenanceIntervalHr_engineOilAndFilter:500, maintenanceIntervalHr_hydraulicOil:2000,
+      maintenanceIntervalHr_hydraulicOilFilter:1000,
+      // Dimensions (2640mm boom, 1375mm arm, 400mm rubber shoe)
+      boomLengthMm:2640, armLengthMm:1375,
+      overallLengthMm:5220, overallHeightMm_canopy:2550, overallHeightMm_cab:2590,
+      overallWidthMm:1960, groundClearanceCounterweightMm:610, groundClearanceMinMm:290,
+      tailSwingRadiusMm:1040, trackLengthOnGroundMm:2000, trackLengthMm:2520,
+      trackGaugeMm:1560, shoeWidthMm:400, machineUpperWidthMm:1835, distanceSwingCentreToRearMm:1265,
+      boomSwingAngleDeg_LH:85, boomSwingAngleDeg_RH:50,
+      bucketOffsetLH_mm:630, bucketOffsetRH_mm:880,
+      // Working range (2640mm boom, 1375mm arm, with rubber shoe)
+      maxDiggingHeightMm:5500, maxDumpingHeightMm:3775, maxDiggingDepthMm:3300,
+      maxVerticalWallDepthMm:2730, maxDiggingReachMm:5735, maxDiggingReachGroundMm:5575,
+      minSwingRadiusMm:2290, minSwingRadiusBoomSwingMm:1760,
+      maxBladeLifMm:430, maxBladeDepthMm:330,
+      // Breakout forces (ISO 6015)
+      bucketDiggingForceKn_iso:33.9, bucketDiggingForceKg_iso:3460,
+      armCrowdForceKn_iso:20.3, armCrowdForceKg_iso:2070,
+      // Bucket options (ISO 7451 / CECE capacities) — PC45MR-5
+      // format: {isoM3, ceceM3, widthNoSCmm, widthWithSCmm, weightKg, teeth, pc45avail, pc55avail}
+      backhoeOptions:[
+        {isoM3:0.055, ceceM3:0.05,  widthNoSCmm:300, widthWithSCmm:370, weightKg:89, teeth:3, pc45:'optional', pc55:'optional'},
+        {isoM3:0.11,  ceceM3:0.10,  widthNoSCmm:425, widthWithSCmm:500, weightKg:94, teeth:3, pc45:'optional', pc55:'optional'},
+        {isoM3:0.14,  ceceM3:0.13,  widthNoSCmm:525, widthWithSCmm:600, weightKg:109,teeth:4, pc45:'standard',pc55:'not_available'},
+        {isoM3:0.16,  ceceM3:0.14,  widthNoSCmm:580, widthWithSCmm:650, weightKg:110,teeth:4, pc45:'optional', pc55:'standard'},
+        {isoM3:0.18,  ceceM3:0.16,  widthNoSCmm:625, widthWithSCmm:700, weightKg:121,teeth:5, pc45:'not_available',pc55:'optional'},
+      ],
+      standardBucketCapM3:0.14, bucketCapRangeM3:'0.055–0.16',
+      // Lift capacities — PC45MR-5 canopy, boom 2640mm, arm 1375mm, 0.14m³ bucket (ISO 7451), 400mm rubber shoe, blade on ground
+      // SAE J1097: loads ≤87% hydraulic lift capacity or ≤75% tipping load
+      pc45LiftCap_max_3m:{cf:925,cs:565},
+      pc45LiftCap_max_2m:{cf:930,cs:465}, pc45LiftCap_3m_2m:{cf:1240,cs:1075},
+      pc45LiftCap_max_1m:{cf:1010,cs:430}, pc45LiftCap_3m_1m:{cf:1895,cs:975},
+      pc45LiftCap_max_0m:{cf:1150,cs:435}, pc45LiftCap_3m_0m:{cf:2295,cs:915}, pc45LiftCap_2m_0m:{cf:1205,cs:1205},
+      pc45LiftCap_max_n1m:{cf:1245,cs:495}, pc45LiftCap_3m_n1m:{cf:2305,cs:900}, pc45LiftCap_2m_n1m:{cf:2500,cs:1755},
+      // Note: All loads hydraulically limited per brochure (* = hyd limited; all rows shown as all-hyd-limited in brochure)
+      // Standard equipment (global)
+      stdEquip:[
+        'Air cleaner double element with auto dust evacuator','Cooling fan suction type',
+        'Alternator 12V/55A','Auto-decelerator','Battery 1×12V/72Ah','Starting motor 12V/1.7kW',
+        'Working light on boom','Working light on canopy or cab','Auxiliary hydraulics with selector valve',
+        'Fan guard structure','Thermal guard','400mm rubber shoe','1×12V power supply',
+        'Automatic two-speed travel control','High resolution 3.5" LCD colour monitor',
+        'Lock lever auto lock function','Rear view mirrors (RH, LH, rear)',
+        'Retractable seat belt 50mm','Suspension seat','Travel alarm',
+        'Two-post ROPS (ISO 3471) canopy','Arm 1375mm with piping (PC45MR-5)',
+        'Backfill blade','Boom 2640mm with piping (PC45MR-5)',
+        'Auto idle shutdown function','KOMTRAX','Swing holding brake',
+      ],
+      // Australian-NZ additional standard equipment (ZESS000200)
+      anzStdEquip:[
+        'Air pre-cleaner','Pattern change valve (ISO-backhoe)',
+        'Cab with air conditioner and defroster','Two front working lights',
+        'AM/FM radio and auxiliary input (3.5mm jack)',
+        'Proportional switch (for attachment line)','Retractable seat belt 78mm',
+        'Quick coupler unit',
+      ],
+      // Optional equipment
+      optionalEquip:[
+        '400mm road liner shoe','400mm steel shoe',
+        'Large-capacity air conditioner with fresh air filter (cab)','Ashtray','Additional working light',
+        'AM/FM radio and auxiliary input (canopy opt)','Battery disconnect switch',
+        'Proportional switch (attachment line)','Retractable seat belt 78mm',
+      ],
+      komtrax:true,
+      brochureRef:'Komatsu PC45MR-5/PC55MR-5 ANZ Brochure ZESS000200-FEB2018',
+      tags:['mini','residential','commercial','confined','short tail swing','5t class','compact'],
+      note:'Komatsu PC45MR-5 — 4.86–4.98t compact excavator (ANZ spec). Komatsu 4D88E-7, 4-cyl 88×90mm, 2.189L, 29.1kW/39hp gross, 28.3kW/38hp net @ 2,400rpm, Cooled EGR, EPA Tier 4 Final & EU Stage 3A. Short tail swing: 60mm rear overhang canopy (140mm PC55MR-5). Bucket force 33.9kN/3460kg, arm force 20.3kN/2070kg (ISO 6015). Dig depth 3.30m, reach 5.74m, cut height 5.50m, dump height 3.78m. Min swing radius 2290mm (1760mm with boom swing). Max drawbar pull 42kN. Swing 9 rpm. 2 working modes (P/E). ECO gauge, fuel consumption gauge, auto-decelerator, auto idle shutdown. Blade: lift 430mm/depth 330mm. Two-speed auto-shift travel (4.6/2.6 km/h high/low). Boom swing LH85°/RH50°. HydrauMind hydraulics, implement pump 153.3L/min, swing+blade gear pump 63L/min. Blade circuit relief 21.6MPa. ROPS canopy (ISO 3471), OPG Level 1. Maintenance intervals: engine oil/filter 500h, hydraulic oil 2000h, hydraulic oil filter 1000h. ANZ std spec: cab A/C, quick coupler unit, pattern change valve, proportional switch, AM/FM radio, KOMTRAX. Bucket options: 0.055m³ (300mm, 89kg), 0.11m³ (425mm, 94kg), 0.14m³ std (525mm, 109kg), 0.16m³ (580mm, 110kg). Source: Komatsu PC45MR-5/PC55MR-5 ANZ Brochure ZESS000200-FEB2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC55MR-5 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC45MR-5/PC55MR-5 ANZ Brochure ZESS000200-FEB2018 (Australia-NZ Specifications)
+    { id:'kom-pc55mr5', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC55MR-5 Compact Excavator', shortName:'Komatsu PC55MR-5',
+      // Engine (identical to PC45MR-5)
+      engineModel:'Komatsu 4D88E-7', engineCylinders:4, engineBoreMm:88, engineStrokeMm:90,
+      engineDisplacementL:2.189, engineAspiration:'Cooled EGR',
+      engineGrossKw:29.1, engineGrossHp:39, engineNetKw:28.3, engineNetHp:38,
+      engineRatedRpm:2400, engineFanDrive:'mechanical', engineTierLevel:'EPA Tier 4 Final & EU Stage 3A',
+      // Electrical (same as PC45MR-5)
+      alternatorV:12, alternatorA:55, batteryV:12, batteryAh:72, batteryCount:1,
+      startingMotorKw:1.7, startingMotorV:12,
+      // Hydraulics (same as PC45MR-5 spec sheet — both share same engine/hydraulic platform)
+      hydraulicType:'HydrauMind New Design (variable displacement axial piston + fixed gear)',
+      hydraulicWorkingModes:2,
+      hydraulicPumpFlowLpm_implement:153.3, hydraulicPumpFlowLpm_swingBlade:63,
+      hydraulicReliefPressureMpa_implement:26.5, hydraulicReliefPressureMpa_travel:26.5,
+      hydraulicReliefPressureMpa_swing:21.6, hydraulicReliefPressureMpa_pilot:3.14,
+      hydraulicReliefPressureMpa_blade:21.6,
+      // Cylinder dimensions — PC55MR-5 specific (larger than PC45MR-5)
+      cylBoomMm:'1–90×691×50mm', cylArmMm:'1–85×733×55mm', cylBucketMm:'1–75×580×50mm',
+      cylBoomSwingMm:'1–95×630×50mm', cylBladeMm:'1–110×140×50mm',
+      // Travel / drives
+      travelSpeedHiKph:4.6, travelSpeedLoKph:2.6, travelAutoShift:true, gradeabilityDeg:30,
+      maxDrawbarPullKn:42, maxDrawbarPullKg:4280,
+      serviceBrake:'hydraulic lock', parkingBrake:'mechanical disc',
+      // Swing
+      swingSpeedRpm:9, swingReduction:'planetary gear', swingCircleLubrication:'grease-bathed',
+      swingLock:'mechanical disc brake', swingDrive:'hydrostatic',
+      // Undercarriage (same as PC45MR-5)
+      centreFrame:'X-frame', trackFrame:'box-section', trackType:'sealed track', trackAdjuster:'hydraulic',
+      shoesPerSide:39, carrierRollersPerSide:1, trackRollersPerSide:4,
+      // Operating weights (400mm rubber shoe)
+      operatingWeightKg_canopy:5140, operatingWeightKg_cab:5260, operatingWeightT:5.14,
+      groundPressureKPa_canopy:28.9, groundPressureKPa_cab:29.5,
+      groundPressureKgCm2_canopy:0.29, groundPressureKgCm2_cab:0.30,
+      operatingWeightBasis:'2900mm boom, 1640mm arm, 0.16m³ bucket (ISO 7451), blade, full fluids, operator, std equip',
+      // Coolant & lubricant capacities
+      fuelTankL:65, coolantL:8.9, engineOilL:8.1, finalDriveOilL_eachSide:0.7, hydraulicTankL:55,
+      // Maintenance intervals
+      maintenanceIntervalHr_engineOilAndFilter:500, maintenanceIntervalHr_hydraulicOil:2000,
+      maintenanceIntervalHr_hydraulicOilFilter:1000,
+      // Dimensions (2900mm boom, 1640mm arm, 400mm rubber shoe)
+      boomLengthMm:2900, armLengthMm:1640,
+      overallLengthMm:5550, overallHeightMm_canopy:2550, overallHeightMm_cab:2590,
+      overallWidthMm:1960, groundClearanceCounterweightMm:610, groundClearanceMinMm:290,
+      tailSwingRadiusMm:1120, trackLengthOnGroundMm:2000, trackLengthMm:2520,
+      trackGaugeMm:1560, shoeWidthMm:400, machineUpperWidthMm:1835, distanceSwingCentreToRearMm:1265,
+      boomSwingAngleDeg_LH:85, boomSwingAngleDeg_RH:50,
+      bucketOffsetLH_mm:630, bucketOffsetRH_mm:880,
+      // Working range (2900mm boom, 1640mm arm)
+      maxDiggingHeightMm:5915, maxDumpingHeightMm:4200, maxDiggingDepthMm:3770,
+      maxVerticalWallDepthMm:3030, maxDiggingReachMm:6220, maxDiggingReachGroundMm:6075,
+      minSwingRadiusMm:2285, minSwingRadiusBoomSwingMm:1760,
+      maxBladeLifMm:430, maxBladeDepthMm:330,
+      // Breakout forces (ISO 6015)
+      bucketDiggingForceKn_iso:39.0, bucketDiggingForceKg_iso:3980,
+      armCrowdForceKn_iso:23.9, armCrowdForceKg_iso:2440,
+      // Bucket options — PC55MR-5 (same range as PC45MR-5 but different standards/availability)
+      backhoeOptions:[
+        {isoM3:0.055, ceceM3:0.05,  widthNoSCmm:300, widthWithSCmm:370, weightKg:89, teeth:3, pc45:'optional', pc55:'optional'},
+        {isoM3:0.11,  ceceM3:0.10,  widthNoSCmm:425, widthWithSCmm:500, weightKg:94, teeth:3, pc45:'optional', pc55:'optional'},
+        {isoM3:0.14,  ceceM3:0.13,  widthNoSCmm:525, widthWithSCmm:600, weightKg:109,teeth:4, pc45:'standard',pc55:'not_available'},
+        {isoM3:0.16,  ceceM3:0.14,  widthNoSCmm:580, widthWithSCmm:650, weightKg:110,teeth:4, pc45:'optional', pc55:'standard'},
+        {isoM3:0.18,  ceceM3:0.16,  widthNoSCmm:625, widthWithSCmm:700, weightKg:121,teeth:5, pc45:'not_available',pc55:'optional'},
+      ],
+      standardBucketCapM3:0.16, bucketCapRangeM3:'0.055–0.18',
+      // Lift capacities — PC55MR-5 canopy, boom 2900mm, arm 1640mm, 0.16m³ bucket (ISO 7451), 400mm rubber shoe, blade on ground
+      // SAE J1097: loads ≤87% hydraulic lift capacity or ≤75% tipping load
+      pc55LiftCap_max_3m:{cf:830,cs:530},
+      pc55LiftCap_max_2m:{cf:865,cs:450}, pc55LiftCap_3m_2m:{cf:1170,cs:1170},
+      pc55LiftCap_max_1m:{cf:915,cs:420}, pc55LiftCap_3m_1m:{cf:1825,cs:1095},
+      pc55LiftCap_max_0m:{cf:975,cs:425}, pc55LiftCap_3m_0m:{cf:2225,cs:1020}, pc55LiftCap_2m_0m:{cf:1265,cs:1265},
+      pc55LiftCap_max_n1m:{cf:1045,cs:465}, pc55LiftCap_3m_n1m:{cf:2265,cs:1000}, pc55LiftCap_2m_n1m:{cf:2445,cs:1945},
+      // Standard equipment (same global as PC45MR-5 except arm/boom specific parts)
+      stdEquip:[
+        'Air cleaner double element with auto dust evacuator','Cooling fan suction type',
+        'Alternator 12V/55A','Auto-decelerator','Battery 1×12V/72Ah','Starting motor 12V/1.7kW',
+        'Working light on boom','Working light on canopy or cab','Auxiliary hydraulics with selector valve',
+        'Fan guard structure','Thermal guard','400mm rubber shoe','1×12V power supply',
+        'Automatic two-speed travel control','High resolution 3.5" LCD colour monitor',
+        'Lock lever auto lock function','Rear view mirrors (RH, LH, rear)',
+        'Retractable seat belt 50mm','Suspension seat','Travel alarm',
+        'Two-post ROPS (ISO 3471) canopy','Arm 1640mm with piping (PC55MR-5)',
+        'Backfill blade','Boom 2900mm with piping (PC55MR-5)',
+        'Auto idle shutdown function','KOMTRAX','Swing holding brake',
+      ],
+      anzStdEquip:[
+        'Air pre-cleaner','Pattern change valve (ISO-backhoe)',
+        'Cab with air conditioner and defroster','Two front working lights',
+        'AM/FM radio and auxiliary input (3.5mm jack)',
+        'Proportional switch (for attachment line)','Retractable seat belt 78mm',
+        'Quick coupler unit',
+      ],
+      optionalEquip:[
+        '400mm road liner shoe','400mm steel shoe',
+        'Large-capacity air conditioner with fresh air filter (cab)','Ashtray','Additional working light (cab)',
+        'AM/FM radio and auxiliary input (canopy)','Battery disconnect switch',
+        'Proportional switch (attachment line)',
+      ],
+      komtrax:true,
+      brochureRef:'Komatsu PC45MR-5/PC55MR-5 ANZ Brochure ZESS000200-FEB2018',
+      tags:['mini','residential','commercial','confined','short tail swing','5t class','compact'],
+      note:'Komatsu PC55MR-5 — 5.14–5.26t compact excavator (ANZ spec). Komatsu 4D88E-7, 4-cyl 88×90mm, 2.189L, 29.1kW/39hp gross, 28.3kW/38hp net @ 2,400rpm, Cooled EGR, EPA Tier 4 Final & EU Stage 3A. Short tail swing: 140mm rear overhang (canopy). Bucket force 39.0kN/3980kg, arm force 23.9kN/2440kg (ISO 6015). Dig depth 3.77m, reach 6.22m, cut height 5.92m, dump height 4.20m. Min swing radius 2285mm (1760mm with boom swing). Max drawbar pull 42kN. Swing 9 rpm. 2 working modes (P/E). ECO gauge, fuel consumption gauge, auto-decelerator, auto idle shutdown. Blade: lift 430mm/depth 330mm. Two-speed auto-shift travel (4.6/2.6 km/h). Boom swing LH85°/RH50°. Larger arm (1640mm vs 1375mm), bucket and boom cylinders than PC45MR-5. HydrauMind hydraulics, implement pump 153.3L/min, blade+swing gear pump 63L/min. Blade circuit relief 21.6MPa. ROPS canopy (ISO 3471), OPG Level 1. Maintenance intervals: engine oil/filter 500h, hydraulic oil 2000h, hydraulic oil filter 1000h. ANZ std spec: cab A/C, quick coupler, pattern change valve, proportional switch, AM/FM radio, KOMTRAX. Bucket options: 0.055m³ (300mm, 89kg), 0.11m³ (425mm, 94kg), 0.16m³ std (580mm, 110kg), 0.18m³ (625mm, 121kg). Source: Komatsu PC45MR-5/PC55MR-5 ANZ Brochure ZESS000200-FEB2018.',
+      hireRateType:'wet_or_dry' },
+    { id:'kom-pc78',   brand:'Komatsu', emoji:'⛏️', type:'excavator', name:'Komatsu PC78US-11', shortName:'Komatsu PC78',
+      weightClass:'midi', operatingWeightT:8.1, digDepthM:4.35, bucketCapM3:0.30,
+      tags:['midi','commercial','civil light','trench'],
+      note:'Komatsu PC78US-11 — 8.1t midi. Ultra short tail swing. 39.5kW engine. Dig depth 4.35m. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kom-pc130',  brand:'Komatsu', emoji:'⛏️', type:'excavator', name:'Komatsu PC130-11', shortName:'Komatsu PC130',
+      weightClass:'standard', operatingWeightT:13.2, digDepthM:5.48, bucketCapM3:0.53,
+      tags:['standard','commercial','civil','bulk excavation'],
+      note:'Komatsu PC130-11 — 13.2t standard. 59.6kW engine. Dig depth 5.48m. Tier 4 Final engine. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC138US-8 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC138US-8 Brochure CEN00183-06 (Printed in Japan 201403)
+    { id:'kom-pc138us8', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC138US-8 Excavator', shortName:'Komatsu PC138US-8',
+      // Engine
+      engineModel:'Komatsu SAA4D95LE-5', engineCylinders:4, engineBoreMm:95, engineStrokeMm:115,
+      engineDisplacementL:3.26, engineAspiration:'Turbocharged and air-to-air aftercooled',
+      engineGrossKw:72.1, engineGrossHp:96.6, engineNetKw:68.4, engineNetHp:91.7,
+      engineRatedRpm:2200, engineFuelSystem:'direct injection', engineTierLevel:'EPA Tier 3 & EU Stage 3A',
+      engineGovernor:'all-speed control, electronic', engineFanDrive:'mixed flow with fan guard',
+      // Electrical
+      alternatorA:35, alternatorV:24, batteryAh:64, batteryV:12, batteryCount:2, startingMotorKw:4.5,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Closed-centre load sensing, pressure-compensated)',
+      hydraulicWorkingModes:5, // P, E, L, B, ATT
+      hydraulicPumpType:'variable capacity piston (single pump with double flow)',
+      hydraulicPumpFlowLpm:241.5,
+      hydraulicReliefPressureMpa_implement:34.8, hydraulicReliefPressureMpa_travel:34.8,
+      hydraulicReliefPressureMpa_swing:27.1, hydraulicReliefPressureMpa_pilot:3.2,
+      // Cylinder dimensions (bore×stroke) — no rod diameter given in this brochure
+      cylBoomMm:'2–105×1055mm', cylArmMm:'1–110×1175mm', cylBucketMm:'1–95×885mm',
+      // Travel / drives
+      travelSpeedHiKph:5.1, travelSpeedLoKph:2.9, travelAutoShift:true,
+      maxDrawbarPullKn:123, maxDrawbarPullKgf:12500, maxDrawbarPullLbf:27560,
+      serviceBrake:'hydraulic lock', parkingBrake:'wet multiple-disc',
+      // Swing
+      swingSpeedRpm:11.0, swingReduction:'planetary gear', swingCircleLubrication:'grease-bathed',
+      swingLock:'wet multiple-disc brake',
+      // Undercarriage
+      centreFrame:'X-leg frame', trackFrame:'box-section', trackType:'sealed', trackAdjuster:'hydraulic',
+      shoesPerSide:43, carrierRollersPerSide:1, trackRollersPerSide:7,
+      // Operating weights (with 4600mm boom, 2500mm arm, 0.50m³ bucket, full fluids, operator, std equip)
+      operatingWeightKg_500mm:13480, operatingWeightKg_600mm:13670, operatingWeightKg_700mm:13850,
+      operatingWeightT:13.5,
+      groundPressureKPa_500mm:42.2, groundPressureKPa_600mm:35.3, groundPressureKPa_700mm:30.4,
+      groundPressureKgCm2_500mm:0.43, groundPressureKgCm2_600mm:0.36, groundPressureKgCm2_700mm:0.31,
+      // Coolant & lubricant capacities
+      fuelTankL:195, coolantL:12.4, engineOilL:11.0, finalDriveOilL_eachSide:2.1,
+      swingDriveOilL:2.5, hydraulicTankL:69.0,
+      // Maintenance intervals
+      maintenanceIntervalHr_engineOilAndFilter:500, maintenanceIntervalHr_hydraulicOil:5000,
+      maintenanceIntervalHr_hydraulicOilFilter:1000,
+      greaseIntervalNote:'All work equipment bushing lubrication 500h except arm top bushing',
+      // Component weights
+      counterweightKg:3250,
+      // Dimensions (standard: 4600mm boom, 2500mm arm, 500mm shoe)
+      boomLengthMm:4600,
+      overallWidthMm:2490, groundClearanceCounterweightMm:900, groundClearanceMinMm:395,
+      tailSwingRadiusMm:1480, implementSwingRadiusMm:1980,
+      trackLengthOnGroundMm:2880, trackLengthMm:3610, trackGaugeMm:1990, shoeWidthMm:500, grouserHeightMm:20,
+      machineUpperWidthMm_withCabHeight:1980, // cab height machine upper width (for road width calc)
+      distanceSwingCentreToRearMm:1480,
+      // Arm-specific dimensions
+      dims_2500mmArm:{overallLengthMm:7260, overallHeightBoomMm:2850, overallHeightCabMm:2815, transportLengthMm:4400},
+      dims_3000mmArm:{overallLengthMm:7160, overallHeightBoomMm:3210, overallHeightCabMm:2815, transportLengthMm:4290},
+      dims_2100mmArm:{overallLengthMm:7275, overallHeightBoomMm:2690, overallHeightCabMm:2815, transportLengthMm:4660},
+      // Primary arm (2500mm) working range
+      armLengthMm:2500,
+      maxDiggingHeightMm:9340, maxDumpingHeightMm:6840, maxDiggingDepthMm:5480,
+      maxVerticalWallDepthMm:4900, maxDiggingDepthLevel8ftMm:5265,
+      maxDiggingReachMm:8300, maxDiggingReachGroundMm:8180, minSwingRadiusMm:1980,
+      // All arm options working ranges
+      workingRange_2500mm:{
+        maxDigHeightMm:9340, maxDumpHeightMm:6840, maxDigDepthMm:5480,
+        maxVertWallDepthMm:4900, maxDigDepthLevel8ftMm:5265,
+        maxDigReachMm:8300, maxDigReachGroundMm:8180, minSwingRadiusMm:1980,
+      },
+      workingRange_3000mm:{
+        maxDigHeightMm:9700, maxDumpHeightMm:7350, maxDigDepthMm:5900,
+        maxVertWallDepthMm:5340, maxDigDepthLevel8ftMm:5715,
+        maxDigReachMm:8720, maxDigReachGroundMm:8600, minSwingRadiusMm:2265,
+      },
+      workingRange_2100mm:{
+        maxDigHeightMm:9020, maxDumpHeightMm:6525, maxDigDepthMm:5070,
+        maxVertWallDepthMm:4490, maxDigDepthLevel8ftMm:4830,
+        maxDigReachMm:7930, maxDigReachGroundMm:7805, minSwingRadiusMm:1845,
+      },
+      // Digging forces — arm-specific (ISO & SAE ratings)
+      forces_2500mm:{
+        bucketISO_kN:93.2, bucketISO_kgf:9500, bucketISO_lbf:20950,
+        armISO_kN:61.8, armISO_kgf:6300, armISO_lbf:13890,
+        bucketSAE_kN:81.4, bucketSAE_kgf:8300, bucketSAE_lbf:18300,
+        armSAE_kN:60.8, armSAE_kgf:6200, armSAE_lbf:13670,
+      },
+      forces_3000mm:{
+        bucketISO_kN:88.3, bucketISO_kgf:9000, bucketISO_lbf:19840,
+        armISO_kN:55.9, armISO_kgf:5700, armISO_lbf:12570,
+        bucketSAE_kN:78.0, bucketSAE_kgf:7950, bucketSAE_lbf:17530,
+        armSAE_kN:54.4, armSAE_kgf:5550, armSAE_lbf:12240,
+      },
+      forces_2100mm:{
+        bucketISO_kN:88.3, bucketISO_kgf:9000, bucketISO_lbf:19840,
+        armISO_kN:71.6, armISO_kgf:7300, armISO_lbf:16090,
+        bucketSAE_kN:78.0, bucketSAE_kgf:7950, bucketSAE_lbf:17530,
+        armSAE_kN:69.6, armSAE_kgf:7100, armSAE_lbf:15650,
+      },
+      // Primary forces (2500mm arm)
+      bucketDiggingForceKn_iso:93.2, bucketDiggingForceKgf_iso:9500,
+      armCrowdForceKn_iso:61.8, armCrowdForceKgf_iso:6300,
+      bucketDiggingForceKn_sae:81.4, bucketDiggingForceKgf_sae:8300,
+      armCrowdForceKn_sae:60.8, armCrowdForceKgf_sae:6200,
+      // Bucket / arm compatibility
+      // {SAE/PCSA, CECE, widthNoSCmm, widthWithSCmm, weightKg, teeth, arm2500:'general'/'light'/'X', arm3000, arm2100}
+      bucketArmOptions:[
+        {saeM3:0.24, ceceM3:0.21, widthNoSCmm:450, widthWithSCmm:570, weightKg:256, teeth:3,
+          arm2500:'general', arm3000:'general', arm2100:'general'},
+        {saeM3:0.37, ceceM3:0.34, widthNoSCmm:600, widthWithSCmm:720, weightKg:303, teeth:3,
+          arm2500:'general', arm3000:'general', arm2100:'general'},
+        {saeM3:0.50, ceceM3:0.45, widthNoSCmm:700, widthWithSCmm:820, weightKg:330, teeth:4,
+          arm2500:'general', arm3000:'general', arm2100:'general'},
+        {saeM3:0.65, ceceM3:0.59, widthNoSCmm:859, widthWithSCmm:979, weightKg:399, teeth:4,
+          arm2500:'general', arm3000:'not_available', arm2100:'light'},
+        {saeM3:0.78, ceceM3:0.72, widthNoSCmm:1000, widthWithSCmm:null, weightKg:436, teeth:5,
+          arm2500:'light', arm3000:'not_available', arm2100:'light'},
+      ],
+      bucketCapRangeM3:'0.18–0.60',
+      // Lift capacities — boom 4.6m, shoe 500mm, counterweight 3250kg; SAE J1097 / ISO 10567
+      // * = hydraulically limited
+      // ARM 2.5m, bucket 0.50m³ (399kg)
+      liftCap_2500_3m_6m:{cf:'*5770',cs:'*5770'}, liftCap_2500_46m_6m:{cf:'*4320',cs:2990}, liftCap_2500_61m_6m:{cf:2880,cs:1830}, liftCap_2500_max_6m:{cf:'*1580',cs:1370},
+      liftCap_2500_46m_61m:{cf:'*3060',cs:'*3060'}, liftCap_2500_max_61m:{cf:'*1690',cs:'*1690'},
+      liftCap_2500_3m_0m:{cf:'*5630',cs:4840}, liftCap_2500_46m_0m:{cf:4260,cs:2600}, liftCap_2500_61m_0m:{cf:2690,cs:1660}, liftCap_2500_max_0m:{cf:'*1940',cs:1290},
+      liftCap_2500_3m_n3m:{cf:'*6040',cs:4820}, liftCap_2500_46m_n3m:{cf:4180,cs:2540}, liftCap_2500_61m_n3m:{cf:3000,cs:1850},
+      // ARM 3.0m, bucket 0.50m³
+      liftCap_3000_46m_61m:{cf:'*2690',cs:'*2690'}, liftCap_3000_61m_61m:{cf:'*1580',cs:'*1580'}, liftCap_3000_max_61m:{cf:'*1380',cs:'*1380'},
+      liftCap_3000_3m_3m:{cf:'*3690',cs:'*3690'}, liftCap_3000_46m_3m:{cf:'*3740',cs:3040}, liftCap_3000_61m_3m:{cf:2900,cs:1850}, liftCap_3000_max_3m:{cf:'*1280',cs:1200},
+      liftCap_3000_3m_0m:{cf:'*5990',cs:4830}, liftCap_3000_46m_0m:{cf:4240,cs:2580}, liftCap_3000_61m_0m:{cf:2670,cs:1640}, liftCap_3000_max_0m:{cf:'*1530',cs:1120},
+      liftCap_3000_3m_n3m:{cf:'*5990',cs:4680}, liftCap_3000_46m_n3m:{cf:4100,cs:2450}, liftCap_3000_61m_n3m:{cf:2620,cs:1590}, liftCap_3000_max_n3m:{cf:2510,cs:1530},
+      // ARM 2.1m, bucket 0.50m³
+      liftCap_2100_46m_61m:{cf:'*3240',cs:3120}, liftCap_2100_max_61m:{cf:'*2100',cs:'*2100'},
+      liftCap_2100_3m_3m:{cf:'*6480',cs:5720}, liftCap_2100_46m_3m:{cf:'*4630',cs:2940}, liftCap_2100_61m_3m:{cf:2850,cs:1810}, liftCap_2100_max_3m:{cf:'*1950',cs:1510},
+      liftCap_2100_3m_0m:{cf:'*5570',cs:4800}, liftCap_2100_46m_0m:{cf:4240,cs:2590}, liftCap_2100_61m_0m:{cf:2700,cs:1670}, liftCap_2100_max_0m:{cf:2310,cs:1420},
+      liftCap_2100_3m_n3m:{cf:'*6270',cs:4880}, liftCap_2100_46m_n3m:{cf:4230,cs:2580}, liftCap_2100_61m_n3m:{cf:3500,cs:2160},
+      // Standard equipment
+      stdEquip:[
+        'Air cleaner double element with auto dust evacuator','Auto air conditioner',
+        'Alternator 35A/24V','Batteries 64Ah/2×12V',
+        'Cab (antenna, AM/FM radio, floor mat, front wiper/washer, ceiling hatch, pull-up front window, removable lower windshield, sliding rear window, sliding seat)',
+        'Cooling fan mixed flow with fan guard','Counterweight 3250kg',
+        'Dustproof net for radiator and oil cooler','Monitor panel',
+        '1 front working light','Auto deceleration',
+        'Pump/engine partition cover','ROPS cab (ISO 12117-2)',
+        '500mm 19.7" triple grouser shoe','Starting motor 4.5kW',
+        'Swing holding brake','Travel alarm',
+      ],
+      // Optional equipment
+      optionalEquip:[
+        'Additional counterweight 500kg','Arm 3000mm','Arm 2100mm',
+        'Blade assembly (bolt-on or welded cutting edge)',
+        'Hydraulic control unit (1 additional actuator)',
+        'Rear view monitoring system',
+        '600mm triple grouser shoe','700mm triple grouser shoe','500mm rubber pad (road liner)',
+        'Track roller guard','Track frame undercover',
+        'Travel motor (increased drawbar pull type)',
+        'Additional filter system for poor-quality fuel','Alternator 60A',
+      ],
+      komtrax:true,
+      brochureRef:'Komatsu PC138US-8 Brochure CEN00183-06 (Printed Japan 201403)',
+      tags:['standard','commercial','civil','road work','short tail swing','confined','13t class'],
+      note:'Komatsu PC138US-8 — 13.48–13.85t short tail swing excavator. Komatsu SAA4D95LE-5, 4-cyl 95×115mm, 3.26L, 72.1kW/96.6hp gross, 68.4kW/91.7hp net @ 2,200rpm, EPA Tier 3 & EU Stage 3A. Short tail swing 1480mm; machine width 2490mm allows work within 3.5m road lane. Round profile front and rear for tight work. Bucket force 93.2kN/9500kgf (ISO, 2500mm arm); 88.3kN/9000kgf (ISO, 2100mm or 3000mm arm). Arm crowd 61.8kN/6300kgf (ISO, 2500mm), 71.6kN/7300kgf (2100mm), 55.9kN/5700kgf (3000mm). Dig depth 5.48m (2500mm arm), 5.90m (3000mm), 5.07m (2100mm). Max reach 8.30m (2500mm), 8.72m (3000mm), 7.93m (2100mm). 5 working modes (P/E/L/B/ATT). Eco-gauge with idling caution. Max drawbar pull 123kN. Counterweight 3250kg. Swing 11 rpm. 7" TFT LCD monitor, EMMS monitoring, KOMTRAX. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, hydraulic oil filter 1000h; all equipment bushings 500h (except arm top). Source: Komatsu PC138US-8 Brochure CEN00183-06.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC138US-11 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC138US-11 ANZ Brochure ZESS005900_DECEMBER2018 (Australia & New Zealand Specifications)
+    { id:'kom-pc138us11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC138US-11 Excavator', shortName:'Komatsu PC138US-11',
+      // Engine
+      engineModel:'Komatsu SAA4D95LE-7', engineCylinders:4, engineBoreMm:95, engineStrokeMm:115,
+      engineDisplacementL:3.26, engineAspiration:'Variable flow turbocharged, aftercooled, cooled EGR',
+      engineGrossKw:72.6, engineGrossHp:97.3, engineNetKw:72.5, engineNetHp:97.2,
+      engineRatedRpm:2050, engineGovernor:'all-speed control, electronic',
+      engineFanDrive:'mechanical with viscous clutch', engineTierLevel:'EPA Tier 4 Final',
+      engineAftertreatment:'KDOC (Komatsu Diesel Oxidation Catalyst) + SCR (Selective Catalytic Reduction)',
+      // Hydraulics
+      hydraulicType:'HydrauMind (Closed-centre load sensing, pressure-compensated)',
+      hydraulicWorkingModes:6, // P, E, L, B, ATT/P, ATT/E
+      hydraulicPumpType:'variable capacity piston',
+      hydraulicPumpFlowLpm:242,
+      hydraulicReliefPressureMpa_implement:34.8, hydraulicReliefPressureMpa_travel:34.8,
+      hydraulicReliefPressureMpa_swing:29.2, hydraulicReliefPressureMpa_pilot:3.2,
+      // Cylinder dimensions (bore×stroke×rod)
+      cylBoomMm:'2–105×1055×70mm', cylArmMm:'1–110×1175×75mm', cylBucketMm:'1–95×885×65mm',
+      // Travel / drives
+      travelSpeedHiKph:5.1, travelSpeedLoKph:2.9, travelAutoShift:true,
+      gradeabilityPercent:70, gradeabilityDeg:35,
+      maxDrawbarPullKn:123, maxDrawbarPullKgf:12500, maxDrawbarPullLbf:27560,
+      serviceBrake:'hydraulic lock', parkingBrake:'wet multiple-disc',
+      // Swing
+      swingSpeedRpm:11.0, swingTorqueKgm:2991, swingTorqueFtlbs:21627,
+      swingReduction:'planetary gear', swingCircleLubrication:'grease-bathed',
+      swingLock:'wet multiple-disc brake',
+      // Undercarriage
+      centreFrame:'X-frame leg', trackFrame:'box-section', trackType:'sealed', trackAdjuster:'hydraulic',
+      shoesPerSide:43, carrierRollersPerSide:1, trackRollersPerSide:7,
+      // Operating weights (ANZ KALSS spec — includes blade, KGA dual lock quick hitch, 0.53m³ bucket)
+      operatingWeightKg_500mmSteel:15280, operatingWeightKg_500mmRubber:15360,
+      operatingWeightKg_500mmTriple:15330, operatingWeightKg_600mmTriple:15500, operatingWeightT:15.3,
+      groundPressureKgCm2_500mm:0.54, groundPressureKgCm2_600mm:0.45,
+      operatingWeightBasis:'4600mm boom, 2500mm arm, full fluids, operator, std equip, KGA dual lock quick hitch, 0.53m³ bucket',
+      // Coolant & lubricant capacities
+      fuelTankL:200, coolantL:17.7, engineOilL:11.5, finalDriveOilL_eachSide:2.1,
+      swingDriveOilL:2.5, hydraulicTankL:69.0, defTankL:12.6,
+      // Maintenance intervals
+      maintenanceIntervalHr_engineOilAndFilter:500, maintenanceIntervalHr_hydraulicOil:5000,
+      maintenanceIntervalHr_hydraulicOilFilter:1000,
+      // Component weights
+      counterweightKg:2640, bladeKg:800, boomCylindersKg:105,
+      armAssemblyKg_2100mm:556, armAssemblyKg_2500mm:657, armAssemblyKg_3000mm:705,
+      boomAssemblyKg_4600mm:962,
+      // Dimensions (standard: 4600mm boom, 500mm shoe; arm-specific below)
+      boomLengthMm:4600,
+      overallWidthMm:2490, overallHeightMm_cab:2815,
+      groundClearanceCounterweightMm:900, groundClearanceMinMm:395,
+      tailSwingRadiusMm:1480, implementSwingRadiusMm:1980,
+      trackLengthOnGroundMm:2880, trackLengthMm:3610, trackGaugeMm:1990, shoeWidthMm:500, grouserHeightMm:20,
+      machineHeightToCounterweightMm:2140, machineUpperWidthMm:2490, distanceSwingCentreToRearMm:1480,
+      // Arm-specific overall dimensions
+      dims_2500mmArm:{overallLengthMm:7260, overallHeightBoomMm:2850, transportLengthMm:4400},
+      dims_2100mmArm:{overallLengthMm:7275, overallHeightBoomMm:2805, transportLengthMm:4640},
+      dims_3000mmArm:{overallLengthMm:7160, overallHeightBoomMm:2310, transportLengthMm:4290},
+      // Primary arm (2500mm) working range
+      armLengthMm:2500,
+      maxDiggingHeightMm:9340, maxDumpingHeightMm:6840, maxDiggingDepthMm:5480,
+      maxVerticalWallDepthMm:4900, maxDiggingDepthLevel8ftMm:5265,
+      maxDiggingReachMm:8300, maxDiggingReachGroundMm:8180, minSwingRadiusMm:1980, maxHeightAtMinSwingMm:6770,
+      // All arm options working ranges
+      workingRange_2500mm:{
+        maxDigHeightMm:9340, maxDumpHeightMm:6840, maxDigDepthMm:5480,
+        maxVertWallDepthMm:4900, maxDigDepthLevel8ftMm:5265,
+        maxDigReachMm:8300, maxDigReachGroundMm:8180, minSwingRadiusMm:1980, maxHeightAtMinSwingMm:6770,
+      },
+      workingRange_3000mm:{
+        maxDigHeightMm:9700, maxDumpHeightMm:7350, maxDigDepthMm:5900,
+        maxVertWallDepthMm:5340, maxDigDepthLevel8ftMm:5715,
+        maxDigReachMm:8720, maxDigReachGroundMm:8600, minSwingRadiusMm:2264, maxHeightAtMinSwingMm:6770,
+      },
+      workingRange_2100mm:{
+        maxDigHeightMm:9020, maxDumpHeightMm:6525, maxDigDepthMm:5070,
+        maxVertWallDepthMm:4490, maxDigDepthLevel8ftMm:4835,
+        maxDigReachMm:7930, maxDigReachGroundMm:7805, minSwingRadiusMm:1845, maxHeightAtMinSwingMm:6770,
+      },
+      // Digging forces — arm-specific (ISO & SAE ratings)
+      forces_2500mm:{
+        bucketISO_kN:93.2, bucketISO_kg:9500,
+        armISO_kN:61.8, armISO_kgf:6300,
+        bucketSAE_kN:81.4, bucketSAE_kg:8300,
+        armSAE_kN:60.8, armSAE_kgf:6200,
+      },
+      forces_3000mm:{
+        bucketISO_kN:88.3, bucketISO_kg:9000,
+        armISO_kN:55.9, armISO_kgf:5700,
+        bucketSAE_kN:78.0, bucketSAE_kg:7950,
+        armSAE_kN:54.4, armSAE_kgf:5550,
+      },
+      forces_2100mm:{
+        bucketISO_kN:93, bucketISO_kg:9480,
+        armISO_kN:70, armISO_kg:7130,
+        bucketSAE_kN:81, bucketSAE_kg:8250,
+        armSAE_kN:66, armSAE_kgf:6730,
+      },
+      // Primary forces (2500mm arm)
+      bucketDiggingForceKn_iso:93.2, bucketDiggingForceKg_iso:9500,
+      armCrowdForceKn_iso:61.8, armCrowdForceKgf_iso:6300,
+      bucketDiggingForceKn_sae:81.4, bucketDiggingForceKg_sae:8300,
+      armCrowdForceKn_sae:60.8, armCrowdForceKgf_sae:6200,
+      bucketCapRangeM3:'0.21–0.53',
+      // Lift capacities — lifting mode, boom 4600mm, arm 2500mm, 500mm steel city pattern shoe, 400kg bucket
+      // * = hydraulically limited; SAE J1097: loads ≤87% hyd capacity or ≤75% tipping
+      liftCap_46m_61m:{cf:'*2960',cs:'*2960'}, liftCap_max_61m:{cf:'*1610',cs:'*1610'},
+      liftCap_3m_3m:{cf:'*6010',cs:5850}, liftCap_46m_3m:{cf:'*4210',cs:2840}, liftCap_61m_3m:{cf:3020,cs:1720}, liftCap_max_3m:{cf:'*1490',cs:1260},
+      liftCap_3m_0m:{cf:'*5800',cs:4850}, liftCap_46m_0m:{cf:4480,cs:2460}, liftCap_61m_0m:{cf:2820,cs:1540}, liftCap_max_0m:{cf:'*1850',cs:1170},
+      liftCap_3m_n3m:{cf:'*7270',cs:4860}, liftCap_46m_n3m:{cf:4400,cs:2390}, liftCap_max_n3m:{cf:3120,cs:1700},
+      // Attachment options (ANZ)
+      attachmentOptions:[
+        {type:'bucket_general', model:'KGA 450mm', capM3:0.21},
+        {type:'bucket_general', model:'KGA 600mm', capM3:0.32},
+        {type:'bucket_general', model:'KGA 900mm', capM3:0.53},
+        {type:'bucket_slope',   model:'KGA 1600mm', capM3:1.10},
+        {type:'quick_hitch',    model:'KGA dual lock'},
+        {type:'quick_hitch',    model:'KGA dual lock tilting'},
+        {type:'ripper',         model:'KGA single tyne'},
+      ],
+      // JMHB130H-1 hydraulic breaker (Coming Soon at time of brochure)
+      compatibleBreaker:{
+        model:'Komatsu JMHB130H-1', workingWeightKg:730,
+        oilFlowLpm_min:80, oilFlowLpm_max:140,
+        operatingPressureMpa_max:140, impactRateBpm:870,
+        chiselDiameterMm:106, acceptableBackPressureBar:15,
+        baseMachineTon_min:8, baseMachineTon_max:18,
+      },
+      // Standard equipment (ANZ)
+      stdEquip:[
+        '2-speed travel with auto shift','Alternator 60A/24V','AM/FM radio',
+        'Arm 2500mm','Automatic air conditioner','Automatic engine warm-up system',
+        'Auto idle','Auto idle shut down','Auxiliary input (3.5mm jack)',
+        'Batteries large capacity 2×12V','Battery isolation switch lockable','Blade assembly',
+        'Boom 4600mm','Boom and arm burst valve protection',
+        'Cab guards (lower front window, integrated OPG Level 1, bolt-on OPG Level 2)',
+        'Carrier rollers 2 each side','Converter (2)×12V','Counterweight 2640kg',
+        'Dry type air cleaner double element','Dual flow hammer piping','Electric horn',
+        'Emergency stops (3)','Engine SAA4D95LE-7','EMMS monitoring system',
+        'Engine overheat prevention system','Fan guard structure','Fuel system pre-filter 10 micron',
+        'Grease sealed track chain','High back air suspension seat with heat',
+        'High pressure in-line hydraulic filters','HydrauMind closed centre load sensing system',
+        'KOMTRAX Level 5.0','Large LCD colour monitor high resolution','Level indicator',
+        'Lock lever','Lock lever auto lock','Mirrors (LH & sidewise)',
+        'Operator identification system','Overload alarm','PPC hydraulic control system',
+        'Proportional control handles','Provision for tilt circuit including valve',
+        'Pump/engine room partition cover','Radiator and oil cooler dustproof net',
+        'Rear reflectors','Rearview monitoring system (1 camera)',
+        'Revolving frame undercovers heavy duty',
+        'ROPS cab (ISO 12117-2) with vandal guard provisions',
+        'Rotating beacon with guard','Seat belt indicator','Seat belt retractable 78mm',
+        'Secondary engine shutdown switch','Slip resistant foot plates',
+        'Starter motor 4.5kW/24V','Suction fan with viscous clutch',
+        'Thermal and fan guards','Track frame swivel guard',
+        'Track roller guides 1 each side','Track rollers 7 each side',
+        'Track shoes steel city pattern 500mm','Travel alarm',
+        'Quick hitch piping with safety switch and alarm',
+        'Working lights (1×boom, 2×cab)','Working mode selection system',
+      ],
+      optionalEquip:[
+        'Additional counterweight 500kg','Arm 2100mm','Arm 3000mm',
+        'Autogrease system','Battery isolation switch dual pole lockable',
+        'Cab vandal guard set','Canvas seat cover',
+        'Fire extinguisher 1.5kg / 4.5kg / 9kg','Fuel cap vandal guard',
+        'Jump start receptacle','Komvision','Radio multimedia system','Radio UHF',
+        'Starter circuit isolation lockable',
+        'Track shoes rubber road liner 500mm','Track shoes triple grouser 500mm',
+        'Track shoes triple grouser 600mm','Turbo timer','Window tinting',
+      ],
+      komtrax:true,
+      brochureRef:'Komatsu PC138US-11 ANZ Brochure ZESS005900_DECEMBER2018',
+      tags:['standard','commercial','civil','road work','short tail swing','confined','15t class','tier4final'],
+      note:'Komatsu PC138US-11 — 15.14–15.50t short tail swing excavator (ANZ KALSS spec). Komatsu SAA4D95LE-7, 4-cyl 95×115mm, 3.26L, 72.6kW/97.3hp gross, 72.5kW/97.2hp net @ 2,050rpm, Variable Flow Turbocharger, Cooled EGR, EPA Tier 4 Final. Up to 9% fuel saving vs PC138US-8. KDOC + SCR aftertreatment (passive regen 98%+ of time). Short tail swing 1480mm, width 2490mm. Rounded cab profile; cab swings within same radius as counterweight. Bucket force 93.2kN/9500kg (ISO, 2500mm arm), 93kN/9480kg (2100mm), 88.3kN/9000kg (3000mm). Arm crowd 61.8kN/6300kgf (2500mm arm), 70kN/7130kg (2100mm arm shorter = more force), 55.9kN/5700kgf (3000mm arm). Dig depth 5.48m (2500mm arm), 5.07m (2100mm), 5.90m (3000mm). Max reach 8.30m (2500mm), 7.93m (2100mm), 8.72m (3000mm). 6 working modes (P/E/L/B/ATT/P/ATT/E). Max drawbar pull 123kN. Counterweight 2640kg. Swing 11 rpm, torque 2991kg·m. KALSS: KGA dual lock quick hitch, overload alarm, level indicator, hammer piping, e-stops, amber beacon. 7" LCD monitor, rearview camera std. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, hydraulic filter 1000h. Compatible breaker: JMHB130H-1 (730kg, 106mm chisel, 8–18t base). KOMTRAX Level 5.0. Source: Komatsu PC138US-11 ANZ Brochure ZESS005900_DECEMBER2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC138USLC-11 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC138USLC-11 ANZ Brochure ZESS007500_SEP2020 (Australia & New Zealand Specifications)
+    { id:'kom-pc138uslc11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC138USLC-11 Excavator', shortName:'Komatsu PC138USLC-11',
+      // Engine (identical to PC138US-11)
+      engineModel:'Komatsu SAA4D95LE-7', engineCylinders:4, engineBoreMm:95, engineStrokeMm:115,
+      engineDisplacementL:3.26, engineAspiration:'Variable flow turbocharged, aftercooled, cooled EGR',
+      engineGrossKw:72.6, engineGrossHp:97.3, engineNetKw:72.5, engineNetHp:97.2,
+      engineRatedRpm:2050, engineGovernor:'all-speed control, electronic',
+      engineFanDrive:'mechanical with viscous clutch', engineTierLevel:'EPA Tier 4 Final',
+      engineAftertreatment:'KDOC + SCR',
+      // Hydraulics (identical to PC138US-11)
+      hydraulicType:'HydrauMind (Closed-centre load sensing, pressure-compensated)',
+      hydraulicWorkingModes:6,
+      hydraulicPumpType:'variable capacity piston',
+      hydraulicPumpFlowLpm:242,
+      hydraulicReliefPressureMpa_implement:34.8, hydraulicReliefPressureMpa_travel:34.8,
+      hydraulicReliefPressureMpa_swing:29.2, hydraulicReliefPressureMpa_pilot:3.2,
+      cylBoomMm:'2–105×1055×70mm', cylArmMm:'1–110×1175×75mm', cylBucketMm:'1–95×885×65mm',
+      // Travel / drives (identical to PC138US-11)
+      travelSpeedHiKph:5.1, travelSpeedLoKph:2.9, travelAutoShift:true,
+      gradeabilityPercent:70, gradeabilityDeg:35,
+      maxDrawbarPullKn:123, maxDrawbarPullKgf:12500, maxDrawbarPullLbf:27560,
+      serviceBrake:'hydraulic lock', parkingBrake:'wet multiple-disc',
+      // Swing (identical to PC138US-11)
+      swingSpeedRpm:11.0, swingTorqueKgm:2991, swingTorqueFtlbs:21627,
+      swingReduction:'planetary gear', swingCircleLubrication:'grease-bathed',
+      swingLock:'wet multiple-disc brake',
+      // Undercarriage — LONGER than PC138US-11 (this is the key difference)
+      centreFrame:'X-frame leg', trackFrame:'box-section', trackType:'sealed', trackAdjuster:'hydraulic',
+      shoesPerSide:46,         // vs 43 for PC138US-11
+      carrierRollersPerSide:2, // vs 1 for PC138US-11
+      trackRollersPerSide:8,   // vs 7 for PC138US-11
+      // Operating weights (ANZ KALSS spec — heavier than US-11 due to longer LC undercarriage)
+      operatingWeightKg_500mmSteel:15630, operatingWeightKg_500mmRubber:15710,
+      operatingWeightKg_500mmTriple:15680, operatingWeightKg_600mmTriple:16030, operatingWeightT:15.7,
+      groundPressureKgCm2_500mm:0.47, groundPressureKgCm2_600mm:0.40,
+      operatingWeightBasis:'4600mm boom, 2500mm arm, full fluids, operator, std equip, KGA dual lock quick hitch, 0.53m³ bucket',
+      // Coolant & lubricant capacities (same as PC138US-11)
+      fuelTankL:200, coolantL:17.7, engineOilL:11.5, finalDriveOilL_eachSide:2.1,
+      swingDriveOilL:2.5, hydraulicTankL:69.0, defTankL:12.6,
+      maintenanceIntervalHr_engineOilAndFilter:500, maintenanceIntervalHr_hydraulicOil:5000,
+      maintenanceIntervalHr_hydraulicOilFilter:1000,
+      // Component weights (same as PC138US-11)
+      counterweightKg:2640, bladeKg:800, boomCylindersKg:105,
+      armAssemblyKg_2100mm:556, armAssemblyKg_2500mm:657, armAssemblyKg_3000mm:705,
+      boomAssemblyKg_4600mm:962,
+      // Dimensions (4600mm boom, 500mm shoe; LC longer undercarriage)
+      boomLengthMm:4600,
+      overallWidthMm:2490, overallHeightMm_cab:2815,
+      groundClearanceCounterweightMm:900, groundClearanceMinMm:395,
+      tailSwingRadiusMm:1480, implementSwingRadiusMm:1980,
+      // Longer undercarriage: 3140mm ground contact (vs 2880mm for US-11)
+      trackLengthOnGroundMm:3140, trackLengthMm:3870,
+      trackGaugeMm:1990, shoeWidthMm:500, grouserHeightMm:20,
+      machineHeightToCounterweightMm:2140, machineUpperWidthMm:2490, distanceSwingCentreToRearMm:1480,
+      // Arm-specific overall dimensions
+      dims_2500mmArm:{overallLengthMm:7385, overallHeightBoomMm:2850, transportLengthMm:4400},
+      dims_2100mmArm:{overallLengthMm:7275, overallHeightBoomMm:2805, transportLengthMm:4640},
+      dims_3000mmArm:{overallLengthMm:7160, overallHeightBoomMm:2310, transportLengthMm:4290},
+      // Working ranges — identical to PC138US-11 (same boom/arm combos)
+      armLengthMm:2500,
+      maxDiggingHeightMm:9340, maxDumpingHeightMm:6840, maxDiggingDepthMm:5480,
+      maxVerticalWallDepthMm:4900, maxDiggingDepthLevel8ftMm:5265,
+      maxDiggingReachMm:8300, maxDiggingReachGroundMm:8180, minSwingRadiusMm:1980, maxHeightAtMinSwingMm:6770,
+      workingRange_2500mm:{
+        maxDigHeightMm:9340, maxDumpHeightMm:6840, maxDigDepthMm:5480,
+        maxVertWallDepthMm:4900, maxDigDepthLevel8ftMm:5265,
+        maxDigReachMm:8300, maxDigReachGroundMm:8180, minSwingRadiusMm:1980, maxHeightAtMinSwingMm:6770,
+      },
+      workingRange_3000mm:{
+        maxDigHeightMm:9700, maxDumpHeightMm:7350, maxDigDepthMm:5900,
+        maxVertWallDepthMm:5340, maxDigDepthLevel8ftMm:5715,
+        maxDigReachMm:8720, maxDigReachGroundMm:8600, minSwingRadiusMm:2264, maxHeightAtMinSwingMm:6770,
+      },
+      workingRange_2100mm:{
+        maxDigHeightMm:9020, maxDumpHeightMm:6525, maxDigDepthMm:5070,
+        maxVertWallDepthMm:4490, maxDigDepthLevel8ftMm:4835,
+        maxDigReachMm:7930, maxDigReachGroundMm:7805, minSwingRadiusMm:1845, maxHeightAtMinSwingMm:6770,
+      },
+      // Digging forces — identical to PC138US-11 (arm-specific)
+      forces_2500mm:{
+        bucketISO_kN:93.2, bucketISO_kg:9500, armISO_kN:61.8, armISO_kgf:6300,
+        bucketSAE_kN:81.4, bucketSAE_kg:8300, armSAE_kN:60.8, armSAE_kgf:6200,
+      },
+      forces_3000mm:{
+        bucketISO_kN:88.3, bucketISO_kg:9000, armISO_kN:55.9, armISO_kgf:5700,
+        bucketSAE_kN:78.0, bucketSAE_kg:7950, armSAE_kN:54.4, armSAE_kgf:5550,
+      },
+      forces_2100mm:{
+        bucketISO_kN:93, bucketISO_kg:9480, armISO_kN:70, armISO_kg:7130,
+        bucketSAE_kN:81, bucketSAE_kg:8250, armSAE_kN:66, armSAE_kgf:6730,
+      },
+      bucketDiggingForceKn_iso:93.2, bucketDiggingForceKg_iso:9500,
+      armCrowdForceKn_iso:61.8, armCrowdForceKgf_iso:6300,
+      bucketDiggingForceKn_sae:81.4, bucketDiggingForceKg_sae:8300,
+      armCrowdForceKn_sae:60.8, armCrowdForceKgf_sae:6200,
+      bucketCapRangeM3:'0.21–0.53',
+      // Lift capacities — lifting mode, boom 4600mm, arm 2500mm, 500mm steel city pattern shoe, 400kg bucket
+      // Higher side (Cs) ratings than PC138US-11 due to longer LC undercarriage
+      liftCap_46m_61m:{cf:'*2960',cs:'*2960'}, liftCap_max_61m:{cf:'*1610',cs:'*1610'},
+      liftCap_3m_3m:{cf:'*6010',cs:6010}, liftCap_46m_3m:{cf:'*4210',cs:3400}, liftCap_61m_3m:{cf:3350,cs:2110}, liftCap_max_3m:{cf:'*1490',cs:1490},
+      liftCap_3m_0m:{cf:'*5800',cs:5800}, liftCap_46m_0m:{cf:5010,cs:3020}, liftCap_61m_0m:{cf:3140,cs:1930}, liftCap_max_0m:{cf:'*1850',cs:1500},
+      liftCap_3m_n3m:{cf:'*7270',cs:5890}, liftCap_46m_n3m:{cf:4800,cs:2950}, liftCap_max_n3m:{cf:3340,cs:2130},
+      // Attachment options (identical to PC138US-11)
+      attachmentOptions:[
+        {type:'bucket_general', model:'KGA 450mm', capM3:0.21},
+        {type:'bucket_general', model:'KGA 600mm', capM3:0.32},
+        {type:'bucket_general', model:'KGA 900mm', capM3:0.53},
+        {type:'bucket_slope',   model:'KGA 1600mm', capM3:1.10},
+        {type:'quick_hitch',    model:'KGA dual lock'},
+        {type:'quick_hitch',    model:'KGA dual lock tilting'},
+        {type:'ripper',         model:'KGA single tyne'},
+      ],
+      compatibleBreaker:{
+        model:'Komatsu JMHB130H-1', workingWeightKg:730,
+        oilFlowLpm_min:80, oilFlowLpm_max:140,
+        operatingPressureMpa_max:140, impactRateBpm:870,
+        chiselDiameterMm:106, acceptableBackPressureBar:15,
+        baseMachineTon_min:8, baseMachineTon_max:18,
+      },
+      // Standard / optional equipment (same as PC138US-11)
+      stdEquip:[
+        '2-speed travel with auto shift','Alternator 60A/24V','AM/FM radio',
+        'Arm 2500mm','Automatic air conditioner','Automatic engine warm-up system',
+        'Auto idle','Auto idle shut down','Auxiliary input (3.5mm jack)',
+        'Batteries large capacity 2×12V','Battery isolation switch lockable','Blade assembly',
+        'Boom 4600mm','Boom and arm burst valve protection',
+        'Cab guards (lower front window, OPG Level 1, OPG Level 2)',
+        'Carrier rollers 2 each side','Converter (2)×12V','Counterweight 2640kg',
+        'Dual flow hammer piping','Emergency stops (3)','Engine SAA4D95LE-7',
+        'EMMS monitoring system','Fan guard structure','Fuel system pre-filter 10 micron',
+        'Grease sealed track chain','High back air suspension seat with heat',
+        'HydrauMind closed centre load sensing system','KOMTRAX Level 5.0',
+        'Large LCD colour monitor high resolution','Level indicator','Lock lever',
+        'Lock lever auto lock','Mirrors (LH & sidewise)','Operator identification system',
+        'Overload alarm','PPC hydraulic control system','Proportional control handles',
+        'Provision for tilt circuit including valve',
+        'ROPS cab (ISO 12117-2) with vandal guard provisions',
+        'Rotating beacon with guard','Seat belt retractable 78mm',
+        'Secondary engine shutdown switch','Slip resistant foot plates',
+        'Starter motor 4.5kW/24V','Suction fan with viscous clutch',
+        'Track roller guides 1 each side','Track rollers 7 each side',
+        'Track shoes steel city pattern 500mm','Travel alarm',
+        'Quick hitch piping with safety switch and alarm',
+        'Working lights (1×boom, 2×cab)','Working mode selection system',
+        'Revolving frame undercovers heavy duty','Rearview monitoring system (1 camera)',
+      ],
+      optionalEquip:[
+        'Additional counterweight 500kg','Arm 2100mm','Arm 3000mm',
+        'Autogrease system','Cab vandal guard set','Canvas seat cover',
+        'Fire extinguisher 1.5kg / 4.5kg / 9kg',
+        'Track shoes rubber road liner 500mm','Track shoes triple grouser 500mm',
+        'Track shoes triple grouser 600mm','Turbo timer','Window tinting',
+      ],
+      komtrax:true,
+      brochureRef:'Komatsu PC138USLC-11 ANZ Brochure ZESS007500_SEP2020',
+      tags:['standard','commercial','civil','road work','short tail swing','confined','15t class','tier4final','long carriage'],
+      note:'Komatsu PC138USLC-11 — 15.49–16.03t short tail swing excavator, long carriage (LC) version (ANZ KALSS spec). Identical engine and hydraulics to PC138US-11. LC undercarriage differs: 46 shoes (vs 43), 2 carrier rollers (vs 1), 8 track rollers (vs 7) per side; track contact length 3140mm (vs 2880mm). This longer footprint provides significantly improved side stability — overside (Cs) lift ratings are substantially higher than PC138US-11 (e.g. at 4.6m/0m: 3020kg vs 2460kg). Komatsu SAA4D95LE-7, 4-cyl, 72.5kW/97.2hp net @ 2,050rpm, Tier 4 Final. Same short tail swing 1480mm and rounded cab profile. Dig depth 5.48m (2500mm arm), 5.90m (3000mm), 5.07m (2100mm). 6 working modes. Max drawbar pull 123kN. KALSS: KGA dual lock quick hitch, overload alarm, level indicator, hammer piping, e-stops, amber beacon. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, hydraulic filter 1000h. Compatible breaker: JMHB130H-1 (730kg, 8–18t). KOMTRAX Level 5.0. Source: Komatsu PC138USLC-11 ANZ Brochure ZESS007500_SEP2020.',
+      hireRateType:'wet_or_dry' },
+    { id:'kom-pc200',  brand:'Komatsu', emoji:'⛏️', type:'excavator', name:'Komatsu PC200-11', shortName:'Komatsu PC200',
+      weightClass:'standard', operatingWeightT:20.6, digDepthM:6.63, bucketCapM3:0.80,
+      tags:['standard','civil','bulk','heavy commercial'],
+      note:'Komatsu PC200-11 — 20.6t standard. 110kW engine. Dig depth 6.63m. One of Australia\'s most popular civil excavators. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC210/LC-11 / PC210LCi-11 — FULLY BROCHURE-SPECIFIED ──────────────────
+    // Source: Komatsu PC210/LC-11 / PC210LCi-11 ANZ Brochure ZESS007800_August2021
+    { id:'kom-pc210lc11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC210LC-11 Excavator', shortName:'Komatsu PC210LC-11',
+      weightClass:'standard',
+      // Engine
+      engineModel:'Komatsu SAA6D107E-3',
+      engineType:'Water-cooled, 4-cycle, direct injection',
+      engineAspiration:'Variable geometry turbocharged (KVGT), aftercooled, cooled EGR',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineGrossKW:123, engineGrossHP:165,
+      engineNetKW:122.8, engineNetHP:165,
+      engineFanMaxNetKW:118.6, engineFanMaxNetHP:159,
+      engineRatedRPM:2000,
+      engineFanDrive:'Mechanical with viscous fan clutch',
+      engineGovernor:'All-speed control, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      // Operating weights — 600mm triple grouser (ANZ KALSS spec)
+      // PC210-11: 22,410–23,180kg; PC210LC-11 / PC210LCi-11: 23,000–23,830kg
+      operatingWeightKg:23240, operatingWeightT:23.24,
+      opWeight600mmKg:23240, groundPressure600mmKgCm2:0.49,
+      opWeight700mmKg:23510, groundPressure700mmKgCm2:0.42,
+      opWeight800mmKg:23830, groundPressure800mmKgCm2:0.38,
+      // Std boom and arm
+      stdBoomLengthMm:5700, stdArmLengthMm:2900,
+      // Working range (2900mm arm)
+      maxCuttingHeightMm:10000, maxLoadingHeightMm:7110,
+      digDepthMm:6620, digDepthM:6.62,
+      verticalWallMm:5980,
+      digDepthLevelBottomMm:6370,
+      maxReachMm:9875, maxReachGroundMm:9700,
+      minSwingRadiusMm:3040,
+      // Digging forces (2900mm arm)
+      bucketDigForceKN_SAE:132, bucketDigForceKg_SAE:13500,
+      stickDigForceKN_SAE:103, stickDigForceKg_SAE:10500,
+      bucketDigForceKN_ISO:149, bucketDigForceKg_ISO:15200,
+      stickDigForceKN_ISO:108, stickDigForceKg_ISO:11000,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence system, closed-centre, load sensing, pressure compensated)',
+      workingModes:6,
+      hydraulicPump1Type:'Variable displacement piston type',
+      hydraulicPump1Circuits:'Boom, arm, bucket, swing, and travel circuits',
+      hydraulicPump1MaxFlowLpm:490,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3, reliefPressureTravelKgCm2:380,
+      reliefPressureSwingMPa:28.9, reliefPressureSwingKgCm2:285,
+      reliefPressurePilotMPa:3.2, reliefPressurePilotKgCm2:33,
+      // Hydraulic cylinders (bore x stroke x rod)
+      boomCylCount:2, boomCylBoreMm:130, boomCylStrokeMm:1334, boomCylRodMm:90,
+      armCylCount:1, armCylBoreMm:135, armCylStrokeMm:1490, armCylRodMm:95,
+      bucketCylCount:1, bucketCylBoreMm:115, bucketCylStrokeMm:1120, bucketCylRodMm:80,
+      // Travel & drives
+      steeringControl:'Two lever with pedals',
+      driveMethod:'Hydrostatic',
+      maxDrawbarPullKN:202, maxDrawbarPullKg:20570,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.1, maxTravelSpeedLowKmh:3.0,
+      travelSpeedNote:'Auto-shift three-speed',
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingLock:'Mechanical disc brake',
+      swingSpeedRpm:12.4,
+      swingTorqueKgm:6900,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:49, carrierRollersPerSide:2, trackRollersPerSide:9,
+      // Dimensions (2900mm arm, PC210LC-11)
+      overallLengthMm:9705, overallWidthMm:2980,
+      overallHeightBoomMm:2995, overallHeightCabMm:3045, overallHeightHandrailMm:3135,
+      groundClearanceCounterweightMm:1085, groundClearanceMm:440,
+      tailSwingRadiusMm:3020,
+      trackLengthOnGroundMm:3655, trackLengthMm:4450,
+      trackGaugeMm:2380, shoeWidthMm:600, grouserHeightMm:26,
+      machineUpperWidthMm:2850, distanceSwingCentreToRearMm:2990,
+      // Component weights
+      armAssemblyKg:1200, boomAssemblyKg:1953, boomCylindersKg:205, counterweightKg:3830,
+      // Coolant & lubricant capacities
+      fuelTankL:400, coolantL:30.1, engineOilL:23.1,
+      finalDriveEachL:5.0, swingDriveL:6.5,
+      hydraulicTankL:132, hydraulicSystemL:234, defTankL:23.1,
+      // Maintenance intervals
+      engineOilFilterIntervalHr:500,
+      hydraulicOilIntervalHr:5000,
+      hydraulicOilFilterIntervalHr:1000,
+      // Lift capacities — PC210LC-11, 5700mm boom, 2900mm arm, 600mm triple grouser, bucket 650kg (kg, Cf/Cs)
+      // Rows: height (m), columns: reach (m). * = hydraulically limited
+      liftCap_7m5_6m:{cf:null,cs:null}, liftCap_6m0_6m:{cf:null,cs:null},
+      liftCap_4m5_6m:{cf:null,cs:null}, liftCap_3m0_6m:{cf:null,cs:null},
+      // Lift table stored as structured array for UI use
+      // Source: PC210LC-11 table, brochure p.25
+      liftTable:[
+        // [height_m, reach_m, Cf_kg, Cs_kg, cfHydLimited, csHydLimited]
+        [7.5,6.0,4050,4050,true,true],[7.5,'max',2850,2850,true,true],
+        [6.0,6.0,4250,4250,true,true],[6.0,7.5,3050,3050,true,true],[6.0,'max',2750,2750,true,true],
+        [4.5,4.5,5500,5500,true,true],[4.5,6.0,4850,4850,true,true],[4.5,7.5,4550,3450,true],[4.5,'max',2750,2750,true,true],
+        [3.0,3.0,11550,11550,true,true],[3.0,4.5,7700,7600,true],[3.0,6.0,5850,4850,true],[3.0,7.5,5050,3350,true],[3.0,'max',2900,2650,true],
+        [1.5,3.0,6800,6800,true,true],[1.5,4.5,9750,7100,true],[1.5,6.0,6900,4550,true],[1.5,7.5,5100,3200],[1.5,'max',3200,2550,true],
+        [0,3.0,5200,5200,true,true],[0,4.5,10750,6750,true],[0,6.0,7150,4350],[0,7.5,5000,3050],[0,'max',3700,2600,true],
+        [-1.5,1.5,5150,5150,true,true],[-1.5,3.0,9300,9300,true,true],[-1.5,4.5,10900,6600,true],[-1.5,6.0,7000,4250],[-1.5,7.5,4950,3000],[-1.5,'max',4600,2800,true],
+        [-3.0,1.5,9750,9750,true,true],[-3.0,3.0,14800,13400,true],[-3.0,4.5,10500,6650,true],[-3.0,6.0,7050,4250],[-3.0,'max',5500,3350],
+        [-4.5,3.0,12900,12900,true,true],[-4.5,4.5,9050,6850,true],[-4.5,'max',6650,4750,true],
+      ],
+      liftTableConditions:'Boom 5700mm, arm 2900mm, shoes 600mm triple grouser, bucket 650kg. PC210LC-11.',
+      liftTableRatingStandard:'SAE J1097. Rated loads ≤87% hydraulic capacity or ≤75% tipping load.',
+      bucketCapM3:0.97,
+      buckets:[
+        {widthMm:600,capM3:0.39},
+        {widthMm:900,capM3:0.68},
+        {widthMm:1200,capM3:0.97,standard:true},
+        {widthMm:2000,type:'slope finishing',capM3:1.10},
+      ],
+      komtrax:true,
+      iMC:true, iMCVersion:'2.0',
+      // ANZ KALSS standard features (KGA dual lock quick hitch, overload alarm, level indicator, hammer piping, e-stops, amber beacon)
+      kalssSpec:true,
+      brochureRef:'Komatsu PC210/LC-11/PC210LCi-11 ANZ Brochure ZESS007800_August2021',
+      tags:['standard','commercial','civil','bulk excavation','trench','deep','basement','22t class','23t class','tier4final','grade control','imc'],
+      note:'Komatsu PC210LC-11 — 23.0–23.83t standard excavator (ANZ KALSS spec). SAA6D107E-3, 6-cyl, 107×124mm, 6.69L, 122.8kW/165hp net @ 2,000rpm, EPA Tier 4 Final. Dig depth 6.62m (2900mm arm), max reach 9.875m, cut height 10.0m. Bucket force 149kN/15,200kg (ISO), arm force 108kN/11,000kg (ISO). 6 working modes (P/E/L/B/ATT-P/ATT-E). Max drawbar pull 202kN. Swing 12.4rpm. HydrauMind CLSS hydraulics, 490L/min pump. Counterweight 3,830kg. KOMTRAX standard. PC210LCi-11 variant adds iMC 2.0 (semi-auto grade control, multi-GNSS, IMU, bucket angle hold, auto-tilt attachment). KALSS: KGA dual lock quick hitch, overload alarm, level indicator, anti-burst valves, hammer piping, e-stops, amber beacon, revolving frame undercovers. KomVision 360° (standard post-August 2021). Maintenance: engine oil/filter 500h, hydraulic oil 5000h, hydraulic filter 1000h. Source: Komatsu PC210/LC-11/PC210LCi-11 ANZ Brochure ZESS007800_August2021.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC228US/LC-11 — FULLY BROCHURE-SPECIFIED ─────────────────────────────
+    // Source: Komatsu PC228US/LC-11 ANZ Brochure ZESS005800_SEPTEMBER2018
+    { id:'kom-pc228us11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC228US-11 Short Swing Excavator', shortName:'Komatsu PC228US-11',
+      weightClass:'standard',
+      shortTailSwing:true,
+      // Engine
+      engineModel:'Komatsu SAA6D107E-3',
+      engineType:'Water-cooled, 4-cycle, direct injection',
+      engineAspiration:'Variable geometry turbocharged (KVGT), aftercooled, cooled EGR',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineGrossKW:123, engineGrossHP:165,
+      engineNetKW:123, engineNetHP:165,
+      engineRatedRPM:2000,
+      engineFanDrive:'Mechanical with viscous fan clutch',
+      engineGovernor:'All-speed control, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      // Operating weights — 600mm triple grouser
+      // PC228US-11: 23,520–24,300kg; PC228USLC-11: 23,890–24,670kg
+      operatingWeightKg:23750, operatingWeightT:23.75,
+      opWeight600mmKg:23750, groundPressure600mmKgCm2:0.53,
+      opWeight700mmKg:24020, groundPressure700mmKgCm2:0.46,
+      opWeight800mmKg:24300, groundPressure800mmKgCm2:0.41,
+      // Short tail swing dimensions
+      tailSwingRadiusMm:1785,
+      minImplementSwingRadiusMm:2310,
+      tailOverhangRearMm:295,
+      tail180SwingWidthMm:4095,
+      // Std boom and arm
+      stdBoomLengthMm:5700, stdArmLengthMm:2900,
+      // Working range (2900mm arm)
+      maxCuttingHeightMm:10700, maxLoadingHeightMm:7825,
+      digDepthMm:6620, digDepthM:6.62,
+      verticalWallMm:5980,
+      digDepthLevelBottomMm:6370,
+      maxReachMm:9875, maxReachGroundMm:9700,
+      minSwingRadiusMm:2310,
+      // Digging forces
+      bucketDigForceKN_SAE:132, bucketDigForceKg_SAE:13500,
+      stickDigForceKN_SAE:103, stickDigForceKg_SAE:10500,
+      bucketDigForceKN_ISO:149, bucketDigForceKg_ISO:15200,
+      stickDigForceKN_ISO:108, stickDigForceKg_ISO:11000,
+      // Power Max (one-touch, 8.5s): bucket 149kN/15,200kg ISO, arm 108kN/11,000kg ISO
+      powerMaxBucketKN_ISO:149, powerMaxBucketKg_ISO:15200,
+      powerMaxArmKN_ISO:108, powerMaxArmKg_ISO:11000,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence system, closed-centre, load sensing, pressure compensated)',
+      workingModes:6,
+      hydraulicPump1Type:'Variable capacity piston type',
+      hydraulicPump1Circuits:'Boom, arm, bucket, swing, and travel circuits',
+      hydraulicPump1MaxFlowLpm:490,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3, reliefPressureTravelKgCm2:380,
+      reliefPressureSwingMPa:29.4, reliefPressureSwingKgCm2:299,
+      reliefPressurePilotMPa:3.2, reliefPressurePilotKgCm2:33,
+      // Hydraulic cylinders
+      boomCylCount:2, boomCylBoreMm:130, boomCylStrokeMm:1385, boomCylRodMm:90,
+      armCylCount:1, armCylBoreMm:135, armCylStrokeMm:1490, armCylRodMm:95,
+      bucketCylCount:1, bucketCylBoreMm:115, bucketCylStrokeMm:1120, bucketCylRodMm:80,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Fully hydrostatic',
+      maxDrawbarPullKN:202, maxDrawbarPullKg:20600,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.1, maxTravelSpeedLowKmh:3.0,
+      travelSpeedNote:'Auto-shift three-speed',
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc',
+      // Swing system
+      swingDriveMethod:'Hydraulic motor',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingLock:'Mechanical disc brake',
+      swingSpeedRpm:11.0,
+      swingTorqueKgm:6656,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame leg',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:49, carrierRollersPerSide:2, trackRollersPerSide:9,
+      // Dimensions (2900mm arm, PC228US-11)
+      overallLengthMm:8830, overallWidthMm:2980,
+      overallHeightBoomMm:3080, overallHeightCabMm:3050, overallHeightHandrailMm:3240,
+      groundClearanceCounterweightMm:1060, groundClearanceMm:440,
+      tailSwingRadiusMm:1785,
+      trackLengthOnGroundMm:3460, trackLengthMm:4260,
+      trackGaugeMm:2380, shoeWidthMm:600, grouserHeightMm:26,
+      machineUpperWidthMm:2980, distanceSwingCentreToRearMm:2130,
+      // Component weights
+      armAssemblyKg:1057, boomAssemblyKg:1788, counterweightKg:5260,
+      // Coolant & lubricant capacities
+      fuelTankL:290, coolantL:28.3, engineOilL:23.1,
+      finalDriveEachL:5.0, swingDriveL:6.5,
+      hydraulicTankL:126, defTankL:13,
+      // Maintenance intervals
+      engineOilFilterIntervalHr:500,
+      hydraulicOilIntervalHr:5000,
+      hydraulicOilFilterIntervalHr:1000,
+      // Lift capacities — PC228US-11, 5700mm boom, 2900mm arm, 600mm triple grouser, bucket 650kg (kg, Cf/Cs, lifting mode)
+      liftTable:[
+        [6.0,7.5,3000,2800,true],[6.0,'max',2650,2650,true,true],
+        [4.5,6.0,5750,4200,true],[4.5,7.5,4250,2750],[4.5,'max',2700,2300,true],
+        [3.0,3.0,13600,12700,true],[3.0,4.5,9100,6350,true],[3.0,6.0,6100,3900],[3.0,7.5,4100,2600],[3.0,'max',2850,2000,true],
+        [1.5,3.0,6750,6750,true,true],[1.5,4.5,9400,5750],[1.5,6.0,5750,3600],[1.5,7.5,3950,2450],[1.5,'max',3100,1900],
+        [0,3.0,5100,5100,true,true],[0,4.5,8950,5350],[0,6.0,5500,3400],[0,7.5,3800,2300],[0,'max',3200,1900],
+        [-1.5,1.5,5100,5100,true,true],[-1.5,3.0,9200,9200,true,true],[-1.5,4.5,8750,5200],[-1.5,6.0,5400,3250],[-1.5,7.5,3750,2250],[-1.5,'max',3500,2100],
+        [-3.0,1.5,9650,9650,true,true],[-3.0,3.0,16200,10850,true],[-3.0,4.5,8800,5250],[-3.0,6.0,5400,3250],[-3.0,'max',4200,2550],
+        [-4.5,3.0,15800,11250,true],[-4.5,4.5,9100,5450],[-4.5,'max',6050,3700],
+      ],
+      liftTableConditions:'Boom 5700mm, arm 2900mm, shoes 600mm triple grouser, bucket 650kg. PC228US-11. Lifting mode.',
+      liftTableRatingStandard:'SAE J1097. Rated loads ≤87% hydraulic capacity or ≤75% tipping load.',
+      bucketCapM3:0.97,
+      buckets:[
+        {widthMm:600,capM3:0.39},
+        {widthMm:900,capM3:0.68},
+        {widthMm:1200,capM3:0.97,standard:true},
+        {widthMm:2000,type:'slope finishing',capM3:1.10},
+      ],
+      komtrax:true,
+      kalssSpec:true,
+      brochureRef:'Komatsu PC228US/LC-11 ANZ Brochure ZESS005800_SEPTEMBER2018',
+      tags:['standard','commercial','civil','road work','short tail swing','confined','23t class','tier4final','urban'],
+      note:'Komatsu PC228US-11 — 23.52–24.3t short tail swing excavator (ANZ KALSS spec). SAA6D107E-3, 6-cyl, 107×124mm, 6.69L, 123kW/165hp net @ 2,000rpm, EPA Tier 4 Final. TRUE SHORT SWING: tail swing radius only 1,785mm, minimum front implement swing 2,310mm — ideal for road work, underground utilities, and confined urban sites. Dig depth 6.62m (2900mm arm), max reach 9.875m, cut height 10.7m. Bucket force 149kN/15,200kg ISO, arm force 108kN/11,000kg ISO. Power Max boosts digging forces 7–8%. Counterweight 5,260kg provides exceptional lifting for class. Rounded cab profile — cab swings within counterweight radius. 6 working modes. Swing 11.0rpm. KALSS: KGA dual lock quick hitch, overload alarm, level indicator, anti-burst valves, hammer piping, e-stops, amber beacon. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, hydraulic filter 1000h. Source: Komatsu PC228US/LC-11 ANZ Brochure ZESS005800_SEPTEMBER2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC240LC-11 — FULLY BROCHURE-SPECIFIED ─────────────────────────────
+    // Source: Komatsu PC240LC-11 ANZ Brochure ZESS004300_DECEMBER2018
+    { id:'kom-pc240lc11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC240LC-11 Excavator', shortName:'Komatsu PC240LC-11',
+      weightClass:'standard',
+      // Engine
+      engineModel:'Komatsu SAA6D107E-3',
+      engineType:'Water-cooled, 4-cycle, direct injection',
+      engineAspiration:'Variable geometry turbocharged (KVGT), aftercooled, cooled EGR',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineGrossKW:141, engineGrossHP:189,
+      engineNetKW:132, engineNetHP:177,
+      engineRatedRPM:2000,
+      engineFanDrive:'Mechanical',
+      engineGovernor:'All-speed control, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      // Operating weights — 600mm triple grouser
+      operatingWeightKg:25640, operatingWeightT:25.64,
+      opWeight600mmKg:25640, groundPressure600mmKgCm2:0.52,
+      opWeight700mmKg:25940, groundPressure700mmKgCm2:0.45,
+      opWeight800mmKg:26240, groundPressure800mmKgCm2:0.40,
+      // Std boom and arm
+      stdBoomLengthMm:5900, stdArmLengthMm:3000,
+      // Working range (3000mm arm)
+      maxCuttingHeightMm:10000, maxLoadingHeightMm:7035,
+      digDepthMm:6920, digDepthM:6.92,
+      verticalWallMm:6010,
+      digDepthLevelBottomMm:6700,
+      maxReachMm:10180, maxReachGroundMm:10020,
+      minSwingRadiusMm:3450,
+      // Digging forces (3000mm arm)
+      bucketDigForceKN_SAE:152, bucketDigForceKg_SAE:15500,
+      stickDigForceKN_SAE:119, stickDigForceKg_SAE:12100,
+      bucketDigForceKN_ISO:172, bucketDigForceKg_ISO:17500,
+      stickDigForceKN_ISO:129, stickDigForceKg_ISO:13200,
+      // Power Max: bucket 172kN/17,500kg ISO, arm 129kN/13,200kg ISO
+      powerMaxBucketKN_ISO:172, powerMaxBucketKg_ISO:17500,
+      powerMaxArmKN_ISO:129, powerMaxArmKg_ISO:13200,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence system, closed-centre, load sensing, pressure compensated)',
+      workingModes:6,
+      hydraulicPump1Type:'Variable displacement piston type',
+      hydraulicPump1Circuits:'Boom, arm, bucket, swing, and travel circuits',
+      hydraulicPump1MaxFlowLpm:490,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3, reliefPressureTravelKgCm2:380,
+      reliefPressureSwingMPa:28.9, reliefPressureSwingKgCm2:295,
+      reliefPressurePilotMPa:3.2, reliefPressurePilotKgCm2:33,
+      // Hydraulic cylinders
+      boomCylCount:2, boomCylBoreMm:135, boomCylStrokeMm:1335, boomCylRodMm:95,
+      armCylCount:1, armCylBoreMm:140, armCylStrokeMm:1635, armCylRodMm:100,
+      bucketCylCount:1, bucketCylBoreMm:130, bucketCylStrokeMm:1020, bucketCylRodMm:90,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxDrawbarPullKN:202, maxDrawbarPullKg:20570,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.1, maxTravelSpeedLowKmh:3.0,
+      travelSpeedNote:'Auto-shift three-speed',
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingLock:'Mechanical disc brake',
+      swingSpeedRpm:11.7,
+      swingTorqueKgm:8065,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:51, carrierRollersPerSide:2, trackRollersPerSide:10,
+      // Dimensions (3000mm arm)
+      overallLengthMm:9965, overallWidthMm:3180,
+      overallHeightBoomMm:3185, overallHeightCabMm:3055, overallHeightHandrailMm:3150,
+      groundClearanceCounterweightMm:1100, groundClearanceMm:440,
+      tailSwingRadiusMm:3020,
+      trackLengthOnGroundMm:3845, trackLengthMm:4640,
+      trackGaugeMm:2580, shoeWidthMm:600, grouserHeightMm:26,
+      machineUpperWidthMm:2850, distanceSwingCentreToRearMm:2985,
+      // Component weights
+      armAssemblyKg:1318, boomAssemblyKg:2148, boomCylindersKg:210, counterweightKg:4670,
+      // Coolant & lubricant capacities
+      fuelTankL:400, coolantL:36, engineOilL:23.1,
+      finalDriveEachL:5.0, swingDriveL:7.2,
+      hydraulicTankL:132, hydraulicSystemL:244, defTankL:23.1,
+      // Maintenance intervals
+      engineOilFilterIntervalHr:500,
+      hydraulicOilIntervalHr:5000,
+      hydraulicOilFilterIntervalHr:1000,
+      // Lift capacities — PC240LC-11, 5900mm boom, 3000mm arm, 600mm triple grouser, bucket 730kg (kg, Cf/Cs, lifting mode)
+      liftTable:[
+        [6.0,6.0,4950,4950,true,true],[6.0,7.5,4700,4350,true],[6.0,'max',3300,3200,true,true],
+        [4.5,6.0,5900,5900,true,true],[4.5,7.5,5600,4250,true],[4.5,'max',3250,3250,true,true],
+        [3.0,3.0,11900,11900,true,true],[3.0,4.5,9650,9300,true],[3.0,6.0,7300,5950,true],[3.0,7.5,6300,4100,true],[3.0,'max',3400,3050,true],
+        [1.5,3.0,6700,6700,true,true],[1.5,4.5,12450,8700,true],[1.5,6.0,8750,5600,true],[1.5,7.5,6100,3900],[1.5,'max',3750,2950,true],
+        [0,3.0,8250,8250,true,true],[0,4.5,13800,8250],[0,6.0,8550,5350],[0,7.5,5950,3750],[0,'max',4250,3000,true],
+        [-1.5,1.5,7650,7650,true,true],[-1.5,3.0,9900,9900,true,true],[-1.5,4.5,13750,8100],[-1.5,6.0,8350,5200],[-1.5,7.5,5850,3700],[-1.5,'max',5150,3250],
+        [-3.0,1.5,10650,10650,true,true],[-3.0,3.0,18400,16800,true],[-3.0,4.5,13750,8150,true],[-3.0,6.0,8350,5150],[-3.0,7.5,5900,3700],[-3.0,'max',6050,3800],
+        [-4.5,3.0,18150,17050,true],[-4.5,4.5,12600,8350,true],[-4.5,6.0,8550,5350],[-4.5,'max',8300,5200],
+      ],
+      liftTableConditions:'Boom 5900mm, arm 3000mm, shoes 600mm triple grouser, bucket 730kg. PC240LC-11. Lifting mode.',
+      liftTableRatingStandard:'SAE J1097. Rated loads ≤87% hydraulic capacity or ≤75% tipping load.',
+      bucketCapM3:1.08,
+      buckets:[
+        {widthMm:600,capM3:0.43},
+        {widthMm:900,capM3:0.75},
+        {widthMm:1200,capM3:1.08,standard:true},
+        {widthMm:2000,type:'slope finishing',capM3:1.64},
+      ],
+      komtrax:true,
+      kalssSpec:true,
+      brochureRef:'Komatsu PC240LC-11 ANZ Brochure ZESS004300_DECEMBER2018',
+      tags:['standard','commercial','civil','bulk excavation','trench','deep','basement','25t class','tier4final'],
+      note:'Komatsu PC240LC-11 — 25.38–26.24t standard excavator (ANZ KALSS spec). SAA6D107E-3, 6-cyl, 107×124mm, 6.69L, 132kW/177hp net @ 2,000rpm, EPA Tier 4 Final. Dig depth 6.92m (3000mm arm), max reach 10.18m, cut height 10.0m. Bucket force 172kN/17,500kg ISO, arm force 129kN/13,200kg ISO. Power Max boosts forces 7–8%. 6 working modes. Max drawbar pull 202kN. Swing 11.7rpm. HydrauMind CLSS hydraulics, 490L/min pump. Counterweight 4,670kg. KOMTRAX Level 5.0. KALSS: KGA dual lock quick hitch, overload alarm, level indicator, anti-burst valves, hammer piping, e-stops, amber beacon, revolving frame undercovers, rock guard, bump rails. Fuel 9% lower than PC220LC-8M0. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, hydraulic filter 1000h. Source: Komatsu PC240LC-11 ANZ Brochure ZESS004300_DECEMBER2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC270-8 / PC270LC-8 — FULLY BROCHURE-SPECIFIED ───────────────────
+    // Source: Komatsu PC270-8/PC270LC-8 Brochure CEN00349-03 (ecot3 — Tier 3 engine)
+    // NOTE: This is the -8 generation (ecot3/Tier 3). NOT the -11 series.
+    { id:'kom-pc270-8', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC270-8 Excavator', shortName:'Komatsu PC270-8',
+      weightClass:'large',
+      // Engine
+      engineModel:'Komatsu SAA6D107E-1',
+      engineSeriesNote:'ecot3 — ecology & economy technology 3',
+      engineType:'Water-cooled, 4-cycle, direct injection',
+      engineAspiration:'Turbocharged, aftercooled',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineGrossKW:149, engineGrossHP:200,
+      engineNetKW:140, engineNetHP:187,
+      engineRatedRPM:2050,
+      engineFanDrive:'Mechanical',
+      engineGovernor:'All-speed control, electronic',
+      emissionStandard:'U.S. EPA Tier 3 / EU Stage 3A',
+      // Operating weights — 600mm triple grouser (PC270-8); 700mm (PC270LC-8 standard)
+      // PC270-8: 27,140–28,050kg; PC270LC-8: 28,040–29,020kg
+      operatingWeightKg:27140, operatingWeightT:27.14,
+      opWeight600mmPc270Kg:27140, groundPressure600mmPc270KPa:55, groundPressure600mmPc270KgCm2:0.56,
+      opWeight700mmPc270Kg:27700, groundPressure700mmPc270KPa:48, groundPressure700mmPc270KgCm2:0.49,
+      opWeight800mmPc270Kg:28050, groundPressure800mmPc270KPa:42, groundPressure800mmPc270KgCm2:0.43,
+      opWeight600mmLCKg:28040, groundPressure700mmLCKgCm2:0.47, // LC standard shoe is 700mm
+      opWeight700mmLCKg:28640, opWeight800mmLCKg:29020, groundPressure800mmLCKgCm2:0.41,
+      // Std boom and arm
+      stdBoomLengthMm:5850, stdArmLengthMm:3045,
+      armOptions:[2500,3045,3500],
+      // Working range (3045mm arm)
+      maxCuttingHeightMm:10000, maxLoadingHeightMm:7035,
+      digDepthMm:6460, digDepthM:6.46,
+      verticalWallMm:5650,
+      digDepthLevelBottomMm:6320,
+      maxReachMm:10100, maxReachGroundMm:9990,
+      minSwingRadiusMm:3430,
+      // Digging forces (3045mm arm, SAE/ISO)
+      bucketDigForceKN_SAE:176, bucketDigForceKg_SAE:17900,
+      stickDigForceKN_SAE:136, stickDigForceKg_SAE:13900,
+      bucketDigForceKN_ISO:198, bucketDigForceKg_ISO:20200,
+      stickDigForceKN_ISO:138, stickDigForceKg_ISO:14100,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design), closed-centre, load sensing, pressure compensated',
+      workingModes:4, // P, E, L, B, ATT
+      hydraulicPump1Type:'Variable displacement piston type',
+      hydraulicPump1Circuits:'Boom, arm, bucket, swing, and travel circuits',
+      hydraulicPump1MaxFlowLpm:450,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3, reliefPressureTravelKgCm2:380,
+      reliefPressureSwingMPa:28.9, reliefPressureSwingKgCm2:295,
+      reliefPressurePilotMPa:3.2, reliefPressurePilotKgCm2:33,
+      // Hydraulic cylinders
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:1300, boomCylRodMm:100,
+      armCylCount:1, armCylBoreMm:150, armCylStrokeMm:1635, armCylRodMm:110,
+      bucketCylCount:1, bucketCylBoreMm:140, bucketCylStrokeMm:1009, bucketCylRodMm:100,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxDrawbarPullKN:249, maxDrawbarPullKg:25400,
+      maxDrawbarPullKN_HD:264, maxDrawbarPullKg_HD:26900, // with optional heavy duty travel motor
+      gradeabilityPct:70, gradeabilityDeg:35,
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.1, maxTravelSpeedLowKmh:3.0,
+      travelSpeedNote:'Auto-shift. With optional HD travel motor: 4.5/3.3/2.8 km/h.',
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingLock:'Mechanical disc brake',
+      swingSpeedRpm:10.5,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide_PC270:45, shoesPerSide_PC270LC:48,
+      carrierRollersPerSide:2,
+      trackRollersPerSide_PC270:7, trackRollersPerSide_PC270LC:8,
+      // Dimensions (3045mm arm, PC270-8)
+      overallLengthMm:9940, overallWidthMm:3190,
+      overallHeightCabMm:3175, groundClearanceCounterweightMm:1215, groundClearanceMm:498,
+      tailSwingRadiusMm:2940,
+      trackLengthOnGroundMm:3700, trackLengthMm:4625,
+      trackGaugeMm:2590, shoeWidthMm:600,
+      distanceSwingCentreToRearMm:2905,
+      // Coolant & lubricant capacities
+      fuelTankL:400, coolantL:20.6, engineOilL:23.1,
+      finalDriveEachL:8.5, swingDriveL:8.2,
+      hydraulicTankL:132,
+      // Maintenance intervals
+      engineOilFilterIntervalHr:500,
+      hydraulicOilIntervalHr:5000,
+      hydraulicOilFilterIntervalHr:1000,
+      // Lift capacities — PC270-8, 5850mm boom, 3045mm arm, 600mm triple grouser, 1.26m³ bucket (kg, Cf/Cs)
+      liftTable:[
+        [7.6,'max',3450,3450,true,true],
+        [6.1,3.0,3300,3300,true,true],[6.1,4.6,4200,4200,true,true],[6.1,6.1,6350,6350,true,true],
+        [4.6,3.0,3350,3350,true,true],[4.6,4.6,6250,4300,true],[4.6,6.1,7200,6400,true],
+        [3.0,1.5,3550,3150,true],[3.0,3.0,6150,4150],[3.0,4.6,8500,6050,true],[3.0,6.1,10900,9550,true],[3.0,7.6,17850,17850,true,true],
+        [1.5,1.5,3900,3050,true],[1.5,3.0,6000,3950],[1.5,4.6,8550,5700],[1.5,6.1,13250,8850,true],[1.5,7.6,7800,7800,true,true],
+        [0,1.5,4500,3100,true],[0,3.0,5850,3850],[0,4.6,8300,5400],[0,6.1,13250,8350],[0,7.6,9600,9600,true,true],
+        [-1.5,1.5,5150,3350],[-1.5,3.0,5750,3750],[-1.5,4.6,8150,5300],[-1.5,6.1,13050,8200],[-1.5,7.6,13950,13950,true,true],[-1.5,'max',8850,8850,true,true],
+        [-3.0,1.5,6100,4000],[-3.0,3.0,8150,5300],[-3.0,4.6,13100,8250],[-3.0,6.1,20100,17600,true],[-3.0,'max',13650,13650,true,true],
+        [-4.6,3.0,8450,5750,true],[-4.6,4.6,11600,8500,true],[-4.6,'max',16650,16650,true,true],
+      ],
+      liftTableConditions:'Boom 5850mm, arm 3045mm, shoes 600mm triple grouser, 1.26m³ bucket. PC270-8.',
+      liftTableRatingStandard:'ISO 10567. Rated loads ≤87% hydraulic capacity or ≤75% tipping load.',
+      bucketCapM3:1.26,
+      buckets:[
+        {iso_m3:1.14,cece_m3:1.00,widthMm:1300,widthWithSCMm:1405,weightKg:793,teeth:5},
+        {iso_m3:1.26,cece_m3:1.10,widthMm:1400,widthWithSCMm:1505,weightKg:845,teeth:5,standard:true},
+      ],
+      komtrax:false, // PC270-8 predates KOMTRAX standard fitment — not stated in brochure
+      brochureRef:'Komatsu PC270-8/PC270LC-8 Brochure CEN00349-03 (ecot3)',
+      tags:['large','commercial','civil','bulk excavation','trench','deep','28t class','tier3','ecot3'],
+      note:'Komatsu PC270-8 — 27.14–28.05t large excavator (PC270-8) / 28.04–29.02t (PC270LC-8). SAA6D107E-1 ecot3, 6-cyl, 107×124mm, 6.69L, 140kW/187hp net @ 2,050rpm, U.S. EPA Tier 3 / EU Stage 3A (NOT Tier 4 Final). Fuel 10% lower than PC270-7. Dig depth 6.46m (3045mm arm), max reach 10.1m. Bucket force 198kN/20,200kg ISO, arm force 138kN/14,100kg ISO. Max drawbar pull 249kN (264kN with optional HD travel motor). Swing 10.5rpm. HydrauMind CLSS, 450L/min pump. 4 working modes (P/E/L/B+ATT). Arm options: 2500mm, 3045mm, 3500mm. Lifting mode raises hydraulic pressure 7% for improved lift capacity. Source: Komatsu PC270-8/PC270LC-8 Brochure CEN00349-03.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC300-8M0 / PC300LC-8M0 / PC350LC-8M0 — FULLY BROCHURE-SPECIFIED ────────
+    // Source: Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015)
+    { id:'kom-pc300-8m0', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC300-8M0 Hydraulic Excavator', shortName:'Komatsu PC300-8M0',
+      weightClass:'large',
+      // Engine
+      engineModel:'Komatsu SAA6D114E-3', engineCylinders:6, engineBoreMm:114, engineStrokeMm:135,
+      engineDisplacementL:8.27,
+      engineAspiration:'Turbocharged, aftercooled',
+      engineGrossKW:194, engineGrossHP:260,
+      engineNetKW:187, engineNetHP:250,
+      engineRatedRPM:1950,
+      engineGovernor:'All-speed control, electronic',
+      engineFanDrive:'Mechanical',
+      emissionStandard:'EPA Tier 3 and EU Stage 3A equivalent',
+      // Operating weight — 600mm shoes (KALSS spec with quick hitch)
+      operatingWeightKg:33800, operatingWeightMinKg:33400, operatingWeightMaxKg:33900, operatingWeightT:33.8,
+      groundPressureKgCm2:0.70,
+      // Rated lift capacity (Australian standard, 6470mm boom, 3185mm arm, 600mm shoes, quick hitch)
+      ratedLiftCapacityKg:3150,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.5, maxTravelSpeedLowKmh:3.2,
+      maxDrawbarPullKN:264, maxDrawbarPullKgf:26900,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingHoldingBrake:'Mechanical disc brake',
+      swingSpeedRpm:9.5,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design), closed-centre system with load sensing valves and pressure compensated valves',
+      hydraulicPumpType:'Two variable displacement piston type',
+      hydraulicPumpCircuits:'Boom, arm, bucket, swing, and travel circuits',
+      hydraulicControlCircuitSupply:'Self-reducing valve',
+      workingModes:6,
+      pumpFlowLpm:535,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3,
+      reliefPressureSwingMPa:27.9,
+      reliefPressurePilotMPa:3.2,
+      // Hydraulic cylinder dimensions (bore x stroke x rod)
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:1480, boomCylRodMm:100,
+      armCylCount:1, armCylBoreMm:160, armCylStrokeMm:1825, armCylRodMm:110,
+      bucketCylCount:1, bucketCylBoreMm:140, bucketCylStrokeMm:1285, bucketCylRodMm:100,
+      // Digging forces — ISO (with Power Max), 3185mm arm
+      bucketDigForceKN:228, bucketDigForceKgf:23200,
+      stickDigForceKN:171, stickDigForceKgf:17400,
+      // Without Power Max
+      bucketDigForceBaseKN:213, bucketDigForceBaseKgf:21700,
+      stickDigForceBaseKN:160, stickDigForceBaseKgf:16300,
+      // SAE rating (with Power Max), 3185mm arm
+      bucketDigForceSAEKN:200, bucketDigForceSAEKgf:20400,
+      stickDigForceSAEKN:165, stickDigForceSAEKgf:16800,
+      oneTouchPowerMax:true, powerMaxDurationSec:8.5,
+      // Working range — 3185mm arm, 6470mm boom
+      stdArmLengthMm:3185,
+      digDepthMm:7380, digDepthM:7.38,
+      digDepth8ftLevelMm:7180,
+      maxReachGroundMm:10920, maxReachMm:11100,
+      maxCuttingHeightMm:10100, maxLoadingHeightMm:7050,
+      verticalWallMm:6400,
+      minSwingRadiusMm:4430,
+      // Lift capacities — Lifting mode, PC300-8M0, boom 6470mm, arm 3185mm, 600mm shoes, 1.4m³ bucket (1015kg)
+      liftCap_9p1m_6p1m:{cf:5250,cs:4400,cfLimited:true},
+      liftCap_7p6m_6p1m:{cf:7150,cs:5700,cfLimited:true},
+      liftCap_9p1m_4p6m:{cf:5400,cs:3750,cfLimited:true},
+      liftCap_7p6m_4p6m:{cf:5700,cs:3850},
+      liftCap_6p1m_4p6m:{cf:7600,cs:5500,cfLimited:true},
+      liftCap_max_4p6m:{cf:9000,cs:8150,cfLimited:true,csLimited:true},
+      liftCap_9p1m_3m:{cf:5150,cs:3450},
+      liftCap_7p6m_3m:{cf:5550,cs:3750},
+      liftCap_6p1m_3m:{cf:7650,cs:5200},
+      liftCap_4p6m_3m:{cf:10250,cs:7600,cfLimited:true},
+      liftCap_3m_3m:{cf:14250,cs:12050,cfLimited:true},
+      liftCap_9p1m_1p5m:{cf:5000,cs:3300},
+      liftCap_7p6m_1p5m:{cf:5400,cs:3600},
+      liftCap_6p1m_1p5m:{cf:7300,cs:4950},
+      liftCap_4p6m_1p5m:{cf:10550,cs:7100},
+      liftCap_3m_1p5m:{cf:16550,cs:10950,cfLimited:true},
+      liftCap_9p1m_0m:{cf:5100,cs:3350},
+      liftCap_7p6m_0m:{cf:5300,cs:3500},
+      liftCap_6p1m_0m:{cf:7100,cs:4700},
+      liftCap_4p6m_0m:{cf:10150,cs:6700},
+      liftCap_3m_0m:{cf:16300,cs:10400},
+      liftCap_9p1m_n1p5m:{cf:5450,cs:3600},
+      liftCap_7p6m_n1p5m:{cf:5250,cs:3450},
+      liftCap_6p1m_n1p5m:{cf:6950,cs:4600},
+      liftCap_4p6m_n1p5m:{cf:9900,cs:6550},
+      liftCap_3m_n1p5m:{cf:16100,cs:10250},
+      liftCap_max_n1p5m:{cf:9800,cs:9800,cfLimited:true,csLimited:true},
+      liftCap_9p1m_n3m:{cf:6350,cs:4200},
+      liftCap_7p6m_n3m:{cf:7000,cs:4600},
+      liftCap_6p1m_n3m:{cf:9900,cs:6500},
+      liftCap_4p6m_n3m:{cf:15050,cs:10350,cfLimited:true},
+      liftCap_3m_n3m:{cf:18100,cs:18100,cfLimited:true,csLimited:true},
+      liftCap_9p1m_n4p5m:{cf:7400,cs:5500,cfLimited:true},
+      liftCap_7p6m_n4p5m:{cf:9300,cs:6700,cfLimited:true},
+      liftCap_6p1m_n4p5m:{cf:12350,cs:10650,cfLimited:true},
+      liftCap_3m_n4p5m:{cf:16000,cs:16000,cfLimited:true,csLimited:true},
+      liftCap_max_n6p1m:{cf:7450,cs:7450,cfLimited:true,csLimited:true},
+      // Body dimensions — 3185mm arm
+      tailSwingRadiusMm:3450,
+      overallLengthMm:11150,
+      transportLengthMm:5755,
+      overallWidthMm:3190, overallHeightToTopCabMm:3145, heightToTopBoomMm:3285,
+      groundClearanceMm:500, counterweightClearanceMm:1185,
+      trackGaugeMm:2590,
+      trackLengthMm:4625,
+      trackLengthOnGroundMm:3700,
+      crawlerWidthMm:3190,
+      shoeWidthMm:600,
+      grouserHeightMm:36,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:45,
+      carrierRollersPerSide:2,
+      trackRollersPerSide:7,
+      // Coolant & lubricant capacities
+      fuelTankL:605, hydraulicTankL:188, coolantL:31.0,
+      engineOilL:37.0, finalDriveEachL:9.0, swingDriveL:16.5,
+      bucketCapM3:1.40,
+      komtrax:true,
+      brochureRef:'Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015)',
+      tags:['large','civil','bulk excavation','33t class','infrastructure','tier3'],
+      note:'Komatsu PC300-8M0 — 33.4–33.9t large hydraulic excavator (ANZ KALSS spec). Komatsu SAA6D114E-3, 6-cyl 114×135mm, 8.27L, 194kW/260hp gross, 187kW/250hp net @ 1,950rpm, EPA Tier 3/EU Stage 3A equivalent. Fuel consumption 3% reduced vs PC300/LC-8 and PC350LC-8 (per KOMTRAX). ISO forces with Power Max (3185mm arm): bucket 228kN/23,200kg, arm 171kN/17,400kg — 7% increase vs base. SAE forces: bucket 200kN/20,400kg, arm 165kN/16,800kg. Dig depth 7.38m, reach 11.10m, cut height 10.10m, dump height 7.05m, vertical wall 6.40m. Min swing radius 4.43m. Max drawbar pull 264kN/26,900kg. Swing 9.5 rpm. 6 working modes (P/E/L/B/ATT/P/ATT/E). HydrauMind CLSS, 535L/min. Two-mode boom setting (smooth/power). Australian rated lift capacity with quick hitch: 3,150kg. Track rollers 7 per side, 45 shoes per side, 600mm shoes. KALSS: KGA quick hitch, hammer piping, overload alarm, level indicator, anti-burst valves, bump rails, handrails, revolving frame under cover, OPG Level 2 top guard, battery isolation, e-stops, lower windscreen guard. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, filter 1000h. Source: Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015).',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015)
+    { id:'kom-pc300lc-8m0', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC300LC-8M0 Hydraulic Excavator', shortName:'Komatsu PC300LC-8M0',
+      weightClass:'large',
+      engineModel:'Komatsu SAA6D114E-3', engineCylinders:6, engineBoreMm:114, engineStrokeMm:135,
+      engineDisplacementL:8.27,
+      engineAspiration:'Turbocharged, aftercooled',
+      engineGrossKW:194, engineGrossHP:260,
+      engineNetKW:187, engineNetHP:250,
+      engineRatedRPM:1950,
+      engineGovernor:'All-speed control, electronic',
+      engineFanDrive:'Mechanical',
+      emissionStandard:'EPA Tier 3 and EU Stage 3A equivalent',
+      // Operating weight — 600mm shoes (KALSS spec with quick hitch)
+      operatingWeightKg:34600, operatingWeightMinKg:34200, operatingWeightMaxKg:34700, operatingWeightT:34.6,
+      groundPressureKgCm2:0.66,
+      // Rated lift capacity (Australian standard, 6470mm boom, 3185mm arm, 600mm shoes, quick hitch)
+      ratedLiftCapacityKg:3200,
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.5, maxTravelSpeedLowKmh:3.2,
+      maxDrawbarPullKN:264, maxDrawbarPullKgf:26900,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingHoldingBrake:'Mechanical disc brake',
+      swingSpeedRpm:9.5,
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design), closed-centre system with load sensing valves and pressure compensated valves',
+      hydraulicPumpType:'Two variable displacement piston type',
+      hydraulicPumpCircuits:'Boom, arm, bucket, swing, and travel circuits',
+      workingModes:6,
+      pumpFlowLpm:535,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3,
+      reliefPressureSwingMPa:27.9,
+      reliefPressurePilotMPa:3.2,
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:1480, boomCylRodMm:100,
+      armCylCount:1, armCylBoreMm:160, armCylStrokeMm:1825, armCylRodMm:110,
+      bucketCylCount:1, bucketCylBoreMm:140, bucketCylStrokeMm:1285, bucketCylRodMm:100,
+      bucketDigForceKN:228, bucketDigForceKgf:23200,
+      stickDigForceKN:171, stickDigForceKgf:17400,
+      bucketDigForceBaseKN:213, bucketDigForceBaseKgf:21700,
+      stickDigForceBaseKN:160, stickDigForceBaseKgf:16300,
+      bucketDigForceSAEKN:200, bucketDigForceSAEKgf:20400,
+      stickDigForceSAEKN:165, stickDigForceSAEKgf:16800,
+      oneTouchPowerMax:true, powerMaxDurationSec:8.5,
+      stdArmLengthMm:3185,
+      digDepthMm:7380, digDepthM:7.38,
+      digDepth8ftLevelMm:7180,
+      maxReachGroundMm:10920, maxReachMm:11100,
+      maxCuttingHeightMm:10100, maxLoadingHeightMm:7050,
+      verticalWallMm:6400,
+      minSwingRadiusMm:4430,
+      // Lift capacities — PC300LC-8M0, boom 6470mm, arm 3185mm, 600mm shoes, 1.4m³ bucket (1015kg)
+      liftCap_9p1m_6p1m:{cf:5250,cs:4450,cfLimited:true},
+      liftCap_7p6m_6p1m:{cf:7150,cs:5800,cfLimited:true},
+      liftCap_9p1m_4p6m:{cf:5400,cs:3850,cfLimited:true},
+      liftCap_7p6m_4p6m:{cf:6500,cs:3950},
+      liftCap_6p1m_4p6m:{cf:7600,cs:5600,cfLimited:true},
+      liftCap_max_4p6m:{cf:9000,cs:8250,cfLimited:true,csLimited:true},
+      liftCap_9p1m_3m:{cf:5700,cs:3500,cfLimited:true},
+      liftCap_7p6m_3m:{cf:6350,cs:3800},
+      liftCap_6p1m_3m:{cf:8400,cs:5300,cfLimited:true},
+      liftCap_4p6m_3m:{cf:10250,cs:7700,cfLimited:true},
+      liftCap_3m_3m:{cf:14250,cs:12200,cfLimited:true},
+      liftCap_9p1m_1p5m:{cf:5700,cs:3350},
+      liftCap_7p6m_1p5m:{cf:6200,cs:3650},
+      liftCap_6p1m_1p5m:{cf:8350,cs:5050},
+      liftCap_4p6m_1p5m:{cf:11550,cs:7200,cfLimited:true},
+      liftCap_3m_1p5m:{cf:16550,cs:11150,cfLimited:true},
+      liftCap_9p1m_0m:{cf:5850,cs:3400},
+      liftCap_7p6m_0m:{cf:6050,cs:3550},
+      liftCap_6p1m_0m:{cf:8150,cs:4800},
+      liftCap_4p6m_0m:{cf:11650,cs:6850},
+      liftCap_3m_0m:{cf:17000,cs:10600,cfLimited:true},
+      liftCap_9p1m_n1p5m:{cf:6300,cs:3650},
+      liftCap_7p6m_n1p5m:{cf:6000,cs:3500},
+      liftCap_6p1m_n1p5m:{cf:8000,cs:4700},
+      liftCap_4p6m_n1p5m:{cf:11450,cs:6650},
+      liftCap_3m_n1p5m:{cf:16550,cs:10450,cfLimited:true},
+      liftCap_max_n1p5m:{cf:9800,cs:9800,cfLimited:true,csLimited:true},
+      liftCap_9p1m_n3m:{cf:7250,cs:4250},
+      liftCap_7p6m_n3m:{cf:8000,cs:4700},
+      liftCap_6p1m_n3m:{cf:11300,cs:6650,cfLimited:true},
+      liftCap_4p6m_n3m:{cf:15050,cs:10550,cfLimited:true},
+      liftCap_3m_n3m:{cf:18100,cs:18100,cfLimited:true,csLimited:true},
+      liftCap_9p1m_n4p5m:{cf:7400,cs:5600,cfLimited:true},
+      liftCap_7p6m_n4p5m:{cf:9300,cs:6800,cfLimited:true},
+      liftCap_6p1m_n4p5m:{cf:12350,cs:10850,cfLimited:true},
+      liftCap_3m_n4p5m:{cf:16000,cs:16000,cfLimited:true,csLimited:true},
+      liftCap_max_n6p1m:{cf:7450,cs:7450,cfLimited:true,csLimited:true},
+      tailSwingRadiusMm:3450,
+      overallLengthMm:11150,
+      transportLengthMm:5930,
+      overallWidthMm:3190, overallHeightToTopCabMm:3145, heightToTopBoomMm:3285,
+      groundClearanceMm:500, counterweightClearanceMm:1185,
+      trackGaugeMm:2590,
+      trackLengthMm:4955,
+      trackLengthOnGroundMm:4030,
+      crawlerWidthMm:3190,
+      shoeWidthMm:600,
+      grouserHeightMm:36,
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:48,
+      carrierRollersPerSide:2,
+      trackRollersPerSide:8,
+      fuelTankL:605, hydraulicTankL:188, coolantL:31.0,
+      engineOilL:37.0, finalDriveEachL:9.0, swingDriveL:16.5,
+      bucketCapM3:1.40,
+      komtrax:true,
+      brochureRef:'Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015)',
+      tags:['large','civil','bulk excavation','34t class','infrastructure','tier3'],
+      note:'Komatsu PC300LC-8M0 — 34.2–34.7t large hydraulic excavator (ANZ KALSS spec). Long-crawler (LC) undercarriage with 8 track rollers and 48 shoes per side (vs 7 rollers/45 shoes on PC300-8M0). Komatsu SAA6D114E-3, 6-cyl 114×135mm, 8.27L, 194kW/260hp gross, 187kW/250hp net @ 1,950rpm, EPA Tier 3/EU Stage 3A. Same engine and hydraulics as PC300-8M0 but higher stability with LC undercarriage. Ground pressure 0.66 kg/cm² (vs 0.70 for PC300-8M0). ISO forces with Power Max (3185mm arm): bucket 228kN/23,200kg, arm 171kN/17,400kg. Dig depth 7.38m, reach 11.10m, cut height 10.10m, dump height 7.05m. Australian rated lift capacity (quick hitch): 3,200kg. Max drawbar pull 264kN/26,900kg. Swing 9.5 rpm. 6 working modes. HydrauMind CLSS, 535L/min. KALSS ANZ spec: quick hitch, hammer piping, overload alarm, level indicator, anti-burst valves, bump rails, handrails, revolving frame under cover, OPG Level 2 top guard, battery isolation, e-stops. Source: Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015).',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015)
+    { id:'kom-pc350lc-8m0', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC350LC-8M0 Hydraulic Excavator', shortName:'Komatsu PC350LC-8M0',
+      weightClass:'large',
+      engineModel:'Komatsu SAA6D114E-3', engineCylinders:6, engineBoreMm:114, engineStrokeMm:135,
+      engineDisplacementL:8.27,
+      engineAspiration:'Turbocharged, aftercooled',
+      engineGrossKW:194, engineGrossHP:260,
+      engineNetKW:187, engineNetHP:250,
+      engineRatedRPM:1950,
+      engineGovernor:'All-speed control, electronic',
+      engineFanDrive:'Mechanical',
+      emissionStandard:'EPA Tier 3 and EU Stage 3A equivalent',
+      // Operating weight — 600mm shoes (KALSS spec with quick hitch)
+      operatingWeightKg:36300, operatingWeightMinKg:35800, operatingWeightMaxKg:36600, operatingWeightT:36.3,
+      groundPressureKgCm2:0.69,
+      // Rated lift capacity (Australian standard, 6470mm boom, 3185mm arm, 600mm shoes, quick hitch)
+      ratedLiftCapacityKg:3650,
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.5, maxTravelSpeedLowKmh:3.2,
+      maxDrawbarPullKN:264, maxDrawbarPullKgf:26900,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingHoldingBrake:'Mechanical disc brake',
+      swingSpeedRpm:9.5,
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design), closed-centre system with load sensing valves and pressure compensated valves',
+      hydraulicPumpType:'Two variable displacement piston type',
+      workingModes:6,
+      pumpFlowLpm:535,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3,
+      reliefPressureSwingMPa:27.9,
+      reliefPressurePilotMPa:3.2,
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:1480, boomCylRodMm:100,
+      armCylCount:1, armCylBoreMm:160, armCylStrokeMm:1825, armCylRodMm:110,
+      bucketCylCount:1, bucketCylBoreMm:140, bucketCylStrokeMm:1285, bucketCylRodMm:100,
+      bucketDigForceKN:228, bucketDigForceKgf:23200,
+      stickDigForceKN:171, stickDigForceKgf:17400,
+      bucketDigForceBaseKN:213, bucketDigForceBaseKgf:21700,
+      stickDigForceBaseKN:160, stickDigForceBaseKgf:16300,
+      bucketDigForceSAEKN:200, bucketDigForceSAEKgf:20400,
+      stickDigForceSAEKN:165, stickDigForceSAEKgf:16800,
+      oneTouchPowerMax:true, powerMaxDurationSec:8.5,
+      stdArmLengthMm:3185,
+      digDepthMm:7380, digDepthM:7.38,
+      digDepth8ftLevelMm:7180,
+      maxReachGroundMm:10920, maxReachMm:11100,
+      maxCuttingHeightMm:10100, maxLoadingHeightMm:7050,
+      verticalWallMm:6400,
+      minSwingRadiusMm:4430,
+      // Lift capacities — PC350LC-8M0, boom 6470mm, arm 3185mm, 600mm shoes, 1.4m³ bucket (1015kg)
+      // Heavy duty wide undercarriage: 12% higher lift capacity vs PC300LC-8M0
+      liftCap_9p1m_6p1m:{cf:5250,cs:4900,cfLimited:true},
+      liftCap_7p6m_6p1m:{cf:7150,cs:6350,cfLimited:true},
+      liftCap_9p1m_4p6m:{cf:5400,cs:4250,cfLimited:true},
+      liftCap_7p6m_4p6m:{cf:6500,cs:4350,cfLimited:true},
+      liftCap_6p1m_4p6m:{cf:7600,cs:6100,cfLimited:true},
+      liftCap_max_4p6m:{cf:9000,cs:8950,cfLimited:true,csLimited:true},
+      liftCap_9p1m_3m:{cf:5750,cs:3900,cfLimited:true},
+      liftCap_7p6m_3m:{cf:6650,cs:4200},
+      liftCap_6p1m_3m:{cf:8400,cs:5850,cfLimited:true},
+      liftCap_4p6m_3m:{cf:10250,cs:8400,cfLimited:true},
+      liftCap_3m_3m:{cf:14250,cs:13350,cfLimited:true},
+      liftCap_9p1m_1p5m:{cf:6000,cs:3750},
+      liftCap_7p6m_1p5m:{cf:6500,cs:4050},
+      liftCap_6p1m_1p5m:{cf:8750,cs:5550},
+      liftCap_4p6m_1p5m:{cf:11550,cs:7900,cfLimited:true},
+      liftCap_3m_1p5m:{cf:16550,cs:12300,cfLimited:true},
+      liftCap_9p1m_0m:{cf:6100,cs:3800},
+      liftCap_7p6m_0m:{cf:6350,cs:3950},
+      liftCap_6p1m_0m:{cf:8500,cs:5350},
+      liftCap_4p6m_0m:{cf:12150,cs:7550},
+      liftCap_3m_0m:{cf:17000,cs:11750,cfLimited:true},
+      liftCap_9p1m_n1p5m:{cf:6600,cs:4100},
+      liftCap_7p6m_n1p5m:{cf:6300,cs:3900},
+      liftCap_6p1m_n1p5m:{cf:8350,cs:5200},
+      liftCap_4p6m_n1p5m:{cf:11950,cs:7350},
+      liftCap_3m_n1p5m:{cf:16500,cs:11600,cfLimited:true},
+      liftCap_max_n1p5m:{cf:9800,cs:9800,cfLimited:true,csLimited:true},
+      liftCap_9p1m_n3m:{cf:7550,cs:4800,cfLimited:true},
+      liftCap_7p6m_n3m:{cf:8400,cs:5250},
+      liftCap_6p1m_n3m:{cf:11300,cs:7350,cfLimited:true},
+      liftCap_4p6m_n3m:{cf:15050,cs:11700,cfLimited:true},
+      liftCap_3m_n3m:{cf:18100,cs:18100,cfLimited:true,csLimited:true},
+      liftCap_9p1m_n4p5m:{cf:7400,cs:6300,cfLimited:true},
+      liftCap_7p6m_n4p5m:{cf:9300,cs:7550,cfLimited:true},
+      liftCap_6p1m_n4p5m:{cf:12350,cs:11900,cfLimited:true},
+      liftCap_3m_n4p5m:{cf:16000,cs:16000,cfLimited:true,csLimited:true},
+      liftCap_max_n6p1m:{cf:7450,cs:7450,cfLimited:true,csLimited:true},
+      // PC350LC-8M0 heavy duty wide undercarriage specifics
+      heavyDutyWideUndercarriage:true,
+      liftCapacityVsPC300LCPct:12,  // 12% higher than PC300LC-8M0
+      centreFrameGroundClearanceMm:644,
+      tailSwingRadiusMm:3450,
+      overallLengthMm:11140,
+      transportLengthMm:5930,
+      overallWidthMm:3310, overallHeightToTopCabMm:3190, heightToTopBoomMm:3285,
+      groundClearanceMm:644, counterweightClearanceMm:1230,
+      trackGaugeMm:2710,
+      trackLengthMm:4955,
+      trackLengthOnGroundMm:4030,
+      crawlerWidthMm:3310,
+      shoeWidthMm:600,
+      grouserHeightMm:36,
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section (extra heavy duty)',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:48,
+      carrierRollersPerSide:2,
+      trackRollersPerSide:8,
+      fullLengthTrackRollerGuards:true,
+      fuelTankL:605, hydraulicTankL:188, coolantL:31.0,
+      engineOilL:37.0, finalDriveEachL:9.0, swingDriveL:16.5,
+      bucketCapM3:1.40,
+      komtrax:true,
+      brochureRef:'Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015)',
+      tags:['large','civil','bulk excavation','quarry','36t class','infrastructure','tier3','heavy duty undercarriage'],
+      note:'Komatsu PC350LC-8M0 — 35.8–36.6t large hydraulic excavator (ANZ KALSS spec). Same engine and hydraulics as PC300 series but with heavy duty wide undercarriage: extra heavy duty track frame, wider gauge (2,710mm vs 2,590mm), full-length track roller guards, higher centre frame clearance (644mm). Lift capacity 12% higher than PC300LC-8M0. Rated lift capacity (Australian standard, quick hitch): 3,650kg. Komatsu SAA6D114E-3, 6-cyl 114×135mm, 8.27L, 194kW/260hp gross, 187kW/250hp net @ 1,950rpm, EPA Tier 3/EU Stage 3A. ISO forces with Power Max: bucket 228kN/23,200kg, arm 171kN/17,400kg. Dig depth 7.38m, reach 11.10m, cut height 10.10m, dump height 7.05m. Max drawbar pull 264kN/26,900kg. 6 working modes. HydrauMind CLSS, 535L/min. Suited for heavy construction and quarry conditions requiring stability and durability. The PC360LC-11 delivers 11% fuel reduction vs this model. KALSS ANZ spec: quick hitch, hammer piping, heavy-duty boom and arm with continuous plates and cast tips, overload alarm, level indicator, anti-burst valves, bump rails, handrails, revolving frame and track frame under covers, OPG Level 2 top guard, battery isolation, e-stops. Source: Komatsu PC300-8M0/PC300LC-8M0/PC350LC-8M0 ANZ Brochure ZESS003100 (December 2015).',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC360LC-11 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC360LC-11 ANZ Brochure ZESS005500_SEPTEMBER2018 (Australia & New Zealand Specifications)
+    { id:'kom-pc360lc11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC360LC-11 Excavator', shortName:'Komatsu PC360LC-11',
+      // Engine
+      engineModel:'Komatsu SAA6D114E-6', engineCylinders:6, engineBoreMm:114, engineStrokeMm:144.5,
+      engineDisplacementL:8.85, engineAspiration:'Variable Geometry Turbocharger (KVGT), aftercooled, cooled EGR',
+      engineGrossKw:202, engineGrossHp:271, engineNetKw:192, engineNetHp:257,
+      engineRatedRpm:1950, engineGovernor:'all-speed control, electronic',
+      engineFanDrive:'mechanical', engineTierLevel:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineFuelSystem:'Heavy-duty HPCR (High Pressure Common Rail)',
+      // Hydraulics
+      hydraulicType:'HydrauMind (Closed-centre load sensing, CLSS, pressure-compensated)',
+      hydraulicWorkingModes:6, // P, E, L, B, ATT/P, ATT/E
+      hydraulicPumpType:'variable displacement axial piston',
+      hydraulicPumpFlowLpm:535,
+      hydraulicReliefPressureMpa_implement:37.3, hydraulicReliefPressureMpa_travel:37.3,
+      hydraulicReliefPressureMpa_swing:27.9, hydraulicReliefPressureMpa_pilot:3.2,
+      hydraulicMotors_travel:'2×axial piston with parking brake',
+      hydraulicMotors_swing:'1×axial piston with swing holding brake',
+      // Cylinder dimensions (bore×stroke×rod)
+      cylBoomMm:'2–140×1480×100mm', cylArmMm:'1–160×1825×110mm', cylBucketMm:'1–140×1285×100mm',
+      // Travel / drives
+      travelSpeedHiKph:5.5, travelSpeedMidKph:4.2, travelSpeedLoKph:3.2, travelAutoShift:true,
+      gradeabilityPercent:70, gradeabilityDeg:35,
+      maxDrawbarPullKn:290, maxDrawbarPullKgf:29570, maxDrawbarPullLbf:65191,
+      serviceBrake:'hydraulic lock', parkingBrake:'mechanical disc',
+      // Swing
+      swingSpeedRpm:9.5, swingTorqueKgm:11386, swingTorqueFtlbs:82313,
+      swingReduction:'planetary gear', swingCircleLubrication:'grease-bathed',
+      swingLock:'mechanical disc brake',
+      // Undercarriage
+      centreFrame:'X-frame', trackFrame:'box-section', trackType:'sealed', trackAdjuster:'hydraulic',
+      shoesPerSide:48, carrierRollersPerSide:2, trackRollersPerSide:8,
+      // Operating weights — with 6500mm boom, 3200mm arm, KGA dual lock quick hitch, SAE heaped 1.80m³ bucket, full fluids, operator, std equip
+      operatingWeightKg_600mm:36490, operatingWeightKg_700mm:36870, operatingWeightKg_850mm:37440, operatingWeightT:36.5,
+      groundPressureKgCm2_600mm:0.69, groundPressureKgCm2_700mm:0.60, groundPressureKgCm2_850mm:0.50,
+      operatingWeightBasis:'6500mm one-piece HD boom, 3200mm HD arm, KGA dual lock quick hitch, SAE heaped 1.80m³ bucket, full fluids, operator, std equip',
+      // Coolant & lubricant capacities
+      fuelTankL:605, radiatorL:37, engineOilL:35, finalDriveOilL_eachSide:9.0,
+      swingDriveOilL:13.7, hydraulicTankL:188, defTankL:39,
+      // Maintenance intervals
+      maintenanceIntervalHr_engineOilAndFilter:500, maintenanceIntervalHr_hydraulicOil:5000,
+      maintenanceIntervalHr_hydraulicOilFilter:1000,
+      // Component weights
+      counterweightKg:6920, boomCylindersKg:259,
+      armAssemblyKg_3200mm:1761, // includes bucket cylinder and linkage
+      boomAssemblyKg_6500mm:3135, // includes arm cylinder
+      // Dimensions (6500mm boom, 3200mm arm, 600mm triple grouser shoe)
+      boomLengthMm:6500, armLengthMm:3200,
+      overallLengthMm:11145,
+      overallHeightMm_boom:3285,      // to top of boom including grouser height
+      overallHeightMm_cab:3160,       // to top of cab including grouser height
+      overallHeightMm_handrail:3255,  // to top of handrail including grouser height
+      transportLengthMm:5935,
+      overallWidthMm:3190,
+      groundClearanceCounterweightMm:1185, groundClearanceMinMm:498,
+      tailSwingRadiusMm:3445,
+      trackLengthOnGroundMm:4030, trackLengthMm:4955,
+      trackGaugeMm:2590,
+      shoeWidthMm:600, grouserHeightMm:36, // 600mm shoe; 700mm and 850mm shoes also available
+      machineHeightToEngCoverMm:3135,
+      machineUpperWidthMm:3145, // includes handrail
+      distanceSwingCentreToRearMm:3405,
+      // Working range (6500mm boom, 3200mm arm)
+      maxDiggingHeightMm:10210, maxDumpingHeightMm:7110, maxDiggingDepthMm:7380,
+      maxVerticalWallDepthMm:6480, maxDiggingDepthLevel8ftMm:7180,
+      maxDiggingReachMm:11100, maxDiggingReachGroundMm:10920, minSwingRadiusMm:4310,
+      // Note: brochure specifies only one arm length (3200mm HD) — no alternate arms listed
+      // Breakout forces (ISO rating, with Power Max function, 3200mm arm)
+      bucketDiggingForceKn_iso_powermax:228, bucketDiggingForceKg_iso_powermax:23200,
+      armCrowdForceKn_iso_powermax:171, armCrowdForceKg_iso_powermax:17400,
+      // SAE forces (with Power Max)
+      bucketDiggingForceKn_sae_powermax:200, bucketDiggingForceKg_sae_powermax:20400,
+      armCrowdForceKn_sae_powermax:165, armCrowdForceKg_sae_powermax:16800,
+      // Note: Power Max raises digging force 7% for 8.5 seconds; Lifting Mode raises capacity 7%
+      bucketCapRangeM3:'0.53–1.80',
+      // Lift capacities — with LIFTING MODE, 6500mm boom, 3200mm arm, 600mm triple grouser, 1014kg bucket
+      // Ratings per SAE J1097: ≤87% hydraulic lift capacity or ≤75% tipping load
+      // Columns: A (reach from swing centre) = 3.0m, 4.5m, 6.0m, 7.5m, MAX
+      // Rows: B (bucket hook height)
+      liftCap_61m_60m:{cf:'*9050',cs:'*9050'}, liftCap_75m_60m:{cf:'*7150',cs:6850}, liftCap_max_60m:{cf:'*5200',cs:5150},
+      liftCap_61m_45m:{cf:'*7700',cs:6600}, liftCap_75m_45m:{cf:'*5350',cs:4500},
+      liftCap_3m_30m:{cf:'*14800',cs:14100}, liftCap_45m_30m:{cf:'*10500',cs:9000}, liftCap_61m_30m:{cf:'*8500',cs:6300}, liftCap_75m_30m:{cf:'*5650',cs:4150},
+      liftCap_3m_15m:{cf:'*16450',cs:13050}, liftCap_45m_15m:{cf:'*11800',cs:8500}, liftCap_61m_15m:{cf:'*9150',cs:6000}, liftCap_75m_15m:{cf:'*6200',cs:4000},
+      liftCap_3m_0m:{cf:'*8100',cs:'*8100'}, liftCap_45m_0m:{cf:'*17250',cs:12500}, liftCap_61m_0m:{cf:'*12400',cs:8100}, liftCap_75m_0m:{cf:9400,cs:5800}, liftCap_max_0m:{cf:6650,cs:4050},
+      liftCap_3m_n15m:{cf:'*9550',cs:'*9550'}, liftCap_45m_n15m:{cf:'*16750',cs:12400}, liftCap_61m_n15m:{cf:'*12350',cs:7950}, liftCap_75m_n15m:{cf:9300,cs:5650}, liftCap_max_n15m:{cf:7150,cs:4350},
+      liftCap_3m_n30m:{cf:'*17650',cs:'*17650'}, liftCap_45m_n30m:{cf:'*15250',cs:12550}, liftCap_61m_n30m:{cf:'*11500',cs:7950}, liftCap_75m_n30m:{cf:'*8750',cs:5650}, liftCap_max_n30m:{cf:'*7550',cs:5000},
+      liftCap_3m_n45m:{cf:'*16250',cs:'*16250'}, liftCap_45m_n45m:{cf:'*12600',cs:'*12600'}, liftCap_61m_n45m:{cf:'*9550',cs:8150}, liftCap_75m_n45m:{cf:'*7350',cs:6450},
+      liftCap_max_n60m:{cf:'*6100',cs:'*6100'},
+      // Attachment options (ANZ)
+      attachmentOptions:[
+        {type:'bucket_general',  model:'KGA 650mm',   capM3:0.53},
+        {type:'bucket_general',  model:'KGA 1300mm',  capM3:1.35},
+        {type:'bucket_general',  model:'KGA 1500mm',  capM3:1.61},
+        {type:'bucket_general',  model:'KGA 1700mm',  capM3:1.80},
+        {type:'bucket_rock',     model:'KGA 1600mm direct pin', capM3:1.66},
+        {type:'bucket_slope',    model:'KGA 2200mm',  capM3:2.20},
+        {type:'quick_hitch',     model:'KGA dual lock'},
+        {type:'ripper',          model:'KGA single tyne'},
+      ],
+      // Compatible hydraulic breaker (listed as Coming Soon at time of brochure)
+      compatibleBreaker:{
+        model:'Komatsu JMHB360H-1', workingWeightKg:2571,
+        oilFlowLpm_min:175, oilFlowLpm_max:250,
+        operatingPressureMpa_max:155, impactRateBpm_min:320, impactRateBpm_max:560,
+        chiselDiameterMm:160, variableFrequencies:'2 Auto',
+        acceptableBackPressureBar:25, baseMachineTon_min:27, baseMachineTon_max:40,
+      },
+      // Standard equipment (KALSS Australian Standard Specification — all items per brochure page 15 and 19)
+      stdEquip:[
+        '3-speed travel with auto shift','Alternator 90A/24V','AM/FM radio',
+        'Arm 3200mm HD','Auto idle','Auto idle shut down',
+        'Automatic air conditioner large capacity','Automatic engine warm-up system',
+        'Auxiliary input (3.5mm jack)','Batteries large capacity','Battery isolation switch lockable',
+        'Boom 6500mm HD','Boom and arm burst valve protection','Bump rails',
+        'Cab guards (lower front window guard, integrated OPG Level 1, bolt-on OPG Level 2)',
+        'Carrier rollers 2 each side','Converter (2)×12V','Counterweight 6920kg',
+        'Dry type air cleaner double element','Dual flow hammer piping','Electric horn',
+        'Emergency stops (3)','Engine SAA6D114E-6',
+        'Engine overheat prevention system','Fan guard structure',
+        'Fuel system pre-filter 10 micron','Grease sealed track chain',
+        'High back air suspension seat with heat',
+        'High pressure in-line hydraulic filters',
+        'HydrauMind closed centre load sensing system',
+        'KOMTRAX Level 5.0','Large LCD colour monitor high resolution (7")',
+        'Level indicator','Lock lever','Lock lever auto lock',
+        'Mirrors (LH, RH & sidewise)','Operator identification system',
+        'Overload alarm','Power maximising system',
+        'PPC hydraulic control system','Proportional control handles',
+        'Provision for tilt circuit including valve',
+        'Pump/engine room partition cover',
+        'Quick hitch piping with safety switch and alarm',
+        'Radiator and oil cooler dustproof net','Rear reflectors',
+        'Rearview monitoring system (1 camera)',
+        'Revolving frame undercovers heavy duty',
+        'ROPS cab (ISO 12117-2) with vandal guard provisions',
+        'Rotating beacon with guard','Seat belt indicator',
+        'Seat belt retractable 78mm','Secondary engine shutdown switch',
+        'Side by side coolers','Slip resistant foot plates',
+        'Starter motor 11kW/24V','Suction fan',
+        'Thermal and fan guards','Track frame swivel guard',
+        'Track roller guards full length','Track rollers 8 each side',
+        'Track shoes triple grouser 600mm','Travel alarm',
+        'Two boom mode setting',
+        'Working lights (1×boom, 1×RH, 3×cab, 1×counterweight)',
+        'Working mode selection system',
+      ],
+      // Optional equipment (per brochure page 19)
+      optionalEquip:[
+        'Autogrease system','Battery isolation switch dual pole lockable',
+        'Belly plates 8mm','Cab guard (full front OPG Level 2)','Cab vandal guard set',
+        'Canvas seat cover',
+        'Fire extinguisher 1.5kg / 4.5kg / 9kg',
+        'Fuel cap vandal guard','Jump start receptacle',
+        'Radio multimedia system','Radio UHF',
+        'Starter circuit isolation lockable',
+        'Track shoes triple grouser 700mm','Track shoes triple grouser 850mm',
+        'Turbo timer','Window tinting',
+      ],
+      komtrax:true,
+      brochureRef:'Komatsu PC360LC-11 ANZ Brochure ZESS005500_SEPTEMBER2018',
+      tags:['large','civil','mining','bulk','infrastructure','36t class','tier4final'],
+      note:'Komatsu PC360LC-11 — 35.95–37.44t large excavator (ANZ KALSS spec). Komatsu SAA6D114E-6, 6-cyl 114×144.5mm, 8.85L, 202kW/271hp gross, 192kW/257hp net @ 1,950rpm, KVGT, Cooled EGR, KDPF + SCR, EPA Tier 4 Final. 11% fuel reduction vs PC350LC-8M0 (based on KOMTRAX work patterns). Bucket force 228kN/23200kg (ISO with Power Max), arm force 171kN/17400kg (ISO with Power Max); SAE 200kN/20400kg bucket, 165kN/16800kg arm. Power Max increases digging force 7% for 8.5 seconds. Lifting mode increases lifting capacity 7% by raising hydraulic pressure. Dig depth 7.38m (3200mm arm), reach 11.10m (ground level), cut height 10.21m, dump height 7.11m. Max drawbar pull 290kN/29570kgf. Swing 9.5 rpm, torque 11386kg·m. 6 working modes (P/E/L/B/ATT/P/ATT/E). Implement relief 37.3MPa. HydrauMind CLSS, 535L/min pump. HD boom (6500mm) with 2-mode setting (smooth and power). Shoe options: 600mm (36490kg), 700mm (36870kg), 850mm (37440kg). KALSS ANZ standard: KGA dual lock quick hitch, factory hammer piping with tilt valve provision, overload alarm, level indicator, anti-burst valves, bump rails, full-length track roller guards, heavy-duty revolving frame under covers, rotating amber beacon, proportional hand controls, additional lighting, bolt-on OPG Level 2 top guard, battery isolation, e-stops, lower front window guard. Attachments: 6 bucket sizes (0.53–2.20m³), quick hitch, ripper. Compatible breaker: JMHB360H-1 (2571kg, 160mm chisel, 175–250L/min, 27–40t base). 7" LCD monitor, KOMTRAX Level 5.0, rearview camera standard. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, hydraulic filter 1000h. Source: Komatsu PC360LC-11 ANZ Brochure ZESS005500_SEPTEMBER2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC450-8 / PC450LC-8 — FULLY BROCHURE-SPECIFIED ──────────────────────────
+    // Source: Komatsu PC450-8/PC450LC-8 Brochure CEN00226-06 (August 2015, Australia)
+    { id:'kom-pc450-8', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC450-8 Hydraulic Excavator', shortName:'Komatsu PC450-8',
+      weightClass:'large',
+      // Engine
+      engineModel:'Komatsu SAA6D125E-5', engineCylinders:6, engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04,
+      engineAspiration:'Turbocharged, aftercooled, cooled EGR',
+      engineGrossKW:270, engineGrossHP:362,
+      engineNetKW:257, engineNetHP:345,
+      engineRatedRPM:1900,
+      engineGovernor:'All-speed control, electronic',
+      engineFanDrive:'Mechanical',
+      emissionStandard:'U.S. EPA Tier 3 and EU Stage 3A',
+      // Operating weight — 600mm shoes
+      operatingWeightKg:43400, operatingWeightMinKg:43400, operatingWeightMaxKg:43820, operatingWeightT:43.4,
+      groundPressureKPa:80.7, groundPressureKgCm2:0.82,
+      opWeight700mmKg:43820, groundPressure700mmKgCm2:0.71,
+      counterweightKg:9220,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.0, maxTravelSpeedLowKmh:3.0,
+      maxDrawbarPullKN:330, maxDrawbarPullKgf:33700,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingHoldingBrake:'Mechanical disc brake',
+      swingSpeedRpm:9.1,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design), closed-centre system with load sensing valves and pressure compensated valves',
+      hydraulicPumpType:'Variable displacement piston type',
+      hydraulicPumpCircuits:'Boom, arm, bucket, swing, and travel circuits',
+      workingModes:4,
+      pumpFlowLpm:690,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3,
+      reliefPressureSwingMPa:27.9,
+      reliefPressurePilotMPa:3.2,
+      // Hydraulic cylinder dimensions (bore x stroke x rod)
+      boomCylCount:2, boomCylBoreMm:160, boomCylStrokeMm:1570, boomCylRodMm:110,
+      armCylCount:1, armCylBoreMm:185, armCylStrokeMm:1985, armCylRodMm:130,
+      bucketCylCount:1, bucketCylBoreMm:160, bucketCylStrokeMm:1270, bucketCylRodMm:110,
+      // Digging forces — ISO 6015 (with Power Max), 3380mm arm
+      bucketDigForceKN:278, bucketDigForceKgf:28300,
+      stickDigForceKN:233, stickDigForceKgf:23800,
+      // Without Power Max
+      bucketDigForceBaseKN:259, bucketDigForceBaseKgf:26400,
+      stickDigForceBaseKN:218, stickDigForceBaseKgf:22200,
+      // SAE 1179 rating (with Power Max), 3380mm arm
+      bucketDigForceSAEKN:243, bucketDigForceSAEKgf:24800,
+      stickDigForceSAEKN:225, stickDigForceSAEKgf:22900,
+      oneTouchPowerMax:true, powerMaxDurationSec:8.5,
+      // Working range — 3380mm arm, 7060mm boom
+      stdArmLengthMm:3380,
+      digDepthMm:7790, digDepthM:7.79,
+      digDepth8ftLevelMm:7650,
+      maxReachGroundMm:11800, maxReachMm:12005,
+      maxCuttingHeightMm:10925, maxLoadingHeightMm:7625,
+      verticalWallMm:6600,
+      minSwingRadiusMm:4805,
+      // Lift capacities — Lifting mode, PC450-8, boom 7060mm, arm 3380mm, 600mm shoes, 1.90m³ bucket (1966kg)
+      liftCap_9m_7p5m:{cf:6000,cs:5850,cfLimited:true},
+      liftCap_9m_6m:{cf:6000,cs:4850,cfLimited:true},
+      liftCap_7p5m_6m:{cf:8750,cs:5700},
+      liftCap_max_6m:{cf:9600,cs:8200,cfLimited:true,csLimited:true},
+      liftCap_9m_4p5m:{cf:6200,cs:4250,cfLimited:true},
+      liftCap_7p5m_4p5m:{cf:8550,cs:5500},
+      liftCap_6m_4p5m:{cf:10600,cs:7800,cfLimited:true},
+      liftCap_max_4p5m:{cf:12800,cs:11500,cfLimited:true},
+      liftCap_9m_3m:{cf:6350,cs:3950},
+      liftCap_7p5m_3m:{cf:8300,cs:5300},
+      liftCap_6m_3m:{cf:11400,cs:7350},
+      liftCap_4p5m_3m:{cf:14950,cs:10650,cfLimited:true},
+      liftCap_3m_3m:{cf:20900,cs:16850,cfLimited:true},
+      liftCap_9m_1p5m:{cf:6200,cs:3800},
+      liftCap_7p5m_1p5m:{cf:8000,cs:5050},
+      liftCap_6m_1p5m:{cf:10900,cs:6900},
+      liftCap_4p5m_1p5m:{cf:15850,cs:9950},
+      liftCap_3m_1p5m:{cf:17650,cs:15450,cfLimited:true},
+      liftCap_9m_0m:{cf:6350,cs:3850},
+      liftCap_7p5m_0m:{cf:7800,cs:4850},
+      liftCap_6m_0m:{cf:10550,cs:6600},
+      liftCap_4p5m_0m:{cf:15300,cs:9450},
+      liftCap_3m_0m:{cf:17800,cs:14950,cfLimited:true},
+      liftCap_9m_n1p5m:{cf:6800,cs:4150},
+      liftCap_7p5m_n1p5m:{cf:7700,cs:4750},
+      liftCap_6m_n1p5m:{cf:10400,cs:6450},
+      liftCap_4p5m_n1p5m:{cf:15050,cs:9250},
+      liftCap_3m_n1p5m:{cf:22950,cs:14950,cfLimited:true},
+      liftCap_9m_n3m:{cf:7750,cs:4800},
+      liftCap_7p5m_n3m:{cf:7750,cs:4750},
+      liftCap_6m_n3m:{cf:10400,cs:6450},
+      liftCap_4p5m_n3m:{cf:15100,cs:9300},
+      liftCap_3m_n3m:{cf:20950,cs:15100,cfLimited:true},
+      liftCap_max_n3m:{cf:21700,cs:21700,cfLimited:true,csLimited:true},
+      liftCap_9m_n4p5m:{cf:9100,cs:6050,cfLimited:true},
+      liftCap_7p5m_n4p5m:{cf:10350,cs:6600,cfLimited:true},
+      liftCap_6m_n4p5m:{cf:13750,cs:9500,cfLimited:true},
+      liftCap_4p5m_n4p5m:{cf:17700,cs:15450,cfLimited:true},
+      liftCap_3m_n4p5m:{cf:22350,cs:22350,cfLimited:true,csLimited:true},
+      liftCap_9m_n6m:{cf:8050,cs:8050,cfLimited:true,csLimited:true},
+      liftCap_7p5m_n6m:{cf:9450,cs:9450,cfLimited:true,csLimited:true},
+      liftCap_6m_n6m:{cf:12600,cs:12600,cfLimited:true,csLimited:true},
+      // Body dimensions — 3380mm arm, 600mm shoes
+      tailSwingRadiusMm:3645,
+      overallLengthMm:12040,
+      transportLengthMm:6560,
+      overallWidthMm:3430, overallHeightToTopCabMm:3285, heightToTopBoomMm:3660,
+      groundClearanceMm:555, counterweightClearanceMm:1320,
+      trackGaugeMm:2740,
+      trackLengthMm:5055,
+      trackLengthOnGroundMm:4020,
+      crawlerWidthMm:3340,
+      shoeWidthMm:600,
+      grouserHeightMm:37,
+      distanceSwingCentreToRearMm:3605,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:46,
+      carrierRollersPerSide:2,
+      trackRollersPerSide:7,
+      // Coolant & lubricant capacities
+      fuelTankL:650, hydraulicTankL:248, coolantL:36.0,
+      engineOilL:37.0, finalDriveEachL:10.5, swingDriveL:20.0,
+      bucketCapM3:2.10,
+      komtrax:false,
+      brochureRef:'Komatsu PC450-8/PC450LC-8 Brochure CEN00226-06 (August 2015)',
+      tags:['large','civil','quarry','bulk excavation','mining','43t class','tier3','heavy duty'],
+      note:'Komatsu PC450-8 — 43.4–43.8t heavy excavator. Komatsu SAA6D125E-5, 6-cyl 125×150mm, 11.04L, 270kW/362hp gross, 257kW/345hp net @ 1,900rpm, EPA Tier 3/EU Stage 3A. NOx reduced 40% vs previous. Large counterweight (9,220kg) for excellent machine stability. ISO forces with Power Max (3380mm arm): bucket 278kN/28,300kg (+7%), arm 233kN/23,800kg (+7%). SAE forces: bucket 243kN/24,800kg, arm 225kN/22,900kg. Dig depth 7.79m, reach 12.01m, cut height 10.93m, dump height 7.63m. Max drawbar pull 330kN/33,700kg. Swing 9.1 rpm. HydrauMind CLSS, 690L/min pump. 4 working modes (P/E/L/B/ATT). Two-mode boom setting (smooth/power). Designed for quarry and heavy construction — quarry cab, strengthened revolving frame, full roller guards, double-flange track rollers. Variable track gauge option increases lateral stability by 30%. Bucket options: 1.90m³ and 2.10m³ quarry buckets. Reinforced quarry bucket with 16mm side plates, O-ring on linkage. Track rollers 7 per side (PC450-8), 46 shoes per side. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, filter 1000h. Source: Komatsu PC450-8/PC450LC-8 Brochure CEN00226-06 (August 2015).',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC450-8/PC450LC-8 Brochure CEN00226-06 (August 2015)
+    { id:'kom-pc450lc-8', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC450LC-8 Hydraulic Excavator', shortName:'Komatsu PC450LC-8',
+      weightClass:'large',
+      engineModel:'Komatsu SAA6D125E-5', engineCylinders:6, engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04,
+      engineAspiration:'Turbocharged, aftercooled, cooled EGR',
+      engineGrossKW:270, engineGrossHP:362,
+      engineNetKW:257, engineNetHP:345,
+      engineRatedRPM:1900,
+      engineGovernor:'All-speed control, electronic',
+      engineFanDrive:'Mechanical',
+      emissionStandard:'U.S. EPA Tier 3 and EU Stage 3A',
+      // Operating weight — 600mm shoes
+      operatingWeightKg:44400, operatingWeightMinKg:44400, operatingWeightMaxKg:44850, operatingWeightT:44.4,
+      groundPressureKPa:76.8, groundPressureKgCm2:0.78,
+      opWeight700mmKg:44850, groundPressure700mmKgCm2:0.68,
+      counterweightKg:9220,
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.0, maxTravelSpeedLowKmh:3.0,
+      maxDrawbarPullKN:330, maxDrawbarPullKgf:33700,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingHoldingBrake:'Mechanical disc brake',
+      swingSpeedRpm:9.1,
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence New Design), closed-centre system with load sensing valves and pressure compensated valves',
+      hydraulicPumpType:'Variable displacement piston type',
+      workingModes:4,
+      pumpFlowLpm:690,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3,
+      reliefPressureSwingMPa:27.9,
+      reliefPressurePilotMPa:3.2,
+      boomCylCount:2, boomCylBoreMm:160, boomCylStrokeMm:1570, boomCylRodMm:110,
+      armCylCount:1, armCylBoreMm:185, armCylStrokeMm:1985, armCylRodMm:130,
+      bucketCylCount:1, bucketCylBoreMm:160, bucketCylStrokeMm:1270, bucketCylRodMm:110,
+      bucketDigForceKN:278, bucketDigForceKgf:28300,
+      stickDigForceKN:233, stickDigForceKgf:23800,
+      bucketDigForceBaseKN:259, bucketDigForceBaseKgf:26400,
+      stickDigForceBaseKN:218, stickDigForceBaseKgf:22200,
+      bucketDigForceSAEKN:243, bucketDigForceSAEKgf:24800,
+      stickDigForceSAEKN:225, stickDigForceSAEKgf:22900,
+      oneTouchPowerMax:true, powerMaxDurationSec:8.5,
+      stdArmLengthMm:3380,
+      digDepthMm:7790, digDepthM:7.79,
+      digDepth8ftLevelMm:7650,
+      maxReachGroundMm:11800, maxReachMm:12005,
+      maxCuttingHeightMm:10925, maxLoadingHeightMm:7625,
+      verticalWallMm:6600,
+      minSwingRadiusMm:4805,
+      // Lift capacities — PC450LC-8, boom 7060mm, arm 3380mm, 600mm shoes, 1.90m³ bucket (1966kg)
+      liftCap_9m_7p5m:{cf:6000,cs:5950,cfLimited:true},
+      liftCap_9m_6m:{cf:6000,cs:4950,cfLimited:true},
+      liftCap_7p5m_6m:{cf:8850,cs:5800,cfLimited:true},
+      liftCap_max_6m:{cf:9600,cs:8350,cfLimited:true,csLimited:true},
+      liftCap_9m_4p5m:{cf:6200,cs:4350,cfLimited:true},
+      liftCap_7p5m_4p5m:{cf:9250,cs:5650,cfLimited:true},
+      liftCap_6m_4p5m:{cf:10600,cs:7950,cfLimited:true},
+      liftCap_max_4p5m:{cf:12800,cs:11700,cfLimited:true},
+      liftCap_9m_3m:{cf:6550,cs:4000,cfLimited:true},
+      liftCap_7p5m_3m:{cf:9400,cs:5400},
+      liftCap_6m_3m:{cf:11750,cs:7500,cfLimited:true},
+      liftCap_4p5m_3m:{cf:14950,cs:10850,cfLimited:true},
+      liftCap_3m_3m:{cf:20900,cs:17150,cfLimited:true},
+      liftCap_9m_1p5m:{cf:7150,cs:3900},
+      liftCap_7p5m_1p5m:{cf:9150,cs:5150},
+      liftCap_6m_1p5m:{cf:12450,cs:7050},
+      liftCap_4p5m_1p5m:{cf:16650,cs:10100,cfLimited:true},
+      liftCap_3m_1p5m:{cf:17650,cs:15750,cfLimited:true},
+      liftCap_9m_0m:{cf:7300,cs:3950},
+      liftCap_7p5m_0m:{cf:8950,cs:4950},
+      liftCap_6m_0m:{cf:12100,cs:6750},
+      liftCap_4p5m_0m:{cf:17300,cs:9650,cfLimited:true},
+      liftCap_3m_0m:{cf:17800,cs:15200,cfLimited:true},
+      liftCap_9m_n1p5m:{cf:7800,cs:4250},
+      liftCap_7p5m_n1p5m:{cf:8850,cs:4850},
+      liftCap_6m_n1p5m:{cf:11900,cs:6600},
+      liftCap_4p5m_n1p5m:{cf:17100,cs:9450,cfLimited:true},
+      liftCap_3m_n1p5m:{cf:22950,cs:15200,cfLimited:true},
+      liftCap_9m_n3m:{cf:8900,cs:4900},
+      liftCap_7p5m_n3m:{cf:8850,cs:4900},
+      liftCap_6m_n3m:{cf:11900,cs:6550},
+      liftCap_4p5m_n3m:{cf:16000,cs:9450,cfLimited:true},
+      liftCap_3m_n3m:{cf:20950,cs:15400,cfLimited:true},
+      liftCap_max_n3m:{cf:21700,cs:21700,cfLimited:true,csLimited:true},
+      liftCap_9m_n4p5m:{cf:9100,cs:6200,cfLimited:true},
+      liftCap_7p5m_n4p5m:{cf:10350,cs:6750,cfLimited:true},
+      liftCap_6m_n4p5m:{cf:13750,cs:9650,cfLimited:true},
+      liftCap_4p5m_n4p5m:{cf:17700,cs:15750,cfLimited:true},
+      liftCap_3m_n4p5m:{cf:22350,cs:22350,cfLimited:true,csLimited:true},
+      liftCap_9m_n6m:{cf:8050,cs:8050,cfLimited:true,csLimited:true},
+      liftCap_7p5m_n6m:{cf:9450,cs:9450,cfLimited:true,csLimited:true},
+      liftCap_6m_n6m:{cf:12600,cs:12600,cfLimited:true,csLimited:true},
+      tailSwingRadiusMm:3645,
+      overallLengthMm:12040,
+      transportLengthMm:6725,
+      overallWidthMm:3430, overallHeightToTopCabMm:3285, heightToTopBoomMm:3660,
+      groundClearanceMm:550, counterweightClearanceMm:1320,
+      trackGaugeMm:2740,
+      trackLengthMm:5385,
+      trackLengthOnGroundMm:4350,
+      crawlerWidthMm:3340,
+      shoeWidthMm:600,
+      grouserHeightMm:37,
+      distanceSwingCentreToRearMm:3605,
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:49,
+      carrierRollersPerSide:2,
+      trackRollersPerSide:8,
+      fuelTankL:650, hydraulicTankL:248, coolantL:36.0,
+      engineOilL:37.0, finalDriveEachL:10.5, swingDriveL:20.0,
+      bucketCapM3:2.10,
+      komtrax:false,
+      brochureRef:'Komatsu PC450-8/PC450LC-8 Brochure CEN00226-06 (August 2015)',
+      tags:['large','civil','quarry','bulk excavation','mining','44t class','tier3','heavy duty'],
+      note:'Komatsu PC450LC-8 — 44.4–44.8t heavy excavator, long-crawler (LC) undercarriage. Same engine and hydraulics as PC450-8 but longer track on ground (4,350mm vs 4,020mm), 49 shoes per side (vs 46), and lower ground pressure (0.78 vs 0.82 kg/cm²). Komatsu SAA6D125E-5, 6-cyl 125×150mm, 11.04L, 270kW/362hp gross, 257kW/345hp net @ 1,900rpm, EPA Tier 3/EU Stage 3A. ISO forces with Power Max: bucket 278kN/28,300kg, arm 233kN/23,800kg. Dig depth 7.79m, reach 12.01m, cut height 10.93m, dump height 7.63m. Max drawbar pull 330kN. Swing 9.1 rpm. HydrauMind CLSS, 690L/min. 4 working modes. Quarry spec features: quarry cab, quarry bucket (1.90/2.10m³ with side reinforcement plates, O-ring seal), double-flange track rollers (8 per side), full roller guards. Super Earth Mover (SE) variant available for large-scale quarry loading. Source: Komatsu PC450-8/PC450LC-8 Brochure CEN00226-06 (August 2015).',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC490LC-11 — FULLY BROCHURE-SPECIFIED ──────────────────────────────────
+    // Source: Komatsu PC490LC-11 ANZ Brochure ZESS004400_DECEMBER2018 (Australia & New Zealand)
+    { id:'kom-pc490lc11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC490LC-11 Hydraulic Excavator', shortName:'Komatsu PC490LC-11',
+      weightClass:'large',
+      // Engine
+      engineModel:'Komatsu SAA6D125E-7', engineCylinders:6, engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04,
+      engineAspiration:'Variable geometry turbocharged, aftercooled, cooled EGR',
+      engineGrossKW:270, engineGrossHP:362,
+      engineNetKW:268, engineNetHP:359,
+      engineRatedRPM:1900,
+      engineGovernor:'All-speed control, electronic',
+      engineFanDrive:'Hydraulic (variable speed, temperature-controlled, reversible)',
+      emissionStandard:'EPA Tier 4 Final',
+      // Operating weight — by shoe width
+      operatingWeightKg:48690, operatingWeightMinKg:47890, operatingWeightMaxKg:49680, operatingWeightT:48.7,
+      groundPressureKgCm2:0.86,
+      opWeight700mmKg:49190, groundPressure700mmKgCm2:0.65,
+      opWeight800mmKg:49680, groundPressure800mmKgCm2:0.58,
+      counterweightKg:9570,
+      // Component weights
+      arm3400AssyKg:2141,
+      boom7000AssyKg:4017,
+      boomCylindersKg:366,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.2, maxTravelSpeedLowKmh:3.0,
+      maxDrawbarPullKN:329, maxDrawbarPullKgf:33510,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc',
+      // Swing system
+      swingDriveMethod:'Hydraulic motor',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingHoldingBrake:'Mechanical disc brake',
+      swingSpeedRpm:9.1,
+      swingTorqueKgm:13414,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence), closed-centre system with load sensing valve and pressure compensated valves, 6 selectable working modes',
+      hydraulicPumpType:'Variable displacement axial piston type',
+      hydraulicPumpCircuits:'Boom, arm, bucket, swing, and travel circuits',
+      workingModes:6,
+      pumpFlowLpm:780,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3,
+      reliefPressureSwingMPa:27.9,
+      reliefPressurePilotMPa:3.2,
+      // Hydraulic cylinder dimensions (bore x stroke x rod)
+      boomCylCount:2, boomCylBoreMm:160, boomCylStrokeMm:1570, boomCylRodMm:110,
+      armCylCount:1, armCylBoreMm:185, armCylStrokeMm:1820, armCylRodMm:120,
+      bucketCylCount:1, bucketCylBoreMm:160, bucketCylStrokeMm:1270, bucketCylRodMm:110,
+      // Digging forces — ISO (with Power Max), 3400mm arm
+      bucketDigForceKN:275, bucketDigForceKgf:28000,
+      stickDigForceKN:214, stickDigForceKgf:21800,
+      // Without Power Max (standard P mode)
+      bucketDigForceBaseKN:256, bucketDigForceBaseKgf:26100,
+      stickDigForceBaseKN:200, stickDigForceBaseKgf:20400,
+      // SAE rating (with Power Max)
+      bucketDigForceSAEKN:239, bucketDigForceSAEKgf:24400,
+      stickDigForceSAEKN:205, stickDigForceSAEKgf:20900,
+      oneTouchPowerMax:true, powerMaxDurationSec:8.5,
+      productivityIncreasePct:13, // vs PC450LC-8 in standard P Mode (90° swing, loading truck)
+      // Working range — 3400mm arm, 7000mm boom
+      stdArmLengthMm:3400,
+      digDepthMm:7755, digDepthM:7.76,
+      digDepth8ftLevelMm:7615,
+      maxReachGroundMm:11810, maxReachMm:12030,
+      maxCuttingHeightMm:10980, maxLoadingHeightMm:7630,
+      verticalWallMm:6805,
+      minSwingRadiusMm:4735,
+      // Lift capacities — Lifting mode, 7000mm boom, 3400mm arm, 600mm shoes, 1914kg bucket
+      liftCap_max_7p5m:{cf:6350,cs:6350,cfLimited:true,csLimited:true},
+      liftCap_9m_6m:{cf:9700,cs:9700,cfLimited:true,csLimited:true},
+      liftCap_7p5m_6m:{cf:8950,cs:7000,cfLimited:true},
+      liftCap_max_6m:{cf:6400,cs:6000,cfLimited:true},
+      liftCap_6m_4p5m:{cf:12590,cs:12590,cfLimited:true,csLimited:true},
+      liftCap_7p5m_4p5m:{cf:10700,cs:9400,cfLimited:true},
+      liftCap_9m_4p5m:{cf:9350,cs:6800,cfLimited:true},
+      liftCap_max_4p5m:{cf:6600,cs:5400,cfLimited:true},
+      liftCap_4p5m_3m:{cf:21250,cs:20000,cfLimited:true},
+      liftCap_6m_3m:{cf:15200,cs:12750,cfLimited:true},
+      liftCap_7p5m_3m:{cf:11900,cs:8950,cfLimited:true},
+      liftCap_9m_3m:{cf:9950,cs:6550,cfLimited:true},
+      liftCap_max_3m:{cf:7050,cs:5050,cfLimited:true},
+      liftCap_4p5m_1p5m:{cf:16000,cs:16000,cfLimited:true,csLimited:true},
+      liftCap_6m_1p5m:{cf:16850,cs:12100,cfLimited:true},
+      liftCap_7p5m_1p5m:{cf:12900,cs:8550,cfLimited:true},
+      liftCap_9m_1p5m:{cf:10500,cs:6350,cfLimited:true},
+      liftCap_max_1p5m:{cf:7750,cs:4950,cfLimited:true},
+      liftCap_4p5m_0m:{cf:16450,cs:16450,cfLimited:true,csLimited:true},
+      liftCap_6m_0m:{cf:17500,cs:11650,cfLimited:true},
+      liftCap_7p5m_0m:{cf:13400,cs:8250,cfLimited:true},
+      liftCap_9m_0m:{cf:10550,cs:6150},
+      liftCap_max_0m:{cf:8700,cs:5050},
+      liftCap_3m_n1p5m:{cf:9950,cs:9950,cfLimited:true,csLimited:true},
+      liftCap_4p5m_n1p5m:{cf:22300,cs:18250,cfLimited:true},
+      liftCap_6m_n1p5m:{cf:17250,cs:11450,cfLimited:true},
+      liftCap_7p5m_n1p5m:{cf:13300,cs:8100,cfLimited:true},
+      liftCap_9m_n1p5m:{cf:10450,cs:6050},
+      liftCap_max_n1p5m:{cf:9350,cs:5400},
+      liftCap_3m_n3m:{cf:20250,cs:20250,cfLimited:true,csLimited:true},
+      liftCap_4p5m_n3m:{cf:21050,cs:18450,cfLimited:true},
+      liftCap_6m_n3m:{cf:16150,cs:11500,cfLimited:true},
+      liftCap_7p5m_n3m:{cf:12450,cs:8100,cfLimited:true},
+      liftCap_9m_n3m:{cf:9450,cs:6100,cfLimited:true},
+      liftCap_max_n3m:{cf:9450,cs:6150,cfLimited:true},
+      liftCap_4p5m_n4p5m:{cf:22450,cs:22450,cfLimited:true,csLimited:true},
+      liftCap_6m_n4p5m:{cf:17750,cs:17750,cfLimited:true,csLimited:true},
+      liftCap_7p5m_n4p5m:{cf:13800,cs:11700,cfLimited:true},
+      liftCap_9m_n4p5m:{cf:10350,cs:8250,cfLimited:true},
+      liftCap_max_n4p5m:{cf:9250,cs:7700,cfLimited:true},
+      liftCap_6m_n6m:{cf:12500,cs:12500,cfLimited:true,csLimited:true},
+      liftCap_7p5m_n6m:{cf:9300,cs:9300,cfLimited:true,csLimited:true},
+      liftCap_9m_n6m:{cf:8150,cs:8150,cfLimited:true,csLimited:true},
+      // Body dimensions — 3400mm arm, 600mm shoes
+      tailSwingRadiusMm:3645,
+      overallLengthMm:11930,
+      transportLengthMm:6705,
+      overallWidthMm:3565, overallHeightToTopCabMm:3360, heightToTopBoomMm:3635,
+      heightToTopHandrailMm:3450,
+      groundClearanceMm:568, counterweightClearanceMm:1385,
+      heightToTopEngineCovertMm:3630,
+      machineUpperWidthMm:3360,
+      distanceSwingCentreToRearMm:3605,
+      trackGaugeMm:2740,
+      trackLengthMm:5385,
+      trackLengthOnGroundMm:4350,
+      crawlerWidthMm:3340,
+      shoeWidthMm:600,
+      grouserHeightMm:37,
+      // Undercarriage — reinforced for high lift capacity and lateral stability
+      undercarriageCentreFrame:'X-frame (reinforced)',
+      undercarriageTrackFrame:'Box-section (HD)',
+      undercarriageTrackSeal:'Sealed',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:49,
+      carrierRollersPerSide:2,
+      trackRollersPerSide:8,
+      fullLengthTrackRollerGuards:true,
+      // Coolant & lubricant capacities
+      fuelTankL:650, defTankL:39, hydraulicTankL:248, coolantL:47.0,
+      engineOilL:38.0, finalDriveEachL:11.0, swingDriveL:20.0,
+      bucketCapM3:2.50,
+      komtrax:true,
+      brochureRef:'Komatsu PC490LC-11 ANZ Brochure ZESS004400_DECEMBER2018',
+      tags:['large','civil','quarry','bulk excavation','mining','infrastructure','49t class','tier4final','kdpf','scr'],
+      note:'Komatsu PC490LC-11 — 47.9–49.7t large hydraulic excavator (ANZ KALSS spec). Komatsu SAA6D125E-7, 6-cyl 125×150mm, 11.04L, 270kW/362hp gross, 268kW/359hp net @ 1,900rpm, EPA Tier 4 Final. KDPF + SCR aftertreatment — PM and NOx reduced 90% vs Tier 3. Hydraulic variable speed reversible cooling fan reduces parasitic load and simplifies cooler maintenance. Up to 13% productivity increase vs PC450LC-8 in standard P Mode (90° swing, truck loading). ISO forces with Power Max (3400mm arm): bucket 275kN/28,000kg, arm 214kN/21,800kg — 7% boost from Power Max. SAE: bucket 239kN/24,400kg, arm 205kN/20,900kg. Dig depth 7.76m, reach 12.03m, cut height 10.98m, dump height 7.63m, vertical wall 6.81m. Max drawbar pull 329kN/33,510kg. Swing 9.1 rpm, torque 13,414kg·m. 6 working modes (P/E/L/B/ATT/P/ATT/E). Enhanced P Mode with increased hydraulic flow. HydrauMind CLSS, 780L/min — largest pump in this class. Two-mode boom (smooth/power). Implement relief 37.3 MPa. Reinforced undercarriage: large counterweight (9,570kg), high-capacity swing bearing, reinforced track links, large final drives, HD sprockets, reinforced centre frame, HD carrier rollers and idlers, reinforced crawler frames, track roller guards, deck guard, centre frame swivel guard. Boom 7,000mm, arm 3,400mm, bucket 2.5m³ standard. KALSS ANZ spec: KGA dual lock quick hitch, hammer piping with tilt provision, overload alarm, level indicator, anti-burst valves, bump rails, full-length track roller guards, heavy-duty revolving frame under covers, rotating amber beacon, proportional hand controls, additional lighting, bolt-on OPG Level 2 top guard, battery isolation, e-stops, lower front window guard, rock guard. Komvision 360° system available. Maintenance: engine oil/filter 500h, hydraulic oil 5000h, filter 1000h. DEF tank 39L. KOMTRAX Level 5.0. Source: Komatsu PC490LC-11 ANZ Brochure ZESS004400_DECEMBER2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC18MR-3 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC18MR-3 Brochure ZESB099947_NOV2020 (Australia)
+    { id:'kom-pc18mr3', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC18MR-3 Mini Excavator', shortName:'Komatsu PC18MR',
+      weightClass:'mini',
+      engineModel:'Komatsu 3D67E-2',
+      engineNetKW:11.2, engineRatedRPM:2600,
+      engineDisplacementL:0.778,
+      emissionStandard:'Low emission Komatsu engine',
+      operatingWeightKg:1855, operatingWeightT:1.855,
+      groundPressureKgCm2:0.32,
+      maxTravelSpeedHighKmh:4.3, maxTravelSpeedLowKmh:2.3,
+      swingSpeedRpm:8.9,
+      bucketDigForceISO_kg:1620, bucketDigForceKN:15.9,
+      stickDigForceISO_kg:1010, stickDigForceKN:9.9,
+      maxDrawbarPullKg:1700,
+      gradeabilityDeg:30,
+      digDepthMm:2410, digDepthM:2.41,
+      maxReachGroundMm:4190, maxReachMm:4270,
+      maxCuttingHeightMm:3820, maxLoadingHeightMm:2815,
+      verticalWallMm:2000,
+      stdArmLengthMm:1215,
+      tailSwingRadiusMm:715,
+      overallLengthMm:3650, overallHeightMm:2410,
+      undercarriageWidthMinMm:980, undercarriageWidthMaxMm:1300,
+      trackGaugeMinMm:750, trackGaugeMaxMm:1070,
+      crawlerLengthMm:1555, shoeWidthMm:230,
+      fuelTankL:19, hydraulicTankL:15.2,
+      boomSwingLeftDeg:70, boomSwingRightDeg:50,
+      expandableUndercarriage:true,
+      bucketCapM3:null,
+      brochureRef:'ZESB099947_NOV2020',
+      tags:['micro','tight access','backyard','indoor','residential','very small'],
+      note:'Komatsu PC18MR-3 — 1.855t micro excavator. 11.2kW Komatsu 3D67E-2 engine. Expandable undercarriage: 980mm retracted (tight gate access) to 1,300mm expanded. Tail swing only 80mm over tracks — extremely tight tail swing for confined spaces. Dig depth 2.41m, reach 4.19m, cutting height 3.82m. Bucket force 15.9kN, arm force 9.9kN (ISO). Two-post ROPS canopy. Tilt-forward operator station for full engine/hydraulic access. Auxiliary hydraulics standard. ISO/SAE pattern change valve standard. Source: Komatsu Brochure ZESB099947_NOV2020.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU PC25MR-5 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu PC25MR-5 Brochure (Australia & New Zealand Specifications, ©2024)
+    { id:'kom-pc25mr5', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC25MR-5 Mini Excavator', shortName:'Komatsu PC25MR',
+      weightClass:'mini',
+      engineModel:'Komatsu 3D76E-6',
+      engineGrossKW:15.8, engineGrossHP:21.2,
+      engineNetKW:15.4, engineNetHP:20.7,
+      engineRatedRPM:2500,
+      engineDisplacementL:1.115, engineBoreMm:76, engineStrokeMm:82,
+      emissionStandard:'EPA Tier 4 Final',
+      operatingWeightKg:2750, operatingWeightT:2.75,
+      groundPressureKgCm2:0.28,
+      maxTravelSpeedHighKmh:4.0, maxTravelSpeedLowKmh:2.4,
+      swingSpeedRpm:8.9,
+      // Bucket/arm digging forces not stated in brochure spec table
+      bucketDigForceKN:null, stickDigForceKN:null,
+      maxDrawbarPullKN:26.0,
+      digDepthMm:2720, digDepthM:2.72,
+      maxReachGroundMm:4530, maxReachMm:4660,
+      maxCuttingHeightMm:4340, maxLoadingHeightMm:3090,
+      verticalWallMm:1760,
+      stdArmLengthMm:1370,
+      minSwingRadiusMm:2075,
+      tailSwingRadiusMm:850,
+      overallLengthMm:4045, overallWidthMm:1500, overallHeightMm:2520,
+      trackGaugeMm:1200, crawlerLengthMm:1945, shoeWidthMm:300,
+      fuelTankL:28, hydraulicTankL:21,
+      boomSwingLeftDeg:75, boomSwingRightDeg:50,
+      workingPressureKPa:24500,
+      bucketCapM3:0.085,
+      brochureRef:'Komatsu PC25MR-5 ANZ Brochure (2024)',
+      tags:['mini','residential','backyard','trench','tight access'],
+      note:'Komatsu PC25MR-5 — 2.75t mini excavator (ANZ spec). Komatsu 3D76E-6 engine, 15.8kW/21.2hp gross, 15.4kW/20.7hp net (EPA Tier 4 Final). Dig depth 2.72m, reach 4.53m (ground), cutting height 4.34m, loading height 3.09m. Relocated swing cylinder improves workability. Automatic two-speed travel. Komatsu CLSS hydraulics. ROPS/OPG compliant canopy and cab options. Komtrax telematics standard. Bucket/arm digging forces not stated in brochure — confirm with Komatsu dealer. Source: Komatsu PC25MR-5 ANZ Brochure (2024).',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU HB215LC-3 HYBRID — FULLY BROCHURE-SPECIFIED ────────
+    // Source: Komatsu HB215LC-3 Brochure ZESS006700_February 2024 (Australia)
+    { id:'kom-hb215lc3', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu HB215LC-3 Hybrid Excavator', shortName:'Komatsu HB215LC-3',
+      weightClass:'standard',
+      hybridExcavator:true,
+      engineModel:'Komatsu SAA4D107E-3',
+      engineGrossKW:110, engineGrossHP:148,
+      engineNetKW:110, engineNetHP:148,
+      engineRatedRPM:2000,
+      engineDisplacementL:4.46, engineBoreMm:107, engineStrokeMm:124,
+      emissionStandard:'EPA Tier 4 Final',
+      operatingWeightKg:23486, operatingWeightMinKg:23471, operatingWeightMaxKg:23726, operatingWeightT:23.5,
+      groundPressureKgCm2:0.50,
+      counterweightKg:3580,
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.1, maxTravelSpeedLowKmh:3.2,
+      maxDrawbarPullKN:202,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      swingSpeedRpm:12.4,
+      swingTorqueKgm:7040,
+      workingPressureKPa:37300,
+      pumpFlowLpm:452,
+      // ISO forces (at max power with Power Max)
+      bucketDigForceKN:149, stickDigForceKN:108,
+      // Standard ISO forces (without Power Max)
+      bucketDigForceStdKN:149, stickDigForceStdKN:101,
+      stdArmLengthMm:2925,
+      digDepthMm:6620, digDepthM:6.62,
+      maxReachGroundMm:9700, maxReachMm:9875,
+      maxCuttingHeightMm:10000, maxLoadingHeightMm:7110,
+      verticalWallMm:5980,
+      minSwingRadiusMm:3040,
+      tailSwingRadiusMm:3020,
+      overallLengthMm:9705, overallWidthMm:3080, overallHeightMm:3045,
+      groundClearanceMm:440, counterweightClearanceMm:1085,
+      trackGaugeMm:2380, crawlerLengthMm:4450, shoeWidthMm:700,
+      fuelTankL:400, defTankL:23.1, hydraulicTankL:132,
+      bucketCapM3:1.20,
+      hybridFuelSavingPct:35,
+      brochureRef:'ZESS006700_February 2024',
+      tags:['standard','civil','bulk','hybrid','fuel saving','heavy commercial','23t class'],
+      note:'Komatsu HB215LC-3 Hybrid Excavator — 23.5t (23,471–23,726 kg). Komatsu SAA4D107E-3, 110kW/148hp @ 2,000rpm, EPA Tier 4 Final. Hybrid system: electric swing motor-generator recaptures swing braking energy into ultra-capacitor — reduces fuel consumption up to 35% vs PC210LC-11. Electrically driven swing provides higher swing power and speed. 48-month/10,000-hour hybrid powertrain warranty. Dig depth 6.62m, reach 9.70m (ground), cutting height 10.0m, loading height 7.11m. Bucket force 149kN ISO, arm force 108kN ISO (101kN/108kN standard/Power Max). Swing 12.4 rpm. 6 working modes (P/E/L/B/ATT-P/ATT-E). KomVision surround camera, Komtrax standard. Source: Komatsu Brochure ZESS006700_February 2024.',
+      hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU HB365LC-3 HYBRID — FULLY BROCHURE-SPECIFIED ────────
+    // Source: Komatsu HB365LC-3 Brochure ZESS006700_Aug2023 (Australia)
+    { id:'kom-hb365lc3', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu HB365LC-3 Hybrid Excavator', shortName:'Komatsu HB365LC-3',
+      weightClass:'large',
+      hybridExcavator:true,
+      engineModel:'Komatsu SAA6D114E-6',
+      engineGrossKW:202, engineGrossHP:271,
+      engineNetKW:201, engineNetHP:269,
+      engineRatedRPM:1950,
+      engineDisplacementL:8.85, engineBoreMm:114, engineStrokeMm:144.5,
+      emissionStandard:'EPA Tier 4 Final',
+      operatingWeightKg:37654, operatingWeightMinKg:37180, operatingWeightMaxKg:38780, operatingWeightT:37.7,
+      groundPressureKgCm2:0.62,
+      counterweightKg:6320,
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.5, maxTravelSpeedLowKmh:3.2,
+      maxDrawbarPullKN:290,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      swingSpeedRpm:9.5,
+      swingTorqueKgm:11386,
+      workingPressureKPa:38200,
+      pumpFlowLpm:535,
+      // ISO forces (standard / with Power Max)
+      bucketDigForceKN:228, stickDigForceKN:171,
+      bucketDigForceStdKN:212, stickDigForceStdKN:160,
+      stdArmLengthMm:3185,
+      digDepthMm:7380, digDepthM:7.38,
+      maxReachGroundMm:10920, maxReachMm:11100,
+      maxCuttingHeightMm:10210, maxLoadingHeightMm:7110,
+      verticalWallMm:6480,
+      minSwingRadiusMm:4310,
+      tailSwingRadiusMm:3445,
+      overallLengthMm:11145, overallWidthMm:3440, overallHeightMm:3165,
+      groundClearanceMm:498, counterweightClearanceMm:1185,
+      trackGaugeMm:2590, crawlerLengthMm:4955, shoeWidthMm:850,
+      fuelTankL:605, defTankL:39.2, hydraulicTankL:188,
+      bucketCapM3:1.96,
+      hybridFuelSavingPct:20,
+      brochureRef:'ZESS006700_Aug2023',
+      tags:['large','civil','mining','bulk','hybrid','fuel saving','infrastructure','37t class'],
+      note:'Komatsu HB365LC-3 Hybrid Excavator — 37.7t (37,180–38,780 kg). Komatsu SAA6D114E-6, 201kW/269hp @ 1,950rpm, EPA Tier 4 Final. Hybrid system reduces fuel consumption up to 20% vs PC360LC-11 and external noise by 4 dB(A). Electric swing motor-generator captures braking energy into ultra-capacitor. 48-month/10,000-hour hybrid powertrain warranty. Dig depth 7.38m, reach 10.92m (ground), cutting height 10.21m, loading height 7.11m. Bucket force 228kN ISO (212kN standard), arm force 171kN ISO (160kN standard), Power Max +7%. Swing 9.5 rpm. 6 working modes. Two boom mode settings (Power/Smooth). KomVision surround camera, Komtrax standard. Source: Komatsu Brochure ZESS006700_Aug2023.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC88MR-11 Brochure (Australia, ©2025)
+    { id:'kom-pc88mr11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC88MR-11 Short-Tail Excavator', shortName:'Komatsu PC88MR-11',
+      weightClass:'midi',
+      engineModel:'Komatsu SAA3D95E-1',
+      engineGrossKW:50.7, engineGrossHP:68.0,
+      engineNetKW:50.6, engineNetHP:67.8,
+      engineRatedRPM:1850,
+      engineDisplacementL:2.445,
+      emissionStandard:'EU Stage V',
+      operatingWeightKg:8500, operatingWeightMinKg:8500, operatingWeightMaxKg:9130, operatingWeightT:8.8,
+      groundPressureKgCm2:0.38,
+      maxTravelSpeedHighKmh:5.0, maxTravelSpeedLowKmh:2.7,
+      maxDrawbarPullKN:67.2,
+      swingSpeedRpm:10,
+      bucketDigForceKN:61.3, stickDigForceKN:41.5,
+      stdArmLengthMm:1650,
+      digDepthMm:4160, digDepthM:4.16,
+      maxReachGroundMm:6725, maxReachMm:6935,
+      maxCuttingHeightMm:6570, maxLoadingHeightMm:4515,
+      verticalWallMm:2900,
+      minSwingRadiusMm:2755,
+      tailSwingRadiusMm:1485,
+      overallLengthMm:6255, overallWidthMm:2320, overallHeightMm:2760,
+      groundClearanceMm:410,
+      trackGaugeMm:1870, shoeWidthMm:450,
+      fuelTankL:125,
+      bucketCapM3:0.28,
+      shortTailSwing:true,
+      protrusionOverTracksMm:325,
+      workingModes:6,
+      brochureRef:'Komatsu PC88MR-11 ANZ Brochure (2025)',
+      tags:['midi','short tail swing','confined spaces','urban','trenching','civil','8t class'],
+      note:'Komatsu PC88MR-11 — 8.5–9.1t short-tail excavator. Komatsu SAA3D95E-1, 50.7kW/68.0hp gross @ 1,850rpm, EU Stage V. Protrusion over tracks just 325mm — designed for confined urban and roadwork sites. Bucket force 61.3kN, arm force 41.5kN (ISO 6015, 1650mm arm). Dig depth 4.16m, reach 6.73m (ground), cutting height 6.57m. Swing speed 10 rpm. 6 working modes. Standard hammer line, Lehnhoff Powertilt available as factory fit. Rear- and side-view camera system, LED working lights standard. EU Stage V compliant. Komtrax 4G wireless monitoring. Source: Komatsu PC88MR-11 ANZ Brochure (2025).',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC130-8 Brochure ZESS008000 (Australia & New Zealand Specifications)
+    { id:'kom-pc130-8', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC130-8 Hydraulic Excavator', shortName:'Komatsu PC130-8',
+      weightClass:'standard',
+      engineModel:'Komatsu SAA4D95LE-5',
+      engineGrossKW:72.1, engineGrossHP:96.6,
+      engineNetKW:68.4, engineNetHP:91.7,
+      engineRatedRPM:2200,
+      engineDisplacementL:3.26,
+      emissionStandard:'US EPA Tier 3 / EU Stage 3A',
+      operatingWeightKg:12380, operatingWeightMinKg:12380, operatingWeightMaxKg:12740, operatingWeightT:12.5,
+      groundPressureKgCm2:0.39,
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedLowKmh:2.9,
+      maxDrawbarPullKN:122.6,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      swingSpeedRpm:11.0,
+      bucketDigForceKN:93.4, stickDigForceKN:67.5,
+      stdArmLengthMm:2500,
+      digDepthMm:5520, digDepthM:5.52,
+      maxReachGroundMm:8170, maxReachMm:8290,
+      maxCuttingHeightMm:8650, maxLoadingHeightMm:6210,
+      verticalWallMm:4980,
+      minSwingRadiusMm:2450,
+      tailSwingRadiusMm:2190,
+      overallLengthMm:7590, overallWidthMm:2500, overallHeightMm:2855,
+      groundClearanceMm:400, counterweightClearanceMm:895,
+      trackGaugeMm:1990, shoeWidthMm:500,
+      fuelTankL:247,
+      hydraulicTankL:90,
+      bucketCapM3:0.50,
+      workingModes:5,
+      oneTouchPowerMax:true,
+      brochureRef:'Komatsu PC130-8 ANZ Brochure ZESS008000',
+      tags:['standard','civil','trenching','commercial','12t class','residential cut'],
+      note:'Komatsu PC130-8 — 12.4–12.7t standard hydraulic excavator (ANZ spec). Komatsu SAA4D95LE-5, 72.1kW/96.6hp gross, 68.4kW/91.7hp net @ 2,200rpm, EPA Tier 3/EU Stage 3A. Bucket force 93.4kN ISO, arm force 67.5kN ISO (with Power Max, 2500mm arm). Dig depth 5.52m, reach 8.17m (ground), cutting height 8.65m, loading height 6.21m. Max drawbar pull 122.6kN. Swing 11 rpm. 5 working modes (P/E/L/B/ATT). One-touch Power Max function (+9%). 247L fuel tank. Dual flow hammer piping, quick hitch piping, boom burst valves, overload alarm standard. ROPS (ISO 12117-2), KomVision (optional), KOMTRAX standard. Source: Komatsu PC130-8 ANZ Brochure ZESS008000.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC290LC-11 / PC290LCi-11 Brochure ZESS007900_August2021 (Australia & New Zealand)
+    { id:'kom-pc290lc11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC290LC-11 Hydraulic Excavator', shortName:'Komatsu PC290LC-11',
+      weightClass:'large',
+      // Engine
+      engineModel:'Komatsu SAA6D107E-3',
+      engineType:'Water-cooled, 4-cycle, direct injection',
+      engineAspiration:'Variable geometry turbocharged, aftercooled, cooled EGR',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineGrossKW:159, engineGrossHP:213,
+      engineNetKW:147, engineNetHP:196,
+      engineRatedRPM:2050,
+      engineDisplacementL:6.69,
+      engineGovernor:'All-speed control, electronic',
+      engineFanDrive:'Mechanical',
+      emissionStandard:'EPA Tier 4 Final',
+      // Operating weights — 600mm/700mm/800mm triple-grouser shoes
+      operatingWeightKg:30330, operatingWeightMinKg:29800, operatingWeightMaxKg:31210, operatingWeightT:30.3,
+      groundPressureKgCm2:0.58,
+      opWeight600mmKg:30330, groundPressure600mmKgCm2:0.58,
+      opWeight700mmKg:30730, groundPressure700mmKgCm2:0.50,
+      opWeight800mmKg:31130, groundPressure800mmKgCm2:0.45,
+      counterweightKg:5200,
+      // Travel & drives
+      steeringControl:'Two lever with pedals',
+      driveMethod:'Hydrostatic',
+      maxTravelSpeedHighKmh:5.5, maxTravelSpeedMidKmh:4.2, maxTravelSpeedLowKmh:3.2,
+      maxDrawbarPullKN:290, maxDrawbarPullKgf:29570,
+      gradeabilityPct:70, gradeabilityDeg:35,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Mechanical disc brake',
+      // Swing system
+      swingDriveMethod:'Hydrostatic',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingServiceBrake:'Hydraulic lock',
+      swingHoldingBrake:'Mechanical disc brake',
+      swingSpeedRpm:10.5,
+      swingTorqueKgm:8889,
+      // Hydraulics
+      hydraulicType:'HydrauMind (Hydraulic Mechanical Intelligence, closed-centre load-sensing system with pressure compensated valves)',
+      hydraulicPumpType:'Variable displacement axial piston type',
+      hydraulicPumpCircuits:'Boom, arm, bucket, swing, and travel circuits',
+      hydraulicControlCircuitSupply:'Self reducing valve',
+      workingModes:6,
+      pumpFlowLpm:535,
+      reliefPressureImplementMPa:37.3, reliefPressureImplementKgCm2:380,
+      reliefPressureTravelMPa:37.3,
+      reliefPressureSwingMPa:27.9,
+      reliefPressurePilotMPa:3.2,
+      // Hydraulic cylinder dimensions (bore x stroke x rod)
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:1480, boomCylRodMm:100,
+      armCylCount:1, armCylBoreMm:160, armCylStrokeMm:1825, armCylRodMm:110,
+      bucketCylCount:1, bucketCylBoreMm:140, bucketCylStrokeMm:1285, bucketCylRodMm:100,
+      // Digging forces — ISO (with Power Max), 3200mm arm
+      bucketDigForceKN:198, bucketDigForceKgf:20200,
+      stickDigForceKN:133, stickDigForceKgf:13600,
+      // SAE forces (with Power Max), 3200mm arm
+      bucketDigForceSAEKN:176, bucketDigForceSAEKgf:17900,
+      stickDigForceSAEKN:129, stickDigForceSAEKgf:13100,
+      // Working range — standard 3200mm arm
+      stdArmLengthMm:3200,
+      digDepthMm:6910, digDepthM:6.91,
+      digDepth8ftLevelMm:6750,
+      maxReachGroundMm:10450, maxReachMm:10710,
+      maxCuttingHeightMm:10300, maxLoadingHeightMm:7375,
+      verticalWallMm:5790,
+      minSwingRadiusMm:3680,
+      // Working range — 2500mm arm
+      arm2500OverallLengthMm:10317, arm2500TransportLengthMm:6628, arm2500HeightToTopBoomMm:3367,
+      arm2500DigDepthMm:6208, arm2500Depth8ftLevelMm:6008, arm2500MaxReachGroundMm:9763, arm2500MaxReachMm:9957,
+      arm2500MaxCutHeightMm:9840, arm2500MaxDumpHeightMm:6972, arm2500VertWallMm:4314,
+      arm2500MinSwingRadiusMm:3722,
+      arm2500BucketDigForceKN:198, arm2500BucketDigForceKgf:20200,
+      arm2500StickDigForceKN:170, arm2500StickDigForceKgf:17300,
+      arm2500BucketDigForceSAEKN:176, arm2500BucketDigForceSAEKgf:17900, arm2500StickDigForceSAEKN:165, arm2500StickDigForceSAEKgf:16800,
+      // Working range — 3500mm arm
+      arm3500OverallLengthMm:10275, arm3500TransportLengthMm:5495, arm3500HeightToTopBoomMm:3375,
+      arm3500DigDepthMm:7220, arm3500Depth8ftLevelMm:7070, arm3500MaxReachGroundMm:10715, arm3500MaxReachMm:10890,
+      arm3500MaxCutHeightMm:10355, arm3500MaxDumpHeightMm:7435, arm3500VertWallMm:5850,
+      arm3500MinSwingRadiusMm:3740,
+      arm3500BucketDigForceKN:198, arm3500BucketDigForceKgf:20200,
+      arm3500StickDigForceKN:125, arm3500StickDigForceKgf:12800,
+      arm3500BucketDigForceSAEKN:176, arm3500BucketDigForceSAEKgf:17900, arm3500StickDigForceSAEKN:121, arm3500StickDigForceSAEKgf:12400,
+      // Lift capacities — Lifting mode, 6150mm boom, 3200mm arm, 600mm triple-grouser shoes, 808kg bucket
+      // All values in kg. cfLimited/csLimited true = hydraulic limited (not tipping). Based on SAE J1097. Rated loads ≤87% hydraulic or 75% tipping.
+      // Key: liftCap_[reach]_[bucketHookHeight] where height: 6m/4p5m/3m/1p5m/0m/n1p5m/n3m/n4p5m (n=below GL), reach: 1p5m/3m/4p5m/6m/7p5m/max
+      liftCap_7p5m_6m:{cf:5600,cs:5300,cfLimited:true},
+      liftCap_max_6m:{cf:3400,cs:3400,cfLimited:true,csLimited:true},
+      liftCap_6m_4p5m:{cf:7150,cs:7150,cfLimited:true,csLimited:true},
+      liftCap_7p5m_4p5m:{cf:6350,cs:5150,cfLimited:true},
+      liftCap_max_4p5m:{cf:3450,cs:3450,cfLimited:true,csLimited:true},
+      liftCap_3m_3m:{cf:8850,cs:8850,cfLimited:true,csLimited:true},
+      liftCap_4p5m_3m:{cf:11100,cs:11100,cfLimited:true,csLimited:true},
+      liftCap_6m_3m:{cf:8400,cs:7100,cfLimited:true},
+      liftCap_7p5m_3m:{cf:7150,cs:4950,cfLimited:true},
+      liftCap_max_3m:{cf:3650,cs:3500,cfLimited:true},
+      liftCap_4p5m_1p5m:{cf:13800,cs:10400,cfLimited:true},
+      liftCap_6m_1p5m:{cf:9750,cs:6700,cfLimited:true},
+      liftCap_7p5m_1p5m:{cf:7550,cs:4750},
+      liftCap_max_1p5m:{cf:3950,cs:3350,cfLimited:true},
+      liftCap_3m_0m:{cf:8150,cs:8150,cfLimited:true,csLimited:true},
+      liftCap_4p5m_0m:{cf:15100,cs:9900,cfLimited:true},
+      liftCap_6m_0m:{cf:10500,cs:6400},
+      liftCap_7p5m_0m:{cf:7350,cs:4550},
+      liftCap_max_0m:{cf:4550,cs:3400,cfLimited:true},
+      liftCap_1p5m_n1p5m:{cf:8250,cs:8250,cfLimited:true,csLimited:true},
+      liftCap_3m_n1p5m:{cf:9750,cs:9750,cfLimited:true,csLimited:true},
+      liftCap_4p5m_n1p5m:{cf:15200,cs:9700,cfLimited:true},
+      liftCap_6m_n1p5m:{cf:10350,cs:6250},
+      liftCap_7p5m_n1p5m:{cf:7250,cs:4450},
+      liftCap_max_n1p5m:{cf:5550,cs:3700,cfLimited:true},
+      liftCap_1p5m_n3m:{cf:10700,cs:10700,cfLimited:true,csLimited:true},
+      liftCap_3m_n3m:{cf:16500,cs:16500,cfLimited:true,csLimited:true},
+      liftCap_4p5m_n3m:{cf:14550,cs:9750,cfLimited:true},
+      liftCap_6m_n3m:{cf:10300,cs:6200},
+      liftCap_7p5m_n3m:{cf:7250,cs:4450},
+      liftCap_max_n3m:{cf:6950,cs:4250},
+      liftCap_3m_n4p5m:{cf:17800,cs:17800,cfLimited:true,csLimited:true},
+      liftCap_4p5m_n4p5m:{cf:12800,cs:9950,cfLimited:true},
+      liftCap_6m_n4p5m:{cf:9450,cs:6350,cfLimited:true},
+      liftCap_max_n4p5m:{cf:8100,cs:5650,cfLimited:true},
+      // Body dimensions — 3200mm arm (with 600mm shoes)
+      tailSwingRadiusMm:3020,
+      overallLengthMm:10265,
+      transportLengthMm:5770,
+      overallWidthMm:3190, overallHeightMm:3180,
+      heightToTopBoomMm:3295,
+      heightToTopHandrailMm:3275,
+      groundClearanceMm:495, counterweightClearanceMm:1215,
+      heightToTopCounterweightMm:2380,
+      heightToTopEngineCovertMm:2895,
+      machineUpperWidthMm:2850,
+      distanceSwingCentreToRearMm:2985,
+      trackGaugeMm:2590,
+      trackLengthMm:4955,
+      trackLengthOnGroundMm:4030,
+      crawlerWidthMm:3190,
+      shoeWidthMm:600,
+      grouserHeightMm:36,
+      // Undercarriage
+      undercarriageCentreFrame:'X-frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed track',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:48,
+      carrierRollersPerSide:2,
+      trackRollersPerSide:8,
+      // Component weights
+      arm2500AssyKg:1410, arm3200AssyKg:1470, arm3500AssyKg:1550,
+      boom6150AssyKg:2448, boomCylindersKg:231,
+      // Coolant & lubricant capacities (refilling)
+      fuelTankL:400, defTankL:23.1, hydraulicTankL:132, hydraulicSystemTotalL:253,
+      coolantL:36, engineOilL:23.1, finalDriveEachL:8.0, swingDriveL:7.2,
+      bucketCapM3:1.39,
+      oneTouchPowerMax:true,
+      imcAvailable:true,
+      komVision:true,
+      brochureRef:'Komatsu PC290LC-11/PC290LCi-11 ANZ Brochure ZESS007900_Aug2021',
+      tags:['large','civil','bulk excavation','major civil','30t class','infrastructure','iMC'],
+      note:'Komatsu PC290LC-11 / PC290LCi-11 — 29.8–31.2t large hydraulic excavator (ANZ spec). Komatsu SAA6D107E-3, 6-cyl 107×124mm, 6.69L, 159kW/213hp gross, 147kW/196hp net @ 2,050rpm, EPA Tier 4 Final. PC300-class undercarriage, 5,200kg counterweight. ISO forces (Power Max, 3200mm arm): bucket 198kN/20,200kg, arm 133kN/13,600kg. SAE forces: bucket 176kN/17,900kg, arm 129kN/13,100kg. Dig depth 6.91m (3200mm arm), reach 10.45m (ground), cutting height 10.30m, loading height 7.38m. Max drawbar pull 290kN. Swing 10.5 rpm, torque 8,889kg·m. Implement relief 37.3 MPa. HydrauMind CLSS, 535L/min pump, 6 working modes. 9% fuel reduction vs PC270LC-8. KDPF/SCR aftertreatment. KomVision 4-camera surround view standard. iMC 2.0 Intelligent Machine Control on LCi-11 variant. Komtrax standard. KALSS Australian spec: quick hitch, hammer piping, overload alarm, level indicator, bump rails, rock guard. Source: Komatsu PC290LC-11/PC290LCi-11 ANZ Brochure ZESS007900_Aug2021.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu PC700LC-11 Brochure ZESS008200_May2023 (Australia & New Zealand)
+    { id:'kom-pc700lc11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC700LC-11 Hydraulic Excavator', shortName:'Komatsu PC700LC-11',
+      weightClass:'mining',
+      engineModel:'Komatsu SAA6D140E-7',
+      engineGrossKW:327, engineGrossHP:439,
+      engineNetKW:325, engineNetHP:436,
+      engineRatedRPM:1800,
+      engineDisplacementL:15.24,
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      operatingWeightKg:67500, operatingWeightMinKg:66110, operatingWeightMaxKg:69540, operatingWeightT:67.5,
+      groundPressureKgCm2:1.11,
+      maxDrawbarPullKN:465, // 47,400 kgf per spec
+      gradeabilityPct:70, gradeabilityDeg:35,
+      swingSpeedRpm:8.3,
+      swingTorqueKNm:174.3,
+      pumpFlowLpm:820, // 2 x 410 L/min
+      bucketDigForceKN:362, // at PowerMax, 6.6m boom / 2.9m arm (36,900 kgf)
+      stickDigForceKN:293,  // at PowerMax, 29,900 kgf
+      stdArmLengthMm:2900,
+      digDepthMm:6910, digDepthM:6.91,
+      maxReachGroundMm:11295, maxReachMm:11585,
+      maxCuttingHeightMm:11205, maxLoadingHeightMm:7360,
+      verticalWallMm:5270,
+      minSwingRadiusMm:4670,
+      tailSwingRadiusMm:3950,
+      overallLengthMm:12040, overallHeightMm:3475,
+      groundClearanceMm:830, counterweightClearanceMm:1550,
+      trackGaugeMm:3300, shoeWidthMm:610,
+      fuelTankL:880, adBlueTankL:62.2, hydraulicTankL:360,
+      bucketCapM3:4.4,
+      oneTouchPowerMax:true,
+      komVision:true,
+      brochureRef:'Komatsu PC700LC-11 ANZ Brochure ZESS008200_May2023',
+      tags:['mining','large civil','quarry','bulk earthworks','66t class','infrastructure'],
+      note:'Komatsu PC700LC-11 — 66.1–69.5t large hydraulic excavator (ANZ spec). Komatsu SAA6D140E-7, 327kW/439hp gross, 325kW/436hp net @ 1,800rpm, EU Stage V / EPA Tier 4 Final. Hydraulic reversible cooling fan. Bucket force 362kN at PowerMax (31,800kg standard), arm force 293kN at PowerMax (28,500kg standard) with 6.6m boom / 2.9m arm (ISO). Dig depth 6.91m, reach 11.30m (ground), cutting height 11.21m, loading height 7.36m. Max drawbar pull 47,400kg. Swing 0–8.3 rpm, torque 174.3kNm. 6% fuel reduction vs prior model. Twin swing motor system with swing priority mode. Two-mode boom control (smooth/power). Fine operation mode (+17% boom lifting force). KomVision surround view, SpaceCab, Komtrax Iridium satellite standard. Note: travel speed not confirmed in brochure — confirm with rental company. Source: Komatsu PC700LC-11 ANZ Brochure ZESS008200_May2023.',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC950-11 / PC950LC-11 Brochure (©2024 Komatsu Australia)
+    { id:'kom-pc950-11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC950-11 Hydraulic Excavator', shortName:'Komatsu PC950-11',
+      weightClass:'mining',
+      // Engine
+      engineModel:'Komatsu SAA6D140E-7',
+      engineCylinders:6,
+      engineBoreMm:140, engineStrokeMm:165,
+      engineGrossKW:405, engineGrossHP:543,
+      engineNetKW:401, engineNetHP:538,
+      engineRatedRPM:1800,
+      engineDisplacementL:15.24,
+      emissionStandard:'EPA Tier 4 Final / EU Stage 5',
+      // Operating weights — PC950-11 (short track) with 650/750/900mm shoes
+      operatingWeightKg:96400, operatingWeightMinKg:94600, operatingWeightMaxKg:99800, operatingWeightT:96.4,
+      groundPressureKgCm2:1.06,
+      // PC950-11 shoe variants
+      pc950_650mmKg:94600, pc950_650mmKPa:141,
+      pc950_750mmKg:95300, pc950_750mmKPa:123,
+      pc950_900mmKg:96400, pc950_900mmKPa:104,
+      // PC950LC-11 shoe variants (long track)
+      pc950lc_650mmKg:96500, pc950lc_650mmKPa:130,
+      pc950lc_750mmKg:97300, pc950lc_750mmKPa:114,
+      pc950lc_900mmKg:98500, pc950lc_900mmKPa:96,
+      // PC950-11 SE spec shoe variants
+      pc950se_650mmKg:95900, pc950se_750mmKg:96600, pc950se_900mmKg:97700,
+      pc950lcse_650mmKg:97800, pc950lcse_750mmKg:98600, pc950lcse_900mmKg:99800,
+      // Travel & drives
+      steeringControl:'Two levers with pedals',
+      driveMethod:'Fully hydrostatic',
+      travelMotorType:'Axial piston motor, in-shoe design',
+      travelReductionSystem:'Planetary gear triple reduction',
+      maxTravelSpeedHighKmh:4.0, maxTravelSpeedLowKmh:2.7,
+      maxDrawbarPullKN:670, maxDrawbarPullKgf:68300,
+      gradeabilityPct:70,
+      serviceBrakeTravel:'Hydraulic lock',
+      parkingBrake:'Oil disc brake',
+      // Swing system
+      swingDriveMethod:'Hydraulic motors',
+      swingMotors:'2 x axial piston motor with swing holding brake',
+      swingReduction:'Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingLock:'Oil disc brake',
+      swingSpeedRpm:6.8,
+      // Hydraulics
+      hydraulicType:'Open-centre load-sensing system',
+      hydraulicPumpType:'Variable-capacity piston pumps',
+      hydraulicPumpCircuits:'Boom, arm, bucket, and travel circuits',
+      hydraulicFanDrivePump:'Variable capacity piston type',
+      hydraulicTravelMotors:'2 x axial piston motor with parking brake',
+      workingModes:3,
+      pumpFlowLpm:1206,
+      reliefPressureImplementMPa:34.3, reliefPressureImplementKgCm2:350,
+      reliefPressureTravelMPa:34.3,
+      reliefPressureSwingMPa:27.0, reliefPressureSwingKgCm2:275,
+      reliefPressurePilotMPa:2.9, reliefPressurePilotKgCm2:30,
+      // Hydraulic cylinder dimensions — STD spec (bore x stroke x rod)
+      boomCylCount:2, boomCylBoreMm:210, boomCylStrokeMm:2083, boomCylRodMm:150,
+      armCylCountSTD:2, armCylBoreSTDMm:170, armCylStrokeSTDMm:2142, armCylRodSTDMm:120,
+      armCylBoreHDMm:170, armCylStrokeHDMm:1936, armCylRodHDMm:120,
+      armCylBoreSEMm:185, armCylStrokeSEMm:1671, armCylRodSEMm:120,
+      bucketCylCountSTD:1, bucketCylBoreSTDMm:185, bucketCylStrokeSTDMm:1893, bucketCylRodSTDMm:130,
+      bucketCylBoreHDMm:185, bucketCylStrokeHDMm:1893, bucketCylRodHDMm:130,
+      bucketCylBoreSEMm:225, bucketCylStrokeSEMm:1658, bucketCylRodSEMm:160,
+      // Digging forces — HD spec (ISO 6015)
+      bucketDigForceKN:403, bucketDigForceKgf:41100,
+      stickDigForceKN:310, stickDigForceKgf:31600,
+      // Digging forces — SE spec (ISO 6015)
+      seSpecBucketDigForceKN:502, seSpecBucketDigForceKgf:51200,
+      seSpecStickDigForceKN:385, seSpecStickDigForceKgf:39300,
+      // Working range — HD spec (8.4m boom, 3.7m arm, 4.0m³ bucket)
+      stdArmLengthMm:3700,
+      boomLengthHDMm:8400, armLengthHDMm:3700, bucketCapHDM3:4.0,
+      digDepthMm:8995, digDepthM:9.0,
+      digDepth2440mmLevelMm:14195,
+      maxReachGroundMm:14485, maxReachMm:14485,
+      maxCuttingHeightMm:13445, maxLoadingHeightMm:9185,
+      verticalWallMm:6960,
+      minSwingRadiusMm:6105, minSwingRadiusHeightMm:11085,
+      // Working range — SE spec (7.1m boom, 2.9m arm, 6.0m³ bucket)
+      boomLengthSEMm:7100, armLengthSEMm:2945, bucketCapSEM3:6.0,
+      seDigDepthMm:7190,
+      seDigDepth2440mmLevelMm:12140,
+      seMaxReachGroundMm:12480, seMaxReachMm:12480,
+      seMaxCuttingHeightMm:11825, seMaxLoadingHeightMm:7615,
+      seVerticalWallMm:3530,
+      seMinSwingRadiusMm:5145, seMinSwingRadiusHeightMm:10475,
+      // Body dimensions — HD spec, 650mm shoes
+      tailSwingRadiusMm:4625,
+      overallLengthMm:14740,
+      overallWidthMm:4680, overallHeightMm:3820,
+      heightToTopBoomMm:5280,
+      groundClearanceMm:890,
+      heightToTopExhaustMm:4250,
+      // SE spec overall dimensions (650mm shoes)
+      seOverallLengthMm:13760, seHeightToTopBoomMm:5170,
+      // Common dimensions both specs
+      trackLengthMm_short:5940, trackLengthMm_long:6460, // variable gauge
+      trackLengthOnGroundMm_short:4600, trackLengthOnGroundMm_long:5120,
+      trackGaugeMm:3530, // max extended — range 3350–3530mm
+      shoeWidthMm:650,
+      variableTrackGauge:true, trackGaugeMinMm:3350, trackGaugeMaxMm:3530,
+      // Undercarriage
+      undercarriageCentreFrame:'H-leg frame',
+      undercarriageTrackFrame:'Box-section',
+      undercarriageTrackSeal:'Sealed',
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide_PC950:48, shoesPerSide_PC950LC:52,
+      carrierRollersPerSide:3,
+      trackRollersPerSide_PC950:8, trackRollersPerSide_PC950LC:9,
+      // Cross-section width measurements (from dimension diagram, page 20)
+      superstructureWidthMm:3475,
+      // Coolant & lubricant capacities (refilling)
+      fuelTankL:1045, defTankL:83.9, hydraulicTankL:540,
+      coolantL:92.5, engineOilL:53, finalDriveEachL:22, swingDriveL:48, // 24 x 2
+      bucketCapM3:4.0,
+      komVision:true,
+      hydraulicStairway:true,
+      brochureRef:'Komatsu PC950-11/PC950LC-11 Brochure (©2024 Komatsu Australia)',
+      tags:['mining','quarry','bulk earthworks','large','95t class','production machine'],
+      note:'Komatsu PC950-11 / PC950LC-11 — 94.6–99.8t mining/large hydraulic excavator. Komatsu SAA6D140E-7, 6-cyl 140×165mm, 15.24L, 405kW/543hp gross, 401kW/538hp net @ 1,800rpm, EPA Tier 4 Final / EU Stage 5. HD spec (8.4m boom, 3.7m arm, 4.0m³): bucket 403kN/41,100kgf, arm 310kN/31,600kgf (ISO 6015). SE spec (7.1m boom, 2.9m arm, 6.0m³): bucket 502kN/51,200kgf, arm 385kN/39,300kgf. HD dig depth 9.0m, reach 14.49m, cut height 13.45m, dump height 9.19m. Max drawbar pull 670kN/68,300kgf. Swing 6.8 rpm. 3 working modes (P+/P/E) — P+ mode gives 48% productivity gain, 40% fuel efficiency vs PC850-8E0. Implement relief 34.3 MPa. 1,206 L/min pump flow. Variable track gauge 3350–3530mm. Electronically controlled closed-loop swing circuit. KomVision 4-camera surround view standard. Hydraulically operated stairway standard (Oceania). KOMTRAX Plus standard. Source: Komatsu PC950-11/PC950LC-11 Brochure (©2024 Komatsu Australia).',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC2000-11 Brochure AESS933-01 (©2019 Komatsu America Corp.)
+    { id:'kom-pc2000-11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC2000-11 Mining Excavator', shortName:'Komatsu PC2000-11',
+      weightClass:'mining',
+      // Engine
+      engineModel:'Komatsu SAA12V140E-7',
+      engineType:'Water-cooled, 4-cycle, direct injection',
+      engineAspiration:'Turbocharged, aftercooled, cooled EGR',
+      engineCylinders:12,
+      engineBoreMm:140, engineStrokeMm:165,
+      engineDisplacementL:30.48, engineDisplacementIn3:1860,
+      engineGovernor:'All-speed, electronic',
+      engineGrossKW:794, engineGrossHP:1065,   // SAE J1995
+      engineNetKW:780, engineNetHP:1046,        // ISO 9249 / SAE J1349
+      engineRatedRPM:1800,
+      engineFanDrive:'Hydraulic',
+      emissionStandard:'EPA Tier 4 Final',
+      // Electrical system
+      electricSystemV:24,
+      batteries:'4 × 12 V / 140 Ah',
+      alternator:'24 V / 2 × 90 A',
+      startingMotors:'2 × 11 kW',
+      workingLights:'4 boom, 4 cab base, 3 fuel tank top front, 1 left front, 1 left under cab — LED',
+      // Hydraulic system
+      hydraulicType:'Open-center load sensing system, 3 selectable working modes',
+      hydraulicPumps:'4 variable displacement piston pumps (2 tandem pumps) for work equipment, travel and swing; 2 variable displacement piston pumps (1 tandem pump) for fan drive',
+      pumpFlowLpm:2317, pumpFlowGpm:612,       // max flow for attachment, swing and travel
+      fanDriveFlowLpm:324, fanDriveFlowGpm:85.6,
+      // Travel motors: 2 × axial piston motors with parking brake
+      // Swing motors: 2 × axial piston motors with swing holding brake
+      reliefValveBackhoeAttachMPa:29.4, reliefValveBackhoeKgcm2:300, reliefValveBackhoePsi:4270,
+      reliefValveTravelMPa:32.9, reliefValveTravelKgcm2:335, reliefValveTravelPsi:4760,
+      reliefValveSwingMPa:29.4, reliefValveSwingKgcm2:300, reliefValveSwingPsi:4270,
+      reliefValvePilotMPa:3.2, reliefValvePilotKgcm2:33, reliefValvePilotPsi:464,
+      // Hydraulic cylinders (number – bore × stroke)
+      boomCylCount:2, boomCylBoreMm:300, boomCylStrokeMm:2647,
+      armCylCount:2, armCylBoreMm:250, armCylStrokeMm:2134,
+      bucketCylCount:2, bucketCylBoreMm:200, bucketCylStrokeMm:2170,
+      // Drive system
+      travelGear:'Two levers with pedals',
+      gradeabilityPct:70, gradeabilityDeg:35,
+      maxTravelSpeedKmh:2.7, maxTravelSpeedMph:1.7,
+      parkingBrakes:'Oil disc brakes',
+      // Swing system
+      swingGear:'2 × Planetary gear',
+      swingCircleLubrication:'Grease-bathed',
+      swingHoldingBrakes:'Oil disc brakes',
+      swingSpeedRpm:4.8,
+      // Undercarriage
+      undercarriageTrackAdjuster:'Grease',
+      shoesPerSide:49,
+      topRollersPerSide:3,   // carrier rollers
+      bottomRollersPerSide:8, // track rollers
+      // Operating weights — Backhoe (8700mm boom / 3900mm arm / 12.0m³ heaped)
+      bh810mmDoubleGrouserKg:201930, bh810mmGroundPressureKgcm2:1.96,
+      bh1010mmTripleGrouserKg:206050, bh1010mmGroundPressureKgcm2:1.60,
+      operatingWeightKg:201930, operatingWeightMinKg:201930, operatingWeightMaxKg:207258, operatingWeightT:202,
+      // Coolant & lubricant capacities (service refill)
+      fuelTankL:3400, fuelTankGal:898.2,
+      coolantL:240, coolantGal:63.4,
+      engineOilL:128, engineOilGal:33.8,
+      travelGearOilLPerSide:85, travelGearOilGalPerSide:22.5,
+      swingDriveOilL:30, swingDriveCount:2,  // 2 × 30L / 2 × 7.9 gal
+      hydraulicTankL:1300, hydraulicTankGal:343.4,
+      ptoOilL:40, ptoOilGal:10.6,
+      greaseTankL:200, greaseTankGal:52.8,  // fully-auto greasing system
+      // Backhoe working range (8700mm boom / 3900mm arm)
+      bhBoomLengthMm:8700, bhStickLengthMm:3900,
+      bhMaxDigHeightMm:13410,      // A
+      bhMaxDumpHeightMm:8650,      // B
+      bhMaxDigDepthMm:9235,        // C
+      bhMaxVertWallDepthMm:2710,   // D
+      bhMaxDigDepth8ftLevelMm:9115,// E
+      bhMaxDigReachMm:15780,       // F
+      bhMaxDigReachGroundMm:15305, // G
+      bhMinSwingRadiusMm:7500,     // H SAE rating
+      // Digging forces — SAE J1179
+      bhBucketDigForceSAEKN:626, bhBucketDigForceSAEKg:63800, bhBucketDigForceSAELb:140655,
+      bhArmCrowdForceSAEKN:586, bhArmCrowdForceSAEKg:59700, bhArmCrowdForceSAELb:131616,
+      // Digging forces — ISO 6015
+      bhBucketDigForceISOKN:697, bhBucketDigForceISOKg:71100, bhBucketDigForceISOLb:156749,
+      bhArmCrowdForceISOKN:598, bhArmCrowdForceISOKg:61000, bhArmCrowdForceISOLb:134482,
+      // Backhoe bucket options (from reference chart)
+      buckets:[
+        { name:'General Purpose', capM3:13.7, capYd3:17.9, payloadT:22.3, payloadTons:24.6, weightKg:12134, weightLb:26750, densityTm3:1.63, densityLbYd3:2750, widthMm:2720, widthIn:107 },
+        { name:'Standard Rock',   capM3:12.0, capYd3:15.7, payloadT:21.4, payloadTons:23.6, weightKg:13063, weightLb:28800, densityTm3:1.78, densityLbYd3:3000, widthMm:2600, widthIn:102 },
+        { name:'Heavy Rock',      capM3:11.4, capYd3:14.9, payloadT:22.0, payloadTons:24.3, weightKg:12474, weightLb:27500, densityTm3:1.93, densityLbYd3:3250, widthMm:2600, widthIn:102 },
+        { name:'Iron Ore',        capM3:9.1,  capYd3:12.0, payloadT:23.6, payloadTons:26.0, weightKg:10886, weightLb:24000, densityTm3:2.58, densityLbYd3:4350, widthMm:2600, widthIn:102 },
+      ],
+      bucketCapM3:12, // standard rock / default
+      // Machine dimensions (8.7m boom / 3.9m arm)
+      dimA_overallLengthMm:17030,
+      dimB_overallHeightToBoomTopMm:7135,
+      dimC_overallWidthWalkwayMm:7685,
+      dimD_upperWidthNoWalkwayMm:6240,
+      dimE_widthRWalkwayMm:310,
+      dimF_overallHeightToCabMm:7625,
+      dimG_groundClearanceCounterweightMm:2095,
+      dimH_groundClearanceMinMm:825,
+      dimI_tailSwingRadiusMm:5980,
+      dimJ_trackLengthOnGroundMm:5780,
+      dimK_trackLengthMm:7445,
+      dimL_trackGaugeMm:4600,
+      dimM_widthOverCrawlerMm:5410,
+      dimN_heightToExhaustStackMm:6825,
+      dimO_heightToRearWalkwayMm:4635,
+      dimP_heightToEngineHoodMm:5855,
+      dimQ_undercarriageWidthMm:5650,
+      // Major component transport weights
+      transportBoomKg:21500, transportBoomMm:'9170×2065×3195',
+      transportArmKg:13000, transportArmMm:'5495×1605×2055',
+      transportBucketKg:9700, transportBucketMm:'3540×2790×2320',
+      transportBoomCylKg:2100, transportBoomCylCount:2,
+      transportCabKg:2000, transportCabBasKg:2600,
+      transportRevolvingFrameKg:26500, transportPowerModuleKg:16800,
+      transportFuelTankKg:2140, transportCounterweightKg:24800,
+      transportCenterFrameKg:18100, transportUndercarriageKg:26000, transportUndercarriageCount:2,
+      transportHydTankKg:1750, transportLeftFloorKg:2300,
+      // Lift capacities (selected key values — heavy lift OFF, 810mm shoes)
+      liftHLoffFrontKg_6m_6m:46650,  // 6.1m height, 6.1m reach, over front
+      liftHLoffSideKg_6m_6m:46650,
+      liftHLoffFrontKg_0m_6m:47050,  // 0m height, 6.1m reach, over front
+      liftHLoffSideKg_0m_6m:43940,
+      // Lift capacities (selected — heavy lift ON, 810mm shoes)
+      liftHLonFrontKg_6m_6m:52480,
+      liftHLonFrontKg_0m_6m:53560,
+      liftHLonSideKg_0m_6m:43940,
+      // Working modes
+      workingModes:['P+ (Power Plus) — +12% productivity vs PC2000-8 P mode','P (Power) — +7% fuel efficiency vs PC2000-8','E0 (Economy) — up to -8% fuel consumption vs PC2000-8','E1 (Economy)'],
+      // Cab & operator environment
+      cabOPGLevel:'OPG Level 2 (ISO 10262)',
+      cabNoiseDbA:64.1,   // dynamic noise inside cab
+      seatType:'High back air suspension seat with heater, console-mounted armrests, fully adjustable',
+      seatBeltMm:78,
+      acUnits:'Twin automatic large-capacity air conditioning units',
+      monitor:'7-inch advanced high-resolution LCD machine monitoring with onboard diagnostics (no laptop required)',
+      komVision:'KomVision 7-camera bird\'s-eye system with dedicated 10-inch touch panel display',
+      komtraxPlus:true,
+      komtraxSatellite:'Iridium satellite communication system standard',
+      wirelessLAN:true,
+      operatorIDCodes:100,
+      hydraulicStairway:true,  // fully hydraulic operated 45° access stairway
+      stairwayAngleDeg:45,
+      emergencyStops:'5 emergency stops: 1 cab, 2 power module, 1 boarding ladder, 1 beneath revolving frame; fuel cut-off lever at ground level',
+      powerModule:'Engine, radiator, oil cooler, hydraulic pumps and PTO packaged in removable power module for reduced overhaul hours',
+      autoGreasing:'Fully automatic work equipment and bucket greasing system, 200L (52.8 US gal) tank, remote ground-level fill',
+      fuelTankDuration:'900 US gal (3,400L) — enables 24-hour continuous operation',
+      serviceCentre:'Ground-level centralised service centre — hydraulically actuated, drain and fill fuel/oil/grease/coolant from ground',
+      reversibleFans:true,
+      // Standard and optional equipment highlights
+      standardEquipmentNotes:'Auto deceleration (1,400rpm after 4 sec no input), auto idle shutdown (adjustable), ecology guidance with fuel consumption gauge, shockless boom control, swing priority mode, heavy lift mode (+10% boom lifting force), multiple boom settings (smooth/power modes), optimised electrical valve control, double sealing structure on hydraulic cylinders (scraper + sub dust seal), travel motor guards, extended life carrier rollers, 810mm 32" double grouser shoes, 8 track rollers / 3 carrier rollers per side, hydraulic idler cushion with shock absorbing accumulator, track guiding guard (separate type)',
+      optionalEquipmentNotes:'1010mm 40" triple grouser shoes, 3900mm 12\'10" backhoe arm assembly, 8700mm 28\'7" backhoe boom assembly, coolant heater (fuel combustion type), full length track guiding guards, heavy-duty rock bucket',
+      // Summary
+      truckCompatibilityShortTons:'85–130',  // typical for 200t class; not explicitly stated in brochure
+      maxTravelSpeedHighKmh:2.7,
+      swingSpeedRpm:4.8,
+      digDepthMm:9235, digDepthM:9.24,
+      maxReachGroundMm:15305, maxReachMm:15780,
+      maxCuttingHeightMm:13410, maxLoadingHeightMm:8650,
+      brochureRef:'AESS933-01 (Komatsu America Corp., ©2019)',
+      tags:['mining','quarry','200t class','backhoe','production machine','large payload truck loading'],
+      note:'Komatsu PC2000-11 — 202–207t mining hydraulic excavator. Komatsu SAA12V140E-7, 12-cyl 140×165mm, 30.48L, 794kW/1,065hp gross, 780kW/1,046hp net @ 1,800rpm, EPA Tier 4 Final. Backhoe (8.7m boom / 3.9m arm): ISO bucket force 697kN/71,100kg, arm crowd 598kN/61,000kg; SAE bucket 626kN/63,800kg, arm 586kN/59,700kg. Dig depth 9.235m, max reach 15.78m (15.305m at ground), cut height 13.41m, dump height 8.65m. Min swing radius 7.5m. Standard shoes 810mm double grouser (201,930kg / 1.96 kg/cm²); optional 1010mm triple grouser (206,050kg / 1.60 kg/cm²). Swing 4.8 rpm. Travel 2.7 km/h, gradeability 70%/35°. Open-centre load sensing hydraulics, 4 variable displacement piston pumps, 2,317 L/min max flow, 310 bar implement relief. 4 working modes: P+ (+12% productivity vs PC2000-8), P (+7% fuel), E0 (-8% fuel), E1. Hydraulic cylinders — boom 300×2647mm, arm 250×2134mm, bucket 200×2170mm. Undercarriage: 49 shoes, 3 carrier rollers, 8 track rollers per side. Fluids: fuel 3,400L (898 US gal), hydraulic tank 1,300L, coolant 240L, engine oil 128L, PTO 40L. Bucket options: GP 13.7m³, standard rock 12.0m³, heavy rock 11.4m³, iron ore 9.1m³. Power module packages engine + cooling + pumps for easier overhaul. KomVision 7-camera (10" touch panel). KOMTRAX Plus + Iridium satellite. 64.1 dB(A) cab noise. 24-hour fuel tank. Ground-level service centre. Auto greasing 200L. Source: Komatsu PC2000-11 Brochure AESS933-01 (Komatsu America Corp., ©2019).',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC3000-11 Brochure EN-PC3000-11SP01-0421-V2 (©2020 Komatsu Germany)
+    { id:'kom-pc3000-11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC3000-11 Mining Excavator', shortName:'Komatsu PC3000-11',
+      weightClass:'mining',
+      engineModel:'Komatsu SDA12V159E-3',
+      engineGrossKW:940, engineGrossHP:1260,
+      engineRatedRPM:1800,
+      engineCylinders:12,
+      emissionStandard:'Tier 4 option available',
+      operatingWeightKg:252000, operatingWeightT:252, // backhoe config with 800mm shoes
+      groundPressureKPa:23.8, // backhoe, 800mm shoes (N/cm²)
+      maxTravelSpeedHighKmh:2.4,
+      swingSpeedRpm:4.6,
+      pumpFlowLpm:2730,
+      // Backhoe attachment
+      boomLengthMm:8600, stickLengthMm:4000,
+      bucketDigForceKN:890,   // breakout force (backhoe)
+      stickDigForceKN:811,    // tear-out force (backhoe)
+      digDepthMm:7900, digDepthM:7.9,
+      maxReachGroundMm:15600, maxReachMm:16200,
+      maxCuttingHeightMm:14100, maxLoadingHeightMm:9000,
+      // Front shovel attachment
+      frontShovelBoomMm:6000, frontShovelStickMm:4300,
+      frontShovelBreakoutKN:1066, frontShovelCrowdKN:1136,
+      frontShovelCutHeightMm:15100, frontShovelDumpHeightMm:10200,
+      frontShovelBucketM3:16, backhoeBucketM3:15,
+      bucketCapM3:15,
+      fuelL:4500,
+      hydraulicTankL:4400,
+      truckCompatibilityShortTons:'85–165',
+      electricDriveOption:true,
+      brochureRef:'EN-PC3000-11SP01-0421-V2 (Komatsu Germany, 2020)',
+      tags:['mining','ultra class','shovel','250t class','production','quarry','large payload truck loading'],
+      note:'Komatsu PC3000-11 — 250–252t ultra-class mining excavator. Komatsu SDA12V159E-3, 940kW/1,260hp @ 1,800rpm, 12-cylinder. Front shovel (16m³) and backhoe (15m³) configurations available. Truck compatible with 85–165 short ton trucks. Backhoe: breakout 890kN, tear-out 811kN, dig depth 7.9m, reach 16.2m, dump height 9.0m. Front shovel: breakout 1,066kN, crowd 1,136kN, cut height 15.1m, dump height 10.2m, reach 13.3m. Swing 4.6 rpm. Travel speed max 2.4 km/h. Electric drive option available (-6 version). Tier 4 engine option. KOMTRAX Plus 2 monitoring. Fuel 4,500L, hydraulic oil 4,400L. Source: Komatsu PC3000-11 Brochure EN-PC3000-11SP01-0421-V2 (Komatsu Germany, ©2020).',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC3400-11M0 Product Brochure EENSB15700 (©2023 Komatsu Europe)
+    { id:'kom-pc3400-11m0', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC3400-11M0 Mining Excavator', shortName:'Komatsu PC3400-11M0',
+      weightClass:'mining',
+      // Engine
+      engineModel:'Komatsu SDA16V159-3',
+      engineType:'4-cycle, water-cooled, direct injection',
+      engineAspiration:'Turbocharged, aftercooled',
+      engineCylinders:16,
+      engineBoreMm:159, engineStrokeMm:159,
+      engineDisplacementL:50.51,
+      engineGovernor:'All-speed, electronic',
+      engineGrossKW:1193, engineGrossHP:1600,   // SAE J1995
+      engineNetKW:1186, engineNetHP:1590,        // SAE J1349
+      engineRatedRPM:1800,
+      engineRadiatorFanDrive:'Hydraulic',
+      engineOilCoolerFanDrive:'Hydraulic',
+      emissionStandard:'EPA Tier 2',
+      engineFuelNote:'Up to 20% blended paraffin fuel can be used — consult Komatsu distributor',
+      // Electrical system
+      electricSystemV:24,
+      // Hydraulic system
+      hydraulicType:'Electronic pump & bleed control system',
+      hydraulicPumps:'Variable displacement piston pumps',
+      pumpFlowLpm:2973,           // total flow for attachment
+      fanPumpRadiatorLpm:295,
+      fanPumpOilCoolerLpm:259,
+      // Hydraulic motors — Travel: 2 × axial piston motors with parking brake; Swing: 2 × axial piston motors with swing holding brake
+      reliefValveImplementMPa:32.9, reliefValveImplementKgcm2:335,
+      reliefValveTravelMPa:34.3, reliefValveTravelKgcm2:350,
+      reliefValveSwingMPa:29.9, reliefValveSwingKgcm2:305,
+      reliefValvePilotMPa:4.5, reliefValvePilotKgcm2:46,
+      // Hydraulic cylinders — Backhoe (bore × stroke)
+      bhBoomCylCount:2, bhBoomCylBoreMm:330, bhBoomCylStrokeMm:2770,
+      bhArmCylCount:2,  bhArmCylBoreMm:280,  bhArmCylStrokeMm:1975,
+      bhBucketCylCount:2, bhBucketCylBoreMm:225, bhBucketCylStrokeMm:2500,
+      // Hydraulic cylinders — Loading shovel (bore × stroke)
+      lsBoomCylCount:2, lsBoomCylBoreMm:330, lsBoomCylStrokeMm:2295,
+      lsArmCylCount:2,  lsArmCylBoreMm:240,  lsArmCylStrokeMm:2380,
+      lsBucketCylCount:2, lsBucketCylBoreMm:260, lsBucketCylStrokeMm:2350,
+      lsBottomDumpCylCount:2, lsBottomDumpCylBoreMm:210, lsBottomDumpCylStrokeMm:665,
+      // Swing system
+      swingGear:'2 × planetary gears',
+      swingCircleLubrication:'Grease type',
+      swingHoldingBrakes:'Oil disc brakes',
+      swingSpeedRpm:4.0,
+      // Drive system
+      steeringControl:'Two pedals',
+      gradeabilityPct:53, gradeabilityDeg:28,
+      maxTravelSpeedKmh:2.3,
+      parkingBrake:'Oil disc brake',
+      // Undercarriage
+      undercarriageTrackAdjuster:'Hydraulic',
+      shoesPerSide:48,
+      topRollersPerSide:3,    // carrier rollers
+      bottomRollersPerSide:7, // track rollers
+      // Operating weights — Backhoe (9000mm boom / 4150mm arm / 18.0m³ heaped)
+      bh900mmShoeKg:316800, bh900mmGroundPressureKgcm2:2.52,
+      bh1200mmShoeKg:321900, bh1200mmGroundPressureKgcm2:1.90,
+      // Operating weights — Loading shovel (6850mm boom / 4700mm arm / 19.0m³)
+      ls900mmShoeKg:317700, ls900mmGroundPressureKgcm2:2.53,
+      operatingWeightKg:316800, operatingWeightMinKg:316800, operatingWeightMaxKg:321900, operatingWeightT:317,
+      // Service refill capacities
+      fuelTankL:5300,
+      coolantL:393,
+      engineOilL:204,
+      reserveTankL:561,
+      finalDriveOilLPerSide:84,
+      swingGearboxLPerSide:55,
+      hydraulicTankL:2200,
+      ptoOilL:87,
+      swingLubricationGreaseL:165,
+      centralLubricationGreaseL:165,
+      // Backhoe working range (9000mm boom / 4150mm arm)
+      bhBoomLengthMm:9000, bhStickLengthMm:4150,
+      bhMaxDigHeightMm:14400,       // A
+      bhMaxDumpHeightMm:8920,       // B
+      bhMaxDigDepthMm:8300,         // C
+      bhMaxVertWallDepthMm:2300,    // D
+      bhMaxDigDepthLevelMm:8200,    // E — for 2440mm level
+      bhMaxDigReachMm:17075,        // F
+      bhMaxDigReachGroundMm:16365,  // G
+      bhMinSwingRadiusMm:9990,      // H
+      // Backhoe digging forces
+      bhBucketDigForceSAEKN:924, bhBucketDigForceSAEKg:94200,
+      bhArmCrowdForceSAEKN:843, bhArmCrowdForceSAEKg:85900,
+      bhBucketDigForceISOKN:1026, bhBucketDigForceISOKg:104600,
+      bhArmCrowdForceISOKN:872, bhArmCrowdForceISOKg:88900,
+      // Backhoe bucket options
+      backhoeBuckets:[
+        { name:'General Purpose',       capM3:18.0, maxDensityTm3:1.80 },
+        { name:'General Purpose Large', capM3:19.7, maxDensityTm3:1.65 },
+        { name:'Loading Optimized',     capM3:18.0, maxDensityTm3:1.80 },
+        { name:'Loading Optimized LG',  capM3:19.0, maxDensityTm3:1.70 },
+      ],
+      bucketCapM3:18,
+      bhBucketCapM3:18,
+      // Loading shovel working range (6850mm boom / 4700mm arm / 19.0m³ bottom dump)
+      lsBoomLengthMm:6850, lsStickLengthMm:4700,
+      lsMaxCuttingHeightMm:16800,    // A
+      lsMaxDumpHeightMm:10780,       // B
+      lsMaxDigDepthMm:3040,          // C
+      lsMaxDigReachMm:14740,         // D
+      lsMaxDigReachGroundMm:13845,   // E
+      lsLevelCrowdDistanceMm:5200,   // F
+      lsMinCrowdDistanceMm:7955,     // G
+      // Loading shovel digging forces
+      lsBucketDigForceKN:1204, lsBucketDigForceKg:122800,
+      lsArmCrowdForceKN:1274, lsArmCrowdForceKg:129900,
+      // Loading shovel bucket
+      lsBucketCapM3:19, lsBucketType:'Bottom dump, general purpose',
+      lsBucketMaxDensityTm3:1.80,
+      frontShovelBucketM3:19, backhoeBucketM3:18,
+      // Backhoe dimensions (labelled A–S from diagram)
+      bhDimA_overallLengthMm:18080,
+      bhDimB_overallWidthMm:9440,
+      bhDimC_overallHeightToBoomMm:9040,
+      bhDimD_overallHeightToCabMm:7810,
+      bhDimE_overallHeightToAntennaMm:8710,
+      bhDimF_groundClearanceCounterweightMm:2745,
+      bhDimG_groundClearanceMinMm:895,
+      bhDimH_tailSwingRadiusMm:6530,
+      bhDimI_trackLengthOnGroundMm:6350,
+      bhDimJ_trackLengthMm:8285,
+      bhDimK_trackGaugeMm:5350,
+      bhDimL_widthOfCrawlerMm:6250,
+      bhDimM_shoeWidthMm:900,
+      bhDimN_grouserHeightMm:20,
+      bhDimO_heightToExhaustPipeMm:8350,
+      bhDimP_cabHeightMm:6250,
+      bhDimQ_heightToRearHandrailMm:7350,
+      bhDimR_distSwingCentreToRearMm:6305,
+      bhDimS_counterweightWidthMm:5700,
+      // Loading shovel dimensions (same track/counterweight dims, different boom/length)
+      lsDimA_overallLengthMm:14265,
+      lsDimC_overallHeightToBoomMm:9445,
+      // (all other dims identical to backhoe)
+      // Cab & operator environment
+      cabOPGLevel:'OPG Level 2 (ISO 10262)',
+      cabNoiseDbA:70.1,   // dynamic noise inside cab
+      seatType:'Air suspension seat with console mounted armrests and seat belt caution',
+      acUnits:'High capacity dual automatic air conditioning units',
+      monitor:'7-inch high-resolution LCD monitor with multiple display options',
+      komVision:'KomVision 7-camera 10-inch dedicated touch screen, bird\'s-eye view, reference lines for swing radius and distances',
+      komtraxPlus:true,
+      wirelessLAN:true,
+      komtraxWirelessDownload:'Fast wireless LAN download of complete KOMTRAX Plus data without stopping machine',
+      hydraulicStairway:true,
+      stairwayAngleDeg:45,
+      trainerSeat:true,
+      ergonomicControlLevers:'Low effort electric control levers',
+      emergencyEgressLadders:'Two quick-release egress ladders (cab side and right side)',
+      emergencyStops:'Multiple — ground level (×2), engine room, pump room, central walkway, cab console',
+      autoGreasing:'Fully automatic greasing system — 2 units, 2 × 165L for work equipment and swing circle',
+      boomHandrail:true,   // boom walkway with tie-off points (EN 795, EN 50308, OSHA 1926.502)
+      reverseableFans:true,
+      batteryDisconnect:true,
+      serviceArm:'Ground-accessible hydraulically operated service arm for draining/filling lubricants, oils, coolant',
+      longLifeFilters:'Filter maintenance intervals extended and synchronized; clog detection sensors',
+      // Standard equipment highlights
+      standardEquipmentNotes:'Electronic end-of-stroke cylinder cushion (boom and arm), boom recirculation valve (gravity-assist on boom lower reduces fuel), intelligent load-sensing hydraulics (total power management monitors pump flow, fan speed, engine output together), auto deceleration (1,400rpm after 4 sec), auto idle shutdown, +55°C specification included as standard, 6 LEDs access light, 8 LEDs maintenance light, 12 LEDs working lights, pump/engine room partition cover, swing circle gear cover with inspection window, heat guard for high-temperature exhaust line, fire extinguisher inside cab, fuel cut-off lever, quick release emergency egress ladders, satellite communication (Iridium), service centre system (grease/oils/fuel/coolant quick-change), battery disconnect and starter cut switches with controller indicator lamp',
+      optionalEquipmentNotes:'1200mm double grouser shoes, travel motor and piping full guard, travel motor guard, cab front full guard OPG Level 2, rock protection cab glass, 19.7m³ general purpose bucket, 18.0m³/19.0m³ loading optimized buckets, bucket/arm/boom cylinder sliding guards, cold weather package to -40°C, oil management system (Centinel/Reserve/Eliminator), Orbcomm satellite',
+      // Productivity highlights from brochure
+      productivityVsPC3000_6:'31% higher productivity (lower hydraulic loss + intelligent power matching)',
+      enginePowerGainVsPC3000_6:'+27% (940kW → 1193kW)',
+      fuelEfficiencyGainVsPC3000_6:'+22%',
+      bhBucketGainVsPC3000_6:'+20% (15.0m³ → 18.0m³)',
+      lsBucketGainVsPC3000_6:'+19% (16.0m³ → 19.0m³)',
+      bhBucketForceGainVsPC3000_6:'+15%',
+      lsBucketForceGainVsPC3000_6:'+20%',
+      bhArmForceGainVsPC3000_6:'+8%',
+      lsArmForceGainVsPC3000_6:'+16%',
+      workEquipmentReachBackhoeM:17.1,  // longest in its class
+      workEquipmentReachLSM:14.7,
+      // Summary
+      maxTravelSpeedHighKmh:2.3,
+      swingSpeedRpm:4.0,
+      digDepthMm:8300, digDepthM:8.3,
+      maxReachGroundMm:16365, maxReachMm:17075,
+      maxCuttingHeightMm:14400, maxLoadingHeightMm:8920,
+      truckCompatibilityShortTons:'130–220',
+      brochureRef:'EENSB15700 (Komatsu Europe International N.V., ©2023)',
+      tags:['mining','ultra class','shovel','320t class','production machine','quarry','large payload truck loading'],
+      note:'Komatsu PC3400-11M0 — 317–322t mining hydraulic excavator (backhoe and loading shovel configurations). Komatsu SDA16V159-3, 16-cyl 159×159mm, 50.51L, 1,193kW/1,600hp (SAE J1995) / 1,186kW/1,590hp (SAE J1349) @ 1,800rpm, EPA Tier 2. Backhoe (9.0m boom / 4.15m arm / 18.0–19.7m³): SAE J1179 bucket 924kN/94,200kg, arm 843kN/85,900kg; ISO 6015 bucket 1,026kN/104,600kg, arm 872kN/88,900kg. Dig depth 8.3m, max reach 17.075m (16.365m at ground), cut height 14.4m, dump height 8.92m, min swing radius 9.99m. Loading shovel (6.85m boom / 4.7m arm / 19.0m³ bottom dump): bucket force 1,204kN/122,800kg, arm crowd 1,274kN/129,900kg, max cut height 16.8m, dump height 10.78m. Swing 4.0 rpm. Travel 2.3 km/h, gradeability 53%/28°. Electronic pump & bleed control with total power management, 2,973 L/min implement flow. Hydraulic cylinders — BH boom 330×2770mm, arm 280×1975mm, bucket 225×2500mm; LS boom 330×2295mm, arm 240×2380mm, bucket 260×2350mm, bottom dump 210×665mm. Undercarriage: 48 shoes, 3 carrier rollers, 7 track rollers per side. Fluids: fuel 5,300L, hydraulic tank 2,200L, coolant 393L, engine oil 204L, reserve tank 561L, PTO 87L, grease 2×165L. Backhoe operating weight: 316,800kg / 2.52 kg/cm² (900mm shoes); 321,900kg / 1.90 kg/cm² (1200mm shoes). Loading shovel: 317,700kg / 2.53 kg/cm² (900mm shoes). Dimensions (backhoe): 18.08m long, 9.44m wide, 7.81m to cab top, tail swing 6.53m. 70.1 dB(A) cab noise. KomVision 7-camera with 10" touch screen. KOMTRAX Plus + wireless LAN download. Hydraulic 45° access stairway. Boom walkway with safety tie-off points. Source: Komatsu PC3400-11M0 Brochure EENSB15700 (Komatsu Europe, ©2023).',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC4000-11 Spec Sheet EN-PC4000-11-SPEC01-0523-V1 (©2022 Komatsu)
+    { id:'kom-pc4000-11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC4000-11 Mining Excavator', shortName:'Komatsu PC4000-11',
+      weightClass:'mining',
+      // Diesel drive
+      engineModel:'Komatsu SDA16V160E-3',          // Tier 4 variant
+      engineModelTier2:'Komatsu SDA16V160E-2',      // Tier 2 variant
+      engineType:'4-cycle, water-cooled, direct injection',
+      engineAspiration:'Turbocharged and aftercooled',
+      engineCylinders:16,
+      engineCount:1,
+      engineGrossKW:1400, engineGrossHP:1875,
+      engineRatedRPM:1800,
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'Tier 2 or Tier 4 Final (selectable)',
+      defTankCapacityTier4L:643, defTankCapacityTier4Gal:170,
+      // Electric drive option (available on -11 version)
+      electricDriveAvailable11:true,
+      electricDriveType:'Squirrel cage induction motor',
+      electricDriveCount:1,
+      electricDrivePowerKW:1350, electricDrivePowerHP:1810,
+      electricDriveVoltageV:'4000–7200',
+      electricDriveAmperageA:'120–145',
+      electricDriveFreqStdHz:50, electricDriveFreqStdRpm:1500,
+      electricDriveFreqOptionHz:60, electricDriveFreqOptionRpm:1800,
+      // Electrical system
+      electricSystemV:24,
+      batteries:'4 × 2 × 12 V',
+      alternator:'260 A',
+      workingLights:'16 LED lights standard',
+      serviceLights:'Throughout the platform including emergency egresses and stairways',
+      // Hydraulic system
+      hydraulicType:'Open circuit, four-circuit system with load-limiting governor and pressure cut-off control; Hydropilot prioritises flow for smooth response',
+      hydraulicDescription:'One main drive; one gearbox drives four identical main pumps from unpressurised hydraulic tank. Open circuit for maximum cooling and filtering efficiency.',
+      hydraulicPumpBrand:'Komatsu',
+      pumpFlowLpm:4140, pumpFlowGpm:1096,   // 4 pumps combined
+      reliefValveSettingBar:310, reliefValveSettingPsi:4495,
+      swingFlowRateLpm:1590, swingFlowRateGpm:420,
+      highPressureScreensMicrons:200,
+      hydraulicCooling:'Large swing-out vertical air-to-oil hydraulic coolers with temperature-regulated hydraulically driven fans',
+      // Automatic lubrication system
+      lubricationSystem:'Two hydraulically powered Lincoln single-line automatic systems with time and volume variable controls. Central lube from refillable 200L (53 gal) barrel. Second system supplies open gear lubricant to swing ring teeth via lube pinion. Containers refilled via Wiggins connections on service arm.',
+      lubricationSystemTotalL:400, lubricationSystemTotalGal:106,
+      // Swing system
+      swingMotorCount:2,
+      swingGearCount:2,
+      swingBrakeDynamic:'Hydraulic brake',
+      swingBrakeParking:'Multiple-disc',
+      swingRingTeeth:'External',
+      swingSpeedRpm:4.0,
+      // Travel & brakes
+      gradeabilityPct:50,
+      maxTravelSpeedKmh:2.1, maxTravelSpeedMph:1.3,
+      serviceBrakeTravel:'Hydraulic brake',
+      parkingBrake:'Multiple brake',
+      // Undercarriage
+      undercarriageTrackAdjuster:'Automatic hydraulic type',
+      shoesPerSide:49,
+      topRollersPerSide:3,
+      bottomRollersPerSide:7,
+      // Operating weights — Front shovel (7150mm boom / 4900mm stick / 22m³)
+      fs1200mmShoeKg:398000, fs1200mmGroundPressureNcm2:21.8, fs1200mmGroundPressurePsi:31.6,
+      fs1500mmShoeKg:403000, fs1500mmGroundPressureNcm2:17.7, fs1500mmGroundPressurePsi:25.7,
+      // Operating weights — Backhoe (9750mm boom / 4500mm stick / 22m³)
+      bh1200mmShoeKg:404000, bh1200mmGroundPressureNcm2:22.2, bh1200mmGroundPressurePsi:25.7,
+      bh1500mmShoeKg:409000, bh1500mmGroundPressureNcm2:17.9, bh1500mmGroundPressurePsi:26.0,
+      operatingWeightKg:398000, operatingWeightMinKg:398000, operatingWeightMaxKg:409000, operatingWeightT:398,
+      // Service capacities
+      hydraulicTankL:3900, hydraulicTankGal:1030,
+      hydraulicSystemTotalL:5900, hydraulicSystemTotalGal:1559,
+      fuelTankL:6781, fuelTankGal:1791,   // usable including reserve
+      fuelTankReserveL:211, fuelTankReserveGal:56,
+      coolantL:475, coolantGal:125,
+      engineOilL:262, engineOilGal:69,
+      engineReserveOilL:474, engineReserveOilGal:126,
+      // Environment
+      handArmVibrationMs2:'Lower than 2.5 m/s² (ISO 5349-1)',
+      wholeBodyVibrationMs2:'Lower than 0.5 m/s² (ISO 2631-1)',
+      refrigerantType:'HFC-134a (GWP 1430)',
+      refrigerantQtyDieselKg:'5.0–9.5 kg', refrigerantCO2eqDieselT:'7.15–13.59 t',
+      refrigerantQtyElectricKg:'8.2–13.1 kg', refrigerantCO2eqElectricT:'10.58–17.02 t',
+      // Operator cab
+      cabMounting:'Enclosed steel cab mounted on viscous pads',
+      cabACSystem:'Konvekta',
+      seatType:'Full suspension operator seat with belt, electrically heated',
+      seatBelt:'Driver and trainer seats',
+      seatAdjustments:'Multiple adjustments',
+      joystickControls:'Electro-hydraulic joystick controls',
+      footControls:'Foot control for shovel clam, crawler and swing brake',
+      radio:'AM-FM radio with MP3-ready CD player and AUX-in jack',
+      windshieldWiper:'1 large parallel windshield wiper, two speeds and intermittent',
+      mirrors:'2 heated rear mirrors',
+      sunBlinds:'Internal and external blinds',
+      rollerBlinds:'Standard on all windows (excluding rear door)',
+      slidingWindow:'ESG escape window, VSG according to ECE R43',
+      windowTinting:'Parsol green',
+      frontWindowRating:'Impact-resistant front window (21mm and tolerances)',
+      walkway:'Walkway around the cab',
+      cabEngStandards:'ISO 3449, ISO 6394, ISO 10263-4, EN474-1, EN474-5, DIN 15018, BR2-S DIN EN 1063, ECE R43, ISO 10262',
+      // Monitoring
+      komtraxVersion:'KOMTRAX Plus Upgrade',
+      argusPLMReady:true,
+      // Front shovel working range (7150mm boom / 4900mm stick)
+      fsBoomLengthMm:7150, fsBoomLengthFt:'23.5 ft',
+      fsStickLengthMm:4900, fsStickLengthFt:'16.1 ft',
+      fsBreakoutForceISOKN:1349, fsBreakoutForceLbf:303267,
+      fsCrowdForceISOKN:1330, fsCrowdForceLbf:298996,
+      fsMaxCutHeightMm:17690, fsMaxCutHeightFt:'58 ft',
+      fsMaxDumpHeightMm:11710, fsMaxDumpHeightFt:'38.4 ft',
+      fsMaxDigDepthMm:2970, fsMaxDigDepthFt:'9.7 ft',
+      fsMaxDigReachMm:15330, fsMaxDigReachFt:'50.3 ft',
+      fsLevelCrowdGroundMm:5700, fsLevelCrowdGroundFt:'18.7 ft',
+      fsBucketOpeningWidthMm:2650, fsBucketOpeningWidthFt:'8.7 ft',
+      // Front shovel bucket specs
+      fsBucketCapM3:22, fsBucketCapYd3:28.8,
+      fsBucketWidthMm:4020, fsBucketWidthFt:'13.2 ft',
+      fsBucketTeeth:5,
+      fsBucketWearPackage:'Standard',
+      fsBucketGETSystem:'Hensley XS 390',
+      fsBucketMaxDensityTm3:1.8, fsBucketMaxDensityLbYd3:3034,
+      // Backhoe working range (9750mm boom / 4500mm stick)
+      bhBoomLengthMm:9750, bhBoomLengthFt:'32.0 ft',
+      bhStickLengthMm:4500, bhStickLengthFt:'14.8 ft',
+      bhBreakoutForceISOKN:1239, bhBreakoutForceLbf:278538,
+      bhTearoutForceISOKN:1058, bhTearoutForceLbf:237848,
+      bhMaxDigHeightMm:14880, bhMaxDigHeightFt:'48.8 ft',
+      bhMaxDumpHeightMm:9610, bhMaxDumpHeightFt:'31.5 ft',
+      bhMaxDigDepthMm:8000, bhMaxDigDepthFt:'26.2 ft',
+      bhMaxDigReachMm:17610, bhMaxDigReachFt:'57.8 ft',
+      bhMaxDigReachGroundMm:16650, bhMaxDigReachGroundFt:'54.6 ft',
+      // Backhoe bucket specs
+      bhBucketCapM3:22, bhBucketCapYd3:28.8,
+      bhBucketWidthMm:3790, bhBucketWidthFt:'12.4 ft',
+      bhBucketTeeth:6,
+      bhBucketWearPackage:'Standard',
+      bhBucketGETSystem:'Hensley XS 342',
+      bhBucketMaxDensityTm3:1.8, bhBucketMaxDensityLbYd3:3034,
+      // Machine dimensions (from spec sheet dimension diagram)
+      dimA_shoeWidthStdMm:1200,
+      dimB_shoeWidthLargeMm:1500,
+      dimCA_trackLengthOnGroundMm:6750,
+      dimCB_trackLengthOnGroundLargeMm:7050,
+      dimD_undercarriageHeightMm:2480,
+      dimE_groundClearanceMinMm:930,
+      dimF_trackGaugeMm:3380,
+      dimG_distSwingCentreToFrontMm:6700,
+      dimH_upperStructureHeightMm:8842,
+      dimI_revolveFrameHeightMm:3020,
+      dimJ_counterweightClearanceMm:3085,
+      dimK_trackLengthTotalMm:8670,
+      dimL_widthOverShoesMm:7600,
+      dimM_upperStructureWidthMm:8310,
+      dimN_bucketOpeningWidthMm:4032,
+      dimO_counterweightWidthMm:3505,
+      dimQ_overallHeightMm:8870,
+      dimR_tailSwingRadiusMm:6095,
+      dimR1_tailSwingRadiusLargeShoesMm:6500,
+      // Truck compatibility chart
+      truckCompatibilityShortTons:'165–265',
+      truckModelMatch:'730E (5 passes), 830E (5 passes), HD1500 (3–4 passes)',
+      // Summary fields
+      bucketCapM3:22, backhoeBucketM3:22, frontShovelBucketM3:22,
+      digDepthMm:8000, digDepthM:8.0,
+      maxReachGroundMm:16650, maxReachMm:17610,
+      maxCuttingHeightMm:14880, maxLoadingHeightMm:9610,
+      maxTravelSpeedHighKmh:2.1,
+      swingSpeedRpm:4.0,
+      brochureRef:'EN-PC4000-11-SPEC01-0523-V1 (Komatsu, ©2022)',
+      tags:['mining','ultra class','shovel','400t class','production machine','quarry','large payload truck loading'],
+      note:'Komatsu PC4000-11 — 398–409t mining hydraulic excavator (front shovel and backhoe). Komatsu SDA16V160E-3 (Tier 4) or SDA16V160E-2 (Tier 2), 16-cyl, 1,400kW/1,875hp @ 1,800rpm. Electric drive variant (squirrel cage, 1,350kW, 4,000–7,200V) also available on -11. Front shovel (7.15m boom / 4.9m stick / 22m³ / Hensley XS390 GET): ISO breakout 1,349kN/303,267lbf, crowd 1,330kN/298,996lbf, max cut height 17.69m, dump height 11.71m, reach 15.33m, level crowd 5.70m, bucket opening 2.65m. Backhoe (9.75m boom / 4.5m stick / 22m³ / Hensley XS342 GET): ISO breakout 1,239kN/278,538lbf, tear-out 1,058kN/237,848lbf, dig depth 8.0m, reach 17.61m (16.65m at ground), max dig height 14.88m, dump height 9.61m. Swing 4.0 rpm. Travel 2.1 km/h, gradeability 50%. Open-circuit hydraulics, 4 Komatsu main pumps, 4,140 L/min, 310 bar relief, swing flow 1,590 L/min. FS operating weights: 1200mm shoes 398t / 21.8 N/cm², 1500mm shoes 403t / 17.7 N/cm². BH: 404t / 22.2 N/cm² (1200mm), 409t / 17.9 N/cm² (1500mm). Fluids: fuel 6,781L (1,791 gal), hydraulic tank 3,900L, hydraulic system 5,900L, coolant 475L, engine oil 262L + 474L reserve, lube system 400L. Two Lincoln auto-lube systems: 200L central grease + open gear circuit via lube pinion. Cab: Konvekta AC, Parsol green glass, 21mm impact-resistant front window, ESG/VSG sliding escape window, heated seat, trainer seat, AM/FM/CD/AUX radio. Vibration: <2.5 m/s² hand-arm, <0.5 m/s² whole-body. KOMTRAX Plus upgrade, Argus PLM ready. Truck-match: 165–265 short ton trucks (730E/830E/HD1500). Source: Komatsu PC4000-11 Spec Sheet EN-PC4000-11-SPEC01-0523-V1 (Komatsu, ©2022).',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC5500-11 Brochure EN-PC5500-11SP01-0523-V1 (©2021 Komatsu Germany)
+    { id:'kom-pc5500-11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC5500-11 Mining Excavator', shortName:'Komatsu PC5500-11',
+      weightClass:'mining',
+      // Diesel drive (x2 engines)
+      engineModel:'Komatsu SDA12V159E-3',
+      engineType:'4-cycle, water-cooled, direct injection',
+      engineAspiration:'Turbocharged and aftercooled',
+      engineCylinders:12,
+      engineCount:2,
+      engineRatedKWPerEngine:940, engineRatedHPPerEngine:1260,
+      engineTotalKW:1880, engineTotalHP:2520,
+      engineRatedRPM:1800,
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'Tier 4 option available',
+      defTankCapacityTier4:'2 x 514 L',
+      // Electric drive option (not available on -11 variant — available as -6 version)
+      electricDriveAvailable11:false,
+      electricDriveType:'Asynchronous motor',
+      electricDrivePowerPerEngineKW:940,
+      electricDriveVoltageV:'6000–7200',
+      electricDriveAmperageA:'2x155 A – 2x80 A',
+      electricDriveFreqStdHz:60, electricDriveFreqOptionHz:50,
+      // Electrical system
+      electricSystemV:24,
+      batteries:'8x12 V',
+      alternator:'2x140 A',
+      workingLights:'16 LED lights',
+      serviceLights:'Throughout the platform including emergency egresses and stairways',
+      // Operating weights — Front shovel (7600mm boom / 5600mm stick / 29m³ bucket)
+      fsBoomMm:7600, fsStickMm:5600, fsBucketM3:29,
+      fs1350mmShoeKg:537000, fs1350mmGroundPressureNcm2:23.7,
+      fs1800mmShoeKg:551000, fs1800mmGroundPressureNcm2:18.3,
+      // Operating weights — Backhoe (11000mm boom / 5100mm stick / 29m³ bucket)
+      bhBoomMm:11000, bhStickMm:5100, bhBucketM3:29,
+      bh1350mmShoeKg:542000, bh1350mmGroundPressureNcm2:23.9,
+      bh1800mmShoeKg:556000, bh1800mmGroundPressureNcm2:18.4,
+      // Summary operating weights
+      operatingWeightKg:537000, operatingWeightMinKg:537000, operatingWeightMaxKg:556000, operatingWeightT:537,
+      fsSummaryWeightMT:533, bhSummaryWeightMT:539, // from page 1 summary table
+      // Truck compatibility
+      truckCompatibilityShortTons:'150–240',
+      // Hydraulic system
+      hydraulicType:'Open circuit, four-circuit system with load-limiting governor and pressure cut-off control',
+      hydraulicPumpBrand:'Komatsu',
+      pumpFlowLpm:4200, pumpFlowGpm:1110,
+      reliefValveSettingBar:310, reliefValveSettingPsi:4495,
+      swingFlowRateLpm:700, swingFlowRateGpm:185,
+      highPressureScreensMicrons:200,
+      hydraulicCooling:'Swing-out vertical air-to-oil coolers with temperature-regulated hydraulic fans',
+      hydraulicTankL:3715,
+      hydraulicSystemTotalL:6000,
+      // Fuel & fluids
+      fuelTankL:10626, // usable including reserve
+      fuelTankReserveL:271,
+      coolantL:720, // 2x95 US gal
+      engineOilL:380, // 2x50 US gal
+      lubricationSystemTotalL:900, // 238 US gal
+      // Automatic lubrication system
+      lubricationSystem:'Three hydraulically powered Lincoln single-line automatic systems with time and volume variable controls. Container capacity: 1x600L + 1x300L. Refilled via Wiggins connections on service arm.',
+      // Travel & drives
+      gradeabilityPct:50,
+      maxTravelSpeedKmh:2.1,
+      serviceBrakeTravel:'Hydraulic brake',
+      parkingBrake:'Multiple brake',
+      // Swing system
+      swingMotorCount:2,
+      swingGearCount:2,
+      swingBrakeDynamic:'Hydraulic brake',
+      swingBrakeParking:'Multiple-disc',
+      swingRingTeeth:'External',
+      swingSpeedRpm:3.1,
+      // Undercarriage
+      undercarriageTrackAdjuster:'Automatic hydraulic type',
+      shoesPerSide:46,
+      topRollersPerSide:3,
+      bottomRollersPerSide:7,
+      // Front shovel working range
+      fsBoomLengthMm:7600, fsStickLengthMm:5600,
+      fsBreakoutForceKN:1870, fsBreakoutForceLbf:420393,
+      fsCrowdForceKN:1850, fsCrowdForceLbf:415897,
+      fsMaxCutHeightMm:19820, fsMaxDumpHeightMm:13100,
+      fsMaxDigDepthMm:2980, fsMaxDigReachMm:16750,
+      fsLevelCrowdAtGroundMm:5680,
+      fsBucketOpeningWidthMm:2790,
+      // Front shovel bucket specs
+      fsBucketCapM3:29, fsBucketCapYd3:37.9,
+      fsBucketWidthMm:4816, fsBucketTeeth:6,
+      fsBucketWearPackage:'Heavy duty',
+      fsBucketGETSystem:'Hensley XS 644',
+      fsBucketMaxDensityTm3:1.8,
+      // Backhoe working range
+      bhBoomLengthMm:11000, bhStickLengthMm:5100,
+      bhBreakoutForceKN:1516, bhBreakoutForceLbf:340810,
+      bhTearoutForceKN:1326, bhTearoutForceLbf:298097,
+      bhMaxDigHeightMm:15330, bhMaxDumpHeightMm:9730,
+      bhMaxDigDepthMm:8720,
+      bhMaxDigReachMm:20000, bhMaxDigReachGroundMm:19050,
+      // Backhoe bucket specs
+      bhBucketCapM3:29, bhBucketCapYd3:37.9,
+      bhBucketWidthMm:4661, bhBucketTeeth:5,
+      bhBucketWearPackage:'Heavy duty',
+      bhBucketGETSystem:'Hensley XS 644',
+      bhBucketMaxDensityTm3:1.8,
+      // Dimensions (labelled A–R1 from dimension diagram, page 4)
+      dimA_groundClearanceMm:1350,
+      dimB_shoeWidthMm:1800, // standard shoe option
+      dimCA_trackLengthOnGroundMm:7540,
+      dimCB_trackLengthMm:7990,
+      dimCC_overallTrackLengthMm:8842,
+      dimD_undercarriageHeightMm:2715,
+      dimE_groundClearanceMinMm:995,
+      dimF_trackGaugeMm:3712,
+      dimG_distSwingCentreToFrontMm:7424,
+      dimH_tailSwingRadiusMm:9720,
+      dimI_machineWidthAtTailMm:3325,
+      dimJ_counterweightClearanceMm:3100,
+      dimK_heightToTopCabMm:5160,
+      dimL_overallTransportLengthMm:7884,
+      dimM_upperStructureLengthMm:8620,
+      dimN_overallWidthWithShoesMm:3970,
+      dimO_upperStructureWidthMm:3330,
+      dimP_heightToTopEngineHoodMm:4847,
+      dimQ_overallHeightMm:8630,
+      dimR_distSwingCentreToRearMm:7370,
+      dimR1_boom7600mmTransportLengthMm:7600,
+      // Operator cab
+      cabMounting:'Enclosed steel cab mounted on viscous damping pads',
+      cabACSystem:'Air-condition unit',
+      seatType:'Full suspension operator seat with belt',
+      seatHeating:'Electrically heated',
+      trainerSeat:'Trainer seat with belt',
+      seatAdjustments:'Multiple adjustments',
+      joystickControls:'Electro-hydraulic joystick controls',
+      footControls:'Foot control for shovel clam, crawler and swing brake',
+      radio:'AM-FM radio with MP3 ready CD player and AUX in',
+      windshieldWasher:'1 large parallel windshield wash wiper, two speeds and intermittent',
+      mirrors:'2 heated rear mirrors',
+      sunBlinds:'Internal and external',
+      rollerBlinds:'Standard on all windows (excluding rear door)',
+      slidingWindow:'ESG escape window, VSG according to ECE R43',
+      windowTinting:'Parsol green',
+      frontWindowRating:'Impact resistant (21mm and tolerances)',
+      walkway:'Walkway around the cab',
+      cabEngStandards:'ISO 3449, ISO 6394, ISO 10263-4, EN474-1, EN474-5, DIN 15018, BR2-S DIN EN 1063, ECE R43, ISO 10262',
+      // Environment
+      handArmVibrationMs2:'<2.5 m/s² (ISO 5349-1)',
+      wholeBodyVibrationMs2:'<0.5 m/s² (ISO 2631-1)',
+      refrigerantType:'HFC-134a (GWP 1430)',
+      // Monitoring
+      komtraxVersion:'KOMTRAX Plus Upgrade',
+      argusPLMReady:true,
+      // Derived / summary
+      bucketCapM3:29,
+      digDepthM:8.72, // backhoe
+      maxReachGroundMm:19050, // backhoe
+      brochureRef:'EN-PC5500-11SP01-0523-V1 (Komatsu Germany, ©2021)',
+      tags:['mining','ultra class','twin engine','shovel','530t class','production machine','quarry','large payload truck loading'],
+      note:'Komatsu PC5500-11 — 537–556t ultra-class mining excavator. Twin Komatsu SDA12V159E-3 engines, 2x940kW/1,260hp @ 1,800rpm, total 1,880kW/2,520hp, Tier 4 option available. Electric drive available as -6 version only (not -11). Front shovel (7.6m boom / 5.6m stick / 29m³): breakout 1,870kN, crowd 1,850kN, max cut height 19.82m, dump height 13.10m, reach 16.75m. Backhoe (11.0m boom / 5.1m stick / 29m³): breakout 1,516kN, tear-out 1,326kN, dig depth 8.72m, reach 20.0m (19.05m at ground), dump height 9.73m. Swing 3.1 rpm with 2 hydraulic motors. Travel max 2.1 km/h, gradeability 50%. Open-circuit hydraulics, 4,200L/min pumps, 310 bar relief. Fuel 10,626L, hydraulic system 6,000L. Truck compatible with 150–240 short ton trucks. 16 LED working lights, heated cab on viscous mounts, KOMTRAX Plus, Argus PLM ready. Source: Komatsu PC5500-11 Brochure EN-PC5500-11SP01-0523-V1 (Komatsu Germany, ©2021).',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC7000-11 Spec Sheet EN-PC7000-11SP01-0523-V1 (©2021 Komatsu Germany)
+    { id:'kom-pc7000-11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC7000-11 Mining Excavator', shortName:'Komatsu PC7000-11',
+      weightClass:'mining',
+      // Diesel drive (twin engines)
+      engineModel:'Komatsu SSDA16V159E-3',
+      engineType:'4-cycle, water-cooled, direct injection',
+      engineAspiration:'Turbocharged and aftercooled',
+      engineCylinders:16,
+      engineCount:2,
+      engineRatedKWPerEngine:1250, engineRatedHPPerEngine:1500,  // per spec sheet (SAE J1995)
+      engineTotalKW:2500, engineTotalHP:3350,                     // cover page summary
+      engineRatedRPM:1800,
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'Tier 4 optional',
+      defTankCapacityTier4L:514, defTankCapacityTier4Gal:136,    // per engine (×2)
+      // Electric drive (NOT available on -11; available as -6 version only)
+      electricDriveAvailable11:false,
+      electricDriveType:'Squirrel cage induction motor (–6 version only)',
+      electricDriveEngineCount:2,
+      electricDrivePowerKWPerEngine:1250, electricDrivePowerHPPerEngine:1630,
+      electricDriveVoltageV:'6000–7200',
+      electricDriveAmperageA:'2×128 A – 2×107 A',
+      electricDriveFreqStdHz:60, electricDriveFreqOptionHz:50,
+      // Electrical system
+      electricSystemV:24,
+      batteries:'4 × 12 V',
+      alternator:'2 × 260 A',
+      workingLights:'16 LED lights standard',
+      serviceLights:'Throughout the platform including emergency egresses and stairways',
+      // Hydraulic system
+      hydraulicType:'Open circuit, four-circuit system with load-limiting governor and pressure cut-off control; Hydropilot prioritises flow',
+      hydraulicDescription:'Two main drives; each of the two gearboxes drives three identical main pumps from unpressurised hydraulic tank. Open circuit for maximum cooling and filtering efficiency.',
+      hydraulicPumpBrand:'Komatsu',
+      hydraulicPumpCount:6,
+      pumpFlowLpm:6210, pumpFlowGpm:1640,
+      reliefValveSettingBar:310, reliefValveSettingPsi:4495,
+      swingFlowRateLpm:1035, swingFlowRateGpm:273,
+      highPressureScreensMicrons:200,
+      hydraulicCooling:'Large swing-out vertical air-to-oil hydraulic coolers with temperature-regulated hydraulically driven fans',
+      // Automatic lubrication system
+      lubricationSystem:'Three hydraulically powered Lincoln single-line automatic lubrication systems with time and volume variable controls. Two central lube circuits + one open gear grease circuit. Container capacity: 1×600L + 1×300L total (238 gal). Refilled via Wiggins connections on service arm.',
+      lubricationSystemTotalL:900, lubricationSystemTotalGal:238,
+      lubricationContainerL:'600L + 300L',
+      // Swing system
+      swingMotorCount:2,
+      swingGearCount:2,
+      swingBrakeDynamic:'Hydraulic brake',
+      swingBrakeParking:'Multiple-disc',
+      swingRingTeeth:'External',
+      swingSpeedRpm:3.1,
+      // Travel & brakes
+      gradeabilityPct:50,
+      maxTravelSpeedKmh:2.5, maxTravelSpeedMph:1.55,
+      serviceBrakeTravel:'Hydraulic brake',
+      parkingBrake:'Multiple brake',
+      // Undercarriage
+      undercarriageTrackAdjuster:'Automatic hydraulic type',
+      shoesPerSide:48,
+      topRollersPerSide:3,
+      bottomRollersPerSide:7,
+      // Operating weights — Backhoe (11000mm boom / 5100mm stick / 38m³)
+      bh1500mmShoeKg:690000, bh1500mmGroundPressureNcm2:25.6, bh1500mmGroundPressurePsi:38.14,
+      bh1500mmShoeWeightMT:690, bh1500mmShoeWeightLb:1521000,
+      bh1900mmShoeKg:700000, bh1900mmGroundPressureNcm2:20.5, bh1900mmGroundPressurePsi:30.74,
+      bh1900mmShoeWeightMT:700, bh1900mmShoeWeightLb:1543000,
+      // Operating weights — Front shovel (8000mm boom / 5500mm stick / 38m³)
+      fs1500mmShoeKg:682000, fs1500mmGroundPressureNcm2:25.3, fs1500mmGroundPressurePsi:37.73,
+      fs1500mmShoeWeightMT:682, fs1500mmShoeWeightLb:1504000,
+      fs1900mmShoeKg:692000, fs1900mmGroundPressureNcm2:20.3, fs1900mmGroundPressurePsi:30.23,
+      fs1900mmShoeWeightMT:692, fs1900mmShoeWeightLb:1526000,
+      operatingWeightKg:682000, operatingWeightMinKg:682000, operatingWeightMaxKg:700000, operatingWeightT:682,
+      // Service capacities
+      hydraulicTankL:4750, hydraulicTankGal:1255,
+      hydraulicSystemTotalL:9500, hydraulicSystemTotalGal:2510,
+      fuelTankL:13310, fuelTankGal:3516,       // usable including reserve
+      fuelTankReserveL:280, fuelTankReserveGal:74,
+      coolantL:880, coolantGal:232,
+      engineOilL:472, engineOilGal:124,
+      // Environment
+      handArmVibrationMs2:'Lower than 2.5 m/s² (ISO 5349-1)',
+      wholeBodyVibrationMs2:'Below 0.5 m/s² (ISO 2631-1)',
+      refrigerantType:'HFC-134a (GWP 1430)',
+      refrigerantQtyDieselKg:'5.5–10.0 kg', refrigerantCO2eqDieselT:'7.865–14.300 t',
+      refrigerantQtyElectricKg:'7.9–12.4 kg', refrigerantCO2eqElectricT:'11.297–17.732 t',
+      // Operator cab
+      cabMounting:'Enclosed steel cab mounted on viscous pads',
+      cabACSystem:'Automatic air-condition unit',
+      seatType:'Full suspension operator seat with belt, electrically heated',
+      seatBelt:'Trainer seat with belt (driver and trainer)',
+      seatAdjustments:'Multiple adjustments',
+      joystickControls:'Electro-hydraulic joystick controls',
+      footControls:'Foot control for shovel clam, crawler and swing brake',
+      radio:'AM-FM radio with MP3-ready CD player and AUX in',
+      windshieldWiper:'1 large parallel windshield wiper, two speeds and intermittent',
+      mirrors:'2 heated rear mirrors',
+      sunBlinds:'Internal and external',
+      rollerBlinds:'Standard on all windows (excluding rear door)',
+      slidingWindow:'ESG escape window, VSG according to ECE R43',
+      windowTinting:'Parsol green',
+      frontWindowRating:'Impact-resistant front window (21mm and tolerances)',
+      walkway:'Walkway around the cab',
+      cabEngStandards:'ISO 3449, ISO 6394, ISO 10263-4, EN474-1, EN474-5, DIN 15018, BR2-S DIN EN 1063, ECE R43, ISO 10262',
+      // Monitoring
+      komtraxVersion:'KOMTRAX Plus Upgrade',
+      argusPLMReady:true,
+      // Front shovel attachment (8000mm boom / 5500mm stick)
+      fsBoomLengthMm:8000, fsBoomLengthFt:'26.2 ft',
+      fsStickLengthMm:5500, fsStickLengthFt:'18.0 ft',
+      fsBreakoutForceISOKN:2023, fsBreakoutForceLbf:454788,
+      fsCrowdForceISOKN:2151, fsCrowdForceLbf:483564,
+      fsMaxCutHeightMm:21049, fsMaxCutHeightFt:'69.1 ft',
+      fsMaxDumpHeightMm:13682, fsMaxDumpHeightFt:'44.9 ft',
+      fsMaxDigDepthMm:3085, fsMaxDigDepthFt:'10.1 ft',
+      fsMaxDigReachMm:17722, fsMaxDigReachFt:'58.1 ft',
+      fsLevelCrowdGroundMm:5054, fsLevelCrowdGroundFt:'16.6 ft',
+      fsBucketOpeningWidthMm:3164, fsBucketOpeningWidthFt:'10.4 ft',
+      // Front shovel bucket specs
+      fsBucketCapM3:38, fsBucketCapYd3:49.7,
+      fsBucketWidthMm:5208, fsBucketWidthFt:'17.1 ft',
+      fsBucketTeeth:6,
+      fsBucketWearPackage:'Heavy duty, standard, or light',
+      fsBucketGETSystem:'Hensley XS 644',
+      fsBucketMaxDensityTm3:1.8,
+      // Backhoe attachment (11000mm boom / 5100mm stick)
+      bhBoomLengthMm:11000, bhBoomLengthFt:'36.1 ft',
+      bhStickLengthMm:5100, bhStickLengthFt:'16.7 ft',
+      bhBreakoutForceISOKN:1648, bhBreakoutForceLbf:370485,
+      bhTearoutForceISOKN:1473, bhTearoutForceLbf:331143,
+      bhMaxDigHeightMm:17179, bhMaxDigHeightFt:'56.4 ft',
+      bhMaxDumpHeightMm:10752, bhMaxDumpHeightFt:'35.3 ft',
+      bhMaxDigDepthMm:8446, bhMaxDigDepthFt:'27.7 ft',
+      bhMaxDigReachMm:20630, bhMaxDigReachFt:'67.7 ft',
+      bhMaxDigReachGroundMm:19607, bhMaxDigReachGroundFt:'64.3 ft',
+      // Backhoe bucket specs
+      bhBucketCapM3:38, bhBucketCapYd3:49.7,
+      bhBucketWidthMm:4815, bhBucketWidthFt:'15.8 ft',
+      bhBucketTeeth:6,
+      bhBucketWearPackage:'Heavy duty, standard, or light',
+      bhBucketGETSystem:'Hensley XS 644',
+      bhBucketMaxDensityTm3:1.8,
+      // Machine dimensions (from spec sheet dimension diagram, page 4)
+      dimA_shoeWidthStdMm:1500,
+      dimB_shoeWidthLargeMm:1900,
+      dimCA_trackLengthOnGroundMm:8050,
+      dimCB_trackLengthOnGroundLargeMm:8450,
+      dimD_undercarriageHeightMm:2895,
+      dimE_groundClearanceMinMm:1065,
+      dimF_trackGaugeMm:3945,
+      dimG_distSwingCentreToFrontMm:7875,
+      dimH_upperStructureHeightMm:10500,
+      dimI_revolveFrameHeightMm:3452,
+      dimJ_counterweightClearanceMm:3420,
+      dimK_trackLengthTotalMm:9200,
+      dimL_widthOverShoesMm:9016,
+      dimM_upperStructureWidthMm:8255,
+      dimN_bucketOpeningWidthMm:4990,
+      dimO_counterweightWidthMm:3839,
+      dimP_groundClearanceUnderRevFrameMm:425,
+      dimQ_overallHeightMm:9610,
+      dimR_tailSwingRadiusMm:7670,
+      dimR1_tailSwingRadiusLargeShoesMm:7850,
+      // Truck compatibility
+      truckCompatibilityShortTons:'240–400',
+      truckModelMatch:'730E, 830E, 930E, 960E (3–5 passes depending on truck capacity)',
+      // Summary fields
+      bucketCapM3:38, backhoeBucketM3:38, frontShovelBucketM3:38,
+      digDepthMm:8446, digDepthM:8.45,
+      maxReachGroundMm:19607, maxReachMm:20630,
+      maxCuttingHeightMm:17179, maxLoadingHeightMm:10752,
+      maxTravelSpeedHighKmh:2.5,
+      swingSpeedRpm:3.1,
+      brochureRef:'EN-PC7000-11SP01-0523-V1 (Komatsu Germany, ©2021)',
+      tags:['mining','ultra class','twin engine','shovel','680t class','production machine','quarry','large payload truck loading'],
+      note:'Komatsu PC7000-11 — 682–700t mining hydraulic excavator (front shovel and backhoe). Twin Komatsu SSDA16V159E-3, 16-cyl each, 2×1,250kW/1,500hp @ 1,800rpm (spec sheet); 2,500kW/3,350hp total (cover). Tier 4 option. Electric drive NOT available on -11 (available on -6 version only). Front shovel (8.0m boom / 5.5m stick / 38m³ / Hensley XS644): ISO breakout 2,023kN/454,788lbf, crowd 2,151kN/483,564lbf, max cut height 21.05m, dump height 13.68m, reach 17.72m, level crowd 5.054m, bucket opening 3.164m. Backhoe (11.0m boom / 5.1m stick / 38m³ / Hensley XS644): ISO breakout 1,648kN/370,485lbf, tear-out 1,473kN/331,143lbf, dig depth 8.45m, reach 20.63m (19.61m at ground), max dig height 17.18m, dump height 10.75m. Swing 3.1 rpm. Travel 2.5 km/h, gradeability 50%. Open-circuit hydraulics, 6 Komatsu main pumps, 6,210 L/min total, 310 bar relief, swing flow 1,035 L/min. FS weights: 1500mm shoes 682t/25.3 N/cm², 1900mm shoes 692t/20.3 N/cm². BH: 690t/25.6 N/cm² (1500mm), 700t/20.5 N/cm² (1900mm). Fluids: fuel 13,310L (3,516 gal, including 280L reserve), hydraulic tank 4,750L, hydraulic system 9,500L, coolant 880L, engine oil 472L. Three Lincoln auto-lube systems: 600L + 300L containers, 900L total. Cab: Konvekta-equivalent auto AC, Parsol green glass, 21mm impact-resistant front window, ESG/VSG escape window, heated seat, trainer seat, AM/FM/CD/AUX radio, 2 heated rear mirrors. Vibration: <2.5 m/s² hand-arm, <0.5 m/s² whole-body. KOMTRAX Plus upgrade, Argus PLM ready. Truck-match: 240–400 short ton trucks (730E/830E/930E/960E). Source: Komatsu PC7000-11 Spec Sheet EN-PC7000-11SP01-0523-V1 (Komatsu Germany, ©2021).',
+      hireRateType:'wet' },
+
+    // Source: Komatsu PC8000-11 Brochure EN-PC8000-11SP01-0523-V1 (©2020 Komatsu Germany)
+    { id:'kom-pc8000-11', brand:'Komatsu', emoji:'⛏️', type:'excavator',
+      name:'Komatsu PC8000-11 Mining Excavator', shortName:'Komatsu PC8000-11',
+      weightClass:'mining',
+      // Diesel drive (x2 engines — twin 16-cylinder)
+      engineModel:'Komatsu SDA16V160E-3',
+      engineType:'4-cycle, water-cooled, direct injection',
+      engineAspiration:'Turbocharged and aftercooled',
+      engineCylinders:16,
+      engineCount:2,
+      engineRatedKWPerEngine:1500, engineRatedHPPerEngine:2010,
+      engineTotalKW:3000, engineTotalHP:4020,
+      engineRatedRPM:1800,
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'Tier 4 option available',
+      defTankCapacityTier4:'2 x 592.4 L (2 x 156.5 gal)',
+      // Electric drive option (not available on -11 — available as -6 version)
+      electricDriveAvailable11:false,
+      electricDriveType:'Asynchronous motor',
+      electricDrivePowerPerEngineKW:1448.93, electricDrivePowerPerEngineHP:1970,
+      electricDriveVoltageV:'6000–7200',
+      electricDriveAmperageA:'2x155 A – 2x128 A',
+      electricDriveFreqStdHz:60, electricDriveFreqOptionHz:50,
+      // Electrical system
+      electricSystemV:24,
+      batteries:'8x12 V',
+      alternator:'2x140 A',
+      workingLights:'16 LED lights',
+      serviceLights:'Throughout the platform including emergency egresses and stairways',
+      // Operating weights — Front shovel (8150mm boom / 5750mm stick / 42m³ bucket)
+      fsBoomMm:8150, fsStickMm:5750, fsBucketM3:42,
+      fs1500mmShoeT:769, fs1500mmGroundPressureNcm2:27.9,
+      fs1900mmShoeT:782, fs1900mmGroundPressureNcm2:22.4,
+      // Operating weights — Backhoe (11500mm boom / 5500mm stick / 42m³ bucket)
+      bhBoomMm:11500, bhStickMm:5500, bhBucketM3:42,
+      bh1500mmShoeT:777, bh1500mmGroundPressureNcm2:28.2,
+      bh1900mmShoeT:790, bh1900mmGroundPressureNcm2:22.6,
+      // Summary operating weights
+      operatingWeightKg:769000, operatingWeightT:769,
+      fsSummaryWeightT:768, bhSummaryWeightT:777, // from page 1 summary table
+      // Truck compatibility
+      truckCompatibilityShortTons:'240–400',
+      // Hydraulic system
+      hydraulicType:'Open circuit, four-circuit system with load-limiting governor and pressure cut-off control',
+      hydraulicPumpDesc:'8 identical swash plate pumps',
+      hydraulicPumpCount:8,
+      hydraulicFlowPerPumpLpm:1035, hydraulicFlowPerPumpGpm:273,
+      pumpFlowLpm:8280, // 8 x 1,035 L/min total
+      reliefValveSettingBar:310, reliefValveSettingPsi:4495,
+      swingFlowRateLpm:2070, swingFlowRateGpm:547,
+      highPressureScreensMicrons:200,
+      hydraulicCooling:'Swing-out vertical air-to-oil coolers with temperature-regulated hydraulic fans',
+      // Capacities
+      hydraulicTankL:7750, hydraulicSystemTotalL:11500,
+      fuelTankL:13925,
+      coolantL:860, engineOilL:580,
+      lubricationSystemTotalL:900,
+      // Travel & drives
+      gradeabilityPct:50,
+      maxTravelSpeedKmh:2.4,
+      serviceBrakeTravel:'Hydraulic brake',
+      parkingBrake:'Multiple brake',
+      // Swing system
+      swingMotorCount:3, swingGearCount:3,
+      swingBrakeDynamic:'Hydraulic brake',
+      swingBrakeParking:'Multiple-disc',
+      swingRingTeeth:'External',
+      swingSpeedRpm:2.7,
+      // Undercarriage
+      undercarriageTrackAdjuster:'Automatic hydraulic type',
+      shoesPerSide:49,
+      topRollersPerSide:3,
+      bottomRollersPerSide:8,
+      // Automatic lubrication
+      lubricationSystem:'Three hydraulically powered Lincoln single-line automatic systems with time and volume variable controls. Container capacity: 1x600L + 1x300L (total 238 gal). Refilled via Wiggins connections on service arm.',
+      // Front shovel working range
+      fsBoomLengthMm:8150, fsStickLengthMm:5750,
+      fsBreakoutForceKN:2331, fsBreakoutForceLbf:524030,
+      fsCrowdForceKN:2353, fsCrowdForceLbf:528975,
+      fsMaxCutHeightMm:21090, fsMaxDumpHeightMm:13690,
+      fsMaxDigDepthMm:3160, fsMaxDigReachMm:18030,
+      fsLevelCrowdReachMm:4556, // second "Max digging reach" figure from brochure (14.9 ft)
+      // Front shovel bucket
+      fsBucketCapM3:42.0, fsBucketCapYd3:55,
+      fsBucketWidthMm:5375, fsBucketTeeth:6,
+      fsBucketWearPackage:'Standard, light',
+      fsBucketGETSystem:'Hensley XS 804',
+      fsBucketMaxDensityTm3:1.8,
+      // Backhoe working range
+      bhBoomLengthMm:11500, bhStickLengthMm:5500,
+      bhBreakoutForceKN:2077, bhBreakoutForceLbf:466928,
+      bhTearoutForceKN:1813, bhTearoutForceLbf:407579,
+      bhMaxDigHeightMm:16580, bhMaxDumpHeightMm:10650,
+      bhMaxDigDepthMm:8640,
+      bhMaxDigReachMm:21190, bhMaxDigReachGroundMm:5375, // second reach figure from brochure (17.6 ft)
+      // Backhoe bucket
+      bhBucketCapM3:42.0, bhBucketCapYd3:55,
+      bhBucketWidthMm:4575, bhBucketTeeth:6,
+      bhBucketWearPackage:'Standard, light',
+      bhBucketGETSystem:'Hensley XS 804',
+      bhBucketMaxDensityTm3:1.8,
+      // Dimensions (labelled A, B, CA, CB, D–Q, QR from dimension diagram, page 3)
+      dimA_shoeWidthStdMm:1500,
+      dimB_shoeWidthWideMm:1900,
+      dimCA_trackLengthOnGroundMm:8330,
+      dimCB_trackLengthMm:8730,
+      dimD_undercarriageHeightMm:2995,
+      dimE_groundClearanceMinMm:1065,
+      dimF_trackGaugeMm:4050,
+      dimG_distSwingCentreToFrontMm:8100,
+      dimH_tailSwingRadiusMm:10685,
+      dimI_machineWidthAtTailMm:3612,
+      dimJ_counterweightClearanceMm:3550,
+      dimK_heightToTopCabMm:8956,
+      dimL_overallTransportLengthMm:9775,
+      dimMA_overallWidthWithShoesMm:5370,
+      dimMB_upperStructureWidthMm:4375,
+      dimN_distSwingCentreToRearMm:3720,
+      dimO_groundClearanceMm:1010,
+      dimP_heightToTopEngineHoodMm:10100,
+      dimQ_overallHeightMm:8390,
+      dimQR_heightWithBoomRaisedMm:8620,
+      // Operator cab
+      cabMounting:'Enclosed steel cab mounted on viscous damping pads',
+      cabACSystem:'Air-condition unit',
+      seatType:'Full suspension operator seat with belt',
+      seatHeating:'Electrically heated',
+      trainerSeat:'Trainer seat with belt',
+      seatAdjustments:'Multiple adjustments',
+      joystickControls:'Electro-hydraulic joystick controls',
+      footControls:'Foot control for shovel clam, crawler and swing brake',
+      radio:'AM-FM radio with MP3 ready CD player and AUX in',
+      windshieldWasher:'1 large parallel windshield wash wiper, two speeds and intermittent',
+      mirrors:'2 heated rear mirrors',
+      sunBlinds:'Internal and external',
+      rollerBlinds:'Standard on all windows (excluding rear door)',
+      slidingWindow:'ESG escape window, VSG according to ECE R43',
+      windowTinting:'Parsol green',
+      frontWindowRating:'Impact resistant (21mm and tolerances)',
+      walkway:'Walkway around the cab',
+      cabEngStandards:'ISO 3449, ISO 6394, ISO 10263-4, EN474-1, EN474-5, DIN 15018, BR2-S DIN EN 1063, ECE R43, ISO 10262',
+      // Environment
+      handArmVibrationMs2:'<2.5 m/s² (ISO 5349-1)',
+      wholeBodyVibrationMs2:'<0.5 m/s² (ISO 2631-1)',
+      refrigerantType:'R 134 A',
+      refrigerantDieselKg:'3.5–8.3 kg', refrigerantDieselCO2Equiv:'5.005–11.869 t',
+      refrigerantElecKg:'7.2–12 kg', refrigerantElecCO2Equiv:'10.240–17.16 t',
+      // Monitoring
+      komtraxVersion:'KOMTRAX Plus 2',
+      argusPLMReady:true,
+      // Derived / summary
+      bucketCapM3:42,
+      digDepthM:8.64, // backhoe
+      maxReachMm:21190, // backhoe
+      brochureRef:'EN-PC8000-11SP01-0523-V1 (Komatsu Germany, ©2020)',
+      tags:['mining','ultra class','twin engine','shovel','770t class','production machine','quarry','large payload truck loading'],
+      note:'Komatsu PC8000-11 — 769–790t ultra-class mining excavator. Twin Komatsu SDA16V160E-3 engines, 2x1,500kW/2,010hp @ 1,800rpm (16-cyl each), total 3,000kW/4,020hp, Tier 4 option available. Electric drive available as -6 version only (not -11). Front shovel (8.15m boom / 5.75m stick / 42m³): breakout 2,331kN, crowd 2,353kN, max cut height 21.09m, dump height 13.69m, reach 18.03m. Backhoe (11.5m boom / 5.5m stick / 42m³): breakout 2,077kN, tear-out 1,813kN, dig depth 8.64m, reach 21.19m, dig height 16.58m, dump height 10.65m. Swing 2.7 rpm with 3 hydraulic motors. Travel max 2.4 km/h, gradeability 50%. Open-circuit hydraulics, 8 swash plate pumps at 1,035L/min each (8,280L/min total), 310 bar relief, swing flow 2,070L/min. Fuel 13,925L, hydraulic system 11,500L. Truck compatible with 240–400 short ton trucks (Komatsu 830E/930E/960E/980E). 16 LED working lights, heated cab on viscous mounts, KOMTRAX Plus 2, Argus PLM ready. Source: Komatsu PC8000-11 Brochure EN-PC8000-11SP01-0523-V1 (Komatsu Germany, ©2020).',
+      hireRateType:'wet' },
+
+    // ── HITACHI EXCAVATORS ───────────────────────────────────────────
+    { id:'hit-zx26',   brand:'Hitachi', emoji:'⛏️', type:'excavator', name:'Hitachi ZX26U-6', shortName:'Hitachi ZX26',
+      weightClass:'mini', operatingWeightT:2.6, digDepthM:2.76, bucketCapM3:0.06,
+      tags:['mini','backyard','tight access','residential'],
+      note:'Hitachi ZX26U-6 — 2.6t mini. 14.5kW engine. Dig depth 2.76m. Zero tail swing. Source: Hitachicm.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hit-zx55',   brand:'Hitachi', emoji:'⛏️', type:'excavator', name:'Hitachi ZX55U-6', shortName:'Hitachi ZX55',
+      weightClass:'midi', operatingWeightT:5.5, digDepthM:3.71, bucketCapM3:0.17,
+      tags:['midi','residential','commercial','trench'],
+      note:'Hitachi ZX55U-6 — 5.5t midi. 30.2kW engine. Dig depth 3.71m. Zero tail swing. Source: Hitachicm.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hit-zx85',   brand:'Hitachi', emoji:'⛏️', type:'excavator', name:'Hitachi ZX85USB-6', shortName:'Hitachi ZX85',
+      weightClass:'midi', operatingWeightT:8.7, digDepthM:4.29, bucketCapM3:0.31,
+      tags:['midi','commercial','deep trench','civil light'],
+      note:'Hitachi ZX85USB-6 — 8.7t midi. 44kW engine. Ultra short tail swing. Dig depth 4.29m. Source: Hitachicm.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hit-zx135',  brand:'Hitachi', emoji:'⛏️', type:'excavator', name:'Hitachi ZX135US-7', shortName:'Hitachi ZX135',
+      weightClass:'standard', operatingWeightT:13.8, digDepthM:5.46, bucketCapM3:0.52,
+      tags:['standard','commercial','civil','bulk excavation'],
+      note:'Hitachi ZX135US-7 — 13.8t standard. 70kW engine. Dig depth 5.46m. Ultra short swing radius for urban sites. Source: Hitachicm.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hit-zx200',  brand:'Hitachi', emoji:'⛏️', type:'excavator', name:'Hitachi ZX200-7', shortName:'Hitachi ZX200',
+      weightClass:'standard', operatingWeightT:20.4, digDepthM:6.62, bucketCapM3:0.86,
+      tags:['standard','civil','bulk','heavy commercial'],
+      note:'Hitachi ZX200-7 — 20.4t standard. 110kW engine. Dig depth 6.62m. Source: Hitachicm.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hit-zx350',  brand:'Hitachi', emoji:'⛏️', type:'excavator', name:'Hitachi ZX350-7', shortName:'Hitachi ZX350',
+      weightClass:'large', operatingWeightT:34.7, digDepthM:7.64, bucketCapM3:1.60,
+      tags:['large','civil','mining','bulk','infrastructure'],
+      note:'Hitachi ZX350-7 — 34.7t large. 193kW engine. Dig depth 7.64m. Source: Hitachicm.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── VOLVO EXCAVATORS ─────────────────────────────────────────────
+    { id:'vol-ec27',   brand:'Volvo', emoji:'⛏️', type:'excavator', name:'Volvo EC27E', shortName:'Volvo EC27',
+      weightClass:'mini', operatingWeightT:2.8, digDepthM:2.88, bucketCapM3:0.07,
+      tags:['mini','backyard','residential','tight access'],
+      note:'Volvo EC27E — 2.8t mini. 14.5kW engine. Dig depth 2.88m. Source: Volvoce.com.au.', hireRateType:'wet_or_dry' },
+    { id:'vol-ec55',   brand:'Volvo', emoji:'⛏️', type:'excavator', name:'Volvo EC55E', shortName:'Volvo EC55',
+      weightClass:'midi', operatingWeightT:5.5, digDepthM:3.77, bucketCapM3:0.17,
+      tags:['midi','residential','commercial'],
+      note:'Volvo EC55E — 5.5t midi. 30.2kW engine. Dig depth 3.77m. Source: Volvoce.com.au.', hireRateType:'wet_or_dry' },
+    { id:'vol-ec80',   brand:'Volvo', emoji:'⛏️', type:'excavator', name:'Volvo EC80E', shortName:'Volvo EC80',
+      weightClass:'midi', operatingWeightT:8.6, digDepthM:4.56, bucketCapM3:0.34,
+      tags:['midi','commercial','deep trench','footing'],
+      note:'Volvo EC80E — 8.6t midi. 44kW engine. Dig depth 4.56m. Source: Volvoce.com.au.', hireRateType:'wet_or_dry' },
+    { id:'vol-ec140',  brand:'Volvo', emoji:'⛏️', type:'excavator', name:'Volvo EC140E', shortName:'Volvo EC140',
+      weightClass:'standard', operatingWeightT:14.5, digDepthM:5.88, bucketCapM3:0.58,
+      tags:['standard','commercial','civil','bulk'],
+      note:'Volvo EC140E — 14.5t standard. 74kW engine. Dig depth 5.88m. Source: Volvoce.com.au.', hireRateType:'wet_or_dry' },
+    { id:'vol-ec220',  brand:'Volvo', emoji:'⛏️', type:'excavator', name:'Volvo EC220E', shortName:'Volvo EC220',
+      weightClass:'standard', operatingWeightT:22.0, digDepthM:6.77, bucketCapM3:1.00,
+      tags:['standard','civil','bulk','heavy commercial'],
+      note:'Volvo EC220E — 22t standard. 122kW engine. Dig depth 6.77m. Source: Volvoce.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── KUBOTA EXCAVATORS ────────────────────────────────────────────
+    { id:'kub-u10',    brand:'Kubota', emoji:'⛏️', type:'excavator', name:'Kubota U10-5', shortName:'Kubota U10',
+      weightClass:'mini', operatingWeightT:1.1, digDepthM:1.78, bucketCapM3:0.03,
+      tags:['mini','tight access','indoor','backyard','very small'],
+      note:'Kubota U10-5 — 1.1t micro excavator. Zero tail swing. Fits through standard 800mm doorways. 6.2kW engine. Dig depth 1.78m. Source: Kubota.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kub-u20',    brand:'Kubota', emoji:'⛏️', type:'excavator', name:'Kubota U20-6', shortName:'Kubota U20',
+      weightClass:'mini', operatingWeightT:2.1, digDepthM:2.49, bucketCapM3:0.05,
+      tags:['mini','backyard','tight access','residential'],
+      note:'Kubota U20-6 — 2.1t mini. Zero tail swing. 11.4kW engine. Dig depth 2.49m. Source: Kubota.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kub-kx030',  brand:'Kubota', emoji:'⛏️', type:'excavator', name:'Kubota KX030-4', shortName:'Kubota KX030',
+      weightClass:'mini', operatingWeightT:2.9, digDepthM:2.79, bucketCapM3:0.07,
+      tags:['mini','residential','trench','standard access'],
+      note:'Kubota KX030-4 — 2.9t mini. 15.7kW engine. Dig depth 2.79m. Very popular Australian residential excavator. Source: Kubota.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kub-kx057',  brand:'Kubota', emoji:'⛏️', type:'excavator', name:'Kubota KX057-5', shortName:'Kubota KX057',
+      weightClass:'midi', operatingWeightT:5.7, digDepthM:3.89, bucketCapM3:0.19,
+      tags:['midi','residential','commercial','footing','trench'],
+      note:'Kubota KX057-5 — 5.7t midi. 33.4kW engine. Dig depth 3.89m. Source: Kubota.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── YANMAR EXCAVATORS ────────────────────────────────────────────
+    { id:'yan-sv08',   brand:'Yanmar', emoji:'⛏️', type:'excavator', name:'Yanmar SV08-1A', shortName:'Yanmar SV08',
+      weightClass:'mini', operatingWeightT:0.83, digDepthM:1.53, bucketCapM3:0.02,
+      tags:['mini','very small','tight access','indoor','micro'],
+      note:'Yanmar SV08-1A — 0.83t micro excavator. Narrowest in class — fits through standard doorways (730mm wide). 4.4kW engine. Dig depth 1.53m. Source: Yanmar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'yan-sv17',   brand:'Yanmar', emoji:'⛏️', type:'excavator', name:'Yanmar SV17EX', shortName:'Yanmar SV17',
+      weightClass:'mini', operatingWeightT:1.8, digDepthM:2.25, bucketCapM3:0.04,
+      tags:['mini','tight access','backyard','indoor'],
+      note:'Yanmar SV17EX — 1.8t mini. Zero tail swing. 10.4kW engine. Dig depth 2.25m. Source: Yanmar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'yan-sv26',   brand:'Yanmar', emoji:'⛏️', type:'excavator', name:'Yanmar SV26EX', shortName:'Yanmar SV26',
+      weightClass:'mini', operatingWeightT:2.6, digDepthM:2.86, bucketCapM3:0.06,
+      tags:['mini','residential','backyard','trench'],
+      note:'Yanmar SV26EX — 2.6t mini. Zero tail swing. 14.5kW engine. Dig depth 2.86m. Source: Yanmar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'yan-sv40',   brand:'Yanmar', emoji:'⛏️', type:'excavator', name:'Yanmar SV40EX', shortName:'Yanmar SV40',
+      weightClass:'midi', operatingWeightT:4.0, digDepthM:3.32, bucketCapM3:0.12,
+      tags:['midi','residential','light commercial','trench'],
+      note:'Yanmar SV40EX — 4.0t midi. Zero tail swing. 24.3kW engine. Dig depth 3.32m. Source: Yanmar.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── JCB EXCAVATORS ───────────────────────────────────────────────
+    { id:'jcb-8016',   brand:'JCB', emoji:'⛏️', type:'excavator', name:'JCB 8016 CTS', shortName:'JCB 8016',
+      weightClass:'mini', operatingWeightT:1.6, digDepthM:2.16, bucketCapM3:0.03,
+      tags:['mini','tight access','backyard','indoor'],
+      note:'JCB 8016 CTS — 1.6t mini. Canopy/cab option. 9.5kW engine. Dig depth 2.16m. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jcb-8026',   brand:'JCB', emoji:'⛏️', type:'excavator', name:'JCB 8026 CTS', shortName:'JCB 8026',
+      weightClass:'mini', operatingWeightT:2.6, digDepthM:2.86, bucketCapM3:0.06,
+      tags:['mini','residential','backyard','trench'],
+      note:'JCB 8026 CTS — 2.6t mini. Zero tail swing. 14.5kW engine. Dig depth 2.86m. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jcb-48z',    brand:'JCB', emoji:'⛏️', type:'excavator', name:'JCB 48Z-1', shortName:'JCB 48Z',
+      weightClass:'midi', operatingWeightT:4.8, digDepthM:3.58, bucketCapM3:0.18,
+      tags:['midi','residential','commercial','footing'],
+      note:'JCB 48Z-1 — 4.8t midi. Zero tail swing. 30.5kW engine. Dig depth 3.58m. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jcb-85z',    brand:'JCB', emoji:'⛏️', type:'excavator', name:'JCB 85Z-1', shortName:'JCB 85Z',
+      weightClass:'midi', operatingWeightT:8.7, digDepthM:4.51, bucketCapM3:0.32,
+      tags:['midi','commercial','deep trench','civil light'],
+      note:'JCB 85Z-1 — 8.7t midi. Zero tail swing. 44kW engine. Dig depth 4.51m. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jcb-131x',   brand:'JCB', emoji:'⛏️', type:'excavator', name:'JCB 131X', shortName:'JCB 131X',
+      weightClass:'standard', operatingWeightT:13.1, digDepthM:5.52, bucketCapM3:0.50,
+      tags:['standard','commercial','civil','bulk excavation'],
+      note:'JCB 131X — 13.1t standard. 55.4kW engine. Dig depth 5.52m. Auto-idle, load-sensing hydraulics. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jcb-220x',   brand:'JCB', emoji:'⛏️', type:'excavator', name:'JCB 220X', shortName:'JCB 220X',
+      weightClass:'standard', operatingWeightT:22.0, digDepthM:6.71, bucketCapM3:0.97,
+      tags:['standard','civil','bulk','heavy commercial'],
+      note:'JCB 220X — 22t standard. 129kW engine. Dig depth 6.71m. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── HYUNDAI EXCAVATORS ───────────────────────────────────────────
+    { id:'hyu-hx35',   brand:'Hyundai', emoji:'⛏️', type:'excavator', name:'Hyundai HX35A Z', shortName:'Hyundai HX35',
+      weightClass:'mini', operatingWeightT:3.5, digDepthM:3.24, bucketCapM3:0.09,
+      tags:['mini','residential','trench','standard access'],
+      note:'Hyundai HX35A Z — 3.5t mini. Zero tail swing. 18.4kW engine. Dig depth 3.24m. Source: HyundaiCE.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hyu-hx55',   brand:'Hyundai', emoji:'⛏️', type:'excavator', name:'Hyundai HX55A Z', shortName:'Hyundai HX55',
+      weightClass:'midi', operatingWeightT:5.5, digDepthM:3.69, bucketCapM3:0.17,
+      tags:['midi','residential','commercial','footing'],
+      note:'Hyundai HX55A Z — 5.5t midi. Zero tail swing. 30.2kW engine. Dig depth 3.69m. Source: HyundaiCE.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hyu-hx145',  brand:'Hyundai', emoji:'⛏️', type:'excavator', name:'Hyundai HX145A LCR', shortName:'Hyundai HX145',
+      weightClass:'standard', operatingWeightT:14.5, digDepthM:5.78, bucketCapM3:0.58,
+      tags:['standard','commercial','civil','bulk'],
+      note:'Hyundai HX145A LCR — 14.5t standard. Long-reach option. 74kW engine. Dig depth 5.78m. Source: HyundaiCE.com.au.', hireRateType:'wet_or_dry' },
+    { id:'hyu-hx220',  brand:'Hyundai', emoji:'⛏️', type:'excavator', name:'Hyundai HX220A L', shortName:'Hyundai HX220',
+      weightClass:'standard', operatingWeightT:22.5, digDepthM:6.70, bucketCapM3:0.97,
+      tags:['standard','civil','bulk','heavy commercial'],
+      note:'Hyundai HX220A L — 22.5t standard. 122kW engine. Dig depth 6.70m. Source: HyundaiCE.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── DOOSAN EXCAVATORS ────────────────────────────────────────────
+    { id:'doo-dx27',   brand:'Doosan', emoji:'⛏️', type:'excavator', name:'Doosan DX27Z-7', shortName:'Doosan DX27',
+      weightClass:'mini', operatingWeightT:2.7, digDepthM:2.90, bucketCapM3:0.06,
+      tags:['mini','residential','backyard','trench'],
+      note:'Doosan DX27Z-7 — 2.7t mini. Zero tail swing. 14.5kW engine. Dig depth 2.90m. Source: Doosanequipment.com.au.', hireRateType:'wet_or_dry' },
+    { id:'doo-dx57',   brand:'Doosan', emoji:'⛏️', type:'excavator', name:'Doosan DX57W-7', shortName:'Doosan DX57',
+      weightClass:'midi', operatingWeightT:5.7, digDepthM:3.79, bucketCapM3:0.19,
+      tags:['midi','residential','commercial','footing'],
+      note:'Doosan DX57W-7 — 5.7t midi. Wheeled option available. 30.2kW engine. Dig depth 3.79m. Source: Doosanequipment.com.au.', hireRateType:'wet_or_dry' },
+    { id:'doo-dx140',  brand:'Doosan', emoji:'⛏️', type:'excavator', name:'Doosan DX140LC-7', shortName:'Doosan DX140',
+      weightClass:'standard', operatingWeightT:14.0, digDepthM:5.52, bucketCapM3:0.52,
+      tags:['standard','commercial','civil','bulk'],
+      note:'Doosan DX140LC-7 — 14t standard. 74kW engine. Dig depth 5.52m. Source: Doosanequipment.com.au.', hireRateType:'wet_or_dry' },
+    { id:'doo-dx225',  brand:'Doosan', emoji:'⛏️', type:'excavator', name:'Doosan DX225LC-7', shortName:'Doosan DX225',
+      weightClass:'standard', operatingWeightT:22.5, digDepthM:6.63, bucketCapM3:0.90,
+      tags:['standard','civil','bulk','heavy commercial'],
+      note:'Doosan DX225LC-7 — 22.5t standard. 122kW engine. Dig depth 6.63m. Source: Doosanequipment.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── LIEBHERR EXCAVATORS ──────────────────────────────────────────
+    { id:'lie-r906',   brand:'Liebherr', emoji:'⛏️', type:'excavator', name:'Liebherr R 906', shortName:'Liebherr R906',
+      weightClass:'midi', operatingWeightT:6.5, digDepthM:4.08, bucketCapM3:0.22,
+      tags:['midi','commercial','civil light','trench'],
+      note:'Liebherr R 906 — 6.5t midi. 36.5kW engine. Dig depth 4.08m. Liebherr 6-cylinder engine. Source: Liebherr.com/en-AU.', hireRateType:'wet_or_dry' },
+    { id:'lie-r916',   brand:'Liebherr', emoji:'⛏️', type:'excavator', name:'Liebherr R 916', shortName:'Liebherr R916',
+      weightClass:'standard', operatingWeightT:16.0, digDepthM:5.85, bucketCapM3:0.65,
+      tags:['standard','commercial','civil','bulk'],
+      note:'Liebherr R 916 — 16t standard. 90kW engine. Dig depth 5.85m. Source: Liebherr.com/en-AU.', hireRateType:'wet_or_dry' },
+    { id:'lie-r926',   brand:'Liebherr', emoji:'⛏️', type:'excavator', name:'Liebherr R 926', shortName:'Liebherr R926',
+      weightClass:'standard', operatingWeightT:26.0, digDepthM:7.07, bucketCapM3:1.20,
+      tags:['standard','civil','bulk','heavy commercial'],
+      note:'Liebherr R 926 — 26t standard. 136kW engine. Dig depth 7.07m. Source: Liebherr.com/en-AU.', hireRateType:'wet_or_dry' },
+    { id:'lie-r936',   brand:'Liebherr', emoji:'⛏️', type:'excavator', name:'Liebherr R 936', shortName:'Liebherr R936',
+      weightClass:'large', operatingWeightT:36.0, digDepthM:7.74, bucketCapM3:1.80,
+      tags:['large','civil','mining','bulk','infrastructure'],
+      note:'Liebherr R 936 — 36t large. 215kW engine. Dig depth 7.74m. Source: Liebherr.com/en-AU.', hireRateType:'wet_or_dry' },
+
+    // ═══════════════════════════════════════════════════════════════
+    //  BOBCAT / SKID STEER — Real Brands & Models
+    // ═══════════════════════════════════════════════════════════════
+
+    // ── BOBCAT ───────────────────────────────────────────────────────
+    { id:'bob-s70',    brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S70', shortName:'Bobcat S70',
+      operatingWeightT:1.6, bucketCapM3:0.17,
+      tags:['very tight access','indoor','narrow','small site'],
+      note:'Bobcat S70 — 782mm wide. Fits through standard doorways. 750kg tipping load. 18.5kW engine. Smallest wheeled skid steer available. Source: Bobcat.com.au.', hireRateType:'wet_or_dry' },
+    { id:'bob-s630',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S630', shortName:'Bobcat S630',
+      operatingWeightT:3.1, bucketCapM3:0.42,
+      tags:['standard site','clearing','loading','landscaping'],
+      note:'Bobcat S630 — standard wheeled skid steer. 1,134kg tipping load. 55.4kW engine. Common Australian hire unit for clearing, loading trucks, gravel spreading. Source: Bobcat.com.au.', hireRateType:'wet_or_dry' },
+    { id:'bob-s740',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S740', shortName:'Bobcat S740',
+      operatingWeightT:3.7, bucketCapM3:0.53,
+      tags:['standard site','heavy loading','clearing','stockpile'],
+      note:'Bobcat S740 — large wheeled skid steer. 1,542kg tipping load. 63kW engine. Heavy-duty site clearing and loading. Source: Bobcat.com.au.', hireRateType:'wet_or_dry' },
+    { id:'bob-t650',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T650 (Tracked)', shortName:'Bobcat T650',
+      operatingWeightT:4.3, bucketCapM3:0.45,
+      tags:['tracked','soft ground','wet ground','slopes','landscaping'],
+      note:'Bobcat T650 — compact track loader. Low ground pressure — ideal for soft, wet or sloped conditions. 1,542kg tipping load. 63kW engine. Source: Bobcat.com.au.', hireRateType:'wet_or_dry' },
+    { id:'bob-t870',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T870 (Tracked)', shortName:'Bobcat T870',
+      operatingWeightT:5.6, bucketCapM3:0.64,
+      tags:['tracked','large site','heavy clearing','stockpile'],
+      note:'Bobcat T870 — large compact track loader. 2,449kg tipping load. 74.3kW engine. Heaviest-duty CTL in the Bobcat range. Source: Bobcat.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── CATERPILLAR BOBCAT / SKID STEER ─────────────────────────────
+    { id:'cat-226d3',  brand:'Caterpillar', emoji:'🚜', type:'bobcat', name:'Caterpillar 226D3', shortName:'Cat 226D3',
+      operatingWeightT:2.7, bucketCapM3:0.37,
+      tags:['standard site','clearing','loading','landscaping'],
+      note:'Cat 226D3 — small wheeled skid steer. 1,015kg tipping load. 43.5kW engine. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cat-262d3',  brand:'Caterpillar', emoji:'🚜', type:'bobcat', name:'Caterpillar 262D3', shortName:'Cat 262D3',
+      operatingWeightT:3.6, bucketCapM3:0.45,
+      tags:['standard site','clearing','loading','material movement'],
+      note:'Cat 262D3 — standard wheeled skid steer. 1,474kg tipping load. 63kW engine. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cat-259d3',  brand:'Caterpillar', emoji:'🚜', type:'bobcat', name:'Caterpillar 259D3 (Tracked)', shortName:'Cat 259D3',
+      operatingWeightT:3.8, bucketCapM3:0.38,
+      tags:['tracked','soft ground','slopes','landscaping'],
+      note:'Cat 259D3 — compact track loader. 1,338kg tipping load. 55.4kW engine. Low ground pressure for sensitive or wet surfaces. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cat-289d3',  brand:'Caterpillar', emoji:'🚜', type:'bobcat', name:'Caterpillar 289D3 (Tracked)', shortName:'Cat 289D3',
+      operatingWeightT:5.0, bucketCapM3:0.53,
+      tags:['tracked','large site','heavy clearing','soft ground'],
+      note:'Cat 289D3 — large compact track loader. 1,997kg tipping load. 74.5kW engine. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── JCB BOBCAT / SKID STEER ──────────────────────────────────────
+    { id:'jcb-170',    brand:'JCB', emoji:'🚜', type:'bobcat', name:'JCB 170', shortName:'JCB 170',
+      operatingWeightT:2.2, bucketCapM3:0.28,
+      tags:['tight access','small site','clearing','landscaping'],
+      note:'JCB 170 — compact wheeled skid steer. 838kg tipping load. 44.7kW engine. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jcb-330',    brand:'JCB', emoji:'🚜', type:'bobcat', name:'JCB 330', shortName:'JCB 330',
+      operatingWeightT:3.8, bucketCapM3:0.45,
+      tags:['standard site','clearing','loading','material movement'],
+      note:'JCB 330 — standard wheeled skid steer. 1,474kg tipping load. 63kW engine. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jcb-260t',   brand:'JCB', emoji:'🚜', type:'bobcat', name:'JCB 260T (Tracked)', shortName:'JCB 260T',
+      operatingWeightT:4.2, bucketCapM3:0.45,
+      tags:['tracked','soft ground','slopes','landscaping'],
+      note:'JCB 260T — compact track loader. 1,270kg tipping load. 55.4kW engine. Low ground pressure. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── JOHN DEERE BOBCAT / SKID STEER ──────────────────────────────
+    { id:'jd-317g',    brand:'John Deere', emoji:'🚜', type:'bobcat', name:'John Deere 317G', shortName:'JD 317G',
+      operatingWeightT:3.1, bucketCapM3:0.36,
+      tags:['standard site','clearing','loading','landscaping'],
+      note:'John Deere 317G — wheeled skid steer. 1,179kg tipping load. 55kW engine. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jd-332g',    brand:'John Deere', emoji:'🚜', type:'bobcat', name:'John Deere 332G', shortName:'JD 332G',
+      operatingWeightT:4.1, bucketCapM3:0.50,
+      tags:['standard site','heavy loading','clearing','stockpile'],
+      note:'John Deere 332G — large wheeled skid steer. 1,723kg tipping load. 74.5kW engine. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jd-317gctl', brand:'John Deere', emoji:'🚜', type:'bobcat', name:'John Deere 317G CTL (Tracked)', shortName:'JD 317G CTL',
+      operatingWeightT:3.8, bucketCapM3:0.36,
+      tags:['tracked','soft ground','slopes','wet ground'],
+      note:'John Deere 317G CTL — compact track loader. 1,179kg tipping load. 55kW engine. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── CASE BOBCAT / SKID STEER ─────────────────────────────────────
+    { id:'cas-sr175',  brand:'Case', emoji:'🚜', type:'bobcat', name:'Case SR175', shortName:'Case SR175',
+      operatingWeightT:2.8, bucketCapM3:0.34,
+      tags:['standard site','clearing','loading','landscaping'],
+      note:'Case SR175 — radial-lift wheeled skid steer. 1,000kg tipping load. 44kW engine. Source: CaseCE.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cas-sv300b', brand:'Case', emoji:'🚜', type:'bobcat', name:'Case SV300B', shortName:'Case SV300B',
+      operatingWeightT:4.0, bucketCapM3:0.53,
+      tags:['standard site','heavy loading','clearing','stockpile'],
+      note:'Case SV300B — vertical-lift wheeled skid steer. 1,700kg tipping load. 74.5kW engine. Source: CaseCE.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── KUBOTA BOBCAT / SKID STEER ───────────────────────────────────
+    { id:'kub-ssv65',  brand:'Kubota', emoji:'🚜', type:'bobcat', name:'Kubota SSV65', shortName:'Kubota SSV65',
+      operatingWeightT:2.7, bucketCapM3:0.36,
+      tags:['standard site','clearing','loading','landscaping'],
+      note:'Kubota SSV65 — wheeled skid steer. 980kg tipping load. 40kW engine. Source: Kubota.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kub-ssv75',  brand:'Kubota', emoji:'🚜', type:'bobcat', name:'Kubota SSV75', shortName:'Kubota SSV75',
+      operatingWeightT:3.2, bucketCapM3:0.42,
+      tags:['standard site','clearing','loading','material movement'],
+      note:'Kubota SSV75 — wheeled skid steer. 1,200kg tipping load. 55kW engine. Source: Kubota.com.au.', hireRateType:'wet_or_dry' },
+
+    // ═══════════════════════════════════════════════════════════════
+    //  BULLDOZERS — Real Brands & Models
+    // ═══════════════════════════════════════════════════════════════
+
+    // ── CATERPILLAR DOZERS — FULLY BROCHURE-SPECIFIED ───────────────
+    // Sources: Cat D1/D2/D3 Brochure AEHQ8522-00 (Build 12B, 2025)
+    //          Cat D4 Brochure AEXQ3233-03 (Build 16B, 04-2023)
+    //          Cat D5 Brochure AEXQ2532-04 (Build 17B, 2022)
+    //          Cat D5K2 Brochure AEHQ7400-02 (10-2018)
+    //          Cat D6R2 Brochure AEXQ3404-01 (2025)
+    // Every number below is read directly from the respective brochure. Nothing estimated.
+
+    // ── CAT D1 — FULLY BROCHURE-SPECIFIED ──────────────────────────
+    // Source: Cat D1/D2/D3 Dozers Brochure AEHQ8522-00 (Build 12B, 2025)
+    {
+      id:'cat-d1', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D1 Dozer', shortName:'Cat D1',
+      brochureRef: 'AEHQ8522-00 (Build 12B, 2025)',
+
+      // ── ENGINE ────────────────────────────────────────────────────
+      engineModel:         'Cat C3.6',
+      engineNetKW:         59.7,
+      engineNetHP:         80,
+      engineRatedRPM:      2200,
+      engineDisplacementL: 3.6,
+      emissionStandard:    'U.S. EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V',
+      powertrain:          'Hydrostatic',
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE (standard config) ──────
+      operatingWeightKg:   8099,
+      operatingWeightT:    8.1,
+      groundPressureKPa:   44.5,
+      groundPressurePSI:   6.45,
+
+      // ── VARIANTS ──────────────────────────────────────────────────
+      variants: [
+        { name:'D1 Standard',       weightKg:8099,  groundPressureKPa:44.5, groundPressurePSI:6.45,  trackGaugeMm:1495, widthMm:1900, heightMm:2765, lengthWithBladeMm:4273, lengthBasicMm:3291, groundClearanceMm:332 },
+        { name:'D1 LGP',            weightKg:8545,  groundPressureKPa:22.9, groundPressurePSI:4.3,   trackGaugeMm:1725, widthMm:2360, heightMm:2765, lengthWithBladeMm:4262, lengthBasicMm:3291, groundClearanceMm:332 },
+        { name:'D1 LGP 762mm shoe', weightKg:8752,  groundPressureKPa:25.5, groundPressurePSI:3.7,   trackGaugeMm:1860, widthMm:2411, heightMm:2765, lengthWithBladeMm:4262, lengthBasicMm:3291, groundClearanceMm:332 },
+        { name:'D1 SSLGP',          weightKg:9572,  groundPressureKPa:16.0, groundPressurePSI:2.32,  trackGaugeMm:2080, widthMm:3070, heightMm:2790, lengthWithBladeMm:4650, lengthBasicMm:4250, groundClearanceMm:405 },
+      ],
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'D1 Standard',       capacityM3:1.52, capacityYd3:1.99, widthMm:2646 },
+        { config:'D1 LGP',            capacityM3:1.99, capacityYd3:2.17, widthMm:3149 },
+        { config:'D1 LGP 762mm shoe', capacityM3:1.99, capacityYd3:2.17, widthMm:3149 },
+        { config:'D1 SSLGP',          capacityM3:1.20, capacityYd3:1.57, widthMm:3470 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:              195,
+      crankcaseAndFilterL:    10.5,
+      finalDriveEachSideL:    10.0,
+      finalDriveLGPEachSideL: 10.0,
+      coolingSystemL:         19.0,
+      transmissionHydraulicL: 90.0,
+      defTankL:               19.0,
+
+      // ── KEY TECHNOLOGY FEATURES ───────────────────────────────────
+      technologyFeatures: [
+        'Fully hydrostatic transmission with load-sensing system',
+        'Slope Assist™ (optional) — maintains blade angle without GPS',
+        'Steer Assist — automates track steering, reduces inputs up to 75%',
+        'Stable Blade Lift and Tilt — smooth surface with less operator effort',
+        'Blade Load Monitor (optional) — real-time load vs target feedback',
+        'Low Slip Traction Control (standard) — Normal and Low Slip modes',
+        'AutoCarry™ (optional) — automated blade lift for heavy loads',
+        'Cat Grade 3D (optional) — GPS blade control, up to 50% more productivity',
+        'Steer Assist 3D (optional) — follows guidance lines automatically',
+        'Cat Command remote control (optional)',
+        'Cat Product Link PLE643/PLE743 cellular (standard)',
+        'Cat Product Link PLE683/PLE783 cellular/satellite (optional)',
+        'Optional 254mm (10 in) touchscreen grade display with rearview camera',
+        'Eco mode — up to 20% fuel improvement with no performance sacrifice',
+      ],
+
+      // ── ATTACHMENTS AVAILABLE ─────────────────────────────────────
+      attachmentsAvailable: ['Ripper (parallelogram, 3-shank)', 'Winch (retrieval or high-performance)', 'Rigid drawbar', 'Towing drawbar', 'Front pull device'],
+
+      // ── SPECIALTY ARRANGEMENTS ────────────────────────────────────
+      specialtyArrangements: ['Forestry (sweeps, screens, hinged radiator grill, external precleaner)', 'Fire Suppression Dozer', 'Shiphold (bulk material handling)', 'D1 SSLGP (super super low ground pressure)'],
+
+      tags: ['small dozer','residential','light civil','site prep','clearing','levelling','backfill','hydrostatic','cat d1'],
+      note: 'Cat D1 Dozer — 8.1t (Standard config). 59.7kW/80hp Cat C3.6 engine @ 2,200 rpm. Hydrostatic transmission. EPA Tier 4 Final/EU Stage V. Variants: D1 Standard (8,099kg/44.5kPa), D1 LGP (8,545kg/22.9kPa), D1 LGP 762mm shoe (8,752kg), D1 SSLGP (9,572kg/16kPa). Blade capacity 1.52–1.99 m³ depending on config. Fuel tank 195L. Key tech: Slope Assist, Steer Assist, Stable Blade, Low Slip Traction Control, optional AutoCarry, Cat Grade 3D, Cat Command remote. Ripper adds 554kg. Ripper attachment adds 1177mm to length. Source: Cat Brochure AEHQ8522-00, Build 12B (2025).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D2 — FULLY BROCHURE-SPECIFIED ──────────────────────────
+    // Source: Cat D1/D2/D3 Dozers Brochure AEHQ8522-00 (Build 12B, 2025)
+    {
+      id:'cat-d2', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D2 Dozer', shortName:'Cat D2',
+      brochureRef: 'AEHQ8522-00 (Build 12B, 2025)',
+
+      // ── ENGINE ────────────────────────────────────────────────────
+      engineModel:         'Cat C3.6',
+      engineNetKW:         68.8,
+      engineNetHP:         92,
+      engineRatedRPM:      2200,
+      engineDisplacementL: 3.6,
+      emissionStandard:    'U.S. EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V',
+      powertrain:          'Hydrostatic',
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE ───────────────────────
+      operatingWeightKg:  8338,
+      operatingWeightT:   8.3,
+      groundPressureKPa:  39.5,
+      groundPressurePSI:  5.7,
+
+      // ── VARIANTS ──────────────────────────────────────────────────
+      variants: [
+        { name:'D2 Standard', weightKg:8338, groundPressureKPa:39.5, groundPressurePSI:5.7, trackGaugeMm:1495, widthMm:1900, heightMm:2765, lengthWithBladeMm:4273, lengthBasicMm:3291, groundClearanceMm:332 },
+        { name:'D2 LGP',      weightKg:8648, groundPressureKPa:29.7, groundPressurePSI:4.3, trackGaugeMm:1725, widthMm:2360, heightMm:2765, lengthWithBladeMm:4262, lengthBasicMm:3291, groundClearanceMm:332 },
+      ],
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'D2 Standard', capacityM3:1.98, capacityYd3:2.59, widthMm:2782 },
+        { config:'D2 LGP',      capacityM3:1.85, capacityYd3:2.42, widthMm:3149 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:              195,
+      crankcaseAndFilterL:    10.5,
+      finalDriveEachSideL:    10.0,
+      finalDriveLGPEachSideL: 10.0,
+      coolingSystemL:         19.0,
+      transmissionHydraulicL: 90.0,
+      defTankL:               19.0,
+
+      // ── KEY TECHNOLOGY (shared with D1/D3 platform) ───────────────
+      technologyFeatures: [
+        'Fully hydrostatic transmission with load-sensing system',
+        'Slope Assist™ (optional) — maintains blade angle without GPS',
+        'Steer Assist — automates track steering, reduces inputs up to 75%',
+        'Stable Blade Lift and Tilt — smooth surface with less operator effort',
+        'Blade Load Monitor (optional) — real-time load vs target feedback',
+        'Low Slip Traction Control (standard)',
+        'AutoCarry™ (optional)',
+        'Cat Grade 3D (optional)',
+        'Cat Command remote control (optional)',
+        'Cat Product Link PLE643/PLE743 cellular (standard)',
+        'Eco mode — up to 20% fuel improvement',
+      ],
+
+      attachmentsAvailable: ['Ripper (parallelogram, 3-shank)', 'Winch (retrieval or high-performance)', 'Rigid drawbar', 'Towing drawbar', 'Front pull device'],
+
+      tags: ['small dozer','residential','light civil','site prep','clearing','levelling','backfill','hydrostatic','cat d2'],
+      note: 'Cat D2 Dozer — 8.3t (Standard config). 68.8kW/92hp Cat C3.6 engine @ 2,200 rpm. Hydrostatic transmission. EPA Tier 4 Final/EU Stage V. Variants: D2 Standard (8,338kg/39.5kPa), D2 LGP (8,648kg/29.7kPa). Blade capacity 1.85–1.98 m³. Fuel tank 195L. Key tech: Slope Assist, Steer Assist, Stable Blade, Low Slip Traction Control, optional AutoCarry, Cat Grade 3D, Cat Command remote. Ripper attachment adds 1177mm to length. Source: Cat Brochure AEHQ8522-00, Build 12B (2025).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D3 — FULLY BROCHURE-SPECIFIED ──────────────────────────
+    // Source: Cat D1/D2/D3 Dozers Brochure AEHQ8522-00 (Build 12B, 2025)
+    {
+      id:'cat-d3', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D3 Dozer', shortName:'Cat D3',
+      brochureRef: 'AEHQ8522-00 (Build 12B, 2025)',
+
+      // ── ENGINE ────────────────────────────────────────────────────
+      engineModel:         'Cat C3.6',
+      engineNetKW:         77.6,
+      engineNetHP:         104,
+      engineRatedRPM:      2200,
+      engineDisplacementL: 3.6,
+      emissionStandard:    'U.S. EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V',
+      powertrain:          'Hydrostatic',
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE ───────────────────────
+      operatingWeightKg:  9362,
+      operatingWeightT:   9.4,
+      groundPressureKPa:  38.9,
+      groundPressurePSI:  5.7,
+
+      // ── VARIANTS ──────────────────────────────────────────────────
+      variants: [
+        { name:'D3 Standard',       weightKg:9362, groundPressureKPa:38.9, groundPressurePSI:5.7, trackGaugeMm:1600, widthMm:2110, heightMm:2769, lengthWithBladeMm:4337, lengthBasicMm:3270, groundClearanceMm:332 },
+        { name:'D3 LGP',            weightKg:9693, groundPressureKPa:31.2, groundPressurePSI:4.5, trackGaugeMm:1750, widthMm:2410, heightMm:2769, lengthWithBladeMm:4309, lengthBasicMm:3270, groundClearanceMm:332 },
+        { name:'D3 LGP 762mm shoe', weightKg:9893, groundPressureKPa:27.2, groundPressurePSI:3.9, trackGaugeMm:1860, widthMm:2630, heightMm:2769, lengthWithBladeMm:4309, lengthBasicMm:3270, groundClearanceMm:332 },
+      ],
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'D3 Standard',       capacityM3:2.19, capacityYd3:2.86, widthMm:2782 },
+        { config:'D3 LGP',            capacityM3:2.34, capacityYd3:3.06, widthMm:3220 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:              195,
+      crankcaseAndFilterL:    10.5,
+      finalDriveEachSideL:    10.0,
+      finalDriveLGPEachSideL: 10.0,
+      coolingSystemL:         19.0,
+      transmissionHydraulicL: 90.0,
+      defTankL:               19.0,
+
+      // ── KEY TECHNOLOGY (shared with D1/D2 platform) ───────────────
+      technologyFeatures: [
+        'Fully hydrostatic transmission with load-sensing system',
+        'Slope Assist™ (optional) — maintains blade angle without GPS',
+        'Steer Assist — automates track steering, reduces inputs up to 75%',
+        'Stable Blade Lift and Tilt — smooth surface with less operator effort',
+        'Blade Load Monitor (optional) — real-time load vs target feedback',
+        'Low Slip Traction Control (standard)',
+        'AutoCarry™ (optional)',
+        'Cat Grade 3D (optional)',
+        'Cat Command remote control (optional)',
+        'Cat Product Link PLE643/PLE743 cellular (standard)',
+        'Eco mode — up to 20% fuel improvement',
+      ],
+
+      attachmentsAvailable: ['Ripper (parallelogram, 3-shank, adds 554kg / 1177mm)', 'Winch (retrieval or high-performance)', 'Rigid drawbar', 'Towing drawbar', 'Front pull device'],
+
+      tags: ['small dozer','light civil','site prep','clearing','levelling','residential','hydrostatic','cat d3'],
+      note: 'Cat D3 Dozer — 9.4t (Standard config). 77.6kW/104hp Cat C3.6 engine @ 2,200 rpm. Hydrostatic transmission. EPA Tier 4 Final/EU Stage V. Variants: D3 Standard (9,362kg/38.9kPa), D3 LGP (9,693kg/31.2kPa), D3 LGP 762mm shoe (9,893kg/27.2kPa). Blade capacity 2.19–2.34 m³. Fuel tank 195L. Key tech: Slope Assist, Steer Assist, Stable Blade, Low Slip Traction Control, optional AutoCarry, Cat Grade 3D, Cat Command remote. Source: Cat Brochure AEHQ8522-00, Build 12B (2025).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D4 — FULLY BROCHURE-SPECIFIED ──────────────────────────
+    // Source: Cat D4 Track-Type Tractor Brochure AEXQ3233-03 (Build 16B, 04-2023)
+    {
+      id:'cat-d4', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D4 Track-Type Tractor', shortName:'Cat D4',
+      brochureRef: 'AEXQ3233-03 (Build 16B, 04-2023)',
+
+      // ── ENGINE ────────────────────────────────────────────────────
+      engineModel:         'Cat C4.4',
+      engineNetKW:         97,
+      engineNetHP:         130,
+      engineNetMhp:        132,
+      engineRatedRPM:      2100,
+      engineDisplacementL: 4.4,
+      engineDisplacementIn3: 268.5,
+      emissionStandard:    'U.S. EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V',
+      powertrain:          'Hydrostatic, infinite variable speed transmission',
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE ───────────────────────
+      operatingWeightKg:  13272,
+      operatingWeightT:   13.3,
+      groundPressureKPa:  40.5,
+      groundPressurePSI:  5.9,
+
+      // ── VARIANTS ──────────────────────────────────────────────────
+      variants: [
+        { name:'D4',     weightKg:13272, weightLb:29259, groundPressureKPa:40.5, groundPressurePSI:5.9 },
+        { name:'D4 LGP', weightKg:14008, weightLb:30882, groundPressureKPa:31.0, groundPressurePSI:4.5 },
+      ],
+
+      // ── DIMENSIONS ────────────────────────────────────────────────
+      // D4 Standard | D4 LGP (all mm)
+      dimensionsStandard: {
+        widthShoesNoBladeMm:    2330,
+        widthShoesVPATAngled25: 2896,
+        widthFoldableTransport: 2364,
+        machineHeightRopsMm:    2965,
+        shoeWidthMm:            560,
+        trackOnGroundMm:        2653,
+        basicTractorLengthMm:   4618,
+        lengthVPATStraightMm:   5000,
+        lengthVPATAngled25Mm:   5630,
+        groundClearanceMm:      350,
+      },
+      dimensionsLGP: {
+        widthShoesNoBladeMm:    2760,
+        widthShoesVPATAngled25: 3337,
+        widthFoldableTransport: 2850,
+        machineHeightRopsMm:    2965,
+        shoeWidthMm:            760,
+        trackOnGroundMm:        2653,
+        basicTractorLengthMm:   4618,
+        lengthVPATStraightMm:   5000,
+        lengthVPATAngled25Mm:   5630,
+        groundClearanceMm:      350,
+      },
+
+      // ── BLADES ────────────────────────────────────────────────────
+      bladeType: 'VPAT / Foldable VPAT',
+      blades: [
+        { config:'VPAT (D4)',         capacityM3:3.26, capacityYd3:4.26, widthMm:3196, widthFt:'10.5 ft' },
+        { config:'LGP VPAT (D4 LGP)', capacityM3:3.81, capacityYd3:4.98, widthMm:3682, widthFt:'12.0 ft' },
+      ],
+      // Note: VPAT foldable blades have same capacity and width as standard VPAT
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL: 260,
+      defTankL:  19,
+
+      // ── KEY TECHNOLOGY FEATURES ───────────────────────────────────
+      technologyFeatures: [
+        'Up to 30% better forward visibility — lower sloping hood line',
+        'ARO with Assist Package (STANDARD): ARO, Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry',
+        'Slope Indicate (standard)',
+        'Steer Assist — reduces steering inputs up to 75%, no GPS required',
+        'Cat Grade 3D with Assist Package (optional): full-color 10-inch touchscreen, Steer Assist 3D, grade receivers and antennas',
+        '10-inch (254mm) touchscreen main display (standard)',
+        'HD rearview camera standard with backup lines',
+        'Bi-directional control with operator profiles',
+        'Eco mode for fuel savings',
+        'Engine oil/filter service interval extended to 1,000 hours',
+        'Cat Product Link cellular (standard)',
+        'Cat Product Link dual cellular/satellite (optional)',
+        'Remote Flash / Remote Troubleshoot (standard)',
+        'Cat Precision Cutting Edges with built-in wear indicators (optional)',
+        'Cat Abrasion undercarriage option — double seal life, eliminates bushing turns, up to 50% lower cost/hr vs traditional',
+      ],
+
+      attachmentsAvailable: ['VPAT blade (standard)', 'Folding VPAT blade (optional)', 'Ripper with curved or straight shanks (optional)', 'Winch (dealer installed, optional)', 'Drawbar (optional)', 'Rear counterweight (optional)', 'Front pull device (standard)'],
+
+      specialtyArrangements: ['Heavy Duty/Forestry package (sweeps, screens, polycarbonate windows)', 'Winch-ready', 'Ripper-ready'],
+
+      tags: ['dozer','13t class','d4','vpat blade','civil','subdivision','grading','clearing','hydrostatic','cat grade 3d'],
+      note: 'Cat D4 Track-Type Tractor (Build 16B) — 13.3t. 97kW/130hp Cat C4.4 @ 2,100 rpm. Hydrostatic transmission. EPA Tier 4 Final/EU Stage V. D4: 13,272kg/40.5kPa; D4 LGP: 14,008kg/31kPa. VPAT blade 3.26m³ (std) or 3.81m³ (LGP). Fuel tank 260L. Assist package now STANDARD (Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry). Optional Cat Grade 3D with 10-inch touchscreen. Up to 30% better forward visibility. 1,000hr engine oil service interval. Source: Cat Brochure AEXQ3233-03 (04-2023).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D5K2 — FULLY BROCHURE-SPECIFIED ────────────────────────
+    // Source: Cat D5K2 Track-Type Tractor Brochure AEHQ7400-02 (10-2018)
+    {
+      id:'cat-d5k2', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D5K2 Track-Type Tractor', shortName:'Cat D5K2',
+      brochureRef: 'AEHQ7400-02 (10-2018)',
+
+      // ── ENGINE ────────────────────────────────────────────────────
+      engineModel:         'Cat C4.4 ACERT',
+      engineNetKW:         77.6,
+      engineNetHP:         104,
+      engineRatedRPM:      2200,
+      engineBoreMm:        105,
+      engineStrokeMm:      127,
+      engineDisplacementL: 4.4,
+      engineDisplacementIn3: 269,
+      emissionStandard:    'EPA Tier 4 Final / EU Stage IV / Japan 2014 (Tier 4 Final)',
+      powertrain:          'Dual path, closed-loop hydrostatic; 1 drive pump; 2 track motors',
+
+      // ── TRANSMISSION ──────────────────────────────────────────────
+      transmissionReliefValveKPa:  48500,
+      maxTravelSpeedForwardKmh:    9,
+      maxTravelSpeedReverseKmh:    10,
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE ───────────────────────
+      operatingWeightKg:  9214,
+      operatingWeightT:   9.2,
+      groundPressureKPa:  38.6,
+      groundPressurePSI:  5.6,
+
+      // ── VARIANTS ──────────────────────────────────────────────────
+      variants: [
+        { name:'D5K2 XL',            weightKg:9214,  weightLb:20313, groundPressureKPa:38.6, groundPressurePSI:5.6,  trackGaugeMm:1600, shoeWidthMm:510, widthNoBladeMm:2110, lengthWithBladeMm:4309, lengthBasicMm:3265, heightMm:2769, groundClearanceMm:332, trackOnGroundMm:2310, groundContactAreaCm2:23562 },
+        { name:'D5K2 LGP',           weightKg:9522,  weightLb:20992, groundPressureKPa:31.1, groundPressurePSI:4.5,  trackGaugeMm:1750, shoeWidthMm:660, widthNoBladeMm:2410, lengthWithBladeMm:4309, lengthBasicMm:3265, heightMm:2769, groundClearanceMm:332, trackOnGroundMm:2310, groundContactAreaCm2:30492 },
+        { name:'D5K2 LGP 762mm shoe',weightKg:9726,  weightLb:21442, groundPressureKPa:27.1, groundPressurePSI:3.93, trackGaugeMm:1860, shoeWidthMm:762, widthNoBladeMm:2630, lengthWithBladeMm:4309, lengthBasicMm:3265, heightMm:2769, groundClearanceMm:332, trackOnGroundMm:2310, groundContactAreaCm2:35574 },
+      ],
+
+      // ── UNDERCARRIAGE ─────────────────────────────────────────────
+      undercarriageRollersPerSide:  7,
+      saltShoesPerSide:             40,
+      systemOneShoesPerSide:        36,
+      undercarriageOptions:         ['SALT (Sealed and Lubricated Track) — standard', 'SystemOne™ — optional'],
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'VPAT XL',           widthMm:2782, heightMm:1073, liftHeightMm:767, diggingDepthMm:586, cuttingEdgeAngle:'52°–58°', maxTiltMm:402, maxAngle:'25°', widthAtMaxAngleMm:2636, capacityM3:2.19, capacityYd3:2.86 },
+        { config:'VPAT Intermediate', widthMm:2921, heightMm:1010, liftHeightMm:767, diggingDepthMm:572, cuttingEdgeAngle:'52°–58°', maxTiltMm:448, maxAngle:'25°', widthAtMaxAngleMm:2669, capacityM3:2.09, capacityYd3:2.73 },
+        { config:'VPAT LGP',          widthMm:3220, heightMm:1010, liftHeightMm:767, diggingDepthMm:572, cuttingEdgeAngle:'52°–58°', maxTiltMm:448, maxAngle:'25°', widthAtMaxAngleMm:2940, capacityM3:2.34, capacityYd3:3.06 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:              195,
+      crankcaseAndFilterL:    11.0,
+      finalDriveXLEachSideL:  10.0,
+      finalDriveLGPEachSideL: 10.0,
+      coolingSystemL:         22.4,
+      transmissionHydraulicL: 59.5,
+      defTankL:               19.0,
+
+      // ── HYDRAULIC CONTROLS ────────────────────────────────────────
+      hydraulicPumpOutputLmin:  68.0,
+      hydraulicReliefValveKPa:  20600,
+
+      // ── RIPPER (optional) ─────────────────────────────────────────
+      ripper: {
+        type:                    'Parallelogram',
+        shanks:                  3,
+        maxDiggingDepthMm:       337.5,
+        maxReachAtGroundLineMm:  555,
+        maxGroundClearanceUnderTipMm: 448,
+        overallWidthMm:          1710,
+        heightMm:                165,
+        weightKg:                554,
+      },
+
+      // ── WINCH (optional field installation) ──────────────────────
+      winch: {
+        weightKg:               610,
+        drive:                  'Hydrostatic',
+        control:                'Hydraulic',
+        speed:                  'Variable',
+        winchLengthMm:          705,
+        overallWidthMm:         741,
+        drumDiameterMm:         254,
+        drumWidthMm:            274,
+        throatClearanceMm:      171.5,
+        recommendedRopeDiamMm:  16,
+        optionalRopeDiamMm:     19,
+        drumCapacityRecommendedM: 113,
+        drumCapacityOptionalM:  78,
+        maxLinePullBareDrumKg:  18144,
+        maxLinePullFullDrumKg:  11340,
+        maxLineSpeedBareDrumMmin: 40,
+        maxLineSpeedFullDrumMmin: 63,
+      },
+
+      // ── CAB SOUND LEVELS ──────────────────────────────────────────
+      cabSoundLeveldBA_ISO6396: 79,
+      cabSoundLeveldBA_SAEJ1166: 79,
+
+      // ── KEY TECHNOLOGY FEATURES ───────────────────────────────────
+      technologyFeatures: [
+        'Cat Grade with 3D (optional) — integrated GPS blade control, 10-inch touchscreen display',
+        'Cat Grade with Slope Assist (optional) — automated blade mainfall and cross slope',
+        'Slope Indicate (standard) — displays blade slope in cross and fore/aft directions',
+        'Stable Blade (standard) — reduces operator effort for finish grades',
+        'Automatic Traction Control (standard) — reduces track slip without blade lift',
+        'Eco Mode (standard) — up to 20% fuel reduction without performance sacrifice',
+        'Power Pitch Blade (optional) — operator-adjustable blade pitch',
+        'Heated and Ventilated Seat (optional)',
+        'Heated joystick controls (optional)',
+        'Cat Product Link PLE732 Satellite / PLE742 Cellular (standard)',
+        'AccuGrade blade-mounted GNSS, laser, or UTS grade control support',
+      ],
+
+      attachmentsAvailable: ['VPAT XL blade', 'VPAT Intermediate blade', 'VPAT LGP blade', 'Ripper (parallelogram, 3-shank)', 'Winch (hydrostatic high-performance 40m/min or retrieval 15m/min)', 'Rigid drawbar', 'Towing drawbar', 'Machine Security System'],
+
+      tags: ['dozer','9t class','d5k2','vpat blade','light civil','site prep','clearing','grading','hydrostatic','traction control'],
+      note: 'Cat D5K2 Track-Type Tractor — 9.2t (XL config). 77.6kW/104hp Cat C4.4 ACERT @ 2,200 rpm. Hydrostatic transmission. EPA Tier 4 Final/EU Stage IV. Variants: D5K2 XL (9,214kg/38.6kPa), D5K2 LGP (9,522kg/31.1kPa), D5K2 LGP 762mm shoe (9,726kg/27.1kPa). Blade capacity 2.09–2.34m³ VPAT. Fuel tank 195L. Key tech: Cat Grade 3D (optional), Slope Assist (optional), Slope Indicate (std), Stable Blade (std), Auto Traction Control (std), Eco Mode (std). Optional winch: 18,144kg bare drum pull. Optional ripper: 337.5mm dig depth, 3 shank. Max travel speed 9 km/h fwd, 10 km/h rev. Source: Cat Brochure AEHQ7400-02 (10-2018).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D5 — FULLY BROCHURE-SPECIFIED ──────────────────────────
+    // Source: Cat D5 Track-Type Tractor Brochure AEXQ2532-04 (Build 17B, 2022)
+    // Note: D5 succeeds the D6N — more power, weight, and technology
+    {
+      id:'cat-d5', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D5 Track-Type Tractor', shortName:'Cat D5',
+      brochureRef: 'AEXQ2532-04 (Build 17B, 2022)',
+
+      // ── ENGINE ────────────────────────────────────────────────────
+      engineModel:         'Cat C7.1',
+      engineNetKW:         127,
+      engineNetHP:         170,
+      engineNetMhp:        172,
+      engineRatedRPM:      1770,
+      engineDisplacementL: 7.1,
+      engineDisplacementIn3: 433,
+      emissionStandard:    'U.S. EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V',
+      powertrain:          'Fully Automatic 3-Speed Powershift',
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE (VPAT standard) ───────
+      operatingWeightKg:  17180,
+      operatingWeightT:   17.2,
+      groundPressureKPa:  47.6,
+      groundPressurePSI:  6.9,
+
+      // ── VARIANTS ──────────────────────────────────────────────────
+      variants: [
+        { name:'D5 VPAT',             weightKg:17180, weightLb:37875, groundPressureKPa:47.6, groundPressurePSI:6.9, trackGaugeMm:1890, shoeWidthMm:610, widthMm:2500, heightMm:3085, trackOnGroundMm:2562, basicLengthMm:3680 },
+        { name:'D5 LGP VPAT',         weightKg:19170, weightLb:42263, groundPressureKPa:32.6, groundPressurePSI:4.7, trackGaugeMm:2160, shoeWidthMm:840, widthMm:3000, heightMm:3200, trackOnGroundMm:3116, basicLengthMm:4151 },
+        { name:'D5 VPAT Fine Grading', weightKg:17780, weightLb:39198, groundPressureKPa:41.4, groundPressurePSI:6.0, trackGaugeMm:1890, shoeWidthMm:610, widthMm:2500, heightMm:3200, trackOnGroundMm:3116, basicLengthMm:4151 },
+        { name:'D5 LGP Folding VPAT', weightKg:19440, weightLb:42858, groundPressureKPa:32.9, groundPressurePSI:4.8, trackGaugeMm:2160, shoeWidthMm:840, widthMm:3000, heightMm:3200, trackOnGroundMm:3116, basicLengthMm:4151 },
+        { name:'D5 SU (Push Arm)',     weightKg:17340, weightLb:38228, groundPressureKPa:48.2, groundPressurePSI:7.0, trackGaugeMm:1890, shoeWidthMm:610, widthMm:2500, heightMm:3085, trackOnGroundMm:2562, basicLengthMm:3680 },
+      ],
+      // Note: for machine with ripper, add 1,290 kg / 2,844 lbs
+
+      // ── BLADE ADD-TO-BASIC-LENGTH (mm) ────────────────────────────
+      bladeAttachmentAddMm: {
+        vpat_VPAT_straight:           1336,
+        vpat_VPAT_angled25:           1982,
+        vpat_VPAT_foldable_angled31:  2110,
+        lgp_VPAT_straight:            1230,
+        lgp_VPAT_angled25:            2049,
+        lgp_VPAT_foldable_angled31:   2214,
+        fineGrading_VPAT_straight:    1230,
+        fineGrading_VPAT_angled25:    1876,
+        fineGrading_VPAT_angled31:    2005,
+        su_SU_blade:                  1423,
+        ripper_allVariants:           1044,
+      },
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'VPAT / Folding VPAT',  capacityM3:3.5, capacityYd3:4.6, widthMm:3272, widthFt:'10.7 ft' },
+        { config:'LGP VPAT',             capacityM3:4.0, capacityYd3:5.2, widthMm:4080, widthFt:'13.4 ft' },
+        { config:'LGP Folding VPAT',     capacityM3:4.2, capacityYd3:5.5, widthMm:4080, widthFt:'13.4 ft' },
+        { config:'SU (Semi-Universal)',   capacityM3:4.3, capacityYd3:5.6, widthMm:3164, widthFt:'10.4 ft' },
+        { config:'SU Narrow (EU only)',   widthMm:3122, widthFt:'10.2 ft' },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL: 315.0,
+      defTankL:  16.0,
+
+      // ── KEY TECHNOLOGY FEATURES ───────────────────────────────────
+      technologyFeatures: [
+        'Fully automatic 3-speed powershift — set ground speed, dozer optimises automatically',
+        'Hill Descent Control — maintains preset speed downhill without service brake',
+        'Hill Hold — auto-engages brakes to hold position on slope in neutral',
+        'Steering Radius Control — auto downshifts for tighter turning radius',
+        'Decel Brake Pedal — smooth speed control to full stop',
+        'ARO with Assist Package (optional): Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry',
+        'Steer Assist — reduces steering inputs up to 75%, no GPS required',
+        'Cat Grade 3D with Assist Package (optional): Steer Assist 3D, 10-inch touchscreen, GNSS antennas/receivers integrated in cab roof',
+        'Third-party grade control ready (Trimble, Topcon, Leica compatible)',
+        'Remote Control Ready — dealer installs Cat Command system',
+        'Cat Product Link cellular (standard)',
+        'Cat Product Link dual cellular/satellite (optional)',
+        'Remote Flash / Remote Troubleshoot (standard)',
+        'Operator ID (standard)',
+        '10-inch (254mm) touchscreen main display (standard)',
+        'HD rearview camera standard',
+        'Redesigned cab: 15% more glass area, 30% better forward visibility vs D6N',
+        '13 seat adjustments + 4 armrest adjustments (premium seat)',
+        'HDXL with DuraLink™ undercarriage — up to 20% more seal life (high impact)',
+        'Cat Abrasion undercarriage option — double seal life, eliminates bushing turns, up to 50% cost savings vs traditional',
+      ],
+
+      attachmentsAvailable: ['VPAT blade (standard)', 'Semi-Universal (SU) blade', 'Folding VPAT blade', 'Waste/Landfill blade', 'Ripper (straight or curved shanks)', 'Winch', 'Drawbar (standard)'],
+
+      specialtyArrangements: ['Waste Handler', 'Forestry arrangement', 'Fire Fighting arrangement', 'LGP configuration', 'Push Arm (SU) configuration'],
+
+      tags: ['dozer','17t class','d5','vpat blade','su blade','civil','subdivision','bulk earthworks','bulk clearing','grading','auto transmission','cat grade 3d'],
+      note: 'Cat D5 Track-Type Tractor (Build 17B, succeeds D6N) — 17.2t (VPAT config). 127kW/170hp Cat C7.1 @ 1,770 rpm. Fully automatic 3-speed powershift. EPA Tier 4 Final/EU Stage V. Variants: VPAT (17,180kg/47.6kPa), LGP VPAT (19,170kg/32.6kPa), VPAT Fine Grading (17,780kg), LGP Folding VPAT (19,440kg), SU Push Arm (17,340kg/48.2kPa). Ripper adds 1,290kg. Blade capacity 3.5–4.3m³. Fuel tank 315L. Key tech: Fully auto 3-speed transmission, Hill Descent Control, Hill Hold, Steering Radius Control, Slope Assist, Steer Assist, Cat Grade 3D (optional), Remote Control Ready. 15% more glass, 30% better visibility vs D6N. Source: Cat Brochure AEXQ2532-04 (2022).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D6R2 — FULLY BROCHURE-SPECIFIED ────────────────────────
+    // Source: Cat D6R2 Track-Type Tractor Brochure AEXQ3404-01 (2025)
+    {
+      id:'cat-d6r2', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D6R2 Track-Type Tractor', shortName:'Cat D6R2',
+      brochureRef: 'AEXQ3404-01 (2025)',
+
+      // ── ENGINE ────────────────────────────────────────────────────
+      engineModel:      'Cat C9',
+      // Two emission configurations available (see below)
+      // Tier 2 / EU Stage II equivalent:
+      //   D6R2 Standard: 141 kW / 189 hp @ 1,900 rpm
+      //   D6R2 XL/LGP:  158 kW / 212 hp @ 1,800 rpm
+      // Tier 3 / EU Stage IIIA equivalent:
+      //   D6R2 Standard: 158 kW / 211 hp @ 1,850 rpm
+      //   D6R2 XL/LGP:  153 kW / 206 hp @ 1,850 rpm
+      // Published range: 141–176 kW (189–236 hp)
+      engineNetKW_min:  141,
+      engineNetKW_max:  176,
+      engineNetHP_min:  189,
+      engineNetHP_max:  236,
+      emissionStandard: 'China Nonroad Stage II/III; equivalent to U.S. EPA Tier 2 or Tier 3 / EU Stage II or IIIA',
+      powertrain:       'Planetary power shift 3F/3R; single stage torque divider (70% torque converter + 30% planetary gear); differential steering',
+
+      // ── HORSEPOWER RATINGS BY EMISSION CONFIG ────────────────────
+      horsepowerRatings: [
+        { emissionEquiv:'Tier 2 / Stage II',   model:'D6R2 Standard', netKW:141, netHP:189, rpm:1900 },
+        { emissionEquiv:'Tier 2 / Stage II',   model:'D6R2 XL/LGP',  netKW:158, netHP:212, rpm:1800 },
+        { emissionEquiv:'Tier 3 / Stage IIIA', model:'D6R2 Standard', netKW:158, netHP:211, rpm:1850 },
+        { emissionEquiv:'Tier 3 / Stage IIIA', model:'D6R2 XL/LGP',  netKW:153, netHP:206, rpm:1850 },
+      ],
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE ───────────────────────
+      operatingWeightKg:  19066,  // D6R2 Standard (SU) — primary reference
+      operatingWeightT:   19.1,
+      groundPressureKPa:  62.6,
+      groundPressurePSI:  9.1,
+
+      // ── VARIANTS ──────────────────────────────────────────────────
+      variants: [
+        { name:'D6R2 Standard (S)',  bladeConfig:'S (Straight)',         weightKg:18984, weightLb:41853, groundPressureKPa:62.4, groundPressurePSI:9.0 },
+        { name:'D6R2 Standard (SU)', bladeConfig:'SU (Semi-Universal)', weightKg:19066, weightLb:42033, groundPressureKPa:62.6, groundPressurePSI:9.1 },
+        { name:'D6R2 Standard (A)',  bladeConfig:'A (Angle)',            weightKg:19448, weightLb:42875, groundPressureKPa:63.9, groundPressurePSI:9.3 },
+        { name:'D6R2 XL (SU)',       bladeConfig:'SU (Semi-Universal)', weightKg:19914, weightLb:43903, groundPressureKPa:60.7, groundPressurePSI:8.8 },
+        { name:'D6R2 XL (A)',        bladeConfig:'A (Angle)',            weightKg:19969, weightLb:44024, groundPressureKPa:60.9, groundPressurePSI:8.8 },
+        { name:'D6R2 LGP',           bladeConfig:'Straight',            weightKg:21661, weightLb:47754, groundPressureKPa:35.4, groundPressurePSI:5.1 },
+      ],
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'Semi-Universal (6SU)', capacityM3:5.6, capacityYd3:7.3, widthMm:3260, widthIn:128.3 },
+        { config:'Straight (6S)',        capacityM3:4.0, capacityYd3:5.2, widthMm:3360, widthIn:132.3 },
+        { config:'Angle (6A)',           capacityM3:4.0, capacityYd3:5.2, widthMm:4166, widthIn:164.0 },
+        { config:'Straight LGP (6S)',    capacityM3:3.8, capacityYd3:5.0, widthMm:4063, widthIn:160.0 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:      424,
+      coolingSystemL: 59.4,
+      powerTrainL:    146,
+
+      // ── KEY TECHNOLOGY & FEATURES ─────────────────────────────────
+      technologyFeatures: [
+        'Differential steering — increases one track speed while slowing other, exceptional turning with full blade load',
+        'Two-pump hydraulics — dedicated implement and steering pumps for simultaneous blade response and steering',
+        'Single stage torque divider — 70% through torque converter, 30% through planetary gear set',
+        'Planetary power shift 3F/3R with electronic control',
+        'Optional Auto Shift — auto-downshifts to most efficient gear based on load',
+        'Optional bi-directional control — preselect forward/reverse gears',
+        'Elevated sprocket design — protects major components from impacts, excellent sight lines, low centre of gravity',
+        'Heavy Duty sealed and lubricated undercarriage (standard)',
+        'Cat Abrasion undercarriage — longer life, lower cost per hour in abrasive conditions (XL and LGP)',
+        'Waste handling/landfill undercarriage option (XL and LGP)',
+        'Optional high speed oil change system',
+        'Cat Product Link cellular (standard), satellite (optional)',
+        'L-shaped push arms — blade closer to machine for balance, maneuverability, penetration',
+        'Implement Lock-Out — prevents inadvertent hydraulic attachment operation',
+        'Optional Arctic cab with dual pane glass',
+        'Optional heated/ventilated suspension seat',
+      ],
+
+      attachmentsAvailable: ['Semi-Universal blade (SU) — standard or land clearing', 'Straight blade (S) — standard or landfill', 'Angle blade (A) — hydraulic or mechanical tilt', 'Multi-shank ripper (3 shanks, straight or curved)', 'Rear counterweight', 'Rigid drawbar', 'Winch', 'Striker bars (front and rear XL/LGP)'],
+
+      specialtyArrangements: ['Forestry / Land Clearing (sweeps, screens, high debris cooling)', 'Waste Handler (landfill blade, guarding, striker bars, thermal shielding)', 'Arctic Cold (reversible fan, heavy duty battery, arctic cab, dual pane glass, heated seat)', 'XL configuration', 'LGP configuration'],
+
+      tags: ['dozer','19t class','d6r2','civil','bulk earthworks','subdivision','road formation','clearing','landfill','forestry','differential steering','two pump hydraulics'],
+      note: 'Cat D6R2 Track-Type Tractor — 19.1t (Standard SU config). 141–176 kW (189–236 hp) Cat C9 engine; power varies by emission config (Tier 2 Standard: 141kW/189hp; XL/LGP: 158kW/212hp. Tier 3 Standard: 158kW/211hp). Planetary power shift 3F/3R. Differential steering + two-pump hydraulics. Variants: D6R2 Std S/SU/A (18,984–19,448kg), D6R2 XL (19,914–19,969kg/60.7kPa), D6R2 LGP (21,661kg/35.4kPa). SU blade 5.6m³/7.3yd³. Fuel tank 424L. Elevated sprocket. Specialty: Forestry, Waste Handler, Arctic Cold. Source: Cat Brochure AEXQ3404-01 (2025).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D6 XE — full brochure entry (AEXQ2481-05, 2022, Build 20B) ─────────
+    {
+      id:'cat-d6xe', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D6 XE Track-Type Tractor', shortName:'Cat D6 XE',
+      brochureRef: 'AEXQ2481-05 (2022), Build Number: 20B',
+
+      // ── ENGINE & POWERTRAIN ────────────────────────────────────────
+      engineModel:      'Cat C9.3B',
+      emissionStandard: 'U.S. EPA Tier 4 Final / EU Stage V / Korea Stage V',
+      powertrain:       'Electric Drive (world\'s first high-drive Electric Drive dozer) — no gears, no powershift transmission',
+      engineNetKW:      161,
+      engineNetHP:      215,
+      engineNetMHP:     219,
+      engineRPM:        1700,   // rated speed at which net power is published
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE — by configuration ─────
+      operatingWeightKg: 22403,   // D6 XE Push Arm (primary reference)
+      operatingWeightT:  22.4,
+      groundPressureKPa: 55,
+      groundPressurePSI: 8.0,
+
+      // ── CONFIGURATIONS (Push Arm) ─────────────────────────────────
+      configsPushArm: [
+        { name:'D6 XE (std)',        shoeWidthMm:610, shoeWidthIn:24, weightKg:22403, weightLb:49388, groundPressureKPa:55, groundPressurePSI:8.0, heightM:3.19, lengthWOBladeM:4.73, clearanceMm:361, trackGaugeM:1.93, widthOverTrunnionsM:2.69, widthEndBitsM:3.30, trackOnGroundM:2.96 },
+        { name:'D6 XE LGP (30 in)', shoeWidthMm:760, shoeWidthIn:30, weightKg:23143, weightLb:51020, groundPressureKPa:45, groundPressurePSI:6.6, heightM:3.19, lengthWOBladeM:4.73, clearanceMm:361, trackGaugeM:2.08, widthOverTrunnionsM:2.99, widthEndBitsM:3.61, trackOnGroundM:2.96 },
+        { name:'D6 XE LGP (36 in)', shoeWidthMm:915, shoeWidthIn:36, weightKg:24184, weightLb:53315, groundPressureKPa:37, groundPressurePSI:5.3, heightM:3.24, lengthWOBladeM:5.04, clearanceMm:395, trackGaugeM:2.29, widthOverTrunnionsM:3.49, widthEndBitsM:4.06, trackOnGroundM:3.25 },
+      ],
+      // Note: With Multi-Shank Ripper (3 shanks), add 1,696 kg (3,739 lb)
+
+      // ── CONFIGURATIONS (VPAT) ─────────────────────────────────────
+      configsVPAT: [
+        { name:'D6 XE VPAT',             shoeWidthMm:610, shoeWidthIn:24, weightKg:22548, weightLb:49708, groundPressureKPa:49, groundPressurePSI:7.2, heightM:3.19, lengthWOBladeM:5.13, clearanceMm:422, trackGaugeM:2.08, widthEndBitsM:3.68, widthEndBitsAngledM:3.36, trackOnGroundM:3.25 },
+        { name:'D6 XE LGP (30 in) VPAT', shoeWidthMm:760, shoeWidthIn:30, weightKg:23285, weightLb:51333, groundPressureKPa:41, groundPressurePSI:5.9, heightM:3.24, lengthWOBladeM:5.13, clearanceMm:395, trackGaugeM:2.29, widthEndBitsM:4.00, widthEndBitsAngledM:3.65, trackOnGroundM:3.36 },
+        { name:'D6 XE LGP (36 in) VPAT', shoeWidthMm:915, shoeWidthIn:36, weightKg:23820, weightLb:52512, groundPressureKPa:35, groundPressurePSI:5.1, heightM:3.24, lengthWOBladeM:5.13, clearanceMm:383, trackGaugeM:2.39, widthEndBitsM:4.34, widthEndBitsAngledM:3.97, trackOnGroundM:3.36 },
+      ],
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'SU (Semi-Universal)',  capacityM3:5.7, capacityYd3:7.5, widthMm:3312, widthFt:10.9 },
+        { config:'LGP SU',              capacityM3:5.8, capacityYd3:7.6, widthMm:3613, widthFt:11.9 },
+        { config:'LGP S (Straight)',     capacityM3:3.8, capacityYd3:5.0, widthMm:4063, widthFt:13.3 },
+        { config:'VPAT (6-way)',         capacityM3:4.1, capacityYd3:5.4, widthMm:3680, widthFt:12.1 },
+        { config:'LGP VPAT (30-in)',     capacityM3:4.5, capacityYd3:5.9, widthMm:4000, widthFt:13.1 },
+        { config:'LGP VPAT (36-in)',     capacityM3:4.9, capacityYd3:6.5, widthMm:4340, widthFt:14.2 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:  341,
+      fuelTankGal: 90,
+      defTankL:   28,
+      defTankGal: 7.4,
+
+      // ── AIR CONDITIONING SYSTEM ───────────────────────────────────
+      acRefrigerant:       'R134a',
+      acGWP:               1430,
+      acRefrigerantKg:     1.36,
+      acCO2EquivTonnes:    1.946,
+
+      // ── ELECTRIC DRIVE COMPONENT ARCHITECTURE ────────────────────
+      electricDriveComponents: [
+        'Cat C9.3B Diesel Engine',
+        'Generator',
+        'Power Inverter',
+        'Power Inverter Control Module',
+        'Single Motor Propulsion Module',
+        'Heavy Duty Cables and Connectors',
+      ],
+
+      // ── ELECTRIC DRIVE PERFORMANCE CLAIMS (vs 2014–2016 D6T Tier 4 Final) ──
+      electricDriveClaims: {
+        fuelEfficiencyImprovement: 'Up to 35% more fuel efficient',
+        co2ReductionPerTon:        'Up to 35% less CO₂ per tonne of material moved',
+        maintenanceCostReduction:  'Up to 12% lower maintenance cost (vs D6T over 10,000 hours)',
+        productivityWithTech:      'Up to 50% more productivity with Cat Technology',
+        operatorEfficiency:        'Up to 45% better operator efficiency',
+        fewerMovingParts:          '90% fewer moving parts than a traditional powershift transmission',
+        preproductionTesting:      'Well over 50,000 hours of preproduction field testing',
+        switchedReluctanceTech:    'Simplified rotor design — more robust, less heat, more power dense',
+      },
+
+      // ── KEY TECHNOLOGY & FEATURES ─────────────────────────────────
+      technologyFeatures: [
+        'Electric Drive — no gears to shift; constant power to ground; greater agility; faster cycle times',
+        'Lock-track pivot turns and counter-rotate in gear for agility in tight spaces',
+        'Cat Grade with Slope Assist — automatic blade position without GPS (standard)',
+        'Steer Assist — automates track and blade tilt steering; reduces steering inputs up to 75% (no GPS required)',
+        'Stable Blade — smoother surface when operating manually',
+        'Blade Load Monitor — real-time feedback on load vs optimal (GPS required)',
+        'Traction Control — automatic track slip reduction (GPS required)',
+        'AutoCarry — automates blade lift for consistent blade load (GPS required)',
+        'ARO with Assist Package (optional) — bundles all Assist features',
+        'Grade 3D with Assist Package (optional) — factory-integrated GNSS/GPS blade control; mast-free low-profile antennas in cab roof',
+        'Steer Assist 3D — automatically follows curb lines, centrelines, bottom of slope (Grade 3D package)',
+        'Grade display: 10-inch touchscreen, Android OS, operates like a smartphone',
+        'Third-party Grade Control Ready — CAN interface, harness pass-throughs (Trimble, Topcon, Leica compatible)',
+        'Remote Control Ready — dealer-installable Cat Command for Dozing (line-of-sight console or remote station)',
+        'Cat Product Link cellular (standard), dual cellular/satellite (optional)',
+        'Remote Flash and Remote Troubleshoot via Cat App',
+        'Operator ID — tracks individual operator productivity via Product Link',
+        'Machine Security — passcode (standard), Bluetooth (optional)',
+        '10-inch touchscreen main display with HD rearview camera and backup lines (standard)',
+        'Integrated ROPS — maximises glass area for all-around visibility; clean sight lines to blade',
+        'Wide air-suspension seat with storage, distributed heating/cooling',
+        'Powered precleaner option for improved cab pressurisation',
+        'VPAT blade: 6-way movement, stays level when angled for smoother grade; stronger, lighter redesigned structure',
+        'Wide-gauge LGP VPAT with 915mm shoes — ground pressure as low as 34 kPa (5 psi) for soft ground',
+        'Finish grading undercarriage option (10-roller) for smoother grades at higher speeds',
+        'Optional Cat FirstCut Cutting Edges (SU blades) — patented design, up to 35% more payload per pass, 17% productivity gain',
+        'HDXL DuraLink undercarriage standard — up to 20% more seal life in high-impact conditions',
+        'Cat Abrasion undercarriage option — double seal life, eliminates bushing turns, up to 50% lower cost per hour',
+        'Hydraulic reversing fan (standard)',
+        'Standard rear ladder; ground-level service centre; 30-minute cab removal',
+        'Simple service access: Electric Drive power train slides out back like traditional machines; generator accessible via cab removal',
+        'Slope Indicate — built into main display (standard)',
+      ],
+
+      attachmentsAvailable: [
+        'Semi-Universal (SU) blade', 'LGP SU blade', 'LGP Straight (S) blade',
+        'VPAT 6-way blade', 'LGP VPAT (30-in)', 'LGP VPAT (36-in)',
+        'Foldable VPAT — under 3m transport width (not all regions)',
+        'Waste/Landfill blade',
+        'High lift ripper with straight or curved shanks',
+        'Ripper-ready rear hydraulics (standard); ripper and winch-ready (optional)',
+        'Winch', 'Drawbar', 'Counterweights', 'Side screens', 'Rear screen',
+        'Cat FirstCut Cutting Edges (SU blades)',
+      ],
+
+      specialtyArrangements: [
+        'Forestry and Land Clearing — updated sweeps, specialized track shoes, woodchip/coal blades, precleaner, roof-mounted filter',
+        'Waste Handler — robust guarding, striker bars, seals, airborne debris protection, specialized blades and screens',
+        'Standard configuration', 'LGP (Low Ground Pressure) configuration',
+      ],
+
+      // ── STANDARD & OPTIONAL EQUIPMENT (from brochure page 15) ────
+      standardEquipment: [
+        // Powertrain
+        'Electric Drive', 'Cat C9.3B diesel engine', 'Double reduction planetary final drives', 'Hydraulic reversing fan',
+        // Operator Environment
+        'Fully redesigned cab, sound suppressed, with Integrated ROPS', 'Full-color 10-inch (254mm) liquid crystal touchscreen main display',
+        'Integrated rearview camera', 'Adjustable operator controls/armrests', 'Added storage areas', 'Cloth seat',
+        'Communication radio ready', '6 LED lights',
+        // Cat Technology
+        'Slope Indicate', 'Third Party Grade Control Ready Cab',
+        'Compatibility with radios and base stations from Trimble, Topcon, Leica',
+        'Capability to install 3D grade systems from Trimble, Topcon, Leica',
+        'Product Link™ Cellular', 'Remote Flash/Troubleshoot', 'Operator ID', 'Machine Security Passcode', 'Remote Control Ready',
+        // Undercarriage
+        'Heavy Duty (HDXL with DuraLink™) or Cat Abrasion™',
+        // Blades
+        'Semi-Universal blade (primary — others optional)',
+        // Service & Maintenance
+        'Rear access ladder', 'Shovel holder', 'Ground level service center', '30-minute cab removal', 'Underhood work light',
+        // Hydraulics
+        'Independent steering and implement pumps', 'Load sensing hydraulics', 'Ripper-ready rear hydraulics',
+        // Attachments
+        'Ripper-ready rear hydraulics',
+      ],
+      optionalEquipment: [
+        // Operator Environment
+        'Deluxe leather heated/ventilated seat', 'Premium lights — 12 LED', 'Integrated warning lights', 'Powered precleaner',
+        // Cat Technology
+        'ARO with Assist Package (Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry)',
+        'Grade 3D with Assist Package (10-inch touchscreen grade display, Steer Assist 3D, grade receivers and antennas, Grade Software Enabled Attachment)',
+        'Product Link — Dual Cellular/Satellite', 'Machine Security Bluetooth', 'Cat Command for Dozing',
+        // Blades
+        'VPAT', 'Straight blade', 'Angle blade', 'Foldable VPAT (under 3m transport width — not all regions)', 'Waste/Landfill blade',
+        // Undercarriage
+        '10-Roller Fine Grading undercarriage',
+        // Service & Maintenance
+        'Fast fuel fill ready', 'Fast fuel pump', 'High-speed oil change',
+        // Attachments
+        'High lift ripper with straight or curved shanks', 'Ripper and winch-ready rear hydraulics',
+        'Winch', 'Drawbar', 'Counterweights', 'Side screens', 'Rear screen (hinged or fixed)', 'Sweeps',
+        'Forestry and Waste Special Arrangements',
+      ],
+      tags: ['dozer','22t class','d6 xe','electric drive','civil','bulk earthworks','subdivision','road formation','clearing','landfill','forestry','grading','high drive','vpat','electric','cat technology','grade control'],
+      note: 'Cat D6 XE Track-Type Tractor (Build 20B) — world\'s first high-drive Electric Drive dozer. 161 kW (215 hp) Cat C9.3B @ 1,700 rpm. Electric Drive: no gears, constant power to ground, up to 35% better fuel efficiency, up to 12% lower maintenance costs, 90% fewer moving parts vs powershift. AC: R134a 1.36kg / 1.946t CO2. Push Arm configs: 22,403–24,184 kg (55–37 kPa). VPAT configs: 22,548–23,820 kg (49–35 kPa). Blades: SU 5.7m³, LGP SU 5.8m³, LGP S 3.8m³, VPAT 4.1m³, LGP VPAT 36-in 4.9m³. Fuel 341L, DEF 28L. Slope Assist standard; Assist Package + Grade 3D optional. Remote Control Ready. HDXL DuraLink standard. Forestry and Waste arrangements. Source: Cat Brochure AEXQ2481-05 (2022), Build 20B.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D6 DOZER (Next Generation) — full brochure entry (AEXQ4170-00, 2024, Build 20C) ─
+    {
+      id:'cat-d6', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D6 Dozer (Next Generation)', shortName:'Cat D6',
+      brochureRef: 'AEXQ4170-00 (2024), Build Number: 20C',
+
+      // ── ENGINE & POWERTRAIN ────────────────────────────────────────
+      engineModel:      'Cat C9.3B',
+      emissionStandard: 'Brazil MAR-1 and UN ECE R96 Stage IIIA — equivalent to U.S. EPA Tier 3 / EU Stage IIIA',
+      powertrain:       'Fully Automatic 4-Speed Powershift Transmission with Lock-Up Clutch (LUC)',
+      engineNetKW:      161,
+      engineNetHP:      215,
+      engineNetMHP:     219,
+      engineRPM:        2200,   // rated speed at which net power is published
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE ───────────────────────
+      operatingWeightKg: 22130,
+      operatingWeightT:  22.1,
+      groundPressureKPa: 54,
+      groundPressurePSI: 7.9,
+
+      // ── CONFIGURATIONS ─────────────────────────────────────────────
+      configurations: [
+        { name:'D6 Push Arm',            shoeWidthMm:610, shoeWidthIn:24, weightKg:22130, weightLb:48788, groundPressureKPa:54, groundPressurePSI:7.9, blade:'Semi-Universal (SU)', bladeCapacityM3:5.7, bladeCapacityYd3:7.5 },
+        { name:'D6 LGP (36-in) Push Arm',shoeWidthMm:915, shoeWidthIn:36, weightKg:23911, weightLb:52715, groundPressureKPa:36, groundPressurePSI:5.2, blade:'Straight',           bladeCapacityM3:3.8, bladeCapacityYd3:5.0 },
+        { name:'D6 VPAT',                shoeWidthMm:610, shoeWidthIn:24, weightKg:22275, weightLb:49108, groundPressureKPa:49, groundPressurePSI:7.1, blade:'VPAT',               bladeCapacityM3:4.1, bladeCapacityYd3:5.4 },
+        { name:'D6 LGP (30-in) VPAT',   shoeWidthMm:760, shoeWidthIn:30, weightKg:23012, weightLb:50733, groundPressureKPa:40, groundPressurePSI:5.9, blade:'VPAT',               bladeCapacityM3:4.5, bladeCapacityYd3:5.9 },
+        { name:'D6 LGP (36-in) VPAT',   shoeWidthMm:915, shoeWidthIn:36, weightKg:23547, weightLb:51912, groundPressureKPa:34, groundPressurePSI:5.0, blade:'VPAT',               bladeCapacityM3:4.9, bladeCapacityYd3:6.5 },
+      ],
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'Semi-Universal (SU)', capacityM3:5.7, capacityYd3:7.5 },
+        { config:'VPAT',                capacityM3:4.1, capacityYd3:5.4 },   // std
+        { config:'LGP VPAT (30-in)',    capacityM3:4.5, capacityYd3:5.9 },
+        { config:'LGP VPAT (36-in)',    capacityM3:4.9, capacityYd3:6.5 },
+        { config:'Straight (LGP 36-in)',capacityM3:3.8, capacityYd3:5.0 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:   341,
+      fuelTankGal: 90,
+
+      // ── AIR CONDITIONING SYSTEM ───────────────────────────────────
+      acRefrigerant:    'R134a',
+      acGWP:            1430,
+      acRefrigerantKg:  1.36,
+      acRefrigerantLb:  2.99,
+      acCO2EquivTonnes: 1.946,
+      acCO2EquivTons:   2.145,
+
+      // ── KEY TECHNOLOGY & FEATURES ─────────────────────────────────
+      technologyFeatures: [
+        'Fully Automatic 4-Speed Powershift Transmission with LUC — continuously adjusts for max efficiency without operator shifting',
+        'More weight and horsepower than D6T predecessor; improved frame design for balanced ride without counterweights',
+        'Variable Power Angle Tilt (VPAT) — improved range of motion; blade stays level when angled; 6-way movement',
+        'Push Arm configuration — beefed-up for heavier applications and larger blades',
+        'Differential steering system (standard)',
+        'Electronic parking brake (standard)',
+        'Automatic ether starting aid (standard)',
+        'Electric fuel priming pump (standard)',
+        'Fuel water separator with electronic service indicator (standard)',
+        'Jacket water heater 110V or 220V based on sales region (standard)',
+        'Engine air pre-cleaner with dust ejection (standard)',
+        'Engine air filter with electronic service indicator (standard)',
+        'Cat Grade with Slope Assist — automatic blade position without GPS (standard)',
+        'Steer Assist — reduces steering inputs up to 75%, no GPS required (Assist Package)',
+        'Stable Blade, Blade Load Monitor, Traction Control, AutoCarry (Assist Package — optional)',
+        'Slope Indicate — built into main display (standard)',
+        'ARO with Assist Package (optional)', 'Cat Grade 3D Ready with Assist Package — hardware only (optional)', 'Cat Grade 3D with Assist Package (full, optional)',
+        'Third-party Grade Control Ready Cab — CAN interface, Trimble/Topcon/Leica compatible (standard)',
+        'Remote Control Ready (standard); Cat Command for Dozing (optional)',
+        'Cat Product Link cellular (standard), dual cellular/satellite (optional)',
+        'Remote Flash, Remote Troubleshoot, Operator ID (standard); Machine Security passcode (standard); Bluetooth (optional)',
+        'Application Profile — save machine settings per job or operator; Operator ID tracks productivity via Product Link',
+        'Operator presence switch (standard)',
+        'Gauge Cluster display (standard) — full-colour 10-inch touchscreen display is OPTIONAL (not standard)',
+        'Integrated rearview camera (standard); 10-inch colour touchscreen display optional',
+        'Next Generation cab — common across D5 to D8; integrated ROPS and FOPS; single pane door glass, sliding windows; Cat Advanced Cabin Filtration',
+        'Viscous cab mounts — reduce vibration for greater operator comfort (standard)',
+        'Wider air-suspension seat; adjustable armrests independent of seat; distributed heating/cooling (standard)',
+        'Adjustable for 5th to 95th percentile operators',
+        'USB and Auxiliary ports (standard)',
+        'Adjustable foot pegs (standard)',
+        'Screen ready, side and rear (standard)',
+        'Enhanced cab storage solutions (standard)',
+        'Joystick control ARO (optional)',
+        'Bluetooth microphone for hands-free mobile access (optional — entertainment radio with Bluetooth)',
+        'Quick opening floor plate (optional)',
+        'HDXL DuraLink undercarriage — PPR2 pins, more seal life in high-impact conditions (standard)',
+        'Cat Abrasion undercarriage — double seal life, eliminates bushing turns (optional)',
+        '10-roller fine grading undercarriage option',
+        'Carrier roller (standard)',
+        'Hydraulically adjustable track (standard)',
+        'Partially guided undercarriage (optional)', 'Fully guided undercarriage (optional)',
+        'Waste undercarriage HDXL only (optional)',
+        'Replaceable sprocket rim segments (optional)',
+        'Common sprocket mounting style with segments on outside of final drive (improved serviceability)',
+        'Standard reversing fan (standard); 30-minute cab removal is OPTIONAL (not standard); grouped service points; cab air filter extended to 500 hours',
+        'Ecology drains (standard); Ecology drains with high-speed oil powertrain and engine oil change (optional)',
+        'Ground level service centre with remote electrical disconnect, access light, and secondary shutdown switch (standard)',
+        'Scheduled Oil Sampling (S·O·S) ports (standard)',
+        'Maintenance-free equalizer bar (standard)',
+        'Certified ISO 14567 tie-off points — 3 points (standard)',
+        'Vandalism protection for fluid compartments and battery box (standard)',
+        'Dedicated shipping tie-downs, rear (standard)',
+        'Mounting provisions for grease gun, shovel, and fire extinguisher (standard)',
+        'Perforated radiator doors, louvered and hinged (standard)',
+        'Removable engine enclosures, perforated and hinged, with under-hood work light (standard)',
+        'Fuel tank 341L fast fill ready (optional); Wiggins style fast fill nozzle (optional)',
+        'Rear work light (optional)',
+        'Hour meter (optional)',
+        '95 Amp alternator (standard); 150 Amp alternator / 150 Amp ducted alternator (optional)',
+        'Heavy duty 24V starter (standard)',
+        'Extended Life engine coolant –37°C / –35°F (standard); Extended Life Arctic coolant –51°C / –60°F (optional)',
+        'Heavy duty batteries two maintenance-free 12V / 1,400 CCA / 24V system (optional)',
+        'Optional Cat FirstCut Cutting Edges (SU blades) — up to 35% more payload per pass',
+        'Factory-integrated GNSS grade receivers/antennas inside cab roof (Grade 3D — no external masts)',
+        '4 LED lights standard; upgradeable to 6 or 12 LED; integrated beacon warning light optional',
+        'Backup alarm (standard)', 'Forward warning horn (standard)', '15A 12V converter outlet (standard)',
+        'Fuse panel and main power relay located inside cab (standard)',
+        'Drawbar — STANDARD ATTACHMENT (included as standard)',
+        'High lift multi-shank ripper with straight or curved shanks (optional)',
+        'Lightweight rear tow point (optional)',
+        'Striker bar box (optional)',
+        'Counterweights — not recommended unless using heavier aftermarket blades (optional)',
+        'PACCAR PA56 winch low speed PTO (optional)', 'PACCAR PA85 winch variable speed hydraulic (optional)',
+        'PACCAR PA56 winch standard speed PTO — dealer only (optional)',
+        'Allied H6H winch variable speed hydraulic — dealer only (optional)',
+        'Fairlead Assembly 3-roller fits PA55/PA56/PA85 winches (optional)',
+        'Retrofit kit 4th roller fits PA55/PA56/PA85 winches (optional)',
+        'Ripper ready rear hydraulics (standard)', 'Ripper and winch ready rear hydraulics (optional)',
+        'Single axis ripper control (standard)', 'Dual axis ripper/winch control (optional)',
+        'Hydraulic automatically reversing, zero-speed capable cooling fan (standard)',
+        'Electronic hydraulic lockout switch (standard)',
+        'Load sensing hydraulics — dozer lift and tilt (standard)', 'Independent steering hydraulics (standard)',
+        'High debris cab with integrated ROPS/FOPS, impact-resistant polycarbonate doors, powered pre-cleaner, Cat Advanced Cabin Filtration (optional)',
+        'Fully redesigned heavy duty cab with integrated ROPS/FOPS, polycarbonate doors, sliding windows, Cat Advanced Cabin Filtration (optional)',
+        'Cat Advanced Cabin Filtration with powered pre-cleaner MERV 16, HEPA, Activated Charcoal options (optional)',
+        'Deluxe leather heated/ventilated seat with electronic adjustable lumbar support (optional)',
+        'Engine air pre-cleaner with dust ejection and screen for high debris applications (optional)',
+        'Double reduction planetary final drives, guarded (optional)',
+        'Extreme service track shoes (optional)',
+      ],
+
+      attachmentsAvailable: [
+        'Semi-Universal (SU) blade — standard or land clearing (STD and LGP)', 'Straight blade — LGP, standard or landfill', 'VPAT blade (STD and LGP)', 'Angle blade (optional)',
+        'Waste/Landfill blade configurations', 'Cat FirstCut cutting edges (SU blades)',
+        'High lift multi-shank ripper (straight or curved shanks)',
+        'Drawbar (STANDARD — included)', 'Lightweight rear tow point',
+        'Winch (PACCAR PA56 low speed PTO / PA85 variable speed hydraulic / Allied H6H variable speed hydraulic)',
+        'Fairlead Assembly 3-roller', 'Retrofit kit 4th roller', 'Striker bar box',
+        'Counterweights (not recommended unless using heavier aftermarket blades)',
+        'Sweeps', 'Side and rear screens',
+      ],
+
+      specialtyArrangements: [
+        'Waste Handling — impact-resistant polycarbonate doors, guarding/striker bars/seals, landfill blades, powered pre-cleaner (1,000h interval), thermal shields, centre-hole track shoes',
+        'Heavy Duty / Forestry — closed sweeps/canopy, polycarbonate doors, high debris seals, HDXL undercarriage with PPR2 pins, 12 LED lights with guards',
+        'Standard configuration', 'LGP (Low Ground Pressure) — 30-in or 36-in configurations',
+      ],
+
+      // ── IMPORTANT STANDARD vs OPTIONAL NOTES ─────────────────────
+      // STANDARD: Gauge cluster display, integrated rearview camera, slope indicate, Product Link cellular,
+      //   remote flash/troubleshoot, operator ID, machine security passcode, remote control ready,
+      //   third-party grade control ready cab, differential steering, 4-speed auto transmission,
+      //   ripper ready hydraulics, single axis ripper control, load sensing hydraulics,
+      //   independent steering hydraulics, reversing fan, drawbar, 95 amp alternator, 24V starter,
+      //   Extended Life coolant –37°C, carrier roller, hydraulically adjustable track,
+      //   ecology drains, S·O·S ports, maintenance-free equalizer bar, ISO 14567 tie-offs (3),
+      //   vandalism protection, shipping tie-downs, perforated radiator doors,
+      //   removable engine enclosures with underhood work light, viscous cab mounts,
+      //   USB/aux ports, adjustable foot pegs, screen ready, operator presence switch,
+      //   backup alarm, forward warning horn, 15A 12V converter, 4 LED lights.
+      // OPTIONAL: 10-inch touchscreen display, 30-minute cab removal (not standard on D6),
+      //   joystick control ARO, entertainment radio/Bluetooth, quick opening floor plate,
+      //   deluxe heated/ventilated leather seat, powered precleaner, 6 or 12 LED lights,
+      //   integrated beacon warning light, communication radio ready kit,
+      //   Cat Assist with ARO package, Cat Grade 3D Ready (hardware only), Cat Grade 3D with Assist,
+      //   Product Link dual cellular/satellite, grade connectivity, machine security Bluetooth,
+      //   Cat Command for Dozing, fast fill ready/nozzle, high-speed oil change, rear work light,
+      //   hour meter, 150 amp alternator, heavy duty batteries, Arctic coolant –51°C,
+      //   Cat Abrasion track, 10-roller undercarriage, guided undercarriage options,
+      //   waste undercarriage, replaceable sprocket rim segments, ripper/winch hydraulics,
+      //   dual axis control, high debris/forestry cab options, Cat Advanced Cabin Filtration,
+      //   guarded final drives, extreme service shoes, counterweights, winch, ripper, screens, sweeps.
+      tags: ['dozer','22t class','d6','next gen','civil','bulk earthworks','subdivision','road formation','clearing','landfill','forestry','grading','vpat','4-speed auto','high drive','cat technology','grade control'],
+      note: 'Cat D6 Dozer (Next Generation, Build 20C) — 161 kW (215 hp) Cat C9.3B @ 2,200 rpm. Fully Automatic 4-Speed Powershift with LUC. KEY: 10-inch touchscreen is OPTIONAL (standard is gauge cluster + rearview camera); 30-minute cab removal is OPTIONAL; Drawbar is STANDARD. 4 LED standard, upgradeable to 6 or 12. Configurations: Push Arm std 22,130 kg (54 kPa); LGP 36-in Push Arm 23,911 kg (36 kPa); VPAT 22,275 kg (49 kPa); LGP VPAT 36-in 23,547 kg (34 kPa). Blades: SU 5.7m³; VPAT 4.1m³; LGP VPAT 36-in 4.9m³. Fuel 341L. AC: R134a 1.36kg / 1.946t CO2. Differential steering standard. Slope Assist standard; Assist Package + Grade 3D optional. Common D5–D8 cab. HDXL DuraLink standard. Waste & Forestry arrangements. Source: Cat Brochure AEXQ4170-00 (2024), Build 20C.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D7 TRACK-TYPE TRACTOR — full brochure entry (AEXQ3002-02, 2022, Build 17A) ──
+    {
+      id:'cat-d7', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D7 Track-Type Tractor', shortName:'Cat D7',
+      brochureRef: 'AEXQ3002-02 (2022), Build Number: 17A',
+
+      // ── ENGINE & POWERTRAIN ────────────────────────────────────────
+      engineModel:      'Cat C9.3B',
+      emissionStandard: 'U.S. EPA Tier 4 Final / EU Stage V / Japan 2014 / Korea Stage V / China Nonroad Stage IV',
+      powertrain:       'Fully Automatic 4-Speed Powershift Transmission with Lock-Up Clutch (LUC) torque divider',
+      engineNetKW:      197,
+      engineNetHP:      265,
+      engineNetMHP:     268,
+      engineRPM:        2200,
+
+      // ── OPERATING WEIGHT ──────────────────────────────────────────
+      operatingWeightKg: 29776,    // Standard SU/U configuration
+      operatingWeightT:  29.8,
+
+      // ── DIMENSIONS (Heavy Duty undercarriage) ─────────────────────
+      dimensions: [
+        {
+          config: 'Standard SU',
+          trackGaugeMm: 1981, trackGaugeIn: 78.0,
+          standardShoeMm: 610, standardShoeIn: 24.0,
+          tractorWidthWOTrunnionsMm: 2591, tractorWidthWOTrunnionsIn: 102.0,
+          heightToROPSMm: 3354, heightToROPSIn: 132.0,
+          heightToROPSWithGrouserMm: 3436, heightToROPSWithGrouserIn: 135.3,
+          trackOnGroundMm: 2972, trackOnGroundIn: 117.0,
+          basicTractorLengthMm: 4659, basicTractorLengthIn: 183.4,
+        },
+        {
+          config: 'LGP S',
+          trackGaugeMm: 2235, trackGaugeIn: 88.0,
+          standardShoeMm: 915, standardShoeIn: 36.0,
+          tractorWidthWOTrunnionsMm: 3150, tractorWidthWOTrunnionsIn: 124.0,
+          heightToROPSMm: 3354, heightToROPSIn: 132.0,
+          heightToROPSWithGrouserMm: 3428, heightToROPSWithGrouserIn: 135.0,
+          trackOnGroundMm: 3200, trackOnGroundIn: 126.0,
+          basicTractorLengthMm: 4659, basicTractorLengthIn: 183.4,
+        },
+        {
+          config: 'Waste Handler',
+          trackGaugeMm: 1981, trackGaugeIn: 78.0,
+          standardShoeMm: 610, standardShoeIn: 24.0,
+          tractorWidthWOTrunnionsMm: 2591, tractorWidthWOTrunnionsIn: 102.0,
+          heightToROPSMm: 3354, heightToROPSIn: 132.0,
+          trackOnGroundMm: 2972, trackOnGroundIn: 117.0,
+          basicTractorLengthMm: 4659, basicTractorLengthIn: 183.4,
+        },
+      ],
+      // Attachment additions to basic tractor length:
+      attachmentLengthAdditions: {
+        SUBlade_mm: 1125, SUBlade_in: 44.0,
+        UBlade_mm:  1365, UBlade_in:  54.0,
+        SBlade_mm:   840, SBlade_in:  33.0,
+        LandfillBlade_mm: 1125, LandfillBlade_in: 44.0,
+        DrawbarStd_mm: 260, DrawbarStd_in: 10.2,
+        DrawbarLGP_mm: 270, DrawbarLGP_in: 10.6,
+        RipperStd_mm: 1555, RipperStd_in: 61.2,
+        RipperLGP_mm: 1565, RipperLGP_in: 61.6,
+        WinchStd_mm: 735, WinchStd_in: 28.9,
+        WinchLGP_mm: 745, WinchLGP_in: 29.3,
+      },
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'Standard Semi-Universal (SU)', capacityM3:7.4,  capacityYd3:9.7,  widthMm:3500, widthIn:138.0 },
+        { config:'LGP Straight (S)',             capacityM3:6.2,  capacityYd3:8.1,  widthMm:4150, widthIn:163.0 },
+        { config:'Standard Angle (A)',           capacityM3:4.2,  capacityYd3:5.4,  widthMm:4320, widthIn:170.0 },
+        { config:'LGP Angle (A)',                capacityM3:4.7,  capacityYd3:6.2,  widthMm:4770, widthIn:188.0 },
+        { config:'Standard Universal (U)',       capacityM3:8.6,  capacityYd3:11.2, widthMm:3788, widthIn:149.0 },
+        { config:'Standard U-Landfill',          capacityM3:16.6, capacityYd3:21.7, widthMm:3788, widthIn:149.0 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:   465,
+      fuelTankGal: 122.8,
+      defTankL:    44,
+      defTankGal:  11.6,
+
+      // ── AIR CONDITIONING SYSTEM ───────────────────────────────────
+      acRefrigerant:    'R134a',
+      acGWP:            1430,
+      acRefrigerantKg:  1.36,
+      acCO2EquivTonnes: 1.946,
+
+      // ── VS D7E PERFORMANCE CLAIMS ─────────────────────────────────
+      vsD7EClaims: {
+        weightIncrease:       '6% more weight',
+        horsepowerIncrease:   '12% more horsepower',
+        materialPerHour:      'Up to 8% more material per hour',
+        bladeCapacity:        '10% more blade capacity (SU and Straight blades)',
+        technologyProductivity: 'Up to 50% more productivity with Cat Technology',
+        shippingWidth:         '12-foot (3.5 m) shipping width (standard configuration — transport-ready with blade installed)',
+      },
+
+      // ── KEY TECHNOLOGY & FEATURES ─────────────────────────────────
+      technologyFeatures: [
+        'Fully Automatic 4-Speed Powershift with LUC — no upshifting/downshifting; continuously selects most productive, efficient gear and engine speed',
+        'Elevated sprocket undercarriage — better ride and balance, improved penetration force, protects final drive',
+        'Heavy frame and structures with some D8-sized components for added durability',
+        'Cat C9.3B engine — redesigned fuel system, simplified electronics and emissions reduction for greater reliability',
+        'Cat Grade with Slope Assist — automatic blade position without GPS (standard)',
+        'Steer Assist — automates track and blade tilt steering; reduces inputs up to 75% (no GPS required)',
+        'Stable Blade, Blade Load Monitor, Traction Control, AutoCarry (Assist Package)',
+        'Slope Indicate — main display (standard)',
+        'ARO with Assist Package (optional — bundles Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry)',
+        'Grade 3D with Assist Package (optional) — factory GNSS/GPS blade control; mast-free low-profile antennas in cab roof',
+        'Steer Assist 3D — automatically follows curb lines, centrelines, bottom of slope (Grade 3D package)',
+        'Third-party Grade Control Ready Cab — Trimble, Topcon, Leica compatible',
+        'Remote Control Ready (standard); Cat Command for Dozing (optional) — line-of-sight console or remote operator station',
+        'Cat Product Link cellular (standard), dual cellular/satellite (optional)',
+        'Remote Flash, Remote Troubleshoot, Operator ID, Machine Security — passcode (standard) and Bluetooth (optional)',
+        'Next Generation cab — common controls/interface D5–D8; 10-inch colour touchscreen; integrated ROPS and FOPS; HD rearview camera standard',
+        'Wide air-suspension seat; ample storage; distributed heating/cooling; electrohydraulic implement and steering controls',
+        'Cloth seat standard; deluxe leather heated/ventilated seat optional',
+        '6 LED lights standard; premium 12 LED optional; integrated warning lights optional',
+        'HDXL DuraLink undercarriage — Heavy Duty Extended Life (standard)',
+        'Moderate Service and Extreme Service track shoe options',
+        'SU and Straight blades 10% larger than D7E — fewer passes',
+        'Optional Cat FirstCut Cutting Edges (SU blades) — up to 35% more payload per pass, 17% productivity gain',
+        'Fast fuel fill (standard), ground-level service centre (standard), 30-minute cab removal (standard)',
+        'Quick access cab floor (optional), high-speed oil change (optional)',
+        'Waste Handler — polycarbonate doors, dual pane windows, guarding/seals, landfill blade with trash rack, HDXL with Kevlar-guarded idlers, centre-hole track, high-debris cooling with reversing fan, laminated thermal shields',
+        'Forestry / pipeline configuration — sweeps, screens, heavy guarding, positive pin retention track, heavier C-frame for angle blades',
+      ],
+
+      attachmentsAvailable: [
+        'Semi-Universal (SU) blade', 'Universal (U) blade', 'Straight (S) blade', 'Angle (A) blade', 'Waste/Landfill blade',
+        'Cat FirstCut Cutting Edges (SU blades)', 'Multi-shank ripper', 'Dealer-installed winch', 'Drawbar', 'Side screens', 'Rear screen (hinged or fixed)', 'Sweeps',
+      ],
+
+      specialtyArrangements: [
+        'Waste Handler — landfill-optimised guarding, seals, blades, undercarriage, high-debris cooling',
+        'Forestry / pipeline — sweeps, screens, heavy guarding, polycarbonate doors, PPR track',
+        'Standard configuration', 'LGP (Low Ground Pressure) configuration',
+      ],
+
+      // ── STANDARD & OPTIONAL EQUIPMENT (from brochure page 15) ────
+      standardEquipment: [
+        // Powertrain
+        'Fully automatic 4-speed transmission with lock-up clutch', 'Cat C9.3B diesel engine',
+        'Double reduction 3-planet planetary final drives', 'Electric fuel priming pump',
+        // Operator Environment
+        'Fully redesigned cab, sound suppressed, with Integrated ROPS and FOPS',
+        'Full-color 254mm (10-in) liquid crystal touchscreen main display',
+        'Integrated rearview camera', 'Adjustable operator controls/armrests',
+        'Cab-mounted modular HVAC system', 'Added storage areas',
+        'Electrohydraulic implement and steering controls', 'Cloth seat',
+        'Communication radio ready', '6 LED lights',
+        // Cat Technology
+        'Slope Indicate', 'Third Party Grade Control Ready Cab',
+        'Compatibility with radios and base stations from Trimble, Topcon, Leica',
+        'Capability to install 3D grade systems from Trimble, Topcon, Leica',
+        'Product Link™ Cellular', 'Remote Flash/Troubleshoot', 'Operator ID',
+        'Machine Security Passcode', 'Remote Control Ready',
+        // Blades
+        'Semi-Universal (SU) blade',
+        // Undercarriage
+        'Heavy Duty (HDXL with DuraLink™)', 'Moderate Service track shoes',
+        // Hydraulics
+        'Independent steering and implement pumps', 'Load-sensing hydraulics',
+        // Service & Maintenance
+        'Fast fuel fill', 'Shovel holder', 'Ground-level service center',
+        '30-minute cab removal', 'Underhood work light', 'Ecology drains',
+      ],
+      optionalEquipment: [
+        // Operator Environment
+        'Dual pane/polycarbonate window Special Application Cab',
+        'Deluxe leather heated/ventilated seat', 'Integrated warning lights', 'Premium lights — 12 LED',
+        // Cat Technology
+        'ARO with Assist Package (Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry)',
+        'Grade 3D with Assist Package (10-inch touchscreen grade display, Steer Assist 3D, grade receivers and antennas, Grade SEA)',
+        'Product Link — Dual Cellular/Satellite', 'Machine Security Bluetooth', 'Cat Command for Dozing',
+        // Blades
+        'Universal (U) blade', 'Straight (S) blade', 'Angle (A) blade', 'Waste/Landfill blade',
+        // Undercarriage
+        'Extreme Service track shoes',
+        // Service & Maintenance
+        'Quick access cab floor', 'High-speed oil change',
+        // Attachments
+        'Multi-shank ripper', 'Winch', 'Drawbar', 'Side screens', 'Rear screen (hinged or fixed)', 'Sweeps',
+      ],
+      tags: ['dozer','30t class','d7','large dozer','civil','mining','bulk earthworks','major clearing','road formation','landfill','forestry','subdivision','4-speed auto','high drive','cat technology','grade control'],
+      note: 'Cat D7 Track-Type Tractor (Build 17A) — 197 kW (265 hp) Cat C9.3B @ 2,200 rpm. Fully Automatic 4-Speed with LUC. 29,776 kg (Standard SU/U). 6% more weight, 12% more hp, up to 8% more material/hr vs D7E. SU blade 7.4m³; U blade 8.6m³; U-Landfill 16.6m³. Fuel 465L, DEF 44L. AC: R134a 1.36kg / 1.946t CO2. 12-ft shipping width. Elevated sprocket high-drive. Slope Assist standard; Grade 3D optional. Remote Control Ready. HDXL standard. Waste Handler and Forestry arrangements. Source: Cat Brochure AEXQ3002-02 (2022), Build 17A.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── CAT D8 TRACK-TYPE TRACTOR — full brochure entry (AEXQ3925-01, 2025, Build 22A) ──
+    {
+      id:'cat-d8', brand:'Caterpillar', emoji:'🏔️', type:'dozer',
+      name:'Caterpillar D8 Track-Type Tractor (Next Generation)', shortName:'Cat D8',
+      brochureRef: 'AEXQ3925-01 (2025), Build Number: 22A',
+
+      // ── ENGINE & POWERTRAIN ────────────────────────────────────────
+      engineModel:      'Cat C15',
+      emissionStandard: 'Brazil MAR-1, UN ECE R96 Stage IIIA — equivalent to U.S. EPA Tier 3 / EU Stage IIIA',
+      powertrain:       'Fully Automatic 4-Speed Powershift Transmission with Lock-Up Clutch (LUC) torque divider',
+      engineNetKW:      271,
+      engineNetHP:      363,
+      engineNetMHP:     368,
+      engineRPM:        2050,
+      altitudeNoDerating: '4,267 m (14,000 ft) — automatic derating beyond this altitude',
+
+      // ── OPERATING WEIGHT & GROUND PRESSURE ───────────────────────
+      operatingWeightKg: 39000,    // D8 standard
+      operatingWeightT:  39.0,
+      groundPressureKPa: 88.5,
+      groundPressurePSI: 12.84,
+
+      // ── CONFIGURATIONS ─────────────────────────────────────────────
+      // Note: Operating weight includes blade, lubricants, coolant, full fuel tank, ROPS/FOPS cab, ripper, 75 kg operator
+      configurations: [
+        { name:'D8',        standardShoeMm:610, standardShoeIn:24.0, weightKg:39000, weightLb:85980, groundPressureKPa:88.5, groundPressurePSI:12.84, clearanceMm:622, heightM:3.53, lengthWOBladeM:4.76, trackGaugeM:2.08, widthEndBitsM:4.04, trackOnGroundM:3.21 },
+        { name:'D8 LGP',   standardShoeMm:965, standardShoeIn:38.0, weightKg:37585, weightLb:82861, groundPressureKPa:53.9, groundPressurePSI:7.82,  clearanceMm:622, heightM:3.53, lengthWOBladeM:4.76, trackGaugeM:2.34, widthEndBitsM:4.54, trackOnGroundM:3.21 },
+        { name:'D8 Desert', standardShoeMm:660, standardShoeIn:26.0, weightKg:39900, weightLb:87964, groundPressureKPa:83.7, groundPressurePSI:12.14, clearanceMm:622, heightM:3.65, lengthWOBladeM:4.76, trackGaugeM:2.08, widthEndBitsM:4.04, trackOnGroundM:3.21 },
+      ],
+      // Note: Brochure cover page lists Desert at 39,250 kg (86,531 lb); tech spec table lists 39,900 kg (87,964 lb) — tech spec table used as primary.
+
+      // ── BLADES ────────────────────────────────────────────────────
+      blades: [
+        { config:'Standard Semi-Universal (SU)', capacityM3:10.3, capacityYd3:13.47, widthMm:4038, widthIn:159 },
+        { config:'Standard Universal (U)',       capacityM3:11.8, capacityYd3:15.43, widthMm:4263, widthIn:168 },
+        { config:'Standard Angle (A)',           capacityM3:6.1,  capacityYd3:7.98,  widthMm:5046, widthIn:199 },
+        { config:'LGP Semi-Universal (SU)',      capacityM3:9.9,  capacityYd3:12.95, widthMm:4542, widthIn:179 },
+        { config:'LGP Angle (A)',                capacityM3:6.8,  capacityYd3:8.89,  widthMm:5556, widthIn:219 },
+      ],
+
+      // ── SERVICE REFILL CAPACITIES ─────────────────────────────────
+      fuelTankL:         624,
+      fuelTankGal:       164.8,
+      fuelTankHighCapL:  821,    // optional high-capacity tank
+      fuelTankHighCapGal:216.9,
+
+      // ── AIR CONDITIONING SYSTEM ───────────────────────────────────
+      // NOTE: D8 uses R134a OR R1234yf — see machine label for identification
+      acRefrigerant:    'R134a or R1234yf (see label on machine)',
+      acR134a_GWP:      1430,
+      acR134a_Kg:       1.36,
+      acR134a_Lb:       3.0,
+      acR134a_CO2EquivTonnes: 1.95,
+      acR134a_CO2EquivTons:   2.14,
+      // If equipped with R1234yf: refer to machine label for GWP and quantity.
+
+      // ── VS D8/D8T (19B) PERFORMANCE CLAIMS ───────────────────────
+      vsD8T19BClaims: {
+        drawbarPower:    'Up to 16% more drawbar power (result of increased engine power and new 1.5F gear)',
+        visibility:      '7% improved visibility (virtual visibility analysis)',
+        operatorInputs:  'Assist features reduce operator inputs up to 45%',
+      },
+
+      // ── KEY TECHNOLOGY & FEATURES ─────────────────────────────────
+      technologyFeatures: [
+        'Fully Automatic 4-Speed Powershift with LUC torque divider — continuously adjusts for max efficiency without shifting; 4-speed reduces momentary hesitation between shifts; up to 16% more drawbar power vs D8/D8T (19B)',
+        'New 1.5F gear — additional drawbar power in key applications',
+        'Elevated sprocket undercarriage — better ride, balance, improved penetration force; final drive protected by two steel idlers; maximum track on ground',
+        'Cat C15 engine — no derating required up to 4,267m (14,000 ft) altitude; compatible with 100% biodiesel FAME and 100% renewable diesel/HVO/GTL',
+        'Next Generation cab — common controls, interface, operator station D5–D8; 7% improved visibility vs D8T (19B)',
+        '203mm (8-in) gauge cluster display (STANDARD)',
+        'Optional 10-inch colour touchscreen display — OPTIONAL not standard (shows rearview camera + backup lines when reversing; Key Features Help; Operator Profiles; Application Profiles; machine settings)',
+        'High Definition rearview camera with backup lines (standard)',
+        'Wide air-suspension seat with multiple adjustments; electrohydraulic implement and steering controls (standard)',
+        'Cloth seat (standard); deluxe leather heated/ventilated seat (optional)',
+        'Standard 4 LED lights; Deluxe 6 LED (optional); Premium 12 LED (optional); Integrated warning lights (optional)',
+        'Cat Assist with ARO Package (STANDARD on D8) — includes Cat Grade with Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry, Auto Rip',
+        'Auto Rip — automates ripper raise/lower and shank in/out to maximise ripping productivity (D8-exclusive Assist feature)',
+        'Slope Indicate — built into main display (standard)',
+        'Cat Grade 3D Ready with Assist Package — hardware only (optional; all wiring and hardware factory-installed; install licence later to activate Grade 3D)',
+        'Cat Grade 3D with Assist Package (full, optional)',
+        'Third-party Grade Control Ready Cab — CAN interface; Trimble, Topcon, Leica compatible (standard)',
+        'Grade Corrections Radio (optional)', 'Grade Connectivity (optional)',
+        'Remote Control Ready (standard); Cat Command for Dozing (optional)',
+        'Cat Product Link cellular or dual mode (standard); Remote Flash/Troubleshoot (standard); Operator ID (standard); Machine Security passcode (standard); Bluetooth (optional)',
+        'Cat Track Wear Sensor (optional)',
+        'Cat Detect for Dozers — Surround Vision (4 cameras, always-on 360° view on dedicated 10-in display mounted above front cab window; rearview mirror relocated to right-hand B-post); Rear People Detection with 3 detection zones: Awareness (yellow), Caution (amber), Critical (red); detects up to 8m (26 ft) behind and to sides at low speeds, extending at higher speeds',
+        'Desert Configuration — high-ambient cooling capability; added seals/guarding; special abrasion-resistant coating on different parts of machine; replaceable wear plates for extended blade life; high-capacity fuel tank option (821 L / 216.9 gal)',
+        'HDXL DuraLink undercarriage (standard); Moderate Service track shoes (standard); Extreme Service track shoes (optional)',
+        'Fast fuel fill (standard); optional fast fuel fill system also available; platform with guard rail for safe refuelling and DEF fill',
+        'Grouped service points (standard); ground-level service centre with remote electrical disconnect and secondary shutdown switch (standard)',
+        '30-minute cab removal (standard); quick access cab floor (optional)',
+        'Standard reversing fan helps remove debris continuously; extended intervals for some fluids and filters',
+        'High-speed oil change (optional)',
+        'Underhood work light (standard); Shovel holder (standard)',
+        'Ecology drains (standard)',
+        'Independent steering and implement pumps (standard); Load-sensing hydraulics (standard)',
+        'Final drives — double reduction; Standard or LGP',
+        'Fuel priming pump electric (standard)',
+      ],
+
+      attachmentsAvailable: [
+        'Semi-Universal (SU) blade — standard or LGP', 'Universal (U) blade', 'Waste/Landfill blade', 'Angle blade — standard or LGP',
+        'Single shank ripper', 'Multi-shank ripper', 'Winch', 'Drawbar', 'Sweeps',
+        'Optional high-capacity fuel tank (821 L)',
+      ],
+
+      specialtyArrangements: [
+        'Desert Configuration — high-ambient capability, abrasion resistance, sealing, coatings, replaceable wear plates',
+        'Standard configuration', 'LGP (Low Ground Pressure) configuration',
+      ],
+
+      // ── STANDARD & OPTIONAL EQUIPMENT (from brochure page 15) ────
+      standardEquipment: [
+        // Powertrain
+        'Cat C15 engine', 'Fully-automatic 4-speed transmission with Lock-Up Clutch (LUC) torque divider',
+        'Final Drives double reduction — Standard or LGP', 'Fuel priming pump electric',
+        // Operator Environment
+        'Fully redesigned cab with Integrated ROPS and Falling Object Protective Structure (FOPS)',
+        '203mm (8-in) gauge cluster display',
+        'High Definition rearview camera with backup lines',
+        'Cab mounted modular HVAC system',
+        'Electrohydraulic implement and steering controls', 'Cloth seat',
+        'Communication radio ready',
+        'Standard Lights — 4 LED',
+        // Cat Technology
+        'Slope Indicate',
+        'Cat Assist with ARO Package (standard on D8 — includes Slope Assist, Steer Assist, Stable Blade, Blade Load Monitor, Traction Control, AutoCarry, Auto Rip)',
+        'Third Party Grade Control Ready Cab',
+        'Compatibility with radios and base stations from Trimble, Topcon, Leica',
+        'Capability to install 3D grade systems from Trimble, Topcon, Leica',
+        'Product Link™ Cellular or Dual Mode', 'Remote Flash/Troubleshoot', 'Operator ID',
+        'Machine Security Passcode', 'Remote Control Ready',
+        // Blades
+        'Semi-Universal (SU) blade',
+        // Undercarriage
+        'Heavy Duty (HDXL with DuraLink™)', 'Moderate Service track shoes',
+        // Hydraulics
+        'Independent steering and implement pumps', 'Load-sensing hydraulics',
+        // Service & Maintenance
+        'Fast fuel fill', 'Shovel holder',
+        'Ground-level service center with remote electrical disconnect and secondary shutdown switch',
+        '30-minute cab removal', 'Quick access cab floor — OPTIONAL (not standard)',
+        'Ecology drains', 'Underhood work light',
+      ],
+      optionalEquipment: [
+        // Operator Environment
+        'Full-color 254mm (10-in) liquid crystal touchscreen display (NOT standard — standard is 8-in gauge cluster)',
+        'Deluxe leather heated/ventilated seat',
+        'Deluxe Lights — 6 LED', 'Premium Lights — 12 LED', 'Integrated warning lights',
+        // Cat Technology
+        'Cat Grade 3D Ready with Assist Package (hardware only)',
+        'Cat Grade 3D with Assist Package (full)',
+        'Product Link — dual cellular/satellite', 'Cat Track Wear Sensor',
+        'Grade Connectivity', 'Grade Corrections Radio',
+        'Machine Security Bluetooth', 'Cat Command for Dozing',
+        // Blades
+        'Universal (U) blade', 'Waste/Landfill blade', 'Angle blade',
+        // Undercarriage
+        'Extreme Service track shoes', 'LGP Final Drives',
+        // Service & Maintenance
+        'Quick access cab floor', 'High-speed oil change',
+        // Attachments
+        'Single shank ripper', 'Multi-shank ripper', 'Winch', 'Drawbar', 'Sweeps',
+        'Optional high-capacity fuel tank (821 L / 216.9 gal)',
+      ],
+      tags: ['dozer','39t class','d8','large dozer','mining','civil','major clearing','dam construction','bulk earthworks','landfill','pre-strip','heavy civil','4-speed auto','high drive','cat technology','grade control','cat detect'],
+      note: 'Cat D8 Track-Type Tractor (Next Gen, Build 22A) — 271 kW (363 hp) Cat C15 @ 2,050 rpm. Fully Automatic 4-Speed with LUC + new 1.5F gear; up to 16% more drawbar power vs D8/D8T (19B). KEY: 8-in gauge cluster is STANDARD; 10-inch touchscreen is OPTIONAL. Cat Assist with ARO (incl. Auto Rip) is STANDARD on D8. AC: R134a or R1234yf — see machine label; if R134a: 1.36kg / 1.95t CO2. D8 std: 39,000 kg / 88.5 kPa (610mm shoes). D8 LGP: 37,585 kg / 53.9 kPa (965mm shoes). D8 Desert: 39,900 kg / 83.7 kPa (tech spec; cover says 39,250 kg). Blades: SU 10.3m³, U 11.8m³, LGP SU 9.9m³. Fuel 624L std / 821L optional. No altitude derating to 4,267m. Cat Detect optional. Remote Control Ready std. Source: Cat Brochure AEXQ3925-01 (2025), Build 22A.',
+      hireRateType: 'wet',
+    },
+
+    // ── KOMATSU DOZERS ───────────────────────────────────────────────
+    { id:'kom-d37',    brand:'Komatsu', emoji:'🏔️', type:'dozer', name:'Komatsu D37-23', shortName:'Komatsu D37',
+      operatingWeightT:7.5,
+      tags:['small','clearing','levelling','residential','light civil'],
+      note:'Komatsu D37-23 — 7.5t small dozer. 63kW engine. Residential site prep, light clearing, backfill spreading. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kom-d51',    brand:'Komatsu', emoji:'🏔️', type:'dozer', name:'Komatsu D51-22', shortName:'Komatsu D51',
+      operatingWeightT:13.0,
+      tags:['small','clearing','subdivision','light civil'],
+      note:'Komatsu D51-22 — 13t dozer. 93kW engine. Small subdivision works, grading, clearing. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kom-d65',    brand:'Komatsu', emoji:'🏔️', type:'dozer', name:'Komatsu D65-18', shortName:'Komatsu D65',
+      operatingWeightT:18.5,
+      tags:['standard','clearing','bulk','civil','subdivision'],
+      note:'Komatsu D65-18 — 18.5t standard dozer. 119kW engine. Subdivision bulk earthworks, road formation, major site clearing. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kom-d155',   brand:'Komatsu', emoji:'🏔️', type:'dozer', name:'Komatsu D155AX-8', shortName:'Komatsu D155',
+      operatingWeightT:37.5,
+      tags:['large','mining','civil','major clearing','bulk'],
+      note:'Komatsu D155AX-8 — 37.5t large dozer. 254kW engine. Mining pre-strip, dam works, major land clearing. Source: Komatsu.com.au.', hireRateType:'wet' },
+
+    // ── JOHN DEERE DOZERS ────────────────────────────────────────────
+    { id:'jd-450k',    brand:'John Deere', emoji:'🏔️', type:'dozer', name:'John Deere 450K', shortName:'JD 450K',
+      operatingWeightT:8.0,
+      tags:['small','clearing','levelling','residential','light civil'],
+      note:'John Deere 450K — 8t small dozer. 63kW engine. Residential site prep, land clearing, light civil. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jd-650k',    brand:'John Deere', emoji:'🏔️', type:'dozer', name:'John Deere 650K', shortName:'JD 650K',
+      operatingWeightT:14.0,
+      tags:['small','clearing','subdivision','light civil'],
+      note:'John Deere 650K — 14t dozer. 93kW engine. Subdivision earthworks, grading, clearing. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jd-750k',    brand:'John Deere', emoji:'🏔️', type:'dozer', name:'John Deere 750K', shortName:'JD 750K',
+      operatingWeightT:18.0,
+      tags:['standard','clearing','bulk','civil','subdivision'],
+      note:'John Deere 750K — 18t standard dozer. 104kW engine. Major subdivision, road formation, land clearing. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── LIEBHERR DOZERS ──────────────────────────────────────────────
+    { id:'lie-pr716',  brand:'Liebherr', emoji:'🏔️', type:'dozer', name:'Liebherr PR 716', shortName:'Liebherr PR716',
+      operatingWeightT:16.5,
+      tags:['standard','civil','clearing','subdivision','bulk'],
+      note:'Liebherr PR 716 — 16.5t dozer. 100kW engine. Hydrostatic drive — excellent control on slopes. Source: Liebherr.com/en-AU.', hireRateType:'wet_or_dry' },
+    { id:'lie-pr736',  brand:'Liebherr', emoji:'🏔️', type:'dozer', name:'Liebherr PR 736', shortName:'Liebherr PR736',
+      operatingWeightT:36.0,
+      tags:['large','civil','mining','bulk','major clearing'],
+      note:'Liebherr PR 736 — 36t large dozer. 205kW engine. Hydrostatic drive. Mining pre-strip, dam construction, major earthworks. Source: Liebherr.com/en-AU.', hireRateType:'wet' },
+
+    // ═══════════════════════════════════════════════════════════════
+    //  MOTOR GRADERS — Real Brands & Models
+    // ═══════════════════════════════════════════════════════════════
+
+    // ── CATERPILLAR GRADERS ──────────────────────────────────────────
+    { id:'cat-120gc',  brand:'Caterpillar', emoji:'🛣️', type:'grader', name:'Caterpillar 120 GC', shortName:'Cat 120 GC',
+      operatingWeightT:12.0,
+      tags:['road grading','levelling','final trim','driveway','small road'],
+      note:'Cat 120 GC — 12t grader. 93kW engine. 3.66m blade. Road base grading, driveway formation, final levelling. Entry-level Cat grader. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cat-140gc',  brand:'Caterpillar', emoji:'🛣️', type:'grader', name:'Caterpillar 140 GC', shortName:'Cat 140 GC',
+      operatingWeightT:14.5,
+      tags:['road grading','levelling','final trim','subdivision','road'],
+      note:'Cat 140 GC — 14.5t grader. 128kW engine. 3.96m blade. Most popular Cat grader for road base and subdivision roads. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cat-160gc',  brand:'Caterpillar', emoji:'🛣️', type:'grader', name:'Caterpillar 160 GC', shortName:'Cat 160 GC',
+      operatingWeightT:16.5,
+      tags:['road grading','levelling','large road','civil','highway'],
+      note:'Cat 160 GC — 16.5t grader. 157kW engine. 4.27m blade. Large civil road works, highway maintenance, major site grading. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── KOMATSU GRADERS ──────────────────────────────────────────────
+    { id:'kom-gd555',  brand:'Komatsu', emoji:'🛣️', type:'grader', name:'Komatsu GD555-5', shortName:'Komatsu GD555',
+      operatingWeightT:14.0,
+      tags:['road grading','levelling','final trim','subdivision','road'],
+      note:'Komatsu GD555-5 — 14t grader. 127kW engine. 3.96m blade. Road base grading, driveway and subdivision road works. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+    { id:'kom-gd675',  brand:'Komatsu', emoji:'🛣️', type:'grader', name:'Komatsu GD675-3A', shortName:'Komatsu GD675',
+      operatingWeightT:17.0,
+      tags:['road grading','levelling','large road','civil','highway'],
+      note:'Komatsu GD675-3A — 17t grader. 164kW engine. 4.27m blade. Large civil road works and highway maintenance. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── JOHN DEERE GRADERS ───────────────────────────────────────────
+    { id:'jd-670g',    brand:'John Deere', emoji:'🛣️', type:'grader', name:'John Deere 670G', shortName:'JD 670G',
+      operatingWeightT:13.5,
+      tags:['road grading','levelling','final trim','driveway','road'],
+      note:'John Deere 670G — 13.5t grader. 127kW engine. 3.66m blade. Road base grading, driveway and subdivision work. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+    { id:'jd-772gp',   brand:'John Deere', emoji:'🛣️', type:'grader', name:'John Deere 772 GP', shortName:'JD 772 GP',
+      operatingWeightT:18.0,
+      tags:['road grading','levelling','civil','highway','large road'],
+      note:'John Deere 772 GP — 18t grader. 172kW engine. 4.27m blade. Major road works and highway maintenance. Source: JohnDeere.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── VOLVO GRADERS ────────────────────────────────────────────────
+    { id:'vol-g930',   brand:'Volvo', emoji:'🛣️', type:'grader', name:'Volvo G930', shortName:'Volvo G930',
+      operatingWeightT:14.0,
+      tags:['road grading','levelling','final trim','subdivision','road'],
+      note:'Volvo G930 — 14t grader. 127kW engine. 3.66m blade. Road base grading, subdivision road works. Source: Volvoce.com.au.', hireRateType:'wet_or_dry' },
+    { id:'vol-g960',   brand:'Volvo', emoji:'🛣️', type:'grader', name:'Volvo G960', shortName:'Volvo G960',
+      operatingWeightT:17.5,
+      tags:['road grading','levelling','civil','highway','large road'],
+      note:'Volvo G960 — 17.5t grader. 172kW engine. 4.27m blade. Major civil road and highway works. Source: Volvoce.com.au.', hireRateType:'wet_or_dry' },
+
+    // ═══════════════════════════════════════════════════════════════
+    //  COMPACTORS & ROLLERS — Real Brands & Models
+    // ═══════════════════════════════════════════════════════════════
+
+    // ── BOMAG ────────────────────────────────────────────────────────
+    { id:'bom-bpr40',  brand:'Bomag', emoji:'🔄', type:'compactor', name:'Bomag BPR 40/45 D', shortName:'Bomag BPR 40',
+      operatingWeightT:0.12,
+      tags:['small','trench','backfill','tight access','plate compactor'],
+      note:'Bomag BPR 40/45 D — 120kg reversible plate compactor. 4kW diesel engine. Trench backfill, tight access, paving base. 410mm plate width. Source: Bomag.com.', hireRateType:'dry' },
+    { id:'bom-bw120',  brand:'Bomag', emoji:'🔄', type:'roller', name:'Bomag BW 120 AD-5', shortName:'Bomag BW120',
+      operatingWeightT:1.6,
+      tags:['small area','pedestrian','road base','gravel','compaction'],
+      note:'Bomag BW 120 AD-5 — 1.6t tandem roller. 14kW engine. Small road base, gravel driveways, asphalt patches. 1,200mm drum width. Source: Bomag.com.', hireRateType:'wet_or_dry' },
+    { id:'bom-bw213',  brand:'Bomag', emoji:'🔄', type:'roller', name:'Bomag BW 213 D-5', shortName:'Bomag BW213',
+      operatingWeightT:8.5,
+      tags:['asphalt','road base','large area','road','compaction'],
+      note:'Bomag BW 213 D-5 — 8.5t single drum smooth roller. 82kW engine. Asphalt compaction, large road base. 2,130mm drum width. Source: Bomag.com.', hireRateType:'wet_or_dry' },
+    { id:'bom-bw219p', brand:'Bomag', emoji:'🔄', type:'roller', name:'Bomag BW 219 PDH-5', shortName:'Bomag BW219 Padfoot',
+      operatingWeightT:11.0,
+      tags:['earth compaction','embankment','civil','subgrade','padfoot'],
+      note:'Bomag BW 219 PDH-5 — 11t padfoot roller. 82kW engine. Compacting cohesive soils, embankments, road subgrade. Not for asphalt. 2,130mm drum width. Source: Bomag.com.', hireRateType:'wet_or_dry' },
+    { id:'bom-bw161',  brand:'Bomag', emoji:'🔄', type:'compactor', name:'Bomag BW 161 AD-5', shortName:'Bomag BW161 Trench',
+      operatingWeightT:1.7,
+      tags:['trench','backfill','tight area','pedestrian','narrow'],
+      note:'Bomag BW 161 AD-5 — 1.7t trench compactor. 16kW engine. Purpose-built for trench backfill — narrow 600mm drums fit in trenches. Source: Bomag.com.', hireRateType:'wet_or_dry' },
+
+    // ── DYNAPAC ──────────────────────────────────────────────────────
+    { id:'dyn-cc900',  brand:'Dynapac', emoji:'🔄', type:'roller', name:'Dynapac CC900', shortName:'Dynapac CC900',
+      operatingWeightT:0.8,
+      tags:['very small','pedestrian','asphalt','tight access'],
+      note:'Dynapac CC900 — 800kg pedestrian tandem roller. 8kW engine. Tight asphalt work, path repairs, small areas. 650mm drum width. Source: Dynapac.com.', hireRateType:'wet_or_dry' },
+    { id:'dyn-ca1500', brand:'Dynapac', emoji:'🔄', type:'roller', name:'Dynapac CA1500D', shortName:'Dynapac CA1500',
+      operatingWeightT:8.0,
+      tags:['road base','asphalt','large area','smooth drum'],
+      note:'Dynapac CA1500D — 8t single drum smooth roller. 75kW engine. Road base, asphalt, large hardstand. 2,130mm drum. Source: Dynapac.com.', hireRateType:'wet_or_dry' },
+    { id:'dyn-ca2500', brand:'Dynapac', emoji:'🔄', type:'roller', name:'Dynapac CA2500D', shortName:'Dynapac CA2500',
+      operatingWeightT:10.5,
+      tags:['road base','asphalt','large area','civil'],
+      note:'Dynapac CA2500D — 10.5t single drum roller. 90kW engine. Large civil road base and asphalt compaction. 2,130mm drum. Source: Dynapac.com.', hireRateType:'wet_or_dry' },
+
+    // ── WACKER NEUSON ────────────────────────────────────────────────
+    { id:'wac-wp1550', brand:'Wacker Neuson', emoji:'🔄', type:'compactor', name:'Wacker Neuson WP 1550 A', shortName:'Wacker WP1550',
+      operatingWeightT:0.07,
+      tags:['plate compactor','small','paving','backfill','hand operated'],
+      note:'Wacker Neuson WP 1550 A — 70kg forward plate compactor. 3.1kW engine. Paving base, small backfill areas, footpath repairs. 460mm plate. Source: Wackerneuson.com.', hireRateType:'dry' },
+    { id:'wac-rd12',   brand:'Wacker Neuson', emoji:'🔄', type:'roller', name:'Wacker Neuson RD12', shortName:'Wacker RD12',
+      operatingWeightT:1.2,
+      tags:['pedestrian','road base','gravel','small area','asphalt'],
+      note:'Wacker Neuson RD12 — 1.2t tandem pedestrian roller. 13.5kW engine. 800mm drum. Road base, small asphalt, gravel driveways. Source: Wackerneuson.com.', hireRateType:'wet_or_dry' },
+    { id:'wac-rd27',   brand:'Wacker Neuson', emoji:'🔄', type:'roller', name:'Wacker Neuson RD27-90', shortName:'Wacker RD27',
+      operatingWeightT:2.7,
+      tags:['ride-on','road base','asphalt','medium area'],
+      note:'Wacker Neuson RD27-90 — 2.7t tandem ride-on roller. 27kW engine. Medium road base, asphalt compaction. 900mm drums. Source: Wackerneuson.com.', hireRateType:'wet_or_dry' },
+
+    // ── CATERPILLAR COMPACTORS ───────────────────────────────────────
+    { id:'cat-cb10',   brand:'Caterpillar', emoji:'🔄', type:'roller', name:'Caterpillar CB10', shortName:'Cat CB10',
+      operatingWeightT:9.0,
+      tags:['asphalt','road base','smooth drum','large area','road'],
+      note:'Cat CB10 — 9t tandem smooth drum roller. 72kW engine. Asphalt compaction, road base. 2,134mm drum width. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cat-cs74b',  brand:'Caterpillar', emoji:'🔄', type:'roller', name:'Caterpillar CS74B', shortName:'Cat CS74B',
+      operatingWeightT:14.0,
+      tags:['smooth drum','road base','large area','civil','highway'],
+      note:'Cat CS74B — 14t single drum smooth roller. 129kW engine. Large road base and civil compaction. 2,134mm drum. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+    { id:'cat-cp74b',  brand:'Caterpillar', emoji:'🔄', type:'roller', name:'Caterpillar CP74B', shortName:'Cat CP74B',
+      operatingWeightT:14.0,
+      tags:['padfoot','earth compaction','embankment','subgrade','civil'],
+      note:'Cat CP74B — 14t padfoot roller. 129kW engine. Compacting cohesive soil, embankments, road subgrade. 2,134mm drum. Source: Caterpillar.com.au.', hireRateType:'wet_or_dry' },
+
+    // ── HAMM ─────────────────────────────────────────────────────────
+    { id:'ham-hd90',   brand:'Hamm', emoji:'🔄', type:'roller', name:'Hamm HD 90i VO', shortName:'Hamm HD90',
+      operatingWeightT:9.0,
+      tags:['smooth drum','asphalt','road','large area'],
+      note:'Hamm HD 90i VO — 9t tandem roller. 75kW engine. Asphalt compaction, road base. 1,680mm drum width. Source: Hamm.eu.', hireRateType:'wet_or_dry' },
+    { id:'ham-h13',    brand:'Hamm', emoji:'🔄', type:'roller', name:'Hamm H 13i VIO', shortName:'Hamm H13 Padfoot',
+      operatingWeightT:13.0,
+      tags:['padfoot','earth compaction','embankment','subgrade'],
+      note:'Hamm H 13i VIO — 13t padfoot roller. 100kW engine. Earth and embankment compaction, road subgrade, dam construction. Source: Hamm.eu.', hireRateType:'wet_or_dry' },
+
+    // ═══════════════════════════════════════════════════════════════
+    //  DUMP TRUCKS — Real Brands & Models
+    // ═══════════════════════════════════════════════════════════════
+
+    // ── CATERPILLAR ADT ──────────────────────────────────────────────
+    { id:'cat-730c2',  brand:'Caterpillar', emoji:'🚛', type:'adt', name:'Caterpillar 730C2', shortName:'Cat 730C2',
+      operatingWeightT:28.4,
+      tags:['adt','civil','bulk cartage','soft ground','rough terrain'],
+      note:'Cat 730C2 — 28t payload ADT. 261kW engine. Major civil earthworks, mine haulage. Operates on rough, soft or steep terrain. Source: Caterpillar.com.au.', hireRateType:'wet' },
+    { id:'cat-735c',   brand:'Caterpillar', emoji:'🚛', type:'adt', name:'Caterpillar 735C', shortName:'Cat 735C',
+      operatingWeightT:38.0,
+      tags:['adt','civil','large volume','mining','bulk'],
+      note:'Cat 735C — 35t payload ADT. 332kW engine. Large civil earthworks, quarry haulage, bulk earthmoving. Source: Caterpillar.com.au.', hireRateType:'wet' },
+    { id:'cat-745c',   brand:'Caterpillar', emoji:'🚛', type:'adt', name:'Caterpillar 745C', shortName:'Cat 745C',
+      operatingWeightT:45.0,
+      tags:['adt','large civil','mining','bulk','major earthworks'],
+      note:'Cat 745C — 41t payload ADT. 396kW engine. Largest Cat ADT — major dam construction, mine pre-strip, large infrastructure. Source: Caterpillar.com.au.', hireRateType:'wet' },
+
+    // ── VOLVO ADT ────────────────────────────────────────────────────
+    { id:'vol-a25g',   brand:'Volvo', emoji:'🚛', type:'adt', name:'Volvo A25G', shortName:'Volvo A25G',
+      operatingWeightT:24.0,
+      tags:['adt','civil','medium volume','rough terrain','bulk'],
+      note:'Volvo A25G — 24t payload ADT. 228kW engine. Civil earthworks, soft ground and rough terrain haulage. Source: Volvoce.com.au.', hireRateType:'wet' },
+    { id:'vol-a30g',   brand:'Volvo', emoji:'🚛', type:'adt', name:'Volvo A30G', shortName:'Volvo A30G',
+      operatingWeightT:28.0,
+      tags:['adt','civil','bulk cartage','rough terrain','mining'],
+      note:'Volvo A30G — 27.5t payload ADT. 261kW engine. Major civil earthworks, mine haulage. Source: Volvoce.com.au.', hireRateType:'wet' },
+    { id:'vol-a40g',   brand:'Volvo', emoji:'🚛', type:'adt', name:'Volvo A40G', shortName:'Volvo A40G',
+      operatingWeightT:39.0,
+      tags:['adt','large civil','mining','bulk','major earthworks'],
+      note:'Volvo A40G — 38t payload ADT. 360kW engine. Large dam construction, mine pre-strip, major infrastructure haulage. Source: Volvoce.com.au.', hireRateType:'wet' },
+
+    // ── BELL ADT ─────────────────────────────────────────────────────
+    { id:'bel-b25e',   brand:'Bell', emoji:'🚛', type:'adt', name:'Bell B25E', shortName:'Bell B25E',
+      operatingWeightT:25.0,
+      tags:['adt','civil','medium volume','rough terrain'],
+      note:'Bell B25E — 24t payload ADT. 235kW Mercedes-Benz engine. Popular in Australian civil earthworks. Source: Bell-equipment.com.au.', hireRateType:'wet' },
+    { id:'bel-b30e',   brand:'Bell', emoji:'🚛', type:'adt', name:'Bell B30E', shortName:'Bell B30E',
+      operatingWeightT:28.0,
+      tags:['adt','civil','bulk cartage','rough terrain','mining'],
+      note:'Bell B30E — 28t payload ADT. 265kW Mercedes-Benz engine. Major civil works, mine haulage, soft ground capable. Source: Bell-equipment.com.au.', hireRateType:'wet' },
+    { id:'bel-b40e',   brand:'Bell', emoji:'🚛', type:'adt', name:'Bell B40E', shortName:'Bell B40E',
+      operatingWeightT:39.0,
+      tags:['adt','large civil','mining','bulk','major earthworks'],
+      note:'Bell B40E — 38t payload ADT. 390kW Mercedes-Benz engine. South African brand widely used in Australian mining and dam construction. Source: Bell-equipment.com.au.', hireRateType:'wet' },
+
+    // ── KOMATSU ADT ──────────────────────────────────────────────────
+    { id:'kom-hm300',  brand:'Komatsu', emoji:'🚛', type:'adt', name:'Komatsu HM300-5', shortName:'Komatsu HM300',
+      operatingWeightT:30.0,
+      tags:['adt','civil','bulk','rough terrain','large volume'],
+      note:'Komatsu HM300-5 — 30t payload ADT. 298kW engine. Tough terrain haulage — civil earthworks and mining. Source: Komatsu.com.au.', hireRateType:'wet' },
+    { id:'kom-hm400',  brand:'Komatsu', emoji:'🚛', type:'adt', name:'Komatsu HM400-5', shortName:'Komatsu HM400',
+      operatingWeightT:40.0,
+      tags:['adt','large civil','mining','bulk','major earthworks'],
+      note:'Komatsu HM400-5 — 40t payload ADT. 391kW engine. Large-scale mine haulage, dam works, major civil. Source: Komatsu.com.au.', hireRateType:'wet' },
+
+    // ── HINO TIP TRUCKS ──────────────────────────────────────────────
+    { id:'hin-fm300',  brand:'Hino', emoji:'🚛', type:'truck', name:'Hino FM 300 Series (8t)', shortName:'Hino FM 300',
+      operatingWeightT:16.0,
+      tags:['tip truck','off-site','cartage','residential','medium civil'],
+      note:'Hino FM 300 Series — 8t payload 6-wheel tip truck. Registered for public roads. Residential and medium commercial soil, rubble, aggregate cartage. Wet hire only — requires licensed HC driver. Source: Hino.com.au.', hireRateType:'wet' },
+    { id:'hin-gh500',  brand:'Hino', emoji:'🚛', type:'truck', name:'Hino GH 500 Series (12t)', shortName:'Hino GH 500',
+      operatingWeightT:22.0,
+      tags:['tip truck','off-site','cartage','commercial','civil'],
+      note:'Hino GH 500 Series — 12t payload 8-wheel tipper. Public road registered. Commercial soil, rock, aggregate cartage. HC licence required. Source: Hino.com.au.', hireRateType:'wet' },
+
+    // ── ISUZU TIP TRUCKS ─────────────────────────────────────────────
+    { id:'isu-fvz',    brand:'Isuzu', emoji:'🚛', type:'truck', name:'Isuzu FVZ 1400 (12t)', shortName:'Isuzu FVZ',
+      operatingWeightT:22.0,
+      tags:['tip truck','off-site','cartage','commercial','civil'],
+      note:'Isuzu FVZ 1400 — 12t payload 8-wheel tipper. 206kW engine. Public road registered. Commercial cartage of soil, rubble, aggregate. HC licence required. Source: Isuzu.com.au.', hireRateType:'wet' },
+
+    // ═══════════════════════════════════════════════════════════════
+    //  WATER CARTS — Real Brands & Models
+    // ═══════════════════════════════════════════════════════════════
+
+    { id:'wat-jcb-5k',    brand:'JCB', emoji:'💧', type:'water_cart', name:'JCB 5,000L Water Cart', shortName:'JCB Water Cart 5,000L',
+      operatingWeightT:8.0,
+      tags:['dust suppression','small site','construction','compaction moisture'],
+      note:'JCB 5,000L water cart — mounted on JCB 4CX or similar. Dust suppression on small construction sites and road works. Source: JCB.com.au.', hireRateType:'wet_or_dry' },
+    { id:'wat-aus-10k',   brand:'Australian Fabricator', emoji:'💧', type:'water_cart', name:'10,000L Truck-Mounted Water Cart', shortName:'Water Cart 10,000L',
+      operatingWeightT:16.0,
+      tags:['dust suppression','medium site','road works','subdivision','compaction'],
+      note:'10,000–12,000L truck-mounted water cart — locally fabricated, typically on Hino or Isuzu 8-wheel chassis. Medium construction sites, subdivision road watering, mine site dust suppression. Wet hire — requires licensed truck driver.', hireRateType:'wet' },
+    { id:'wat-aus-20k',   brand:'Australian Fabricator', emoji:'💧', type:'water_cart', name:'20,000L Articulated Water Truck', shortName:'Water Truck 20,000L',
+      operatingWeightT:30.0,
+      tags:['dust suppression','large site','mine','quarry','ongoing'],
+      note:'20,000–25,000L articulated water truck — large mining, quarry or infrastructure sites requiring continuous dust suppression or high-volume compaction moisture. Wet hire only. Typically locally fabricated on Kenworth or Mack chassis.', hireRateType:'wet' },
+
   ],
 
 };
 
+
+// ── Earthworks subcategory virtual arrays (filtered views of MACHINES.earthworks) ──
+MACHINES.dozer      = MACHINES.earthworks.filter(m => m.type === 'dozer');
+MACHINES.excavator  = MACHINES.earthworks.filter(m => m.type === 'excavator');
 
 const ALL_MACHINES = [
   ...MACHINES.forklift,
@@ -23907,6 +33497,71 @@ let answers = {};
 let machineType = null;
 let _currentQId = null; // tracks the question ID being shown, so nextStep always knows
 
+
+// ── Earthworks quiz option images (inline SVG data URIs) ─────────────────────
+const EM_IMGS = {
+  dig: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2238%22%20width%3D%2230%22%20height%3D%2218%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2228%22%20width%3D%2214%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2254%22%20width%3D%2234%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2234%22%20y1%3D%2232%22%20x2%3D%2262%22%20y2%3D%2224%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%3Cline%20x1%3D%2262%22%20y1%3D%2224%22%20x2%3D%2278%22%20y2%3D%2246%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M74%2046%20L82%2050%20L76%2058%20L68%2054%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cellipse%20cx%3D%2288%22%20cy%3D%2262%22%20rx%3D%2216%22%20ry%3D%225%22%20fill%3D%22%2523523D2A%22%2F%3E%3C%2Fsvg%3E',
+  push_clear: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2236%22%20width%3D%2246%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2226%22%20width%3D%2222%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2230%22%20y%3D%2255%22%20width%3D%2254%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%226%22%20height%3D%2222%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cpath%20d%3D%22M8%2036%20L30%2034%20L30%2062%20L8%2060%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2236%22%20width%3D%226%22%20height%3D%2224%22%20fill%3D%22%2523E8B800%22%2F%3E%3Cellipse%20cx%3D%2250%22%20cy%3D%2260%22%20rx%3D%2225%22%20ry%3D%224%22%20fill%3D%22%25238B6B3D%22%20opacity%3D%220.6%22%2F%3E%3C%2Fsvg%3E',
+  break: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2262%22%20width%3D%22120%22%20height%3D%2218%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2238%22%20width%3D%2230%22%20height%3D%2218%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2228%22%20width%3D%2214%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2254%22%20width%3D%2234%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2234%22%20y1%3D%2232%22%20x2%3D%2266%22%20y2%3D%2224%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%3Cline%20x1%3D%2266%22%20y1%3D%2224%22%20x2%3D%2280%22%20y2%3D%2242%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Crect%20x%3D%2276%22%20y%3D%2242%22%20width%3D%228%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523888%22%2F%3E%3Cpolygon%20points%3D%2276%2C64%2084%2C64%2082%2C74%2078%2C74%22%20fill%3D%22%2523555%22%2F%3E%3Cellipse%20cx%3D%2280%22%20cy%3D%2274%22%20rx%3D%228%22%20ry%3D%223%22%20fill%3D%22%2523523D2A%22%20opacity%3D%220.8%22%2F%3E%3Cline%20x1%3D%2272%22%20y1%3D%2266%22%20x2%3D%2268%22%20y2%3D%2272%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20opacity%3D%220.7%22%2F%3E%3Cline%20x1%3D%2288%22%20y1%3D%2266%22%20x2%3D%2292%22%20y2%3D%2272%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20opacity%3D%220.7%22%2F%3E%3C%2Fsvg%3E',
+  cart: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2260%22%20width%3D%22120%22%20height%3D%2220%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%2224%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%2220%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2238%22%20y%3D%2236%22%20width%3D%2272%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2242%22%20y%3D%2226%22%20width%3D%2264%22%20height%3D%2212%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20transform%3D%22rotate(-6%2074%2032)%22%2F%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2262%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2262%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%3Ccircle%20cx%3D%2256%22%20cy%3D%2262%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%3Ccircle%20cx%3D%2256%22%20cy%3D%2262%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2262%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2262%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%3C%2Fsvg%3E',
+  compact: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2260%22%20width%3D%22120%22%20height%3D%2220%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2232%22%20width%3D%2276%22%20height%3D%2226%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2222%22%20width%3D%2238%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2258%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2258%22%20r%3D%228%22%20fill%3D%22%2523445%22%2F%3E%3Ccircle%20cx%3D%2298%22%20cy%3D%2258%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2298%22%20cy%3D%2258%22%20r%3D%228%22%20fill%3D%22%2523445%22%2F%3E%3Crect%20x%3D%2230%22%20y%3D%2255%22%20width%3D%2260%22%20height%3D%226%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  water: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2262%22%20width%3D%22120%22%20height%3D%2218%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2238%22%20width%3D%2222%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2228%22%20width%3D%2218%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cellipse%20cx%3D%2274%22%20cy%3D%2250%22%20rx%3D%2236%22%20ry%3D%2216%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2238%22%20y%3D%2256%22%20width%3D%2272%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%3Cline%20x1%3D%2252%22%20y1%3D%2260%22%20x2%3D%2246%22%20y2%3D%2272%22%20stroke%3D%22%25234EC3F7%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%2264%22%20y1%3D%2260%22%20x2%3D%2260%22%20y2%3D%2272%22%20stroke%3D%22%25234EC3F7%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%2276%22%20y1%3D%2260%22%20x2%3D%2274%22%20y2%3D%2272%22%20stroke%3D%22%25234EC3F7%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%2288%22%20y1%3D%2260%22%20x2%3D%2288%22%20y2%3D%2272%22%20stroke%3D%22%25234EC3F7%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%22100%22%20y1%3D%2260%22%20x2%3D%22102%22%20y2%3D%2272%22%20stroke%3D%22%25234EC3F7%22%20stroke-width%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2262%22%20r%3D%227%22%20fill%3D%22%2523334155%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2262%22%20r%3D%227%22%20fill%3D%22%2523334155%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2262%22%20r%3D%227%22%20fill%3D%22%2523334155%22%2F%3E%3C%2Fsvg%3E',
+  clear_veg: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2234%22%20width%3D%2250%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2224%22%20width%3D%2228%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2230%22%20y%3D%2254%22%20width%3D%2258%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2240%22%20width%3D%2228%22%20height%3D%2218%22%20rx%3D%223%22%20fill%3D%22%2523777%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2244%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2252%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2244%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2252%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%3Cpath%20d%3D%22M88%2050%20Q96%2040%20104%2050%20Q100%2044%20104%2056%20Q96%2048%2088%2056%20Z%22%20fill%3D%22%2523228B22%22%20opacity%3D%220.85%22%2F%3E%3Cpath%20d%3D%22M94%2038%20Q102%2028%20110%2038%22%20stroke%3D%22%2523228B22%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20opacity%3D%220.85%22%2F%3E%3Cpath%20d%3D%22M84%2042%20Q78%2032%2086%2036%22%20stroke%3D%22%2523228B22%22%20stroke-width%3D%223%22%20fill%3D%22none%22%20opacity%3D%220.7%22%2F%3E%3C%2Fsvg%3E',
+  soil: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2256%22%20width%3D%22120%22%20height%3D%2224%22%20fill%3D%22%25236B5030%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2226%22%20width%3D%2284%22%20height%3D%2228%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2238%22%20y%3D%2216%22%20width%3D%2242%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2254%22%20r%3D%2218%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2250%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2240%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2246%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2246%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Ccircle%20cx%3D%22102%22%20cy%3D%2254%22%20r%3D%2218%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Crect%20x%3D%2298%22%20y%3D%2250%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%2298%22%20y%3D%2240%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%22106%22%20y%3D%2246%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3C%2Fsvg%3E',
+  gravel: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2256%22%20width%3D%22120%22%20height%3D%2224%22%20fill%3D%22%2523888778%22%2F%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%2263%22%20r%3D%223%22%20fill%3D%22%25236B6A60%22%2F%3E%3Ccircle%20cx%3D%2228%22%20cy%3D%2267%22%20r%3D%224%22%20fill%3D%22%25237A7870%22%2F%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2262%22%20r%3D%223%22%20fill%3D%22%25236B6A60%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2267%22%20r%3D%224%22%20fill%3D%22%25237A7870%22%2F%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2263%22%20r%3D%223%22%20fill%3D%22%25236B6A60%22%2F%3E%3Ccircle%20cx%3D%2292%22%20cy%3D%2267%22%20r%3D%223%22%20fill%3D%22%25237A7870%22%2F%3E%3Ccircle%20cx%3D%22108%22%20cy%3D%2263%22%20r%3D%224%22%20fill%3D%22%25236B6A60%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2226%22%20width%3D%2280%22%20height%3D%2228%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2238%22%20y%3D%2216%22%20width%3D%2242%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2254%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%2254%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E',
+  asphalt: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%2523222%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2256%22%20width%3D%22120%22%20height%3D%224%22%20fill%3D%22%2523444%22%2F%3E%3Cline%20x1%3D%220%22%20y1%3D%2268%22%20x2%3D%22120%22%20y2%3D%2268%22%20stroke%3D%22%2523FFF%22%20stroke-width%3D%221%22%20stroke-dasharray%3D%2212%2C8%22%20opacity%3D%220.35%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2226%22%20width%3D%2276%22%20height%3D%2228%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2216%22%20width%3D%2240%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2254%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2298%22%20cy%3D%2254%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E',
+  trench: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2228%22%20width%3D%2242%22%20height%3D%2252%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2278%22%20y%3D%2228%22%20width%3D%2242%22%20height%3D%2252%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2242%22%20y%3D%2228%22%20width%3D%2236%22%20height%3D%2252%22%20fill%3D%22%2523523D2A%22%2F%3E%3Crect%20x%3D%2246%22%20y%3D%2222%22%20width%3D%2228%22%20height%3D%2236%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2212%22%20width%3D%2216%22%20height%3D%2214%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2256%22%20y%3D%228%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2255%22%20width%3D%2232%22%20height%3D%226%22%20rx%3D%222%22%20fill%3D%22%2523E8B800%22%2F%3E%3C%2Fsvg%3E',
+  landfill: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Cpath%20d%3D%22M0%2072%20Q20%2052%2040%2057%20Q60%2046%2080%2060%20Q100%2050%20120%2057%20L120%2080%20L0%2080%20Z%22%20fill%3D%22%25235A5A4A%22%2F%3E%3Crect%20x%3D%2228%22%20y%3D%2230%22%20width%3D%2264%22%20height%3D%2226%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2220%22%20width%3D%2234%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2254%22%20r%3D%2214%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2250%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2240%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2254%22%20r%3D%2214%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E',
+  small_fill: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2226%22%20width%3D%2240%22%20height%3D%2254%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2280%22%20y%3D%2226%22%20width%3D%2240%22%20height%3D%2254%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2226%22%20width%3D%2240%22%20height%3D%2254%22%20fill%3D%22%2523523D2A%22%2F%3E%3Crect%20x%3D%2246%22%20y%3D%2220%22%20width%3D%2228%22%20height%3D%2232%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2212%22%20width%3D%2216%22%20height%3D%2212%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2254%22%20y%3D%226%22%20width%3D%2212%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2250%22%20width%3D%2232%22%20height%3D%226%22%20rx%3D%222%22%20fill%3D%22%2523E8B800%22%2F%3E%3C%2Fsvg%3E',
+  civil_fill: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2260%22%20width%3D%22120%22%20height%3D%2220%22%20fill%3D%22%25236B5030%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2250%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%25237A6040%22%20opacity%3D%220.6%22%2F%3E%3Crect%20x%3D%2215%22%20y%3D%2228%22%20width%3D%2290%22%20height%3D%2230%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2218%22%20width%3D%2246%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Ccircle%20cx%3D%2215%22%20cy%3D%2258%22%20r%3D%2218%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2254%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2244%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3Crect%20x%3D%223%22%20y%3D%2249%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3Crect%20x%3D%2219%22%20y%3D%2249%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3Ccircle%20cx%3D%22105%22%20cy%3D%2258%22%20r%3D%2218%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%3Crect%20x%3D%22101%22%20y%3D%2254%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3Crect%20x%3D%22101%22%20y%3D%2244%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.4%22%2F%3E%3C%2Fsvg%3E',
+  major_civil: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Cpath%20d%3D%22M0%2065%20L120%2050%20L120%2080%20L0%2080%20Z%22%20fill%3D%22%2523523D2A%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2224%22%20width%3D%22104%22%20height%3D%2232%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2228%22%20y%3D%2212%22%20width%3D%2260%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2256%22%20r%3D%2220%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2252%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2242%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2247%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2247%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Ccircle%20cx%3D%22110%22%20cy%3D%2256%22%20r%3D%2220%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Crect%20x%3D%22106%22%20y%3D%2252%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%22106%22%20y%3D%2242%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3Crect%20x%3D%22114%22%20y%3D%2247%22%20width%3D%228%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.45%22%2F%3E%3C%2Fsvg%3E',
+  dig_shallow: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2244%22%20width%3D%22120%22%20height%3D%2236%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2244%22%20width%3D%2236%22%20height%3D%2214%22%20fill%3D%22%2523523D2A%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2230%22%20width%3D%2226%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%2214%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2244%22%20width%3D%2230%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2228%22%20y1%3D%2228%22%20x2%3D%2252%22%20y2%3D%2222%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%2252%22%20y1%3D%2222%22%20x2%3D%2262%22%20y2%3D%2238%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M59%2038%20L66%2042%20L62%2048%20L55%2046%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  dig_medium: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2236%22%20width%3D%22120%22%20height%3D%2244%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2236%22%20width%3D%2236%22%20height%3D%2230%22%20fill%3D%22%2523523D2A%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%2226%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2214%22%20width%3D%2214%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2236%22%20width%3D%2230%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2228%22%20y1%3D%2220%22%20x2%3D%2254%22%20y2%3D%2214%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%2254%22%20y1%3D%2214%22%20x2%3D%2268%22%20y2%3D%2246%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M65%2046%20L72%2054%20L66%2062%20L59%2058%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  dig_deep: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2228%22%20width%3D%22120%22%20height%3D%2252%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2228%22%20width%3D%2244%22%20height%3D%2252%22%20fill%3D%22%2523523D2A%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2216%22%20width%3D%2228%22%20height%3D%2218%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%228%22%20width%3D%2214%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2230%22%20width%3D%2232%22%20height%3D%227%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2226%22%20y1%3D%2214%22%20x2%3D%2258%22%20y2%3D%228%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%2258%22%20y1%3D%228%22%20x2%3D%2272%22%20y2%3D%2258%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M68%2058%20L76%2066%20L70%2074%20L62%2070%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  dig_very_deep: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2220%22%20width%3D%22120%22%20height%3D%2260%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2234%22%20y%3D%2220%22%20width%3D%2252%22%20height%3D%2260%22%20fill%3D%22%2523523D2A%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%2230%22%20height%3D%2220%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%224%22%20width%3D%2216%22%20height%3D%2210%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%2234%22%20height%3D%227%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2224%22%20y1%3D%2212%22%20x2%3D%2260%22%20y2%3D%226%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%2260%22%20y1%3D%226%22%20x2%3D%2276%22%20y2%3D%2274%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M73%2074%20L80%2079%20L74%2080%20L68%2078%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  access_tight: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2228%22%20height%3D%2280%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%2292%22%20y%3D%220%22%20width%3D%2228%22%20height%3D%2280%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2260%22%20width%3D%22120%22%20height%3D%2220%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2236%22%20y%3D%2238%22%20width%3D%2222%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2242%22%20y%3D%2230%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2234%22%20y%3D%2252%22%20width%3D%2226%22%20height%3D%227%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2246%22%20y1%3D%2233%22%20x2%3D%2258%22%20y2%3D%2230%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Cline%20x1%3D%2258%22%20y1%3D%2230%22%20x2%3D%2265%22%20y2%3D%2246%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M63%2046%20L68%2050%20L65%2054%20L60%2052%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  access_standard: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2236%22%20width%3D%2228%22%20height%3D%2218%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2226%22%20width%3D%2214%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2252%22%20width%3D%2232%22%20height%3D%227%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2230%22%20y1%3D%2230%22%20x2%3D%2255%22%20y2%3D%2224%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%2255%22%20y1%3D%2224%22%20x2%3D%2268%22%20y2%3D%2244%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M65%2044%20L72%2050%20L67%2056%20L60%2052%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2282%22%20y%3D%2224%22%20width%3D%228%22%20height%3D%2236%22%20rx%3D%222%22%20fill%3D%22%2523334155%22%20opacity%3D%220.6%22%2F%3E%3Crect%20x%3D%2296%22%20y%3D%2230%22%20width%3D%228%22%20height%3D%2230%22%20rx%3D%222%22%20fill%3D%22%2523334155%22%20opacity%3D%220.4%22%2F%3E%3C%2Fsvg%3E',
+  access_open: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2248%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%25236B5030%22%20opacity%3D%220.5%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2230%22%20width%3D%2236%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2234%22%20y%3D%2220%22%20width%3D%2216%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2252%22%20width%3D%2240%22%20height%3D%227%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Cline%20x1%3D%2242%22%20y1%3D%2224%22%20x2%3D%2270%22%20y2%3D%2218%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%2270%22%20y1%3D%2218%22%20x2%3D%2288%22%20y2%3D%2246%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M84%2046%20L92%2052%20L86%2058%20L78%2054%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  ground_soft: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Cpath%20d%3D%22M0%2062%20Q15%2054%2030%2060%20Q45%2052%2060%2058%20Q75%2050%2090%2056%20Q105%2050%20120%2054%20L120%2080%20L0%2080%20Z%22%20fill%3D%22%25234A6741%22%2F%3E%3Crect%20x%3D%2230%22%20y%3D%2234%22%20width%3D%2250%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2246%22%20y%3D%2224%22%20width%3D%2224%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2253%22%20width%3D%2258%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2240%22%20width%3D%226%22%20height%3D%2222%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cpath%20d%3D%22M6%2036%20L28%2034%20L28%2058%20L6%2056%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  ground_standard: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2230%22%20y%3D%2234%22%20width%3D%2250%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2246%22%20y%3D%2224%22%20width%3D%2224%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2253%22%20width%3D%2258%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2240%22%20width%3D%226%22%20height%3D%2222%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cpath%20d%3D%22M6%2036%20L28%2034%20L28%2058%20L6%2056%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cellipse%20cx%3D%2250%22%20cy%3D%2260%22%20rx%3D%2228%22%20ry%3D%225%22%20fill%3D%22%25238B6B3D%22%20opacity%3D%220.5%22%2F%3E%3C%2Fsvg%3E',
+  ground_hard: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2256%22%20width%3D%22120%22%20height%3D%2224%22%20fill%3D%22%2523777%22%2F%3E%3Cpolygon%20points%3D%220%2C56%2020%2C48%2040%2C56%2060%2C48%2080%2C56%20100%2C48%20120%2C56%22%20fill%3D%22%2523888%22%2F%3E%3Crect%20x%3D%2230%22%20y%3D%2232%22%20width%3D%2250%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2246%22%20y%3D%2222%22%20width%3D%2224%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2251%22%20width%3D%2258%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%226%22%20y%3D%2238%22%20width%3D%226%22%20height%3D%2222%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cpath%20d%3D%22M6%2034%20L28%2032%20L28%2056%20L6%2054%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3C%2Fsvg%3E',
+  ground_grading: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2260%22%20width%3D%22120%22%20height%3D%2220%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%224%22%20fill%3D%22%2523C8A96A%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2236%22%20width%3D%2274%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2244%22%20y%3D%2226%22%20width%3D%2236%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%2255%22%20width%3D%2280%22%20height%3D%227%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2252%22%20width%3D%2216%22%20height%3D%2210%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2249%22%20width%3D%2222%22%20height%3D%226%22%20rx%3D%222%22%20fill%3D%22%2523E8B800%22%2F%3E%3C%2Fsvg%3E',
+  area_small: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2230%22%20y%3D%2240%22%20width%3D%2230%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2232%22%20width%3D%2214%22%20height%3D%2212%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2228%22%20y%3D%2254%22%20width%3D%2234%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2244%22%20width%3D%225%22%20height%3D%2216%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cpath%20d%3D%22M14%2042%20L28%2040%20L28%2056%20L14%2054%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%2212%22%20width%3D%2248%22%20height%3D%2236%22%20fill%3D%22none%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%224%2C3%22%20opacity%3D%220.5%22%2F%3E%3C%2Fsvg%3E',
+  area_medium: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2224%22%20y%3D%2236%22%20width%3D%2242%22%20height%3D%2220%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2238%22%20y%3D%2226%22%20width%3D%2218%22%20height%3D%2214%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2254%22%20width%3D%2246%22%20height%3D%226%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2242%22%20width%3D%225%22%20height%3D%2218%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cpath%20d%3D%22M8%2040%20L22%2036%20L22%2058%20L8%2056%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%2278%22%20height%3D%2246%22%20fill%3D%22none%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%224%2C3%22%20opacity%3D%220.5%22%2F%3E%3C%2Fsvg%3E',
+  area_large: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2256%22%20width%3D%22120%22%20height%3D%2224%22%20fill%3D%22%25237A6045%22%2F%3E%3Crect%20x%3D%2218%22%20y%3D%2232%22%20width%3D%2258%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2236%22%20y%3D%2222%22%20width%3D%2222%22%20height%3D%2214%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2252%22%20width%3D%2262%22%20height%3D%227%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2238%22%20width%3D%226%22%20height%3D%2222%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Cpath%20d%3D%22M4%2034%20L16%2032%20L16%2058%20L4%2056%20Z%22%20fill%3D%22%2523FCC91A%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%222%22%20width%3D%22118%22%20height%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%224%2C3%22%20opacity%3D%220.45%22%2F%3E%3C%2Fsvg%3E',
+};
+
+
+// ── People / Materials / Earthworks quiz option images ───────────────────────
+const QUIZ_IMGS = {
+  lf_people: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2270%22%20width%3D%22120%22%20height%3D%2210%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20scissor%20mechanism%20--%3E%20%3Cline%20x1%3D%2242%22%20y1%3D%2268%22%20x2%3D%2258%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2258%22%20y1%3D%2268%22%20x2%3D%2242%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2252%22%20y1%3D%2258%22%20x2%3D%2268%22%20y2%3D%2238%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2268%22%20y1%3D%2258%22%20x2%3D%2252%22%20y2%3D%2238%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3C!--%20platform%20--%3E%20%3Crect%20x%3D%2236%22%20y%3D%2228%22%20width%3D%2244%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2230%22%20y%3D%2270%22%20width%3D%2260%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20person%20--%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%2220%22%20r%3D%225%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3Crect%20x%3D%2257%22%20y%3D%2225%22%20width%3D%226%22%20height%3D%2210%22%20rx%3D%221%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C!--%20guard%20rails%20--%3E%20%3Crect%20x%3D%2236%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2278%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Cline%20x1%3D%2236%22%20y1%3D%2234%22%20x2%3D%2280%22%20y2%3D%2234%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%2F%3E%20%3C%2Fsvg%3E',
+  lf_materials: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2268%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20telehandler%20body%20--%3E%20%3Crect%20x%3D%228%22%20y%3D%2242%22%20width%3D%2250%22%20height%3D%2226%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2234%22%20y%3D%2232%22%20width%3D%2222%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20boom%20arm%20--%3E%20%3Cline%20x1%3D%2250%22%20y1%3D%2236%22%20x2%3D%2292%22%20y2%3D%2216%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C!--%20fork%20and%20pallet%20--%3E%20%3Crect%20x%3D%2288%22%20y%3D%2214%22%20width%3D%2222%22%20height%3D%223%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3Crect%20x%3D%2288%22%20y%3D%228%22%20width%3D%2220%22%20height%3D%228%22%20rx%3D%221%22%20fill%3D%22%2523C8A96A%22%2F%3E%20%3Cline%20x1%3D%2290%22%20y1%3D%228%22%20x2%3D%2290%22%20y2%3D%2216%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2296%22%20y1%3D%228%22%20x2%3D%2296%22%20y2%3D%2216%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%22102%22%20y1%3D%228%22%20x2%3D%22102%22%20y2%3D%2216%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3C!--%20wheels%20--%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2268%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2268%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%20%3Ccircle%20cx%3D%2250%22%20cy%3D%2268%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2268%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%20%3C%2Fsvg%3E',
+  crew_one: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2272%22%20width%3D%22120%22%20height%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20mast%20--%3E%20%3Crect%20x%3D%2254%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2252%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20platform%20--%3E%20%3Crect%20x%3D%2246%22%20y%3D%2218%22%20width%3D%2228%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20rails%20--%3E%20%3Crect%20x%3D%2246%22%20y%3D%228%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2272%22%20y%3D%228%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Cline%20x1%3D%2246%22%20y1%3D%2214%22%20x2%3D%2274%22%20y2%3D%2214%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%2F%3E%20%3C!--%20person%20--%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%228%22%20r%3D%225%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C!--%20base%20--%3E%20%3Crect%20x%3D%2246%22%20y%3D%2268%22%20width%3D%2228%22%20height%3D%226%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C%2Fsvg%3E',
+  crew_multi: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2272%22%20width%3D%22120%22%20height%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3Cline%20x1%3D%2228%22%20y1%3D%2268%22%20x2%3D%2252%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2252%22%20y1%3D%2268%22%20x2%3D%2228%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2268%22%20y1%3D%2268%22%20x2%3D%2292%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2292%22%20y1%3D%2268%22%20x2%3D%2268%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Crect%20x%3D%2220%22%20y%3D%2238%22%20width%3D%2280%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2220%22%20y%3D%2268%22%20width%3D%2280%22%20height%3D%225%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20guards%20--%3E%20%3Crect%20x%3D%2220%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2298%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Cline%20x1%3D%2220%22%20y1%3D%2234%22%20x2%3D%22100%22%20y2%3D%2234%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%2F%3E%20%3C!--%202%20people%20--%3E%20%3Ccircle%20cx%3D%2244%22%20cy%3D%2223%22%20r%3D%225%22%20fill%3D%22%2523ffffff%22%2F%3E%3Crect%20x%3D%2241%22%20y%3D%2228%22%20width%3D%226%22%20height%3D%2210%22%20rx%3D%221%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3Ccircle%20cx%3D%2276%22%20cy%3D%2223%22%20r%3D%225%22%20fill%3D%22%2523ffffff%22%2F%3E%3Crect%20x%3D%2273%22%20y%3D%2228%22%20width%3D%226%22%20height%3D%2210%22%20rx%3D%221%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  reach_straight: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2272%22%20width%3D%22120%22%20height%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20scissor%20--%3E%20%3Cline%20x1%3D%2244%22%20y1%3D%2268%22%20x2%3D%2260%22%20y2%3D%2240%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2260%22%20y1%3D%2268%22%20x2%3D%2244%22%20y2%3D%2240%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2256%22%20y1%3D%2252%22%20x2%3D%2272%22%20y2%3D%2224%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2272%22%20y1%3D%2252%22%20x2%3D%2256%22%20y2%3D%2224%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3C!--%20platform%20--%3E%20%3Crect%20x%3D%2238%22%20y%3D%2216%22%20width%3D%2244%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2238%22%20y%3D%2268%22%20width%3D%2244%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20up%20arrow%20--%3E%20%3Cline%20x1%3D%22100%22%20y1%3D%2260%22%20x2%3D%22100%22%20y2%3D%2220%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222.5%22%2F%3E%20%3Cpolygon%20points%3D%2294%2C26%20100%2C14%20106%2C26%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20person%20--%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%229%22%20r%3D%225%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  reach_over: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2272%22%20width%3D%22120%22%20height%3D%228%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20machine%20base%20--%3E%20%3Crect%20x%3D%226%22%20y%3D%2254%22%20width%3D%2238%22%20height%3D%2218%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2218%22%20y%3D%2244%22%20width%3D%2218%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2272%22%20r%3D%226%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2236%22%20cy%3D%2272%22%20r%3D%226%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20obstacle%20wall%20--%3E%20%3Crect%20x%3D%2256%22%20y%3D%2240%22%20width%3D%228%22%20height%3D%2232%22%20rx%3D%221%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20boom%20arm%20-%20arcing%20path%20over%20wall%20--%3E%20%3Cpath%20d%3D%22M28%2048%20Q30%2020%2060%2018%20Q80%2016%2090%2030%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C!--%20basket%20at%20end%20--%3E%20%3Crect%20x%3D%2288%22%20y%3D%2225%22%20width%3D%2218%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2290%22%20cy%3D%2217%22%20r%3D%224%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C!--%20arc%20arrow%20--%3E%20%3Cpolygon%20points%3D%2284%2C33%2092%2C27%2088%2C40%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.7%22%2F%3E%20%3C%2Fsvg%3E',
+  boom_artic: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2268%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20base%20machine%20--%3E%20%3Crect%20x%3D%224%22%20y%3D%2248%22%20width%3D%2242%22%20height%3D%2220%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2218%22%20y%3D%2238%22%20width%3D%2218%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2268%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2238%22%20cy%3D%2268%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20lower%20boom%20--%3E%20%3Cline%20x1%3D%2230%22%20y1%3D%2242%22%20x2%3D%2262%22%20y2%3D%2222%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C!--%20knuckle%20joint%20--%3E%20%3Ccircle%20cx%3D%2262%22%20cy%3D%2222%22%20r%3D%225%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3C!--%20upper%20boom%20(angles%20forward%20and%20up)%20--%3E%20%3Cline%20x1%3D%2262%22%20y1%3D%2222%22%20x2%3D%2295%22%20y2%3D%2212%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C!--%20basket%20--%3E%20%3Crect%20x%3D%2292%22%20y%3D%226%22%20width%3D%2222%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%22100%22%20cy%3D%224%22%20r%3D%224%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  boom_tele: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2268%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20base%20machine%20--%3E%20%3Crect%20x%3D%224%22%20y%3D%2248%22%20width%3D%2242%22%20height%3D%2220%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2218%22%20y%3D%2238%22%20width%3D%2218%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2268%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2238%22%20cy%3D%2268%22%20r%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20single%20straight%20boom%20extending%20out%20at%20angle%20--%3E%20%3Cline%20x1%3D%2230%22%20y1%3D%2246%22%20x2%3D%2296%22%20y2%3D%2216%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cline%20x1%3D%2230%22%20y1%3D%2246%22%20x2%3D%22104%22%20y2%3D%2212%22%20stroke%3D%22%2523E8B800%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%20%3C!--%20basket%20--%3E%20%3Crect%20x%3D%2299%22%20y%3D%228%22%20width%3D%2218%22%20height%3D%2210%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%22106%22%20cy%3D%226%22%20r%3D%224%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  loc_indoor: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3C!--%20floor%20--%3E%20%3Crect%20x%3D%220%22%20y%3D%2268%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20ceiling%20--%3E%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22120%22%20height%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20shelving%20--%3E%20%3Crect%20x%3D%2286%22%20y%3D%228%22%20width%3D%224%22%20height%3D%2260%22%20fill%3D%22%2523445%22%2F%3E%20%3Crect%20x%3D%2286%22%20y%3D%2220%22%20width%3D%2228%22%20height%3D%224%22%20fill%3D%22%2523556%22%2F%3E%20%3Crect%20x%3D%2286%22%20y%3D%2238%22%20width%3D%2228%22%20height%3D%224%22%20fill%3D%22%2523556%22%2F%3E%20%3Crect%20x%3D%2286%22%20y%3D%2256%22%20width%3D%2228%22%20height%3D%224%22%20fill%3D%22%2523556%22%2F%3E%20%3C!--%20scissor%20lift%20--%3E%20%3Cline%20x1%3D%2242%22%20y1%3D%2266%22%20x2%3D%2256%22%20y2%3D%2242%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Cline%20x1%3D%2256%22%20y1%3D%2266%22%20x2%3D%2242%22%20y2%3D%2242%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%223%22%2F%3E%20%3Crect%20x%3D%2236%22%20y%3D%2234%22%20width%3D%2236%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2236%22%20y%3D%2266%22%20width%3D%2236%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2236%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2270%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%2212%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Cline%20x1%3D%2236%22%20y1%3D%2230%22%20x2%3D%2272%22%20y2%3D%2230%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%2F%3E%20%3Ccircle%20cx%3D%2254%22%20cy%3D%2218%22%20r%3D%225%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  loc_outdoor_firm: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2264%22%20width%3D%22120%22%20height%3D%2216%22%20fill%3D%22%2523555%22%2F%3E%20%3C!--%20rough%2Fconcrete%20surface%20lines%20--%3E%20%3Cline%20x1%3D%220%22%20y1%3D%2264%22%20x2%3D%22120%22%20y2%3D%2264%22%20stroke%3D%22%2523777%22%20stroke-width%3D%221%22%2F%3E%20%3Cline%20x1%3D%2220%22%20y1%3D%2264%22%20x2%3D%2220%22%20y2%3D%2280%22%20stroke%3D%22%2523666%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2260%22%20y1%3D%2264%22%20x2%3D%2260%22%20y2%3D%2280%22%20stroke%3D%22%2523666%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%22100%22%20y1%3D%2264%22%20x2%3D%22100%22%20y2%3D%2280%22%20stroke%3D%22%2523666%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3C!--%20rough%20terrain%20scissor%20--%3E%20%3Crect%20x%3D%2226%22%20y%3D%2236%22%20width%3D%2268%22%20height%3D%2228%22%20rx%3D%223%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%2224%22%20width%3D%2238%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2230%22%20cy%3D%2266%22%20r%3D%2210%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2290%22%20cy%3D%2266%22%20r%3D%2210%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20platform%20top%20--%3E%20%3Crect%20x%3D%2226%22%20y%3D%2228%22%20width%3D%2268%22%20height%3D%224%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%2220%22%20r%3D%225%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  loc_outdoor_rough: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Cpath%20d%3D%22M0%2068%20Q15%2062%2030%2066%20Q45%2060%2060%2064%20Q75%2058%2090%2062%20Q105%2056%20120%2060%20L120%2080%20L0%2080%20Z%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20rough%20terrain%20boom%20lift%20--%3E%20%3Crect%20x%3D%2210%22%20y%3D%2246%22%20width%3D%2244%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2224%22%20y%3D%2236%22%20width%3D%2222%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2216%22%20cy%3D%2268%22%20r%3D%229%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2246%22%20cy%3D%2268%22%20r%3D%229%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20boom%20arm%20--%3E%20%3Cline%20x1%3D%2234%22%20y1%3D%2240%22%20x2%3D%2282%22%20y2%3D%2220%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Crect%20x%3D%2279%22%20y%3D%2213%22%20width%3D%2222%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2288%22%20cy%3D%2210%22%20r%3D%224%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  loc_crawler: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Cpath%20d%3D%22M0%2070%20Q15%2060%2030%2066%20Q50%2054%2070%2062%20Q90%2052%20120%2058%20L120%2080%20L0%2080%20Z%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20crawler%20boom%20lift%20with%20tracks%20--%3E%20%3Crect%20x%3D%2210%22%20y%3D%2244%22%20width%3D%2250%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2224%22%20y%3D%2234%22%20width%3D%2224%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20track%20--%3E%20%3Crect%20x%3D%226%22%20y%3D%2262%22%20width%3D%2258%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2267%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2267%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%20%3Ccircle%20cx%3D%2236%22%20cy%3D%2267%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%3Ccircle%20cx%3D%2256%22%20cy%3D%2267%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%20%3C!--%20boom%20--%3E%20%3Cline%20x1%3D%2236%22%20y1%3D%2238%22%20x2%3D%2284%22%20y2%3D%2218%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Crect%20x%3D%2281%22%20y%3D%2211%22%20width%3D%2222%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2290%22%20cy%3D%228%22%20r%3D%224%22%20fill%3D%22%2523ffffff%22%2F%3E%20%3C%2Fsvg%3E',
+  loc_both: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3C!--%20left%20panel%3A%20indoor%20--%3E%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2258%22%20height%3D%2280%22%20fill%3D%22%25231a2538%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%2258%22%20height%3D%226%22%20fill%3D%22%2523334155%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2272%22%20width%3D%2258%22%20height%3D%228%22%20fill%3D%22%2523334155%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%226%22%20width%3D%223%22%20height%3D%2266%22%20fill%3D%22%2523445%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%2222%22%20width%3D%2216%22%20height%3D%223%22%20fill%3D%22%2523556%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%2242%22%20width%3D%2216%22%20height%3D%223%22%20fill%3D%22%2523556%22%2F%3E%20%3Cline%20x1%3D%2220%22%20y1%3D%2268%22%20x2%3D%2232%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Cline%20x1%3D%2232%22%20y1%3D%2268%22%20x2%3D%2220%22%20y2%3D%2248%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Crect%20x%3D%2214%22%20y%3D%2240%22%20width%3D%2226%22%20height%3D%225%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2214%22%20y%3D%2268%22%20width%3D%2226%22%20height%3D%223%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20divider%20--%3E%20%3Crect%20x%3D%2258%22%20y%3D%220%22%20width%3D%224%22%20height%3D%2280%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20right%20panel%3A%20outdoor%20--%3E%20%3Crect%20x%3D%2262%22%20y%3D%220%22%20width%3D%2258%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%2262%22%20y%3D%2264%22%20width%3D%2258%22%20height%3D%2216%22%20fill%3D%22%25237A6045%22%2F%3E%20%3Crect%20x%3D%2266%22%20y%3D%2242%22%20width%3D%2238%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2270%22%20cy%3D%2266%22%20r%3D%227%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2296%22%20cy%3D%2266%22%20r%3D%227%22%20fill%3D%22%2523334155%22%2F%3E%20%3Cline%20x1%3D%2280%22%20y1%3D%2244%22%20x2%3D%22106%22%20y2%3D%2228%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%224%22%2F%3E%20%3Crect%20x%3D%22103%22%20y%3D%2222%22%20width%3D%2214%22%20height%3D%2210%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C%2Fsvg%3E',
+  mat_floor: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2266%22%20width%3D%22120%22%20height%3D%2214%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20pallet%20jack%20--%3E%20%3Crect%20x%3D%2220%22%20y%3D%2250%22%20width%3D%2260%22%20height%3D%2218%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2224%22%20y%3D%2242%22%20width%3D%228%22%20height%3D%2212%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20pallet%20on%20jack%20--%3E%20%3Crect%20x%3D%2222%22%20y%3D%2234%22%20width%3D%2256%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523C8A96A%22%2F%3E%20%3Cline%20x1%3D%2230%22%20y1%3D%2234%22%20x2%3D%2230%22%20y2%3D%2250%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2246%22%20y1%3D%2234%22%20x2%3D%2246%22%20y2%3D%2250%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2262%22%20y1%3D%2234%22%20x2%3D%2262%22%20y2%3D%2250%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3C!--%20forks%20--%3E%20%3Crect%20x%3D%2278%22%20y%3D%2260%22%20width%3D%2224%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3Crect%20x%3D%2278%22%20y%3D%2266%22%20width%3D%2224%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3C!--%20wheels%20--%3E%20%3Ccircle%20cx%3D%2230%22%20cy%3D%2266%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%20%3Ccircle%20cx%3D%2280%22%20cy%3D%2266%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%20%3C!--%20height%20indicator%20(low)%20--%3E%20%3Cline%20x1%3D%22100%22%20y1%3D%2234%22%20x2%3D%22100%22%20y2%3D%2262%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%223%2C3%22%2F%3E%20%3Ctext%20x%3D%22106%22%20y%3D%2250%22%20fill%3D%22%2523FCC91A%22%20font-size%3D%228%22%20font-family%3D%22sans-serif%22%3ELOW%3C%2Ftext%3E%20%3C%2Fsvg%3E',
+  mat_height: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2268%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20forklift%20body%20--%3E%20%3Crect%20x%3D%226%22%20y%3D%2246%22%20width%3D%2236%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2218%22%20y%3D%2236%22%20width%3D%2218%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2268%22%20r%3D%227%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2234%22%20cy%3D%2268%22%20r%3D%227%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20mast%20tall%20--%3E%20%3Crect%20x%3D%2242%22%20y%3D%2210%22%20width%3D%226%22%20height%3D%2258%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2250%22%20y%3D%2210%22%20width%3D%226%22%20height%3D%2258%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20forks%20high%20--%3E%20%3Crect%20x%3D%2256%22%20y%3D%2210%22%20width%3D%2240%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3Crect%20x%3D%2256%22%20y%3D%2216%22%20width%3D%2240%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3C!--%20pallet%20at%20height%20--%3E%20%3Crect%20x%3D%2260%22%20y%3D%224%22%20width%3D%2238%22%20height%3D%2210%22%20rx%3D%222%22%20fill%3D%22%2523C8A96A%22%2F%3E%20%3C!--%20height%20arrow%20--%3E%20%3Cline%20x1%3D%22106%22%20y1%3D%2268%22%20x2%3D%22106%22%20y2%3D%2210%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cpolygon%20points%3D%22100%2C16%20106%2C4%20112%2C16%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C%2Fsvg%3E',
+  pj_indoor: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2268%22%20width%3D%22120%22%20height%3D%2212%22%20fill%3D%22%2523444%22%2F%3E%20%3Cline%20x1%3D%220%22%20y1%3D%2268%22%20x2%3D%22120%22%20y2%3D%2268%22%20stroke%3D%22%2523666%22%20stroke-width%3D%221%22%2F%3E%20%3Cline%20x1%3D%2230%22%20y1%3D%2268%22%20x2%3D%2230%22%20y2%3D%2280%22%20stroke%3D%22%2523555%22%20stroke-width%3D%221%22%2F%3E%20%3Cline%20x1%3D%2270%22%20y1%3D%2268%22%20x2%3D%2270%22%20y2%3D%2280%22%20stroke%3D%22%2523555%22%20stroke-width%3D%221%22%2F%3E%20%3Cline%20x1%3D%22110%22%20y1%3D%2268%22%20x2%3D%22110%22%20y2%3D%2280%22%20stroke%3D%22%2523555%22%20stroke-width%3D%221%22%2F%3E%20%3C!--%20electric%20walkie%20jack%20--%3E%20%3Crect%20x%3D%2228%22%20y%3D%2248%22%20width%3D%2264%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2256%22%20y%3D%2236%22%20width%3D%2212%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20pallet%20--%3E%20%3Crect%20x%3D%2230%22%20y%3D%2238%22%20width%3D%2260%22%20height%3D%2212%22%20rx%3D%222%22%20fill%3D%22%2523C8A96A%22%2F%3E%20%3Cline%20x1%3D%2240%22%20y1%3D%2238%22%20x2%3D%2240%22%20y2%3D%2250%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2260%22%20y1%3D%2238%22%20x2%3D%2260%22%20y2%3D%2250%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2278%22%20y1%3D%2238%22%20x2%3D%2278%22%20y2%3D%2250%22%20stroke%3D%22%25237A6045%22%20stroke-width%3D%221.5%22%2F%3E%20%3C!--%20wheels%20small%20--%3E%20%3Ccircle%20cx%3D%2236%22%20cy%3D%2268%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%20%3Ccircle%20cx%3D%2284%22%20cy%3D%2268%22%20r%3D%224%22%20fill%3D%22%2523555%22%2F%3E%20%3C!--%20shelf%20in%20bg%20--%3E%20%3Crect%20x%3D%2298%22%20y%3D%2220%22%20width%3D%2220%22%20height%3D%2250%22%20fill%3D%22%2523334155%22%20opacity%3D%220.5%22%2F%3E%20%3Crect%20x%3D%2298%22%20y%3D%2230%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%2523556%22%2F%3E%20%3Crect%20x%3D%2298%22%20y%3D%2250%22%20width%3D%2220%22%20height%3D%223%22%20fill%3D%22%2523556%22%2F%3E%20%3C%2Fsvg%3E',
+  pj_outdoor: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Cpath%20d%3D%22M0%2068%20Q20%2062%2040%2066%20Q60%2060%2080%2064%20Q100%2058%20120%2062%20L120%2080%20L0%2080%20Z%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20rough%20terrain%20pallet%20jack%20%2F%20rough%20terrain%20forklift%20--%3E%20%3Crect%20x%3D%2222%22%20y%3D%2244%22%20width%3D%2256%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%2234%22%20width%3D%2222%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3C!--%20big%20wheels%20for%20rough%20terrain%20--%3E%20%3Ccircle%20cx%3D%2228%22%20cy%3D%2268%22%20r%3D%2210%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2228%22%20cy%3D%2268%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%20%3Ccircle%20cx%3D%2272%22%20cy%3D%2268%22%20r%3D%2210%22%20fill%3D%22%2523334155%22%2F%3E%20%3Ccircle%20cx%3D%2272%22%20cy%3D%2268%22%20r%3D%225%22%20fill%3D%22%2523555%22%2F%3E%20%3C!--%20forks%20low%20--%3E%20%3Crect%20x%3D%2278%22%20y%3D%2256%22%20width%3D%2228%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3Crect%20x%3D%2278%22%20y%3D%2262%22%20width%3D%2228%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3C%2Fsvg%3E',
+  pallet_chep: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3C!--%20orange%20CHEP%20pallet%20(slightly%203D)%20--%3E%20%3Cpolygon%20points%3D%2216%2C56%20104%2C56%20104%2C70%2016%2C70%22%20fill%3D%22%2523CC5500%22%2F%3E%20%3Cpolygon%20points%3D%2216%2C32%20104%2C32%20104%2C56%2016%2C56%22%20fill%3D%22%2523E86020%22%2F%3E%20%3Cpolygon%20points%3D%22104%2C32%20120%2C20%20120%2C58%20104%2C56%22%20fill%3D%22%2523BB4400%22%2F%3E%20%3C!--%20top%20deck%20boards%20--%3E%20%3Cline%20x1%3D%2216%22%20y1%3D%2232%22%20x2%3D%22104%22%20y2%3D%2232%22%20stroke%3D%22%2523CC5500%22%20stroke-width%3D%222%22%2F%3E%20%3Cline%20x1%3D%2230%22%20y1%3D%2232%22%20x2%3D%2230%22%20y2%3D%2256%22%20stroke%3D%22%2523CC5500%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2260%22%20y1%3D%2232%22%20x2%3D%2260%22%20y2%3D%2256%22%20stroke%3D%22%2523CC5500%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2290%22%20y1%3D%2232%22%20x2%3D%2290%22%20y2%3D%2256%22%20stroke%3D%22%2523CC5500%22%20stroke-width%3D%221.5%22%2F%3E%20%3C!--%20logo%20hint%20--%3E%20%3Crect%20x%3D%2250%22%20y%3D%2238%22%20width%3D%2220%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523BB4400%22%2F%3E%20%3Ctext%20x%3D%2260%22%20y%3D%2247%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%227%22%20font-family%3D%22sans-serif%22%20font-weight%3D%22bold%22%3ECHEP%3C%2Ftext%3E%20%3C!--%20fork%20entry%20--%3E%20%3Crect%20x%3D%2216%22%20y%3D%2247%22%20width%3D%2288%22%20height%3D%224%22%20fill%3D%22%2523AA4400%22%2F%3E%20%3C%2Fsvg%3E',
+  pallet_timber: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3C!--%20timber%20pallet%203D%20--%3E%20%3Cpolygon%20points%3D%2216%2C56%20104%2C56%20104%2C70%2016%2C70%22%20fill%3D%22%25235C3D1E%22%2F%3E%20%3Cpolygon%20points%3D%2216%2C34%20104%2C34%20104%2C56%2016%2C56%22%20fill%3D%22%2523A0714A%22%2F%3E%20%3Cpolygon%20points%3D%22104%2C34%20120%2C22%20120%2C60%20104%2C56%22%20fill%3D%22%2523704F30%22%2F%3E%20%3C!--%20top%20deck%20planks%20--%3E%20%3Crect%20x%3D%2218%22%20y%3D%2234%22%20width%3D%2284%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Crect%20x%3D%2218%22%20y%3D%2243%22%20width%3D%2284%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Crect%20x%3D%2218%22%20y%3D%2252%22%20width%3D%2284%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3C!--%20wood%20grain%20lines%20--%3E%20%3Cline%20x1%3D%2225%22%20y1%3D%2234%22%20x2%3D%2225%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2240%22%20y1%3D%2234%22%20x2%3D%2240%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2255%22%20y1%3D%2234%22%20x2%3D%2255%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2270%22%20y1%3D%2234%22%20x2%3D%2270%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2285%22%20y1%3D%2234%22%20x2%3D%2285%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3C!--%20fork%20entry%20--%3E%20%3Crect%20x%3D%2216%22%20y%3D%2247%22%20width%3D%2288%22%20height%3D%223%22%20fill%3D%22%25235C3D1E%22%2F%3E%20%3C%2Fsvg%3E',
+  pallet_euro: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3C!--%20euro%20pallet%20(narrower)%203D%20--%3E%20%3Cpolygon%20points%3D%2228%2C56%2096%2C56%2096%2C70%2028%2C70%22%20fill%3D%22%25235C3D1E%22%2F%3E%20%3Cpolygon%20points%3D%2228%2C34%2096%2C34%2096%2C56%2028%2C56%22%20fill%3D%22%2523A0714A%22%2F%3E%20%3Cpolygon%20points%3D%2296%2C34%20112%2C22%20112%2C60%2096%2C56%22%20fill%3D%22%2523704F30%22%2F%3E%20%3C!--%20top%20planks%20--%3E%20%3Crect%20x%3D%2230%22%20y%3D%2234%22%20width%3D%2264%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Crect%20x%3D%2230%22%20y%3D%2243%22%20width%3D%2264%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Crect%20x%3D%2230%22%20y%3D%2252%22%20width%3D%2264%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Cline%20x1%3D%2245%22%20y1%3D%2234%22%20x2%3D%2245%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2262%22%20y1%3D%2234%22%20x2%3D%2262%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2279%22%20y1%3D%2234%22%20x2%3D%2279%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3C!--%20narrow%20indicator%20lines%20--%3E%20%3Cline%20x1%3D%2228%22%20y1%3D%2224%22%20x2%3D%2228%22%20y2%3D%2230%22%20stroke%3D%22%2523aaa%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2296%22%20y1%3D%2224%22%20x2%3D%2296%22%20y2%3D%2230%22%20stroke%3D%22%2523aaa%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%2228%22%20y1%3D%2227%22%20x2%3D%2296%22%20y2%3D%2227%22%20stroke%3D%22%2523aaa%22%20stroke-width%3D%221.5%22%2F%3E%20%3Ctext%20x%3D%2262%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20fill%3D%22%2523aaa%22%20font-size%3D%228%22%20font-family%3D%22sans-serif%22%3E800mm%3C%2Ftext%3E%20%3C%2Fsvg%3E',
+  pallet_long: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3C!--%20extra%20long%20pallet%20--%3E%20%3Cpolygon%20points%3D%224%2C56%20116%2C56%20116%2C70%204%2C70%22%20fill%3D%22%25235C3D1E%22%2F%3E%20%3Cpolygon%20points%3D%224%2C36%20116%2C36%20116%2C56%204%2C56%22%20fill%3D%22%2523A0714A%22%2F%3E%20%3C!--%20top%20deck%20planks%20--%3E%20%3Crect%20x%3D%226%22%20y%3D%2236%22%20width%3D%22108%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Crect%20x%3D%226%22%20y%3D%2245%22%20width%3D%22108%22%20height%3D%226%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Crect%20x%3D%226%22%20y%3D%2254%22%20width%3D%22108%22%20height%3D%223%22%20rx%3D%221%22%20fill%3D%22%2523C8956C%22%2F%3E%20%3Cline%20x1%3D%2230%22%20y1%3D%2236%22%20x2%3D%2230%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2260%22%20y1%3D%2236%22%20x2%3D%2260%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3Cline%20x1%3D%2290%22%20y1%3D%2236%22%20x2%3D%2290%22%20y2%3D%2256%22%20stroke%3D%22%25235C3D1E%22%20stroke-width%3D%221%22%20opacity%3D%220.5%22%2F%3E%20%3C!--%20length%20indicator%20--%3E%20%3Cline%20x1%3D%224%22%20y1%3D%2228%22%20x2%3D%224%22%20y2%3D%2232%22%20stroke%3D%22%2523aaa%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%22116%22%20y1%3D%2228%22%20x2%3D%22116%22%20y2%3D%2232%22%20stroke%3D%22%2523aaa%22%20stroke-width%3D%221.5%22%2F%3E%20%3Cline%20x1%3D%224%22%20y1%3D%2230%22%20x2%3D%22116%22%20y2%3D%2230%22%20stroke%3D%22%2523aaa%22%20stroke-width%3D%221.5%22%2F%3E%20%3Ctext%20x%3D%2260%22%20y%3D%2225%22%20text-anchor%3D%22middle%22%20fill%3D%22%2523aaa%22%20font-size%3D%228%22%20font-family%3D%22sans-serif%22%3E2130mm%2B%3C%2Ftext%3E%20%3C%2Fsvg%3E',
+  pallet_other: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3C!--%20irregular%20load%3A%20machinery%2Fcrate%20--%3E%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%2284%22%20height%3D%2244%22%20rx%3D%223%22%20fill%3D%22%2523334155%22%2F%3E%20%3Crect%20x%3D%2222%22%20y%3D%2232%22%20width%3D%2276%22%20height%3D%2236%22%20rx%3D%222%22%20fill%3D%22%2523334155%22%2F%3E%20%3C!--%20crate%20details%20--%3E%20%3Cline%20x1%3D%2218%22%20y1%3D%2250%22%20x2%3D%22102%22%20y2%3D%2250%22%20stroke%3D%22%2523445%22%20stroke-width%3D%222%22%2F%3E%20%3Cline%20x1%3D%2260%22%20y1%3D%2228%22%20x2%3D%2260%22%20y2%3D%2272%22%20stroke%3D%22%2523445%22%20stroke-width%3D%222%22%2F%3E%20%3C!--%20bands%20--%3E%20%3Crect%20x%3D%2218%22%20y%3D%2236%22%20width%3D%2284%22%20height%3D%223%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.5%22%2F%3E%20%3Crect%20x%3D%2218%22%20y%3D%2262%22%20width%3D%2284%22%20height%3D%223%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.5%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%2228%22%20width%3D%223%22%20height%3D%2244%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.5%22%2F%3E%20%3Crect%20x%3D%2277%22%20y%3D%2228%22%20width%3D%223%22%20height%3D%2244%22%20fill%3D%22%2523FCC91A%22%20opacity%3D%220.5%22%2F%3E%20%3C!--%20question%20mark%20--%3E%20%3Ctext%20x%3D%2260%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20fill%3D%22%2523aaa%22%20font-size%3D%2220%22%20font-family%3D%22sans-serif%22%3E%3F%3C%2Ftext%3E%20%3C%2Fsvg%3E',
+  compact_tiny: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%20%3C!--%20narrow%20trench%20with%20plate%20compactor%20--%3E%20%3Crect%20x%3D%220%22%20y%3D%2226%22%20width%3D%2242%22%20height%3D%2232%22%20fill%3D%22%25237A6045%22%2F%3E%20%3Crect%20x%3D%2278%22%20y%3D%2226%22%20width%3D%2242%22%20height%3D%2232%22%20fill%3D%22%25237A6045%22%2F%3E%20%3Crect%20x%3D%2242%22%20y%3D%2226%22%20width%3D%2236%22%20height%3D%2232%22%20fill%3D%22%2523523D2A%22%2F%3E%20%3Crect%20x%3D%2248%22%20y%3D%2220%22%20width%3D%2224%22%20height%3D%2226%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2252%22%20y%3D%2212%22%20width%3D%2216%22%20height%3D%2212%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2246%22%20y%3D%2244%22%20width%3D%2228%22%20height%3D%226%22%20rx%3D%222%22%20fill%3D%22%2523E8B800%22%2F%3E%20%3Crect%20x%3D%222%22%20y%3D%2216%22%20width%3D%2240%22%20height%3D%224%22%20fill%3D%22none%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%224%2C3%22%20opacity%3D%220.6%22%2F%3E%20%3C%2Fsvg%3E',
+  compact_small: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2260%22%20width%3D%22120%22%20height%3D%2220%22%20fill%3D%22%25237A6045%22%2F%3E%20%3Crect%20x%3D%2230%22%20y%3D%2238%22%20width%3D%2230%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%2230%22%20width%3D%2214%22%20height%3D%2212%22%20rx%3D%221%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2230%22%20cy%3D%2256%22%20r%3D%2212%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%2256%22%20r%3D%2212%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Crect%20x%3D%222%22%20y%3D%228%22%20width%3D%2258%22%20height%3D%2244%22%20fill%3D%22none%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%224%2C3%22%20opacity%3D%220.55%22%2F%3E%20%3C%2Fsvg%3E',
+  compact_medium: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2260%22%20width%3D%22120%22%20height%3D%2220%22%20fill%3D%22%25237A6045%22%2F%3E%20%3Crect%20x%3D%2222%22%20y%3D%2234%22%20width%3D%2246%22%20height%3D%2222%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2236%22%20y%3D%2224%22%20width%3D%2222%22%20height%3D%2214%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2222%22%20cy%3D%2258%22%20r%3D%2214%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Ccircle%20cx%3D%2268%22%20cy%3D%2258%22%20r%3D%2214%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2288%22%20height%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%224%2C3%22%20opacity%3D%220.5%22%2F%3E%20%3C%2Fsvg%3E',
+  compact_large: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2080%22%3E%20%3Crect%20width%3D%22120%22%20height%3D%2280%22%20fill%3D%22%25231e293b%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%2258%22%20width%3D%22120%22%20height%3D%2222%22%20fill%3D%22%25237A6045%22%2F%3E%20%3Crect%20x%3D%2212%22%20y%3D%2232%22%20width%3D%2296%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Crect%20x%3D%2232%22%20y%3D%2220%22%20width%3D%2254%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%2523FCC91A%22%2F%3E%20%3Ccircle%20cx%3D%2212%22%20cy%3D%2256%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Ccircle%20cx%3D%22108%22%20cy%3D%2256%22%20r%3D%2216%22%20fill%3D%22%2523334155%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%222%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22118%22%20height%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22%2523FCC91A%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%224%2C3%22%20opacity%3D%220.45%22%2F%3E%20%3C%2Fsvg%3E',
+};
+
 // Phase 1: General questions
 const GENERAL_QS = [
   // ── Q1: People or Materials ──────────────────────────────────────────────
@@ -23916,9 +33571,9 @@ const GENERAL_QS = [
     hint:'People includes everyone from single workers to full crews. Materials covers everything from duct sections to heavy pallets.',
     type:'options',
     options:[
-      {ico:'🧑‍🔧', lbl:'People', sub:'Workers need to reach height to do their job', val:'people'},
-      {ico:'📦',         lbl:'Materials', sub:'Lifting goods, ductwork, panels, pallets or construction loads', val:'materials'},
-      {ico:'🚜',         lbl:'Earth Works', sub:'Excavation, earthmoving, clearing, compaction, cartage or dust suppression', val:'earthmoving'},
+      {ico:'🧑‍🔧', lbl:'People',    img:QUIZ_IMGS.lf_people,    sub:'Workers need to reach height to do their job', val:'people'},
+      {ico:'📦',    lbl:'Materials', img:QUIZ_IMGS.lf_materials, sub:'Lifting goods, ductwork, panels, pallets or construction loads', val:'materials'},
+      {ico:'🚜',    lbl:'Earth Works',img:EM_IMGS.dig,           sub:'Excavation, earthmoving, clearing, compaction, cartage or dust suppression', val:'earthmoving'},
     ]
   },
 
@@ -23931,8 +33586,8 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'people'},
     type:'options',
     options:[
-      {ico:'🧍', lbl:'Just one person', sub:'Single worker — light access, maintenance, inspections', val:'one'},
-      {ico:'👷‍♂️👷‍♀️', lbl:'Two or more people', sub:'Crew work, larger platform needed', val:'multi'},
+      {ico:'🧍', lbl:'Just one person',        img:QUIZ_IMGS.crew_one,   sub:'Single worker — light access, maintenance, inspections', val:'one'},
+      {ico:'👷‍♂️👷‍♀️', lbl:'Two or more people', img:QUIZ_IMGS.crew_multi, sub:'Crew work, larger platform needed', val:'multi'},
     ]
   },
 
@@ -23944,8 +33599,8 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'people'},
     type:'options',
     options:[
-      {ico:'⬆️', lbl:'Straight up only', sub:'Platform rises directly above — scissor lift, stick/telescopic boom or mast lift', val:'straight_up'},
-      {ico:'🌈', lbl:'Up and over / out to the side', sub:'Need to arc over a wall, roof, pipe rack or obstacle — boom lift', val:'over_out'},
+      {ico:'⬆️', lbl:'Straight up only',            img:QUIZ_IMGS.reach_straight, sub:'Platform rises directly above — scissor lift, stick/telescopic boom or mast lift', val:'straight_up'},
+      {ico:'🌈', lbl:'Up and over / out to the side', img:QUIZ_IMGS.reach_over,     sub:'Need to arc over a wall, roof, pipe rack or obstacle — boom lift', val:'over_out'},
     ]
   },
 
@@ -23958,9 +33613,9 @@ const GENERAL_QS = [
     showIf:{key:'people_reach', val:'over_out'},
     type:'options',
     options:[
-      {ico:'🦾', lbl:'Articulating (knuckle boom)', sub:'Folds up and over obstacles — mezzanines, racking, facades',       val:'boom_articulating'},
-      {ico:'📡', lbl:'Telescopic (straight boom)',  sub:'Maximum horizontal reach — open yards, powerlines, construction',  val:'boom_telescopic'},
-      {ico:'🔄', lbl:'Either — show me both',       sub:'Recommend the best option based on my other requirements',         val:'boom_either'},
+      {ico:'🦾', lbl:'Articulating (knuckle boom)', img:QUIZ_IMGS.boom_artic, sub:'Folds up and over obstacles — mezzanines, racking, facades',       val:'boom_articulating'},
+      {ico:'📡', lbl:'Telescopic (straight boom)',  img:QUIZ_IMGS.boom_tele,  sub:'Maximum horizontal reach — open yards, powerlines, construction',  val:'boom_telescopic'},
+      {ico:'🔄', lbl:'Either — show me both',                                  sub:'Recommend the best option based on my other requirements',         val:'boom_either'},
     ]
   },
 
@@ -23984,11 +33639,11 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'people'},
     type:'options',
     options:[
-      {ico:'🏭', lbl:'Indoors', sub:'Warehouse, factory, venue — smooth level floor', val:'indoor'},
-      {ico:'🌤️', lbl:'Outdoors — firm ground', sub:'Sealed yard, construction base, hard-packed surface', val:'outdoor_firm'},
-      {ico:'⛰️', lbl:'Outdoors — rough terrain', sub:'Construction site, gravel, compacted rubble, uneven ground', val:'outdoor_rough'},
-      {ico:'⛓️', lbl:'Very rough / crawler terrain', sub:'Steep slopes, soft/muddy ground, turf, quarry, unstable surface — needs crawler tracks', img:'https://www.genielift.com/images/default-source/aerial-products/boom-lifts/telescopic/s-60-trax/genie-s-60-trax-telescopic-boom-lift.jpg', val:'outdoor_crawler'},
-      {ico:'🔄', lbl:'Both indoor & outdoor', sub:'Moving between areas', val:'both'},
+      {ico:'🏭', lbl:'Indoors',                    img:QUIZ_IMGS.loc_indoor,       sub:'Warehouse, factory, venue — smooth level floor', val:'indoor'},
+      {ico:'🌤️', lbl:'Outdoors — firm ground',     img:QUIZ_IMGS.loc_outdoor_firm, sub:'Sealed yard, construction base, hard-packed surface', val:'outdoor_firm'},
+      {ico:'⛰️', lbl:'Outdoors — rough terrain',   img:QUIZ_IMGS.loc_outdoor_rough,sub:'Construction site, gravel, compacted rubble, uneven ground', val:'outdoor_rough'},
+      {ico:'⛓️', lbl:'Very rough / crawler terrain',img:QUIZ_IMGS.loc_crawler,     sub:'Steep slopes, soft/muddy ground, turf, quarry, unstable surface — needs crawler tracks', val:'outdoor_crawler'},
+      {ico:'🔄', lbl:'Both indoor & outdoor',      img:QUIZ_IMGS.loc_both,         sub:'Moving between areas', val:'both'},
     ]
   },
 
@@ -24018,8 +33673,8 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'materials'},
     type:'options',
     options:[
-      {ico:'🔄', lbl:'Floor level — no lifting needed', sub:'Moving, rolling or picking up pallets — no racking or high placement required', val:'floor_level'},
-      {ico:'🏗️', lbl:'Lifting to height', sub:'Racking, placing on a platform, construction or high-access work', val:'to_height'},
+      {ico:'🔄', lbl:'Floor level — no lifting needed', img:QUIZ_IMGS.mat_floor,  sub:'Moving, rolling or picking up pallets — no racking or high placement required', val:'floor_level'},
+      {ico:'🏗️', lbl:'Lifting to height',               img:QUIZ_IMGS.mat_height, sub:'Racking, placing on a platform, construction or high-access work', val:'to_height'},
     ]
   },
 
@@ -24031,8 +33686,8 @@ const GENERAL_QS = [
     showIf:{key:'mat_lift_type', val:'floor_level'},
     type:'options',
     options:[
-      {ico:'🏭', lbl:'Indoors — smooth floor', sub:'Warehouse, factory, loading dock — level hard surface', val:'pj_indoor'},
-      {ico:'⛰️', lbl:'Outdoors or uneven ground', sub:'Yard, construction site, ramp, gravel or soft surface', val:'pj_outdoor'},
+      {ico:'🏭', lbl:'Indoors — smooth floor',    img:QUIZ_IMGS.pj_indoor,  sub:'Warehouse, factory, loading dock — level hard surface', val:'pj_indoor'},
+      {ico:'⛰️', lbl:'Outdoors or uneven ground', img:QUIZ_IMGS.pj_outdoor, sub:'Yard, construction site, ramp, gravel or soft surface', val:'pj_outdoor'},
     ]
   },
 
@@ -24044,11 +33699,11 @@ const GENERAL_QS = [
     showIf:{key:'mat_lift_type', val:'floor_level'},
     type:'options',
     options:[
-      {ico:'🟠', lbl:'CHEP pallet',             sub:'Standard orange plastic — 1165×1165mm',              val:'chep'},
-      {ico:'🟫', lbl:'Timber / standard',        sub:'Generic wood pallet — 1200×1000mm approx',           val:'timber'},
-      {ico:'🇪🇺', lbl:'Euro pallet',              sub:'Narrow — 1200×800mm (requires narrow forks)',         val:'euro'},
-      {ico:'📏', lbl:'Double-length pallet',     sub:'Oversized, stillage or long load — needs 2130mm tynes', val:'double_length'},
-      {ico:'📦', lbl:'Other / loose load',       sub:'Custom skid, box or non-standard load',               val:'other'},
+      {ico:'🟠', lbl:'CHEP pallet',          img:QUIZ_IMGS.pallet_chep,   sub:'Standard orange plastic — 1165×1165mm',              val:'chep'},
+      {ico:'🟫', lbl:'Timber / standard',    img:QUIZ_IMGS.pallet_timber, sub:'Generic wood pallet — 1200×1000mm approx',           val:'timber'},
+      {ico:'🇪🇺', lbl:'Euro pallet',          img:QUIZ_IMGS.pallet_euro,   sub:'Narrow — 1200×800mm (requires narrow forks)',         val:'euro'},
+      {ico:'📏', lbl:'Double-length pallet', img:QUIZ_IMGS.pallet_long,   sub:'Oversized, stillage or long load — needs 2130mm tynes', val:'double_length'},
+      {ico:'📦', lbl:'Other / loose load',   img:QUIZ_IMGS.pallet_other,  sub:'Custom skid, box or non-standard load',               val:'other'},
     ]
   },
 
@@ -24086,10 +33741,10 @@ const GENERAL_QS = [
     showIf:{key:'mat_lift_type', val:'to_height'},
     type:'options',
     options:[
-      {ico:'🏭', lbl:'Indoors — smooth floor',      sub:'Warehouse, factory, fitout — level surface only',           val:'mat_indoor'},
-      {ico:'🌤️', lbl:'Outdoors — firm ground',       sub:'Sealed yard, construction base, concrete slab',            val:'mat_outdoor_firm'},
-      {ico:'⛰️', lbl:'Outdoors — rough terrain',     sub:'Construction site, paddock, soft or uneven ground',        val:'mat_outdoor_rough'},
-      {ico:'🔄', lbl:'Both indoor & outdoor',        sub:'Moving between areas',                                      val:'mat_both'},
+      {ico:'🏭', lbl:'Indoors — smooth floor',    img:QUIZ_IMGS.loc_indoor,       sub:'Warehouse, factory, fitout — level surface only',           val:'mat_indoor'},
+      {ico:'🌤️', lbl:'Outdoors — firm ground',   img:QUIZ_IMGS.loc_outdoor_firm, sub:'Sealed yard, construction base, concrete slab',            val:'mat_outdoor_firm'},
+      {ico:'⛰️', lbl:'Outdoors — rough terrain', img:QUIZ_IMGS.loc_outdoor_rough,sub:'Construction site, paddock, soft or uneven ground',        val:'mat_outdoor_rough'},
+      {ico:'🔄', lbl:'Both indoor & outdoor',    img:QUIZ_IMGS.loc_both,         sub:'Moving between areas',                                      val:'mat_both'},
     ]
   },
 
@@ -24103,13 +33758,13 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'earthmoving'},
     type:'options',
     options:[
-      {ico:'⛏️', lbl:'Dig',                 sub:'Trenches, holes, foundations, pools, bulk excavation',         val:'dig'},
-      {ico:'🏔️', lbl:'Push, clear or level', sub:'Move material, clear a site, grade or level ground',          val:'push_clear'},
-      {ico:'🪨', lbl:'Break rock or concrete',sub:'Break up slabs, footings, hard rock, asphalt',               val:'break'},
-      {ico:'🚛', lbl:'Cart material on site', sub:'Move soil, rock, fill, spoil around the site or off-site',   val:'cart'},
-      {ico:'🔄', lbl:'Compact or flatten',    sub:'Compact soil, road base, gravel, asphalt, trench backfill',  val:'compact'},
-      {ico:'💧', lbl:'Water the site',        sub:'Dust suppression, road watering, compaction moisture',       val:'water'},
-      {ico:'🌿', lbl:'Clear scrub or vegetation', sub:'Remove grass, scrub, small trees, regrowth',             val:'clear_veg'},
+      {ico:'⛏️', lbl:'Dig',                 img:EM_IMGS.dig,        sub:'Trenches, holes, foundations, pools, bulk excavation',         val:'dig'},
+      {ico:'🏔️', lbl:'Push, clear or level', img:EM_IMGS.push_clear,  sub:'Move material, clear a site, grade or level ground',          val:'push_clear'},
+      {ico:'🪨', lbl:'Break rock or concrete',img:EM_IMGS.break,       sub:'Break up slabs, footings, hard rock, asphalt',               val:'break'},
+      {ico:'🚛', lbl:'Cart material on site', img:EM_IMGS.cart,        sub:'Move soil, rock, fill, spoil around the site or off-site',   val:'cart'},
+      {ico:'🔄', lbl:'Compact or flatten',    img:EM_IMGS.compact,     sub:'Compact soil, road base, gravel, asphalt, trench backfill',  val:'compact'},
+      {ico:'💧', lbl:'Water the site',        img:EM_IMGS.water,       sub:'Dust suppression, road watering, compaction moisture',       val:'water'},
+      {ico:'🌿', lbl:'Clear scrub or vegetation', img:EM_IMGS.clear_veg, sub:'Remove grass, scrub, small trees, regrowth',               val:'clear_veg'},
     ]
   },
 
@@ -24120,10 +33775,10 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'dig'},
     type:'options',
     options:[
-      {ico:'🌱', lbl:'Under 1.5m',  sub:'Shallow trench, garden, drainage, surface services',       val:'shallow'},
-      {ico:'🏗️', lbl:'1.5m to 3m',  sub:'Standard footings, deeper service trenches',               val:'medium'},
-      {ico:'🏢', lbl:'3m to 6m',    sub:'Commercial footings, deep service trenches, basements',    val:'deep'},
-      {ico:'⛏️', lbl:'Over 6m',     sub:'Heavy civil, shaft sinking, mining, tunnelling',           val:'very_deep'},
+      {ico:'🌱', lbl:'Under 1.5m',  img:EM_IMGS.dig_shallow,   sub:'Shallow trench, garden, drainage, surface services',       val:'shallow'},
+      {ico:'🏗️', lbl:'1.5m to 3m',  img:EM_IMGS.dig_medium,    sub:'Standard footings, deeper service trenches',               val:'medium'},
+      {ico:'🏢', lbl:'3m to 6m',    img:EM_IMGS.dig_deep,      sub:'Commercial footings, deep service trenches, basements',    val:'deep'},
+      {ico:'⛏️', lbl:'Over 6m',     img:EM_IMGS.dig_very_deep, sub:'Heavy civil, shaft sinking, mining, tunnelling',           val:'very_deep'},
     ]
   },
 
@@ -24134,9 +33789,9 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'dig'},
     type:'options',
     options:[
-      {ico:'🏠', lbl:'Very tight',           sub:'Backyard, narrow gate under 900mm, between buildings',    val:'tight'},
-      {ico:'🏗️', lbl:'Standard site access', sub:'Normal construction site, wide enough for a standard machine', val:'standard'},
-      {ico:'🌾', lbl:'Open land',            sub:'No restrictions — paddock, quarry, open site',            val:'open'},
+      {ico:'🏠', lbl:'Very tight',           img:EM_IMGS.access_tight,    sub:'Backyard, narrow gate under 900mm, between buildings',    val:'tight'},
+      {ico:'🏗️', lbl:'Standard site access', img:EM_IMGS.access_standard, sub:'Normal construction site, wide enough for a standard machine', val:'standard'},
+      {ico:'🌾', lbl:'Open land',            img:EM_IMGS.access_open,     sub:'No restrictions — paddock, quarry, open site',            val:'open'},
     ]
   },
 
@@ -24164,10 +33819,10 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'push_clear'},
     type:'options',
     options:[
-      {ico:'🌿', lbl:'Soft — grass, clay or wet ground', sub:'Tracked machine will handle this better',         val:'soft'},
-      {ico:'🏗️', lbl:'Standard compacted dirt',          sub:'Normal site conditions',                          val:'standard'},
-      {ico:'🪨', lbl:'Rock, rubble or heavy fill',        sub:'Hard material requiring a heavy machine',         val:'hard'},
-      {ico:'✅', lbl:'Already cleared — final grading',  sub:'Just need to level or grade the surface',         val:'grading'},
+      {ico:'🌿', lbl:'Soft — grass, clay or wet ground', img:EM_IMGS.ground_soft,     sub:'Tracked machine will handle this better',         val:'soft'},
+      {ico:'🏗️', lbl:'Standard compacted dirt',          img:EM_IMGS.ground_standard, sub:'Normal site conditions',                          val:'standard'},
+      {ico:'🪨', lbl:'Rock, rubble or heavy fill',        img:EM_IMGS.ground_hard,     sub:'Hard material requiring a heavy machine',         val:'hard'},
+      {ico:'✅', lbl:'Already cleared — final grading',  img:EM_IMGS.ground_grading,  sub:'Just need to level or grade the surface',         val:'grading'},
     ]
   },
 
@@ -24178,9 +33833,9 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'push_clear'},
     type:'options',
     options:[
-      {ico:'🏠', lbl:'Small — under 500m²',      sub:'Typical backyard, small building pad',                   val:'small'},
-      {ico:'🏗️', lbl:'Medium — 500m² to 5,000m²',sub:'Standard residential or small commercial site',         val:'medium'},
-      {ico:'🌾', lbl:'Large — over 5,000m²',     sub:'Subdivision, civil, major earthworks',                   val:'large'},
+      {ico:'🏠', lbl:'Small — under 500m²',      img:EM_IMGS.area_small,  sub:'Typical backyard, small building pad',                   val:'small'},
+      {ico:'🏗️', lbl:'Medium — 500m² to 5,000m²',img:EM_IMGS.area_medium, sub:'Standard residential or small commercial site',         val:'medium'},
+      {ico:'🌾', lbl:'Large — over 5,000m²',     img:EM_IMGS.area_large,  sub:'Subdivision, civil, major earthworks',                   val:'large'},
     ]
   },
 
@@ -24243,24 +33898,53 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'compact'},
     type:'options',
     options:[
-      {ico:'🌍', lbl:'Soil / earth / backfill',       sub:'Trenches, embankments, general earthworks',          val:'soil'},
-      {ico:'🪨', lbl:'Gravel / road base / crushed rock',sub:'Sub-base for roads, driveways, hardstand',        val:'gravel'},
-      {ico:'🛣️', lbl:'Asphalt / bitumen',              sub:'Road surfaces, car parks, pathways',                val:'asphalt'},
-      {ico:'🏗️', lbl:'Trench or tight area backfill',  sub:'Needs a narrow or remote-controlled machine',      val:'trench'},
+      {ico:'🌍', lbl:'Soil / earth / fill',             img:EM_IMGS.soil,     sub:'Earthworks, embankments, trenches, road subgrade',  val:'soil'},
+      {ico:'🪨', lbl:'Gravel / road base',               img:EM_IMGS.gravel,   sub:'Sub-base for roads, driveways, hardstand areas',   val:'gravel'},
+      {ico:'🛣️', lbl:'Asphalt / bitumen',               img:EM_IMGS.asphalt,  sub:'Road surfaces, car parks, pathways, driveways',    val:'asphalt'},
+      {ico:'🏗️', lbl:'Trench or tight area backfill',   img:EM_IMGS.trench,   sub:'Narrow access — needs a compact machine',          val:'trench'},
+      {ico:'🗑️', lbl:'Landfill / waste material',       img:EM_IMGS.landfill, sub:'Refuse, municipal waste, landfill operations',     val:'landfill'},
     ]
   },
 
-  // EM-Q6b: Compact — area size?
+  // EM-Q6b: Compact — soil scale (only shown when soil/fill is selected)
+  {
+    id:'em_compact_soil_scale', icon:'🏗️',
+    text:'What type of soil compaction job is it?',
+    hint:'This helps us match the right machine — a driveway backfill needs a small roller, a road embankment needs a heavy padfoot compactor.',
+    showIf:{key:'em_compact_surface', val:'soil'},
+    type:'options',
+    options:[
+      {ico:'🏠', lbl:'Backfill or small patch',   img:EM_IMGS.small_fill,   sub:'Trench backfill, garden bed, small building pad or around footings', val:'small_fill'},
+      {ico:'🏗️', lbl:'Subdivision or civil fill',  img:EM_IMGS.civil_fill,   sub:'Earthworks fill for houses, roads, drains or building pads',        val:'civil_fill'},
+      {ico:'🌾', lbl:'Major embankment or highway',img:EM_IMGS.major_civil,  sub:'Dam fill, road subgrade, airport, railway or large embankment',     val:'major_civil'},
+    ]
+  },
+
+  // EM-Q6b: Compact — area / project scale (not shown for landfill or soil — soil uses its own scale question above)
   {
     id:'em_compact_area', icon:'📐',
     text:'How large is the area to compact?',
     showIf:{key:'em_job', val:'compact'},
+    showIfNot:[{key:'em_compact_surface', val:'landfill'},{key:'em_compact_surface', val:'soil'}],
     type:'options',
     options:[
-      {ico:'🏠', lbl:'Very small — trench or tight spot', sub:'Walk-behind plate compactor',                    val:'tiny'},
-      {ico:'🏗️', lbl:'Small — under 500m²',               sub:'Pedestrian roller or plate compactor',           val:'small'},
-      {ico:'🏢', lbl:'Medium — 500m² to 2,000m²',         sub:'Ride-on roller or trench compactor',             val:'medium'},
-      {ico:'🌾', lbl:'Large — over 2,000m²',              sub:'Heavy ride-on roller, padfoot or smooth drum',   val:'large'},
+      {ico:'🏠', lbl:'Very small — trench or patch',    img:QUIZ_IMGS.compact_tiny,   sub:'Under 100m² or tight spot — walk-behind plate',    val:'tiny'},
+      {ico:'🏗️', lbl:'Small — under 500m²',             img:QUIZ_IMGS.compact_small,  sub:'Driveways, paths, small car parks',                val:'small'},
+      {ico:'🏢', lbl:'Medium — 500m² to 2,000m²',       img:QUIZ_IMGS.compact_medium, sub:'Parking lots, urban streets, medium road sections', val:'medium'},
+      {ico:'🌾', lbl:'Large — over 2,000m²',            img:QUIZ_IMGS.compact_large,  sub:'Major roads, subdivisions, large civil earthworks', val:'large'},
+    ]
+  },
+
+  // EM-Q6c: Compact — landfill scale (only shown for landfill)
+  {
+    id:'em_compact_landfill_scale', icon:'🗑️',
+    text:'How large is the landfill operation?',
+    hint:'This helps us match the right size machine — smaller sites need a lighter, more agile compactor, large sites need maximum compaction output.',
+    showIf:{key:'em_compact_surface', val:'landfill'},
+    type:'options',
+    options:[
+      {ico:'🏢', lbl:'Small to medium',  sub:'Transfer station, smaller council site, lower daily volume',  val:'small'},
+      {ico:'🏙️', lbl:'Large operation',  sub:'Major regional landfill, high daily throughput, continuous use', val:'large'},
     ]
   },
 
@@ -26150,18 +35834,156 @@ function matchEarthworks(ans) {
 
   // ── COMPACT ──────────────────────────────────────────────────────
   else if (job === 'compact') {
-    candidates = pool.filter(m => ['compactor','roller'].includes(m.type));
+    const surface      = ans.em_compact_surface       || '';
+    const area         = ans.em_compact_area          || '';
+    const landfillScale= ans.em_compact_landfill_scale|| '';
+    const soilScale    = ans.em_compact_soil_scale    || ''; // 'small_fill' | 'civil_fill' | 'major_civil'
+
+    // Include all compactor/roller subtypes — including padfoot_compactor and tandem_vibratory
+    candidates = pool.filter(m =>
+      ['compactor','roller'].includes(m.type) ||
+      (m.subtype && [
+        'utility_drum','utility_combo','soil_compactor',
+        'padfoot_compactor','tandem_vibratory',
+        'landfill_compactor','plate',
+      ].includes(m.subtype))
+    );
+
     candidates = candidates.map(m => {
       let s = 0;
-      if (compact === 'trench')   s += m.id.includes('plate')  ? 5 : 0;
-      if (compact === 'soil')     s += m.id.includes('padfoot') ? 5 : m.id.includes('pedestrian') ? 2 : 0;
-      if (compact === 'gravel')   s += m.id.includes('rideon')  ? 4 : m.id.includes('pedestrian') ? 3 : 0;
-      if (compact === 'asphalt')  s += m.id.includes('rideon')  ? 5 : m.id.includes('pedestrian') ? 2 : 0;
-      const areaStr = ans.em_compact_area || '';
-      if (areaStr === 'tiny')    s += m.id.includes('plate')      ? 5 : 0;
-      if (areaStr === 'small')   s += m.id.includes('pedestrian') ? 4 : m.id.includes('plate') ? 3 : 0;
-      if (areaStr === 'medium')  s += m.id.includes('rideon')     ? 3 : m.id.includes('pedestrian') ? 3 : 0;
-      if (areaStr === 'large')   s += m.id.includes('rideon')     ? 5 : m.id.includes('padfoot')    ? 4 : 0;
+
+      // ── LANDFILL ─────────────────────────────────────────
+      if (surface === 'landfill') {
+        if (m.subtype === 'landfill_compactor') s += 15;
+        else s -= 10; // nothing else belongs on a landfill
+        // Scale preference
+        if (landfillScale === 'large'  && m.id === 'cat-836') s += 6;
+        if (landfillScale === 'large'  && m.id === 'cat-826') s += 2;
+        if (landfillScale === 'small'  && m.id === 'cat-826') s += 6;
+        if (landfillScale === 'small'  && m.id === 'cat-836') s += 2;
+      }
+
+      // ── SOIL / EARTH / FILL ───────────────────────────────
+      else if (surface === 'soil') {
+        // Padfoot drum vibratory compactors — designed for cohesive soil (clay/silt/fill)
+        if (m.subtype === 'padfoot_compactor')   s += 12;
+        // Tamping-foot wheeled compactors — major civil earthworks only
+        if (m.subtype === 'soil_compactor')      s += 8;
+        // Landfill compactor = wrong machine for soil
+        if (m.subtype === 'landfill_compactor')  s -= 5;
+        // Tandem vibratory — can do soil but not ideal
+        if (m.subtype === 'tandem_vibratory')    s += 2;
+        // Utility rollers — suitable only for small soil jobs
+        if (m.subtype === 'utility_drum' || m.subtype === 'utility_combo') {
+          s += (area === 'tiny' || area === 'small') ? 3 : 1;
+        }
+        if (m.id === 'em-plate-compact')         s += (area === 'tiny') ? 5 : 1;
+        // Size the padfoot compactors by project scale
+        if (m.id === 'cat-cp13gc') {
+          if (area === 'medium') s += 6; // CP13 GC perfect for medium soil jobs
+          if (area === 'large')  s += 4;
+          if (area === 'small')  s += 2;
+          if (soilScale === 'civil_fill')  s += 6; // CP13 GC ideal for subdivision/civil fill
+          if (soilScale === 'major_civil') s += 3;
+          if (soilScale === 'small_fill')  s -= 3; // overkill for small backfill
+        }
+        if (m.id === 'cat-cp16') {
+          if (area === 'large')  s += 6; // CP16 for large civil: dams, airports, railways
+          if (area === 'medium') s += 3;
+          if (soilScale === 'major_civil') s += 8; // CP16 is designed for airport/dam/rail
+          if (soilScale === 'civil_fill')  s += 3;
+          if (soilScale === 'small_fill')  s -= 5; // far too big
+        }
+        // Size the tamping-foot soil compactors
+        if (m.subtype === 'soil_compactor') {
+          if (area === 'large')  s += 6;
+          if (area === 'medium') s += 3;
+          if (m.id === 'cat-825' && area === 'large')     s += 3;
+          if (m.id === 'cat-815' && area === 'medium')    s += 3;
+          if (soilScale === 'major_civil')                s += 5; // 815/825 = major civil machines
+          if (soilScale === 'small_fill')                 s -= 5; // way too big
+          if (soilScale === 'civil_fill' && m.id === 'cat-815') s += 2;
+        }
+        // Utility drums — good for small soil fill jobs
+        if ((m.subtype === 'utility_drum' || m.subtype === 'utility_combo') && soilScale === 'small_fill') s += 3;
+        if (m.id === 'em-plate-compact' && soilScale === 'small_fill') s += 3;
+      }
+
+      // ── GRAVEL / ROAD BASE ───────────────────────────────
+      else if (surface === 'gravel') {
+        if (m.subtype === 'utility_drum')        s += 7;
+        if (m.subtype === 'tandem_vibratory')    s += 5; // CB7 is good for road base
+        if (m.subtype === 'padfoot_compactor')   s += 3; // padfoot can do gravel but not ideal
+        if (m.subtype === 'soil_compactor')      s += (area === 'large') ? 5 : 2;
+        if (m.subtype === 'landfill_compactor')  s -= 5;
+        if (m.id === 'em-plate-compact')         s += (area === 'tiny') ? 5 : 1;
+        // Drum width preference by area
+        if (area === 'small'  && m.drumWidthMm && m.drumWidthMm <= 1200) s += 3;
+        if (area === 'medium' && m.drumWidthMm && m.drumWidthMm >= 1200) s += 3;
+        if (area === 'large'  && m.drumWidthMm && m.drumWidthMm >= 1300) s += 4;
+        if (area === 'large'  && m.subtype === 'soil_compactor')          s += 3;
+        if (area === 'large'  && m.id === 'cat-cb7')                      s += 3; // CB7 wide drum for large road base
+      }
+
+      // ── ASPHALT ──────────────────────────────────────────
+      else if (surface === 'asphalt') {
+        if (m.subtype === 'utility_drum')        s += 8;
+        if (m.subtype === 'utility_combo')       s += 9;  // combo = pneumatic rear tyre, ideal for asphalt finishing
+        if (m.subtype === 'tandem_vibratory')    s += 7;  // CB7 — good for medium/large asphalt
+        if (m.subtype === 'soil_compactor')      s -= 8;  // tamping foot DESTROYS asphalt — never
+        if (m.subtype === 'padfoot_compactor')   s -= 8;  // padfoot DESTROYS asphalt — never
+        if (m.subtype === 'landfill_compactor')  s -= 8;
+        if (m.id === 'em-plate-compact')         s += (area === 'tiny') ? 5 : 1;
+        // Drum width preference
+        if (area === 'small'  && m.drumWidthMm && m.drumWidthMm <= 1200) s += 3;
+        if (area === 'medium' && m.drumWidthMm && m.drumWidthMm >= 1200) s += 3;
+        if (area === 'large'  && m.drumWidthMm && m.drumWidthMm >= 1300) s += 4;
+        if (m.subtype === 'utility_combo') s += 3; // combo always gets extra bump for asphalt finishing
+        // CB7 bonus for large asphalt: wide 1500mm drum, high centrifugal force
+        if (m.id === 'cat-cb7') {
+          if (area === 'large')  s += 5;
+          if (area === 'medium') s += 3;
+        }
+      }
+
+      // ── TRENCH / TIGHT ACCESS ────────────────────────────
+      else if (surface === 'trench') {
+        if (m.id === 'em-plate-compact')                                                    s += 12;
+        if (m.id === 'cat-cb17')                                                            s += 8;  // 900mm drum — narrowest roller
+        if (m.id === 'cat-cb18')                                                            s += 6;  // 1000mm drum — also trench-capable
+        if (m.subtype === 'utility_drum' && m.drumWidthMm && m.drumWidthMm <= 1000)        s += 4;
+        if (m.subtype === 'utility_drum' && m.drumWidthMm && m.drumWidthMm <= 1200 && m.drumWidthMm > 1000) s += 2;
+        if (m.subtype === 'soil_compactor' || m.subtype === 'padfoot_compactor' || m.subtype === 'landfill_compactor') s -= 5;
+        if (m.subtype === 'tandem_vibratory') s -= 3; // too wide for trench
+      }
+
+      // ── AREA SIZING (applied across all surface types except landfill) ──
+      if (surface !== 'landfill') {
+        if (area === 'tiny') {
+          if (m.id === 'em-plate-compact')                       s += 5;
+          if (m.id === 'cat-cb17' || m.id === 'cat-cb18')        s += 4; // smallest rollers for tiny areas
+        }
+        if (area === 'small') {
+          if (m.id === 'cat-cb17' || m.id === 'cat-cb18')        s += 3; // still right size
+          if (m.id === 'cat-cb25gc' || m.id === 'cat-cb27gc')    s += 4;
+          if (m.subtype === 'soil_compactor' || m.subtype === 'padfoot_compactor') s -= 3; // overkill
+          if (m.id === 'cat-cb7')                                 s -= 2; // oversized for small
+        }
+        if (area === 'medium') {
+          if (m.id === 'cat-cb40' || m.id === 'cat-cb44' || m.id === 'cat-cc40') s += 4;
+          if (m.id === 'cat-cb27gc' || m.id === 'cat-cc27gc')    s += 2;
+          if (m.id === 'cat-cb7')                                 s += 3; // CB7 medium–large asphalt
+          if (m.id === 'cat-cp13gc')                              s += (surface === 'soil') ? 0 : 2; // soil scoring handled above
+        }
+        if (area === 'large') {
+          if (m.id === 'cat-cb44' || m.id === 'cat-cb40')        s += 3;
+          if (m.id === 'cat-cb7')                                 s += 4; // CB7 best for large asphalt/gravel
+          if (m.subtype === 'soil_compactor' || m.subtype === 'padfoot_compactor') s += 4;
+          if (m.id === 'em-plate-compact')                        s -= 5; // far too small
+          if (m.id === 'cat-cb17' || m.id === 'cat-cb18')        s -= 3; // too small for large area
+        }
+      }
+
       return { ...m, _score: s };
     }).sort((a,b) => b._score - a._score);
   }
@@ -26478,13 +36300,21 @@ function getAllQuestions() {
   const type = machineType || determineMachineType(answers);
   const specQs = type ? (SPEC_QS[type]||[]) : [];
   const base = [...GENERAL_QS, ...specQs];
-  // Filter by showIf
+  // Filter by showIf / showIfNot
   return base.filter(q => {
-    if (!q.showIf) return true;
-    const si = q.showIf;
-    const actual = answers[si.key];
-    if (si.vals) return si.vals.includes(actual);
-    return actual === si.val;
+    if (q.showIf) {
+      const si = q.showIf;
+      const actual = answers[si.key];
+      if (si.vals) { if (!si.vals.includes(actual)) return false; }
+      else { if (actual !== si.val) return false; }
+    }
+    if (q.showIfNot) {
+      const sn = q.showIfNot;
+      const actual = answers[sn.key];
+      if (sn.vals) { if (sn.vals.includes(actual)) return false; }
+      else { if (actual === sn.val) return false; }
+    }
+    return true;
   }).filter(q => {
     // Skip lifting_for if already answered (e.g. selected in photo modal)
     if (q.id === 'lifting_for' && answers.lifting_for) return false;
@@ -27130,7 +36960,7 @@ function renderStep() {
     html+=`<div class="opts-grid ${cols}" id="opts-grid">`;
     q.options.forEach(o=>{
       const sel = answers[q.id]===o.val ? ' selected':'';
-      const _imgHtml = o.img ? `<img src="${o.img}" alt="" style="width:100%;max-height:60px;object-fit:cover;border-radius:8px;margin:.35rem 0 .1rem;display:block" onerror="this.style.display='none'">` : '';
+      const _imgHtml = o.img ? `<img src="${o.img}" alt="" style="width:100%;max-height:90px;object-fit:cover;border-radius:8px;margin:.4rem 0 .15rem;display:block" onerror="this.style.display='none'">` : '';
       html+=`<button class="opt-btn${sel}" onclick="selectOpt('${q.id}','${o.val}',this)">
         <span class="opt-ico">${o.ico}</span>
         <div><div class="opt-lbl">${o.lbl}</div>${_imgHtml}${o.sub?`<div class="opt-sub">${o.sub}</div>`:''}</div>
@@ -28799,21 +38629,143 @@ function _renderCards(matches, machineType, answers) {
         }
         return cmBadge + chartHtml;
       })()}
-      ${m._isEarthworks ? `
-        <div style="margin:.5rem 0;display:flex;flex-wrap:wrap;gap:.35rem">
-          ${m.operatingWeightT ? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⚖️ ${m.operatingWeightT}t operating weight</span>` : ''}
-          ${m.digDepthM ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⛏️ ${m.digDepthM}m max dig depth</span>` : ''}
-          ${m.bucketCapM3 ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">🪣 ${m.bucketCapM3}m³ bucket</span>` : ''}
-          ${m.hireRateType === 'wet' ? `<span style="background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">👷 Wet hire only — operator included</span>`
-          : m.hireRateType === 'dry' ? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">🔑 Dry hire — machine only</span>`
-          : `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">✅ Wet or dry hire available</span>`}
-        </div>
-        <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:.5rem .75rem;font-size:.78rem;color:#92400E;margin:.4rem 0;line-height:1.55">
-          🚜 <strong>Earth Works quote:</strong> Rental companies quote a combined rate per hour or per day.
-          ${answers.em_hire_type === 'wet' ? 'Rate includes machine + operator. A mobilisation/demobilisation fee may apply.' : answers.em_hire_type === 'dry' ? 'Machine-only rate. Your operator must hold the appropriate ticket for this machine.' : 'Ask the rental company whether they include an operator in their rate.'}
-          A minimum call-out of 4 hours is standard.
-        </div>
-      ` : ''}
+      ${m._isEarthworks ? (() => {
+        // ── Hire type badge ──────────────────────────────────────────────
+        const hireBadge = m.hireRateType === 'wet'
+          ? `<span style="background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">👷 Wet hire only — operator included</span>`
+          : m.hireRateType === 'dry'
+          ? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">🔑 Dry hire — machine only</span>`
+          : `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">✅ Wet or dry hire available</span>`;
+
+        // ── Check if we have full brochure data ──────────────────────────
+        const hasFull = !!(m.engineModel || m.transportLengthStdMm || m.trackWidthRetractedMm);
+
+        if (!hasFull) {
+          // Simple display for generic "Various" machines
+          return `
+          <div style="margin:.5rem 0;display:flex;flex-wrap:wrap;gap:.35rem">
+            ${m.operatingWeightT ? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⚖️ ${m.operatingWeightT}t</span>` : ''}
+            ${m.digDepthM ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⛏️ ${m.digDepthM}m dig depth</span>` : ''}
+            ${m.bucketCapM3 ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">🪣 ${m.bucketCapM3}m³ bucket</span>` : ''}
+            ${hireBadge}
+          </div>
+          <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:.5rem .75rem;font-size:.78rem;color:#92400E;margin:.4rem 0;line-height:1.55">
+            🚜 <strong>Earth Works quote:</strong> Rental companies quote a combined rate per hour or per day. A minimum call-out of 4 hours is standard.
+          </div>`;
+        }
+
+        // ── Full brochure-data display ────────────────────────────────────
+        const fmt = (val, unit) => val ? `<strong>${val}</strong> ${unit}` : `<span style="color:#94A3B8">Confirm with rental company</span>`;
+        const fmtMm = (val) => val ? `<strong>${(val/1000).toFixed(2)}m</strong> (${val}mm)` : `<span style="color:#94A3B8">Confirm with rental company</span>`;
+
+        // Lift chart summary (max config, std stick, at ground level)
+        const liftChartHtml = (() => {
+          const chart = m.liftChartMax || m.liftChartMin;
+          if (!chart || !chart.stdStick) return '';
+          const rows = chart.stdStick.map(pt => `
+            <tr style="border-top:1px solid #E2E8F0">
+              <td style="padding:.25rem .5rem;font-size:.76rem;color:#475569">${pt.heightM}m</td>
+              <td style="padding:.25rem .5rem;font-size:.76rem;text-align:center">${pt.maxRadiusM}m</td>
+              <td style="padding:.25rem .5rem;font-size:.76rem;font-weight:700;text-align:center;color:#0052CC">${pt.overFrontBladeDownKg || pt.overFrontBladeUpKg || '—'} kg</td>
+              <td style="padding:.25rem .5rem;font-size:.76rem;text-align:center;color:#64748B">${pt.overSideBladeDownKg || pt.overSideBladeUpKg || '—'} kg</td>
+            </tr>`).join('');
+          return `
+          <div style="margin-top:.6rem">
+            <div style="font-size:.73rem;font-weight:800;color:#0F172A;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.4px">⚖️ Lift Capacity (${(m.liftChartMax ? 'Max config' : 'Min config')} — Standard Stick)</div>
+            <div style="font-size:.69rem;color:#64748B;margin-bottom:.3rem">${chart.note || ''}</div>
+            <table style="width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;border:1px solid #E2E8F0">
+              <thead><tr style="background:#F8FAFC">
+                <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">Height</th>
+                <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:center">Max Radius</th>
+                <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#0052CC;text-align:center">Over Front</th>
+                <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:center">Over Side</th>
+              </tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+            <div style="font-size:.68rem;color:#94A3B8;margin-top:.25rem">⚠️ Capacities shown without bucket. Deduct bucket weight from rated capacity. Confirm with rental company before any lift.</div>
+          </div>`;
+        })();
+
+        return `
+        <div style="margin:.5rem 0 0">
+          ${hireBadge}
+
+          <!-- TRANSPORT & ACCESS — most critical for customer site planning -->
+          <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.65rem .85rem;margin-top:.55rem">
+            <div style="font-size:.73rem;font-weight:800;color:#0F172A;margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.4px">🚛 Transport & Site Access</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem;font-size:.78rem">
+              <div><span style="color:#64748B">Transport length</span><br>${fmtMm(m.transportLengthStdMm)}</div>
+              <div><span style="color:#64748B">Transport height</span><br>${fmtMm(m.transportHeightMm)}</div>
+              <div><span style="color:#64748B">Track width — retracted</span><br>${fmtMm(m.trackWidthRetractedMm)} <span style="font-size:.7rem;color:#16A34A">✅ gate width</span></div>
+              <div><span style="color:#64748B">Track width — expanded</span><br>${fmtMm(m.trackWidthExpandedMm)}</div>
+              <div><span style="color:#64748B">Tail swing</span><br>${fmtMm(m.tailSwingMm)} <span style="font-size:.7rem;color:#16A34A">✅ near-zero</span></div>
+              <div><span style="color:#64748B">Ground clearance</span><br>${fmtMm(m.groundClearanceMm)}</div>
+            </div>
+          </div>
+
+          <!-- WORKING DIMENSIONS -->
+          <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.65rem .85rem;margin-top:.45rem">
+            <div style="font-size:.73rem;font-weight:800;color:#15803D;margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.4px">⛏️ Working Dimensions${m.longStickDigDepthMm ? ' — Standard Stick (long stick option available)' : ''}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem;font-size:.78rem">
+              <div><span style="color:#64748B">Max dig depth</span><br>${fmtMm(m.digDepthMm)}${m.longStickDigDepthMm ? `<br><span style="font-size:.71rem;color:#15803D">Long stick: ${(m.longStickDigDepthMm/1000).toFixed(2)}m</span>` : ''}</div>
+              <div><span style="color:#64748B">Max reach (ground level)</span><br>${fmtMm(m.maxReachGroundMm)}${m.longStickMaxReachGroundMm ? `<br><span style="font-size:.71rem;color:#15803D">Long stick: ${(m.longStickMaxReachGroundMm/1000).toFixed(2)}m</span>` : ''}</div>
+              <div><span style="color:#64748B">Max dump clearance</span><br>${fmtMm(m.maxDumpClearanceMm)}${m.longStickDumpClearanceMm ? `<br><span style="font-size:.71rem;color:#15803D">Long stick: ${(m.longStickDumpClearanceMm/1000).toFixed(2)}m</span>` : ''}</div>
+              <div><span style="color:#64748B">Max dig height</span><br>${fmtMm(m.maxDigHeightMm)}</div>
+              <div><span style="color:#64748B">Vertical wall depth</span><br>${fmtMm(m.verticalWallMm)}</div>
+              ${m.boomSwingRightDeg ? `<div><span style="color:#64748B">Boom swing</span><br><strong>${m.boomSwingRightDeg}° right / ${m.boomSwingLeftDeg}° left</strong></div>` : ''}
+            </div>
+          </div>
+
+          <!-- WEIGHT & GROUND PRESSURE -->
+          <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.65rem .85rem;margin-top:.45rem">
+            <div style="font-size:.73rem;font-weight:800;color:#1E40AF;margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.4px">⚖️ Weight & Ground Pressure</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem;font-size:.78rem">
+              <div><span style="color:#64748B">Operating weight (min)</span><br><strong>${m.operatingWeightMinKg ? m.operatingWeightMinKg.toLocaleString() + ' kg' : 'N/A'}</strong><br><span style="font-size:.7rem;color:#64748B">rubber tracks, fixed u/c</span></div>
+              <div><span style="color:#64748B">Operating weight (max)</span><br><strong>${m.operatingWeightMaxKg ? m.operatingWeightMaxKg.toLocaleString() + ' kg' : 'N/A'}</strong><br><span style="font-size:.7rem;color:#64748B">steel tracks, expandable u/c</span></div>
+              <div><span style="color:#64748B">Ground pressure (min)</span><br><strong>${m.groundPressureMinKPa ? m.groundPressureMinKPa + ' kPa' : 'Confirm with rental company'}</strong></div>
+              <div><span style="color:#64748B">Ground pressure (max)</span><br><strong>${m.groundPressureMaxKPa ? m.groundPressureMaxKPa + ' kPa' : 'Confirm with rental company'}</strong></div>
+              ${m.gradeabilityDeg ? `<div><span style="color:#64748B">Max gradeability</span><br><strong>${m.gradeabilityDeg}°</strong></div>` : ''}
+              ${m.travelSpeedHighKmh ? `<div><span style="color:#64748B">Travel speed</span><br><strong>${m.travelSpeedLowKmh} – ${m.travelSpeedHighKmh} km/h</strong></div>` : ''}
+            </div>
+          </div>
+
+          <!-- BLADE -->
+          ${m.bladeWidthMm ? `
+          <div style="background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:10px;padding:.65rem .85rem;margin-top:.45rem">
+            <div style="font-size:.73rem;font-weight:800;color:#92400E;margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.4px">🪛 Dozer Blade</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem;font-size:.78rem">
+              <div><span style="color:#64748B">Blade width</span><br>${fmtMm(m.bladeWidthMm)}${m.bladeWidthExpandedMm ? `<br><span style="font-size:.71rem;color:#92400E">Expanded: ${(m.bladeWidthExpandedMm/1000).toFixed(2)}m</span>` : ''}</div>
+              <div><span style="color:#64748B">Blade height</span><br>${fmtMm(m.bladeHeightMm)}</div>
+              ${m.bladeDepthMaxMm ? `<div><span style="color:#64748B">Max blade depth</span><br>${fmtMm(m.bladeDepthMaxMm)}</div>` : ''}
+              ${m.bladeHeightMaxMm ? `<div><span style="color:#64748B">Max blade height</span><br>${fmtMm(m.bladeHeightMaxMm)}</div>` : ''}
+            </div>
+          </div>` : ''}
+
+          <!-- ENGINE -->
+          <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.65rem .85rem;margin-top:.45rem">
+            <div style="font-size:.73rem;font-weight:800;color:#334155;margin-bottom:.45rem;text-transform:uppercase;letter-spacing:.4px">⚙️ Engine</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem .8rem;font-size:.78rem">
+              ${m.engineModel ? `<div><span style="color:#64748B">Engine model</span><br><strong>${m.engineModel}</strong></div>` : ''}
+              ${m.engineNetKW ? `<div><span style="color:#64748B">Net power</span><br><strong>${m.engineNetKW} kW / ${m.engineNetHP} hp</strong></div>` : ''}
+              ${m.emissionStandard ? `<div style="grid-column:span 2"><span style="color:#64748B">Emissions</span><br><strong>${m.emissionStandard}</strong></div>` : ''}
+              ${m.digForceStickStdKN ? `<div><span style="color:#64748B">Digging force (stick)</span><br><strong>${m.digForceStickStdKN} kN</strong></div>` : ''}
+              ${m.digForceBucketKN ? `<div><span style="color:#64748B">Digging force (bucket)</span><br><strong>${m.digForceBucketKN} kN</strong></div>` : ''}
+            </div>
+          </div>
+
+          <!-- LIFT CHART -->
+          ${liftChartHtml}
+
+          <!-- BROCHURE SOURCE -->
+          ${m.brochureRef ? `<div style="font-size:.69rem;color:#94A3B8;margin-top:.5rem;text-align:right">📋 Source: ${m.brand} Brochure ${m.brochureRef}</div>` : ''}
+
+          <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:.5rem .75rem;font-size:.78rem;color:#92400E;margin:.5rem 0 0;line-height:1.55">
+            🚜 <strong>Earth Works quote:</strong> Rental companies quote per hour or per day.
+            ${answers.em_hire_type === 'wet' ? 'Rate includes machine + operator. A mobilisation/demobilisation fee may apply.' : answers.em_hire_type === 'dry' ? 'Machine-only rate. Your operator must hold the appropriate licence for this machine.' : 'Ask the rental company whether they include an operator in their rate.'}
+            Minimum 4-hour call-out is standard.
+          </div>
+        </div>`;
+      })() : ''}
       <div class="rec-tags">${m.tags.map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
         ${(!currentUser || (currentUser.role !== 'rental' && currentUser.role !== 'lite')) ? `
@@ -29603,6 +39555,7 @@ function renderCartItems() {
       jr.cartDistance      && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🚛 ${jr.cartDistance}</span>`,
       jr.cartVolume        && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">📊 Volume: ${jr.cartVolume}</span>`,
       jr.compactSurface    && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🔄 Surface: ${jr.compactSurface}</span>`,
+      jr.landfillScale     && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🗑️ ${jr.landfillScale}</span>`,
       jr.hireArrangement   && jr._isEarthworks && `<span class="cart-req-pill" style="background:#F0FDF4;border-color:#86EFAC;color:#166534">👷 ${jr.hireArrangement}</span>`,
       jr.earthworksAttachment && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🔩 ${jr.earthworksAttachment}</span>`,
     ].filter(Boolean).join('');
@@ -30037,8 +39990,9 @@ function getJobRequirements() {
     const emVolMap = { small:'Small (under 10 loads)', medium:'Medium (10–50 loads)', large:'Large (50+ loads / ongoing)' };
     if (a.em_cart_volume) req.cartVolume = emVolMap[a.em_cart_volume] || a.em_cart_volume;
 
-    const emCompMap = { soil:'Soil / earth / backfill', gravel:'Gravel / road base', asphalt:'Asphalt / bitumen', trench:'Trench or tight area' };
+    const emCompMap = { soil:'Soil / earth / fill', gravel:'Gravel / road base', asphalt:'Asphalt / bitumen', trench:'Trench / tight access', landfill:'Landfill / waste material' };
     if (a.em_compact_surface) req.compactSurface = emCompMap[a.em_compact_surface] || a.em_compact_surface;
+    if (a.em_compact_landfill_scale) req.landfillScale = a.em_compact_landfill_scale === 'large' ? 'Large operation (major regional landfill)' : 'Small to medium operation (transfer station / smaller site)';
 
     const emWaterMap = { small:'Small site (under 1ha)', medium:'Medium (1–5ha)', large:'Large (over 5ha / ongoing)' };
     if (a.em_water_area) req.waterArea = emWaterMap[a.em_water_area] || a.em_water_area;
@@ -34003,6 +43957,7 @@ function declineQuote(reqId) {
 // =====================================================================
 var _kymCat = '';         // active category filter key
 var _kymQuery = '';       // active search query
+var _kymBrand = '';       // active brand filter (dozer subcategory)
 
 var KYM_CAT_META = {
   forklift:    { label:'Forklifts',           emoji:'🍴' },
@@ -34013,7 +43968,16 @@ var KYM_CAT_META = {
   pushAround:   { label:'Push-Around Lifts Manlift Man-Lift AWP Vertical Mast', emoji:'🧍' },
   verticalMast: { label:'Vertical Mast Lift Self-Propelled Manlift', emoji:'🏢' },
   palletJack:  { label:'Pallet Jacks',         emoji:'🔄' },
+  dozer:       { label:'Dozers Bulldozers Track-Type Tractors', emoji:'🏔️' },
 };
+
+// ── Dozer brand registry — drives brand filter pills in KYM ────────────
+const DOZER_BRANDS = [
+  { key:'Caterpillar', label:'Caterpillar (CAT)', color:'#FFBE00', textColor:'#1C1C1C' },
+  { key:'Komatsu',     label:'Komatsu',           color:'#003087', textColor:'#fff'    },
+  { key:'John Deere',  label:'John Deere',         color:'#367C2B', textColor:'#fff'    },
+  { key:'Liebherr',    label:'Liebherr',            color:'#FFD700', textColor:'#1C1C1C' },
+];
 
 function kymOpen() {
   showView('know');
@@ -34048,8 +44012,14 @@ function kymSearch2() {
   kymRender();
 }
 
+function kymSetBrand(brand) {
+  _kymBrand = (_kymBrand === brand) ? '' : brand; // toggle
+  kymRender();
+}
+
 function kymSetCat2(cat, btn) {
   _kymCat = cat;
+  _kymBrand = ''; // reset brand filter on category switch
   document.querySelectorAll('.kym-chip').forEach(c => c.classList.remove('active'));
   if (btn) btn.classList.add('active');
   kymRender();
@@ -34057,6 +44027,7 @@ function kymSetCat2(cat, btn) {
 
 function kymSetCat(cat, btn) {
   _kymCat = cat;
+  _kymBrand = ''; // reset brand filter on category switch
   document.querySelectorAll('.kym-chip').forEach(c => c.classList.remove('active'));
   if (btn) btn.classList.add('active');
   kymRender();
@@ -34188,6 +44159,38 @@ function kymSearch() {
 // Synonym map — any of these words in the query get expanded so the bag matches
 // Map synonym keys → which catKeys they indicate
 var KYM_CAT_SYNONYMS = {
+  // ── Dozers / Bulldozers ───────────────────────────────────────────────
+  dozer:                   ['dozer'],
+  dozers:                  ['dozer'],
+  bulldozer:               ['dozer'],
+  bulldozers:              ['dozer'],
+  'track type tractor':    ['dozer'],
+  'track-type tractor':    ['dozer'],
+  'track tractor':         ['dozer'],
+  'cat d':                 ['dozer'],
+  'd1':                    ['dozer'],
+  'd2':                    ['dozer'],
+  'd3':                    ['dozer'],
+  'd4':                    ['dozer'],
+  'd5':                    ['dozer'],
+  'd5k2':                  ['dozer'],
+  'd6':                    ['dozer'],
+  'd6r2':                  ['dozer'],
+  'd8':                    ['dozer'],
+  'caterpillar dozer':     ['dozer'],
+  'cat dozer':             ['dozer'],
+  'komatsu dozer':         ['dozer'],
+  'john deere dozer':      ['dozer'],
+  'liebherr dozer':        ['dozer'],
+  'push dozer':            ['dozer'],
+  'blade dozer':           ['dozer'],
+  'clearing dozer':        ['dozer'],
+  'grading dozer':         ['dozer'],
+  'earthworks dozer':      ['dozer'],
+  'site clearing':         ['dozer'],
+  'bulk push':             ['dozer'],
+  'vpat':                  ['dozer'],
+  'hydrostatic dozer':     ['dozer'],
   // ── Push-around ──────────────────────────────────────────────────────────
   awp:                   ['pushAround'],
   'push around':         ['pushAround'],
@@ -34452,10 +44455,47 @@ function kymRender() {
     const arr = MACHINES[catKey] || [];
     arr.forEach(m => {
       if (kymMatchesQuery(m, catKey, _kymQuery)) {
+        // Apply brand filter when active (dozer subcategory)
+        if (_kymBrand && m.brand !== _kymBrand) return;
         results.push({ m, catKey });
       }
     });
   });
+
+  // ── Brand filter pill row — shown when Dozers category is active ──────
+  const brandRowId = 'kym-brand-filter-row';
+  let existingBrandRow = document.getElementById(brandRowId);
+  if (existingBrandRow) existingBrandRow.remove();
+  if (_kymCat === 'dozer' && grid) {
+    const brandRow = document.createElement('div');
+    brandRow.id = brandRowId;
+    brandRow.style.cssText = 'display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:1rem;padding:.75rem 1rem;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:12px';
+    const brandPills = DOZER_BRANDS.map(b => {
+      const isActive = _kymBrand === b.key;
+      return `<button
+        onclick="kymSetBrand('${b.key}')"
+        style="
+          background:${isActive ? b.color : '#fff'};
+          color:${isActive ? b.textColor : '#374151'};
+          border:2px solid ${b.color};
+          border-radius:50px;
+          padding:.3rem .9rem;
+          font-family:'Nunito',sans-serif;
+          font-weight:${isActive ? '800' : '600'};
+          font-size:.82rem;
+          cursor:pointer;
+          transition:all .15s;
+          ${isActive ? 'box-shadow:0 2px 8px rgba(0,0,0,.18)' : ''}
+        "
+      >${b.label}</button>`;
+    }).join('');
+    brandRow.innerHTML = `
+      <span style="font-size:.8rem;font-weight:700;color:#92400E;white-space:nowrap">🏷️ Brand:</span>
+      ${brandPills}
+      ${_kymBrand ? `<button onclick="kymSetBrand('')" style="background:transparent;border:none;color:#6B7280;font-size:.8rem;cursor:pointer;margin-left:.2rem;text-decoration:underline">Clear</button>` : ''}
+    `;
+    grid.parentNode.insertBefore(brandRow, grid);
+  }
 
   // Update count label — show corrected query in count
   if (count) {
@@ -34536,6 +44576,20 @@ function kymRender() {
     if (m.platformHeight)  specs.push(`<span>📏 ${m.platformHeight}m platform</span>`);
     if (m.workingHeight)   {} // working height not displayed — platform height only
     if (m.power)           specs.push(`<span>⚡ ${m.power}</span>`);
+
+    // ── Dozer-specific spec pills ─────────────────────────────────
+    if (catKey === 'dozer') {
+      if (m.operatingWeightT)  specs.push(`<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;padding:.15rem .5rem;font-weight:700">⚖️ ${m.operatingWeightT}t</span>`);
+      if (m.engineNetKW && m.engineNetHP) specs.push(`<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;padding:.15rem .5rem;font-weight:700">⚡ ${m.engineNetKW}kW / ${m.engineNetHP}hp</span>`);
+      if (m.engineModel)       specs.push(`<span style="background:#F8FAFC;color:#475569;border:1px solid #E2E8F0;border-radius:6px;padding:.15rem .5rem;font-weight:600">🔧 ${m.engineModel}</span>`);
+      const _pw = (m.powertrain||'').split(' ').slice(0,2).join(' ');
+      if (_pw)                 specs.push(`<span style="background:#F8FAFC;color:#475569;border:1px solid #E2E8F0;border-radius:6px;padding:.15rem .5rem;font-weight:600">⚙️ ${_pw}</span>`);
+      if (m.groundPressureKPa) specs.push(`<span style="background:#F0FDF4;color:#166534;border:1px solid #86EFAC;border-radius:6px;padding:.15rem .5rem;font-weight:700">🌍 ${m.groundPressureKPa} kPa</span>`);
+      const _blades = m.blades && m.blades.length ? m.blades : [];
+      const _bestBlade = _blades.reduce((a,b) => ((b.capacityM3||0) > (a.capacityM3||0) ? b : a), _blades[0] || {});
+      if (_bestBlade && _bestBlade.capacityM3) specs.push(`<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #93C5FD;border-radius:6px;padding:.15rem .5rem;font-weight:700">🪣 ${_bestBlade.capacityM3}m³ blade</span>`);
+      if (m.fuelTankL)         specs.push(`<span style="background:#F8FAFC;color:#475569;border:1px solid #E2E8F0;border-radius:6px;padding:.15rem .5rem;font-weight:600">⛽ ${m.fuelTankL}L tank</span>`);
+    }
     if (m.terrain)         specs.push(`<span>🌍 ${m.terrain}</span>`);
 
     // ── Machine dimensions row ───────────────────────────────────
@@ -34595,6 +44649,26 @@ function kymRender() {
           <div style="font-size:.75rem;font-weight:800;color:#B45309;margin-bottom:.4rem">🔧 Boom Lift Options</div>
           <div style="display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.8rem;color:#334155">${opts}</div>
         </div>`;
+    }
+
+    else if (catKey === 'dozer') {
+      // ── Dozer attachments / configuration options ──────────────
+      const _dAttach = (m.attachmentsAvailable || []).slice(0, 6);
+      if (_dAttach.length) {
+        const _opts = _dAttach.map(a => {
+          const _aLabel = a.split('(')[0].trim();
+          return `<label style="display:flex;align-items:center;gap:.3rem;cursor:pointer"><input type="checkbox" data-mid="${m.id}" data-opt="attachment" value="${_aLabel}" style="accent-color:#D97706"> ${_aLabel}</label>`;
+        }).join('');
+        attachHtml = `
+          <div style="border-top:1px solid #FDE68A;padding-top:.65rem;margin-top:.4rem;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-radius:0 0 10px 10px;margin-left:-.7rem;margin-right:-.7rem;padding:.65rem .8rem .5rem">
+            <div style="font-size:.75rem;font-weight:800;color:#B45309;margin-bottom:.45rem">🔩 Configuration / Attachments</div>
+            <div style="display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.79rem;color:#334155">${_opts}</div>
+          </div>`;
+      }
+      // Brochure ref badge
+      if (m.brochureRef) {
+        attachHtml += `<div style="margin-top:.4rem;font-size:.68rem;color:#9CA3AF;font-style:italic">📄 Source: ${m.brochureRef}</div>`;
+      }
     }
 
     return `<div class="kym-result-card" id="${cardId}">
@@ -36284,17 +46358,94 @@ var currentUser = null;
 
 // Credentials
 var RENTAL_CREDS = [
-  {email:'staff@noyo.com.au',   pass:'Noyo2026!', name:'Staff User', role:'rental'},
-  {email:'admin@noyo.com.au',   pass:'a', name:'Admin',      role:'admin'},
-  {email:'manager@noyo.com.au', pass:'a', name:'Manager',    role:'admin'},
-  {email:'sydney1@noyo.com.au',   pass:'a', name:'Sarah',      role:'rental'},
-  {email:'sydney2@noyo.com.au',  pass:'a', name:'Marcus',     role:'rental'},
-  {email:'sydney3@noyo.com.au',   pass:'a', name:'Helen',      role:'rental'},
-  {email:'scustomer1@noyo.com.au', pass:'a', name:'Customer 1',  role:'customer'},
-  {email:'scustomer2@noyo.com.au', pass:'a', name:'Customer 2',  role:'customer'},
-  {email:'scustomer3@noyo.com.au', pass:'a', name:'Customer 3',  role:'customer'},
-  {email:'assik@noyo.com.au',      pass:'a', name:'Assik',       role:'customer'},
+  {email:'staff@noyo.com.au',      pass:'Noyo2026!', name:'Staff User', role:'rental'},
+  {email:'admin@noyo.com.au',      pass:'Noyo2026!', name:'Admin',      role:'admin'},
+  {email:'manager@noyo.com.au',    pass:'Noyo2026!', name:'Manager',    role:'admin'},
+  {email:'sydney1@noyo.com.au',    pass:'Noyo2026!', name:'Sarah',      role:'rental'},
+  {email:'sydney2@noyo.com.au',    pass:'Noyo2026!', name:'Marcus',     role:'rental'},
+  {email:'sydney3@noyo.com.au',    pass:'Noyo2026!', name:'Helen',      role:'rental'},
+  {email:'scustomer1@noyo.com.au', pass:'Noyo2026!', name:'Customer 1', role:'customer'},
+  {email:'scustomer2@noyo.com.au', pass:'Noyo2026!', name:'Customer 2', role:'customer'},
+  {email:'scustomer3@noyo.com.au', pass:'Noyo2026!', name:'Customer 3', role:'customer'},
+  {email:'assik@noyo.com.au',      pass:'Noyo2026!', name:'Assik',      role:'customer'},
 ];
+
+// ── FORGOT PASSWORD ─────────────────────────────────────────────────────────
+function showForgotPassword() {
+  const overlay = document.getElementById('forgot-pw-overlay');
+  if (!overlay) return;
+  // Pre-fill email from login form if already typed
+  const emailEl = document.getElementById('lp-email');
+  const fpEmail = document.getElementById('forgot-pw-email');
+  if (fpEmail && emailEl && emailEl.value) fpEmail.value = emailEl.value;
+  // Reset message
+  const msg = document.getElementById('forgot-pw-msg');
+  if (msg) { msg.style.display = 'none'; msg.innerHTML = ''; }
+  overlay.style.display = 'flex';
+  setTimeout(() => { if (fpEmail) fpEmail.focus(); }, 100);
+}
+
+function closeForgotPassword() {
+  const overlay = document.getElementById('forgot-pw-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+async function sendPasswordReset() {
+  const emailEl = document.getElementById('forgot-pw-email');
+  const msg     = document.getElementById('forgot-pw-msg');
+  const email   = (emailEl?.value || '').trim().toLowerCase();
+
+  if (!email) {
+    if (msg) {
+      msg.style.display = 'block';
+      msg.innerHTML = '<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:8px;padding:.55rem .8rem;font-size:.82rem;color:#DC2626;font-weight:700">⚠️ Please enter your email address.</div>';
+    }
+    return;
+  }
+
+  // Disable button during send
+  const btn = document.querySelector('#forgot-pw-overlay button');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  try {
+    // Firebase sends the reset link to the user's registered email address
+    await _fbAuth.sendPasswordResetEmail(email, {
+      url: window.location.origin + window.location.pathname, // redirect back to Noyo after reset
+      handleCodeInApp: false
+    });
+
+    if (msg) {
+      msg.style.display = 'block';
+      msg.innerHTML = `
+        <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.7rem .9rem;font-size:.84rem;color:#15803D;font-weight:700;line-height:1.5">
+          ✅ Reset link sent to <strong>${email}</strong><br>
+          <span style="font-weight:400;font-size:.8rem">Check your inbox (and spam folder). The link expires in 1 hour.<br>Click it and you'll be taken to a page where you can set a new password.</span>
+        </div>`;
+    }
+    // Auto-close after 5 seconds
+    setTimeout(() => closeForgotPassword(), 5000);
+
+  } catch(err) {
+    let errMsg = 'Something went wrong. Please try again.';
+    if (err.code === 'auth/user-not-found')   errMsg = 'No account found with that email address.';
+    if (err.code === 'auth/invalid-email')     errMsg = 'Please enter a valid email address.';
+    if (err.code === 'auth/too-many-requests') errMsg = 'Too many attempts. Please wait a few minutes and try again.';
+    if (msg) {
+      msg.style.display = 'block';
+      msg.innerHTML = `<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:8px;padding:.55rem .8rem;font-size:.82rem;color:#DC2626;font-weight:700">⚠️ ${errMsg}</div>`;
+    }
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '📧 Send Reset Link'; }
+  }
+}
+
+// Close forgot password overlay when clicking outside
+document.addEventListener('click', function(e) {
+  const overlay = document.getElementById('forgot-pw-overlay');
+  if (overlay && overlay.style.display === 'flex' && e.target === overlay) {
+    closeForgotPassword();
+  }
+});
 
 function shake() {
   const wrap = document.getElementById('lp-form-wrap');
