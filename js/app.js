@@ -45137,6 +45137,11 @@ function showResults() {
       swl: swlVal !== '—' ? swlVal + 'kg' : '—',
       height: htVal !== '—' ? htVal + 'm' : '—', city: cityVal
     });
+    // Daily aggregate tracking — feeds the analytics dashboard
+    const _trackFields = { searches: 1 };
+    if (machineType) _trackFields[`categories.${machineType}`] = 1;
+    if (cityVal && cityVal !== '—') _trackFields[`cities.${cityVal.replace(/[.\/\[\]]/g,'_')}`] = 1;
+    _noyoTrack(_trackFields);
   } catch(e) {}
 
 
@@ -45457,6 +45462,14 @@ function showResults() {
   _updateSortUI();
   _renderCards(matches, machineType, answers);
   showResultDisclaimer();
+
+  // Track top machines shown in results
+  try {
+    const _topIds = matches.slice(0,5).map(m => m.id).filter(Boolean);
+    const _machFields = {};
+    _topIds.forEach(id => { _machFields[`machines.${id.replace(/[.\/\[\]]/g,'_')}.views`] = 1; });
+    if (Object.keys(_machFields).length) _noyoTrack(_machFields);
+  } catch(e) {}
 }
 
 function _renderCards(matches, machineType, answers) {
@@ -45470,48 +45483,57 @@ function _renderCards(matches, machineType, answers) {
   const _catKey         = _resultCatKey(machineType, _firstMachine);
   const _sponsoredForCat = _getSponsoredForCategory(_catKey);
 
-  _sponsoredForCat.forEach(ad => {
+    _sponsoredForCat.forEach((ad, _spIdx) => {
     const spMachine = ALL_MACHINES.find(m => m.id === ad.machineId);
     if (!spMachine) return;
+
     const spCard = document.createElement('div');
     spCard.className = 'rec-card sponsored-card';
+    spCard.style.cssText = 'border:2.5px solid #F59E0B;box-shadow:0 4px 20px rgba(245,158,11,.18)';
+    // Track impression — fire-and-forget
+    _trackSpnImpression(ad.id);
     const spPhoto = getMachinePhoto(spMachine, machineType);
+    const daysLeft = _spnDaysRemaining(ad.endDate);
+    const daysStr  = daysLeft !== null && daysLeft > 0 && daysLeft <= 7 ? ` · ${daysLeft}d left` : '';
+
     spCard.innerHTML = `
-      <div style="background:linear-gradient(90deg,#FEF9C3,#FFFBEB);border-bottom:2px solid #FCD34D;padding:.35rem 1rem;display:flex;align-items:center;gap:.5rem;border-radius:14px 14px 0 0;margin:-0px">
-        <span style="font-size:.85rem">⭐</span>
-        <span style="font-size:.74rem;font-weight:900;color:#92400E;letter-spacing:.04em;text-transform:uppercase">Sponsored</span>
-        ${ad.note ? `<span style="font-size:.72rem;color:#B45309;margin-left:auto;font-style:italic">${ad.note}</span>` : ''}
+      <div style="background:linear-gradient(90deg,#F59E0B,#D97706);padding:.42rem 1rem;display:flex;align-items:center;justify-content:space-between;border-radius:11px 11px 0 0">
+        <div style="display:flex;align-items:center;gap:.45rem">
+          <span style="font-size:.9rem">⭐</span>
+          <span style="font-size:.77rem;font-weight:900;color:#fff;letter-spacing:.06em;text-transform:uppercase">Sponsored</span>
+          ${ad.note ? `<span style="font-size:.71rem;color:rgba(255,255,255,.85);margin-left:.2rem;font-style:italic">· ${ad.note}</span>` : ''}
+        </div>
+        <span style="font-size:.69rem;color:rgba(255,255,255,.85);font-weight:700">${ad.sponsorCompany || ad.brand || 'Brand Partner'}${daysStr}</span>
       </div>
       <div class="rec-photo-wrap">
         <img class="rec-photo" src="${spPhoto}" alt="${spMachine.name}" loading="lazy"
           onerror="this.onerror=null;this.style.cssText='background:linear-gradient(135deg,#001133,#0052CC);display:block';this.src=''">
       </div>
-      <div style="padding:1.2rem 1.4rem 0">
+      <div style="padding:1.1rem 1.4rem 0">
         <div class="rec-top">
           <div class="rec-emoji">${spMachine.emoji}</div>
           <div class="rec-title-wrap">
             <div class="rec-brand">${spMachine.brand}</div>
             <div class="rec-name">${ad.label || spMachine.name}</div>
-            <span class="badge-best" style="background:linear-gradient(135deg,#FEF9C3,#FEF3C7);color:#92400E;border:1.5px solid #FCD34D">⭐ Sponsored</span>
+            <div style="display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.25rem">
+              <span style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;border:1.5px solid #F59E0B;border-radius:20px;font-size:.7rem;font-weight:900;padding:.1rem .5rem;letter-spacing:.03em">⭐ SPONSORED</span>
+              <span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">🏭 Official Brand Partner</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div style="padding:.5rem 1.4rem 1rem;font-size:.83rem;color:#475569;line-height:1.6">
-        ${spMachine.bestFor ? `<div style="margin-bottom:.4rem">✅ ${spMachine.bestFor}</div>` : ''}
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.3rem">
-          ${spMachine.capacity ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">⚖️ ${spMachine.capacity}T</span>` : ''}
-          ${spMachine.liftHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">📏 ${spMachine.liftHeight}m lift</span>` : ''}
-          ${spMachine.platformHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">📏 ${spMachine.platformHeight}m platform</span>` : ''}
-          ${spMachine.swl ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">👷 ${spMachine.swl}kg SWL</span>` : ''}
-          ${spMachine.maxReach ? `<span style="background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.15rem .5rem">↔️ ${spMachine.maxReach}m reach</span>` : ''}
+        <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin:.55rem 0">
+          ${spMachine.capacity        ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">⚖️ ${spMachine.capacity}T</span>` : ''}
+          ${spMachine.liftHeight      ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.liftHeight}m lift</span>` : ''}
+          ${spMachine.platformHeight && !spMachine.liftHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.platformHeight}m</span>` : ''}
+          ${spMachine.maxReach        ? `<span style="background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">↔️ ${spMachine.maxReach}m reach</span>` : ''}
+          ${spMachine.swl             ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">👷 ${spMachine.swl}kg SWL</span>` : ''}
+          ${spMachine.operatingWeightT? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">⚖️ ${spMachine.operatingWeightT}t</span>` : ''}
         </div>
-        <div style="margin-top:.7rem;display:flex;gap:.5rem;flex-wrap:wrap">
-          <button onclick="requestQuote('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\\'")}')"
-            style="flex:1;min-width:120px;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.55rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
-            ⭐ Get Quote →
-          </button>
-          <button onclick="addToCartDirect('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\\'")}')"
-            style="flex:1;min-width:120px;background:#fff;border:1.5px solid #FCD34D;color:#92400E;border-radius:10px;padding:.55rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
+        ${spMachine.bestFor ? `<div style="font-size:.8rem;color:#475569;line-height:1.5;margin-bottom:.5rem;background:#FFFBEB;border-left:3px solid #F59E0B;padding:.3rem .55rem;border-radius:0 6px 6px 0">✅ ${spMachine.bestFor}</div>` : ''}
+        <div style="font-size:.68rem;color:#94A3B8;margin-bottom:.5rem">ℹ️ Paid brand sponsorship. ${ad.sponsorCompany ? ad.sponsorCompany + ' is an official brand partner.' : 'Sponsored by the machine manufacturer.'} Organic results appear below.</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;padding-bottom:1rem">
+          <button onclick="_trackSpnClick(ad.id);addToCartDirect('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\'")}')"
+            style="flex:1;min-width:130px;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
             🛒 Add to Cart
           </button>
         </div>
@@ -50915,6 +50937,7 @@ function _renderPlanBanner() {
   const extraCost = cfg.extraPrice;
 
   el.style.display = 'block';
+
   el.innerHTML = `
     <div style="background:${cfg.badge};border:1.5px solid ${urgent?'#FCA5A5':'#E2E8F0'};border-radius:12px;padding:.8rem 1.1rem;margin-bottom:.8rem">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
@@ -52808,6 +52831,15 @@ function addToCartDirect(machineId, machineName) {
   saveCartToStorage();
   updateCartUI();
   showToast(`🛒 ${machineName} added to cart`,'#0052CC');
+  // Track cart add
+  try {
+    const _cFields = { cartAdds: 1 };
+    if (machineType) _cFields[`categories.${machineType}`] = 0; // already counted in search
+    const _safeId = machineId.replace(/[.\/\[\]]/g,'_');
+    _cFields[`machines.${_safeId}.cartAdds`] = 1;
+    _noyoTrack(_cFields);
+    if (window._lastSearchId) adminTrackCartAdd(window._lastSearchId, machineName);
+  } catch(e) {}
 }
 
 // ── Timer refresh ────────────────────────────────────────────
@@ -55370,6 +55402,44 @@ function adminTrackLogout(user) {
   }
 }
 
+// ══════════════════════════════════════════════════════════════════
+// NOYO ANALYTICS — daily aggregate tracker
+// Writes to analytics_daily/{YYYY-MM-DD} with atomic increments
+// One doc per day, fast to query for dashboard ranges
+// ══════════════════════════════════════════════════════════════════
+var _dailyFlushQueue = {};   // { date: { field: incrementBy } }
+var _dailyFlushTimer = null;
+
+function _noyoTrack(fields) {
+  // fields: flat object of dotted paths → increment value
+  // e.g. { searches: 1, 'categories.telehandler': 1, 'cities.Brisbane': 1 }
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  if (!_dailyFlushQueue[today]) _dailyFlushQueue[today] = {};
+  Object.entries(fields).forEach(([k, v]) => {
+    _dailyFlushQueue[today][k] = (_dailyFlushQueue[today][k] || 0) + (v || 1);
+  });
+  clearTimeout(_dailyFlushTimer);
+  _dailyFlushTimer = setTimeout(_noyoFlushDaily, 4000);
+}
+
+async function _noyoFlushDaily() {
+  clearTimeout(_dailyFlushTimer);
+  const queue = { ..._dailyFlushQueue };
+  _dailyFlushQueue = {};
+  if (!_fbDb) return;
+  for (const [date, fields] of Object.entries(queue)) {
+    if (!Object.keys(fields).length) continue;
+    const inc = {};
+    Object.entries(fields).forEach(([k, v]) => {
+      inc[k] = firebase.firestore.FieldValue.increment(v);
+    });
+    try {
+      await _fbDb.collection('analytics_daily').doc(date).set(inc, { merge: true });
+    } catch(e) { console.warn('Analytics flush failed:', e.message); }
+  }
+}
+window.addEventListener('beforeunload', _noyoFlushDaily);
+
 function adminTrackSearch(result) {
   const now = Date.now();
   const user = currentUser || { name: 'Customer', email: 'unknown', role: 'customer' };
@@ -55619,7 +55689,7 @@ function renderAdminDashboard() {
   ];
 
   document.getElementById('admin-stat-grid').innerHTML = cards.map(c => `
-    <div class="stat-card ${c.color}" onclick="adminStatClick('${c.section}','${c.label.replace(/'/g,"\\'")}')">
+    <div class="stat-card ${c.color}" onclick="adminStatClick('${c.section}','')" style="cursor:pointer;transition:transform .15s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform=''">
       <div class="stat-arrow">→</div>
       <div class="stat-icon">${c.icon}</div>
       <div class="stat-value">${c.value}</div>
@@ -55645,29 +55715,77 @@ function renderAdminOverview() {
   const pending    = quoteInbox.filter(r => !(r.responses||[]).length).length;
   const broadcast  = adminData.quoteEvents.filter(e => e.type === 'broadcast').length;
 
-  document.getElementById('admin-quote-pipeline').innerHTML = [
-    { label:'📥 Total requests',     val:total,      pct:100,                                              color:'#3b82f6' },
-    { label:'💬 Responses received', val:responded,  pct:total>0?Math.round(responded/total*100):0,        color:'#8b5cf6' },
-    { label:'✅ Accepted by customer',val:accepted,  pct:total>0?Math.round(accepted/total*100):0,         color:'#22c55e' },
-    { label:'⏳ Awaiting response',   val:pending,   pct:total>0?Math.round(pending/total*100):0,          color:'#f59e0b' },
-    { label:'📡 Broadcasts sent',     val:broadcast, pct:total>0?Math.round(broadcast/total*100):0,        color:'#06b6d4' },
-  ].map(p=>`<div class="quote-stat-row"><div style="flex:1"><div class="quote-stat-label">${p.label}</div><div class="progress-bar-wrap"><div class="progress-bar" style="width:${p.pct}%;background:${p.color}"></div></div></div><div class="quote-stat-val">${p.val}</div></div>`).join('') || '<div class="empty-state-admin">No quotes yet</div>';
+  document.getElementById('admin-quote-pipeline').innerHTML = total === 0
+    ? `<div class="empty-state-admin" style="text-align:center;padding:1.2rem;color:#94A3B8">
+        <div style="font-size:2rem;margin-bottom:.5rem">📨</div>
+        <div style="font-weight:700;margin-bottom:.3rem">No quotes yet</div>
+        <div style="font-size:.8rem">Quote requests will appear here as customers use the platform.</div>
+        <button onclick="adminStatClick('analytics','Analytics')" style="margin-top:.8rem;background:#EFF6FF;color:#1D4ED8;border:1.5px solid #BFDBFE;border-radius:8px;padding:.35rem .9rem;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit">📈 View Analytics →</button>
+      </div>`
+    : [
+        { label:'📥 Total requests',      val:total,     pct:100,                                       color:'#3b82f6' },
+        { label:'💬 Responses received',  val:responded, pct:total>0?Math.round(responded/total*100):0, color:'#8b5cf6' },
+        { label:'✅ Accepted by customer',val:accepted,  pct:total>0?Math.round(accepted/total*100):0,  color:'#22c55e' },
+        { label:'⏳ Awaiting response',   val:pending,   pct:total>0?Math.round(pending/total*100):0,   color:'#f59e0b' },
+        { label:'📡 Broadcasts sent',     val:broadcast, pct:total>0?Math.round(broadcast/total*100):0, color:'#06b6d4' },
+      ].map(p=>`<div class="quote-stat-row"><div style="flex:1"><div class="quote-stat-label">${p.label}</div><div class="progress-bar-wrap"><div class="progress-bar" style="width:${p.pct}%;background:${p.color}"></div></div></div><div class="quote-stat-val">${p.val}</div></div>`).join('');
 
-  // Machine chart
+  // Machine chart — from adminData.searches (loaded from Firestore) + fallback to analytics_daily
   const typeCounts = {};
-  adminData.searches.forEach(s => { const t = s.machineType||s.machineName||'Unknown'; typeCounts[t]=(typeCounts[t]||0)+1; });
-  const max = Math.max(...Object.values(typeCounts),1);
-  document.getElementById('admin-machine-chart').innerHTML = Object.entries(typeCounts).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>
-    `<div class="search-bar-row"><div class="search-bar-label" title="${k}">${k}</div><div class="search-bar-track"><div class="search-bar-fill" style="width:${Math.round(v/max*100)}%"><span>${v}</span></div></div></div>`
-  ).join('') || '<div class="empty-state-admin">No searches yet</div>';
+  adminData.searches.forEach(s => {
+    const t = s.machineType || s.machineName || 'Unknown';
+    const label = {
+      telehandler:'Telehandlers', rotating:'Rotating Tele', boom:'Boom Lifts',
+      scissor:'Scissor Lifts', forklift:'Forklifts', material:'Material Lifts',
+      em_excavator:'Excavators', em_bobcat:'Bobcats', em_dozer:'Dozers',
+      em_compactor:'Compactors', loader:'Wheel Loaders', em_water_cart:'Water Carts',
+    }[t] || t;
+    typeCounts[label] = (typeCounts[label]||0)+1;
+  });
+  // Supplement with quoteInbox machine types
+  quoteInbox.forEach(q => {
+    (q.machines||[]).forEach(m => {
+      const t = m.type||m.machineType||''; if(!t) return;
+      typeCounts[t] = (typeCounts[t]||0)+1;
+    });
+    if(!q.machines?.length && q.machineType) typeCounts[q.machineType] = (typeCounts[q.machineType]||0)+1;
+  });
+  const max = Math.max(...Object.values(typeCounts), 1);
+  const machEl = document.getElementById('admin-machine-chart');
+  if (machEl) {
+    if (Object.keys(typeCounts).length === 0) {
+      machEl.innerHTML = `<div class="empty-state-admin" style="text-align:center;padding:1.2rem;color:#94A3B8">
+        <div style="font-size:2rem;margin-bottom:.5rem">🏗️</div>
+        <div style="font-weight:700;margin-bottom:.3rem">No search data yet</div>
+        <div style="font-size:.8rem">Category data appears as customers search. Check <strong>📈 Analytics</strong> for aggregated data.</div>
+        <button onclick="adminStatClick('analytics','Analytics')" style="margin-top:.8rem;background:#EFF6FF;color:#1D4ED8;border:1.5px solid #BFDBFE;border-radius:8px;padding:.35rem .9rem;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit">📈 Open Analytics →</button>
+      </div>`;
+    } else {
+      machEl.innerHTML = Object.entries(typeCounts).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>
+        `<div class="search-bar-row"><div class="search-bar-label" title="${k}">${k}</div><div class="search-bar-track"><div class="search-bar-fill" style="width:${Math.round(v/max*100)}%"><span>${v}</span></div></div></div>`
+      ).join('');
+    }
+  }
 
   // City chart
   const cityCounts = {};
   adminData.searches.forEach(s => { if(s.city && s.city!=='—') cityCounts[s.city]=(cityCounts[s.city]||0)+1; });
-  const cityMax = Math.max(...Object.values(cityCounts),1);
-  document.getElementById('admin-city-chart-ov').innerHTML = Object.entries(cityCounts).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>
-    `<div class="search-bar-row"><div class="search-bar-label">${k}</div><div class="search-bar-track"><div class="search-bar-fill" style="width:${Math.round(v/cityMax*100)}%;background:linear-gradient(90deg,#14b8a6,#22c55e)"><span>${v}</span></div></div></div>`
-  ).join('') || '<div class="empty-state-admin">No location data yet</div>';
+  quoteInbox.forEach(q => { const c=q.state||q.city||q.suburb; if(c) cityCounts[c]=(cityCounts[c]||0)+0.5; });
+  const cityMax = Math.max(...Object.values(cityCounts), 1);
+  const cityEl = document.getElementById('admin-city-chart-ov');
+  if (cityEl) {
+    if (Object.keys(cityCounts).length === 0) {
+      cityEl.innerHTML = `<div class="empty-state-admin" style="text-align:center;padding:1.2rem;color:#94A3B8">
+        <div style="font-size:2rem;margin-bottom:.5rem">📍</div>
+        <div style="font-weight:700;margin-bottom:.3rem">No location data yet</div>
+        <div style="font-size:.8rem">Location data appears as customers submit quotes. It will populate automatically.</div>
+      </div>`;
+    } else {
+      cityEl.innerHTML = Object.entries(cityCounts).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>
+        `<div class="search-bar-row"><div class="search-bar-label">${k}</div><div class="search-bar-track"><div class="search-bar-fill" style="width:${Math.round(v/cityMax*100)}%;background:linear-gradient(90deg,#14b8a6,#22c55e)"><span>${v}</span></div></div></div>`
+      ).join('');
+    }
+  }
 
   // Company response rates
   const co = {};
@@ -55679,20 +55797,39 @@ function renderAdminOverview() {
       if (r.accepted) co[r.company].accepted++;
     });
   });
-  const coMax = Math.max(...Object.values(co).map(c=>c.quotes),1);
-  document.getElementById('admin-company-perf').innerHTML = Object.entries(co).sort((a,b)=>b[1].quotes-a[1].quotes).map(([name,c])=>`
-    <div class="quote-stat-row"><div style="flex:1;min-width:0">
-      <div style="font-size:.82rem;font-weight:700;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</div>
-      <div class="progress-bar-wrap"><div class="progress-bar" style="width:${Math.round(c.quotes/coMax*100)}%;background:#3b82f6"></div></div>
-    </div><div style="text-align:right;margin-left:.8rem">
-      <div style="font-size:.9rem;font-weight:900;color:#0F172A">${c.quotes} quoted</div>
-      <div style="font-size:.7rem;color:#16A34A">${c.accepted} accepted</div>
-    </div></div>`).join('') || '<div class="empty-state-admin">No company responses yet</div>';
+  const coMax = Math.max(...Object.values(co).map(c=>c.quotes), 1);
+  const coEl = document.getElementById('admin-company-perf');
+  if (coEl) {
+    coEl.innerHTML = Object.keys(co).length === 0
+      ? `<div class="empty-state-admin" style="text-align:center;padding:1.2rem;color:#94A3B8">
+          <div style="font-size:2rem;margin-bottom:.5rem">🏢</div>
+          <div style="font-weight:700;margin-bottom:.3rem">No company responses yet</div>
+          <div style="font-size:.8rem">Rental companies will appear here once they start responding to quote requests.</div>
+          <button onclick="adminStatClick('rentalcos','Rental Cos')" style="margin-top:.8rem;background:#F0FDF4;color:#16A34A;border:1.5px solid #86EFAC;border-radius:8px;padding:.35rem .9rem;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit">🏗️ Manage Rental Cos →</button>
+        </div>`
+      : Object.entries(co).sort((a,b)=>b[1].quotes-a[1].quotes).map(([name,c])=>`
+        <div class="quote-stat-row"><div style="flex:1;min-width:0">
+          <div style="font-size:.82rem;font-weight:700;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${name}</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:${Math.round(c.quotes/coMax*100)}%;background:#3b82f6"></div></div>
+        </div><div style="text-align:right;margin-left:.8rem">
+          <div style="font-size:.9rem;font-weight:900;color:#0F172A">${c.quotes} quoted</div>
+          <div style="font-size:.7rem;color:#16A34A">${c.accepted} accepted</div>
+        </div></div>`).join('');
+  }
 
   // Activity feed
-  document.getElementById('admin-activity-preview').innerHTML = adminData.activityLog.slice(0,12).map(ev=>
-    `<div class="activity-item"><div class="activity-dot ${ev.colorClass}">${ev.icon}</div><div class="activity-body"><div class="activity-title">${ev.title}</div><div class="activity-meta">${ev.meta}</div></div><div class="activity-time">${adminFmt(ev.ts)}</div></div>`
-  ).join('') || '<div class="empty-state-admin">No activity yet — actions will appear here.</div>';
+  const actEl = document.getElementById('admin-activity-preview');
+  if (actEl) {
+    actEl.innerHTML = adminData.activityLog.length === 0
+      ? `<div class="empty-state-admin" style="text-align:center;padding:1.5rem;color:#94A3B8">
+          <div style="font-size:2rem;margin-bottom:.5rem">⚡</div>
+          <div style="font-weight:700;margin-bottom:.3rem">No activity logged yet</div>
+          <div style="font-size:.8rem;line-height:1.5">Activity appears here in real time as customers search, add to cart, and submit quotes. Data is loading from Firestore — it will appear shortly.</div>
+        </div>`
+      : adminData.activityLog.slice(0,12).map(ev=>
+          `<div class="activity-item"><div class="activity-dot ${ev.colorClass}">${ev.icon}</div><div class="activity-body"><div class="activity-title">${ev.title}</div><div class="activity-meta">${ev.meta}</div></div><div class="activity-time">${adminFmt(ev.ts)}</div></div>`
+        ).join('');
+  }
 }
 
 // ── Admin: Customers view ─────────────────────────────────────────────────
@@ -56319,17 +56456,32 @@ function renderAdminActivity() {
 }
 
 function adminStatClick(section, label) {
-  // If it's a named section, switch to it
-  if (['users','searches','quotes','activity'].includes(section)) {
-    const tab = document.querySelector(`.admin-tab[onclick*="'${section}'"]`);
-    if (tab) { showAdminSection(section, tab); tab.scrollIntoView({behavior:'smooth',block:'nearest'}); }
-    return;
-  }
   // Revenue drilldown modal
-  if (section === 'revenue') {
-    adminShowRevenueModal();
+  if (section === 'revenue') { adminShowRevenueModal(); return; }
+  // Analytics tab
+  if (section === 'analytics') {
+    const tab = document.getElementById('admin-tab-analytics');
+    if (tab) { showAdminSection('analytics', tab); tab.scrollIntoView({behavior:'smooth',block:'nearest'}); }
     return;
   }
+  // Any named section tab — find by onclick attribute or by id
+  const sectionMap = {
+    users:'admin-tab',  searches:'admin-tab', quotes:'admin-tab',
+    activity:'admin-tab', rentalcos:'admin-tab-rentalcos',
+    billing:'admin-tab-billing', liteanalytics:'admin-tab-liteanalytics',
+    customers:'admin-tab-customers', feedback:'admin-tab-feedback',
+    usermgmt:'admin-tab-usermgmt', sponsored:'admin-tab-sponsored',
+    addmachine:'admin-tab-addmachine',
+  };
+  // Try direct id lookup first
+  const directId = `admin-tab-${section}`;
+  const directEl = document.getElementById(directId);
+  if (directEl) { showAdminSection(section, directEl); directEl.scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
+  // Fall back to querySelector by onclick
+  const tab = document.querySelector(`.admin-tab[onclick*="'${section}'"]`);
+  if (tab) { showAdminSection(section, tab); tab.scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
+  // Last resort: just switch section
+  showAdminSection(section, null);
 }
 
 function adminShowRevenueModal() {
@@ -56818,16 +56970,31 @@ function amwReset() {
 
 
 // Category definitions — expandable
+// ── All sponsorable machine categories ────────────────────────────────────
 const SPONSORED_CATEGORIES = [
-  { key: 'boom',       label: 'Boom Lifts',               emoji: '💥' },
-  { key: 'scissor',    label: 'Scissor Lifts',             emoji: '✂️' },
-  { key: 'forklift',   label: 'Forklifts',                 emoji: '🍴' },
-  { key: 'telehandler',label: 'Telehandlers',              emoji: '🏗️' },
-  { key: 'rotating',   label: 'Rotational Telehandlers',   emoji: '🔄' },
+  // Access equipment
+  { key: 'boom',          label: 'Boom Lifts (Articulated & Telescopic)', emoji: '💥', group: 'Access' },
+  { key: 'scissor',       label: 'Scissor Lifts',                          emoji: '✂️', group: 'Access' },
+  { key: 'telehandler',   label: 'Telehandlers (Standard)',                 emoji: '🏗️', group: 'Access' },
+  { key: 'rotating',      label: 'Rotating Telehandlers (360°)',            emoji: '🔄', group: 'Access' },
+  { key: 'forklift',      label: 'Forklifts',                               emoji: '🍴', group: 'Access' },
+  { key: 'material',      label: 'Material Lifts / Duct Lifters',           emoji: '📦', group: 'Access' },
+  { key: 'pushAround',    label: 'Push-Around Manlifts',                    emoji: '🧍', group: 'Access' },
+  { key: 'palletJack',    label: 'Pallet Jacks / Floor Movers',             emoji: '🔄', group: 'Access' },
+  // Earthworks
+  { key: 'em_excavator',  label: 'Excavators',                              emoji: '⛏️', group: 'Earthworks' },
+  { key: 'em_bobcat',     label: 'Bobcats / Skid Steers',                   emoji: '🚜', group: 'Earthworks' },
+  { key: 'em_dozer',      label: 'Bulldozers',                              emoji: '🏔️', group: 'Earthworks' },
+  { key: 'em_compactor',  label: 'Compactors & Rollers',                    emoji: '🔄', group: 'Earthworks' },
+  { key: 'em_grader',     label: 'Motor Graders',                           emoji: '🛣️', group: 'Earthworks' },
+  { key: 'em_dumper',     label: 'Articulated Dump Trucks (ADTs)',          emoji: '🚛', group: 'Earthworks' },
+  { key: 'rigid_dump',    label: 'Rigid Dump Trucks / Mining Trucks',       emoji: '⛰️', group: 'Earthworks' },
+  { key: 'em_water_cart', label: 'Water Carts',                             emoji: '💧', group: 'Earthworks' },
+  { key: 'loader',        label: 'Wheel Loaders',                           emoji: '🚜', group: 'Earthworks' },
 ];
 
 // In-memory sponsored ads store — loaded from Firestore on boot
-var _sponsoredAds = []; // [{ id, category, machineId, brand, label, note, monthlyFee, active, addedAt }]
+var _sponsoredAds = [];
 var _sponsoredLoaded = false;
 
 async function _loadSponsoredAds() {
@@ -56841,15 +57008,44 @@ async function _loadSponsoredAds() {
   }
 }
 
-// Return active sponsored ads for a given result category key
+// Return live sponsored ads for a given result category key
+// Checks: active flag + date range (startDate <= today <= endDate)
 function _getSponsoredForCategory(catKey) {
-  return _sponsoredAds.filter(a => a.active && a.category === catKey);
+  const now = Date.now();
+  return _sponsoredAds.filter(a => {
+    if (!a.active) return false;
+    if (a.category !== catKey) return false;
+    // Date range check
+    if (a.startDate && new Date(a.startDate).getTime() > now) return false; // not started yet
+    if (a.endDate   && new Date(a.endDate).getTime()   < now) return false; // expired
+    return true;
+  });
 }
 
 // Map machineType + isRotating → sponsored category key
 function _resultCatKey(machineType, machine) {
   if (machineType === 'telehandler' && machine && machine.isRotating) return 'rotating';
   return machineType;
+}
+
+// ── Sponsored ad date helpers ──────────────────────────────────────────────
+function _spnDaysRemaining(endDate) {
+  if (!endDate) return null;
+  const ms = new Date(endDate).getTime() - Date.now();
+  return Math.ceil(ms / 86400000);
+}
+function _spnIsExpired(ad) {
+  if (!ad.endDate) return false;
+  return new Date(ad.endDate).getTime() < Date.now();
+}
+function _spnStatusBadge(ad) {
+  if (!ad.active) return { txt:'⏸️ Paused',       bg:'#F1F5F9', color:'#64748B' };
+  if (_spnIsExpired(ad))   return { txt:'⌛ Expired',      bg:'#FEF2F2', color:'#DC2626' };
+  const days = _spnDaysRemaining(ad.endDate);
+  if (days === null)       return { txt:'🟢 Active',       bg:'#F0FDF4', color:'#15803D' };
+  if (days <= 3)           return { txt:`🔴 Expires in ${days}d`, bg:'#FEF2F2', color:'#DC2626' };
+  if (days <= 7)           return { txt:`🟡 ${days}d left`,        bg:'#FFFBEB', color:'#92400E' };
+  return                          { txt:`🟢 ${days}d left`,        bg:'#F0FDF4', color:'#15803D' };
 }
 
 // Load sponsored ads on page load
@@ -56859,150 +57055,717 @@ window.addEventListener('load', () => {
 
 // ── Admin: render sponsored ads panel ────────────────────────────
 
+// ── Analytics tracking ────────────────────────────────────────────
+// Fire-and-forget Firestore increments — don't block UI
+function _spnTrackImpression(adId) {
+  if (!adId || !_fbDb) return;
+  try {
+    _fbDb.collection('sponsored_ads').doc(adId).update({
+      impressions: firebase.firestore.FieldValue.increment(1),
+      lastImpressionAt: new Date().toISOString(),
+    }).catch(()=>{});
+    // Update in-memory too
+    const ad = _sponsoredAds.find(a => a.id === adId);
+    if (ad) ad.impressions = (ad.impressions||0) + 1;
+  } catch(e) {}
+}
+
+function _spnTrackClick(adId, eventType) {
+  // eventType: 'cart_add' | 'view_more' | 'card_click'
+  if (!adId || !_fbDb) return;
+  try {
+    const update = {
+      clicks: firebase.firestore.FieldValue.increment(1),
+      lastClickAt: new Date().toISOString(),
+    };
+    if (eventType === 'cart_add') update.cartAdds = firebase.firestore.FieldValue.increment(1);
+    _fbDb.collection('sponsored_ads').doc(adId).update(update).catch(()=>{});
+    const ad = _sponsoredAds.find(a => a.id === adId);
+    if (ad) {
+      ad.clicks = (ad.clicks||0) + 1;
+      if (eventType === 'cart_add') ad.cartAdds = (ad.cartAdds||0) + 1;
+    }
+  } catch(e) {}
+}
+
+// ── BP ID generator ───────────────────────────────────────────────
+function _generateBpId(catKey, brandName) {
+  const now     = new Date();
+  const ym      = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}`;
+  const catCode = catKey.replace('em_','').toUpperCase().replace(/[^A-Z]/g,'').slice(0,5);
+  const bCode   = (brandName||'BRAND').replace(/[^A-Za-z]/g,'').toUpperCase().slice(0,6);
+  const existing= _sponsoredAds.filter(a => a.category===catKey && (a.brand||'').toLowerCase().includes((brandName||'').slice(0,4).toLowerCase())).length;
+  const seq     = String(existing + 1).padStart(3,'0');
+  return `BP-${bCode}-${catCode}-${ym}-${seq}`;
+}
+
+// ── Get machines in a category for brand filtering ─────────────────
+function _spnMachinesForCat(catKey) {
+  const k = catKey;
+  if (k === 'telehandler')  return (MACHINES.telehandler||[]).filter(m => !m.isRotating);
+  if (k === 'rotating')     return (MACHINES.telehandler||[]).filter(m =>  m.isRotating);
+  if (k === 'boom')         return  MACHINES.boom         || [];
+  if (k === 'scissor')      return  MACHINES.scissor      || [];
+  if (k === 'forklift')     return  MACHINES.forklift     || [];
+  if (k === 'material')     return  MACHINES.material     || [];
+  if (k === 'pushAround')   return  MACHINES.pushAround   || [];
+  if (k === 'palletJack')   return  MACHINES.palletJack   || [];
+  const ew = MACHINES.earthworks || [];
+  if (k === 'em_excavator')  return ew.filter(m => m.type === 'excavator');
+  if (k === 'em_bobcat')     return ew.filter(m => m.type === 'bobcat');
+  if (k === 'em_dozer')      return ew.filter(m => m.type === 'dozer');
+  if (k === 'em_compactor')  return ew.filter(m => ['compactor','roller'].includes(m.type));
+  if (k === 'em_grader')     return ew.filter(m => m.type === 'grader');
+  if (k === 'em_dumper')     return ew.filter(m => ['adt','dumper'].includes(m.type));
+  if (k === 'rigid_dump')    return ew.filter(m => m.type === 'rigid_dump_truck');
+  if (k === 'em_water_cart') return ew.filter(m => m.type === 'water_cart');
+  if (k === 'loader')        return ew.filter(m => m.type === 'loader');
+  return [];
+}
+
+// Called when admin selects a category in the creation form
+function spnOnCatChange() {
+  const catKey = document.getElementById('spn-new-cat')?.value;
+  const brandSel = document.getElementById('spn-new-brand');
+  const machSel  = document.getElementById('spn-new-machine');
+  const bpPreview = document.getElementById('spn-bp-preview');
+  if (!brandSel || !machSel) return;
+
+  if (!catKey) {
+    brandSel.innerHTML = '<option value="">— select category first —</option>';
+    machSel.innerHTML  = '<option value="">— select brand first —</option>';
+    return;
+  }
+  const machines = _spnMachinesForCat(catKey).filter(m => m.brand && m.brand !== 'Various');
+  const brands   = [...new Set(machines.map(m => m.brand))].sort();
+  brandSel.innerHTML = '<option value="">— select brand —</option>' +
+    brands.map(b => `<option value="${b}">${b}</option>`).join('');
+  machSel.innerHTML  = '<option value="">— select brand first —</option>';
+  if (bpPreview) bpPreview.textContent = '';
+}
+
+// Called when admin selects a brand
+function spnOnBrandChange() {
+  const catKey  = document.getElementById('spn-new-cat')?.value;
+  const brand   = document.getElementById('spn-new-brand')?.value;
+  const machSel = document.getElementById('spn-new-machine');
+  const sponsEl = document.getElementById('spn-new-sponsor');
+  const bpEl    = document.getElementById('spn-bp-preview');
+  if (!machSel) return;
+
+  if (!brand) { machSel.innerHTML = '<option value="">— select brand first —</option>'; return; }
+
+  // Auto-fill sponsor name from brand
+  if (sponsEl && !sponsEl.value) sponsEl.value = brand;
+
+  const machines = _spnMachinesForCat(catKey||'').filter(m => m.brand === brand);
+  machSel.innerHTML = '<option value="">— all machines of this brand —</option>' +
+    machines.map(m => `<option value="${m.id}">${m.shortName||m.name}</option>`).join('');
+
+  // Preview BP ID
+  if (bpEl) bpEl.textContent = `🔖 Brand Partner ID: ${_generateBpId(catKey, brand)}`;
+}
+
 function renderAdminSponsored() {
   const sec = document.getElementById('admin-sec-sponsored');
   if (!sec) return;
 
-  const totalMonthly = _sponsoredAds.filter(a => a.active).reduce((s, a) => s + (parseFloat(a.monthlyFee) || 0), 0);
+  const active  = _sponsoredAds.filter(a => a.active && !_spnIsExpired(a));
+  const expired = _sponsoredAds.filter(a => _spnIsExpired(a));
+  const paused  = _sponsoredAds.filter(a => !a.active && !_spnIsExpired(a));
+  const totalRev = _sponsoredAds.reduce((s,a) => s + (parseFloat(a.fee)||0), 0);
+  const totalImpressions = _sponsoredAds.reduce((s,a) => s + (parseInt(a.impressions)||0), 0);
+  const totalClicks      = _sponsoredAds.reduce((s,a) => s + (parseInt(a.clicks)||0), 0);
 
   sec.innerHTML = `
-    <div class="admin-section-title">⭐ Sponsored Ads</div>
-    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
-      <div style="background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px;padding:.55rem 1rem;font-size:.85rem;font-weight:700;color:#92400E">
-        💰 Active monthly revenue: <strong>$${totalMonthly.toLocaleString('en-AU',{minimumFractionDigits:0,maximumFractionDigits:0})}</strong>
+    <div class="admin-section-title">⭐ Brand Partner Ads</div>
+
+    <!-- Revenue + analytics summary -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.5rem;margin-bottom:1.4rem">
+      <div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #FCD34D;border-radius:11px;padding:.6rem .9rem">
+        <div style="font-size:.72rem;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:.04em">Total Revenue</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#78350F">$${totalRev.toLocaleString('en-AU',{minimumFractionDigits:0})}</div>
       </div>
-      <div style="font-size:.8rem;color:#64748B">${_sponsoredAds.filter(a=>a.active).length} active · ${_sponsoredAds.filter(a=>!a.active).length} paused</div>
+      <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:11px;padding:.6rem .9rem">
+        <div style="font-size:.72rem;font-weight:700;color:#15803D;text-transform:uppercase;letter-spacing:.04em">Live Now</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#14532D">${active.length}</div>
+      </div>
+      <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:11px;padding:.6rem .9rem">
+        <div style="font-size:.72rem;font-weight:700;color:#1D4ED8;text-transform:uppercase;letter-spacing:.04em">Total Impressions</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#1E3A8A">${totalImpressions.toLocaleString()}</div>
+      </div>
+      <div style="background:#F5F3FF;border:1.5px solid #DDD6FE;border-radius:11px;padding:.6rem .9rem">
+        <div style="font-size:.72rem;font-weight:700;color:#7C3AED;text-transform:uppercase;letter-spacing:.04em">Total Clicks</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#581C87">${totalClicks.toLocaleString()}</div>
+      </div>
+      <div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:11px;padding:.6rem .9rem">
+        <div style="font-size:.72rem;font-weight:700;color:#DC2626;text-transform:uppercase;letter-spacing:.04em">Expired</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#991B1B">${expired.length}</div>
+      </div>
+      <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:11px;padding:.6rem .9rem">
+        <div style="font-size:.72rem;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Paused</div>
+        <div style="font-size:1.3rem;font-weight:900;color:#334155">${paused.length}</div>
+      </div>
     </div>
-    ${SPONSORED_CATEGORIES.map(cat => _renderSponsoredCategory(cat)).join('')}
-    <div style="margin-top:1.5rem;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:12px;padding:1rem 1.2rem">
-      <div style="font-weight:800;color:#475569;margin-bottom:.4rem">➕ Add New Category</div>
-      <div style="font-size:.8rem;color:#64748B;margin-bottom:.6rem">Need a new equipment category? Add it to <code>SPONSORED_CATEGORIES</code> in app.js and it will appear here automatically.</div>
-      <div style="font-size:.75rem;color:#94A3B8">Current categories: ${SPONSORED_CATEGORIES.map(c => c.emoji + ' ' + c.label).join(' · ')}</div>
+
+    <!-- Existing ads list -->
+    ${_sponsoredAds.length ? `
+      <div style="font-size:.72rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.55rem">Active &amp; Past Ads</div>
+      ${_sponsoredAds.map(ad => _renderSpnAdRow(ad)).join('')}
+      <div style="height:.8rem"></div>
+    ` : ''}
+
+    <!-- Create new Brand Partner Ad form -->
+    <div style="background:linear-gradient(135deg,#EFF6FF,#F0F9FF);border:2px solid #7DD3FC;border-radius:14px;padding:1.1rem 1.2rem">
+      <div style="font-weight:900;color:#0369A1;font-size:.95rem;margin-bottom:1rem">➕ Create New Brand Partner Ad</div>
+
+      <!-- Row 1: Category + Brand -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.6rem">
+        <div>
+          <label style="font-size:.73rem;font-weight:800;color:#1E40AF;display:block;margin-bottom:.25rem">📁 Category *</label>
+          <select id="spn-new-category" onchange="spnPopulateBrands()"
+            style="width:100%;border:2px solid #BFDBFE;border-radius:8px;padding:.38rem .55rem;font-size:.83rem;font-family:'Nunito',sans-serif;font-weight:700;background:#fff;box-sizing:border-box;color:#1E3A8A">
+            <option value="">— select category —</option>
+            ${SPONSORED_CATEGORIES.map(c => `<option value="${c.key}">${c.emoji} ${c.label}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.73rem;font-weight:800;color:#1E40AF;display:block;margin-bottom:.25rem">🏭 Brand / Manufacturer *</label>
+          <select id="spn-new-brand" onchange="spnPopulateMachines()"
+            style="width:100%;border:2px solid #BFDBFE;border-radius:8px;padding:.38rem .55rem;font-size:.83rem;font-family:'Nunito',sans-serif;font-weight:700;background:#fff;box-sizing:border-box;color:#1E3A8A">
+            <option value="">— pick category first —</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Row 2: Specific machine (optional) + Display label -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.6rem">
+        <div>
+          <label style="font-size:.73rem;font-weight:800;color:#475569;display:block;margin-bottom:.25rem">🔩 Feature specific model <span style="font-weight:400;color:#94A3B8">(optional — leave blank to show brand's top machine)</span></label>
+          <select id="spn-new-machine"
+            style="width:100%;border:1.5px solid #CBD5E1;border-radius:8px;padding:.38rem .55rem;font-size:.8rem;font-family:'Nunito',sans-serif;background:#fff;box-sizing:border-box;color:#334155">
+            <option value="">— all models from brand —</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.73rem;font-weight:800;color:#475569;display:block;margin-bottom:.25rem">✏️ Custom display label <span style="font-weight:400;color:#94A3B8">(optional)</span></label>
+          <input type="text" id="spn-new-label" placeholder="e.g. Genie Z-80 — Available Nationally"
+            style="width:100%;border:1.5px solid #CBD5E1;border-radius:8px;padding:.38rem .55rem;font-size:.8rem;font-family:'Nunito',sans-serif;background:#fff;box-sizing:border-box">
+        </div>
+      </div>
+
+      <!-- Row 3: Ad Note + Fee -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.7rem">
+        <div>
+          <label style="font-size:.73rem;font-weight:800;color:#475569;display:block;margin-bottom:.25rem">💬 Tagline / Note <span style="font-weight:400;color:#94A3B8">(shown on card)</span></label>
+          <input type="text" id="spn-new-note" placeholder="e.g. Nationally stocked · Fast delivery Australia-wide"
+            style="width:100%;border:1.5px solid #CBD5E1;border-radius:8px;padding:.38rem .55rem;font-size:.8rem;font-family:'Nunito',sans-serif;background:#fff;box-sizing:border-box">
+        </div>
+        <div>
+          <label style="font-size:.73rem;font-weight:800;color:#475569;display:block;margin-bottom:.25rem">💰 Total Fee (AUD) *</label>
+          <input type="number" id="spn-new-fee" placeholder="e.g. 499" min="0" step="1"
+            style="width:100%;border:1.5px solid #CBD5E1;border-radius:8px;padding:.38rem .55rem;font-size:.8rem;font-family:'Nunito',sans-serif;background:#fff;box-sizing:border-box">
+        </div>
+      </div>
+
+      <!-- Row 4: Duration -->
+      <div style="margin-bottom:.8rem">
+        <label style="font-size:.73rem;font-weight:800;color:#1E40AF;display:block;margin-bottom:.3rem">📅 Ad Duration *</label>
+        <div style="display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.4rem">
+          ${[['1d','1 Day'],['1w','1 Week'],['2w','2 Weeks'],['1m','1 Month'],['3m','3 Months'],['6m','6 Months'],['1y','1 Year']].map(([v,l]) =>
+            `<button type="button" onclick="spnNewSetDuration('${v}')"
+              id="spn-new-dur-btn-${v}"
+              style="background:#fff;color:#1E40AF;border:1.5px solid #BFDBFE;border-radius:7px;padding:.24rem .65rem;font-size:.75rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s">${l}</button>`
+          ).join('')}
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+          <div>
+            <label style="font-size:.7rem;color:#64748B;font-weight:700;display:block;margin-bottom:.15rem">Start Date</label>
+            <input type="date" id="spn-new-start" value="${new Date().toISOString().slice(0,10)}"
+              oninput="spnNewUpdatePreview()"
+              style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
+          </div>
+          <div>
+            <label style="font-size:.7rem;color:#64748B;font-weight:700;display:block;margin-bottom:.15rem">End Date</label>
+            <input type="date" id="spn-new-end"
+              oninput="spnNewUpdatePreview()"
+              style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
+          </div>
+        </div>
+        <div id="spn-new-duration-preview" style="font-size:.73rem;color:#1E40AF;font-weight:700;margin-top:.3rem;min-height:1.3em"></div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+        <button onclick="adminCreateBrandPartnerAd()"
+          style="background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:10px;padding:.55rem 1.4rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;cursor:pointer;box-shadow:0 2px 8px rgba(245,158,11,.3)">
+          ⭐ Create Brand Partner Ad
+        </button>
+        <div id="spn-new-status" style="font-size:.82rem;font-weight:700"></div>
+      </div>
     </div>`;
 }
 
-function _renderSponsoredCategory(cat) {
-  const ads = _sponsoredAds.filter(a => a.category === cat.key);
-  const machines = ALL_MACHINES.filter(m => {
-    if (cat.key === 'rotating')    return m.isRotating;
-    if (cat.key === 'telehandler') return (m.filters||[]).includes('telehandler') && !m.isRotating;
-    return (m.filters||[]).includes(cat.key);
-  });
-
-  const adsHtml = ads.length === 0
-    ? `<div style="padding:.8rem;text-align:center;color:#94A3B8;font-size:.83rem">No sponsored ads in this category yet.</div>`
-    : ads.map(ad => {
-        const machine = ALL_MACHINES.find(m => m.id === ad.machineId);
-        return `
-        <div style="display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:${ad.active?'#FFFBEB':'#F8FAFC'};border:1.5px solid ${ad.active?'#FCD34D':'#E2E8F0'};border-radius:10px;margin-bottom:.45rem;flex-wrap:wrap">
-          <div style="font-size:1.1rem">${cat.emoji}</div>
-          <div style="flex:1;min-width:160px">
-            <div style="font-weight:800;color:#0F172A;font-size:.9rem">${ad.label || (machine ? machine.name : ad.brand)}</div>
-            <div style="font-size:.75rem;color:#64748B">${ad.brand}${machine ? ' · ' + machine.name : ''}</div>
-            ${ad.note ? `<div style="font-size:.73rem;color:#B45309;margin-top:.1rem;font-style:italic">${ad.note}</div>` : ''}
-          </div>
-          <div style="text-align:right;white-space:nowrap">
-            <div style="font-weight:800;color:#16A34A;font-size:.88rem">$${parseFloat(ad.monthlyFee||0).toLocaleString('en-AU',{minimumFractionDigits:0})}/mo</div>
-            <div style="font-size:.72rem;color:#64748B">${ad.active ? '🟢 Active' : '⏸️ Paused'}</div>
-          </div>
-          <div style="display:flex;gap:.3rem">
-            <button onclick="adminToggleSponsoredAd('${ad.id}',${!ad.active})"
-              style="background:${ad.active?'#FEF3C7':'#F0FDF4'};color:${ad.active?'#92400E':'#15803D'};border:1px solid ${ad.active?'#FCD34D':'#86EFAC'};border-radius:6px;padding:.22rem .55rem;font-size:.73rem;font-weight:700;cursor:pointer">
-              ${ad.active ? '⏸ Pause' : '▶ Activate'}
-            </button>
-            <button onclick="adminDeleteSponsoredAd('${ad.id}')"
-              style="background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:6px;padding:.22rem .55rem;font-size:.73rem;font-weight:700;cursor:pointer">
-              🗑
-            </button>
-          </div>
-        </div>`;
-      }).join('');
-
-  // Build machine options for this category
-  const machineOptions = machines.map(m =>
-    `<option value="${m.id}">${m.brand} — ${m.name}</option>`
-  ).join('');
+function _renderSpnAdRow(ad) {
+  const machine = ALL_MACHINES.find(m => m.id === ad.machineId);
+  const badge   = _spnStatusBadge(ad);
+  const expired = _spnIsExpired(ad);
+  const days    = _spnDaysRemaining(ad.endDate);
+  const catLabel= SPONSORED_CATEGORIES.find(c => c.key === ad.category)?.label || ad.category;
+  const startFmt= ad.startDate ? new Date(ad.startDate).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+  const endFmt  = ad.endDate   ? new Date(ad.endDate  ).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+  const impr    = parseInt(ad.impressions)||0;
+  const clicks  = parseInt(ad.clicks)    ||0;
+  const ctr     = impr > 0 ? ((clicks/impr)*100).toFixed(1) : '—';
 
   return `
-    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;margin-bottom:.9rem;overflow:hidden">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:#F8FAFC;border-bottom:1px solid #E2E8F0;cursor:pointer"
-        onclick="var b=this.nextElementSibling;b.style.display=b.style.display==='none'?'block':'none';this.querySelector('.spn-chev').textContent=b.style.display==='none'?'▶':'▼'">
-        <div style="display:flex;align-items:center;gap:.6rem">
-          <span style="font-size:1.2rem">${cat.emoji}</span>
-          <span style="font-weight:900;color:#0F172A">${cat.label}</span>
-          <span style="background:${ads.filter(a=>a.active).length?'#DCFCE7':'#F1F5F9'};color:${ads.filter(a=>a.active).length?'#15803D':'#94A3B8'};font-size:.72rem;font-weight:800;padding:.1rem .5rem;border-radius:20px">${ads.filter(a=>a.active).length} active</span>
+  <div style="background:${expired?'#FEF2F2':ad.active?'#fff':'#F8FAFC'};border:1.5px solid ${expired?'#FCA5A5':ad.active?'#F59E0B':'#E2E8F0'};border-radius:12px;padding:.75rem 1rem;margin-bottom:.5rem">
+    <!-- Header row -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.45rem">
+      <div style="flex:1;min-width:200px">
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+          <span style="font-size:.7rem;font-weight:900;color:#94A3B8;font-family:'Courier New',monospace;background:#F1F5F9;padding:.08rem .4rem;border-radius:4px">${ad.adId||'—'}</span>
+          <span style="font-weight:900;color:#0F172A;font-size:.9rem">${ad.sponsorCompany || ad.brand}</span>
+          <span style="background:${badge.bg};color:${badge.color};font-size:.71rem;font-weight:800;padding:.1rem .5rem;border-radius:20px">${badge.txt}</span>
         </div>
-        <span class="spn-chev" style="color:#94A3B8;font-size:.85rem">▶</span>
-      </div>
-      <div style="display:none;padding:.9rem 1rem">
-        ${adsHtml}
-        <!-- Add new ad form -->
-        <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.8rem 1rem;margin-top:.6rem">
-          <div style="font-weight:800;color:#1E40AF;font-size:.83rem;margin-bottom:.6rem">➕ Add Sponsored Ad — ${cat.label}</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem">
-            <div>
-              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Machine</label>
-              <select id="spn-machine-${cat.key}" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff">
-                <option value="">— select machine —</option>
-                ${machineOptions}
-              </select>
-            </div>
-            <div>
-              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Display Label (optional override)</label>
-              <input type="text" id="spn-label-${cat.key}" placeholder="e.g. JLG 1350SJP — Premium Boom" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
-            </div>
-            <div>
-              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Monthly Fee (AUD)</label>
-              <input type="number" id="spn-fee-${cat.key}" placeholder="299" min="0" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
-            </div>
-            <div>
-              <label style="font-size:.74rem;font-weight:700;color:#475569;display:block;margin-bottom:.2rem">Sponsor Note (optional)</label>
-              <input type="text" id="spn-note-${cat.key}" placeholder="e.g. Nationally stocked, fast delivery" style="width:100%;border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:inherit;background:#fff;box-sizing:border-box">
-            </div>
-          </div>
-          <button onclick="adminAddSponsoredAd('${cat.key}')"
-            style="background:#0052CC;color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
-            ➕ Add Sponsored Ad
-          </button>
+        <div style="font-size:.78rem;color:#334155;margin-top:.15rem;font-weight:700">${ad.label || (machine?machine.shortName||machine.name:'')}</div>
+        <div style="font-size:.72rem;color:#64748B;margin-top:.08rem">
+          📁 ${catLabel} &nbsp;·&nbsp; 📅 ${startFmt} → ${endFmt} &nbsp;·&nbsp; 💰 $${parseFloat(ad.fee||0).toLocaleString('en-AU',{minimumFractionDigits:0})}
         </div>
+        ${ad.note ? `<div style="font-size:.71rem;color:#B45309;font-style:italic;margin-top:.1rem">"${ad.note}"</div>` : ''}
       </div>
-    </div>`;
+      <!-- Action buttons -->
+      <div style="display:flex;gap:.3rem;flex-wrap:wrap;align-items:center">
+        <button onclick="adminViewSpnReport('${ad.id}')"
+          style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:7px;padding:.22rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer">
+          📊 Report
+        </button>
+        <button onclick="adminToggleSponsoredAd('${ad.id}',${!ad.active})"
+          style="background:${ad.active?'#FEF3C7':'#F0FDF4'};color:${ad.active?'#92400E':'#15803D'};border:1px solid ${ad.active?'#FCD34D':'#86EFAC'};border-radius:7px;padding:.22rem .55rem;font-size:.73rem;font-weight:700;cursor:pointer">
+          ${ad.active?'⏸ Pause':'▶ Resume'}
+        </button>
+        <button onclick="adminRenewSponsoredAd('${ad.id}')"
+          style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:7px;padding:.22rem .55rem;font-size:.73rem;font-weight:700;cursor:pointer">
+          🔁 Extend
+        </button>
+        <button onclick="adminDeleteSponsoredAd('${ad.id}')"
+          style="background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:7px;padding:.22rem .45rem;font-size:.73rem;font-weight:700;cursor:pointer">
+          🗑
+        </button>
+      </div>
+    </div>
+    <!-- Analytics mini-bar -->
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;padding:.45rem .6rem;background:${expired?'#FEF2F2':'#F8FAFC'};border-radius:8px;border:1px solid ${expired?'#FCA5A5':'#E2E8F0'}">
+      <div style="display:flex;align-items:center;gap:.3rem">
+        <span style="font-size:.8rem">👁</span>
+        <span style="font-size:.78rem;font-weight:900;color:#1D4ED8">${impr.toLocaleString()}</span>
+        <span style="font-size:.72rem;color:#64748B">impressions</span>
+      </div>
+      <div style="width:1px;background:#E2E8F0;margin:0 .1rem"></div>
+      <div style="display:flex;align-items:center;gap:.3rem">
+        <span style="font-size:.8rem">🖱️</span>
+        <span style="font-size:.78rem;font-weight:900;color:#7C3AED">${clicks.toLocaleString()}</span>
+        <span style="font-size:.72rem;color:#64748B">clicks</span>
+      </div>
+      <div style="width:1px;background:#E2E8F0;margin:0 .1rem"></div>
+      <div style="display:flex;align-items:center;gap:.3rem">
+        <span style="font-size:.8rem">📊</span>
+        <span style="font-size:.78rem;font-weight:900;color:${parseFloat(ctr)>3?'#15803D':parseFloat(ctr)>1?'#92400E':'#64748B'}">${ctr}%</span>
+        <span style="font-size:.72rem;color:#64748B">CTR</span>
+      </div>
+      ${impr > 0 && parseFloat(ad.fee) > 0 ? `
+      <div style="width:1px;background:#E2E8F0;margin:0 .1rem"></div>
+      <div style="display:flex;align-items:center;gap:.3rem">
+        <span style="font-size:.8rem">💰</span>
+        <span style="font-size:.78rem;font-weight:900;color:#15803D">$${(parseFloat(ad.fee)/Math.max(1,impr)*1000).toFixed(2)}</span>
+        <span style="font-size:.72rem;color:#64748B">CPM</span>
+      </div>` : ''}
+    </div>
+  </div>`;
 }
 
-async function adminAddSponsoredAd(catKey) {
-  const machineId = document.getElementById(`spn-machine-${catKey}`)?.value;
-  const label     = document.getElementById(`spn-label-${catKey}`)?.value.trim();
-  const feeStr    = document.getElementById(`spn-fee-${catKey}`)?.value;
-  const note      = document.getElementById(`spn-note-${catKey}`)?.value.trim();
+// ── Brand/Machine dropdowns for create form ────────────────────────────────
+function spnGetMachinePool(catKey) {
+  const k = catKey;
+  if (k === 'telehandler')  return (MACHINES.telehandler||[]).filter(m => !m.isRotating);
+  if (k === 'rotating')     return (MACHINES.telehandler||[]).filter(m =>  m.isRotating);
+  if (k === 'boom')         return  MACHINES.boom         || [];
+  if (k === 'scissor')      return  MACHINES.scissor      || [];
+  if (k === 'forklift')     return  MACHINES.forklift     || [];
+  if (k === 'material')     return  MACHINES.material     || [];
+  if (k === 'pushAround')   return  MACHINES.pushAround   || [];
+  if (k === 'palletJack')   return  MACHINES.palletJack   || [];
+  const ew = MACHINES.earthworks || [];
+  if (k === 'em_excavator')  return ew.filter(m => m.type === 'excavator');
+  if (k === 'em_bobcat')     return ew.filter(m => m.type === 'bobcat');
+  if (k === 'em_dozer')      return ew.filter(m => m.type === 'dozer');
+  if (k === 'em_compactor')  return ew.filter(m => ['compactor','roller'].includes(m.type));
+  if (k === 'em_grader')     return ew.filter(m => m.type === 'grader');
+  if (k === 'em_dumper')     return ew.filter(m => ['adt','dumper'].includes(m.type));
+  if (k === 'rigid_dump')    return ew.filter(m => m.type === 'rigid_dump_truck');
+  if (k === 'em_water_cart') return ew.filter(m => m.type === 'water_cart');
+  if (k === 'loader')        return ew.filter(m => m.type === 'loader');
+  return [];
+}
 
-  if (!machineId) { showToast('Please select a machine.', '#EF4444'); return; }
+function spnPopulateBrands() {
+  const catKey  = document.getElementById('spn-new-category')?.value;
+  const brandSel= document.getElementById('spn-new-brand');
+  const machSel = document.getElementById('spn-new-machine');
+  if (!brandSel) return;
 
-  const machine   = ALL_MACHINES.find(m => m.id === machineId);
-  if (!machine)   { showToast('Machine not found.', '#EF4444'); return; }
+  if (!catKey) {
+    brandSel.innerHTML = '<option value="">— pick category first —</option>';
+    if (machSel) machSel.innerHTML = '<option value="">— all models from brand —</option>';
+    return;
+  }
 
-  const fee = parseFloat(feeStr) || 0;
+  const pool = spnGetMachinePool(catKey).filter(m => m.brand && m.brand !== 'Various');
+  const brands = [...new Set(pool.map(m => m.brand))].sort();
+  brandSel.innerHTML = '<option value="">— select brand —</option>' +
+    brands.map(b => `<option value="${b}">${b}</option>`).join('');
+  if (machSel) machSel.innerHTML = '<option value="">— all models from brand —</option>';
+}
+
+function spnPopulateMachines() {
+  const catKey  = document.getElementById('spn-new-category')?.value;
+  const brand   = document.getElementById('spn-new-brand')?.value;
+  const machSel = document.getElementById('spn-new-machine');
+  if (!machSel) return;
+
+  if (!catKey || !brand) {
+    machSel.innerHTML = '<option value="">— all models from brand —</option>';
+    return;
+  }
+
+  const pool = spnGetMachinePool(catKey).filter(m => m.brand === brand);
+  machSel.innerHTML = '<option value="">— all models from brand (auto-select best) —</option>' +
+    pool.map(m => `<option value="${m.id}">${m.shortName||m.name}</option>`).join('');
+}
+
+// ── Duration helpers for create form ──────────────────────────────────────
+function spnNewSetDuration(code) {
+  const startEl = document.getElementById('spn-new-start');
+  const endEl   = document.getElementById('spn-new-end');
+  if (!startEl || !endEl) return;
+
+  const start = startEl.value ? new Date(startEl.value) : new Date();
+  start.setHours(0,0,0,0);
+  const end = new Date(start);
+  const map = { '1d':1,'1w':7,'2w':14,'1m':30,'3m':90,'6m':180,'1y':365 };
+  end.setDate(end.getDate() + (map[code]||30) - 1);
+  endEl.value = end.toISOString().slice(0,10);
+
+  ['1d','1w','2w','1m','3m','6m','1y'].forEach(v => {
+    const b = document.getElementById(`spn-new-dur-btn-${v}`);
+    if (b) { b.style.background = v===code?'#FEF3C7':'#fff'; b.style.borderColor = v===code?'#F59E0B':'#BFDBFE'; }
+  });
+  spnNewUpdatePreview();
+}
+
+function spnNewUpdatePreview() {
+  const s = document.getElementById('spn-new-start')?.value;
+  const e = document.getElementById('spn-new-end')?.value;
+  const p = document.getElementById('spn-new-duration-preview');
+  if (!p) return;
+  if (!s || !e) { p.textContent=''; return; }
+  const days = Math.round((new Date(e)-new Date(s))/86400000)+1;
+  if (days < 1) { p.style.color='#EF4444'; p.textContent='⚠️ End date must be after start date'; return; }
+  p.style.color='#1E40AF';
+  const sf = new Date(s).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'});
+  const ef = new Date(e).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'});
+  p.textContent = `📅 ${sf} → ${ef}  ·  ${days} day${days===1?'':'s'}`;
+}
+
+// ── Generate unique Brand Partner Ad ID ───────────────────────────────────
+function _generateBpaId() {
+  const year = new Date().getFullYear();
+  const existing = _sponsoredAds.filter(a => (a.adId||'').startsWith(`BPA-${year}-`));
+  const maxNum = existing.reduce((max, a) => {
+    const n = parseInt((a.adId||'').split('-')[2]) || 0;
+    return Math.max(max, n);
+  }, 0);
+  return `BPA-${year}-${String(maxNum+1).padStart(3,'0')}`;
+}
+
+async function adminCreateBrandPartnerAd() {
+  const catKey  = document.getElementById('spn-new-category')?.value;
+  const brand   = document.getElementById('spn-new-brand')?.value;
+  const machId  = document.getElementById('spn-new-machine')?.value;
+  const label   = document.getElementById('spn-new-label')?.value.trim();
+  const note    = document.getElementById('spn-new-note')?.value.trim();
+  const feeStr  = document.getElementById('spn-new-fee')?.value;
+  const start   = document.getElementById('spn-new-start')?.value;
+  const end     = document.getElementById('spn-new-end')?.value;
+  const statusEl= document.getElementById('spn-new-status');
+
+  const err = (msg) => { if(statusEl) statusEl.innerHTML=`<span style="color:#DC2626">⚠️ ${msg}</span>`; };
+
+  if (!catKey)  return err('Please select a category.');
+  if (!brand)   return err('Please select a brand / manufacturer.');
+  if (!feeStr)  return err('Please enter the agreed fee.');
+  if (!start||!end) return err('Please set the start and end dates.');
+  if (new Date(end) < new Date(start)) return err('End date must be after start date.');
+
+  // Resolve machine — if no specific model chosen, pick first available from that brand/category
+  let resolvedMachineId = machId;
+  if (!resolvedMachineId) {
+    const pool = spnGetMachinePool(catKey).filter(m => m.brand === brand);
+    if (pool.length) resolvedMachineId = pool[0].id;
+    else return err('No machines found for this brand in this category.');
+  }
+
+  const machine = ALL_MACHINES.find(m => m.id === resolvedMachineId);
+  if (!machine) return err('Machine not found — please try again.');
+
+  const days = Math.round((new Date(end)-new Date(start))/86400000)+1;
+  const adId  = _generateBpaId();
 
   const ad = {
-    category:   catKey,
-    machineId,
-    brand:      machine.brand,
-    label:      label || machine.name,
-    note:       note || '',
-    monthlyFee: fee,
-    active:     true,
-    addedAt:    new Date().toISOString(),
-    addedBy:    currentUser ? currentUser.email : 'admin',
+    adId,
+    category:       catKey,
+    machineId:      resolvedMachineId,
+    sponsorCompany: brand,
+    brand:          machine.brand,
+    label:          label || `${brand} — ${SPONSORED_CATEGORIES.find(c=>c.key===catKey)?.label||catKey}`,
+    note:           note || '',
+    fee:            parseFloat(feeStr)||0,
+    startDate:      start,
+    endDate:        end,
+    durationDays:   days,
+    active:         true,
+    impressions:    0,
+    clicks:         0,
+    dailyStats:     {},   // {YYYY-MM-DD: {impressions:N, clicks:N}}
+    addedAt:        new Date().toISOString(),
+    addedBy:        currentUser ? currentUser.email : 'admin',
   };
 
   try {
+    if(statusEl) statusEl.innerHTML='<span style="color:#1D4ED8">⏳ Creating…</span>';
     const docRef = await _fbDb.collection('sponsored_ads').add(ad);
     _sponsoredAds.unshift({ id: docRef.id, ...ad });
-    showToast(`⭐ Sponsored ad added — ${machine.name} in ${SPONSORED_CATEGORIES.find(c=>c.key===catKey)?.label}`, '#16A34A');
+    showToast(`⭐ Brand Partner Ad ${adId} created — ${brand} · ${days} days`, '#16A34A');
     renderAdminSponsored();
   } catch(e) {
-    showToast('Save failed: ' + e.message, '#EF4444');
+    err('Save failed: ' + e.message);
   }
 }
+
+// ── Analytics report modal ─────────────────────────────────────────────────
+function adminViewSpnReport(adId) {
+  const ad = _sponsoredAds.find(a => a.id === adId);
+  if (!ad) return;
+
+  const machine   = ALL_MACHINES.find(m => m.id === ad.machineId);
+  const catLabel  = SPONSORED_CATEGORIES.find(c => c.key === ad.category)?.label || ad.category;
+  const impr      = parseInt(ad.impressions)||0;
+  const clicks    = parseInt(ad.clicks)    ||0;
+  const ctr       = impr > 0 ? ((clicks/impr)*100).toFixed(2) : '0.00';
+  const startFmt  = ad.startDate ? new Date(ad.startDate).toLocaleDateString('en-AU',{day:'2-digit',month:'long',year:'numeric'}) : '—';
+  const endFmt    = ad.endDate   ? new Date(ad.endDate  ).toLocaleDateString('en-AU',{day:'2-digit',month:'long',year:'numeric'}) : '—';
+  const daysElapsed = ad.startDate ? Math.max(0, Math.round((Math.min(Date.now(),new Date(ad.endDate||Date.now()))-new Date(ad.startDate))/86400000)) : 0;
+  const daysTotal   = ad.durationDays || 1;
+  const pct         = Math.min(100, Math.round((daysElapsed/daysTotal)*100));
+  const cpm         = impr > 0 && ad.fee > 0 ? ((ad.fee/impr)*1000).toFixed(2) : '—';
+  const cpc         = clicks > 0 && ad.fee > 0 ? (ad.fee/clicks).toFixed(2) : '—';
+  const badge       = _spnStatusBadge(ad);
+
+  // Daily stats table
+  const daily = ad.dailyStats || {};
+  const dailyRows = Object.entries(daily).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,14).map(([date,s]) => {
+    const d = new Date(date).toLocaleDateString('en-AU',{day:'2-digit',month:'short'});
+    const dayCtr = s.impressions > 0 ? ((s.clicks/s.impressions)*100).toFixed(1)+'%' : '—';
+    return `<tr style="border-top:1px solid #F1F5F9">
+      <td style="padding:.3rem .5rem;font-size:.75rem;color:#475569">${d}</td>
+      <td style="padding:.3rem .5rem;font-size:.75rem;text-align:right;font-weight:700;color:#1D4ED8">${(s.impressions||0).toLocaleString()}</td>
+      <td style="padding:.3rem .5rem;font-size:.75rem;text-align:right;font-weight:700;color:#7C3AED">${(s.clicks||0).toLocaleString()}</td>
+      <td style="padding:.3rem .5rem;font-size:.75rem;text-align:right;color:#15803D">${dayCtr}</td>
+    </tr>`;
+  }).join('');
+
+  // Create modal
+  const modal = document.createElement('div');
+  modal.id = 'spn-report-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem';
+  modal.innerHTML = `
+    <div style="background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,#F59E0B,#D97706);padding:1rem 1.3rem;border-radius:16px 16px 0 0;display:flex;align-items:flex-start;justify-content:space-between">
+        <div>
+          <div style="font-size:.72rem;font-family:'Courier New',monospace;color:rgba(255,255,255,.75);font-weight:700">${ad.adId||adId.slice(-8)}</div>
+          <div style="font-size:1.05rem;font-weight:900;color:#fff;margin-top:.1rem">${ad.sponsorCompany||ad.brand}</div>
+          <div style="font-size:.8rem;color:rgba(255,255,255,.85)">${catLabel} · ${ad.label||''}</div>
+        </div>
+        <button onclick="document.getElementById('spn-report-modal').remove()"
+          style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:8px;padding:.3rem .7rem;font-size:.85rem;cursor:pointer;font-weight:700">✕</button>
+      </div>
+
+      <div style="padding:1.2rem 1.3rem">
+        <!-- Status + period -->
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
+          <span style="background:${badge.bg};color:${badge.color};font-size:.76rem;font-weight:800;padding:.2rem .65rem;border-radius:20px">${badge.txt}</span>
+          <span style="font-size:.78rem;color:#64748B">📅 ${startFmt} → ${endFmt}</span>
+          <span style="font-size:.78rem;color:#64748B">💰 $${parseFloat(ad.fee||0).toLocaleString('en-AU')}</span>
+        </div>
+
+        <!-- Progress bar -->
+        <div style="margin-bottom:1.1rem">
+          <div style="display:flex;justify-content:space-between;font-size:.73rem;color:#64748B;margin-bottom:.3rem">
+            <span>Campaign progress</span>
+            <span>${daysElapsed} of ${daysTotal} days (${pct}%)</span>
+          </div>
+          <div style="background:#E2E8F0;border-radius:99px;height:8px;overflow:hidden">
+            <div style="background:linear-gradient(90deg,#F59E0B,#D97706);width:${pct}%;height:100%;border-radius:99px"></div>
+          </div>
+        </div>
+
+        <!-- KPI grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:1.1rem">
+          <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#1D4ED8">${impr.toLocaleString()}</div>
+            <div style="font-size:.7rem;color:#1E40AF;font-weight:700;margin-top:.1rem">👁 Impressions</div>
+            <div style="font-size:.68rem;color:#64748B">times shown</div>
+          </div>
+          <div style="background:#F5F3FF;border:1.5px solid #DDD6FE;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#7C3AED">${clicks.toLocaleString()}</div>
+            <div style="font-size:.7rem;color:#6D28D9;font-weight:700;margin-top:.1rem">🖱️ Clicks</div>
+            <div style="font-size:.68rem;color:#64748B">add-to-cart / engage</div>
+          </div>
+          <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#15803D">${ctr}%</div>
+            <div style="font-size:.7rem;color:#166534;font-weight:700;margin-top:.1rem">📊 CTR</div>
+            <div style="font-size:.68rem;color:#64748B">click-through rate</div>
+          </div>
+          <div style="background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#92400E">${cpm === '—' ? '—' : '$'+cpm}</div>
+            <div style="font-size:.7rem;color:#92400E;font-weight:700;margin-top:.1rem">💰 CPM</div>
+            <div style="font-size:.68rem;color:#64748B">cost per 1,000 views</div>
+          </div>
+          <div style="background:#FDF4FF;border:1.5px solid #E9D5FF;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#7E22CE">${cpc === '—' ? '—' : '$'+cpc}</div>
+            <div style="font-size:.7rem;color:#7E22CE;font-weight:700;margin-top:.1rem">🎯 CPC</div>
+            <div style="font-size:.68rem;color:#64748B">cost per click</div>
+          </div>
+          <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#15803D">${daysElapsed > 0 && impr > 0 ? Math.round(impr/daysElapsed).toLocaleString() : '—'}</div>
+            <div style="font-size:.7rem;color:#166534;font-weight:700;margin-top:.1rem">📈 Impr/Day</div>
+            <div style="font-size:.68rem;color:#64748B">daily average</div>
+          </div>
+        </div>
+
+        <!-- Daily breakdown -->
+        ${dailyRows ? `
+        <div style="font-size:.73rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem">Daily Breakdown (last 14 days)</div>
+        <table style="width:100%;border-collapse:collapse;background:#F8FAFC;border-radius:8px;overflow:hidden;border:1px solid #E2E8F0;margin-bottom:1rem">
+          <thead><tr style="background:#F1F5F9">
+            <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">Date</th>
+            <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#1D4ED8;text-align:right">Impr.</th>
+            <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#7C3AED;text-align:right">Clicks</th>
+            <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#15803D;text-align:right">CTR</th>
+          </tr></thead>
+          <tbody>${dailyRows}</tbody>
+        </table>` : `<div style="text-align:center;color:#94A3B8;font-size:.82rem;padding:.8rem;background:#F8FAFC;border-radius:8px;margin-bottom:1rem">No daily data yet — impressions will appear here once the ad goes live.</div>`}
+
+        <!-- Copy report button -->
+        <button onclick="spnCopyReport('${adId}')"
+          style="width:100%;background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:10px;padding:.6rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer">
+          📋 Copy Report (send to brand partner)
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if(e.target===modal) modal.remove(); });
+}
+
+function spnCopyReport(adId) {
+  const ad = _sponsoredAds.find(a => a.id === adId);
+  if (!ad) return;
+  const impr  = parseInt(ad.impressions)||0;
+  const clicks= parseInt(ad.clicks)||0;
+  const ctr   = impr > 0 ? ((clicks/impr)*100).toFixed(2) : '0.00';
+  const catLabel = SPONSORED_CATEGORIES.find(c=>c.key===ad.category)?.label||ad.category;
+  const sf = ad.startDate ? new Date(ad.startDate).toLocaleDateString('en-AU') : '—';
+  const ef = ad.endDate   ? new Date(ad.endDate  ).toLocaleDateString('en-AU') : '—';
+
+  const report = `NOYO BRAND PARTNER REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Ad ID:         ${ad.adId||adId.slice(-8)}
+Brand Partner: ${ad.sponsorCompany||ad.brand}
+Category:      ${catLabel}
+Machine:       ${ad.label||''}
+Period:        ${sf} → ${ef} (${ad.durationDays||'?'} days)
+Fee:           $${parseFloat(ad.fee||0).toLocaleString('en-AU')}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PERFORMANCE SUMMARY
+👁  Impressions:  ${impr.toLocaleString()}
+🖱️  Clicks:       ${clicks.toLocaleString()}
+📊  CTR:          ${ctr}%
+💰  CPM:          ${impr>0&&ad.fee>0?'$'+((ad.fee/impr)*1000).toFixed(2):'—'}
+🎯  CPC:          ${clicks>0&&ad.fee>0?'$'+(ad.fee/clicks).toFixed(2):'—'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Report generated by Noyo | noyo.com.au`;
+
+  navigator.clipboard.writeText(report).then(() => {
+    showToast('📋 Report copied to clipboard — paste into email', '#16A34A');
+  }).catch(() => {
+    showToast('Copy failed — try again', '#EF4444');
+  });
+}
+
+// ── Analytics tracking ─────────────────────────────────────────────────────
+// Batched impression tracking — flush every 5 impressions or on page unload
+var _spnImprBatch = {}; // { adId: { impressions: N, clicks: N } }
+var _spnFlushTimer = null;
+
+function _trackSpnImpression(adId) {
+  if (!adId) return;
+  if (!_spnImprBatch[adId]) _spnImprBatch[adId] = { impressions: 0, clicks: 0 };
+  _spnImprBatch[adId].impressions++;
+  // Update local in-memory immediately for display
+  const ad = _sponsoredAds.find(a => a.id === adId);
+  if (ad) ad.impressions = (parseInt(ad.impressions)||0) + 1;
+  // Flush after 3 impressions or after 5s delay
+  clearTimeout(_spnFlushTimer);
+  _spnFlushTimer = setTimeout(_flushSpnAnalytics, 5000);
+}
+
+function _trackSpnClick(adId) {
+  if (!adId) return;
+  if (!_spnImprBatch[adId]) _spnImprBatch[adId] = { impressions: 0, clicks: 0 };
+  _spnImprBatch[adId].clicks++;
+  // Update local immediately
+  const ad = _sponsoredAds.find(a => a.id === adId);
+  if (ad) ad.clicks = (parseInt(ad.clicks)||0) + 1;
+  _flushSpnAnalytics(); // flush clicks immediately
+}
+
+async function _flushSpnAnalytics() {
+  clearTimeout(_spnFlushTimer);
+  const batch = { ..._spnImprBatch };
+  _spnImprBatch = {};
+  const today = new Date().toISOString().slice(0,10);
+
+  for (const [adId, delta] of Object.entries(batch)) {
+    if (!delta.impressions && !delta.clicks) continue;
+    try {
+      const inc = {};
+      if (delta.impressions) {
+        inc.impressions = firebase.firestore.FieldValue.increment(delta.impressions);
+        inc[`dailyStats.${today}.impressions`] = firebase.firestore.FieldValue.increment(delta.impressions);
+      }
+      if (delta.clicks) {
+        inc.clicks = firebase.firestore.FieldValue.increment(delta.clicks);
+        inc[`dailyStats.${today}.clicks`] = firebase.firestore.FieldValue.increment(delta.clicks);
+      }
+      await _fbDb.collection('sponsored_ads').doc(adId).update(inc);
+    } catch(e) {
+      console.warn('Sponsored analytics flush failed:', e.message);
+    }
+  }
+}
+
+// Flush on page unload
+window.addEventListener('beforeunload', _flushSpnAnalytics);
 
 async function adminToggleSponsoredAd(adId, newActive) {
   try {
@@ -57010,21 +57773,65 @@ async function adminToggleSponsoredAd(adId, newActive) {
     const ad = _sponsoredAds.find(a => a.id === adId);
     if (ad) ad.active = newActive;
     renderAdminSponsored();
-    showToast(newActive ? '▶ Sponsored ad activated.' : '⏸ Sponsored ad paused.', '#0052CC');
+    showToast(newActive ? '▶ Ad resumed.' : '⏸ Ad paused.', '#0052CC');
   } catch(e) { showToast('Update failed: ' + e.message, '#EF4444'); }
+}
+
+async function adminRenewSponsoredAd(adId) {
+  const ad = _sponsoredAds.find(a => a.id === adId);
+  if (!ad) return;
+  // Pre-fill the create form
+  const catSel  = document.getElementById('spn-new-category');
+  const brandSel= document.getElementById('spn-new-brand');
+  const noteSel = document.getElementById('spn-new-note');
+  const feeSel  = document.getElementById('spn-new-fee');
+  const startEl = document.getElementById('spn-new-start');
+  const labelEl = document.getElementById('spn-new-label');
+
+  if (catSel)  { catSel.value  = ad.category||''; spnPopulateBrands(); }
+  setTimeout(() => {
+    const brandEl = document.getElementById('spn-new-brand');
+    if (brandEl) { brandEl.value = ad.sponsorCompany||ad.brand||''; spnPopulateMachines(); }
+    setTimeout(() => {
+      const machEl = document.getElementById('spn-new-machine');
+      if (machEl)  machEl.value  = ad.machineId||'';
+      if (labelEl) labelEl.value = ad.label    ||'';
+      if (noteSel) noteSel.value = ad.note     ||'';
+      if (feeSel)  feeSel.value  = ad.fee      ||'';
+      // Start from day after expiry or today
+      const fromDate = ad.endDate && new Date(ad.endDate) > new Date()
+        ? new Date(new Date(ad.endDate).getTime()+86400000)
+        : new Date();
+      if (startEl) startEl.value = fromDate.toISOString().slice(0,10);
+      if (ad.durationDays) {
+        const endEl = document.getElementById('spn-new-end');
+        if (endEl) {
+          const ed = new Date(fromDate);
+          ed.setDate(ed.getDate()+ad.durationDays-1);
+          endEl.value = ed.toISOString().slice(0,10);
+        }
+      }
+      spnNewUpdatePreview();
+    }, 100);
+  }, 100);
+
+  showToast('📋 Form pre-filled with previous ad details — review and create.', '#0052CC');
+  document.getElementById('admin-sec-sponsored')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 async function adminDeleteSponsoredAd(adId) {
   const ad = _sponsoredAds.find(a => a.id === adId);
   if (!ad) return;
-  if (!confirm(`Delete sponsored ad for "${ad.label}"? This cannot be undone.`)) return;
+  if (!confirm(`Delete brand partner ad "${ad.adId||adId}" for ${ad.sponsorCompany||ad.brand}? This cannot be undone.`)) return;
   try {
     await _fbDb.collection('sponsored_ads').doc(adId).delete();
     _sponsoredAds = _sponsoredAds.filter(a => a.id !== adId);
     renderAdminSponsored();
-    showToast('Sponsored ad deleted.', '#EF4444');
+    showToast('🗑 Brand partner ad deleted.', '#EF4444');
   } catch(e) { showToast('Delete failed: ' + e.message, '#EF4444'); }
 }
+
+
 
 // ══════════════════════════════════════════════════════════════════
 // ADD MACHINE FROM SPEC SHEET — Claude Vision extraction
@@ -58168,7 +58975,7 @@ function showAdminSection(name, btn) {
   if (name === 'users')         renderAdminUsers();
   if (name === 'searches')      renderAdminSearches();
   if (name === 'activity')      renderAdminActivity();
-  if (name === 'analytics')     renderAnalytics();
+  if (name === 'analytics')     { analyticsSetPreset('30d'); }
   if (name === 'liteanalytics') renderAdminLiteAnalytics();
   if (name === 'billing')       renderAdminBilling();
   if (name === 'sponsored')     renderAdminSponsored();
@@ -58194,276 +59001,372 @@ function makeChart(id, cfg) {
   _chartInstances[id] = new Chart(canvas, cfg);
 }
 
-function renderAnalytics() {
+function analyticsSetPreset(preset) {
+  const now = new Date();
+  const today = now.toISOString().slice(0,10);
+  let from = today;
+
+  if (preset === 'today') from = today;
+  else if (preset === '7d')  { const d = new Date(now); d.setDate(d.getDate()-6);  from = d.toISOString().slice(0,10); }
+  else if (preset === '30d') { const d = new Date(now); d.setDate(d.getDate()-29); from = d.toISOString().slice(0,10); }
+  else if (preset === '90d') { const d = new Date(now); d.setDate(d.getDate()-89); from = d.toISOString().slice(0,10); }
+  else if (preset === '12m') { const d = new Date(now); d.setFullYear(d.getFullYear()-1); from = d.toISOString().slice(0,10); }
+  else if (preset === 'all') { from = '2024-01-01'; }
+
+  const fromEl = document.getElementById('analytics-from');
+  const toEl   = document.getElementById('analytics-to');
+  if (fromEl) fromEl.value = from;
+  if (toEl)   toEl.value   = today;
+
+  // Update active button
+  ['today','7d','30d','90d','12m','all'].forEach(p => {
+    const btn = document.getElementById(`abtn-${p}`);
+    if (btn) btn.classList.toggle('active', p === preset);
+  });
+  renderAnalytics();
+}
+
+async function renderAnalytics() {
   if (typeof Chart === 'undefined') { setTimeout(renderAnalytics, 300); return; }
-  const periodDays = parseInt(document.getElementById('analytics-period')?.value || '30');
-  const now = Date.now();
-  const cutoff = now - periodDays * 86400000;
 
-  // ── Data prep ──────────────────────────────────────────────────
-  const allCustomers = Object.entries(customerRegistry || {})
-    .map(([email, v]) => ({ email, ...v }));
-  const recentCustomers = allCustomers.filter(c => c.lastSeen && c.lastSeen >= cutoff);
-  const allQuotes = [...(quoteInbox || [])];
-  const recentQuotes = allQuotes.filter(q => q.ts && q.ts >= cutoff);
+  // ── Date range ─────────────────────────────────────────────────────────
+  const today  = new Date().toISOString().slice(0,10);
+  const fromEl = document.getElementById('analytics-from');
+  const toEl   = document.getElementById('analytics-to');
+  if (!fromEl.value) { analyticsSetPreset('30d'); return; }
+  const fromDate = fromEl.value || today;
+  const toDate   = toEl.value   || today;
 
-  // Decide bucket granularity
-  const useDays = periodDays <= 90;
-  const buckets = [];
-  const bucketLabel = [];
-  const bucketMs = useDays ? 86400000 : 7 * 86400000;
-  const numBuckets = useDays ? periodDays : Math.ceil(periodDays / 7);
-  for (let i = numBuckets - 1; i >= 0; i--) {
-    const t = now - i * bucketMs;
-    buckets.push(t);
-    const d = new Date(t);
-    bucketLabel.push(useDays
-      ? d.toLocaleDateString('en-AU', { day:'numeric', month:'short' })
-      : d.toLocaleDateString('en-AU', { day:'numeric', month:'short' }));
-  }
+  // Generate date list
+  const dateList = [];
+  const cur = new Date(fromDate);
+  const end = new Date(toDate);
+  while (cur <= end) { dateList.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
 
-  function toBucket(ts) {
-    for (let i = buckets.length - 1; i >= 0; i--) {
-      if (ts >= buckets[i] - bucketMs) return i;
-    }
-    return 0;
-  }
+  // ── Load analytics_daily from Firestore ────────────────────────────────
+  let dailyDocs = [];
+  try {
+    const snap = await _fbDb.collection('analytics_daily')
+      .where(firebase.firestore.FieldPath.documentId(), '>=', fromDate)
+      .where(firebase.firestore.FieldPath.documentId(), '<=', toDate)
+      .get();
+    dailyDocs = snap.docs.map(d => ({ date: d.id, ...d.data() }));
+  } catch(e) { console.warn('Analytics load failed:', e.message); }
 
-  // Customer count per bucket
-  const custPerBucket = new Array(numBuckets).fill(0);
-  allCustomers.forEach(c => {
-    // Use firstSeen if available, else lastSeen
-    const ts = c.firstSeen || c.lastSeen;
-    if (ts && ts >= cutoff) custPerBucket[toBucket(ts)]++;
+  // ── Load recent search records ─────────────────────────────────────────
+  let searchRecs = [];
+  try {
+    const cutoffMs = new Date(fromDate).getTime();
+    const snap2 = await _fbDb.collection('admin_analytics').doc('searches').collection('records')
+      .where('ts','>=', cutoffMs)
+      .orderBy('ts','desc').limit(200).get();
+    searchRecs = snap2.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch(e) {}
+
+  // ── Aggregate daily data ───────────────────────────────────────────────
+  let totalSearches = 0, totalCartAdds = 0;
+  const categoryAgg  = {};   // catKey → count
+  const machineAgg   = {};   // machId → { views, cartAdds, name }
+  const cityAgg      = {};   // city → count
+  const dailySearch  = {};   // date → searches
+  const dailyCart    = {};   // date → cartAdds
+  const dailyQuote   = {};   // date → quotes
+
+  dateList.forEach(d => { dailySearch[d] = 0; dailyCart[d] = 0; dailyQuote[d] = 0; });
+
+  dailyDocs.forEach(doc => {
+    const d = doc.date;
+    totalSearches += parseInt(doc.searches)||0;
+    totalCartAdds += parseInt(doc.cartAdds)||0;
+    dailySearch[d] = (dailySearch[d]||0) + (parseInt(doc.searches)||0);
+    dailyCart[d]   = (dailyCart[d]||0)   + (parseInt(doc.cartAdds)||0);
+
+    // Categories
+    if (doc.categories) Object.entries(doc.categories).forEach(([k,v]) => {
+      categoryAgg[k] = (categoryAgg[k]||0) + (parseInt(v)||0);
+    });
+
+    // Machines
+    if (doc.machines) Object.entries(doc.machines).forEach(([rawId,mData]) => {
+      const id = rawId.replace(/_/g,'-'); // un-sanitize
+      if (!machineAgg[id]) {
+        const m = ALL_MACHINES.find(x => x.id === id);
+        machineAgg[id] = { views: 0, cartAdds: 0, name: m ? (m.shortName||m.name) : id, brand: m ? m.brand : '' };
+      }
+      machineAgg[id].views    += parseInt(mData?.views)||0;
+      machineAgg[id].cartAdds += parseInt(mData?.cartAdds)||0;
+    });
+
+    // Cities
+    if (doc.cities) Object.entries(doc.cities).forEach(([k,v]) => {
+      const city = k.replace(/_/g,' ');
+      cityAgg[city] = (cityAgg[city]||0) + (parseInt(v)||0);
+    });
   });
 
-  // Quotes per bucket
-  const quotesPerBucket = new Array(numBuckets).fill(0);
-  recentQuotes.forEach(q => { if (q.ts) quotesPerBucket[toBucket(q.ts)]++; });
+  // ── Quote data from quoteInbox (in-memory) ─────────────────────────────
+  const cutoffMs = new Date(fromDate).getTime();
+  const toMs     = new Date(toDate).getTime() + 86400000;
+  const recentQuotes = (quoteInbox||[]).filter(q => q.ts && q.ts >= cutoffMs && q.ts <= toMs);
+  recentQuotes.forEach(q => {
+    const d = new Date(q.ts).toISOString().slice(0,10);
+    dailyQuote[d] = (dailyQuote[d]||0) + 1;
+    // City from quote
+    const city = q.state || q.city || q.suburb;
+    if (city) cityAgg[city] = (cityAgg[city]||0) + 0.5;
+  });
+  const totalQuotes    = recentQuotes.length;
+  const totalAccepted  = recentQuotes.filter(q => q.acceptedBy).length;
+  const totalResponded = recentQuotes.filter(q => (q.responses||[]).length > 0).length;
 
-  // ── KPI row ────────────────────────────────────────────────────
-  const accepted = recentQuotes.filter(q => q.acceptedBy).length;
-  const responded = recentQuotes.filter(q => (q.responses||[]).length > 0).length;
-  const convRate = responded > 0 ? Math.round(accepted / responded * 100) : 0;
-
+  // ── KPI tiles ──────────────────────────────────────────────────────────
+  const convRate = totalSearches > 0 ? ((totalCartAdds/totalSearches)*100).toFixed(1) : '0.0';
+  const quoteRate= totalCartAdds > 0 ? ((totalQuotes/totalCartAdds)*100).toFixed(1) : '0.0';
+  const kpis = [
+    { icon:'🔍', val: totalSearches.toLocaleString(),    label:'Searches',         color:'#0052CC', bg:'#EFF6FF'  },
+    { icon:'🛒', val: totalCartAdds.toLocaleString(),    label:'Cart Adds',         color:'#7C3AED', bg:'#F5F3FF'  },
+    { icon:'📨', val: totalQuotes.toLocaleString(),      label:'Quotes Sent',       color:'#0891B2', bg:'#ECFEFF'  },
+    { icon:'✅', val: totalAccepted.toLocaleString(),    label:'Hires Accepted',    color:'#16A34A', bg:'#F0FDF4'  },
+    { icon:'📊', val: convRate+'%',                      label:'Search→Cart Rate',  color:'#D97706', bg:'#FFFBEB'  },
+    { icon:'💬', val: quoteRate+'%',                     label:'Cart→Quote Rate',   color:'#DC2626', bg:'#FEF2F2'  },
+    { icon:'🧑', val: Object.keys(customerRegistry||{}).filter(e => {
+        const u = customerRegistry[e]; return u.lastSeen && u.lastSeen >= cutoffMs; }).length, label:'Active Users', color:'#0F172A', bg:'#F8FAFC' },
+    { icon:'⭐', val: _sponsoredAds.filter(a => a.active && !_spnIsExpired(a)).length, label:'Live Brand Ads', color:'#92400E', bg:'#FFFBEB' },
+  ];
   const kpiRow = document.getElementById('analytics-kpi-row');
-  if (kpiRow) {
-    const kpis = [
-      { icon:'🧑', val: recentCustomers.length, label:'New Customers', color:'#0052CC', bg:'#EFF6FF' },
-      { icon:'📨', val: recentQuotes.length,    label:'Quote Requests', color:'#7C3AED', bg:'#F5F3FF' },
-      { icon:'💬', val: responded,               label:'Quotes Responded', color:'#0891B2', bg:'#ECFEFF' },
-      { icon:'✅', val: accepted,                label:'Hires Accepted',  color:'#16A34A', bg:'#F0FDF4' },
-      { icon:'📊', val: convRate + '%',          label:'Conversion Rate', color:'#D97706', bg:'#FFFBEB' },
-      { icon:'🏢', val: Object.keys(Object.fromEntries((allQuotes.flatMap(q => (q.responses||[]).map(r => [r.company,1]))))).length, label:'Active Rental Cos', color:'#DC2626', bg:'#FEF2F2' },
+  if (kpiRow) kpiRow.innerHTML = kpis.map(k => `
+    <div style="background:${k.bg};border:1.5px solid ${k.color}22;border-radius:12px;padding:.7rem .8rem;text-align:center">
+      <div style="font-size:1.3rem">${k.icon}</div>
+      <div style="font-size:1.35rem;font-weight:900;color:${k.color};line-height:1.2">${k.val}</div>
+      <div style="font-size:.7rem;font-weight:700;color:#64748B;margin-top:.1rem">${k.label}</div>
+    </div>`).join('');
+
+  // ── Conversion funnel ──────────────────────────────────────────────────
+  const funnelEl = document.getElementById('analytics-funnel');
+  if (funnelEl && totalSearches > 0) {
+    const steps = [
+      { label:'🔍 Searches', val: totalSearches, color:'#0052CC' },
+      { label:'🛒 Cart Adds', val: totalCartAdds, pct: totalSearches > 0 ? ((totalCartAdds/totalSearches)*100).toFixed(0) : 0, color:'#7C3AED' },
+      { label:'📨 Quotes Sent', val: totalQuotes, pct: totalCartAdds > 0 ? ((totalQuotes/totalCartAdds)*100).toFixed(0) : 0, color:'#0891B2' },
+      { label:'✅ Accepted', val: totalAccepted, pct: totalQuotes > 0 ? ((totalAccepted/totalQuotes)*100).toFixed(0) : 0, color:'#16A34A' },
     ];
-    kpiRow.innerHTML = kpis.map(k => `
-      <div style="background:${k.bg};border:1.5px solid ${k.color}22;border-radius:12px;padding:.75rem .9rem;text-align:center">
-        <div style="font-size:1.4rem">${k.icon}</div>
-        <div style="font-size:1.4rem;font-weight:900;color:${k.color};line-height:1.2">${k.val}</div>
-        <div style="font-size:.72rem;font-weight:700;color:#64748B;margin-top:.1rem">${k.label}</div>
-      </div>`).join('');
+    const maxVal = totalSearches || 1;
+    funnelEl.innerHTML = `
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem">
+        <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">🎯 Conversion Funnel</div>
+        <div style="display:flex;flex-direction:column;gap:.45rem">
+          ${steps.map((s,i) => `
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:.77rem;font-weight:700;margin-bottom:.2rem">
+              <span style="color:#334155">${s.label}</span>
+              <span style="color:${s.color};font-weight:900">${s.val.toLocaleString()}${s.pct !== undefined ? ` <span style="color:#94A3B8;font-weight:600">(${s.pct}% of prev)</span>` : ''}</span>
+            </div>
+            <div style="background:#F1F5F9;border-radius:99px;height:10px;overflow:hidden">
+              <div style="background:${s.color};width:${Math.round((s.val/maxVal)*100)}%;height:100%;border-radius:99px;transition:width .4s"></div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>`;
   }
 
-  const gridColor = 'rgba(0,0,0,.06)';
+  // ── Chart helpers ─────────────────────────────────────────────────────
+  const gridColor = 'rgba(0,0,0,.05)';
   const tickColor = '#94A3B8';
+  const chartOpts = (extra={}) => ({ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ display:false }, ...extra.plugins },
+    scales: { x:{ticks:{color:tickColor,font:{size:10},maxTicksLimit:10},grid:{color:gridColor}},
+               y:{ticks:{color:tickColor,font:{size:10},precision:0},grid:{color:gridColor},beginAtZero:true}, ...extra.scales },
+    ...extra });
 
-  // ── 1. New Customers Over Time (line) ──────────────────────────
-  makeChart('chart-customers-time', {
+  // Determine label density
+  const useDays = dateList.length <= 90;
+  const step    = Math.ceil(dateList.length / 20);
+  const chartLabels = dateList.map((d,i) => {
+    if (i % step !== 0) return '';
+    const dt = new Date(d);
+    return useDays
+      ? dt.toLocaleDateString('en-AU',{day:'numeric',month:'short'})
+      : dt.toLocaleDateString('en-AU',{month:'short',year:'2-digit'});
+  });
+
+  // ── 1. Activity over time ───────────────────────────────────────────────
+  makeChart('chart-activity-time', {
     type: 'line',
     data: {
-      labels: bucketLabel,
-      datasets: [{
-        label: 'New Customers',
-        data: custPerBucket,
-        borderColor: '#0052CC',
-        backgroundColor: 'rgba(0,82,204,.1)',
-        fill: true,
-        tension: .4,
-        pointRadius: numBuckets <= 14 ? 4 : 2,
-      }]
-    },
-    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{ x:{ticks:{color:tickColor,font:{size:10},maxTicksLimit:8},grid:{color:gridColor}},
-               y:{ticks:{color:tickColor,font:{size:10},precision:0},grid:{color:gridColor},beginAtZero:true} } }
-  });
-
-  // ── 2. Quote Requests Over Time (bar) ─────────────────────────
-  makeChart('chart-quotes-time', {
-    type: 'bar',
-    data: {
-      labels: bucketLabel,
-      datasets: [{
-        label: 'Quote Requests',
-        data: quotesPerBucket,
-        backgroundColor: 'rgba(124,58,237,.7)',
-        borderRadius: 4,
-      }]
-    },
-    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{ x:{ticks:{color:tickColor,font:{size:10},maxTicksLimit:8},grid:{color:gridColor}},
-               y:{ticks:{color:tickColor,font:{size:10},precision:0},grid:{color:gridColor},beginAtZero:true} } }
-  });
-
-  // ── 3. Geographic distribution (suburb/state) ─────────────────
-  const geoCount = {};
-  recentQuotes.forEach(q => {
-    const place = q.state || q.suburb || 'Unknown';
-    geoCount[place] = (geoCount[place] || 0) + 1;
-  });
-  // Also check customer registry
-  allCustomers.filter(c => c.lastSeen >= cutoff).forEach(c => {
-    if (c.state || c.city) {
-      const place = c.state || c.city;
-      geoCount[place] = (geoCount[place] || 0) + 0.5;
-    }
-  });
-  const geoSorted = Object.entries(geoCount).sort((a,b) => b[1]-a[1]).slice(0, 10);
-  const geoColors = ['#0052CC','#7C3AED','#0891B2','#16A34A','#D97706','#DC2626','#0EA5E9','#8B5CF6','#10B981','#F59E0B'];
-  makeChart('chart-geo', {
-    type: 'doughnut',
-    data: {
-      labels: geoSorted.map(g => g[0]),
-      datasets: [{ data: geoSorted.map(g => Math.round(g[1])), backgroundColor: geoColors, borderWidth: 2 }]
+      labels: chartLabels,
+      datasets: [
+        { label:'Searches',  data: dateList.map(d => dailySearch[d]||0), borderColor:'#0052CC', backgroundColor:'rgba(0,82,204,.08)', fill:true, tension:.35, pointRadius:1 },
+        { label:'Cart Adds', data: dateList.map(d => dailyCart[d]  ||0), borderColor:'#7C3AED', backgroundColor:'rgba(124,58,237,.08)', fill:true, tension:.35, pointRadius:1 },
+        { label:'Quotes',    data: dateList.map(d => dailyQuote[d] ||0), borderColor:'#16A34A', backgroundColor:'rgba(22,163,74,.08)', fill:true, tension:.35, pointRadius:1 },
+      ]
     },
     options: { responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ position:'right', labels:{ font:{size:10}, color:'#334155', boxWidth:12 } } } }
+      plugins:{ legend:{ display:true, position:'top', labels:{font:{size:11},boxWidth:20,color:'#334155'} } },
+      scales:{ x:{ticks:{color:tickColor,font:{size:10},maxTicksLimit:12},grid:{color:gridColor}},
+               y:{ticks:{color:tickColor,font:{size:10},precision:0},grid:{color:gridColor},beginAtZero:true} } }
   });
 
-  // ── 4. Machine types requested ────────────────────────────────
-  const machTypes = {};
-  recentQuotes.forEach(q => {
-    (q.machines || []).forEach(m => {
-      const t = m.type || m.machineType || 'Unknown';
-      const label = t.includes('tele') || t === 'telehandler' ? 'Telehandler'
-        : t.includes('scissor') ? 'Scissor Lift'
-        : t.includes('boom') || t.includes('articul') ? 'Boom Lift'
-        : t.includes('forklift') || t.includes('fork') ? 'Forklift'
-        : t.includes('rotating') ? 'Rotating Tele'
-        : t.charAt(0).toUpperCase() + t.slice(1) || 'Other';
-      machTypes[label] = (machTypes[label] || 0) + 1;
-    });
-    // Fallback: use category if present
-    if (!q.machines || q.machines.length === 0) {
-      const cat = q.category || q.machineType || 'Unknown';
-      machTypes[cat] = (machTypes[cat] || 0) + 1;
-    }
-  });
-  const mtSorted = Object.entries(machTypes).sort((a,b) => b[1]-a[1]).slice(0,8);
-  makeChart('chart-machine-types', {
+  // ── 2. Top categories ──────────────────────────────────────────────────
+  const catLabels = {
+    telehandler:'Telehandlers', rotating:'Rotating Tele', boom:'Boom Lifts', scissor:'Scissor Lifts',
+    forklift:'Forklifts', material:'Material Lifts', pushAround:'Push-Around', palletJack:'Pallet Jacks',
+    em_excavator:'Excavators', em_bobcat:'Bobcats', em_dozer:'Dozers', em_compactor:'Compactors',
+    em_grader:'Graders', em_dumper:'ADTs', loader:'Wheel Loaders', em_water_cart:'Water Carts',
+    rigid_dump_truck:'Mining Trucks'
+  };
+  // Also count from quoteInbox machines
+  const catFromQuotes = {};
+  recentQuotes.forEach(q => (q.machines||[]).forEach(m => {
+    const t = m.type||m.machineType||''; if(t) catFromQuotes[t] = (catFromQuotes[t]||0)+1;
+  }));
+  const combinedCat = { ...categoryAgg };
+  Object.entries(catFromQuotes).forEach(([k,v]) => { combinedCat[k] = (combinedCat[k]||0)+v; });
+  const catSorted = Object.entries(combinedCat).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const catColors = ['#0052CC','#7C3AED','#0891B2','#16A34A','#D97706','#DC2626','#0EA5E9','#8B5CF6','#10B981','#F59E0B','#6366F1','#EC4899'];
+  makeChart('chart-categories', {
     type: 'bar',
     data: {
-      labels: mtSorted.map(m => m[0]),
-      datasets: [{ label: 'Requests', data: mtSorted.map(m => m[1]),
-        backgroundColor: ['#0052CC','#7C3AED','#0891B2','#16A34A','#D97706','#DC2626','#0EA5E9','#8B5CF6'],
-        borderRadius: 5 }]
+      labels: catSorted.map(c => catLabels[c[0]]||c[0]),
+      datasets: [{ data: catSorted.map(c=>c[1]), backgroundColor: catColors, borderRadius:5 }]
     },
     options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false} },
+      plugins:{legend:{display:false}},
       scales:{ x:{ticks:{color:tickColor,font:{size:10},precision:0},grid:{color:gridColor},beginAtZero:true},
                y:{ticks:{color:tickColor,font:{size:10}},grid:{display:false}} } }
   });
 
-  // ── 5. Quote outcomes ─────────────────────────────────────────
-  const pending  = recentQuotes.filter(q => (q.responses||[]).length > 0 && !q.acceptedBy).length;
-  const noResp   = recentQuotes.filter(q => !(q.responses||[]).length).length;
-  const declined = recentQuotes.filter(q => !q.acceptedBy && (q.responses||[]).some(r=>r.rejected)).length;
+  // ── 3. Geographic ─────────────────────────────────────────────────────
+  const geoSorted = Object.entries(cityAgg).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  makeChart('chart-geo', {
+    type:'doughnut',
+    data:{ labels:geoSorted.map(g=>g[0]), datasets:[{ data:geoSorted.map(g=>Math.round(g[1])), backgroundColor:catColors, borderWidth:2 }] },
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ position:'right', labels:{ font:{size:10}, color:'#334155', boxWidth:12 } } } }
+  });
+
+  // ── 4. Quote outcomes ─────────────────────────────────────────────────
+  const pending  = recentQuotes.filter(q=>(q.responses||[]).length>0&&!q.acceptedBy).length;
+  const declined = recentQuotes.filter(q=>!q.acceptedBy&&(q.responses||[]).some(r=>r.rejected)).length;
+  const noResp   = recentQuotes.filter(q=>!(q.responses||[]).length).length;
   makeChart('chart-conversion', {
-    type: 'doughnut',
-    data: {
-      labels: ['Accepted','Pending Action','Declined','No Response'],
-      datasets: [{ data: [accepted, pending, declined, noResp],
-        backgroundColor: ['#16A34A','#D97706','#EF4444','#94A3B8'], borderWidth: 2 }]
-    },
-    options: { responsive:true, maintainAspectRatio:false,
+    type:'doughnut',
+    data:{ labels:['Accepted','Pending','Declined','No Response'],
+           datasets:[{ data:[totalAccepted,pending,declined,noResp], backgroundColor:['#16A34A','#D97706','#EF4444','#94A3B8'], borderWidth:2 }] },
+    options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{ position:'right', labels:{ font:{size:10}, color:'#334155', boxWidth:12 } } } }
   });
 
-  // ── 6. Hire duration mix ──────────────────────────────────────
-  const durCount = { 'Daily':0, 'Weekly':0, 'Monthly':0, 'Long-term':0, 'Unknown':0 };
+  // ── 5. Hire duration ──────────────────────────────────────────────────
+  const durCount = {Daily:0,Weekly:0,'2 Weeks':0,Monthly:0,'3 Months':0,'6 Months':0,'12+ Months':0,Other:0};
   recentQuotes.forEach(q => {
-    const d = (q.duration || q.hireDuration || '').toLowerCase();
-    if (d.includes('day') || d === '1d' || d === 'daily') durCount['Daily']++;
-    else if (d.includes('week') || d === '1w') durCount['Weekly']++;
-    else if (d.includes('month') || d === '1m') durCount['Monthly']++;
-    else if (d.includes('long') || d.includes('3m') || d.includes('6m') || d.includes('year')) durCount['Long-term']++;
-    else durCount['Unknown']++;
+    const d=(q.duration||q.hireDuration||'').toLowerCase();
+    if(d.includes('half')||d==='1d'||d.includes('4hr')) durCount['Daily']++;
+    else if(d.includes('1 day')||d==='daily'||d==='1-day') durCount['Daily']++;
+    else if(d.includes('1 week')||d==='1w'||d==='1-week') durCount['Weekly']++;
+    else if(d.includes('2 week')||d==='2w'||d==='2-weeks') durCount['2 Weeks']++;
+    else if(d.includes('month')||d==='1m'||d==='1-month') durCount['Monthly']++;
+    else if(d.includes('3m')||d.includes('3 month')) durCount['3 Months']++;
+    else if(d.includes('6m')||d.includes('6 month')) durCount['6 Months']++;
+    else if(d.includes('12m')||d.includes('year')||d.includes('12 month')) durCount['12+ Months']++;
+    else durCount['Other']++;
   });
+  const durPairs = Object.entries(durCount).filter(p=>p[1]>0);
   makeChart('chart-hire-duration', {
-    type: 'pie',
-    data: {
-      labels: Object.keys(durCount),
-      datasets: [{ data: Object.values(durCount),
-        backgroundColor: ['#0052CC','#0891B2','#7C3AED','#16A34A','#94A3B8'], borderWidth: 2 }]
-    },
-    options: { responsive:true, maintainAspectRatio:false,
+    type:'pie',
+    data:{ labels:durPairs.map(p=>p[0]), datasets:[{ data:durPairs.map(p=>p[1]), backgroundColor:catColors, borderWidth:2 }] },
+    options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{ position:'right', labels:{ font:{size:10}, color:'#334155', boxWidth:12 } } } }
   });
 
-  // ── 7. Capacity class demand ──────────────────────────────────
-  const capBands = { '<2T':0, '2-3T':0, '3-5T':0, '5-8T':0, '>8T':0 };
-  recentQuotes.forEach(q => {
-    (q.machines||[]).forEach(m => {
-      const kg = parseFloat(m.capacity || m.loadKg || m.reqWeight || 0);
-      if (!kg) return;
-      const t = kg > 100 ? kg/1000 : kg;
-      if (t < 2) capBands['<2T']++;
-      else if (t < 3) capBands['2-3T']++;
-      else if (t < 5) capBands['3-5T']++;
-      else if (t < 8) capBands['5-8T']++;
-      else capBands['>8T']++;
-    });
-    // Fallback: use loadKg directly on req
-    if ((!q.machines || q.machines.length === 0) && q.loadKg) {
-      const t = q.loadKg > 100 ? q.loadKg/1000 : q.loadKg;
-      if (t < 2) capBands['<2T']++;
-      else if (t < 3) capBands['2-3T']++;
-      else if (t < 5) capBands['3-5T']++;
-      else if (t < 8) capBands['5-8T']++;
-      else capBands['>8T']++;
-    }
-  });
-  makeChart('chart-capacity', {
-    type: 'bar',
-    data: {
-      labels: Object.keys(capBands),
-      datasets: [{ label: 'Requests', data: Object.values(capBands),
-        backgroundColor: ['#EFF6FF','#DBEAFE','#BFDBFE','#93C5FD','#3B82F6'].map((c,i)=>[
-          '#0052CC','#0891B2','#7C3AED','#16A34A','#D97706'][i]),
-        borderRadius: 5 }]
-    },
-    options: { responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false} },
-      scales:{ x:{ticks:{color:tickColor,font:{size:10}},grid:{color:gridColor}},
-               y:{ticks:{color:tickColor,font:{size:10},precision:0},grid:{color:gridColor},beginAtZero:true} } }
-  });
-
-  // ── 8. Rental company response activity ───────────────────────
+  // ── 6. Rental company response activity ──────────────────────────────
   const rcActivity = {};
-  allQuotes.forEach(q => {
+  (quoteInbox||[]).forEach(q => {
     (q.responses||[]).forEach(r => {
-      if (!r.company) return;
-      if (!rcActivity[r.company]) rcActivity[r.company] = { responses:0, accepted:0 };
+      if(!r.company) return;
+      if(!rcActivity[r.company]) rcActivity[r.company]={responses:0,accepted:0};
       rcActivity[r.company].responses++;
-      if (q.acceptedBy === r.company) rcActivity[r.company].accepted++;
+      if(q.acceptedBy===r.company) rcActivity[r.company].accepted++;
     });
   });
-  const rcSorted = Object.entries(rcActivity).sort((a,b) => b[1].responses - a[1].responses).slice(0,8);
+  const rcSorted = Object.entries(rcActivity).sort((a,b)=>b[1].responses-a[1].responses).slice(0,10);
   makeChart('chart-rental-activity', {
-    type: 'bar',
-    data: {
-      labels: rcSorted.map(r => r[0]),
-      datasets: [
-        { label: 'Quotes Sent', data: rcSorted.map(r => r[1].responses),
-          backgroundColor: 'rgba(8,145,178,.7)', borderRadius: 4 },
-        { label: 'Accepted',    data: rcSorted.map(r => r[1].accepted),
-          backgroundColor: 'rgba(22,163,74,.8)', borderRadius: 4 },
-      ]
-    },
-    options: { responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ labels:{ font:{size:10}, color:'#334155', boxWidth:12 } } },
+    type:'bar',
+    data:{ labels:rcSorted.map(r=>r[0]),
+      datasets:[
+        { label:'Quotes Sent', data:rcSorted.map(r=>r[1].responses), backgroundColor:'rgba(8,145,178,.7)', borderRadius:4 },
+        { label:'Accepted',    data:rcSorted.map(r=>r[1].accepted),  backgroundColor:'rgba(22,163,74,.8)',  borderRadius:4 },
+      ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ labels:{ font:{size:10},color:'#334155',boxWidth:12 } } },
       scales:{ x:{ticks:{color:tickColor,font:{size:10},maxRotation:30},grid:{color:gridColor}},
                y:{ticks:{color:tickColor,font:{size:10},precision:0},grid:{color:gridColor},beginAtZero:true} } }
   });
+
+  // ── 7. Top machines searched ──────────────────────────────────────────
+  const topSearched = Object.entries(machineAgg).sort((a,b)=>b[1].views-a[1].views).slice(0,10);
+  const topCarted   = Object.entries(machineAgg).sort((a,b)=>b[1].cartAdds-a[1].cartAdds).filter(m=>m[1].cartAdds>0).slice(0,10);
+
+  const _machTable = (title, icon, rows, valKey, valLabel) => `
+    <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">${icon} ${title}</div>
+    ${rows.length === 0
+      ? `<div style="text-align:center;color:#94A3B8;font-size:.82rem;padding:1.5rem">No data yet for this period</div>`
+      : `<table style="width:100%;border-collapse:collapse">
+          <thead><tr style="background:#F8FAFC">
+            <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">#</th>
+            <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">Machine</th>
+            <th style="padding:.3rem .5rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:right">${valLabel}</th>
+          </tr></thead>
+          <tbody>
+          ${rows.map(([id,m],i) => `
+            <tr style="border-top:1px solid #F1F5F9">
+              <td style="padding:.3rem .5rem;font-size:.75rem;color:#94A3B8;font-weight:700">${i+1}</td>
+              <td style="padding:.3rem .5rem">
+                <div style="font-size:.78rem;font-weight:700;color:#0F172A">${m.name||id}</div>
+                <div style="font-size:.7rem;color:#64748B">${m.brand||''}</div>
+              </td>
+              <td style="padding:.3rem .5rem;text-align:right;font-size:.85rem;font-weight:900;color:#0052CC">${(m[valKey]||0).toLocaleString()}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>`}`;
+
+  const tsEl = document.getElementById('analytics-top-searched');
+  if (tsEl) tsEl.innerHTML = _machTable('Top Machines Searched / Shown', '🔍', topSearched, 'views', 'Views');
+  const tcEl = document.getElementById('analytics-top-carted');
+  if (tcEl) tcEl.innerHTML = _machTable('Top Machines Added to Cart', '🛒', topCarted, 'cartAdds', 'Cart Adds');
+
+  // ── 8. Recent search log ───────────────────────────────────────────────
+  const rEl = document.getElementById('analytics-recent-searches');
+  if (rEl) {
+    const recentSearches = searchRecs.slice(0,20);
+    rEl.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">🕐 Recent Search Activity</div>
+      ${recentSearches.length === 0
+        ? `<div style="text-align:center;color:#94A3B8;font-size:.82rem;padding:1rem">No recent searches in this period</div>`
+        : `<div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;min-width:500px">
+              <thead><tr style="background:#F8FAFC">
+                <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">Time</th>
+                <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">Category</th>
+                <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">User</th>
+                <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">Location</th>
+                <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:center">Cart</th>
+              </tr></thead>
+              <tbody>
+              ${recentSearches.map(s => {
+                const dt = new Date(s.ts);
+                const timeStr = dt.toLocaleDateString('en-AU',{day:'2-digit',month:'short'})+' '+dt.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+                return `<tr style="border-top:1px solid #F1F5F9">
+                  <td style="padding:.3rem .6rem;font-size:.75rem;color:#64748B;white-space:nowrap">${timeStr}</td>
+                  <td style="padding:.3rem .6rem;font-size:.78rem;font-weight:700;color:#0052CC">${s.machineName||s.jobType||'—'}</td>
+                  <td style="padding:.3rem .6rem;font-size:.75rem;color:#334155">${s.role==='customer'||!s.role?'Customer':s.user||'—'}</td>
+                  <td style="padding:.3rem .6rem;font-size:.75rem;color:#64748B">${s.city&&s.city!=='—'?'📍 '+s.city:'—'}</td>
+                  <td style="padding:.3rem .6rem;text-align:center">${s.cartAdded?'🛒':''}</td>
+                </tr>`;
+              }).join('')}
+              </tbody>
+            </table>
+          </div>`}`;
+  }
 }
 
 // ── Auto-refresh and idle detection ───────────────────────────────────
@@ -60598,4 +61501,18 @@ async function umDoDelete(uid, email) {
   }
 }
 
-// (Firebase db and currentUser accessed directly as globals in user mgmt functions)
+// (Firebase db and currentUser accessed directly as globals in user mgmt functions)  ];
+
+  document.getElementById('admin-stat-grid').innerHTML = cards.map(c => `
+    <div class="stat-card ${c.color}" onclick="adminStatClick('${c.section}','')" style="cursor:pointer">
+      <div class="stat-arrow">→</div>
+      <div class="stat-icon">${c.icon}</div>
+      <div class="stat-value">${c.value}</div>
+      <div class="stat-label">${c.label}</div>
+      <div class="stat-sub">${c.sub}</div>
+      <div style="font-size:.68rem;color:#94A3B8;margin-top:.3rem;font-style:italic">${c.detail}</div>
+    </div>`).join('');
+
+// =====================================================================
+// MACHINE DATABASE
+// =====================================================================
