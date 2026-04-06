@@ -1378,3 +1378,19 @@ img[src=""]{display:none}
   .view{display:block!important}
   .rec-card{break-inside:avoid}
 }
+
+/* ── Analytics preset buttons ───────────────────────────────────── */
+.analytics-preset-btn {
+  background: #fff;
+  color: #1E40AF;
+  border: 1.5px solid #BFDBFE;
+  border-radius: 7px;
+  padding: .24rem .65rem;
+  font-size: .76rem;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  transition: all .15s;
+}
+.analytics-preset-btn:hover { background: #EFF6FF; }
+.analytics-preset-btn.active { background: #0052CC; color: #fff; border-color: #0052CC; }
