@@ -5159,6 +5159,355 @@ const MACHINES = {
       filters:['telehandler','agri','rough','heavy']
     },
 
+    // ── BOBCAT TELEHANDLERS ──────────────────────────────────────────
+    // Source: Bobcat Telehandlers brochure B-2005-EN (12/21) and TL25.60 Oceania brochure (Sep 2025)
+    // Spec table confirmed 9 columns: TL26.60 | TL30.60 | TL30.70 | TL35.70 | TL38.70HF | TL38.70HF-EXPERT | TL43.80HF | T40.180SLP | T40.180MP
+    // All standard models: Perkins 1104D-44TA 100HP/74.5kW Stage IIIA (except HF models)
+    // HF models: Perkins 1104D-E44TA 130HP/96.5kW Stage IIIA
+    // Load charts — single working envelope (on tyres); no stabilisers on compact/large models
+    // T40.180SLP/MP: compact stabilisers optional (brochure chart = on tyres only)
+    // ⚠️ Attachment weights (forkWeight, jibWeight) are estimates from comparable class — confirm with Bobcat dealer
+    {
+      id:'bob-tl2560', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat TL25.60 (Oceania)', shortName:'Bobcat TL25.60',
+      // Source: Bobcat TL25.60 Telehandlers Oceania brochure Sep 2025; spec model name: TL26.60
+      // AU standard: ISO AS10896.1 = 2,100 Kg | EU standard: EN 1459-1 = 2,500 Kg
+      // Single load chart on tyres (no stabilisers). Load chart read from Oceania brochure p.14-15.
+      capacity:2.1, liftHeight:5.8, maxReach:3.5, engine:'Bobcat D24 75HP/54.6kW Stage V',
+      machineWeight:4460, machineWidth:1832, machineLength:3989, machineHeight:1930,
+      terrain:'rough', maxSpeed:25,
+      tyres:'12-16.5"',
+      forkSpec:'Floating pallet forks (standard attachment). Estimated ~100kg pair for this class — confirm weight with Bobcat dealer.',
+      jibSpec:'Crane jib available — estimated ~80kg at ~1.2m extension for this class. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:80,
+      attachments:['Floating Pallet Forks','Crane Jib','GP Bucket'],
+      bestFor:'Compact 2.1T telehandler (AU standard) for residential construction, bricklaying and roofing to 5.8m',
+      note:'Bobcat TL25.60 (Oceania) — spec name TL26.60. 2,100kg rated capacity per ISO AS10896.1 (Australian standard) / 2,500kg per EN 1459-1 (EU standard). 5,800mm max lift height. 3,500mm max forward reach. Breakout force 3,300 daN (~3,364 kgf). Aux flow 80 L/min. 4,460kg operating weight. Engine: Bobcat D24 75HP/54.6kW Stage V (newer engine than global TL26.60 Perkins Stage IIIA). Fuel 65L. Standard tyres 12-16.5". Max speed 25km/h. 3 steering modes: 2WS/4WS/crab (semi-automatic wheel realignment). Continuous variable hydrostatic CVT, 4WD. Hydraulics: gear pump with LS valve, flow sharing / electro proportional valve, 80 L/min pump. Service brake: oil-immersed discs. Automatic parking brake standard. Dimensions: A (overall to forks) 3,989mm | B (to front tyres) 3,442mm | C (front axle to forks) 1,044mm | D (wheelbase) 2,360mm | E (rear axle to rear) 662mm | F (cab height) 1,930mm | G (ground clearance) 250mm | H (width over tyres) 1,832mm | I (track width) 1,500mm | J (turning radius) 3,235mm | K (cab width) 930mm. Standard: 5" LCD display, tilting steering column, USB charging, auto parking brake, quicktach, inching function, ROPS/FOPS Level II, EN15000. 3-year warranty (manufactured Pontchateau, France). ⚠️ jibWeight is estimated — confirm with dealer. Source: Bobcat TL25.60 Telehandlers Oceania brochure (Sep 2025).',
+      liftChart:'ON TYRES (no stabilisers). AU standard (AS10896.1) 2,100kg max. At ground (0°): 2,100kg to 1.5m reach → 1,800kg to 2.0m → 1,500kg to 2.5m → 1,200kg to 3.0m → 800kg to 3.5m (max). At 5.8m max height (60°, near-vertical): ~1,500kg at machine face. EU standard (EN 1459-1): 2,500kg max — deduct ~17% from AU values. FORK CAPACITY: as rated. JIB: deduct est. ~80kg jib weight from rated capacity. Source: Bobcat TL25.60 Oceania brochure load chart p.14-15.',
+      tags:['2.1T AU','2.5T EU','5.8m','3.5m Reach','Compact','Stage V','Bobcat D24','Oceania','AS10896'],
+      loadMatrix:[
+        // ON TYRES — AU standard (AS10896.1) 2100 Kg max. Read from Oceania brochure p.14-15 load chart.
+        // Zones: 800 / 1200 / 1500 / 1800 / 2100 Kg
+        {h:0,r:0,kg:2100},{h:0,r:0.5,kg:2100},{h:0,r:1.0,kg:2100},{h:0,r:1.5,kg:2100},{h:0,r:2.0,kg:1800},{h:0,r:2.5,kg:1500},{h:0,r:3.0,kg:1200},{h:0,r:3.5,kg:800},
+        {h:1,r:0,kg:2100},{h:1,r:0.5,kg:2100},{h:1,r:1.0,kg:2100},{h:1,r:1.5,kg:1800},{h:1,r:2.0,kg:1500},{h:1,r:2.5,kg:1200},{h:1,r:3.0,kg:800},
+        {h:2,r:0,kg:2100},{h:2,r:0.5,kg:2100},{h:2,r:1.0,kg:1800},{h:2,r:1.5,kg:1500},{h:2,r:2.0,kg:1200},
+        {h:3,r:0,kg:2100},{h:3,r:0.5,kg:1800},{h:3,r:1.0,kg:1500},{h:3,r:1.5,kg:1200},
+        {h:4,r:0,kg:2100},{h:4,r:0.5,kg:1800},{h:4,r:1.0,kg:1500},
+        {h:5,r:0,kg:1800},{h:5,r:0.5,kg:1500},
+        {h:5.8,r:0,kg:1500}
+      ],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'bob-tl2660', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat TL26.60', shortName:'Bobcat TL26.60',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 1
+      // Single load chart on tyres (no stabilisers). Read from p.22-23.
+      // Zones: 1000 / 1500 / 2000 / 2600 Kg
+      capacity:2.6, liftHeight:5.89, maxReach:3.01, engine:'Perkins 1104D-44TA 100HP/74.5kW Stage IIIA',
+      machineWeight:4900, machineWidth:2100, machineLength:4507, machineHeight:2290,
+      terrain:'rough', maxSpeed:26.5,
+      tyres:'405/70-20" std (24" option available)',
+      forkSpec:'Floating pallet forks FEM Class II standard attachment. Estimated ~100kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib (crane jib) — estimated ~80kg at ~1.2m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:80,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Digging Bucket','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'Compact 2.6T telehandler — 6m lift, construction and material placement to single-storey heights',
+      note:'Bobcat TL26.60 — global variant (Oceania uses TL25.60 with Bobcat D24 Stage V). 2,600kg max lift capacity. 5,890mm max lift height. 3,010mm max forward reach (on 24" tyres). Breakout force 4,600kg. Aux flow 90 L/min. 4,900kg operating weight. Engine: Perkins 1104D-44TA 100HP/74.5kW Stage IIIA. Fuel 115L. Standard tyres 405/70-20" (24" option). Max speed 26.5km/h (optional 31km/h). 4 steering modes (2WS/4WS/Crab/Semi-crab optional). Hydrostatic auto-shift. Dimensions: A=4,507 | B=4,035 | C=1,020 | D=2,820 | E=667 | F=Low Cab 2,140/High Cab 2,290mm | G=264 | H=2,100 | I=1,666 | J=3,717 | K=930mm. Standard: 5" LCD display, tilting steering column, USB charging, quicktach, inching function, ROPS/FOPS Level II, EN15000, auto parking brake, safety pack. ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers). 2,600kg max. At ground (0°): 2,600kg to 1.5m reach → 2,000kg to 2.2m → 1,500kg to 2.7m → 1,000kg to 3.0m (max). At 5.89m max height (60°): 2,000kg at machine face. FORK CAPACITY: as rated. JIB: deduct est. ~80kg from rated. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['2.6T','5.89m','3.01m Reach','Compact','Perkins','100HP','Stage IIIA'],
+      loadMatrix:[
+        // ON TYRES — 2600 Kg max. Zones: 1000 / 1500 / 2000 / 2600 Kg.
+        // Read from Bobcat Telehandlers brochure B-2005-EN (12/21) load chart p.22-23.
+        {h:0,r:0,kg:2600},{h:0,r:0.5,kg:2600},{h:0,r:1.0,kg:2600},{h:0,r:1.5,kg:2600},{h:0,r:2.0,kg:2000},{h:0,r:2.5,kg:1500},{h:0,r:3.0,kg:1000},
+        {h:1,r:0,kg:2600},{h:1,r:0.5,kg:2600},{h:1,r:1.0,kg:2600},{h:1,r:1.5,kg:2000},{h:1,r:2.0,kg:1500},{h:1,r:2.5,kg:1000},
+        {h:2,r:0,kg:2600},{h:2,r:0.5,kg:2600},{h:2,r:1.0,kg:2000},{h:2,r:1.5,kg:1500},{h:2,r:2.0,kg:1000},
+        {h:3,r:0,kg:2600},{h:3,r:0.5,kg:2000},{h:3,r:1.0,kg:1500},{h:3,r:1.5,kg:1000},
+        {h:4,r:0,kg:2600},{h:4,r:0.5,kg:2000},{h:4,r:1.0,kg:1500},
+        {h:5,r:0,kg:2600},{h:5,r:0.3,kg:2000},{h:5,r:0.7,kg:1500},
+        {h:5.89,r:0,kg:2000},{h:5.89,r:0.3,kg:1500}
+      ],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'bob-tl3060', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat TL30.60', shortName:'Bobcat TL30.60',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 2
+      // Single load chart on tyres (no stabilisers). Zones: 1300/1500/2000/2500/3000 Kg.
+      capacity:3.0, liftHeight:5.89, maxReach:3.01, engine:'Perkins 1104D-44TA 100HP/74.5kW Stage IIIA',
+      machineWeight:5300, machineWidth:2100, machineLength:4507, machineHeight:2290,
+      terrain:'rough', maxSpeed:26.5,
+      tyres:'405/70-20" std (24" option available)',
+      forkSpec:'Floating pallet forks FEM Class II standard. Estimated ~110kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib (crane jib) — estimated ~80kg at ~1.2m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:80,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Digging Bucket','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'Compact 3T telehandler — 6m lift for residential construction, masonry and material placement',
+      note:'Bobcat TL30.60 — compact 3-tonne telehandler. 3,000kg max lift capacity. 5,890mm max lift height. 3,010mm max forward reach. Breakout force 4,600kg. Aux flow 90 L/min. 5,300kg operating weight. Engine: Perkins 1104D-44TA 100HP/74.5kW Stage IIIA. Fuel 115L. Standard tyres 405/70-20" (24" option). Max speed 26.5km/h (optional 31km/h). 4 steering modes available. Same frame dimensions as TL26.60: A=4,507 | B=4,035 | C=1,020 | D=2,820 | E=667 | F=High Cab 2,290mm | G=264 | H=2,100 | I=1,666 | J=3,717 | K=930mm. Standard: 5" LCD, quicktach, inching, ROPS/FOPS Level II, EN15000, auto parking brake, safety pack. ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers). 3,000kg max. At ground (0°): 3,000kg to 1.2m reach → 2,500kg to 1.8m → 2,000kg to 2.3m → 1,500kg to 2.7m → 1,300kg to 3.0m (max). At 5.89m max height (60°): 3,000kg at machine face, drops to 2,000kg at 0.5m reach. FORK CAPACITY: as rated. JIB: deduct est. ~80kg from rated. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['3T','5.89m','3.01m Reach','Compact','Perkins','100HP','Stage IIIA'],
+      loadMatrix:[
+        // ON TYRES — 3000 Kg max. Zones: 1300/1500/2000/2500/3000 Kg.
+        {h:0,r:0,kg:3000},{h:0,r:0.5,kg:3000},{h:0,r:1.0,kg:3000},{h:0,r:1.5,kg:2500},{h:0,r:2.0,kg:2000},{h:0,r:2.5,kg:1500},{h:0,r:3.0,kg:1300},
+        {h:1,r:0,kg:3000},{h:1,r:0.5,kg:3000},{h:1,r:1.0,kg:2500},{h:1,r:1.5,kg:2000},{h:1,r:2.0,kg:1500},{h:1,r:2.5,kg:1300},
+        {h:2,r:0,kg:3000},{h:2,r:0.5,kg:3000},{h:2,r:1.0,kg:2500},{h:2,r:1.5,kg:2000},{h:2,r:2.0,kg:1500},
+        {h:3,r:0,kg:3000},{h:3,r:0.5,kg:2500},{h:3,r:1.0,kg:2000},{h:3,r:1.5,kg:1500},{h:3,r:1.8,kg:1300},
+        {h:4,r:0,kg:3000},{h:4,r:0.3,kg:2500},{h:4,r:0.7,kg:2000},{h:4,r:1.1,kg:1500},{h:4,r:1.4,kg:1300},
+        {h:5,r:0,kg:3000},{h:5,r:0.2,kg:2500},{h:5,r:0.5,kg:2000},{h:5,r:0.8,kg:1500},
+        {h:5.89,r:0,kg:3000},{h:5.89,r:0.2,kg:2500},{h:5.89,r:0.5,kg:2000}
+      ],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'bob-tl3070', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat TL30.70', shortName:'Bobcat TL30.70',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 3 (compact, extended reach)
+      // No separate load chart in brochure — loadMatrix scaled from TL30.60 chart to 3.93m reach
+      // ⚠️ loadMatrix values approximate — confirm from Bobcat TL30.70 load chart with dealer
+      capacity:3.0, liftHeight:5.89, maxReach:3.93, engine:'Perkins 1104D-44TA 100HP/74.5kW Stage IIIA',
+      machineWeight:5605, machineWidth:2100, machineLength:4507, machineHeight:2290,
+      terrain:'rough', maxSpeed:26.5,
+      tyres:'400/80-24" std',
+      forkSpec:'Floating pallet forks FEM Class II/III standard. Estimated ~110kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib (crane jib) — estimated ~90kg at ~1.3m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:90,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Digging Bucket','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'Compact 3T telehandler — extended reach (3.93m) over TL30.60 for reaching further without repositioning',
+      note:'Bobcat TL30.70 — compact 3T telehandler with extended forward reach vs TL30.60. 3,000kg max lift capacity. 5,890mm max lift height. 3,930mm max forward reach (larger than TL30.60\'s 3,010mm). Breakout force 4,600kg. Aux flow 90 L/min. 5,605kg operating weight. Engine: Perkins 1104D-44TA 100HP/74.5kW Stage IIIA. Fuel 115L. Standard tyres 400/80-24" (vs 405/70-20" for TL26.60/TL30.60). Max speed 26.5km/h (optional 31km/h). 4 steering modes available. Compact range machine (AGRI Group C with TL26.60 and TL30.60). Dimensions (compact frame): D=2,820mm wheelbase | H=2,100mm width | I=1,666mm track | J=3,717mm turning radius | G=264mm ground clearance | F=2,290mm cab height. Standard: 5" LCD, quicktach, inching, ROPS/FOPS Level II, EN15000, auto parking brake. ⚠️ No separate TL30.70 load chart in brochure — loadMatrix values approximate from TL30.60 chart scaled to 3.93m reach; confirm with Bobcat dealer. ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers). 3,000kg max. Same capacity as TL30.60 but extended reach to 3.93m. At ground (0°): 3,000kg to ~1.6m reach → 2,500kg to ~2.3m → 2,000kg to ~3.0m → 1,500kg to ~3.5m → 1,300kg to 3.93m. At max height 5.89m: 3,000kg at machine face. ⚠️ No separate load chart published in brochure — values scaled from TL30.60; confirm with Bobcat dealer. JIB: deduct est. ~90kg from rated.',
+      tags:['3T','5.89m','3.93m Reach','Compact','Extended Reach','Perkins','100HP','Stage IIIA'],
+      loadMatrix:[
+        // ⚠️ APPROXIMATE — scaled from TL30.60 chart for 3.93m max reach (factor ~1.31×)
+        {h:0,r:0,kg:3000},{h:0,r:0.5,kg:3000},{h:0,r:1.0,kg:3000},{h:0,r:1.6,kg:2500},{h:0,r:2.3,kg:2000},{h:0,r:3.0,kg:1500},{h:0,r:3.5,kg:1300},{h:0,r:3.93,kg:1300},
+        {h:1,r:0,kg:3000},{h:1,r:0.5,kg:3000},{h:1,r:1.2,kg:2500},{h:1,r:2.0,kg:2000},{h:1,r:2.6,kg:1500},{h:1,r:3.2,kg:1300},
+        {h:2,r:0,kg:3000},{h:2,r:0.5,kg:3000},{h:2,r:1.2,kg:2500},{h:2,r:1.9,kg:2000},{h:2,r:2.4,kg:1500},
+        {h:3,r:0,kg:3000},{h:3,r:0.5,kg:2500},{h:3,r:1.2,kg:2000},{h:3,r:1.8,kg:1500},{h:3,r:2.2,kg:1300},
+        {h:4,r:0,kg:3000},{h:4,r:0.4,kg:2500},{h:4,r:0.9,kg:2000},{h:4,r:1.4,kg:1500},{h:4,r:1.8,kg:1300},
+        {h:5,r:0,kg:3000},{h:5,r:0.2,kg:2500},{h:5,r:0.6,kg:2000},{h:5,r:1.0,kg:1500},
+        {h:5.89,r:0,kg:3000},{h:5.89,r:0.2,kg:2500},{h:5.89,r:0.6,kg:2000}
+      ],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'bob-tl3570', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat TL35.70', shortName:'Bobcat TL35.70',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 4 (Large range)
+      // Single load chart on tyres (no stabilisers). Zones: 1500/2000/2500/3000/3500 Kg.
+      capacity:3.5, liftHeight:6.97, maxReach:3.93, engine:'Perkins 1104D-44TA 100HP/74.5kW Stage IIIA',
+      machineWeight:7190, machineWidth:2300, machineLength:5035, machineHeight:2373,
+      terrain:'rough', maxSpeed:26,
+      tyres:'400/80-24" std',
+      forkSpec:'Floating pallet forks FEM Class III standard. Estimated ~140kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib (crane jib) — estimated ~110kg at ~1.5m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:110,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Digging Bucket','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'3.5T large telehandler — 7m lift for 2-storey construction, high wall placement, timber framing',
+      note:'Bobcat TL35.70 — large series 3.5T telehandler. 3,500kg max lift capacity. 6,973mm max lift height. 3,930mm max forward reach. Breakout force 6,200kg. Aux flow 100 L/min. 7,190kg operating weight. Engine: Perkins 1104D-44TA 100HP/74.5kW Stage IIIA. Fuel 138L. Tyres 400/80-24". Max speed 26km/h (optional 40km/h). 3 steering modes std (2WS/4WS/Crab), 4th (semi-crab) optional. Hydrostatic auto-shift. Dimensions: A=5,035 | B=4,185 | C=1,400 | D=2,820 | E=818 | F=2,373 | G=346 | H=2,300 | I=1,895 | J=3,714 | K=1,013mm. Smart boom: automated movements, bucket shaking, max lift angle, return to ground, boom suspension. Oil-immersed axles with LSD. Auto reversing fan. ROPS/FOPS Level II, EN15000, auto parking brake, safety pack. ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers). 3,500kg max. At ground (0°): 3,500kg to 1.0m reach → 3,000kg to 1.8m → 2,500kg to 2.5m → 2,000kg to 3.2m → 1,500kg to 3.9m. At 6.97m max height (60°): 3,500kg at machine face, 3,000kg at 0.2m, 2,500kg at 0.4m, 2,000kg at 0.7m. FORK CAPACITY: as rated. JIB: deduct est. ~110kg from rated. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['3.5T','6.97m','3.93m Reach','Large','Perkins','100HP','Stage IIIA'],
+      loadMatrix:[
+        // ON TYRES — 3500 Kg max. Zones: 1500/2000/2500/3000/3500 Kg.
+        {h:0,r:0,kg:3500},{h:0,r:0.5,kg:3500},{h:0,r:1.0,kg:3500},{h:0,r:1.5,kg:3000},{h:0,r:2.0,kg:2500},{h:0,r:2.7,kg:2000},{h:0,r:3.3,kg:1500},{h:0,r:3.9,kg:1500},
+        {h:1,r:0,kg:3500},{h:1,r:0.5,kg:3500},{h:1,r:1.0,kg:3000},{h:1,r:1.5,kg:2500},{h:1,r:2.2,kg:2000},{h:1,r:2.8,kg:1500},{h:1,r:3.5,kg:1500},
+        {h:2,r:0,kg:3500},{h:2,r:0.5,kg:3000},{h:2,r:1.0,kg:2500},{h:2,r:1.7,kg:2000},{h:2,r:2.4,kg:1500},{h:2,r:3.0,kg:1500},
+        {h:3,r:0,kg:3500},{h:3,r:0.4,kg:3000},{h:3,r:0.9,kg:2500},{h:3,r:1.5,kg:2000},{h:3,r:2.1,kg:1500},{h:3,r:2.7,kg:1500},
+        {h:4,r:0,kg:3500},{h:4,r:0.3,kg:3000},{h:4,r:0.7,kg:2500},{h:4,r:1.2,kg:2000},{h:4,r:1.7,kg:1500},{h:4,r:2.2,kg:1500},
+        {h:5,r:0,kg:3500},{h:5,r:0.2,kg:3000},{h:5,r:0.5,kg:2500},{h:5,r:0.9,kg:2000},{h:5,r:1.3,kg:1500},{h:5,r:1.7,kg:1500},
+        {h:6,r:0,kg:3500},{h:6,r:0.1,kg:3000},{h:6,r:0.3,kg:2500},{h:6,r:0.6,kg:2000},{h:6,r:0.9,kg:1500},{h:6,r:1.2,kg:1500},
+        {h:6.97,r:0,kg:3500},{h:6.97,r:0.2,kg:3000},{h:6.97,r:0.4,kg:2500},{h:6.97,r:0.7,kg:2000}
+      ],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'bob-tl3870hf', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat TL38.70HF', shortName:'Bobcat TL38.70HF',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 5 (Large range)
+      // Single load chart on tyres. Zones: 1500/2000/2500/3000/3500/3800 Kg.
+      capacity:3.8, liftHeight:6.97, maxReach:3.92, engine:'Perkins 1104D-E44TA 130HP/96.5kW Stage IIIA',
+      machineWeight:7460, machineWidth:2300, machineLength:4869, machineHeight:2373,
+      terrain:'rough', maxSpeed:26,
+      tyres:'400/80-24" std (460/70-24" available)',
+      forkSpec:'Floating pallet forks FEM Class III standard. Estimated ~140kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib (crane jib) — estimated ~110kg at ~1.5m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:110,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Digging Bucket','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'3.8T high-flow large telehandler — 7m lift, 130HP/516Nm for demanding construction and waste applications',
+      note:'Bobcat TL38.70HF — large series high-flow 3.8T telehandler. 3,800kg max lift capacity. 6,973mm max lift height. 3,915mm max forward reach. Breakout force 6,200kg. Aux flow 150 L/min (high-flow). 7,460kg operating weight. Engine: Perkins 1104D-E44TA 130HP/96.5kW Stage IIIA, 516Nm torque. Fuel 138L. Tyres 400/80-24" std (460/70-24" option). Max speed 26km/h (optional 40km/h). Available in EXPERT variant. Dimensions: A=4,869 | B=4,058 | C=1,356 | D=2,870 | E=643 | F=2,373 | G=346 | H=2,300 | I=1,895 | J=3,714 | K=1,013mm. Oil-immersed axles with LSD. Smart boom functions standard. Auto reversing fan. ROPS/FOPS Level II, EN15000, auto parking brake. ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers). 3,800kg max. At ground (0°): 3,800kg to 0.5m → 3,500kg to 1.0m → 3,000kg to 1.7m → 2,500kg to 2.5m → 2,000kg to 3.2m → 1,500kg to 3.9m. At 6.97m max height (60°): 3,800kg at machine face, 3,500kg at 0.3m, 3,000kg at 0.5m, 2,500kg at 0.7m. NOTE: 3,800kg is achievable at max height at close reach — high-angle stability preserved. FORK CAPACITY: as rated. JIB: deduct est. ~110kg. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['3.8T','6.97m','3.92m Reach','Large','High Flow','Perkins','130HP','Stage IIIA','516Nm'],
+      loadMatrix:[
+        // ON TYRES — 3800 Kg max. Zones: 1500/2000/2500/3000/3500/3800 Kg.
+        {h:0,r:0,kg:3800},{h:0,r:0.5,kg:3800},{h:0,r:1.0,kg:3500},{h:0,r:1.5,kg:3000},{h:0,r:2.0,kg:2500},{h:0,r:2.7,kg:2000},{h:0,r:3.3,kg:1500},{h:0,r:3.9,kg:1500},
+        {h:1,r:0,kg:3800},{h:1,r:0.3,kg:3800},{h:1,r:0.8,kg:3500},{h:1,r:1.3,kg:3000},{h:1,r:1.9,kg:2500},{h:1,r:2.5,kg:2000},{h:1,r:3.1,kg:1500},{h:1,r:3.7,kg:1500},
+        {h:2,r:0,kg:3800},{h:2,r:0.2,kg:3800},{h:2,r:0.6,kg:3500},{h:2,r:1.1,kg:3000},{h:2,r:1.7,kg:2500},{h:2,r:2.3,kg:2000},{h:2,r:2.9,kg:1500},
+        {h:3,r:0,kg:3800},{h:3,r:0.4,kg:3500},{h:3,r:0.8,kg:3000},{h:3,r:1.3,kg:2500},{h:3,r:1.9,kg:2000},{h:3,r:2.5,kg:1500},
+        {h:4,r:0,kg:3800},{h:4,r:0.3,kg:3500},{h:4,r:0.6,kg:3000},{h:4,r:1.1,kg:2500},{h:4,r:1.6,kg:2000},{h:4,r:2.2,kg:1500},
+        {h:5,r:0,kg:3800},{h:5,r:0.2,kg:3500},{h:5,r:0.5,kg:3000},{h:5,r:0.8,kg:2500},{h:5,r:1.3,kg:2000},{h:5,r:1.8,kg:1500},
+        {h:6,r:0,kg:3800},{h:6,r:0.2,kg:3500},{h:6,r:0.4,kg:3000},{h:6,r:0.7,kg:2500},{h:6,r:1.0,kg:2000},{h:6,r:1.4,kg:1500},
+        {h:6.97,r:0,kg:3800},{h:6.97,r:0.3,kg:3500},{h:6.97,r:0.5,kg:3000},{h:6.97,r:0.7,kg:2500}
+      ],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'bob-tl4380hf', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat TL43.80HF', shortName:'Bobcat TL43.80HF',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 7 (Large range)
+      // Single load chart on tyres. Zones: 1600/1800/2000/2500/3000/3500/4300 Kg.
+      // NOTE: capacity at 0m reach drops with height (structural limit at steep angles) — 1800 Kg at max height.
+      capacity:4.3, liftHeight:7.51, maxReach:4.02, engine:'Perkins 1104D-E44TA 130HP/96.5kW Stage IIIA',
+      machineWeight:8050, machineWidth:2400, machineLength:4975, machineHeight:2373,
+      terrain:'rough', maxSpeed:26,
+      tyres:'460/70-24" std',
+      forkSpec:'Floating pallet forks FEM Class III standard. Estimated ~160kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib (crane jib) — estimated ~130kg at ~1.5m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:130,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Digging Bucket','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'Heaviest Bobcat standard telehandler — 4.3T rated (2,000-2,500T at height) for heavy construction, precast and structural steel',
+      note:'Bobcat TL43.80HF — large series 4.3T high-flow telehandler. Highest capacity standard Bobcat TL. 4,300kg max lift capacity (at low height, close reach). 7,505mm max lift height. 4,022mm max forward reach. Breakout force 7,000kg. Aux flow 150 L/min (high-flow). 8,050kg operating weight. Engine: Perkins 1104D-E44TA 130HP/96.5kW Stage IIIA, 516Nm torque. Fuel 138L. Tyres 460/70-24". Max speed 26km/h (optional 40km/h). IMPORTANT: capacity at machine face (0m reach) decreases with height — 4,300kg at 0-3m height reducing to ~1,800kg at max height 7.5m due to structural limits at steep boom angles. Plan lift carefully for high placements. Dimensions: A=4,975 | B=4,256 | C=1,352 | D=2,870 | E=754 | F=2,373 | G=430 | H=2,400 | I=1,895 | J=3,714 | K=1,013mm. Oil-immersed axles with LSD. Smart boom functions. Auto reversing fan. ROPS/FOPS Level II, EN15000, auto parking brake. ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers). 4,300kg max at low heights, close reach. IMPORTANT: capacity at 0m reach decreases with height — drops to ~1,800kg at max height 7.5m. At ground (0°): 4,300kg to 0.8m → 3,500kg to 1.5m → 3,000kg to 2.0m → 2,500kg to 2.7m → 2,000kg to 3.3m → 1,800kg to 3.8m → 1,600kg to 4.0m. At 7.5m max height: ~1,800kg at machine face. FORK CAPACITY: as rated. JIB: deduct est. ~130kg. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['4.3T','7.5m','4.02m Reach','Largest Standard TL','High Flow','Perkins','130HP','Stage IIIA'],
+      loadMatrix:[
+        // ON TYRES — 4300 Kg max at low heights. Zones: 1600/1800/2000/2500/3000/3500/4300 Kg.
+        // Key feature: capacity at r=0 drops significantly with height (structural limit).
+        {h:0,r:0,kg:4300},{h:0,r:0.5,kg:4300},{h:0,r:1.0,kg:3500},{h:0,r:1.5,kg:3000},{h:0,r:2.0,kg:2500},{h:0,r:2.7,kg:2000},{h:0,r:3.3,kg:1800},{h:0,r:3.8,kg:1600},{h:0,r:4.0,kg:1600},
+        {h:1,r:0,kg:4300},{h:1,r:0.5,kg:3500},{h:1,r:1.0,kg:3000},{h:1,r:1.5,kg:2500},{h:1,r:2.2,kg:2000},{h:1,r:2.8,kg:1800},{h:1,r:3.3,kg:1600},
+        {h:2,r:0,kg:4300},{h:2,r:0.4,kg:3500},{h:2,r:0.9,kg:3000},{h:2,r:1.4,kg:2500},{h:2,r:2.0,kg:2000},{h:2,r:2.5,kg:1800},{h:2,r:2.9,kg:1600},
+        {h:3,r:0,kg:4300},{h:3,r:0.3,kg:3500},{h:3,r:0.7,kg:3000},{h:3,r:1.2,kg:2500},{h:3,r:1.7,kg:2000},{h:3,r:2.2,kg:1800},
+        {h:4,r:0,kg:3500},{h:4,r:0.3,kg:3000},{h:4,r:0.8,kg:2500},{h:4,r:1.3,kg:2000},{h:4,r:1.8,kg:1800},
+        {h:5,r:0,kg:2500},{h:5,r:0.3,kg:2000},{h:5,r:0.8,kg:1800},{h:5,r:1.3,kg:1600},
+        {h:6,r:0,kg:2000},{h:6,r:0.3,kg:1800},{h:6,r:0.7,kg:1600},
+        {h:7,r:0,kg:1800},{h:7,r:0.4,kg:1600},
+        {h:7.51,r:0,kg:1800}
+      ],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'bob-t36120sl', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat T36.120SL', shortName:'Bobcat T36.120SL',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), high lift range overview and load chart p.22-23
+      // Zones: 1200/1500/2000/2500/3000/3600 Kg. Max reach ~8m, useful height ~10m, nom. max 12m.
+      // ⚠️ values above ~9m are extrapolated beyond visible chart range — confirm with Bobcat dealer
+      capacity:3.6, liftHeight:12.0, maxReach:8.0, engine:'Perkins Stage IIIA (HP confirm with dealer)',
+      machineWeight:11000, machineWidth:2418, machineLength:6000, machineHeight:2520,
+      terrain:'rough', maxSpeed:30,
+      tyres:'Confirm with Bobcat dealer',
+      forkSpec:'Floating pallet forks FEM Class III. Estimated ~160kg pair — confirm with Bobcat dealer.',
+      jibSpec:'Extension jib — estimated ~130kg at ~1.8m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:130,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'3.6T high-lift telehandler — 12m boom for multi-storey, high-reach material placement and EWP use',
+      note:'Bobcat T36.120SL — High Lift Height series, 3.6T, 12m boom. Boom Positioning System (BPS) lateral side-shift standard (SL models). 3,600kg max lift capacity. 12,000mm nominal max lift height. ~8m max useful forward reach. Stabilisers standard on High Lift models. ⚠️ Detailed spec table and full load chart not in main brochure — machineWeight, machineLength, engine HP are estimates from the T40.180SLP range data; tyres, exact dimensions confirm with Bobcat dealer. BPS lateral amplitude: confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21), high lift range overview and load chart p.22-23.',
+      liftChart:'ON TYRES (no stabilisers shown in brochure chart). 3,600kg max. At ground (0°): 3,600kg to 0.5m → 3,000kg to 1.5m → 2,500kg to 3.0m → 2,000kg to 5.0m → 1,500kg to 6.5m → 1,200kg to 8.0m. At ~9m height: 3,600kg close reach, 1,200kg at ~3m. Heights above 9m: capacity reduces toward close-reach only — confirm from Bobcat T36.120SL load chart with dealer. BPS side-shift standard. FORK CAPACITY: as rated. JIB: deduct est. ~130kg.',
+      tags:['3.6T','12m','8m Reach','High Lift','BPS Side-Shift','Stabilisers'],
+      loadMatrix:[
+        // Zones: 1200/1500/2000/2500/3000/3600 Kg. Brochure chart shows useful envelope to ~9m.
+        // Values above h=9m extrapolated — ⚠️ confirm with dealer.
+        {h:0,r:0,kg:3600},{h:0,r:0.5,kg:3600},{h:0,r:1.5,kg:3000},{h:0,r:3.0,kg:2500},{h:0,r:5.0,kg:2000},{h:0,r:6.5,kg:1500},{h:0,r:8.0,kg:1200},
+        {h:2,r:0,kg:3600},{h:2,r:0.4,kg:3600},{h:2,r:1.2,kg:3000},{h:2,r:2.5,kg:2500},{h:2,r:4.2,kg:2000},{h:2,r:5.7,kg:1500},{h:2,r:7.2,kg:1200},
+        {h:4,r:0,kg:3600},{h:4,r:0.3,kg:3600},{h:4,r:1.0,kg:3000},{h:4,r:2.0,kg:2500},{h:4,r:3.5,kg:2000},{h:4,r:5.0,kg:1500},{h:4,r:6.5,kg:1200},
+        {h:6,r:0,kg:3600},{h:6,r:0.2,kg:3600},{h:6,r:0.7,kg:3000},{h:6,r:1.5,kg:2500},{h:6,r:2.7,kg:2000},{h:6,r:4.0,kg:1500},{h:6,r:5.2,kg:1200},
+        {h:8,r:0,kg:3600},{h:8,r:0.1,kg:3600},{h:8,r:0.4,kg:3000},{h:8,r:0.9,kg:2500},{h:8,r:1.8,kg:2000},{h:8,r:2.9,kg:1500},
+        {h:10,r:0,kg:3600},{h:10,r:0.3,kg:3000},{h:10,r:0.8,kg:2500},{h:10,r:1.5,kg:2000},{h:10,r:2.2,kg:1500},
+        {h:12,r:0,kg:3000},{h:12,r:0.4,kg:2500},{h:12,r:0.9,kg:2000}
+      ],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'bob-t41140slp', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat T41.140SLP', shortName:'Bobcat T41.140SLP',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), high lift load chart p.22-23
+      // SLP = Super Low Profile. BPS standard. Zones: 1250/1500/2000/2500/3000/3500/4100 Kg.
+      // Load chart clearly readable at 8x zoom. X-axis: 0-11m. Y-axis: -1 to 14m.
+      capacity:4.1, liftHeight:14.0, maxReach:11.0, engine:'Perkins Stage IIIA (HP confirm with dealer)',
+      machineWeight:12000, machineWidth:2418, machineLength:6400, machineHeight:2520,
+      terrain:'rough', maxSpeed:30,
+      tyres:'Confirm with Bobcat dealer',
+      forkSpec:'Floating pallet forks FEM Class III. Estimated ~180kg pair — confirm with Bobcat dealer.',
+      jibSpec:'Extension jib — estimated ~150kg at ~2m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:150,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'4.1T high-lift telehandler — 14m boom for 4-5 storey construction, heavy high-reach placement and EWP',
+      note:'Bobcat T41.140SLP — High Lift Height series, SLP cab, 4.1T, 14m boom. Boom Positioning System (BPS) lateral side-shift standard. 4,100kg max lift capacity (close reach, any height). 14,000mm max lift height. 11,000mm max forward reach at ground level. Stabilisers standard on High Lift models. Load chart clearly readable from brochure — see loadMatrix. ⚠️ Detailed spec table not in main brochure — machineWeight, machineLength, engine HP are estimates based on T40.180SLP range; confirm all specs with Bobcat dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21), load chart p.22-23.',
+      liftChart:'ON TYRES (no stabilisers shown). 4,100kg max at any height at close reach. At ground (0°): 4,100kg to 0.5m reach → 3,500kg to 1.5m → 3,000kg to 2.5m → 2,500kg to 4.0m → 2,000kg to 6.0m → 1,500kg to 8.0m → 1,250kg to 11.0m. At 14m max height (70°): 4,100kg at machine face, 3,000kg at 0.4m, 2,500kg at 0.7m, 2,000kg at 1.0m. BPS lateral side-shift standard. FORK CAPACITY: as rated. JIB: deduct est. ~150kg. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['4.1T','14m','11m Reach','High Lift','BPS Side-Shift','SLP','Stabilisers'],
+      loadMatrix:[
+        // ON TYRES — 4100 Kg max. Zones: 1250/1500/2000/2500/3000/3500/4100 Kg.
+        // Clearly read from brochure load chart p.22-23 at 8x zoom.
+        {h:0,r:0,kg:4100},{h:0,r:0.5,kg:4100},{h:0,r:1.5,kg:3500},{h:0,r:2.5,kg:3000},{h:0,r:4.0,kg:2500},{h:0,r:6.0,kg:2000},{h:0,r:8.0,kg:1500},{h:0,r:11.0,kg:1250},
+        {h:2,r:0,kg:4100},{h:2,r:0.4,kg:4100},{h:2,r:1.3,kg:3500},{h:2,r:2.2,kg:3000},{h:2,r:3.5,kg:2500},{h:2,r:5.0,kg:2000},{h:2,r:7.0,kg:1500},{h:2,r:9.5,kg:1250},
+        {h:4,r:0,kg:4100},{h:4,r:0.3,kg:4100},{h:4,r:1.0,kg:3500},{h:4,r:1.8,kg:3000},{h:4,r:3.0,kg:2500},{h:4,r:4.5,kg:2000},{h:4,r:6.0,kg:1500},{h:4,r:8.0,kg:1250},
+        {h:6,r:0,kg:4100},{h:6,r:0.3,kg:4100},{h:6,r:0.8,kg:3500},{h:6,r:1.5,kg:3000},{h:6,r:2.5,kg:2500},{h:6,r:4.0,kg:2000},{h:6,r:5.5,kg:1500},{h:6,r:7.0,kg:1250},
+        {h:8,r:0,kg:4100},{h:8,r:0.2,kg:4100},{h:8,r:0.6,kg:3500},{h:8,r:1.1,kg:3000},{h:8,r:2.0,kg:2500},{h:8,r:3.2,kg:2000},{h:8,r:4.5,kg:1500},{h:8,r:5.5,kg:1250},
+        {h:10,r:0,kg:4100},{h:10,r:0.2,kg:4100},{h:10,r:0.5,kg:3500},{h:10,r:0.9,kg:3000},{h:10,r:1.5,kg:2500},{h:10,r:2.4,kg:2000},{h:10,r:3.4,kg:1500},{h:10,r:4.5,kg:1250},
+        {h:12,r:0,kg:4100},{h:12,r:0.1,kg:4100},{h:12,r:0.3,kg:3500},{h:12,r:0.6,kg:3000},{h:12,r:1.1,kg:2500},{h:12,r:1.7,kg:2000},{h:12,r:2.5,kg:1500},
+        {h:14,r:0,kg:4100},{h:14,r:0.2,kg:3500},{h:14,r:0.4,kg:3000},{h:14,r:0.7,kg:2500},{h:14,r:1.0,kg:2000}
+      ],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'bob-t40180slp', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat T40.180SLP', shortName:'Bobcat T40.180SLP',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 8 + load chart p.22-23
+      // SLP = Super Low Profile. BPS ±675mm standard. Frame tilt ±4°.
+      // Single load chart (on tyres). Zones: 500/750/1000/1500/2000/2500/3000/3500/4000 Kg.
+      // X-axis: -1 to 14m (forward reach). Y-axis: -1 to 18m.
+      capacity:4.0, liftHeight:17.47, maxReach:13.68, engine:'Perkins 1104D-44TA 100HP/74.5kW Stage IIIA',
+      machineWeight:10580, machineWidth:2418, machineLength:6220, machineHeight:2520,
+      terrain:'rough', maxSpeed:30,
+      tyres:'400/80-24" std (460/70-24" option)',
+      forkSpec:'Floating pallet forks FEM Class III standard. Estimated ~200kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib / crane jib — estimated ~150kg at ~2m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:150,
+      attachments:['Floating Forks','Rigid Pallet Forks FEM III','Side-Shift Carriage','Crane Jib','Extension Jib','Concrete Basket','Man Platform'],
+      bestFor:'4T 17.5m telehandler — Bobcat\'s highest-reach standard machine, used as EWP to ~20m working height',
+      note:'Bobcat T40.180SLP — High Lift Height, Super Low Profile cab, 4T, 17.47m boom (marketed as 18m). Bobcat\'s highest-reaching standard telehandler. 4,000kg max lift capacity. 17,466mm max lift height. 13,680mm max forward reach. Breakout force 12,300kg. Aux flow 65 L/min. 10,580kg operating weight. Engine: Perkins 1104D-44TA 100HP/74.5kW Stage IIIA. Fuel 145L. Standard tyres 400/80-24". Max speed 30km/h. 3 steering modes (2WS/4WS/Crab). Frame tilt ±4°. BPS lateral side-shift ±675mm standard. Compact stabilisers optional (note: brochure load chart shows on-tyres envelope without stabilisers — stabiliser chart available from Bobcat dealer). Stabiliser deployed width 2,619mm. Dimensions: A=6,220 | B=4,950 | C=2,263 | D=2,850 | E=1,107 | F=2,520 | G=509 | H=2,418 | I=1,992 | J=4,150 | K=930mm. BPS lateral amplitude ±675mm. ROPS/FOPS Level II, EN15000, auto parking brake, safety pack. ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers; stabiliser capacity chart available from dealer). 4,000kg max at any height close reach. At ground (0°): 4,000kg to 0.5m reach → 3,500kg to 1.5m → 3,000kg to 3.0m → 2,500kg to 5.0m → 2,000kg to 7.0m → 1,500kg to 9.0m → 1,000kg to 11.0m → 750kg to 12.5m → 500kg to 13.7m. At 17.47m max height (70°): 4,000kg at machine face, 3,000kg at 0.3m, 2,000kg at 1.0m, 1,000kg at 1.5m. Frame tilt ±4°, BPS ±675mm lateral. If compact stabilisers fitted, working envelope increases — consult Bobcat dealer for stabiliser load chart. FORK CAPACITY: as rated. JIB: deduct est. ~150kg. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['4T','17.5m','13.68m Reach','High Lift','BPS Side-Shift','SLP','Frame Tilt','Man Platform','EWP'],
+      loadMatrix:[
+        // ON TYRES — 4000 Kg max. Zones: 500/750/1000/1500/2000/2500/3000/3500/4000 Kg.
+        // Clearly read from brochure load chart p.22-23 at 8x zoom.
+        {h:0,r:0,kg:4000},{h:0,r:0.5,kg:4000},{h:0,r:1.5,kg:3500},{h:0,r:3.0,kg:3000},{h:0,r:5.0,kg:2500},{h:0,r:7.0,kg:2000},{h:0,r:9.0,kg:1500},{h:0,r:11.0,kg:1000},{h:0,r:12.5,kg:750},{h:0,r:13.7,kg:500},
+        {h:2,r:0,kg:4000},{h:2,r:0.4,kg:4000},{h:2,r:1.3,kg:3500},{h:2,r:2.5,kg:3000},{h:2,r:4.5,kg:2500},{h:2,r:6.5,kg:2000},{h:2,r:8.5,kg:1500},{h:2,r:10.5,kg:1000},{h:2,r:12.0,kg:750},{h:2,r:13.0,kg:500},
+        {h:4,r:0,kg:4000},{h:4,r:0.4,kg:4000},{h:4,r:1.1,kg:3500},{h:4,r:2.2,kg:3000},{h:4,r:4.0,kg:2500},{h:4,r:5.8,kg:2000},{h:4,r:8.0,kg:1500},{h:4,r:10.0,kg:1000},{h:4,r:11.5,kg:750},
+        {h:6,r:0,kg:4000},{h:6,r:0.3,kg:4000},{h:6,r:1.0,kg:3500},{h:6,r:2.0,kg:3000},{h:6,r:3.5,kg:2500},{h:6,r:5.2,kg:2000},{h:6,r:7.2,kg:1500},{h:6,r:9.0,kg:1000},{h:6,r:10.5,kg:750},
+        {h:8,r:0,kg:4000},{h:8,r:0.3,kg:4000},{h:8,r:0.9,kg:3500},{h:8,r:1.8,kg:3000},{h:8,r:3.0,kg:2500},{h:8,r:4.5,kg:2000},{h:8,r:6.5,kg:1500},{h:8,r:8.0,kg:1000},
+        {h:10,r:0,kg:4000},{h:10,r:0.2,kg:4000},{h:10,r:0.8,kg:3500},{h:10,r:1.5,kg:3000},{h:10,r:2.5,kg:2500},{h:10,r:4.0,kg:2000},{h:10,r:5.8,kg:1500},{h:10,r:7.0,kg:1000},
+        {h:12,r:0,kg:4000},{h:12,r:0.2,kg:4000},{h:12,r:0.6,kg:3500},{h:12,r:1.2,kg:3000},{h:12,r:2.0,kg:2500},{h:12,r:3.2,kg:2000},{h:12,r:4.8,kg:1500},{h:12,r:6.0,kg:1000},
+        {h:14,r:0,kg:4000},{h:14,r:0.1,kg:4000},{h:14,r:0.5,kg:3500},{h:14,r:0.9,kg:3000},{h:14,r:1.5,kg:2500},{h:14,r:2.5,kg:2000},{h:14,r:3.8,kg:1500},
+        {h:16,r:0,kg:4000},{h:16,r:0.1,kg:3500},{h:16,r:0.5,kg:3000},{h:16,r:1.0,kg:2500},{h:16,r:1.7,kg:2000},{h:16,r:2.8,kg:1500},
+        {h:17.47,r:0,kg:4000},{h:17.47,r:0.3,kg:3000},{h:17.47,r:1.0,kg:2000},{h:17.47,r:1.5,kg:1000}
+      ],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'bob-t40180mp', brand:'Bobcat', emoji:'🏗️', brandColor:'#E84E10',
+      name:'Bobcat T40.180MP (Man Platform)', shortName:'Bobcat T40.180MP',
+      // Source: Bobcat Telehandlers brochure B-2005-EN (12/21), spec table Col 9
+      // MP = Man Platform variant. Same machine and specs as T40.180SLP.
+      // Man platform predisposition standard. Pallet forks standard.
+      capacity:4.0, liftHeight:17.47, maxReach:13.68, engine:'Perkins 1104D-44TA 100HP/74.5kW Stage IIIA',
+      machineWeight:10580, machineWidth:2418, machineLength:6220, machineHeight:2520,
+      terrain:'rough', maxSpeed:30,
+      tyres:'400/80-24" std (460/70-24" option)',
+      forkSpec:'Pallet forks standard on MP variant. Estimated ~200kg pair — confirm weight with Bobcat dealer.',
+      jibSpec:'Extension jib / crane jib — estimated ~150kg at ~2m extension. Deduct jib weight from rated capacity. Confirm with Bobcat dealer.',
+      jibWeight:150,
+      attachments:['Man Platform (Standard — confirm SWL with dealer)','Floating Forks (Standard)','Crane Jib','Extension Jib'],
+      bestFor:'4T man platform telehandler — 17.5m boom for EWP access to ~19-20m working height on construction sites',
+      note:'Bobcat T40.180MP — Man Platform variant of T40.180SLP. Same machine and boom specs, man platform predisposition standard and pallet forks standard. 4,000kg max lift capacity (fork mode). 17,466mm max lift height. 13,680mm max forward reach. 12,300kg breakout force. 65 L/min aux flow. 10,580kg operating weight. Perkins 1104D-44TA 100HP/74.5kW Stage IIIA. Fuel 145L. 400/80-24" tyres. Max speed 30km/h. Frame tilt ±4°. BPS ±675mm lateral side-shift standard. Remote control option for distance boom operation. Compact stabilisers optional. Stabiliser deployed width 2,619mm. Same dimensions as T40.180SLP: A=6,220 | B=4,950 | C=2,263 | D=2,850 | E=1,107 | F=2,520 | G=509 | H=2,418 | I=1,992 | J=4,150 | K=930mm. ⚠️ Man platform SWL not specified in brochure — confirm with Bobcat dealer (typically 200-300kg for 2-person platforms). ⚠️ jibWeight estimated — confirm with dealer. Source: Bobcat Telehandlers brochure B-2005-EN (12/21).',
+      liftChart:'ON TYRES (no stabilisers; stabiliser capacity chart available from dealer). Same load envelope as T40.180SLP: 4,000kg max fork capacity at close reach any height. At ground: 4,000kg to 0.5m → 500kg at 13.7m max reach. At max height 17.47m: 4,000kg at machine face, 2,000kg at 1.0m reach. MAN PLATFORM: working height approximately 17.47m lift + platform height. Platform reduces effective payload — confirm man platform SWL with dealer. FORK CAPACITY: as rated (forks standard). JIB: deduct est. ~150kg. Source: Bobcat Telehandlers brochure B-2005-EN, load chart p.22-23.',
+      tags:['4T','17.5m','Man Platform','EWP','BPS Side-Shift','High Lift','Stabilisers','Frame Tilt'],
+      loadMatrix:[
+        // Same load envelope as T40.180SLP (identical machine). Man platform reduces effective payload.
+        {h:0,r:0,kg:4000},{h:0,r:0.5,kg:4000},{h:0,r:1.5,kg:3500},{h:0,r:3.0,kg:3000},{h:0,r:5.0,kg:2500},{h:0,r:7.0,kg:2000},{h:0,r:9.0,kg:1500},{h:0,r:11.0,kg:1000},{h:0,r:12.5,kg:750},{h:0,r:13.7,kg:500},
+        {h:4,r:0,kg:4000},{h:4,r:0.4,kg:4000},{h:4,r:1.1,kg:3500},{h:4,r:2.2,kg:3000},{h:4,r:4.0,kg:2500},{h:4,r:5.8,kg:2000},{h:4,r:8.0,kg:1500},{h:4,r:10.0,kg:1000},{h:4,r:11.5,kg:750},
+        {h:8,r:0,kg:4000},{h:8,r:0.3,kg:4000},{h:8,r:0.9,kg:3500},{h:8,r:1.8,kg:3000},{h:8,r:3.0,kg:2500},{h:8,r:4.5,kg:2000},{h:8,r:6.5,kg:1500},{h:8,r:8.0,kg:1000},
+        {h:12,r:0,kg:4000},{h:12,r:0.2,kg:4000},{h:12,r:0.6,kg:3500},{h:12,r:1.2,kg:3000},{h:12,r:2.0,kg:2500},{h:12,r:3.2,kg:2000},{h:12,r:4.8,kg:1500},{h:12,r:6.0,kg:1000},
+        {h:16,r:0,kg:4000},{h:16,r:0.1,kg:3500},{h:16,r:0.5,kg:3000},{h:16,r:1.0,kg:2500},{h:16,r:1.7,kg:2000},{h:16,r:2.8,kg:1500},
+        {h:17.47,r:0,kg:4000},{h:17.47,r:0.3,kg:3000},{h:17.47,r:1.0,kg:2000},{h:17.47,r:1.5,kg:1000}
+      ],
+      filters:['telehandler','rough','heavy']
+    },
     // ── DIECI — (source: dieciaustralia.com.au, real verified specs)
     {
       id:'dieci-apollo-256', brand:'Dieci', emoji:'🏗️', brandColor:'#C8102E',
@@ -23760,6 +24109,3956 @@ const MACHINES = {
       hireRateType:'wet_or_dry',
     },
 
+    // ── KOMATSU WHEEL LOADERS (brochure-specified) ───────────────
+
+    // Source: Komatsu WA70M-8 Brochure VENSS07200 06/2020 (EU Stage V)
+    { id:'kom-wa70m8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA70M-8 Wheel Loader', shortName:'Komatsu WA70M-8',
+      // ── Engine ──
+      engineModel:'Komatsu 4D98E-6SHA',
+      engineType:'Common rail direct injection, water-cooled, emissionised diesel',
+      engineCylinders:4,
+      engineBoreMm:98, engineStrokeMm:110,
+      engineDisplacementL:3.3,
+      engineRatedRPM:2200,
+      enginePowerISOkW:46.2, enginePowerISO_hp:62.0,
+      engineMaxTorqueNm:235, engineMaxTorqueRpm:1430,
+      engineAirFilter:'Dry air filter with pre-filter and safety cartridge',
+      emissionStandard:'EU Stage V',
+      engineAftertreatment:'Diesel Particulate Filter (DPF)',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic',
+      transmissionPump:'1 variable piston pump',
+      transmissionMotor:'1 variable piston motor',
+      speedRangesFwd:2, speedRangesRev:2,
+      maxSpeedRange1Kmh:7.6, maxSpeedRange2Kmh:20.0, creepSpeedKmh:10.0,
+      // ── Chassis & Axles ──
+      driveSystem:'4-wheel drive',
+      axleType:'Planetary rigid axles with automatic limited slip differentials in both axles',
+      rearAxleOscillationDeg:10,
+      tyreSize:'365/70 R18',
+      // ── Brakes ──
+      serviceBrake:'Combined inch brake pedal, maintenance-free wet-disc front axle; self-braking via hydrostatic drive',
+      parkingBrake:'Dry disc',
+      // ── Hydraulics ──
+      hydraulicSystem:'Open hydraulic system',
+      hydraulicWorkingPressureBar:230,
+      hydraulicMaxPumpFlowLpm:60,
+      boomCylCount:1, boomCylBoreMm:95, boomCylStrokeMm:670,
+      bucketCylCount:1, bucketCylBoreMm:85, bucketCylStrokeMm:522,
+      hydraulicControlLever:'Multifunction lever',
+      hydraulicRaiseTimeSec:5.3, hydraulicLowerTimeSec:3.0, hydraulicDumpTimeSec:1.1,
+      // ── Steering ──
+      steeringSystem:'Articulated frame steering, hydraulic',
+      steeringAngleDeg:40,
+      steeringPump:'Gear pump',
+      steeringPressureBar:175,
+      steeringCylCount:1, steeringCylBoreMm:70, steeringCylStrokeMm:363,
+      minTurningRadiusMm:3635,        // outer edge of tyre 365/70 R18
+      // ── Operating weights (vary by bucket) ──
+      operatingWeightKgMin:4980, operatingWeightKgMax:5300,
+      operatingWeightT:5.0,
+      // ── Bucket capacities ──
+      bucketCapM3:0.85,               // universal bucket w. teeth (primary)
+      bucketCapRangeM3:'0.75–1.25',
+      // ── Performance ──
+      staticTippingLoadStraightKg:4220,   // universal bucket w. teeth
+      staticTippingLoadArticulatedKg:3610,
+      breakoutForceKN:40.4,
+      liftCapabilityGroundKN:41.7,
+      hingePinHeightMm:3135,
+      dumpHeightAt45Mm:2335,
+      maxLoadingHeightAt45Mm:2930,
+      reachAt45Mm:1020,
+      diggingDepthMm:105,
+      // ── Fork performance ──
+      forkTineType:'FEM IIA', forkTineLengthMm:1200,
+      forkMaxTippingLoadStraightKg:3140, forkMaxTippingLoadArticulatedKg:2600,
+      forkMaxPayload80pctKg:2080, forkMaxPayload60pctKg:1560,
+      forkMaxStackingHeightMm:3010, forkHingePinHeightMm:3135,
+      // ── Dimensions (universal bucket w. teeth, tyres 365/70 R18, A/C) ──
+      overallLengthBucketGroundedMm:5570,
+      wheelbaseMm:2050,
+      bucketWidthMm:1800,
+      widthOverTyresMm:1685,
+      trackWidthMm:1340,
+      groundClearanceMm:440,
+      overallHeightMm:2485,
+      // ── Noise ──
+      exteriorSoundPowerDB_A:101,     // LwA, 2000/14/EC Stage II
+      operatorSoundPressureDB_A:74,   // LpA, ISO 6396 dynamic test
+      // ── Vibration (EN 12096:1997) ──
+      vibrationHandArmMs2:'≤2.5 (K=0.42)', vibrationBodyMs2:'≤0.5 (K=1.19)',
+      // ── Service Refill Capacities ──
+      coolantL:13.8, fuelTankL:98, engineOilL:9.6,
+      hydraulicSystemL:45, frontAxleL:7.5, rearAxleL:4.2, transferL:0.7,
+      // ── Electrical ──
+      alternatorA:90, alternatorV:12, starterKW:2.2, batteryAh:92,
+      // ── Features ──
+      komtrax:true, komtraxComms:'4G mobile communications',
+      ecss:'optional',
+      cab:'ROPS/FOPS (ISO 3471/SAE J1040c/ISO 3449), pressurised, rubber-mounted, tiltable',
+      // ── Full Bucket Configuration Table (all measurements with tyres 365/70 R18, A/C) ──
+      bucketConfigs:[
+        // col:  id, capacityM3, type, teeth, matDensityTm3, bucketWeightKg,
+        //       staticTipStraightKg, staticTipArticKg, breakoutKN, liftCapGroundKN,
+        //       opWeightKg, turningRadiusCornerTyresMm, turningRadiusBucketEdgeMm,
+        //       reachAt45Mm, dumpHeightAt45Mm, hingePinHeightMm, topEdgeBucketMm,
+        //       diggingDepthMm, maxLoadingHeightAt45Mm, overallLengthBucketGroundedMm,
+        //       bucketWidthMm
+        { id:'universal-teeth',   capacityM3:0.85, type:'Universal',      teeth:true,  matDensity:1.8, wt:300, tipStr:4220, tipArt:3610, boKN:40.4, liftKN:41.7, opWt:5000, trCorner:3635, trBucket:4100, reach45:1020, dumpH:2335, hingePin:3135, topEdge:3940, digDepth:105, maxLoad45:2930, overallLen:5570, bucketW:1800 },
+        { id:'universal-notth',   capacityM3:0.85, type:'Universal',      teeth:false, matDensity:1.8, wt:275, tipStr:4340, tipArt:3715, boKN:40.4, liftKN:41.7, opWt:4980, trCorner:3635, trBucket:4100, reach45:925,  dumpH:2435, hingePin:3135, topEdge:3940, digDepth:105, maxLoad45:2930, overallLen:5430, bucketW:1800 },
+        { id:'light-notth-1.0',   capacityM3:1.0,  type:'Light Materials',teeth:false, matDensity:1.6, wt:300, tipStr:4115, tipArt:3515, boKN:35.6, liftKN:36.7, opWt:5010, trCorner:3635, trBucket:4175, reach45:970,  dumpH:2340, hingePin:3135, topEdge:3935, digDepth:140, maxLoad45:2895, overallLen:5540, bucketW:1870 },
+        { id:'light-notth-1.25',  capacityM3:1.25, type:'Light Materials',teeth:false, matDensity:1.3, wt:335, tipStr:4040, tipArt:3445, boKN:31.4, liftKN:32.6, opWt:5045, trCorner:3635, trBucket:4210, reach45:1035, dumpH:2260, hingePin:3135, topEdge:4115, digDepth:140, maxLoad45:2895, overallLen:5660, bucketW:1870 },
+        { id:'4in1-teeth-0.75',   capacityM3:0.75, type:'4-in-1',         teeth:true,  matDensity:1.8, wt:570, tipStr:4055, tipArt:3430, boKN:30.9, liftKN:32.4, opWt:5280, trCorner:3635, trBucket:4170, reach45:1075, dumpH:2280, hingePin:3135, topEdge:3910, digDepth:110, maxLoad45:2920, overallLen:5655, bucketW:1800 },
+        { id:'4in1-teeth-0.80',   capacityM3:0.80, type:'4-in-1',         teeth:true,  matDensity:1.65,wt:590, tipStr:4035, tipArt:3410, boKN:30.9, liftKN:32.4, opWt:5300, trCorner:3635, trBucket:4210, reach45:1075, dumpH:2280, hingePin:3135, topEdge:3910, digDepth:110, maxLoad45:2920, overallLen:5655, bucketW:1900 },
+      ],
+      // ── Fork Detailed Dimensions (FEM IIA, 1200mm tines) ──
+      forkDims:{
+        tineType:'FEM IIA', tineLengthMm:1200,
+        maxReachGroundLevelMm:780,    // g
+        maxReachMm:1310,              // h
+        maxReachAtMaxStackHeightMm:670, // j
+        maxHeightForkCarrierMm:3590,  // k
+        hingePinHeightMm:3135,        // l
+        maxStackingHeightMm:3010,     // m
+        heightForksAtMaxReachMm:1470, // n
+        maxTippingLoadStraightKg:3140,
+        maxTippingLoadArticulatedKg:2600,
+        maxPayload80pctKg:2080,
+        maxPayload60pctKg:1560,
+        weightInWorkingOrderKg:4925,
+      },
+      // ── Common Machine Dimensions (all bucket configs, tyres 365/70 R18, A/C) ──
+      commonDims:{ wheelbaseMm:2050, widthOverTyresMm:1685, trackWidthMm:1340, groundClearanceMm:440, overallHeightMm:2485 },
+      // ── Refrigerant ──
+      refrigerant:'HFC-134a (GWP 1430)', refrigerantKg:1.2, refrigerantCO2EqT:1.72,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Komatsu 4D98E-6SHA common rail direct injection diesel engine','EU Stage V compliant','Diesel Particulate Filter (DPF)',
+        'Alternator 90A/12V','Starter motor 2.2kW/12V','Battery 92Ah/12V',
+        'Combined inch/brake pedal','Z-bar boom (parallel movement with dedicated fork tines)',
+        'Spacious double door driver cab to DIN/ISO with heating','Tilting cab',
+        'ROPS/FOPS frame according to SAE','All-round tinted glazing','Heated rear window',
+        'Rear window wiper','Sun visor','Adjustable steering column','Suspended seat',
+        'Seat belt (EU standard)','Wrist rest with integrated small storage box',
+        'Large storage box at left hand side',
+        'Multi-function colour monitor with EMMS and efficiency guidance',
+        '12 Volt power supply','Front window wiper with intermittent feature',
+        'Heavy-duty axles','LSD-differential front and rear',
+        '3-spool main control valve','Multi-function lever','Hydraulic quick-coupler',
+        'KOMTRAX – Komatsu wireless monitoring system','Tool-set','Wide-core radiator',
+        'Halogen headlights','Reversing lights',
+        'Emergency steering system','Back-up alarm','Horn','Emergency engine stop switch',
+        'Seat belt caution indicator','Battery main switch','Counterweight','Towing device',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Creeping function','Adjustable high comfort air suspension seat','Air conditioning',
+        'Radio','Sun reflection decal for cab/canopy roof',
+        'Beacon light','Immobiliser','Immobiliser with master key','Anti-drop valve','Fire extinguisher',
+        'Additional lights front and rear','LED headlights','Optical back-up alarm (strobe light)',
+        'Electronically controlled suspension system load stabilizer (ECSS)',
+        'Special custom colour','Bucket level indicator',
+        'Bucket with or without teeth','4-in-1 bucket','Light material buckets',
+        'Fork carrier and tines','Cutting edge guard',
+        'Radiator fan with reversing function','Automatic central lubrication',
+        'Various tyre types and sizes on request','Biodegradable oil for hydraulic system',
+        'Loader control with return-to-dig','Auto-inch valve',
+      ],
+      brochureRef:'Komatsu WA70M-8 Brochure VENSS07200 06/2020',
+      tags:['compact wheel loader','small loader','5t class','fork capable','EU Stage V','KOMTRAX','stockpile','construction','recycling','agricultural'],
+      note:'Komatsu WA70M-8 — compact EU Stage V wheel loader, 4.98–5.3t. Komatsu 4D98E-6SHA, 4-cyl, 98×110mm, 3.3L, 46.2kW/62hp @ 2,200rpm, max torque 235Nm @ 1,430rpm. Hydrostatic transmission (1 var-piston pump + motor), 2-speed F/R (0–7.6 / 0–20 km/h) + creep 0–10 km/h. Bucket range 0.75–1.25m³; universal 0.85m³ static tipping straight 4,220kg (articulated 3,610kg), breakout 40.4kN. Fork tipping load 3,140kg straight / 2,600kg articulated; 80% payload 2,080kg. Hinge pin 3,135mm, dump height 2,335mm @ 45°. Min turning radius 3,635mm (365/70 R18). Open hydraulics 230 bar / 60 l/min; boom cyl 95×670mm, bucket cyl 85×522mm; cycle raise 5.3s, dump 1.1s, lower 3.0s. Steering 40° each side, 1 cyl 70×363mm, 175 bar. 4WD planetary axles with LSD both ends, rear oscillation 10°. Wet-disc service brakes (front axle), hydrostatic self-braking, dry-disc parking. Cab: ROPS/FOPS, pressurised, tiltable, multi-function colour monitor (EMMS). Overall height 2,485mm (low-profile for easy transport). KOMTRAX 4G standard, DPF aftertreatment. Service: fuel 98L, engine oil 9.6L, hydraulics 45L, cooling 13.8L. Source: Komatsu WA70M-8 Brochure VENSS07200 06/2020.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu WA100M-8 Brochure VENSS06802P 10/2018 (EU Stage V, Preliminary)
+    { id:'kom-wa100m8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA100M-8 Wheel Loader', shortName:'Komatsu WA100M-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA4D94LE-3',
+      engineType:'Common rail direct injection, water-cooled, emissionised, turbocharged, after-cooled diesel',
+      engineCylinders:4,
+      engineBoreMm:94, engineStrokeMm:110,
+      engineDisplacementL:3.05,
+      engineRatedRPM:2000,
+      enginePowerISOkW:69.8, enginePowerISO_hp:93.6,
+      engineMaxTorqueNm:394, engineMaxTorqueRpm:1475,
+      engineAirFilter:'Dry air filter with pre-filter and safety cartridge',
+      emissionStandard:'EU Stage V',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic',
+      transmissionPump:'1 variable piston pump',
+      transmissionMotor:'1 variable piston motor',
+      speedRangesFwd:2, speedRangesRev:2,
+      // 20 km/h version
+      maxSpeedRange1Kmh_20:6.0, maxSpeedRange2Kmh_20:20.0, creepSpeedKmh_20:10.0,
+      // 40 km/h version
+      maxSpeedRange1Kmh_40:15.0, maxSpeedRange2Kmh_40:40.0, creepSpeedKmh_40:10.0,
+      maxSpeedRange2Kmh:20.0,   // primary (20 km/h version)
+      // ── Chassis & Axles ──
+      driveSystem:'4-wheel drive',
+      axleType:'Planetary rigid axles with automatic limited slip differentials in both axles (100% locking differentials optional)',
+      rearAxleOscillationDeg:10,
+      tyreSize:'455/70 R20',
+      // ── Brakes ──
+      serviceBrake:'Combined inch brake pedal, maintenance-free wet multi-disc front axle; self-braking via hydrostatic drive',
+      parkingBrake:'Integrated wet multi-disc type brake',
+      // ── Hydraulics ──
+      hydraulicSystem:'Open hydraulic system',
+      hydraulicWorkingPressureBar:270,
+      hydraulicMaxPumpFlowLpm:75,   // option 120 l/min
+      boomCylCount:2, boomCylBoreMm:80, boomCylStrokeMm:714,
+      bucketCylCount:1, bucketCylBoreMm:100, bucketCylStrokeMm:476,
+      hydraulicControlLever:'Multifunction lever',
+      hydraulicRaiseTimeSec:5.7, hydraulicLowerTimeSec:3.7, hydraulicDumpTimeSec:1.3,
+      // ── Steering ──
+      steeringSystem:'Articulated frame steering, hydraulic',
+      steeringAngleDeg:42,
+      steeringPump:'Gear pump',
+      steeringPressureBar:175,
+      steeringCylCount:2, steeringCylBoreMm:60, steeringCylStrokeMm:369,
+      minTurningRadiusMm:4130,        // outer edge of tyre 455/70 R20
+      // ── Operating weights ──
+      operatingWeightKgMin:6925, operatingWeightKgMax:7230,
+      operatingWeightT:7.0,
+      // ── Bucket capacities ──
+      bucketCapM3:1.3,               // universal bucket w. teeth (primary, C61)
+      bucketCapRangeM3:'1.05–1.8',
+      // ── Performance (universal 1.3m³ w. teeth) ──
+      staticTippingLoadStraightKg:6080,
+      staticTippingLoadArticulatedKg:5195,
+      breakoutForceKN:60.4,
+      liftCapabilityGroundKN:59.8,
+      hingePinHeightMm:3520,
+      // ── Fork performance ──
+      forkTineType:'FEM IIIA', forkTineLengthMm:1200,
+      forkMaxTippingLoadStraightKg:4515, forkMaxTippingLoadArticulatedKg:3920,
+      forkMaxPayload80pctKg:3136, forkMaxPayload60pctKg:2352,
+      forkMaxStackingHeightMm:3320, forkHingePinHeightMm:3525,
+      // ── Dimensions (tyres 455/70 R20) ──
+      wheelbaseMm:2400,
+      widthOverTyresMm:2080,
+      trackWidthMm:1635,
+      groundClearanceMm:390,
+      overallHeightMm:2885,
+      // ── Service Refill Capacities ──
+      coolantL:22.3, fuelTankL:110, engineOilL:10.5,
+      hydraulicSystemL:50, frontAxleL:9.1, rearAxleL:9.1,
+      transferL:1.3,   // 1.6 for 40km/h version
+      adBlueTankL:20,
+      // ── Electrical ──
+      alternatorA:150, alternatorV:12, starterKW:3.0, batteryAh:100,
+      // ── Features ──
+      komtrax:true, komtraxComms:'3G mobile communications',
+      ecss:'optional',
+      cab:'ROPS/FOPS (ISO 3471/SAE J1040c/ISO 3449), pressurised, hydro-bearing mounted, tiltable',
+      // ── Full Bucket Configuration Table (all measurements with tyres 455/70 R20) ──
+      bucketConfigs:[
+        // Sales codes from brochure: C61, C11, C14, C12, C13, C16
+        { id:'C61', capacityM3:1.3,  type:'Universal',      teeth:true,  salesCode:'C61', matDensity:1.8, wt:428, tipStr:6080, tipArt:5195, boKN:60.4, liftKN:59.8, opWt:7090, trCorner:4125, trBucket:4655, reach45:940,  dumpH:2635, hingePin:3520, topEdge:4420, digDepth:130, maxLoad45:3110, overallLen:6000, bucketW:2300 },
+        { id:'C11', capacityM3:1.3,  type:'Universal',      teeth:false, salesCode:'C11', matDensity:1.8, wt:402, tipStr:6200, tipArt:5285, boKN:60.4, liftKN:59.8, opWt:7065, trCorner:4125, trBucket:4655, reach45:845,  dumpH:2655, hingePin:3520, topEdge:4420, digDepth:130, maxLoad45:3110, overallLen:5865, bucketW:2300 },
+        { id:'C14', capacityM3:1.4,  type:'Universal',      teeth:true,  salesCode:'C14', matDensity:1.5, wt:452, tipStr:6220, tipArt:5300, boKN:71.7, liftKN:69.6, opWt:7100, trCorner:4125, trBucket:4660, reach45:1035, dumpH:2405, hingePin:3505, topEdge:4420, digDepth:130, maxLoad45:3070, overallLen:6145, bucketW:2200 },
+        { id:'C12', capacityM3:1.4,  type:'Universal',      teeth:false, salesCode:'C12', matDensity:1.5, wt:427, tipStr:6225, tipArt:5325, boKN:71.7, liftKN:69.6, opWt:7075, trCorner:4125, trBucket:4660, reach45:945,  dumpH:2305, hingePin:3505, topEdge:4420, digDepth:130, maxLoad45:3070, overallLen:6005, bucketW:2200 },
+        { id:'C13', capacityM3:1.6,  type:'Light Materials',teeth:false, salesCode:'C13', matDensity:1.25,wt:461, tipStr:5850, tipArt:4975, boKN:76.4, liftKN:75.3, opWt:7125, trCorner:4125, trBucket:4670, reach45:965,  dumpH:2480, hingePin:3520, topEdge:4470, digDepth:125, maxLoad45:3025, overallLen:6105, bucketW:2200 },
+        { id:'C16', capacityM3:1.05, type:'4-in-1',         teeth:true,  salesCode:'C16', matDensity:1.8, wt:695, tipStr:5850, tipArt:5205, boKN:62.6, liftKN:61.8, opWt:7360, trCorner:4125, trBucket:4670, reach45:960,  dumpH:2545, hingePin:3520, topEdge:4415, digDepth:85,  maxLoad45:3045, overallLen:6015, bucketW:2200 },
+      ],
+      // ── Fork Detailed Dimensions (FEM IIIA, 1200mm tines, sales code C24) ──
+      forkDims:{
+        salesCode:'C24', tineType:'FEM IIIA', tineLengthMm:1200,
+        maxReachGroundLevelMm:850,    // g
+        maxReachMm:1380,              // h
+        maxReachAtMaxStackHeightMm:565, // j
+        maxHeightForkCarrierMm:4000,  // k
+        hingePinHeightMm:3525,        // l
+        maxStackingHeightMm:3320,     // m
+        heightForksAtMaxReachMm:1540, // n
+        maxTippingLoadStraightKg:4515,
+        maxTippingLoadArticulatedKg:3920,
+        maxPayload80pctKg:3136,
+        maxPayload60pctKg:2352,
+        weightInWorkingOrderKg:6980,
+      },
+      // ── Common Machine Dimensions (all configs, tyres 455/70 R20) ──
+      commonDims:{ wheelbaseMm:2400, widthOverTyresMm:2080, trackWidthMm:1635, groundClearanceMm:390, overallHeightMm:2885 },
+      // ── Refrigerant ──
+      refrigerant:'HFC-134a (GWP 1430)', refrigerantKg:1.2, refrigerantCO2EqT:1.72,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Komatsu SAA4D94LE-3 turbocharged common rail direct injection diesel','EU Stage V compliant',
+        'Alternator 150A/12V','Starter motor 3.0kW/12V','Battery 100Ah/12V',
+        'Combined inch/brake pedal',
+        'Spacious double door driver cab to DIN/ISO with heating','Tilting cab',
+        'ROPS/FOPS frame according to SAE','All-round tinted glazing','Heated rear window',
+        'Rear window wiper','Sun visor','Adjustable steering column','Suspended seat',
+        'Seat belt (EU standard)','Wrist rest with integrated small storage box',
+        'Large storage box at left hand side',
+        'Multi-function colour monitor with EMMS and efficiency guidance',
+        '12 Volt power supply','Front window wiper with intermittent feature',
+        'Heavy-duty axles','LSD-differential front and rear',
+        '3-spool main control valve','PPC multi-function lever','Hydraulic quick-coupler',
+        'Z-bar boom (parallel movement with dedicated fork tines)',
+        'KOMTRAX – Komatsu wireless monitoring system','Tool-set','Wide-core radiator',
+        'Halogen headlights','Reversing lights',
+        'Emergency steering system','Back-up alarm','Horn','Emergency engine stop switch',
+        'Seat belt caution indicator','Battery main switch','Counterweight','Towing device',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Creeping function (40 km/h version)','Creeping function (20 km/h version)',
+        '20 km/h limited hydrostatic driveline','40 km/h limited hydrostatic driveline',
+        'Adjustable high comfort air suspension seat','Air conditioning',
+        'Hydraulic dump control for trailer','Radio','Sun reflection decal',
+        'Beacon light','Immobiliser','Immobiliser with master key','Anti-drop valve','Fire extinguisher',
+        'Additional lights front and rear','LED headlights','Optical back-up alarm (strobe light)',
+        'Electronically controlled suspension system load stabilizer (ECSS)',
+        'Special custom colour','Bucket level indicator','Additional counterweight 185kg',
+        'Ball-type hitch (StVZO)','Automatic hitch (StVZO)','Height-adjustable hitch (StVZO)',
+        '4-spool main control valve','Electronic control for 3rd spool (EPC)',
+        'Electronic control for 4th spool (EPC)','Loader control with return-to-dig','Auto-inch valve',
+        '3rd hydraulic function rear','4th hydraulic function rear','High flow version',
+        '100% manual locking differentials front and rear',
+        'Bucket with or without teeth','4-in-1 bucket','Light material buckets',
+        'Fork carrier and tines','Cutting edge guard',
+        'Radiator fan with reversing function','Automatic central lubrication',
+        'Various tyre types and sizes on request','Biodegradable oil for hydraulic system',
+      ],
+      brochureRef:'Komatsu WA100M-8 Brochure VENSS06802P 10/2018',
+      tags:['wheel loader','7t class','EU Stage V','KOMTRAX','fork capable','construction','recycling','PZ linkage'],
+      note:'Komatsu WA100M-8 — EU Stage V wheel loader, 6.925–7.23t. Komatsu SAA4D94LE-3, 4-cyl turbocharged aftercooled, 94×110mm, 3.05L, 69.8kW/93.6hp @ 2,000rpm, max torque 394Nm @ 1,475rpm. Hydrostatic transmission (1 var-piston pump + motor), 2-speed F/R: 20km/h version (0–6/0–20 km/h) or 40km/h version (0–15/0–40 km/h) + creep 0–10 km/h. Bucket range 1.05–1.8m³; universal 1.3m³ w.teeth: static tipping straight 6,080kg (articulated 5,195kg), breakout 60.4kN. Fork (FEM IIIA, 1,200mm): tipping 4,515kg / 3,920kg, 80% payload 3,136kg, stacking height 3,320mm. Hinge pin 3,520mm. Min turning radius 4,130mm (455/70 R20). Open hydraulics 270 bar / 75 l/min; boom cyls 2×80×714mm, bucket cyl 100×476mm; cycle raise 5.7s, dump 1.3s, lower 3.7s. Steering 42° each side, 2 cyls 60×369mm, 175 bar. 4WD planetary axles with LSD (100% lock optional), rear oscillation 10°. Wet multi-disc service brakes (front), integrated wet multi-disc parking. KOMTRAX 3G, DPF aftertreatment. Service: fuel 110L, AdBlue 20L, hydraulics 50L, cooling 22.3L. Source: Komatsu WA100M-8 Brochure VENSS06802P 10/2018.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu WA150-6 Brochure ZESB099967_October2022 (Australia & New Zealand, EPA Tier 3 Final)
+    { id:'kom-wa150-6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA150-6 Wheel Loader', shortName:'Komatsu WA150-6',
+      // ── Engine ──
+      engineModel:'Komatsu SAA4D95LE-5',
+      engineType:'Water-cooled, 4-cycle, turbocharged, aftercooled, direct injection',
+      engineCylinders:4,
+      engineBoreMm:95, engineStrokeMm:115,
+      engineDisplacementL:3.26,
+      engineRatedRPM:2200,
+      engineGrossKW:74, engineGrossHP:99,
+      engineNetKW:73, engineNetHP:98,
+      enginePowerISOkW:73, enginePowerISO_hp:98,
+      engineFanDrive:'Hydraulic',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'U.S. EPA Tier 3 / EU Stage 3A',
+      engineAirFilter:'Dry type with double elements and dust evacuator, plus dust indicator',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic, 1 pump, 2 motors with speed range select',
+      speedRangesFwd:4, speedRangesRev:4,
+      maxSpeedRange1Kmh:13.6, maxSpeedRange2Kmh:13.6, maxSpeedRange3Kmh:23.5, maxSpeedRange4Kmh:38.0,   // 17.5-25 tyres
+      variableShiftControl:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 16° total oscillation',
+      differentialGear:'Torque proportioning',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'17.5-25-12PR (L-2)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet multiple-disc brakes on four wheels',
+      parkingBrake:'Wet multiple-disc on transfer output shaft',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      // Steering
+      steeringPumpType:'Gear type pump',
+      steeringPumpCapacityLpm:108,
+      steeringReliefMPa:18.6,
+      steeringCylCount:2, steeringCylBoreMm:35, steeringCylStrokeMm:375,
+      // Loader
+      loaderPumpType:'Gear type pump',
+      loaderPumpCapacityLpm:54,
+      loaderReliefMPa:20.6,
+      boomCylCount:2, boomCylBoreMm:110, boomCylStrokeMm:628,
+      bucketCylCount:1, bucketCylBoreMm:110, bucketCylStrokeMm:452,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:6.0, hydraulicDumpTimeSec:1.1, hydraulicLowerTimeSec:3.6,
+      // ── Steering ──
+      steeringSystem:'Full-hydraulic power steering',
+      steeringAngleDeg:38,    // 40° to end stop
+      minTurningRadiusMm:4675,   // centre of outside tyre
+      // ── Operating weights (standard boom, various buckets) ──
+      operatingWeightKgMin:7780, operatingWeightKgMax:8125,
+      operatingWeightT:7.85,    // 1.5m³ stockpile bucket reference
+      // ── Bucket capacities ──
+      bucketCapM3:1.5,               // primary: 1.5m³ stockpile BOC
+      bucketCapRangeM3:'1.2–1.7',
+      // ── Performance (standard boom, 1.5m³ stockpile BOC) ──
+      staticTippingLoadStraightKg:6745, staticTippingLoadArticulatedKg:5870,
+      breakoutForceKg:7400,          // breakout force in kg
+      hingePinHeightMm:3510,         // standard boom, max height
+      hingePinHeightHighLiftMm:4045,
+      dumpHeightAt45Mm:2730,         // 1.5m³ stockpile BOC at max height
+      reachAt45Mm:950,
+      // ── Dimensions (17.5-25-12PR L-2 tyres) ──
+      wheelbaseMm:2600,
+      widthOverTyresMm:2220,
+      trackWidthMm:1780,
+      groundClearanceMm:425,
+      overallHeightROPSMm:3060,
+      overallHeightStackMm:2520,
+      hitchHeightMm:825,
+      // ── Noise ──
+      operatorSoundPressureDB_A:72,
+      exteriorSoundPowerDB_A:104,
+      // ── Service Refill Capacities ──
+      coolantL:14.6, fuelTankL:133, engineOilL:11.5,
+      hydraulicSystemL:47, frontAxleL:14.0, rearAxleL:14.5,
+      torqueConverterTransmissionL:3.9,
+      // ── Features ──
+      komtrax:true,
+      variableTractionControl:true,
+      electronicSuspensionSystem:'optional',
+      cab:'ROPS/FOPS (ISO 3471/ISO 3449), pillar-less large cab, tiltable steering, PPC mono-lever',
+      // ── Full Bucket Configuration Table (measured with 17.5-25-12PR L-2 tyres) ──
+      // Standard Boom configs
+      bucketConfigs:[
+        // Standard Boom
+        { id:'sb-stockpile-boc',  boom:'standard', capacityM3:1.5, capacityStruckM3:1.25, type:'Stockpile', cutting:'BOC', bucketW:2390, wt:595, dumpClear45:2730, reach45:950,  reachAt2130:1380, reachArmHoriz:2025, opHeight:4655, overallLen:6285, clearCircle:10755, digDepth0:65,  digDepth10:230, tipStr:6745, tipFullTurn:5870, breakoutKg:7400, opWt:7850 },
+        { id:'sb-stockpile-tth',  boom:'standard', capacityM3:1.4, capacityStruckM3:1.2,  type:'Stockpile', cutting:'Teeth',bucketW:2390, wt:540, dumpClear45:2670, reach45:1000, reachAt2130:1395, reachArmHoriz:2100, opHeight:4655, overallLen:6365, clearCircle:10800, digDepth0:75,  digDepth10:250, tipStr:6800, tipFullTurn:5920, breakoutKg:6780, opWt:7795 },
+        { id:'sb-excav-boc',      boom:'standard', capacityM3:1.3, capacityStruckM3:1.1,  type:'Excavating',cutting:'BOC', bucketW:2390, wt:575, dumpClear45:2770, reach45:910,  reachAt2130:1355, reachArmHoriz:1965, opHeight:4585, overallLen:6225, clearCircle:10730, digDepth0:65,  digDepth10:220, tipStr:6785, tipFullTurn:5905, breakoutKg:8010, opWt:7835 },
+        { id:'sb-excav-tth',      boom:'standard', capacityM3:1.2, capacityStruckM3:1.05, type:'Excavating',cutting:'Teeth',bucketW:2390, wt:520, dumpClear45:2710, reach45:960,  reachAt2130:1375, reachArmHoriz:2040, opHeight:4585, overallLen:6305, clearCircle:10775, digDepth0:75,  digDepth10:240, tipStr:6840, tipFullTurn:5955, breakoutKg:7290, opWt:7780 },
+        { id:'sb-light-boc',      boom:'standard', capacityM3:1.7, capacityStruckM3:1.5,  type:'Light Material',cutting:'BOC',bucketW:2390, wt:660, dumpClear45:2655, reach45:1025, reachAt2130:1415, reachArmHoriz:2130, opHeight:4735, overallLen:6390, clearCircle:10785, digDepth0:65,  digDepth10:245, tipStr:6650, tipFullTurn:5790, breakoutKg:6530, opWt:7920 },
+        // High Lift Boom
+        { id:'hl-excav-boc',      boom:'highLift', capacityM3:1.3, capacityStruckM3:1.1,  type:'Excavating',cutting:'BOC', bucketW:2390, wt:575, dumpClear45:3335, reach45:1005, reachAt2130:1840, reachArmHoriz:2405, opHeight:5125, overallLen:6805, clearCircle:11250, digDepth0:110, digDepth10:260, tipStr:5195, tipFullTurn:4520, breakoutKg:6665, opWt:8125 },
+        { id:'hl-excav-tth',      boom:'highLift', capacityM3:1.2, capacityStruckM3:1.05, type:'Excavating',cutting:'Teeth',bucketW:2390, wt:520, dumpClear45:3275, reach45:1060, reachAt2130:1865, reachArmHoriz:2485, opHeight:5125, overallLen:6885, clearCircle:11310, digDepth0:115, digDepth10:280, tipStr:5260, tipFullTurn:4575, breakoutKg:6065, opWt:8070 },
+      ],
+      // ── Machine Dimensions (17.5-25-12PR L-2 tyres) ──
+      machineDims:{
+        standardBoom:{ wheelbaseMm:2600, groundClearanceMm:425, hitchHeightMm:825, heightTopOfStackMm:2520, heightROPSCabMm:3060, hingePinMaxHeightMm:3510, hingePinCarryPositionMm:355, maxTiltBackAngleDeg:45 },
+        highLiftBoom:{ hingePinMaxHeightMm:4045, hingePinCarryPositionMm:520, maxTiltBackAngleDeg:45 },
+        steeringAngleDeg:38, turningRadiusOutsideTyreMm:4675, treadMm:1780, widthOverTyresMm:2220,
+      },
+      // ── Weight / Dimension Changes by Tyre or Attachment ──
+      weightChanges:[
+        { tyreOrAttachment:'17.5-25-12PR (L-2) [baseline]', deltaOpWtKg:0,    deltaTipStraightKg:0,    deltaTipFullTurnKg:0,    widthOverTyresMm:2220, groundClearanceMm:425, deltaVerticalMm:0 },
+        { tyreOrAttachment:'16.9-24-10PR (L-2)',             deltaOpWtKg:-150,  deltaTipStraightKg:-110,  deltaTipFullTurnKg:-95,   widthOverTyresMm:2250, groundClearanceMm:400, deltaVerticalMm:-25 },
+        { tyreOrAttachment:'15.5-25-8PR (L-2)',              deltaOpWtKg:-140,  deltaTipStraightKg:-100,  deltaTipFullTurnKg:-90,   widthOverTyresMm:2180, groundClearanceMm:390, deltaVerticalMm:-35 },
+        { tyreOrAttachment:'Install ROPS canopy (instead of cab)', deltaOpWtKg:-300, deltaTipStraightKg:-270, deltaTipFullTurnKg:-245, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+        { tyreOrAttachment:'Install additional counterweight', deltaOpWtKg:50,   deltaTipStraightKg:270,   deltaTipFullTurnKg:235,   widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '2-spool valve for boom and bucket controls','Air conditioner','Alternator 60A',
+        'Auto shift transmission with mode select system','Back-up alarm',
+        'Batteries 2×12V/92Ah','Bucket positioner','Cigarette lighter (24V) and ashtray',
+        'Counterweight','Engine shut-off system electric',
+        'Engine Komatsu SAA4D95LE-5 diesel','Floor mat',
+        'Front and rear window washer and wiper','Fuel pre-filter with water separator',
+        'Hydraulic driven fan with reverse rotation','Hydraulic oil cooler',
+        'Lift cylinders and bucket cylinder','Lights (4 front, 2 rear, back-up, turn signal/hazard)',
+        'Loader linkage with standard lift boom',
+        'Main monitor panel with Equipment Management Monitoring System',
+        'PPC hydraulic control mono-lever','Radiator mask lattice type',
+        'Rear heated glass (electric)','Rear under view mirror','Rear view mirror for cab',
+        'ROPS/FOPS (ISO 3471/ISO 3449) cab','Seat belt',
+        'Seat rigid type with reclining','Service brakes wet multiple-disc type',
+        'Starting motor 24V/5.5kW','Steering wheel tiltable','Sun visor',
+        'Transmission hydrostatic with speed range select automatic',
+        'Tyres 17.5-25-12PR L-2 tubeless','Wet disc parking brake','KOMTRAX',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '12V outlet','3-spool valve','Additional counterweight',
+        'AM/FM radio','AM/FM stereo radio cassette','Battery disconnect switch',
+        'Bolt on Cutting Edges (B.O.C.)','Boom kick-out','Bucket teeth (bolt-on type)',
+        'Deluxe suspension seat',
+        'Electronically Controlled Suspension System (ECSS)',
+        'Engine pre-cleaner with extension','Fire extinguisher',
+        'Front fenders','High lift boom',
+        'Hydraulic driven fan with automatic reverse rotation',
+        'Limited slip differential (front and rear)',
+        'Ordinary spare parts','Power train guard','Rear full fenders',
+        'ROPS (ISO 3471) canopy','Secondary steering (SAE)','Tool kit',
+        'Vandalism protection kit',
+      ],
+      brochureRef:'Komatsu WA150-6 ANZ Brochure ZESB099967 October 2022',
+      tags:['wheel loader','8t class','EPA Tier 3','KOMTRAX','stockpile','construction','agricultural','4-speed HST'],
+      note:'Komatsu WA150-6 — ANZ spec wheel loader, 7.78–8.125t. Komatsu SAA4D95LE-5, 4-cyl turbocharged aftercooled, 95×115mm, 3.26L, 73kW/98hp net (74kW/99hp gross) @ 2,200rpm. EPA Tier 3 / EU Stage 3A. Hydrostatic 4-speed (1-pump, 2-motor): 1st 5.5–13.6 km/h (variable shift), 2nd 13.6, 3rd 23.5, 4th 38.0 km/h (17.5-25 tyres). Variable traction control with S-mode and max traction switch. Bucket range 1.2–1.7m³; 1.5m³ stockpile BOC: static tipping straight 6,745kg (full turn 5,870kg), breakout 7,400kg. Standard boom hinge pin 3,510mm (high lift 4,045mm). Min turning radius 4,675mm. Hydraulics: steering pump 108 l/min / 18.6MPa, loader pump 54 l/min / 20.6MPa; 2 lift cyls 110×628mm, bucket cyl 110×452mm; cycle raise 6.0s, dump 1.1s, lower 3.6s. 4WD, torque-proportioning diff, planetary final drives, rear 16° oscillation. Wet multi-disc brakes on 4 wheels. Pillar-less ROPS/FOPS cab, PPC mono-lever, ECO indicator, KOMTRAX. Service: fuel 133L, hydraulics 47L, cooling 14.6L. Source: Komatsu WA150-6 ANZ Brochure ZESB099967 October 2022.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu WA200-8 Brochure ZESS00660_FEB2020 (Australia & New Zealand, EPA Tier 4 Final)
+    { id:'kom-wa200-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA200-8 Wheel Loader', shortName:'Komatsu WA200-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA4D107E-3',
+      engineType:'Water-cooled, 4-cycle, variable geometry turbocharged, after-cooled, cooled EGR, direct injection',
+      engineCylinders:4,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:4.46,
+      engineRatedRPM:2000,
+      engineGrossKW:95.2, engineGrossHP:128,
+      engineNetKW:94, engineNetHP:126,
+      enginePowerISOkW:94, enginePowerISO_hp:126,
+      engineFanDrive:'Hydraulic (auto-reversing)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDOC (Komatsu Diesel Oxidation Catalyst) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator, Turbo II pre-cleaner',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic, 1 pump, 2 motors with speed range select',
+      speedRangesFwd:4, speedRangesRev:4,
+      maxSpeedRange1Kmh:14.3, maxSpeedRange2Kmh:14.3, maxSpeedRange3Kmh:23.2, maxSpeedRange4Kmh:38.0,  // 20.5-R25 tyres
+      variableShiftControl:true, creepMode:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Center-pin support, semi-floating, 24° total oscillation',
+      differentialGear:'Torque proportioning',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'20.5-R25',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet multi-disc on transfer output shaft (electric)',
+      secondaryBrake:'One of dual service brake circuits',
+      // ── Hydraulics ──
+      steeringPumpType:'Gear type pump',
+      steeringPumpCapacityLpm:85,
+      steeringReliefMPa:20.6,
+      steeringCylCount:2, steeringCylBoreMm:70, steeringCylStrokeMm:453,
+      loaderPumpType:'Gear type pump',
+      loaderPumpCapacityLpm:54,
+      loaderReliefMPa:20.6,
+      boomCylCount:2, boomCylBoreMm:125, boomCylStrokeMm:673.5,
+      bucketCylCount:1, bucketCylBoreMm:150, bucketCylStrokeMm:504,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:5.7, hydraulicDumpTimeSec:1.9, hydraulicLowerTimeSec:3.2,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:38,    // 40° to max end stop
+      minTurningRadiusMm:4880,   // centre of outside tyre (20.5-R25)
+      // ── Operating weights ──
+      operatingWeightKgMin:11715, operatingWeightKgMax:12015,
+      operatingWeightT:11.75,
+      // ── Bucket capacities ──
+      bucketCapM3:2.0,               // GP bucket pin-on BOC (primary)
+      bucketCapRangeM3:'2.0–2.4',
+      // ── Performance (GP 2.0m³ pin-on BOC) ──
+      staticTippingLoadStraightKg:8725, staticTippingLoadArticulatedKg:7645,
+      breakoutForceKN:108,
+      hingePinHeightMm:3885,         // standard boom
+      hingePinHeightHighLiftMm:4325,
+      dumpHeightAt45Mm:2965,
+      reachAt45Mm:950,
+      // ── Fork performance (with QC) ──
+      forkTineLengthMm:1220,
+      forkMaxTippingLoadStraightKg:6095, forkMaxTippingLoadArticulatedKg:5340,
+      forkOperatingPayloadKg:5840,   // 50% of static tipping per SAE J1197
+      // ── Dimensions (20.5-R25 L3, ROPS/FOPS cab) ──
+      wheelbaseMm:2840,
+      widthOverTyresMm:2470,
+      trackWidthMm:1930,
+      groundClearanceMm:495,
+      overallHeightROPSMm:3200,
+      overallHeightStackMm:3010,
+      hitchHeightMm:965,
+      // ── Noise ──
+      operatorSoundPressureDB_A:68,   // ISO 6396:2008
+      exteriorSoundPowerDB_A:104,     // ISO 6395:2008
+      // ── Service Refill Capacities ──
+      coolantL:26.5, fuelTankL:177, engineOilL:15.5,
+      hydraulicSystemL:58, frontAxleL:18.5, rearAxleL:18.0,
+      transferL:5.0, defTankL:14,
+      // ── Electrical ──
+      alternatorA:90, alternatorV:24, starterKW:5.5,
+      batteryAh:92, batteryCCA:680,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      parallelZBarLinkage:false,
+      variableTractionControl:true, electronicSuspensionSystem:'standard',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      cab:'ROPS/FOPS Level 2, heated air-suspension seat, auto A/C, 7" LCD monitor, tilt/telescopic steering, AM/FM+AUX, rear defroster',
+      // ── Full Bucket Configuration Table (measured with 20.5-R25 L3 tyres, ROPS/FOPS cab) ──
+      bucketConfigs:[
+        { id:'gp-pinon-boce',     boom:'standard', coupler:'pin-on',  capacityM3:2.0, capacityStruckM3:1.7, type:'General Purpose', cutting:'BOC',  bucketW:2550, wt:890, dumpClear45:2965, reach45:950,  reachAt2130:1580, reachArmHoriz:2315, opHeight:5095, overallLen:7130, clearCircle:11860, digDepth0:110, digDepth10:295, tipStr:8725, tipFullTurn:7645, breakoutKN:108, opWt:11715 },
+        { id:'lm-pinon-boce',     boom:'standard', coupler:'pin-on',  capacityM3:2.4, capacityStruckM3:2.0, type:'Light Material',  cutting:'BOC',  bucketW:2550, wt:965, dumpClear45:2875, reach45:1035, reachAt2130:1625, reachArmHoriz:2440, opHeight:5215, overallLen:7255, clearCircle:11930, digDepth0:110, digDepth10:320, tipStr:8650, tipFullTurn:7570, breakoutKN:107, opWt:11790 },
+        { id:'gp-qc-boce',        boom:'standard', coupler:'qc',      capacityM3:1.9, capacityStruckM3:1.6, type:'General Purpose', cutting:'BOC',  bucketW:2550, wt:885, dumpClear45:2810, reach45:1075, reachAt2130:1630, reachArmHoriz:2515, opHeight:5220, overallLen:7350, clearCircle:11965, digDepth0:120, digDepth10:340, tipStr:8525, tipFullTurn:7450, breakoutKN:96,  opWt:12015 },
+        { id:'gp-hl-pinon-boce',  boom:'highLift', coupler:'pin-on',  capacityM3:1.7, capacityStruckM3:1.4, type:'General Purpose', cutting:'BOC',  bucketW:2550, wt:825, dumpClear45:3480, reach45:940,  reachAt2130:1965, reachArmHoriz:2600, opHeight:5430, overallLen:7515, clearCircle:12205, digDepth0:195, digDepth10:360, tipStr:7075, tipFullTurn:6150, breakoutKN:125, opWt:11875 },
+      ],
+      // ── Machine Dimensions (20.5-R25 L3 tyres, ROPS/FOPS cab) ──
+      machineDims:{
+        treadMm:1930, widthOverTyresMm:2470, wheelbaseMm:2840,
+        standardBoom:{ hingePinMaxHeightMm:3885, hingePinCarryPositionMm:425 },
+        highLiftBoom:{ hingePinMaxHeightMm:4325, hingePinCarryPositionMm:615 },
+        groundClearanceMm:495, hitchHeightMm:965,
+        overallHeightTopOfStackMm:3010, overallHeightROPSCabMm:3200,
+      },
+      // ── Fork Detailed Dimensions (with Quick Coupler, 20.5-R25 L3) ──
+      forkDims:{
+        coupler:'quick-coupler', tineLengthMm:1220,
+        groundToTopTineMaxLiftMm:3740,      // P
+        reachAtMaxLiftMm:810,               // Q
+        groundToTopTineLevelMm:1750,        // R
+        reachBoomTineLevelMm:1715,          // S
+        reachTineLevelGroundMm:1110,        // T
+        overallLengthTineGroundMm:7775,     // U
+        staticTipBoomLevelStraightKg:6095,
+        staticTipBoomLevel40TurnKg:5340,
+        operatingWeightKg:11705,
+        operatingLoadKg:3048,  // 50% of straight per SAE J1197
+      },
+      // ── Weight / Dimension Changes by Tyre ──
+      weightChanges:[
+        { tyreOrAttachment:'17.5-25-12PR (L2)', deltaOpWtKg:-610, deltaTipStraightKg:-405, deltaTipFullTurnKg:-405, widthOverTyresMm:2375, groundClearanceMm:425, deltaVerticalMm:-70 },
+        { tyreOrAttachment:'20.5-R25 (L2) [baseline]', deltaOpWtKg:40, deltaTipStraightKg:25, deltaTipFullTurnKg:25, widthOverTyresMm:2470, groundClearanceMm:495, deltaVerticalMm:0 },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Three-spool valve with integrated proportional control switch and piping',
+        'Alternator 24V/90A','Automatic hydraulic-driven fan with automatic reverse rotation',
+        'Back-up alarm','Batteries 92Ah/12V (2) 680 CCA','Battery disconnect',
+        'Boom kick-out in-cab adjustable','Bucket positioner',
+        'Colour rear-view camera and monitor','Counterweight standard',
+        'Electronically Controlled Suspension System (ECSS)',
+        'Engine Komatsu SAA4D107E-3 diesel','Engine shut-off system electric',
+        'Equipment Management Monitoring System (EMMS)',
+        'Front fenders','Fuel pre-filter with water separator',
+        'Horn electric','Hydrostatic transmission','Komatsu Auto Idle Shutdown',
+        'KOMTRAX Level 5','Lift cylinders and bucket cylinder',
+        'Lights: back-up, stop/tail, turn signals, working lights (2 front cab, 2 front fender, 2 rear grill)',
+        'Loader linkage with standard lift arm',
+        'Multifunction mono-lever loader control with transmission F/R switch',
+        'Parking brake electric','Radiator wider core','Radiator mask swing up',
+        'Rear view mirrors outside (2) inside (2)',
+        'Auxiliary steering (SAE)','Full rear fenders','Turbo II engine air pre-cleaner',
+        'ROPS/FOPS Cab Level 2 with: 2×DC12V outlets, ashtray, auto air conditioner, cigarette lighter 24V, colour LCD/TFT multi-monitor, cup holder, floor mat, heated air-suspension seat, AM/FM radio with AUX, rear defroster electric, seatbelt, tilt/telescopic steering wheel, sun visor, front and rear wipers',
+        'Service brakes wet disc type','Starting motor 5.5kW',
+        'Transmission 4F/4R speed ranges','Vandalism protection kit',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Cutting edge (bolt-on type)','Quick coupler','Additional LED lighting',
+        'Bluetooth media system','Clean Air Cab Pressurisation systems',
+        'Fire extinguishers','Fire suppression systems','Hi Vis decals',
+        'High lift boom and bucket cylinder','Limited slip differential (F&R)',
+        'Powertrain underguard','Reverse sensor','SMART Alarm broadband reverse alarm',
+        'UHF/CB radio','Various scale systems','Various tyre options (radial and bias)',
+        'Various bucket and fork options','Window tinting',
+      ],
+      brochureRef:'Komatsu WA200-8 ANZ Brochure ZESS00660 Feb 2020',
+      tags:['wheel loader','12t class','EPA Tier 4 Final','KOMTRAX','SCR','construction','civil','DEF','4-speed HST','ECSS'],
+      note:'Komatsu WA200-8 — ANZ spec wheel loader, 11.715–12.015t. Komatsu SAA4D107E-3, 4-cyl VGT turbo/cooled EGR, 107×124mm, 4.46L, 94kW/126hp net (95.2kW/128hp gross) @ 2,000rpm. EPA Tier 4 Final — KDOC + SCR aftertreatment, DEF tank 14L. Hydrostatic 4-speed (1-pump, 2-motor): 1st 0–14.3, 2nd 14.3, 3rd 23.2, 4th 38.0 km/h (20.5-R25). Variable traction control + S-mode + creep mode. Parallel Z-bar (PZ) linkage standard. GP 2.0m³ pin-on BOC: static tipping straight 8,725kg (full turn 7,645kg), breakout 108kN. Hinge pin 3,885mm (high lift 4,325mm), dump height 2,965mm @ 45°. Min turning radius 4,880mm. Hydraulics: steering 85 l/min / 20.6MPa, loader 54 l/min / 20.6MPa; 2 lift cyls 125×673.5mm, bucket 150×504mm; raise 5.7s, dump 1.9s, lower 3.2s. 4WD, torque-proportioning diff, 24° rear oscillation. Wet disc brakes 4 wheels, electric parking brake. Std ECSS ride control, auto-reversing fan, rearview camera, KOMTRAX Level 5. Service: fuel 177L, DEF 14L, hydraulics 58L, cooling 26.5L. Source: Komatsu WA200-8 ANZ Brochure ZESS00660 Feb 2020.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu WA200PZ-6 / WA250PZ-6 Brochure CEN00296-04 (EPA Tier 3 / EU Stage 3A)
+    { id:'kom-wa200pz6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA200PZ-6 Wheel Loader', shortName:'Komatsu WA200PZ-6',
+      // ── Engine ──
+      engineModel:'Komatsu SAA4D107E-1',
+      engineType:'Water-cooled, 4-cycle, turbocharged, aftercooled, direct injection',
+      engineCylinders:4,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:4.46,
+      engineRatedRPM:2000,
+      engineNetKW:94, engineNetHP:126,
+      enginePowerISOkW:94, enginePowerISO_hp:126,
+      engineFanDrive:'Hydraulic (with reverse rotation)',
+      emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      engineAirFilter:'Dry type with double elements and dust evacuator',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic, 1 pump, 2 motors with speed range select',
+      speedRangesFwd:4, speedRangesRev:4,
+      maxSpeedRange1Kmh:11.7, maxSpeedRange2Kmh:11.7, maxSpeedRange3Kmh:16.2, maxSpeedRange4Kmh:34.2,   // 17.5-25 tyres
+      variableShiftControl:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Center-pin support, semi-floating, 24° total oscillation',
+      differentialGear:'Torque proportioning',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'20.5-25-12PR (L2)',   // standard
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet multi-disc on transfer output shaft',
+      // ── Hydraulics ──
+      steeringPumpType:'Gear type pump',
+      steeringPumpCapacityLpm:85,
+      steeringReliefMPa:20.6,
+      steeringCylCount:2, steeringCylBoreMm:70, steeringCylStrokeMm:453,
+      loaderPumpType:'Gear type pump',
+      loaderPumpCapacityLpm:54,
+      loaderReliefMPa:20.6,
+      boomCylCount:2, boomCylBoreMm:125, boomCylStrokeMm:673.5,
+      bucketCylCount:1, bucketCylBoreMm:150, bucketCylStrokeMm:504,
+      controlValve:'3-spool type',
+      hydraulicRaiseTimeSec:5.7, hydraulicDumpTimeSec:1.6, hydraulicLowerTimeSec:3.2,
+      // ── Steering ──
+      steeringSystem:'Full-hydraulic power steering',
+      steeringAngleDeg:38,    // 40° to end stop
+      minTurningRadiusMm:4880,   // centre of outside tyre (20.5-25)
+      // ── Operating weights ──
+      operatingWeightKg:11460,
+      operatingWeightT:11.5,
+      // ── Bucket capacities ──
+      bucketCapM3:2.0,               // stockpile bucket with coupler BOC
+      bucketCapRangeM3:'2.0',
+      // ── Performance (2.0m³ stockpile bucket w. QC, BOC) ──
+      staticTippingLoadStraightKg:8400,   // approx — QC/pin-on averaged from table
+      staticTippingLoadArticulatedKg:7300,
+      dumpingClearanceMm:2810,       // max height 45° dump angle (BOC)
+      dumpingReachMm:1090,
+      hingePinHeightMm:3885,         // 20.5-25 tyres
+      // ── Fork performance (with QC) ──
+      forkTineLengthMm:1220,
+      forkMaxTippingLoadStraightKg:6050,
+      forkMaxTippingLoadArticulatedKg:5300,
+      // ── Dimensions (20.5-25-12PR L2 tyres) ──
+      wheelbaseMm:2840,
+      widthOverTyresMm:2470,
+      trackWidthMm:1930,
+      groundClearanceMm:495,
+      overallHeightROPSMm:3180,
+      // ── Noise ──
+      operatorSoundPressureDB_A:70,
+      exteriorSoundPowerDB_A:104,
+      // ── Service Refill Capacities ──
+      coolantL:17.0, fuelTankL:177, engineOilL:15.5,
+      hydraulicSystemL:58, frontAxleL:18.0, rearAxleL:18.0, transferL:5.0,
+      // ── Features ──
+      komtrax:true,
+      parallelZBarLinkage:true,      // PZ linkage for parallel lift (fork + bucket)
+      easyForkKinematic:true,
+      variableTractionControl:true,
+      quickCoupler:'standard',
+      cab:'ROPS/FOPS, pillar-less large cab, PPC fingertip mono-lever +1, EMMS monitor, tiltable steering',
+      // ── Bucket Performance (primary: 2.0m³ stockpile QC, BOC) ──
+      bucketConfigs:[
+        { id:'stockpile-qc-boc', coupler:'qc',     capacityM3:2.0, capacityStruckM3:1.7, type:'Stockpile', cutting:'BOC', tipStr:8400,  tipFullTurn:7300, dumpClear45:2810, reach45:1090 },
+        { id:'lm-qc-boc',        coupler:'qc',     capacityM3:2.3, capacityStruckM3:1.9, type:'Light Material',cutting:'BOC',tipStr:null, tipFullTurn:null, dumpClear45:null, reach45:null },
+        { id:'stockpile-pinon',  coupler:'pin-on', capacityM3:2.1, capacityStruckM3:1.7, type:'Stockpile', cutting:'BOC', tipStr:null,  tipFullTurn:null, dumpClear45:null, reach45:null },
+      ],
+      // ── Machine Dimensions (20.5-25-12PR L2 tyres) ──
+      machineDims:{
+        treadMm:1930, widthOverTyresMm:2470, wheelbaseMm:2840,
+        hingePinMaxHeightMm:3885, groundClearanceMm:495, hitchHeightMm:940,
+        overallHeightTopOfStackMm:2795, overallHeightROPSCabMm:3180,
+      },
+      // ── Fork Detailed Dimensions (with Quick Coupler, 20.5-25-12PR L2) ──
+      forkDims:{
+        coupler:'quick-coupler', tineLengthMm:1220,
+        groundToTopTineMaxLiftMm:3765,    // H
+        reachAtMaxLiftMm:775,             // I
+        groundToTopTineLevelMm:1780,      // J
+        reachBoomTineLevelMm:1675,        // K
+        reachTineLevelGroundMm:1040,      // L
+        overallLengthTineGroundMm:7645,   // M
+        staticTipBoomLevelStraightKg:6050,
+        staticTipBoomLevel40TurnKg:5300,
+        operatingWeightKg:11460,
+        operatingLoadKg:2650,   // 50% of straight per SAE J1197
+      },
+      // ── Weight Changes (17.5-25 vs 20.5-25 tyres) ──
+      weightChanges:[
+        { tyreOrAttachment:'17.5-25-12PR (L2)', deltaOpWtKg:-325, deltaTipStraightKg:-215, deltaTipFullTurnKg:-185, widthOverTyresMm:2375, groundClearanceMm:425, deltaVerticalMm:-70, deltaReachMm:75 },
+        { tyreOrAttachment:'17.5-25-13PR (L3)', deltaOpWtKg:-290, deltaTipStraightKg:-190, deltaTipFullTurnKg:-167, widthOverTyresMm:2375, groundClearanceMm:425, deltaVerticalMm:-70, deltaReachMm:75 },
+        { tyreOrAttachment:'20.5-25-12PR (L3) [baseline]', deltaOpWtKg:165, deltaTipStraightKg:105, deltaTipFullTurnKg:95, widthOverTyresMm:2590, groundClearanceMm:425, deltaVerticalMm:0, deltaReachMm:0 },
+        { tyreOrAttachment:'Install ROPS canopy (instead of cab)', deltaOpWtKg:-167, deltaTipStraightKg:-152, deltaTipFullTurnKg:-134, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '3-spool valve for boom and bucket controls','Additional counterweight','Air conditioner',
+        'Alternator 60A','Auto shift transmission with mode select system',
+        'Back-up alarm','Back-up lamp','Batteries 88Ah/2×12V','Bucket positioner',
+        'Counterweight','Directional signal','Engine Komatsu SAA4D107E-1 diesel',
+        'Engine shut-off system electric','Floor mat','Fuel prefilter with water separator',
+        'Hydraulic-driven fan with reverse rotation','Lift cylinders and bucket cylinder',
+        'Loader linkage with PZ lift arm',
+        'Main monitor panel with EMMS (Equipment Management Monitoring System)',
+        'PPC fingertip control mono-lever +1','Quick coupler','Radiator mask lattice type',
+        'Rear defroster (electric)','Rear view mirror','Rear window washer and wiper',
+        'ROPS/FOPS cab','Seat rigid type with reclining','Seat belt',
+        'Service brakes wet disc type','Starting motor 4.5kW/24V',
+        'Steering wheel tiltable','Sun visor',
+        'Tires 20.5-25-12PR L2 tubeless and rims',
+        'Transmission 4 forward and 4 reverse',
+        'Bucket stockpile for use with coupler with B.O.C. 2.0m³',
+        'KOMTRAX',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3-lever loader control','AM/FM radio','AM/FM stereo radio cassette',
+        'Automatic reversible fan','Boom kick-out','Bucket teeth (bolt-on type)',
+        'Bucket teeth (tip type)','Cutting edge (bolt-on type)',
+        'Deluxe suspension seat',
+        'ECSS (Electronically Controlled Suspension System)',
+        'Emergency steering (SAE)','Engine pre-cleaner with extension',
+        'Fire extinguisher','Front fenders','Limited slip differential (F&R)',
+        'Rear full fender','ROPS canopy','Tool kit','Vandalism protection kit',
+        'Pallet forks for use with coupler 1220mm',
+      ],
+      brochureRef:'Komatsu WA200PZ-6/WA250PZ-6 Brochure CEN00296-04',
+      tags:['wheel loader','11t class','EPA Tier 3','KOMTRAX','parallel Z-bar','PZ linkage','fork capable','construction','stockpile','quick coupler'],
+      note:'Komatsu WA200PZ-6 — wheel loader with Parallel Z-Bar (PZ) linkage, ~11.46t. Komatsu SAA4D107E-1, 4-cyl turbo aftercooled, 107×124mm, 4.46L, 94kW/126hp @ 2,000rpm. EPA Tier 3. PZ linkage provides parallel lift in both fork and bucket applications — ideal for pallet handling without readjustment. Hydrostatic 4-speed (1-pump, 2-motor): 1st 3.6–11.7 km/h (variable), 2nd 11.7, 3rd 16.2, 4th 34.2 km/h (17.5-25). Variable traction control, S-mode, max traction switch. 2.0m³ stockpile bucket (QC, BOC): dump clearance 2,810mm @ 45°, reach 1,090mm. Hinge pin 3,885mm (20.5-25). Min turning radius 4,880mm. Hydraulics: 85/54 l/min steering/loader @ 20.6MPa; 2 lift cyls 125×673.5mm, bucket 150×504mm; raise 5.7s, dump 1.6s, lower 3.2s. Quick coupler standard. 3-spool valve. 4WD, torque-proportioning diff, 24° rear oscillation. KOMTRAX standard. Service: fuel 177L, hydraulics 58L, cooling 17L. Source: Komatsu WA200PZ-6/WA250PZ-6 Brochure CEN00296-04.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu WA200PZ-6 / WA250PZ-6 Brochure CEN00296-04 (EPA Tier 3 / EU Stage 3A)
+    { id:'kom-wa250pz6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA250PZ-6 Wheel Loader', shortName:'Komatsu WA250PZ-6',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D107E-1',
+      engineType:'Water-cooled, 4-cycle, turbocharged, aftercooled, direct injection',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineRatedRPM:2000,
+      engineGrossKW:104, engineGrossHP:140,
+      engineNetKW:103, engineNetHP:138,
+      enginePowerISOkW:103, enginePowerISO_hp:138,
+      engineFanDrive:'Hydraulic (with reverse rotation)',
+      emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      engineAirFilter:'Dry type with double elements and dust evacuator',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic, 1 pump, 2 motors with speed range select',
+      speedRangesFwd:4, speedRangesRev:4,
+      maxSpeedRange1Kmh:13.0, maxSpeedRange2Kmh:13.0, maxSpeedRange3Kmh:18.0, maxSpeedRange4Kmh:38.0,   // 17.5-25 tyres
+      variableShiftControl:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Center-pin support, semi-floating, 24° total oscillation',
+      differentialGear:'Torque proportioning',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'20.5-25-12PR (L2)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet multi-disc on transfer output shaft',
+      // ── Hydraulics ──
+      steeringPumpType:'Gear type pump',
+      steeringPumpCapacityLpm:110,
+      steeringReliefMPa:18.6,
+      steeringCylCount:2, steeringCylBoreMm:70, steeringCylStrokeMm:453,
+      loaderPumpType:'Gear type pump',
+      loaderPumpCapacityLpm:78,
+      loaderReliefMPa:20.6,
+      boomCylCount:2, boomCylBoreMm:130, boomCylStrokeMm:717,
+      bucketCylCount:1, bucketCylBoreMm:170, bucketCylStrokeMm:480,
+      controlValve:'3-spool type',
+      hydraulicRaiseTimeSec:5.7, hydraulicDumpTimeSec:1.6, hydraulicLowerTimeSec:3.3,
+      // ── Steering ──
+      steeringSystem:'Full-hydraulic power steering',
+      steeringAngleDeg:38,    // 40° to end stop
+      minTurningRadiusMm:5175,   // centre of outside tyre (17.5-25)
+      // ── Operating weights ──
+      operatingWeightKg:12275,
+      operatingWeightT:12.3,
+      // ── Bucket capacities ──
+      bucketCapM3:2.2,               // stockpile bucket with coupler BOC
+      bucketCapRangeM3:'2.2',
+      // ── Performance (2.2m³ stockpile bucket, QC, BOC) ──
+      staticTippingLoadStraightKg:8940,
+      staticTippingLoadArticulatedKg:7865,
+      dumpingClearanceMm:2820,       // max height 45° dump angle (BOC)
+      dumpingReachMm:1090,
+      hingePinHeightMm:3965,         // 20.5-25 tyres
+      // ── Fork performance (with QC) ──
+      forkTineLengthMm:1220,
+      forkMaxTippingLoadStraightKg:6875,
+      forkMaxTippingLoadArticulatedKg:5980,
+      // ── Dimensions (20.5-25-12PR L2 tyres) ──
+      wheelbaseMm:2900,
+      widthOverTyresMm:2470,
+      trackWidthMm:1930,
+      groundClearanceMm:395,
+      overallHeightROPSMm:3200,
+      // ── Noise ──
+      operatorSoundPressureDB_A:70,
+      exteriorSoundPowerDB_A:104,
+      // ── Service Refill Capacities ──
+      coolantL:22.0, fuelTankL:186, engineOilL:23.0,
+      hydraulicSystemL:67, frontAxleL:18.0, rearAxleL:18.0, transferL:5.0,
+      // ── Features ──
+      komtrax:true,
+      parallelZBarLinkage:true,
+      easyForkKinematic:true,
+      variableTractionControl:true,
+      quickCoupler:'standard',
+      cab:'ROPS/FOPS, pillar-less large cab, PPC fingertip mono-lever +1, EMMS monitor, tiltable steering',
+      // ── Bucket Performance (primary: 2.2m³ stockpile QC, BOC) ──
+      bucketConfigs:[
+        { id:'stockpile-qc-boc', coupler:'qc',     capacityM3:2.2, capacityStruckM3:1.8, type:'Stockpile',     cutting:'BOC', tipStr:8940, tipFullTurn:7865, dumpClear45:2820, reach45:1090 },
+        { id:'lm-qc-boc',        coupler:'qc',     capacityM3:2.6, capacityStruckM3:2.1, type:'Light Material', cutting:'BOC', tipStr:null, tipFullTurn:null, dumpClear45:null, reach45:null },
+        { id:'stockpile-pinon',  coupler:'pin-on', capacityM3:2.3, capacityStruckM3:1.9, type:'Stockpile',     cutting:'BOC', tipStr:null, tipFullTurn:null, dumpClear45:null, reach45:null },
+      ],
+      // ── Machine Dimensions (20.5-25-12PR L2 tyres) ──
+      machineDims:{
+        treadMm:1930, widthOverTyresMm:2470, wheelbaseMm:2900,
+        hingePinMaxHeightMm:3965, groundClearanceMm:465, hitchHeightMm:950,
+        overallHeightTopOfStackMm:2925, overallHeightROPSCabMm:3200,
+      },
+      // ── Fork Detailed Dimensions (with Quick Coupler, 20.5-25-12PR L2) ──
+      forkDims:{
+        coupler:'quick-coupler', tineLengthMm:1220,
+        groundToTopTineMaxLiftMm:3820,    // H
+        reachAtMaxLiftMm:790,             // I
+        groundToTopTineLevelMm:1820,      // J
+        reachBoomTineLevelMm:1690,        // K
+        reachTineLevelGroundMm:1025,      // L
+        overallLengthTineGroundMm:7680,   // M
+        staticTipBoomLevelStraightKg:6875,
+        staticTipBoomLevel40TurnKg:5980,
+        operatingWeightKg:12275,
+        operatingLoadKg:2990,   // 50% of straight per SAE J1197
+      },
+      // ── Weight Changes (17.5-25 vs 20.5-25 tyres) ──
+      weightChanges:[
+        { tyreOrAttachment:'17.5-25-16PR (L2)', deltaOpWtKg:-300, deltaTipStraightKg:-140, deltaTipFullTurnKg:-125, widthOverTyresMm:2375, groundClearanceMm:395, deltaVerticalMm:-70, deltaReachMm:70 },
+        { tyreOrAttachment:'17.5-25-13PR (L3)', deltaOpWtKg:-260, deltaTipStraightKg:-125, deltaTipFullTurnKg:-110, widthOverTyresMm:2375, groundClearanceMm:395, deltaVerticalMm:-70, deltaReachMm:70 },
+        { tyreOrAttachment:'20.5-25-12PR (L3) [baseline]', deltaOpWtKg:165, deltaTipStraightKg:80, deltaTipFullTurnKg:70, widthOverTyresMm:2590, groundClearanceMm:465, deltaVerticalMm:0, deltaReachMm:0 },
+        { tyreOrAttachment:'Install ROPS canopy (instead of cab)', deltaOpWtKg:-165, deltaTipStraightKg:-105, deltaTipFullTurnKg:-90, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '3-spool valve for boom and bucket controls','Additional counterweight','Air conditioner',
+        'Alternator 60A','Auto shift transmission with mode select system',
+        'Back-up alarm','Back-up lamp','Batteries 110Ah/2×12V','Bucket positioner',
+        'Counterweight','Directional signal','Engine Komatsu SAA6D107E-1 diesel',
+        'Engine shut-off system electric','Floor mat','Fuel prefilter with water separator',
+        'Hydraulic-driven fan with reverse rotation','Lift cylinders and bucket cylinder',
+        'Loader linkage with PZ lift arm',
+        'Main monitor panel with EMMS (Equipment Management Monitoring System)',
+        'PPC fingertip control mono-lever +1','Quick coupler','Radiator mask lattice type',
+        'Rear defroster (electric)','Rear view mirror','Rear window washer and wiper',
+        'ROPS/FOPS cab','Seat rigid type with reclining','Seat belt',
+        'Service brakes wet disc type','Starting motor 4.5kW/24V',
+        'Steering wheel tiltable','Sun visor',
+        'Tires 20.5-25-16PR L2 tubeless and rims',
+        'Transmission 4 forward and 4 reverse',
+        'Bucket stockpile for use with coupler with B.O.C. 2.2m³',
+        'KOMTRAX',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3-lever loader control','AM/FM radio','AM/FM stereo radio cassette',
+        'Automatic reversible fan','Boom kick-out','Bucket teeth (bolt-on type)',
+        'Bucket teeth (tip type)','Cutting edge (bolt-on type)',
+        'Deluxe suspension seat',
+        'ECSS (Electronically Controlled Suspension System)',
+        'Emergency steering (SAE)','Engine pre-cleaner with extension',
+        'Fire extinguisher','Front fenders','Limited slip differential (F&R)','Log grapple',
+        'Rear full fender','ROPS canopy','Tool kit','Vandalism protection kit',
+        'Pallet forks for use with coupler 1220mm',
+      ],
+      brochureRef:'Komatsu WA200PZ-6/WA250PZ-6 Brochure CEN00296-04',
+      tags:['wheel loader','12t class','EPA Tier 3','KOMTRAX','parallel Z-bar','PZ linkage','6-cylinder','fork capable','construction','stockpile','quick coupler'],
+      note:'Komatsu WA250PZ-6 — wheel loader with Parallel Z-Bar (PZ) linkage, ~12.275t. Komatsu SAA6D107E-1, 6-cyl turbo aftercooled, 107×124mm, 6.69L, 103kW/138hp net (104kW/140hp gross) @ 2,000rpm. EPA Tier 3. PZ linkage provides parallel lift for fork and bucket applications. Hydrostatic 4-speed (1-pump, 2-motor): 1st 4.0–13.0 km/h (variable), 2nd 13.0, 3rd 18.0, 4th 38.0 km/h (17.5-25). Variable traction control, S-mode, max traction switch. 2.2m³ stockpile bucket (QC, BOC): dump clearance 2,820mm @ 45°, reach 1,090mm. Hinge pin 3,965mm (20.5-25). Min turning radius 5,175mm. Hydraulics: 110/78 l/min steering/loader (18.6/20.6MPa); 2 lift cyls 130×717mm, bucket 170×480mm; raise 5.7s, dump 1.6s, lower 3.3s. Quick coupler standard. 3-spool valve. 4WD, torque-proportioning diff, 24° rear oscillation. KOMTRAX standard. Service: fuel 186L, hydraulics 67L, cooling 22L. Source: Komatsu WA200PZ-6/WA250PZ-6 Brochure CEN00296-04.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu WA270-8 Brochure ZESS004600_AUGUST2018 (Australia & New Zealand, EPA Tier 4 Final)
+    { id:'kom-wa270-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA270-8 Wheel Loader', shortName:'Komatsu WA270-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D107E-3',
+      engineType:'Water-cooled, 4-cycle, variable geometry turbo-charged, after-cooled, cooled EGR, direct injection',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineRatedRPM:2000,
+      engineGrossKW:115, engineGrossHP:153,
+      engineNetKW:111, engineNetHP:149,
+      enginePowerISOkW:111, enginePowerISO_hp:149,
+      engineMaxPowerISO14396kW:111, engineMaxPowerISO14396rpm:1650,
+      engineFanDrive:'Hydraulic (auto-reversing)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator, Turbo II pre-cleaner',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic, 1 pump, 2 motors with speed range select (CLSS pump)',
+      speedRangesFwd:4, speedRangesRev:4,
+      maxSpeedRange1Kmh:13.0, maxSpeedRange2Kmh:13.0, maxSpeedRange3Kmh:19.0, maxSpeedRange4Kmh:38.0,   // 20.5-R25
+      variableShiftControl:true, creepMode:true,
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 24° total oscillation',
+      differentialGear:'Torque proportioning',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'20.5-R25',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet multi-disc on transfer output shaft (electric)',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump (shared with loader control)',
+      steeringPumpCapacityLpm:150,
+      steeringReliefMPa:20.6,
+      steeringCylCount:2, steeringCylBoreMm:70, steeringCylStrokeMm:453,
+      loaderPumpType:'Piston pump (shared with steering, CLSS)',
+      loaderPumpCapacityLpm:150,
+      loaderReliefMPa:31.4,
+      boomCylCount:2, boomCylBoreMm:110, boomCylStrokeMm:717,
+      bucketCylCount:1, bucketCylBoreMm:140, bucketCylStrokeMm:480,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:6.0, hydraulicDumpTimeSec:2.0, hydraulicLowerTimeSec:3.2,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:38,    // 40° to max end stop
+      minTurningRadiusMm:5175,   // centre of outside tyre
+      // ── Operating weights ──
+      operatingWeightKgMin:12795, operatingWeightKgMax:13190,
+      operatingWeightT:12.9,
+      // ── Bucket capacities ──
+      bucketCapM3:2.3,               // GP 2.3m³ pin-on BOC (primary)
+      bucketCapRangeM3:'1.9–2.7',
+      // ── Performance (GP 2.3m³ pin-on BOC) ──
+      staticTippingLoadStraightKg:10330, staticTippingLoadArticulatedKg:8930,
+      breakoutForceKN:131,
+      hingePinHeightMm:3965,         // standard boom
+      hingePinHeightHighLiftMm:4390,
+      dumpHeightAt45Mm:2975,
+      reachAt45Mm:945,
+      // ── Fork performance (with QC) ──
+      forkTineLengthMm:1220,
+      forkMaxTippingLoadStraightKg:7320, forkMaxTippingLoadArticulatedKg:6405,
+      // ── Dimensions (20.5-R25 L3, ROPS/FOPS cab) ──
+      wheelbaseMm:2900,
+      widthOverTyresMm:2505,
+      trackWidthMm:1930,
+      groundClearanceMm:465,
+      overallHeightROPSMm:3200,
+      overallHeightStackMm:3050,
+      hitchHeightMm:950,
+      // ── Noise ──
+      operatorSoundPressureDB_A:68,
+      exteriorSoundPowerDB_A:104,
+      // ── Service Refill Capacities ──
+      coolantL:33.3, fuelTankL:186, engineOilL:23.0,
+      hydraulicSystemL:80, frontAxleL:18.5, rearAxleL:18.0,
+      transferL:7.0, defTankL:14,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      parallelZBarLinkage:true,
+      variableTractionControl:true, electronicSuspensionSystem:'standard',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (4kg reservoir)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true,
+      cab:'ROPS/FOPS Level 2, heated air-suspension seat, auto A/C, 7" LCD monitor, tilt/telescopic steering, AM/FM+AUX, rear defroster',
+      // ── Full Bucket Configuration Table (measured with 20.5-R25 L3 tyres, ROPS/FOPS cab) ──
+      bucketConfigs:[
+        // Standard Boom
+        { id:'gp-pinon-boce',    boom:'standard', coupler:'pin-on', capacityM3:2.3, capacityStruckM3:2.1, type:'General Purpose', cutting:'BOC',  bucketW:2550, wt:970,  dumpClear45:2975, reach45:945,  reachAt2130:1590, reachArmHoriz:2370, opHeight:5285, overallLen:7360, clearCircle:12050, digDepth0:130, digDepth10:325, tipStr:10330, tipFullTurn:8930, breakoutKN:131, opWt:12880 },
+        { id:'excav-pinon-boce', boom:'standard', coupler:'pin-on', capacityM3:1.9, capacityStruckM3:1.6, type:'Excavating',     cutting:'BOC',  bucketW:2550, wt:885,  dumpClear45:3055, reach45:865,  reachAt2130:1545, reachArmHoriz:2255, opHeight:5150, overallLen:7310, clearCircle:11990, digDepth0:130, digDepth10:310, tipStr:10420, tipFullTurn:9020, breakoutKN:147, opWt:12795 },
+        { id:'lm-pinon-boce',    boom:'standard', coupler:'pin-on', capacityM3:2.7, capacityStruckM3:2.4, type:'Light Material', cutting:'BOC',  bucketW:2550, wt:1030, dumpClear45:2880, reach45:1040, reachAt2130:1635, reachArmHoriz:2505, opHeight:5435, overallLen:7475, clearCircle:12130, digDepth0:130, digDepth10:350, tipStr:10235, tipFullTurn:8865, breakoutKN:116, opWt:12940 },
+        { id:'gp-qc-boce',       boom:'standard', coupler:'qc',     capacityM3:2.3, capacityStruckM3:2.1, type:'General Purpose', cutting:'BOC',  bucketW:2685, wt:1075, dumpClear45:2865, reach45:1090, reachAt2130:1635, reachArmHoriz:2450, opHeight:5360, overallLen:7465, clearCircle:12220, digDepth0:110, digDepth10:320, tipStr:9765,  tipFullTurn:8525, breakoutKN:111, opWt:13190 },
+        // High Lift Boom
+        { id:'excav-hl-pinon',   boom:'highLift', coupler:'pin-on', capacityM3:1.9, capacityStruckM3:1.6, type:'Excavating',     cutting:'BOC',  bucketW:2550, wt:771,  dumpClear45:3480, reach45:966,  reachAt2130:1975, reachArmHoriz:2655, opHeight:5700, overallLen:7750, clearCircle:12370, digDepth0:235, digDepth10:430, tipStr:9910,  tipFullTurn:8510, breakoutKN:154, opWt:12910 },
+      ],
+      // ── Machine Dimensions (20.5-R25 L3 tyres, ROPS/FOPS cab) ──
+      machineDims:{
+        treadMm:1930, widthOverTyresMm:2505, wheelbaseMm:2900,
+        standardBoom:{ hingePinMaxHeightMm:3965, hingePinCarryPositionMm:515 },
+        highLiftBoom:{ hingePinMaxHeightMm:4390, hingePinCarryPositionMm:630 },
+        groundClearanceMm:465, hitchHeightMm:950,
+        overallHeightTopOfStackMm:3050, overallHeightROPSCabMm:3200,
+      },
+      // ── Fork Detailed Dimensions (with Quick Coupler, 20.5-R25 L3) ──
+      forkDims:{
+        coupler:'quick-coupler', tineLengthMm:1220,
+        groundToTopTineMaxLiftMm:3825,    // P
+        reachAtMaxLiftMm:810,             // Q
+        groundToTopTineLevelMm:1840,      // R
+        reachBoomTineLevelMm:1715,        // S
+        reachTineLevelGroundMm:1055,      // T
+        overallLengthTineGroundMm:7860,   // U
+        staticTipBoomLevelStraightKg:7320,
+        staticTipBoomLevel40TurnKg:6405,
+        operatingWeightKg:12905,
+      },
+      // ── Weight Changes ──
+      weightChanges:[
+        { tyreOrAttachment:'Remove additional counterweight', deltaOpWtKg:-280, deltaTipStraightKg:-515, deltaTipFullTurnKg:-440, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Engine Komatsu SAA6D107E-3 diesel','Engine pre-cleaner Turbo II',
+        'Fuel pre-filter with separator','Komatsu SmartLoader Logic',
+        'Radiator mask swing up','Radiator wider core',
+        'Automatic hydraulic-driven fan with automatic reverse rotation',
+        'Alternator 90A/24V','Batteries 92Ah/12V (2) 680 CCA',
+        'Komatsu Auto Idle Shutdown','KOMTRAX Level 5',
+        'Lights: back-up, flashing beacon LED with guard, stop/tail, turn signals, working lights (2 front cab, 2 front fender, 2 rear grill)',
+        'Starting motor 5.5kW',
+        'ROPS/FOPS Cab Level 2 with: 2×DC12V outlets, auto air conditioner, colour LCD/TFT multi-monitor, door LH and RH egress, ECSS, EMMS, floor mat, heated air-suspension seat, AM/FM+AUX radio, rear defroster electric, seatbelt 76mm, tilt/telescopic steering, sun visor, front and rear wipers',
+        'Back-up alarm','Battery isolation switch','Colour rear-view camera and monitor',
+        'Emergency stop switches (3)','Horn electric','Over-centre safety valves (coupler model)',
+        'Parking brake electric','Rear view mirrors outside (2) inside (2)',
+        'Service brakes wet disc type','Wheel chocks steel type','20.5-R25 tyres',
+        '2-spool valve for boom and bucket lever control',
+        '3-spool valve lever control with integrated proportional control switch and piping',
+        'Automatic greasing system','Boom kick-out in-cab adjustable','Bucket positioner',
+        'Counterweight standard and additional','Front fenders',
+        'Lift cylinders and bucket cylinder','Loader linkage with standard lift arm',
+        'Quick coupler (coupler model only)','Rear full fenders',
+        'Transmission 4F/4R','Vandalism protection kit',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Additional LED lighting','Bluetooth media system',
+        'Clean Air Cab Pressurisation systems','Fire extinguishers',
+        'Fire suppression systems','Hi Vis decals',
+        'High lift boom and bucket cylinder','Limited slip differential (F&R)',
+        'Multifunction mono-lever loader control with F/R switch',
+        'Powertrain underguard','Reverse sensor','SMART Alarm broadband reverse alarm',
+        'UHF/CB radio','Various bucket and fork options','Various scale systems',
+        'Window tinting',
+      ],
+      brochureRef:'Komatsu WA270-8 ANZ Brochure ZESS004600 August 2018',
+      tags:['wheel loader','13t class','EPA Tier 4 Final','KOMTRAX','SCR','KDPF','parallel Z-bar','PZ linkage','6-cylinder','CLSS','SmartLoader','DEF','construction','civil','mining support'],
+      note:'Komatsu WA270-8 — ANZ spec wheel loader, 12.795–13.19t. Komatsu SAA6D107E-3, 6-cyl VGT turbo/cooled EGR, 107×124mm, 6.69L, 111kW/149hp net (115kW/153hp gross) @ 2,000rpm; peak 111kW @ 1,650rpm (ISO 14396). EPA Tier 4 Final — KDPF + SCR, DEF tank 14L. Komatsu SmartLoader Logic optimises torque to match load demands. CLSS (Closed-Centre Load Sensing System) shared piston pump for steering and loader. Hydrostatic 4-speed (1-pump, 2-motor): 1st 1.0–13.0, 2nd 13.0, 3rd 19.0, 4th 38.0 km/h (20.5-R25). Variable traction control auto-mode/S-mode/max, creep mode. PZ linkage standard. GP 2.3m³ pin-on BOC: static tipping straight 10,330kg (full turn 8,930kg), breakout 131kN. Hinge pin 3,965mm (high lift 4,390mm), dump height 2,975mm @ 45°. Min turning radius 5,175mm. Hydraulics: 150 l/min shared piston pump; 2 lift cyls 110×717mm, bucket 140×480mm; raise 6.0s, dump 2.0s, lower 3.2s. Remote boom positioner, std auto-greasing (4kg), std ECSS, rearview camera, KOMTRAX Level 5. Service: fuel 186L, DEF 14L, hydraulics 80L, cooling 33.3L. Source: Komatsu WA270-8 ANZ Brochure ZESS004600 August 2018.',
+      hireRateType:'wet_or_dry' },
+
+    // Source: Komatsu WA320PZ-6 Brochure CEN00319-03 (EPA Tier 3 / EU Stage 3A)
+    { id:'kom-wa320pz6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA320PZ-6 Wheel Loader', shortName:'Komatsu WA320PZ-6',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D107E-1',
+      engineType:'Water-cooled, 4-cycle, turbocharged, aftercooled, direct injection',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineRatedRPM:2000,
+      engineGrossKW:127, engineGrossHP:171,
+      engineNetKW:125, engineNetHP:167,
+      enginePowerISOkW:125, enginePowerISO_hp:167,
+      engineFanDrive:'Hydraulic (with reverse rotation)',
+      emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      engineAirFilter:'Dry type with double elements and dust evacuator',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic, 1 pump, 2 motors with speed range select',
+      speedRangesFwd:4, speedRangesRev:4,
+      maxSpeedRange1Kmh:13.0, maxSpeedRange2Kmh:13.0, maxSpeedRange3Kmh:18.7, maxSpeedRange4Kmh:38.0,
+      variableShiftControl:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Center-pin support, semi-floating, 24° total oscillation',
+      differentialGear:'Torque proportioning',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'20.5-25-12PR (L2)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet multi-disc on transfer output shaft',
+      // ── Hydraulics ──
+      steeringPumpType:'Gear type pump',
+      steeringPumpCapacityLpm:172,
+      steeringReliefMPa:20.6,
+      steeringCylCount:2, steeringCylBoreMm:70, steeringCylStrokeMm:453,
+      loaderPumpType:'Gear type pump',
+      loaderPumpCapacityLpm:61,
+      loaderReliefMPa:20.6,
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:729,
+      bucketCylCount:1, bucketCylBoreMm:180, bucketCylStrokeMm:558,
+      controlValve:'3-spool type',
+      hydraulicRaiseTimeSec:5.6, hydraulicDumpTimeSec:1.9, hydraulicLowerTimeSec:3.3,
+      // ── Steering ──
+      steeringSystem:'Full-hydraulic power steering',
+      steeringAngleDeg:38.5,    // 40° to end stop
+      minTurningRadiusMm:5380,   // centre of outside tyre
+      // ── Operating weights ──
+      operatingWeightKgMin:15280, operatingWeightKgMax:15280,
+      operatingWeightT:15.3,
+      // ── Bucket capacities ──
+      bucketCapM3:2.7,               // stockpile bucket with QC, BOC
+      bucketCapRangeM3:'2.7–3.15',   // includes light material bucket
+      // ── Performance (2.7m³ stockpile bucket QC, BOC) ──
+      staticTippingLoadStraightKg:10410, staticTippingLoadArticulatedKg:9160,
+      breakoutForceKg:14410,         // 2.7m³ bucket
+      hingePinHeightMm:4005,         // 20.5-25-12PR(L2)
+      dumpingClearanceMm:2800,       // max height 45° dump angle (BOC)
+      dumpingReachMm:1130,
+      // ── Fork performance (with QC) ──
+      forkTineLengthMm:1220,
+      forkMaxTippingLoadStraightKg:8235, forkMaxTippingLoadArticulatedKg:7055,
+      forkOperatingPayloadKg:3525,   // 50% of static per SAE J1197
+      forkMaxLiftMm:3810,
+      // ── Dimensions (20.5-25-12PR L2 tyres) ──
+      wheelbaseMm:3030,
+      widthOverTyresMm:2590,
+      trackWidthMm:2050,
+      groundClearanceMm:425,
+      overallHeightROPSMm:3200,
+      overallHeightStackMm:2915,
+      hitchHeightMm:1095,
+      // ── Noise ──
+      operatorSoundPressureDB_A:70,
+      exteriorSoundPowerDB_A:107,
+      // ── Service Refill Capacities ──
+      coolantL:25.0, fuelTankL:245, engineOilL:23.0,
+      hydraulicSystemL:89, frontAxleL:24.0, rearAxleL:24.0, transferL:6.5,
+      // ── Features ──
+      komtrax:true,
+      parallelZBarLinkage:true,
+      easyForkKinematic:true,
+      variableTractionControl:true,
+      quickCoupler:'standard',
+      cab:'ROPS/FOPS, pillar-less large cab, PPC fingertip control levers, EMMS monitor, tiltable steering, air conditioning',
+      // ── Full Bucket Configuration Table (measured with 20.5-25-12PR L2 tyres) ──
+      bucketConfigs:[
+        { id:'stockpile-qc-boc', coupler:'qc',     capacityM3:2.7, capacityStruckM3:2.3, type:'Stockpile',     cutting:'BOC', bucketW:2740, wt:1140, dumpClear45:2800, reach45:1130, reachAt2130:1670, reachArmHoriz:2655, opHeight:5355, overallLen:7770, digDepth0:130, digDepth10:370, tipStr:10410, tipFullTurn:9160, breakoutKg:14410, opWt:15280 },
+        { id:'lm-qc-boc',        coupler:'qc',     capacityM3:3.15,capacityStruckM3:2.8, type:'Light Material', cutting:'BOC', bucketW:2740, wt:1430, dumpClear45:2800, reach45:1070, reachAt2130:1610, reachArmHoriz:2605, opHeight:5510, overallLen:7750, digDepth0:160, digDepth10:390, tipStr:11070, tipFullTurn:9500, breakoutKg:15720, opWt:15280 },
+      ],
+      // ── Machine Dimensions (20.5-25-12PR L2 tyres) ──
+      machineDims:{
+        treadMm:2050, widthOverTyresMm:2590, wheelbaseMm:3030,
+        hingePinMaxHeightMm:4005, groundClearanceMm:425, hitchHeightMm:1095,
+        overallHeightTopOfStackMm:2915, overallHeightROPSCabMm:3200,
+      },
+      // ── Fork Detailed Dimensions (with Quick Coupler) ──
+      forkDims:{
+        coupler:'quick-coupler', tineLengthMm:1220,
+        groundToTopTineMaxLiftMm:3810,    // H
+        reachAtMaxLiftMm:835,             // I
+        groundToTopTineLevelMm:1795,      // J  (boom and tine level)
+        reachBoomTineLevelMm:1730,        // K
+        reachTineLevelGroundMm:1100,      // L
+        overallLengthTineGroundMm:8035,   // M
+        staticTipBoomLevelStraightKg:8235,    // fork level, 610mm load centre
+        staticTipBoomLevel40TurnKg:7055,
+        operatingWeightKg:14695,
+        operatingLoadKg:3525,   // 50% of straight per SAE J1197
+      },
+      // ── Weight / Dimension Changes by Tyre or Attachment ──
+      weightChanges:[
+        { tyreOrAttachment:'20.5-25-12PR (L2) [baseline]', deltaOpWtKg:0,   deltaTipStraightKg:0,   deltaTipFullTurnKg:0,  widthOverTyresMm:2590, groundClearanceMm:425, deltaVerticalMm:0,   deltaReachMm:0 },
+        { tyreOrAttachment:'20.5/25-12PR (L3)',            deltaOpWtKg:165, deltaTipStraightKg:105, deltaTipFullTurnKg:95, widthOverTyresMm:2590, groundClearanceMm:425, deltaVerticalMm:0,   deltaReachMm:75 },
+        { tyreOrAttachment:'Install ROPS canopy (instead of cab)', deltaOpWtKg:-290, deltaTipStraightKg:-135, deltaTipFullTurnKg:-120, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '3-spool valve for boom and bucket controls','Additional counterweight','Air conditioner',
+        'Alternator 60A','Auto shift transmission with mode select system',
+        'Back-up alarm','Back-up lamp','Batteries 110Ah/2×12V','Bucket positioner',
+        'Counterweight','Directional signal','Engine Komatsu SAA6D107E-1 diesel',
+        'Engine shut-off system electric','Floor mat','Fuel prefilter with water separator',
+        'Hydraulic-driven fan with reverse rotation','Lift cylinders and bucket cylinder',
+        'Loader linkage with PZ lift arm',
+        'Main monitor panel with EMMS (Equipment Management Monitoring System)',
+        'PPC fingertip control levers','Quick coupler','Radiator mask lattice type',
+        'Rear defroster (electric)','Rear view mirror','Rear window washer and wiper',
+        'ROPS/FOPS cab','Seat rigid type with reclining','Seat belt',
+        'Service brakes wet disc type','Starting motor 4.5kW/24V',
+        'Steering wheel tiltable','Sun visor',
+        'Tires 20.5-25-12PR L2 tubeless and rims',
+        'Transmission 4 forward and 4 reverse',
+        'Bucket stockpile for use with coupler with B.O.C. 2.7m³',
+        'KOMTRAX',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3-lever loader control','AM/FM radio','AM/FM stereo radio cassette',
+        'Automatic reversible fan','Boom kick-out','Bucket teeth (bolt-on type)',
+        'Bucket teeth (tip type)','Cutting edge (bolt-on type)',
+        'Deluxe suspension seat',
+        'ECSS (Electronically Controlled Suspension System)',
+        'Emergency steering (SAE)','Engine pre-cleaner with extension',
+        'Fire extinguisher','Front fenders','Limited slip differential (F&R)','Log grapple',
+        'Rear full fender','ROPS canopy','Tool kit','Vandalism protection kit',
+        'Pallet forks for use with coupler 1220mm',
+      ],
+      brochureRef:'Komatsu WA320PZ-6 Brochure CEN00319-03',
+      tags:['wheel loader','15t class','EPA Tier 3','KOMTRAX','parallel Z-bar','PZ linkage','6-cylinder','fork capable','construction','stockpile','civil','quick coupler'],
+      note:'Komatsu WA320PZ-6 — wheel loader with Parallel Z-Bar (PZ) linkage, ~15.28t. Komatsu SAA6D107E-1, 6-cyl turbo aftercooled, 107×124mm, 6.69L, 125kW/167hp net (127kW/171hp gross) @ 2,000rpm. EPA Tier 3. PZ linkage provides parallel lift for fork and bucket applications — ideal for pallet and fork work without tine readjustment. Hydrostatic 4-speed (1-pump, 2-motor): 1st 4–13 km/h (variable), 2nd 13, 3rd 18.7, 4th 38.0 km/h. Variable traction control, S-mode, max traction switch. 2.7m³ stockpile bucket (QC, BOC): static tipping straight 10,410kg (full turn 9,160kg), breakout 14,410kg; dump clearance 2,800mm @ 45°, reach 1,130mm. Fork (QC, 1,220mm): tipping 8,235kg straight / 7,055kg turn, operating load 3,525kg. Hinge pin 4,005mm. Min turning radius 5,380mm. Hydraulics: steering 172 l/min / 20.6MPa, loader 61 l/min / 20.6MPa; 2 lift cyls 140×729mm, bucket 180×558mm; raise 5.6s, dump 1.9s, lower 3.3s. Quick coupler standard. 3-spool valve. 4WD, torque-proportioning diff, 24° rear oscillation. KOMTRAX standard. Service: fuel 245L, hydraulics 89L, cooling 25L. Source: Komatsu WA320PZ-6 Brochure CEN00319-03.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA320-8 ─────────────────────────────────────────────────
+    // Source: Komatsu WA320-8 ANZ Brochure ZESS004700_AUGUST2018 (EPA Tier 4 Final)
+    { id:'kom-wa320-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA320-8 Wheel Loader', shortName:'Komatsu WA320-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D107E-3',
+      engineType:'Water-cooled, 4-cycle, variable geometry turbo-charged, after-cooled, cooled EGR, direct injection',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineRatedRPM:2100,
+      engineGrossKW:127, engineGrossHP:170,
+      engineNetKW:123, engineNetHP:165,
+      engineMaxPowerISO14396kW:126, engineMaxPowerISO14396rpm:1900,
+      engineFanDrive:'Hydraulic (auto-reversing)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator, Turbo II pre-cleaner',
+      // ── Transmission ──
+      transmissionType:'Hydrostatic, 1 pump, 2 motors with speed range select (CLSS pump)',
+      speedRangesFwd:4, speedRangesRev:4,
+      maxSpeedRange1Kmh:13.0, maxSpeedRange2Kmh:13.0, maxSpeedRange3Kmh:18.7, maxSpeedRange4Kmh:38.0,
+      variableShiftControl:true, creepMode:true,
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 24° total oscillation',
+      differentialGear:'Torque proportioning',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'20.5-R25',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet multi-disc on transfer output shaft (electric)',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump (shared with loader control, CLSS)',
+      steeringPumpCapacityLpm:180,
+      steeringReliefMPa:20.6,
+      steeringCylCount:2, steeringCylBoreMm:70, steeringCylStrokeMm:453,
+      loaderPumpType:'Piston pump (shared with steering, CLSS)',
+      loaderPumpCapacityLpm:180,
+      loaderReliefMPa:30.4,
+      boomCylCount:2, boomCylBoreMm:120, boomCylStrokeMm:729,
+      bucketCylCount:1, bucketCylBoreMm:150, bucketCylStrokeMm:558,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:6.3, hydraulicDumpTimeSec:1.9, hydraulicLowerTimeSec:3.5,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:38.5,
+      minTurningRadiusMm:5380,
+      // ── Operating weights ──
+      operatingWeightKgMin:15480, operatingWeightKgMax:15870,
+      operatingWeightT:15.5,
+      // ── Bucket capacities ──
+      bucketCapM3:3.0,
+      bucketCapRangeM3:'2.3–3.2',
+      // ── Performance (GP 3.0m³ pin-on BOC) ──
+      staticTippingLoadStraightKg:11500, staticTippingLoadArticulatedKg:9780,
+      breakoutForceKN:162,
+      hingePinHeightMm:4005,
+      hingePinHeightHighLiftMm:4545,
+      dumpHeightAt45Mm:2880,
+      reachAt45Mm:1000,
+      // ── Dimensions (20.5-R25 L3, ROPS/FOPS cab) ──
+      wheelbaseMm:3030,
+      widthOverTyresMm:2590,
+      trackWidthMm:2050,
+      groundClearanceMm:425,
+      overallHeightROPSMm:3200,
+      overallHeightStackMm:3040,
+      hitchHeightMm:1085,
+      // ── Noise ──
+      operatorSoundPressureDB_A:68,
+      exteriorSoundPowerDB_A:105,
+      // ── Service Refill Capacities ──
+      coolantL:35.1, fuelTankL:245, engineOilL:23,
+      hydraulicSystemL:92, frontAxleL:27, rearAxleL:25.5,
+      transferL:5.8, defTankL:14,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      variableTractionControl:true, electronicSuspensionSystem:'standard',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (4kg reservoir)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true,
+      cab:'ROPS/FOPS Level 2, heated air-suspension seat, auto A/C, 7" LCD monitor, tilt/telescopic steering, AM/FM+AUX, rear defroster, E-Stop (RHS forward pillar)',
+      // ── Full Bucket Configuration Table (20.5-R25 L3, ROPS/FOPS cab) ──
+      bucketConfigs:[
+        // Standard Boom
+        { id:'gp-pinon-boce',    boom:'standard', coupler:'pin-on', capacityM3:3.0, capacityStruckM3:2.4, type:'General Purpose', cutting:'BOC',  bucketW:2740, wt:1330, dumpClear45:2880, reach45:1000, reachAt2130:1595, reachArmHoriz:2500, opHeight:5375, overallLen:7690, clearCircle:12620, digDepth0:165, digDepth10:375, tipStr:11500, tipFullTurn:9780,  breakoutKN:162, opWt:15480 },
+        { id:'lm-pinon-boce',    boom:'standard', coupler:'pin-on', capacityM3:3.2, capacityStruckM3:2.8, type:'Light Material', cutting:'BOC',  bucketW:2740, wt:1445, dumpClear45:2745, reach45:1110, reachAt2130:1620, reachArmHoriz:2665, opHeight:5465, overallLen:7855, clearCircle:12715, digDepth0:165, digDepth10:410, tipStr:11410, tipFullTurn:9670,  breakoutKN:139, opWt:15600 },
+        { id:'excav-pinon-boce', boom:'standard', coupler:'pin-on', capacityM3:2.3, capacityStruckM3:1.9, type:'Excavating',     cutting:'BOC',  bucketW:2740, wt:1370, dumpClear45:2965, reach45:840,  reachAt2130:1540, reachArmHoriz:2350, opHeight:5175, overallLen:7540, clearCircle:12500, digDepth0:165, digDepth10:350, tipStr:11485, tipFullTurn:9745,  breakoutKN:185, opWt:15520 },
+        { id:'gp-qc-boce',       boom:'standard', coupler:'qc',     capacityM3:2.7, capacityStruckM3:2.2, type:'General Purpose', cutting:'BOC',  bucketW:2740, wt:1260, dumpClear45:2785, reach45:1240, reachAt2130:1765, reachArmHoriz:2735, opHeight:5425, overallLen:7840, clearCircle:12655, digDepth0:65,  digDepth10:320, tipStr:11255, tipFullTurn:9520,  breakoutKN:140, opWt:15870 },
+        // High Lift Boom
+        { id:'gp-hl-pinon-boce', boom:'highLift', coupler:'pin-on', capacityM3:2.3, capacityStruckM3:1.9, type:'General Purpose', cutting:'BOC',  bucketW:2740, wt:1255, dumpClear45:3525, reach45:980,  reachAt2130:2060, reachArmHoriz:2825, opHeight:5845, overallLen:8125, clearCircle:13010, digDepth0:270, digDepth10:460, tipStr:9175,  tipFullTurn:7710,  breakoutKN:197, opWt:15680 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2050, widthOverTyresMm:2590, wheelbaseMm:3030,
+        standardBoom:{ hingePinMaxHeightMm:4005, hingePinCarryPositionMm:545 },
+        highLiftBoom:{ hingePinMaxHeightMm:4545, hingePinCarryPositionMm:705 },
+        groundClearanceMm:425, hitchHeightMm:1085,
+        overallHeightTopOfStackMm:3040, overallHeightROPSCabMm:3200,
+      },
+      // ── Fork Detailed Dimensions (with Quick Coupler, 20.5-R25 L3) ──
+      forkDims:{
+        coupler:'quick-coupler', tineLengthMm:1524,
+        groundToTopTineMaxLiftMm:3855,
+        reachAtMaxLiftMm:840,
+        groundToTopTineLevelMm:1845,
+        reachBoomTineLevelMm:1730,
+        reachTineLevelGroundMm:1060,
+        overallLengthTineGroundMm:8375,
+        staticTipBoomLevelStraightKg:8550,
+        staticTipBoomLevel40TurnKg:7440,
+        operatingWeightKg:15140,
+      },
+      // ── Weight Changes ──
+      weightChanges:[
+        { tyreOrAttachment:'Remove additional counterweight', deltaOpWtKg:-250, deltaTipStraightKg:-440, deltaTipFullTurnKg:-380, widthOverTyresMm:0, groundClearanceMm:0, deltaVerticalMm:0 },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Engine Komatsu SAA6D107E-3 diesel','Engine pre-cleaner Turbo II',
+        'Fuel pre-filter with water separator','Komatsu SmartLoader Logic',
+        'Radiator mask swing up','Radiator wider core',
+        'Automatic hydraulic-driven fan with automatic reverse rotation',
+        'Alternator 90A/24V','Batteries 92Ah/12V (2) 680 CCA',
+        'Komatsu Auto Idle Shutdown','KOMTRAX Level 5',
+        'Lights: back-up, flashing beacon LED with guard, stop/tail, turn signals 2F+2R, working lights 2 front cab, 2 front fender, 2 rear grill',
+        'Starting motor 5.5kW',
+        'ROPS/FOPS Cab Level 2 with: 2×DC12V outlets, auto A/C, colour LCD/TFT multi-monitor (7"), door LH and RH egress, ECSS, EMMS, floor mat, heated air-suspension seat, AM/FM+AUX radio, rear defroster electric, seatbelt 76mm, tilt/telescopic steering, sun visor, front and rear wipers',
+        'Back-up alarm','Battery isolation switch','Colour rear-view camera and monitor',
+        'Emergency stop switches (3)','Horn electric','Over-centre safety valves (coupler model only)',
+        'Parking brake electric','Rear view mirrors outside (2) inside (2)',
+        'Service brakes wet disc type','Wheel chocks steel type','20.5-R25 tyres',
+        '2-spool valve for boom and bucket lever control',
+        '3-spool valve lever control with integrated proportional control switch and piping',
+        'Automatic greasing system (4kg reservoir)','Boom kick-out in-cab adjustable','Bucket positioner',
+        'Counterweight standard and additional','Front fenders','KOMTRAX Level 5',
+        'Lift cylinders and bucket cylinder','Loader linkage with standard lift arm',
+        'Multifunction mono-lever loader control with F/R switch (optional)',
+        'Quick coupler (coupler model only)','Rear full fenders',
+        'Transmission 4F/4R','Vandalism protection kit',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Additional LED lighting','Bluetooth media system',
+        'Clean Air Cab Pressurisation systems','Fire extinguishers',
+        'Fire suppression systems','Hi Vis decals',
+        'High-Lift Boom and bucket cylinder','Limited slip differential (F&R)',
+        'Powertrain underguard','Reverse sensor',
+        'SMART Alarm Broadband reverse alarm','UHF/CB Radio',
+        'Various bucket and fork options','Various scale systems','Window tinting',
+      ],
+      brochureRef:'Komatsu WA320-8 ANZ Brochure ZESS004700 August 2018',
+      tags:['wheel loader','15t class','EPA Tier 4 Final','KOMTRAX','SCR','KDPF','6-cylinder','CLSS','SmartLoader Logic','DEF','HST','construction','civil','stockpile','quarry'],
+      note:'Komatsu WA320-8 — ANZ spec wheel loader, 15.48–15.87t. Komatsu SAA6D107E-3, 6-cyl VGT turbo/cooled EGR, 107×124mm, 6.69L, 123kW/165HP net (127kW/170HP gross) @ 2,100rpm; max power 126kW/169HP @ 1,900rpm. EPA Tier 4 Final — KDPF + SCR, DEF tank 14L. SmartLoader Logic + CLSS shared piston pump. Hydrostatic 4-speed (1-pump, 2-motor): 1st 1.0–13.0, 2nd 13.0, 3rd 18.7, 4th 38.0 km/h (20.5-R25). Variable traction control auto/S-mode/max, creep mode. GP 3.0m³ pin-on BOC: static tipping straight 11,500kg (full turn 9,780kg), breakout 162kN. Hinge pin 4,005mm (high lift 4,545mm). Min turning radius 5,380mm. Hydraulics: 180 l/min shared piston pump; 2 lift cyls 120×729mm, bucket 150×558mm; raise 6.3s, dump 1.9s, lower 3.5s. Versatile PZ-bar linkage for parallel lift. ECSS, rearview camera, KOMTRAX Level 5. Service: fuel 245L, DEF 14L, hydraulics 92L, cooling 35.1L. Source: Komatsu WA320-8 ANZ Brochure ZESS004700 August 2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA380-8 ─────────────────────────────────────────────────
+    // Source: Komatsu WA380-8 ANZ Brochure ZESS004800_AUGUST2018 (EPA Tier 4 Final)
+    { id:'kom-wa380-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA380-8 Wheel Loader', shortName:'Komatsu WA380-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D107E-3',
+      engineType:'Water-cooled, 4-cycle, turbo-charged, after-cooled, direct injection',
+      engineCylinders:6,
+      engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69,
+      engineRatedRPM:2100,
+      engineGrossKW:143, engineGrossHP:192,
+      engineNetKW:143, engineNetHP:191,
+      engineFanDrive:'Hydraulic (auto-reversing)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator, Turbo II pre-cleaner',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift, counter-shaft type with large-capacity torque converter (lock-up 2nd/3rd/4th)',
+      speedRangesFwd:4, speedRangesRev:4,
+      // P-mode, 23.5-25 tyres (lock-up in brackets)
+      maxSpeedFwd1Kmh:6.6,  maxSpeedFwd2Kmh:11.7, maxSpeedFwd3Kmh:20.9, maxSpeedFwd4Kmh:36.1,
+      maxSpeedFwd2LockupKmh:12.4, maxSpeedFwd3LockupKmh:22.4, maxSpeedFwd4LockupKmh:37.5,
+      maxSpeedRev1Kmh:7.1,  maxSpeedRev2Kmh:12.4, maxSpeedRev3Kmh:22.3, maxSpeedRev4Kmh:38.6,
+      maxSpeedRev2LockupKmh:13.3, maxSpeedRev3LockupKmh:24.1, maxSpeedRev4LockupKmh:37.5,
+      torqueConverterLockup:true, lockupGears:'2nd, 3rd, 4th',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 26° total oscillation',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'23.5R25',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet disc brake (electric)',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston type',
+      steeringPumpCapacityLpm:137,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:75, steeringCylStrokeMm:442,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:205,
+      loaderReliefMPa:31.4,
+      boomCylCount:2, boomCylBoreMm:130, boomCylStrokeMm:713,
+      bucketCylCount:1, bucketCylBoreMm:150, bucketCylStrokeMm:535,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:5.9, hydraulicDumpTimeSec:1.8, hydraulicLowerTimeSec:3.3,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:35,
+      minTurningRadiusMm:6320,
+      // ── Operating weights ──
+      operatingWeightKgMin:18385, operatingWeightKgMax:19020,
+      operatingWeightT:18.5,
+      // ── Bucket capacities ──
+      bucketCapM3:3.6,
+      bucketCapRangeM3:'2.7–3.6',
+      // ── Performance (Loose Material 3.6m³ pin-on BOC) ──
+      staticTippingLoadStraightKg:15440, staticTippingLoadArticulatedKg:13440,
+      breakoutForceKN:158,
+      hingePinHeightMm:4095,
+      hingePinHeightHighLiftMm:4625,
+      dumpHeightAt45Mm:2950,
+      reachAt45Mm:1150,
+      // ── Dimensions (23.5R25 L3, ROPS/FOPS cab) ──
+      wheelbaseMm:3300,
+      widthOverTyresMm:2780,
+      trackWidthMm:2160,
+      groundClearanceMm:455,
+      overallHeightROPSMm:3390,
+      overallHeightStackMm:3100,
+      hitchHeightMm:1150,
+      // ── Noise ──
+      operatorSoundPressureDB_A:72,
+      exteriorSoundPowerDB_A:108,
+      // ── Service Refill Capacities ──
+      coolantL:60.6, fuelTankL:300, engineOilL:23,
+      hydraulicSystemL:142, frontAxleL:40, rearAxleL:40,
+      torqueConverterTransL:54, defTankL:36,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      variableTractionControl:false,
+      electronicSuspensionSystem:'standard',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (6kg reservoir)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      cab:'ROPS/FOPS Level 2, heated air-suspension seat with EPC console, auto A/C, 7" LCD monitor, tilt/telescopic steering, AM/FM+AUX, rear defroster, E-Stop (RHS forward pillar)',
+      // ── Full Bucket Configuration Table (23.5R25 L3, ROPS/FOPS cab) ──
+      bucketConfigs:[
+        // Standard Boom
+        { id:'lm-pinon-boce',   boom:'standard', coupler:'pin-on', capacityM3:3.6, capacityStruckM3:2.9, type:'Loose Material',  cutting:'BOC',   bucketW:2905, wt:1610, dumpClear45:2950, reach45:1150, reachArmHoriz:null, opHeight:5600, overallLen:8310, clearCircle:14440, digDepth0:60,  digDepth10:290, tipStr:15440, tipFullTurn:13440, breakoutKN:158, opWt:18455 },
+        { id:'gp-pinon-teeth',  boom:'standard', coupler:'pin-on', capacityM3:3.1, capacityStruckM3:2.7, type:'General Purpose', cutting:'Teeth', bucketW:2920, wt:1540, dumpClear45:2815, reach45:1265, reachArmHoriz:null, opHeight:5600, overallLen:8490, clearCircle:14540, digDepth0:75,  digDepth10:335, tipStr:15545, tipFullTurn:13540, breakoutKN:170, opWt:18385 },
+        { id:'excav-pinon-teeth',boom:'standard', coupler:'pin-on', capacityM3:2.7, capacityStruckM3:2.3, type:'Excavating',     cutting:'Teeth', bucketW:2920, wt:1650, dumpClear45:2910, reach45:1160, reachArmHoriz:null, opHeight:5450, overallLen:8350, clearCircle:14470, digDepth0:75,  digDepth10:310, tipStr:15435, tipFullTurn:13430, breakoutKN:190, opWt:18495 },
+        // High Lift Boom
+        { id:'gp-hl-pinon-boce',boom:'highLift', coupler:'pin-on', capacityM3:2.9, capacityStruckM3:2.4, type:'General Purpose', cutting:'BOC',   bucketW:2905, wt:1720, dumpClear45:3575, reach45:1185, reachArmHoriz:null, opHeight:5985, overallLen:8810, clearCircle:14850, digDepth0:110, digDepth10:320, tipStr:12055, tipFullTurn:10407, breakoutKN:183, opWt:19020 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2160, widthOverTyresMm:2780, wheelbaseMm:3300,
+        standardBoom:{ hingePinMaxHeightMm:4095, hingePinCarryPositionMm:520 },
+        highLiftBoom:{ hingePinMaxHeightMm:4625, hingePinCarryPositionMm:680 },
+        groundClearanceMm:455, hitchHeightMm:1150,
+        overallHeightTopOfStackMm:3100, overallHeightROPSCabMm:3390,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Engine Komatsu SAA6D107E-3 diesel','Engine pre-cleaner Turbo II with extension',
+        'Fuel pre-filter with separator','Komatsu SmartLoader Logic',
+        'Radiator mask swing out','Radiator wider core',
+        'Automatic hydraulic-driven fan with automatic reverse rotation',
+        'Alternator 90A/24V','Batteries 140Ah/12V (2) 930 CCA',
+        'Komatsu Auto Idle Shutdown','KOMTRAX Level 5',
+        'Lights: LED back-up, LED flashing beacon with guard, LED stop/tail, turn signals 2F+2R, working lights 2 front cab, 2 front fender, 2 rear grill',
+        'Starting motor 5.5kW',
+        'ROPS/FOPS Cab Level 2 with: 2×DC12V outlets, auto A/C, colour LCD/TFT multi-monitor (7"), door LH and RH egress, ECSS, EMMS, floor mat, heated air-suspension seat (EPC console), AM/FM+AUX radio, rear defroster electric, seatbelt 76mm, tilt/telescopic steering, sun visor, front and rear wipers',
+        'Back-up alarm','Battery isolation switch','Colour rear-view camera and monitor',
+        'Emergency stop switches (3)','Horn electric',
+        'Parking brake electric','Rear view mirrors outside (2) inside (2)',
+        'Service brakes wet disc type','Wheel chocks steel type','23.5R25 L3 tyres',
+        '3-spool valve for boom, bucket and attachment control',
+        'Auto shift transmission with mode select system',
+        'Automatic greasing system (6kg reservoir)','Auxiliary steering (SAE)',
+        'Boom kick-out in-cab adjustable','Brake cooling system',
+        'Bucket positioner in-cab adjustable 3 positions',
+        'Counterweight standard and additional',
+        'EPC fingertip controls with F-N-R switch, three levers',
+        'Front fenders','KOMTRAX Level 5',
+        'Lift cylinders and bucket cylinder','Loader linkage with standard lift arm',
+        'Lock-up torque converter','Rear full fenders',
+        'Transmission 4F/4R','Vandalism protection kit',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Additional LED lighting','Bluetooth media system',
+        'Clean Air Cab Pressurisation systems','Fire extinguishers',
+        'Fire suppression systems','Hi Vis decals','High lift boom',
+        'Limited slip differential (F&R)','Mono-lever loader control with transmission F-N-R switch',
+        'Reverse sensor','SMART Alarm Broadband reverse alarm','UHF/CB Radio',
+        'Various bucket options','Various scale systems','Window tinting',
+      ],
+      brochureRef:'Komatsu WA380-8 ANZ Brochure ZESS004800 August 2018',
+      tags:['wheel loader','18t class','EPA Tier 4 Final','KOMTRAX','SCR','KDPF','6-cylinder','CLSS','SmartLoader Logic','DEF','torque converter','lock-up','construction','civil','quarry','stockpile'],
+      note:'Komatsu WA380-8 — ANZ spec wheel loader, 18.385–19.02t. Komatsu SAA6D107E-3, 6-cyl turbo aftercooled, 107×124mm, 6.69L, 143kW/191HP net (143kW/192HP gross) @ 2,100rpm. EPA Tier 4 Final — KDPF + SCR, DEF tank 36L. Large-capacity torque converter with lock-up in 2nd/3rd/4th gears. SmartLoader Logic + CLSS piston pump. Top speed 36.1 km/h (37.5 lock-up, 23.5-25 tyres). Bucket range 2.7–3.6m³; LM 3.6m³ BOC: static tipping straight 15,440kg (40° full turn 13,440kg), breakout 158kN. Hinge pin 4,095mm (high lift 4,625mm). Min turning radius 6,320mm. Hydraulics: loader 205 l/min / 31.4MPa; 2 lift cyls 130×713mm, bucket 150×535mm; raise 5.9s, dump 1.8s, lower 3.3s. ECSS, rearview camera, KOMTRAX Level 5. Service: fuel 300L, DEF 36L, hydraulics 142L, cooling 60.6L. Source: Komatsu WA380-8 ANZ Brochure ZESS004800 August 2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA430-6 ─────────────────────────────────────────────────
+    // Source: Komatsu WA430-6 Brochure CEN00139-04, 201309 (EPA Tier 3 / EU Stage 3A)
+    { id:'kom-wa430-6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA430-6 Wheel Loader', shortName:'Komatsu WA430-6',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D114E-3',
+      engineType:'Water-cooled, 4-cycle, ECOt3 (turbocharged, after-cooled, HPCR direct injection, cooled EGR)',
+      engineCylinders:6,
+      engineBoreMm:114, engineStrokeMm:135,
+      engineDisplacementL:8.27,
+      engineRatedRPM:2100,
+      engineGrossKW:173, engineGrossHP:232,
+      engineNetKW:172, engineNetHP:231,
+      engineMaxTorqueNm:1040, engineMaxTorqueRPM:1500,
+      engineFanDrive:'Hydraulic (reversing fan optional/auto)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      engineAirFilter:'Dry type with double elements and dust evacuator, dust display',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift with ECMV, countershaft type, large-capacity torque converter (lock-up 3rd/4th optional)',
+      speedRangesFwd:4, speedRangesRev:4,
+      // Speeds km/h with 23.5R25 tyres (lock-up in brackets — optional fitment)
+      maxSpeedFwd1Kmh:7.0,  maxSpeedFwd2Kmh:12.3, maxSpeedFwd3Kmh:21.6, maxSpeedFwd4Kmh:37.2,
+      maxSpeedFwd3LockupKmh:22.5, maxSpeedFwd4LockupKmh:39.0,
+      maxSpeedRev1Kmh:7.6,  maxSpeedRev2Kmh:12.9, maxSpeedRev3Kmh:23.0, maxSpeedRev4Kmh:39.0,
+      maxSpeedRev3LockupKmh:24.0, maxSpeedRev4LockupKmh:39.0,
+      torqueConverterLockup:false, lockupGears:'3rd, 4th (optional)',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'23.5-25-16PR (L3)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes, fully sealed (maintenance-free)',
+      parkingBrake:'Wet multi-disc, adjustment-free',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:137,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:75, steeringCylStrokeMm:442,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:205,
+      loaderReliefMPa:31.4,
+      boomCylCount:2, boomCylBoreMm:130, boomCylStrokeMm:776,
+      bucketCylCount:1, bucketCylBoreMm:160, bucketCylStrokeMm:535,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:6.1, hydraulicDumpTimeSec:2.0, hydraulicLowerTimeSec:3.3,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering',
+      steeringAngleDeg:35,
+      minTurningRadiusMm:6335,
+      // ── Operating weights ──
+      operatingWeightKgMin:18220, operatingWeightKgMax:18545,
+      operatingWeightT:18.4,
+      // ── Bucket capacities ──
+      bucketCapM3:3.5,
+      bucketCapRangeM3:'3.1–4.6',
+      // ── Performance (GP 3.5m³ pin-on BOC) ──
+      staticTippingLoadStraightKg:13980, staticTippingLoadArticulatedKg:12990,
+      breakoutForceKN:180,
+      hingePinHeightMm:4165,
+      dumpHeightAt45Mm:3020,
+      reachAt45Mm:1190,
+      // ── Dimensions (23.5-25-16PR L3, ROPS/FOPS cab) ──
+      wheelbaseMm:3300,
+      widthOverTyresMm:2820,
+      trackWidthMm:2200,
+      groundClearanceMm:455,
+      overallHeightROPSMm:3390,
+      overallHeightStackMm:2940,
+      hitchHeightMm:1150,
+      // ── Noise ──
+      operatorSoundPressureDB_A:74,
+      exteriorSoundPowerDB_A:112,
+      // ── Service Refill Capacities ──
+      coolantL:32, fuelTankL:325, engineOilL:30,
+      hydraulicSystemL:139, frontAxleL:49, rearAxleL:40,
+      torqueConverterTransL:54,
+      // ── Features ──
+      komtrax:false,
+      electronicSuspensionSystem:'optional',
+      autoIdleShutdown:false,
+      smartLoaderLogic:true,
+      cab:'ROPS/FOPS, pillar-less large cab, hydraulic PPC fingertip levers, tilt/telescopic steering, EMMS monitor, rear defroster',
+      // ── Full Bucket Configuration Table (23.5-25-16PR L3, ROPS/FOPS cab) ──
+      bucketConfigs:[
+        { id:'gp-pinon-boce',       boom:'standard', coupler:'pin-on', capacityM3:3.5, capacityStruckM3:3.0, type:'General Purpose', cutting:'BOC',          bucketW:3050, wt:1735, dumpClear45:3020, reach45:1190, reachAt2130:1835, reachArmHoriz:2685, opHeight:5645, overallLen:8305, clearCircle:14670, digDepth0:120, digDepth10:350, tipStr:13980, tipFullTurn:12990, breakoutKN:180, opWt:18290 },
+        { id:'gp-pinon-boce-teeth', boom:'standard', coupler:'pin-on', capacityM3:3.3, capacityStruckM3:2.8, type:'General Purpose', cutting:'BOC+Teeth',    bucketW:3065, wt:1665, dumpClear45:2895, reach45:1290, reachAt2130:1870, reachArmHoriz:2840, opHeight:5645, overallLen:8460, clearCircle:14760, digDepth0:135, digDepth10:395, tipStr:14320, tipFullTurn:13280, breakoutKN:194, opWt:18220 },
+        { id:'gp-pinon-teeth-boce', boom:'standard', coupler:'pin-on', capacityM3:3.3, capacityStruckM3:2.8, type:'General Purpose', cutting:'Teeth+BOC',    bucketW:3050, wt:1810, dumpClear45:3090, reach45:1120, reachAt2130:1795, reachArmHoriz:2580, opHeight:5590, overallLen:8200, clearCircle:14590, digDepth0:120, digDepth10:330, tipStr:13955, tipFullTurn:12985, breakoutKN:196, opWt:18365 },
+        { id:'gp-pinon-teeth-seg',  boom:'standard', coupler:'pin-on', capacityM3:3.3, capacityStruckM3:2.8, type:'General Purpose', cutting:'Teeth+Segment', bucketW:3065, wt:1870, dumpClear45:2970, reach45:1215, reachAt2130:1835, reachArmHoriz:2735, opHeight:5590, overallLen:8355, clearCircle:14700, digDepth0:135, digDepth10:375, tipStr:13885, tipFullTurn:12940, breakoutKN:198, opWt:18425 },
+        { id:'excav-pinon-teeth',   boom:'standard', coupler:'pin-on', capacityM3:3.1, capacityStruckM3:2.6, type:'Excavating',     cutting:'Teeth',         bucketW:3065, wt:1740, dumpClear45:2970, reach45:1215, reachAt2130:1835, reachArmHoriz:2735, opHeight:5590, overallLen:8355, clearCircle:14700, digDepth0:135, digDepth10:375, tipStr:14150, tipFullTurn:13145, breakoutKN:213, opWt:18295 },
+        { id:'lm-pinon-boce',       boom:'standard', coupler:'pin-on', capacityM3:4.6, capacityStruckM3:4.0, type:'Light Material', cutting:'BOC',          bucketW:3050, wt:1990, dumpClear45:2870, reach45:1340, reachAt2130:1910, reachArmHoriz:2895, opHeight:5945, overallLen:8515, clearCircle:14760, digDepth0:120, digDepth10:385, tipStr:13665, tipFullTurn:12785, breakoutKN:155, opWt:18545 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2200, widthOverTyresMm:2820, wheelbaseMm:3300,
+        standardBoom:{ hingePinMaxHeightMm:4165, hingePinCarryPositionMm:520 },
+        groundClearanceMm:455, hitchHeightMm:1150,
+        overallHeightTopOfStackMm:2940, overallHeightROPSCabMm:3390,
+      },
+      // ── Weight Changes ──
+      weightChanges:[
+        { tyreOrAttachment:'23.5-25-16PR(L-3)',    deltaOpWtKg:0,    deltaTipStraightKg:0,    deltaTipFullTurnKg:0,    widthOverTyresMm:2820, groundClearanceMm:455, deltaVerticalMm:0 },
+        { tyreOrAttachment:'26.5-25-16PR(L-3)',    deltaOpWtKg:+420, deltaTipStraightKg:+330, deltaTipFullTurnKg:+290, widthOverTyresMm:2940, groundClearanceMm:620, deltaVerticalMm:+65 },
+        { tyreOrAttachment:'Install additional counterweight', deltaOpWtKg:+340, deltaTipStraightKg:+860, deltaTipFullTurnKg:+720, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '2-spool valve for boom and bucket controls','Alternator 60A',
+        'Auto shift transmission with mode select system',
+        'Back-up alarm','Back-up lamp','Batteries 136Ah/12V (2)',
+        'Boom kick-out','Bucket positioner','Counterweight','Directional signal',
+        'Engine Komatsu SAA6D114E-3 diesel',
+        'Engine shut-off system electric','Floor mat','Front fender',
+        'Fuel pre-filter with water separator',
+        'Hydraulic-driven fan with reverse rotation',
+        'Lift cylinders and bucket cylinder',
+        'Loader linkage with standard lift arm',
+        'Main monitor panel with EMMS','PPC fingertip control two levers',
+        'Radiator mask lattice type','Rear defroster (electric)','Rear view mirror',
+        'ROPS/FOPS cab','Seat suspension type with reclining','Seat belt',
+        'Service brakes wet disc type','Starting motor 7.5kW/24V',
+        'Steering wheel tiltable telescopic','Sun visor',
+        'Tyres 23.5-25-16PR L3 tubeless and rims','Transmission 4F/4R',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3-spool valve','Additional counterweight','Air conditioner','AM/FM radio',
+        'AM/FM stereo radio cassette','Auto air conditioner','Batteries 140Ah/12V×2',
+        'Bucket teeth bolt-on type','Bucket teeth tip type','Counterweight for log',
+        'Cutting edge bolt-on type','Deluxe suspension seat',
+        'ECSS (Electronically Controlled Suspension System)','Emergency steering (SAE)',
+        'Engine pre-cleaner with extension','High lift arm','Joystick steering',
+        'Limited slip differential (F&R)','Lock-up clutch torque converter',
+        'Log grapple','Ordinary spare parts','Power train guard','Rear fender',
+        'Tool kit','Vandalism protection kit',
+      ],
+      brochureRef:'Komatsu WA430-6 ANZ Brochure CEN00139-04 (201309); EU Brochure VESS001107 (12/2015)',
+      tags:['wheel loader','18t class','EPA Tier 3','ECOt3','6-cylinder','CLSS','SmartLoader Logic','torque converter','construction','civil','quarry','stockpile','logging'],
+      note:'Komatsu WA430-6 — ANZ spec wheel loader, ~18.22–18.55t. Komatsu SAA6D114E-3, 6-cyl ECOt3 turbo/aftercooled HPCR, 114×135mm, 8.27L, 173kW/232HP gross (172kW/231HP net) @ 2,100rpm; max torque 1,040Nm @ 1,500rpm. EPA Tier 3/EU Stage 3A. Large-capacity torque converter, auto shift ECMV transmission, variable displacement CLSS piston pump. Travel speeds (23.5R25): 1st 7.0/7.6, 2nd 12.3/12.9, 3rd 21.6/23.0 (lock-up 22.5/24.0), 4th 37.2/39.0 (lock-up 39.0/39.0) km/h F/R (lock-up 3rd/4th optional). Bucket range 3.1–4.6m³; GP 3.5m³ BOC: static tipping straight 13,980kg (40° full turn 12,990kg), breakout 180kN. Hinge pin 4,165mm, dump clearance 3,020mm @ 45°. Min turning radius 6,335mm (23.5-25 tyres). Hydraulics: loader 205 l/min / 31.4MPa; 2 lift cyls 130×776mm, bucket 160×535mm; raise 6.1s, dump 2.0s, lower 3.3s. EMMS monitoring, PPC fingertip levers. Service: fuel 325L, hydraulics 139L, cooling 32L. Engine bore/stroke/displacement and travel speeds confirmed from Komatsu EU Brochure VESS001107; all other specs from Komatsu ANZ Brochure CEN00139-04.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA470-8 ─────────────────────────────────────────────────
+    // Source: Komatsu WA470-8 ANZ Brochure ZESS004100_AUGUST2018 (EPA Tier 4 Final)
+    { id:'kom-wa470-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA470-8 Wheel Loader', shortName:'Komatsu WA470-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D125E-7',
+      engineType:'Water-cooled, 4-cycle, turbo-charged, after-cooled, cooled EGR, direct injection',
+      engineCylinders:6,
+      engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04,
+      engineRatedRPM:2000,
+      engineGrossKW:204, engineGrossHP:273,
+      engineNetKW:203, engineNetHP:272,
+      engineMaxTorqueNm:1510, engineMaxTorqueRPM:1400,
+      engineFanDrive:'Hydraulic (auto-reversing, variable speed)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator, Turbo II pre-cleaner',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift, countershaft type with large-capacity torque converter (lock-up 2nd/3rd/4th, 3-mode select)',
+      speedRangesFwd:4, speedRangesRev:4,
+      // P-mode, 26.5-R25 tyres (lock-up in brackets)
+      maxSpeedFwd1Kmh:7.6,  maxSpeedFwd2Kmh:13.1, maxSpeedFwd3Kmh:22.9, maxSpeedFwd4Kmh:36.2,
+      maxSpeedFwd2LockupKmh:13.2, maxSpeedFwd3LockupKmh:23.6, maxSpeedFwd4LockupKmh:38.3,
+      maxSpeedRev1Kmh:7.9,  maxSpeedRev2Kmh:13.5, maxSpeedRev3Kmh:23.6, maxSpeedRev4Kmh:37.3,
+      maxSpeedRev2LockupKmh:13.7, maxSpeedRev3LockupKmh:24.3, maxSpeedRev4LockupKmh:39.0,
+      torqueConverterLockup:true, lockupGears:'2nd, 3rd, 4th',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 26° total oscillation',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'26.5R25 Michelin L3 XHA2',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet disc brake (electric)',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston type',
+      steeringPumpCapacityLpm:195,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:90, steeringCylStrokeMm:441,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:260,
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:764,
+      bucketCylCount:1, bucketCylBoreMm:160, bucketCylStrokeMm:575,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:5.8, hydraulicDumpTimeSec:1.6, hydraulicLowerTimeSec:3.1,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:35,
+      minTurningRadiusMm:6630,
+      // ── Operating weights ──
+      operatingWeightKgMin:24350, operatingWeightKgMax:25210,
+      operatingWeightT:24.6,
+      // ── Bucket capacities ──
+      bucketCapM3:3.8,
+      bucketCapRangeM3:'3.8–4.65',
+      // ── Performance (Excavating 3.8m³ BOC) ──
+      staticTippingLoadStraightKg:20130, staticTippingLoadArticulatedKg:17320,
+      breakoutForceKN:203,
+      hingePinHeightMm:4360,
+      hingePinHeightHighLiftMm:4870,
+      dumpHeightAt45Mm:3235,
+      reachAt45Mm:1185,
+      // ── Dimensions (26.5-R25 L3, ROPS/FOPS cab) ──
+      wheelbaseMm:3450,
+      widthOverTyresMm:3010,
+      trackWidthMm:2300,
+      groundClearanceMm:525,
+      overallHeightROPSMm:3500,
+      overallHeightStackMm:3220,
+      hitchHeightMm:1210,
+      // ── Noise ──
+      operatorSoundPressureDB_A:72,
+      exteriorSoundPowerDB_A:108,
+      // ── Service Refill Capacities ──
+      coolantL:78, fuelTankL:380, engineOilL:38,
+      hydraulicSystemL:173, frontAxleL:57, rearAxleL:56,
+      torqueConverterTransL:65, defTankL:36,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      electronicSuspensionSystem:'standard',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (6kg reservoir)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      cab:'ROPS/FOPS Level 2, heated air-suspension seat with EPC console, auto A/C, 7" LCD monitor, tilt/telescopic steering, AM/FM+AUX, rear defroster, E-Stop (RHS forward pillar)',
+      // ── Full Bucket Configuration Table (26.5-R25 L3, ROPS/FOPS cab) ──
+      bucketConfigs:[
+        // Standard Boom
+        { id:'excav-pinon-boce', boom:'standard', coupler:'pin-on', capacityM3:3.8,  capacityStruckM3:3.2, type:'Excavating',     cutting:'BOC',   bucketW:3170, wt:2170, dumpClear45:3235, reach45:1185, reachArmHoriz:null, opHeight:5910, overallLen:9005, clearCircle:15260, digDepth0:80,  digDepth10:305, tipStr:20130, tipFullTurn:17320, breakoutKN:203, opWt:24350 },
+        { id:'lm-pinon-boce',    boom:'standard', coupler:'pin-on', capacityM3:4.65, capacityStruckM3:3.9, type:'Loose Material', cutting:'BOC',   bucketW:3170, wt:2210, dumpClear45:3055, reach45:1365, reachArmHoriz:null, opHeight:5960, overallLen:9260, clearCircle:15390, digDepth0:80,  digDepth10:345, tipStr:20090, tipFullTurn:17280, breakoutKN:168, opWt:24390 },
+        // High Lift Boom
+        { id:'gp-hl-pinon-boce', boom:'highLift', coupler:'pin-on', capacityM3:3.8,  capacityStruckM3:3.2, type:'General Purpose','cutting':'BOC', bucketW:3170, wt:2170, dumpClear45:3750, reach45:1330, reachArmHoriz:null, opHeight:6415, overallLen:9430, clearCircle:15780, digDepth0:215, digDepth10:440, tipStr:16500, tipFullTurn:14050, breakoutKN:186, opWt:25210 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2300, widthOverTyresMm:3010, wheelbaseMm:3450,
+        standardBoom:{ hingePinMaxHeightMm:4360, hingePinCarryPositionMm:585 },
+        highLiftBoom:{ hingePinMaxHeightMm:4870, hingePinCarryPositionMm:730 },
+        groundClearanceMm:525, hitchHeightMm:1210,
+        overallHeightTopOfStackMm:3220, overallHeightROPSCabMm:3500,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Engine Komatsu SAA6D125E-7 diesel','Engine pre-cleaner Turbo II with extension',
+        'Fuel pre-filter with separator','Komatsu SmartLoader Logic',
+        'Radiator mask swing out','Radiator wider core',
+        'Automatic hydraulic-driven fan with automatic reverse rotation',
+        'Alternator 90A','Batteries 140Ah/12V (2) 930 CCA',
+        'Komatsu Auto Idle Shutdown','KOMTRAX Level 5',
+        'Lights: LED back-up, LED flashing beacon with guard, LED stop/tail, turn signals 2F+2R, working lights 2 front cab, 2 front fender, 2 rear grill',
+        'Starting motor 7.5kW',
+        'ROPS/FOPS Cab Level 2 with: 2×DC12V outlets, auto A/C, colour LCD/TFT multi-monitor (7"), door LH and RH egress, ECSS, EMMS, floor mat, heated air-suspension seat (EPC console), AM/FM+AUX radio, rear defroster electric, seatbelt 76mm two-point, tilt/telescopic steering, sun visor, front and rear wipers',
+        'Back-up alarm','Battery isolation switch','Colour rear-view camera and monitor',
+        'Emergency stop switches (3)','Horn electric',
+        'Parking brake electric','Rear view mirrors outside (2) inside (2)',
+        'Service brakes wet disc type','Wheel chocks steel type','26.5R25 Michelin L3 XHA2 tyres',
+        '2-spool valve for boom and bucket control',
+        'Auto shift transmission with mode select system',
+        'Automatic greasing system (6kg reservoir)','Auxiliary steering (SAE)',
+        'Boom kick-out in-cab adjustable','Brake cooling system',
+        'Bucket positioner in-cab adjustable 3 positions',
+        'Counterweight standard and additional','Cutting edge (bolt-on type)',
+        'EPC fingertip controls with F-N-R switch, 2 levers',
+        'Front fenders','KOMTRAX Level 5',
+        'Lift cylinders and bucket cylinder','Loader linkage with standard lift arm',
+        'Lock-up torque converter','Powertrain underguard','Rear full fenders',
+        'Transmission 4F/4R','Vandalism protection kit',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3-spool valve with lever and piping','Additional LED lighting',
+        'Bluetooth media system','Clean Air Cab Pressurisation systems',
+        'Fire extinguishers','Fire suppression systems','Hi Vis decals',
+        'High lift boom','Joystick/wheel steering control system',
+        'Limited slip differential (F&R)','Mono-lever loader control with transmission F-N-R switch',
+        'Reverse sensor','SMART Alarm Broadband reverse alarm','UHF/CB Radio',
+        'Various bucket options','Various scale systems','Window tinting',
+      ],
+      brochureRef:'Komatsu WA470-8 ANZ Brochure ZESS004100 August 2018',
+      tags:['wheel loader','24t class','EPA Tier 4 Final','KOMTRAX','SCR','KDPF','6-cylinder','CLSS','SmartLoader Logic','DEF','torque converter','lock-up','construction','mining','quarry','civil'],
+      note:'Komatsu WA470-8 — ANZ spec wheel loader, 24.35–25.21t. Komatsu SAA6D125E-7, 6-cyl turbo/cooled EGR, 125×150mm, 11.04L, 203kW/272HP net (204kW/273HP gross) @ 2,000rpm. EPA Tier 4 Final — KDPF + SCR, DEF tank 36L. Large-capacity torque converter with lock-up 2nd/3rd/4th, 3-mode shift select, SmartLoader Logic. Top speed 36.2 km/h (38.3 lock-up, 26.5-R25). Bucket range 3.8–4.65m³; Excav 3.8m³ BOC: static tipping straight 20,130kg (40° full turn 17,320kg), breakout 203kN. Hinge pin 4,360mm (high lift 4,870mm). Min turning radius 6,630mm. Hydraulics: loader 260 l/min / 34.3MPa; 2 lift cyls 140×764mm, bucket 160×575mm; raise 5.8s, dump 1.6s, lower 3.1s. ECSS, rearview camera, KOMTRAX Level 5. Service: fuel 380L, DEF 36L, hydraulics 173L, cooling 78L. Source: Komatsu WA470-8 ANZ Brochure ZESS004100 August 2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA475-10 ─────────────────────────────────────────────────
+    // Source: Komatsu WA475-10 ANZ Brochure ZESS008100 February 2024 (EPA Tier 4 Final, KHMT)
+    { id:'kom-wa475-10', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA475-10 Wheel Loader', shortName:'Komatsu WA475-10',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D125E-7',
+      engineType:'Water-cooled, 4-cycle, turbo-charged, after-cooled, cooled EGR, direct injection',
+      engineCylinders:6,
+      engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04,
+      engineRatedRPM:1600,
+      engineGrossKW:217, engineGrossHP:291,
+      engineNetKW:216, engineNetHP:290,
+      engineMaxTorqueNm:1510, engineMaxTorqueRPM:1400,
+      engineFanDrive:'Hydraulic (auto-reversing, swing-out fan)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator (air cleaner on right-side platform)',
+      // ── Transmission ──
+      transmissionType:'KHMT — Komatsu Hydraulic Mechanical Transmission (planetary CVT, variable displacement HST pump+motor)',
+      // Continuously variable 3.0–38.0 km/h forward, 3.0–28.0 km/h reverse (26.5R25)
+      khmt:true,
+      maxSpeedFwdKmh:38.0, maxSpeedRevKmh:28.0,
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 26° total oscillation',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'26.5R25 (L-4)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes incorporating brake cooling system',
+      parkingBrake:'Wet multiple-disc brake (electric)',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston type',
+      steeringPumpCapacityLpm:157.7,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:91, steeringCylStrokeMm:441,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:333,
+      loaderReliefMPa:35.3,
+      boomCylCount:2, boomCylBoreMm:150, boomCylStrokeMm:764,
+      bucketCylCount:1, bucketCylBoreMm:180, bucketCylStrokeMm:540,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:5.8, hydraulicDumpTimeSec:1.8, hydraulicLowerTimeSec:3.1,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:35,
+      minTurningRadiusMm:6630,
+      // ── Operating weights ──
+      operatingWeightKgMin:26340, operatingWeightKgMax:27410,
+      operatingWeightT:26.7,
+      // ── Bucket capacities ──
+      bucketCapM3:4.6,
+      bucketCapRangeM3:'3.8–6.4',
+      // ── Performance (HD Rock 4.6m³ BOC) ──
+      staticTippingLoadStraightKg:21150, staticTippingLoadArticulatedKg:18300,
+      breakoutForceKN:197.2,
+      hingePinHeightMm:4370,
+      hingePinHeightHighLiftMm:4870,
+      dumpHeightAt45Mm:3075,
+      reachAt45Mm:1350,
+      // ── Dimensions (standard boom, 26.5R25) ──
+      wheelbaseMm:3450,
+      widthOverTyresMm:3060,
+      trackWidthMm:2300,
+      groundClearanceMm:520,
+      overallHeightROPSMm:3500,
+      overallHeightStackMm:3450,
+      hitchHeightMm:1200,
+      // ── Service Refill Capacities ──
+      coolantL:65, fuelTankL:380, engineOilL:38,
+      hydraulicSystemL:135, frontAxleL:59, rearAxleL:59,
+      torqueConverterTransL:65, defTankL:36,
+      // ── Features ──
+      komtrax:true,
+      electronicSuspensionSystem:'standard (ECSS)',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (electric mirror with heater)',
+      automaticGreasing:'standard',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      ajss:true,
+      cab:'ROPS/FOPS ISO 3471/3449, pressurised 4-post, heated air-suspension seat, 5-way adjustable console, EPC fingertip 2 levers + directional selector, AJSS, auto A/C, 7" colour LCD, multifunction audio (AM/FM/AUX/USB/BT), DC12V outlets, command selector, LED working lamps, powered tiltable engine hood',
+      // ── Full Bucket Configuration Table (26.5R25 L4, standard boom) ──
+      bucketConfigs:[
+        // Standard Boom
+        { id:'hd-rock-boce',    boom:'standard', coupler:'pin-on', capacityM3:4.6, capacityStruckM3:3.6, type:'HD Rock Bucket',  cutting:'BOC',   bucketW:3170, wt:2196, dumpClear45:3075, reach45:1350, reachAt2130:2020, reachArmHoriz:2935, opHeight:6090, overallLen:9185, clearCircle:null, digDepth0:null, digDepth10:null, tipStr:21150, tipFullTurn:18300, breakoutKN:197.2, opWt:26340 },
+        { id:'gp-pinon-boce',   boom:'standard', coupler:'pin-on', capacityM3:4.8, capacityStruckM3:3.8, type:'General Purpose', cutting:'BOC',   bucketW:3170, wt:2290, dumpClear45:3045, reach45:1380, reachAt2130:2035, reachArmHoriz:2975, opHeight:6135, overallLen:9225, clearCircle:15400, digDepth0:null, digDepth10:null, tipStr:26200, tipFullTurn:17985, breakoutKN:190, opWt:26430 },
+        { id:'lm-pinon-boce',   boom:'standard', coupler:'pin-on', capacityM3:5.2, capacityStruckM3:4.5, type:'Loose Material', cutting:'BOC',   bucketW:3190, wt:2455, dumpClear45:2925, reach45:1495, reachAt2130:2090, reachArmHoriz:3135, opHeight:6270, overallLen:9395, clearCircle:15500, digDepth0:null, digDepth10:null, tipStr:20440, tipFullTurn:17650, breakoutKN:171, opWt:26660 },
+        // High Lift Boom
+        { id:'gp-hl-pinon-boce',boom:'highLift', coupler:'pin-on', capacityM3:3.8, capacityStruckM3:3.2, type:'General Purpose', cutting:'BOC',  bucketW:3170, wt:2108, dumpClear45:3645, reach45:1460, reachAt2130:2510, reachArmHoriz:3330, opHeight:6520, overallLen:9705, clearCircle:15830, digDepth0:null, digDepth10:null, tipStr:17930, tipFullTurn:15520, breakoutKN:206, opWt:27410 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2300, widthOverTyresMm:3060, wheelbaseMm:3450,
+        standardBoom:{ hingePinMaxHeightMm:4370, hingePinCarryPositionMm:580 },
+        highLiftBoom:{ hingePinMaxHeightMm:4870, hingePinCarryPositionMm:730 },
+        groundClearanceMm:520, hitchHeightMm:1200,
+        overallHeightTopOfStackMm:3450, overallHeightROPSCabMm:3500, overallHeightTopOfRoofRailMm:3540,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Engine Komatsu SAA6D125E-7','KDPF aftertreatment',
+        'Alternator 24V/140A','Starting motor 24V/11.0kW',
+        'Batteries large capacity 2×12V/140Ah',
+        'Seat suspension type with reclining, seat-mounted 5-way adjustable console R.H.',
+        'EPC fingertip control with directional selector switch, two levers',
+        'ROPS/FOPS (ISO 3471/ISO 3449) cab','Colour multi-monitor (7" LCD)',
+        'Advanced Joystick Steering System (AJSS)','Auto air conditioner',
+        'Multifunction Audio (AM/FM/AUX/USB/Bluetooth)','DC12V electrical outlets',
+        'Floor mat','Rain visor','Rear defroster (electric)',
+        'Front wiper with washer and intermittent','EMMS','Rear window washer and wiper',
+        'Seatbelt 78mm','Huge utility space','Cup holder',
+        'LED rear working lamps (2)','LED front working lamps (2)',
+        'Additional LED front working lamps (2)','Additional LED rear working lamps (2)',
+        'LED stop and tail lamps','LED turn signal lamps','LED headlamps',
+        'Directional signal','Hazard lamps','LED back-up lights',
+        'Service brakes wet disc type','Back-up alarm','Electric mirror with heater',
+        'Rearview monitoring system','Horn electric','Parking brake electric',
+        'Anchorage points (tie-offs)','Handrails for platform','Handrails for roof',
+        'Step for cleaning window','26.5R25 (L-4) tyres',
+        'Engine shutdown secondary switch','Wide core radiator','Radiator mask swing out',
+        'KHMT (Komatsu Hydraulic Mechanical Transmission)',
+        'Loader linkage with standard boom','2-spool valve for boom and bucket controls',
+        'Counterweight standard and additional','Additional counterweight',
+        'Lift cylinders and bucket cylinder','ECSS (Electronically Controlled Suspension System)',
+        'Remote bucket positioner in-cab adjustable 3 positions',
+        'Remote boom positioner in-cab adjustable',
+        'Komatsu Auto Idle Shutdown','Auto shift control',
+        'Jump start receptacle (Anderson)','Lockable battery and starter isolators',
+        'Hydraulic-driven fan with automatic reverse rotation','Vandalism protection',
+        'Front and rear fenders','Brake cooling system',
+        'Komtrax','ECO guidance','Fuel pre-filter with water separator',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3-spool valve with lever and piping','Steering wheel tiltable telescopic',
+        'Engine pre-cleaner with extension','Front fenders with extensions',
+        'LED headlamps','High-lift boom',
+        'Limited slip differential (F&R)','Multifunction mono-lever loader control with F-N-R switch',
+        'Various bucket options','Various tyre options',
+      ],
+      brochureRef:'Komatsu WA475-10 ANZ Brochure ZESS008100 February 2024',
+      tags:['wheel loader','26t class','EPA Tier 4 Final','KOMTRAX','SCR','KDPF','KHMT','6-cylinder','CLSS','SmartLoader Logic','DEF','CVT','AJSS','LED','construction','mining','quarry'],
+      note:'Komatsu WA475-10 — ANZ spec wheel loader, 26.34–27.41t. Komatsu SAA6D125E-7, 6-cyl turbo/cooled EGR, 125×150mm, 11.04L, 216kW/290HP net (217kW/291HP gross, ISO 14396) @ 1,600rpm. EPA Tier 4 Final — KDPF + SCR, DEF tank 36L. Unique KHMT (Komatsu Hydraulic Mechanical Transmission) — planetary CVT eliminates torque converter for up to 30% better fuel efficiency vs WA470-8. Continuously variable 3.0–38.0 km/h forward. Bucket range 3.8–6.4m³; HD Rock 4.6m³ BOC: static tipping straight 21,150kg (40° 18,300kg), breakout 197.2kN; 8% more breakout and 20% more boom lift force vs WA470-8. Hinge pin 4,370mm (high lift 4,870mm). Min turning radius 6,630mm. Hydraulics: loader 333 l/min / 35.3MPa; 2 lift cyls 150×764mm, bucket 180×540mm; raise 5.8s, dump 1.8s, lower 3.1s. Independent work equipment control (no accelerator needed for work equipment speed). Auto hill holding, automatic digging, travel speed dial, ECSS, AJSS, powered tiltable hood, LED lighting, Komtrax. Service: fuel 380L, DEF 36L, hydraulics 135L, cooling 65L. Source: Komatsu WA475-10 ANZ Brochure ZESS008100 February 2024.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA480-6 ─────────────────────────────────────────────────
+    // Source: Komatsu WA480-6 Brochure CEN00134-03, 201302 (EPA Tier 3 / EU Stage 3A)
+    { id:'kom-wa480-6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA480-6 Wheel Loader', shortName:'Komatsu WA480-6',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D125E-5',
+      engineType:'Water-cooled, 4-cycle, ECOt3 (turbocharged, after-cooled, HPCR direct injection, cooled EGR)',
+      engineCylinders:6,
+      engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04,
+      engineRatedRPM:2000,
+      engineGrossKW:224, engineGrossHP:300,
+      engineNetKW:223, engineNetHP:299,
+      engineMaxTorqueNm:1390, engineMaxTorqueRPM:1400,
+      engineFanDrive:'Hydraulic (reversing fan option)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      engineAirFilter:'Dry type with double elements and dust evacuator',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift with ECMV, countershaft type, large-capacity torque converter (lock-up 3rd/4th optional)',
+      speedRangesFwd:4, speedRangesRev:4,
+      // Speeds km/h with 26.5R25 tyres (lock-up in brackets — optional fitment)
+      maxSpeedFwd1Kmh:5.9,  maxSpeedFwd2Kmh:11.3, maxSpeedFwd3Kmh:20.3, maxSpeedFwd4Kmh:33.2,
+      maxSpeedFwd3LockupKmh:21.5, maxSpeedFwd4LockupKmh:37.0,
+      maxSpeedRev1Kmh:6.2,  maxSpeedRev2Kmh:12.0, maxSpeedRev3Kmh:21.4, maxSpeedRev4Kmh:34.8,
+      maxSpeedRev3LockupKmh:22.5, maxSpeedRev4LockupKmh:40.0,
+      torqueConverterLockup:false, lockupGears:'3rd, 4th (optional)',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'26.5-25-20PR (L3)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes, fully sealed (maintenance-free)',
+      parkingBrake:'Wet multi-disc, adjustment-free',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:195,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:90, steeringCylStrokeMm:441,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:260,
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:881,
+      bucketCylCount:1, bucketCylBoreMm:180, bucketCylStrokeMm:572,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:6.1, hydraulicDumpTimeSec:1.9, hydraulicLowerTimeSec:3.8,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering',
+      steeringAngleDeg:35,
+      minTurningRadiusMm:6630,
+      // ── Operating weights ──
+      operatingWeightKgMin:24870, operatingWeightKgMax:25155,
+      operatingWeightT:25.0,
+      // ── Bucket capacities ──
+      bucketCapM3:4.6,
+      bucketCapRangeM3:'3.8–6.1',
+      // ── Performance (GP 4.6m³ BOC) ──
+      staticTippingLoadStraightKg:20030, staticTippingLoadArticulatedKg:17125,
+      breakoutForceKN:212,
+      hingePinHeightMm:4505,
+      dumpHeightAt45Mm:3205,
+      reachAt45Mm:1410,
+      // ── Dimensions (26.5-25-20PR L3, ROPS/FOPS cab) ──
+      wheelbaseMm:3450,
+      widthOverTyresMm:3010,
+      trackWidthMm:2300,
+      groundClearanceMm:525,
+      overallHeightROPSMm:3500,
+      overallHeightStackMm:3080,
+      hitchHeightMm:1240,
+      // ── Noise ──
+      operatorSoundPressureDB_A:72,
+      exteriorSoundPowerDB_A:112,
+      // ── Service Refill Capacities ──
+      coolantL:61, fuelTankL:413, engineOilL:38,
+      hydraulicSystemL:173, frontAxleL:59, rearAxleL:59,
+      torqueConverterTransL:65,
+      // ── Features ──
+      komtrax:false,
+      electronicSuspensionSystem:'optional',
+      autoIdleShutdown:false,
+      smartLoaderLogic:true,
+      cab:'ROPS/FOPS, pillar-less large cab, PPC fingertip levers, tilt/telescopic steering, EMMS monitor, rear defroster',
+      // ── Full Bucket Configuration Table (26.5-25-20PR L3 tyres) ──
+      bucketConfigs:[
+        { id:'gp-pinon-boce',       boom:'standard', coupler:'pin-on', capacityM3:4.6, capacityStruckM3:4.0, type:'General Purpose', cutting:'BOC',          bucketW:3170, wt:2260, dumpClear45:3205, reach45:1410, reachAt2130:2135, reachArmHoriz:3020, opHeight:6175, overallLen:9170, clearCircle:15400, digDepth0:90,  digDepth10:355, tipStr:20030, tipFullTurn:17125, breakoutKN:212, opWt:25005 },
+        { id:'gp-pinon-boce-teeth', boom:'standard', coupler:'pin-on', capacityM3:4.3, capacityStruckM3:3.8, type:'General Purpose', cutting:'BOC+Teeth',    bucketW:3190, wt:2165, dumpClear45:3080, reach45:1510, reachAt2130:2180, reachArmHoriz:3175, opHeight:6175, overallLen:9325, clearCircle:15500, digDepth0:110, digDepth10:400, tipStr:20110, tipFullTurn:17205, breakoutKN:226, opWt:24910 },
+        { id:'gp-pinon-teeth-boce', boom:'standard', coupler:'pin-on', capacityM3:4.1, capacityStruckM3:3.5, type:'General Purpose', cutting:'Teeth+BOC',    bucketW:3170, wt:2220, dumpClear45:3320, reach45:1295, reachAt2130:2060, reachArmHoriz:2855, opHeight:6025, overallLen:9005, clearCircle:15310, digDepth0:90,  digDepth10:335, tipStr:20060, tipFullTurn:17160, breakoutKN:231, opWt:24965 },
+        { id:'gp-pinon-teeth-seg',  boom:'standard', coupler:'pin-on', capacityM3:4.1, capacityStruckM3:3.5, type:'General Purpose', cutting:'Teeth+Segments',bucketW:3190, wt:2255, dumpClear45:3195, reach45:1395, reachAt2130:2110, reachArmHoriz:3010, opHeight:6025, overallLen:9160, clearCircle:15420, digDepth0:110, digDepth10:380, tipStr:20030, tipFullTurn:17130, breakoutKN:237, opWt:25000 },
+        { id:'excav-pinon-teeth',   boom:'standard', coupler:'pin-on', capacityM3:3.8, capacityStruckM3:3.2, type:'Excavating',     cutting:'Teeth',         bucketW:3190, wt:2125, dumpClear45:3195, reach45:1395, reachAt2130:2110, reachArmHoriz:3010, opHeight:6025, overallLen:9160, clearCircle:15420, digDepth0:110, digDepth10:380, tipStr:20145, tipFullTurn:17240, breakoutKN:249, opWt:24870 },
+        { id:'lm-pinon-boce',       boom:'standard', coupler:'pin-on', capacityM3:4.9, capacityStruckM3:4.2, type:'Loose Material', cutting:'BOC',           bucketW:3170, wt:2340, dumpClear45:3150, reach45:1465, reachAt2130:2165, reachArmHoriz:3100, opHeight:6175, overallLen:9250, clearCircle:15440, digDepth0:90,  digDepth10:375, tipStr:19960, tipFullTurn:17055, breakoutKN:196, opWt:25085 },
+        { id:'stockpile-pinon-boce',boom:'standard', coupler:'pin-on', capacityM3:6.1, capacityStruckM3:5.2, type:'Stockpile',      cutting:'BOC',           bucketW:3170, wt:2410, dumpClear45:3080, reach45:1535, reachAt2130:2205, reachArmHoriz:3195, opHeight:6450, overallLen:9345, clearCircle:15490, digDepth0:90,  digDepth10:385, tipStr:19900, tipFullTurn:16995, breakoutKN:189, opWt:25155 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2300, widthOverTyresMm:3010, wheelbaseMm:3450,
+        standardBoom:{ hingePinMaxHeightMm:4505, hingePinCarryPositionMm:585 },
+        groundClearanceMm:525, hitchHeightMm:1240,
+        overallHeightTopOfStackMm:3080, overallHeightROPSCabMm:3500,
+      },
+      // ── Weight Changes ──
+      weightChanges:[
+        { tyreOrAttachment:'26.5-25-20PR(L-3)',          deltaOpWtKg:0,    deltaTipStraightKg:0,    deltaTipFullTurnKg:0,    widthOverTyresMm:3010, groundClearanceMm:525, deltaVerticalMm:0 },
+        { tyreOrAttachment:'26.5-25-20PR(L-4)',          deltaOpWtKg:+360, deltaTipStraightKg:+250, deltaTipFullTurnKg:+220, widthOverTyresMm:3010, groundClearanceMm:525, deltaVerticalMm:0 },
+        { tyreOrAttachment:'Install additional counterweight', deltaOpWtKg:+400, deltaTipStraightKg:+980, deltaTipFullTurnKg:+850, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '2-spool valve for boom and bucket controls','Alternator 50A',
+        'Auto shift transmission with mode select system',
+        'Back-up alarm','Back-up lamp','Batteries 136Ah/12V×2',
+        'Counterweight','Directional signal',
+        'Engine Komatsu SAA6D125E-5 diesel',
+        'Engine shut-off system electric','Hard water area arrangement (corrosion resister)',
+        'Hydraulic-driven fan with reverse rotation',
+        'Lift cylinders and bucket cylinder','Main monitor panel with EMMS',
+        'PPC fingertip control two levers',
+        'Radiator mask lattice type','Rear defroster (electric)','Rearview mirror for cab',
+        'ROPS/FOPS cab','Seat belt','Seat suspension type with reclining',
+        'Service brakes wet disc type','Starting motor 7.5kW/24V',
+        'Steering wheel tiltable telescopic','Sun visor',
+        'Tyres 26.5-25-20PR tubeless and rims','Transmission 4F/4R',
+        'Rear window washer and wiper',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '12V converter','3-spool valve','Additional counterweight',
+        'Air conditioner','AM/FM radio','AM/FM stereo radio cassette',
+        'Auto air conditioner','Batteries 140Ah/12V×2',
+        'Bucket teeth bolt-on type','Bucket teeth tip type',
+        'Cutting edge (bolt-on type)','Deluxe suspension seat',
+        'ECSS (Electronically Controlled Suspension System)','Emergency steering (SAE)',
+        'Engine pre-cleaner with extension','Fire extinguisher','Floor mat',
+        'Front fender','Joystick steering','Load meter (new type)',
+        'Lock-up clutch torque converter',
+        'Ordinary spare parts','Power train guard',
+        'Seat air suspension with automatic weight adjustment',
+        'Segment edges','Tool kit','Vandalism protection kit',
+        'Limited slip differential (F&R)',
+      ],
+      brochureRef:'Komatsu WA480-6 ANZ Brochure CEN00134-03 (201302); EU Brochure VESS001003 (12/2010)',
+      tags:['wheel loader','25t class','EPA Tier 3','ECOt3','6-cylinder','CLSS','SmartLoader Logic','torque converter','construction','mining','quarry','stockpile'],
+      note:'Komatsu WA480-6 — ANZ spec wheel loader, ~24.87–25.16t. Komatsu SAA6D125E-5, 6-cyl ECOt3 turbo/aftercooled HPCR/cooled EGR, 125×150mm, 11.04L, 224kW/300HP gross (223kW/299HP net) @ 2,000rpm; max torque 1,390Nm @ 1,400rpm. EPA Tier 3/EU Stage 3A. Large-capacity torque converter (lock-up 3rd/4th optional), ECMV auto shift transmission, CLSS variable displacement piston pump. Travel speeds (26.5R25): 1st 5.9/6.2, 2nd 11.3/12.0, 3rd 20.3/21.4 (lock-up 21.5/22.5), 4th 33.2/34.8 (lock-up 37.0/40.0) km/h F/R. Bucket range 3.8–6.1m³; GP 4.6m³ BOC: static tipping straight 20,030kg (40° full turn 17,125kg), breakout 212kN; dump clearance 3,205mm @ 45°. Hinge pin 4,505mm. Min turning radius 6,630mm (26.5-25 tyres). Hydraulics: loader 260 l/min / 34.3MPa; 2 lift cyls 140×881mm, bucket 180×572mm; raise 6.1s, dump 1.9s, lower 3.8s. EMMS, PPC fingertip levers, pillar-less large SpaceCab. Service: fuel 413L, hydraulics 173L, cooling 61L. Engine bore/stroke/displacement/torque and travel speeds confirmed from Komatsu EU Brochure VESS001003; all other specs from Komatsu ANZ Brochure CEN00134-03.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA480-8 ─────────────────────────────────────────────────
+    // Source: Komatsu WA480-8 ANZ Brochure ZESS008100_June2023 (EPA Tier 4 Final)
+    { id:'kom-wa480-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA480-8 Wheel Loader', shortName:'Komatsu WA480-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D125E-7',
+      engineType:'Water-cooled, 4-cycle, turbo-charged, after-cooled, cooled EGR, direct injection',
+      engineCylinders:6,
+      engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04,
+      engineRatedRPM:2000,
+      engineGrossKW:224, engineGrossHP:null,   // gross stated as "224 kW" in spec table
+      engineNetKW:223, engineNetHP:299,
+      engineMaxTorqueNm:1510, engineMaxTorqueRPM:1400,
+      engineFanDrive:'Hydraulic (auto-reversing, variable speed, swing-out fan)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator (air cleaner on left-side platform)',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift, countershaft type with large-capacity torque converter (lock-up 2nd/3rd/4th, 3-mode: E/P/E-light)',
+      speedRangesFwd:4, speedRangesRev:4,
+      // P-mode, 26.5-R25 tyres (lock-up in brackets)
+      maxSpeedFwd1Kmh:7.3,  maxSpeedFwd2Kmh:12.7, maxSpeedFwd3Kmh:22.2, maxSpeedFwd4Kmh:35.4,
+      maxSpeedFwd2LockupKmh:13.3, maxSpeedFwd3LockupKmh:23.8, maxSpeedFwd4LockupKmh:38.5,
+      maxSpeedRev1Kmh:7.5,  maxSpeedRev2Kmh:13.1, maxSpeedRev3Kmh:22.9, maxSpeedRev4Kmh:36.6,
+      maxSpeedRev2LockupKmh:13.8, maxSpeedRev3LockupKmh:24.5, maxSpeedRev4LockupKmh:39.0,
+      torqueConverterLockup:true, lockupGears:'2nd, 3rd, 4th',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 26° total oscillation, brake cooling system',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'26.5-5R25 (L-4)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes incorporating brake cooling system',
+      parkingBrake:'Wet disc brake (electric)',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston type',
+      steeringPumpCapacityLpm:195,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:90, steeringCylStrokeMm:441,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:260,
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:140, boomCylStrokeMm:881,
+      bucketCylCount:1, bucketCylBoreMm:180, bucketCylStrokeMm:572,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:6.4, hydraulicDumpTimeSec:1.9, hydraulicLowerTimeSec:3.8,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:35,
+      minTurningRadiusMm:6630,
+      // ── Operating weights ──
+      operatingWeightKgMin:25960, operatingWeightKgMax:27810,
+      operatingWeightT:26.6,
+      // ── Bucket capacities ──
+      bucketCapM3:4.6,
+      bucketCapRangeM3:'4.6–6.8',
+      // ── Performance (GP 4.6m³ pin-on BOC) ──
+      staticTippingLoadStraightKg:20205, staticTippingLoadArticulatedKg:17540,
+      breakoutForceKN:206,
+      hingePinHeightMm:4535,
+      dumpHeightAt45Mm:3165,
+      reachAt45Mm:1440,
+      // ── Dimensions (26.5-5R25 L-4, ROPS/FOPS cab) ──
+      wheelbaseMm:3450,
+      widthOverTyresMm:3010,   // standard loader
+      trackWidthMm:2300,
+      groundClearanceMm:555,
+      overallHeightROPSMm:3605,
+      overallHeightStackMm:3250,
+      hitchHeightMm:1240,
+      // ── Noise ──
+      operatorSoundPressureDB_A:72,
+      exteriorSoundPowerDB_A:112,
+      // ── Service Refill Capacities ──
+      coolantL:81, fuelTankL:380, engineOilL:38,
+      hydraulicSystemL:173, frontAxleL:59, rearAxleL:59,
+      torqueConverterTransL:65, defTankL:36,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      electronicSuspensionSystem:'standard (ECSS)',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (auto lube system)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      ajss:true,
+      automaticDigging:true,
+      integratedLoadMetre:true,
+      cab:'ROPS/FOPS Level 2, heated air-suspension seat with EPC console, AJSS, auto A/C, 7" LCD monitor, tilt/telescopic steering (optional), AM/FM+AUX, rear defroster, E-Stop, new bucket design with curved leading edges',
+      // ── Full Bucket Configuration Table (26.5-5R25 L-4, standard boom) ──
+      bucketConfigs:[
+        { id:'gp-pinon-boce',   boom:'standard', coupler:'pin-on', capacityM3:4.6, capacityStruckM3:4.0, type:'General Purpose',  cutting:'BOC',   bucketW:3170, wt:2387, dumpClear45:3165, reach45:1440, reachAt2130:2165, reachArmHoriz:3080, opHeight:6280, overallLen:9375, clearCircle:15420, digDepth0:90,  digDepth10:365, tipStr:20205, tipFullTurn:17540, breakoutKN:206, opWt:25960 },
+        { id:'lm-pinon-boce-50',boom:'standard', coupler:'pin-on', capacityM3:5.0, capacityStruckM3:4.3, type:'Loose Material',   cutting:'BOC',   bucketW:3170, wt:2458, dumpClear45:3055, reach45:1580, reachAt2130:2235, reachArmHoriz:3255, opHeight:6405, overallLen:9475, clearCircle:15475, digDepth0:60,  digDepth10:370, tipStr:21120, tipFullTurn:18190, breakoutKN:193, opWt:27430 },
+        { id:'lm-pinon-boce-55',boom:'standard', coupler:'pin-on', capacityM3:5.5, capacityStruckM3:5.0, type:'Yard Loader',      cutting:'BOC',   bucketW:3190, wt:2608, dumpClear45:3025, reach45:1600, reachAt2130:2240, reachArmHoriz:3274, opHeight:6375, overallLen:9575, clearCircle:15525, digDepth0:90,  digDepth10:400, tipStr:21320, tipFullTurn:18370, breakoutKN:182, opWt:27580 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2300, widthOverTyresMm:3010, wheelbaseMm:3450,
+        standardBoom:{ hingePinMaxHeightMm:4535, hingePinCarryPositionMm:585 },
+        groundClearanceMm:555, hitchHeightMm:1240,
+        overallHeightTopOfStackMm:3250, overallHeightROPSCabMm:3605,
+        yardLoaderTreadMm:2314, yardLoaderWidthOverTyresMm:3150,
+        overallHeightTopOfAirBrakeCoolingYardLoaderMm:3630,
+      },
+      // ── Weight Changes ──
+      weightChanges:[
+        { tyreOrAttachment:'26.5-25-20PR(L-4)',         deltaOpWtKg:+340, deltaTipStraightKg:+239, deltaTipFullTurnKg:+211, widthOverTyresMm:3010, groundClearanceMm:525, deltaVerticalMm:0 },
+        { tyreOrAttachment:'Remove additional counterweight', deltaOpWtKg:-378, deltaTipStraightKg:-924, deltaTipFullTurnKg:-769, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '2-spool valve for boom and bucket control',
+        'Advanced Joystick Steering System (AJSS)','Alternator 90A',
+        'Auto shift transmission with mode select system',
+        'Auto lube system','Automatic digging system',
+        'Automatic hydraulic-driven fan with automatic reverse rotation',
+        'Back-up alarm','Batteries 140Ah/12V (2) 930 CCA',
+        'Battery disconnect with lockout',
+        'Boom kick-out in-cab adjustable',
+        'Bucket positioner in-cab adjustable 3 positions',
+        'Colour rear-view camera and monitor',
+        'Counterweight standard and additional','Cutting edge (bolt-on type)',
+        'ECSS (Electronically Controlled Suspension System)',
+        'Engine Komatsu SAA6D125E-7 diesel','Engine shut-off system electric',
+        'EPC fingertip controls with F-N-R switch, two levers',
+        'EMMS','Front fenders','Fuel pre-filter with water separator',
+        'Horn electric','Integrated Load Metre (2-lever only)',
+        'Komatsu SmartLoader Logic','Komatsu Auto Idle Shutdown','Komtrax Level 5',
+        'Lift cylinders and bucket cylinder',
+        'Lights: LED back-up, LED stop/tail, LED turn signals 2F+2R with hazard, halogen working 2 front cab, 2 front fender, 2 rear grill',
+        'Loader linkage with standard lift arm','Lock-up torque converter',
+        'Parking brake electric','Radiator wider core','Radiator mask swing out',
+        'Rear full fenders','Rear view mirrors outside (2) inside (2)',
+        'Rims for 26.5-25 tyres',
+        'ROPS/FOPS Cab Level 2 with: 2×DC12V outlets, ashtray, auto A/C, cigarette lighter 24V, colour LCD/TFT multi-monitor, cup holder, floor mat, heated air-suspension seat, AM/FM+AUX radio, rear defroster electric, seatbelt 76mm 2-point, lunch box space, tilt/telescopic steering, sun visor, front and rear wipers',
+        'Service brakes wet disc type','Starting motor 7.5kW',
+        'Transmission 4F/4R','Vandalism protection kit (2 padlocks)',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Auxiliary steering (SAE)','Block heater and oil pan heater',
+        'Engine pre-cleaner with extension',
+        'Limited slip differential (F&R)','Load Metre Printer (2-lever only)',
+        'Monolever loader control with transmission F-N-R switch (not compatible with AJSS)',
+        'Various tyre options radial and bias','Various bucket options',
+      ],
+      brochureRef:'Komatsu WA480-8 ANZ Brochure ZESS008100 June 2023',
+      tags:['wheel loader','26t class','EPA Tier 4 Final','KOMTRAX','SCR','KDPF','6-cylinder','CLSS','SmartLoader Logic','DEF','torque converter','lock-up','AJSS','ECSS','construction','mining','quarry','yard loader'],
+      note:'Komatsu WA480-8 — ANZ spec wheel loader (including Yard Loader arrangement), 25.96–27.81t. Komatsu SAA6D125E-7, 6-cyl turbo/cooled EGR, 125×150mm, 11.04L, 223kW/299HP net (224kW gross) @ 2,000rpm. EPA Tier 4 Final — KDPF + SCR, DEF tank 36L. Up to 20% better fuel efficiency vs WA480-6. Large-capacity torque converter with lock-up 2nd/3rd/4th, 3-mode power select (E/P/E-light). SmartLoader Logic, CLSS piston pump. Top speed 35.4 km/h (38.5 lock-up). Bucket range 4.6–6.8m³ (Yard Loader 5.5m³ 3-pass); GP 4.6m³ BOC: static tipping straight 20,205kg (40° 17,540kg), breakout 206kN. Hinge pin 4,535mm. Min turning radius 6,630mm. Hydraulics: loader 260 l/min / 34.3MPa; 2 lift cyls 140×881mm, bucket 180×572mm; raise 6.4s, dump 1.9s, lower 3.8s. ECSS, AJSS, automatic digging, integrated load metre, rearview camera, Komtrax Level 5. Service: fuel 380L, DEF 36L, hydraulics 173L, cooling 81L. Source: Komatsu WA480-8 ANZ Brochure ZESS008100 June 2023.',
+      hireRateType:'wet_or_dry' },
+
+
+    // ── WA500-7 ─────────────────────────────────────────────────
+    // Source: Komatsu WA500-7 ANZ Brochure ZESB081000_OCT2016 (EPA Tier 4 Interim / EU Stage 3B)
+    { id:'kom-wa500-7', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA500-7 Wheel Loader', shortName:'Komatsu WA500-7',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D140E-6',
+      engineType:'Water-cooled, 4-cycle, turbocharged, aftercooled, cooled EGR, direct injection (HPCR)',
+      engineCylinders:6,
+      engineBoreMm:140, engineStrokeMm:165,
+      engineDisplacementL:15.24,
+      engineRatedRPM:1900,
+      engineGrossKW:266, engineGrossHP:357,
+      engineNetKW:263, engineNetHP:353,
+      engineNetKWAtMaxFan:250, engineNetHPAtMaxFan:335,
+      engineMaxTorqueNm:null, engineMaxTorqueRPM:null,
+      engineFanDrive:'Hydraulic (auto-reversing, variable speed, swing-out fan)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Interim / EU Stage 3B',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter)',
+      engineAirFilter:'Dry type with double elements and dust evacuator + indicator',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift, countershaft type with large-capacity torque converter (lock-up 2nd/3rd/4th)',
+      speedRangesFwd:4, speedRangesRev:4,
+      // P-mode, 29.5-R25 tyres (lock-up in brackets)
+      maxSpeedFwd1Kmh:7.5,  maxSpeedFwd2Kmh:12.9, maxSpeedFwd3Kmh:22.2, maxSpeedFwd4Kmh:35.5,
+      maxSpeedFwd2LockupKmh:13.1, maxSpeedFwd3LockupKmh:23.7, maxSpeedFwd4LockupKmh:37.3,
+      maxSpeedRev1Kmh:8.5,  maxSpeedRev2Kmh:12.9, maxSpeedRev3Kmh:24.7, maxSpeedRev4Kmh:38.0,
+      maxSpeedRev2LockupKmh:13.0, maxSpeedRev3LockupKmh:26.6, maxSpeedRev4LockupKmh:38.0,
+      torqueConverterLockup:true, lockupGears:'2nd, 3rd, 4th',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, semi-floating',
+      rearAxle:'Centre-pin support, semi-floating, 24° total oscillation',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'29.5R25 (BS L5 VSDL)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet multiple-disc brakes on four wheels',
+      parkingBrake:'Wet multiple-disc brake',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:120,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:100, steeringCylStrokeMm:486,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:320,
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:160, boomCylStrokeMm:898,
+      bucketCylCount:1, bucketCylBoreMm:185, bucketCylStrokeMm:675,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:7.2, hydraulicDumpTimeSec:1.7, hydraulicLowerTimeSec:4.2,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering',
+      steeringAngleDeg:36,
+      minTurningRadiusMm:7050,
+      // ── Operating weights ──
+      operatingWeightKgMin:37255, operatingWeightKgMax:37725,
+      operatingWeightT:37.5,
+      // ── Bucket capacities ──
+      bucketCapM3:5.6,
+      bucketCapRangeM3:'5.6–7.0',
+      // ── Performance (GP 5.6m³ KGA BOCE) ──
+      staticTippingLoadStraightKg:28320, staticTippingLoadArticulatedKg:25160,
+      breakoutForceKN:281,
+      hingePinHeightMm:4755,
+      dumpHeightAt45Mm:3315,
+      reachAt45Mm:1530,
+      // ── Dimensions (29.5-R25 LS VSDL, ROPS/FOPS cab) ──
+      wheelbaseMm:3780,
+      widthOverTyresMm:3190,
+      trackWidthMm:2400,
+      groundClearanceMm:450,
+      overallHeightROPSMm:3785,
+      overallHeightStackMm:3665,
+      hitchHeightMm:1115,
+      // ── Noise ──
+      operatorSoundPressureDB_A:73,
+      exteriorSoundPowerDB_A:111,
+      // ── Service Refill Capacities ──
+      coolantL:133, fuelTankL:473, engineOilL:37,
+      hydraulicSystemL:337, frontAxleL:95, rearAxleL:95,
+      torqueConverterTransL:71, defTankL:null,
+      // ── Features ──
+      komtrax:true,
+      electronicSuspensionSystem:'standard (ECSS)',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (Autogrease System)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      ajss:false,
+      automaticDigging:false,
+      integratedLoadMetre:false,
+      cab:'ROPS/FOPS cab, air-suspension seat with EPC console, auto A/C, 7" colour LCD monitor, tilt/telescopic steering, AM/FM+AUX, 12V outlets, rear defroster, rear view monitoring system',
+      // ── Full Bucket Configuration Table (29.5-R25 LS VSDL, standard boom) ──
+      bucketConfigs:[
+        { id:'gp-kga-boce-56', boom:'standard', coupler:'pin-on', capacityM3:5.6, capacityStruckM3:4.9, type:'General Purpose', cutting:'KGA BOCE', bucketW:3400, wt:3700, dumpClear45:3315, reach45:1530, reachAt2130:null, reachArmHoriz:null, opHeight:6595, overallLen:9955, clearCircle:16610, digDepth0:135, digDepth10:440, tipStr:28320, tipFullTurn:25160, breakoutKN:281, opWt:37255 },
+        { id:'gp-kga-boce-64', boom:'standard', coupler:'pin-on', capacityM3:6.4, capacityStruckM3:5.6, type:'General Purpose', cutting:'KGA BOCE', bucketW:3400, wt:3860, dumpClear45:3235, reach45:1600, reachAt2130:null, reachArmHoriz:null, opHeight:6760, overallLen:10055, clearCircle:16665, digDepth0:135, digDepth10:460, tipStr:28035, tipFullTurn:24885, breakoutKN:267, opWt:37415 },
+        { id:'lm-kga-boce-70', boom:'standard', coupler:'pin-on', capacityM3:7.0, capacityStruckM3:6.1, type:'Loose Material', cutting:'KGA BOCE', bucketW:3510, wt:4170, dumpClear45:3185, reach45:1655, reachAt2130:null, reachArmHoriz:null, opHeight:6820, overallLen:10130, clearCircle:16795, digDepth0:135, digDepth10:470, tipStr:27605, tipFullTurn:24465, breakoutKN:257, opWt:37725 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2400, widthOverTyresMm:3190, wheelbaseMm:3780,
+        standardBoom:{ hingePinMaxHeightMm:4755, hingePinCarryPositionMm:575 },
+        groundClearanceMm:450, hitchHeightMm:1115,
+        overallHeightTopOfStackMm:3665, overallHeightROPSCabMm:3785,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Alternator 24V/90A','Batteries 2×12V/160Ah',
+        'Engine Komatsu SAA6D140E-6','KDPF (Diesel Particulate Filter)',
+        'Starting motor 24V/11.0kW',
+        '2×DC12V electrical outlets','Auto air conditioner',
+        'AM/FM radio with AUX input jack','Ashtray','Cigarette lighter',
+        'Colour multi-monitor','Cup holder','Floor mat',
+        'Front wiper (with washer and intermittent)','Rear defroster (electric)',
+        'Rear window washer and wiper','ROPS/FOPS (ISO 3471/ISO 3449) cab',
+        'Seat air suspension with automatic weight adjustment','Seat belt',
+        'Space for lunch box','Steering wheel tiltable, telescopic','Sun visor',
+        'Back-up alarm','Engine shutdown secondary switch','Hand rails for platform',
+        'Horn electric','Parking brake','Rear view monitoring system',
+        'Service brakes wet disc type','3×E-Stops (1 cab, 2 rear)',
+        'Secondary steering (ISO 5010)','Tyres 29.5R25 (BS L5 VSDL)',
+        '2-spool valve for boom and bucket controls','Auto idle shutdown',
+        'Auto shift transmission with mode select system','Lockable battery isolator',
+        'Automatic greasing system','Counterweight (logging type)',
+        'Additional counterweight (900kg)','Power train guard','ECO guidance',
+        'ECSS (Electronically Controlled Suspension System)',
+        'EMMS (Equipment Management Monitoring System)',
+        'Engine shut-off system electric',
+        'Electronic pilot control fingertip levers with leveller and positioner',
+        'Front fender','Full rear fenders','Fuel pre-filter with water separator',
+        'Hydraulic-driven fan with reverse rotation',
+        'Lift cylinders and bucket cylinder','KOMTRAX','Loader linkage with standard boom',
+        'Lock-up clutch torque converter','Radiator mask lattice type',
+        'Remote boom positioner','Remote bucket positioner','Transmission 4F/4R',
+        'Vandalism protection kit','Wide coolers (excl. condenser)',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Fire suppression system','Fire extinguishers','Broadband reverse alarm',
+        'Lockable starter isolation','Limited slip differential (F&R) — factory order only',
+        'Bluetooth CD Radio AM/FM','UHF/CB Radio','Wiggins fast fuel',
+        'Jump start receptacle','LED worklights','Scales','Various bucket options',
+      ],
+      // ── Weight Changes ──
+      // Weight change table not available in this brochure extraction
+      weightChanges:[],
+      brochureRef:'Komatsu WA500-7 ANZ Brochure ZESB081000_OCT2016',
+      tags:['wheel loader','37t class','EPA Tier 4 Interim','EU Stage 3B','KOMTRAX','KDPF','6-cylinder','CLSS','SmartLoader Logic','torque converter','lock-up','ECSS','construction','mining','quarry'],
+      note:'Komatsu WA500-7 — ANZ spec wheel loader, 37.3–37.7t. Komatsu SAA6D140E-6, 6-cyl HPCR turbo/cooled EGR, 140×165mm, 15.24L, 263kW/353HP net (266kW/357HP gross) @ 1,900rpm. EPA Tier 4 Interim / EU Stage 3B — KDPF. 7% fuel reduction vs WA500-6. Large-capacity torque converter with lock-up 2nd/3rd/4th, SmartLoader Logic, CLSS piston pump. Top speed 35.5 km/h (37.3 lock-up). Bucket range 5.6–7.0m³; GP 5.6m³ KGA BOCE: static tipping straight 28,320kg (40° 25,160kg), breakout 281kN. Hinge pin 4,755mm. Min turning radius 7,050mm. Hydraulics: loader 320 l/min / 34.3MPa; 2 lift cyls 160×898mm, bucket 185×675mm; raise 7.2s, dump 1.7s, lower 4.2s. ECSS, EPC levers, Autogrease system, colour rear view camera. Service: fuel 473L, hydraulics 337L, cooling 133L. Source: Komatsu WA500-7 ANZ Brochure ZESB081000_OCT2016.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA500-8 ─────────────────────────────────────────────────
+    // Source: Komatsu WA500-8 ANZ Brochure ZESS004200_AUGUST2018 (EPA Tier 4 Final)
+    { id:'kom-wa500-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA500-8 Wheel Loader', shortName:'Komatsu WA500-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D140E-7',
+      engineType:'Water-cooled, 4-cycle, variable geometry turbo-charged, after-cooled, cooled EGR, direct injection (HPCR)',
+      engineCylinders:6,
+      engineBoreMm:140, engineStrokeMm:165,
+      engineDisplacementL:15.24,
+      engineRatedRPM:1900,
+      engineGrossKW:266, engineGrossHP:357,
+      engineNetKW:263, engineNetHP:353,
+      engineMaxTorqueNm:null, engineMaxTorqueRPM:null,
+      engineFanDrive:'Hydraulic (auto-reversing variable speed, swing-out fan, Turbo II pre-cleaner)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator + indicator; Turbo II centrifugal pre-cleaner (standard)',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift, planetary type with large-capacity torque converter (lock-up 2nd/3rd/4th)',
+      speedRangesFwd:4, speedRangesRev:4,
+      // P-mode, 29.5-25 tyres (lock-up in brackets)
+      maxSpeedFwd1Kmh:7.5,  maxSpeedFwd2Kmh:12.9, maxSpeedFwd3Kmh:22.2, maxSpeedFwd4Kmh:35.5,
+      maxSpeedFwd2LockupKmh:13.1, maxSpeedFwd3LockupKmh:23.7, maxSpeedFwd4LockupKmh:37.3,
+      maxSpeedRev1Kmh:8.5,  maxSpeedRev2Kmh:12.9, maxSpeedRev3Kmh:24.7, maxSpeedRev4Kmh:38.0,
+      maxSpeedRev2LockupKmh:13.0, maxSpeedRev3LockupKmh:26.6, maxSpeedRev4LockupKmh:38.0,
+      torqueConverterLockup:true, lockupGears:'2nd, 3rd, 4th',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, full-floating',
+      rearAxle:'Centre-pin support, full-floating, 20° total oscillation',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'29.5R25 L5',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet disc brakes on four wheels',
+      parkingBrake:'Wet disc brake (electric)',
+      secondaryBrake:'Parking brake commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:120,
+      steeringReliefMPa:24.5,
+      steeringCylCount:2, steeringCylBoreMm:100, steeringCylStrokeMm:486,
+      loaderPumpType:'Piston pump (CLSS)',
+      loaderPumpCapacityLpm:320,
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:160, boomCylStrokeMm:898,
+      bucketCylCount:1, bucketCylBoreMm:185, bucketCylStrokeMm:675,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:7.2, hydraulicDumpTimeSec:1.7, hydraulicLowerTimeSec:4.2,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:36,
+      minTurningRadiusMm:7050,
+      // ── Operating weights ──
+      operatingWeightKgMin:36290, operatingWeightKgMax:38125,
+      operatingWeightT:37.2,
+      // ── Bucket capacities ──
+      bucketCapM3:5.6,
+      bucketCapRangeM3:'4.5–7.0',
+      // ── Performance (GP 5.6m³ KGA BOCE standard boom) ──
+      staticTippingLoadStraightKg:28070, staticTippingLoadArticulatedKg:25365,
+      breakoutForceKN:241,
+      hingePinHeightMm:4755,
+      dumpHeightAt45Mm:3315,
+      reachAt45Mm:1530,
+      // ── Dimensions (29.5 R25 L5, ROPS/FOPS cab) ──
+      wheelbaseMm:3780,
+      widthOverTyresMm:3190,
+      trackWidthMm:2400,
+      groundClearanceMm:450,
+      overallHeightROPSMm:3785,
+      overallHeightStackMm:3665,
+      hitchHeightMm:1115,
+      // ── Noise ──
+      operatorSoundPressureDB_A:72,
+      exteriorSoundPowerDB_A:109,
+      // ── Service Refill Capacities ──
+      coolantL:110, fuelTankL:473, engineOilL:37,
+      hydraulicSystemL:337, frontAxleL:95, rearAxleL:95,
+      torqueConverterTransL:71, defTankL:36,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      electronicSuspensionSystem:'standard (ECSS)',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (10kg reservoir, ground level refill)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      ajss:true,
+      automaticDigging:true,
+      integratedLoadMetre:false,
+      cab:'ROPS/FOPS Level 2, heated air-suspension seat with EPC console, AJSS, auto A/C, 7" colour LCD monitor, AM/FM+AUX, 2×12V outlets, rear defroster, E-Stop (cabin + 2 rear), secondary steering, rearview camera, service centre for engine/hydraulic/transmission oils',
+      // ── Full Bucket Configuration Table (29.5 R25 L5) ──
+      bucketConfigs:[
+        // Standard Boom
+        { id:'gp-kga-boce-56', boom:'standard', coupler:'pin-on', capacityM3:5.6, capacityStruckM3:4.9, type:'General Purpose',  cutting:'KGA BOCE', bucketW:3400, wt:3725, dumpClear45:3315, reach45:1530, reachAt2130:null, reachArmHoriz:null, opHeight:6595, overallLen:9955,  clearCircle:16610, digDepth0:135, digDepth10:440, tipStr:28070, tipFullTurn:25365, breakoutKN:241, opWt:36965 },
+        { id:'lm-kga-boce-61', boom:'standard', coupler:'pin-on', capacityM3:6.1, capacityStruckM3:5.3, type:'Loose Material',   cutting:'KGA BOCE', bucketW:3400, wt:3825, dumpClear45:3270, reach45:1560, reachAt2130:null, reachArmHoriz:null, opHeight:6695, overallLen:10005, clearCircle:16635, digDepth0:135, digDepth10:445, tipStr:27920, tipFullTurn:25220, breakoutKN:234, opWt:37065 },
+        // Yard Loader
+        { id:'gp-kga-boce-64-yl', boom:'yard_loader', coupler:'pin-on', capacityM3:6.4, capacityStruckM3:5.6, type:'General Purpose',  cutting:'KGA BOCE', bucketW:3400, wt:3880, dumpClear45:3235, reach45:1600, reachAt2130:null, reachArmHoriz:null, opHeight:6760, overallLen:10055, clearCircle:16665, digDepth0:135, digDepth10:460, tipStr:28910, tipFullTurn:26025, breakoutKN:267, opWt:37815 },
+        { id:'lm-kga-boce-70-yl', boom:'yard_loader', coupler:'pin-on', capacityM3:7.0, capacityStruckM3:6.1, type:'Loose Material',   cutting:'KGA BOCE', bucketW:3510, wt:4190, dumpClear45:3185, reach45:1655, reachAt2130:null, reachArmHoriz:null, opHeight:6820, overallLen:10130, clearCircle:16795, digDepth0:135, digDepth10:470, tipStr:28490, tipFullTurn:25615, breakoutKN:257, opWt:38125 },
+        // High Lift Boom
+        { id:'gp-boce-45-hl',    boom:'high_lift',   coupler:'pin-on', capacityM3:4.5, capacityStruckM3:3.7, type:'General Purpose',  cutting:'BOCE',     bucketW:3400, wt:2885, dumpClear45:3890, reach45:1435, reachAt2130:null, reachArmHoriz:null, opHeight:6715, overallLen:10130, clearCircle:16630, digDepth0:210, digDepth10:470, tipStr:24075, tipFullTurn:21700, breakoutKN:286, opWt:36290 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2400, widthOverTyresMm:3190, wheelbaseMm:3780,
+        standardBoom:{ hingePinMaxHeightMm:4755, hingePinCarryPositionMm:575 },
+        highLiftBoom:{ hingePinMaxHeightMm:5165, hingePinCarryPositionMm:700 },
+        groundClearanceMm:450, hitchHeightMm:1115,
+        overallHeightTopOfStackMm:3665, overallHeightROPSCabMm:3785,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Automatic hydraulic-driven fan with automatic reverse rotation',
+        'Engine Komatsu SAA6D140E-7 diesel','Fuel pre-filter with separator',
+        'Komatsu SmartLoader Logic','Radiator mask swing out','Radiator wider core',
+        'Turbo II engine pre-cleaner with extension',
+        'Alternator 90A','Batteries 160Ah/12V (2)','Komatsu Auto Idle Shutdown',
+        'LED back-up light','LED flashing beacon with guard','LED stop and tail light',
+        'Turn signal 2 front 2 rear with hazard switch',
+        'Working lights 2× halogen + 2× LED front cab mount',
+        'Working lights halogen 2 front fender mount',
+        'LED working lights 2 rear cab mount','Starting motor 11kW',
+        '2×DC12V electrical outlets','Advanced Joystick Steering System (AJSS)',
+        'Auto air conditioner','Colour LCD/TFT multi-monitor',
+        'Door LH and RH egress','ECSS (Electronically Controlled Suspension System)',
+        'EMMS (Equipment Management Monitoring System)',
+        'Floor mat','Heated air-suspension seat (reclining)','AM/FM radio with AUX input jack',
+        'Rear defroster electric','ROPS/FOPS Cab Level 2',
+        'Seatbelt 2-point retractable 76mm','Sun visor','Front and rear wipers',
+        'Back-up alarm','Colour rear view camera and monitor',
+        'Emergency stop switches (3)','Horn electric','Lockable battery isolation switch',
+        'Mount provision for fire suppression','Parking brake electric',
+        'Rear view mirrors outside (2) inside (2)','Service brakes wet disc type',
+        'Tyres 29.5R25 L5',
+        '2-spool valve for boom and bucket control','Advanced steering system',
+        'Auto shift transmission with mode select system','Automatic digging system',
+        'Automatic greasing system with ground refill','Auxiliary steering (SAE)',
+        'Boom kick-out in-cab adjustable','Brake cooling system',
+        'Bucket positioner in-cab adjustable 3 positions',
+        'Counterweight standard and additional (YL: Log C/Weight)',
+        'EPC fingertip controls with F-N-R switch two levers','Front fenders',
+        'Jump start receptacle','KOMTRAX Level 5',
+        'Lift cylinders and bucket cylinder','Loader linkage with standard lift arm',
+        'Lock-up torque converter','Powertrain underguard','Rear full fenders',
+        'Service centre for engine, hydraulic and transmission oils',
+        'Transmission 4F/4R','Vandalism protection kit',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3-spool valve with lever and piping','Additional LED lighting',
+        'Bluetooth media system','Clean air cab pressurisation systems',
+        'Factory load meter (scale system)','Fire extinguishers',
+        'Fire suppression systems','Hi vis decals','High lift boom',
+        'Limited slip differential (F&R)','Local scale system options',
+        'Mono-lever loader control with transmission F-N-R switch',
+        'Reverse sensor','SMART alarm broadband reverse alarm',
+        'Steering wheel tilt and telescopic','UHF/CB Radio',
+        'Various bucket options','Window tinting','Wheel chocks steel type',
+      ],
+      // ── Weight Changes ──
+      // Weight change table not available in this brochure extraction
+      weightChanges:[],
+      brochureRef:'Komatsu WA500-8 ANZ Brochure ZESS004200_AUGUST2018',
+      tags:['wheel loader','37t class','EPA Tier 4 Final','KOMTRAX','SCR','KDPF','6-cylinder','CLSS','SmartLoader Logic','DEF','torque converter','lock-up','AJSS','ECSS','construction','mining','quarry','yard loader','high lift boom'],
+      note:'Komatsu WA500-8 — ANZ spec wheel loader (standard, yard loader, high-lift boom configs), 36.3–38.1t. Komatsu SAA6D140E-7, 6-cyl KVGT turbo/cooled EGR, 140×165mm, 15.24L, 263kW/353HP net (266kW/357HP gross) @ 1,900rpm. EPA Tier 4 Final — KDPF + SCR, DEF 36L. Up to 5% fuel savings vs WA500-7. Large-capacity torque converter with lock-up 2nd/3rd/4th, SmartLoader Logic, CLSS piston pump. Top speed 35.5 km/h (37.3 lock-up). Bucket range 4.5–7.0m³; GP std 5.6m³ KGA BOCE: tipping straight 28,070kg (40° 25,365kg), breakout 241kN; YL 6.4m³: tipping straight 28,910kg. High lift boom: 4.5m³ GP, hinge pin 5,165mm, dump clearance 3,890mm. Min turning radius 7,050mm. Hydraulics: loader 320 l/min / 34.3MPa; 2 lift cyls 160×898mm, bucket 185×675mm; raise 7.2s, dump 1.7s, lower 4.2s. ECSS, AJSS, automatic digging, auto-greasing, 3× E-Stops, service centre at ground level, Turbo II pre-cleaner. Service: fuel 473L, DEF 36L, hydraulics 337L, cooling 110L. Source: Komatsu WA500-8 ANZ Brochure ZESS004200_AUGUST2018.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA600-6 ─────────────────────────────────────────────────
+    // Source: Komatsu WA600-6 Brochure CEN00056-04 (printed Japan 201303, EPA Tier 3 / EU Stage 3A)
+    { id:'kom-wa600-6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA600-6 Wheel Loader', shortName:'Komatsu WA600-6',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D170E-5',
+      engineType:'Water-cooled, 4-cycle, turbocharged, aftercooled, cooled EGR, direct injection (HPCR)',
+      engineCylinders:6,
+      engineBoreMm:170, engineStrokeMm:170,     // derived from SAA6D170 engine family; not explicitly stated in this brochure
+      engineDisplacementL:23.15,                 // derived from engine model family; not explicitly stated in this brochure
+      engineRatedRPM:1800,
+      engineGrossKW:396, engineGrossHP:530,
+      engineNetKW:393, engineNetHP:527,
+      engineMaxTorqueNm:null, engineMaxTorqueRPM:null,
+      engineFanDrive:'Hydraulic (auto-reversing)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      engineAftertreatment:'None (pre-DPF era; uses cooled EGR and HPCR injection for emissions compliance)',
+      engineAirFilter:'Dry type with double elements and dust evacuator + indicator',
+      // ── Transmission ──
+      transmissionType:'Automatic countershaft, ECMV with mode select system; lock-up torque converter (optional, operator-activated switch)',
+      speedRangesFwd:4, speedRangesRev:4,
+      torqueConverterLockup:true, lockupGears:'Optional, operator-activated',
+      smartLoaderLogic:false,
+      // Travel speeds not extracted from this brochure — table not rendered clearly in text extraction
+      maxSpeedFwd1Kmh:null, maxSpeedFwd2Kmh:null, maxSpeedFwd3Kmh:null, maxSpeedFwd4Kmh:null,
+      maxSpeedFwd2LockupKmh:null, maxSpeedFwd3LockupKmh:null, maxSpeedFwd4LockupKmh:null,
+      maxSpeedRev1Kmh:null, maxSpeedRev2Kmh:null, maxSpeedRev3Kmh:null, maxSpeedRev4Kmh:null,
+      maxSpeedRev2LockupKmh:null, maxSpeedRev3LockupKmh:null, maxSpeedRev4LockupKmh:null,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed',
+      rearAxle:'Centre-pin support',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'35/65-33-36PR L4 tubeless',
+      // ── Brakes ──
+      serviceBrake:'Fully hydraulic wet multi-disc brakes, maintenance-free (adjustment-free, no air system)',
+      parkingBrake:'Adjustment-free wet multi-disc (new parking brake design)',
+      secondaryBrake:'Dual hydraulic circuit backup',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:163,
+      steeringReliefMPa:34.3,
+      steeringCylCount:2, steeringCylBoreMm:115, steeringCylStrokeMm:510,
+      loaderPumpType:'Dual piston pump (CLSS)',
+      loaderPumpCapacityLpm:478,                 // 239+239 ltr/min
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:200, boomCylStrokeMm:1067,
+      bucketCylCount:1, bucketCylBoreMm:225, bucketCylStrokeMm:776,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:9.3, hydraulicDumpTimeSec:2.3, hydraulicLowerTimeSec:4.1,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering',
+      steeringAngleDeg:43,
+      minTurningRadiusMm:7075,
+      // ── Operating weights ──
+      operatingWeightKgMin:52320, operatingWeightKgMax:52900,
+      operatingWeightT:52.6,
+      // ── Bucket capacities ──
+      bucketCapM3:6.4,
+      bucketCapRangeM3:'6.4–7.0',
+      // ── Performance (Excavating 6.4m³ spade nose/WSE, 3990mm boom) ──
+      staticTippingLoadStraightKg:34200, staticTippingLoadArticulatedKg:28500,
+      breakoutForceKN:387,
+      hingePinHeightMm:5885,
+      dumpHeightAt45Mm:3995,
+      reachAt45Mm:1800,
+      // ── Dimensions (35/65-33-36PR L-4 tyres, 3990mm boom) ──
+      wheelbaseMm:4500,
+      widthOverTyresMm:3540,
+      trackWidthMm:2650,
+      groundClearanceMm:525,
+      overallHeightROPSMm:4460,
+      overallHeightStackMm:4270,
+      hitchHeightMm:1385,
+      // ── Noise ──
+      operatorSoundPressureDB_A:76,
+      exteriorSoundPowerDB_A:113,
+      // ── Service Refill Capacities ──
+      coolantL:147, fuelTankL:718, engineOilL:86,
+      hydraulicSystemL:443, frontAxleL:155, rearAxleL:155,
+      torqueConverterTransL:83, defTankL:null,
+      // ── Features ──
+      komtrax:true,
+      electronicSuspensionSystem:'optional (ECSS)',
+      autoIdleShutdown:false,
+      rearViewCamera:false,
+      automaticGreasing:'optional',
+      smartLoaderLogic:false,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      ajss:'optional',
+      automaticDigging:'optional (semi-auto)',
+      integratedLoadMetre:'optional (load meter)',
+      cab:'Pillar-less large ROPS/FOPS SpaceCab with viscous mounts, EPC fingertip levers, tiltable/telescopic steering, rear access stairs, EMMS, auto A/C, modulated clutch system',
+      // ── Full Bucket Configuration Table ──
+      // 35/65-33-36PR (L-4) tyres; full turn angle is 43° for WA600-6
+      bucketConfigs:[
+        // 3990mm boom
+        { id:'exc-spade-wse-64-3990', boom:'3990mm', coupler:'pin-on', capacityM3:6.4, capacityStruckM3:5.3, type:'Excavating', cutting:'Spade nose, Teeth & WSE', bucketW:3685, wt:5115, dumpClear45:3995, reach45:1800, reachAt2130:3015, reachArmHoriz:4135, opHeight:7925, overallLen:11985, clearCircle:17000, digDepth0:130, digDepth10:515, tipStr:34200, tipFullTurn:28500, breakoutKN:387, opWt:52700 },
+        { id:'exc-str-bse-65-3990',   boom:'3990mm', coupler:'pin-on', capacityM3:6.5, capacityStruckM3:5.4, type:'Excavating', cutting:'Straight edge, Teeth & BSE', bucketW:3685, wt:4735, dumpClear45:4180, reach45:1610, reachAt2130:2875, reachArmHoriz:3870, opHeight:7925, overallLen:11725, clearCircle:17060, digDepth0:135, digDepth10:480, tipStr:34580, tipFullTurn:28880, breakoutKN:448, opWt:52320 },
+        { id:'stk-spade-wse-70-3990',  boom:'3990mm', coupler:'pin-on', capacityM3:7.0, capacityStruckM3:5.8, type:'Stockpile',   cutting:'Spade nose, Teeth & WSE', bucketW:3685, wt:5255, dumpClear45:3945, reach45:1850, reachAt2130:3050, reachArmHoriz:4205, opHeight:7995, overallLen:12055, clearCircle:17040, digDepth0:130, digDepth10:530, tipStr:34060, tipFullTurn:28360, breakoutKN:375, opWt:52840 },
+        // 3850mm boom
+        { id:'stk-spade-wse-70-3850',  boom:'3850mm', coupler:'pin-on', capacityM3:7.0, capacityStruckM3:5.8, type:'Stockpile',   cutting:'Spade nose, Teeth & WSE', bucketW:3685, wt:5245, dumpClear45:3730, reach45:1885, reachAt2130:2900, reachArmHoriz:4065, opHeight:7775, overallLen:11870, clearCircle:16875, digDepth0:130, digDepth10:530, tipStr:35400, tipFullTurn:29500, breakoutKN:378, opWt:52900 },
+        { id:'exc-str-bse-70-3850',    boom:'3850mm', coupler:'pin-on', capacityM3:7.0, capacityStruckM3:5.8, type:'Excavating', cutting:'Straight edge, Teeth & BSE', bucketW:3685, wt:4865, dumpClear45:3905, reach45:1690, reachAt2130:2775, reachArmHoriz:3800, opHeight:7775, overallLen:11610, clearCircle:16920, digDepth0:140, digDepth10:495, tipStr:35780, tipFullTurn:29880, breakoutKN:433, opWt:52500 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2650, widthOverTyresMm:3540, wheelbaseMm:4500,
+        boom3990mm:{ hingePinMaxHeightMm:5885, hingePinCarryPositionMm:720 },
+        boom3850mm:{ hingePinMaxHeightMm:5665, hingePinCarryPositionMm:670 },
+        groundClearanceMm:525, hitchHeightMm:1385,
+        overallHeightTopOfStackMm:4270, overallHeightROPSCabMm:4460,
+      },
+      // ── Weight Changes (35/65-33-36PR L-4 baseline, 3990mm boom) ──
+      weightChanges:[
+        { tyreOrAttachment:'35/65-33-36PR (L-4) baseline',  deltaOpWtKg:0,      deltaTipStraightKg:0,     deltaTipFullTurnKg:0,     widthOverTyresMm:3540, groundClearanceMm:525, deltaVerticalMm:0   },
+        { tyreOrAttachment:'35/65-33-36PR (L-5)',            deltaOpWtKg:+1000,  deltaTipStraightKg:+715,  deltaTipFullTurnKg:+595,  widthOverTyresMm:3540, groundClearanceMm:525, deltaVerticalMm:0   },
+        { tyreOrAttachment:'35/65-33-42PR (L-4)',            deltaOpWtKg:+20,    deltaTipStraightKg:+15,   deltaTipFullTurnKg:+10,   widthOverTyresMm:3555, groundClearanceMm:525, deltaVerticalMm:0   },
+        { tyreOrAttachment:'35/65-R33 ★ (L-4)',             deltaOpWtKg:-780,   deltaTipStraightKg:-555,  deltaTipFullTurnKg:-465,  widthOverTyresMm:3565, groundClearanceMm:460, deltaVerticalMm:-65 },
+        { tyreOrAttachment:'35/65-R33 ★ (L-5)',             deltaOpWtKg:-235,   deltaTipStraightKg:-170,  deltaTipFullTurnKg:-140,  widthOverTyresMm:3565, groundClearanceMm:460, deltaVerticalMm:-65 },
+        { tyreOrAttachment:'Optional counterweight (+1t)',   deltaOpWtKg:+1000,  deltaTipStraightKg:+2380, deltaTipFullTurnKg:+1985, widthOverTyresMm:null, groundClearanceMm:null, deltaVerticalMm:null },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '2-spool valve for boom and bucket controls',
+        '3990mm (13\'1\") boom','Alternator 90A/24V','Auto air conditioner',
+        'Auto shift transmission with mode select system','Back-up alarm','Back-up lamp',
+        'Batteries 200Ah/12V × 2','Boom kick-out','Bucket positioner',
+        'Directional signal','Emergency steering (SAE)','Engine Komatsu SAA6D170E-5 diesel',
+        'EPC fingertip levers with automatic leveller and positioner','Front fender',
+        'Hard water area arrangement (corrosion resister)',
+        'Hydraulic-driven fan with reverse rotation','Lift cylinders and bucket cylinder',
+        'Lock-up clutch torque converter','EMMS (Equipment Management Monitoring System)',
+        'Radiator mask lattice type','Rear access stairs','Rear defroster (electric)',
+        'Rear under view mirror','Rear view mirrors','Rear window washer and wiper',
+        'ROPS/FOPS cab','Seat belt','Seat suspension type with reclining',
+        'Service brakes wet disc type','Standard counterweight',
+        'Starting motor 11.0kW/24V × 2','Steering wheel tiltable','Sun visor',
+        'Tires 35/65-33-36PR L4 tubeless and rims','Transmission 4F/4R','Water separator',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3850mm (12\'8\") boom','3-spool valve',
+        'AJSS (Advanced Joystick Steering System)',
+        'AM/FM radio','AM/FM stereo radio cassette','Automatic greasing',
+        'Battery disconnect switch','Brake cooling system',
+        'Bucket teeth bolt-on and tip type','Counterweight for log',
+        'Cutting edge bolt-on type',
+        'ECSS (Electronically Controlled Suspension System)',
+        'Fire extinguisher','Limited slip differential (F&R)','Load meter',
+        'Log grapple','Optional counterweight','Power train guard',
+        'Rear fender','Segment edges','Semi-auto digging system','Tool kit',
+        'VHMS (Vehicle Health Monitoring System)',
+      ],
+      brochureRef:'Komatsu WA600-6 Brochure CEN00056-04 (printed Japan 201303)',
+      tags:['wheel loader','53t class','EPA Tier 3','EU Stage 3A','KOMTRAX','6-cylinder','CLSS','ECMV','lock-up','construction','mining','quarry'],
+      note:'Komatsu WA600-6 — ~52.3–52.9t large wheel loader. Komatsu SAA6D170E-5, 6-cyl HPCR turbo/cooled EGR, 170×170mm (derived), 23.15L (derived), 393kW/527HP net (396kW/530HP gross) @ 1,800rpm. EPA Tier 3/EU Stage 3A. Lock-up torque converter (optional operator switch), ECMV auto-shift, CLSS dual piston pumps. Tread 2,650mm; wheelbase 4,500mm; articulates 43° each way. 3990mm and 3850mm boom options. Bucket range 6.4–7.0m³; Exc 6.4m³ spade/WSE (3990mm boom): tipping straight 34,200kg (43° 28,500kg), breakout 387kN, dump clearance 3,995mm. Hinge pin 5,885mm. Min turning radius 7,075mm. Hydraulics: dual loader 239+239 l/min / 34.3MPa; 2 lift cyls 200×1067mm, bucket 225×776mm; raise 9.3s, dump 2.3s, lower 4.1s. High-rigidity frame/linkage, fully hydraulic wet disc brakes (adjustment-free). EMMS, EPC levers, pillar-less SpaceCab, rear access stairs. Service: fuel 718L, hydraulics 443L, cooling 147L. Note: bore/stroke/displacement derived from SAA6D170 engine family; travel speeds not available from this brochure extraction. Source: Komatsu WA600-6 Brochure CEN00056-04 (201303).',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA600-8 ─────────────────────────────────────────────────
+    // Source: Komatsu WA600-8 ANZ Brochure ZESS004900_MARCH2019 (EPA Tier 4 Final)
+    { id:'kom-wa600-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA600-8 Wheel Loader', shortName:'Komatsu WA600-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D170E-7',
+      engineType:'Water-cooled, 4-cycle, Komatsu variable geometry turbo-charged, after-cooled, cooled EGR, direct injection (HPCR)',
+      engineCylinders:6,
+      engineBoreMm:170, engineStrokeMm:170,
+      engineDisplacementL:23.15,
+      engineRatedRPM:1800,
+      engineGrossKW:396, engineGrossHP:530,
+      engineNetKW:395, engineNetHP:529,
+      engineMaxTorqueNm:null, engineMaxTorqueRPM:null,
+      engineFanDrive:'Hydraulic (reversing, variable speed, swing-out fan)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + SCR (Selective Catalytic Reduction)',
+      engineAirFilter:'Dry type with double elements and dust evacuator + indicator; 2× centrifugal type pre-cleaner (Turbo II)',
+      // ── Transmission ──
+      transmissionType:'Automatic full-powershift, planetary type with large-capacity torque converter (lock-up 2nd/3rd/4th) + modulated clutch system + variable traction control',
+      speedRangesFwd:4, speedRangesRev:4,
+      // P-mode, 35/65-33 tyres (lock-up in brackets)
+      maxSpeedFwd1Kmh:6.7,  maxSpeedFwd2Kmh:11.7, maxSpeedFwd3Kmh:20.3, maxSpeedFwd4Kmh:33.8,
+      maxSpeedFwd2LockupKmh:12.4, maxSpeedFwd3LockupKmh:21.7, maxSpeedFwd4LockupKmh:37.7,
+      maxSpeedRev1Kmh:7.3,  maxSpeedRev2Kmh:12.8, maxSpeedRev3Kmh:22.0, maxSpeedRev4Kmh:37.0,
+      maxSpeedRev2LockupKmh:13.5, maxSpeedRev3LockupKmh:23.7, maxSpeedRev4LockupKmh:41.0,
+      torqueConverterLockup:true, lockupGears:'2nd, 3rd, 4th',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, full-floating',
+      rearAxle:'Centre-pin support, full-floating, 22° total oscillation',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'35/65R33 (L5)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet multiple-disc brakes on four wheels',
+      parkingBrake:'Wet multiple-disc brake (electric)',
+      secondaryBrake:'One of dual service brake circuits commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:163,
+      steeringReliefMPa:34.3,
+      steeringCylCount:2, steeringCylBoreMm:100, steeringCylStrokeMm:486,  // as printed in brochure
+      loaderPumpType:'Dual piston pump (CLSS)',
+      loaderPumpCapacityLpm:478,  // 239+239 ltr/min
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:200, boomCylStrokeMm:1067,
+      bucketCylCount:1, bucketCylBoreMm:225, bucketCylStrokeMm:776,
+      controlValve:'2-spool type',
+      hydraulicRaiseTimeSec:8.7, hydraulicDumpTimeSec:2.3, hydraulicLowerTimeSec:4.1,
+      // ── Steering ──
+      steeringSystem:'Articulated type, fully-hydraulic power steering',
+      steeringAngleDeg:43,
+      minTurningRadiusMm:7075,
+      // ── Operating weights ──
+      operatingWeightKgMin:55400, operatingWeightKgMax:57460,
+      operatingWeightT:56.5,
+      // ── Bucket capacities ──
+      bucketCapM3:6.4,
+      bucketCapRangeM3:'6.4–7.8',
+      // ── Performance (Exc 6.4m³ spade nose/BSE, 3990mm boom) ──
+      staticTippingLoadStraightKg:38220, staticTippingLoadArticulatedKg:32675,
+      breakoutForceKN:385,
+      hingePinHeightMm:5885,
+      dumpHeightAt45Mm:3965,
+      reachAt45Mm:1835,
+      // ── Dimensions (35/65-33-36PR L-4 tyres, ROPS/FOPS cab, 3990mm boom) ──
+      wheelbaseMm:4500,
+      widthOverTyresMm:3590,
+      trackWidthMm:2650,
+      groundClearanceMm:525,
+      overallHeightROPSMm:4500,
+      overallHeightStackMm:4375,
+      hitchHeightMm:1320,
+      // ── Noise ──
+      operatorSoundPressureDB_A:null,
+      exteriorSoundPowerDB_A:null,
+      // ── Service Refill Capacities ──
+      coolantL:150, fuelTankL:718, engineOilL:86,
+      hydraulicSystemL:443, frontAxleL:185, rearAxleL:193,
+      torqueConverterTransL:78, defTankL:60,
+      // ── Features ──
+      komtrax:true, komtraxLevel:5,
+      komtraxPlus:true,
+      electronicSuspensionSystem:'standard (ECSS)',
+      autoIdleShutdown:true,
+      rearViewCamera:'standard (colour)',
+      automaticGreasing:'standard (ground level refill)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      ajss:true,
+      automaticDigging:'standard',
+      integratedLoadMetre:'standard (KOMTRAX Plus accessible)',
+      cab:'ROPS/FOPS cab with viscous mounts, AJSS, EPC levers, heated air-suspension seat, auto A/C (bi-level control), 7" colour LCD monitor, AM/FM+AUX, 2×12V outlets, hot/cool box, heated rear window, pillar-less design, 3× external E-Stops at ground level + cabin E-Stop, emergency/secondary steering, ECSS, modulated clutch, variable traction control',
+      // ── Full Bucket Configuration Table (35/65-33-36PR L-4 tyres) ──
+      bucketConfigs:[
+        // 3990mm Boom
+        { id:'exc-spade-bse-64-3990',  boom:'3990mm', coupler:'pin-on', capacityM3:6.4, capacityStruckM3:5.3, type:'Excavating', cutting:'Spade nose, Teeth & BSE', bucketW:3805, wt:5975, dumpClear45:3965, reach45:1835, reachAt2130:3030, reachArmHoriz:4175, opHeight:7925, overallLen:12145, clearCircle:17050, digDepth0:130, digDepth10:530, tipStr:38220, tipFullTurn:32675, breakoutKN:385, opWt:56280 },
+        { id:'stk-spade-bse-70-3990',  boom:'3990mm', coupler:'pin-on', capacityM3:7.0, capacityStruckM3:5.8, type:'Stockpile',  cutting:'Spade nose, Teeth & BSE', bucketW:3805, wt:6152, dumpClear45:3915, reach45:1885, reachAt2130:3065, reachArmHoriz:4245, opHeight:8040, overallLen:12215, clearCircle:17090, digDepth0:130, digDepth10:540, tipStr:38036, tipFullTurn:32520, breakoutKN:370, opWt:56460 },
+        // 3850mm Boom
+        { id:'exc-spade-bse-70-3850',  boom:'3850mm', coupler:'pin-on', capacityM3:7.0, capacityStruckM3:5.8, type:'Excavating', cutting:'Spade nose, Teeth & BSE', bucketW:3805, wt:6152, dumpClear45:3700, reach45:1915, reachAt2130:2920, reachArmHoriz:4105, opHeight:7280, overallLen:12030, clearCircle:16770, digDepth0:130, digDepth10:540, tipStr:37845, tipFullTurn:32805, breakoutKN:375, opWt:55400 },
+        { id:'lc-spade-bse-78-3850',   boom:'3850mm', coupler:'pin-on', capacityM3:7.8, capacityStruckM3:6.6, type:'Load & Carry', cutting:'Spade nose, Teeth & BSE', bucketW:3805, wt:5791, dumpClear45:3615, reach45:2000, reachAt2130:2970, reachArmHoriz:4225, opHeight:7885, overallLen:12150, clearCircle:16990, digDepth0:130, digDepth10:560, tipStr:43265, tipFullTurn:37080, breakoutKN:355, opWt:57460 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        treadMm:2650, widthOverTyresMm:3590, wheelbaseMm:4500,
+        boom3990mm:{ hingePinMaxHeightMm:5885, hingePinCarryPositionMm:720 },
+        boom3850mm:{ hingePinMaxHeightMm:5665, hingePinCarryPositionMm:670 },
+        groundClearanceMm:525, hitchHeightMm:1320,
+        overallHeightTopOfStackMm:4375, overallHeightROPSCabMm:4500,
+      },
+      // ── Weight Changes ──
+      weightChanges:[
+        { tyreOrAttachment:'35/65-R33 (L-4)', deltaOpWtKg:-780, deltaTipStraightKg3990:-565, deltaTipStraightKg3850:-585, deltaTipFullTurnKg3990:-485, deltaTipFullTurnKg3850:-500, widthOverTyresMm:3615, groundClearanceMm:460, deltaVerticalMm:-65 },
+        { tyreOrAttachment:'35/65-R33 (L-5)', deltaOpWtKg:-235, deltaTipStraightKg3990:-175, deltaTipStraightKg3850:-180, deltaTipFullTurnKg3990:-150, deltaTipFullTurnKg3850:-150, widthOverTyresMm:3615, groundClearanceMm:460, deltaVerticalMm:-65 },
+      ],
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Engine Komatsu SAA6D170E-7 diesel','KDPF + SCR aftertreatment',
+        'Fuel pre-filter with water separator','Hydraulic-driven fan with reverse rotation',
+        'Komatsu SmartLoader Logic','Radiator mask swing out','Radiator wider core (modular core)',
+        'Turbo II pre-cleaner 2× centrifugal type',
+        'Alternator 90A/24V','Batteries 160Ah/12V (2)','Komatsu Auto Idle Shutdown',
+        'LED back-up lights','LED flashing beacon with guard','LED stop and tail lights',
+        'Turn signal 2 front 2 rear with hazard switch',
+        'Working lights: 2× axle LED (guarded), 2× cabin halogen (front), 2× cabin halogen (rear), 2× radiator halogen','Starting motor 11kW',
+        '2×DC12V electrical outlets','Advanced Steering System (AJSS)',
+        'Auto air conditioner (bi-level control)','Colour multi-monitor (7" TFT-LCD)',
+        'ECSS (Electronically Controlled Suspension System)',
+        'Electronic pilot control fingertip levers','Floor mat',
+        'Heated air-suspension seat (reclining)','AM/FM radio with AUX input jack',
+        'Rear defroster electric','ROPS/FOPS (ISO 3471/ISO 3449) Cab Level 2',
+        'Seatbelt 2-point retractable 76mm','Sun visor','Front and rear wipers',
+        'Back-up alarm','Colour rear view camera and monitor',
+        'Emergency stop switches (3 external at ground level + 1 cabin)',
+        'Emergency/secondary steering','Horn electric',
+        'Lockable battery isolation switch','Lockable starter isolation switch',
+        'Parking brake electric','Rear view mirrors','Service brakes wet disc type',
+        'Wheel chock','Tyres 35/65R33 (L5)',
+        '2-spool valve for boom and bucket controls',
+        '3990mm boom','Additional counterweight (850kg)',
+        'Automatic digging system','Auto shift transmission with mode select system',
+        'Automatic greasing system (ground level refill)','Brake cooling system',
+        'Counterweight standard','ECO guidance / ECO gauge','Engine RPM set system',
+        'Fast-fill fuel system','Front fenders',
+        'Integrated load meter','Jump start receptacle',
+        'KOMTRAX Level 5 + KOMTRAX Plus function',
+        'Lift cylinders and bucket cylinder','Lock-up torque converter',
+        'Modulation clutch','Powertrain underguard',
+        'Rear access stair with handrail RH side',
+        'Remote boom positioner in-cab adjustable',
+        'Remote bucket positioner in-cab adjustable 3 positions',
+        'Service centre for engine, hydraulic, transmission oils (EVAC system)',
+        'Transmission 4F/4R','Vandalism protection kit',
+        'Work equipment shock reduction control',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '3850mm boom','3-spool valve with lever and piping',
+        'Additional lighting','Bluetooth AM/FM radio',
+        'Broadband reverse alarm','Fire extinguishers',
+        'Fire suppression systems','Load-and-carry specification',
+        'Rear proximity/reverse sensors','UHF radio',
+        'Various bucket options','Weigh scale system',
+      ],
+      brochureRef:'Komatsu WA600-8 ANZ Brochure ZESS004900_MARCH2019',
+      tags:['wheel loader','56t class','EPA Tier 4 Final','KOMTRAX','KOMTRAX Plus','SCR','KDPF','6-cylinder','CLSS','SmartLoader Logic','DEF','torque converter','lock-up','AJSS','ECSS','modulated clutch','variable traction','construction','mining','quarry'],
+      note:'Komatsu WA600-8 — ANZ spec large wheel loader (3990mm and 3850mm boom options), 55.4–57.5t. Komatsu SAA6D170E-7, 6-cyl KVGT turbo/cooled EGR, 170×170mm, 23.15L, 395kW/529HP net (396kW/530HP gross) @ 1,800rpm. EPA Tier 4 Final — KDPF + SCR, DEF 60L. Up to 13% fuel savings in E mode vs WA600-6. Large-capacity torque converter with lock-up 2nd/3rd/4th, SmartLoader Logic, CLSS dual piston pumps, modulated clutch, variable traction control. Bucket range 6.4–7.8m³; Exc 6.4m³ spade/BSE (3990mm boom): tipping straight 38,220kg (40° 32,675kg), breakout 385kN. Load & Carry 7.8m³ (3850mm boom): tipping straight 43,265kg. Min turning radius 7,075mm. Hydraulics: dual loader 239+239 l/min / 34.3MPa; 2 lift cyls 200×1067mm, bucket 225×776mm; raise 8.7s, dump 2.3s, lower 4.1s. ECSS, AJSS, automatic digging, integrated load meter, KOMTRAX Plus, EVAC service centre at ground level, 3× external E-Stops, Turbo II pre-cleaner. Service: fuel 718L, DEF 60L, hydraulics 443L, cooling 150L. Note: steering cylinder bore stated as 100×486mm in brochure (differs from WA600-6\'s 115×510mm — recorded as printed). Source: Komatsu WA600-8 ANZ Brochure ZESS004900_MARCH2019.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA700-8 ─────────────────────────────────────────────────
+    // Source: Komatsu WA700-8 Brochure (© 2025 Komatsu Australia Pty Ltd) — EPA Tier 4 Final / EU Stage V
+    { id:'kom-wa700-8', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA700-8 Wheel Loader', shortName:'Komatsu WA700-8',
+      // ── Engine ──
+      engineModel:'Komatsu SAA6D170E-7',
+      engineType:'Water-cooled, 4-cycle, variable geometry turbocharged, air-to-air aftercooled, cooled EGR, direct injection (HPCR)',
+      engineCylinders:6,
+      engineBoreMm:170, engineStrokeMm:170,
+      engineDisplacementL:23.15,
+      engineRatedRPM:2000,
+      engineGrossKW:578, engineGrossHP:775,
+      engineNetKW:577, engineNetHP:773,
+      engineGrossTorqueNm:3407,
+      engineMaxTorqueNm:null, engineMaxTorqueRPM:null,
+      engineFanDrive:'Hydraulic (reversing, swing-out fan)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      engineAftertreatment:'KDPF (Komatsu Diesel Particulate Filter) + VGT + EGR + KCCV',
+      engineAirFilter:'Dry type with double elements + dust indicator',
+      // ── Transmission ──
+      transmissionType:'Automatic powershift, with ECMV (Electronic Controlled Modulation Valve), large-capacity torque converter (lock-up 2nd/3rd)',
+      speedRangesFwd:3, speedRangesRev:3,
+      // 45/65R39 tyres (lock-up ON vs OFF)
+      maxSpeedFwd1Kmh:7.6,  maxSpeedFwd2Kmh:13.5, maxSpeedFwd3Kmh:23.2,
+      maxSpeedFwd2LockupKmh:13.5, maxSpeedFwd3LockupKmh:25.9,
+      maxSpeedRev1Kmh:7.9,  maxSpeedRev2Kmh:13.5, maxSpeedRev3Kmh:24.0,
+      maxSpeedRev2LockupKmh:13.5, maxSpeedRev3LockupKmh:26.9,
+      torqueConverterLockup:true, lockupGears:'2nd and 3rd',
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, full-floating',
+      rearAxle:'Centre-pin support, full-floating',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'45/65R39 (L-5)',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet multiple-disc brakes on four wheels (divided type: separate brake and final drive — easier maintenance, better heat dissipation)',
+      parkingBrake:'Wet multiple-disc brake (electric)',
+      secondaryBrake:'One of dual service brake circuits commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:315,    // 2×157.5 L/min
+      steeringReliefMPa:31.3,
+      steeringCylCount:2, steeringCylBoreMm:150, steeringCylStrokeMm:587,
+      loaderPumpType:'Piston pump (CLSS — 4 pumps)',
+      loaderPumpCapacityLpm:896,      // 4×224 L/min
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:225, boomCylStrokeMm:1360,
+      bucketCylCount:1, bucketCylBoreMm:280, bucketCylStrokeMm:824,
+      controlValve:'Spool type',
+      hydraulicRaiseTimeSec:7.4, hydraulicDumpTimeSec:2.8, hydraulicLowerTimeSec:4.4,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering',
+      steeringAngleDeg:40,
+      minTurningRadiusMm:9050,
+      // ── Operating weights ──
+      operatingWeightKgMin:97100, operatingWeightKgMax:97100,
+      operatingWeightT:97.1,
+      // ── Bucket capacities ──
+      bucketCapM3:9.2,
+      bucketCapRangeM3:'9.2',
+      // ── Performance (Excavating 9.2m³ spade nose, teeth & segments, standard boom) ──
+      staticTippingLoadStraightKg:68400, staticTippingLoadArticulatedKg:59100,
+      breakoutForceKN:615,            // bucket cylinder (primary) — 615kN / 62,700kgf
+      breakoutForceBoomKN:501,        // boom cylinder — 501kN / 51,100kgf
+      liftForceAtBoomTopKN:211,
+      ratedLoadT:16.6,
+      hingePinHeightMm:6265,
+      dumpClearanceCuttingEdgeMm:4540,
+      dumpClearanceTeethMm:4180,
+      reachCuttingEdgeMm:2080,
+      reachTeethMm:2325,
+      dumpHeightAt45Mm:null,          // WA700-8 specs report cutting edge vs teeth clearance, not 45° standard
+      reachAt45Mm:null,
+      // ── Dimensions (45/65 R39 L-5 tyres, ROPS/FOPS cab) ──
+      wheelbaseMm:5340,
+      widthOverTyresMm:4380,
+      overallWidthWithoutBucketMm:3250,
+      trackWidthMm:null,              // tread centre-to-centre not stated
+      groundClearanceMm:475,
+      overallHeightROPSMm:5240,
+      overallHeightStackMm:4960,
+      hitchHeightMm:1570,
+      // ── Noise ──
+      operatorSoundPressureDB_A:75,
+      exteriorSoundPowerDB_A:114,
+      // ── Service Refill Capacities ──
+      coolantL:221, fuelTankL:1420, engineOilL:86,
+      hydraulicSystemL:833, frontAxleL:340, rearAxleL:340,
+      torqueConverterTransL:230, defTankL:null,   // not stated in brochure
+      // ── Features ──
+      komtrax:true,
+      komtraxPlus:true,
+      electronicSuspensionSystem:'standard (ECSS)',
+      autoIdleShutdown:'standard (Komatsu Auto Idle Shutdown)',
+      rearViewCamera:'standard (colour)',
+      komVision:'standard (6-camera surround system)',
+      automaticGreasing:'standard (auto greasing system)',
+      smartLoaderLogic:true,
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      ajss:true,
+      automaticDigging:'standard (Automatic + Semi-auto Approach & Dump System)',
+      integratedLoadMetre:'standard (KOMTRAX Plus accessible)',
+      tyreSlipControl:'standard',
+      semiAutoApproachDumpSystem:'standard',
+      workEquipmentShockReduction:'standard',
+      nonGlareBucketTreatment:'standard',
+      cab:'Pillar-less ROPS(ISO 3471)/FOPS(ISO 3449) spacious cab with viscous mounts, AJSS, EPC levers, heated+ventilated air-suspension seat (3-point belt), trainer seat, auto A/C, 7" colour LCD monitor, AM/FM+Bluetooth+AUX, LED room/spot lamps, hot/cool box, heated rear window, side wiper, rear access stairs with step light, walk-through around cab, KomVision 6-camera surround monitoring, 22 LED work lamps, engine RPM set with auto-decel',
+      // ── Full Bucket Configuration Table ──
+      bucketConfigs:[
+        { id:'exc-spade-seg-92-std', boom:'standard', coupler:'pin-on', capacityM3:9.2, capacityStruckM3:8.0, type:'Excavating', cutting:'Spade nose, Teeth & Segments', bucketW:4710, wt:16560, dumpClearCuttingEdge:4540, dumpClearTeeth:4180, reachCuttingEdge:2080, reachTeeth:2325, opHeight:8625, overallLen:14130, clearCircleFullLeverOutside:10930, clearCircleFullLeverCentre:9460, clearCircleMaxArticOutside:10550, clearCircleMaxArticCentre:9050, digDepth0:240, digDepth10:670, tipStr:68400, tipFullTurn:59100, breakoutBoomKN:501, breakoutBucketKN:615, opWt:97100 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        overallWidthWithoutBucketMm:3250, widthOverTyresMm:4380, wheelbaseMm:5340,
+        standardBoom:{ hingePinMaxHeightMm:6265, hingePinCarryPositionMm:750 },
+        groundClearanceMm:475, hitchHeightMm:1570,
+        overallHeightTopOfStackMm:4960, overallHeightROPSCabMm:5240,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Air cleaner dry type with double elements + dust indicator',
+        'Alternator 24V/140A',
+        'Bio diesel fuel B20 compatible',
+        'Engine Komatsu SAA6D170E-7 diesel','KDPF',
+        'Maintenance-free batteries 4×12V/160Ah large capacity',
+        'Starting motor 2×24V/11kW',
+        'LED access stair lamp LH side','LED directional signal',
+        'LED engine bay lamp','Hazard lamps',
+        'LED headlamps','LED front work lamps',
+        'LED rear corner additional work lamp','LED rear work lamps',
+        'LED side work lamps','LED stop/tail and turn signal lamps',
+        '2×DC12V electrical outlets','Advanced joystick steering system (AJSS)',
+        'Auto air conditioner','Ashtray','Cigarette lighter',
+        'Colour multi-monitor (7" LCD)','Cup holder',
+        'Electronic pilot control fingertip levers',
+        'Floor mat','Front wiper with washer and intermittent',
+        'Heated + ventilated air-suspension seat with 3-point seat belt',
+        'AM/FM radio with AUX + USB charging + Bluetooth',
+        'Rear defroster electric','Rear wiper with washer and intermittent',
+        'Room mirror','LED room lamps','LED spot lamp',
+        'ROPS(ISO 3471)/FOPS(ISO 3449)','Space for lunch box',
+        'Sun shades (front and rear retractable)','Sun visor (front)',
+        'Trainer seat with 2-point seat belt',
+        'Steel cab with front, rear and side wipers',
+        'Tyres 45/65R39 (L-5) without tube',
+        'Back-up alarm','Beacon lamp',
+        'Emergency stop switch','Engine shutdown secondary switch',
+        'Hand rails for platform','Horn electric',
+        'KomVision system (6-camera, radar-less)',
+        'Machine lock out system','Parking brake electric',
+        'Rear view monitoring system','Secondary brake',
+        'Secondary steering (ISO 5010)','Service brakes wet disc type',
+        '2-spool valve for boom and bucket control',
+        '2-way engine power mode','3rd gear prohibition and speed limit control',
+        'Auto greasing system','Automatic digging system',
+        'Automatic shift transmission','Battery disconnect switch',
+        'Boom positioner with kick-out','Brake cooling system',
+        'Brake oil thermometer display','Bucket positioner',
+        'Circuit breaker','ECO guidance / ECO gauge',
+        'ECSS (Electronically Controlled Suspension System)',
+        'Engine RPM set system with auto deceleration',
+        'Front fenders','Fuel pre-filter with water separator',
+        'Hydraulic-driven fan with reverse rotation',
+        'Inline filters for steering and hydraulic',
+        'Komatsu auto idle shutdown','Komatsu SmartLoader Logic',
+        'KOMTRAX Plus',
+        'Lift cylinders and bucket cylinder',
+        'Load meter system','Modulation clutch','Modular radiator core',
+        'Power train guard','Quick coupling for fuel tank',
+        'Radiator mask swing out',
+        'Rear access stair with handrail',
+        'Semi-auto Approach & Dump System',
+        'Service centre (engine, transmission, brake oil, coolant)',
+        'Starter receptacle','Sweeper wing (tyre protection)',
+        'Tyre slip control system',
+        'Wall digging prevention control system',
+        'Work equipment shock reduction control',
+        'Non-glare bucket treatment',
+        '3990mm standard boom',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'Fog lamp LED','Radial tyre options (45/65R39 L-5 tubeless)',
+        'Trainer seat with 3-point seat belt',
+      ],
+      // ── Weight Changes ──
+      // Weight change table not available in this brochure extraction
+      weightChanges:[],
+      brochureRef:'Komatsu WA700-8 Brochure (© 2025 Komatsu Australia Pty Ltd) — WA700-8_AUNZ',
+      tags:['wheel loader','97t class','mining','large mining loader','EPA Tier 4 Final','EU Stage V','KOMTRAX Plus','KomVision','SCR','KDPF','6-cylinder','CLSS','SmartLoader Logic','torque converter','lock-up','AJSS','ECSS','semi-auto approach dump','tyre slip control','60t dump truck match'],
+      note:'Komatsu WA700-8 — 97.1t ultra-large wheel loader, purpose-matched for 60t class dump trucks (4-pass loading). Komatsu SAA6D170E-7, 6-cyl KVGT turbo/cooled EGR, 170×170mm, 23.15L, 577kW/773HP net (578kW/775HP gross, gross torque 3,407Nm) @ 2,000rpm. EPA Tier 4 Final / EU Stage V — KDPF + VGT + EGR + KCCV. 8% improvement in fuel efficiency (t/L) vs WA700-3; 13% frame and linkage life improvement vs WA700-3. Large-capacity torque converter with lock-up 2nd/3rd, SmartLoader Logic, CLSS 4× piston pumps. 3-speed gearbox; top speed 23.2 km/h (25.9 lock-up). Bucket: 9.2m³ excavating (spade nose, teeth & segments); lift force at boom top 211kN, rated load 16.6t; static tipping straight 68,400kg (40° 59,100kg), breakout boom 501kN / bucket 615kN. Dump clearance (cutting edge) 4,540mm, (teeth) 4,180mm. Hinge pin 6,265mm. Min turning radius 9,050mm (centre of outside tyre). Hydraulics: 4× loader pumps 224 L/min each / 34.3MPa; 2 lift cyls 225×1360mm, bucket 280×824mm; raise 7.4s, dump 2.8s, lower 4.4s. Divided-type brake (separate from final drive) for easier service and better heat dissipation. KomVision 6-camera surround monitoring, 22 LED work lamps, Semi-auto Approach & Dump System, tyre slip control, ECSS, AJSS, KOMTRAX Plus, walk-through around cab, service centre at ground level. Service: fuel 1,420L, hydraulics 833L, cooling 221L, each axle 340L. Source: Komatsu WA700-8 ANZ Brochure (© 2025 Komatsu Australia Pty Ltd).',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA900-8R ─────────────────────────────────────────────────
+    // Source: Komatsu WA900-8R Brochure CEN00855-03 (printed Japan 202203, U.S. EPA Tier 2 equivalent)
+    { id:'kom-wa900-8r', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA900-8R Wheel Loader', shortName:'Komatsu WA900-8R',
+      // ── Engine ──
+      engineModel:'Komatsu SAA12V140E-7',
+      engineType:'Water-cooled, 4-cycle, turbocharged, aftercooled, direct injection',
+      engineCylinders:12,
+      engineBoreMm:140, engineStrokeMm:165,
+      engineDisplacementL:30.48,
+      engineRatedRPM:2050,
+      engineGrossKW:672, engineGrossHP:900,
+      engineNetKW:671, engineNetHP:899,
+      engineGrossTorqueNm:null,
+      engineMaxTorqueNm:3124, engineMaxTorqueRPM:null,
+      engineFanDrive:'Hydraulic (reversing, swing-out fan)',
+      engineGovernor:'All-speed, electronic',
+      emissionStandard:'U.S. EPA Tier 2 equivalent',
+      engineAftertreatment:'None (Tier 2)',
+      engineAirFilter:'Dry type with double elements and dust evacuator, plus dust indicator',
+      // ── Transmission ──
+      transmissionType:'Full-powershift, planetary type with ECMV (Electronic Controlled Modulation Valve), large-capacity torque converter',
+      speedRangesFwd:3, speedRangesRev:3,
+      // Measured with 45/65 R45 tires
+      maxSpeedFwd1Kmh:7.6, maxSpeedFwd2Kmh:11.9, maxSpeedFwd3Kmh:23.3,
+      maxSpeedRev1Kmh:7.9, maxSpeedRev2Kmh:12.1, maxSpeedRev3Kmh:24.1,
+      torqueConverterLockup:false,
+      smartLoaderLogic:true,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, full-floating',
+      rearAxle:'Centre-pin support, full-floating, 20° total oscillation',
+      reductionGear:'Spiral bevel gear',
+      differentialGear:'Conventional type',
+      finalReductionGear:'Planetary gear, single reduction',
+      tyreSize:'45/65 R45 (L-5) tubeless',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet multiple-disc brakes on four wheels',
+      parkingBrake:'Wet multiple-disc brake (electric)',
+      secondaryBrake:'One of dual service brake circuits commonly used',
+      // ── Hydraulics ──
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:440,      // 2×220 L/min
+      steeringReliefMPa:31.4,
+      steeringCylCount:2, steeringCylBoreMm:160, steeringCylStrokeMm:576,
+      loaderPumpType:'Piston pump (CLSS — 4 pumps)',
+      loaderPumpCapacityLpm:920,        // 4×230 L/min
+      loaderReliefMPa:34.3,
+      boomCylCount:2, boomCylBoreMm:260, boomCylStrokeMm:1495,
+      bucketCylCount:1, bucketCylBoreMm:300, bucketCylStrokeMm:995,
+      controlValve:'Spool type',
+      hydraulicRaiseTimeSec:10.1, hydraulicDumpTimeSec:2.9, hydraulicLowerTimeSec:4.8,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering',
+      steeringAngleDeg:40,
+      minTurningRadiusMm:9880,
+      // ── Operating weights ──
+      operatingWeightKgMin:117300, operatingWeightKgMax:118340,
+      operatingWeightT:117.98,
+      // ── Bucket capacities ──
+      bucketCapM3:11.5,
+      bucketCapRangeM3:'11.5–13.0',
+      // ── Performance — Standard Boom, Spade Nose, Teeth & Segments (11.5 m³) ──
+      staticTippingLoadStraightKg:74990, staticTippingLoadArticulatedKg:66460,
+      breakoutForceKN:754,              // 76,900 kgf
+      hingePinHeightMm:6975,
+      dumpClearanceMm:4715,             // max height and 45° dump angle, at tooth end
+      reachAtMaxHeightMm:2580,          // at 45° dump angle, at tooth end
+      operatingHeightFullyRaisedMm:9495,
+      // ── Dimensions (45/65 R45 L-5, ROPS/FOPS cab) ──
+      wheelbaseMm:5600,
+      treadMm:3350,
+      widthOverTyresMm:4585,
+      groundClearanceMm:485,
+      overallHeightROPSMm:5600,
+      overallHeightStackMm:5040,
+      hitchHeightMm:1510,
+      // ── Service Refill Capacities ──
+      coolantL:355, fuelTankL:1555, engineOilL:108,
+      hydraulicSystemL:1020, frontAxleL:370, rearAxleL:370,
+      torqueConverterTransL:180,
+      // ── Features ──
+      komtrax:true,
+      komtraxPlus:true,
+      ajss:true,
+      smartLoaderLogic:true,
+      electronicSuspensionSystem:'optional (ECSS)',
+      rearViewCamera:'standard',
+      komVision:'optional (6-camera)',
+      komVisionRadar:'optional',
+      automaticGreasing:'optional (service centre)',
+      remoteBoomPositioner:true, remoteBucketPositioner:true,
+      automaticDigging:'standard (New automatic digging system)',
+      semiAutoApproachDumpSystem:'standard',
+      workEquipmentShockReduction:'standard',
+      tyreSlipControl:'standard',
+      integratedLoadMetre:'standard (load meter system)',
+      powerLadder:'optional (hydraulic 45° stairway)',
+      nonGlareBucketTreatment:'optional',
+      cab:'Pillar-less large ROPS(ISO 3471)/FOPS(ISO 3449) cab, AJSS, EPC fingertip levers, heated air-suspension seat, trainer seat, auto A/C, 7" colour LCD monitor, AM/FM with AUX+USB+Bluetooth, LED room and spot lamps, hot/cool box, rear defroster, side wiper, rear access stairs, rear full fenders with handrail',
+      // ── Full Bucket Configuration Table ──
+      bucketConfigs:[
+        { id:'wa900-8r-std-new-130', boom:'standard', coupler:'pin-on', capacityM3:13.0, capacityStruckM3:11.0, type:'Excavating', cutting:'Spade nose, Teeth & Segments (new shape)', bucketW:4935, wt:12890, dumpClearMm:4610, reachMm:2685, opHeight:9780, overallLen:15355, digDepth0:225, digDepth10:660, tipStr:73810, tipFullTurn:65330, breakoutKN:705, opWt:117980 },
+        { id:'wa900-8r-std-spade-115', boom:'standard', coupler:'pin-on', capacityM3:11.5, capacityStruckM3:9.9, type:'Excavating', cutting:'Spade nose, Teeth & Segments', bucketW:4935, wt:12215, dumpClearMm:4715, reachMm:2580, opHeight:9495, overallLen:15205, digDepth0:243, digDepth10:710, tipStr:74990, tipFullTurn:66460, breakoutKN:754, opWt:117300 },
+        { id:'wa900-8r-hl-spade-115', boom:'high_lift', coupler:'pin-on', capacityM3:11.5, capacityStruckM3:9.9, type:'Excavating', cutting:'Spade nose, Teeth & Segments', bucketW:4935, wt:12215, dumpClearMm:5225, reachMm:2555, opHeight:10155, overallLen:15610, digDepth0:225, digDepth10:630, tipStr:66620, tipFullTurn:58800, breakoutKN:755, opWt:118340 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        widthOverTyresMm:4585, treadMm:3350, wheelbaseMm:5600,
+        standardBoom:{ hingePinMaxHeightMm:6975, hingePinCarryPositionMm:955 },
+        highLiftBoom:{ hingePinMaxHeightMm:7485, hingePinCarryPositionMm:1050 },
+        groundClearanceMm:485, hitchHeightMm:1510,
+        overallHeightTopOfStackMm:5040, overallHeightROPSCabMm:5600,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Air cleaner dry type with double elements and dust evacuator, plus dust indicator',
+        'Alternator 24V/140A',
+        'Batteries large capacity 4×12V/160Ah',
+        'Engine Komatsu SAA12V140E-7',
+        'Starting motor 2×24V/11kW',
+        'LED access stair lamp LH side','LED directional signal','LED hazard lamps',
+        'LED headlamps','LED front work lamps','LED rear work lamps','LED side work lamps',
+        'LED stop/tail and turn signal lamps',
+        '2×DC12V electrical outlets','Advanced joystick steering system (AJSS)',
+        'Auto air conditioner','Ashtray','Cigarette lighter',
+        'Colour 7" LCD multi-monitor','Cup holder',
+        'Electronic Pilot Control fingertip levers',
+        'Floor mat','Front wiper with washer and intermittent',
+        'Heated air-suspension seat with 2-point seat belt, reclining',
+        'AM/FM radio with AUX + USB charging + Bluetooth',
+        'Rear defroster electric','Rear wiper with washer and intermittent',
+        'Room mirror','LED room lamps','LED spot lamp',
+        'ROPS(ISO 3471)/FOPS(ISO 3449)',
+        'Space for lunch box','Sun visor front',
+        'Trainer seat with 2-point seat belt',
+        'Side windshield wiper',
+        'Back-up alarm','Beacon lamp',
+        'Engine shutdown secondary switch',
+        'Hand rails for platform','Horn electric',
+        'Parking brake electric','Rear view monitoring system',
+        'Secondary brake','Secondary steering (ISO 5010)',
+        'Service brakes wet disc type',
+        '2-way engine power mode','3rd gear prohibition and speed limit control',
+        'Automatic digging system','Automatic shift transmission',
+        'Battery disconnect switch','Boom positioner with kick-out',
+        'Brake cooling system','Brake oil thermometer display','Bucket positioner',
+        'Circuit breaker','ECO guidance / ECO gauge',
+        'Engine RPM set system with auto deceleration',
+        'Front fenders','Fuel pre-filter with water separator',
+        'Hydraulic-driven fan with reverse rotation',
+        'Inline filters for steering and hydraulic',
+        'Komatsu auto idle shutdown','Komatsu SmartLoader Logic',
+        'KOMTRAX Plus',
+        'Lift cylinders and bucket cylinder',
+        'Load meter system','Modulation clutch','Modular radiator core',
+        'Radiator mask swing out','Rear access stair with handrail',
+        'Rear full fenders (stairway type with handrail)',
+        'Semi-auto Approach & Dump System',
+        'Sweeper wing (large size tyre guard)',
+        'Tyre slip control',
+        'Wall digging protection control',
+        'Work equipment shock reduction control',
+        '3-point seat belt with ventilation (operator)',
+        'Auto greasing system',
+        'Engine bay lamp LED','Engine pre-lubrication',
+        'Tyres 45/65R45 (L-5) tubeless',
+        '3990mm standard boom',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        'KomVision system (with radar or radar-less)',
+        'KomVision radar',
+        'Electronically Controlled Suspension System (ECSS)',
+        'Power ladder (hydraulic 45° stairway)',
+        'Non-glare treatment bucket',
+        'Machine lock out system',
+        'Service centre (engine, transmission, brake oil, coolant)',
+        'Fuel quick charge system',
+        'High lift boom',
+        'Various bucket options',
+        'Various radial tyre options',
+        'Heated mirrors (cold district)',
+        'Oil heater system (cold district)',
+        'Fog lamp LED',
+        'KOWA sampling port',
+        'Ordinary spare parts',
+        'Sun shades front and rear retractable',
+        'Trainer seat with 3-point seat belt',
+      ],
+      brochureRef:'Komatsu WA900-8R Brochure CEN00855-03 (printed Japan 202203)',
+      tags:['wheel loader','118t class','mining','large mining loader','EPA Tier 2','KOMTRAX Plus','12-cylinder','CLSS','SmartLoader Logic','torque converter','AJSS','ECSS optional','semi-auto approach dump','tyre slip control','KomVision','automatic digging','HD dump truck match'],
+      note:'Komatsu WA900-8R — 117–118t large wheel loader. Komatsu SAA12V140E-7, 12-cyl turbocharged aftercooled, 140×165mm, 30.48L, 672kW/900HP gross (671kW/899HP net) @ 2,050rpm, 3,124Nm net torque. U.S. EPA Tier 2 equivalent. Full-powershift planetary 3F/3R; top speed 23.3 km/h (45/65 R45). Bucket range 11.5–13.0m³; 11.5m³ excavating (spade nose, teeth & segments, std boom): STL straight 74,990kg (40° turn 66,460kg), breakout 754kN; dump clearance 4,715mm. 13.0m³ new shape bucket (std boom): STL straight 73,810kg (40° 65,330kg), breakout 705kN. High lift 11.5m³: STL straight 66,620kg (40° 58,800kg), breakout 755kN, dump clearance 5,225mm. Hinge pin 6,975mm (std) / 7,485mm (HL). Min turning radius 9,880mm. Hydraulics: 4× loader pumps 230 L/min each / 34.3MPa; 2 lift cyls 260×1495mm, bucket 300×995mm, steering 2×160×576mm @ 31.4MPa; raise 10.1s, dump 2.9s, lower 4.8s. AJSS, new automatic digging system, semi-auto approach & dump, tyre slip control, ECSS (optional), KOMTRAX Plus, 7" LCD monitor, operator ID, ECO guidance, KomVision (optional), rear view monitoring, swing-out fan, modular radiator. Service: fuel 1,555L, hydraulics 1,020L, cooling 355L, each axle 370L. Source: Komatsu WA900-8R Brochure CEN00855-03.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WA1200-6 ─────────────────────────────────────────────────
+    // Source: Komatsu WA1200-6 Brochure (printed Japan 201907, EPA Tier 2)
+    { id:'kom-wa1200-6', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WA1200-6 Wheel Loader', shortName:'Komatsu WA1200-6',
+      // ── Engine ──
+      engineModel:'Komatsu SSDA16V160E-2',
+      engineType:'Water-cooled, 4-cycle, turbocharged and aftercooled, modular common rail direct injection',
+      engineCylinders:16,
+      engineBoreMm:159, engineStrokeMm:190,
+      engineDisplacementL:60.0,
+      engineRatedRPM:1800,
+      engineGrossKW:1411, engineGrossHP:1892,
+      engineNetKW:1316, engineNetHP:1765,
+      engineGrossTorqueNm:null,
+      engineMaxTorqueNm:8150, engineMaxTorqueRPM:null,  // 8.15 kN·m / 831 kgf·m
+      engineFanDrive:'Mechanical',
+      engineGovernor:'Electronic fuel control',
+      emissionStandard:'EPA Tier 2',
+      engineAftertreatment:'None (Tier 2)',
+      engineAirFilter:'Dry-type with double elements and automatic dust evacuation with dust indicator on monitor',
+      // ── Transmission ──
+      transmissionType:'Full-powershift, planetary type with modulated clutch and ECMV (Electronically Controlled Modulation Valve), large-capacity torque converter',
+      speedRangesFwd:3, speedRangesRev:3,
+      // Measured with 60/80 R57 tires
+      maxSpeedFwd1Kmh:6.1, maxSpeedFwd2Kmh:11.1, maxSpeedFwd3Kmh:18.7,
+      maxSpeedRev1Kmh:6.3, maxSpeedRev2Kmh:11.4, maxSpeedRev3Kmh:19.3,
+      torqueConverterLockup:false,
+      smartLoaderLogic:false,
+      // ── Axles & Final Drives ──
+      driveSystem:'Four-wheel drive',
+      frontAxle:'Fixed, full-floating',
+      rearAxle:'Centre-pin support, full-floating, 16° total oscillation',
+      reductionGear:'Spiral bevel gear',
+      differentialGear:'Straight bevel gear',
+      finalReductionGear:'Planetary gear, double reduction, oil bath',
+      tyreSize:'60/80 R57',
+      // ── Brakes ──
+      serviceBrake:'Hydraulically actuated wet multiple-disc brakes on four wheels',
+      parkingBrake:'Wet multiple-disc, hydraulically released, spring applied in transmission',
+      secondaryBrake:'Parking brake (auto-engaged if brake oil pressure too low)',
+      // ── Hydraulics ──
+      steeringPumpType:'Variable displacement piston pump',
+      steeringPumpCapacityLpm:633,
+      steeringReliefMPa:31.4,
+      steeringCylCount:2, steeringCylBoreMm:225, steeringCylStrokeMm:660,
+      loaderPumpType:'Variable displacement piston pump (loader + switch pumps)',
+      loaderPumpCapacityLpm:1651,       // loader 1,018 + switch 633 L/min
+      loaderReliefMPa:31.4,
+      boomCylCount:2, boomCylBoreMm:360, boomCylStrokeMm:1835,
+      bucketCylCount:2, bucketCylBoreMm:300, bucketCylStrokeMm:985,
+      controlValve:'Double spool closed-centre hydraulic valve + steering valve with demand valve',
+      hydraulicRaiseTimeSec:15.4, hydraulicDumpTimeSec:3.3, hydraulicLowerTimeSec:5.3,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering (Advanced Joystick Steering System)',
+      steeringAngleDeg:40,
+      minTurningRadiusMm:14505,         // outside corner of bucket and teeth
+      // ── Operating weights ──
+      operatingWeightKgMin:216200, operatingWeightKgMax:220600,
+      operatingWeightT:218.3,           // with std boom, 23.0m³ rock bucket
+      // ── Bucket capacities ──
+      bucketCapM3:23.0,
+      bucketCapRangeM3:'16.5–35.0',
+      // ── Performance — Standard Boom, 23.0 m³ Rock Bucket (spade nose with teeth) ──
+      staticTippingLoadStraightKg:114500, staticTippingLoadArticulatedKg:100900,
+      breakoutForceKN:1134,             // 115,600 kgf — 23.0m³ rock bucket (spade nose with teeth)
+      tractionForceKN:992,              // 101,200 kgf
+      hingePinHeightMm:8850,            // std boom, 60/80 R57
+      dumpClearanceMm:6195,             // max height and 45° dump angle
+      reachAtMaxHeightMm:3470,          // at 45° dump angle
+      operatingHeightFullyRaisedMm:12265,
+      // ── Dimensions (60/80 R57, ROPS/FOPS canopy cab) ──
+      wheelbaseMm:7100,
+      treadMm:4300,
+      widthOverTyresMm:5820,
+      groundClearanceMm:760,
+      overallHeightROPSMm:6970,
+      overallHeightStackMm:6735,
+      hitchHeightMm:1415,
+      // ── Service Refill Capacities ──
+      coolantL:570, fuelTankL:5100, engineOilL:280,
+      hydraulicSystemL:1300, frontAxleL:670, rearAxleL:670,
+      torqueConverterTransL:350, brakeOilL:75, brakeCoolingL:290,
+      // ── Features ──
+      komtrax:true,
+      komtraxPlus:true,
+      ajss:true,
+      remoteBoomPositioner:true,
+      selectableTractionPower:true,
+      maximumSpeedControl:true,
+      dualModeActiveWorkingSystem:true,
+      pumpNeutralCutControl:true,
+      variableDisplacementSteeringPump:true,
+      engineEPControl:true,
+      modulatedClutchSystem:true,
+      autoGreasing:'standard (auto-greasing system)',
+      rearViewCamera:'optional',
+      cab:'Pillar-less large cab with ROPS(ISO 3471)/FOPS(ISO 3449) canopy, power windows, Komatsu viscous damping mounts, AJSS, overhead control panel, AM/FM radio, reclining/air-suspension seat, large capacity air conditioner (5 modes), lunchbox storage',
+      // ── Full Bucket Configuration Table (60/80 R57) ──
+      bucketConfigs:[
+        { id:'wa1200-6-std-165', boom:'standard', capacityM3:16.5, capacityStruckM3:13.7, type:'Rock', cutting:'Spade nose with teeth', bucketW:6400, wt:22100, dumpClearMm:6740, reachMm:3210, opHeight:11985, overallLen:18540, loaderClearCircle:28690, digDepth0:255, digDepth10:755, tipStr:116600, tipFullTurn:103000, breakoutKN:1323, opWt:216200 },
+        { id:'wa1200-6-std-200', boom:'standard', capacityM3:20.0, capacityStruckM3:17.2, type:'Rock', cutting:'Spade nose with teeth', bucketW:6400, wt:22900, dumpClearMm:6335, reachMm:3400, opHeight:12195, overallLen:18815, loaderClearCircle:28920, digDepth0:255, digDepth10:805, tipStr:115800, tipFullTurn:102200, breakoutKN:1178, opWt:217000 },
+        { id:'wa1200-6-std-230', boom:'standard', capacityM3:23.0, capacityStruckM3:19.1, type:'Rock', cutting:'Spade nose with teeth', bucketW:6400, wt:24200, dumpClearMm:6195, reachMm:3470, opHeight:12265, overallLen:18915, loaderClearCircle:29010, digDepth0:255, digDepth10:820, tipStr:114500, tipFullTurn:100900, breakoutKN:1134, opWt:218300 },
+        { id:'wa1200-6-std-350-coal', boom:'standard', capacityM3:35.0, capacityStruckM3:30.2, type:'Coal', cutting:'Spade nose without teeth', bucketW:6400, wt:24600, dumpClearMm:6310, reachMm:3515, opHeight:12980, overallLen:18950, loaderClearCircle:29020, digDepth0:145, digDepth10:700, tipStr:114100, tipFullTurn:100500, breakoutKN:944, opWt:218700 },
+        { id:'wa1200-6-hl-165', boom:'high_lift', capacityM3:16.5, capacityStruckM3:13.7, type:'Rock', cutting:'Spade nose with teeth', bucketW:6400, wt:22100, dumpClearMm:7420, reachMm:3020, opHeight:12670, overallLen:18980, loaderClearCircle:29090, digDepth0:255, digDepth10:755, tipStr:105000, tipFullTurn:93100, breakoutKN:1275, opWt:218100 },
+        { id:'wa1200-6-hl-180', boom:'high_lift', capacityM3:18.0, capacityStruckM3:15.0, type:'Rock', cutting:'Spade nose with teeth', bucketW:6400, wt:22300, dumpClearMm:7155, reachMm:3140, opHeight:12770, overallLen:19155, loaderClearCircle:29240, digDepth0:255, digDepth10:785, tipStr:104800, tipFullTurn:92900, breakoutKN:1182, opWt:218300 },
+        { id:'wa1200-6-hl-215', boom:'high_lift', capacityM3:21.5, capacityStruckM3:17.7, type:'Rock', cutting:'Spade nose with teeth', bucketW:6400, wt:23500, dumpClearMm:6945, reachMm:3210, opHeight:12880, overallLen:19255, loaderClearCircle:29320, digDepth0:255, digDepth10:805, tipStr:103600, tipFullTurn:91700, breakoutKN:1135, opWt:219500 },
+        { id:'wa1200-6-hl-350-coal', boom:'high_lift', capacityM3:35.0, capacityStruckM3:30.2, type:'Coal', cutting:'Spade nose without teeth', bucketW:6400, wt:24600, dumpClearMm:6985, reachMm:3375, opHeight:13655, overallLen:19390, loaderClearCircle:29465, digDepth0:145, digDepth10:700, tipStr:102500, tipFullTurn:90600, breakoutKN:944, opWt:220600 },
+      ],
+      // ── Machine Dimensions ──
+      machineDims:{
+        widthOverTyresMm:5820, treadMm:4300, wheelbaseMm:7100,
+        standardBoom:{ hingePinMaxHeightMm:8850, hingePinCarryPositionMm:1150 },
+        highLiftBoom:{ hingePinMaxHeightMm:9535, hingePinCarryPositionMm:1400 },
+        groundClearanceMm:760, hitchHeightMm:1415,
+        overallHeightTopOfStackMm:6735, overallHeightROPSCabMm:6970,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '2-spool valve for boom and bucket controls',
+        '6550mm standard boom',
+        'Alternator 24V/140A',
+        'AM/FM radio',
+        'Air conditioner, heater, defroster and pressurizer',
+        'Automatic greasing system',
+        'Automatic transmission F3/R3',
+        'Axles full floating',
+        'Back-up alarm','Back-up light',
+        'Batteries 6×12V/160Ah',
+        'Battery disconnect switch',
+        'Boom kick-out automatic and adjustable',
+        'Brakes: service wet multiple-disc; parking wet multiple-disc',
+        'Bucket positioner',
+        'Cab with ROPS(ISO 3471)/FOPS(ISO 3449) canopy',
+        'Converter 5 amps 12V','Counterweight standard',
+        'Dual-mode active working system',
+        'Electromagnetic Proportional Control fingertip levers with auto leveller and positioner',
+        'Electronic display / multi monitor',
+        'Emergency engine stop switch',
+        'Engine Komatsu SSDA16V160E-2 diesel',
+        'Fenders front and left rear','Floor mat',
+        'Hard water area arrangement (corrosion resister)',
+        'Horn electric','KOMTRAX Plus',
+        'Lights: backup, headlights (4 front), stop and tail, turn signal with hazard (2 front 2 rear), working lights (6 front 8 rear), access stairs and service area',
+        'Load meter','Power windows','Rear access stairs',
+        'Rearview mirror and rear underview mirror',
+        'Rims 47.00-57/5.0','Room mirror',
+        'Seat belt 76mm with retractor','Seat air suspension with reclining',
+        'Secondary brake','Secondary steering (ISO 5010)',
+        'Starting motor 2×24V/9.0kW',
+        'Steering full hydraulic power (joystick steering control)',
+        'Sun visor','Tyre saver (modulation clutch controlled)',
+        'Vandalism protection kit','Water separator',
+        'Wiggins fast fuel fill','Wiggins fast oil fill',
+        'Wind washer front and rear',
+        'Wipers front and rear (front intermittent)',
+      ],
+      // ── Optional Equipment ──
+      optionalEquipment:[
+        '6900mm high-lift boom',
+        '23.0m³ spade nose rock bucket',
+        '21.5m³ spade nose rock bucket (both with Hensley system)',
+        '35.0m³ coal bucket',
+        'Various Hensley buckets',
+        'Cold weather arrangement',
+        'Fire extinguisher',
+        'Front fender handrails',
+        'Hensley large-scale teeth',
+        'LED turn signal','LED working lights',
+        'Power train guard',
+        'Radiator core protective grid',
+        'Rear view monitor',
+        'Rims 44.00-57/6.0 or 47.00-57/6.0',
+        'Service centre','Trainer seat','Yellow rotating lamp',
+      ],
+      brochureRef:'Komatsu WA1200-6 Brochure (printed Japan 201907)',
+      tags:['wheel loader','218t class','mining','ultra-large mining loader','EPA Tier 2','KOMTRAX Plus','16-cylinder','dual-mode active working','modulated clutch','AJSS','Advanced Joystick Steering','dump truck match','coal bucket','140t 180t 220t truck match'],
+      note:'Komatsu WA1200-6 — 216–220t ultra-large mining wheel loader. Komatsu SSDA16V160E-2, 16-cyl turbocharged aftercooled common rail, 159×190mm, 60.0L, 1,411kW/1,892HP gross (1,316kW/1,765HP net) @ 1,800rpm, max torque 8.15 kN·m. EPA Tier 2. Full-powershift planetary 3F/3R with modulated clutch + ECMV; top speed 18.7 km/h. Bucket range 16.5–35.0m³; 23.0m³ rock bucket (std boom, spade nose with teeth): STL straight 114,500kg (40° 100,900kg), breakout 1,134kN; dump clearance 6,195mm. Traction force 992kN. Widest tread in class 4,300mm, wheelbase 7,100mm. High-lift boom (optional): dump clearance 6,945mm (21.5m³). Operator seated 6,380mm from ground for safe unobstructed view into 220t truck body. 140t truck: 4-pass (std boom); 180t: 5-pass; 220t: 6-pass; 290t+: 8-pass (high-lift). Hydraulics: loader 1,018 L/min + switch pump 633 L/min / 31.4MPa; 2 lift cyls 360×1835mm, bucket 2×300×985mm; raise 15.4s, dump 3.3s, lower 5.3s. AJSS, KOMTRAX Plus, auto-greasing, fluid drains from ground, centralized filter layout, engine pre-lube, sealed wet disc brakes with brake cooling system. Service: fuel 5,100L, hydraulics 1,300L, cooling 570L, per axle 670L. Source: Komatsu WA1200-6 Brochure (201907).',
+      hireRateType:'wet_or_dry' },
+
+    // ── WE1350-3 ─────────────────────────────────────────────────
+    // Source: Komatsu WE1350-3 General Specifications (EN-WE1350-3_SP01-0921-V1, © 2022 Komatsu Australia Pty Ltd)
+    { id:'kom-we1350-3', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WE1350-3 Electric Drive Wheel Loader', shortName:'Komatsu WE1350-3',
+      // ── Drive System ──
+      driveSystemType:'Electric SR (Switched Reluctance) Hybrid Drive — independent SR motor per wheel, no conventional transmission',
+      // ── Engine / Power Module ──
+      engineModel:'MTU 12V Series 4000 Tier 4 (primary) / Cummins QSK50 Tier 4 (alt)',
+      engineType:'4-cycle turbocharged diesel',
+      engineCylinders:12,
+      engineRatedRPM:1800,
+      engineGrossKW:1249, engineGrossHP:1676,
+      engineAltModel:'Cummins QSK50 Tier 4',
+      engineAltCylinders:16,
+      engineAltKW:1193, engineAltHP:1600,
+      kessKW:820, kessHP:1100,
+      emissionStandard:'Tier 4',
+      // ── Propulsion ──
+      transmissionType:'SR Hybrid Drive — switched reluctance (SR) technology, digital microprocessor controlled traction drive, LINCS II VCU, no commutator or brushes',
+      tractionMotors:'B40A SR motors (×4, one per wheel)',
+      generator:'G100 SR generator',
+      planetaryModel:'Model 51A2 — 4-stage planetary, 140.8:1 total reduction, in-line within tyre rim',
+      maxSpeedKmh:19.31,
+      // ── Axles ──
+      driveSystem:'Four-wheel drive (independent SR motor per wheel)',
+      frontAxle:'Fixed, integral part of front frame',
+      rearAxle:'Centre oscillates 11°',
+      tyreSize:'50/80-57 L-4',
+      rimSize:'36×57 with 6" flange',
+      // ── Brakes ──
+      serviceBrake:'Electric dynamic braking (primary) + air modulated traction motor speed disc brakes (secondary)',
+      parkingBrake:'Spring applied, air release traction motor speed disc brakes',
+      secondaryBrake:'Air modulated traction motor speed disc brakes — single disc and caliper per traction motor; spring applied fail-safe on air pressure loss',
+      // ── Hydraulics ──
+      loaderPumpType:'Piston pump (×4 main)',
+      loaderPumpCapacityLpm:1404,
+      loaderReliefMPa:27.98,            // 27,980 kPa / 4,000 psi
+      steeringPumpType:'Piston pump',
+      steeringPumpCapacityLpm:342,
+      steeringReliefMPa:23.44,          // 23,443 kPa / 3,400 psi
+      fanBlowerPumpType:'Tandem piston',
+      fanBlowerCapacityLpm:342,
+      accessoryPumpLpm:81,
+      boomCylCount:2, boomCylBoreMm:343, boomCylStrokeMm:1892,
+      bucketCylCount:2, bucketCylBoreMm:254, bucketCylStrokeMm:1054,
+      steeringCylCount:2, steeringCylBoreMm:190, steeringCylStrokeMm:762,
+      hydraulicRaiseTimeSec:11.8, hydraulicDumpTimeSec:3.0, hydraulicLowerTimeSec:5.0,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering (single joystick, constant engine rpm)',
+      steeringAngleDeg:40,
+      minTurningRadiusMm:13500,
+      minTurningRadiusHLMm:13760,
+      // ── Operating weights ──
+      operatingWeightKgMin:194228, operatingWeightKgMax:196496,
+      operatingWeightT:194.2,
+      // ── Bucket capacities ──
+      bucketCapM3:22.94,
+      bucketCapRangeM3:'21.41–22.94',
+      bucketCapYd3:30,
+      // ── Performance — Standard Lift ──
+      staticTippingLoadStraightKg:108776, staticTippingLoadArticulatedKg:98849,
+      breakoutForceKN:978,
+      payloadKg:40823,
+      staticTippingLoadStraightKgHL:100068, staticTippingLoadArticulatedKgHL:90936,
+      breakoutForceKNHL:1004,
+      payloadKgHL:38102,
+      bucketCapM3HL:21.41, bucketCapYd3HL:28,
+      truckMatchTonne:'181–236 tonne',
+      // ── Dimensions ──
+      wheelbaseMm:6560, treadMm:4450, widthOverTyresMm:5770, groundClearanceMm:620,
+      hingePinHeightMm:8710, dumpClearanceMm:6420, heightFullyRaisedMm:11400,
+      overallLengthCarryMm:16930, overallLengthBucketDownMm:17310, heightOverCabMm:6690,
+      hingePinHeightHLMm:9140, dumpClearanceHLMm:7060, heightFullyRaisedHLMm:11730,
+      overallLengthCarryHLMm:17520, overallLengthBucketDownHLMm:17700,
+      // ── Service Refill Capacities ──
+      fuelTankL:3501, hydraulicSystemL:1419, srConverterCoolingL:117,
+      coolantL:382, engineOilDetroitL:330, engineOilCumminsL:216,
+      gearboxL:27, planetaryEachL:136,
+      // ── Features ──
+      lincsII:true,
+      lincsIILoadWeigh:true,
+      komtraxPlus:true,
+      autoGreasing:'standard',
+      adjustableAutoLiftHeightCutoff:true,
+      automaticBucketLevelingControl:true,
+      rearViewCamera:'optional',
+      cab:'Pressurized and filtered ROPS/FOPS cab, air conditioning/heater/defroster, LINCS II full colour touch-screen display, 11-way adjustable operator seat, joystick hoist and bucket control, joystick steering, retractable lap belt with shoulder harness, training seat, LED working lights (10 forward 2 rear), data logging',
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Access ladder lights',
+        'Air clean-out hose in cab',
+        'Air conditioning / heater-defroster (filtered and pressurized)',
+        'Air dryer system','Air horn','Air tank bleed system',
+        'Adjustable automatic lift height cut off',
+        'Automatic bucket leveling control',
+        'Automatic electrical cabinet lights',
+        'Automatic lubrication system',
+        'Back-up alarm audible','Battery disconnect switch','Brake lights',
+        'Central air regulator box','Central service with fast fuel',
+        'Data analysis and viewing software',
+        'Data logging — downloadable production and maintenance logs',
+        'Door interlock on electrical cabinet',
+        'Drawbar with tow points',
+        'Emergency stop buttons (cab and remote mounted)',
+        'Engine compartment lights',
+        'Fire extinguisher manual 9.07kg (20 lb)',
+        'FOPS — falling object protection system',
+        'Idle timer','Interior lights','Isolation monitor',
+        'Joystick hoist and bucket control','Joystick steering control',
+        'Jump start',
+        'Ladder walkway (rear access with retracting ladder)',
+        'LED working lights (10 forward, 2 rear)',
+        'LINCS II alarms','LINCS II load weigh and monitoring',
+        'Mirrors rearview parabolic (×2)',
+        'Operator seat 11-way adjustable','Overspeed alarm','Parking brake',
+        'Retractable lap belt with shoulder harness',
+        'Rock deflectors (bucket)',
+        'ROPS — rollover protection structure',
+        'Selectable throttle switch','Starter disconnect switch','Sun visor',
+        'Tinted safety glass throughout',
+        'Training seat with lap belt','Turn signals',
+        '12V power supply in cab','12V power port (×2)',
+        'Walk around catwalk for cab',
+        'Windshield washer reservoir (2.6 gal)',
+        'Windshield wiper and washer front and rear',
+      ],
+      optionalEquipment:[
+        'Auxiliary steering','Beacon light kit','Bucket GET options available',
+        'Cold weather package (battery heater, engine heating, grease reservoir heater, hydraulic tank heater)',
+        'Exhaust discharge guard','Fast fuel',
+        'Fire detection and suppression system (manual)',
+        'Fire suppression system (manual)','Fluid sampling kit',
+        'Lift arms — high lift',
+        'Tires 55/80R-57; Rims 44×57 with 5" flange',
+        'Video camera (rear mount)','Windshield protection kit',
+      ],
+      brochureRef:'Komatsu WE1350-3 General Specifications EN-WE1350-3_SP01-0921-V1 (© 2022 Komatsu Australia Pty Ltd)',
+      tags:['wheel loader','194t class','mining','electric drive wheel loader','SR hybrid drive','switched reluctance','LINCS II','KESS','electric dynamic braking','no conventional transmission','mining loader','EPA Tier 4','MTU','Cummins QSK50','181t 236t truck match'],
+      note:'Komatsu WE1350-3 — 194–196t electric drive SR Hybrid mining wheel loader. Engine: MTU 12V Series 4000 Tier 4, 1,249kW/1,676HP @ 1,800rpm (alt: Cummins QSK50, 1,193kW/1,600HP). KESS: 820kW/1,100HP kinetic energy storage. SR Hybrid Drive — 4 independent B40A switched reluctance traction motors (one per wheel), G100 SR generator, LINCS II VCU, Model 51A2 planetary gearing (140.8:1 reduction within tyre rim). Primary braking: electric dynamic braking (full stop without mechanical brakes). Top speed 19.31 km/h F&R. Standard lift: 22.94m³ bucket, 40,823kg payload; STL straight 108,776kg (45° turn 98,849kg), breakout 978kN. High lift: 21.41m³, 38,102kg payload; STL straight 100,068kg (45° 90,936kg), breakout 1,004kN. Truck match 181–236t. Turning radius 13.50m (std) / 13.76m (HL). Hydraulics: 4× piston main 1,404 L/min, steering 342 L/min / 23,443 kPa; hoist cyls 2×343×1892mm, bucket 2×254×1054mm; hoist 11.8s, dump 3.0s, float 5.0s. 5,000-hour KLENZ primary air filter, LINCS II load weigh and data logging. Service: fuel 3,501L, hydraulics 1,419L, cooling 382L. Source: Komatsu WE1350-3 Spec Sheet EN-WE1350-3_SP01-0921-V1.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WE1850-3 ─────────────────────────────────────────────────
+    // Source: Komatsu WE1850-3 General Specifications (EN-WE1850-3_SP01-0921-V1, © 2022 Komatsu Australia Pty Ltd)
+    { id:'kom-we1850-3', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WE1850-3 Electric Drive Wheel Loader', shortName:'Komatsu WE1850-3',
+      // ── Drive System ──
+      driveSystemType:'Electric SR (Switched Reluctance) Hybrid Drive — independent SR motor per wheel, no conventional transmission',
+      // ── Engine / Power Module ──
+      engineModel:'Cummins QSK60 Tier 4 (primary) / MTU 16V or 12V Series 4000 Tier 4 (alt)',
+      engineType:'4-cycle turbocharged diesel',
+      engineCylinders:16,
+      engineRatedRPM:1800,
+      engineGrossKW:1491, engineGrossHP:2000,
+      kessKW:1268, kessHP:1700,
+      emissionStandard:'Tier 1, Tier 2, or Tier 4 (depending on configuration)',
+      // ── Propulsion ──
+      transmissionType:'SR Hybrid Drive — switched reluctance (SR) technology, LINCS II VCU, KESS kinetic energy storage, digital microprocessor controlled traction drive',
+      tractionMotors:'B60 SR motors (×4, one per wheel)',
+      generator:'G200 SR generator (switched reluctance)',
+      planetaryModel:'Model 57 — 4-stage planetary, 99:1 total reduction, in-line within tyre rim',
+      maxSpeedKmh:19.31,
+      // ── Axles ──
+      driveSystem:'Four-wheel drive (independent SR motor per wheel)',
+      frontAxle:'Fixed, integral part of front frame',
+      rearAxle:'Centre oscillates 11°',
+      tyreSize:'58/85-57 L-4',
+      rimSize:'47×57 with 6" flange',
+      // ── Brakes ──
+      serviceBrake:'Electric dynamic braking (primary) + air modulated traction motor speed disc brakes (secondary)',
+      parkingBrake:'Spring applied, air release traction motor speed disc brakes',
+      secondaryBrake:'Air modulated traction motor speed disc brakes — single disc and caliper per traction motor; spring applied fail-safe on air pressure loss',
+      // ── Hydraulics ──
+      loaderPumpType:'Piston pump (×5 main)',
+      loaderPumpCapacityLpm:2336,
+      loaderReliefMPa:27.58,            // 27,580 kPa / 4,000 psi
+      steeringPumpType:'Piston pump (×2)',
+      steeringPumpCapacityLpm:469,
+      steeringReliefMPa:27.58,          // 27,580 kPa / 4,000 psi
+      fanPumpType:'Piston',
+      fanCapacityLpm:170,
+      accessoryPumpLpm:83,
+      boomCylCount:2, boomCylBoreMm:381, boomCylStrokeMm:2108,
+      bucketCylCount:2, bucketCylBoreMm:318, bucketCylStrokeMm:1086,
+      steeringCylCount:2, steeringCylBoreMm:200, steeringCylStrokeMm:762,
+      hydraulicRaiseTimeSec:12.6, hydraulicDumpTimeSec:2.9, hydraulicLowerTimeSec:5.0,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering (single joystick, constant engine rpm)',
+      steeringAngleDeg:40,
+      minTurningRadiusMm:17060,
+      minTurningRadiusHLMm:16100,
+      // ── Operating weights ──
+      operatingWeightKgMin:268481, operatingWeightKgMax:269887,
+      operatingWeightT:268.5,
+      // ── Bucket capacities ──
+      bucketCapM3:32.88,
+      bucketCapRangeM3:'30.58–32.88',
+      bucketCapYd3:43,
+      // ── Performance ──
+      staticTippingLoadStraightKg:null,    // TBD in brochure — confirm with manufacturer
+      staticTippingLoadArticulatedKg:null,  // TBD in brochure — confirm with manufacturer
+      breakoutForceKN:1074.8,
+      payloadKg:58967,
+      staticTippingLoadStraightKgHL:147211, staticTippingLoadArticulatedKgHL:128996,
+      breakoutForceKNHL:935.0,
+      payloadKgHL:54431,
+      bucketCapM3HL:30.58, bucketCapYd3HL:40,
+      truckMatchTonne:'218–327 tonne',
+      // ── Dimensions ──
+      wheelbaseMm:7470, treadMm:4570, widthOverTyresMm:6040, groundClearanceMm:690,
+      hingePinHeightMm:9400, dumpClearanceMm:6480, heightFullyRaisedMm:12620,
+      overallLengthCarryMm:19120, overallLengthBucketDownMm:19840, heightOverCabMm:6730,
+      hingePinHeightHLMm:9910, dumpClearanceHLMm:7570, heightFullyRaisedHLMm:13390,
+      overallLengthCarryHLMm:19810, overallLengthBucketDownHLMm:20240,
+      // ── Service Refill Capacities ──
+      fuelTankL:4542, hydraulicSystemL:1445, srConverterCoolingL:57,
+      coolantL:490, engineOilDetroitL:250, engineOilCumminsL:204,
+      gearboxL:27, planetaryEachL:151,
+      // ── Features ──
+      lincsII:true, lincsIILoadWeigh:true, komtraxPlus:true,
+      autoGreasing:'standard',
+      adjustableAutoLiftHeightCutoff:true, automaticBucketLevelingControl:true,
+      camera360:'standard', accelerometer:'standard', inclinometer:'standard',
+      cab:'Pressurized and filtered ROPS/FOPS cab, air conditioning/heater/defroster, LINCS II full colour touch-screen display, 11-way adjustable operator seat, 360° camera system, joystick controls, LED working lights, data logging, USB ports',
+      standardEquipment:[
+        '120V AC port','360 camera system','Accelerometer','Access ladder lights',
+        'Air conditioning / heater-defroster (filtered and pressurized)',
+        'Air dryer system','Air horn','Air tank bleed system',
+        'Adjustable automatic lift height cut off',
+        'Automatic bucket leveling control','Automatic electrical cabinet lights',
+        'Automatic lubrication system',
+        'Back-up alarm audible','Battery disconnect switch','Brake lights',
+        'Central air regulator box','Central service with fast fuel',
+        'Data analysis and viewing software',
+        'Data logging — downloadable production and maintenance logs',
+        'Door interlock on electrical cabinet','Drawbar with tow points',
+        'Emergency stop buttons (cab and remote mounted)',
+        'Engine compartment lights',
+        'Fire extinguisher manual 9.07kg (20 lb)',
+        'FOPS — falling object protection system',
+        'Idle timer','Inclinometer','Interior lights','Isolation monitor',
+        'Joystick hoist and bucket control','Joystick steering control','Jump start',
+        'Ladder walkway (rear access with retracting ladder)',
+        'LED working lights (10 forward, 2 rear)',
+        'LINCS II alarms','LINCS II load weigh and monitoring',
+        'Mirrors rearview parabolic (×2)',
+        'Operator seat 11-way adjustable','Overspeed alarm','Parking brake',
+        'Retractable lap belt with shoulder harness','Rock deflectors (bucket)',
+        'ROPS — rollover protection structure',
+        'Selectable throttle switch','Starter disconnect switch',
+        'Tinted safety glass throughout',
+        'Training seat with lap belt','Turn signals',
+        '12V power supply in cab','12V power port','USB Ports (×2)',
+        'Walk around catwalk for cab',
+        'Windshield washer reservoir (2.6 gal)',
+        'Windshield wiper and washer front and rear',
+      ],
+      optionalEquipment:[
+        'Auxiliary steering','Beacon light kit','Bucket GET options available',
+        'Cold weather package (battery heater, engine heating, grease reservoir heater, hydraulic tank heater)',
+        'Exhaust discharge guard',
+        'Fire detection and suppression system (manual)',
+        'Fire suppression system (manual)','Fluid sampling kit',
+        'Lift arms — high lift',
+        'Tires 60/80R57; Rims 47×57 with 5" flange',
+        'Windshield protection kit',
+      ],
+      brochureRef:'Komatsu WE1850-3 General Specifications EN-WE1850-3_SP01-0921-V1 (© 2022 Komatsu Australia Pty Ltd)',
+      tags:['wheel loader','269t class','mining','electric drive wheel loader','SR hybrid drive','switched reluctance','LINCS II','KESS','electric dynamic braking','no conventional transmission','large mining loader','Tier 4','Cummins QSK60','MTU','218t 327t truck match'],
+      note:'Komatsu WE1850-3 — 268–270t electric drive SR Hybrid mining wheel loader. Engine: Cummins QSK60 Tier 1/2/4, 16-cyl, 1,491kW/2,000HP @ 1,800rpm (alt: MTU 16V/12V Series 4000). KESS: 1,268kW/1,700HP. SR Hybrid Drive — 4 independent B60 SR traction motors (one per wheel), G200 SR generator, LINCS II VCU, Model 57 planetary gearing (99:1 within tyre rim). Primary braking: electric dynamic braking. Top speed 19.31 km/h F&R. Standard lift: 32.88m³ bucket, 58,967kg payload; STL values TBD — confirm with manufacturer; breakout 1,074.8kN. High lift: 30.58m³, 54,431kg payload; STL straight 147,211kg (40° 128,996kg), breakout 935kN. Truck match 218–327t. Turning radius 17.06m (std) / 16.10m (HL). Hydraulics: 5× piston main 2,336 L/min, steering 2× piston 469 L/min / 27,580 kPa; hoist cyls 2×381×2108mm, bucket 2×318×1086mm; hoist 12.6s (est), dump 2.9s (est). 360° camera standard, LINCS II load weigh, inclinometer, accelerometer. Service: fuel 4,542L, hydraulics 1,445L, cooling 490L. ⚠️ Standard lift static tipping loads listed as TBD in brochure — confirm with Komatsu before specifying. Source: Komatsu WE1850-3 Spec Sheet EN-WE1850-3_SP01-0921-V1.',
+      hireRateType:'wet_or_dry' },
+
+    // ── WE2350-2 ─────────────────────────────────────────────────
+    // Source: Komatsu WE2350-2 General Specifications (EN-WE2350-2-SPEC01-0921-V1, © 2022 Komatsu Australia Pty Ltd)
+    { id:'kom-we2350-2', brand:'Komatsu', emoji:'🚜', type:'loader', subtype:'wheel_loader',
+      name:'Komatsu WE2350-2 Electric Drive Wheel Loader', shortName:'Komatsu WE2350-2',
+      // ── Drive System ──
+      driveSystemType:'Electric SR (Switched Reluctance) Hybrid Drive with hybrid regenerative energy storage — independent SR motor per wheel, no conventional transmission',
+      // ── Engine / Power Module ──
+      engineModel:'Cummins QSK60 Tier 4 (primary) / MTU 16V or 12V Series 4000 Tier 4 (alt)',
+      engineType:'4-cycle turbocharged diesel',
+      engineCylinders:16,
+      engineRatedRPM:1800,
+      engineGrossKW:1715, engineGrossHP:2300,
+      emissionStandard:'Tier 1, Tier 2, or Tier 4 (depending on configuration)',
+      // ── Propulsion ──
+      transmissionType:'SR Hybrid Drive with hybrid regenerative energy storage — switched reluctance (SR) technology, LINCS II VCU, digital microprocessor controlled traction drive',
+      tractionMotors:'B60 SR motors (×4, one per wheel)',
+      generator:'G200 SR generator',
+      planetaryModel:'Model 57 — 4-stage planetary, 99:1 total reduction, in-line within tyre rim',
+      maxSpeedKmh:19.31,
+      // ── Axles ──
+      driveSystem:'Four-wheel drive (independent SR motor per wheel)',
+      frontAxle:'Fixed, integral part of front frame',
+      rearAxle:'Centre oscillates 12.5°',
+      tyreSize:'70/70-57',
+      rimSize:'60×57 with 6" flange',
+      // ── Brakes ──
+      serviceBrake:'Electric dynamic braking (primary) + air modulated traction motor speed disc brakes (secondary)',
+      parkingBrake:'Spring applied, air release traction motor speed disc brakes',
+      secondaryBrake:'Air modulated traction motor speed disc brakes — single disc and caliper per traction motor; spring applied fail-safe on air pressure loss',
+      // ── Hydraulics ──
+      loaderPumpType:'Piston pump (×4 main)',
+      loaderPumpCapacityLpm:1870,
+      loaderReliefMPa:27.58,            // 27,579 kPa / 4,000 psi
+      steeringPumpType:'Piston pump (×2)',
+      steeringPumpCapacityLpm:469,
+      steeringReliefMPa:27.58,          // 27,580 kPa / 4,000 psi
+      accessoryPumpLpm:81,
+      boomCylCount:2, boomCylBoreMm:406, boomCylStrokeMm:2108,
+      bucketCylCount:2, bucketCylBoreMm:317.5, bucketCylStrokeMm:1086,
+      steeringCylCount:2, steeringCylBoreMm:191, steeringCylStrokeMm:762,
+      hydraulicRaiseTimeSec:17, hydraulicDumpTimeSec:3, hydraulicLowerTimeSec:6,
+      // ── Steering ──
+      steeringSystem:'Articulated type, full-hydraulic power steering (single joystick, constant engine rpm)',
+      steeringAngleRightDeg:42, steeringAngleLeftDeg:41,
+      minTurningRadiusMm:19430,
+      minTurningRadiusHLMm:19520,
+      // ── Operating weights ──
+      operatingWeightKgMin:266622, operatingWeightKgMax:276045,
+      operatingWeightT:266.6,
+      // ── Bucket capacities ──
+      bucketCapM3:40.52,
+      bucketCapRangeM3:'38.23–53.5',
+      bucketCapYd3:53,
+      // ── Performance — Standard Lift ──
+      staticTippingLoadStraightKg:184300, staticTippingLoadArticulatedKg:172100,
+      breakoutForceKN:1173,
+      payloadKg:72574,
+      staticTippingLoadStraightKgHL:164200, staticTippingLoadArticulatedKgHL:153300,
+      breakoutForceKNHL:1290,
+      payloadKgHL:68039,
+      bucketCapM3HL:38.23, bucketCapYd3HL:50,
+      // ── Super High Lift (70 yd³ coal bucket) ──
+      staticTippingLoadStraightKgSHL:128751, staticTippingLoadArticulatedKgSHL:108884,
+      breakoutForceKNSHL:980,
+      payloadKgSHL:54431,
+      bucketCapM3SHL:53.5, bucketCapYd3SHL:70,
+      truckMatchTonne:'290–363+ tonne',
+      // ── Dimensions ──
+      wheelbaseMm:7880, treadMm:5000, widthOverTyresMm:6760, groundClearanceMm:500,
+      hingePinHeightMm:9910, dumpClearanceMm:7030, heightFullyRaisedMm:13390,
+      overallLengthCarryMm:19870, overallLengthBucketDownMm:20270, heightOverCabMm:6730,
+      hingePinHeightHLMm:10590, dumpClearanceHLMm:8010, heightFullyRaisedHLMm:13890,
+      overallLengthCarryHLMm:20070, overallLengthBucketDownHLMm:20900,
+      hingePinHeightSHLMm:12270, dumpClearanceSHLMm:9530, heightFullyRaisedSHLMm:15850,
+      overallLengthCarrySHLMm:21840, overallLengthBucketDownSHLMm:22760,
+      // ── Service Refill Capacities ──
+      fuelTankL:4940, hydraulicSystemL:1446, srConverterCoolingL:155,
+      coolantL:492, engineOilDetroitL:250, engineOilCumminsL:204,
+      gearboxL:27, planetaryEachL:151,
+      // ── Features ──
+      lincsII:true, lincsIILoadWeigh:true, komtraxPlus:true,
+      autoGreasing:'standard (automatic lubrication system)',
+      auxiliaryHydraulicOilCooler:'standard',
+      adjustableAutoLiftHeightCutoff:true, automaticBucketLevelingControl:true,
+      cab:'Pressurized and filtered ROPS/FOPS cab, air conditioning/heater/defroster, LINCS II full colour touch-screen display, 11-way adjustable operator seat, joystick controls, LED working lights, data logging',
+      standardEquipment:[
+        'Access ladder lights',
+        'Air clean-out hose in cab',
+        'Air conditioning / heater-defroster (filtered and pressurized)',
+        'Air dryer system','Air horn','Air tank bleed system',
+        'Adjustable automatic lift height cut off',
+        'Automatic bucket leveling control','Automatic electrical cabinet lights',
+        'Automatic lubrication system','Auxiliary hydraulic oil cooler',
+        'Back-up alarm audible','Battery disconnect switch','Brake lights',
+        'Central air regulator box','Central service with fast fuel',
+        'Data analysis and viewing software',
+        'Data logging — downloadable production and maintenance logs',
+        'Door interlock on electrical cabinet','Drawbar with tow points',
+        'Emergency stop buttons (cab and remote mounted)',
+        'Engine compartment lights',
+        'Fire extinguisher manual 9.07kg (20 lb)',
+        'FOPS — falling object protection system',
+        'Idle timer','Interior lights','Isolation monitor',
+        'Joystick hoist and bucket control','Joystick steering control','Jump start',
+        'Ladder walkway (rear access with retracting ladder)',
+        'LED working lights (10 forward, 2 rear)',
+        'LINCS II alarms','LINCS II load weigh and monitoring',
+        'Mirrors rearview parabolic (×2)',
+        'Operator seat 11-way adjustable','Overspeed alarm','Parking brake',
+        'Retractable lap belt with shoulder harness','Rock deflectors (bucket)',
+        'ROPS — rollover protection structure',
+        'Selectable throttle switch','Starter disconnect switch','Sun visor',
+        'Tinted safety glass throughout',
+        'Training seat with lap belt','Turn signals',
+        '12V power supply in cab','12V power port (×2)',
+        'Walk around catwalk for cab',
+        'Windshield washer reservoir (2.6 gal)',
+        'Windshield wiper and washer front and rear',
+      ],
+      optionalEquipment:[
+        'Auxiliary steering','Beacon light kit','Bucket GET options available',
+        'Cold weather package (battery heater, engine heating, grease reservoir heater, hydraulic tank heater)',
+        'Exhaust discharge guard','Fast fuel',
+        'Fire detection and suppression system (manual)',
+        'Fire suppression system (manual)','Fluid sampling kit',
+        'Lift arms — high lift',
+        'Video camera (rear mount)','Windshield protection kit',
+      ],
+      brochureRef:'Komatsu WE2350-2 General Specifications EN-WE2350-2-SPEC01-0921-V1 (© 2022 Komatsu Australia Pty Ltd)',
+      tags:['wheel loader','267t class','mining','electric drive wheel loader','SR hybrid drive','switched reluctance','LINCS II','regenerative hybrid','electric dynamic braking','no conventional transmission','ultra-large mining loader','Tier 4','Cummins QSK60','MTU','coal bucket','super high lift','290t 363t truck match'],
+      note:'Komatsu WE2350-2 — 267–276t electric drive SR Hybrid mining wheel loader (world class ultra-large). Engine: Cummins QSK60 or MTU 16V/12V Series 4000, 1,715kW/2,300HP @ 1,800rpm. SR Hybrid Drive with regenerative energy storage — 4 independent B60 SR traction motors (one per wheel), G200 SR generator, LINCS II VCU, Model 57 planetary gearing (99:1 within tyre rim). Primary braking: electric dynamic braking. Top speed 19.31 km/h F&R. Standard lift: 40.52m³ bucket (53 yd³), 72,574kg payload; STL straight 184,300kg (42° 172,100kg), breakout 1,173kN. High lift: 38.23m³ (50 yd³), 68,039kg payload; STL straight 164,200kg (42° 153,300kg), breakout 1,290kN. Super high lift: 53.5m³ coal (70 yd³), 54,431kg payload; STL straight 128,751kg (42° 108,884kg), breakout 980kN. Truck match 290–363+ tonne. Turning radius 19.43m (std) / 19.52m (HL). Hydraulics: 4× piston main 1,870 L/min, steering 2× piston 469 L/min / 27,580 kPa; hoist cyls 2×406×2108mm, bucket 2×317.5×1086mm; hoist 17s, dump 3s, float 6s. Auxiliary hydraulic oil cooler standard. LINCS II load weigh, data logging, 5,000-hour KLENZ primary air filter. Service: fuel 4,940L, hydraulics 1,446L, cooling 492L. Source: Komatsu WE2350-2 Spec Sheet EN-WE2350-2-SPEC01-0921-V1.',
+      hireRateType:'wet_or_dry' },
+
     // ── BULLDOZER ────────────────────────────────────────────────
     {
       id:'em-dozer-small', brand:'Various', emoji:'🏔️', type:'dozer',
@@ -24770,6 +29069,1200 @@ const MACHINES = {
       hireRateType:'wet',
     },
 
+    // ── Cat CP17 Padfoot Vibratory Soil Compactor ─────────────────
+    {
+      id:'cat-cp17', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'padfoot_compactor',
+      name:'Cat CP17 Padfoot Vibratory Soil Compactor', shortName:'Cat CP17',
+      // ── Engine ──
+      engineModel:'Cat C7.1', engineCylinders:6,
+      engineDisplacementL:7.0, engineDisplacementIn3:427.8,
+      engineStrokeMm:135, engineBoreMm:105,
+      engineEmissions:'U.S. EPA Tier 3 / EU Stage IIIA equivalent',
+      enginePowerISO_kW:129, enginePowerISO_hp:173,
+      engineGrossPowerSAE_kW:130.2, engineGrossPowerSAE_hp:174.6,
+      engineNetPowerISO_kW:108.5, engineNetPowerISO_hp:145.5,
+      engineNetPowerSAE_kW:107.2, engineNetPowerSAE_hp:143.8,
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2007', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      // ── Performance ──
+      maxSpeedKmh:11.4, maxSpeedMph:7.1,
+      gradeabilityPct:null,    // not listed in CP17 brochure
+      // ── Vibratory ──
+      freqStdHz:28, freqStdVpm:1680,
+      freqEcoHz:25.5, freqEcoVpm:1527,
+      freqOptVarHzMin:23.3, freqOptVarHzMax:28,
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1680,
+      ampHighMm:2.1, ampHighIn:0.083,
+      ampLowMm:0.98, ampLowIn:0.039,
+      centrifugalForceMaxKn:335, centrifugalForceMax_lb:75234,
+      centrifugalForceMinKn:156, centrifugalForceMin_lb:35163,
+      vmClassHighAmpCab:'VM5',
+      // ── Weights (oval padfoot drum) ──
+      opWeightSunCanopyT:17.182,   opWeightSunCanopy_lb:37880,
+      opWeightROPSCanopyT:17.357,  opWeightROPSCanopy_lb:38266,
+      opWeightROPSCabT:17.677,     opWeightROPSCab_lb:38971,
+      drumWeightSunCanopyKg:11734, drumWeightSunCanopy_lb:25869,
+      drumWeightROPSCanopyKg:11789, drumWeightROPSCanopy_lb:25990,
+      drumWeightROPSCabKg:11924,   drumWeightROPSCab_lb:26288,
+      operatingWeightT:17.357, weightAtDrumT:11.789,
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:40, drumShellThicknessIn:1.6,
+      drumDiameterOvalPadsMm:1550, drumDiameterOvalPadsIn:61,
+      drumDiameterSquarePadsMm:1495, drumDiameterSquarePadsIn:58.9,
+      numPads:140, numChevrons:14,
+      ovalPadHeightMm:127, ovalPadHeightIn:5, ovalPadFaceAreaCm2:74.4, ovalPadFaceAreaIn2:11.5,
+      squarePadHeightMm:100, squarePadHeightIn:3.9, squarePadFaceAreaCm2:123.1, squarePadFaceAreaIn2:19.1,
+      // ── Service Refills ──
+      fuelTankL:332, fuelTankGal:87.7,
+      coolantL:28.3, coolantGal:7.5,
+      heatingSystemL:1.2, heatingSystemGal:0.3,
+      engineOilL:17.4, engineOilGal:4.6,
+      eccentricHousingsCombinedL:26, eccentricHousingsGal:6.9,
+      axleAndFinalDrivesL:24, axleAndFinalDrivesGal:6.3,
+      hydraulicTankL:50, hydraulicTankGal:13.2,
+      // ── Maintenance ──
+      engineOilIntervalHr:500, eccentricHousingIntervalHr:3000,
+      hydraulicOilIntervalHr:3000, coolantIntervalHr:12000,
+      // ── Electrical ──
+      systemVoltage:24, alternatorAmp:100, batteryCCA:750,
+      // ── Dimensions ──
+      overallLengthM:6.1, overallLengthFt:20.1,
+      overallWidthM:2.4, overallWidthFt:7.8,
+      overallHeightCanopyM:3.1, overallHeightCabM:3.1,
+      wheelbaseM:2.9, wheelbaseFt:9.5,
+      groundClearanceMm:438, groundClearanceIn:17.2,
+      curbClearanceMm:534, curbClearanceIn:21,
+      insideTurningRadiusM:3.7, insideTurningRadiusFt:12.1,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Propel ──
+      propelSystem:'Dual pump — dedicated flow to drum drive motor and rear axle motor',
+      transmission:'Two-Speed Hydrostatic',
+      limitedSlipDifferential:true, automaticSpeedControl:true,
+      idleShutdownTimer:true, variableSpeedCoolingFan:true,
+      // ── Sound ──
+      operatorSoundPressureDB_A:80,
+      exteriorSoundPowerDB_A:109,
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'70% of maximum engine cooling fan speed (cab, doors/windows closed)',
+      exteriorSoundFanCondition:'100% of maximum engine cooling fan speed',
+      // ── Standard/Optional Equipment ──
+      standardEquipment:[
+        'Steel Sun Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'Adjustable Seat with Integrated Console',
+        'LCD Display with Lockable Vandalism Guard',
+        'Adjustable Tilting Steering Column with Integrated Cup Holders',
+        'Rear Vision Camera System with Color Touchscreen Display',
+        'High Visibility 50mm (2in) Seat Belt','12-volt Power Outlet',
+        'Horn, Backup Alarm',
+        'Padfoot Drum – Oval or Square Pads',
+        'Pod-Style Eccentric Weight Housings',
+        'Dual Amplitude Single Frequency Vibratory System',
+        'Auto-vibe Function','Dual Adjustable Steel Scrapers',
+        'VisionLink® Telematics','Cat C7.1 Engine',
+        'Air Cleaner Dual Element',
+        'Three Speed Throttle Switch including Eco-mode',
+        'Automatic Speed Control (ASC)',
+        'Dual Propel Pumps (one for drum drive, one for rear axle)',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Tilting Radiator / Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '24-volt Electrical System','100 ampere Alternator',
+        '750 Cold-cranking Amps Battery Capacity',
+        'Lockable Engine Enclosure, Hydraulic and Fuel Tanks',
+        'Sight Gauges (Hydraulic Oil Level and Radiator Coolant Level)',
+        'S•O•S℠ Sampling Values – Engine Oil, Hydraulic Oil, Coolant',
+        'Halogen Working Lights (4)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'ROPS/FOPS Cab with Climate Control, Cloth Seat, Exterior Rear View Mirrors',
+        'Sun Visor (Cab)','Roll-Down Screen (Cab)',
+        'Variable Frequency (23.3–28 Hz)',
+        'Measure – Machine Drive Power (MDP)',
+        'Transmission Guard',
+        'Halogen Working Lights (8)','Amber Rotating Beacon',
+      ],
+      // ── Application ──
+      applicationSuitability:'Airport construction, railway foundations, dams and large embankment fills, rock fills, mining applications (drying beds, waste tanks, embankments), recycling, rock crushing, following a tractor/scraper, land reclamation (dredging), production ~500m³',
+      soilTypes:'Cohesive and semi-cohesive soils (clay/silt). Passes: 4–10. Compaction strongly depends on moisture content.',
+      // ── Environmental ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:0.8, acRefrigerantLb:1.8,
+      acCO2EquivalentMetricT:1.144, acCO2EquivalentTons:1.261,
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with up to 20% biodiesel FAME; 100% renewable diesel/HVO/GTL',
+      recyclabilityPct:97,
+      recyclingMaterialPct:{
+        steel:82.23, iron:10.52, nonferrousMetal:0.83, mixedMetal:0.28,
+        mixedMetalNonmetal:0.36, plastic:0.71, rubber:2.19, mixedNonmetallic:0.00,
+        fluid:0.96, leadBatteries:0.30, other:0.83, uncategorized:0.79,
+      },
+      tags:['padfoot compactor','soil compactor','vibratory','large civil','earthworks','airport','dam','embankment','17 ton','railway','mining','land reclamation'],
+      note:'Cat CP17 Padfoot Drum Vibratory Soil Compactor. ENGINE: Cat C7.1, 6-cyl, 7.0L/427.8in³, bore 105mm, stroke 135mm. Tier 3/Stage IIIA equivalent. ISO power 129kW/173hp; gross SAE 130.2kW/174.6hp; net ISO 108.5kW/145.5hp; net SAE 107.2kW/143.8hp. PERFORMANCE: Max speed 11.4km/h/7.1mph. VIBRATORY — STD DUAL AMPLITUDE SINGLE FREQ: 28Hz/1,680vpm (eco-mode 25.5Hz/1,527vpm). High amplitude 2.1mm/0.083in, 335kN/75,234lb; low amplitude 0.98mm/0.039in, 156kN/35,163lb. OPTIONAL VARIABLE FREQ: 23.3–28Hz/1,400–1,680vpm. VM Class (high amplitude, cab): VM5. WEIGHTS (oval padfoot drum) — SUN CANOPY: 17,182kg/37,880lb; ROPS/FOPS CANOPY: 17,357kg/38,266lb; ROPS/FOPS CAB: 17,677kg/38,971lb. Weight at drum (oval) — sun canopy 11,734kg/25,869lb; ROPS canopy 11,789kg/25,990lb; cab 11,924kg/26,288lb. (No leveling blade option on CP17.) DRUM: Width 2,134mm/84in; shell 40mm/1.6in; diameter over oval pads 1,550mm/61in, over square pads 1,495mm/58.9in. 140 padfoot pads, 14 chevrons. Oval pads: 127mm/5in height, 74.4cm²/11.5in² face. Square pads: 100mm/3.9in height, 123.1cm²/19.1in² face. SERVICE REFILLS: Fuel 332L/87.7gal; coolant 28.3L/7.5gal; heating system 1.2L/0.3gal; engine oil 17.4L/4.6gal; eccentric housings (combined) 26L/6.9gal; axle & final drives 24L/6.3gal; hydraulic tank 50L/13.2gal. ELECTRICAL: 24V system, 100A alternator, 750 CCA battery. DIMENSIONS: Length 6.1m/20.1ft; width 2.4m/7.8ft; drum width 2,134mm/84in; shell 40mm; drum dia (oval) 1,550mm/61in; height canopy & cab 3.1m/10.2ft; wheelbase 2.9m/9.5ft; ground clearance 438mm/17.2in; curb clearance 534mm/21in; inside turning radius 3.7m/12.1ft; hitch articulation 34°; hitch oscillation 15°. SOUND (cab): Operator 80 dB(A) @ 70% fan; exterior 109 dB(A) @ 100% fan. APPLICATION: Airport construction, railway foundations, dams/large embankment fills, rock fills, mining (drying beds, waste tanks, embankments), recycling, rock crushing, following tractor/scraper, land reclamation (dredging), ~500m³ production. Source: Cat CP17 Padfoot Compactor Brochure QEHQ3084 Build 03A (Dec 2023).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CS7 Smooth Drum Vibratory Soil Compactor ──────────────
+    {
+      id:'cat-cs7', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'smooth_drum_compactor',
+      name:'Cat CS7 Smooth Drum Vibratory Soil Compactor', shortName:'Cat CS7',
+      // ── Engine ──
+      engineModel:'Cat C4.4', engineCylinders:4,
+      engineDisplacementL:4.4, engineDisplacementIn3:269,
+      engineStrokeMm:127, engineBoreMm:105,
+      engineEmissions:'Brazil MAR-1, equivalent to U.S. EPA Tier 3 / EU Stage IIIA',
+      enginePowerISO_kW:74.5, enginePowerISO_hp:99.9,
+      engineGrossPowerSAE_kW:75.3, engineGrossPowerSAE_hp:101.0,
+      engineNetPowerISO_kW:70.5, engineNetPowerISO_hp:94.5,
+      engineNetPowerSAE_kW:69.7, engineNetPowerSAE_hp:93.5,
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2007', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      // ── Performance ──
+      maxSpeedKmh:11.4, maxSpeedMph:7.0,
+      gradeabilityPct:57,
+      // ── Vibratory ──
+      freqStdHz:31.9, freqStdVpm:1914,
+      freqEcoHz:29, freqEcoVpm:1744,
+      freqOptVarHzMin:23.3, freqOptVarHzMax:31.9,
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1914,
+      ampHighMm:1.67, ampHighIn:0.066,
+      ampLowMm:0.84, ampLowIn:0.033,
+      centrifugalForceMaxKn:133, centrifugalForceMax_lb:29900,
+      centrifugalForceMinKn:67, centrifugalForceMin_lb:15000,
+      staticLinearLoadROPSCanopy_kgcm:20.2, staticLinearLoadROPSCanopy_lbsin:113,
+      staticLinearLoadROPSCab_kgcm:21.0, staticLinearLoadROPSCab_lbsin:118,
+      // ── Weights ──
+      opWeightROPSCanopyT:6.943, opWeightROPSCanopy_lb:15307,
+      opWeightROPSCabT:7.210,    opWeightROPSCab_lb:15895,
+      drumWeightROPSCanopyKg:3384, drumWeightROPSCanopy_lb:7460,
+      drumWeightROPSCabKg:3518,    drumWeightROPSCab_lb:7756,
+      // With padfoot shell kit
+      opWeightROPSCanopyWithPadfoot_kg:8001, opWeightROPSCanopyWithPadfoot_lb:17639,
+      opWeightROPSCabWithPadfoot_kg:8232, opWeightROPSCabWithPadfoot_lb:18148,
+      // With padfoot shell kit AND leveling blade
+      opWeightROPSCanopyWithPadfootAndBlade_kg:8528, opWeightROPSCanopyWithPadfootAndBlade_lb:18801,
+      opWeightROPSCabWithPadfootAndBlade_kg:8711, opWeightROPSCabWithPadfootAndBlade_lb:19204,
+      // Weight at drum variants
+      drumWeightROPSCanopyWithPadfoot_kg:4418, drumWeightROPSCanopyWithPadfoot_lb:9740,
+      drumWeightROPSCanopyWithPadfootAndBlade_kg:5138, drumWeightROPSCanopyWithPadfootAndBlade_lb:11327,
+      drumWeightROPSCabWithPadfoot_kg:4490, drumWeightROPSCabWithPadfoot_lb:9899,
+      drumWeightROPSCabWithPadfootAndBlade_kg:5217, drumWeightROPSCabWithPadfootAndBlade_lb:11502,
+      operatingWeightT:6.943, weightAtDrumT:3.384,
+      operatingWeightNote:'Standard operating weight considers full fluids, 75 kg (165 lb) operator, smooth drum, and cab with A/C.',
+      // ── Drum ──
+      drumWidthMm:1676, drumWidthIn:66,
+      drumShellThicknessMm:25, drumShellThicknessIn:1,
+      drumDiameterMm:1221, drumDiameterIn:48.1,
+      drumType:'Smooth drum (padfoot shell kit optional)',
+      // ── Optional Padfoot Shell Kit ──
+      padfootNumPads:98, padfootNumChevrons:14,
+      padfootOvalPadHeightMm:86.8, padfootOvalPadHeightIn:3.4,
+      padfootOvalPadFaceAreaCm2:63.8, padfootOvalPadFaceAreaIn2:9.9,
+      padfootSquarePadHeightMm:79.4, padfootSquarePadHeightIn:3.1,
+      padfootSquarePadFaceAreaCm2:95.5, padfootSquarePadFaceAreaIn2:14.8,
+      // ── Service Refills ──
+      fuelTankL:140, fuelTankGal:37.0,
+      coolantL:19.5, coolantGal:5.3,
+      engineOilL:9.5, engineOilGal:2.5,
+      eccentricHousingL:13, eccentricHousingGal:3.5,
+      axleAndFinalDrivesL:14.6, axleAndFinalDrivesGal:3.9,
+      hydraulicTankL:26, hydraulicTankGal:6.9,
+      // ── Maintenance ──
+      engineOilIntervalHr:500, eccentricHousingIntervalHr:3000,
+      hydraulicOilIntervalHr:3000,
+      // ── Electrical ──
+      systemVoltage:12, alternatorAmp:150, batteryCCA:1000,
+      // ── Dimensions ──
+      overallLengthM:5.1, overallLengthFt:16.7,
+      overallLengthWithBladeM:5.6, overallLengthWithBladeFt:18.4,
+      overallWidthM:1.8, overallWidthFt:5.9,
+      overallWidthWithBladeM:2.1, overallWidthWithBladeFt:6.95,
+      overallHeightROPSCanopyM:2.8, overallHeightROPSCabM:2.9,
+      wheelbaseM:2.6, wheelbaseFt:8.5,
+      groundClearanceMm:411, groundClearanceIn:16.2,
+      curbClearanceMm:369, curbClearanceIn:14.5,
+      insideTurningRadiusM:3.1, insideTurningRadiusFt:10.0,
+      hitchArticulationAngleDeg:37, hitchOscillationAngleDeg:15,
+      // ── Propel ──
+      propelSystem:'Dual pump — dedicated flow to drum drive motor and rear axle motor',
+      transmission:'Two-Speed Hydrostatic',
+      idleShutdownTimer:false, variableSpeedCoolingFan:false,
+      // ── Sound ──
+      operatorSoundPressureDB_A:79,
+      exteriorSoundPowerDB_A:107,
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'70% of maximum engine cooling fan speed',
+      exteriorSoundFanCondition:'100% of maximum engine cooling fan speed',
+      // ── Standard/Optional Equipment ──
+      standardEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Interior Rear View Mirror',
+        'Vinyl Adjustable Seat with Integrated Console and LCD Display (lockable vandalism guard)',
+        'Adjustable Tilting Steering Column with Integrated Cup Holders',
+        'Rear Vision Camera System with Color Touchscreen Display',
+        'Seat Belt','12-volt Power Outlet','Horn, Backup Alarm',
+        'Smooth Drum','Dual Amplitude Single Frequency',
+        'Pod-Style Eccentric Weight Housings',
+        'Auto-vibe Function','Front Adjustable Steel Scrapers',
+        'Cat C4.4 Engine','Air Cleaner Dual Element',
+        'Two-Speed Throttle Switch and Eco-mode',
+        'Dual Propel Pumps (one for drum drive, one for rear axle)',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Tilting Radiator/Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission',
+        '12-volt Electrical System','150 ampere Alternator',
+        '1000 Cold-cranking Amps Battery Capacity',
+        'Product Link™ Telematics',
+        'Sight Gauges (Hydraulic Oil Level and Radiator Coolant Level)',
+        'S•O•S℠ Sampling Valves – Engine Oil, Hydraulic Oil, Coolant',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Cab with Climate Control, Cloth Seat, Exterior Rear View Mirrors, Sun Visor, Roll-down Sun Screen',
+        'Padfoot Shell Kit (oval or square pads)',
+        'Leveling Blade','Variable Frequency',
+        'Dual Adjustable Steel Scrapers',
+        'Measure – Compaction Meter Value (CMV)',
+        'Transmission Guard',
+        'Upgraded Halogen Light Package','Amber Rotating Beacon',
+        'Factory Filled Bio-Hydraulic Oil',
+      ],
+      // ── Application ──
+      applicationSuitability:'Parking lots, residential projects, building construction, pipelaying / trenches, golf courses, parks, production <100m³',
+      soilTypes:'Sand/Gravel: smooth drum, high to low amplitude, 4–6 passes. Clay/Silt: padfoot shell kit + smooth drum (for smoothing), 4–10 passes. Compaction in cohesive soils strongly depends on moisture content.',
+      // ── Environmental ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:0.9, acRefrigerantLb:1.98,
+      acCO2EquivalentMetricT:1.287, acCO2EquivalentTons:1.418,
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'ULSD required. Compatible with up to 20% biodiesel FAME (engines with no aftertreatment may use up to 100% biodiesel); 100% renewable diesel/HVO/GTL',
+      tags:['smooth drum compactor','soil compactor','vibratory','small civil','parking lot','residential','trench','golf course','7 ton','earthworks'],
+      note:'Cat CS7 Smooth Drum Vibratory Soil Compactor. ENGINE: Cat C4.4, 4-cyl, 4.4L/269in³, bore 105mm, stroke 127mm. Brazil MAR-1 / Tier 3 / Stage IIIA equivalent. ISO power 74.5kW/99.9hp; gross SAE 75.3kW/101.0hp; net ISO 70.5kW/94.5hp; net SAE 69.7kW/93.5hp. PERFORMANCE: Max speed 11.4km/h/7.0mph. Theoretical gradeability 57%. VIBRATORY — STD SINGLE FREQ: 31.9Hz/1,914vpm (eco-mode 29Hz/1,744vpm). High amplitude 1.67mm/0.066in, 133kN/29,900lb; low amplitude 0.84mm/0.033in, 67kN/15,000lb. OPTIONAL VARIABLE FREQ: 23.3–31.9Hz/1,400–1,914vpm. STATIC LINEAR LOAD: ROPS/FOPS Canopy 20.2kg/cm/113lbs/in; ROPS/FOPS Cab 21.0kg/cm/118lbs/in. WEIGHTS (smooth drum) — ROPS/FOPS CANOPY: 6,943kg/15,307lb (w/padfoot shell kit 8,001kg/17,639lb; w/shell kit+leveling blade 8,528kg/18,801lb); ROPS/FOPS CAB: 7,210kg/15,895lb (w/padfoot 8,232kg/18,148lb; w/padfoot+blade 8,711kg/19,204lb). Weight at drum — ROPS canopy 3,384kg/7,460lb (w/padfoot 4,418kg/9,740lb; w/padfoot+blade 5,138kg/11,327lb); ROPS cab 3,518kg/7,756lb (w/padfoot 4,490kg/9,899lb; w/padfoot+blade 5,217kg/11,502lb). (Standard weight includes full fluids, 75kg operator.) DRUM: Width 1,676mm/66in; shell 25mm/1in; diameter 1,221mm/48.1in. OPTIONAL PADFOOT SHELL KIT: 98 pads, 14 chevrons. Oval pads 86.8mm/3.4in height, 63.8cm²/9.9in² face. Square pads 79.4mm/3.1in height, 95.5cm²/14.8in² face. SERVICE REFILLS: Fuel 140L/37.0gal; coolant 19.5L/5.3gal; engine oil 9.5L/2.5gal; eccentric housing 13L/3.5gal; axle & final drives 14.6L/3.9gal; hydraulic tank 26L/6.9gal. ELECTRICAL: 12V system, 150A alternator, 1000 CCA battery. DIMENSIONS: Length 5.1m/16.7ft (w/blade 5.6m/18.4ft); width 1.8m/5.9ft (w/blade 2.1m/6.95ft); drum width 1,676mm/66in; shell 25mm; drum dia 1,221mm/48.1in; height ROPS/FOPS canopy 2.8m/9.2ft, cab 2.9m/9.4ft; wheelbase 2.6m/8.5ft; ground clearance 411mm/16.2in; curb clearance 369mm/14.5in; inside turning radius 3.1m/10.0ft; hitch articulation 37°; oscillation 15°. PROPEL: Dual pump. Two-speed hydrostatic. Two-speed throttle w/eco-mode. SOUND: Operator 79 dB(A) @ 70% fan; exterior 107 dB(A) @ 100% fan. APPLICATION: Parking lots, residential projects, building construction, pipelaying/trenches, golf courses, parks, <100m³ production. Source: Cat CS7 Vibratory Soil Compactor Brochure QEHQ3087 Build 01A (Apr 2023, AME/ANZ/China/Eurasia/S Am).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CS12 Smooth Drum Vibratory Soil Compactor ─────────────
+    {
+      id:'cat-cs12', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'smooth_drum_compactor',
+      name:'Cat CS12 Smooth Drum Vibratory Soil Compactor', shortName:'Cat CS12',
+      // ── Engine ──
+      engineModel:'Cat C7.1', engineCylinders:6,
+      engineDisplacementL:7.0, engineDisplacementIn3:427.8,
+      engineStrokeMm:135, engineBoreMm:105,
+      engineEmissions:'U.S. EPA Tier 3 / EU Stage IIIA equivalent',
+      enginePowerISO_kW:116.1, enginePowerISO_hp:155.7,
+      engineGrossPowerSAE_kW:117.5, engineGrossPowerSAE_hp:157.6,
+      engineNetPowerISO_kW:98.2, engineNetPowerISO_hp:131.7,
+      engineNetPowerSAE_kW:97, engineNetPowerSAE_hp:130.1,
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2007', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      // ── Performance ──
+      maxSpeedKmh:11.4, maxSpeedMph:7.1,
+      gradeabilityPct:57,
+      // ── Vibratory ──
+      freqStdHz:30.5, freqStdVpm:1830,
+      freqEcoHz:27.7, freqEcoVpm:1664,
+      freqOptVarHzMin:23.3, freqOptVarHzMax:30.5,
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1830,
+      ampHighMm:2.1, ampHighIn:0.083,
+      ampLowMm:0.98, ampLowIn:0.039,
+      centrifugalForceMaxKn:301, centrifugalForceMax_lb:67653,
+      centrifugalForceMinKn:141, centrifugalForceMin_lb:31680,
+      vmClassHighAmpCab:'VM3',
+      staticLinearLoadSunCanopy_kgcm:28.9, staticLinearLoadSunCanopy_lbsin:161.8,
+      staticLinearLoadROPSCanopy_kgcm:29.3, staticLinearLoadROPSCanopy_lbsin:164.2,
+      staticLinearLoadROPSCab_kgcm:29.7, staticLinearLoadROPSCab_lbsin:166.6,
+      // ── Weights ──
+      opWeightSunCanopyT:11.065,   opWeightSunCanopy_lb:24394,
+      opWeightROPSCanopyT:11.542,  opWeightROPSCanopy_lb:25446,
+      opWeightROPSCabT:11.743,     opWeightROPSCab_lb:25889,
+      drumWeightSunCanopyKg:6165, drumWeightSunCanopy_lb:13591,
+      drumWeightROPSCanopyKg:6256, drumWeightROPSCanopy_lb:13792,
+      drumWeightROPSCabKg:6348,   drumWeightROPSCab_lb:13995,
+      ovalPadfootShellKitWeightKg:1517, ovalPadfootShellKit_lb:3344,
+      squarePadfootShellKitWeightKg:1676, squarePadfootShellKit_lb:3695,
+      levelingBladeWeightKg:653,  levelingBladeWeight_lb:1440,
+      operatingWeightT:11.542, weightAtDrumT:6.256,
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:30, drumShellThicknessIn:1.2,
+      drumDiameterMm:1534, drumDiameterIn:60.4,
+      drumType:'Smooth drum (padfoot shell kit optional)',
+      // ── Optional Padfoot Shell Kit ──
+      padfootNumPads:120, padfootNumChevrons:16,
+      padfootOvalPadHeightMm:89.1, padfootOvalPadHeightIn:3.5,
+      padfootOvalPadFaceAreaCm2:63.5, padfootOvalPadFaceAreaIn2:9.8,
+      padfootSquarePadHeightMm:89.2, padfootSquarePadHeightIn:3.5,
+      padfootSquarePadFaceAreaCm2:105.7, padfootSquarePadFaceAreaIn2:16.4,
+      // ── Service Refills ──
+      fuelTankL:242, fuelTankGal:63.9,
+      coolantL:31.9, coolantGal:8.4,
+      heatingSystemL:1.2, heatingSystemGal:0.3,
+      engineOilL:17.4, engineOilGal:4.6,
+      eccentricHousingsCombinedL:26, eccentricHousingsGal:6.9,
+      axleAndFinalDrivesL:18, axleAndFinalDrivesGal:4.8,
+      hydraulicTankL:50, hydraulicTankGal:13.2,
+      // ── Maintenance ──
+      engineOilIntervalHr:500, eccentricHousingIntervalHr:3000,
+      hydraulicOilIntervalHr:3000, coolantIntervalHr:12000,
+      // ── Electrical ──
+      systemVoltage:24, alternatorAmp:100, batteryCCA:750,
+      // ── Dimensions ──
+      overallLengthM:5.9, overallLengthFt:19.2,
+      overallLengthWithBladeM:6.4, overallLengthWithBladeFt:21,
+      overallWidthM:2.3, overallWidthFt:7.5,
+      overallWidthWithBladeM:2.5, overallWidthWithBladeFt:8.2,
+      overallHeightCanopyM:3.1, overallHeightCanopyFt:10.1,
+      overallHeightCabM:3.1, overallHeightCabFt:10.2,
+      wheelbaseM:2.9, wheelbaseFt:9.5,
+      groundClearanceMm:433, groundClearanceIn:17,
+      curbClearanceMm:492, curbClearanceIn:19.4,
+      levelingBladeHeightMm:683,
+      insideTurningRadiusM:3.7, insideTurningRadiusFt:12.1,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Propel ──
+      propelSystem:'Dual pump — dedicated flow to drum drive motor and rear axle motor',
+      transmission:'Two-Speed Hydrostatic',
+      limitedSlipDifferential:true, automaticSpeedControl:true,
+      idleShutdownTimer:true, variableSpeedCoolingFan:true,
+      // ── Sound ──
+      operatorSoundPressureDB_A:80, exteriorSoundPowerDB_A:109,
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'70% of maximum engine cooling fan speed (cab, doors/windows closed)',
+      exteriorSoundFanCondition:'100% of maximum engine cooling fan speed',
+      // ── Standard/Optional Equipment ──
+      standardEquipment:[
+        'Steel Sun Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'Adjustable Seat with Integrated Console',
+        'LCD Display with Lockable Vandalism Guard',
+        'Adjustable Tilting Steering Column with Integrated Cup Holders',
+        'Rear Vision Camera System with Color Touchscreen Display',
+        'High Visibility 50mm (2in) Seat Belt','12-volt Power Outlet',
+        'Horn, Backup Alarm','Smooth Drum',
+        'Pod-Style Eccentric Weight Housings',
+        'Dual Amplitude Single Frequency Vibratory System',
+        'Auto-vibe Function','Single Adjustable Steel Scraper',
+        'VisionLink® Telematics','Cat C7.1 Engine',
+        'Air Cleaner Dual Element','Three Speed Throttle Switch including Eco-mode',
+        'Automatic Speed Control (ASC)',
+        'Dual Propel Pumps (one for drum drive, one for rear axle)',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Tilting Radiator / Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '24-volt Electrical System','100 ampere Alternator',
+        '750 Cold-cranking Amps Battery Capacity',
+        'Lockable Engine Enclosure, Hydraulic and Fuel Tanks',
+        'Sight Gauges (Hydraulic Oil Level and Radiator Coolant Level)',
+        'S•O•S℠ Sampling Values – Engine Oil, Hydraulic Oil, Coolant',
+        'Halogen Working Lights (4)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'ROPS/FOPS Cab with Climate Control, Cloth Seat, Exterior Rear View Mirrors',
+        'Sun Visor (Cab)','Roll-Down Screen (Cab)',
+        'Removable Shell Kit – Oval or Square Pads',
+        'Variable Frequency (23.3–30.5 Hz)',
+        'Dual Adjustable Steel Scrapers','Dual Adjustable Polyurethane Scrapers',
+        'Leveling Blade',
+        'Measure – Machine Drive Power (MDP)',
+        'Measure – Compaction Meter Value (CMV)',
+        'Transmission Guard',
+        'Halogen Working Lights (8)','Amber Rotating Beacon',
+      ],
+      // ── Application ──
+      applicationSuitability:'Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation projects, following a motor grader, production ~200m³',
+      soilTypes:'Sand/Gravel: smooth drum, high to low amplitude, 4–6 passes. Clay/Silt (with padfoot shell kit): 4–10 passes. Rock: 4–8 passes, rock size <50mm diameter.',
+      // ── Environmental ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:0.8, acRefrigerantLb:1.8,
+      acCO2EquivalentMetricT:1.144, acCO2EquivalentTons:1.261,
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with up to 20% biodiesel FAME; 100% renewable diesel/HVO/GTL',
+      recyclabilityPct:97,
+      recyclingMaterialPct:{
+        steel:79.50, iron:11.13, nonferrousMetal:1.88, mixedMetal:0.25,
+        mixedMetalNonmetal:0.54, plastic:1.02, rubber:2.28, mixedNonmetallic:0.00,
+        fluid:1.20, other:1.14, uncategorized:1.04,
+      },
+      tags:['smooth drum compactor','soil compactor','vibratory','civil','road construction','residential','earthworks','aggregate base','12 ton','irrigation'],
+      note:'Cat CS12 Smooth Drum Vibratory Soil Compactor. ENGINE: Cat C7.1, 6-cyl, 7.0L/427.8in³, bore 105mm, stroke 135mm. Tier 3/Stage IIIA equivalent. ISO power 116.1kW/155.7hp; gross SAE 117.5kW/157.6hp; net ISO 98.2kW/131.7hp; net SAE 97kW/130.1hp. PERFORMANCE: Max speed 11.4km/h/7.1mph. Theoretical gradeability 57%. VIBRATORY — STD DUAL AMPLITUDE SINGLE FREQ: 30.5Hz/1,830vpm (eco-mode 27.7Hz/1,664vpm). High amplitude 2.1mm/0.083in, 301kN/67,653lb; low amplitude 0.98mm/0.039in, 141kN/31,680lb. OPTIONAL VARIABLE FREQ: 23.3–30.5Hz/1,400–1,830vpm. VM Class (high amplitude, cab): VM3. STATIC LINEAR LOAD: Sun canopy 28.9kg/cm/161.8lbs/in; ROPS canopy 29.3kg/cm/164.2lbs/in; cab 29.7kg/cm/166.6lbs/in. WEIGHTS — SUN CANOPY: 11,065kg/24,394lb; ROPS/FOPS CANOPY: 11,542kg/25,446lb; ROPS/FOPS CAB: 11,743kg/25,889lb. Weight at drum — sun canopy 6,165kg/13,591lb; ROPS canopy 6,256kg/13,792lb; cab 6,348kg/13,995lb. Padfoot additions: oval shell kit +1,517kg/3,344lb; square shell kit +1,676kg/3,695lb; leveling blade +653kg/1,440lb. DRUM: Width 2,134mm/84in; shell 30mm/1.2in; diameter 1,534mm/60.4in. OPTIONAL PADFOOT SHELL KIT: 120 pads, 16 chevrons. Oval: 89.1mm/3.5in height, 63.5cm²/9.8in² face. Square: 89.2mm/3.5in height, 105.7cm²/16.4in² face. SERVICE REFILLS: Fuel 242L/63.9gal; coolant 31.9L/8.4gal; heating system 1.2L/0.3gal; engine oil 17.4L/4.6gal; eccentric housings 26L/6.9gal; axle & final drives 18L/4.8gal; hydraulic tank 50L/13.2gal. ELECTRICAL: 24V system, 100A alternator, 750 CCA battery. DIMENSIONS: Length 5.9m/19.2ft (w/blade 6.4m/21ft); width 2.3m/7.5ft (w/blade 2.5m/8.2ft); drum width 2,134mm/84in; shell 30mm; drum dia 1,534mm/60.4in; height canopy 3.1m/10.1ft, cab 3.1m/10.2ft; wheelbase 2.9m/9.5ft; ground clearance 433mm/17in; curb clearance 492mm/19.4in; blade height 683mm/26.9in; inside turning radius 3.7m/12.1ft; hitch articulation 34°; oscillation 15°. SOUND (cab): Operator 80 dB(A) @ 70% fan; exterior 109 dB(A) @ 100% fan. APPLICATION: Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation projects, following motor grader, ~200m³ production. Source: Cat CS12 Smooth Drum Compactor Brochure QEHQ3091 Build 03A (Dec 2023).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CS13 GC Smooth Drum Vibratory Soil Compactor ──────────
+    {
+      id:'cat-cs13gc', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'smooth_drum_compactor',
+      name:'Cat CS13 GC Smooth Drum Vibratory Soil Compactor', shortName:'Cat CS13 GC',
+      // ── Engine ──
+      engineModel:'Cat C4.4', engineCylinders:4,
+      engineDisplacementL:4.4, engineDisplacementIn3:268.5,
+      engineStrokeMm:127, engineBoreMm:105,
+      engineEmissions:'Brazil MAR-1, equivalent to U.S. EPA Tier 3 / EU Stage IIIA',
+      enginePowerISO_kW:83, enginePowerISO_hp:111.3,
+      engineGrossPowerSAE_kW:83.8, engineGrossPowerSAE_hp:112.4,
+      engineNetPowerISO_kW:79.4, engineNetPowerISO_hp:106.5,
+      engineNetPowerSAE_kW:78.5, engineNetPowerSAE_hp:105.3,
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2014', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      // ── Performance ──
+      maxSpeedKmh:11, maxSpeedMph:6.8,
+      gradeabilityPct:50,
+      // ── Vibratory (Dual Amplitude, Dual Frequency) ──
+      // High amplitude setting @ 30 Hz
+      ampHighMm:2.0, ampHighIn:0.079,
+      freqHighAmpHz:30, freqHighAmpVpm:1800,
+      freqHighAmpEcoHz:28.6, freqHighAmpEcoVpm:1716,
+      // Low amplitude setting @ 33 Hz
+      ampLowMm:1.0, ampLowIn:0.039,
+      freqLowAmpHz:33, freqLowAmpVpm:1980,
+      freqLowAmpEcoHz:31.5, freqLowAmpEcoVpm:1890,
+      centrifugalForceMaxKn:250, centrifugalForceMax_lb:56200,   // @ 30Hz/1800vpm high amp
+      centrifugalForceMinKn:149, centrifugalForceMin_lb:33500,   // @ 33Hz/1980vpm low amp
+      vmClassHighAmpCab:'VM3',
+      // MicroVibe™ (optional) @ 33 Hz
+      microVibeAmpHighMm:1.19, microVibeAmpHighIn:0.047,
+      microVibeAmpLowMm:0.21, microVibeAmpLowIn:0.008,
+      microVibeCentForceMaxKn:176, microVibeCentForceMax_lb:39566,
+      microVibeCentForceMinKn:31, microVibeCentForceMin_lb:6969,
+      microVibeVMClass:'VM2',
+      // Static linear load
+      staticLinearLoadSunCanopy_kgcm:35.8, staticLinearLoadSunCanopy_lbsin:200.6,
+      staticLinearLoadROPSCanopy_kgcm:36.2, staticLinearLoadROPSCanopy_lbsin:202.5,
+      staticLinearLoadROPSCab_kgcm:36.4, staticLinearLoadROPSCab_lbsin:203.6,
+      // ── Weights ──
+      opWeightSunCanopyT:12.321, opWeightSunCanopy_lb:27163,
+      opWeightROPSCanopyT:12.499, opWeightROPSCanopy_lb:27556,
+      opWeightROPSCabT:12.653,    opWeightROPSCab_lb:27895,
+      // With oval padfoot shell kit (lb confirmed from brochure)
+      opWeightSunCanopyOvalPadfoot_kg:12989, opWeightSunCanopyOvalPadfoot_lb:28636,
+      opWeightROPSCanopyOvalPadfoot_kg:13167, opWeightROPSCanopyOvalPadfoot_lb:29035,
+      opWeightROPSCabOvalPadfoot_kg:13321, opWeightROPSCabOvalPadfoot_lb:29028,   // lb per brochure (note: 13321kg × 2.205 ≈ 29374 — minor brochure discrepancy recorded as-printed)
+      // With square padfoot shell kit (lb confirmed from brochure)
+      opWeightSunCanopySquarePadfoot_kg:13148, opWeightSunCanopySquarePadfoot_lb:28986,
+      opWeightROPSCanopySquarePadfoot_kg:13326, opWeightROPSCanopySquarePadfoot_lb:29379,
+      opWeightROPSCabSquarePadfoot_kg:13480, opWeightROPSCabSquarePadfoot_lb:29379,
+      // Padfoot Bumper (no shell) — kg from brochure; lb column appears misaligned in PDF, not stored
+      opWeightSunCanopyPadfootBumper_kg:11472,
+      opWeightROPSCanopyPadfootBumper_kg:11650,
+      opWeightROPSCabPadfootBumper_kg:11804,
+      // Weight at drum — base (smooth drum)
+      drumWeightSunCanopyKg:7646, drumWeightSunCanopy_lb:16857,
+      drumWeightROPSCanopyKg:7715, drumWeightROPSCanopy_lb:17009,
+      drumWeightROPSCabKg:7758,    drumWeightROPSCab_lb:17103,
+      // Weight at drum — with oval padfoot shell kit (kg confirmed; lb column ambiguous in PDF extraction)
+      drumWeightSunCanopyOvalPadfoot_kg:7934,
+      drumWeightROPSCanopyOvalPadfoot_kg:8003,
+      drumWeightROPSCabOvalPadfoot_kg:8046,
+      // Weight at drum — with square padfoot shell kit (kg only)
+      drumWeightSunCanopySquarePadfoot_kg:8093,
+      drumWeightROPSCanopySquarePadfoot_kg:8162,
+      drumWeightROPSCabSquarePadfoot_kg:8205,
+      // Weight at drum — padfoot bumper (no shell), kg only
+      drumWeightSunCanopyPadfootBumper_kg:6417,
+      drumWeightROPSCanopyPadfootBumper_kg:6486,
+      drumWeightROPSCabPadfootBumper_kg:6529,
+      operatingWeightT:12.499, weightAtDrumT:7.715,
+      operatingWeightNote:'Operating weights are approximate and consider full fluids and 75 kg (165 lb) operator. Cab weights include heat and air conditioning.',
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:25, drumShellThicknessIn:1,
+      drumDiameterMm:1535, drumDiameterIn:60.4,
+      drumType:'Smooth drum (padfoot shell kit optional)',
+      // ── Optional Padfoot Shell Kit ──
+      padfootNumPads:120, padfootNumChevrons:16,
+      padfootOvalPadHeightMm:89.8, padfootOvalPadHeightIn:3.5,
+      padfootOvalPadFaceAreaCm2:63.5, padfootOvalPadFaceAreaIn2:9.8,
+      padfootSquarePadHeightMm:89.8, padfootSquarePadHeightIn:3.5,
+      padfootSquarePadFaceAreaCm2:105.7, padfootSquarePadFaceAreaIn2:16.4,
+      // ── Service Refills ──
+      fuelTankL:248, fuelTankGal:65.5,
+      coolantL:18.5, coolantGal:4.9,
+      engineOilL:9.5, engineOilGal:2.5,
+      eccentricHousingsCombinedL:26, eccentricHousingsGal:6.9,
+      axleAndFinalDrivesL:10, axleAndFinalDrivesGal:2.6,
+      hydraulicTankL:23, hydraulicTankGal:6.1,
+      // ── Maintenance ──
+      engineOilIntervalHr:500, eccentricHousingIntervalHr:3000,
+      hydraulicOilIntervalHr:3000, coolantIntervalHr:12000,
+      // ── Electrical ──
+      systemVoltage:12, alternatorAmp:120, batteryCCA:900,
+      batteryDisconnectSwitch:true,
+      // ── Dimensions ──
+      overallLengthM:5.7, overallLengthFt:18.7,
+      overallWidthM:2.3, overallWidthFt:7.5,
+      overallHeightM:3.0, overallHeightFt:9.8,
+      overallHeightWithPadfootM:3.03, overallHeightWithPadfootFt:9.9,
+      wheelbaseM:3.0, wheelbaseFt:9.8,
+      groundClearanceMm:518, groundClearanceIn:20.4,
+      curbClearanceMm:492, curbClearanceIn:19.4,
+      insideTurningRadiusM:3.9, insideTurningRadiusFt:12.7,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Propel ──
+      propelSystem:'Single propel pump — excellent gradeability',
+      transmission:'Two-Speed Hydrostatic',
+      limitedSlipDifferential:true, automaticSpeedControl:false,
+      idleShutdownTimer:false, variableSpeedCoolingFan:false,
+      // ── Sound ──
+      operatorSoundPressureDB_A:85,    // cab, 100% fan (note: full fan, not 70%)
+      exteriorSoundPowerDB_A:111,
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'100% of maximum engine cooling fan speed (cab, doors/windows closed)',
+      exteriorSoundFanCondition:'100% of maximum engine cooling fan speed',
+      // ── Standard/Optional Equipment ──
+      standardEquipment:[
+        'Sun Canopy with Handrails, Floor Mat, Interior Rear View Mirror',
+        'Vinyl Adjustable Seat',
+        'Adjustable Tilting Steering Column',
+        'High Visibility 76mm (3in) Seat Belt','12-volt Power Outlet',
+        'Horn, Backup Alarm',
+        'Smooth Drum','Pod-Style Eccentric Weight Housings',
+        'Dual Amplitude Dual Frequency Vibratory System',
+        'Auto-vibe Function','Rear Adjustable Steel Scraper',
+        'VisionLink® Telematics','Cat C4.4 Engine',
+        'Single Propel Pump',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Radiator/Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '12-volt Electrical System','120 ampere Alternator',
+        '900 Cold-cranking Amps Battery Capacity','Battery Disconnect Switch',
+        'Sight Gauges (Hydraulic Oil Level and Radiator Coolant Level)',
+        'S•O•S℠ Sampling Values – Engine Oil, Hydraulic Oil, Coolant',
+        'Working Lights (2 Forward, 2 Rear)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Interior Rear View Mirror',
+        'ROPS/FOPS Cab with Climate Control, Floor Mat, Exterior Rear View Mirrors',
+        'Vinyl Suspension Seat',
+        'Deluxe High-back Air-ride Seat (Cab)',
+        'Rear View Camera with Color Touchscreen Display',
+        'Sun/Debris Shields (Canopy)','Roll-down Sun Screen (Cab)',
+        'Interior Rear View Mirror (Cab)','Exterior Rear View Mirrors (Canopy)',
+        'Sound Reduction Kit','Seat Belt Switch',
+        'Removable Shell Kit – Oval or Square Pads',
+        'MicroVibe™ Drum Configuration',
+        'Dual Adjustable Steel Scrapers',
+        'Dual Adjustable Polyurethane Scrapers',
+        'Measure – Machine Drive Power (MDP)',
+        'Measure – Compaction Meter Value (CMV)',
+        'Machine Speed Sensor','Remote Disable',
+        'Transmission Guard',
+        'High Ambient Temperature Oil Factory Fill',
+        'Flotation Tread or Lug Tread Tires',
+        'Upgraded Lighting Package (4 Forward, 4 Rear)',
+        'Amber Rotating Beacon',
+      ],
+      // ── Application ──
+      applicationSuitability:'Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation projects, following a motor grader, production ~200m³',
+      soilTypes:'Sand/Gravel: smooth drum, high to low amplitude, 4–6 passes. Clay/Silt (with padfoot shell kit): 4–10 passes. Rock: 4–8 passes, rock size <50mm diameter.',
+      // ── Environmental ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:2.2, acRefrigerantLb:4.91,
+      acCO2EquivalentMetricT:3.146, acCO2EquivalentTons:3.468,
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with up to 20% biodiesel FAME; 100% renewable diesel/HVO/GTL',
+      recyclabilityPct:95,
+      recyclingMaterialPct:{
+        steel:70.76, iron:10.61, mixedMetalNonmetal:8.14, uncategorized:3.91,
+        fluid:2.37, nonferrousMetal:1.64, other:0.97, rubber:0.84,
+        plastic:0.48, mixedMetal:0.25, mixedNonmetallic:0.01,
+      },
+      tags:['smooth drum compactor','soil compactor','vibratory','civil','road construction','residential','earthworks','aggregate base','13 ton','irrigation','GC'],
+      note:'Cat CS13 GC Smooth Drum Vibratory Soil Compactor. ENGINE: Cat C4.4, 4-cyl, 4.4L/268.5in³, bore 105mm, stroke 127mm. Brazil MAR-1 / Tier 3 / Stage IIIA equivalent. ISO power 83kW/111.3hp; gross SAE 83.8kW/112.4hp; net ISO 79.4kW/106.5hp; net SAE 78.5kW/105.3hp. PERFORMANCE: Max speed 11km/h/6.8mph. Theoretical gradeability 50%. VIBRATORY — DUAL AMPLITUDE DUAL FREQUENCY: High amplitude 2mm/0.079in @ 30Hz/1,800vpm (eco 28.6Hz/1,716vpm), max centrifugal force 250kN/56,200lb. Low amplitude 1mm/0.039in @ 33Hz/1,980vpm (eco 31.5Hz/1,890vpm), min centrifugal force 149kN/33,500lb. VM Class (high amp, cab): VM3. MICROVIBE™ (optional) @ 33Hz: High 1.19mm/0.047in, 176kN/39,566lb; Low 0.21mm/0.008in, 31kN/6,969lb. MicroVibe VM Class: VM2. STATIC LINEAR LOAD: Sun canopy 35.8kg/cm/200.6lbs/in; ROPS canopy 36.2kg/cm/202.5lbs/in; cab 36.4kg/cm/203.6lbs/in. WEIGHTS (smooth drum) — SUN CANOPY: 12,321kg/27,163lb; ROPS/FOPS CANOPY: 12,499kg/27,556lb; ROPS/FOPS CAB: 12,653kg/27,895lb. With oval padfoot shell kit — sun canopy 12,989kg; ROPS canopy 13,167kg; cab 13,321kg. With square padfoot — sun canopy 13,148kg; canopy 13,326kg; cab 13,480kg. Weight at drum — sun canopy 7,646kg/16,857lb; ROPS canopy 7,715kg/17,009lb; cab 7,758kg/17,103lb. (Weights: full fluids, 75kg operator.) DRUM: Width 2,134mm/84in; shell 25mm/1in; diameter 1,535mm/60.4in. OPTIONAL PADFOOT SHELL KIT: 120 pads, 16 chevrons. Oval: 89.8mm/3.5in height, 63.5cm²/9.8in² face. Square: 89.8mm/3.5in height, 105.7cm²/16.4in² face. SERVICE REFILLS: Fuel 248L/65.5gal; coolant 18.5L/4.9gal; engine oil 9.5L/2.5gal; eccentric housings 26L/6.9gal; axle & final drives 10L/2.6gal; hydraulic tank 23L/6.1gal. ELECTRICAL: 12V system, 120A alternator, 900 CCA battery, battery disconnect switch. DIMENSIONS: Length 5.7m/18.7ft; width 2.3m/7.5ft; drum width 2,134mm/84in; shell 25mm; drum dia 1,535mm/60.4in; height 3.0m/9.8ft (w/padfoot 3.03m/9.9ft); wheelbase 3.0m/9.8ft; ground clearance 518mm/20.4in; curb clearance 492mm/19.4in; inside turning radius 3.9m/12.7ft; hitch articulation 34°; oscillation 15°. PROPEL: Single propel pump. Two-speed hydrostatic. ISO-mounted operator station with rubber floormats. SOUND (cab): Operator 85 dB(A) @ 100% fan; exterior 111 dB(A) @ 100% fan. NOTE: CS13 GC uses single propel pump (vs dual pump on CS12/CS14). Dual amplitude, dual frequency (not single frequency). Gradeability 50% (vs 57% on dual-pump models). APPLICATION: Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation projects, following motor grader, ~200m³ production. Source: Cat CS13 GC Smooth Drum Compactor Brochure QEHQ3129-01 Build 01A (Mar 2024, Brazil MAR-1 / Tier 3 / Stage IIIA).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CS14 Smooth Drum Vibratory Soil Compactor ─────────────
+    {
+      id:'cat-cs14', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'smooth_drum_compactor',
+      name:'Cat CS14 Smooth Drum Vibratory Soil Compactor', shortName:'Cat CS14',
+      // ── Engine ──
+      engineModel:'Cat C7.1', engineCylinders:6,
+      engineDisplacementL:7.0, engineDisplacementIn3:427.8,
+      engineStrokeMm:135, engineBoreMm:105,
+      engineEmissions:'U.S. EPA Tier 3 / EU Stage IIIA equivalent',
+      enginePowerISO_kW:116.1, enginePowerISO_hp:155.7,
+      engineGrossPowerSAE_kW:117.5, engineGrossPowerSAE_hp:157.6,
+      engineNetPowerISO_kW:98.2, engineNetPowerISO_hp:131.7,
+      engineNetPowerSAE_kW:97, engineNetPowerSAE_hp:130.1,
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2007', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      // ── Performance ──
+      maxSpeedKmh:11.4, maxSpeedMph:7.1,
+      gradeabilityPct:57,
+      // ── Vibratory ──
+      freqStdHz:30.5, freqStdVpm:1830,
+      freqEcoHz:27.7, freqEcoVpm:1664,
+      freqOptVarHzMin:23.3, freqOptVarHzMax:30.5,
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1830,
+      ampHighMm:2.1, ampHighIn:0.083,
+      ampLowMm:0.98, ampLowIn:0.039,
+      centrifugalForceMaxKn:301, centrifugalForceMax_lb:67653,
+      centrifugalForceMinKn:141, centrifugalForceMin_lb:31680,
+      vmClassHighAmpCab:'VM4',
+      staticLinearLoadSunCanopy_kgcm:42, staticLinearLoadSunCanopy_lbsin:235.2,
+      staticLinearLoadROPSCanopy_kgcm:42.3, staticLinearLoadROPSCanopy_lbsin:236.7,
+      staticLinearLoadROPSCab_kgcm:42.5, staticLinearLoadROPSCab_lbsin:238,
+      // ── Weights ──
+      opWeightSunCanopyT:13.895,   opWeightSunCanopy_lb:30633,
+      opWeightROPSCanopyT:14.070,  opWeightROPSCanopy_lb:31019,
+      opWeightROPSCabT:14.245,     opWeightROPSCab_lb:31405,
+      drumWeightSunCanopyKg:8965, drumWeightSunCanopy_lb:19764,
+      drumWeightROPSCanopyKg:9020, drumWeightROPSCanopy_lb:19886,
+      drumWeightROPSCabKg:9069,   drumWeightROPSCab_lb:19994,
+      ovalPadfootShellKitWeightKg:1517, ovalPadfootShellKit_lb:3344,
+      squarePadfootShellKitWeightKg:1676, squarePadfootShellKit_lb:3695,
+      levelingBladeWeightKg:653,  levelingBladeWeight_lb:1440,
+      operatingWeightT:14.070, weightAtDrumT:9.020,
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:30, drumShellThicknessIn:1.2,
+      drumDiameterMm:1534, drumDiameterIn:60.4,
+      drumType:'Smooth drum (padfoot shell kit optional)',
+      // ── Optional Padfoot Shell Kit ──
+      padfootNumPads:120, padfootNumChevrons:16,
+      padfootOvalPadHeightMm:89.1, padfootOvalPadHeightIn:3.5,
+      padfootOvalPadFaceAreaCm2:63.5, padfootOvalPadFaceAreaIn2:9.8,
+      padfootSquarePadHeightMm:89.2, padfootSquarePadHeightIn:3.5,
+      padfootSquarePadFaceAreaCm2:105.7, padfootSquarePadFaceAreaIn2:16.4,
+      // ── Service Refills ──
+      fuelTankL:242, fuelTankGal:63.9,
+      coolantL:31.9, coolantGal:8.4,
+      heatingSystemL:1.2, heatingSystemGal:0.3,
+      engineOilL:17.4, engineOilGal:4.6,
+      eccentricHousingsCombinedL:26, eccentricHousingsGal:6.9,
+      axleAndFinalDrivesL:18, axleAndFinalDrivesGal:4.8,
+      hydraulicTankL:50, hydraulicTankGal:13.2,
+      // ── Maintenance ──
+      engineOilIntervalHr:500, eccentricHousingIntervalHr:3000,
+      hydraulicOilIntervalHr:3000, coolantIntervalHr:12000,
+      // ── Electrical ──
+      systemVoltage:24, alternatorAmp:100, batteryCCA:750,
+      // ── Dimensions ──
+      overallLengthM:6.1, overallLengthFt:19.8,
+      overallLengthWithBladeM:6.5, overallLengthWithBladeFt:21.5,
+      overallWidthM:2.3, overallWidthFt:7.7,
+      overallWidthWithBladeM:2.5, overallWidthWithBladeFt:8.2,
+      overallHeightCanopyM:3.1, overallHeightCabM:3.1,
+      wheelbaseM:2.9, wheelbaseFt:9.5,
+      groundClearanceMm:428, groundClearanceIn:16.9,
+      curbClearanceMm:487, curbClearanceIn:19.2,
+      levelingBladeHeightMm:683,
+      insideTurningRadiusM:3.7, insideTurningRadiusFt:12.1,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Propel ──
+      propelSystem:'Dual pump — dedicated flow to drum drive motor and rear axle motor',
+      transmission:'Two-Speed Hydrostatic',
+      limitedSlipDifferential:true, automaticSpeedControl:true,
+      idleShutdownTimer:true, variableSpeedCoolingFan:true,
+      // ── Sound ──
+      operatorSoundPressureDB_A:80, exteriorSoundPowerDB_A:109,
+      operatorSoundStandard:'ISO 6396:2008', exteriorSoundStandard:'ISO 6395:2008',
+      operatorSoundFanCondition:'70% of maximum engine cooling fan speed (cab, doors/windows closed)',
+      exteriorSoundFanCondition:'100% of maximum engine cooling fan speed',
+      // ── Standard/Optional Equipment ──
+      standardEquipment:[
+        'Steel Sun Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'Adjustable Seat with Integrated Console',
+        'LCD Display with Lockable Vandalism Guard',
+        'Adjustable Tilting Steering Column with Integrated Cup Holders',
+        'Rear Vision Camera System with Color Touchscreen Display',
+        'High Visibility 50mm (2in) Seat Belt','12-volt Power Outlet',
+        'Horn, Backup Alarm','Smooth Drum',
+        'Pod-Style Eccentric Weight Housings',
+        'Dual Amplitude Single Frequency Vibratory System',
+        'Auto-vibe Function','Single Adjustable Steel Scraper',
+        'VisionLink® Telematics','Cat C7.1 Engine',
+        'Air Cleaner Dual Element','Three Speed Throttle Switch including Eco-mode',
+        'Automatic Speed Control (ASC)',
+        'Dual Propel Pumps (one for drum drive, one for rear axle)',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Tilting Radiator / Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '24-volt Electrical System','100 ampere Alternator',
+        '750 Cold-cranking Amps Battery Capacity',
+        'Lockable Engine Enclosure, Hydraulic and Fuel Tanks',
+        'Sight Gauges (Hydraulic Oil Level and Radiator Coolant Level)',
+        'S•O•S℠ Sampling Values – Engine Oil, Hydraulic Oil, Coolant',
+        'Halogen Working Lights (4)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'ROPS/FOPS Cab with Climate Control, Cloth Seat, Exterior Rear View Mirrors',
+        'Sun Visor (Cab)','Roll-Down Screen (Cab)',
+        'Removable Shell Kit – Oval or Square Pads',
+        'Variable Frequency (23.3–30.5 Hz)',
+        'Dual Adjustable Steel Scrapers','Dual Adjustable Polyurethane Scrapers',
+        'Leveling Blade',
+        'Measure – Machine Drive Power (MDP)',
+        'Measure – Compaction Meter Value (CMV)',
+        'Transmission Guard',
+        'Halogen Working Lights (8)','Amber Rotating Beacon',
+      ],
+      // ── Application ──
+      applicationSuitability:'Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation projects, following a motor grader, production ~200m³',
+      soilTypes:'Sand/Gravel: smooth drum, high to low amplitude, 4–6 passes. Clay/Silt (with padfoot shell kit): 4–10 passes. Rock: 4–8 passes, rock size <50mm diameter.',
+      // ── Environmental ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:0.8, acRefrigerantLb:1.8,
+      acCO2EquivalentMetricT:1.144, acCO2EquivalentTons:1.261,
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with up to 20% biodiesel FAME; 100% renewable diesel/HVO/GTL',
+      recyclabilityPct:96,
+      recyclingMaterialPct:{
+        steel:77.92, iron:6.44, nonferrousMetal:1.12, mixedMetal:0.01,
+        mixedMetalNonmetal:1.75, plastic:1.01, rubber:0.40, mixedNonmetallic:0.14,
+        fluid:1.78, other:0.25, uncategorized:6.94,
+      },
+      tags:['smooth drum compactor','soil compactor','vibratory','civil','road construction','residential','earthworks','aggregate base','14 ton','irrigation'],
+      note:'Cat CS14 Smooth Drum Vibratory Soil Compactor. ENGINE: Cat C7.1, 6-cyl, 7.0L/427.8in³, bore 105mm, stroke 135mm. Tier 3/Stage IIIA equivalent. ISO power 116.1kW/155.7hp; gross SAE 117.5kW/157.6hp; net ISO 98.2kW/131.7hp; net SAE 97kW/130.1hp. PERFORMANCE: Max speed 11.4km/h/7.1mph. Theoretical gradeability 57% (with or without vibration). VIBRATORY — STD DUAL AMPLITUDE SINGLE FREQ: 30.5Hz/1,830vpm (eco-mode 27.7Hz/1,664vpm). High amplitude 2.1mm/0.083in, 301kN/67,653lb; low amplitude 0.98mm/0.039in, 141kN/31,680lb. OPTIONAL VARIABLE FREQ: 23.3–30.5Hz/1,400–1,830vpm. VM Class (high amplitude, cab): VM4. STATIC LINEAR LOAD: Sun canopy 42kg/cm/235.2lbs/in; ROPS canopy 42.3kg/cm/236.7lbs/in; cab 42.5kg/cm/238lbs/in. WEIGHTS — SUN CANOPY: 13,895kg/30,633lb; ROPS/FOPS CANOPY: 14,070kg/31,019lb; ROPS/FOPS CAB: 14,245kg/31,405lb. Weight at drum — sun canopy 8,965kg/19,764lb; ROPS canopy 9,020kg/19,886lb; cab 9,069kg/19,994lb. Padfoot additions: oval shell kit +1,517kg/3,344lb; square shell kit +1,676kg/3,695lb; leveling blade +653kg/1,440lb. (Weights include full fluids+80kg/176lb op; cab includes H&A.) DRUM: Width 2,134mm/84in; shell 30mm/1.2in; diameter 1,534mm/60.4in. OPTIONAL PADFOOT SHELL KIT: 120 pads, 16 chevrons. Oval: 89.1mm/3.5in height, 63.5cm²/9.8in² face. Square: 89.2mm/3.5in height, 105.7cm²/16.4in² face. SERVICE REFILLS: Fuel 242L/63.9gal; coolant 31.9L/8.4gal; heating system 1.2L/0.3gal; engine oil 17.4L/4.6gal; eccentric housings 26L/6.9gal; axle & final drives 18L/4.8gal; hydraulic tank 50L/13.2gal. ELECTRICAL: 24V system, 100A alternator, 750 CCA battery. DIMENSIONS: Length 6.1m/19.8ft (w/blade 6.5m/21.5ft); width 2.3m/7.7ft (w/blade 2.5m/8.2ft); drum width 2,134mm/84in; shell 30mm; drum dia 1,534mm/60.4in; height canopy & cab 3.1m/10.2ft; wheelbase 2.9m/9.5ft; ground clearance 428mm/16.9in; curb clearance 487mm/19.2in; blade height 683mm/26.9in; inside turning radius 3.7m/12.1ft; hitch articulation 34°; oscillation 15°. SOUND (cab): Operator 80 dB(A) @ 70% fan; exterior 109 dB(A) @ 100% fan. APPLICATION: Road construction, residential construction, larger earth fills, aggregate bases, agriculture/irrigation projects, following motor grader, ~200m³ production. NOTE: CS14 is heavier/higher static linear load than CS12 (42 vs 29kg/cm), VM4 class (vs VM3 on CS12). Source: Cat CS14 Smooth Drum Compactor Brochure QEHQ3095 Build 03A (Dec 2023).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CS19 Smooth Drum Vibratory Soil Compactor ─────────────
+    {
+      id:'cat-cs19', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'smooth_drum_compactor',
+      name:'Cat CS19 Smooth Drum Vibratory Soil Compactor', shortName:'Cat CS19',
+      // ── Engine ──
+      engineModel:'Cat C7.1', engineCylinders:6,
+      engineDisplacementL:7.0, engineDisplacementIn3:427.8,
+      engineStrokeMm:135, engineBoreMm:105,
+      engineEmissions:'U.S. EPA Tier 3 / EU Stage IIIA equivalent',
+      enginePowerISO_kW:129, enginePowerISO_hp:173,
+      engineGrossPowerSAE_kW:130.2, engineGrossPowerSAE_hp:174.6,
+      engineNetPowerISO_kW:108.5, engineNetPowerISO_hp:145.5,
+      engineNetPowerSAE_kW:107.2, engineNetPowerSAE_hp:143.8,
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2007', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      // ── Performance ──
+      maxSpeedKmh:11.4, maxSpeedMph:7.1,
+      gradeabilityPct:53,
+      propelSystem:'Dual pump — dedicated separate flow to drum drive motor and rear axle motor',
+      transmission:'Two-speed hydrostatic',
+      differentialType:'Limited slip differential',
+      // ── Vibratory ──
+      freqStdHz:28, freqStdVpm:1680,
+      freqEcoHz:25.5, freqEcoVpm:1527,
+      freqOptVarHzMin:23.3, freqOptVarHzMax:28,
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1680,
+      ampHighMm:2.1, ampHighIn:0.083,
+      ampLowMm:0.98, ampLowIn:0.039,
+      centrifugalForceMaxKn:335, centrifugalForceMax_lb:75234,
+      centrifugalForceMinKn:156, centrifugalForceMin_lb:35163,
+      vmClassHighAmpCab:'VM5',
+      staticLinearLoadSunCanopy_kgcm:62.1, staticLinearLoadSunCanopy_lbsin:348,
+      staticLinearLoadROPSCanopy_kgcm:62.4, staticLinearLoadROPSCanopy_lbsin:349.4,
+      staticLinearLoadROPSCab_kgcm:62.3, staticLinearLoadROPSCab_lbsin:348.8,
+      // ── Weights ──
+      opWeightSunCanopyT:18.270,   opWeightSunCanopy_lb:40278,
+      opWeightROPSCanopyT:18.445,  opWeightROPSCanopy_lb:40664,
+      opWeightROPSCabT:18.780,     opWeightROPSCab_lb:41403,
+      drumWeightSunCanopyKg:13260, drumWeightSunCanopy_lb:29233,
+      drumWeightROPSCanopyKg:13315, drumWeightROPSCanopy_lb:29355,
+      drumWeightROPSCabKg:13292,   drumWeightROPSCab_lb:29304,
+      ovalPadfootShellKitWeightKg:1517, ovalPadfootShellKit_lb:3344,
+      squarePadfootShellKitWeightKg:1676, squarePadfootShellKit_lb:3695,
+      operatingWeightT:18.445, weightAtDrumT:13.315,
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:40, drumShellThicknessIn:1.6,
+      drumDiameterMm:1534, drumDiameterIn:60.4,
+      drumType:'Smooth drum (padfoot shell kit optional)',
+      // ── Padfoot Shell Kit ──
+      padfootKitNumPads:120, padfootKitNumChevrons:16,
+      ovalPadHeightMm:89.1, ovalPadHeightIn:3.5,
+      ovalPadFaceAreaCm2:63.5, ovalPadFaceAreaIn2:9.8,
+      squarePadHeightMm:89.2, squarePadHeightIn:3.5,
+      squarePadFaceAreaCm2:105.7, squarePadFaceAreaIn2:16.4,
+      // ── Dimensions ──
+      overallLengthM:6.1, overallLengthFt:20.1,
+      overallWidthM:2.5, overallWidthFt:8.1,
+      overallHeightCanopyM:3.1, overallHeightCanopyFt:10.2,
+      overallHeightCabM:3.1, overallHeightCabFt:10.2,
+      wheelbaseM:2.9, wheelbaseFt:9.5,
+      groundClearanceMm:427, groundClearanceIn:16.8,
+      curbClearanceMm:535, curbClearanceIn:21.1,
+      insideTurningRadiusM:3.7, insideTurningRadiusFt:12.1,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Electrical ──
+      electricalSystemV:24, alternatorAmp:100, batteryCapacityCCA:750,
+      // ── Service Refills ──
+      fuelTankL:332, fuelTankGal:87.7,
+      coolingSystemL:28.3, coolingSystemGal:7.5,
+      heatingSystemL:1.2, heatingSystemGal:0.3,
+      engineOilWithFilterL:17.4, engineOilWithFilterGal:4.6,
+      eccentricWeightHousingsL:26, eccentricWeightHousingsGal:6.9,
+      axleAndFinalDrivesL:24, axleAndFinalDrivesGal:6.3,
+      hydraulicTankL:50, hydraulicTankGal:13.2,
+      // ── Sound ──
+      operatorSoundPressureDbA:80, operatorSoundStandard:'ISO 6396:2008 @ 70% fan',
+      exteriorSoundPowerDbA:109, exteriorSoundStandard:'ISO 6395:2008 @ 100% fan',
+      // ── Environmental ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:0.8, acRefrigerantLb:1.8,
+      acCO2EquivalentMetricT:1.144, acCO2EquivalentTons:1.261,
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with up to 20% biodiesel FAME; 100% renewable diesel/HVO/GTL',
+      recyclabilityPct:96,
+      recyclingMaterialPct:{
+        steel:84.47, iron:7.14, nonferrousMetal:0.94, mixedMetal:0.24,
+        mixedMetalNonmetal:0.35, plastic:0.62, rubber:2.00,
+        mixedNonmetallic:0.00, fluid:2.14, other:0.72, uncategorized:1.38,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Steel Sun Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'Adjustable Seat with Integrated Console',
+        'LCD Display with Lockable Vandalism Guard',
+        'Adjustable Tilting Steering Column with Integrated Cup Holders',
+        'Rear Vision Camera System with Color Touchscreen Display',
+        'High Visibility 50mm (2in) Seat Belt',
+        '12-volt Power Outlet','Horn, Backup Alarm',
+        'Smooth Drum','Pod-Style Eccentric Weight Housings',
+        'Dual Amplitude, Single Frequency','Auto-vibe Function',
+        'Single Adjustable Steel Scraper','VisionLink® Telematics',
+        'Cat C7.1 Engine','Air Cleaner Dual Element',
+        'Three Speed Throttle Switch including Eco-mode',
+        'Automatic Speed Control (ASC)',
+        'Dual Propel Pumps — One for Drum Drive, One for Rear Axle',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Tilting Radiator / Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '24 Volt Electrical System','100 Ampere Alternator',
+        '750 Cold-cranking Amps Battery Capacity',
+        'Lockable Engine Enclosure, Hydraulic and Fuel Tanks',
+        'Sight Gauges for Hydraulic Oil Level and Radiator Coolant Level',
+        'S•O•S℠ Sampling Values: Engine Oil, Hydraulic Oil, and Coolant',
+        'Halogen Working Lights (4)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'ROPS/FOPS Cab with Climate Control, Cloth Seat, Exterior Rear View Mirrors',
+        'Sun Visor (Cab)','Roll-Down Screen (Cab)',
+        'Removable Shell Kit — Oval or Square Pads',
+        'Variable Frequency (23.3–28Hz)','Dual Adjustable Steel Scrapers',
+        'Dual Adjustable Polyurethane Scrapers',
+        'Measure — Machine Drive Power (MDP)',
+        'Measure — Compaction Meter Value (CMV)',
+        'Transmission Guard','Halogen Working Lights (8)',
+        'Amber Rotating Beacon',
+      ],
+      applicationSuitability:'Airport construction, railway foundations, dams and large embankment fill, rock fills, mining (drying beds, waste tanks, embankments), recycling, rock crushing, following a tractor/scraper, land reclamation (dredging), ~500m³ production',
+      soilTypes:'Rock: smooth drum high to low amplitude, 4–8 passes, rock size <50mm. Sand/Gravel: smooth drum high to low amplitude, 4–6 passes. Clay/Silt (with padfoot shell kit): 4–10 passes; compaction strongly depends on moisture content.',
+      tags:['smooth drum compactor','soil compactor','vibratory','civil','large civil','airport','dam','embankment','18 ton','road construction','earthworks','Cat C7.1'],
+      note:'Cat CS19 Smooth Drum Vibratory Soil Compactor. ENGINE: Cat C7.1, 6-cyl, 7.0L/427.8in³, bore 105mm, stroke 135mm. Tier 3/Stage IIIA equivalent. ISO power 129kW/173hp; gross SAE 130.2kW/174.6hp; net ISO 108.5kW/145.5hp; net SAE 107.2kW/143.8hp. PERFORMANCE: Max speed 11.4km/h/7.1mph. Theoretical gradeability 53% (with or without vibration). VIBRATORY — STD DUAL AMPLITUDE SINGLE FREQ: 28Hz/1,680vpm (eco-mode 25.5Hz/1,527vpm). High amplitude 2.1mm/0.083in, 335kN/75,234lb; low amplitude 0.98mm/0.039in, 156kN/35,163lb. OPTIONAL VARIABLE FREQ: 23.3–28Hz/1,400–1,680vpm. VM Class (high amplitude, cab): VM5. STATIC LINEAR LOAD: Sun canopy 62.1kg/cm/348lbs/in; ROPS canopy 62.4kg/cm/349.4lbs/in; ROPS cab 62.3kg/cm/348.8lbs/in. WEIGHTS — SUN CANOPY: 18,270kg/40,278lb; ROPS/FOPS CANOPY: 18,445kg/40,664lb; ROPS/FOPS CAB: 18,780kg/41,403lb. Weight at drum — sun canopy 13,260kg/29,233lb; ROPS canopy 13,315kg/29,355lb; cab 13,292kg/29,304lb. Padfoot additions: oval shell kit +1,517kg/3,344lb; square shell kit +1,676kg/3,695lb. (Weights: full fluids+80kg/176lb op; cab includes H&A.) DRUM: Width 2,134mm/84in; shell 40mm/1.6in; diameter 1,534mm/60.4in. OPTIONAL PADFOOT SHELL KIT: 120 pads, 16 chevrons. Oval: 89.1mm/3.5in height, 63.5cm²/9.8in² face. Square: 89.2mm/3.5in height, 105.7cm²/16.4in² face. SERVICE REFILLS: Fuel 332L/87.7gal; coolant 28.3L/7.5gal; heating system 1.2L/0.3gal; engine oil 17.4L/4.6gal; eccentric housings (combined) 26L/6.9gal; axle & final drives 24L/6.3gal; hydraulic tank 50L/13.2gal. ELECTRICAL: 24V system, 100A alternator, 750 CCA battery. DIMENSIONS: Length 6.1m/20.1ft; width 2.5m/8.1ft; drum width 2,134mm/84in; shell 40mm/1.6in; drum dia 1,534mm/60.4in; height canopy & cab 3.1m/10.2ft; wheelbase 2.9m/9.5ft; ground clearance 427mm/16.8in; curb clearance 535mm/21.1in; inside turning radius 3.7m/12.1ft; hitch articulation 34°; oscillation 15°. PROPEL: Dual pump — dedicated separate flow to drum drive motor and rear axle motor. Two-speed hydrostatic trans, limited slip differential, ASC. SOUND (cab): Operator 80 dB(A) @ 70% fan; exterior 109 dB(A) @ 100% fan. MAINTENANCE: Engine oil 500hr; eccentric housings & hydraulic oil 3,000hr; coolant 12,000hr. RECYCLING: Steel 84.47%, Iron 7.14%, Rubber 2.00%, Fluid 2.14%; recyclability 96%. NOTE: CS19 has higher gradeability than CS20 (53% vs 50%); both share same drum/vibratory specs. CS19 available with ROPS/FOPS canopy option (CS20 is canopy or cab only). Source: Cat CS19 Smooth Drum Compactor Brochure QEHQ3152 Build 03A (Dec 2023, U.S. EPA Tier 3 / EU Stage IIIA).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CS20 Smooth Drum Vibratory Soil Compactor ─────────────
+    {
+      id:'cat-cs20', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'smooth_drum_compactor',
+      name:'Cat CS20 Smooth Drum Vibratory Soil Compactor', shortName:'Cat CS20',
+      // ── Engine ──
+      engineModel:'Cat C7.1', engineCylinders:6,
+      engineDisplacementL:7.0, engineDisplacementIn3:427.8,
+      engineStrokeMm:135, engineBoreMm:105,
+      engineEmissions:'Brazil MAR-1, equivalent to U.S. EPA Tier 3 / EU Stage IIIA',
+      enginePowerISO_kW:129, enginePowerISO_hp:173,
+      engineGrossPowerSAE_kW:130.2, engineGrossPowerSAE_hp:174.6,
+      engineNetPowerISO_kW:108.5, engineNetPowerISO_hp:145.5,
+      engineNetPowerSAE_kW:107.2, engineNetPowerSAE_hp:143.8,
+      enginePowerStandard:'ISO 14396:2002', engineGrossPowerStandard_SAE:'SAE J1995:2014',
+      engineNetPowerStandard:'ISO 9249:2007', engineNetPowerStandard_SAE:'SAE J1349:2011',
+      // ── Performance ──
+      maxSpeedKmh:11.4, maxSpeedMph:7.1,
+      gradeabilityPct:50,
+      propelSystem:'Dual pump — dedicated separate flow to drum drive motor and rear axle motor',
+      transmission:'Two-speed hydrostatic',
+      differentialType:'Limited slip differential',
+      // ── Vibratory ──
+      freqStdHz:28, freqStdVpm:1680,
+      freqEcoHz:25.5, freqEcoVpm:1527,
+      freqOptVarHzMin:23.3, freqOptVarHzMax:28,
+      freqOptVarVpmMin:1400, freqOptVarVpmMax:1680,
+      ampHighMm:2.1, ampHighIn:0.083,
+      ampLowMm:0.98, ampLowIn:0.039,
+      centrifugalForceMaxKn:335, centrifugalForceMax_lb:75234,
+      centrifugalForceMinKn:156, centrifugalForceMin_lb:35163,
+      vmClassHighAmpCab:'VM5',
+      staticLinearLoadSunCanopy_kgcm:63.8, staticLinearLoadSunCanopy_lbsin:357.2,
+      staticLinearLoadROPSCab_kgcm:63.8, staticLinearLoadROPSCab_lbsin:357.2,
+      // ── Weights ──
+      opWeightSunCanopyT:20.220,   opWeightSunCanopy_lb:44577,
+      opWeightROPSCabT:20.220,     opWeightROPSCab_lb:44577,
+      drumWeightSunCanopyKg:13612, drumWeightSunCanopy_lb:30009,
+      drumWeightROPSCabKg:13612,   drumWeightROPSCab_lb:30009,
+      ovalPadfootShellKitWeightKg:1517, ovalPadfootShellKit_lb:3344,
+      squarePadfootShellKitWeightKg:1676, squarePadfootShellKit_lb:3695,
+      operatingWeightT:20.220, weightAtDrumT:13.612,
+      // ── Drum ──
+      drumWidthMm:2134, drumWidthIn:84,
+      drumShellThicknessMm:40, drumShellThicknessIn:1.6,
+      drumDiameterMm:1534, drumDiameterIn:60.4,
+      drumType:'Smooth drum (padfoot shell kit optional)',
+      // ── Padfoot Shell Kit ──
+      padfootKitNumPads:120, padfootKitNumChevrons:16,
+      ovalPadHeightMm:89.1, ovalPadHeightIn:3.5,
+      ovalPadFaceAreaCm2:63.5, ovalPadFaceAreaIn2:9.8,
+      squarePadHeightMm:89.2, squarePadHeightIn:3.5,
+      squarePadFaceAreaCm2:105.7, squarePadFaceAreaIn2:16.4,
+      // ── Dimensions ──
+      overallLengthM:6.1, overallLengthFt:20.1,
+      overallWidthM:2.5, overallWidthFt:8.1,
+      overallHeightCanopyM:3.1, overallHeightCanopyFt:10.2,
+      overallHeightCabM:3.1, overallHeightCabFt:10.2,
+      wheelbaseM:2.9, wheelbaseFt:9.5,
+      groundClearanceMm:427, groundClearanceIn:16.8,
+      curbClearanceMm:535, curbClearanceIn:21.1,
+      insideTurningRadiusM:3.7, insideTurningRadiusFt:12.1,
+      hitchArticulationAngleDeg:34, hitchOscillationAngleDeg:15,
+      // ── Electrical ──
+      electricalSystemV:24, alternatorAmp:100, batteryCapacityCCA:750,
+      // ── Service Refills ──
+      fuelTankL:332, fuelTankGal:87.7,
+      coolingSystemL:28.3, coolingSystemGal:7.5,
+      heatingSystemL:1.2, heatingSystemGal:0.3,
+      engineOilWithFilterL:17.4, engineOilWithFilterGal:4.6,
+      eccentricWeightHousingsL:26, eccentricWeightHousingsGal:6.9,
+      axleAndFinalDrivesL:24, axleAndFinalDrivesGal:6.3,
+      hydraulicTankL:50, hydraulicTankGal:13.2,
+      // ── Sound ──
+      operatorSoundPressureDbA:80, operatorSoundStandard:'ISO 6396:2008 @ 70% fan',
+      exteriorSoundPowerDbA:109, exteriorSoundStandard:'ISO 6395:2008 @ 100% fan',
+      // ── Environmental ──
+      acRefrigerantType:'R134a', acRefrigerantGWP:1430,
+      acRefrigerantKg:0.8, acRefrigerantLb:1.8,
+      acCO2EquivalentMetricT:1.144, acCO2EquivalentTons:1.261,
+      paintMaxHeavyMetals:{barium:'<0.01%', cadmium:'<0.01%', chromium:'<0.01%', lead:'<0.01%'},
+      fuelCompatibility:'Compatible with up to 20% biodiesel FAME; 100% renewable diesel/HVO/GTL',
+      recyclabilityPct:98,
+      recyclingMaterialPct:{
+        steel:84.45, iron:9.31, nonferrousMetal:0.76, mixedMetal:0.24,
+        mixedMetalNonmetal:0.29, plastic:0.65, rubber:2.04,
+        mixedNonmetallic:0.01, fluid:0.75, leadBatteries:0.26,
+        other:0.68, uncategorized:0.56,
+      },
+      // ── Standard Equipment ──
+      standardEquipment:[
+        'Steel Sun Canopy with Handrails, Floor Mat, Vinyl Seat',
+        'Adjustable Seat with Integrated Console',
+        'LCD Display with Lockable Vandalism Guard',
+        'Adjustable Tilting Steering Column with Integrated Cup Holders',
+        'Rear Vision Camera System with Color Touchscreen Display',
+        'High Visibility 50mm (2in) Seat Belt',
+        '12-volt Power Outlet','Horn, Backup Alarm',
+        'Smooth Drum','Pod-Style Eccentric Weight Housings',
+        'Dual Amplitude, Single Frequency','Auto-vibe Function',
+        'Single Adjustable Steel Scraper','VisionLink® Telematics',
+        'Cat C7.1 Engine','Air Cleaner Dual Element',
+        'Three Speed Throttle Switch including Eco-mode',
+        'Automatic Speed Control (ASC)',
+        'Dual Propel Pumps — One for Drum Drive, One for Rear Axle',
+        'Fuel Filter, Water Separator, Priming Pump, Water Indicator',
+        'Tilting Radiator / Hydraulic Oil Cooler','Dual Braking System',
+        'Two-Speed Hydrostatic Transmission','Limited Slip Differential',
+        '24 Volt Electrical System','100 Ampere Alternator',
+        '750 Cold-cranking Amps Battery Capacity',
+        'Lockable Engine Enclosure, Hydraulic and Fuel Tanks',
+        'Sight Gauges for Hydraulic Oil Level and Radiator Coolant Level',
+        'S•O•S℠ Sampling Values: Engine Oil, Hydraulic Oil, and Coolant',
+        'Halogen Working Lights (4)',
+      ],
+      optionalEquipment:[
+        'ROPS/FOPS Cab with Climate Control, Cloth Seat, Exterior Rear View Mirrors',
+        'Sun Visor (Cab)','Roll-Down Screen (Cab)',
+        'Removable Shell Kit — Oval or Square Pads',
+        'Variable Frequency (23.3–28Hz)','Dual Adjustable Steel Scrapers',
+        'Dual Adjustable Polyurethane Scrapers',
+        'Measure — Machine Drive Power (MDP)',
+        'Measure — Compaction Meter Value (CMV)',
+        'Transmission Guard','Halogen Working Lights (8)',
+        'Amber Rotating Beacon',
+      ],
+      applicationSuitability:'Airport construction, railway foundations, dams and large embankment fill, rock fills, mining (drying beds, waste tanks, embankments), recycling, rock crushing, following a tractor/scraper, land reclamation (dredging), ~500m³ production',
+      soilTypes:'Rock: smooth drum high to low amplitude, 4–8 passes, rock size <50mm. Sand/Gravel: smooth drum high to low amplitude, 4–6 passes. Clay/Silt (with padfoot shell kit): 4–10 passes; compaction strongly depends on moisture content.',
+      tags:['smooth drum compactor','soil compactor','vibratory','civil','large civil','airport','dam','embankment','20 ton','road construction','earthworks','Cat C7.1','Brazil MAR-1'],
+      note:'Cat CS20 Smooth Drum Vibratory Soil Compactor. ENGINE: Cat C7.1, 6-cyl, 7.0L/427.8in³, bore 105mm, stroke 135mm. Brazil MAR-1 / Tier 3 / Stage IIIA equivalent. ISO power 129kW/173hp; gross SAE 130.2kW/174.6hp; net ISO 108.5kW/145.5hp; net SAE 107.2kW/143.8hp. PERFORMANCE: Max speed 11.4km/h/7.1mph. Theoretical gradeability 50% (with or without vibration). VIBRATORY — STD DUAL AMPLITUDE SINGLE FREQ: 28Hz/1,680vpm (eco-mode 25.5Hz/1,527vpm). High amplitude 2.1mm/0.083in, 335kN/75,234lb; low amplitude 0.98mm/0.039in, 156kN/35,163lb. OPTIONAL VARIABLE FREQ: 23.3–28Hz/1,400–1,680vpm. VM Class (high amplitude, cab): VM5. STATIC LINEAR LOAD: Sun canopy 63.8kg/cm/357.2lbs/in; ROPS/FOPS cab 63.8kg/cm/357.2lbs/in. WEIGHTS — SUN CANOPY: 20,220kg/44,577lb; ROPS/FOPS CAB: 20,220kg/44,577lb. Weight at drum — 13,612kg/30,009lb (both configs). Padfoot additions: oval shell kit +1,517kg/3,344lb; square shell kit +1,676kg/3,695lb. (Weights: full fluids+80kg/176lb op; cab includes H&A.) DRUM: Width 2,134mm/84in; shell 40mm/1.6in; diameter 1,534mm/60.4in. OPTIONAL PADFOOT SHELL KIT: 120 pads, 16 chevrons. Oval: 89.1mm/3.5in height, 63.5cm²/9.8in² face. Square: 89.2mm/3.5in height, 105.7cm²/16.4in² face. SERVICE REFILLS: Fuel 332L/87.7gal; coolant 28.3L/7.5gal; heating system 1.2L/0.3gal; engine oil 17.4L/4.6gal; eccentric housings (combined) 26L/6.9gal; axle & final drives 24L/6.3gal; hydraulic tank 50L/13.2gal. ELECTRICAL: 24V system, 100A alternator, 750 CCA battery. DIMENSIONS: Length 6.1m/20.1ft; width 2.5m/8.1ft; drum width 2,134mm/84in; shell 40mm/1.6in; drum dia 1,534mm/60.4in; height canopy & cab 3.1m/10.2ft; wheelbase 2.9m/9.5ft; ground clearance 427mm/16.8in; curb clearance 535mm/21.1in; inside turning radius 3.7m/12.1ft; hitch articulation 34°; oscillation 15°. PROPEL: Dual pump — dedicated separate flow to drum drive motor and rear axle motor. Two-speed hydrostatic trans, limited slip differential, ASC. SOUND (cab): Operator 80 dB(A) @ 70% fan; exterior 109 dB(A) @ 100% fan. RECYCLING: Steel 84.45%, Iron 9.31%, Rubber 2.04%; recyclability 98%. NOTE: CS20 is heavier than CS19 (~20t vs ~18.4t) with higher static linear load (63.8 vs 62kg/cm). CS20 has no ROPS/FOPS canopy option — sun canopy or ROPS/FOPS cab only. CS20 meets Brazil MAR-1 standards. Both CS19 and CS20 share identical drum, vibratory, and service refill specs. Source: Cat CS20 Smooth Drum Compactor Brochure QEHQ3104 Build 03A (Dec 2023, Brazil MAR-1 / Tier 3 / Stage IIIA).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CW12 Pneumatic Compactor ──────────────────────────────
+    {
+      id:'cat-cw12', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'pneumatic_compactor',
+      name:'Cat CW12 Pneumatic Compactor', shortName:'Cat CW12',
+      // ── Engine ──
+      engineModel:'Cat C4.4', engineCylinders:4,
+      engineBoreMm:105, engineBoreIn:4.1,
+      engineStrokeMm:127, engineStrokeIn:5,
+      engineRatedRpm:2200,
+      engineEmissions:'Equivalent to U.S. EPA Tier 3 / EU Stage IIIA / China Stage III',
+      engineGrossPowerKw:75, engineGrossPowerHp:100.5,
+      // ── Performance ──
+      maxSpeedLowKmh:7, maxSpeedLowMph:4.3,
+      maxSpeedHighKmh:14.5, maxSpeedHighMph:9.0,
+      gradeabilityPct:32,
+      transmission:'Two-speed hydrostatic',
+      steeringInsideM:4.4, steeringInsideFt_in:'14ft 8in',
+      articulationAngleDeg:35,
+      hitchOscillationDeg:6,
+      // ── Compaction ──
+      compactionWidthMm:2090, compactionWidthIn:82,
+      numWheels:7,
+      tireSize:'14/70 x 20',
+      tireDiameterMm:960, tireDiameterIn:38,
+      tireOverlapMm:84, tireOverlapIn:3,
+      // ── Weights ──
+      // ROPS/FOPS/CAB
+      opWeightROPSFOPSCabStandardKg:8850, opWeightROPSFOPSCabStandard_lb:19511,
+      opWeightROPSFOPSCabMaxKg:9200,      opWeightROPSFOPSCabMax_lb:20282,
+      loadPerWheelROPSFOPSCabMt:1.26,     loadPerWheelROPSFOPSCab_lb:2778,
+      // ROPS
+      opWeightROPSStandardKg:8600, opWeightROPSStandard_lb:18960,
+      opWeightROPSMaxKg:8940,      opWeightROPSMax_lb:19709,
+      loadPerWheelROPSMt:1.22,     loadPerWheelROPS_lb:2690,
+      // Canopy
+      opWeightCanopyStandardKg:8520, opWeightCanopyStandard_lb:18783,
+      opWeightCanopyMaxKg:8860,      opWeightCanopyMax_lb:19533,
+      loadPerWheelCanopyMt:1.21,     loadPerWheelCanopy_lb:2668,
+      // Non-ROPS cab
+      opWeightNonROPSCabStandardKg:8750, opWeightNonROPSCabStandard_lb:19290,
+      opWeightNonROPSCabMaxKg:9100,      opWeightNonROPSCabMax_lb:20062,
+      loadPerWheelNonROPSCabMt:1.25,     loadPerWheelNonROPSCab_lb:2756,
+      operatingWeightT:8.850,
+      // ── Dimensions ──
+      overallLengthMm:4524, overallLength_ft_in:'14ft 10in',
+      overallWidthMm:2112, overallWidthIn:83,
+      compactionWidthM:2.090,
+      heightROPSFOPSMm:2960, heightROPSFOPS_ft_in:'9ft 8in',
+      heightCabMm:2960, heightCab_ft_in:'9ft 8in',
+      wheelbaseMm:3300, wheelbase_ft_in:'10ft 10in',
+      groundClearanceMm:205, groundClearanceIn:8,
+      // ── Service Refills ──
+      fuelTankL:208, fuelTankGal:55,
+      fuelUsageDutyHrs:12,
+      coolingSystemL:22, coolingSystemGal:5.8,
+      engineOilL:9, engineOilGal:2.4,
+      hydraulicTankL:36, hydraulicTankGal:9.5,
+      waterTankL:700, waterTankGal:185,
+      emulsionTankL:30, emulsionTankGal:7.9,
+      // ── Electrical ──
+      electricalSystemV:12, alternatorAmp:120, batteryCapacityCCA:1000,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '360° rotating and sliding seat',
+        '700L (185 gal) Water Tank',
+        '12-Volt Electrical System','120 Amp Alternator','1000 CCA Battery',
+        'Automatic Speed Control','Eco-mode',
+        'Halogen Working Lights','Lockable Engine Compartment',
+        'Lockable Vandal Cover','Product Link™ Ready',
+        'Quick Connect Hydraulic Test Ports','ROPS/FOPS Platform',
+        'Suspension Seat','Two-Speed Hydrostatic Transmission',
+      ],
+      optionalEquipment:[
+        'Air Conditioning','Air Suspension Seat with Heat',
+        'Cat Compaction Control (Temperature and Pass-Count Mapping)',
+        'Emulsion Spray System 30L (7.9 gal)',
+        'Freeze Protection Kit','LED Lighting',
+        'Machine to Machine Communication','Mirrors',
+        'Product Link 631/641','ROPS/FOPS Cab',
+        'Roading Lights','Sun Canopy',
+        'Temperature Gauge (single sensor)','Thermal Aprons (Tires)',
+        'Tire Scrapers','Triple Filtered Water Spray System',
+        'Water Distribution Mats (rubber)','Warning Beacon','Wheel Fenders',
+      ],
+      applicationSuitability:'Chip and seal applications, asphalt compaction, granular material compaction. Excels on 7-wheel overlapping compaction pattern for uniform density. Optional Cat Compaction Control with temperature and pass-count mapping for asphalt work.',
+      soilTypes:'Asphalt, chip seal, granular materials. 7-wheel pneumatic provides kneading action and 84mm tire overlap for even coverage.',
+      tags:['pneumatic compactor','rubber tyre roller','7 wheel','asphalt','chip seal','granular','civil','road construction','9 ton','Cat C4.4'],
+      note:'Cat CW12 Pneumatic Compactor. 7-wheel pneumatic roller. ENGINE: Cat C4.4, 4-cyl, bore 105mm/4.1in, stroke 127mm/5in, rated 2200rpm. Gross power 75kW/100.5hp — meets Tier 3, Stage IIIA, China Stage III. PERFORMANCE: Low speed 0–7km/h/4.3mph; high speed 0–14.5km/h/9.0mph. Theoretical gradeability 32%. Steering inside 4.4m (14ft 8in). Articulation angle 35°; hitch oscillation ±6°. COMPACTION WIDTH: 2,090mm/82in. 7 wheels total. Tires: 14/70 x 20, 960mm/38in diameter, 84mm/3in overlap. WEIGHTS — ROPS/FOPS/CAB: standard 8,850kg/19,511lb, max 9,200kg/20,282lb, 1.26mt/2,778lb per wheel. ROPS: standard 8,600kg/18,960lb, max 8,940kg/19,709lb, 1.22mt/2,690lb per wheel. CANOPY: standard 8,520kg/18,783lb, max 8,860kg/19,533lb, 1.21mt/2,668lb per wheel. NON-ROPS CAB: standard 8,750kg/19,290lb, max 9,100kg/20,062lb, 1.25mt/2,756lb per wheel. DIMENSIONS: Overall length 4,524mm/14ft10in; overall width 2,112mm/83in; compaction width 2,090mm/82in; height at ROPS/FOPS & cab 2,960mm/9ft8in; wheelbase 3,300mm/10ft10in; ground clearance 205mm/8in. SERVICE REFILLS: Fuel 208L/55gal (12hrs @ 50% duty); cooling 22L/5.8gal; engine oil 9L/2.4gal; hydraulic tank 36L/9.5gal; water tank 700L/185gal; emulsion tank 30L/7.9gal. ELECTRICAL: 12V system, 120A alternator, 1,000 CCA battery. FEATURES: 360° rotating/sliding seat for direction-of-travel visibility, hand-wheel steering, touch-pad machine functions, eco-mode, ASC. Optional Cat Compaction Control with infrared temperature sensors and pass-count mapping. Machine-to-machine communication for coordinating multiple rollers. Industry-leading water spray — single fill point, dual pumps, triple filtration, intermittent operation. Source: Cat CW12 Pneumatic Compactor Brochure QEHQ2322 (Aug 2017).',
+      hireRateType:'wet',
+    },
+
+    // ── Cat CW34 Pneumatic Tire Roller ────────────────────────────
+    {
+      id:'cat-cw34', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'pneumatic_compactor',
+      name:'Cat CW34 Pneumatic Tire Roller', shortName:'Cat CW34',
+      // ── Engine ──
+      engineModel:'Cat C4.4 with ACERT Technology', engineCylinders:4,
+      engineBoreMm:105, engineBoreIn:4.13,
+      engineStrokeMm:127, engineStrokeIn:5,
+      engineRatedRpm:2200,
+      engineEmissions:'Brazil MAR-1',
+      engineGrossPowerKw:96.5, engineGrossPowerHp_I:129, engineGrossPowerHp_m:131.2,
+      // ── Performance ──
+      maxSpeedLowKmh:6, maxSpeedLowMph:4,
+      maxSpeedMedKmh:12, maxSpeedMedMph:7,
+      maxSpeedHighKmh:19, maxSpeedHighMph:12,
+      transmission:'Three-speed hydrostatic',
+      propelSystem:'Electronic propel control with smooth braking system',
+      // ── Compaction ──
+      compactionWidthMm:2090, compactionWidthIn:82,
+      tireOverlapMm:42, tireOverlapIn:1.5,
+      numWheels:8,
+      tireSize:'13/80-R20',
+      frameWidthMm:2160,
+      // ── Weights (flexible ballast system — many configurations) ──
+      operatingWeightT:9.0,  // ROPS base as representative
+      opWeightMinKg:8625, opWeightMin_lb:19015,   // sun canopy, no ballast
+      opWeightMaxKg:27000, opWeightMax_lb:59525,  // max ballast configuration
+      // Full weight table per brochure:
+      weightConfigs:[
+        {config:'w/Sun canopy',                              kg:8625,  lb:19015, loadPerWheelMt:1.07},
+        {config:'w/ROPS',                                    kg:9000,  lb:19842, loadPerWheelMt:1.12},
+        {config:'w/Cab ROPS/FOPS',                          kg:9650,  lb:21275, loadPerWheelMt:1.20},
+        {config:'w/Water',                                   kg:12000, lb:26455, loadPerWheelMt:1.50},
+        {config:'w/Internal steel and water',                kg:13500, lb:29762, loadPerWheelMt:1.68},
+        {config:'w/Internal steel and water',                kg:14000, lb:30865, loadPerWheelMt:1.75},
+        {config:'w/Modular steel and water',                 kg:15000, lb:33069, loadPerWheelMt:1.87},
+        {config:'w/Modular steel',                           kg:15600, lb:34392, loadPerWheelMt:1.95},
+        {config:'w/Internal steel and water',                kg:16000, lb:35275, loadPerWheelMt:2.00},
+        {config:'w/Modular steel, internal steel, and water',kg:16000, lb:35275, loadPerWheelMt:2.00},
+        {config:'w/Modular steel, internal steel',           kg:18000, lb:39683, loadPerWheelMt:2.25},
+        {config:'w/Modular steel and water',                 kg:18600, lb:41006, loadPerWheelMt:2.32},
+        {config:'w/Modular steel, internal steel, and water',kg:20000, lb:44092, loadPerWheelMt:2.50},
+        {config:'w/Modular steel, internal steel, and water',kg:24000, lb:52911, loadPerWheelMt:3.00},
+        {config:'w/Modular steel, internal steel, and water',kg:27000, lb:59525, loadPerWheelMt:3.38},
+      ],
+      // ── Ballast System ──
+      ballastOptions:['Modular steel (add/remove)','Factory installed internal steel','Sand','Water'],
+      ballastChamberM3:3,
+      flexibleBallastRange:'8,625kg to 27,000kg (19,015lb to 59,525lb)',
+      // ── Dimensions ──
+      overallLengthMm:5350, overallLength_ft_in:'17ft 6in',
+      compactionWidthM:2.090,
+      frameWidthM:2.160,
+      wheelbaseMm:3900, wheelbase_ft_in:'12ft 9in',
+      groundClearanceNoBallastMm:309, groundClearanceNoBallastIn:12,
+      groundClearanceWithBallastMm:260, groundClearanceWithBallastIn:10,
+      heightSteeringWheelMm:2400, heightSteeringWheelIn:94.5,
+      heightCabROPSMm:3000, heightCabROPS_ft_in:'9ft 10in',
+      // ── Service Refills ──
+      fuelTankL:270, fuelTankGal:71,
+      coolingSystemL:27, coolingSystemGal:7,
+      engineOilL:9, engineOilGal:2.4,
+      hydraulicTankL:32, hydraulicTankGal:8.5,
+      waterTankL:380, waterTankGal:100,
+      emulsionTankL:40, emulsionTankGal:10.5,
+      // ── Electrical ──
+      electricalSystemV:24, alternatorAmp:100,
+      // ── Standard Equipment ──
+      standardEquipment:[
+        '24-Volt Electrical System',
+        '3m³ Water Tight Ballast Chamber',
+        '13/80-R20 Tires','100 Amp Alternator','Eco-mode',
+        'Front Wheel Suspension','Halogen Working Lights',
+        'LCD Operating Display','Product Link™ Ready',
+        'Pressurized Water Spray with Triple Filtration',
+        'Roading Lights',
+        'Sliding Station with 180° Rotation',
+        'Three-Speed Propel System',
+        'Vinyl Seat with 76mm (3in) Wide Belt',
+        'Wheel Oscillation (front and rear)',
+      ],
+      applicationSuitability:'Highly versatile pneumatic roller for asphalt intermediate and finish compaction, granular subbase, embankment, and mining applications. Modular ballast system allows operating weight adjustment from 8.6t to 27t to match job requirements. Air-on-the-run capability for flexible tire pressure adjustment during operation.',
+      soilTypes:'Asphalt (intermediate and finish passes), granular materials, subbase, embankments. Oscillating front wheels for even compaction on variable surfaces.',
+      tags:['pneumatic tire roller','rubber tyre roller','8 wheel','asphalt','granular','embankment','civil','mining','ballast','flexible weight','9-27 ton','Cat C4.4','ACERT'],
+      note:'Cat CW34 Pneumatic Tire Roller. 8-wheel pneumatic roller with modular ballast system. ENGINE: Cat C4.4 with ACERT Technology, 4-cyl, bore 105mm/4.13in, stroke 127mm/5in, rated 2200rpm. Gross power 96.5kW/129hp (I) / 131.2hp (m) — meets Brazil MAR-1 emission standards. PERFORMANCE: Three-speed propel — low 0–6km/h/4mph, medium 0–12km/h/7mph, high 0–19km/h/12mph. Electronic propel control, smooth braking. Excellent gradeability up to 19km/h. COMPACTION WIDTH: 2,090mm/82in; 8 wheels; 13/80-R20 tires; tire overlap 42mm/1.5in. FLEXIBLE BALLAST: Operating weight ranges from 8,625kg/19,015lb (sun canopy, no ballast) to 27,000kg/59,525lb (max modular + internal steel + water). Ballast options: modular steel (easily added/removed), factory installed internal steel, sand, water. Load per wheel ranges 1.07mt to 3.38mt. Full weight table — sun canopy: 8,625kg/1.07mt per wheel; ROPS: 9,000kg/1.12mt; Cab ROPS/FOPS: 9,650kg/1.20mt; w/water: 12,000kg/1.50mt; w/internal steel & water 13,500kg/1.68mt; 14,000kg/1.75mt; w/modular steel & water 15,000kg/1.87mt; w/modular steel 15,600kg/1.95mt; 16,000kg/2.00mt (two configs); w/modular+internal 18,000kg/2.25mt; w/modular+water 18,600kg/2.32mt; 20,000kg/2.50mt; 24,000kg/3.00mt; 27,000kg/3.38mt. DIMENSIONS: Overall length 5,350mm/17ft6in; compaction width 2,090mm/82in; tire overlap 42mm/1.5in; frame width 2,160mm/7ft1in; wheelbase 3,900mm/12ft9in; ground clearance (no ballast) 309mm/12in, (with ballast) 260mm/10in; height (steering wheel) 2,400mm/94.5in; height (cab/ROPS) 3,000mm/9ft10in. SERVICE REFILLS: Fuel 270L/71gal; cooling 27L/7gal; engine oil 9L/2.4gal; hydraulic tank 32L/8.5gal; water tank 380L/100gal; emulsion tank 40L/10.5gal. ELECTRICAL: 24V system, 100A alternator. FEATURES: Rotating/sliding operator station (180°), LCD display, eco-mode, oscillating front and rear wheels, pressurised triple-filtration water spray, optional Cat Compaction Control with infrared temperature sensors and pass-count/temperature mapping, optional air-on-the-run tire pressure adjustment, 3m³ watertight ballast chamber. Source: Cat CW34 Pneumatic Tire Roller Brochure QEHQ2274-01 (Aug 2020, Brazil MAR-1).',
+      hireRateType:'wet',
+    },
+
     // ── Cat Soil Compactors (Tamping Foot — Large Civil) ─────────
     {
       id:'cat-815', brand:'Cat', emoji:'🔄', type:'compactor', subtype:'soil_compactor',
@@ -24851,6 +30344,79 @@ const MACHINES = {
       operatingWeightT:32.0,
       tags:['civil','large volume','rough terrain','mining','bulk cartage'],
       note:'Articulated dump truck — 25–30t payload. Major civil earthworks, mine haulage, bulk fill operations. Operates on rough, soft, or steep terrain where rigid trucks cannot go. Brands: Caterpillar 730, Volvo A30, Bell B30.',
+      hireRateType:'wet',
+    },
+
+    // ── RIGID DUMP TRUCKS — LARGE MINING / BULK EARTHWORKS ───────
+    // Cat 785:    Source: Cat 785 Mining Truck Brochure AEHQ8359-03 Build 08B (© 2024 Caterpillar)
+    // Cat 789:    Source: Cat 789 Mining Truck Brochure AEHQ8362-02 (© 2024 Caterpillar)
+    // Cat 793D:   Source: Cat 793D Mining Truck Tech Spec AEXQ3745 (08-2024) (© 2024 Caterpillar)
+    // Cat 793:    Source: Cat 793 Mining Truck Brochure AEHQ8437-01 (© 2024 Caterpillar)
+    // Cat 794 AC: Source: Cat 794 AC Brochure PEDJ0460-04 (© 2025 Caterpillar)
+    // Cat 796 AC: Source: Cat 796 AC Brochure PEDJ0472-01 (© 2025 Caterpillar)
+    // Cat 797F:   Source: Cat 797F Brochure PEDJ0473-03 (© 2023 Caterpillar)
+    // All figures confirmed from brochure spec tables only. Nothing estimated.
+    {
+      id:'cat-785', brand:'Caterpillar', emoji:'🚛', type:'rigid_dump_truck',
+      name:'Caterpillar 785 — Mining Truck (139–142t)', shortName:'Cat 785',
+      operatingWeightT:249.5,
+      tags:['mining','bulk haulage','rigid dump truck','large scale earthworks','quarry','mechanical drive','139 tonne','142 tonne','Cat 3512E','150 ton class','APECS','ARC','autonomous ready','MineStar','next generation'],
+      bestFor:'150-ton class bulk haulage — mines, quarries and large earthworks. Up to 5% faster cycle times vs prior generation via APECS transmission; factory-ready for MineStar Command autonomous haulage.',
+      note:'Caterpillar 785 Mining Truck. Engine: Cat 3512E; gross power 1,193kW/1,600hp (SAE J1995:2014); net power 1,125kW/1,509hp (SAE J1349:2011); rated speed 1,650rpm; emissions: Fuel Optimized (U.S. EPA Tier 4 Final / EU Stage V available for applicable markets); bore 170mm/6.7in; stroke 215mm/8.5in; displacement 58.56L/3,573in³. Additional fuel-optimized selectable power rating: 1,081kW/1,450hp. Mechanical drive: 6-speed automatic power-shift with APECS (Advanced Power Electronic Control Strategy); lock-up torque converter; top speed loaded 57.2km/h. Gear speeds (33R51): F1 12.0, F2 16.2, F3 22.1, F4 29.8, F5 40.2, F6 57.2 km/h; Rev 11.6 km/h. Final drives: double reduction planetary, full floating axles; differential ratio 2.10:1; planetary ratio 10.83:1; total reduction 22.75:1. Weights: RGMW (33R51) 249,476kg/550,000lb; RGMW (36R51) 255,826kg/564,000lb; chassis (33R51) 84,731kg; chassis (36R51) 87,631kg; body (BW) 26,208kg; NRP (33R51) 139t/153 tons; NRP (36R51) 142t/157 tons. Weight distribution empty: 48% front/52% rear; loaded: 33% front/67% rear. Tires: 33.00R51 (standard); 36.00R51 (optional); 610mm/24in rims (standard); 660mm/26in rims (optional); Quick Change Rims optional. Braking: four-corner wet disc oil-cooled hydraulically actuated (ISO 3450:2011); front wet disc surface 61,270cm²/9,487in²; rear wet disc surface 89,728cm²/13,908in²; parking: four-corner multi-disc spring-applied hydraulically released; ABS optional; Automatic Resistor Control (ARC) — allows trucks to travel 3–6% faster on grade; Hill Start Assist with Anti-Rollback; Dynamic Stability Control (DSC) optional; Enhanced Traction Control standard. Body capacity (MSD II, 100% fill factor): struck 72m³/94yd³, heaped 99m³/129yd³. Body hoists: twin two-stage hydraulic cylinders with snubbing valve; pump flow 847L/min/223gal/min at high idle; relief valve setting 17,225kPa/2,500psi; raise time 15.0s; lower float 15.6s; power down 15.5s. Suspension: self-contained nitrogen/oil cylinders, pin-to-pin mounting, top and bottom double shear clevis; front stroke 320mm/12.6in; rear stroke 165mm/6.5in; rear axle oscillation ±5.4°. Service refill capacities: fuel tank 1,552L/410gal; DEF tank 136L/36gal (if applicable); cooling system 476L/126gal; crankcase 204L/54gal; front wheels each 27L/7.1gal; differentials and final drives 527L/139gal; steering tank 110L/29gal; steering system (incl. tank) 117L/31gal; brake/hoist tank 511L/135gal; brake/hoist system (incl. tank) 541L/143gal; torque converter/transmission system (incl. sump) 175L/46gal. Cab: air conditioning 24,500Btu/hr (HFC-134A); heater/defroster 33,300Btu/hr; operator sound pressure level 80dB(A) (ISO 6396:2008); ROPS operator ISO 3471:2008, trainer ISO 13459:2012; FOPS operator ISO 3449:2005 Level II, trainer ISO 13459:2012 Level II. 10-inch touchscreen display + 10-inch digital gauge cluster; walkthrough cab; keyless push-to-start; integrated transmission/hoist control; Auto Hoist optional; Operator Speed Coaching; payload monitoring (2× accuracy vs predecessor). Steering: steer angle 25.1°; turning diameter 29.4m/96.6ft (ISO 7457:1997); ISO 5010:2019. MineStar Command for hauling factory-integrated (autonomous haulage, up to 30% productivity boost). High altitude capability: up to 2,987m/9,800ft without engine derate. Source: Cat 785 Mining Truck Brochure AEHQ8359-03 Build 08B (© 2024 Caterpillar).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-789', brand:'Caterpillar', emoji:'🚛', type:'rigid_dump_truck',
+      name:'Caterpillar 789 — Mining Truck (190–193t)', shortName:'Cat 789',
+      operatingWeightT:324.3,
+      tags:['mining','bulk haulage','rigid dump truck','large scale earthworks','quarry','mechanical drive','193 tonne','190 tonne','Cat 3516E','200 ton class','APECS','ARC','DSC','autonomous ready','MineStar','next generation','best seller'],
+      bestFor:'200-ton class bulk haulage — the most popular 193-tonne truck in the mining industry. Over 12% faster on grade than competitors; 10% more payload advantage; APECS transmission with ARC for 3–6% faster on-grade travel. Best-in-class horsepower and powertrain efficiency.',
+      note:'Caterpillar 789 Mining Truck. Engine: Cat 3516E; gross power 1,566kW/2,100hp (SAE J1995:2014); net power 1,473kW/1,975hp (SAE J1349:2011); rated speed 1,650rpm; emissions: Fuel Optimized (U.S. EPA Tier 4 Final / EU Stage V optional for applicable markets); bore 170mm/6.7in; stroke 215mm/8.5in; displacement 78.1L/4,766in³. Selectable power rating: 1,417kW/1,900hp or 1,566kW/2,100hp. 16-cylinder four-stroke design; 23% net torque rise; MEUI-A electronically controlled unit injection fuel system. Mechanical drive: 6-speed automatic power-shift with APECS (Advanced Power Electronic Control Strategy); lock-up torque converter; top speed loaded 57.2km/h. Gear speeds: F1 12.6, F2 17.1, F3 23.1, F4 31.2, F5 42.3, F6 57.2km/h; Rev 11.8km/h. Final drives: double reduction planetary, full floating axles; differential ratio 2.35:1; planetary ratio 10.83:1; total reduction 25.46:1. Weights: RGMW 324,319kg/715,001lb; chassis (37R57 tires) 103,657kg/228,525lb; chassis (40R57 & 42/90R57 tires) 106,847kg/235,557lb; body (BW) 27,400kg/60,406lb; NRP (37R57 tires) 193t/213 tons; NRP (40R57 & 42/90R57 tires) 190t/210 tons. Weight distribution empty: 50% front/50% rear; loaded: 33% front/67% rear. Tires: 37R57 (standard); 40R51 optional; 42/90R57 optional; 29"×57" rims; Quick Change Rims optional. Braking: four-corner wet disc oil-cooled hydraulically actuated (ISO 3450:2011); front wet disc surface area 81,693cm²/12,662in²; rear wet disc surface area 134,590cm²/20,861in²; parking: four-corner multi-disc spring-applied hydraulically released; ABS optional; Automatic Resistor Control (ARC) — allows trucks to travel 3–6% faster on grade with zero fuel consumed during resistive braking; Hill Start Assist with Anti-Rollback; Dynamic Stability Control (DSC) — monitors steering intention and modulates brakes to prevent understeering and oversteering; Enhanced Traction Control — monitors front/rear wheel speeds, grade and acceleration to improve traction and reduce tire wear. Body capacity (dual slope body, 100% fill factor): struck 77m³/101yd³; heaped (SAE 2:1) 108m³/141yd³. High Performance (HP) body option reduces weight 2.0–5.0t/2.2–5.5 tons for higher payload. Body hoists: twin two-stage hydraulic cylinders with snubbing valve; pump flow 403L/min/106.5gal/min at high idle; relief valve setting 18,950kPa/2,749psi; body raise time (high idle) 14s; body lower time (float) 16s. Suspension: self-contained nitrogen/oil cylinders, pin-to-pin mounting, top and bottom double shear clevis; effective cylinder stroke front 104.65mm/4.12in; effective cylinder stroke rear 93.22mm/3.67in; rear axle oscillation ±5°. Service refill capacities: fuel tank standard 2,082L/550gal; fuel tank large 3,785L/1,000gal; fuel tank Tier4/StageV 2,082L/550gal; DEF tank 233L/62gal; cooling system 679L/180gal; crankcase 291L/77gal; front wheels each 22L/5.8gal; differentials and final drives 610L/161gal; steering tank 160L/42gal; steering system (incl. tank) 175L/46gal; brake/hoist tank 640L/169gal; brake/hoist system (incl. tank) 1,315L/347gal; torque converter/transmission system (incl. sump) 209L/55gal. Cab: 34% more operator space vs D-series (cab width +17%, leg room +11%, shoulder room +19%); air conditioning 24,500Btu/hr (HFC-134A); heater/defroster 33,300Btu/hr; operator sound pressure level 79dB(A) direct drive / 76dB(A) optional clutch (ISO 6396:2008); ROPS operator ISO 3471:2008, trainer ISO 13459:2012; FOPS operator ISO 3449:2005 Level II, trainer ISO 13459:2012 Level II. Two 10-inch screens (digital gauge cluster + touchscreen); walkthrough cab; fully adjustable centre console; keyless push-to-start; USB charging ports; 12V charger; integrated transmission/hoist control; rotary dial machine speed control; Auto Hoist optional (integrates with transmission control); Operator Speed Coaching; payload monitoring (2× accuracy vs predecessor); MineStar Detect object detection system (radar + cameras); 360 surround view camera optional; Cat Driver Safety System (DSS) fatigue and distraction monitoring optional; Machine Speed Limiting and Cruise Control; next gen operator seat (four-point-restraint ready, thigh tilt, heated/cooled, leather); fully suspended next gen trainer seat. Connectivity: standard cellular 4G/LTE; optional dual mode 4G/LTE + Satellite Product Link; Wi-Fi optional; Product Link Elite standard. Steering: steer angle 36.07°; turning diameter 27.53m/90.3ft (ISO 7457:1997); ISO 5010:2019. Frame: box-section design, 2 forgings and 21 castings in high stress areas; integral ROPS as extension of truck frame providing five-sided protection. Designed for 100,000+ hours; built to be rebuilt. Source: Cat 789 Mining Truck Brochure AEHQ8362-02 (© 2024 Caterpillar).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-793d', brand:'Caterpillar', emoji:'🚛', type:'rigid_dump_truck',
+      name:'Caterpillar 793D — Mining Truck (232t)', shortName:'Cat 793D',
+      operatingWeightT:383.8,
+      tags:['mining','bulk haulage','rigid dump truck','large scale earthworks','quarry','mechanical drive','232 tonne','Cat 3516E','240 ton class','6-speed','Tier 1 equivalent'],
+      bestFor:'230-ton class bulk haulage — mine sites and large quarries. 232t payload; proven 3516E diesel engine; four-corner oil-cooled wet disc brakes.',
+      note:'Caterpillar 793D Mining Truck. Engine: Cat 3516E; gross power 1,801kW/2,415hp (SAE J1995); net power 1,694kW/2,272hp (SAE J1349); rated speed 1,750rpm; emissions: U.S. EPA Tier 1 Equivalent; bore 170mm/6.7in; stroke 215mm/8.5in; displacement 78L/4,760in³. 3516E DGB Ready Engine optional (matches standard diesel performance). Mechanical drive: 6-speed automatic power-shift; lock-up torque converter; top speed loaded 54.3km/h. Gear speeds: F1 11.7, F2 15.7, F3 21.5, F4 29.1, F5 39.4, F6 54.3 km/h; Rev 10.9 km/h. Final drives: double reduction planetary, full floating axles; differential ratio 1.8:1; planetary ratio 16:1; total reduction 28.8:1. Weights: RGMW (40R57) 383,848kg/846,240lb; chassis weight (CW) 120,563kg/265,796lb; body weight (BW) 31,100kg/68,564lb; NRP (40R57) 232t/256 tons. Weight distribution empty: 50% front/50% rear; loaded: 33% front/67% rear. Tires: 40.00R57 (standard); 46/90R57 (optional); 29"×57" rims; Quick Change Rims (QCR) optional; Extended Life Wheel Stations (XLWS) optional. Braking: service brakes four-corner wet disc oil-cooled hydraulically actuated (ISO 3450:2011); front (SWS) 89,727cm²/13,907in²; front (XLWS) 134,665cm²/20,873in²; rear (SWS) 134,590cm²/20,861in²; rear (XLWS) 155,383cm²/24,084in²; parking: four-corner multi-disk spring-applied hydraulically released. Body (High Performance, SAE 2:1): 152–191m³/199–250yd³ heaped; base body weight 29,500–32,600kg/65,000–71,800lb. Body hoists: twin two-stage hydraulic cylinders with snubbing valve; pump flow 854L/min/226gal/min at high idle; relief valve setting 20,340kPa/2,950psi; raise time 19.8s; lower float 19.9s; power down 17.8s. Suspension: self-contained nitrogen/oil cylinders, pin-to-pin, top and bottom double shear clevis; front stroke 292mm/11.48in; rear stroke 140mm/5.50in; rear axle oscillation ±4.9°. Service refill: fuel tank 4,354L/1,150gal (optional 4,922L/1,300gal); cooling system 852L/225gal; crankcase 291L/77gal; front wheels each (SWS) 30L/8gal; front wheels each (XLWS) 56L/15gal; differential and final drives 1,022L/270gal; steering system (incl. tank) 291L/77gal; brake/hoist system (incl. tank) 1,070L/282gal; torque converter/transmission system (incl. sump) 227L/60gal. Cab: air conditioning 10.3kW/35,100Btu/hr (HFC-134A); heater/defroster 12.9kW/43,930Btu/hr; ambient AC to 50°C/122°F; ambient heater to –30°C/–22°F; operator sound pressure level 78dB(A) (ISO 6396:2008); ROPS operator ISO 3471:2008, trainer ISO 13459:2012; FOPS operator ISO 3449:2005 Level II, trainer ISO 13459:2012 Level II. Steering: steer angle 29.1°; turning diameter 29.36m/96.33ft; ISO 5010:2019. Dimensions (162m³ HP body, 40.00R57 tires): height to top of ROPS 5,584mm; overall length 13,589mm; wheelbase 5,905mm; rear axle to tail 3,997mm; ground clearance 1,005mm; loading height empty 6,189mm; overall height body raised 13,714mm; overall canopy width 8,592mm; outside body width 8,007mm; inside body width 7,300mm; overall tire width 7,605mm. Source: Cat 793D Technical Specifications AEXQ3745 (08-2024) (© 2024 Caterpillar).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-793', brand:'Caterpillar', emoji:'🚛', type:'rigid_dump_truck',
+      name:'Caterpillar 793 — Mining Truck (230–240t)', shortName:'Cat 793',
+      operatingWeightT:386.0,
+      tags:['mining','bulk haulage','rigid dump truck','large scale earthworks','quarry','mechanical drive','230 tonne','240 tonne','Cat C175-16','240 ton class','APECS','ARC','autonomous ready','MineStar','next generation','extended life wheel station'],
+      bestFor:'240-ton class bulk haulage — over 10% more fuel efficient and up to 10% faster cycle times than competitive trucks; up to 6% more payload vs electric drive alternatives; factory-ready for MineStar Command autonomous haulage.',
+      note:'Caterpillar 793 Mining Truck (current generation). Engine: Cat C175-16; gross power (standard) 1,976kW/2,650hp, (optional) 1,693kW/2,270hp (SAE J1995:2014); net power 1,886kW/2,529hp (SAE J1349:2011); rated speed 1,750rpm; emissions: Fuel Optimized / U.S. EPA Tier 4 Final / EU Stage V (for applicable markets); bore 175mm/6.9in; stroke 220mm/8.7in; displacement 85L/5,187in³. More than 21 million hours of operation on C175 engine family. Mechanical drive: 6-speed automatic power-shift with APECS; lock-up torque converter engages ~8km/h/5mph; top speed loaded 60.5km/h. Gear speeds: F1 12.3, F2 16.6, F3 22.7, F4 30.6, F5 41.5, F6 60.5 km/h; Rev 11.4 km/h. Final drives: double reduction planetary, full floating axles; differential ratio 1.8:1; planetary ratio 16:1; total reduction 28.8:1. Weights: RGMW (Standard Wheel Stations) 386,008kg/851,000lb; RGMW (Extended Life Wheel Stations) 404,000kg/890,668lb; chassis (SWS) 124,127kg/273,654lb; chassis (XLWS) 132,007kg/291,026lb; body (BW) 32,072kg/70,707lb; NRP (SWS) 230t/253 tons; NRP (XLWS) 240t/265 tons. Weight distribution empty: 51% front/49% rear; loaded: 33% front/67% rear. Tires: 40.00R57 standard (SWS); 46/90R57 standard (XLWS); 50/80R57 optional; 737mm/29in optional rims; 813mm/32in optional rims; Quick Change Rims optional; Extended Life Wheel Stations optional. Braking: four-corner wet disc oil-cooled hydraulically actuated (ISO 3450:2011); front (SWS) 89,727cm²/13,907in²; front (XLWS) 134,665cm²/20,873in²; rear (SWS) 134,590cm²/20,861in²; rear (XLWS) 155,383cm²/24,084in²; parking: four-corner multi-disk spring-applied hydraulically released; ABS optional; Automatic Resistor Control (ARC) — trucks travel 3–6% faster on grade; Hill Start Assist with Anti-Rollback; Dynamic Stability Control (DSC) optional; Enhanced Traction Control standard. Body capacity (HP body, 100% fill): struck 112.6–151m³/147–197.5yd³; heaped 162–190m³/212–249yd³. Max Payload (MP) Body option reduces empty weight 3.0–6.0t/3.3–6.6 tons. Body hoists: twin two-stage hydraulic cylinders with snubbing valve (includes advanced control for end-of-stroke snubbing); pump flow 819L/min/216gal/min at high idle; relief valve setting 20,370kPa/2,955psi; raise time 22s; lower float 23s; power down 20.7s. Suspension: self-contained nitrogen/oil cylinders, pin-to-pin, top and bottom double shear clevis; front stroke 292mm/11.48in; rear stroke 140mm/5.50in; rear axle oscillation ±4.9°. Service refill: fuel tank 2,839L/750gal (optional 4,922L/1,300gal); DEF tank 235L/62gal; cooling system 1,074L/284gal; crankcase 350L/93gal; front wheels each (SWS) 30L/8gal; front wheels each (XLWS) 56L/15gal; differential and final drives 984L/260gal; steering system (incl. tank) 290L/77gal; brake/hoist system (incl. tank) 1,315L/347gal; torque converter/transmission system (incl. sump) 209L/55gal. Cab: air conditioning 9.3kW/31,722Btu/hr; heater/defroster 10.7kW/36,510Btu/hr; ambient to 50°C/122°F (AC) and –30°C/–22°F (heater); operator sound pressure level 74dB(A) (ISO 6394:2008 and ISO 6396:2008); ROPS operator ISO 3471:2008, trainer ISO 13459:2012; FOPS operator ISO 3449:2005 Level II, trainer ISO 13459:2012 Level II. 10-inch touchscreen + 10-inch digital gauge cluster; walkthrough cab; keyless push-to-start; Auto Hoist Control; Operator Speed Coaching; payload monitoring (2× accuracy vs predecessor); HEPA filtration option (96% reduction in respirable dust). Steering: steer angle 30.9°; turning diameter 28m/93ft (ISO 7457:1997); ISO 5010:2019. MineStar Command for hauling factory-integrated (up to 30% productivity boost; hundreds of autonomous 793s in service). Almost 5,000 793 trucks currently operating. Mechanical availability consistently >90%. Source: Cat 793 Mining Truck Brochure AEHQ8437-01 (© 2024 Caterpillar).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-794ac', brand:'Caterpillar', emoji:'🚛', type:'rigid_dump_truck',
+      name:'Caterpillar 794 AC — Large Mining Truck (297t)', shortName:'Cat 794 AC',
+      operatingWeightT:521.6,
+      tags:['mining','bulk haulage','rigid dump truck','large scale earthworks','quarry','high volume','AC drive','297 tonne','Cat C175'],
+      bestFor:'Ultra-high-volume bulk material haulage — mine sites, large quarries, major civil earthworks with haul roads. 297 tonne payload per cycle.',
+      note:'Caterpillar 794 AC — Large Mining Truck. Engine: Cat C175-16, 2,610kW/3,500hp gross (SAE J1995:2014), net power (SAE J1349:2011): confirm with brochure — PDF extraction corrupted on this line; alt settings 2,312kW/3,100hp or 2,051kW/2,750hp. Rated speed 1,800rpm. Bore 175mm, stroke 220mm, displacement 85L/5,187in³. Fuel Optimised emissions (Tier 4 Final/Stage V available). AC Drive: total reduction ratio 35:1; Cat brushless dual-bearing alternator; Cat IGBT inverter (air cooled, pressurised, filtered); Cat AC induction wheel motors (rear axle); Cat variable-speed hydraulically driven cooling. Top speed loaded: 60km/h. Continuous dynamic retarding: 4,086kW/5,480hp. Braking: four-corner wet disc oil-cooled (ISO 3450:2011); front disc surface 131,473cm²; rear disc surface 198,388cm². Weights: RGMW 521,631kg; chassis 193,338kg; body 29,187kg; NRP 297t/327 tons. Weight split empty: 49% front/51% rear; loaded: 33% front/67% rear. Tires: 53/80 R63; rims 36"×63". Body capacity (HE, 100% fill): struck 108–133m³, heaped 180–222m³. Body hoist: twin two-stage hydraulic (inside frame); pump flow 910 L/min at high idle; raise pressure 20,884kPa; raise time 23.5s, lower float 21.4s, power down 17.5s. Suspension: stroke and oscillation figures not published in brochure spec page — confirm with Caterpillar. Service refill: fuel 4,922L (Tier 4: 3,785L); DEF 378L; cooling 799L; crankcase 310L; front wheels 28L each; final drives 254L each; hydraulic tank 1,121L; hydraulic system 1,458L; grease tank 41kg. Steering: 39°; turning diameter 32.4m (ISO 7457:2009). Cab: A/C 21,600 Btu/hr; heater/defroster 24,600 Btu/hr; ambient range –30°C to +50°C; sound level 75 dB(A). ROPS: ISO 3471:2008; FOPS: ISO 3449:2005 Level II. Source: Cat 794 AC Brochure PEDJ0460-04 (© 2025 Caterpillar).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-796ac', brand:'Caterpillar', emoji:'🚛', type:'rigid_dump_truck',
+      name:'Caterpillar 796 AC — Large Mining Truck (327t)', shortName:'Cat 796 AC',
+      operatingWeightT:576.1,
+      tags:['mining','bulk haulage','rigid dump truck','large scale earthworks','quarry','high volume','AC drive','327 tonne','Cat C175','TorqueBoost'],
+      bestFor:'Highest-volume bulk haulage — large mine sites, ultra-class quarries. 327 tonne payload; Cat TorqueBoost delivers up to 8% more torque on grade.',
+      note:'Caterpillar 796 AC — Large Mining Truck. Engine: Cat C175-16, 2,610kW/3,500hp gross (SAE J1995:2014), net 2,539kW/3,405hp (SAE J1349:2011); alt setting 2,312kW/3,100hp. Rated speed 1,800rpm. Bore 175mm, stroke 220mm, displacement 85L/5,187in³. Fuel Optimised (Tier 4 Final/Stage V available). TorqueBoost technology: up to 8% more drivetrain torque. AC Drive: total reduction ratio 35:1; Cat brushless dual-bearing alternator; Cat IGBT inverter technology (air cooled, pressurised cabinet with filtration); Cat AC induction wheel motors (rear axle); Cat variable-speed hydraulically driven cooling. Top speed loaded: 64km/h. Continuous dynamic retarding: 4,086kW/5,480hp. Blended braking: 100% dynamic retarding to 4.0km/h, then blended to 3.2km/h, oil-cooled brakes complete stop. Service brakes: four-corner wet disc oil-cooled (ISO 3450:2011); front disc surface 131,473cm²; rear disc surface 198,388cm². Weights: RGMW 576,072kg; chassis 203,398kg; body 38,833–42,907kg; NRP 327t/360 tons. Weight split empty: 47% front/53% rear; loaded: 33% front/67% rear. Tires: 59/80 R63; rims 44"×63". Body capacity (HE, 100% fill): struck 97–153m³, heaped 186–237m³. Body hoist: twin two-stage hydraulic (outside frame); pump flow 964 L/min at high idle; raise pressure 20,884kPa/3,029psi; raise time 21s, lower float 22s, power down 17.5s. Suspension: self-contained nitrogen/oil cylinders; front stroke 102.1mm, rear stroke 50.5mm; rear axle oscillation ±5.32°. Service refill: fuel 4,922L (Tier 4: 4,542L); DEF 379L; cooling 799L; crankcase 310L; front wheels 28L each; final drives 254L each; hydraulic tank 1,121L; hydraulic system 1,458L; grease tank 41kg. Steering: 39°; turning diameter 32.4m (ISO 7457:1997). Cab: A/C 21,600 Btu/hr (HFC-134A); heater/defroster 24,600 Btu/hr; ambient range –15°C to +50°C; sound level 75 dB(A). ROPS: ISO 3471:2008; FOPS: ISO 3449:2005 Level II. Factory-ready for MineStar Command autonomous haulage. First overhaul life target: 25,000 hours. Source: Cat 796 AC Brochure PEDJ0472-01 (© 2025 Caterpillar).',
+      hireRateType:'wet',
+    },
+    {
+      id:'cat-797f', brand:'Caterpillar', emoji:'🚛', type:'rigid_dump_truck',
+      name:'Caterpillar 797F — Large Mining Truck (364t)', shortName:'Cat 797F',
+      operatingWeightT:623.7,
+      tags:['mining','bulk haulage','rigid dump truck','large scale earthworks','quarry','ultra class','mechanical drive','364 tonne','Cat C175-20','7-speed'],
+      bestFor:'Ultra-class bulk haulage — the largest mechanical-drive mining truck. 364 tonne payload; proven in Canadian Oil Sands, high-altitude copper mines and iron ore flat hauls.',
+      note:'Caterpillar 797F — Large Mining Truck. Engine: Cat C175-20, 2,983kW/4,000hp gross (SAE J1995:2014), net 2,828kW/3,793hp; alt setting 2,647kW/3,550hp. Rated speed 1,750rpm. Bore 175mm, stroke 220mm, displacement 106L/6,469in³. Fuel Optimised (Tier 4 Final available; High Altitude 4×4 engine configuration available). 23% net torque rise. Mechanical drive: Cat 7-speed planetary power-shift transmission; lock-up torque converter. Gear speeds (loaded): F1 10.7, F2 14.4, F3 19.3, F4 26.1, F5 35.0, F6 47.3, F7 63.6 km/h; Rev 11.9 km/h. Top speed loaded: 63.6km/h. Final drives: differential ratio 1.276:1; planetary ratio 16.67:1; total reduction 21.26:1; double reduction planetary, full floating axles. Braking: four-corner wet disc oil-cooled (ISO 3450:2011); front disc surface 132,259cm²/20,500in²; rear disc surface 198,388cm²/30,750in²; continuous water-to-oil cooled. Weights: RGMW 623,690kg; chassis 215,217kg; body 43,000kg; NRP 364t/401 tons. Weight split empty: 47.2% front/52.8% rear; loaded: 33.3% front/66.7% rear. Tires: 59/80R63; rims 44"×63". Body capacity (HP body, 100% fill): struck 172m³/225yd³, heaped 252m³/330yd³. Body hoist: twin two-stage hydraulic with snubbing valve; pump flow 1,140 L/min; raise pressure 24,200kPa/3,510psi; raise time 25s, lower float 18s, power down 18s. Suspension: self-contained nitrogen/oil cylinders; front stroke 99.1mm, rear stroke 93.2mm; rear axle oscillation ±3.96°. Service refill: fuel 7,570L (options: 5,110L/3,785L; Tier 4: 4,542L); DEF 379L; cooling 1,160L; crankcase 390L; front wheels 61L each; final drives/differentials 1,250L; steering tank 370L; brake/hoist tank 770L; brake/hoist system 1,850L; torque converter sump 303L; T/C–transmission system 629L. Steering: 40°; turning diameter 37.4m (ISO 7457:2009). Cab: A/C 24,300 Btu/hr; heater/defroster 38,900 Btu/hr; ambient range –30°C to +50°C; sound level 76 dB(A). ROPS: ISO 3471:1994; FOPS: ISO 3449:1992 Level II. Frame: box-section with 2 forgings and 14 castings in high-stress areas; over 80% cast (not fabricated plate). Over 130,000 hours proven in Canadian Oil Sands. Factory-ready for MineStar Command autonomous haulage. Source: Cat 797F Brochure PEDJ0473-03 (© 2023 Caterpillar).',
       hireRateType:'wet',
     },
 
@@ -31790,6 +37356,114 @@ const MACHINES = {
       tags:['tracked','large site','heavy clearing','stockpile'],
       note:'Bobcat T870 — large compact track loader. 2,449kg tipping load. 74.3kW engine. Heaviest-duty CTL in the Bobcat range. Source: Bobcat.com.au.', hireRateType:'wet_or_dry' },
 
+    // ── BOBCAT M3-SERIES SKID-STEER LOADERS (400 & 500 Platforms) ───
+    { id:'bob-s450',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S450', shortName:'Bobcat S450',
+      operatingWeightT:2.44, bucketCapM3:0.35,
+      tags:['tight access','landscaping','loading','small site'],
+      note:'Bobcat S450 — M3-Series wheeled skid steer. Radius lift path. 1,243kg tipping load. 2,436kg operating weight. 36.5kW (49hp) Tier 4 turbo diesel. Fuel tank 53.8 L. Standard hydraulics 63.2 L/min @ 3,300 psi. Machine width 1,575mm. Height to bucket hinge pin 2,781mm. Height with cab 1,976mm. Low speed 12.3 km/h, optional 2-speed 14.8 km/h. Source: Bobcat M3-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+    { id:'bob-s510',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S510', shortName:'Bobcat S510',
+      operatingWeightT:2.82, bucketCapM3:0.42,
+      tags:['standard site','tight turning','loading','landscaping'],
+      note:'Bobcat S510 — M3-Series wheeled skid steer. Radius lift path. 1,702kg tipping load. 2,816kg operating weight. 41.0kW (55hp) Tier 4 turbo diesel. Fuel tank 93.7 L. Standard hydraulics 64.7 L/min @ 3,550 psi. Machine width 1,727mm. Height to bucket hinge pin 2,908mm. Height with cab 1,976mm. Low speed 12.3 km/h. Source: Bobcat M3-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+    { id:'bob-s590',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S590', shortName:'Bobcat S590',
+      operatingWeightT:3.07, bucketCapM3:0.48,
+      tags:['standard site','vertical lift','heavy loading','clearing'],
+      note:'Bobcat S590 — M3-Series wheeled skid steer. Vertical lift path. 1,906kg tipping load. 3,069kg operating weight. 50.7kW (68hp) Tier 4 turbo diesel. Fuel tank 93.7 L. Standard hydraulics 64.7 L/min @ 3,550 psi. Machine width 1,727mm. Height to bucket hinge pin 3,023mm. Height with cab 1,976mm. Low speed 11.2 km/h, optional 2-speed 18.4 km/h. SJC horsepower management standard. Source: Bobcat M3-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+
+    // ── BOBCAT M3-SERIES COMPACT TRACK LOADERS (400 & 500 Platforms) ─
+    { id:'bob-t450',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T450 (Tracked)', shortName:'Bobcat T450',
+      operatingWeightT:2.91, bucketCapM3:0.35,
+      tags:['tracked','soft ground','tight access','landscaping'],
+      note:'Bobcat T450 — M3-Series compact track loader. Radius lift path. 1,931kg tipping load. 2,914kg operating weight. 41.0kW (55hp) Tier 4 turbo diesel. Fuel tank 64.9 L. Standard hydraulics 63.2 L/min @ 3,300 psi. Machine width 1,422mm (56 in). Height to bucket hinge pin 2,781mm. Height with cab 1,976mm. Standard track width 300mm, ground pressure 4.8 psi (0.33 bar), track contact length 1,275mm. Low speed 11.2 km/h, high speed 17.7 km/h. Solid-mounted undercarriage. Source: Bobcat M3-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+    { id:'bob-t550',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T550 (Tracked)', shortName:'Bobcat T550',
+      operatingWeightT:3.43, bucketCapM3:0.42,
+      tags:['tracked','soft ground','wet ground','slopes','landscaping'],
+      note:'Bobcat T550 — M3-Series compact track loader. Radius lift path. 2,627kg tipping load. 3,428kg operating weight. 50.7kW (68hp) Tier 4 turbo diesel. Fuel tank 138.2 L. Standard hydraulics 64.7 L/min @ 3,550 psi. Machine width 1,727mm. Height to bucket hinge pin 2,908mm. Height with cab 1,976mm. Standard track 320mm (optional 400mm wide), standard ground pressure 4.9 psi (0.34 bar), optional 4.0 psi (0.27 bar). Track contact length 1,374mm. Low speed 11.4 km/h. Solid-mounted undercarriage. Source: Bobcat M3-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+    { id:'bob-t595',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T595 (Tracked)', shortName:'Bobcat T595',
+      operatingWeightT:3.64, bucketCapM3:0.48,
+      tags:['tracked','soft ground','vertical lift','heavy loading'],
+      note:'Bobcat T595 — M3-Series compact track loader. Vertical lift path. 2,956kg tipping load. 3,638kg operating weight. 52.2kW (70hp) Tier 4 turbo diesel. Fuel tank 138.2 L. Standard hydraulics 64.7 L/min @ 3,550 psi. Machine width 1,727mm. Height to bucket hinge pin 3,023mm. Height with cab 1,976mm. Standard track 320mm (optional 400mm wide), standard ground pressure 5.1 psi (0.35 bar), optional 4.1 psi (0.28 bar). Track contact length 1,374mm. Low speed 11.4 km/h. SJC horsepower management standard. Solid-mounted undercarriage. Source: Bobcat M3-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+
+    // ── BOBCAT M2-SERIES SKID-STEER LOADERS (700 & 800 Platforms) ───
+    { id:'bob-s770',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S770', shortName:'Bobcat S770',
+      operatingWeightT:4.23, bucketCapM3:0.57,
+      tags:['large site','heavy loading','vertical lift','stockpile'],
+      note:'Bobcat S770 — M2-Series wheeled skid steer. Vertical lift path. 3,039kg tipping load. 4,225kg operating weight. 68.6kW (92hp) Tier 4 turbo diesel. Fuel tank 90.5 L. Standard hydraulics 87.1 L/min, optional high-flow 138.5 L/min @ 3,500 psi. Machine width 1,880mm. Height to bucket hinge pin 3,338mm, height with cab 2,065mm. Low speed 11.4 km/h, optional 2-speed 19.8 km/h. SJC optional. Source: Bobcat M2-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+    { id:'bob-s850',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S850', shortName:'Bobcat S850',
+      operatingWeightT:4.64, bucketCapM3:0.64,
+      tags:['large site','very heavy loading','vertical lift','highest lift'],
+      note:'Bobcat S850 — M2-Series wheeled skid steer. Vertical lift path. 3,583kg tipping load. 4,643kg operating weight. 74.6kW (100hp) Tier 4 turbo diesel. Fuel tank 111.6 L. Standard hydraulics 87.1 L/min, optional high-flow 138.5 L/min @ 3,500 psi. Machine width 2,032mm. Height to bucket hinge pin 3,658mm (highest in range), height with cab 2,118mm. Low speed 11.4 km/h, 2-speed 19.8 km/h standard. SJC standard. Horsepower management standard. Source: Bobcat M2-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+
+    // ── BOBCAT M2-SERIES COMPACT TRACK LOADERS (700 & 800 Platforms) ─
+    { id:'bob-t740',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T740 (Tracked)', shortName:'Bobcat T740',
+      operatingWeightT:4.59, bucketCapM3:0.53,
+      tags:['tracked','large site','soft ground','vertical lift'],
+      note:'Bobcat T740 — M2-Series compact track loader. Vertical lift path. 4,147kg tipping load. 4,594kg operating weight. 55.2kW (74hp) Tier 4 turbo diesel. Fuel tank 165.8 L. Standard hydraulics 87.1 L/min, optional high-flow 115.5 L/min @ 3,500 psi. Machine width 2,032mm. Height to bucket hinge pin 3,338mm, height with cab 2,065mm. Low speed 9.7 km/h, high speed 13.4 km/h. Track width 450mm, ground pressure 4.1 psi (0.28 bar), track contact length 1,618mm. Solid-mount / Roller Suspension undercarriage. SJC horsepower management standard. Source: Bobcat M2-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+    { id:'bob-t770',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T770 (Tracked)', shortName:'Bobcat T770',
+      operatingWeightT:4.77, bucketCapM3:0.57,
+      tags:['tracked','large site','soft ground','heavy clearing','stockpile'],
+      note:'Bobcat T770 — M2-Series compact track loader. Vertical lift path. 4,504kg tipping load. 4,770kg operating weight. 68.6kW (92hp) Tier 4 turbo diesel. Fuel tank 165.8 L. Standard hydraulics 87.1 L/min, optional high-flow 138.5 L/min @ 3,500 psi. Machine width 2,032mm. Height to bucket hinge pin 3,338mm, height with cab 2,065mm. Low speed 10.6 km/h, high speed 17.2 km/h. Track width 450mm, ground pressure 4.2 psi (0.29 bar), track contact length 1,618mm. Solid-mount / Roller Suspension undercarriage. SJC optional. Source: Bobcat M2-Series Compact Loaders brochure.', hireRateType:'wet_or_dry' },
+
+    // ── BOBCAT M-SERIES CTL (additional) ────────────────────────────
+    { id:'bob-t590',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T590 (Tracked)', shortName:'Bobcat T590',
+      operatingWeightT:3.51, bucketCapM3:0.43,
+      tags:['tracked','soft ground','landscaping','clearing','material movement'],
+      note:'Bobcat T590 — M-Series compact track loader. Vertical lift path. 992kg rated operating capacity (35% tipping). 2,834kg tipping load. 3,513kg operating weight. 49.2kW (66HP) Tier 4 turbo diesel. Fuel tank 138.2 L. Standard hydraulics 64.7 L/min, optional high-flow 101.1 L/min @ 241 Bar. Machine width 1,727mm. Height to bucket hinge pin 3,023mm, height with cab 1,972mm. Single speed 11.4 km/h, optional 2-speed 16.7 km/h. Standard track width 320mm (optional 400mm), ground pressure 5.0 psi std / 4.2 psi opt, track contact length 1,401mm. Solid-mounted undercarriage. Bob-Tach standard, Power Bob-Tach optional. SJC optional. Source: Bobcat M-Series Compact Track Loaders brochure.', hireRateType:'wet_or_dry' },
+
+    // ── BOBCAT R-SERIES SKID-STEER LOADERS ──────────────────────────
+    { id:'bob-r-s62',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S62', shortName:'Bobcat S62',
+      operatingWeightT:3.12, bucketCapM3:0.40,
+      tags:['standard site','clearing','loading','landscaping','material movement'],
+      note:'Bobcat S62 — R-Series wheeled skid steer. Radius lift path. 1,905kg tipping load. 3,123kg operating weight. ROC 952kg (50% tipping). ROC with 200lb (90kg) optional counterweight: 1,021kg. 50.7kW (68HP) Tier 4 turbo diesel. Fuel tank 107.1 L. Standard hydraulics 66.6 L/min, optional high-flow 101.8 L/min @ 3,500 psi (24.1 MPa). Machine width 1,727mm. Height to bucket hinge pin 2,908mm, height with cab 2,045mm. Low speed 11.9 km/h, optional 2-speed 17.7 km/h. Cast-steel Bob-Tach standard, Power Bob-Tach optional. 5-inch display with keyless start standard. SJC optional. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-s64',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S64', shortName:'Bobcat S64',
+      operatingWeightT:3.16, bucketCapM3:0.42,
+      tags:['standard site','clearing','loading','landscaping','material movement'],
+      note:'Bobcat S64 — R-Series wheeled skid steer. Vertical lift path. 2,087kg tipping load. 3,163kg operating weight. ROC 1,043kg (50% tipping). ROC with 200lb (90kg) optional counterweight: 1,111kg. 50.7kW (68HP) Tier 4 turbo diesel. Fuel tank 107.1 L. Standard hydraulics 66.6 L/min, optional high-flow 101.8 L/min @ 3,500 psi (24.1 MPa). Machine width 1,727mm. Height to bucket hinge pin 3,048mm, height with cab 2,045mm. Low speed 11.9 km/h, optional 2-speed 17.7 km/h. Cast-steel Bob-Tach standard, Power Bob-Tach optional. 5-inch display with keyless start standard. SJC optional. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-s66',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S66', shortName:'Bobcat S66',
+      operatingWeightT:3.25, bucketCapM3:0.44,
+      tags:['standard site','clearing','loading','landscaping','material movement'],
+      note:'Bobcat S66 — R-Series wheeled skid steer. Vertical lift path. 2,177kg tipping load. 3,245kg operating weight. ROC 1,089kg (50% tipping). ROC with optional 200lb counterweight: 1,157kg. 55.2kW (74HP) Tier 4 turbo diesel. Fuel tank 107.1 L. Standard hydraulics 66.6 L/min, optional high-flow 101.8 L/min @ 3,500 psi (24.1 MPa). Machine width 1,727mm. Height to bucket hinge pin 3,048mm, height with cab 2,045mm. Low speed 11.9 km/h, 2-speed 17.7 km/h standard. Cast-steel Bob-Tach standard, Power Bob-Tach optional. 5-inch display with keyless start standard. SJC optional. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-s76',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S76', shortName:'Bobcat S76',
+      operatingWeightT:3.91, bucketCapM3:0.53,
+      tags:['large site','clearing','loading','stockpile','material movement'],
+      note:'Bobcat S76 — R-Series wheeled skid steer. Vertical lift path. 2,631kg tipping load. 3,908kg operating weight. ROC 1,315kg (50% tipping). ROC with 200lb (90kg) counterweight: 1,384kg; with 300lb (136kg) counterweight: 1,406kg. 55.2kW (74HP) Tier 4 turbo diesel. Fuel tank 120.0 L. Standard hydraulics 88.2 L/min, optional high-flow 114.7 L/min @ 3,500 psi (24.1 MPa). Machine width 1,880mm. Height to bucket hinge pin 3,259mm, height with cab 2,078mm. Low speed 10.9 km/h, optional 2-speed 18.9 km/h. Cast-steel Bob-Tach standard. 5-inch display standard. SJC optional. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-s86',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat S86', shortName:'Bobcat S86',
+      operatingWeightT:4.41, bucketCapM3:0.61,
+      tags:['large site','heavy clearing','loading','stockpile','high capacity'],
+      note:'Bobcat S86 — R-Series wheeled skid steer. Vertical lift path. Most powerful skid steer Bobcat has built. 3,084kg tipping load. 4,412kg operating weight. ROC 1,542kg (50% tipping). ROC with counterweights: 1,610kg (200lb), 1,644kg (300lb), 1,678kg (400lb). 78.2kW (105HP) Tier 4 turbo diesel. Fuel tank 119.6 L. Standard flow 89.3 L/min, high-flow 138.5 L/min, super-flow 158.9 L/min @ 4,061 psi / 28.0 MPa (super flow). Machine width 1,880mm. Height to bucket hinge pin 3,352mm, height with cab 2,110mm. Low speed 11.1 km/h, 2-speed 19.8 km/h standard. Premium Power Performance electronic displacement pump (super/high flow). Integrated 5-coupler auxiliary manifold. Cast-steel Bob-Tach standard. SJC standard with horsepower management. Rear camera standard. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+
+    // ── BOBCAT R-SERIES COMPACT TRACK LOADERS ───────────────────────
+    { id:'bob-r-t62',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T62 (Tracked)', shortName:'Bobcat T62',
+      operatingWeightT:3.91, bucketCapM3:0.40,
+      tags:['tracked','soft ground','landscaping','clearing','loading'],
+      note:'Bobcat T62 — R-Series compact track loader. Radius lift path. 2,786kg tipping load. 3,906kg operating weight. ROC 975kg (35% tipping). ROC with 200lb counterweight: 1,021kg. ROC with 5-Link torsion undercarriage: 930kg. 50.7kW (68HP) Tier 4 turbo diesel. Fuel tank 107.1 L. Standard hydraulics 66.6 L/min, optional high-flow 101.8 L/min @ 3,500 psi (24.1 MPa). Machine width 1,727mm. Height to bucket hinge pin 2,908mm, height with cab 2,045mm. Low speed 11.6 km/h, optional 2-speed 16.4 km/h. Standard track 320mm (optional 398mm wide), ground pressure 5.6 psi std / 4.7 psi opt, track contact length 1,379mm. Grease cylinder track tensioning standard. Optional 5-Link torsion suspension undercarriage. Bob-Tach standard. 5-inch display standard. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-t64',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T64 (Tracked)', shortName:'Bobcat T64',
+      operatingWeightT:3.96, bucketCapM3:0.42,
+      tags:['tracked','soft ground','landscaping','clearing','loading'],
+      note:'Bobcat T64 — R-Series compact track loader. Vertical lift path. 2,981kg tipping load. 3,958kg operating weight. ROC 1,043kg (35% tipping). ROC with 200lb counterweight: 1,111kg. ROC with 5-Link torsion undercarriage: 998kg. 50.7kW (68HP) Tier 4 turbo diesel. Fuel tank 107.1 L. Standard hydraulics 66.6 L/min, optional high-flow 101.8 L/min @ 3,500 psi (24.1 MPa). Machine width 1,727mm. Height to bucket hinge pin 3,048mm, height with cab 2,045mm. Low speed 11.6 km/h, optional 2-speed 16.4 km/h. Standard track 320mm (optional 398mm wide), ground pressure 5.7 psi std / 4.7 psi opt, track contact length 1,379mm. Grease cylinder track tensioning standard. Optional 5-Link torsion suspension undercarriage. Bob-Tach standard. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-t66',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T66 (Tracked)', shortName:'Bobcat T66',
+      operatingWeightT:4.05, bucketCapM3:0.44,
+      tags:['tracked','soft ground','landscaping','clearing','loading','material movement'],
+      note:'Bobcat T66 — R-Series compact track loader. Vertical lift path. 3,175kg tipping load. 4,049kg operating weight. ROC 1,111kg (35% tipping). ROC with 200lb counterweight: standard at 1,111kg (counterweight std). ROC with 5-Link torsion undercarriage: 1,066kg. 55.2kW (74HP) Tier 4 turbo diesel. Fuel tank 107.1 L. Standard hydraulics 66.6 L/min, optional high-flow 101.8 L/min @ 3,500 psi (24.1 MPa). Machine width 1,727mm. Height to bucket hinge pin 3,048mm, height with cab 2,045mm. Low speed 11.6 km/h, optional 2-speed 16.4 km/h. Standard track 320mm (optional 398mm wide), ground pressure 5.9 psi std / 4.8 psi opt, track contact length 1,379mm. Grease cylinder track tensioning standard. Optional 5-Link torsion suspension undercarriage. Bob-Tach standard. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-t76',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T76 (Tracked)', shortName:'Bobcat T76',
+      operatingWeightT:4.65, bucketCapM3:0.53,
+      tags:['tracked','large site','soft ground','heavy clearing','stockpile'],
+      note:'Bobcat T76 — R-Series compact track loader. Vertical lift path. 3,758kg tipping load. 4,649kg operating weight. ROC 1,315kg (35% tipping). ROC with 200lb counterweight: 1,372kg; with 300lb: 1,406kg. ROC with 5-Link torsion undercarriage: 1,270kg. 55.2kW (74HP) Tier 4 turbo diesel. Fuel tank 120.0 L. Standard hydraulics 88.2 L/min, optional high-flow 114.7 L/min @ 3,500 psi (24.1 MPa). Machine width 1,880mm. Height to bucket hinge pin 3,259mm, height with cab 2,078mm. Low speed 10.9 km/h, optional 2-speed 14.8 km/h. Standard track 320mm (optional 450mm wide), ground pressure 6.2 psi std / 4.6 psi opt, track contact length 1,504mm. Grease cylinder track tensioning standard. Optional 5-Link torsion suspension undercarriage. SJC standard with horsepower management. Bob-Tach standard. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+    { id:'bob-r-t86',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat T86 (Tracked)', shortName:'Bobcat T86',
+      operatingWeightT:5.62, bucketCapM3:0.61,
+      tags:['tracked','large site','heavy clearing','stockpile','high capacity','soft ground'],
+      note:'Bobcat T86 — R-Series compact track loader. Vertical lift path. Most powerful Bobcat CTL ever built. 4,924kg tipping load. 5,621kg operating weight. ROC 1,723kg (35% tipping). ROC with counterweights: 1,792kg (200lb), 1,826kg (300lb), 1,860kg (400lb). ROC with 5-Link torsion undercarriage: 1,678kg. 78.2kW (105HP) Tier 4 turbo diesel. Fuel tank 119.6 L. Standard flow 89.3 L/min, high-flow 138.5 L/min, super-flow 158.9 L/min @ 4,061 psi / 28.0 MPa (super flow). Machine width 2,032mm. Height to bucket hinge pin 3,352mm, height with cab 2,110mm. Low speed 8.9 km/h, 2-speed 17.2 km/h standard. Standard track 450mm, ground pressure 4.8 psi, track contact length 1,684mm. 5-Link torsion suspension undercarriage standard. Triple-flange rear idler. Premium Power Performance electronic displacement control pump. Integrated 5-coupler auxiliary manifold. SJC standard with horsepower management. Rear camera standard. Bob-Tach standard. Source: Bobcat R-Series Compact Loaders brochure (B-2181, 02/23).', hireRateType:'wet_or_dry' },
+
+    // ── BOBCAT MINI TRACK LOADERS ────────────────────────────────────
+    { id:'bob-mt55',   brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat MT55 (Mini Track)', shortName:'Bobcat MT55',
+      operatingWeightT:1.18, bucketCapM3:0.16,
+      tags:['mini','tight access','landscaping','indoor','trenching','small site'],
+      note:'Bobcat MT55 — Mini track loader. 249kg rated operating capacity (35% tipping). 730kg tipping load. 1,184kg operating weight (with bucket). 18.5kW (24.8HP) Tier 4 liquid-cooled 3-cylinder diesel, Kubota D902 E4B, 0.9L displacement. Fuel tank 26.5 L. Hydraulic pump 45.4 L/min. Walk-behind (optional pin-on ride-on platform). One-hand drive/steering control lever. Width with bucket 914mm — fits through standard doorways and gates. Length 1,839mm (without bucket). Height 1,246mm. Height to bucket pin 1,807mm. Travel speed 5.6 km/h forward, 2.3 km/h reverse. Ground pressure 4.9 psi narrow tracks / 3.5 psi wide tracks. 7-inch and 9-inch tracks standard/optional. Bob-Tach or Common Industry Interface (CII) mounting system. Lift height 71.2in (1,807mm). Attachments: auger, backhoe, trencher, tiller, root grapple, pallet fork, breaker, snowblower, sweeper, soil conditioner and more. Full 1-year unlimited-hours warranty. Source: Bobcat Mini Track Loaders MT55 & MT100 brochure (B-1776, 03/22).', hireRateType:'wet_or_dry' },
+    { id:'bob-mt100',  brand:'Bobcat', emoji:'🚜', type:'bobcat', name:'Bobcat MT100 (Mini Track)', shortName:'Bobcat MT100',
+      operatingWeightT:1.54, bucketCapM3:0.20,
+      tags:['mini','tight access','landscaping','indoor','material movement','small site'],
+      note:'Bobcat MT100 — Mini track loader with ride-on platform standard. 453kg rated operating capacity (undercarriage counterweights) / 480kg (rear counterweight position). 1,314kg tipping load. 1,537kg operating weight (with bucket). 18.5kW (24.8HP) Tier 4 liquid-cooled 3-cylinder diesel, Kubota D902 E4B, 0.9L displacement. Fuel tank 26.5 L. Hydraulic pump 45.4 L/min. ISO joystick controls. Width with bucket 914mm — fits through standard doorways and gates. Length 2,145mm (without bucket). Height 1,387mm. Height to bucket pin 2,056mm. Travel speed 6.6 km/h forward, 4.7 km/h reverse. Ground pressure 5.2 psi narrow tracks / 3.9 psi wide tracks. Heat-treated rollers and idlers, sealed in oil — no daily roller maintenance required. Counterweights standard (undercarriage or rear-mounted). Bob-Tach or Common Industry Interface (CII) mounting system. Lift height 80.9in (2,056mm). Attachments: auger, trencher, tiller, root grapple, pallet fork, breaker, snowblower, sweeper, soil conditioner, stump grinder and more. Full 1-year unlimited-hours warranty. Source: Bobcat Mini Track Loaders MT55 & MT100 brochure (B-1776, 03/22).', hireRateType:'wet_or_dry' },
+
     // ── CATERPILLAR BOBCAT / SKID STEER ─────────────────────────────
     { id:'cat-226d3',  brand:'Caterpillar', emoji:'🚜', type:'bobcat', name:'Caterpillar 226D3', shortName:'Cat 226D3',
       operatingWeightT:2.7, bucketCapM3:0.37,
@@ -33216,18 +38890,1923 @@ const MACHINES = {
       operatingWeightT:7.5,
       tags:['small','clearing','levelling','residential','light civil'],
       note:'Komatsu D37-23 — 7.5t small dozer. 63kW engine. Residential site prep, light clearing, backfill spreading. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
-    { id:'kom-d51',    brand:'Komatsu', emoji:'🏔️', type:'dozer', name:'Komatsu D51-22', shortName:'Komatsu D51',
-      operatingWeightT:13.0,
-      tags:['small','clearing','subdivision','light civil'],
-      note:'Komatsu D51-22 — 13t dozer. 93kW engine. Small subdivision works, grading, clearing. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
-    { id:'kom-d65',    brand:'Komatsu', emoji:'🏔️', type:'dozer', name:'Komatsu D65-18', shortName:'Komatsu D65',
-      operatingWeightT:18.5,
-      tags:['standard','clearing','bulk','civil','subdivision'],
-      note:'Komatsu D65-18 — 18.5t standard dozer. 119kW engine. Subdivision bulk earthworks, road formation, major site clearing. Source: Komatsu.com.au.', hireRateType:'wet_or_dry' },
-    { id:'kom-d155',   brand:'Komatsu', emoji:'🏔️', type:'dozer', name:'Komatsu D155AX-8', shortName:'Komatsu D155',
-      operatingWeightT:37.5,
-      tags:['large','mining','civil','major clearing','bulk'],
-      note:'Komatsu D155AX-8 — 37.5t large dozer. 254kW engine. Mining pre-strip, dam works, major land clearing. Source: Komatsu.com.au.', hireRateType:'wet' },
+    // ── KOMATSU D51EX-22 — FULLY BROCHURE-SPECIFIED ──────────────────
+    // Source: Komatsu D51EX/PX-22 Crawler Dozer Brochure EESS018901 (European spec, matching AU powertrain)
+    {
+      id:'kom-d51ex', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D51EX-22 Crawler Dozer', shortName:'Komatsu D51EX',
+      brochureRef: 'Komatsu D51EX/PX-22 (EESS018901)',
+
+      engineModel:         'Komatsu SAA6D107E-1',
+      engineNetKW:         97,   engineNetHP:    130,
+      engineGrossKW:       99,   engineGrossHP:  133,
+      engineRatedRPM:      2200, engineCylinders:6,
+      engineBoreMm:        107,  engineStrokeMm: 124,
+      engineDisplacementL: 6.69,
+      emissionStandard:    'EPA Tier III / EU Stage IIIA',
+      powertrain:          'Dual-path hydrostatic transmission (HST); HSS counter-rotation; PCCS joystick; ECMV modulation valve',
+
+      operatingWeightKg:   12710, operatingWeightT:12.7, groundPressureKPa:40.2,
+
+      trackRollersPerSide: 7,  shoesPerSide:44,
+      shoeWidthMm:         560, grouserHeightMm:54,
+      groundContactCm2:    30744, groundClearanceMm:385,
+
+      bladeType: 'Power Angle Tilt (PAT) — 2.7 m³ or 2.9 m³',
+      blades: [
+        { config:'2.7 m³ PAT (EX)', capacityM3:2.7, widthMm:3045, heightMm:1110, maxLiftMm:1107, maxDropMm:461, maxTiltMm:459, bladeAngleDeg:28.5, overallLengthWithDozMm:4800 },
+        { config:'2.7 m³ PAT foldable (EX)', capacityM3:2.7, widthMm:3045, heightMm:1110, maxLiftMm:1107, maxDropMm:461, maxTiltMm:459, bladeAngleDeg:28.5, overallLengthWithDozMm:4800, transportWidthMm:2550 },
+        { config:'2.9 m³ PAT (EX)', capacityM3:2.9, widthMm:3350, heightMm:1110, maxLiftMm:1107, maxDropMm:461, maxTiltMm:505, bladeAngleDeg:28.5, overallLengthWithDozMm:4800 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:90 },
+        bladeTilt:  { count:1, boreMm:100 },
+        bladeAngle: { count:2, boreMm:90 },
+        ripperLift: { count:1, boreMm:110 },
+      },
+
+      fuelTankL:415, coolantL:35, engineOilL:20,
+      hydraulicOilL:63, finalDriveEachSideL:4.0,
+
+      travelSpeedsKmh: { F1:3.4, F2:5.6, F3:9.0, R1:4.1, R2:6.5, R3:9.0 },
+      travelVariableMaxKmh: 9.0,
+      steeringType: 'Hydrostatic Steering System (HST); PCCS-lever; hydraulic dynamic service brakes; counter-rotation',
+      minTurningRadiusMm: 1810,
+      hydraulicPumpFlowLmin: 99, hydraulicReliefBar: 274.6,
+
+      ripper: {
+        multiShank: { shanks:3, weightKg:850, beamLengthMm:1550, maxLiftAboveGroundMm:378, maxDigDepthMm:428, type:'Hydraulically controlled parallelogram' },
+      },
+
+      noiseDbA_LwA: 106, noiseDbA_LpA: 80,
+
+      technologyFeatures: [
+        'Hydrostatic drive line — high drawbar pull + fuel-efficient grading; quick-shift or variable speed selectable',
+        'HST controller — monitors engine output and working load; auto speed change without gear shocks',
+        'Counter-rotation at low speed for minimum turning radius 1.81m',
+        'PCCS palm command joystick — precision steering without operator fatigue',
+        'Super-slant nose — best blade/ripper visibility of any dozer in class; cab-forward design',
+        'Integrated ROPS/FOPS cab — no external posts, outstanding side visibility',
+        'Silicon-oil filled cab damper mounts — excellent vibration isolation',
+        'Rear-mounted radiator with swing-up hydraulic fan — easy cooling core access',
+        'Electronically-controlled hydraulic fan — auto speed by temperature, reverse-cleaning mode',
+        'PLUS link undercarriage — floating bushing, superior oil seals, remote equaliser bar greasing',
+        'CLSS hydraulics (99 L/min) — simultaneous blade and travel operation',
+        'Self-diagnostic monitor; modular power train; enclosed hydraulic piping',
+        'KOMTRAX satellite monitoring (standard)',
+      ],
+
+      attachmentsAvailable: ['2.7 m³ PAT blade', '2.7 m³ PAT foldable blade (EX)', '2.9 m³ PAT blade', 'Multi-shank parallelogram ripper (EX only, 3 shanks)', 'KOMTRAX'],
+      tags: ['dozer','13t class','d51','subdivision','grading','clearing','hst','hydrostatic','super slant','komatsu'],
+      note: 'Komatsu D51EX-22 — 12.7t. SAA6D107E-1, 97kW/130HP net (99kW/133HP gross) @ 2,200rpm, 6-cyl, 107×124mm, 6.69L. EPA Tier III/EU Stage IIIA. Dual-path HST. 12,710kg / 40.2kPa (560mm shoe). 7 rollers, 44 shoes, 54mm grouser, 2745mm gauge, 385mm clearance. PAT blade: 2.7m³ (3045×1110mm) or 2.9m³ (3350×1110mm); max lift 1107mm. Multi-shank ripper: 850kg, 1550mm beam, 378mm lift, 428mm dig. Fuel 270L, engine 20L, hyd 63L, final drive 4.0L/side. HST quick-shift: F 3.4/5.6/9.0, R 4.1/6.5/9.0 km/h; variable 9.0 km/h. Min turning 1.81m. Noise: LwA 106dB, LpA 80dB. Source: Komatsu D51EX/PX-22 Brochure EESS018901.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D51PX-22 — FULLY BROCHURE-SPECIFIED ──────────────────
+    {
+      id:'kom-d51px', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D51PX-22 Crawler Dozer', shortName:'Komatsu D51PX',
+      brochureRef: 'Komatsu D51EX/PX-22 (EESS018901)',
+
+      engineModel:'Komatsu SAA6D107E-1', engineNetKW:97, engineNetHP:130,
+      engineGrossKW:99, engineGrossHP:133, engineRatedRPM:2200,
+      engineCylinders:6, engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69, emissionStandard:'EPA Tier III / EU Stage IIIA',
+      powertrain:'Dual-path hydrostatic transmission (HST); HSS counter-rotation; PCCS joystick',
+
+      operatingWeightKg:13100, operatingWeightT:13.1, groundPressureKPa:33.5,
+
+      trackRollersPerSide:7, shoesPerSide:44,
+      shoeWidthMm:710, grouserHeightMm:54,
+      groundContactCm2:38979, groundClearanceMm:385,
+
+      bladeType: '2.9 m³ Power Angle Tilt (PAT)',
+      blades: [
+        { config:'2.9 m³ PAT (PX)', capacityM3:2.9, widthMm:3350, heightMm:1110, maxLiftMm:1107, maxDropMm:461, maxTiltMm:505, bladeAngleDeg:28.5, overallLengthWithDozMm:4800 },
+      ],
+
+      fuelTankL:270, coolantL:35, engineOilL:20,
+      hydraulicOilL:63, finalDriveEachSideL:4.0,
+
+      travelSpeedsKmh:{ F1:3.4, F2:5.6, F3:9.0, R1:4.1, R2:6.5, R3:9.0 },
+      travelVariableMaxKmh:9.0,
+      steeringType:'Hydrostatic Steering System (HST); PCCS-lever; counter-rotation',
+      minTurningRadiusMm:1890,
+      hydraulicPumpFlowLmin:99, hydraulicReliefBar:274.6,
+
+      technologyFeatures: [
+        'Wide-gauge (1880mm) with 710mm shoe — 33.5 kPa for soft/wet ground conditions',
+        'Dual-path HST — full counter-rotation; smooth stepless speed control',
+        'PCCS joystick; super-slant nose for superior blade visibility',
+        'Integrated ROPS/FOPS; rear-mounted radiator; swing-up hydraulic fan with reverse-clean',
+        'PLUS undercarriage — floating bushing concept; KOMTRAX standard',
+      ],
+
+      attachmentsAvailable: ['2.9 m³ PAT blade', 'KOMTRAX'],
+      tags: ['dozer','13t class','d51','wide track','soft ground','lgp','subdivision','hst','komatsu'],
+      note: 'Komatsu D51PX-22 — 13.1t, wide-track (PX). SAA6D107E-1, 97kW/130HP net @ 2,200rpm, 6.69L. EPA Tier III/EU Stage IIIA. 13,100kg / 33.5kPa (710mm shoe). 7 rollers, 44 shoes, 54mm grouser, 1880mm gauge, 385mm clearance. PAT blade 2.9m³ (3350×1110mm). No ripper. Fuel 270L, hyd 63L, final drive 4.0L/side. Min turning 1.89m. Source: Komatsu D51EX/PX-22 Brochure EESS018901.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D61EX-24 — FULLY BROCHURE-SPECIFIED ──────────────────
+    // Source: Komatsu D61EX/PX-24 / D61EXi/PXi-24 Brochure ZESS006700 (AU & NZ, EPA Tier 4 Final)
+    {
+      id:'kom-d61ex', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D61EX-24 Crawler Dozer', shortName:'Komatsu D61EX',
+      brochureRef: 'ZESS006700 (D61EX/PX-24 / D61EXi/PXi-24 AU & NZ)',
+
+      engineModel:         'Komatsu SAA6D107E-3',
+      engineNetKW:         125,  engineNetHP:    168,
+      engineGrossKW:       127,  engineGrossHP:  170,
+      engineNetFanMaxKW:   113,  engineNetFanMaxHP:152,
+      engineRatedRPM:      2200, engineCylinders:6,
+      engineBoreMm:        107,  engineStrokeMm: 124,
+      engineDisplacementL: 6.69,
+      emissionStandard:    'EPA Tier 4 Final / EU Stage V',
+      powertrain:          'Dual-path hydrostatic transmission (HST); fully electronic control; PCCS joystick; 4 speed presets or 20-step stepless',
+
+      operatingWeightKg:   18540, operatingWeightT:18.5, groundPressureKPa:43.37,
+
+      trackRollersPerSide: 8,   shoesPerSide:46,
+      shoeWidthMm:         600,  grouserHeightMm:57.5,
+      trackGaugeMm:        1900, trackLengthOnGroundMm:3165,
+      groundContactCm2:    37980, groundClearanceMm:390,
+
+      bladeType: 'Power Angle Tilt (PAT) with adjustable pitch',
+      blades: [
+        { config:'PAT (EX)', capacityM3:3.4, widthMm:3250, heightMm:1195, maxLiftMm:1025, maxDropMm:580, maxTiltMm:435, overallLengthWithDozMm:5480 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:100 },
+        bladeTilt:  { count:1, boreMm:120 },
+        bladeAngle: { count:2, boreMm:110 },
+      },
+
+      fuelTankL:372, coolantL:45, engineOilL:27,
+      hydraulicOilL:101, finalDriveEachSideL:8.1, defTankL:20.6,
+
+      travelSpeedsKmh: { F1:3.4, F2:5.6, F3:9.0, R1:4.1, R2:6.5, R3:9.0 },
+      travelVariableMaxKmh: 9.0,
+      steeringType: 'HST; PCCS joystick; counter-rotation; FNR shift mode; enhanced steering mode (fast outside track)',
+      minTurningRadiusMm: 2100,
+      hydraulicPumpFlowLmin: 171, hydraulicReliefMPa: 27.4,
+
+      ripper: {
+        multiShank: { shanks:3, weightKg:1757, beamLengthMm:2170, maxLiftAboveGroundMm:560, maxDigDepthMm:665, type:'Multi-shank, fixed digging angle' },
+      },
+
+      technologyFeatures: [
+        'Largest horsepower in class (125kW/168HP) — highest in D61 size bracket',
+        'Dual-path HST — fully electronic; smooth auto-shifting; 4 presets or 20-step stepless; counter-rotation',
+        'Enhanced steering mode — speeds up outer track while maintaining travel speed; improved turning under load',
+        'Enhanced blade mode — adjustable drop speed, tilt response, and lift response per operator preference',
+        'PAT blade with manually adjustable pitch — max versatility in grading, spreading, and pushing applications',
+        'Super-slant nose — excellent blade visibility from cab; cab-forward design',
+        'Combination decelerator/brake pedal — single-pedal speed control; decelerator or brake mode selectable',
+        'PCCS ergonomic joystick — electronic controlled hydraulic blade system; new blade angling switch',
+        'Auto idle shutdown; auto-decelerator; Auto E mode (auto switch at light load)',
+        'Integrated ROPS (ISO 3471) cab; silicon-oil cab damper; LED lights; Bluetooth audio; USB',
+        'Hydraulically-driven swing-up fan — reverse-cleaning mode; side-by-side radiator access',
+        'Easy equaliser bar side pin greasing (remote nipple on track frame)',
+        'Parallel Link Undercarriage System (PLUS) — rotating bushings, up to 40% lower maintenance cost',
+        'KOMTRAX equipment monitoring; Komplimentary Maintenance program',
+      ],
+
+      attachmentsAvailable: ['PAT blade 3.4 m³ (EX)', 'Multi-shank ripper (3 shanks)', 'KOMTRAX'],
+      tags: ['dozer','18.5t class','d61','tier 4 final','hst','subdivision','bulk earthworks','civil','road formation','clearing','komatsu'],
+      note: 'Komatsu D61EX-24 — 18.5t. SAA6D107E-3, 125kW/168HP net (127kW/170HP gross) @ 2,200rpm, 6-cyl, 107×124mm, 6.69L. EPA Tier 4 Final. Dual-path HST. 18,540kg / 43.37kPa (600mm shoe). 8 rollers, 46 shoes, 57.5mm grouser, 1900mm gauge, 3165mm on ground, 390mm clearance. PLUS undercarriage. PAT blade 3.4m³ (3250×1195mm); lift 1025mm / drop 580mm / tilt 435mm. Multi-shank ripper: 1757kg, 2170mm beam, 560mm lift, 665mm dig. Fuel 372L, coolant 45L, engine 27L, hyd 101L, DEF 20.6L, final drive 8.1L/side. HST quick-shift: F 3.4/5.6/9.0, R 4.1/6.5/9.0 km/h; variable 9.0 km/h. Min turning 2.1m. Source: ZESS006700.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D61EXi-24 — FULLY BROCHURE-SPECIFIED (iMC 2.0) ───────
+    {
+      id:'kom-d61exi', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D61EXi-24 Crawler Dozer', shortName:'Komatsu D61EXi',
+      brochureRef: 'ZESS006700 (D61EX/PX-24 / D61EXi/PXi-24 AU & NZ)',
+
+      engineModel:'Komatsu SAA6D107E-3', engineNetKW:125, engineNetHP:168,
+      engineGrossKW:127, engineGrossHP:170, engineRatedRPM:2200,
+      engineCylinders:6, engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69, emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      powertrain:'Dual-path hydrostatic transmission (HST); fully electronic control; PCCS joystick',
+
+      operatingWeightKg:18640, operatingWeightT:18.6, groundPressureKPa:43.37,
+
+      trackRollersPerSide:8, shoesPerSide:46,
+      shoeWidthMm:600, grouserHeightMm:57.5,
+      trackGaugeMm:1900, trackLengthOnGroundMm:3165,
+      groundContactCm2:37980, groundClearanceMm:390,
+
+      bladeType: 'Power Angle Tilt (PAT) with adjustable pitch',
+      blades: [
+        { config:'PAT (EXi)', capacityM3:3.4, widthMm:3250, heightMm:1195, maxLiftMm:1025, maxDropMm:580, maxTiltMm:435, overallLengthWithDozMm:5480 },
+      ],
+
+      fuelTankL:372, coolantL:45, engineOilL:27,
+      hydraulicOilL:101, finalDriveEachSideL:8.1, defTankL:20.6,
+
+      travelSpeedsKmh:{ F1:3.4, F2:5.6, F3:9.0, R1:4.1, R2:6.5, R3:9.0 },
+      travelVariableMaxKmh:9.0,
+      steeringType:'HST; PCCS joystick; counter-rotation; enhanced steering mode',
+      minTurningRadiusMm:2100,
+      hydraulicPumpFlowLmin:171, hydraulicReliefMPa:27.4,
+
+      ripper: {
+        multiShank:{ shanks:3, weightKg:1757, beamLengthMm:2170, maxLiftAboveGroundMm:560, maxDigDepthMm:665 },
+      },
+
+      imcSystem: {
+        version: 'iMC 2.0',
+        gnssAntennas: 2,
+        gnssConstellations: ['GPS', 'GLONASS', 'Galileo', 'QZSS', 'BeiDou'],
+        factoryInstalled: true,
+        features: [
+          'Proactive Dozing Control (PDC) — auto blade control rough dozing to finish grade; reads terrain ahead to maximise blade load per pass',
+          'Lift layer control — automatically controls lift heights to mapped terrain; excess fill eliminated',
+          'Tilt steering control — blade auto-tilts under heavy load to maintain straight travel; reduces operator fatigue',
+          'Quick surface creation — simplified in-field surface creation within control box',
+          'Two-antenna multiple GNSS — improved slope accuracy; Galileo/QZSS/BeiDou for all time zones',
+          'No cables, no blade mast — GNSS antenna and IMU chassis-mounted; no daily connections',
+          'Auto/manual switch; Cut/fill offset switch; back grade mode switch',
+          'Up to 8% more efficient than comparable aftermarket machine control systems (start-to-finish grading tests)',
+        ],
+      },
+
+      technologyFeatures: [
+        'iMC 2.0 — factory-integrated 3D GNSS; automated from rough dozing to finish grade; no external components',
+        'Proactive Dozing Control — reads terrain ahead, maximises blade load throughout every pass',
+        'Lift layer control — consistent compaction lifts, excess fill eliminated automatically',
+        'Tilt steering control — maintains straight travel under load, reduces correction fatigue',
+        'Dual GNSS antennas — Galileo, QZSS, BeiDou plus GPS/GLONASS; improved accuracy on slopes',
+        'All D61EX-24 features: 125kW class-leading power; enhanced HST steering; auto E mode; swing-up fan; PLUS undercarriage; KOMTRAX',
+      ],
+
+      attachmentsAvailable: ['PAT blade 3.4 m³', 'Multi-shank ripper (3 shanks)', 'iMC 2.0 (standard)', 'KOMTRAX'],
+      tags: ['dozer','18.6t class','d61','imc','machine control','gnss','automated grading','tier 4 final','hst','civil','subdivision','bulk earthworks','komatsu'],
+      note: 'Komatsu D61EXi-24 — 18.6t, with factory iMC 2.0. SAA6D107E-3, 125kW/168HP net @ 2,200rpm, 6.69L. EPA Tier 4 Final. 18,640kg (600mm shoe). 8 rollers, 390mm clearance. PAT blade 3.4m³ (3250×1195mm). Proactive Dozing Control, lift layer control, tilt steering control, dual GNSS. Multi-shank ripper: 1757kg, 665mm dig. Fuel 372L, DEF 20.6L. Min turning 2.1m. Source: ZESS006700.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D61PX-24 — FULLY BROCHURE-SPECIFIED ──────────────────
+    {
+      id:'kom-d61px', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D61PX-24 Crawler Dozer', shortName:'Komatsu D61PX',
+      brochureRef: 'ZESS006700 (D61EX/PX-24 / D61EXi/PXi-24 AU & NZ)',
+
+      engineModel:'Komatsu SAA6D107E-3', engineNetKW:125, engineNetHP:168,
+      engineGrossKW:127, engineGrossHP:170, engineRatedRPM:2200,
+      engineCylinders:6, engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69, emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      powertrain:'Dual-path hydrostatic transmission (HST); fully electronic control; PCCS joystick',
+
+      operatingWeightKg:19480, operatingWeightT:19.5, groundPressureKPa:31.78,
+
+      trackRollersPerSide:8, shoesPerSide:46,
+      shoeWidthMm:860, grouserHeightMm:57.5,
+      trackGaugeMm:2130, trackLengthOnGroundMm:3165,
+      groundContactCm2:54440, groundClearanceMm:390,
+
+      bladeType: 'Power Angle Tilt (PAT) with adjustable pitch — wide track',
+      blades: [
+        { config:'PAT (PX)', capacityM3:3.8, widthMm:3860, heightMm:1155, maxLiftMm:1025, maxDropMm:580, maxTiltMm:515, overallLengthWithDozMm:5480 },
+      ],
+
+      fuelTankL:372, coolantL:45, engineOilL:27,
+      hydraulicOilL:101, finalDriveEachSideL:8.1, defTankL:20.6,
+
+      travelSpeedsKmh:{ F1:3.4, F2:5.6, F3:9.0, R1:4.1, R2:6.5, R3:9.0 },
+      travelVariableMaxKmh:9.0,
+      steeringType:'HST; PCCS joystick; counter-rotation; enhanced steering mode',
+      minTurningRadiusMm:2300,
+      hydraulicPumpFlowLmin:171, hydraulicReliefMPa:27.4,
+
+      technologyFeatures: [
+        'Wide-gauge (2130mm) with 860mm shoe — 31.78 kPa for soft/wet ground applications',
+        'Larger 3.8 m³ PAT blade (vs 3.4 m³ EX) — increased production per pass on soft ground',
+        'Long track-on-ground (3165mm) + oscillating track frame — superior stability for precision grading',
+        'All D61EX-24 features: 125kW; dual-path HST; enhanced steering/blade modes; swing-up fan; PLUS undercarriage; KOMTRAX',
+      ],
+
+      attachmentsAvailable: ['PAT blade 3.8 m³ (PX)', 'KOMTRAX'],
+      tags: ['dozer','19.5t class','d61','wide track','soft ground','lgp','swamp','subdivision','hst','tier 4 final','komatsu'],
+      note: 'Komatsu D61PX-24 — 19.5t, wide-track (PX). SAA6D107E-3, 125kW/168HP net @ 2,200rpm. EPA Tier 4 Final. 19,480kg / 31.78kPa (860mm shoe). 8 rollers, 46 shoes, 57.5mm grouser, 2130mm gauge, 3165mm on ground, 390mm clearance. PAT blade 3.8m³ (3860×1155mm). No ripper. Fuel 372L, DEF 20.6L. Min turning 2.3m. Source: ZESS006700.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D61PXi-24 — FULLY BROCHURE-SPECIFIED (iMC 2.0) ───────
+    {
+      id:'kom-d61pxi', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D61PXi-24 Crawler Dozer', shortName:'Komatsu D61PXi',
+      brochureRef: 'ZESS006700 (D61EX/PX-24 / D61EXi/PXi-24 AU & NZ)',
+
+      engineModel:'Komatsu SAA6D107E-3', engineNetKW:125, engineNetHP:168,
+      engineGrossKW:127, engineGrossHP:170, engineRatedRPM:2200,
+      engineCylinders:6, engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:6.69, emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      powertrain:'Dual-path hydrostatic transmission (HST); fully electronic control; PCCS joystick',
+
+      operatingWeightKg:19580, operatingWeightT:19.6, groundPressureKPa:31.78,
+
+      trackRollersPerSide:8, shoesPerSide:46,
+      shoeWidthMm:860, grouserHeightMm:57.5,
+      trackGaugeMm:2130, trackLengthOnGroundMm:3165,
+      groundContactCm2:54440, groundClearanceMm:390,
+
+      bladeType: 'Power Angle Tilt (PAT) with adjustable pitch — wide track',
+      blades: [
+        { config:'PAT (PXi)', capacityM3:3.8, widthMm:3860, heightMm:1155, maxLiftMm:1025, maxDropMm:580, maxTiltMm:515, overallLengthWithDozMm:5480 },
+      ],
+
+      fuelTankL:372, coolantL:45, engineOilL:27,
+      hydraulicOilL:101, finalDriveEachSideL:8.1, defTankL:20.6,
+
+      travelSpeedsKmh:{ F1:3.4, F2:5.6, F3:9.0, R1:4.1, R2:6.5, R3:9.0 },
+      travelVariableMaxKmh:9.0,
+      steeringType:'HST; PCCS joystick; counter-rotation',
+      minTurningRadiusMm:2300,
+      hydraulicPumpFlowLmin:171, hydraulicReliefMPa:27.4,
+
+      imcSystem: {
+        version: 'iMC 2.0',
+        gnssAntennas: 2,
+        gnssConstellations: ['GPS', 'GLONASS', 'Galileo', 'QZSS', 'BeiDou'],
+        factoryInstalled: true,
+        features: [
+          'Proactive Dozing Control — reads terrain ahead, maximises blade load per pass from rough to finish grade',
+          'Lift layer control — consistent fill layers to mapped terrain',
+          'Tilt steering control — maintains straight travel under heavy load',
+          'Quick surface creation — in-field surface creation on control box',
+          'Dual GNSS antennas — Galileo/QZSS/BeiDou; improved accuracy on slopes',
+          'No cables, no blade mast; factory installed; auto/manual switch',
+        ],
+      },
+
+      technologyFeatures: [
+        'iMC 2.0 — factory-integrated 3D GNSS; wide-track variant ideal for soft ground precision grading',
+        'Wide 860mm shoe (2130mm gauge) + iMC 2.0 — unique combination for wet site machine control work',
+        'All D61PX-24 features: 3.8m³ PAT blade; 31.78kPa ground pressure; enhanced HST steering; PLUS undercarriage; KOMTRAX',
+      ],
+
+      attachmentsAvailable: ['PAT blade 3.8 m³', 'iMC 2.0 (standard)', 'KOMTRAX'],
+      tags: ['dozer','19.6t class','d61','imc','machine control','gnss','wide track','soft ground','lgp','automated grading','tier 4 final','hst','komatsu'],
+      note: 'Komatsu D61PXi-24 — 19.6t, wide-track (PX) with factory iMC 2.0. SAA6D107E-3, 125kW/168HP net @ 2,200rpm. EPA Tier 4 Final. 19,580kg / 31.78kPa (860mm shoe). 2130mm gauge, 3165mm on ground. PAT blade 3.8m³. iMC 2.0: Proactive Dozing, lift layer, tilt steering, dual GNSS. Min turning 2.3m. Source: ZESS006700.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D39EX-22 — FULLY BROCHURE-SPECIFIED ─────────────────
+    // Source: Komatsu D39EX-22 / D39PX-22 Crawler Dozer Brochure CEN00321-02
+    {
+      id:'kom-d39ex', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D39EX-22 Crawler Dozer', shortName:'Komatsu D39EX',
+      brochureRef: 'CEN00321-02 (Komatsu D39EX-22 / D39PX-22)',
+
+      engineModel:         'Komatsu SAA4D107E-1',
+      engineNetKW:         79,   engineNetHP:    105,
+      engineGrossKW:       79.9, engineGrossHP:  107,
+      engineRatedRPM:      2200, engineCylinders:4,
+      engineBoreMm:        107,  engineStrokeMm: 124,
+      engineDisplacementL: 4.46,
+      emissionStandard:    'EPA Tier 3 / EU Stage 3A',
+      powertrain:          'Hydrostatic Transmission (HST) — dual-path, variable piston pumps & motors, counter-rotation',
+
+      operatingWeightKg:   9040, operatingWeightT:9.0, groundPressureKPa:40.8,
+
+      trackRollersPerSide: 6, shoesPerSide:39,
+      shoeWidthMm:         460, grouserHeightMm:53,
+      trackGaugeMm:        1650, trackLengthOnGroundMm:2360,
+      groundContactCm2:    21710, groundClearanceMm:385,
+
+      dimensions: {
+        overallLengthWithDozMm:4325, overallHeightMm:2245,
+        machineWidthOverTracksMm:2110, bladeWidthMm:2710, bladeHeightMm:980,
+        groundClearanceMm:385, trackGaugeMm:1650, trackOnGroundMm:2360, shoeWidthMm:460,
+      },
+
+      bladeType: 'Power Angle & Tilt (PAT), pitch-adjustable',
+      blades: [
+        { config:'D39EX PAT (standard)', capacityM3:2.21, capacityYd3:2.89, widthMm:2710, heightMm:980, maxLiftMm:900, maxDropMm:450, maxTiltMm:370, bladeAngleDeg:25 },
+      ],
+
+      fuelTankL:195, coolantL:23, engineOilL:15, hydraulicTankL:60, finalDriveEachSideL:3.5,
+
+      travelSpeedsKmh: {
+        quickShift:{ F1:3.4, F2:5.6, F3:8.5, R1:4.1, R2:6.5, R3:8.5 },
+        variableMode:{ maxFwd:8.5, maxRev:8.5 },
+      },
+      steeringType:'Hydrostatic (HST), counter-rotation, PCCS joystick',
+      minTurningRadiusMm:2200,
+      hydraulicPumpFlowLmin:99, hydraulicReliefMPa:27.4,
+
+      technologyFeatures: [
+        'Hydrostatic Transmission (HST) — infinite variable speed, no gear steps, counter-rotation',
+        'PCCS (Palm Command Control System) joystick — all directional movements',
+        'Pitch-Adjustable PAT dozer blade — manually adjustable pitch rod for varied materials',
+        'Super-slant nose design — class-leading forward blade visibility',
+        'Closed-centre Load Sensing System (CLSS) — blade stroke proportional to speed regardless of load',
+        'Hydraulically-driven swing-up cooling fan — cleaning mode, gas strut-assisted access',
+        'Cab-forward design with integrated ROPS/FOPS (ISO 3471, ISO 3449 FOPS Level 2)',
+        'New cab damper mounting — silicon oil/spring isolator for vibration absorption',
+        'Electronic monitor panel with on-board diagnostics and service reminders',
+        'Adjustment-free spring-applied hydraulic release wet parking brake',
+      ],
+
+      attachmentsAvailable: ['Multi-shank ripper (D39EX-22 only)', 'Hitch', 'Drawbar', 'Forestry guards'],
+      tags: ['dozer','9t class','d39','small dozer','site prep','residential','light civil','clearing','levelling','hst','hydrostatic','pat blade','komatsu'],
+      note: 'Komatsu D39EX-22 Crawler Dozer — 9.0t. SAA4D107E-1, 79kW/105hp net @ 2,200rpm, 4-cyl, 107×124mm, 4.46L. EPA Tier 3/EU Stage 3A. HST, counter-rotation. 9,040kg / 40.8kPa (460mm shoe). 6 rollers, 39 shoes, 53mm grouser, 1650mm gauge, 2360mm track on ground, 385mm clearance. PAT blade 2.21m³ (2710×980mm). Max lift 900mm / drop 450mm / tilt 370mm. Fuel 195L, engine oil 15L, hyd 60L, final drive 3.5L/side. HST quick-shift: F/R 3.4/4.1, 5.6/6.5, 8.5/8.5 km/h. Min turning 2.2m. Hyd 99L/min, 27.4MPa. Ripper (multi-shank) optional for EX only. Source: Komatsu D39EX-22/D39PX-22 Brochure CEN00321-02.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D39PX-22 — FULLY BROCHURE-SPECIFIED ─────────────────
+    {
+      id:'kom-d39px', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D39PX-22 Crawler Dozer', shortName:'Komatsu D39PX',
+      brochureRef: 'CEN00321-02 (Komatsu D39EX-22 / D39PX-22)',
+
+      engineModel:'Komatsu SAA4D107E-1', engineNetKW:79, engineNetHP:105,
+      engineGrossKW:79.9, engineGrossHP:107, engineRatedRPM:2200,
+      engineCylinders:4, engineBoreMm:107, engineStrokeMm:124,
+      engineDisplacementL:4.46, emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      powertrain:'Hydrostatic Transmission (HST) — dual-path, variable piston pumps & motors, counter-rotation',
+
+      operatingWeightKg:9480, operatingWeightT:9.5, groundPressureKPa:31.0,
+
+      trackRollersPerSide:6, shoesPerSide:39,
+      shoeWidthMm:635, grouserHeightMm:53,
+      trackGaugeMm:1790, trackLengthOnGroundMm:2360,
+      groundContactCm2:29970, groundClearanceMm:385,
+
+      dimensions: {
+        overallLengthWithDozMm:4325, overallHeightMm:2245,
+        machineWidthOverTracksMm:2425, bladeWidthMm:3250, bladeHeightMm:910,
+        groundClearanceMm:385, trackGaugeMm:1790, trackOnGroundMm:2360, shoeWidthMm:635,
+      },
+
+      bladeType: 'Power Angle & Tilt (PAT), pitch-adjustable — wide blade for soft ground',
+      blades: [
+        { config:'D39PX PAT (standard 3250mm)', capacityM3:2.30, capacityYd3:3.00, widthMm:3250, heightMm:910, maxLiftMm:900, maxDropMm:450, maxTiltMm:440, bladeAngleDeg:25 },
+        { config:'D39PX PAT (narrow 2980mm)',   capacityM3:2.08, capacityYd3:2.72, widthMm:2980, heightMm:910, maxLiftMm:900, maxDropMm:450, maxTiltMm:405, bladeAngleDeg:25 },
+      ],
+
+      fuelTankL:195, coolantL:23, engineOilL:15, hydraulicTankL:60, finalDriveEachSideL:3.5,
+
+      travelSpeedsKmh: {
+        quickShift:{ F1:3.4, F2:5.6, F3:8.5, R1:4.1, R2:6.5, R3:8.5 },
+        variableMode:{ maxFwd:8.5, maxRev:8.5 },
+      },
+      steeringType:'Hydrostatic (HST), counter-rotation, PCCS joystick',
+      minTurningRadiusMm:2400,
+
+      technologyFeatures: [
+        'Wide (635mm) standard shoe — 31kPa ground pressure for soft/wet ground',
+        'Optional 700mm single-grouser shoe for extreme soft conditions',
+        'HST infinite variable speed, counter-rotation',
+        'Pitch-adjustable PAT blade — manually adjustable pitch rod',
+        'Super-slant nose — excellent forward blade visibility',
+        'CLSS hydraulics, swing-up fan, cab damper mounting',
+        'No ripper option (EX model only)',
+      ],
+
+      attachmentsAvailable: ['Hitch', 'Drawbar', 'Narrow 2980mm blade option', 'Forestry guards'],
+      tags: ['dozer','9t class','d39','wide track','soft ground','site prep','light civil','clearing','hst','hydrostatic','lgp','komatsu'],
+      note: 'Komatsu D39PX-22 Crawler Dozer — 9.5t, wide-track (PX). SAA4D107E-1, 79kW/105hp net @ 2,200rpm, 4-cyl, 4.46L. EPA Tier 3/EU Stage 3A. HST. 9,480kg / 31.0kPa (635mm shoe). 6 rollers, 39 shoes, 53mm grouser, 1790mm gauge, 2360mm on ground. Optional 700mm shoe. PAT blade 2.30m³ (3250×910mm std) or 2.08m³ (2980mm narrow). Fuel 195L, hyd 60L, final drive 3.5L/side. Min turning 2.4m. No ripper. Source: Komatsu D39EX-22/D39PX-22 Brochure CEN00321-02.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D65EX-16 — FULLY BROCHURE-SPECIFIED ──────────────────
+    // Source: Komatsu D65EX/PX/WX-16 Crawler Dozer Brochure CEN00373-02
+    {
+      id:'kom-d65ex', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D65EX-16 Crawler Dozer', shortName:'Komatsu D65EX',
+      brochureRef: 'CEN00373-02 (D65EX/PX/WX-16)',
+
+      engineModel:         'Komatsu SAA6D114E-3',
+      engineNetKW:         153,  engineNetHP:    205,
+      engineGrossKW:       155,  engineGrossHP:  207,
+      engineRatedRPM:      1950, engineCylinders:6,
+      engineBoreMm:        114,  engineStrokeMm: 135,
+      engineDisplacementL: 8.27,
+      emissionStandard:    'EPA Tier 3 / EU Stage 3A',
+      powertrain:          'TORQFLOW automatic transmission with lockup torque converter; ECMV-controlled; HSS steering',
+
+      operatingWeightKg:   19510, operatingWeightT:19.5, groundPressureKPa:55.2,
+
+      trackRollersPerSide:7, shoesPerSide:42,
+      shoeWidthMm:510, grouserHeightMm:65,
+      trackGaugeMm:1880, trackLengthOnGroundMm:2980,
+      groundContactCm2:30395, groundClearanceMm:410,
+
+      dimensions: {
+        overallLengthWithDozMm:5490, overallHeightMm:3155,
+        machineWidthOverTracksMm:1880, trackGaugeMm:1880,
+        trackOnGroundMm:2980, shoeWidthMm:510, grouserHeightMm:65, groundClearanceMm:410,
+      },
+
+      bladeType: 'SIGMADOZER (standard); Straight Tilt; PAT (Power Angle & Tilt) optional',
+      blades: [
+        { config:'SIGMADOZER',    capacityM3:5.61, capacityYd3:7.34, widthMm:3410, heightMm:1425, maxLiftMm:1130, maxDropMm:505, maxTiltMm:870, dozerWeightKg:2390 },
+        { config:'semi-U Tilt',   capacityM3:5.61, capacityYd3:7.34, widthMm:3460, heightMm:1425, maxLiftMm:1110, maxDropMm:440, maxTiltMm:855, dozerWeightKg:2320 },
+        { config:'Straight Tilt', capacityM3:3.89, capacityYd3:5.09, widthMm:3415, heightMm:1225, maxLiftMm:1100, maxDropMm:435, maxTiltMm:870, dozerWeightKg:2060 },
+        { config:'PAT Dozer',     capacityM3:4.25, capacityYd3:5.56, widthMm:3870, heightMm:1235, maxLiftMm:1165, maxDropMm:700, maxTiltMm:500, dozerWeightKg:2960 },
+      ],
+
+      fuelTankL:415, coolantL:36, engineOilL:28,
+      transmissionBevelSteeringL:48, hydraulicOilL:55, finalDriveEachSideL:24,
+
+      travelSpeedsKmh: { F1:3.6, F2:5.5, F3L:7.2, F3:11.2, R1:4.4, R2:6.6, R3L:8.6, R3:13.4 },
+      steeringType:'Hydrostatic Steering System (HSS), counter-rotation, PCCS joystick, ECMV clutch/brake',
+      minTurningRadiusMm:1900,
+      hydraulicPumpFlowLmin:248, hydraulicReliefMPa:27.9,
+
+      technologyFeatures: [
+        'SIGMADOZER — new digging theory: 15% more production vs semi-U blade; smooth material roll-up, reduced spillage',
+        'Automatic transmission with lockup torque converter — 10% fuel reduction; 25% fuel efficiency improvement overall',
+        'Automatic gearshift (auto up/down) + manual gearshift selectable; P mode / E mode',
+        'ECMV (Electronic Controlled Modulation Valve) — smooth shockless clutch engagement',
+        'Hydrostatic Steering System (HSS) — power both tracks, counter-rotation, minimum turning 1.9m',
+        'PCCS joystick — electronic travel + hydraulic blade/ripper control',
+        'Gearshift Pattern Preset (F1-R2, F2-R1, F2-R2, F2-R3L, F3L-R3L)',
+        'PLUS undercarriage (optional) — rotating bushings, doubles wear life, 40% lower maintenance cost',
+        'New integrated ROPS cab — no external ROPS posts, outstanding side visibility',
+        'Cab damper mounting — silicon oil/spring isolator',
+        'Large 7-inch TFT LCD monitor (10 languages); KOMTRAX',
+        'Hydraulic drive reversible cooling fan; self-adjusting idler support',
+      ],
+
+      attachmentsAvailable: ['Multi-shank ripper (EX, WX)', 'PAT blade (optional)', 'Angle dozer', 'PLUS undercarriage (optional)'],
+      tags: ['dozer','19t class','d65','sigmadozer','bulk earthworks','subdivision','road formation','clearing','landfill','auto transmission','komatsu'],
+      note: 'Komatsu D65EX-16 Crawler Dozer — 19.5t. SAA6D114E-3, 153kW/205hp net (155kW/207hp gross) @ 1,950rpm, 6-cyl, 114×135mm, 8.27L. EPA Tier 3/EU Stage 3A. TORQFLOW auto + lockup TC. 19,510kg / 55.2kPa (510mm shoe). 7 rollers, 42 shoes, 65mm grouser, 1880mm gauge, 2980mm on ground, 410mm clearance. PLUS undercarriage optional. SIGMADOZER 5.61m³ (3410×1425mm); Straight Tilt 3.89m³; PAT 4.25m³. Fuel 415L, coolant 36L, engine 28L, trans 48L, hyd 55L, final drive 24L/side. F1 3.6 / F2 5.5 / F3L 7.2 / F3 11.2 km/h; R 4.4/6.6/8.6/13.4. Min turning 1.9m. Multi-shank ripper optional: 1770kg, 2170mm beam, 640mm lift, 590mm dig. Source: Komatsu D65EX/PX/WX-16 Brochure CEN00373-02.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D65PX-16 — FULLY BROCHURE-SPECIFIED ──────────────────
+    {
+      id:'kom-d65px', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D65PX-16 Crawler Dozer', shortName:'Komatsu D65PX',
+      brochureRef: 'CEN00373-02 (D65EX/PX/WX-16)',
+
+      engineModel:'Komatsu SAA6D114E-3', engineNetKW:153, engineNetHP:205,
+      engineGrossKW:155, engineGrossHP:207, engineRatedRPM:1950,
+      engineCylinders:6, engineBoreMm:114, engineStrokeMm:135,
+      engineDisplacementL:8.27, emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      powertrain:'TORQFLOW automatic transmission with lockup torque converter; HSS steering',
+
+      operatingWeightKg:20990, operatingWeightT:21.0, groundPressureKPa:30.8,
+
+      trackRollersPerSide:8, shoesPerSide:45,
+      shoeWidthMm:915, grouserHeightMm:65,
+      trackGaugeMm:2050, trackLengthOnGroundMm:3285,
+      groundContactCm2:60115, groundClearanceMm:410,
+
+      bladeType: 'Straight Tilt Dozer (standard); PAT optional',
+      blades: [
+        { config:'Straight Tilt (PX)', capacityM3:3.69, capacityYd3:4.83, widthMm:3970, heightMm:1100, maxLiftMm:1125, maxDropMm:540, maxTiltMm:890, dozerWeightKg:2100 },
+        { config:'PAT (PX)',           capacityM3:4.42, capacityYd3:5.78, widthMm:4010, heightMm:1235, maxLiftMm:1165, maxDropMm:700, maxTiltMm:520, dozerWeightKg:2990 },
+      ],
+
+      fuelTankL:415, coolantL:36, engineOilL:28,
+      transmissionBevelSteeringL:48, hydraulicOilL:55, finalDriveEachSideL:27,
+
+      travelSpeedsKmh:{ F1:3.6, F2:5.5, F3L:7.2, F3:11.2, R1:4.4, R2:6.6, R3L:8.6, R3:13.4 },
+      steeringType:'Hydrostatic Steering System (HSS), counter-rotation, PCCS',
+      minTurningRadiusMm:2200,
+
+      technologyFeatures: [
+        'Wide-gauge (2050mm) with 915mm shoe — 30.8kPa for wet/soft ground',
+        '8 track rollers per side + 45 shoes — 3285mm track on ground for superior stability',
+        'TORQFLOW auto transmission with lockup torque converter; ECMV clutch; HSS counter-rotation',
+        'PCCS joystick; auto/manual gearshift selectable; P mode / E mode',
+        'PLUS undercarriage optional; 7-inch TFT LCD monitor; KOMTRAX',
+      ],
+
+      attachmentsAvailable: ['PAT dozer blade (optional)', 'PLUS undercarriage (optional)'],
+      tags: ['dozer','21t class','d65','wide track','soft ground','bulk earthworks','civil','lgp','komatsu'],
+      note: 'Komatsu D65PX-16 — 21.0t, wide-track (PX). SAA6D114E-3, 153kW/205hp net @ 1,950rpm, 8.27L. EPA Tier 3/EU Stage 3A. 20,990kg / 30.8kPa (915mm shoe). 8 rollers, 45 shoes, 65mm grouser, 2050mm gauge, 3285mm on ground, 410mm clearance. Straight Tilt 3.69m³ (3970×1100mm); PAT 4.42m³ (4010×1235mm). Fuel 415L, final drive 27L/side. Min turning 2.2m. No ripper. Source: CEN00373-02.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D65WX-16 — FULLY BROCHURE-SPECIFIED ──────────────────
+    {
+      id:'kom-d65wx', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D65WX-16 Crawler Dozer', shortName:'Komatsu D65WX',
+      brochureRef: 'CEN00373-02 (D65EX/PX/WX-16)',
+
+      engineModel:'Komatsu SAA6D114E-3', engineNetKW:153, engineNetHP:205,
+      engineGrossKW:155, engineGrossHP:207, engineRatedRPM:1950,
+      engineCylinders:6, engineBoreMm:114, engineStrokeMm:135,
+      engineDisplacementL:8.27, emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      powertrain:'TORQFLOW automatic transmission with lockup torque converter; HSS steering',
+
+      operatingWeightKg:20360, operatingWeightT:20.4, groundPressureKPa:38.6,
+
+      trackRollersPerSide:7, shoesPerSide:42,
+      shoeWidthMm:760, grouserHeightMm:65,
+      trackGaugeMm:2050, trackLengthOnGroundMm:2980,
+      groundContactCm2:45295, groundClearanceMm:410,
+
+      bladeType: 'SIGMADOZER (standard); PAT optional',
+      blades: [
+        { config:'SIGMADOZER (WX)', capacityM3:5.90, capacityYd3:7.72, widthMm:3580, heightMm:1425, maxLiftMm:1130, maxDropMm:505, maxTiltMm:770, dozerWeightKg:2500 },
+        { config:'PAT (WX)',        capacityM3:4.42, capacityYd3:5.78, widthMm:4010, heightMm:1235, maxLiftMm:1165, maxDropMm:700, maxTiltMm:520, dozerWeightKg:2990 },
+      ],
+
+      fuelTankL:415, coolantL:36, engineOilL:28,
+      transmissionBevelSteeringL:48, hydraulicOilL:55, finalDriveEachSideL:27,
+
+      travelSpeedsKmh:{ F1:3.6, F2:5.5, F3L:7.2, F3:11.2, R1:4.4, R2:6.6, R3L:8.6, R3:13.4 },
+      steeringType:'Hydrostatic Steering System (HSS), counter-rotation, PCCS',
+      minTurningRadiusMm:2100,
+
+      technologyFeatures: [
+        'Semi-swamp config — 760mm shoe, 2050mm gauge, 38.6kPa',
+        'Largest SIGMADOZER capacity in D65 range — 5.90m³ (WX)',
+        'TORQFLOW auto + lockup torque converter; HSS; ECMV; PCCS',
+        'Auto/manual gearshift; P/E mode; PLUS undercarriage optional',
+      ],
+
+      attachmentsAvailable: ['PAT dozer blade (optional)', 'PLUS undercarriage (optional)'],
+      tags: ['dozer','20t class','d65','semi-swamp','wide track','bulk earthworks','civil','sigmadozer','komatsu'],
+      note: 'Komatsu D65WX-16 — 20.4t, semi-wide (WX). SAA6D114E-3, 153kW/205hp net @ 1,950rpm, 8.27L. EPA Tier 3/EU Stage 3A. 20,360kg / 38.6kPa (760mm shoe). 7 rollers, 42 shoes, 65mm grouser, 2050mm gauge, 2980mm on ground, 410mm clearance. SIGMADOZER 5.90m³ (3580×1425mm) — largest D65 SIGMADOZER. PAT 4.42m³. Fuel 415L, final drive 27L/side. Min turning 2.1m. Source: CEN00373-02.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D65EXi-18 — FULLY BROCHURE-SPECIFIED (iMC, Tier 4 Final) ──
+    // Source: Komatsu D65EXi/PXi-18 AU & NZ Brochure (Form D65EXi_PXi_01940, March 2017)
+    {
+      id:'kom-d65exi', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D65EXi-18 Crawler Dozer', shortName:'Komatsu D65EXi',
+      brochureRef: 'D65EXi_PXi_01940 (D65EXi/PXi-18 AU & NZ, March 2017)',
+
+      engineModel:         'Komatsu SAA6D114E-6',
+      engineNetKW:         162,  engineNetHP:    217,
+      engineGrossKW:       164,  engineGrossHP:  220,
+      engineRatedRPM:      1950, engineCylinders:6,
+      engineBoreMm:        114,  engineStrokeMm: 144.5,
+      engineDisplacementL: 8.85,
+      emissionStandard:    'EPA Tier 4 Final / EU Stage 4',
+      powertrain:          'TORQFLOW automatic transmission with lockup torque converter; ECMV-controlled; HSS steering; auto/manual gearshift selectable',
+
+      operatingWeightKg:      20740, operatingWeightT:20.7,
+      operatingWeightWithRipperKg: 23373,
+      groundPressureKPa:      50.0,
+
+      trackRollersPerSide: 7,   shoesPerSide:42,
+      shoeWidthMm:         610,  grouserHeightMm:65,
+      trackGaugeMm:        1880, trackLengthOnGroundMm:2970,
+      groundContactCm2:    36334, groundClearanceMm:415,
+
+      bladeType: 'SIGMADOZER (standard)',
+      blades: [
+        { config:'SIGMADOZER (EXi)', capacityM3:5.61, widthMm:3410, heightMm:1425, maxLiftMm:1135, maxDropMm:500, maxTiltMm:870, overallLengthWithDozMm:5490, groundPressureKgfCm2:0.57 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:85, note:'SIGMA blade (stroke-sensing)' },
+        bladeTilt:  { count:null, boreMm:125 },
+        bladeAngle: { count:2, boreMm:null, note:'N/A on SIGMA' },
+        ripperLift: { count:null, boreMm:125 },
+        pitchAngleDeg: '38°–52°',
+        strokeSensingCylinders: 2,
+      },
+
+      fuelTankL:415, defTankL:23.5, coolantL:49, engineOilL:30.5,
+      transmissionBevelSteeringL:48, hydraulicOilL:62,
+      finalDriveEachSideL:16.5, finalDriveWithPAIL:22,
+
+      travelSpeedsKmh: { F1:3.7, F2:5.6, F3L:7.3, F3:11.3, R1:4.5, R2:6.7, R3L:8.7, R3:13.6 },
+      steeringType: 'Hydrostatic Steering System (HSS); PCCS-lever; counter-rotation',
+      minTurningRadiusMm: 1900,
+      hydraulicPumpFlowLmin: 248, hydraulicReliefMPa: 27.9,
+
+      ripper: {
+        multiShank: { shanks:3, weightKg:1920, beamLengthMm:2170, maxLiftAboveGroundMm:640, maxDigDepthMm:590, type:'Hydraulically controlled parallelogram' },
+      },
+
+      imcSystem: {
+        version: 'Intelligent Machine Control (iMC)',
+        gnssAntennas: 1,
+        antennaMounting: 'Cab-top (factory integrated — no blade mast)',
+        imuUpdatesPerSec: 100,
+        strokeSensingCylinders: 2,
+        factoryInstalled: true,
+        features: [
+          'Full-auto blade control — rough dozing AND finish grade in automatic mode',
+          'Cab-top GNSS antenna — no blade-mounted components; no daily installation/removal',
+          'Enhanced IMU+ — 100 positional updates/second for high-speed automatic operation',
+          'Stroke-sensing lift cylinders — exact blade angle and position known at all times',
+          'Blade load control — monitors load, adjusts elevation; minimises track slip; keeps blade full',
+          'As-built surface track mapping — real-time elevation measurement as machine works',
+          'Network RTK ready; UHF / UHF Digital II base station compatible; Topcon Sitelink ready',
+          'No cables, no poles, no external components — factory-assembled at Komatsu facility',
+        ],
+      },
+
+      technologyFeatures: [
+        'iMC (Intelligent Machine Control) — factory-integrated GNSS; full-auto rough dozing to finish grade; no blade sensors',
+        'SIGMADOZER blade — new digging theory: 15% more production vs semi-U; reduced spillage; blade held closer to tractor',
+        'Tier 4 Final SAA6D114E-6 — KDPF + SCR + EGR + KVGT + HPCR; >80% NOx reduction vs Tier 4 Interim',
+        'TORQFLOW with lockup TC — auto gear selection; 10% fuel reduction; direct engine-to-track connection',
+        'Auto/manual gearshift selectable; P mode / E mode; gearshift pattern presets (F1-R2 to F3L-R3L)',
+        'ECMV-controlled clutches — smooth shockless engagement; improved component life',
+        'Hydrostatic Steering System (HSS) — power to both tracks; counter-rotation; 1.9m turning radius',
+        'Cab damper mounting — silicon oil/spring long-stroke isolator; eliminates shock transmission to operator',
+        'New operator seat — lumbar support, tilt adjust, electric seat heater; standard heated rear window',
+        'Rear view camera system (standard); integrated ROPS/FOPS cab (no external posts)',
+        'Hydraulically driven reversible cooling fan; self-adjusting idler support',
+        'PLUS undercarriage — rotating bushing doubles service life; 40% lower maintenance cost',
+        'KOMTRAX Level 5 (includes iMC reporting); Komplimentary Maintenance (3yr/2000hr standard)',
+        'Operator noise: 75 dB',
+      ],
+
+      attachmentsAvailable: ['SIGMADOZER 5.61 m³ (standard)', 'Multi-shank ripper (3 shanks, 1920kg)', 'KOMTRAX', 'iMC (standard factory)'],
+      tags: ['dozer','21t class','d65','imc','machine control','gnss','automated grading','sigmadozer','tier 4 final','bulk earthworks','civil','subdivision','road formation','komatsu','au spec'],
+      note: 'Komatsu D65EXi-18 — 20.7t (drawbar) / 23.4t (with ripper). SAA6D114E-6, 162kW/217HP net (164kW/220HP gross) @ 1,950rpm, 6-cyl, 114×144.5mm, 8.85L. EPA Tier 4 Final. TORQFLOW auto + lockup TC; ECMV; HSS. 20,740kg (drawbar) / 50kPa (610mm shoe). 7 rollers, 42 shoes, 65mm grouser, 1880mm gauge, 2970mm on ground, 415mm clearance. PLUS undercarriage. SIGMADOZER 5.61m³ (3410×1425mm); lift 1135mm / drop 500mm / tilt 870mm. iMC: cab-top GNSS, IMU+ 100 updates/sec, 2 stroke-sensing cylinders, full auto rough-to-finish, as-built mapping, Network RTK. Multi-shank ripper: 1920kg, 2170mm beam, 640mm lift, 590mm dig. Fuel 415L, DEF 23.5L, coolant 49L, engine 30.5L, trans 48L, hyd 62L, final drive 16.5L/side. F1 3.7/F2 5.6/F3L 7.3/F3 11.3; R1 4.5/R2 6.7/R3L 8.7/R3 13.6 km/h. Min turning 1.9m. 75dB operator noise. Source: D65EXi_PXi_01940 (March 2017).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D65PXi-18 — FULLY BROCHURE-SPECIFIED (iMC, Wide Track) ──
+    {
+      id:'kom-d65pxi', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D65PXi-18 Crawler Dozer', shortName:'Komatsu D65PXi',
+      brochureRef: 'D65EXi_PXi_01940 (D65EXi/PXi-18 AU & NZ, March 2017)',
+
+      engineModel:'Komatsu SAA6D114E-6', engineNetKW:162, engineNetHP:217,
+      engineGrossKW:164, engineGrossHP:220, engineRatedRPM:1950,
+      engineCylinders:6, engineBoreMm:114, engineStrokeMm:144.5,
+      engineDisplacementL:8.85, emissionStandard:'EPA Tier 4 Final / EU Stage 4',
+      powertrain:'TORQFLOW automatic transmission with lockup torque converter; ECMV; HSS steering',
+
+      operatingWeightKg:      22660, operatingWeightT:22.7,
+      operatingWeightWithRipperKg: 24293,
+      groundPressureKPa:      44.0,
+
+      trackRollersPerSide:7, shoesPerSide:42,
+      shoeWidthMm:760, grouserHeightMm:65,
+      trackGaugeMm:2230, trackLengthOnGroundMm:2970,
+      groundContactCm2:45145, groundClearanceMm:415,
+
+      bladeType: 'Power Angle Tilt (PAT) — inside mounted',
+      blades: [
+        { config:'PAT (PXi)', capacityM3:4.42, widthMm:4010, heightMm:1235, maxLiftMm:1170, maxDropMm:695, maxTiltMm:520, overallLengthWithDozMm:5790, groundPressureKgfCm2:0.52 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:90, note:'PAT' },
+        bladeTilt:  { count:null, boreMm:150 },
+        bladeAngle: { count:2, boreMm:110 },
+        ripperLift: { count:null, boreMm:125 },
+        pitchAngleDeg: '52°',
+        strokeSensingCylinders: 3,
+      },
+
+      fuelTankL:415, defTankL:23.5, coolantL:49, engineOilL:30.5,
+      transmissionBevelSteeringL:48, hydraulicOilL:62,
+      finalDriveEachSideL:22,
+
+      travelSpeedsKmh:{ F1:3.7, F2:5.6, F3L:7.3, F3:11.3, R1:4.5, R2:6.7, R3L:8.7, R3:13.6 },
+      steeringType:'Hydrostatic Steering System (HSS); PCCS-lever; counter-rotation',
+      minTurningRadiusMm:2100,
+      hydraulicPumpFlowLmin:248, hydraulicReliefMPa:27.9,
+
+      ripper: {
+        multiShank:{ shanks:3, weightKg:1920, beamLengthMm:2170, maxLiftAboveGroundMm:640, maxDigDepthMm:590 },
+      },
+
+      imcSystem: {
+        version: 'Intelligent Machine Control (iMC)',
+        gnssAntennas: 1,
+        antennaMounting: 'Cab-top (factory integrated)',
+        imuUpdatesPerSec: 100,
+        strokeSensingCylinders: 3,
+        factoryInstalled: true,
+        features: [
+          'Full-auto blade control — rough dozing AND finish grade in automatic mode',
+          'Cab-top GNSS antenna — no blade-mounted components; no daily installation/removal',
+          'Enhanced IMU+ — 100 positional updates/second; high-speed automatic operations',
+          '3 stroke-sensing cylinders (PAT blade) — exact lift, tilt and angle position known',
+          'Blade load control — adjusts elevation to minimise track slip; maximum production',
+          'As-built surface track mapping; Network RTK ready; UHF / UHF Digital II compatible',
+        ],
+      },
+
+      technologyFeatures: [
+        'Wide-gauge (2230mm) with 760mm shoe — 44.0 kPa — iMC precision grading on semi-soft ground',
+        '3 stroke-sensing cylinders (PAT) — exact lift, tilt and angle position for iMC accuracy on wide track',
+        'PAT blade with power angle and tilt — 4.42 m³; hydraulic tilt and angle; versatile applications',
+        'iMC cab-top GNSS; IMU+ 100 updates/sec; full auto rough-to-finish; as-built mapping; Network RTK',
+        'All D65EXi-18 features: Tier 4 Final SAA6D114E-6; TORQFLOW + lockup TC; ECMV; SIGMADOZER option; PLUS undercarriage; 75dB; KOMTRAX Level 5',
+      ],
+
+      attachmentsAvailable: ['PAT blade 4.42 m³ (PXi, standard)', 'Multi-shank ripper (3 shanks, 1920kg)', 'iMC (standard factory)', 'KOMTRAX'],
+      tags: ['dozer','22.7t class','d65','imc','machine control','gnss','wide track','soft ground','lgp','automated grading','tier 4 final','bulk earthworks','civil','komatsu','au spec'],
+      note: 'Komatsu D65PXi-18 — 22.7t (drawbar) / 24.3t (with ripper), wide-track (PX) with factory iMC. SAA6D114E-6, 162kW/217HP net @ 1,950rpm, 8.85L. EPA Tier 4 Final. 22,660kg / 44.0kPa (760mm shoe). 7 rollers, 42 shoes, 65mm grouser, 2230mm gauge, 415mm clearance. PAT blade 4.42m³ (4010×1235mm); lift 1170mm / drop 695mm / tilt 520mm. iMC: cab-top GNSS, IMU+ 100 updates/sec, 3 stroke-sensing cylinders (PAT), full auto rough-to-finish, as-built mapping. Multi-shank ripper: 1920kg, 2170mm, 640mm lift, 590mm dig. Fuel 415L, DEF 23.5L, final drive 22L/side. F1 3.7/F2 5.6/F3L 7.3/F3 11.3 km/h. Min turning 2.1m. 75dB. Source: D65EXi_PXi_01940 (March 2017).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D71EX-24 / D71EXi-24 — FULLY BROCHURE-SPECIFIED ──────
+    // Source: Komatsu D71EX/PX-24 / D71EXi/PXi-24 Brochure (AU & NZ, EPA Tier 4 Final)
+    {
+      id:'kom-d71ex', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D71EX-24 Crawler Dozer', shortName:'Komatsu D71EX',
+      brochureRef: 'Komatsu D71EX/PX-24 / D71EXi/PXi-24 (AU & NZ, EPA Tier 4 Final)',
+
+      engineModel:         'Komatsu SAA6D114E-6',
+      engineNetKW:         177,  engineNetHP:    237,
+      engineGrossKW:       179,  engineGrossHP:  240,
+      engineRatedRPM:      2100, engineCylinders:6,
+      engineBoreMm:        114,  engineStrokeMm: 144.5,
+      engineDisplacementL: 8.85,
+      emissionStandard:    'EPA Tier 4 Final / EU Stage V',
+      powertrain:          'Hydrostatic Transmission (HST) — dual-path, fully electronic, infinite variable speed to 11 km/h',
+
+      operatingWeightKg:22600, operatingWeightT:22.6, groundPressureKPa:55.5,
+
+      variants: [
+        { name:'D71EX-24 (standard)',  weightKg:22600 },
+        { name:'D71EXi-24 (iMC 2.0)', weightKg:22700 },
+      ],
+
+      trackRollersPerSide:8, shoesPerSide:45,
+      shoeWidthMm:610, grouserHeightMm:65,
+      trackGaugeMm:2230, trackLengthOnGroundMm:3275,
+      groundContactCm2:39960, groundClearanceMm:410,
+      undercarriageType:'PLUS (Parallel Link Undercarriage System) — standard',
+
+      dimensions: {
+        overallLengthWithDozMm:5810, overallLengthMm:6515,
+        machineWidthOverTracksMm:3575, machineHeightMm:3170,
+        trackGaugeMm:2230, trackOnGroundMm:3275, shoeWidthMm:610,
+        groundClearanceMm:410, bladeWidthMm:3870, bladeHeightMm:1265,
+      },
+
+      bladeType: 'Power Angle & Tilt (PAT) with adjustable pitch; super-slant nose',
+      blades: [
+        { config:'PAT Dozer (D71EXi-24)', capacityM3:4.42, capacityYd3:5.78, widthMm:3870, heightMm:1265, maxLiftMm:1090, maxDropMm:705, maxTiltMm:500 },
+      ],
+
+      fuelTankL:439, coolantL:54.5, engineOilL:30.5,
+      hydraulicTankL:154, finalDriveEachSideL:10, defTankL:20,
+
+      travelSpeedsKmh: {
+        quickShift:{ F1:3.8, F2:6.5, F2_5:8.4, F3:11.0, R1:4.5, R2:7.5, R2_5:9.3, R3:11.0 },
+        variableMode:{ minFwd:0.8, maxFwd:11.0, minRev:0.8, maxRev:11.0 },
+      },
+      steeringType:'HST, PCCS joystick, counter-rotation — no steering clutches/brakes',
+      minTurningRadiusMm:3100,
+      hydraulicPumpFlowLmin:235, hydraulicReliefMPa:28.8,
+
+      ripper:{ type:'Multi-shank, fixed angle, 3 shanks (standard)', weightKg:1900, beamLengthMm:2170, maxLiftMm:640, maxDigDepthMm:580 },
+
+      technologyFeatures: [
+        'Hydrostatic Transmission (HST) — infinite variable speed 0.8–11 km/h; 4 speed presets OR 20-step stepless',
+        'Consistent engine power to tracks regardless of blade load — superior to TORQFLOW in variable conditions',
+        'Super-slant nose design — class-leading blade visibility',
+        'Large PAT blade 4.42m³ (EX) — pitch adjustable for varied ground conditions',
+        'Enhanced steering mode — FNR shift response, adjustable turning speed; Fast steering mode',
+        'Enhanced blade mode — operator-adjustable drop speed, tilt, and lift response with quick-drop feature',
+        'PCCS — combined decelerator/brake pedal, single-pedal speed control, mode-selector',
+        'Long track-on-ground (3275mm) + oscillating track frame — superior dozing stability',
+        'PLUS undercarriage (STANDARD) — rotating bushings, up to 40% lower maintenance, 2× wear life',
+        'Hydraulically-driven swing-up fan — gas strut access, cleaning mode (reverse direction)',
+        'Remote grease nipple for equaliser bar side pins; easy oil/coolant/hyd sampling ports',
+        'LED lights; Bluetooth audio (AUX/USB/BT); operator presence sensing system',
+        'iMC 2.0 (D71EXi-24 only) — factory integrated 3D GNSS, dual antenna, Proactive Dozing Control, Lift Layer Control, Quick Surface Creation, Tilt Steering Control; no blade-mounted cables',
+        'KOMTRAX fleet monitoring standard',
+      ],
+
+      attachmentsAvailable: ['Multi-shank ripper (3 shanks, standard)', 'PAT blade with pitch adjustment'],
+      specialtyArrangements: ['D71EX-24 (standard, no iMC)', 'D71EXi-24 (iMC 2.0 factory-integrated)', 'PLUS undercarriage standard on both'],
+
+      tags: ['dozer','22t class','d71','hst','hydrostatic','imc','machine control','grading','bulk earthworks','civil','subdivision','road formation','tier 4','komatsu'],
+      note: 'Komatsu D71EX-24 / D71EXi-24 Crawler Dozer (AU/NZ spec) — 22.6t (EX) / 22.7t (EXi). SAA6D114E-6, 177kW/237hp net (179kW/240hp gross) @ 2,100rpm, 6-cyl, 114×144.5mm, 8.85L. EPA Tier 4 Final/EU Stage V. HST infinite variable 0.8–11 km/h. 22,600kg / 55.5kPa (610mm shoe). 8 rollers, 45 shoes, 65mm grouser, 2230mm gauge, 3275mm on ground, 410mm clearance. PLUS undercarriage standard. PAT blade 4.42m³ (3870×1265mm); lift 1090mm / drop 705mm / tilt 500mm. Multi-shank ripper std: 1900kg, 2170mm beam, 640mm lift, 580mm dig. Fuel 439L, coolant 54.5L, engine 30.5L, hyd tank 154L, final drive 10L/side, DEF 20L. HST quick-shift: F 3.8/6.5/8.4/11.0 km/h; R 4.5/7.5/9.3/11.0 km/h. Variable 0.8–11 km/h. Min turning 3.1m. D71EXi-24 adds iMC 2.0: dual GNSS, proactive dozing, lift layer, tilt steering. Source: Komatsu D71EX/PX-24 Brochure (AU/NZ).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D71PX-24 / D71PXi-24 — FULLY BROCHURE-SPECIFIED ──────
+    {
+      id:'kom-d71px', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D71PX-24 Crawler Dozer', shortName:'Komatsu D71PX',
+      brochureRef: 'Komatsu D71EX/PX-24 / D71EXi/PXi-24 (AU & NZ)',
+
+      engineModel:'Komatsu SAA6D114E-6', engineNetKW:177, engineNetHP:237,
+      engineGrossKW:179, engineGrossHP:240, engineRatedRPM:2100,
+      engineCylinders:6, engineBoreMm:114, engineStrokeMm:144.5,
+      engineDisplacementL:8.85, emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      powertrain:'HST dual-path, fully electronic, infinite variable speed to 11 km/h',
+
+      operatingWeightKg:23100, operatingWeightT:23.1, groundPressureKPa:45.5,
+
+      trackRollersPerSide:8, shoesPerSide:45,
+      shoeWidthMm:760, grouserHeightMm:65,
+      trackGaugeMm:2230, trackLengthOnGroundMm:3275,
+      groundContactCm2:49780, groundClearanceMm:410,
+
+      dimensions: {
+        overallLengthWithDozMm:5810, trackGaugeMm:2230, trackOnGroundMm:3275,
+        shoeWidthMm:760, groundClearanceMm:410, bladeWidthMm:4010, bladeHeightMm:1265,
+      },
+
+      bladeType: 'Power Angle & Tilt (PAT) with adjustable pitch',
+      blades: [
+        { config:'PAT Dozer (D71PXi-24)', capacityM3:4.65, capacityYd3:6.08, widthMm:4010, heightMm:1265, maxLiftMm:1090, maxDropMm:705, maxTiltMm:515 },
+      ],
+
+      fuelTankL:439, coolantL:54.5, engineOilL:30.5, hydraulicTankL:154, finalDriveEachSideL:10, defTankL:20,
+
+      travelSpeedsKmh:{ quickShift:{ F1:3.8, F2:6.5, F2_5:8.4, F3:11.0, R1:4.5, R2:7.5, R2_5:9.3, R3:11.0 } },
+      steeringType:'HST, PCCS, counter-rotation', minTurningRadiusMm:3100,
+
+      ripper:{ type:'Multi-shank, fixed angle, 3 shanks', weightKg:1900, beamLengthMm:2170, maxLiftMm:640, maxDigDepthMm:580 },
+
+      technologyFeatures: [
+        'Wide-track (760mm shoe / 2230mm gauge) — 45.5kPa for soft/unstable ground',
+        'HST infinite variable speed; 4 preset or 20-step stepless; consistent power regardless of blade load',
+        'Larger PAT blade 4.65m³ — wider than EX variant',
+        'PLUS undercarriage standard; iMC 2.0 available (D71PXi-24)',
+        '3M folding blade option — transport width 2960mm',
+        'Enhanced steering/blade modes; swing-up fan; LED lights; KOMTRAX',
+      ],
+
+      tags: ['dozer','23t class','d71','wide track','soft ground','hst','imc','bulk earthworks','civil','tier 4','komatsu'],
+      note: 'Komatsu D71PX-24 / D71PXi-24 — 23.1t (PX) / 23.2t (PXi). SAA6D114E-6, 177kW/237hp net @ 2,100rpm, 8.85L. EPA Tier 4 Final. HST. 760mm shoe / 45.5kPa. 8 rollers, 45 shoes, 65mm grouser, 2230mm gauge, 3275mm on ground. PAT blade 4.65m³ (4010×1265mm). Multi-shank ripper std. Fuel 439L, hyd 154L, final drive 10L/side, DEF 20L. Min turning 3.1m. iMC 2.0 (PXi). 3M folding blade option. Source: Komatsu D71EX/PX-24 Brochure (AU/NZ).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D71PX-24 WIDE / D71PXi-24 WIDE ───────────────────────
+    {
+      id:'kom-d71pxw', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D71PX-24 Wide Crawler Dozer', shortName:'Komatsu D71PX Wide',
+      brochureRef: 'Komatsu D71EX/PX-24 / D71EXi/PXi-24 (AU & NZ)',
+
+      engineModel:'Komatsu SAA6D114E-6', engineNetKW:177, engineNetHP:237,
+      engineGrossKW:179, engineGrossHP:240, engineRatedRPM:2100,
+      engineCylinders:6, engineBoreMm:114, engineStrokeMm:144.5,
+      engineDisplacementL:8.85, emissionStandard:'EPA Tier 4 Final / EU Stage V',
+      powertrain:'HST dual-path, fully electronic',
+
+      operatingWeightKg:23900, operatingWeightT:23.9, groundPressureKPa:39.1,
+
+      trackRollersPerSide:8, shoesPerSide:45,
+      shoeWidthMm:915, grouserHeightMm:65,
+      trackGaugeMm:2385, trackLengthOnGroundMm:3275,
+      groundContactCm2:59930, groundClearanceMm:410,
+
+      bladeType: 'Power Angle & Tilt (PAT) — wide, adjustable pitch',
+      blades: [
+        { config:'PAT Dozer (D71PXi-24 Wide)', capacityM3:5.02, capacityYd3:6.57, widthMm:4295, heightMm:1265, maxLiftMm:1090, maxDropMm:705, maxTiltMm:555 },
+      ],
+
+      fuelTankL:439, coolantL:54.5, engineOilL:30.5, hydraulicTankL:154, finalDriveEachSideL:10, defTankL:20,
+
+      travelSpeedsKmh:{ quickShift:{ F1:3.8, F2:6.5, F2_5:8.4, F3:11.0, R1:4.5, R2:7.5, R2_5:9.3, R3:11.0 } },
+      steeringType:'HST, PCCS, counter-rotation', minTurningRadiusMm:3300,
+
+      ripper:{ type:'Multi-shank, fixed angle, 3 shanks', weightKg:1900, beamLengthMm:2170, maxLiftMm:640, maxDigDepthMm:580 },
+
+      technologyFeatures: [
+        'Super-wide (915mm shoe / 2385mm gauge) — 39.1kPa, lowest ground pressure in D71 range',
+        'Largest PAT blade in D71 range — 5.02m³ / 4295mm wide',
+        'PLUS undercarriage standard; iMC 2.0 available (D71PXi-24 Wide)',
+        'HST infinite variable; enhanced steering/blade modes',
+      ],
+
+      tags: ['dozer','24t class','d71','super wide','swamp','soft ground','lgp','bulk earthworks','tier 4','komatsu'],
+      note: 'Komatsu D71PX-24 Wide / D71PXi-24 Wide — 23.9t / 24.0t. SAA6D114E-6, 177kW/237hp net @ 2,100rpm, 8.85L. EPA Tier 4 Final. 915mm shoe / 39.1kPa — lowest GP in D71 range. 8 rollers, 45 shoes, 2385mm gauge, 3275mm on ground. PAT blade 5.02m³ (4295×1265mm) — largest D71 blade. Min turning 3.3m. iMC 2.0 available. Source: Komatsu D71EX/PX-24 Brochure (AU/NZ).',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D85EX-15E0 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu D85EX/PX-15E0 Crawler Dozer Brochure CEN00052-04
+    {
+      id:'kom-d85ex', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D85EX-15E0 Crawler Dozer', shortName:'Komatsu D85EX',
+      brochureRef: 'CEN00052-04 (D85EX/PX-15E0)',
+
+      engineModel:         'Komatsu SAA6D125E-5',
+      engineNetKW:         197,  engineNetHP:    264,
+      engineGrossKW:       199,  engineGrossHP:  266,
+      engineNetFanMaxKW:   179,  engineNetFanMaxHP:240,
+      engineRatedRPM:      1900, engineCylinders:6,
+      engineBoreMm:        125,  engineStrokeMm: 150,
+      engineDisplacementL: 11.04,
+      emissionStandard:    'EPA Tier 3 / EU Stage 3A',
+      powertrain:          'TORQFLOW automatic transmission with lockup torque converter; ECMV; Hydrostatic Steering System (HSS); PCCS joystick',
+
+      tractorWeightKg:     21220,
+      operatingWeightKg:   28100, operatingWeightT:28.1,
+      groundPressureKPa:   73.6,
+
+      trackRollersPerSide: 7,   shoesPerSide:41,
+      shoeWidthMm:         560,  grouserHeightMm:72,
+      trackGaugeMm:        2000, trackLengthOnGroundMm:3050,
+      groundContactCm2:    34160, groundClearanceMm:450,
+
+      bladeType: 'Straight Tilt (standard); Semi-U Tilt; Mechanical Angle Power Tilt',
+      blades: [
+        { config:'Straight Tilt (EX)', capacityM3:5.2, capacityYd3:6.8, widthMm:3715, heightMm:1436, maxLiftMm:1210, maxDropMm:540, maxTiltMm:750, dozerWeightKg:3305, overallLengthWithDozMm:5640, groundPressureKgfCm2:0.74 },
+        { config:'Semi-U Tilt (EX)',   capacityM3:7.0, capacityYd3:9.2, widthMm:3635, heightMm:1580, maxLiftMm:1210, maxDropMm:540, maxTiltMm:735, dozerWeightKg:3575, overallLengthWithDozMm:5795, groundPressureKgfCm2:0.75 },
+        { config:'Mech. Angle Power Tilt (EX)', capacityM3:4.0, capacityYd3:5.2, widthMm:4515, heightMm:1130, maxLiftMm:1173, maxDropMm:760, maxTiltMm:520, dozerWeightKg:3730, overallLengthWithDozMm:6035, groundPressureKgfCm2:0.75 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:100 },
+        bladeTilt:  { count:1, boreMm:150 },
+        ripperLift: { count:2, boreMm:130 },
+      },
+
+      fuelTankL:490, coolantL:58, engineOilL:38,
+      transmissionBevelSteeringL:60, hydraulicOilL:67,
+      finalDriveEachSideL:26,
+      hydraulicOilRipperAdditionalL:11,
+
+      travelSpeedsKmh: { F1:3.3, F2:6.1, F3:10.1, R1:4.4, R2:8.0, R3:13.0 },
+      steeringType: 'Hydrostatic Steering System (HSS); PCCS-lever; wet multi-disc service brakes; counter-rotation',
+      minTurningRadiusMm: 1990,
+      hydraulicPumpFlowLmin: 195, hydraulicReliefMPa: 22.6,
+
+      ripper: {
+        multiShank: { shanks:3, weightKg:2500, beamLengthMm:2246, maxLiftAboveGroundMm:564, maxDigDepthMm:653, type:'Hydraulically controlled parallelogram' },
+      },
+
+      technologyFeatures: [
+        'Extra-low machine profile — excellent machine balance and low centre of gravity',
+        'Semi-U tilt dozer 7.0 m³ — outstanding production capacity in the D85 class',
+        'SAA6D125E-5 — 197kW/264HP net; EPA Tier 3/EU Stage 3A; direct injection, turbo + air-to-air aftercooler, cooled EGR',
+        'TORQFLOW with lockup torque converter + ECMV — smooth, shockless gear engagement; maximum efficiency',
+        'Hydrostatic Steering System (HSS) — power to both tracks simultaneously; counter-rotation; shock-free turns',
+        'PCCS palm command joystick — travel; PPC-controlled blade joystick for precision grading',
+        'Auto downshift function — controller monitors speed and load; auto-downshifts under load',
+        'Preset travel speed — 4 patterns (F1-R1, F1-R2, F2-R1, F2-R2); reduces shift frequency',
+        'Hydrostatic-driven fan — auto speed by coolant/oil temperature; reverse-cleaning mode',
+        'Centralized service station — filters, gauges and hydraulic tank all on right side',
+        'New hexagonal cab — large tinted glass; pressurised (optional); superior 360° visibility',
+        'Silicon-oil cab damper mounts — excellent shock and vibration isolation',
+        'New suspension seat — fore/aft sliding rails; improved support; optional 15° swivel for ripper visibility',
+        'Low-drive long-track undercarriage — large-diameter bushings; lubricated tracks; improved oil seals',
+        'KOMTRAX satellite monitoring (standard)',
+      ],
+
+      attachmentsAvailable: ['Straight Tilt dozer (5.2 m³)', 'Semi-U Tilt dozer (7.0 m³)', 'Mech. angle power tilt dozer (4.0 m³)', 'Multi-shank ripper (3 shanks, 2500kg)', 'KOMTRAX'],
+      tags: ['dozer','28t class','d85','bulk earthworks','civil','mining','road formation','ripping','komatsu'],
+      note: 'Komatsu D85EX-15E0 — 28.1t operating (21.2t tractor). SAA6D125E-5, 197kW/264HP net (199kW/266HP gross) @ 1,900rpm, 6-cyl, 125×150mm, 11.04L. EPA Tier 3/EU Stage 3A. TORQFLOW + lockup TC; ECMV; HSS. 28,100kg / 73.6kPa (560mm shoe). 7 rollers, 41 shoes, 72mm grouser, 2000mm gauge, 3050mm on ground, 450mm clearance. Semi-U tilt 7.0m³ (3635×1580mm); Straight tilt 5.2m³; Mech. angle 4.0m³. Multi-shank ripper: 2500kg, 2246mm, 564mm lift, 653mm dig. Fuel 490L, coolant 58L, engine 38L, trans 60L, hyd 67L, final drive 26L/side. F1 3.3/F2 6.1/F3 10.1; R1 4.4/R2 8.0/R3 13.0 km/h. Min turning 1.99m. Source: CEN00052-04.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D85PX-15E0 — FULLY BROCHURE-SPECIFIED ────────────────
+    {
+      id:'kom-d85px', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D85PX-15E0 Crawler Dozer', shortName:'Komatsu D85PX',
+      brochureRef: 'CEN00052-04 (D85EX/PX-15E0)',
+
+      engineModel:'Komatsu SAA6D125E-5', engineNetKW:197, engineNetHP:264,
+      engineGrossKW:199, engineGrossHP:266, engineRatedRPM:1900,
+      engineCylinders:6, engineBoreMm:125, engineStrokeMm:150,
+      engineDisplacementL:11.04, emissionStandard:'EPA Tier 3 / EU Stage 3A',
+      powertrain:'TORQFLOW automatic transmission with lockup torque converter; ECMV; HSS steering; PCCS joystick',
+
+      tractorWeightKg:     23500,
+      operatingWeightKg:   27650, operatingWeightT:27.7,
+      groundPressureKPa:   43.1,
+
+      trackRollersPerSide: 8,   shoesPerSide:45,
+      shoeWidthMm:         910,  grouserHeightMm:72,
+      trackGaugeMm:        2250, trackLengthOnGroundMm:3480,
+      groundContactCm2:    63340, groundClearanceMm:450,
+
+      bladeType: 'Straight Tilt (PX) — wide track',
+      blades: [
+        { config:'Straight Tilt (PX)', capacityM3:5.9, capacityYd3:7.7, widthMm:4365, heightMm:1370, maxLiftMm:1230, maxDropMm:570, maxTiltMm:500, dozerWeightKg:3343, overallLengthWithDozMm:6015, groundPressureKgfCm2:0.44 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift: { count:2, boreMm:100 },
+        bladeTilt:  { count:1, boreMm:150 },
+      },
+
+      fuelTankL:490, coolantL:58, engineOilL:38,
+      transmissionBevelSteeringL:60, hydraulicOilL:67, finalDriveEachSideL:26,
+
+      travelSpeedsKmh:{ F1:3.3, F2:6.0, F3:10.0, R1:4.4, R2:7.9, R3:12.7 },
+      steeringType:'Hydrostatic Steering System (HSS); PCCS-lever; wet multi-disc brakes; counter-rotation',
+      minTurningRadiusMm:2240,
+      hydraulicPumpFlowLmin:195, hydraulicReliefMPa:22.6,
+
+      technologyFeatures: [
+        'Wide-gauge (2250mm) with 910mm shoe — 43.1 kPa for swampy/soft ground conditions',
+        '8 track rollers + 45 shoes; 3480mm track on ground — greatest stability in D85 range',
+        'Straight tilt blade 5.9 m³ (4365×1370mm) — wide-format blade matched to wide track',
+        'Low-drive long-track undercarriage — large-diameter lubricated bushings; exceptional grading stability',
+        'All D85EX-15E0 features: 197kW; TORQFLOW + lockup TC; HSS counter-rotation; PCCS; auto downshift; centralized service; KOMTRAX',
+      ],
+
+      attachmentsAvailable: ['Straight Tilt dozer 5.9 m³ (PX)', 'KOMTRAX'],
+      tags: ['dozer','27.7t class','d85','wide track','soft ground','lgp','swamp','civil','bulk earthworks','komatsu'],
+      note: 'Komatsu D85PX-15E0 — 27.7t operating (23.5t tractor), wide-track (PX). SAA6D125E-5, 197kW/264HP net @ 1,900rpm, 11.04L. EPA Tier 3/EU Stage 3A. 27,650kg / 43.1kPa (910mm shoe). 8 rollers, 45 shoes, 72mm grouser, 2250mm gauge, 3480mm on ground, 450mm clearance. Straight tilt 5.9m³ (4365×1370mm). No ripper. Fuel 490L, final drive 26L/side. Min turning 2.24m. Source: CEN00052-04.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D85EX-18 — FULLY BROCHURE-SPECIFIED (Tier 4 Final) ────
+    // Source: Komatsu D85EX-18/D85PX-18/D85EXi-18/D85PXi-18 Brochure EN-D85BR01-0922-V2
+    {
+      id:'kom-d85ex18', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D85EX-18 Crawler Dozer', shortName:'Komatsu D85EX-18',
+      brochureRef: 'EN-D85BR01-0922-V2 (D85EX/PX/EXi/PXi-18)',
+
+      engineModel:         'Komatsu SAA6D125E-7',
+      engineNetKW:         197,  engineNetHP:    264,
+      engineGrossKW:       199,  engineGrossHP:  267,
+      engineRatedRPM:      1900, engineCylinders:6,
+      engineBoreMm:        125,  engineStrokeMm: 150,
+      engineDisplacementL: 11.04,
+      emissionStandard:    'EPA Tier 4 Final',
+      powertrain:          'TORQFLOW automatic transmission; ECMV-controlled; Hydrostatic Steering System (HSS); PCCS joystick; auto/manual gearshift selectable; P/E mode',
+
+      tractorShippingWeightKg: 26540,
+      operatingWeightKg:   30670, operatingWeightT:30.7,
+      groundPressureKPa:   65,   // ISO 16754 — with semi-U blade + ripper
+
+      trackRollersPerSide: 7,   shoesPerSide:41,
+      shoeWidthMm:         660,  grouserHeightMm:72,
+      trackGaugeMm:        2000, trackLengthOnGroundMm:3050,
+      groundContactCm2:    45920, groundClearanceMm:450,
+      undercarriageType:   'Heavy-duty sealed and lubricated track (standard); PLUS rotating-bushing undercarriage optional',
+      minTurningRadiusMm:  2000,
+
+      bladeType: 'Semi-U Tilt (standard); Sigmadozer (optional)',
+      blades: [
+        { config:'Semi-U Tilt (EX-18)',  capacityM3:7.0, capacityYd3:9.2, widthMm:3635, heightMm:1600, maxLiftMm:1175, maxDropMm:530, maxTiltMm:735, dozerWeightKg:3780, overallLengthWithDozMm:5820, groundPressureKPa:65 },
+        { config:'Sigmadozer (EX-18)',    capacityM3:7.2, capacityYd3:9.4, widthMm:3575, heightMm:1665, maxLiftMm:1215, maxDropMm:590, maxTiltMm:700, dozerWeightKg:4030, overallLengthWithDozMm:5810, groundPressureKPa:66 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:    { count:2, boreMm:100 },
+        bladeTilt:    { count:1, boreMm:150 },
+        bladeAngle:   { count:1, boreMm:150, note:'Sigmadozer only' },
+        ripperLift:   { count:2, boreMm:130 },
+        pitchAngleSigmaDeg: '45°–51°',
+      },
+
+      fuelTankL:470, defTankL:23.5, coolantL:65, engineOilL:38,
+      damperCaseL:1.6, transmissionBevelSteeringL:60,
+      hydraulicOilL:69, finalDriveEachSideL:26,
+      hydraulicOilRipperAdditionalL:11,
+
+      travelSpeedsKmh: { F1:3.3, F2:6.1, F3L:7.8, F3:10.1, R1:4.4, R2:8.0, R3L:9.2, R3:13.0 },
+      steeringType: 'Hydrostatic Steering System (HSS); PCCS joystick; wet multi-disc spring-applied brakes; counter-rotation',
+      hydraulicPumpFlowLmin: 331, hydraulicReliefMPa: 22.6,
+
+      dimensions: {
+        overallLengthWithDozAndRipperMm:7325, overallHeightMm:3290,
+        trackGaugeMm:2000, trackOnGroundMm:3050,
+        shoeWidthMm:660, grouserHeightMm:72, groundClearanceMm:450,
+        overallWidthWithBladeMm:4275,
+        C1Mm:3322, C2Mm:3498,
+      },
+
+      ripper: {
+        threeShank: { shanks:3, weightKg:2500, beamLengthMm:2246, maxLiftAboveGroundMm:565, maxDigDepthMm:655, type:'Hydraulically controlled' },
+      },
+
+      technologyFeatures: [
+        'Tier 4 Final SAA6D125E-7 — KDPF + SCR + cooled EGR + KVGT + HPCR; >90% NOx/PM reduction vs Tier 3',
+        'Variable Geometry Turbocharger (VGT) — hydraulic actuator; optimal airflow across all speed/load conditions',
+        'SIGMADOZER option — 7.2m³; frontal-centre digging/rolling design; 15% more production vs conventional semi-U; 15% less fuel vs conventional model',
+        'Automatic TORQFLOW transmission — auto-selects optimal gear; manual mode also selectable; ECMV clutch control',
+        'Auto gearshift / manual gearshift selectable; P mode (full power) / E mode (economy); gearshift pattern presets (F1-R2 to F3L-R3L)',
+        'Hydrostatic Steering System (HSS) — power to both tracks; counter-rotation; 2.0m turning radius',
+        'PCCS palm command joystick — precise, low-fatigue control; thumb buttons for gear changes',
+        'Hydraulically driven reversible cooling fan — auto speed by coolant/oil temp; manual reverse-clean mode',
+        'Komatsu auto idle shutdown — programmable 5–60 min to reduce idle fuel/emissions',
+        'High-pressure common rail (HPCR) fuel injection — optimal combustion; reduced PM + fuel use',
+        'Integrated ROPS cab (ISO 3471) — no external posts; superior side visibility; heated air-suspension seat',
+        'Large 7-inch multi-colour LCD monitor — on-board diagnostics, ecology guidance, rearview camera',
+        'Rearview monitoring system standard; LED worklights (5 positions)',
+        'Bluetooth/USB audio; 2× 12V power ports; aux plug',
+        'PLUS undercarriage optional — rotating bushings; doubles service life vs conventional',
+        'Parallel Link Undercarriage System (PLUS) option — rotating bushing eliminates bushing wear; self-adjusting idler support',
+        'Wide-core cooling system — 6 fins/inch square-wave fins; self-cleaning; reduces maintenance',
+        'KOMTRAX Level 5 telematics standard',
+        'Komatsu Care complimentary maintenance — first 3 years or 2,000 hours',
+      ],
+
+      attachmentsAvailable: ['Semi-U tilt dozer 7.0m³ (standard)', 'Sigmadozer 7.2m³ (optional)', 'Three-shank ripper (2500kg, 655mm dig)', 'PLUS undercarriage (optional)', 'KOMTRAX'],
+      tags: ['dozer','31t class','d85','tier 4 final','bulk earthworks','civil','mining','road formation','ripping','sigmadozer','auto transmission','komatsu'],
+      note: 'Komatsu D85EX-18 Crawler Dozer — 30.7t (semi-U config). SAA6D125E-7, 197kW/264HP net (199kW/267HP gross) @ 1,900rpm, 6-cyl, 125×150mm, 11.04L. EPA Tier 4 Final (KDPF+SCR+EGR+VGT). TORQFLOW auto + ECMV; HSS; PCCS. 30,670kg / 65kPa (660mm shoe, with semi-U + ripper). 7 rollers, 41 shoes, 72mm grouser, 2000mm gauge, 3050mm on ground, 450mm clearance. Semi-U tilt 7.0m³ (3635×1600mm); Sigmadozer 7.2m³ (3575×1665mm). Three-shank ripper optional: 2500kg, 2246mm beam, 565mm lift, 655mm dig. Fuel 470L, DEF 23.5L, coolant 65L, engine 38L, trans 60L, hyd 69L, final drive 26L/side. F1 3.3/F2 6.1/F3L 7.8/F3 10.1; R1 4.4/R2 8.0/R3L 9.2/R3 13.0 km/h. Min turning 2.0m. Hyd pump 331L/min; relief 22.6MPa. Tractor shipping weight 26,540kg. Source: EN-D85BR01-0922-V2.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D85PX-18 — FULLY BROCHURE-SPECIFIED (Tier 4 Final, Wide Track) ──
+    {
+      id:'kom-d85px18', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D85PX-18 Crawler Dozer', shortName:'Komatsu D85PX-18',
+      brochureRef: 'EN-D85BR01-0922-V2 (D85EX/PX/EXi/PXi-18)',
+
+      engineModel:         'Komatsu SAA6D125E-7',
+      engineNetKW:         197,  engineNetHP:    264,
+      engineGrossKW:       199,  engineGrossHP:  267,
+      engineRatedRPM:      1900, engineCylinders:6,
+      engineBoreMm:        125,  engineStrokeMm: 150,
+      engineDisplacementL: 11.04,
+      emissionStandard:    'EPA Tier 4 Final',
+      powertrain:          'TORQFLOW automatic transmission; ECMV-controlled; Hydrostatic Steering System (HSS); PCCS joystick; auto/manual gearshift selectable; P/E mode',
+
+      tractorShippingWeightKg: 25810,
+      operatingWeightKg:   29300, operatingWeightT:29.3,
+      groundPressureKPa:   41,   // ISO 16754 — with straight blade + drawbar
+
+      trackRollersPerSide: 8,   shoesPerSide:45,
+      shoeWidthMm:         910,  grouserHeightMm:72,
+      trackGaugeMm:        2250, trackLengthOnGroundMm:3480,
+      groundContactCm2:    70780, groundClearanceMm:450,
+      undercarriageType:   'Heavy-duty sealed and lubricated track (standard); PLUS rotating-bushing undercarriage optional',
+      minTurningRadiusMm:  2200,
+
+      bladeType: 'Straight Tilt (PX-18) — wide track',
+      blades: [
+        { config:'Straight Tilt (PX-18)', capacityM3:5.9, capacityYd3:7.7, widthMm:4355, heightMm:1400, maxLiftMm:1230, maxDropMm:560, maxTiltMm:500, dozerWeightKg:3140, overallLengthWithDozMm:6025, groundPressureKPa:41 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:100 },
+        bladeTilt:  { count:1, boreMm:150 },
+        pitchAngleDeg: '52°–58°',
+      },
+
+      fuelTankL:470, defTankL:23.5, coolantL:65, engineOilL:38,
+      damperCaseL:1.6, transmissionBevelSteeringL:60,
+      hydraulicOilL:69, finalDriveEachSideL:36,
+
+      travelSpeedsKmh: { F1:3.3, F2:6.1, F3L:7.8, F3:10.1, R1:4.4, R2:8.0, R3L:9.2, R3:13.0 },
+      steeringType: 'Hydrostatic Steering System (HSS); PCCS joystick; wet multi-disc spring-applied brakes; counter-rotation',
+      hydraulicPumpFlowLmin: 331, hydraulicReliefMPa: 22.6,
+
+      dimensions: {
+        overallLengthWithDozAndDrawbarMm:6435, overallHeightMm:3290,
+        trackGaugeMm:2250, trackOnGroundMm:3480,
+        shoeWidthMm:910, grouserHeightMm:72, groundClearanceMm:450,
+        overallWidthWithBladeMm:4685,
+        C1Mm:3322, C2Mm:3498,
+      },
+
+      technologyFeatures: [
+        'Wide-gauge (2250mm) with 910mm shoe — 41 kPa ground pressure for soft/wet ground conditions',
+        '8 track rollers per side + 45 shoes; 3480mm track on ground — widest stability in D85-18 range',
+        'Straight tilt blade 5.9m³ (4355×1400mm) — matched to wide PX track; swampy site capability',
+        'Tier 4 Final SAA6D125E-7 — KDPF + SCR + EGR + VGT + HPCR; >90% NOx/PM reduction vs Tier 3',
+        'TORQFLOW auto transmission; ECMV; HSS counter-rotation; PCCS joystick; auto/manual gearshift; P/E mode',
+        'Hydraulically driven reversible cooling fan; komatsu auto idle shutdown (5–60 min programmable)',
+        'Integrated ROPS cab; 7-inch LCD monitor; rearview camera; LED worklights; Bluetooth/USB audio',
+        'PLUS undercarriage optional — rotating bushing doubles service life',
+        'Wide-core cooling system; KOMTRAX Level 5; Komatsu Care 3yr/2000hr complimentary maintenance',
+      ],
+
+      attachmentsAvailable: ['Straight tilt dozer 5.9m³ (PX-18)', 'Long drawbar', 'PLUS undercarriage (optional)', 'KOMTRAX'],
+      tags: ['dozer','29t class','d85','wide track','soft ground','lgp','swamp','tier 4 final','bulk earthworks','civil','road formation','komatsu'],
+      note: 'Komatsu D85PX-18 Crawler Dozer — 29.3t, wide-track (PX). SAA6D125E-7, 197kW/264HP net (199kW/267HP gross) @ 1,900rpm, 11.04L. EPA Tier 4 Final. 29,300kg / 41kPa (910mm shoe, with blade + drawbar). 8 rollers, 45 shoes, 72mm grouser, 2250mm gauge, 3480mm on ground, 450mm clearance. Straight tilt 5.9m³ (4355×1400mm). No ripper. Fuel 470L, DEF 23.5L, coolant 65L, engine 38L, trans 60L, hyd 69L, final drive 36L/side. F1 3.3/F2 6.1/F3L 7.8/F3 10.1 km/h. Min turning 2.2m. Hyd pump 331L/min; relief 22.6MPa. Tractor shipping weight 25,810kg. Source: EN-D85BR01-0922-V2.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D85EXi-18 — FULLY BROCHURE-SPECIFIED (iMC 2.0, Tier 4 Final) ──
+    {
+      id:'kom-d85exi18', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D85EXi-18 Crawler Dozer', shortName:'Komatsu D85EXi-18',
+      brochureRef: 'EN-D85BR01-0922-V2 (D85EX/PX/EXi/PXi-18)',
+
+      engineModel:         'Komatsu SAA6D125E-7',
+      engineNetKW:         197,  engineNetHP:    264,
+      engineGrossKW:       199,  engineGrossHP:  267,
+      engineRatedRPM:      1900, engineCylinders:6,
+      engineBoreMm:        125,  engineStrokeMm: 150,
+      engineDisplacementL: 11.04,
+      emissionStandard:    'EPA Tier 4 Final',
+      powertrain:          'TORQFLOW automatic transmission; ECMV-controlled; Hydrostatic Steering System (HSS); PCCS joystick; auto/manual gearshift selectable; P/E mode',
+
+      tractorShippingWeightKg: 26870,
+      operatingWeightKg:   31000, operatingWeightT:31.0,
+      groundPressureKPa:   65,   // ISO 16754 — with semi-U blade + ripper
+
+      trackRollersPerSide: 7,   shoesPerSide:41,
+      shoeWidthMm:         660,  grouserHeightMm:72,
+      trackGaugeMm:        2000, trackLengthOnGroundMm:3050,
+      groundContactCm2:    45920, groundClearanceMm:450,
+      undercarriageType:   'PLUS (Parallel Link Undercarriage System) — lubricated rotating bushings standard; doubles service life',
+      minTurningRadiusMm:  2000,
+
+      bladeType: 'Semi-U Tilt (standard)',
+      blades: [
+        { config:'Semi-U Tilt (EXi-18)', capacityM3:7.0, capacityYd3:9.2, widthMm:3635, heightMm:1600, maxLiftMm:1175, maxDropMm:530, maxTiltMm:735, dozerWeightKg:3780, overallLengthWithDozMm:5820, groundPressureKPa:65 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:100 },
+        bladeTilt:  { count:1, boreMm:150 },
+        ripperLift: { count:2, boreMm:130 },
+        pitchAngleDeg: '52°–58°',
+      },
+
+      fuelTankL:470, defTankL:23.5, coolantL:65, engineOilL:38,
+      damperCaseL:1.6, transmissionBevelSteeringL:60,
+      hydraulicOilL:69, finalDriveEachSideL:26,
+      hydraulicOilRipperAdditionalL:11,
+
+      travelSpeedsKmh: { F1:3.3, F2:6.1, F3L:7.8, F3:10.1, R1:4.4, R2:8.0, R3L:9.2, R3:13.0 },
+      steeringType: 'Hydrostatic Steering System (HSS); PCCS joystick; wet multi-disc spring-applied brakes; counter-rotation',
+      hydraulicPumpFlowLmin: 331, hydraulicReliefMPa: 22.6,
+
+      dimensions: {
+        overallLengthWithDozAndRipperMm:7325, overallHeightMm:3290,
+        trackGaugeMm:2000, trackOnGroundMm:3050,
+        shoeWidthMm:660, grouserHeightMm:72, groundClearanceMm:450,
+        overallWidthWithBladeMm:4275,
+        C1Mm:3322, C2Mm:3498,
+      },
+
+      ripper: {
+        threeShank: { shanks:3, weightKg:2500, beamLengthMm:2246, maxLiftAboveGroundMm:565, maxDigDepthMm:655, type:'Hydraulically controlled' },
+      },
+
+      imcSystem: {
+        version: 'intelligent Machine Control 2.0 (iMC 2.0)',
+        gnssAntennas: 2,
+        antennaMounting: 'Dual cab-top GNSS antennas (factory integrated — no blade mast)',
+        factoryInstalled: true,
+        gnssConstellations: ['GPS', 'GLONASS', 'Galileo', 'QZSS', 'BeiDou'],
+        features: [
+          'Proactive dozing control — uses terrain data from previous pass to plan next pass; maximises blade load; up to 60% more productive than traditional methods',
+          'Lift layer control — automatic blade control maintains consistent compaction lift thickness; eliminates overfill; up to 50% less lift time vs traditional',
+          'Quick surface creation — operator creates temporary design surface with one button press',
+          'Tilt steering control — blade auto-tilts under heavy load to maintain straight travel; up to 80% reduction in operator steering input',
+          'Dual cab-top GNSS antennas — improved satellite capture across all time zones; less downtime',
+          'Multiple GNSS support (GPS, GLONASS, Galileo, QZSS, BeiDou) — maximum reliability',
+          'Industry-standard compatibility — common design data file formats; standard base station communication',
+          'Simple touchscreen control box — multi-colour customisable display; 4 selectable operating modes',
+          'Improved finish grading — up to 50% reduction in gouging vs previous iMC methods',
+          'Full automatic operation 100% of the time — rough dozing through to finish grade',
+          'Improved machine control — learns from previous pass; helps new operators perform like experienced operators',
+          'Back grade mode switch — automatic control during back grading',
+          'Cut/fill offset switch — quickly adjust target surface height in the field',
+        ],
+      },
+
+      technologyFeatures: [
+        'iMC 2.0 (intelligent Machine Control 2.0) — factory-integrated dual-antenna 3D GNSS; full-auto dozing rough to finish; up to 60% productivity gain (proactive dozing)',
+        'Tier 4 Final SAA6D125E-7 — KDPF + SCR + EGR + VGT + HPCR; >90% NOx/PM reduction vs Tier 3',
+        'PLUS undercarriage standard — rotating bushings; doubles bushing service life; self-adjusting idler',
+        'TORQFLOW auto transmission; ECMV; HSS counter-rotation; PCCS joystick; auto/manual gearshift; P/E mode',
+        'Semi-U tilt blade 7.0m³ — substantial production capacity in heavy dozing class',
+        'Hydraulically driven reversible cooling fan; komatsu auto idle shutdown (5–60 min programmable)',
+        'Integrated ROPS cab (ISO 3471); 7-inch LCD monitor; rearview camera; LED worklights; Bluetooth/USB audio',
+        'Wide-core cooling system (6 fins/inch); KOMTRAX Level 5; Komatsu Care 3yr/2000hr',
+        'Battery disconnect switch with lockout; sampling ports for engine, hydraulic, power line oil',
+      ],
+
+      attachmentsAvailable: ['Semi-U tilt dozer 7.0m³ (standard)', 'Three-shank ripper (2500kg, 655mm dig)', 'PLUS undercarriage (standard)', 'iMC 2.0 (standard factory)', 'KOMTRAX'],
+      tags: ['dozer','31t class','d85','imc 2.0','machine control','gnss','automated grading','tier 4 final','bulk earthworks','civil','mining','road formation','ripping','komatsu'],
+      note: 'Komatsu D85EXi-18 Crawler Dozer — 31.0t (semi-U config). SAA6D125E-7, 197kW/264HP net (199kW/267HP gross) @ 1,900rpm, 11.04L. EPA Tier 4 Final. iMC 2.0 standard (dual cab-top GNSS; proactive dozing; lift layer control; quick surface creation; tilt steering). PLUS undercarriage standard. 31,000kg / 65kPa (660mm shoe, semi-U + ripper). 7 rollers, 41 shoes, 72mm grouser, 2000mm gauge, 3050mm on ground, 450mm clearance. Semi-U tilt 7.0m³ (3635×1600mm). Three-shank ripper: 2500kg, 2246mm beam, 565mm lift, 655mm dig. Fuel 470L, DEF 23.5L, coolant 65L, engine 38L, trans 60L, hyd 69L, final drive 26L/side. F1 3.3/F2 6.1/F3L 7.8/F3 10.1 km/h. Min turning 2.0m. Tractor shipping weight 26,870kg. Source: EN-D85BR01-0922-V2.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D85PXi-18 — FULLY BROCHURE-SPECIFIED (iMC 2.0, Wide Track) ──
+    {
+      id:'kom-d85pxi18', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D85PXi-18 Crawler Dozer', shortName:'Komatsu D85PXi-18',
+      brochureRef: 'EN-D85BR01-0922-V2 (D85EX/PX/EXi/PXi-18)',
+
+      engineModel:         'Komatsu SAA6D125E-7',
+      engineNetKW:         197,  engineNetHP:    264,
+      engineGrossKW:       199,  engineGrossHP:  267,
+      engineRatedRPM:      1900, engineCylinders:6,
+      engineBoreMm:        125,  engineStrokeMm: 150,
+      engineDisplacementL: 11.04,
+      emissionStandard:    'EPA Tier 4 Final',
+      powertrain:          'TORQFLOW automatic transmission; ECMV-controlled; Hydrostatic Steering System (HSS); PCCS joystick; auto/manual gearshift selectable; P/E mode',
+
+      tractorShippingWeightKg: 26200,
+      operatingWeightKg:   29700, operatingWeightT:29.7,
+      groundPressureKPa:   41,   // ISO 16754 — with straight blade + drawbar
+
+      trackRollersPerSide: 8,   shoesPerSide:45,
+      shoeWidthMm:         910,  grouserHeightMm:72,
+      trackGaugeMm:        2250, trackLengthOnGroundMm:3480,
+      groundContactCm2:    70780, groundClearanceMm:450,
+      undercarriageType:   'PLUS (Parallel Link Undercarriage System) — lubricated rotating bushings standard; doubles service life',
+      minTurningRadiusMm:  2200,
+
+      bladeType: 'Straight Tilt (PXi-18) — wide track',
+      blades: [
+        { config:'Straight Tilt (PXi-18)', capacityM3:5.9, capacityYd3:7.7, widthMm:4355, heightMm:1400, maxLiftMm:1230, maxDropMm:560, maxTiltMm:500, dozerWeightKg:3140, overallLengthWithDozMm:6025, groundPressureKPa:41 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:  { count:2, boreMm:100 },
+        bladeTilt:  { count:1, boreMm:150 },
+        pitchAngleDeg: '52°–58°',
+      },
+
+      fuelTankL:470, defTankL:23.5, coolantL:65, engineOilL:38,
+      damperCaseL:1.6, transmissionBevelSteeringL:60,
+      hydraulicOilL:69, finalDriveEachSideL:36,
+
+      travelSpeedsKmh: { F1:3.3, F2:6.1, F3L:7.8, F3:10.1, R1:4.4, R2:8.0, R3L:9.2, R3:13.0 },
+      steeringType: 'Hydrostatic Steering System (HSS); PCCS joystick; wet multi-disc spring-applied brakes; counter-rotation',
+      hydraulicPumpFlowLmin: 331, hydraulicReliefMPa: 22.6,
+
+      dimensions: {
+        overallLengthWithDozAndDrawbarMm:6435, overallHeightMm:3290,
+        trackGaugeMm:2250, trackOnGroundMm:3480,
+        shoeWidthMm:910, grouserHeightMm:72, groundClearanceMm:450,
+        overallWidthWithBladeMm:4685,
+        C1Mm:3322, C2Mm:3498,
+      },
+
+      imcSystem: {
+        version: 'intelligent Machine Control 2.0 (iMC 2.0)',
+        gnssAntennas: 2,
+        antennaMounting: 'Dual cab-top GNSS antennas (factory integrated — no blade mast)',
+        factoryInstalled: true,
+        gnssConstellations: ['GPS', 'GLONASS', 'Galileo', 'QZSS', 'BeiDou'],
+        features: [
+          'Proactive dozing control — maximises blade load throughout each pass using terrain data; up to 60% more productive',
+          'Lift layer control — maintains consistent compaction lift thickness automatically; up to 50% less lift time',
+          'Quick surface creation — temporary design surface with one button press',
+          'Tilt steering control — auto blade tilt under heavy load for straight travel; up to 80% less steering input',
+          'Dual cab-top GNSS antennas — multiple constellation support (GPS, GLONASS, Galileo, QZSS, BeiDou)',
+          'Full automatic operation 100% of the time; 4 selectable operating modes',
+          'Improved finish grading — up to 50% reduction in gouging vs previous iMC',
+        ],
+      },
+
+      technologyFeatures: [
+        'iMC 2.0 (intelligent Machine Control 2.0) — factory-integrated dual-antenna 3D GNSS; full-auto dozing rough to finish; wide-track platform ideal for soft-ground precision grading',
+        'Wide-gauge (2250mm) with 910mm shoe — 41 kPa ground pressure; soft/wet/swampy site capability with machine control accuracy',
+        'PLUS undercarriage standard — rotating bushings double service life; greatest stability in D85-18 range',
+        'Tier 4 Final SAA6D125E-7 — KDPF + SCR + EGR + VGT + HPCR; >90% NOx/PM reduction vs Tier 3',
+        'Straight tilt blade 5.9m³ (4355×1400mm) — wide-format blade matched to wide PX track',
+        'TORQFLOW auto transmission; ECMV; HSS counter-rotation; PCCS joystick; auto/manual gearshift; P/E mode',
+        'Integrated ROPS cab; 7-inch LCD monitor; rearview camera; LED worklights; Bluetooth/USB audio',
+        'KOMTRAX Level 5; Komatsu Care 3yr/2000hr complimentary maintenance',
+      ],
+
+      attachmentsAvailable: ['Straight tilt dozer 5.9m³ (PXi-18)', 'Long drawbar', 'PLUS undercarriage (standard)', 'iMC 2.0 (standard factory)', 'KOMTRAX'],
+      tags: ['dozer','30t class','d85','imc 2.0','machine control','gnss','automated grading','wide track','soft ground','lgp','swamp','tier 4 final','bulk earthworks','civil','road formation','komatsu'],
+      note: 'Komatsu D85PXi-18 Crawler Dozer — 29.7t, wide-track (PXi). SAA6D125E-7, 197kW/264HP net (199kW/267HP gross) @ 1,900rpm, 11.04L. EPA Tier 4 Final. iMC 2.0 standard (dual cab-top GNSS; proactive dozing; lift layer control; quick surface creation; tilt steering). PLUS undercarriage standard. 29,700kg / 41kPa (910mm shoe, straight + drawbar). 8 rollers, 45 shoes, 72mm grouser, 2250mm gauge, 3480mm on ground, 450mm clearance. Straight tilt 5.9m³ (4355×1400mm). No ripper. Fuel 470L, DEF 23.5L, coolant 65L, engine 38L, trans 60L, hyd 69L, final drive 36L/side. F1 3.3/F2 6.1/F3L 7.8/F3 10.1 km/h. Min turning 2.2m. Tractor shipping weight 26,200kg. Source: EN-D85BR01-0922-V2.',
+      hireRateType: 'wet_or_dry',
+    },
+
+    // ── KOMATSU D155AX-6 — FULLY BROCHURE-SPECIFIED ──────────────────
+    // Source: Komatsu D155AX-6 Crawler Dozer Brochure CEN00103-04
+    {
+      id:'kom-d155ax6', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D155AX-6 Crawler Dozer', shortName:'Komatsu D155AX-6',
+      brochureRef: 'CEN00103-04 (D155AX-6)',
+
+      engineModel:         'Komatsu SAA6D140E-5',
+      engineNetKW:         264,  engineNetHP:    354,
+      engineGrossKW:       268,  engineGrossHP:  360,
+      engineRatedRPM:      1900, engineCylinders:6,
+      engineBoreMm:        140,  engineStrokeMm: 165,
+      engineDisplacementL: 15.24,
+      emissionStandard:    'EPA Tier 3 / EU Stage 3A',
+      powertrain:          'TORQFLOW automatic transmission with lockup torque converter; ECMV; HSS steering',
+
+      operatingWeightKg:   39500, operatingWeightT:39.5, groundPressureKPa:106,
+      tractorWeightKg:     31000, tractorGroundPressureKPa:82.4,
+
+      trackRollersPerSide:7, carrierRollersPerSide:2, shoesPerSide:42,
+      shoeWidthMm:560, grouserHeightMm:80,
+      trackLengthOnGroundMm:3275, groundContactCm2:36680, groundClearanceMm:500,
+      undercarriageType:'K-Bogie (rubber-cushioned bogie suspension); lubricated tracks',
+
+      optionalShoes: [
+        { widthMm:560, type:'single grouser',  additionalWeightKg:0,   groundContactCm2:36680 },
+        { widthMm:610, type:'single grouser',  additionalWeightKg:200,  groundContactCm2:39955 },
+        { widthMm:660, type:'single grouser',  additionalWeightKg:410,  groundContactCm2:43230 },
+        { widthMm:710, type:'single grouser',  additionalWeightKg:620,  groundContactCm2:46505 },
+        { widthMm:560, type:'extreme service', additionalWeightKg:460,  groundContactCm2:36680 },
+        { widthMm:610, type:'extreme service', additionalWeightKg:700,  groundContactCm2:39955 },
+        { widthMm:660, type:'extreme service', additionalWeightKg:940,  groundContactCm2:43230 },
+      ],
+
+      dimensions: {
+        bladeWidthMm:4060, bladeHeightMm:1850, machineHeightMm:3385,
+        trackOnGroundMm:3275, lengthLessDozerMm:2745,
+        overallLengthWithDozMm:6125, overallHeightWithROPSMm:3395,
+        maxLiftAboveGroundMm:1240, maxDropBelowGroundMm:950, groundClearanceMm:500,
+      },
+
+      bladeType: 'SIGMADOZER (std); Strengthened SIGMADOZER; Semi-U Tilt; Full-U Tilt; Angle Dozer',
+      blades: [
+        { config:'SIGMADOZER',              capacityM3:9.4,  capacityYd3:12.3, widthMm:4060, heightMm:1850, maxLiftMm:1320, maxDropMm:617, maxTiltMm:920, dozerWeightKg:4940 },
+        { config:'Strengthened SIGMADOZER', capacityM3:9.4,  capacityYd3:12.3, widthMm:4060, heightMm:1850, maxLiftMm:1320, maxDropMm:617, maxTiltMm:920, dozerWeightKg:5360 },
+        { config:'Semi-U Tilt Dozer',       capacityM3:9.4,  capacityYd3:12.3, widthMm:4130, heightMm:1790, maxLiftMm:1255, maxDropMm:593, maxTiltMm:953, dozerWeightKg:4960 },
+        { config:'Full-U Tilt Dozer',       capacityM3:11.9, capacityYd3:15.6, widthMm:4225, heightMm:1790, maxLiftMm:1255, maxDropMm:593, maxTiltMm:970, dozerWeightKg:5630 },
+        { config:'Angle Dozer',             capacityM3:4.6,  capacityYd3:6.0,  widthMm:4850, heightMm:1205, maxLiftMm:1562, maxDropMm:664, maxTiltMm:520, dozerWeightKg:5170 },
+      ],
+
+      fuelTankL:625, coolantL:82, engineOilL:37, damperL:1.5,
+      transmissionBevelSteeringL:90, finalDriveEachSideL:31, hydraulicOilL:85,
+
+      travelSpeedsKmh:{ F1:3.8, F2:5.6, F3L:7.5, F3:11.6, R1:4.6, R2:6.8, R3L:9.2, R3:14.0 },
+      steeringType:'Hydrostatic Steering System (HSS), counter-rotation, PCCS joystick, ECMV',
+      minTurningRadiusMm:2140,
+      hydraulicPumpFlowSteeringLmin:325, hydraulicPumpFlowImplementLmin:180,
+      hydraulicReliefImplementMPa:27.5, hydraulicReliefSteeringMPa:38.2,
+
+      ripper: {
+        variableMultiShank:{ shanks:3, weightKg:3760, beamLengthMm:2320, maxLiftMm:950, maxDigDepthMm:900, diggingAngleDeg:49 },
+        variableGiant:     { shanks:1, weightKg:2440, beamLengthMm:1400, maxLiftMm:950, maxDigDepthMm:1240, diggingAngleDeg:49 },
+      },
+
+      technologyFeatures: [
+        'SIGMADOZER — 15% more production vs semi-U; new blade linkage closer to tractor, improved visibility and dig force',
+        'Automatic transmission with lockup torque converter — 10% fuel saving; 25% fuel efficiency improvement total',
+        'Auto gearshift (auto up/down) + manual gearshift selectable; ECMV smooth clutch control',
+        'HSS (Hydrostatic Steering System) — counter-rotation, min turning 2.14m',
+        'PCCS electronic joystick — travel (electronic) + blade/ripper (electronic), no cables',
+        'Gearshift Pattern Preset (F1-R2, F2-R2, F2-R3L)',
+        'K-Bogie undercarriage — large oscillation travel, rollers always contact link; extends component life',
+        'New integrated ROPS cab — no external ROPS posts, outstanding 360° visibility',
+        'Cab damper mounting; 7-inch TFT LCD monitor (10 languages)',
+        'Ripper cylinders reduced 4→2 — greatly improved rear visibility; expanded ripper movement range',
+        'Reversible hydraulic cooling fan; gull-wing engine side covers; multi-monitor diagnostics',
+        'KOMTRAX wireless fleet monitoring',
+      ],
+
+      attachmentsAvailable: ['Variable multi-shank ripper (3 shanks)', 'Variable giant ripper (1 shank)', 'Full-U tilt dozer', 'Angle dozer', 'Rigid drawbar'],
+
+      tags: ['dozer','39t class','d155','large dozer','sigmadozer','mining','civil','dam','bulk earthworks','clearing','landfill','auto transmission','k-bogie','komatsu'],
+      note: 'Komatsu D155AX-6 Crawler Dozer — 39.5t (SIGMADOZER + giant ripper). SAA6D140E-5, 264kW/354hp net (268kW/360hp gross) @ 1,900rpm, 6-cyl, 140×165mm, 15.24L. EPA Tier 3/EU Stage 3A. TORQFLOW auto + lockup TC. Tractor 31,000kg / 82.4kPa (560mm shoe). 7 rollers, 2 carrier rollers, 42 shoes, 560mm std shoe (max 710mm), 80mm grouser, 3275mm on ground, 500mm clearance. K-Bogie. SIGMADOZER 9.4m³ (4060×1850mm); Full-U 11.9m³; Angle 4.6m³. Multi-shank ripper: 3760kg, 2320mm beam, 900mm dig. Giant: 2440kg, 1400mm beam, 1240mm dig. Fuel 625L, coolant 82L, engine 37L, trans 90L, final drive 31L/side, hyd 85L. F1 3.8 / F2 5.6 / F3L 7.5 / F3 11.6; R1 4.6 / R2 6.8 / R3L 9.2 / R3 14.0 km/h. Min turning 2.14m. Source: Komatsu D155AX-6 Brochure CEN00103-04.',
+      hireRateType: 'wet',
+    },
+
+    // ── KOMATSU D155AXi-8 — FULLY BROCHURE-SPECIFIED (AU SPEC) ────────
+    // Source: Komatsu D155AXi-8 Brochure — Australian & New Zealand Specifications
+    {
+      id:'kom-d155', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D155AXi-8 Crawler Dozer', shortName:'Komatsu D155AXi',
+      brochureRef: 'D155AXi-8 Australian & New Zealand Specifications (Form No: D155_01940, April 2017)',
+
+      engineModel:         'Komatsu SAA6D140E-7',
+      engineNetKW:         264,  engineNetHP:    354,
+      engineGrossKW:       268,  engineGrossHP:  360,
+      engineRatedRPM:      1900, engineCylinders:6,
+      engineBoreMm:        140,  engineStrokeMm: 165,
+      engineDisplacementL: 15.24,
+      emissionStandard:    'EPA Tier 4 Final (fully complies)',
+      emissionTech:        'KDPF + SCR + cooled EGR + KVGT (Variable Geometry Turbocharger) + HPCR fuel injection',
+      powertrain:          'TORQFLOW automatic transmission with lockup torque converter; ECMV; HST steering',
+
+      operatingWeightKg:   32760, operatingWeightT:32.8,
+      groundPressureKgfCm2:1.03,
+
+      variants: [
+        { name:'D155AXi-8 (Drawbar / base config)',       weightKg:32760 },
+        { name:'D155AXi-8 with Giant Ripper',             weightKg:41100 },
+        { name:'D155AXi-8 with Variable Multi-Shank Ripper', weightKg:42420 },
+      ],
+
+      trackRollersPerSide:7, carrierRollersPerSide:2, shoesPerSide:42,
+      shoeWidthMm:610, grouserHeightMm:80,
+      trackLengthOnGroundMm:3275, groundContactCm2:39955, groundClearanceMm:500,
+      undercarriageType:'K-Bogie Heavy Duty Lubricated; combined spring and hydraulic track tension',
+
+      dimensions: {
+        A_bladeWidthMm:4060, B_machineWidthMm:2140, C_machineHeightMm:3385,
+        D_bladeHeightMm:1850, E_trackOnGroundMm:3275,
+        F_overallLengthWithDozMm:8420, G_lengthLessDozerMm:2745,
+        H_maxLiftAboveGroundMm:1240, I_maxDropBelowGroundMm:950,
+        J_overallHeightROPSMm:3570, groundClearanceMm:500,
+      },
+
+      bladeType: 'Strengthened SIGMADOZER Dual Tilt (standard AU spec); Semi-U Tilt Dozer',
+      blades: [
+        { config:'Strengthened SIGMADOZER (Dual Tilt)', capacityM3:9.4, capacityYd3:12.3, widthMm:4060, heightMm:1850, maxLiftMm:1315, maxDropMm:676, maxTiltMm:870, overallLengthMm:6320, dozerWeightKg:5900 },
+        { config:'Semi-U Tilt Dozer (Dual Tilt)',        capacityM3:9.4, capacityYd3:12.3, widthMm:4130, heightMm:1790, maxLiftMm:1245, maxDropMm:590, maxTiltMm:860, overallLengthMm:6370, dozerWeightKg:5900 },
+      ],
+
+      fuelTankL:625, coolantL:104, engineOilL:37, damperL:1.5,
+      transmissionBevelSteeringL:90, finalDriveEachSideL:31, defTankL:39, hydraulicOilL:95,
+
+      travelSpeedsKmh:{ F1:3.8, F2:5.6, F3L:7.5, F3:11.6, R1:4.6, R2:6.8, R3L:9.2, R3:14.0 },
+      steeringType:'Hydrostatic Steering System (HST), counter-rotation, PCCS joystick, ECMV',
+      minTurningRadiusMm:2140,
+      hydraulicPumpFlowSteeringLmin:325, hydraulicPumpFlowImplementLmin:180,
+      hydraulicReliefImplementMPa:27.5, hydraulicReliefSteeringMPa:38.2,
+      noiseOperatorDB:75,
+
+      ripper: {
+        variableMultiShank:{ shanks:3, weightKg:3760, beamLengthMm:2320, maxLiftMm:950, maxDigDepthMm:900 },
+        variableGiant:     { shanks:1, weightKg:2440, beamLengthMm:1400, maxLiftMm:950, maxDigDepthMm:1240 },
+      },
+
+      technologyFeatures: [
+        'Intelligent Machine Control (iMC) — FACTORY STANDARD, complete 3D GNSS, no blade-mounted components, cables, or poles',
+        'Cab-top GNSS antenna — no daily installation/removal; reduces damage/theft risk',
+        'Enhanced IMU+ chassis-mounted — 100 positional updates/second for high-speed auto operations',
+        'Stroke-sensing hydraulic cylinders — lift, tilt, angle; exact blade position without blade sensors',
+        'Automatic dozing: rough cut to finish grade in single automatic mode; blade load sensing adjusts elevation to minimise track slip',
+        'Selectable load settings — 3 presets from dry sandy to wet heavy clay',
+        'As-built surface track mapping — real-time elevation data, no grade checks required',
+        'Network RTK Ready; compatible with UHF / UHF Digital II; Topcon Sitelink ready',
+        'Komatsu SAA6D140E-7 — EPA Tier 4 Final via KDPF + SCR + EGR + KVGT + HPCR',
+        'TORQFLOW auto + lockup torque converter — 10% fuel saving; 25% fuel efficiency improvement',
+        'Auto idle shutdown (5–60 min), hydraulically-driven reversible fan; K-Bogie heavy duty undercarriage',
+        'Ripper cylinders reduced 4→2 — greatly improved rear visibility + expanded movement range',
+        'KOMTRAX Level 5 (includes iMC reporting); Komplimentary Maintenance Program (standard)',
+        'Operator noise: 75 dB',
+      ],
+
+      attachmentsAvailable: ['Variable multi-shank ripper (3 shanks)', 'Variable giant ripper (1 shank)', 'Semi-U tilt dozer', 'Rigid drawbar', 'PLUS undercarriage (optional)'],
+
+      tags: ['dozer','33t class','d155','d155axi','imc','machine control','gnss','automated grading','mining','civil','major earthworks','tier 4 final','sigmadozer','k-bogie','komatsu','au spec'],
+      note: 'Komatsu D155AXi-8 Crawler Dozer (AU/NZ Spec) — 32.8t base / 42.4t with multi-shank ripper. SAA6D140E-7, 264kW/354hp net (268kW/360hp gross) @ 1,900rpm, 6-cyl, 140×165mm, 15.24L. EPA Tier 4 Final. TORQFLOW auto + lockup TC. 32,760kg base / 1.03 kgf/cm² GP, 39,955cm² contact (610mm std AU shoe). 7 rollers, 2 carrier rollers, 42 shoes, 80mm grouser, 3275mm on ground, 500mm clearance. K-Bogie HD. Strengthened SIGMADOZER Dual Tilt 9.4m³ (4060×1850mm); Semi-U Tilt 9.4m³. Multi-shank ripper: 3760kg, 2320mm beam, 950mm lift, 900mm dig. Giant ripper: 2440kg, 1400mm beam, 1240mm dig. Fuel 625L, coolant 104L, DEF 39L, engine 37L, trans 90L, final drive 31L/side, hyd 95L. F1 3.8/F2 5.6/F3L 7.5/F3 11.6; R1 4.6/R2 6.8/R3L 9.2/R3 14.0 km/h. Min turning 2.14m. iMC: cab-top GNSS, IMU+ 100 updates/sec, stroke-sensing cylinders, full auto rough-to-finish grading, as-built mapping, Network RTK. 75dB. Source: D155AXi-8 AU/NZ Brochure (Form D155_01940, April 2017).',
+      hireRateType: 'wet',
+    },
+
+    // ── KOMATSU D275AX-5E0 — FULLY BROCHURE-SPECIFIED ────────────────
+    // Source: Komatsu D275AX-5E0 Crawler Dozer Brochure CEN00098-01
+    {
+      id:'kom-d275', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D275AX-5E0 Crawler Dozer', shortName:'Komatsu D275AX',
+      brochureRef: 'CEN00098-01 (D275AX-5E0)',
+
+      engineModel:         'Komatsu SAA6D140E-5',
+      engineNetKW:         335,  engineNetHP:    449,
+      engineGrossKW:       337,  engineGrossHP:  452,
+      engineRatedRPM:      2000, engineCylinders:6,
+      engineBoreMm:        140,  engineStrokeMm: 165,
+      engineDisplacementL: 15.24,
+      emissionStandard:    'EPA Tier 3 / EU Stage 3A',
+      powertrain:          'TORQFLOW automatic transmission with lockup torque converter; ECMV; HSS steering with pivot turn mode',
+
+      operatingWeightKg:51530, operatingWeightT:51.5, groundPressureKPa:119,
+      tractorWeightKg:37680, tractorGroundPressureKPa:87.3,
+
+      trackRollersPerSide:7, carrierRollersPerSide:2, shoesPerSide:39,
+      shoeWidthMm:610, grouserHeightMm:88,
+      trackLengthOnGroundMm:3480, groundContactCm2:42456, groundClearanceMm:507,
+      undercarriageType:'K-Bogie (rubber-cushioned); lubricated extreme service tracks',
+
+      optionalShoes: [
+        { widthMm:710, additionalWeightKg:570, groundContactCm2:49416, groundPressureKPa:103 },
+        { widthMm:760, additionalWeightKg:850, groundContactCm2:52896, groundPressureKPa:97  },
+      ],
+
+      dimensions: {
+        A_machineWidthMm:2260, B_bladeWidthMm:4440, C_machineHeightMm:3915, D_bladeHeightMm:2150,
+        E_trackOnGroundMm:3480, F_overallLengthMm:8995, G_lengthLessDozerMm:3030,
+        H_maxLiftMm:1300, I_maxDropMm:870, J_overallHeightROPSMm:3990, groundClearanceMm:507,
+      },
+
+      bladeType: 'SIGMADOZER; Strengthened SIGMADOZER; Semi-U Tilt; Full-U Tilt; Dual Tilt variants',
+      blades: [
+        { config:'Strengthened Dual Tilt SIGMADOZER', capacityM3:14.6, capacityYd3:19.1, widthMm:4440, heightMm:2150, maxLiftMm:1390, maxDropMm:745, maxTiltMm:1070, dozerWeightKg:9110 },
+        { config:'Strengthened SIGMADOZER',           capacityM3:14.6, capacityYd3:19.1, widthMm:4440, heightMm:2150, maxLiftMm:1390, maxDropMm:745, maxTiltMm:1000, dozerWeightKg:9030 },
+        { config:'Semi-U Tilt Dozer',                 capacityM3:13.7, capacityYd3:17.9, widthMm:4300, heightMm:1960, maxLiftMm:1450, maxDropMm:640, maxTiltMm:1000, dozerWeightKg:7480 },
+        { config:'Full-U Tilt Dozer',                 capacityM3:16.6, capacityYd3:21.7, widthMm:4615, heightMm:1973, maxLiftMm:1450, maxDropMm:640, maxTiltMm:1070, dozerWeightKg:8405 },
+        { config:'Dual Tilt Semi-U Dozer',            capacityM3:13.7, capacityYd3:17.9, widthMm:4300, heightMm:1960, maxLiftMm:1450, maxDropMm:640, maxTiltMm:1140, dozerWeightKg:7560 },
+        { config:'Dual Tilt Full-U Dozer',            capacityM3:16.6, capacityYd3:21.7, widthMm:4615, heightMm:1973, maxLiftMm:1450, maxDropMm:640, maxTiltMm:1220, dozerWeightKg:8485 },
+      ],
+
+      fuelTankL:840, coolantL:100, engineOilL:52,
+      transmissionBevelSteeringL:90, finalDriveEachSideL:40, hydraulicOilL:130,
+
+      travelSpeedsKmh:{ F1:3.6, F2:6.7, F3:11.2, R1:4.7, R2:8.7, R3:14.9 },
+      steeringType:'HSS with pivot turn mode; counter-rotation; ECMV; PCCS (seat rotates 15° for ripper ops)',
+      minTurningRadiusMm:3900,
+      hydraulicPumpFlowLmin:230, hydraulicReliefMPa:27.5,
+
+      ripper: {
+        variableGiant:     { shanks:1, weightKg:3600, beamLengthMm:1252, maxLiftMm:870,  maxDigDepthMm:1300 },
+        variableMultiShank:{ shanks:3, weightKg:4462, beamLengthMm:2495, maxLiftMm:955,  maxDigDepthMm:900  },
+      },
+
+      technologyFeatures: [
+        'SIGMADOZER — 15% more production; new blade linkage closer to tractor, improved visibility and digging force',
+        'Dual tilt dozer option — tilt angle and speed 2× conventional single tilt; optimum cutting angle selected on-the-go',
+        'TORQFLOW auto + lockup torque converter; preset patterns F1-R1, F1-R2, F2-R2; auto downshift',
+        'ECMV clutch control; HSS with pivot turn mode; counter-rotation',
+        'PCCS — seat rotates 15° for ripper visibility; height-adjustable blade armrest; adjustable ripper lever position',
+        'K-Bogie — two-fulcrum oscillation reduces impact load on undercarriage components',
+        'Track shoe slip control (optional) — auto engine power management during ripping',
+        'Variable giant ripper — depth-adjustable via hydraulic pin puller from operator seat',
+        'Multi-shank ripper — 3-shank, infinitely adjustable angle parallelogram',
+        'Centralized service station (right side); modular power train; gull-wing engine covers',
+        'New hexagonal pressurised cab (optional); cab damper mounting',
+        'KOMTRAX wireless fleet monitoring',
+      ],
+
+      attachmentsAvailable: ['Variable giant ripper (1 shank)', 'Variable multi-shank ripper (3 shanks)', 'Dual tilt blade', 'Track shoe slip control (optional)', 'Cushion dozer', '710mm/760mm shoe options'],
+
+      tags: ['dozer','51t class','d275','large dozer','mining','dam','major earthworks','heavy civil','bulk clearing','sigmadozer','auto transmission','k-bogie','komatsu'],
+      note: 'Komatsu D275AX-5E0 Crawler Dozer — 51.5t (37.7t tractor). SAA6D140E-5, 335kW/449hp net (337kW/452hp gross) @ 2,000rpm, 6-cyl, 140×165mm, 15.24L. EPA Tier 3/EU Stage 3A. TORQFLOW auto + lockup TC. Tractor 37,680kg / 87.3kPa (610mm shoe). 7 rollers, 2 carrier rollers, 39 shoes, 610mm std (optional 710mm/760mm), 88mm grouser, 3480mm on ground, 507mm clearance. K-Bogie. SIGMADOZER 14.6m³ (4440×2150mm); Full-U 16.6m³; Dual Tilt variants. Giant ripper: 3600kg, 1252mm beam, 870mm lift, 1300mm dig. Multi-shank: 4462kg, 2495mm beam, 900mm dig. Fuel 840L, coolant 100L, engine 52L, trans 90L, final drive 40L/side, hyd 130L. F 3.6/6.7/11.2 km/h; R 4.7/8.7/14.9 km/h. Min turning 3.9m. Seat rotates 15° for ripper. Track shoe slip control optional. Source: Komatsu D275AX-5E0 Brochure CEN00098-01.',
+      hireRateType: 'wet',
+    },
+
+    // ── KOMATSU D375A-8 — FULLY BROCHURE-SPECIFIED ────────────────────
+    // Source: Komatsu D375A-8 Crawler Dozer Brochure EN-D375A-8BR01-1122-V12 (EPA Tier 4 Final)
+    {
+      id:'kom-d375', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D375A-8 Crawler Dozer', shortName:'Komatsu D375A',
+      brochureRef: 'EN-D375A-8BR01-1122-V12 (D375A-8, EPA Tier 4 Final)',
+
+      engineModel:         'Komatsu SAA6D170E-7',
+      engineNetFwdKW:      455,  engineNetFwdHP:   609,
+      engineNetRevKW:      558,  engineNetRevHP:   748,
+      engineGrossFwdKW:    474,  engineGrossFwdHP: 636,
+      engineGrossRevKW:    578,  engineGrossRevHP: 775,
+      engineNetFwdFanKW:   432,  engineNetRevFanKW:536,
+      engineRatedRPM:      1800, engineCylinders:6,
+      engineBoreMm:        170,  engineStrokeMm:   170,
+      engineDisplacementL: 23.15,
+      emissionStandard:    'U.S. EPA Tier 4 Final',
+      powertrain:          'TORQFLOW 3F/3R automatic transmission with lockup torque converter; ECMV; wet multi-disc steering clutches/brakes; PCCS joystick',
+
+      tractorWeightKg:     56340,
+      operatingWeightKg:   74090, operatingWeightT:74.1,
+      groundPressureKPa:   132.1, groundPressureKgfCm2:1.35,
+
+      trackRollersPerSide: 8,    carrierRollersPerSide:2,
+      shoesPerSide:        41,   grouserHeightMm:93,
+      shoeWidthMm:         610,  trackLengthOnGroundMm:null,
+      groundContactCm2:    48560, groundClearanceMm:610,
+      undercarriageType:   'K-Bogie — lubricated track rollers resiliently mounted with bogie suspension; rubber pad cushioned oscillation; equaliser bar shoulder pads (new)',
+
+      shoeOptions: [
+        { widthMm:610, additionalWeightKg:0,    groundContactCm2:48560, groundPressureKPa:132.1, groundPressureKgfCm2:1.35 },
+        { widthMm:710, additionalWeightKg:680,  groundContactCm2:56520, groundPressureKPa:114.5, groundPressureKgfCm2:1.17 },
+        { widthMm:810, additionalWeightKg:1360, groundContactCm2:64480, groundPressureKPa:101.3, groundPressureKgfCm2:1.03 },
+      ],
+
+      bladeType: 'Strengthened Dual Tilt Semi-U Dozer (standard); Strengthened Dual Tilt Full-U Dozer with Spill Guard',
+      blades: [
+        { config:'Strengthened Dual Tilt Semi-U', capacityM3:18.5, capacityYd3:24.2, widthMm:4775, heightMm:2525, maxLiftMm:1690, maxDropMm:734, maxTiltMm:1170, dozerWeightKg:11440, overallLengthWithDozMm:7855, groundPressureKPa:132.1 },
+        { config:'Strengthened Dual Tilt Full-U w/ Spill Guard', capacityM3:22.0, capacityYd3:28.8, widthMm:5215, heightMm:2525, maxLiftMm:1690, maxDropMm:734, maxTiltMm:1280, dozerWeightKg:12490, overallLengthWithDozMm:8215, groundPressureKPa:134.0 },
+      ],
+
+      hydraulicCylinders: {
+        bladeLift:        { count:2, boreMm:140 },
+        bladeTiltSingle:  { count:1, boreMm:200 },
+        bladeTiltDual:    { count:2, boreMm:200 },
+        ripperLift:       { count:2, boreMm:200 },
+        ripperTilt:       { count:2, boreMm:180 },
+      },
+
+      fuelTankL:1200, coolantL:145, engineOilL:86,
+      transmissionBevelSteeringL:150, hydraulicOilL:130,
+      finalDriveEachSideL:65,
+      hydraulicOilGiantRipperAdditionalL:45,
+      hydraulicOilMultiShankAdditionalL:45,
+
+      travelSpeedsKmh: { F1:3.5, F2:6.8, F3L:8.0, F3:11.8, R1:4.6, R2:8.9, R3L:9.7, R3:15.8 },
+      steeringType: 'PCCS joystick; wet multiple-disc steering clutches (spring-loaded, hydraulically released) and brakes; counter-rotation',
+      minTurningRadiusMm: 4200,
+      hydraulicPumpFlowLmin: 366, hydraulicReliefMPa: 29.8,
+
+      ripper: {
+        multiShank:    { shanks:3, weightKg:6430, beamLengthMm:2910, maxLiftAboveGroundMm:1155, maxDigDepthMm:1140, type:'Hydraulically controlled, variable digging angle, 3 shanks' },
+        giantVariable: { shanks:1, weightKg:5210, beamLengthMm:1600, maxLiftAboveGroundMm:1120, maxDigDepthMm:1485, type:'Variable parallelogram single-shank; ripping depth adjustable 3 stages via hydraulic pin puller from operator seat' },
+      },
+
+      technologyFeatures: [
+        '20%+ MORE POWER IN REVERSE — engine output 20% higher in reverse vs forward; faster reverse climb; shorter cycle times; 18% more production vs D375A-6',
+        'Tier 4 Final SAA6D170E-7 — dual KDPFs (>90% PM capture); VGT; cooled EGR; KCCV; HPCR; auto idle stop',
+        'TORQFLOW auto + lockup TC — 10% fuel reduction vs manual; lockup eliminates torque converter losses in dozing range',
+        'Auto/manual gearshift selectable; P mode / E mode; preset travel speed (4 patterns); auto downshift; reverse slow mode',
+        'Track shoe slip control (optional) — auto engine management during ripping; reduce shoe wear and operator fatigue',
+        'Blade auto-pitch — auto adjusts blade from dig to dump position; auto-returns to dig when reversing',
+        'Ripper auto-return — automatically raises ripper in reverse; eliminates repetitive operation',
+        'Electronic steering clutch/brake control — sensors monitor incline angle and load; optimal modulation parameters auto-selected',
+        'New cab — better blade and ripper visibility; pressurised; improved seals; more leg room',
+        'New air suspension seat — heated and ventilated; lumbar support; tilt backrest; 12° fixed angle for leg room and visibility',
+        'K-Bogie undercarriage with equaliser bar shoulder pads — absorbs impacts over obstacles; increased minor bogie oscillation',
+        'New viscous cab isolators — rubber/spring/silicon-oil combination; isolates cab from chassis vibration',
+        'New single blade linkage — significantly reduced blade sway; fewer maintenance points; enhanced blade visibility',
+        'Swing-out cooling fan (new); Mesabi radiator (easily exchangeable tubes); centralized greasing points',
+        'Rearview monitor system (standard); secondary engine shutdown switches (cab + ground level)',
+        'Maintenance service centre — Wiggins quick couplings for oil/coolant changes and fast fuel fill from ground level',
+        'Giant variable ripper — single shank; variable ripping angle; hydraulic pin puller (3-stage depth) from operator seat',
+        'Battery and starter isolator box (lockable); power ladder (optional); wrap-around rear platform with guard rails',
+        'Electronic height adjuster for steering console; automatic climate control; 7-inch HD LCD monitor (26 languages)',
+        'KOMTRAX Plus (iridium + WiFi); preset travel speed; energy saving ECO gauge and guidance',
+      ],
+
+      attachmentsAvailable: [
+        'Dual Tilt Semi-U Dozer (18.5 m³)',
+        'Dual Tilt Full-U Dozer with Spill Guard (22.0 m³)',
+        'Multi-shank ripper (3 shanks, 6430kg, variable angle)',
+        'Giant variable ripper (1 shank, 5210kg, hydraulic pin puller)',
+        '710mm / 810mm shoe options',
+        'Power ladder',
+        'Track shoe slip control',
+        'KOMTRAX Plus',
+      ],
+
+      tags: ['dozer','74t class','d375','mining dozer','production dozer','pre-strip','dam','major civil','heavy earthworks','tier 4 final','reverse power','k-bogie','komatsu'],
+      note: 'Komatsu D375A-8 — 74.1t operating / 56.3t tractor. SAA6D170E-7, 6-cyl, 170×170mm, 23.15L. Net Fwd 455kW/609HP, Rev 558kW/748HP @ 1,800rpm (20%+ more power in reverse). U.S. EPA Tier 4 Final. Dual KDPFs, VGT, EGR, KCCV, HPCR. TORQFLOW 3F/3R + lockup TC; 10% fuel saving. 74,090kg / 132.1kPa (610mm std shoe; opt 710mm/810mm). K-Bogie; 8 rollers + 2 carrier rollers, 41 shoes, 93mm grouser, 610mm clearance. Semi-U 18.5m³ (4775×2525mm); Full-U 22.0m³ (5215×2525mm). Multi-shank ripper: 6430kg, 2910mm beam, 1140mm dig. Giant ripper: 5210kg, 1600mm, 1485mm dig (3-stage hydraulic pin puller from seat). Fuel 1200L, coolant 145L, engine 86L, trans 150L, hyd 130L, final drive 65L/side. F1 3.5/F2 6.8/F3L 8.0/F3 11.8; R1 4.6/R2 8.9/R3L 9.7/R3 15.8 km/h. Min turning 4.2m. Blade auto-pitch; ripper auto-return; swing-out fan; Mesabi radiator; Wiggins maintenance service centre; 7-inch LCD (26 languages); KOMTRAX Plus. Source: EN-D375A-8BR01-1122-V12.',
+      hireRateType: 'wet',
+    },
+
+    // ── KOMATSU D475A-8 — FULLY BROCHURE-SPECIFIED ────────────────────
+    // Source: Komatsu D475A-8 Crawler Dozer Brochure ZESB099972 (September 2022, AU/NZ)
+    {
+      id:'kom-d475', brand:'Komatsu', emoji:'🏔️', type:'dozer',
+      name:'Komatsu D475A-8 Crawler Dozer', shortName:'Komatsu D475A',
+      brochureRef: 'ZESB099972 (September 2022, AU/NZ — EPA Tier 4 Final)',
+
+      engineModel:         'Komatsu SAA12V140E-7',
+      engineNetKW:         664,        // forward net
+      engineNetHP:         890,
+      engineNetKWReverse:  722,        // reverse net — 15% more power
+      engineNetHPReverse:  968,
+      engineGrossKW:       697,        // forward gross
+      engineGrossHP:       934,
+      engineGrossKWReverse:777,
+      engineGrossHPReverse:1040,
+      engineRatedRPM:      2000,
+      engineCylinders:     12,         // V12
+      engineBoreMm:        140,  engineStrokeMm:165,
+      engineDisplacementL: 30.48,
+      emissionStandard:    'EPA Tier 4 Final',
+      emissionTech:        'KDPF + VGT + EGR + KCCV + HPCR',
+      powertrain:          'TORQFLOW auto transmission with lockup torque converter; 15% more reverse power; ECMV; wet clutch/brake steering',
+
+      operatingWeightKg:115300, operatingWeightT:115.3, groundPressureKPa:133.4,
+      tractorWeightKg:88200,
+
+      variants: [
+        { name:'Tractor only (710mm shoe)',                  weightKg:88200,  groundPressureKPa:115.2 },
+        { name:'Dual Tilt U Dozer + Giant Ripper (810mm)',   weightKg:115300, groundPressureKPa:133.4 },
+      ],
+
+      trackRollersPerSide:8, carrierRollersPerSide:2, shoesPerSide:41,
+      shoeWidthMm:710, grouserHeightMm:105,
+      trackLengthOnGroundMm:4525, groundContactCm2:64240, groundClearanceMm:615,
+      undercarriageType:'K-Bogie (rubber-padded); lubricated extreme service; equaliser bar with shoulder pads',
+
+      optionalShoes: [
+        { widthMm:810,  additionalWeightKg:920,  groundContactCm2:73290,  groundPressureKPa:118   },
+        { widthMm:910,  additionalWeightKg:1830, groundContactCm2:82340,  groundPressureKPa:106.1 },
+      ],
+
+      dimensions: {
+        A_machineWidthMm:2770, B_bladeWidthMm:6205, C_machineHeightMm:4710, D_bladeHeightMm:2610,
+        E_trackOnGroundMm:4525, F_overallLengthMm:11800, G_lengthLessDozerMm:3430,
+        H_maxLiftMm:1210, I_maxDropMm:1845, J_overallHeightROPSMm:4795, groundClearanceMm:615,
+      },
+
+      bladeType: 'Dual Tilt Semi-U; Dual Tilt U Dozer; Dual Tilt Super Dozer',
+      blades: [
+        { config:'Dual Tilt Semi-U Dozer', capacityM3:27.2, capacityYd3:35.6, widthMm:5265, heightMm:2690, maxLiftMm:1650, maxDropMm:900, maxTiltMm:1145, dozerWeightKg:18300 },
+        { config:'Dual Tilt U Dozer',      capacityM3:34.4, capacityYd3:44.5, widthMm:6205, heightMm:2610, maxLiftMm:1650, maxDropMm:900, maxTiltMm:1350, dozerWeightKg:19900 },
+        { config:'Dual Tilt Super Dozer',  capacityM3:45.0, capacityYd3:58.9, widthMm:6465, heightMm:2874, maxLiftMm:1700, maxDropMm:1000,maxTiltMm:850,  dozerWeightKg:22100 },
+      ],
+
+      fuelTankL:1920, coolantL:265, engineOilL:120,
+      transmissionBevelSteeringL:210, finalDriveEachSideL:75, hydraulicOilL:190,
+
+      travelSpeedsKmh:{ F1:3.4, F2:6.3, F3L:7.4, F3:11.6, R1:4.4, R2:8.4, R3L:9.0, R3:14.3 },
+      steeringType:'Wet multiple-disc clutches/brakes; HSS planetary; PCCS joystick (FCCS optional)',
+      minTurningRadiusMm:4600,
+      hydraulicPumpFlowLmin:541, hydraulicReliefMPa:27.5,
+
+      ripper: {
+        giantVariable:     { shanks:1, weightKg:7210, beamLengthMm:1500, maxLiftMm:1210, maxDigDepthMm:1845 },
+        multiShankVariable:{ shanks:3, weightKg:9720, beamLengthMm:3085, maxLiftMm:1210, maxDigDepthMm:1240 },
+      },
+
+      technologyFeatures: [
+        '15% MORE POWER IN REVERSE — V12 engine output >15% higher in reverse; faster reverse speed, shorter cycles, up to 10% more production',
+        'Automatic transmission with lockup torque converter — 10% fuel reduction vs manual; auto gear selection',
+        'Auto/manual gearshift selectable; P mode (full power) / E mode (economy); auto downshift; reverse slow mode',
+        'Track shoe slip control (optional) — auto engine management during ripping; eliminates shoe-slip monitoring',
+        'Electronic smooth steering clutch/brake — sensors monitor incline and blade load for precise modulation',
+        'PCCS palm command joystick (standard); FCCS finger command (optional) for grade operations',
+        'Electronic work equipment joystick — blade and ripper; fine blade control mode for finish grading',
+        'Blade auto-pitch — auto adjusts from dig to dump position; auto-returns to dig when reversing',
+        'Ripper auto-return — automatically raises ripper in reverse; reduces operator fatigue',
+        'New larger cab — better blade and ripper visibility, more leg room, pressurised',
+        'New air suspension seat — heated/ventilated, lumbar support, improved cushioning',
+        'K-Bogie with equaliser bar shoulder pads — smoother ride, reduced roller impact loads',
+        'Increased minor bogie oscillation; new viscous cab isolators (long-stroke silicon oil/spring)',
+        'Robust main frame and track frames — structural enhancements for rebuild-focused design',
+        'New single blade linkage — reduced blade sway, extended maintenance intervals',
+        'Swing-out cooling fan; T-MEX radiator (individually replaceable tubes)',
+        'Operator presence sensing; secondary engine shutdown (cab + ground level)',
+        'Anchor points for service lanyards; walk-around rear service platform; power ladder (optional)',
+        'Battery and starter isolator (lockable); jump start receptacle; EPA Tier 4 Final',
+        'Auto idle stop; 7-inch HD LCD monitor (27 languages); energy saving ECO gauge/guidance',
+        'KOMTRAX Plus (iridium + WiFi); preset travel speed (4 patterns); rearview monitor',
+      ],
+
+      attachmentsAvailable: ['Giant variable ripper (1 shank, hydraulic pin puller from seat)', 'Multi-shank ripper (3 shanks)', 'Dual Tilt Super Dozer (45m³)', 'Dual Tilt U Dozer', 'Power ladder', 'FCCS finger command', 'Track shoe slip control', 'Maintenance service centre (Wiggins quick couplings)'],
+      specialtyArrangements: ['710mm/810mm/910mm shoe options', 'FCCS for grade work', 'Track shoe slip control (ripping)', 'Power ladder (mine access)', 'Cold area −30 to +40°C', 'Mining spec', 'Sandy/dusty area arrangement', 'MSHA/OSHA arrangement'],
+
+      tags: ['dozer','115t class','d475','mining dozer','production dozer','pre-strip','dam','major earthworks','heavy civil','auto transmission','tier 4 final','komatsu','v12'],
+      note: 'Komatsu D475A-8 Crawler Dozer (AU/NZ) — 115.3t operating / 88.2t tractor. SAA12V140E-7, V12, 140×165mm, 30.48L. Net: Fwd 664kW/890hp, Rev 722kW/968hp @ 2,000rpm (15% more power in reverse). EPA Tier 4 Final (KDPF, VGT, EGR, KCCV, HPCR). TORQFLOW auto + lockup TC; 10% fuel saving vs manual. Tractor 88,200kg / 115.2kPa (710mm std shoe). 8 rollers, 2 carrier rollers, 41 shoes, 710mm shoe (opt 810mm/910mm), 105mm grouser, 4525mm on ground, 615mm clearance. K-Bogie, equaliser bar shoulder pads. Super Dozer 45.0m³ (6465×2874mm); U Dozer 34.4m³; Semi-U 27.2m³. Giant ripper: 7210kg, 1500mm beam, 1845mm dig. Multi-shank: 9720kg, 3085mm beam, 1240mm dig. Fuel 1920L, coolant 265L, engine 120L, trans 210L, final drive 75L/side, hyd 190L. F1 3.4/F2 6.3/F3L 7.4/F3 11.6; R1 4.4/R2 8.4/R3L 9.0/R3 14.3 km/h. Min turning 4.6m. Blade auto-pitch; ripper auto-return; rearview monitor; pressurised cab; swing-out fan. Power ladder optional. Source: Komatsu D475A-8 Brochure ZESB099972 (September 2022, AU/NZ).',
+      hireRateType: 'wet',
+    },
 
     // ── JOHN DEERE DOZERS ────────────────────────────────────────────
     { id:'jd-450k',    brand:'John Deere', emoji:'🏔️', type:'dozer', name:'John Deere 450K', shortName:'JD 450K',
@@ -33887,7 +41466,8 @@ const GENERAL_QS = [
     options:[
       {ico:'🪣', lbl:'A few loads — under 10 trips',  sub:'Small job, one day or less',                        val:'small'},
       {ico:'🚛', lbl:'Medium — 10 to 50 loads',        sub:'Several days of carting',                           val:'medium'},
-      {ico:'🏗️', lbl:'Large — 50+ loads or ongoing',  sub:'Major earthworks, subdivision, mine haulage',       val:'large'},
+      {ico:'🏗️', lbl:'Large — 50+ loads or ongoing',  sub:'Major earthworks, subdivision, civil haulage',      val:'large'},
+      {ico:'⛏️', lbl:'Mine / quarry scale',            sub:'Continuous bulk haulage on haul roads — hundreds of loads per shift', val:'mining'},
     ]
   },
 
@@ -35819,15 +43399,22 @@ function matchEarthworks(ans) {
 
   // ── CART MATERIAL ────────────────────────────────────────────────
   else if (job === 'cart') {
-    candidates = pool.filter(m => ['bobcat','dumper','truck','adt','loader'].includes(m.type));
+    candidates = pool.filter(m => ['bobcat','dumper','truck','adt','loader','rigid_dump_truck'].includes(m.type));
     candidates = candidates.map(m => {
       let s = 0;
       if (cartDist === 'short')  s += m.type === 'bobcat'  ? 4 : m.type === 'dumper'  ? 3 : 0;
       if (cartDist === 'medium') s += m.type === 'dumper'  ? 4 : m.type === 'bobcat'  ? 2 : m.type === 'loader' ? 2 : 0;
-      if (cartDist === 'offsite')s += m.type === 'truck'   ? 5 : m.type === 'adt'     ? 4 : 0;
+      if (cartDist === 'offsite')s += m.type === 'truck'   ? 5 : m.type === 'adt'     ? 4 : m.type === 'rigid_dump_truck' ? 3 : 0;
       if (cartVol === 'small')   s += m.type === 'bobcat'  ? 3 : m.type === 'dumper'  ? 3 : 0;
       if (cartVol === 'medium')  s += m.type === 'dumper'  ? 3 : m.type === 'truck'   ? 3 : 0;
       if (cartVol === 'large')   s += m.type === 'truck'   ? 4 : m.type === 'adt'     ? 5 : 0;
+      if (cartVol === 'mining')  s += m.type === 'rigid_dump_truck' ? 8 : m.type === 'adt' ? 3 : 0;
+      // Payload-based ranking for mining scale — larger truck scores higher
+      if (cartVol === 'mining' && m.type === 'rigid_dump_truck') {
+        if (m.id === 'cat-797f')  s += 3; // 364t — largest
+        if (m.id === 'cat-796ac') s += 2; // 327t
+        if (m.id === 'cat-794ac') s += 1; // 297t
+      }
       return { ...m, _score: s };
     }).sort((a,b) => b._score - a._score);
   }
@@ -39557,6 +47144,7 @@ function renderCartItems() {
       jr.compactSurface    && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🔄 Surface: ${jr.compactSurface}</span>`,
       jr.landfillScale     && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🗑️ ${jr.landfillScale}</span>`,
       jr.hireArrangement   && jr._isEarthworks && `<span class="cart-req-pill" style="background:#F0FDF4;border-color:#86EFAC;color:#166534">👷 ${jr.hireArrangement}</span>`,
+      jr._isEarthworks && (m.emTransport === 'rental' ? `<span class="cart-req-pill" style="background:#EFF6FF;border-color:#93C5FD;color:#1D4ED8">🚚 Rental co. transporting to site</span>` : `<span class="cart-req-pill" style="background:#F0FDF4;border-color:#86EFAC;color:#15803D">✅ Customer organising own transport</span>`),
       jr.earthworksAttachment && `<span class="cart-req-pill" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E">🔩 ${jr.earthworksAttachment}</span>`,
     ].filter(Boolean).join('');
 
@@ -39649,10 +47237,61 @@ function renderCartItems() {
             ${capturedAt}
             ${disclaimerHtml}
           </div>
+          ${m._isEarthworks ? `
+          <!-- ── EARTHWORKS CART FIELDS ─────────────────────────────────── -->
+          <div style="margin-top:.6rem;padding-top:.6rem;border-top:1px solid #F1F5F9">
+
+            <!-- 1. TRANSPORT -->
+            <div style="margin-bottom:.55rem">
+              <label style="font-size:.74rem;font-weight:700;color:#64748B;display:block;margin-bottom:.3rem">🚛 Transport to site:</label>
+              <div style="display:flex;gap:.4rem">
+                <button onclick="setEmTransport(${i},'self',this)"
+                  style="flex:1;padding:.4rem .3rem;font-size:.76rem;font-weight:700;font-family:'Nunito',sans-serif;border-radius:8px;cursor:pointer;border:1.5px solid ${(m.emTransport||'self')==='self'?'#16A34A':'#E2E8F0'};background:${(m.emTransport||'self')==='self'?'#F0FDF4':'#fff'};color:${(m.emTransport||'self')==='self'?'#15803D':'#64748B'}">
+                  ✅ I'll pick up / organise transport
+                </button>
+                <button onclick="setEmTransport(${i},'rental',this)"
+                  style="flex:1;padding:.4rem .3rem;font-size:.76rem;font-weight:700;font-family:'Nunito',sans-serif;border-radius:8px;cursor:pointer;border:1.5px solid ${m.emTransport==='rental'?'#1D4ED8':'#E2E8F0'};background:${m.emTransport==='rental'?'#EFF6FF':'#fff'};color:${m.emTransport==='rental'?'#1D4ED8':'#64748B'}">
+                  🚚 Rental company to transport
+                </button>
+              </div>
+              ${(m.emTransport||'self')==='self' ? `<div style="font-size:.71rem;color:#15803D;margin-top:.25rem;line-height:1.4">✅ Transport rates frozen — you are arranging pickup or your own transport. The rental company will quote hire rate only.</div>` : `<div style="font-size:.71rem;color:#1D4ED8;margin-top:.25rem;line-height:1.4">🚚 Rental company will include a mob/demob fee in their quote based on their depot location.</div>`}
+            </div>
+
+            <!-- 2. HIRE TYPE -->
+            <div style="margin-bottom:.55rem">
+              <label style="font-size:.74rem;font-weight:700;color:#64748B;display:block;margin-bottom:.3rem">👷 Hire type:</label>
+              <div style="display:flex;gap:.4rem">
+                <button onclick="setEmHireType(${i},'wet',this)"
+                  style="flex:1;padding:.4rem .3rem;font-size:.76rem;font-weight:700;font-family:'Nunito',sans-serif;border-radius:8px;cursor:pointer;border:1.5px solid ${(m.emHireType||answers.em_hire_type||'wet')==='wet'?'#92400E':'#E2E8F0'};background:${(m.emHireType||answers.em_hire_type||'wet')==='wet'?'#FFFBEB':'#fff'};color:${(m.emHireType||answers.em_hire_type||'wet')==='wet'?'#92400E':'#64748B'}">
+                  👷 Wet hire — with operator
+                </button>
+                <button onclick="setEmHireType(${i},'dry',this)"
+                  style="flex:1;padding:.4rem .3rem;font-size:.76rem;font-weight:700;font-family:'Nunito',sans-serif;border-radius:8px;cursor:pointer;border:1.5px solid ${(m.emHireType||answers.em_hire_type)==='dry'?'#0369A1':'#E2E8F0'};background:${(m.emHireType||answers.em_hire_type)==='dry'?'#F0F9FF':'#fff'};color:${(m.emHireType||answers.em_hire_type)==='dry'?'#0369A1':'#64748B'}">
+                  🔑 Dry hire — machine only
+                </button>
+              </div>
+              <div style="font-size:.71rem;color:#92400E;margin-top:.25rem;line-height:1.4">
+                ${(m.emHireType||answers.em_hire_type||'wet')==='wet' ? '👷 Operator supplied by rental company. Rate is all-inclusive per hour or per day.' : '🔑 Machine only. You must supply a licensed operator for this machine class.'}
+              </div>
+            </div>
+
+            <!-- 3. DURATION -->
+            <div>
+              <label style="font-size:.74rem;font-weight:700;color:#64748B;display:block;margin-bottom:.25rem">⏳ Duration needed:</label>
+              <select class="duration-select" onchange="setCartItemDuration(${i}, this.value)" style="width:100%;font-family:'Nunito',sans-serif;font-size:.82rem;border:1.5px solid #E2E8F0;border-radius:8px;padding:.3rem .5rem;color:#334155;background:#fff">
+                ${['half-day|Half day (4 hrs)','1-day|1 day','1-week|1 week','2-weeks|2 weeks','1-month|1 month','3-months|3 months','6-months|6 months','12-months-plus|12+ months'].map(o=>{const[v,l]=o.split('|');return `<option value="${v}"${(m.duration||'1-day')===v?' selected':''}>${l}</option>`;}).join('')}
+              </select>
+              <div style="font-size:.71rem;color:#92400E;margin-top:.25rem;line-height:1.4">⚠️ Minimum 4-hour call-out is standard for all earthworks equipment.</div>
+            </div>
+
+          </div>
+          ` : `
+          <!-- ── STANDARD CART DURATION (all other machine types) ────────── -->
           <div class="cart-item-duration" style="margin-top:.6rem;padding-top:.6rem;border-top:1px solid #F1F5F9">
             <label style="font-size:.74rem;font-weight:700;color:#64748B;display:block;margin-bottom:.25rem">⏳ Duration needed:</label>
             <select class="duration-select" onchange="setCartItemDuration(${i}, this.value)" style="width:100%;font-family:'Nunito',sans-serif;font-size:.82rem;border:1.5px solid #E2E8F0;border-radius:8px;padding:.3rem .5rem;color:#334155;background:#fff">${['half-day|Half day','1-day|1 day','1-week|1 week','2-weeks|2 weeks','1-month|1 month','3-months|3 months','6-months|6 months','12-months-plus|12+ months'].map(o=>{const[v,l]=o.split('|');return `<option value="${v}"${(m.duration||'1-day')===v?' selected':''}>${l}</option>`;}).join('')}</select>
           </div>
+          `}
         </div>
         <button class="cart-item-remove" onclick="removeFromCart(${i})" title="Remove">✕</button>
       </div>
@@ -39662,6 +47301,18 @@ function renderCartItems() {
 
 function setCartItemDuration(idx, val) {
   if (quoteCart[idx]) { quoteCart[idx].duration = val; }
+}
+
+function setEmTransport(idx, val, btn) {
+  if (!quoteCart[idx]) return;
+  quoteCart[idx].emTransport = val;
+  renderCart(); // re-render to update button states and message
+}
+
+function setEmHireType(idx, val, btn) {
+  if (!quoteCart[idx]) return;
+  quoteCart[idx].emHireType = val;
+  renderCart(); // re-render to update button states and message
 }
 
 // ── Cart item edit modal ─────────────────────────────────────
@@ -40000,9 +47651,17 @@ function getJobRequirements() {
     const emVegMap = { light:'Light scrub / grass', medium:'Medium scrub / small trees', heavy:'Heavy bush / large trees' };
     if (a.em_veg_type) req.vegetationType = emVegMap[a.em_veg_type] || a.em_veg_type;
 
-    req.hireArrangement = a.em_hire_type === 'wet' ? 'Wet hire — machine and operator supplied'
+    req.hireArrangement = (cartItem && cartItem.emHireType === 'wet') ? 'Wet hire — machine and operator supplied'
+                        : (cartItem && cartItem.emHireType === 'dry') ? 'Dry hire — machine only'
+                        : a.em_hire_type === 'wet' ? 'Wet hire — machine and operator supplied'
                         : a.em_hire_type === 'dry' ? 'Dry hire — machine only'
                         : 'Not specified';
+
+    // Transport arrangement — drives whether mob/demob fields are shown to rental company
+    req.emTransport = (cartItem && cartItem.emTransport === 'rental') ? 'rental' : 'self';
+    req.transportNote = req.emTransport === 'self'
+      ? '✅ Customer will pick up or organise their own transport. No mob/demob fee should be included — quote hire rate only.'
+      : '🚚 Customer requires transport to site. Please include your mob/demob fee as a separate line item in your quote.';
 
     if (a.em_site_city) req.siteCity = a.em_site_city;
 
@@ -41991,7 +49650,7 @@ function openViewQuoteModal(reqId) {
   const durMap2 = DUR_LABEL;
   let html = `<div style="max-height:70vh;overflow-y:auto">
     <div style="font-weight:900;font-size:1rem;color:#0F172A;margin-bottom:.2rem">${req.id}</div>
-    <div style="font-size:.8rem;color:#64748B;margin-bottom:.9rem">Your submitted quote — read only</div>`;
+    <div style="font-size:.8rem;color:#64748B;margin-bottom:.9rem">Your submitted quote — read only${myResp.partial?' &nbsp;<span style="background:#FEF3C7;color:#92400E;font-size:.72rem;padding:.1rem .45rem;border-radius:20px;font-weight:800">⚠️ Partial Quote</span>':''}</div>`;
 
   (myResp.machineBreakdowns||[]).forEach(mb => {
     html += `<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.7rem .9rem;margin-bottom:.6rem">
@@ -42151,7 +49810,26 @@ function submitQuoteRequest() {
     isRural:        isRuralSite,        // ← rural/remote site flag
     ruralNearestKm: ruralNearestKm,     // ← km from nearest depot (if known)
     clusters:       selectedClusters,   // ← array of {city,state,distKm} for multi-cluster rural, null for metro
-    machines:       quoteCart.map(m => ({...m})),  // includes per-machine duration
+    machines:       quoteCart.map(m => {
+      const mc = {...m};
+      // For earthworks: stamp cart-level transport and hire-type into jobRequirements
+      // so rental company quote form can read them directly from jr.*
+      if (mc._isEarthworks || (mc.jobRequirements && mc.jobRequirements._isEarthworks)) {
+        mc.jobRequirements = mc.jobRequirements ? {...mc.jobRequirements} : {};
+        // emTransport: 'self' = customer picks up / organises own; 'rental' = rental co. to transport
+        mc.jobRequirements.emTransport   = mc.emTransport   || 'self';
+        mc.jobRequirements.transportNote = mc.emTransport === 'rental'
+          ? '🚚 Customer requires transport to site. Please include your mob/demob fee as a separate line item.'
+          : '✅ Customer is picking up or organising their own transport. Quote hire rate only — no mob/demob fee.';
+        // emHireType: cart value overrides quiz answer
+        if (mc.emHireType) {
+          mc.jobRequirements.hireArrangement = mc.emHireType === 'wet'
+            ? 'Wet hire — machine and operator supplied'
+            : 'Dry hire — machine only';
+        }
+      }
+      return mc;
+    }),
     notes:          document.getElementById('sqm-notes').value.trim(),
     date:           document.getElementById('sqm-date').value || new Date().toLocaleDateString('en-AU'),
     ts:             Date.now(),
@@ -43199,6 +50877,7 @@ function renderQuoteInbox() {
             const isLow = !isNaN(pNum) && pNum === minP2 && nums2.length > 1;
             const isAcc = p.accepted === true;
             const isRej = p.rejected === true || p.autoRejected === true;
+            const isPartial = p.partial === true;
             const cid   = `inb-resp-${(req.id||'x').replace(/[^a-z0-9]/gi,'')}-${ri}`;
 
             // Per-machine breakdown
@@ -43242,15 +50921,20 @@ function renderQuoteInbox() {
               }
             }
 
-            return `<div style="background:${isAcc?'#F0FDF4':isRej?'#F8FAFC':'#fff'};border:1.5px solid ${isAcc?'#86EFAC':isRej?'#E2E8F0':isLow?'#BFDBFE':'#E2E8F0'};border-radius:10px;padding:.7rem .85rem;margin-bottom:.45rem">
+            return `<div style="background:${isAcc?'#F0FDF4':isRej?'#F8FAFC':isPartial?'#FFFBEB':'#fff'};border:1.5px solid ${isAcc?'#86EFAC':isRej?'#E2E8F0':isPartial?'#F59E0B':isLow?'#BFDBFE':'#E2E8F0'};border-radius:10px;padding:.7rem .85rem;margin-bottom:.45rem">
               <div style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:.5rem" onclick="var d=document.getElementById('${cid}-detail');var t=document.getElementById('${cid}-tog');if(d){d.style.display=d.style.display==='none'?'block':'none';if(t)t.textContent=d.style.display==='none'?'▶ View':'▼ Hide'}">
-                <div style="font-weight:800;color:#334155;font-size:.9rem">🏢 ${p.company||'Rental Co.'}${isLow && nums2.length>1?' <span style="background:#DCFCE7;color:#15803D;font-size:.68rem;padding:.1rem .4rem;border-radius:20px;font-weight:700;margin-left:.3rem">Lowest</span>':''}</div>
+                <div style="font-weight:800;color:#334155;font-size:.9rem">🏢 ${p.company||'Rental Co.'}${isPartial?' <span style="background:#FEF3C7;color:#92400E;font-size:.68rem;padding:.1rem .45rem;border-radius:20px;font-weight:800;margin-left:.3rem;vertical-align:middle">⚠️ Partial</span>':''}${isLow && nums2.length>1?' <span style="background:#DCFCE7;color:#15803D;font-size:.68rem;padding:.1rem .4rem;border-radius:20px;font-weight:700;margin-left:.3rem">Lowest</span>':''}</div>
                 <div style="display:flex;align-items:center;gap:.5rem">
-                  <span style="font-weight:900;color:${isAcc?'#16A34A':'#0052CC'};font-size:1rem">$${(!isNaN(pNum)?pNum:0).toFixed(2)} <span style="font-size:.72rem;opacity:.7">inc. GST</span></span>
+                  <span style="font-weight:900;color:${isAcc?'#16A34A':isPartial?'#B45309':'#0052CC'};font-size:1rem">$${(!isNaN(pNum)?pNum:0).toFixed(2)} <span style="font-size:.72rem;opacity:.7">inc. GST</span></span>
                   <span id="${cid}-tog" style="font-size:.71rem;color:#64748B;white-space:nowrap">▶ View</span>
                 </div>
               </div>
-              ${p.notes ? `<div style="font-size:.77rem;color:#64748B;margin-top:.2rem;font-style:italic">"${p.notes}"</div>` : ''}
+              ${isPartial ? `<div style="margin-top:.4rem;padding:.45rem .7rem;background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;font-size:.77rem;color:#78350F;line-height:1.5">
+                <span style="font-weight:800">⚠️ Partial quote</span> — covers <strong>${(p.quotedMachines||[]).length} of ${req.machines.length}</strong> machines requested.<br>
+                <span style="color:#15803D;font-weight:700">✅ Quoted:</span> ${(p.quotedMachines||[]).join(', ') || '—'} &nbsp;·&nbsp; <span style="color:#DC2626;font-weight:700">✗ Not quoted:</span> ${(p.notQuotedMachines||[]).join(', ') || '—'}
+              </div>` : ''}
+              ${p.notes && !isPartial ? `<div style="font-size:.77rem;color:#64748B;margin-top:.2rem;font-style:italic">"${p.notes}"</div>` : ''}
+              ${p.notes && isPartial ? `<div style="font-size:.77rem;color:#64748B;margin-top:.3rem;font-style:italic">"${(p.notes||'').split('\n\n').slice(1).join('\n\n').trim() || ''}"</div>` : ''}
               ${p.altMachine ? `<div style="margin-top:.3rem;font-size:.77rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:7px;padding:.3rem .6rem;color:#92400E;font-weight:700">🔄 Offering: ${p.altMachine}${p.altType&&p.altType!=='exact'?' ('+( p.altType==='equivalent'?'equivalent':p.altType==='upgraded'?'upgraded':p.altType)+')':''}</div>` : ''}
               ${p.question ? `<div style="margin-top:.35rem;padding:.45rem .7rem;background:#EFF6FF;border:1px solid #93C5FD;border-radius:8px;font-size:.77rem">
                 <div style="font-weight:800;color:#1E40AF;margin-bottom:.15rem">❓ Your question to customer</div>
@@ -43511,6 +51195,43 @@ function openRespondModal(reqId) {
   if (myPrev && myPrev.quoteFileName) { const _ql=document.getElementById('rq-quote-file-lbl'); const _qc=document.getElementById('rq-quote-file-clear'); if(_ql)_ql.textContent='📎 '+myPrev.quoteFileName+' (existing)'; if(_qc)_qc.style.display='inline'; }
   if (myPrev && myPrev.codFileName)   { const _cl=document.getElementById('rq-cod-file-lbl');   const _cc=document.getElementById('rq-cod-file-clear');   if(_cl)_cl.textContent='📎 '+myPrev.codFileName+' (existing)';   if(_cc)_cc.style.display='inline'; }
 
+  // ── Partial-supply notice ─────────────────────────────────
+  // Check RC's registered sectors vs enquiry machine types; warn if they can't cover all
+  const _rcEntry       = RENTAL_COMPANIES.find(c => c.email === currentUser?.email);
+  const _rcSectors     = _rcEntry?.sectors || [];
+  const _partialNotice = document.getElementById('rq-partial-notice');
+  if (_partialNotice) {
+    if (_rcSectors.length > 0) {
+      const _canSupply  = (req.machines||[]).filter(m => _rcSectors.includes(SECTOR_MAP[m.type] || ''));
+      const _cantSupply = (req.machines||[]).filter(m => !_rcSectors.includes(SECTOR_MAP[m.type] || ''));
+      if (_cantSupply.length > 0 && _canSupply.length > 0) {
+        _partialNotice.style.display = 'block';
+        _partialNotice.innerHTML = `
+          <div style="background:#FFFBEB;border:2px solid #F59E0B;border-radius:11px;padding:.75rem 1rem;margin-bottom:.85rem">
+            <div style="font-weight:900;color:#92400E;font-size:.88rem;margin-bottom:.35rem">⚠️ Partial Supply — Quote for machines you can supply only</div>
+            <div style="font-size:.8rem;color:#78350F;line-height:1.5">
+              Based on your registered categories, you can supply <strong>${_canSupply.length} of ${(req.machines||[]).length}</strong> machines in this enquiry.<br>
+              <span style="color:#15803D;font-weight:700">✅ You supply:</span> ${_canSupply.map(m=>m.name||m.id).join(', ')}<br>
+              <span style="color:#DC2626;font-weight:700">✗ Not in your categories:</span> ${_cantSupply.map(m=>m.name||m.id).join(', ')}<br>
+              <span style="font-style:italic;opacity:.85">Enter rates only for machines you can supply. Leave others at $0. The system will automatically flag this as a partial quote for the customer.</span>
+            </div>
+          </div>`;
+      } else if (_cantSupply.length === (req.machines||[]).length) {
+        _partialNotice.style.display = 'block';
+        _partialNotice.innerHTML = `
+          <div style="background:#FEF2F2;border:2px solid #EF4444;border-radius:11px;padding:.75rem 1rem;margin-bottom:.85rem">
+            <div style="font-weight:900;color:#991B1B;font-size:.88rem">⛔ None of the requested machines are in your registered categories</div>
+            <div style="font-size:.8rem;color:#7F1D1D;margin-top:.25rem">You may still submit a quote if you can source these machines, but please ensure accuracy.</div>
+          </div>`;
+      } else {
+        _partialNotice.style.display = 'none';
+        _partialNotice.innerHTML = '';
+      }
+    } else {
+      _partialNotice.style.display = 'none';
+    }
+  }
+
   // Build per-machine sections
   const wrap = document.getElementById('rq-machines-wrap');
   if (wrap) wrap.innerHTML = '';
@@ -43597,8 +51318,21 @@ function openRespondModal(reqId) {
       <!-- Hire rates — earthworks shows hourly + day + mob/demob; lifting shows day + week -->
       ${jr._isEarthworks ? `
       <div style="background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:10px;padding:.65rem .85rem;margin-bottom:.65rem">
-        <div style="font-size:.72rem;font-weight:800;color:#92400E;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.4px">🚜 Earth Works Rate</div>
-        <div style="font-size:.72rem;color:#B45309;margin-bottom:.5rem;line-height:1.5">Quote your rate inclusive of fuel. Wet hire includes the operator. Dry hire is machine only. A minimum 4-hour call-out is standard — note this in your quote.</div>
+        <div style="font-size:.72rem;font-weight:800;color:#92400E;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.4px">🚜 Earth Works Rate</div>
+
+        <!-- Transport arrangement notice — drives mob/demob visibility -->
+        <div style="background:${jr.emTransport==='rental'?'#EFF6FF':'#F0FDF4'};border:1px solid ${jr.emTransport==='rental'?'#93C5FD':'#86EFAC'};border-radius:8px;padding:.45rem .65rem;margin-bottom:.55rem;font-size:.76rem;font-weight:700;color:${jr.emTransport==='rental'?'#1D4ED8':'#15803D'};line-height:1.45">
+          ${jr.transportNote || (jr.emTransport==='rental' ? '🚚 Customer requires transport to site. Include mob/demob fee below.' : '✅ Customer is picking up or organising their own transport. Quote hire rate only.')}
+        </div>
+
+        <!-- Hire type reminder -->
+        <div style="font-size:.72rem;color:#B45309;margin-bottom:.5rem;line-height:1.5">
+          <strong>${jr.hireArrangement || 'Hire type not specified'}</strong> — quote your rate inclusive of fuel.
+          ${jr.hireArrangement && jr.hireArrangement.includes('Wet') ? 'Operator cost included in your rate.' : jr.hireArrangement && jr.hireArrangement.includes('Dry') ? 'Machine-only rate — customer supplies operator.' : ''}
+          Minimum 4-hour call-out is standard.
+        </div>
+
+        <!-- Hour + Day rates -->
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.45rem">
           <div style="flex:1;min-width:90px">
             <label style="font-size:.71rem;font-weight:700;color:#92400E;display:block;margin-bottom:.18rem">Rate / Hour ($)</label>
@@ -43614,7 +51348,10 @@ function openRespondModal(reqId) {
           </div>
           <input id="rq-rate-week-${i}" type="hidden" value="">
         </div>
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+
+        <!-- Mob/demob — only shown when rental company is transporting -->
+        ${jr.emTransport === 'rental' ? `
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.3rem">
           <div style="flex:1;min-width:90px">
             <label style="font-size:.71rem;font-weight:700;color:#1E40AF;display:block;margin-bottom:.18rem">🚛 Mob fee ($)</label>
             <input id="rq-trans-in-${i}" type="number" min="0" step="1" placeholder="e.g. 350" value="${prevMB.transIn||''}"
@@ -43627,8 +51364,12 @@ function openRespondModal(reqId) {
               style="width:100%;border:1.5px solid #93C5FD;border-radius:7px;padding:.32rem .5rem;font-size:.92rem;font-weight:700;font-family:inherit;box-sizing:border-box;background:#F0F7FF"
               oninput="rqRecalcAll()">
           </div>
-        </div>
-        <div style="font-size:.71rem;color:#92400E;margin-top:.45rem;font-style:italic">System calculates total from day rate × number of days, or hourly rate × hours if no day rate entered. Add mob/demob separately.</div>
+        </div>` : `
+        <input id="rq-trans-in-${i}" type="hidden" value="0">
+        <input id="rq-trans-out-${i}" type="hidden" value="0">
+        <div style="font-size:.71rem;color:#15803D;font-style:italic">Transport fields hidden — customer is organising their own pickup/transport.</div>`}
+
+        <div style="font-size:.71rem;color:#92400E;margin-top:.45rem;font-style:italic">System calculates total from day rate × days, or hourly rate × 8hrs/day if no day rate entered.</div>
       </div>
       ` : `
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem">
@@ -43895,6 +51636,16 @@ async function submitResponse() {
 
   const companyName = currentUser ? currentUser.name : 'Rental Co.';
 
+  // ── Partial quote detection ───────────────────────────────
+  // Any machine with no rates entered = not quoted by this RC
+  const _quotedMBs    = machineBreakdowns.filter(mb => (mb.rateDay||0) > 0 || (mb.rateWeek||0) > 0 || (mb.rateHour||0) > 0);
+  const _notQuotedMBs = machineBreakdowns.filter(mb => !((mb.rateDay||0) > 0 || (mb.rateWeek||0) > 0 || (mb.rateHour||0) > 0));
+  const _isPartial    = _notQuotedMBs.length > 0 && _quotedMBs.length > 0;
+  const _partialAutoNote = _isPartial
+    ? `⚠️ Partial quote — this supplier covers ${_quotedMBs.length} of ${machineBreakdowns.length} machines requested.\n✅ Quoted: ${_quotedMBs.map(m=>m.name).join(', ')}.\n✗ Not quoted: ${_notQuotedMBs.map(m=>m.name).join(', ')}.\nPlease source the remaining equipment separately.`
+    : '';
+  const _finalNotes = [_partialAutoNote, notes].filter(Boolean).join('\n\n');
+
   // Remove previous response from this company if editing
   if (!req.responses) req.responses = [];
   req.responses = (req.responses||[]).filter(r => r.company !== companyName);
@@ -43912,7 +51663,10 @@ async function submitResponse() {
     beforeGST: tot.beforeGST,
     gst: tot.gst,
     grandTotal: tot.grandTotal,
-    notes,
+    notes: _finalNotes,
+    partial: _isPartial,
+    quotedMachines:    _isPartial ? _quotedMBs.map(m=>m.name)    : undefined,
+    notQuotedMachines: _isPartial ? _notQuotedMBs.map(m=>m.name) : undefined,
     mhtRequired: mhtEnabled || false,
     mhtMonths:   mhtEnabled ? mhtMonths : 0,
     altMachine: altMachine || undefined,
@@ -51105,7 +58859,53 @@ var EQUIPMENT_SECTORS = [
   'Material Handling Trolleys',
   'Rigging Equipment',
   'Site Safety Equipment',
+  // ── Earthworks ──────────────────────────────────────────────
+  'Crawler Dozers & Bulldozers',
+  'Excavators (Tracked & Wheeled)',
+  'Skid Steer Loaders & Bobcats',
+  'Motor Graders',
+  'Compactors, Rollers & Plate Compactors',
+  'Articulated Dump Trucks',
+  'Wheel Loaders',
+  'Water Carts',
 ];
+
+// Maps machine.type → EQUIPMENT_SECTORS string for partial-quote detection
+var SECTOR_MAP = {
+  // ── Access equipment ──────────────────────────────────────────
+  'boom':               'Boom Lifts (Articulated & Telescopic)',
+  'scissor':            'Scissor Lifts, Vertical Lifts, Personnel Lifts',
+  'push-around':        'Scissor Lifts, Vertical Lifts, Personnel Lifts',
+  'pushAround':         'Scissor Lifts, Vertical Lifts, Personnel Lifts',
+  'telehandler':        'Telehandlers and Rotating Telehandlers',
+  'forklift':           'Forklifts, Reach Trucks, Pallet Jacks',
+  'palletjack':         'Forklifts, Reach Trucks, Pallet Jacks',
+  'material':           'Material Hoists',
+  'hoist':              'Material Hoists',
+  // ── Earthworks ────────────────────────────────────────────────
+  'excavator':          'Excavators',
+  'dozer':              'Dozers',
+  'bobcat':             'Skid Steers / Bobcats',
+  'loader':             'Wheel Loaders',
+  'wheel_loader':       'Wheel Loaders',
+  'roller':             'Rollers',
+  'tandem_vibratory':   'Rollers',
+  'smooth_drum_compactor': 'Rollers',
+  'utility_drum':       'Rollers',
+  'utility_combo':      'Rollers',
+  'compactor':          'Compactors',
+  'padfoot_compactor':  'Compactors',
+  'landfill_compactor': 'Compactors',
+  'soil_compactor':     'Compactors',
+  'pneumatic_compactor':'Compactors',
+  'plate':              'Compactors',
+  'grader':             'Motor Graders',
+  'adt':                'Articulated Dump Trucks (ADTs)',
+  'dumper':             'Articulated Dump Trucks (ADTs)',
+  'rigid_dump_truck':   'Rigid Dump Trucks / Mining Trucks',
+  'water_cart':         'Water Carts',
+  'truck':              'Tip Trucks',
+};
 
 // Inject sector checkboxes into registration form
 (function initSectorGrid() {
