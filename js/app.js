@@ -57865,6 +57865,7 @@ function showAdminSection(name, btn) {
   if (name === 'sponsored')     renderAdminSponsored();
   if (name === 'addmachine')    renderAdminAddMachine();
   if (name === 'addmachine')  { /* panel is static HTML — nothing to render */ }
+  if (name === 'usermgmt')     loadUserMgmtTable();
 }
 
 
@@ -59975,3 +59976,295 @@ function submitRating(type, reqId) {
   }
   renderMyQuotes();
 }
+
+
+// ══════════════════════════════════════════════════════════════════
+// 🔐  ADMIN USER MANAGEMENT
+// ══════════════════════════════════════════════════════════════════
+
+var _usermgmtAllUsers = []; // cached full user list
+
+// ── Role badge helper ─────────────────────────────────────────────
+function _umRoleBadge(role) {
+  const map = {
+    admin:    { bg:'#FEE2E2', color:'#991B1B', label:'Admin' },
+    rental:   { bg:'#FEF3C7', color:'#92400E', label:'Rental Co' },
+    customer: { bg:'#EFF6FF', color:'#1E40AF', label:'Customer' },
+    lite:     { bg:'#F1F5F9', color:'#475569', label:'Lite' },
+  };
+  const s = map[role] || { bg:'#F1F5F9', color:'#475569', label: role || '—' };
+  return `<span style="background:${s.bg};color:${s.color};border-radius:20px;padding:.15rem .65rem;font-size:.73rem;font-weight:800;white-space:nowrap">${s.label}</span>`;
+}
+
+// ── Load users from Firestore ─────────────────────────────────────
+async function loadUserMgmtTable() {
+  const wrap = document.getElementById('usermgmt-table-wrap');
+  const status = document.getElementById('usermgmt-status');
+  if (!wrap) return;
+  wrap.innerHTML = '<div style="color:#94A3B8;text-align:center;padding:2rem;font-size:.9rem">⏳ Loading users…</div>';
+  if (status) status.textContent = '';
+
+  try {
+    const snap = await window._db.collection('users').orderBy('createdAt','desc').get();
+    _usermgmtAllUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (status) status.textContent = _usermgmtAllUsers.length + ' users loaded';
+    _renderUserMgmtTable(_usermgmtAllUsers);
+  } catch(e) {
+    wrap.innerHTML = '<div style="color:#DC2626;text-align:center;padding:2rem">❌ Failed to load users: ' + e.message + '</div>';
+  }
+}
+
+// ── Filter table ──────────────────────────────────────────────────
+function filterUserMgmtTable() {
+  const q    = (document.getElementById('usermgmt-search')?.value || '').toLowerCase();
+  const role = (document.getElementById('usermgmt-role-filter')?.value || '');
+  const filtered = _usermgmtAllUsers.filter(u => {
+    const matchQ = !q ||
+      (u.email||'').toLowerCase().includes(q) ||
+      (u.fullName||u.name||'').toLowerCase().includes(q) ||
+      (u.role||'').toLowerCase().includes(q) ||
+      (u.company||u.companyName||'').toLowerCase().includes(q);
+    const matchRole = !role || (u.role||'') === role;
+    return matchQ && matchRole;
+  });
+  _renderUserMgmtTable(filtered);
+  const status = document.getElementById('usermgmt-status');
+  if (status) status.textContent = filtered.length + ' of ' + _usermgmtAllUsers.length + ' users shown';
+}
+
+// ── Render table ──────────────────────────────────────────────────
+function _renderUserMgmtTable(users) {
+  const wrap = document.getElementById('usermgmt-table-wrap');
+  if (!wrap) return;
+  if (!users.length) {
+    wrap.innerHTML = '<div style="color:#94A3B8;text-align:center;padding:2rem">No users found.</div>';
+    return;
+  }
+
+  const myUid = window._currentUser ? window._currentUser.uid : null;
+
+  const rows = users.map(u => {
+    const isMe = u.uid === myUid || u.id === myUid;
+    const name = u.fullName || u.name || '—';
+    const company = u.company || u.companyName || '';
+    const city = [u.city, u.state].filter(Boolean).join(', ') || '—';
+    const plan = u.plan || '—';
+    const created = u.createdAt
+      ? (u.createdAt.toDate ? u.createdAt.toDate().toLocaleDateString('en-AU') : new Date(u.createdAt).toLocaleDateString('en-AU'))
+      : '—';
+    const uid = u.uid || u.id;
+    const active = u.active !== false;
+    const statusBadge = active
+      ? '<span style="background:#DCFCE7;color:#15803D;border-radius:20px;padding:.15rem .6rem;font-size:.72rem;font-weight:800">Active</span>'
+      : '<span style="background:#FEE2E2;color:#991B1B;border-radius:20px;padding:.15rem .6rem;font-size:.72rem;font-weight:800">Inactive</span>';
+
+    const meBadge = isMe ? ' <span style="background:#E0F2FE;color:#0369A1;border-radius:20px;padding:.1rem .45rem;font-size:.68rem;font-weight:800">You</span>' : '';
+
+    const btnStyle = "border:none;border-radius:8px;padding:.3rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;cursor:pointer;";
+    const pwBtn    = `<button onclick="umOpenResetPw('${uid}','${u.email}')" style="${btnStyle}background:#EFF6FF;color:#1E40AF" title="Reset password">🔑 Password</button>`;
+    const roleBtn  = isMe ? '' : `<button onclick="umOpenChangeRole('${uid}','${u.email}','${u.role||'customer'}')" style="${btnStyle}background:#FEF9C3;color:#854D0E;margin-left:.3rem" title="Change role">👤 Role</button>`;
+    const delBtn   = isMe ? '' : `<button onclick="umOpenDelete('${uid}','${u.email}','${name.replace(/'/g,"\'")}' )" style="${btnStyle}background:#FEE2E2;color:#991B1B;margin-left:.3rem" title="Delete user">🗑️ Delete</button>`;
+
+    return `<tr style="border-bottom:1px solid #F1F5F9">
+      <td style="padding:.6rem .75rem;font-size:.84rem;font-weight:700;color:#0F172A;white-space:nowrap">${name}${meBadge}</td>
+      <td style="padding:.6rem .75rem;font-size:.8rem;color:#334155">${u.email||'—'}</td>
+      <td style="padding:.6rem .75rem">${_umRoleBadge(u.role)}</td>
+      <td style="padding:.6rem .75rem;font-size:.8rem;color:#64748B">${company || '—'}</td>
+      <td style="padding:.6rem .75rem;font-size:.8rem;color:#64748B;white-space:nowrap">${city}</td>
+      <td style="padding:.6rem .75rem;font-size:.8rem;color:#64748B">${plan}</td>
+      <td style="padding:.6rem .75rem">${statusBadge}</td>
+      <td style="padding:.6rem .75rem;font-size:.78rem;color:#94A3B8;white-space:nowrap">${created}</td>
+      <td style="padding:.6rem .75rem;white-space:nowrap">${pwBtn}${roleBtn}${delBtn}</td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;min-width:900px">
+      <thead>
+        <tr style="background:#F8FAFC;border-bottom:2px solid #E2E8F0">
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Name</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Email</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Role</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Company</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Location</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Plan</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Status</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Created</th>
+          <th style="padding:.6rem .75rem;text-align:left;font-size:.75rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.04em">Actions</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// ── Modal helpers ─────────────────────────────────────────────────
+function _umShowModal(html) {
+  const overlay = document.getElementById('usermgmt-modal-overlay');
+  const box     = document.getElementById('usermgmt-modal-content');
+  if (!overlay || !box) return;
+  box.innerHTML = html;
+  overlay.style.display = 'flex';
+}
+function _umCloseModal() {
+  const overlay = document.getElementById('usermgmt-modal-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+// Close on overlay click
+document.addEventListener('click', function(e) {
+  const overlay = document.getElementById('usermgmt-modal-overlay');
+  if (e.target === overlay) _umCloseModal();
+});
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') _umCloseModal();
+});
+
+// ── 1. RESET PASSWORD MODAL ───────────────────────────────────────
+function umOpenResetPw(uid, email) {
+  _umShowModal(`
+    <div style="font-weight:900;font-size:1.1rem;color:#0B1F3A;margin-bottom:.3rem">🔑 Reset Password</div>
+    <div style="font-size:.83rem;color:#64748B;margin-bottom:1.2rem">${email}</div>
+    <div style="margin-bottom:.75rem">
+      <label style="font-size:.8rem;font-weight:700;color:#334155;display:block;margin-bottom:.3rem">New Password</label>
+      <div style="position:relative">
+        <input id="um-pw1" type="password" placeholder="Min 8 characters"
+          style="width:100%;padding:.55rem .9rem;border:1.5px solid #E2E8F0;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.9rem;outline:none;box-sizing:border-box">
+        <button type="button" onclick="umTogglePw('um-pw1',this)"
+          style="position:absolute;right:.6rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:.85rem;color:#94A3B8">👁</button>
+      </div>
+    </div>
+    <div style="margin-bottom:1.2rem">
+      <label style="font-size:.8rem;font-weight:700;color:#334155;display:block;margin-bottom:.3rem">Confirm Password</label>
+      <div style="position:relative">
+        <input id="um-pw2" type="password" placeholder="Repeat password"
+          style="width:100%;padding:.55rem .9rem;border:1.5px solid #E2E8F0;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.9rem;outline:none;box-sizing:border-box">
+        <button type="button" onclick="umTogglePw('um-pw2',this)"
+          style="position:absolute;right:.6rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:.85rem;color:#94A3B8">👁</button>
+      </div>
+    </div>
+    <div id="um-pw-msg" style="font-size:.82rem;margin-bottom:.9rem;min-height:1.2rem"></div>
+    <div style="display:flex;gap:.6rem;justify-content:flex-end">
+      <button onclick="_umCloseModal()" style="padding:.5rem 1.1rem;border:1.5px solid #E2E8F0;border-radius:10px;background:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer">Cancel</button>
+      <button onclick="umDoResetPw('${uid}','${email}')" style="padding:.5rem 1.3rem;border:none;border-radius:10px;background:#0B1F3A;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Reset Password</button>
+    </div>`);
+}
+
+function umTogglePw(id, btn) {
+  const inp = document.getElementById(id);
+  if (!inp) return;
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  btn.textContent = inp.type === 'password' ? '👁' : '🙈';
+}
+
+async function umDoResetPw(uid, email) {
+  const pw1 = document.getElementById('um-pw1')?.value || '';
+  const pw2 = document.getElementById('um-pw2')?.value || '';
+  const msg = document.getElementById('um-pw-msg');
+  if (pw1.length < 8)     { msg.innerHTML = '<span style="color:#DC2626">Password must be at least 8 characters.</span>'; return; }
+  if (pw1 !== pw2)        { msg.innerHTML = '<span style="color:#DC2626">Passwords do not match.</span>'; return; }
+  msg.innerHTML = '<span style="color:#64748B">⏳ Resetting…</span>';
+  try {
+    const fn = firebase.functions().httpsCallable('adminResetUserPassword');
+    await fn({ uid, newPassword: pw1 });
+    msg.innerHTML = '<span style="color:#15803D">✅ Password reset successfully!</span>';
+    setTimeout(_umCloseModal, 1800);
+  } catch(e) {
+    msg.innerHTML = '<span style="color:#DC2626">❌ ' + (e.message || 'Error resetting password') + '</span>';
+  }
+}
+
+// ── 2. CHANGE ROLE MODAL ──────────────────────────────────────────
+function umOpenChangeRole(uid, email, currentRole) {
+  const roles = ['customer','rental','lite','admin'];
+  const opts = roles.map(r =>
+    `<option value="${r}" ${r===currentRole?'selected':''}>${r.charAt(0).toUpperCase()+r.slice(1)}</option>`
+  ).join('');
+  _umShowModal(`
+    <div style="font-weight:900;font-size:1.1rem;color:#0B1F3A;margin-bottom:.3rem">👤 Change Role</div>
+    <div style="font-size:.83rem;color:#64748B;margin-bottom:1.2rem">${email}</div>
+    <div style="margin-bottom:.75rem">
+      <label style="font-size:.8rem;font-weight:700;color:#334155;display:block;margin-bottom:.3rem">New Role</label>
+      <select id="um-role-select" onchange="umRoleWarning()"
+        style="width:100%;padding:.55rem .9rem;border:1.5px solid #E2E8F0;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.9rem;background:#fff;cursor:pointer;outline:none">
+        ${opts}
+      </select>
+    </div>
+    <div id="um-role-warning" style="font-size:.82rem;margin-bottom:.9rem;min-height:1.2rem"></div>
+    <div style="display:flex;gap:.6rem;justify-content:flex-end">
+      <button onclick="_umCloseModal()" style="padding:.5rem 1.1rem;border:1.5px solid #E2E8F0;border-radius:10px;background:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer">Cancel</button>
+      <button onclick="umDoChangeRole('${uid}','${email}')" style="padding:.5rem 1.3rem;border:none;border-radius:10px;background:#0B1F3A;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Update Role</button>
+    </div>`);
+}
+
+function umRoleWarning() {
+  const sel = document.getElementById('um-role-select');
+  const warn = document.getElementById('um-role-warning');
+  if (!sel || !warn) return;
+  warn.innerHTML = sel.value === 'admin'
+    ? '<span style="background:#FEF3C7;color:#92400E;border-radius:8px;padding:.3rem .7rem;display:inline-block">⚠️ This user will have full admin access to the platform.</span>'
+    : '';
+}
+
+async function umDoChangeRole(uid, email) {
+  const newRole = document.getElementById('um-role-select')?.value;
+  const warn = document.getElementById('um-role-warning');
+  if (!newRole) return;
+  if (warn) warn.innerHTML = '<span style="color:#64748B">⏳ Updating…</span>';
+  try {
+    const fn = firebase.functions().httpsCallable('adminChangeUserRole');
+    await fn({ uid, newRole });
+    // Update cached list
+    const u = _usermgmtAllUsers.find(x => (x.uid||x.id) === uid);
+    if (u) u.role = newRole;
+    if (warn) warn.innerHTML = '<span style="color:#15803D">✅ Role updated to ' + newRole + '!</span>';
+    setTimeout(() => { _umCloseModal(); _renderUserMgmtTable(_usermgmtAllUsers); }, 1500);
+  } catch(e) {
+    if (warn) warn.innerHTML = '<span style="color:#DC2626">❌ ' + (e.message || 'Error updating role') + '</span>';
+  }
+}
+
+// ── 3. DELETE USER MODAL ──────────────────────────────────────────
+function umOpenDelete(uid, email, name) {
+  _umShowModal(`
+    <div style="font-weight:900;font-size:1.1rem;color:#991B1B;margin-bottom:.3rem">🗑️ Delete User</div>
+    <div style="font-size:.9rem;color:#0F172A;font-weight:700;margin-bottom:.2rem">${name}</div>
+    <div style="font-size:.83rem;color:#64748B;margin-bottom:1rem">${email}</div>
+    <div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:10px;padding:.8rem 1rem;margin-bottom:1.1rem;font-size:.82rem;color:#7F1D1D;line-height:1.6">
+      ⚠️ This will permanently delete this user from Firebase Authentication <strong>and</strong> Firestore. This cannot be undone.
+    </div>
+    <div style="margin-bottom:1.2rem">
+      <label style="font-size:.8rem;font-weight:700;color:#334155;display:block;margin-bottom:.3rem">Type the user's email to confirm</label>
+      <input id="um-del-confirm" type="text" placeholder="${email}"
+        style="width:100%;padding:.55rem .9rem;border:1.5px solid #FCA5A5;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;box-sizing:border-box">
+    </div>
+    <div id="um-del-msg" style="font-size:.82rem;margin-bottom:.9rem;min-height:1.2rem"></div>
+    <div style="display:flex;gap:.6rem;justify-content:flex-end">
+      <button onclick="_umCloseModal()" style="padding:.5rem 1.1rem;border:1.5px solid #E2E8F0;border-radius:10px;background:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer">Cancel</button>
+      <button onclick="umDoDelete('${uid}','${email}')" style="padding:.5rem 1.3rem;border:none;border-radius:10px;background:#DC2626;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Delete User</button>
+    </div>`);
+}
+
+async function umDoDelete(uid, email) {
+  const typed = document.getElementById('um-del-confirm')?.value || '';
+  const msg   = document.getElementById('um-del-msg');
+  if (typed.trim() !== email) {
+    msg.innerHTML = '<span style="color:#DC2626">Email does not match. Please type exactly: ' + email + '</span>';
+    return;
+  }
+  msg.innerHTML = '<span style="color:#64748B">⏳ Deleting user…</span>';
+  try {
+    const fn = firebase.functions().httpsCallable('adminDeleteUser');
+    await fn({ uid });
+    // Remove from cached list
+    _usermgmtAllUsers = _usermgmtAllUsers.filter(u => (u.uid||u.id) !== uid);
+    msg.innerHTML = '<span style="color:#15803D">✅ User deleted.</span>';
+    setTimeout(() => { _umCloseModal(); _renderUserMgmtTable(_usermgmtAllUsers); const s=document.getElementById('usermgmt-status'); if(s) s.textContent=_usermgmtAllUsers.length+' users'; }, 1500);
+  } catch(e) {
+    msg.innerHTML = '<span style="color:#DC2626">❌ ' + (e.message || 'Error deleting user') + '</span>';
+  }
+}
+
+// ── Expose _db and _currentUser for user mgmt ─────────────────────
+// (these are already set in firebase-bridge.js — just aliasing for clarity)
+if (typeof db !== 'undefined' && !window._db) window._db = db;
+if (typeof currentUser !== 'undefined' && !window._currentUser) window._currentUser = currentUser;
