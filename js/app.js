@@ -41400,6 +41400,39 @@ const GENERAL_QS = [
     ]
   },
 
+  // EM-Q2d: Dig — exact depth required?
+  {
+    id:'em_exact_depth_m', icon:'📐',
+    text:'What is the maximum depth you need to reach?',
+    hint:'Enter the deepest point in metres — e.g. 2.5 for a 2.5m trench. This lets us match machines exactly to your dig depth.',
+    showIf:{key:'em_job', val:'dig'},
+    type:'numeric', unit:'m', step:0.1, min:0.1, max:20,
+    placeholder:'e.g. 2.5',
+    optional:true,
+  },
+
+  // EM-Q2e: Dig — how far from machine to dig point?
+  {
+    id:'em_exact_reach_m', icon:'↔️',
+    text:'How far from the machine to the dig point?',
+    hint:'The distance from where the excavator sits to where the bucket needs to reach. Critical for confined sites. Enter in metres.',
+    showIf:{key:'em_job', val:'dig'},
+    type:'numeric', unit:'m', step:0.1, min:0.5, max:25,
+    placeholder:'e.g. 4.0',
+    optional:true,
+  },
+
+  // EM-Q2f: Tight access — gate/gap width?
+  {
+    id:'em_gate_width_mm', icon:'🚪',
+    text:'What is the narrowest gap the machine must fit through?',
+    hint:'Measure the narrowest gate, doorway or access point in millimetres. A standard single garage is ~2,400mm. A pedestrian gate is typically 900–1,200mm.',
+    showIf:{key:'em_dig_access', val:'tight'},
+    type:'numeric', unit:'mm', step:50, min:500, max:5000,
+    placeholder:'e.g. 900',
+    optional:true,
+  },
+
   // EM-Q3a: Push/clear — ground condition?
   {
     id:'em_push_ground', icon:'🌍',
@@ -43344,6 +43377,14 @@ function matchEarthworks(ans) {
   const vegType  = ans.em_veg_type       || '';
   const hireType = ans.em_hire_type      || ''; // 'wet' | 'dry'
 
+  // ── Exact numeric requirements (intelligence layer) ──────────────
+  const reqDepthM    = parseFloat(ans.em_exact_depth_m)  || 0;  // exact dig depth required
+  const reqReachM    = parseFloat(ans.em_exact_reach_m)  || 0;  // exact reach required
+  const reqGateMm    = parseFloat(ans.em_gate_width_mm)  || 0;  // narrowest access gap
+
+  // Ground bearing capacity from soil type — maps to max safe kPa
+  const soilKPaLimit = { soft:32, standard:55, hard:999, grading:65 }[ground] || 0;
+
   // Exclude generic 'Various' placeholder entries — show real brand models only
   const pool = (MACHINES.earthworks || []).filter(m => m.brand !== 'Various');
 
@@ -43362,22 +43403,85 @@ function matchEarthworks(ans) {
     candidates = pool.filter(m => m.type === 'excavator');
     candidates = candidates.map(m => {
       let s = 0;
-      // Depth matching
+
+      // ── Machine spec extraction ───────────────────────────────
+      // Dig depth: prefer mm field (brochure-accurate), fall back to m field
+      const machDepthM  = m.digDepthMm ? m.digDepthMm / 1000 : (m.digDepthM || 0);
+      // Max reach at ground level
+      const machReachM  = m.maxReachGroundMm ? m.maxReachGroundMm / 1000 : 0;
+      // Track width when retracted (narrowest stance for access)
+      const machTrackMm = m.trackWidthRetractedMm || m.trackWidthExpandedMm || 0;
+      // Ground pressure (minimum = lightest config = rubber tracks / min shoes)
+      const machGndKPa  = m.groundPressureMinKPa || 0;
+
+      // ── EXACT DEPTH CHECK (hard constraint) ───────────────────
+      // If customer specified exact depth and machine can't reach it → penalise heavily
+      const depthMarginM = reqDepthM > 0 && machDepthM > 0 ? machDepthM - reqDepthM : null;
+      if (depthMarginM !== null) {
+        if (depthMarginM < 0)         s -= 12;  // FAILS — can't reach required depth
+        else if (depthMarginM < 0.3)  s +=  3;  // Tight fit — will work but minimal margin
+        else if (depthMarginM < 1.0)  s +=  6;  // Good clearance
+        else                          s +=  4;  // Excess depth — fine but possibly overkill
+      }
+
+      // ── EXACT REACH CHECK (hard constraint) ───────────────────
+      const reachMarginM = reqReachM > 0 && machReachM > 0 ? machReachM - reqReachM : null;
+      if (reachMarginM !== null) {
+        if (reachMarginM < 0)         s -= 10;  // FAILS — can't reach work point
+        else if (reachMarginM < 0.5)  s +=  3;
+        else if (reachMarginM < 2.0)  s +=  6;
+        else                          s +=  3;
+      }
+
+      // ── GATE / ACCESS WIDTH CHECK (hard constraint) ────────────
+      const gateMarginMm = reqGateMm > 0 && machTrackMm > 0 ? reqGateMm - machTrackMm : null;
+      if (gateMarginMm !== null) {
+        if (gateMarginMm < 0)         s -= 15;  // FAILS — won't fit through gap
+        else if (gateMarginMm < 150)  s +=  3;  // Tight fit
+        else if (gateMarginMm < 400)  s +=  6;  // Comfortable
+        else                          s +=  4;
+      }
+
+      // ── GROUND PRESSURE CHECK ──────────────────────────────────
+      if (soilKPaLimit > 0 && machGndKPa > 0) {
+        if (machGndKPa <= soilKPaLimit)              s += 4;  // Ground pressure OK
+        else if (machGndKPa <= soilKPaLimit * 1.2)   s += 1;  // Marginal
+        else                                          s -= 4;  // Too heavy for ground
+      }
+
+      // ── CATEGORY-BASED SCORING (fallback when no exact data) ──
       if (depth === 'shallow')   s += m.weightClass === 'mini'     ? 4 : m.weightClass === 'midi'     ? 2 : 0;
       if (depth === 'medium')    s += m.weightClass === 'mini'     ? 2 : m.weightClass === 'midi'     ? 4 : m.weightClass === 'standard' ? 2 : 0;
       if (depth === 'deep')      s += m.weightClass === 'midi'     ? 2 : m.weightClass === 'standard' ? 4 : 0;
       if (depth === 'very_deep') s += m.weightClass === 'standard' ? 3 : m.weightClass === 'large'    ? 5 : 0;
-      // Access matching
-      if (access === 'tight')    s += m.id.includes('mini') ? 4 : -2;
+
+      if (access === 'tight')    s += machTrackMm > 0 ? 0 : (m.id.includes('mini') ? 3 : -2);
       if (access === 'standard') s += m.weightClass === 'mini' ? 1 : m.weightClass === 'midi' ? 3 : m.weightClass === 'standard' ? 3 : 1;
       if (access === 'open')     s += m.weightClass === 'standard' ? 3 : m.weightClass === 'large' ? 4 : 1;
-      // Breaker job → prefer standard+ (more hydraulic flow)
+
+      // Breaker job → prefer standard+ for hydraulic flow
       if (job === 'break') {
         if (breakMat === 'rock')     s += m.weightClass === 'standard' ? 3 : m.weightClass === 'large' ? 4 : 0;
         if (breakMat === 'concrete') s += m.weightClass === 'midi'     ? 3 : m.weightClass === 'standard' ? 3 : 1;
         if (breakVol === 'large')    s += m.weightClass === 'standard' ? 2 : m.weightClass === 'large'    ? 4 : 0;
       }
-      return { ...m, _score: s };
+
+      return {
+        ...m, _score: s,
+        // ── Intelligence flags passed to card renderer ────────────
+        _reqDepthM:   reqDepthM   || null,
+        _machDepthM:  machDepthM  || null,
+        _depthMarginM: depthMarginM,
+        _reqReachM:   reqReachM   || null,
+        _machReachM:  machReachM  || null,
+        _reachMarginM: reachMarginM,
+        _reqGateMm:   reqGateMm   || null,
+        _machTrackMm: machTrackMm || null,
+        _gateMarginMm: gateMarginMm,
+        _machGndKPa:  machGndKPa  || null,
+        _soilKPaLimit: soilKPaLimit || null,
+        _groundOk:    machGndKPa > 0 && soilKPaLimit > 0 ? machGndKPa <= soilKPaLimit : null,
+      };
     }).sort((a,b) => b._score - a._score);
   }
 
@@ -43611,17 +43715,68 @@ function matchEarthworks(ans) {
     candidates = candidates.filter(m => m.hireRateType !== 'wet');
   }
 
-  // Return top 5 (never show zero results)
+  // Return top 6 (never show zero results)
   return candidates.slice(0, 6).map(m => ({
+    // ── Core identity ──────────────────────────────────────────────
     id: m.id, name: m.name, shortName: m.shortName || m.name,
     brand: m.brand, emoji: m.emoji || '🚜', type: m.type,
     note: m.note || '', tags: m.tags || [],
-    operatingWeightT: m.operatingWeightT,
-    digDepthM: m.digDepthM, bucketCapM3: m.bucketCapM3,
     hireRateType: m.hireRateType || 'wet_or_dry',
-    _score: m._score || 0,
-    _isEarthworks: true,
+    _score: m._score || 0, _isEarthworks: true,
     filters: ['earthworks', m.type],
+    // ── Excavator working range (brochure-exact) ──────────────────
+    operatingWeightT: m.operatingWeightT,
+    operatingWeightMinKg: m.operatingWeightMinKg,
+    operatingWeightMaxKg: m.operatingWeightMaxKg,
+    digDepthM: m.digDepthM, digDepthMm: m.digDepthMm,
+    longStickDigDepthMm: m.longStickDigDepthMm,
+    maxReachGroundMm: m.maxReachGroundMm,
+    longStickMaxReachGroundMm: m.longStickMaxReachGroundMm,
+    maxDumpClearanceMm: m.maxDumpClearanceMm,
+    maxDigHeightMm: m.maxDigHeightMm,
+    verticalWallMm: m.verticalWallMm,
+    bucketCapM3: m.bucketCapM3,
+    trackWidthRetractedMm: m.trackWidthRetractedMm,
+    trackWidthExpandedMm: m.trackWidthExpandedMm,
+    transportLengthStdMm: m.transportLengthStdMm,
+    transportHeightMm: m.transportHeightMm,
+    groundPressureMinKPa: m.groundPressureMinKPa,
+    groundPressureMaxKPa: m.groundPressureMaxKPa,
+    tailSwingMm: m.tailSwingMm,
+    groundClearanceMm: m.groundClearanceMm,
+    travelSpeedLowKmh: m.travelSpeedLowKmh,
+    travelSpeedHighKmh: m.travelSpeedHighKmh,
+    gradeabilityDeg: m.gradeabilityDeg,
+    bladeWidthMm: m.bladeWidthMm,
+    bladeWidthExpandedMm: m.bladeWidthExpandedMm,
+    bladeHeightMm: m.bladeHeightMm,
+    bladeDepthMaxMm: m.bladeDepthMaxMm,
+    bladeHeightMaxMm: m.bladeHeightMaxMm,
+    boomSwingRightDeg: m.boomSwingRightDeg,
+    boomSwingLeftDeg: m.boomSwingLeftDeg,
+    engineModel: m.engineModel, engineNetKW: m.engineNetKW,
+    engineNetHP: m.engineNetHP, emissionStandard: m.emissionStandard,
+    digForceStickStdKN: m.digForceStickStdKN,
+    digForceBucketKN: m.digForceBucketKN,
+    brochureRef: m.brochureRef, weightClass: m.weightClass,
+    // ── Dozer / pusher specifics ───────────────────────────────────
+    bladeCap: m.bladeCap, bladeWidthMmDozer: m.bladeWidthMmDozer,
+    // ── Compactor specifics ────────────────────────────────────────
+    drumWidthMm: m.drumWidthMm, staticLinearLoadKgCm: m.staticLinearLoadKgCm,
+    subtype: m.subtype,
+    // ── Dump truck / ADT specifics ─────────────────────────────────
+    payloadT: m.payloadT, bodyVolumeM3: m.bodyVolumeM3,
+    // ── Intelligence flags (exact matching results) ────────────────
+    _reqDepthM:    m._reqDepthM,    _machDepthM:  m._machDepthM,
+    _depthMarginM: m._depthMarginM,
+    _reqReachM:    m._reqReachM,    _machReachM:  m._machReachM,
+    _reachMarginM: m._reachMarginM,
+    _reqGateMm:    m._reqGateMm,    _machTrackMm: m._machTrackMm,
+    _gateMarginMm: m._gateMarginMm,
+    _machGndKPa:   m._machGndKPa,   _soilKPaLimit: m._soilKPaLimit,
+    _groundOk:     m._groundOk,
+    // Lift chart (for cranes/large machines)
+    liftChartMax: m.liftChartMax, liftChartMin: m.liftChartMin,
   }));
 }
 
@@ -44574,6 +44729,34 @@ function renderStep() {
     if (!answers[q.id] || answers[q.id].length === 0) answers[q.id] = [];
   }
 
+  if (q.type==='numeric') {
+    // Single numeric input — exact value capture (depth, reach, gate width etc.)
+    const savedNum = answers[q.id] || '';
+    const unitLabel = q.unit || '';
+    html+=`
+    <div style="margin:.8rem 0 .5rem">
+      <div style="display:flex;align-items:center;gap:.65rem;max-width:340px;margin:0 auto">
+        <input type="number"
+          id="em-num-${q.id}"
+          value="${savedNum}"
+          min="${q.min || 0}"
+          max="${q.max || 9999}"
+          step="${q.step || 1}"
+          placeholder="${q.placeholder || '0'}"
+          oninput="emNumSave('${q.id}',this.value)"
+          style="flex:1;padding:.65rem .85rem;border:2.5px solid ${savedNum?'#0052CC':'#CBD5E1'};border-radius:12px;font-size:1.2rem;font-weight:800;font-family:'Nunito',sans-serif;color:#0F172A;text-align:right;background:#fff;outline:none;transition:border-color .2s"
+          onfocus="this.style.borderColor='#0052CC'"
+          onblur="this.style.borderColor=this.value?'#0052CC':'#CBD5E1'"
+        >
+        <span style="font-size:1rem;font-weight:700;color:#64748B;flex-shrink:0;min-width:2rem">${unitLabel}</span>
+      </div>
+      ${savedNum ? `<div style="text-align:center;margin-top:.55rem;font-size:.83rem;font-weight:700;color:#0052CC">📐 Captured: <strong>${savedNum}${unitLabel}</strong> — will be matched against each machine</div>` : ''}
+      <div style="text-align:center;margin-top:.4rem;font-size:.77rem;color:#94A3B8">${q.optional ? 'Optional — tap Next to skip' : 'Required'}</div>
+    </div>`;
+    // Numeric questions are always valid (optional)
+    if (!answers[q.id]) answers[q.id] = '';
+  }
+
   if (q.type==='inputs') {
     // Support both q.inputs (legacy format: {id,lbl,placeholder,unit})
     // and q.fields (new format: {key,label,placeholder,unit})
@@ -44650,6 +44833,25 @@ function saveInput(id, val) {
 
 
 
+function emNumSave(qId, val) {
+  answers[qId] = val;
+  // Update the capture confirmation text inline without re-rendering the whole step
+  const inp = document.getElementById('em-num-' + qId);
+  const parentDiv = inp ? inp.closest('div[style]') : null;
+  if (inp) {
+    inp.style.borderColor = val ? '#0052CC' : '#CBD5E1';
+    // Update sibling confirmation div if present
+    const confirm = inp.parentElement && inp.parentElement.nextElementSibling;
+    if (confirm && confirm.textContent.includes('Captured')) {
+      const q = GENERAL_QS.find(q => q.id === qId);
+      const unit = q ? (q.unit || '') : '';
+      confirm.innerHTML = val
+        ? `📐 Captured: <strong>${val}${unit}</strong> — will be matched against each machine`
+        : '';
+    }
+  }
+}
+
 function selectOpt(qId, val, btn) {
   answers[qId] = val;
   document.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('selected'));
@@ -44690,6 +44892,7 @@ function nextStep() {
   if (curQ.type === 'inputs' && !answers[qId]) answers[qId] = 'done';
   // For multi-select, allow 0 selections
   if (curQ.type === 'multi') { if (!answers[qId]) answers[qId] = []; }
+  if (curQ.type === 'numeric') { return true; } // numeric is always optional
   // For options, nudge if nothing selected
   if (curQ.type === 'options' && !answers[qId]) {
     showToast('👆 Please select an option above first', '#F59E0B');
@@ -46225,11 +46428,114 @@ function _renderCards(matches, machineType, answers) {
           : `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">✅ Wet or dry hire available</span>`;
 
         // ── Check if we have full brochure data ──────────────────────────
+        // ── Intelligence panel — exact spec matching (mirrors telehandler load chart) ──
+        const _emIntelPanel = (() => {
+          // Only render if customer provided at least one exact numeric value
+          const hasAny = m._reqDepthM || m._reqReachM || m._reqGateMm;
+          if (!hasAny) return '';
+
+          // Colour bands — green / amber / red
+          const _col = (ok, na) => {
+            if (na) return { bg:'#F8FAFC', bdr:'#CBD5E1', val:'#64748B', lbl:'#94A3B8', icon:'—' };
+            if (ok === true)  return { bg:'linear-gradient(135deg,#ECFDF5,#D1FAE5)', bdr:'#6EE7B7', val:'#065F46', lbl:'#16A34A', icon:'✅' };
+            if (ok === false) return { bg:'linear-gradient(135deg,#FEF2F2,#FEE2E2)', bdr:'#FCA5A5', val:'#991B1B', lbl:'#EF4444', icon:'❌' };
+            return { bg:'linear-gradient(135deg,#FFFBEB,#FEF3C7)', bdr:'#FCD34D', val:'#92400E', lbl:'#F59E0B', icon:'⚠️' };
+          };
+
+          const _row = (label, machVal, reqVal, unit, ok, subNote='') => {
+            const isNA = machVal == null || machVal === 0;
+            const c = _col(isNA ? null : ok, isNA);
+            const marginVal = (!isNA && reqVal > 0 && machVal > 0)
+              ? (unit === 'mm'
+                  ? `${ok ? '+' : ''}${Math.round(machVal - reqVal)}mm`
+                  : `${ok ? '+' : ''}${(machVal - reqVal).toFixed(2)}m`)
+              : null;
+            return `
+            <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.3rem .65rem;background:${c.bg};border:1.5px solid ${c.bdr};border-radius:10px;padding:.5rem .7rem;margin-bottom:.3rem">
+              <span style="font-size:1rem">${c.icon}</span>
+              <div>
+                <div style="font-size:.73rem;font-weight:800;color:${c.lbl};text-transform:uppercase;letter-spacing:.04em">${label}</div>
+                ${reqVal > 0 ? `<div style="font-size:.71rem;color:#64748B;margin-top:.05rem">You need: <strong>${unit==='mm'?reqVal+'mm':reqVal+'m'}</strong></div>` : ''}
+                ${subNote ? `<div style="font-size:.69rem;color:#94A3B8;margin-top:.05rem">${subNote}</div>` : ''}
+              </div>
+              <div style="text-align:right;white-space:nowrap">
+                ${isNA
+                  ? `<div style="font-size:.78rem;color:#94A3B8;font-style:italic">Not in brochure</div>`
+                  : `<div style="font-size:1rem;font-weight:900;color:${c.val}">${unit==='mm'?machVal+'mm':machVal.toFixed(2)+'m'}</div>
+                     ${marginVal ? `<div style="font-size:.68rem;font-weight:700;color:${c.val};opacity:.85">${marginVal} margin</div>` : ''}`
+                }
+              </div>
+            </div>`;
+          };
+
+          // ── Depth row ─────────────────────────────────────────────────────
+          const depthRow = m._reqDepthM ? _row(
+            '⛏️ Dig Depth',
+            m._machDepthM,
+            m._reqDepthM,
+            'm',
+            m._depthMarginM != null ? m._depthMarginM >= 0 : null,
+            m._depthMarginM != null && m._depthMarginM < 0.3 && m._depthMarginM >= 0 ? 'Tight — less than 300mm margin' : ''
+          ) : '';
+
+          // ── Reach row ─────────────────────────────────────────────────────
+          const reachRow = m._reqReachM ? _row(
+            '↔️ Max Reach (ground)',
+            m._machReachM,
+            m._reqReachM,
+            'm',
+            m._reachMarginM != null ? m._reachMarginM >= 0 : null,
+            m._reachMarginM != null && m._reachMarginM < 0.5 && m._reachMarginM >= 0 ? 'Tight — less than 500mm margin' : ''
+          ) : '';
+
+          // ── Gate/access row ───────────────────────────────────────────────
+          const gateOk = m._gateMarginMm != null ? m._gateMarginMm >= 0 : null;
+          const gateRow = m._reqGateMm ? _row(
+            '🚪 Track Width (retracted)',
+            m._machTrackMm,
+            m._reqGateMm,
+            'mm',
+            gateOk,
+            m._gateMarginMm != null && m._gateMarginMm >= 0 && m._gateMarginMm < 150 ? 'Very tight fit — check with supplier' : ''
+          ) : '';
+
+          // ── Ground pressure row ───────────────────────────────────────────
+          const groundRow = (m._machGndKPa && m._soilKPaLimit) ? (() => {
+            const ok = m._machGndKPa <= m._soilKPaLimit;
+            const marginal = m._machGndKPa <= m._soilKPaLimit * 1.2;
+            const c = ok ? _col(true) : marginal ? _col(null) : _col(false);
+            const soilLabel = { soft:'Soft / clay / wet (max ~32 kPa)', standard:'Compacted ground (max ~55 kPa)', hard:'Hard ground / rock', grading:'Cleared site' }[answers.em_push_ground||''] || 'Your ground type';
+            return `
+            <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.3rem .65rem;background:${c.bg};border:1.5px solid ${c.bdr};border-radius:10px;padding:.5rem .7rem;margin-bottom:.3rem">
+              <span style="font-size:1rem">${c.icon}</span>
+              <div>
+                <div style="font-size:.73rem;font-weight:800;color:${c.lbl};text-transform:uppercase;letter-spacing:.04em">⚖️ Ground Pressure</div>
+                <div style="font-size:.71rem;color:#64748B;margin-top:.05rem">${soilLabel}</div>
+                ${!ok && !marginal ? '<div style="font-size:.69rem;color:#EF4444;margin-top:.05rem;font-weight:700">May damage soft ground — discuss with supplier</div>' : ''}
+              </div>
+              <div style="text-align:right;white-space:nowrap">
+                <div style="font-size:1rem;font-weight:900;color:${c.val}">${m._machGndKPa} kPa</div>
+                <div style="font-size:.68rem;color:#64748B">machine min</div>
+              </div>
+            </div>`;
+          })() : '';
+
+          const anyRow = depthRow || reachRow || gateRow || groundRow;
+          if (!anyRow) return '';
+
+          return `
+          <div style="background:linear-gradient(135deg,#F0F9FF,#E0F2FE);border:2px solid #7DD3FC;border-radius:12px;padding:.7rem .85rem;margin-bottom:.55rem">
+            <div style="font-size:.73rem;font-weight:900;color:#0369A1;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.45rem">🎯 Spec Match — Your Requirements vs This Machine</div>
+            ${depthRow}${reachRow}${gateRow}${groundRow}
+            <div style="font-size:.67rem;color:#64748B;margin-top:.35rem;line-height:1.4">⚠️ Always confirm specifications with the rental company before booking. Machine dimensions vary by configuration and tyre/shoe choice.</div>
+          </div>`;
+        })();
+
         const hasFull = !!(m.engineModel || m.transportLengthStdMm || m.trackWidthRetractedMm);
 
         if (!hasFull) {
           // Simple display for generic "Various" machines
-          return `
+          return `${_emIntelPanel}
           <div style="margin:.5rem 0;display:flex;flex-wrap:wrap;gap:.35rem">
             ${m.operatingWeightT ? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⚖️ ${m.operatingWeightT}t</span>` : ''}
             ${m.digDepthM ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.76rem;font-weight:700;padding:.18rem .55rem">⛏️ ${m.digDepthM}m dig depth</span>` : ''}
@@ -46273,7 +46579,7 @@ function _renderCards(matches, machineType, answers) {
           </div>`;
         })();
 
-        return `
+        return `${_emIntelPanel}
         <div style="margin:.5rem 0 0">
           ${hireBadge}
 
@@ -46353,7 +46659,7 @@ function _renderCards(matches, machineType, answers) {
           </div>
         </div>`;
       })() : ''}
-      <div class="rec-tags">${m.tags.map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
+      <div class="rec-tags">${(m.tags||[]).map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
         ${(!currentUser || (currentUser.role !== 'rental' && currentUser.role !== 'lite')) ? `
         <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name||'').replace(/'/g,"\\'")}')">🛒 Add to Cart</button>
@@ -47617,6 +47923,9 @@ function getJobRequirements() {
 
     const emDepthMap = { shallow:'Under 1.5m', medium:'1.5m to 3m', deep:'3m to 6m', very_deep:'Over 6m' };
     if (a.em_dig_depth) req.digDepth = emDepthMap[a.em_dig_depth] || a.em_dig_depth;
+    if (a.em_exact_depth_m) req.exactDigDepthM = parseFloat(a.em_exact_depth_m);
+    if (a.em_exact_reach_m) req.exactReachM    = parseFloat(a.em_exact_reach_m);
+    if (a.em_gate_width_mm) req.gateWidthMm    = parseFloat(a.em_gate_width_mm);
 
     const emAccessMap = { tight:'Very tight / confined', standard:'Standard site access', open:'Open land' };
     if (a.em_dig_access) req.siteAccess = emAccessMap[a.em_dig_access] || a.em_dig_access;
@@ -52495,7 +52804,7 @@ function addToCartDirect(machineId, machineName) {
   const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
   const already = quoteCart.find(m => m.id === machineId);
   if (already) { showToast('Already in cart','#64748B'); return; }
-  quoteCart.push({ id:machineId, name:machineName, emoji:typeEmojis[machineType]||'💥', type:machineType, jobRequirements:getJobRequirements() });
+  quoteCart.push({ id:machineId, name:machineName, emoji:typeEmojis[machineType]||'💥', type:machineType, _isEarthworks:!!(machineType && machineType.startsWith('em_')), jobRequirements:getJobRequirements() });
   saveCartToStorage();
   updateCartUI();
   showToast(`🛒 ${machineName} added to cart`,'#0052CC');
