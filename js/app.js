@@ -60005,7 +60005,7 @@ async function loadUserMgmtTable() {
   if (status) status.textContent = '';
 
   try {
-    const snap = await window._db.collection('users').orderBy('createdAt','desc').get();
+    const snap = await firebase.firestore().collection('users').orderBy('createdAt','desc').get();
     _usermgmtAllUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     if (status) status.textContent = _usermgmtAllUsers.length + ' users loaded';
     _renderUserMgmtTable(_usermgmtAllUsers);
@@ -60041,7 +60041,7 @@ function _renderUserMgmtTable(users) {
     return;
   }
 
-  const myUid = window._currentUser ? window._currentUser.uid : null;
+  const myUid = currentUser ? currentUser.uid : null;
 
   const rows = users.map(u => {
     const isMe = u.uid === myUid || u.id === myUid;
@@ -60164,7 +60164,7 @@ async function umDoResetPw(uid, email) {
   if (pw1 !== pw2)        { msg.innerHTML = '<span style="color:#DC2626">Passwords do not match.</span>'; return; }
   msg.innerHTML = '<span style="color:#64748B">⏳ Resetting…</span>';
   try {
-    const fn = firebase.functions().httpsCallable('adminResetUserPassword');
+    const fn = firebase.app().functions('us-central1').httpsCallable('adminResetUserPassword');
     await fn({ uid, newPassword: pw1 });
     msg.innerHTML = '<span style="color:#15803D">✅ Password reset successfully!</span>';
     setTimeout(_umCloseModal, 1800);
@@ -60211,7 +60211,7 @@ async function umDoChangeRole(uid, email) {
   if (!newRole) return;
   if (warn) warn.innerHTML = '<span style="color:#64748B">⏳ Updating…</span>';
   try {
-    const fn = firebase.functions().httpsCallable('adminChangeUserRole');
+    const fn = firebase.app().functions('us-central1').httpsCallable('adminChangeUserRole');
     await fn({ uid, newRole });
     // Update cached list
     const u = _usermgmtAllUsers.find(x => (x.uid||x.id) === uid);
@@ -60253,7 +60253,7 @@ async function umDoDelete(uid, email) {
   }
   msg.innerHTML = '<span style="color:#64748B">⏳ Deleting user…</span>';
   try {
-    const fn = firebase.functions().httpsCallable('adminDeleteUser');
+    const fn = firebase.app().functions('us-central1').httpsCallable('adminDeleteUser');
     await fn({ uid });
     // Remove from cached list
     _usermgmtAllUsers = _usermgmtAllUsers.filter(u => (u.uid||u.id) !== uid);
@@ -60264,7 +60264,4 @@ async function umDoDelete(uid, email) {
   }
 }
 
-// ── Expose _db and _currentUser for user mgmt ─────────────────────
-// (these are already set in firebase-bridge.js — just aliasing for clarity)
-if (typeof db !== 'undefined' && !window._db) window._db = db;
-if (typeof currentUser !== 'undefined' && !window._currentUser) window._currentUser = currentUser;
+// (Firebase db and currentUser accessed directly as globals in user mgmt functions)
