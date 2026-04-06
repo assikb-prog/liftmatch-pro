@@ -59998,19 +59998,34 @@ function _umRoleBadge(role) {
 
 // ── Load users from Firestore ─────────────────────────────────────
 async function loadUserMgmtTable() {
-  const wrap = document.getElementById('usermgmt-table-wrap');
+  const wrap   = document.getElementById('usermgmt-table-wrap');
   const status = document.getElementById('usermgmt-status');
   if (!wrap) return;
-  wrap.innerHTML = '<div style="color:#94A3B8;text-align:center;padding:2rem;font-size:.9rem">⏳ Loading users…</div>';
+  wrap.innerHTML = '<div style="color:#94A3B8;text-align:center;padding:2rem;font-size:.9rem">⏳ Loading users from Cloud Function…</div>';
   if (status) status.textContent = '';
 
   try {
-    const snap = await firebase.firestore().collection('users').orderBy('createdAt','desc').get();
-    _usermgmtAllUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    // Uses Admin SDK via Cloud Function — bypasses Firestore client security rules
+    const fn   = firebase.app().functions('us-central1').httpsCallable('adminListUsers');
+    const result = await fn({});
+    _usermgmtAllUsers = result.data.users || [];
     if (status) status.textContent = _usermgmtAllUsers.length + ' users loaded';
     _renderUserMgmtTable(_usermgmtAllUsers);
   } catch(e) {
-    wrap.innerHTML = '<div style="color:#DC2626;text-align:center;padding:2rem">❌ Failed to load users: ' + e.message + '</div>';
+    // Detailed error shown — most likely Cloud Functions not yet deployed
+    const isNotDeployed = e.message && (e.message.includes('NOT_FOUND') || e.message.includes('UNAUTHENTICATED') || e.message.includes('not found'));
+    wrap.innerHTML = `
+      <div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:12px;padding:1.2rem 1.5rem;margin:.5rem 0">
+        <div style="font-weight:800;color:#991B1B;font-size:.95rem;margin-bottom:.5rem">❌ Could not load users</div>
+        <div style="font-size:.83rem;color:#7F1D1D;margin-bottom:.75rem"><strong>Error:</strong> ${e.message}</div>
+        ${isNotDeployed ? `
+        <div style="font-size:.82rem;color:#92400E;background:#FEF3C7;border-radius:8px;padding:.75rem 1rem;line-height:1.7">
+          <strong>⚠️ Cloud Functions not yet deployed.</strong><br>
+          Run these commands in your terminal from the noyo folder:<br>
+          <code style="background:#fff;padding:.2rem .5rem;border-radius:4px;font-size:.78rem;display:inline-block;margin-top:.3rem">cd functions &amp;&amp; npm install &amp;&amp; cd ..</code><br>
+          <code style="background:#fff;padding:.2rem .5rem;border-radius:4px;font-size:.78rem;display:inline-block;margin-top:.3rem">npx firebase deploy --only functions --project liftmatchpro-e3c7b</code>
+        </div>` : ''}
+      </div>`;
   }
 }
 
