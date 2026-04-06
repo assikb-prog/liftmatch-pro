@@ -1202,75 +1202,90 @@
       <!-- Populated entirely by renderAdminBilling() -->
     </div>
 
-    <div class="admin-section" id="admin-sec-analytics" style="display:none">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem">
-        <div class="admin-section-title" style="margin:0">📈 Analytics Dashboard</div>
-        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
-          <select id="analytics-period" onchange="renderAnalytics()" style="border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .7rem;font-size:.82rem;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer">
-            <option value="7">Last 7 days</option>
-            <option value="30" selected>Last 30 days</option>
-            <option value="90">Last 90 days</option>
-            <option value="365">Last 12 months</option>
-          </select>
-          <button onclick="renderAnalytics()" style="font-size:.8rem;padding:.35rem .8rem;border:1px solid #E2E8F0;border-radius:8px;background:#fff;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700">↻ Refresh</button>
+    <div class="admin-section" id="admin-sec-analytics">
+      <div class="admin-section-title">📈 Business Analytics</div>
+
+      <!-- Date range controls -->
+      <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:.75rem 1rem;margin-bottom:1.2rem">
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+          <!-- Quick presets -->
+          <div style="display:flex;gap:.3rem;flex-wrap:wrap">
+            <button onclick="analyticsSetPreset('today')"   id="abtn-today"   class="analytics-preset-btn">Today</button>
+            <button onclick="analyticsSetPreset('7d')"      id="abtn-7d"      class="analytics-preset-btn">7 Days</button>
+            <button onclick="analyticsSetPreset('30d')"     id="abtn-30d"     class="analytics-preset-btn active">30 Days</button>
+            <button onclick="analyticsSetPreset('90d')"     id="abtn-90d"     class="analytics-preset-btn">90 Days</button>
+            <button onclick="analyticsSetPreset('12m')"     id="abtn-12m"     class="analytics-preset-btn">12 Months</button>
+            <button onclick="analyticsSetPreset('all')"     id="abtn-all"     class="analytics-preset-btn">All Time</button>
+          </div>
+          <!-- Custom date range -->
+          <div style="display:flex;align-items:center;gap:.4rem;margin-left:auto">
+            <label style="font-size:.73rem;font-weight:700;color:#64748B">From</label>
+            <input type="date" id="analytics-from" onchange="renderAnalytics()"
+              style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.28rem .45rem;font-size:.78rem;font-family:'Nunito',sans-serif">
+            <label style="font-size:.73rem;font-weight:700;color:#64748B">To</label>
+            <input type="date" id="analytics-to" onchange="renderAnalytics()"
+              style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.28rem .45rem;font-size:.78rem;font-family:'Nunito',sans-serif">
+            <button onclick="renderAnalytics()" style="background:#0052CC;color:#fff;border:none;border-radius:7px;padding:.3rem .75rem;font-size:.78rem;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer">↻</button>
+          </div>
         </div>
       </div>
 
-      <!-- KPI row -->
-      <div id="analytics-kpi-row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-bottom:1.4rem"></div>
+      <!-- KPI tiles — injected by renderAnalytics() -->
+      <div id="analytics-kpi-row" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.5rem;margin-bottom:1.2rem"></div>
 
-      <!-- Charts grid -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem">
+      <!-- Conversion funnel -->
+      <div id="analytics-funnel" style="margin-bottom:1.2rem"></div>
 
-        <!-- New Customers Over Time -->
-        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">🧑 New Customers Over Time</div>
-          <div style="position:relative;height:200px"><canvas id="chart-customers-time"></canvas></div>
+      <!-- Main charts grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;margin-bottom:1rem">
+
+        <!-- Activity over time -->
+        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem;grid-column:1/-1">
+          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">📈 Activity Over Time — Searches · Cart Adds · Quotes</div>
+          <div style="position:relative;height:220px"><canvas id="chart-activity-time"></canvas></div>
         </div>
 
-        <!-- Quote Requests Over Time -->
+        <!-- Top categories searched -->
         <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">📨 Quote Requests Over Time</div>
-          <div style="position:relative;height:200px"><canvas id="chart-quotes-time"></canvas></div>
+          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">🏗️ Most Searched Categories</div>
+          <div style="position:relative;height:220px"><canvas id="chart-categories"></canvas></div>
         </div>
 
-        <!-- Geographic Distribution -->
+        <!-- Geographic -->
         <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">📍 Where Customers Come From</div>
-          <div style="position:relative;height:200px"><canvas id="chart-geo"></canvas></div>
+          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">📍 Top Locations</div>
+          <div style="position:relative;height:220px"><canvas id="chart-geo"></canvas></div>
         </div>
 
-        <!-- Machine Type Demand -->
+        <!-- Quote outcomes -->
         <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">🏗️ Machine Types Requested</div>
-          <div style="position:relative;height:200px"><canvas id="chart-machine-types"></canvas></div>
+          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">✅ Quote Outcomes</div>
+          <div style="position:relative;height:220px"><canvas id="chart-conversion"></canvas></div>
         </div>
 
-        <!-- Quote Conversion (accepted vs declined vs pending) -->
+        <!-- Hire duration -->
         <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">✅ Quote Outcomes</div>
-          <div style="position:relative;height:200px"><canvas id="chart-conversion"></canvas></div>
+          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">📅 Hire Duration Mix</div>
+          <div style="position:relative;height:220px"><canvas id="chart-hire-duration"></canvas></div>
         </div>
 
-        <!-- Hire Duration Distribution -->
-        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">📅 Hire Duration Mix</div>
-          <div style="position:relative;height:200px"><canvas id="chart-hire-duration"></canvas></div>
-        </div>
-
-        <!-- Capacity (tonne class) breakdown -->
-        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">⚖️ Capacity Class Demand</div>
-          <div style="position:relative;height:200px"><canvas id="chart-capacity"></canvas></div>
-        </div>
-
-        <!-- Rental company response rates -->
-        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
-          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.8rem">🏢 Rental Co Response Activity</div>
-          <div style="position:relative;height:200px"><canvas id="chart-rental-activity"></canvas></div>
+        <!-- Rental company response activity -->
+        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem;grid-column:1/-1">
+          <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">🏢 Rental Company Response Activity</div>
+          <div style="position:relative;height:220px"><canvas id="chart-rental-activity"></canvas></div>
         </div>
 
       </div>
+
+      <!-- Top machines tables — side by side -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">
+        <div id="analytics-top-searched" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="analytics-top-carted"   style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+      </div>
+
+      <!-- Search activity log -->
+      <div id="analytics-recent-searches" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem"></div>
+
       <div style="height:1rem"></div>
     </div>
     <!-- ── ADD MACHINE TAB ─────────────────────────────────────── -->
