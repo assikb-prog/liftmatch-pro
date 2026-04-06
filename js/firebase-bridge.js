@@ -16,6 +16,7 @@ const FIREBASE_CONFIG = {
 firebase.initializeApp(FIREBASE_CONFIG);
 const _fbAuth = firebase.auth();
 const _fbDb   = firebase.firestore();
+window._fbDb  = _fbDb; // expose for user management
 
 // ── Firebase Bridge: Firestore-backed account field storage ──────────
 // Replaces all localStorage _acctKey / loadAccountField / saveDetailsField calls.
