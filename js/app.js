@@ -41159,9 +41159,9 @@ const GENERAL_QS = [
     hint:'People includes everyone from single workers to full crews. Materials covers everything from duct sections to heavy pallets.',
     type:'options',
     options:[
-      {ico:'🧑‍🔧', lbl:'People',    img:QUIZ_IMGS.lf_people,    sub:'Workers need to reach height to do their job', val:'people'},
-      {ico:'📦',    lbl:'Materials', img:QUIZ_IMGS.lf_materials, sub:'Lifting goods, ductwork, panels, pallets or construction loads', val:'materials'},
-      {ico:'🚜',    lbl:'Earth Works',img:EM_IMGS.dig,           sub:'Excavation, earthmoving, clearing, compaction, cartage or dust suppression', val:'earthmoving'},
+      {ico:'🧑‍🔧', lbl:'People',    sub:'Workers need to reach height to do their job', val:'people'},
+      {ico:'📦',    lbl:'Materials', sub:'Lifting goods, ductwork, panels, pallets or construction loads', val:'materials'},
+      {ico:'🚜',    lbl:'Earth Works',           sub:'Excavation, earthmoving, clearing, compaction, cartage or dust suppression', val:'earthmoving'},
     ]
   },
 
@@ -41174,8 +41174,8 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'people'},
     type:'options',
     options:[
-      {ico:'🧍', lbl:'Just one person',        img:QUIZ_IMGS.crew_one,   sub:'Single worker — light access, maintenance, inspections', val:'one'},
-      {ico:'👷‍♂️👷‍♀️', lbl:'Two or more people', img:QUIZ_IMGS.crew_multi, sub:'Crew work, larger platform needed', val:'multi'},
+      {ico:'🧍', lbl:'Just one person',   sub:'Single worker — light access, maintenance, inspections', val:'one'},
+      {ico:'👷‍♂️👷‍♀️', lbl:'Two or more people', sub:'Crew work, larger platform needed', val:'multi'},
     ]
   },
 
@@ -41187,8 +41187,8 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'people'},
     type:'options',
     options:[
-      {ico:'⬆️', lbl:'Straight up only',            img:QUIZ_IMGS.reach_straight, sub:'Platform rises directly above — scissor lift, stick/telescopic boom or mast lift', val:'straight_up'},
-      {ico:'🌈', lbl:'Up and over / out to the side', img:QUIZ_IMGS.reach_over,     sub:'Need to arc over a wall, roof, pipe rack or obstacle — boom lift', val:'over_out'},
+      {ico:'⬆️', lbl:'Straight up only', sub:'Platform rises directly above — scissor lift, stick/telescopic boom or mast lift', val:'straight_up'},
+      {ico:'🌈', lbl:'Up and over / out to the side',     sub:'Need to arc over a wall, roof, pipe rack or obstacle — boom lift', val:'over_out'},
     ]
   },
 
@@ -41201,8 +41201,8 @@ const GENERAL_QS = [
     showIf:{key:'people_reach', val:'over_out'},
     type:'options',
     options:[
-      {ico:'🦾', lbl:'Articulating (knuckle boom)', img:QUIZ_IMGS.boom_artic, sub:'Folds up and over obstacles — mezzanines, racking, facades',       val:'boom_articulating'},
-      {ico:'📡', lbl:'Telescopic (straight boom)',  img:QUIZ_IMGS.boom_tele,  sub:'Maximum horizontal reach — open yards, powerlines, construction',  val:'boom_telescopic'},
+      {ico:'🦾', lbl:'Articulating (knuckle boom)', sub:'Folds up and over obstacles — mezzanines, racking, facades',       val:'boom_articulating'},
+      {ico:'📡', lbl:'Telescopic (straight boom)',  sub:'Maximum horizontal reach — open yards, powerlines, construction',  val:'boom_telescopic'},
       {ico:'🔄', lbl:'Either — show me both',                                  sub:'Recommend the best option based on my other requirements',         val:'boom_either'},
     ]
   },
@@ -41227,11 +41227,11 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'people'},
     type:'options',
     options:[
-      {ico:'🏭', lbl:'Indoors',                    img:QUIZ_IMGS.loc_indoor,       sub:'Warehouse, factory, venue — smooth level floor', val:'indoor'},
-      {ico:'🌤️', lbl:'Outdoors — firm ground',     img:QUIZ_IMGS.loc_outdoor_firm, sub:'Sealed yard, construction base, hard-packed surface', val:'outdoor_firm'},
-      {ico:'⛰️', lbl:'Outdoors — rough terrain',   img:QUIZ_IMGS.loc_outdoor_rough,sub:'Construction site, gravel, compacted rubble, uneven ground', val:'outdoor_rough'},
-      {ico:'⛓️', lbl:'Very rough / crawler terrain',img:QUIZ_IMGS.loc_crawler,     sub:'Steep slopes, soft/muddy ground, turf, quarry, unstable surface — needs crawler tracks', val:'outdoor_crawler'},
-      {ico:'🔄', lbl:'Both indoor & outdoor',      img:QUIZ_IMGS.loc_both,         sub:'Moving between areas', val:'both'},
+      {ico:'🏭', lbl:'Indoors',       sub:'Warehouse, factory, venue — smooth level floor', val:'indoor'},
+      {ico:'🌤️', lbl:'Outdoors — firm ground', sub:'Sealed yard, construction base, hard-packed surface', val:'outdoor_firm'},
+      {ico:'⛰️', lbl:'Outdoors — rough terrain',sub:'Construction site, gravel, compacted rubble, uneven ground', val:'outdoor_rough'},
+      {ico:'⛓️', lbl:'Very rough / crawler terrain',     sub:'Steep slopes, soft/muddy ground, turf, quarry, unstable surface — needs crawler tracks', val:'outdoor_crawler'},
+      {ico:'🔄', lbl:'Both indoor & outdoor',         sub:'Moving between areas', val:'both'},
     ]
   },
 
@@ -41261,8 +41261,8 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'materials'},
     type:'options',
     options:[
-      {ico:'🔄', lbl:'Floor level — no lifting needed', img:QUIZ_IMGS.mat_floor,  sub:'Moving, rolling or picking up pallets — no racking or high placement required', val:'floor_level'},
-      {ico:'🏗️', lbl:'Lifting to height',               img:QUIZ_IMGS.mat_height, sub:'Racking, placing on a platform, construction or high-access work', val:'to_height'},
+      {ico:'🔄', lbl:'Floor level — no lifting needed',  sub:'Moving, rolling or picking up pallets — no racking or high placement required', val:'floor_level'},
+      {ico:'🏗️', lbl:'Lifting to height', sub:'Racking, placing on a platform, construction or high-access work', val:'to_height'},
     ]
   },
 
@@ -41274,8 +41274,8 @@ const GENERAL_QS = [
     showIf:{key:'mat_lift_type', val:'floor_level'},
     type:'options',
     options:[
-      {ico:'🏭', lbl:'Indoors — smooth floor',    img:QUIZ_IMGS.pj_indoor,  sub:'Warehouse, factory, loading dock — level hard surface', val:'pj_indoor'},
-      {ico:'⛰️', lbl:'Outdoors or uneven ground', img:QUIZ_IMGS.pj_outdoor, sub:'Yard, construction site, ramp, gravel or soft surface', val:'pj_outdoor'},
+      {ico:'🏭', lbl:'Indoors — smooth floor',  sub:'Warehouse, factory, loading dock — level hard surface', val:'pj_indoor'},
+      {ico:'⛰️', lbl:'Outdoors or uneven ground', sub:'Yard, construction site, ramp, gravel or soft surface', val:'pj_outdoor'},
     ]
   },
 
@@ -41287,11 +41287,11 @@ const GENERAL_QS = [
     showIf:{key:'mat_lift_type', val:'floor_level'},
     type:'options',
     options:[
-      {ico:'🟠', lbl:'CHEP pallet',          img:QUIZ_IMGS.pallet_chep,   sub:'Standard orange plastic — 1165×1165mm',              val:'chep'},
-      {ico:'🟫', lbl:'Timber / standard',    img:QUIZ_IMGS.pallet_timber, sub:'Generic wood pallet — 1200×1000mm approx',           val:'timber'},
-      {ico:'🇪🇺', lbl:'Euro pallet',          img:QUIZ_IMGS.pallet_euro,   sub:'Narrow — 1200×800mm (requires narrow forks)',         val:'euro'},
-      {ico:'📏', lbl:'Double-length pallet', img:QUIZ_IMGS.pallet_long,   sub:'Oversized, stillage or long load — needs 2130mm tynes', val:'double_length'},
-      {ico:'📦', lbl:'Other / loose load',   img:QUIZ_IMGS.pallet_other,  sub:'Custom skid, box or non-standard load',               val:'other'},
+      {ico:'🟠', lbl:'CHEP pallet',   sub:'Standard orange plastic — 1165×1165mm',              val:'chep'},
+      {ico:'🟫', lbl:'Timber / standard', sub:'Generic wood pallet — 1200×1000mm approx',           val:'timber'},
+      {ico:'🇪🇺', lbl:'Euro pallet',   sub:'Narrow — 1200×800mm (requires narrow forks)',         val:'euro'},
+      {ico:'📏', lbl:'Double-length pallet',   sub:'Oversized, stillage or long load — needs 2130mm tynes', val:'double_length'},
+      {ico:'📦', lbl:'Other / loose load',  sub:'Custom skid, box or non-standard load',               val:'other'},
     ]
   },
 
@@ -41329,10 +41329,10 @@ const GENERAL_QS = [
     showIf:{key:'mat_lift_type', val:'to_height'},
     type:'options',
     options:[
-      {ico:'🏭', lbl:'Indoors — smooth floor',    img:QUIZ_IMGS.loc_indoor,       sub:'Warehouse, factory, fitout — level surface only',           val:'mat_indoor'},
-      {ico:'🌤️', lbl:'Outdoors — firm ground',   img:QUIZ_IMGS.loc_outdoor_firm, sub:'Sealed yard, construction base, concrete slab',            val:'mat_outdoor_firm'},
-      {ico:'⛰️', lbl:'Outdoors — rough terrain', img:QUIZ_IMGS.loc_outdoor_rough,sub:'Construction site, paddock, soft or uneven ground',        val:'mat_outdoor_rough'},
-      {ico:'🔄', lbl:'Both indoor & outdoor',    img:QUIZ_IMGS.loc_both,         sub:'Moving between areas',                                      val:'mat_both'},
+      {ico:'🏭', lbl:'Indoors — smooth floor',       sub:'Warehouse, factory, fitout — level surface only',           val:'mat_indoor'},
+      {ico:'🌤️', lbl:'Outdoors — firm ground', sub:'Sealed yard, construction base, concrete slab',            val:'mat_outdoor_firm'},
+      {ico:'⛰️', lbl:'Outdoors — rough terrain',sub:'Construction site, paddock, soft or uneven ground',        val:'mat_outdoor_rough'},
+      {ico:'🔄', lbl:'Both indoor & outdoor',         sub:'Moving between areas',                                      val:'mat_both'},
     ]
   },
 
@@ -41346,13 +41346,13 @@ const GENERAL_QS = [
     showIf:{key:'lifting_for', val:'earthmoving'},
     type:'options',
     options:[
-      {ico:'⛏️', lbl:'Dig',                 img:EM_IMGS.dig,        sub:'Trenches, holes, foundations, pools, bulk excavation',         val:'dig'},
-      {ico:'🏔️', lbl:'Push, clear or level', img:EM_IMGS.push_clear,  sub:'Move material, clear a site, grade or level ground',          val:'push_clear'},
-      {ico:'🪨', lbl:'Break rock or concrete',img:EM_IMGS.break,       sub:'Break up slabs, footings, hard rock, asphalt',               val:'break'},
-      {ico:'🚛', lbl:'Cart material on site', img:EM_IMGS.cart,        sub:'Move soil, rock, fill, spoil around the site or off-site',   val:'cart'},
-      {ico:'🔄', lbl:'Compact or flatten',    img:EM_IMGS.compact,     sub:'Compact soil, road base, gravel, asphalt, trench backfill',  val:'compact'},
-      {ico:'💧', lbl:'Water the site',        img:EM_IMGS.water,       sub:'Dust suppression, road watering, compaction moisture',       val:'water'},
-      {ico:'🌿', lbl:'Clear scrub or vegetation', img:EM_IMGS.clear_veg, sub:'Remove grass, scrub, small trees, regrowth',               val:'clear_veg'},
+      {ico:'⛏️', lbl:'Dig',        sub:'Trenches, holes, foundations, pools, bulk excavation',         val:'dig'},
+      {ico:'🏔️', lbl:'Push, clear or level',  sub:'Move material, clear a site, grade or level ground',          val:'push_clear'},
+      {ico:'🪨', lbl:'Break rock or concrete',       sub:'Break up slabs, footings, hard rock, asphalt',               val:'break'},
+      {ico:'🚛', lbl:'Cart material on site',        sub:'Move soil, rock, fill, spoil around the site or off-site',   val:'cart'},
+      {ico:'🔄', lbl:'Compact or flatten',     sub:'Compact soil, road base, gravel, asphalt, trench backfill',  val:'compact'},
+      {ico:'💧', lbl:'Water the site',       sub:'Dust suppression, road watering, compaction moisture',       val:'water'},
+      {ico:'🌿', lbl:'Clear scrub or vegetation', sub:'Remove grass, scrub, small trees, regrowth',               val:'clear_veg'},
     ]
   },
 
@@ -41363,10 +41363,10 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'dig'},
     type:'options',
     options:[
-      {ico:'🌱', lbl:'Under 1.5m',  img:EM_IMGS.dig_shallow,   sub:'Shallow trench, garden, drainage, surface services',       val:'shallow'},
-      {ico:'🏗️', lbl:'1.5m to 3m',  img:EM_IMGS.dig_medium,    sub:'Standard footings, deeper service trenches',               val:'medium'},
-      {ico:'🏢', lbl:'3m to 6m',    img:EM_IMGS.dig_deep,      sub:'Commercial footings, deep service trenches, basements',    val:'deep'},
-      {ico:'⛏️', lbl:'Over 6m',     img:EM_IMGS.dig_very_deep, sub:'Heavy civil, shaft sinking, mining, tunnelling',           val:'very_deep'},
+      {ico:'🌱', lbl:'Under 1.5m',   sub:'Shallow trench, garden, drainage, surface services',       val:'shallow'},
+      {ico:'🏗️', lbl:'1.5m to 3m',    sub:'Standard footings, deeper service trenches',               val:'medium'},
+      {ico:'🏢', lbl:'3m to 6m',      sub:'Commercial footings, deep service trenches, basements',    val:'deep'},
+      {ico:'⛏️', lbl:'Over 6m', sub:'Heavy civil, shaft sinking, mining, tunnelling',           val:'very_deep'},
     ]
   },
 
@@ -41377,9 +41377,9 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'dig'},
     type:'options',
     options:[
-      {ico:'🏠', lbl:'Very tight',           img:EM_IMGS.access_tight,    sub:'Backyard, narrow gate under 900mm, between buildings',    val:'tight'},
-      {ico:'🏗️', lbl:'Standard site access', img:EM_IMGS.access_standard, sub:'Normal construction site, wide enough for a standard machine', val:'standard'},
-      {ico:'🌾', lbl:'Open land',            img:EM_IMGS.access_open,     sub:'No restrictions — paddock, quarry, open site',            val:'open'},
+      {ico:'🏠', lbl:'Very tight',    sub:'Backyard, narrow gate under 900mm, between buildings',    val:'tight'},
+      {ico:'🏗️', lbl:'Standard site access', sub:'Normal construction site, wide enough for a standard machine', val:'standard'},
+      {ico:'🌾', lbl:'Open land',     sub:'No restrictions — paddock, quarry, open site',            val:'open'},
     ]
   },
 
@@ -41407,10 +41407,10 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'push_clear'},
     type:'options',
     options:[
-      {ico:'🌿', lbl:'Soft — grass, clay or wet ground', img:EM_IMGS.ground_soft,     sub:'Tracked machine will handle this better',         val:'soft'},
-      {ico:'🏗️', lbl:'Standard compacted dirt',          img:EM_IMGS.ground_standard, sub:'Normal site conditions',                          val:'standard'},
-      {ico:'🪨', lbl:'Rock, rubble or heavy fill',        img:EM_IMGS.ground_hard,     sub:'Hard material requiring a heavy machine',         val:'hard'},
-      {ico:'✅', lbl:'Already cleared — final grading',  img:EM_IMGS.ground_grading,  sub:'Just need to level or grade the surface',         val:'grading'},
+      {ico:'🌿', lbl:'Soft — grass, clay or wet ground',     sub:'Tracked machine will handle this better',         val:'soft'},
+      {ico:'🏗️', lbl:'Standard compacted dirt', sub:'Normal site conditions',                          val:'standard'},
+      {ico:'🪨', lbl:'Rock, rubble or heavy fill',     sub:'Hard material requiring a heavy machine',         val:'hard'},
+      {ico:'✅', lbl:'Already cleared — final grading',  sub:'Just need to level or grade the surface',         val:'grading'},
     ]
   },
 
@@ -41421,9 +41421,9 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'push_clear'},
     type:'options',
     options:[
-      {ico:'🏠', lbl:'Small — under 500m²',      img:EM_IMGS.area_small,  sub:'Typical backyard, small building pad',                   val:'small'},
-      {ico:'🏗️', lbl:'Medium — 500m² to 5,000m²',img:EM_IMGS.area_medium, sub:'Standard residential or small commercial site',         val:'medium'},
-      {ico:'🌾', lbl:'Large — over 5,000m²',     img:EM_IMGS.area_large,  sub:'Subdivision, civil, major earthworks',                   val:'large'},
+      {ico:'🏠', lbl:'Small — under 500m²',  sub:'Typical backyard, small building pad',                   val:'small'},
+      {ico:'🏗️', lbl:'Medium — 500m² to 5,000m²', sub:'Standard residential or small commercial site',         val:'medium'},
+      {ico:'🌾', lbl:'Large — over 5,000m²',  sub:'Subdivision, civil, major earthworks',                   val:'large'},
     ]
   },
 
@@ -41487,11 +41487,11 @@ const GENERAL_QS = [
     showIf:{key:'em_job', val:'compact'},
     type:'options',
     options:[
-      {ico:'🌍', lbl:'Soil / earth / fill',             img:EM_IMGS.soil,     sub:'Earthworks, embankments, trenches, road subgrade',  val:'soil'},
-      {ico:'🪨', lbl:'Gravel / road base',               img:EM_IMGS.gravel,   sub:'Sub-base for roads, driveways, hardstand areas',   val:'gravel'},
-      {ico:'🛣️', lbl:'Asphalt / bitumen',               img:EM_IMGS.asphalt,  sub:'Road surfaces, car parks, pathways, driveways',    val:'asphalt'},
-      {ico:'🏗️', lbl:'Trench or tight area backfill',   img:EM_IMGS.trench,   sub:'Narrow access — needs a compact machine',          val:'trench'},
-      {ico:'🗑️', lbl:'Landfill / waste material',       img:EM_IMGS.landfill, sub:'Refuse, municipal waste, landfill operations',     val:'landfill'},
+      {ico:'🌍', lbl:'Soil / earth / fill',     sub:'Earthworks, embankments, trenches, road subgrade',  val:'soil'},
+      {ico:'🪨', lbl:'Gravel / road base',   sub:'Sub-base for roads, driveways, hardstand areas',   val:'gravel'},
+      {ico:'🛣️', lbl:'Asphalt / bitumen',  sub:'Road surfaces, car parks, pathways, driveways',    val:'asphalt'},
+      {ico:'🏗️', lbl:'Trench or tight area backfill',   sub:'Narrow access — needs a compact machine',          val:'trench'},
+      {ico:'🗑️', lbl:'Landfill / waste material', sub:'Refuse, municipal waste, landfill operations',     val:'landfill'},
     ]
   },
 
@@ -41503,9 +41503,9 @@ const GENERAL_QS = [
     showIf:{key:'em_compact_surface', val:'soil'},
     type:'options',
     options:[
-      {ico:'🏠', lbl:'Backfill or small patch',   img:EM_IMGS.small_fill,   sub:'Trench backfill, garden bed, small building pad or around footings', val:'small_fill'},
-      {ico:'🏗️', lbl:'Subdivision or civil fill',  img:EM_IMGS.civil_fill,   sub:'Earthworks fill for houses, roads, drains or building pads',        val:'civil_fill'},
-      {ico:'🌾', lbl:'Major embankment or highway',img:EM_IMGS.major_civil,  sub:'Dam fill, road subgrade, airport, railway or large embankment',     val:'major_civil'},
+      {ico:'🏠', lbl:'Backfill or small patch',   sub:'Trench backfill, garden bed, small building pad or around footings', val:'small_fill'},
+      {ico:'🏗️', lbl:'Subdivision or civil fill',   sub:'Earthworks fill for houses, roads, drains or building pads',        val:'civil_fill'},
+      {ico:'🌾', lbl:'Major embankment or highway',  sub:'Dam fill, road subgrade, airport, railway or large embankment',     val:'major_civil'},
     ]
   },
 
@@ -41517,10 +41517,10 @@ const GENERAL_QS = [
     showIfNot:[{key:'em_compact_surface', val:'landfill'},{key:'em_compact_surface', val:'soil'}],
     type:'options',
     options:[
-      {ico:'🏠', lbl:'Very small — trench or patch',    img:QUIZ_IMGS.compact_tiny,   sub:'Under 100m² or tight spot — walk-behind plate',    val:'tiny'},
-      {ico:'🏗️', lbl:'Small — under 500m²',             img:QUIZ_IMGS.compact_small,  sub:'Driveways, paths, small car parks',                val:'small'},
-      {ico:'🏢', lbl:'Medium — 500m² to 2,000m²',       img:QUIZ_IMGS.compact_medium, sub:'Parking lots, urban streets, medium road sections', val:'medium'},
-      {ico:'🌾', lbl:'Large — over 2,000m²',            img:QUIZ_IMGS.compact_large,  sub:'Major roads, subdivisions, large civil earthworks', val:'large'},
+      {ico:'🏠', lbl:'Very small — trench or patch',   sub:'Under 100m² or tight spot — walk-behind plate',    val:'tiny'},
+      {ico:'🏗️', lbl:'Small — under 500m²',  sub:'Driveways, paths, small car parks',                val:'small'},
+      {ico:'🏢', lbl:'Medium — 500m² to 2,000m²', sub:'Parking lots, urban streets, medium road sections', val:'medium'},
+      {ico:'🌾', lbl:'Large — over 2,000m²',  sub:'Major roads, subdivisions, large civil earthworks', val:'large'},
     ]
   },
 
@@ -43344,7 +43344,8 @@ function matchEarthworks(ans) {
   const vegType  = ans.em_veg_type       || '';
   const hireType = ans.em_hire_type      || ''; // 'wet' | 'dry'
 
-  const pool = MACHINES.earthworks || [];
+  // Exclude generic 'Various' placeholder entries — show real brand models only
+  const pool = (MACHINES.earthworks || []).filter(m => m.brand !== 'Various');
 
   // Score helper
   function score(m, checks) {
