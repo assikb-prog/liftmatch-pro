@@ -43339,19 +43339,47 @@ function matchMachines(ans, type) {
       const _bPrefArg = _bPref2 !== 'any' ? _bPref2 : null;
       const articulating = qualifiedAll.filter(m => m.boomType === 'articulating');
       const telescopic   = qualifiedAll.filter(m => m.boomType === 'telescopic');
-      const artPicks  = diversePick(articulating, 3, 1, _bPrefArg);
-      const telePicks = diversePick(telescopic,   2, 1, _bPrefArg);
-      const merged = [];
-      const artLabelled  = artPicks.map(m  => ({...m, _boomTypeLabel:'🦾 Articulating / Knuckle Boom'}));
-      const teleLabelled = telePicks.map(m => ({...m, _boomTypeLabel:'📡 Straight / Telescopic Boom'}));
-      const maxLen = Math.max(artLabelled.length, teleLabelled.length);
-      for (let i = 0; i < maxLen; i++) {
-        if (artLabelled[i])  merged.push(artLabelled[i]);
-        if (teleLabelled[i]) merged.push(teleLabelled[i]);
+
+      // When customer specifically asked for articulating: show ALL articulating first,
+      // then telescopic at the bottom with an explicit not-articulating warning.
+      const _wantsArticulating = boomTypePref === 'boom_articulating';
+      const _wantsTelescopicOnly = boomTypePref === 'boom_telescopic';
+
+      let artPicks, telePicks;
+      if (_wantsArticulating) {
+        // Customer chose articulating — give them up to 5 articulating machines, max 1 per brand
+        artPicks  = diversePick(articulating, 5, 1, _bPrefArg);
+        // Show telescopic only if we can't fill 5 articulating results
+        telePicks = artPicks.length < 4 ? diversePick(telescopic, 4 - artPicks.length, 1, _bPrefArg) : [];
+      } else if (_wantsTelescopicOnly) {
+        artPicks  = [];
+        telePicks = diversePick(telescopic, 5, 1, _bPrefArg);
+      } else {
+        // No preference or "either" — interleave 3 art + 2 tele
+        artPicks  = diversePick(articulating, 3, 1, _bPrefArg);
+        telePicks = diversePick(telescopic,   2, 1, _bPrefArg);
       }
+
+      const merged = [];
+      // Articulating machines first — always
+      artPicks.forEach(m => merged.push({...m, _boomTypeLabel:'🦾 Articulating / Knuckle Boom'}));
+
+      // Telescopic machines — with a clear ⚠️ not-articulating warning when customer asked for articulating
+      telePicks.forEach(m => {
+        const teleWarning = _wantsArticulating
+          ? `⚠️ This is a <strong>straight telescopic boom</strong> — it cannot work up-and-over obstacles the way an articulating boom can. ` +
+            `It provides <strong>${(m.platformHeight||0).toFixed(1)}m</strong> platform height and <strong>${(m.maxReach||0).toFixed(1)}m</strong> horizontal outreach in a straight line. ` +
+            `If you need to reach over a wall, beam or obstruction, choose an articulating model instead. ` +
+            `⚠️ Noyo takes no responsibility if this machine type does not suit your site conditions — always confirm with your rental company.`
+          : null;
+        merged.push({...m,
+          _boomTypeLabel: '📡 Straight / Telescopic Boom',
+          _telescopicWarning: teleWarning
+        });
+      });
+
       const up = merged.length ? findNextUp(qualifiedAll, merged, m => m.platformHeight||0) : null;
       if (up) merged.push({...up, _overSpec:true, _overSpecMsg:'⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.'});
-      // Best undersized machine last (1 max) — SKIP for crawler terrain (only show machines that meet height)
       const _isCrawlerTerrain = terr === 'crawler_boom';
       if (!_isCrawlerTerrain && underSpecAll.length > 0 && merged.length < 6) {
         const bestUnder = underSpecAll[0];
@@ -45490,7 +45518,30 @@ function _renderCards(matches, machineType, answers) {
   const _sponsoredForCat = _getSponsoredForCategory(_catKey);
 
     _sponsoredForCat.forEach((ad, _spIdx) => {
-    const spMachine = ALL_MACHINES.find(m => m.id === ad.machineId);
+    // Find the BEST matching machine from this sponsor's brand for the current search.
+    // Use the scored matches pool first (machines that passed all filters for this search).
+    // This ensures the sponsored card shows a machine that ACTUALLY fits the customer's job.
+    let spMachine = null;
+    const _spBrand = ad.brand || ad.sponsorCompany || '';
+    if (_spBrand && matches && matches.length) {
+      // Pick highest-scored machine from this brand in the results pool
+      const _brandMatch = matches.find(m => m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase() && !m._underSpec);
+      if (_brandMatch) spMachine = _brandMatch;
+    }
+    // Fallback: pick highest-scored machine from this brand in ALL_MACHINES for this category
+    if (!spMachine && _spBrand) {
+      const _catPool = (() => {
+        if (machineType === 'telehandler') return MACHINES.telehandler || [];
+        if (machineType === 'boom')        return MACHINES.boom        || [];
+        if (machineType === 'scissor')     return MACHINES.scissor     || [];
+        if (machineType === 'forklift')    return MACHINES.forklift    || [];
+        return MACHINES[machineType]       || [];
+      })();
+      const _brandPool = _catPool.filter(m => m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase());
+      spMachine = _brandPool.length ? _brandPool[0] : null;
+    }
+    // Final fallback: use the pre-selected machineId from the ad
+    if (!spMachine) spMachine = ALL_MACHINES.find(m => m.id === ad.machineId);
     if (!spMachine) return;
 
     const spCard = document.createElement('div');
@@ -45693,6 +45744,14 @@ function _renderCards(matches, machineType, answers) {
       ${reachTruckNote}
       ${(!isOverSpec && m._tightFit && m._tightFitMsg) ? `<div class="tightfit-banner"><div class="tightfit-banner-icon">📏</div><div><div class="tightfit-banner-title">Tight Fit — Please Check Suitability</div><div class="tightfit-banner-text">${m._tightFitMsg}</div></div></div>` : ''}
       ${m._underSpec && m._underSpecMsg ? `<div class="underspec-banner"><div class="underspec-banner-icon">📉</div><div><div class="underspec-banner-title">⚠️ Below Your Stated Requirements</div><div class="underspec-banner-text">${m._underSpecMsg}</div></div></div>` : ''}
+      ${m._telescopicWarning ? `
+        <div style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:2px solid #F97316;border-radius:12px;padding:.75rem 1rem;margin-bottom:.7rem;display:flex;gap:.6rem;align-items:flex-start">
+          <span style="font-size:1.4rem;flex-shrink:0">📡</span>
+          <div>
+            <div style="font-weight:900;font-size:.9rem;color:#C2410C;margin-bottom:.3rem">⚠️ This is a Telescopic (Straight) Boom — Not Articulating</div>
+            <div style="font-size:.82rem;color:#C2410C;line-height:1.6">${m._telescopicWarning}</div>
+          </div>
+        </div>` : ''}
       <div class="rec-specs-grid">${specsHtml}</div>
       ${tyneInfo}
       ${(()=>{
