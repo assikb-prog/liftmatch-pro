@@ -42825,19 +42825,25 @@ function matchMachines(ans, type) {
       if (rotPref === 'no_rotation')    { if (!m.isRotating) score += 3; else score -= 6; }
       // 'either_rotation' — no adjustment, let other factors decide
 
-      // Attachments — multi-select, +2 per supported attachment matched
+      // Attachments — multi-select. Jib is an operational requirement (+8 match / -5 miss).
       if (tattArr.length > 0 && m.attachments) {
         const attMap = {
-          'forks_only': ['Standard Forks'],
-          'jib': ['Jib','Jib Attachment'],
-          'gp_bucket': ['GP Bucket'],
+          'forks_only':     ['Standard Forks'],
+          'jib':            ['Jib','Jib Attachment'],
+          'gp_bucket':      ['GP Bucket'],
           'gp_bucket_grab': ['GP Bucket with Grab'],
-          'man_basket': ['Man Basket','Work Platform','Personnel Platform'],
-          'bale_clamp': ['Bale Clamp'],
+          'man_basket':     ['Man Basket','Work Platform','Personnel Platform'],
+          'bale_clamp':     ['Bale Clamp'],
         };
         tattArr.forEach(t => {
-          const needed = attMap[t] || [];
-          if (needed.some(n => m.attachments.some(a => a.toLowerCase().includes(n.toLowerCase())))) score += 2;
+          const needed  = attMap[t] || [];
+          const matched = needed.some(n => m.attachments.some(a => a.toLowerCase().includes(n.toLowerCase())));
+          if (t === 'jib') {
+            // Jib is a hard operational need — strongly prefer machines confirmed to support it
+            score += matched ? 8 : -5;
+          } else {
+            score += matched ? 2 : 0;
+          }
         });
       }
 
@@ -45975,16 +45981,15 @@ function _renderCards(matches, machineType, answers) {
             const onTynesKg = displayKg;
             const capT2 = (m.liftCapacity||m.capacity||0);
 
-            // Jib: use machine-specific data if stored; fall back to class estimate only if not
+            // Jib: ONLY use brochure data — never estimate
             const hasStoredJib = !!(m.jibWeight && m.jibLength);
-            const jibWt2  = m.jibWeight  || (capT2<=4?130 : capT2<=6?160 : capT2<=8?200 : capT2<=10?240 : 280);
-            const jibLen2 = m.jibLength  || (capT2<=4?2.8 : capT2<=6?3.5 : capT2<=8?3.8 : capT2<=10?4.2 : 4.8);
+            const jibWt2  = m.jibWeight  || null;  // null = no brochure data
+            const jibLen2 = m.jibLength  || null;
             const jibSource = hasStoredJib
               ? `${m.brand} brochure: ${jibLen2}m jib, ${jibWt2}kg`
-              : `Class estimate for ${capT2}T rotating telehandler — confirm exact values with rental company`;
-            // Rotator weight for rotating telehandlers — from user-verified data:
-            // 4.5T class: 600–940kg, 6–7T class: 600–940kg (same heavy-duty range)
-            const rotatorWt2 = m.rotatorWeight || (capT2<=4.5?640 : capT2<=6?770 : 940);
+              : null; // null = no data
+            // Rotator weight — ONLY use brochure data for rotating telehandlers
+            const rotatorWt2 = m.rotatorWeight || null; // null = no data
             // EWP / man basket SWL
             const ewpSWL = m.ewpBasketSWL || 230;
             const jibEffectiveReach2 = reqRe + jibLen2;
@@ -46116,8 +46121,18 @@ function _renderCards(matches, machineType, answers) {
                 ${winchKg != null ? row(winchLabel, winchKg, okWinch, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From ${winchSrc}.`) : ''}
                 ${winch2Kg != null ? row(winch2Label, winch2Kg, okWinch2, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From manufacturer W${m.winchCapacity2 ? (m.winchCapacity2/1000).toFixed(1).replace('.0','') : '5'} winch load chart.`) : ''}
                 ${hookKg != null ? row(`🔗 Hook / crane mode — boom tip, zero reach extension`, hookKg, okHook, `Direct crane hook hanging vertically at ${reqHt}m / ${reqRe}m — no reach extension. Hook rated 5T. From ${hookSrc}.`) : ''}
-                ${row(`🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`, jibKg, okJib, `Jib adds ${jibLen2}m horizontal reach → effective reach ${jibEffectiveReach2.toFixed(1)}m. Capacity re-read at extended reach then jib weight deducted. Source: ${jibSource}. Note: jib length varies — ${hasStoredJib ? 'value from brochure' : 'confirm exact jib size with rental company'}.`)}
-                ${row(`🔄 With rotator attachment (−${rotatorWt2}kg)`, Math.max(0, onTynesKg - rotatorWt2), Math.max(0, onTynesKg - rotatorWt2) >= reqKg, `Rotator deducted at same working point — no reach change. ⚠️ Confirm exact rotator weight with rental company.`)}
+                ${hasStoredJib && jibWt2 && jibLen2
+                  ? row(`🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`, jibKg, okJib, `Jib adds ${jibLen2}m horizontal reach → effective reach ${jibEffectiveReach2.toFixed(1)}m. Capacity re-read at extended reach then jib weight deducted. Source: ${jibSource}.`)
+                  : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
+                      <div style="font-size:.82rem;font-weight:700;color:#475569">🔩 With jib attachment</div>
+                      <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm jib capacity with rental company</div>
+                    </div>`}
+                ${rotatorWt2
+                  ? row(`🔄 With rotator attachment (−${rotatorWt2}kg)`, Math.max(0, onTynesKg - rotatorWt2), Math.max(0, onTynesKg - rotatorWt2) >= reqKg, `Rotator weight ${rotatorWt2}kg from ${m.brand} brochure. Deducted at same working point.`)
+                  : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
+                      <div style="font-size:.82rem;font-weight:700;color:#475569">🔄 With rotator attachment</div>
+                      <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm rotator capacity with rental company</div>
+                    </div>`}
                 ${row(`🧑‍🏭 Man basket / EWP mode`, ewpSWL, ewpSWL >= reqKg, `EWP basket rated SWL: ${ewpSWL} kg (people + tools combined). ⚠️ EWP mode requires operator certification and basket inspection.`)}
                 ${row('🚜 On tyres / rubber (no outriggers)', onTyresAtPoint, okTyres,
                   tyresPermitted
@@ -46133,9 +46148,7 @@ function _renderCards(matches, machineType, answers) {
                 <div style="padding:.65rem .85rem;font-size:.75rem;color:#78350F;line-height:1.65">
                   <div style="display:grid;grid-template-columns:auto 1fr;gap:.3rem .6rem;margin-bottom:.45rem">
                     <span style="font-size:.8rem;flex-shrink:0">📋</span>
-                    <span>All attachment weights (jib, rotator, man basket) are <strong>estimates</strong> from manufacturer brochure data and may vary by model year, carriage width and configuration.</span>
-                    <span style="font-size:.8rem;flex-shrink:0">📊</span>
-                    <span>Rotator weights: <strong>600–940 kg</strong> (6–7T class). Jib weights: <strong>${Math.round(jibWt2*0.8)}–${Math.round(jibWt2*1.2)} kg</strong> for this class.</span>
+                    <span>${hasStoredJib ? `Jib and rotator weights shown are from <strong>${m.brand} brochure data</strong>.` : 'No jib or rotator brochure data available for this machine — capacity with these attachments <strong>must be confirmed with the rental company</strong>. Noyo does not estimate attachment weights.'}</span>
                     <span style="font-size:.8rem;flex-shrink:0">🔖</span>
                     <span>Actual usable capacity <strong>must</strong> be verified against the machine's <strong>load plate</strong> and attachment datasheet before any lift.</span>
                     <span style="font-size:.8rem;flex-shrink:0">🏢</span>
@@ -46162,12 +46175,14 @@ function _renderCards(matches, machineType, answers) {
             // Jib weight — from machine brochure if stored, otherwise class estimate
             // Hook block weights for standard telehandlers (carriage-mounted hook frame, ~0.4-0.6m extension)
             // Hook block: carriage-mounted, NO reach extension. Real weight ~25-55kg.
-            const jibWt = m.jibWeight || (capT<=2.5?25 : capT<=3.0?30 : capT<=3.5?35 : capT<=4?38 : capT<=5?42 : capT<=6?48 : 55);
-            const jibLen = 0.0; // Hook block extends 0m — load hangs at same position as forks
-            const jibSrc = m.jibWeight
-              ? `${m.brand} brochure data: ${jibWt}kg jib`
-              : `Class estimate for ${capT}T telehandler — confirm with rental company`;
-            const rotatorWt = m.rotatorWeight || (capT<=2.5?350 : capT<=3?400 : capT<=4?475 : capT<=5?550 : capT<=7?770 : 940);
+            const _hasJibData = !!m.jibWeight;
+            const jibWt  = m.jibWeight; // ONLY use brochure data — no estimates
+            const jibLen = 0.0;
+            const jibSrc = _hasJibData
+              ? `${m.brand} brochure: ${jibWt}kg`
+              : null; // null = no data
+            const _hasRotData = !!m.rotatorWeight;
+            const rotatorWt = m.rotatorWeight; // ONLY use brochure data — no estimates
             const ratedKg = ((m.liftCapacity||m.capacity||0)>100?(m.liftCapacity||m.capacity||0):(m.liftCapacity||m.capacity||0)*1000);
             const onTynesKg = displayKg;
 
@@ -46175,24 +46190,38 @@ function _renderCards(matches, machineType, answers) {
             // Standard telehandler hook/jib blocks mount on the carriage.
             // Load hangs at the SAME horizontal position as forks — zero reach extension.
             // Capacity with hook = capacity at working point MINUS hook weight only.
-            const withJibKg = Math.max(0, onTynesKg - jibWt);
-            const withRotKg = Math.max(0, onTynesKg - rotatorWt);
+            const withJibKg = _hasJibData ? Math.max(0, onTynesKg - jibWt) : null;
+            const withRotKg = _hasRotData ? Math.max(0, onTynesKg - rotatorWt) : null;
             const okTynes = onTynesKg >= reqKg;
-            const okJib   = withJibKg >= reqKg;
-            const okRot   = withRotKg >= reqKg;
+            const okJib   = withJibKg !== null ? withJibKg >= reqKg : null;
+            const okRot   = withRotKg !== null ? withRotKg >= reqKg : null;
 
             const row = (label, kg, chk, note='') => {
               const c=chk?'#065F46':'#92400E', bg2=chk?'#F0FDF4':'#FFF7ED', bdr=chk?'#6EE7B7':'#FCD34D', icon=chk?'✅':'⚠️';
               return `<div style="display:flex;align-items:center;justify-content:space-between;background:${bg2};border:1px solid ${bdr};border-radius:8px;padding:.45rem .75rem;gap:.5rem"><div style="font-size:.82rem;font-weight:700;color:#334155">${label}</div><div style="display:flex;align-items:center;gap:.5rem"><span style="font-size:.95rem;font-weight:900;color:${c}">${kg.toLocaleString()} kg</span><span style="font-size:.8rem">${icon}</span></div></div>${note?`<div style="font-size:.7rem;color:#64748B;padding:.1rem .4rem .3rem .4rem;font-style:italic">${note}</div>`:''}`;
             };
 
+            // "Check with rental company" row — for when no brochure data
+            const noDataRow = (label, note) =>
+              `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
+                <div style="font-size:.82rem;font-weight:700;color:#475569">${label}</div>
+                <div style="display:flex;align-items:center;gap:.4rem">
+                  <span style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ Confirm with rental company</span>
+                </div>
+              </div>
+              <div style="font-size:.7rem;color:#64748B;padding:.1rem .4rem .3rem .4rem;font-style:italic">${note}</div>`;
+
             return `<div class="lift-chart-note" style="background:${bg};border-left-color:${bc}">
               <strong>📊 Capacity at this working point — ${reqHt}m lift / ${reqRe}m reach</strong>
               <div style="font-size:.76rem;color:#475569;margin:.3rem 0 .6rem">Your requirement: <strong>${reqKg.toLocaleString()} kg</strong></div>
               <div style="display:flex;flex-direction:column;gap:.35rem">
                 ${row('🔱 On tynes (standard forks)', onTynesKg, okTynes, `Capacity at ${reqHt}m height / ${reqRe}m reach`)}
-                ${row(`🪝 With hook / jib attachment (−${jibWt}kg)`, withJibKg, okJib, `Carriage-mounted hook — load hangs at same position as forks (zero reach extension). Only hook weight (${jibWt}kg) deducted from working capacity. Source: ${jibSrc}`)}
-                ${row(`🔄 With fork rotator (−${rotatorWt}kg)`, withRotKg, okRot, `Rotator weight deducted at same working point. ⚠️ Confirm exact rotator weight with rental company.`)}
+                ${_hasJibData
+                  ? row(`🪝 With hook / jib (−${jibWt}kg)`, withJibKg, okJib, `Carriage-mounted hook — zero reach extension. Hook weight ${jibWt}kg from ${jibSrc}.`)
+                  : noDataRow('🪝 With hook / jib attachment', 'No brochure data for jib weight on this machine — do not estimate. Confirm jib/hook capacity directly with the rental company before hiring.')}
+                ${_hasRotData
+                  ? row(`🔄 With fork rotator (−${rotatorWt}kg)`, withRotKg, okRot, `Rotator weight ${rotatorWt}kg from ${m.brand} brochure. Deducted at same working point.`)
+                  : noDataRow('🔄 With fork rotator', 'No brochure data for rotator weight on this machine — do not estimate. Confirm rotator capacity directly with the rental company before hiring.')}
               </div>
               <small style="color:#555;line-height:1.5;display:block;margin-top:.55rem">ℹ️ Carriage-mounted hook/jib blocks do not extend horizontal reach — the load hangs directly below the carriage at the same position as the forks. Always verify hook SWL and attachment weight on the machine's load plate before hiring.</small>
               <div style="margin-top:.75rem;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #FCD34D;border-radius:12px;overflow:hidden">
@@ -46778,21 +46807,21 @@ function buildSpecBoxes(m, type, ans) {
     if (m.engine) boxes+=`<div class="spec-box"><div class="spec-box-lbl">Engine</div><div class="spec-box-val" style="font-size:.78rem">${m.engine}</div></div>`;
 
     // ── ATTACHMENT LIFTING CAPACITY PANEL ───────────────────────────
-    // Jib weight: machine-specific brochure data > class estimate
-    const _jibWt = m.jibWeight || (_capT<=2.0?25 : _capT<=2.5?25 : _capT<=3.0?30 : _capT<=3.5?35 : _capT<=4?38 : _capT<=5?42 : _capT<=6?48 : 55);
-    const _jibLen = m.jibLength || 0; // standard hook block = 0m reach extension
-    const _jibSrc = m.jibWeight ? 'brochure' : 'class estimate';
-
-    // Rotator weight: machine-specific > class estimate
-    const _rotWt = m.rotatorWeight || (_capT<=2.5?350 : _capT<=3?400 : _capT<=4?475 : _capT<=5?550 : _capT<=7?770 : 940);
-    const _rotSrc = m.rotatorWeight ? 'brochure' : 'class estimate';
+    // STRICT RULE: only use brochure-sourced data. Never estimate jib or rotator weight.
+    const _hasJibWt  = !!m.jibWeight;
+    const _hasRotWt  = !!m.rotatorWeight;
+    const _jibWt  = m.jibWeight  || null; // null = no brochure data
+    const _jibLen = m.jibLength  || 0;
+    const _jibSrc = _hasJibWt ? `${m.brand} brochure` : null;
+    const _rotWt  = m.rotatorWeight || null; // null = no brochure data
+    const _rotSrc = _hasRotWt ? `${m.brand} brochure` : null;
 
     // EWP basket SWL
     const _ewpSWL = m.ewpBasketSWL || null;
 
-    // Net capacities (at rated / ground level / zero reach = best case)
-    const _netJib = Math.max(0, _capKg - _jibWt);
-    const _netRot = Math.max(0, _capKg - _rotWt);
+    // Net capacities — only calculated when brochure data available
+    const _netJib = _hasJibWt ? Math.max(0, _capKg - _jibWt) : null;
+    const _netRot = _hasRotWt ? Math.max(0, _capKg - _rotWt) : null;
 
     // On-rubber capacity (rotating telehandlers only — tyre travel mode)
     const _isRot = !!(m.isRotating);
@@ -46849,7 +46878,38 @@ function buildSpecBoxes(m, type, ans) {
 
     const _divider = (label) => `<div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94A3B8;margin:.55rem 0 .25rem;padding-left:.1rem">${label}</div>`;
 
+    // ── Attachment capacity spec boxes ───────────────────────────────
+    if (m.attachments && m.attachments.length) {
+      const _confirmRow = (label) =>
+        `<div class="spec-box" style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1.5px dashed #FCD34D;grid-column:1/-1">
+          <div class="spec-box-lbl" style="color:#92400E">${label}</div>
+          <div class="spec-box-val" style="font-size:.75rem;color:#B45309;font-weight:700">⚠️ Confirm with rental company — no brochure data</div>
+        </div>`;
 
+      // Jib / hook
+      if (m.attachments.some(a => a.toLowerCase().includes('jib'))) {
+        if (_hasJibWt && _netJib !== null) {
+          boxes += `<div class="spec-box" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1.5px solid #93C5FD">
+            <div class="spec-box-lbl" style="color:#1E40AF">🪝 With Jib / Hook</div>
+            <div class="spec-box-val" style="color:#1E40AF;font-weight:900">${_netJib.toLocaleString()} kg <span style="font-size:.68rem;font-weight:500">at max capacity (ground, zero reach)</span></div>
+          </div>`;
+        } else {
+          boxes += _confirmRow('🪝 Jib / Hook Capacity');
+        }
+      }
+
+      // Rotator
+      if (m.attachments.some(a => a.toLowerCase().includes('rotat'))) {
+        if (_hasRotWt && _netRot !== null) {
+          boxes += `<div class="spec-box" style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border:1.5px solid #C4B5FD">
+            <div class="spec-box-lbl" style="color:#6D28D9">🔄 With Rotator</div>
+            <div class="spec-box-val" style="color:#6D28D9;font-weight:900">${_netRot.toLocaleString()} kg <span style="font-size:.68rem;font-weight:500">at max capacity (ground, zero reach)</span></div>
+          </div>`;
+        } else {
+          boxes += _confirmRow('🔄 Fork Rotator Capacity');
+        }
+      }
+    }
 
   } else if (type==='scissor') {
     const _platH = m.liftHeight || m.platformHeight;
