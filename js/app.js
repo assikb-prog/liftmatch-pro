@@ -45572,12 +45572,30 @@ function _renderCards(matches, machineType, answers) {
     let _spDynamicPick = false; // true when we picked dynamically (not from ad.machineId)
     const _spBrand = ad.brand || ad.sponsorCompany || '';
 
-    // Try 1: best machine from this brand already in organic results
+    // Try 1: from organic results, pick the CLOSEST-FIT machine from this brand
+    // (not highest-scored — a 41m machine for a 10m search is wrong)
     if (_spBrand && matches && matches.length) {
-      const _brandMatch = matches.find(m =>
-        m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase() && !m._underSpec
+      const _reqHt1 = parseFloat(
+        machineType==='telehandler'||machineType==='rotating' ? (answers.tele_ht_m||answers.mat_ht_m||0) :
+        machineType==='scissor'  ? (answers.ppl_ht_m||answers.scis_ht_m||0) :
+        machineType==='boom'     ? (answers.boom_ht_m||answers.ppl_ht_m||0) : (answers.ppl_ht_m||0)
+      )||0;
+      const _brandMatches = matches.filter(m =>
+        m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase()
+        && !m._underSpec && !_isSpiderOrCrawler(m)
       );
-      if (_brandMatch) { spMachine = _brandMatch; _spDynamicPick = true; }
+      if (_brandMatches.length) {
+        // Sort by smallest excess over requirement (tight fit first)
+        if (_reqHt1 > 0) {
+          _brandMatches.sort((a,b) => {
+            const aH = (a.platformHeight||a.liftHeight||0) - _reqHt1;
+            const bH = (b.platformHeight||b.liftHeight||0) - _reqHt1;
+            return aH - bH;
+          });
+        }
+        spMachine = _brandMatches[0];
+        _spDynamicPick = true;
+      }
     }
 
     // Try 2: best machine from this brand that meets the customer's key requirements
@@ -45727,20 +45745,21 @@ function _renderCards(matches, machineType, answers) {
           </div>`;
         })()}
 
-        <div style="display:flex;flex-wrap:wrap;gap:.32rem;margin:.4rem 0">
-          ${spMachine.platformHeight   ? `<span class="rec-spec-pill">📏 ${spMachine.platformHeight}m platform</span>` : ''}
-          ${spMachine.workHeight       ? `<span class="rec-spec-pill">🏗️ ${spMachine.workHeight}m working</span>` : ''}
-          ${spMachine.maxReach         ? `<span class="rec-spec-pill">↔️ ${spMachine.maxReach}m reach</span>` : ''}
-          ${spMachine.swl              ? `<span class="rec-spec-pill">👷 ${spMachine.swl}kg SWL</span>` : ''}
-          ${spMachine.liftHeight && !spMachine.platformHeight ? `<span class="rec-spec-pill">📏 ${spMachine.liftHeight}m lift</span>` : ''}
-          ${spMachine.capacity         ? `<span class="rec-spec-pill">⚖️ ${spMachine.capacity}T</span>` : ''}
-          ${spMachine.machineWeight    ? `<span class="rec-spec-pill">⚖️ ${(spMachine.machineWeight/1000).toFixed(1)}T mach.</span>` : ''}
-          ${spMachine.machineWidth     ? `<span class="rec-spec-pill">↕️ ${(spMachine.machineWidth>20?spMachine.machineWidth/1000:spMachine.machineWidth).toFixed(2)}m wide</span>` : ''}
-          ${spMachine.power            ? `<span class="rec-spec-pill">⚡ ${spMachine.power}</span>` : ''}
-          ${spMachine.upOverHeight     ? `<span class="rec-spec-pill">🌈 ${spMachine.upOverHeight}m up-over</span>` : ''}
-          ${spMachine.gradeability     ? `<span class="rec-spec-pill">📐 ${spMachine.gradeability}% grade</span>` : ''}
-        </div>
+        <div class="rec-specs-grid">${buildSpecBoxes(spMachine, machineType, answers)}</div>
         ${spMachine.bestFor ? `<div style="font-size:.8rem;color:#475569;line-height:1.5;margin-bottom:.5rem;background:#FFFBEB;border-left:3px solid #F59E0B;padding:.3rem .55rem;border-radius:0 6px 6px 0">✅ ${spMachine.bestFor}</div>` : ''}
+        ${(() => {
+          // Show size context if machine is notably larger than requirement
+          const _spRH = parseFloat(answers.boom_ht_m||answers.ppl_ht_m||answers.tele_ht_m||answers.scis_ht_m||0);
+          const _spMH = spMachine.platformHeight || spMachine.liftHeight || 0;
+          const _excess = _spRH > 0 ? _spMH - _spRH : 0;
+          if (_spRH > 0 && _excess > 5) {
+            const _szLbl = _excess > 15 ? 'Much larger than your requirement' : _excess > 8 ? 'Two size classes above your requirement' : 'One size class above your requirement';
+            return `<div style="background:#FEF3C7;border:1.5px solid #FCD34D;border-radius:8px;padding:.4rem .65rem;margin-bottom:.45rem;font-size:.78rem;color:#92400E;font-weight:700">
+              ⬆️ ${_szLbl} (${_spRH}m needed → ${_spMH}m machine) — still meets your job, but confirm site clearances and licensing.
+            </div>`;
+          }
+          return '';
+        })()}
         ${(spMachine.boomType === 'telescopic' && answers.boom_type_pref === 'boom_articulating') ? `
         <div style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:2px solid #F97316;border-radius:10px;padding:.6rem .8rem;margin-bottom:.5rem">
           <div style="font-weight:900;font-size:.82rem;color:#C2410C;margin-bottom:.25rem">⚠️ This is a Telescopic Boom — You Asked for Articulating</div>
