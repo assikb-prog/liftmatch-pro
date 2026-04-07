@@ -43284,12 +43284,14 @@ function matchMachines(ans, type) {
         return {...m, score, _overSpec: false, _underSpec: true, _underSpecMsg: underMsg};
       }
 
-      // Height fit
+      // Height fit — penalise massively oversized machines so they can't win on reach alone
       const htGap = (m.platformHeight||0) - minHt;
-      if (htGap >= 0 && htGap <= 2)   score += 5;
-      else if (htGap <= 4)             score += 3;
-      else if (htGap <= 7)             score += 2;
-      else                              score += 0;
+      if (htGap >= 0 && htGap <= 2)    score += 5;
+      else if (htGap <= 4)              score += 3;
+      else if (htGap <= 7)              score += 2;
+      else if (htGap <= 12)             score += 0;   // 12m over — neutral
+      else if (htGap <= 20)             score -= 4;   // 20m over — penalise
+      else                              score -= 10;  // 20m+ over — hard penalty (prevents ZX-135 winning 10m search)
 
       // Reach fit at required height — reward machines that have exactly enough reach at that height
       if (minReach > 0 && minHt > 0 && m._reachAtReqHt != null) {
@@ -45626,10 +45628,17 @@ function _renderCards(matches, machineType, answers) {
         machineType==='scissor'  ? (answers.ppl_ht_m||answers.scis_ht_m||0) :
         machineType==='boom'     ? (answers.boom_ht_m||answers.ppl_ht_m||0) : (answers.ppl_ht_m||0)
       )||0;
-      const _brandMatches = matches.filter(m =>
-        m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase()
-        && !m._underSpec && !_isSpiderOrCrawler(m)
-      );
+      const _brandMatches = matches.filter(m => {
+        if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase()) return false;
+        if (m._underSpec) return false;
+        if (_isSpiderOrCrawler(m)) return false;
+        // Reject massively oversized — cap at 2.5x required height
+        if (_reqHt1 > 0) {
+          const mH = m.platformHeight || m.liftHeight || 0;
+          if (mH > _reqHt1 * 2.5) return false;
+        }
+        return true;
+      });
       if (_brandMatches.length) {
         // Sort by smallest excess over requirement (tight fit first)
         if (_reqHt1 > 0) {
@@ -45694,6 +45703,13 @@ function _renderCards(matches, machineType, answers) {
         }
         return true;
       });
+      // Cap at 2.5x the required height — never show a massively oversized machine in sponsored slot
+      if (_reqHt > 0) {
+        _qualifying = _qualifying.filter(m => {
+          const mH = m.platformHeight || m.liftHeight || 0;
+          return mH <= _reqHt * 2.5;
+        });
+      }
       // Sort by closest platform height to requirement (tight fit preferred)
       if (_reqHt > 0) {
         _qualifying.sort((a,b) => {
