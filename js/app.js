@@ -43208,11 +43208,29 @@ function matchMachines(ans, type) {
 
     // Rough terrain: exclude pure electric AND all crawler/tracked/spider machines
     // Spider lifts and compact crawlers are specialty machines — ONLY shown for "Very rough / crawler terrain"
+    // TRUE spider/compact crawler lifts — stabiliser-based, NOT wheeled rough terrain booms
+    // Genie TraX, JLG 400SC etc. are wheeled/tracked booms — they appear in rough terrain
     const _isSpiderOrCrawler = (m) => {
       const nm = (m.name || m.shortName || '').toLowerCase();
       const f  = (m.filters || []);
-      return nm.includes('spider') || nm.includes('crawler') || nm.includes('tracked')
-          || f.includes('crawler') || f.includes('spider') || f.includes('tracked');
+      // Explicit spider/outrigger-stabilised machines by brand keyword
+      if (nm.includes('spider lift')) return true;
+      if (nm.includes('compact crawler')) return true;
+      if (nm.includes('jibbi')) return true;
+      if (nm.includes('leguan')) return true;
+      // Monitor brand spider lifts
+      if (nm.startsWith('monitor') && nm.includes('spider')) return true;
+      // CMC spider lifts (S-series spider)
+      if (nm.startsWith('cmc s') && nm.includes('spider')) return true;
+      // Sinoboom SP-series (spider)
+      if (nm.includes('sinoboom sp')) return true;
+      // JLG X-series compact crawlers (NOT the 400SC which is tracked telescopic)
+      if (nm.includes('jlg x') && nm.includes('crawler')) return true;
+      // AlmaCrawler (spider)
+      if (nm.includes('almacrawler')) return true;
+      // Filters-based (for machines properly tagged)
+      if (f.includes('spider')) return true;
+      return false;
     };
 
     if (terr === 'rough_boom') {
@@ -43229,11 +43247,12 @@ function matchMachines(ans, type) {
     if (terr !== 'crawler_boom') {
       pool = pool.filter(m => !_isSpiderOrCrawler(m) || terr === 'crawler_boom');
     }
-    // Very rough / crawler terrain — ONLY show tracked/crawler boom machines
+    // Very rough / crawler terrain — ONLY show tracked/crawler/spider boom machines
     if (terr === 'crawler_boom') {
       pool = pool.filter(m => {
         const f = (m.filters||[]);
-        return f.includes('crawler');
+        // Include machines with crawler in filters[] OR true spider/outrigger lifts
+        return f.includes('crawler') || _isSpiderOrCrawler(m);
       });
     }
 
@@ -45634,8 +45653,8 @@ function _renderCards(matches, machineType, answers) {
 
       let _qualifying = _catPool2.filter(m => {
         if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase()) return false;
-        // Exclude crawlers/spiders for boom
-        if (machineType === 'boom' && (m.name||'').toLowerCase().match(/spider|crawler|tracked/)) return false;
+        // Exclude true spider/outrigger lifts for boom (not wheeled tracked booms like Genie TraX)
+        if (machineType === 'boom' && _isSpiderOrCrawler(m)) return false;
         // Height check: use platformHeight for booms/scissors, liftHeight as fallback
         const mHt = m.platformHeight || m.liftHeight || 0;
         if (_reqHt > 0 && mHt < _reqHt) return false;
