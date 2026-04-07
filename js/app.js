@@ -43262,13 +43262,17 @@ function matchMachines(ans, type) {
       const isUnderSpec = (m.platformHeight||0) < minHt;
 
       // Hard reach minimum only for machines that DO meet height
+      // IMPORTANT: Use m.maxReach (brochure spec) for hard exclusion — NOT the geometry estimate.
+      // getReachAtHeight() is a display model that approximates reach at a given height;
+      // it can be slightly conservative and must never hard-eliminate valid machines.
+      // Brochure max reach is always the authoritative spec.
       if (!isUnderSpec) {
-        if (minReach > 0 && minHt > 0) {
-          const reachAtReqHt = getReachAtHeight(m, minHt);
-          if (reachAtReqHt < minReach) return null;   // envelope says it can't do both at once
-          m._reachAtReqHt = reachAtReqHt;
-        } else if (minReach > 0) {
-          if ((m.maxReach||0) < minReach) return null;
+        if (minReach > 0) {
+          if ((m.maxReach||0) < minReach) return null;   // machine physically can't reach that far
+        }
+        // Still compute geometry estimate for display (scoring + card info) — but don't exclude on it
+        if (minHt > 0 && minReach > 0) {
+          m._reachAtReqHt = getReachAtHeight(m, minHt);
         }
       }
 
@@ -45800,6 +45804,37 @@ function _renderCards(matches, machineType, answers) {
       </div>`;
     container.appendChild(spCard);
   });
+
+  // ── No results fallback ──────────────────────────────────────
+  if (!matches || matches.length === 0) {
+    const noEl = document.createElement('div');
+    noEl.style.cssText = 'background:#fff;border:2px dashed #CBD5E1;border-radius:16px;padding:2.5rem 2rem;text-align:center;max-width:600px;margin:1.5rem auto';
+    noEl.innerHTML = `
+      <div style="font-size:3rem;margin-bottom:.75rem">😔</div>
+      <div style="font-weight:900;font-size:1.15rem;color:#0F172A;margin-bottom:.5rem">No machines match your exact requirements</div>
+      <div style="font-size:.9rem;color:#64748B;line-height:1.7;margin-bottom:1.2rem">
+        This could be because your combination of height, reach and terrain is very specific,
+        or these machines are not yet in our database.<br>
+        Our team can source any machine for you.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;align-items:center">
+        <a href="mailto:sales@noyo.com.au?subject=Machine Enquiry"
+          style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;text-decoration:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem">
+          ✉️ Email sales@noyo.com.au
+        </a>
+        <a href="tel:+61450133133"
+          style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;text-decoration:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem">
+          📞 Call +61 450 133 133
+        </a>
+        <button onclick="document.getElementById('result-summary').scrollIntoView({behavior:'smooth'})"
+          style="background:#F1F5F9;color:#475569;border:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer">
+          ✏️ Refine My Search
+        </button>
+      </div>
+    `;
+    container.appendChild(noEl);
+    return;
+  }
 
   // ── Organic results ────────────────────────────────────────────
   matches.forEach((m,i)=>{
