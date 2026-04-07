@@ -43092,22 +43092,27 @@ function matchMachines(ans, type) {
     const main = diversePick(scissorQualified, 5, 1, _sBPref !== 'any' ? _sBPref : null);
     const up   = findNextUp(scissorQualified, main, m => m.liftHeight || 0);
 
-    // Apply size labels based on how much above requirement each machine is
-    const _scisReqHt = exactHt > 0 ? exactHt : minHt;
+    // Size labels relative to BEST MATCH (main[0]), not raw requirement.
+    // Machine #1 = best fit, no label. Each subsequent machine vs machine #1.
+    const _scisBestM = main[0];
+    const _scisBestH = _scisBestM ? (_scisBestM.liftHeight || 0) : 0;
     const results = main.map((m, idx) => {
-      if (m._underSpec || m._tightFit) return m; // keep as-is
-      const _htAbove = (m.liftHeight || 0) - _scisReqHt;
+      if (m._underSpec || m._tightFit) return m;
+      if (idx === 0 || _scisBestH === 0) return m; // best match — no label
+      const _mH = m.liftHeight || 0;
+      const _htRatio = _mH / _scisBestH;
       let _sizeLabel = null, _sizeMsg = null;
-      if (_htAbove > 8) {
+      if (_htRatio > 1.7) {
         _sizeLabel = 'much_larger';
-        _sizeMsg = `This machine is <strong>${(m.liftHeight||0).toFixed(1)}m</strong> platform — <strong>${_htAbove.toFixed(0)}m above</strong> your ${_scisReqHt.toFixed(1)}m requirement. Significantly oversized — confirm floor loading, weight limits and licensing.`;
-      } else if (_htAbove > 5) {
+        _sizeMsg   = `This machine is <strong>${_mH.toFixed(1)}m</strong> platform — significantly taller than the best match (${_scisBestH.toFixed(1)}m). Confirm floor loading, weight limits and licensing.`;
+      } else if (_htRatio > 1.3) {
         _sizeLabel = 'two_up';
-        _sizeMsg = `This machine is <strong>${(m.liftHeight||0).toFixed(1)}m</strong> platform — <strong>${_htAbove.toFixed(0)}m above</strong> your ${_scisReqHt.toFixed(1)}m requirement. Two size classes up — useful if you need extra clearance.`;
-      } else if (_htAbove > 2) {
+        _sizeMsg   = `This machine is <strong>${_mH.toFixed(1)}m</strong> platform — two size classes above the best match (${_scisBestH.toFixed(1)}m).`;
+      } else if (_htRatio > 1.1) {
         _sizeLabel = 'one_up';
-        _sizeMsg = `This machine is <strong>${(m.liftHeight||0).toFixed(1)}m</strong> platform — <strong>${_htAbove.toFixed(0)}m above</strong> your ${_scisReqHt.toFixed(1)}m requirement. One size class up.`;
+        _sizeMsg   = `This machine is <strong>${_mH.toFixed(1)}m</strong> platform — one size class above the best match (${_scisBestH.toFixed(1)}m).`;
       }
+      // else: similar height to best match — no label
       return _sizeLabel ? {...m, _overSpec: true, _sizeLabel, _overSpecMsg: _sizeMsg} : m;
     });
 
@@ -43284,14 +43289,17 @@ function matchMachines(ans, type) {
         return {...m, score, _overSpec: false, _underSpec: true, _underSpecMsg: underMsg};
       }
 
-      // Height fit — penalise massively oversized machines so they can't win on reach alone
-      const htGap = (m.platformHeight||0) - minHt;
-      if (htGap >= 0 && htGap <= 2)    score += 5;
+      // Height fit — ratio-based so penalties scale with requirement, not absolute metres
+      const _platH = m.platformHeight || 0;
+      const _htRatio = minHt > 0 ? _platH / minHt : 1;
+      const htGap  = _platH - minHt;
+      if (htGap >= 0 && htGap <= 2)    score += 5;   // within 2m — ideal
       else if (htGap <= 4)              score += 3;
       else if (htGap <= 7)              score += 2;
-      else if (htGap <= 12)             score += 0;   // 12m over — neutral
-      else if (htGap <= 20)             score -= 4;   // 20m over — penalise
-      else                              score -= 10;  // 20m+ over — hard penalty (prevents ZX-135 winning 10m search)
+      else if (_htRatio <= 1.8)         score += 0;   // up to 1.8× — neutral (18m for 10m = fine)
+      else if (_htRatio <= 2.5)         score -= 3;   // 1.8–2.5× — mild penalty
+      else if (_htRatio <= 3.5)         score -= 7;   // 2.5–3.5× — penalise
+      else                              score -= 12;  // 3.5×+ — hard penalty (ZX-135 for 10m job)
 
       // Reach fit at required height — reward machines that have exactly enough reach at that height
       if (minReach > 0 && minHt > 0 && m._reachAtReqHt != null) {
@@ -43406,18 +43414,43 @@ function matchMachines(ans, type) {
       }
 
       const merged = [];
-      // Articulating machines first — always, with size labels
-      const _bestArtHt = artPicks.length ? (artPicks[0].platformHeight||0) : minHt;
+      // Articulating machines — size labels relative to BEST MATCH (machine #1),
+      // NOT relative to raw requirement. Same logic as telehandlers.
+      //
+      // Rule: machine #1 = "Best Match" (no label).
+      // Subsequent machines are compared to machine #1 on BOTH height AND reach combined.
+      // If very similar → no label ("Also Fits Your Job")
+      // Noticeably bigger → One Size Up
+      // Significantly bigger → Two Sizes Up
+      // Much bigger → Much Larger Machine
+      const _bestArt  = artPicks.length ? artPicks[0] : null;
+      const _bestArtH = _bestArt ? (_bestArt.platformHeight || 0) : 0;
+      const _bestArtR = _bestArt ? (_bestArt.maxReach       || 0) : 0;
+
       artPicks.forEach((m, idx) => {
         const _mHt = m.platformHeight || 0;
-        const _htAboveReq = _mHt - minHt;
+        const _mR  = m.maxReach || 0;
         let _sizeLabel = null, _sizeMsg = null;
-        if (idx > 0 || _htAboveReq > 3) {
-          // Relative to REQUIREMENT (not best match) for clearer guidance
-          if (_htAboveReq > 8)      { _sizeLabel = 'much_larger'; _sizeMsg = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform height — <strong>${_htAboveReq.toFixed(0)}m above</strong> your ${minHt}m requirement. Significantly oversized. Check site clearances and licensing.`; }
-          else if (_htAboveReq > 5) { _sizeLabel = 'two_up';      _sizeMsg = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform — <strong>${_htAboveReq.toFixed(0)}m above</strong> your ${minHt}m requirement. Two size classes up — useful for extra margin or if reach is tight at your height.`; }
-          else if (_htAboveReq > 2) { _sizeLabel = 'one_up';      _sizeMsg = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform — <strong>${_htAboveReq.toFixed(0)}m above</strong> your ${minHt}m requirement. One size class up — good margin for windy sites or uncertain heights.`; }
+
+        if (idx > 0 && _bestArtH > 0) {
+          // Ratio of this machine vs the best match on height and reach
+          const _htRatio = _mHt / _bestArtH;
+          const _rRatio  = _bestArtR > 0 ? _mR / _bestArtR : 1;
+          const _sizeRatio = (_htRatio + _rRatio) / 2;
+
+          if (_sizeRatio > 1.7) {
+            _sizeLabel = 'much_larger';
+            _sizeMsg   = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform / <strong>${_mR.toFixed(1)}m</strong> reach — significantly larger than the best match (${_bestArtH.toFixed(1)}m / ${_bestArtR.toFixed(1)}m). Confirm site clearances, weight limits and licensing.`;
+          } else if (_sizeRatio > 1.3) {
+            _sizeLabel = 'two_up';
+            _sizeMsg   = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform / <strong>${_mR.toFixed(1)}m</strong> reach — two size classes above the best match. Useful when extra height or reach margin is needed.`;
+          } else if (_sizeRatio > 1.1) {
+            _sizeLabel = 'one_up';
+            _sizeMsg   = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform / <strong>${_mR.toFixed(1)}m</strong> reach — one size class above the best match. Good margin for uncertain site conditions.`;
+          }
+          // else: similar size to best match — no label, shown as "Also Fits Your Job"
         }
+
         const _isOver = _sizeLabel !== null;
         merged.push({...m,
           _boomTypeLabel: '🦾 Articulating / Knuckle Boom',
