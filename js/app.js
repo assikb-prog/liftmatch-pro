@@ -43189,15 +43189,16 @@ function matchMachines(ans, type) {
       });
     }
 
-    // Rough terrain: exclude pure electric
+    // Rough terrain: exclude pure electric AND all crawler/tracked machines
+    // Crawler/spider lifts are a specialty category — shown ONLY when customer picks "Very rough / crawler terrain"
     if (terr === 'rough_boom') {
       pool = pool.filter(m => {
         const p = (m.power||'').toLowerCase();
         const f = (m.filters||[]);
         if (p === 'electric') return false;
         if (p.includes('electric') && !p.includes('diesel') && !p.includes('hybrid')) return false;
-        // Exclude pure crawler machines from regular rough terrain — they belong in crawler_boom
-        if (f.includes('crawler') && !f.includes('rough')) return false;
+        // ALWAYS exclude tracked/crawler/spider lifts for standard rough terrain — they belong in crawler_boom only
+        if (f.includes('crawler') || f.includes('spider') || f.includes('tracked')) return false;
         return true;
       });
     }
@@ -45519,30 +45520,64 @@ function _renderCards(matches, machineType, answers) {
 
     _sponsoredForCat.forEach((ad, _spIdx) => {
     // Find the BEST matching machine from this sponsor's brand for the current search.
-    // Use the scored matches pool first (machines that passed all filters for this search).
-    // This ensures the sponsored card shows a machine that ACTUALLY fits the customer's job.
+    // Priority: 1) highest-scored organic result from this brand (already meets requirements)
+    //           2) best machine from this brand that meets height/reach requirements
+    //           3) pre-selected machineId as last resort
     let spMachine = null;
+    let _spDynamicPick = false; // true when we picked dynamically (not from ad.machineId)
     const _spBrand = ad.brand || ad.sponsorCompany || '';
+
+    // Try 1: best machine from this brand already in organic results
     if (_spBrand && matches && matches.length) {
-      // Pick highest-scored machine from this brand in the results pool
-      const _brandMatch = matches.find(m => m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase() && !m._underSpec);
-      if (_brandMatch) spMachine = _brandMatch;
+      const _brandMatch = matches.find(m =>
+        m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase() && !m._underSpec
+      );
+      if (_brandMatch) { spMachine = _brandMatch; _spDynamicPick = true; }
     }
-    // Fallback: pick highest-scored machine from this brand in ALL_MACHINES for this category
+
+    // Try 2: best machine from this brand that meets the customer's key requirements
     if (!spMachine && _spBrand) {
-      const _catPool = (() => {
-        if (machineType === 'telehandler') return MACHINES.telehandler || [];
-        if (machineType === 'boom')        return MACHINES.boom        || [];
-        if (machineType === 'scissor')     return MACHINES.scissor     || [];
-        if (machineType === 'forklift')    return MACHINES.forklift    || [];
+      const _catPool2 = (() => {
+        if (machineType === 'telehandler') return (MACHINES.telehandler||[]).filter(m => !m.isRotating);
+        if (machineType === 'rotating')    return (MACHINES.telehandler||[]).filter(m =>  m.isRotating);
+        if (machineType === 'boom')        return  MACHINES.boom        || [];
+        if (machineType === 'scissor')     return  MACHINES.scissor     || [];
+        if (machineType === 'forklift')    return  MACHINES.forklift    || [];
         return MACHINES[machineType]       || [];
       })();
-      const _brandPool = _catPool.filter(m => m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase());
-      spMachine = _brandPool.length ? _brandPool[0] : null;
+      // Filter by brand and key requirements
+      const _reqHt   = parseFloat(answers.tele_ht_m || answers.ppl_ht_m || answers.boom_ht_m || 0);
+      const _reqRe   = parseFloat(answers.tele_reach_m || answers.boom_reach_m || 0);
+      const _reqKg   = parseFloat(answers.tele_kg || answers.ppl_basket_swl || 0);
+      let _qualifying = _catPool2.filter(m =>
+        m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase()
+        && (!_reqHt || (m.platformHeight || m.liftHeight || 0) >= _reqHt)
+        && (!_reqRe || (m.maxReach || 999) >= _reqRe)
+        && (!_reqKg || (m.swl || m.capacity * 1000 || 999) >= _reqKg)
+        // Exclude crawlers for non-crawler terrain
+        && !(machineType === 'boom' && (m.filters||[]).some(f => ['crawler','spider','tracked'].includes(f)))
+      );
+      // Sort by closest platform height to requirement (tight fit preferred)
+      if (_reqHt > 0) {
+        _qualifying.sort((a,b) => {
+          const aH = (a.platformHeight||a.liftHeight||0);
+          const bH = (b.platformHeight||b.liftHeight||0);
+          return (aH - _reqHt) - (bH - _reqHt); // smallest excess first
+        });
+      }
+      if (_qualifying.length) { spMachine = _qualifying[0]; _spDynamicPick = true; }
     }
-    // Final fallback: use the pre-selected machineId from the ad
-    if (!spMachine) spMachine = ALL_MACHINES.find(m => m.id === ad.machineId);
+
+    // Try 3: pre-selected machineId from admin (last resort)
+    if (!spMachine) {
+      spMachine = ALL_MACHINES.find(m => m.id === ad.machineId);
+      _spDynamicPick = false;
+    }
     if (!spMachine) return;
+
+    // Always show the real model name — never the generic category label
+    const _spDisplayName = spMachine.shortName || spMachine.name;
+    const _spDisplayLabel = _spDisplayName; // ignore ad.label — it may be a generic brand/category label
 
     const spCard = document.createElement('div');
     spCard.className = 'rec-card sponsored-card';
@@ -45571,7 +45606,7 @@ function _renderCards(matches, machineType, answers) {
           <div class="rec-emoji">${spMachine.emoji}</div>
           <div class="rec-title-wrap">
             <div class="rec-brand">${spMachine.brand}</div>
-            <div class="rec-name">${ad.label || spMachine.name}</div>
+            <div class="rec-name">${_spDisplayLabel}</div>
             <div style="display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.25rem">
               <span style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;border:1.5px solid #F59E0B;border-radius:20px;font-size:.7rem;font-weight:900;padding:.1rem .5rem;letter-spacing:.03em">⭐ SPONSORED</span>
               <span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">🏭 Official Brand Partner</span>
@@ -45580,8 +45615,7 @@ function _renderCards(matches, machineType, answers) {
         </div>
         <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin:.55rem 0">
           ${spMachine.capacity        ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">⚖️ ${spMachine.capacity}T</span>` : ''}
-          ${spMachine.liftHeight      ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.liftHeight}m lift</span>` : ''}
-          ${spMachine.platformHeight && !spMachine.liftHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.platformHeight}m</span>` : ''}
+          ${spMachine.platformHeight  ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.platformHeight}m platform</span>` : spMachine.liftHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.liftHeight}m lift</span>` : ''}
           ${spMachine.maxReach        ? `<span style="background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">↔️ ${spMachine.maxReach}m reach</span>` : ''}
           ${spMachine.swl             ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">👷 ${spMachine.swl}kg SWL</span>` : ''}
           ${spMachine.operatingWeightT? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">⚖️ ${spMachine.operatingWeightT}t</span>` : ''}
