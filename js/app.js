@@ -43189,18 +43189,28 @@ function matchMachines(ans, type) {
       });
     }
 
-    // Rough terrain: exclude pure electric AND all crawler/tracked machines
-    // Crawler/spider lifts are a specialty category — shown ONLY when customer picks "Very rough / crawler terrain"
+    // Rough terrain: exclude pure electric AND all crawler/tracked/spider machines
+    // Spider lifts and compact crawlers are specialty machines — ONLY shown for "Very rough / crawler terrain"
+    const _isSpiderOrCrawler = (m) => {
+      const nm = (m.name || m.shortName || '').toLowerCase();
+      const f  = (m.filters || []);
+      return nm.includes('spider') || nm.includes('crawler') || nm.includes('tracked')
+          || f.includes('crawler') || f.includes('spider') || f.includes('tracked');
+    };
+
     if (terr === 'rough_boom') {
       pool = pool.filter(m => {
         const p = (m.power||'').toLowerCase();
-        const f = (m.filters||[]);
         if (p === 'electric') return false;
         if (p.includes('electric') && !p.includes('diesel') && !p.includes('hybrid')) return false;
-        // ALWAYS exclude tracked/crawler/spider lifts for standard rough terrain — they belong in crawler_boom only
-        if (f.includes('crawler') || f.includes('spider') || f.includes('tracked')) return false;
+        // ALWAYS exclude tracked/crawler/spider lifts from standard rough terrain
+        if (_isSpiderOrCrawler(m)) return false;
         return true;
       });
+    }
+    // Also exclude them from crawler_boom results if they somehow pass through
+    if (terr !== 'crawler_boom') {
+      pool = pool.filter(m => !_isSpiderOrCrawler(m) || terr === 'crawler_boom');
     }
     // Very rough / crawler terrain — ONLY show tracked/crawler boom machines
     if (terr === 'crawler_boom') {
@@ -45545,10 +45555,10 @@ function _renderCards(matches, machineType, answers) {
         if (machineType === 'forklift')    return  MACHINES.forklift    || [];
         return MACHINES[machineType]       || [];
       })();
-      // Filter by brand and key requirements
-      const _reqHt   = parseFloat(answers.tele_ht_m || answers.ppl_ht_m || answers.boom_ht_m || 0);
-      const _reqRe   = parseFloat(answers.tele_reach_m || answers.boom_reach_m || 0);
-      const _reqKg   = parseFloat(answers.tele_kg || answers.ppl_basket_swl || 0);
+      // Filter by brand and key requirements — check ALL possible answer keys for each machine type
+      const _reqHt   = parseFloat(answers.boom_ht_m   || answers.ppl_ht_m   || answers.tele_ht_m   || answers.scis_ht_m   || 0);
+      const _reqRe   = parseFloat(answers.boom_reach_m || answers.ppl_reach_m || answers.tele_reach_m || 0);
+      const _reqKg   = parseFloat(answers.tele_kg || answers.ppl_basket_swl || answers.load_weight_kg || 0);
       let _qualifying = _catPool2.filter(m =>
         m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase()
         && (!_reqHt || (m.platformHeight || m.liftHeight || 0) >= _reqHt)
@@ -45610,21 +45620,50 @@ function _renderCards(matches, machineType, answers) {
             <div style="display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.25rem">
               <span style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;border:1.5px solid #F59E0B;border-radius:20px;font-size:.7rem;font-weight:900;padding:.1rem .5rem;letter-spacing:.03em">⭐ SPONSORED</span>
               <span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">🏭 Official Brand Partner</span>
+              ${spMachine.boomType === 'articulating' ? '<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">🦾 Articulating</span>' : ''}
+              ${spMachine.boomType === 'telescopic'   ? '<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">📡 Telescopic</span>' : ''}
             </div>
           </div>
         </div>
-        <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin:.55rem 0">
-          ${spMachine.capacity        ? `<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">⚖️ ${spMachine.capacity}T</span>` : ''}
-          ${spMachine.platformHeight  ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.platformHeight}m platform</span>` : spMachine.liftHeight ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">📏 ${spMachine.liftHeight}m lift</span>` : ''}
-          ${spMachine.maxReach        ? `<span style="background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">↔️ ${spMachine.maxReach}m reach</span>` : ''}
-          ${spMachine.swl             ? `<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">👷 ${spMachine.swl}kg SWL</span>` : ''}
-          ${spMachine.operatingWeightT? `<span style="background:#F0F9FF;color:#0369A1;border:1px solid #BAE6FD;border-radius:6px;font-size:.75rem;font-weight:700;padding:.13rem .45rem">⚖️ ${spMachine.operatingWeightT}t</span>` : ''}
+
+        ${(() => {
+          const _spReqHt = parseFloat(answers.boom_ht_m || answers.ppl_ht_m || 0);
+          const _spReqRe = parseFloat(answers.boom_reach_m || answers.ppl_reach_m || 0);
+          const _spPlatH = spMachine.platformHeight || 0;
+          const _spMaxR  = spMachine.maxReach || 0;
+          const _spHtOk  = !_spReqHt || _spPlatH >= _spReqHt;
+          const _spReOk  = !_spReqRe || _spMaxR  >= _spReqRe;
+          if (!_spReqHt && !_spReqRe) return '';
+          return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.55rem 0">
+            ${_spReqHt > 0 ? `<div style="background:${_spHtOk?'#F0FDF4':'#FEF2F2'};border:1px solid ${_spHtOk?'#86EFAC':'#FCA5A5'};border-radius:8px;padding:.32rem .55rem">
+              <div style="font-size:.67rem;font-weight:700;color:${_spHtOk?'#15803D':'#DC2626'}">Height Match ${_spHtOk?'✅':'⚠️'}</div>
+              <div style="font-size:.8rem;font-weight:900;color:${_spHtOk?'#065F46':'#991B1B'}">Need ${_spReqHt}m → Has ${_spPlatH}m</div>
+            </div>` : ''}
+            ${_spReqRe > 0 ? `<div style="background:${_spReOk?'#F0FDF4':'#FEF2F2'};border:1px solid ${_spReOk?'#86EFAC':'#FCA5A5'};border-radius:8px;padding:.32rem .55rem">
+              <div style="font-size:.67rem;font-weight:700;color:${_spReOk?'#15803D':'#DC2626'}">Reach Match ${_spReOk?'✅':'⚠️'}</div>
+              <div style="font-size:.8rem;font-weight:900;color:${_spReOk?'#065F46':'#991B1B'}">Need ${_spReqRe}m → Has ${_spMaxR}m</div>
+            </div>` : ''}
+          </div>`;
+        })()}
+
+        <div style="display:flex;flex-wrap:wrap;gap:.32rem;margin:.4rem 0">
+          ${spMachine.platformHeight   ? `<span class="rec-spec-pill">📏 ${spMachine.platformHeight}m platform</span>` : ''}
+          ${spMachine.workHeight       ? `<span class="rec-spec-pill">🏗️ ${spMachine.workHeight}m working</span>` : ''}
+          ${spMachine.maxReach         ? `<span class="rec-spec-pill">↔️ ${spMachine.maxReach}m reach</span>` : ''}
+          ${spMachine.swl              ? `<span class="rec-spec-pill">👷 ${spMachine.swl}kg SWL</span>` : ''}
+          ${spMachine.liftHeight && !spMachine.platformHeight ? `<span class="rec-spec-pill">📏 ${spMachine.liftHeight}m lift</span>` : ''}
+          ${spMachine.capacity         ? `<span class="rec-spec-pill">⚖️ ${spMachine.capacity}T</span>` : ''}
+          ${spMachine.machineWeight    ? `<span class="rec-spec-pill">⚖️ ${(spMachine.machineWeight/1000).toFixed(1)}T mach.</span>` : ''}
+          ${spMachine.machineWidth     ? `<span class="rec-spec-pill">↕️ ${(spMachine.machineWidth>20?spMachine.machineWidth/1000:spMachine.machineWidth).toFixed(2)}m wide</span>` : ''}
+          ${spMachine.power            ? `<span class="rec-spec-pill">⚡ ${spMachine.power}</span>` : ''}
+          ${spMachine.upOverHeight     ? `<span class="rec-spec-pill">🌈 ${spMachine.upOverHeight}m up-over</span>` : ''}
+          ${spMachine.gradeability     ? `<span class="rec-spec-pill">📐 ${spMachine.gradeability}% grade</span>` : ''}
         </div>
         ${spMachine.bestFor ? `<div style="font-size:.8rem;color:#475569;line-height:1.5;margin-bottom:.5rem;background:#FFFBEB;border-left:3px solid #F59E0B;padding:.3rem .55rem;border-radius:0 6px 6px 0">✅ ${spMachine.bestFor}</div>` : ''}
         <div style="font-size:.68rem;color:#94A3B8;margin-bottom:.5rem">ℹ️ Paid brand sponsorship. ${ad.sponsorCompany ? ad.sponsorCompany + ' is an official brand partner.' : 'Sponsored by the machine manufacturer.'} Organic results appear below.</div>
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap;padding-bottom:1rem">
-          <button onclick="_trackSpnClick(ad.id);addToCartDirect('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\'")}')"
-            style="flex:1;min-width:130px;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
+        <div style="padding-bottom:1rem">
+          <button onclick="_trackSpnClick(ad.id);addToCartDirect('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\\'")}')"
+            style="width:100%;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
             🛒 Add to Cart
           </button>
         </div>
