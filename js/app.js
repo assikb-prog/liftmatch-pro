@@ -46121,18 +46121,22 @@ function _renderCards(matches, machineType, answers) {
                 ${winchKg != null ? row(winchLabel, winchKg, okWinch, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From ${winchSrc}.`) : ''}
                 ${winch2Kg != null ? row(winch2Label, winch2Kg, okWinch2, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From manufacturer W${m.winchCapacity2 ? (m.winchCapacity2/1000).toFixed(1).replace('.0','') : '5'} winch load chart.`) : ''}
                 ${hookKg != null ? row(`🔗 Hook / crane mode — boom tip, zero reach extension`, hookKg, okHook, `Direct crane hook hanging vertically at ${reqHt}m / ${reqRe}m — no reach extension. Hook rated 5T. From ${hookSrc}.`) : ''}
-                ${hasStoredJib && jibWt2 && jibLen2
-                  ? row(`🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`, jibKg, okJib, `Jib adds ${jibLen2}m horizontal reach → effective reach ${jibEffectiveReach2.toFixed(1)}m. Capacity re-read at extended reach then jib weight deducted. Source: ${jibSource}.`)
-                  : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
-                      <div style="font-size:.82rem;font-weight:700;color:#475569">🔩 With jib attachment</div>
-                      <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm jib capacity with rental company</div>
-                    </div>`}
-                ${rotatorWt2
-                  ? row(`🔄 With rotator attachment (−${rotatorWt2}kg)`, Math.max(0, onTynesKg - rotatorWt2), Math.max(0, onTynesKg - rotatorWt2) >= reqKg, `Rotator weight ${rotatorWt2}kg from ${m.brand} brochure. Deducted at same working point.`)
-                  : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
-                      <div style="font-size:.82rem;font-weight:700;color:#475569">🔄 With rotator attachment</div>
-                      <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm rotator capacity with rental company</div>
-                    </div>`}
+                ${tattArr.includes('jib')
+                  ? (hasStoredJib && jibWt2 && jibLen2
+                      ? row(`🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`, jibKg, okJib, `Jib adds ${jibLen2}m horizontal reach → effective reach ${jibEffectiveReach2.toFixed(1)}m. Capacity re-read at extended reach then jib weight deducted. Source: ${jibSource}.`)
+                      : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
+                          <div style="font-size:.82rem;font-weight:700;color:#475569">🔩 With jib attachment</div>
+                          <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm jib capacity with rental company</div>
+                        </div>`)
+                  : ''}
+                ${tattArr.includes('rotator') || tattArr.includes('fork_rotator')
+                  ? (rotatorWt2
+                      ? row(`🔄 With rotator attachment (−${rotatorWt2}kg)`, Math.max(0, onTynesKg - rotatorWt2), Math.max(0, onTynesKg - rotatorWt2) >= reqKg, `Rotator weight ${rotatorWt2}kg from ${m.brand} brochure. Deducted at same working point.`)
+                      : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
+                          <div style="font-size:.82rem;font-weight:700;color:#475569">🔄 With rotator attachment</div>
+                          <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm rotator capacity with rental company</div>
+                        </div>`)
+                  : ''}
                 ${row(`🧑‍🏭 Man basket / EWP mode`, ewpSWL, ewpSWL >= reqKg, `EWP basket rated SWL: ${ewpSWL} kg (people + tools combined). ⚠️ EWP mode requires operator certification and basket inspection.`)}
                 ${row('🚜 On tyres / rubber (no outriggers)', onTyresAtPoint, okTyres,
                   tyresPermitted
@@ -46211,17 +46215,23 @@ function _renderCards(matches, machineType, answers) {
               </div>
               <div style="font-size:.7rem;color:#64748B;padding:.1rem .4rem .3rem .4rem;font-style:italic">${note}</div>`;
 
+            const _custWantsJib = tattArr.includes('jib');
+            const _custWantsRot = tattArr.includes('rotator') || tattArr.includes('fork_rotator');
             return `<div class="lift-chart-note" style="background:${bg};border-left-color:${bc}">
               <strong>📊 Capacity at this working point — ${reqHt}m lift / ${reqRe}m reach</strong>
               <div style="font-size:.76rem;color:#475569;margin:.3rem 0 .6rem">Your requirement: <strong>${reqKg.toLocaleString()} kg</strong></div>
               <div style="display:flex;flex-direction:column;gap:.35rem">
                 ${row('🔱 On tynes (standard forks)', onTynesKg, okTynes, `Capacity at ${reqHt}m height / ${reqRe}m reach`)}
-                ${_hasJibData
-                  ? row(`🪝 With hook / jib (−${jibWt}kg)`, withJibKg, okJib, `Carriage-mounted hook — zero reach extension. Hook weight ${jibWt}kg from ${jibSrc}.`)
-                  : noDataRow('🪝 With hook / jib attachment', 'No brochure data for jib weight on this machine — do not estimate. Confirm jib/hook capacity directly with the rental company before hiring.')}
-                ${_hasRotData
-                  ? row(`🔄 With fork rotator (−${rotatorWt}kg)`, withRotKg, okRot, `Rotator weight ${rotatorWt}kg from ${m.brand} brochure. Deducted at same working point.`)
-                  : noDataRow('🔄 With fork rotator', 'No brochure data for rotator weight on this machine — do not estimate. Confirm rotator capacity directly with the rental company before hiring.')}
+                ${_custWantsJib
+                  ? (_hasJibData
+                      ? row(`🪝 With hook / jib (−${jibWt}kg)`, withJibKg, okJib, `Carriage-mounted hook — zero reach extension. Hook weight ${jibWt}kg from ${jibSrc}.`)
+                      : noDataRow('🪝 With hook / jib attachment', 'No brochure data for jib weight on this machine — confirm jib/hook capacity directly with the rental company before hiring.'))
+                  : ''}
+                ${_custWantsRot
+                  ? (_hasRotData
+                      ? row(`🔄 With fork rotator (−${rotatorWt}kg)`, withRotKg, okRot, `Rotator weight ${rotatorWt}kg from ${m.brand} brochure. Deducted at same working point.`)
+                      : noDataRow('🔄 With fork rotator', 'No brochure data for rotator weight on this machine — confirm rotator capacity directly with the rental company before hiring.'))
+                  : ''}
               </div>
               <small style="color:#555;line-height:1.5;display:block;margin-top:.55rem">ℹ️ Carriage-mounted hook/jib blocks do not extend horizontal reach — the load hangs directly below the carriage at the same position as the forks. Always verify hook SWL and attachment weight on the machine's load plate before hiring.</small>
               <div style="margin-top:.75rem;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #FCD34D;border-radius:12px;overflow:hidden">
@@ -47570,16 +47580,49 @@ function renderCartItems() {
       return parts.length ? `<div class="cart-attachments" style="display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.35rem">${parts.join('')}</div>` : '';
     })();
 
-    // Chargeable attachment line items (shown as sub-items below the machine)
-    const chargeableAttLineItems = chargeableAtts.length ? `
-      <div style="margin-top:.5rem;background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px;padding:.55rem .75rem">
-        <div style="font-size:.7rem;font-weight:800;color:#92400E;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.4px">🔩 Chargeable Accessories — Quoted Separately by Rental Company</div>
-        ${chargeableAtts.map(att => `
-          <div style="display:flex;align-items:center;gap:.5rem;padding:.3rem 0;border-bottom:1px dashed #FDE68A">
-            <span style="font-size:.82rem;font-weight:700;color:#78350F;flex:1">${att}</span>
-            <span style="background:#F59E0B;color:#fff;border-radius:20px;padding:.12rem .55rem;font-size:.7rem;font-weight:800">Add-on</span>
-          </div>`).join('')}
-        <div style="font-size:.71rem;color:#92400E;margin-top:.3rem;font-style:italic">Standard forks are included. The above attachment(s) will appear as separate line items in the rental company's quote with their own day/week rates.</div>
+    // Chargeable attachment line items — specific jib and rotator boxes with pricing info
+    const _jibInCart = jr.jibRequested || chargeableAtts.some(a => a.toLowerCase().includes('jib'));
+    const _rotInCart = jr.rotatorRequested || chargeableAtts.some(a => a.toLowerCase().includes('rotat'));
+    const chargeableAttLineItems = (_jibInCart || _rotInCart) ? `
+      <div style="margin-top:.55rem;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #FCD34D;border-radius:11px;padding:.6rem .8rem">
+        <div style="font-size:.72rem;font-weight:900;color:#92400E;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.45rem">🔩 Chargeable Attachments — Quoted Separately</div>
+        ${_jibInCart ? `
+        <div style="background:#fff;border:1.5px solid #FCA572;border-radius:9px;padding:.5rem .7rem;margin-bottom:.4rem">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+            <span style="font-size:1rem">🏗️</span>
+            <span style="font-weight:800;color:#C2410C;font-size:.86rem">Jib / Crane Hook</span>
+            <span style="background:#F59E0B;color:#fff;border-radius:20px;padding:.1rem .5rem;font-size:.68rem;font-weight:800;margin-left:auto">Add-on</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.35rem">
+            <div style="background:#FFF7ED;border:1px solid #FDE68A;border-radius:7px;padding:.3rem .5rem;text-align:center">
+              <div style="font-size:.65rem;font-weight:700;color:#92400E">Daily Rate</div>
+              <div style="font-size:.85rem;font-weight:900;color:#C2410C">Quoted by RC</div>
+            </div>
+            <div style="background:#FFF7ED;border:1px solid #FDE68A;border-radius:7px;padding:.3rem .5rem;text-align:center">
+              <div style="font-size:.65rem;font-weight:700;color:#92400E">Weekly Rate</div>
+              <div style="font-size:.85rem;font-weight:900;color:#C2410C">Quoted by RC</div>
+            </div>
+          </div>
+        </div>` : ''}
+        ${_rotInCart ? `
+        <div style="background:#fff;border:1.5px solid #FCA572;border-radius:9px;padding:.5rem .7rem;margin-bottom:.4rem">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+            <span style="font-size:1rem">🔄</span>
+            <span style="font-weight:800;color:#C2410C;font-size:.86rem">Fork Rotator</span>
+            <span style="background:#F59E0B;color:#fff;border-radius:20px;padding:.1rem .5rem;font-size:.68rem;font-weight:800;margin-left:auto">Add-on</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.35rem">
+            <div style="background:#FFF7ED;border:1px solid #FDE68A;border-radius:7px;padding:.3rem .5rem;text-align:center">
+              <div style="font-size:.65rem;font-weight:700;color:#92400E">Daily Rate</div>
+              <div style="font-size:.85rem;font-weight:900;color:#C2410C">Quoted by RC</div>
+            </div>
+            <div style="background:#FFF7ED;border:1px solid #FDE68A;border-radius:7px;padding:.3rem .5rem;text-align:center">
+              <div style="font-size:.65rem;font-weight:700;color:#92400E">Weekly Rate</div>
+              <div style="font-size:.85rem;font-weight:900;color:#C2410C">Quoted by RC</div>
+            </div>
+          </div>
+        </div>` : ''}
+        <div style="font-size:.7rem;color:#92400E;font-style:italic">Standard forks included. Each rental company will quote day &amp; week rates for the above add-ons separately.</div>
       </div>` : '';
 
     const loadDesc = jr.loadDescription
@@ -47879,6 +47922,12 @@ function getJobRequirements() {
   const tattRaw = a.tele_attachment || '';
   const tattArr = Array.isArray(tattRaw) ? tattRaw : tattRaw.split(',').filter(Boolean);
   if (tattArr.length > 0) req.attachmentsRequired = tattArr.map(t => attLabels[t] || t).join(', ');
+
+  // Jib and rotator are chargeable add-ons — populate as separate quotable line items
+  const teleChargeableAtts = [];
+  if (tattArr.includes('jib'))     { req.jibRequested     = true; teleChargeableAtts.push('🏗️ Jib / crane hook'); }
+  if (tattArr.includes('rotator')) { req.rotatorRequested = true; teleChargeableAtts.push('🔄 Fork rotator'); }
+  if (teleChargeableAtts.length)   req.chargeableAttachments = teleChargeableAtts;
 
   if (a.tele_brand_pref && a.tele_brand_pref !== 'any') req.brandPreference = a.tele_brand_pref;
 
@@ -51660,8 +51709,15 @@ function openRespondModal(reqId) {
     }
     // ── Also inject chargeable fork attachments (jib, rotator) ──────────
     const chargeableAttsForRC = jr.chargeableAttachments || [];
+    // Add jib/rotator as specific named line items for the RC to price
+    if ((jr.jibRequested) && !attachmentLineItems.some(a => a.toLowerCase().includes('jib'))) {
+      attachmentLineItems.push('🏗️ Jib / crane hook');
+    }
+    if ((jr.rotatorRequested) && !attachmentLineItems.some(a => a.toLowerCase().includes('rotat'))) {
+      attachmentLineItems.push('🔄 Fork rotator');
+    }
     chargeableAttsForRC.forEach(att => {
-      if (!attachmentLineItems.some(a => a.toLowerCase().includes(att.toLowerCase().split(' ')[1] || att))) {
+      if (!attachmentLineItems.some(a => a.toLowerCase().includes(att.toLowerCase().replace(/[^a-z]/g,'').slice(0,6)))) {
         attachmentLineItems.push(att);
       }
     });
@@ -51670,7 +51726,10 @@ function openRespondModal(reqId) {
       <div data-acc-machine="${i}" style="background:#fff;border:1.5px solid #FCA572;border-radius:9px;padding:.55rem .7rem;margin-top:.45rem">
         <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
           <span style="font-size:.9rem">🔧</span>
-          <span style="font-weight:700;color:#C2410C;font-size:.86rem;flex:1">${a}</span>
+          <span style="font-weight:800;color:#C2410C;font-size:.86rem;flex:1">
+            ${a.includes('Jib') || a.includes('jib') ? '🏗️ Jib / Crane Hook — Day & Week Rate' :
+              a.includes('otat') ? '🔄 Fork Rotator — Day & Week Rate' : a}
+          </span>
           <button onclick="this.closest('[data-acc-machine]').remove();rqRecalcAll()" style="background:none;border:none;color:#EF4444;font-size:.9rem;cursor:pointer;padding:0;flex-shrink:0">✕</button>
         </div>
         <input class="acc-name" type="hidden" value="${a}">
