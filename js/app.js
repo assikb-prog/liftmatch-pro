@@ -42244,6 +42244,23 @@ function _updateSortUI() {
 }
 
 // ─── Main match function ─────────────────────────────────────────────────────
+// ── Module-level spider/crawler identifier — used in matching AND rendering ──
+function _isSpiderOrCrawler(m) {
+  const nm = (m.name || m.shortName || '').toLowerCase();
+  const f  = (m.filters || []);
+  if (nm.includes('spider lift')) return true;
+  if (nm.includes('compact crawler')) return true;
+  if (nm.includes('jibbi')) return true;
+  if (nm.includes('leguan')) return true;
+  if (nm.startsWith('monitor') && nm.includes('spider')) return true;
+  if (nm.startsWith('cmc s') && nm.includes('spider')) return true;
+  if (nm.includes('sinoboom sp')) return true;
+  if (nm.includes('jlg x') && nm.includes('crawler')) return true;
+  if (nm.includes('almacrawler')) return true;
+  if (f.includes('spider')) return true;
+  return false;
+}
+
 function matchMachines(ans, type) {
   // Normalize location from whichever path the user came through
   if (!ans.location) {
@@ -43208,31 +43225,6 @@ function matchMachines(ans, type) {
 
     // Rough terrain: exclude pure electric AND all crawler/tracked/spider machines
     // Spider lifts and compact crawlers are specialty machines — ONLY shown for "Very rough / crawler terrain"
-    // TRUE spider/compact crawler lifts — stabiliser-based, NOT wheeled rough terrain booms
-    // Genie TraX, JLG 400SC etc. are wheeled/tracked booms — they appear in rough terrain
-    const _isSpiderOrCrawler = (m) => {
-      const nm = (m.name || m.shortName || '').toLowerCase();
-      const f  = (m.filters || []);
-      // Explicit spider/outrigger-stabilised machines by brand keyword
-      if (nm.includes('spider lift')) return true;
-      if (nm.includes('compact crawler')) return true;
-      if (nm.includes('jibbi')) return true;
-      if (nm.includes('leguan')) return true;
-      // Monitor brand spider lifts
-      if (nm.startsWith('monitor') && nm.includes('spider')) return true;
-      // CMC spider lifts (S-series spider)
-      if (nm.startsWith('cmc s') && nm.includes('spider')) return true;
-      // Sinoboom SP-series (spider)
-      if (nm.includes('sinoboom sp')) return true;
-      // JLG X-series compact crawlers (NOT the 400SC which is tracked telescopic)
-      if (nm.includes('jlg x') && nm.includes('crawler')) return true;
-      // AlmaCrawler (spider)
-      if (nm.includes('almacrawler')) return true;
-      // Filters-based (for machines properly tagged)
-      if (f.includes('spider')) return true;
-      return false;
-    };
-
     if (terr === 'rough_boom') {
       pool = pool.filter(m => {
         const p = (m.power||'').toLowerCase();
@@ -45580,6 +45572,37 @@ function _renderCards(matches, machineType, answers) {
   if (!container) return;
   container.innerHTML = '';
 
+  // ── No results fallback ─────────────────────────────────────────
+  if (!matches || matches.length === 0) {
+    const noEl = document.createElement('div');
+    noEl.style.cssText = 'background:#fff;border:2px dashed #CBD5E1;border-radius:16px;padding:2.5rem 2rem;text-align:center;max-width:600px;margin:1.5rem auto';
+    noEl.innerHTML = `
+      <div style="font-size:3rem;margin-bottom:.75rem">😔</div>
+      <div style="font-weight:900;font-size:1.15rem;color:#0F172A;margin-bottom:.5rem">No machines match your exact requirements</div>
+      <div style="font-size:.9rem;color:#64748B;line-height:1.7;margin-bottom:1.2rem">
+        This could be because your combination of height, reach and terrain is very specific,
+        or these machines are not yet in our database.<br>
+        Our team can source any machine for you.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;align-items:center">
+        <a href="mailto:sales@noyo.com.au?subject=Machine Enquiry"
+          style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;text-decoration:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem">
+          ✉️ Email sales@noyo.com.au
+        </a>
+        <a href="tel:+61450133133"
+          style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;text-decoration:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem">
+          📞 Call +61 450 133 133
+        </a>
+        <button onclick="document.getElementById('result-summary').scrollIntoView({behavior:'smooth'})"
+          style="background:#F1F5F9;color:#475569;border:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer">
+          ✏️ Refine My Search
+        </button>
+      </div>
+    `;
+    container.appendChild(noEl);
+    return;
+  }
+
   // ── Sponsored ads — injected before organic results ────────────
   // Determine which category key applies for this result set
   const _firstMachine   = matches[0];
@@ -45804,37 +45827,6 @@ function _renderCards(matches, machineType, answers) {
       </div>`;
     container.appendChild(spCard);
   });
-
-  // ── No results fallback ──────────────────────────────────────
-  if (!matches || matches.length === 0) {
-    const noEl = document.createElement('div');
-    noEl.style.cssText = 'background:#fff;border:2px dashed #CBD5E1;border-radius:16px;padding:2.5rem 2rem;text-align:center;max-width:600px;margin:1.5rem auto';
-    noEl.innerHTML = `
-      <div style="font-size:3rem;margin-bottom:.75rem">😔</div>
-      <div style="font-weight:900;font-size:1.15rem;color:#0F172A;margin-bottom:.5rem">No machines match your exact requirements</div>
-      <div style="font-size:.9rem;color:#64748B;line-height:1.7;margin-bottom:1.2rem">
-        This could be because your combination of height, reach and terrain is very specific,
-        or these machines are not yet in our database.<br>
-        Our team can source any machine for you.
-      </div>
-      <div style="display:flex;flex-direction:column;gap:.6rem;align-items:center">
-        <a href="mailto:sales@noyo.com.au?subject=Machine Enquiry"
-          style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;text-decoration:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem">
-          ✉️ Email sales@noyo.com.au
-        </a>
-        <a href="tel:+61450133133"
-          style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;text-decoration:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem">
-          📞 Call +61 450 133 133
-        </a>
-        <button onclick="document.getElementById('result-summary').scrollIntoView({behavior:'smooth'})"
-          style="background:#F1F5F9;color:#475569;border:none;border-radius:10px;padding:.65rem 1.8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer">
-          ✏️ Refine My Search
-        </button>
-      </div>
-    `;
-    container.appendChild(noEl);
-    return;
-  }
 
   // ── Organic results ────────────────────────────────────────────
   matches.forEach((m,i)=>{
