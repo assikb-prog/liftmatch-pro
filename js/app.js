@@ -41631,6 +41631,102 @@ const GENERAL_QS = [
     ]
   },
 
+  // ── BOBCAT/SKID STEER SIZE ──────────────────────────────────────────────
+  {
+    id:'em_bobcat_size', icon:'⚖️',
+    text:'What size bobcat / skid steer do you need?',
+    hint:'Bobcats are quoted by machine weight class. Compact machines suit tight residential access; larger machines move more material per pass.',
+    showIf:{key:'em_job', val:'push_clear'},
+    type:'options',
+    options:[
+      {ico:'🔵', lbl:'Compact — ~2t',        sub:'Tight access, backyard, residential, standard gate clearance', val:'2t'},
+      {ico:'🟡', lbl:'Mid-size — ~3t',       sub:'Standard construction site, general site clearing',           val:'3t'},
+      {ico:'🟠', lbl:'Large — ~4t',          sub:'Larger sites, higher tip height, more bucket capacity',        val:'4t'},
+      {ico:'🔴', lbl:'Heavy — 5t+',          sub:'Major clearing, large bucket, high cycle work',               val:'5t'},
+      {ico:'❓', lbl:'Not sure — show what fits', sub:'We will match by access and job type',                    val:'unsure'},
+    ]
+  },
+
+  // ── GRADER BLADE LENGTH ──────────────────────────────────────────────────
+  {
+    id:'em_grader_blade', icon:'📏',
+    text:'What blade length do you need?',
+    hint:'Motor graders are specified by blade (moldboard) length. Longer blades cover more width per pass but need more room to manoeuvre.',
+    showIf:{key:'em_job', val:'grade'},
+    type:'options',
+    options:[
+      {ico:'📏', lbl:'10ft blade (~3.0m)',  sub:'Narrow roads, small pads, tight access sites',         val:'10ft'},
+      {ico:'📏', lbl:'12ft blade (~3.7m)',  sub:'Standard road works, subdivision — most common size',  val:'12ft'},
+      {ico:'📏', lbl:'14ft blade (~4.3m)',  sub:'Major roads, wide pads, heavier earthworks contracts', val:'14ft'},
+      {ico:'📏', lbl:'16ft+ blade',         sub:'Highway works, mining roads, large-scale civil',       val:'16ft'},
+      {ico:'❓', lbl:'Not sure',            sub:'Tell us the job — we will suggest the right size',      val:'unsure'},
+    ]
+  },
+
+  // ── COMPACTOR TYPE ───────────────────────────────────────────────────────
+  {
+    id:'em_compactor_type', icon:'🔄',
+    text:'What type of compactor do you need?',
+    hint:'The drum type matters as much as the size — different surfaces need different compaction action.',
+    showIf:{key:'em_job', val:'compact'},
+    type:'options',
+    options:[
+      {ico:'⚫', lbl:'Smooth drum roller',    sub:'Asphalt, sealed surfaces, granular fill',                   val:'smooth_drum'},
+      {ico:'🟤', lbl:'Padfoot / sheepsfoot',  sub:'Clay, cohesive soils, engineered fill — kneading action',   val:'padfoot'},
+      {ico:'🔄', lbl:'Combination roller',    sub:'Both smooth and padfoot — versatile for mixed conditions',  val:'combination'},
+      {ico:'🔀', lbl:'Tandem vibratory',      sub:'Asphalt finish, footpaths, small pavement areas',           val:'tandem'},
+      {ico:'🤏', lbl:'Plate compactor',       sub:'Trenches, tight spots, behind retaining walls — walk-behind', val:'plate'},
+    ]
+  },
+
+  // ── COMPACTOR SIZE ───────────────────────────────────────────────────────
+  {
+    id:'em_compactor_size', icon:'⚖️',
+    text:'What weight class of compactor?',
+    hint:'Heavier rollers compact deeper and cover ground faster. Match to your material depth and site access.',
+    showIf:{key:'em_job', val:'compact'},
+    type:'options',
+    options:[
+      {ico:'🔵', lbl:'Light — 1–3t',     sub:'Footpaths, small slabs, residential driveways',       val:'3t'},
+      {ico:'🟡', lbl:'Medium — 5–8t',    sub:'Subdivision roads, commercial pads, general civil',   val:'8t'},
+      {ico:'🟠', lbl:'Heavy — 10–12t',   sub:'Main roads, heavy fill, large commercial projects',   val:'12t'},
+      {ico:'🔴', lbl:'Very heavy — 15t+',sub:'Major highways, mining roads, deep fill layers',      val:'15t'},
+      {ico:'❓', lbl:'Not sure',         sub:'We will match by surface type and scale of job',       val:'unsure'},
+    ]
+  },
+
+  // ── DUMP TRUCK PAYLOAD ───────────────────────────────────────────────────
+  {
+    id:'em_dumper_payload', icon:'🚛',
+    text:'What payload capacity do you need?',
+    hint:'Dump trucks are quoted by payload — how many tonnes they carry per load. Higher payload means fewer passes and a faster job.',
+    showIf:{key:'em_job', val:'cart'},
+    type:'options',
+    options:[
+      {ico:'🔵', lbl:'5–10t payload',   sub:'Small residential, tight site, short haul carting',           val:'10t'},
+      {ico:'🟡', lbl:'15–20t payload',  sub:'Standard commercial, subdivision, general civil bulk work',    val:'20t'},
+      {ico:'🟠', lbl:'25–30t payload',  sub:'Major civil earthworks, large volumes, quarry face work',      val:'30t'},
+      {ico:'🔴', lbl:'40t+ payload',    sub:'Mining haul roads, large infrastructure, off-highway ADT',     val:'40t'},
+      {ico:'❓', lbl:'Not sure',        sub:'Tell us the volume and haul distance — we will recommend',      val:'unsure'},
+    ]
+  },
+
+  // ── WATER CART TANK CAPACITY ─────────────────────────────────────────────
+  {
+    id:'em_water_tank', icon:'💧',
+    text:'What tank capacity do you need?',
+    hint:'Tank capacity determines how many passes before refilling. Match to your site size and dust suppression needs.',
+    showIf:{key:'em_job', val:'water'},
+    type:'options',
+    options:[
+      {ico:'💧', lbl:'5,000–8,000L',  sub:'Small construction site, residential pad prep, short runs',       val:'8000'},
+      {ico:'💧', lbl:'10,000–12,000L',sub:'Standard commercial site, subdivision roads, civil works',        val:'12000'},
+      {ico:'💧', lbl:'15,000–18,000L',sub:'Large site, mining access roads, high cycle frequency',           val:'18000'},
+      {ico:'💧', lbl:'20,000L+',      sub:'Major earthworks, mining operations, haul road dust suppression',  val:'20000'},
+      {ico:'❓', lbl:'Not sure',      sub:'Tell us the site area — we will suggest the right capacity',        val:'unsure'},
+    ]
+  },
+
   // EM — Wet hire or dry hire? (shown for all earthmoving jobs)
   {
     id:'em_hire_type', icon:'👷',
@@ -48444,10 +48540,14 @@ function getJobRequirements() {
     if (a.em_exact_depth_m) req.exactDigDepthM = parseFloat(a.em_exact_depth_m);
     if (a.em_exact_reach_m) req.exactReachM    = parseFloat(a.em_exact_reach_m);
     if (a.em_gate_width_mm) req.gateWidthMm    = parseFloat(a.em_gate_width_mm);
-    // Specific machine size customer selected
-    if (a.em_excavator_size && a.em_excavator_size !== 'unsure') {
-      req.excavatorSize = a.em_excavator_size; // e.g. '2t', '5t', '13t'
-    }
+    // Specific machine size / spec customer selected — all earthworks types
+    if (a.em_excavator_size && a.em_excavator_size !== 'unsure') req.excavatorSize  = a.em_excavator_size;
+    if (a.em_bobcat_size    && a.em_bobcat_size    !== 'unsure') req.bobcatSize     = a.em_bobcat_size;
+    if (a.em_grader_blade   && a.em_grader_blade   !== 'unsure') req.graderBlade    = a.em_grader_blade + ' blade';
+    if (a.em_compactor_type) req.compactorType = {smooth_drum:'Smooth drum roller',padfoot:'Padfoot / sheepsfoot',combination:'Combination roller',tandem:'Tandem vibratory',plate:'Plate compactor'}[a.em_compactor_type] || a.em_compactor_type;
+    if (a.em_compactor_size && a.em_compactor_size !== 'unsure') req.compactorSize  = a.em_compactor_size;
+    if (a.em_dumper_payload && a.em_dumper_payload !== 'unsure') req.dumperPayload  = a.em_dumper_payload + ' payload';
+    if (a.em_water_tank     && a.em_water_tank     !== 'unsure') req.waterTankL     = parseInt(a.em_water_tank);
 
     const emAccessMap = { tight:'Very tight / confined', standard:'Standard site access', open:'Open land' };
     if (a.em_dig_access) req.siteAccess = emAccessMap[a.em_dig_access] || a.em_dig_access;
@@ -53464,7 +53564,7 @@ function kymRender() {
         ? `<div style="margin-top:.7rem;background:#F1F5F9;border:1.5px solid #E2E8F0;border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#94A3B8;font-weight:700;text-align:center">🔒 Log in as a customer to add to cart</div>`
         : currentUser && currentUser.role === 'lite'
           ? `<div style="margin-top:.7rem;background:rgba(14,165,233,.07);border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#38BDF8;font-weight:700;text-align:center">ℹ️ For information only — contact a rental company to hire</div>`
-          : `<button class="kym-add-btn${inCart ? ' in-cart' : ''}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name||'').replace(/'/g,"\\'")}','${catKey}',this)" ${inCart ? 'disabled' : ''}>${inCart ? '✓ In Cart' : '🛒 Add to Quote'}</button>`
+          : `<button class="kym-add-btn" id="kym-cart-btn-${(m.id||'').replace(/[^a-z0-9]/gi,'-')}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name||'').replace(/'/g,"\\\\'")}','${catKey}',this)">🛒 Add to Quote</button>`
       }
     </div>`;
   }).join('');
@@ -53498,6 +53598,15 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
   updateCartUI();
   const extras = [...tynes, ...attachments];
   const extraStr = extras.length ? ` + ${extras.join(', ')}` : '';
+
+  // Update the button to show "In Cart" state without re-rendering
+  if (btn) {
+    btn.textContent = '✓ In Cart';
+    btn.disabled = true;
+    btn.style.background = '#16A34A';
+    btn.style.cursor = 'default';
+    btn.style.opacity = '0.8';
+  }
   showToast(`🛒 ${machineName}${extraStr} added`, '#16A34A');
   if (btn) {
     btn.textContent = '✓ In Cart';
