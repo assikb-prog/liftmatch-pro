@@ -52513,15 +52513,22 @@ var _kymQuery = '';       // active search query
 var _kymBrand = '';       // active brand filter (dozer subcategory)
 
 var KYM_CAT_META = {
-  forklift:    { label:'Forklifts',           emoji:'🍴' },
-  telehandler: { label:'Telehandlers',         emoji:'🏗️' },
-  scissor:     { label:'Scissor Lifts',        emoji:'✂️' },
-  boom:        { label:'Boom Lifts',           emoji:'💥' },
-  material:    { label:'Material Lifts',       emoji:'📦' },
-  pushAround:   { label:'Push-Around Lifts Manlift Man-Lift AWP Vertical Mast', emoji:'🧍' },
-  verticalMast: { label:'Vertical Mast Lift Self-Propelled Manlift', emoji:'🏢' },
-  palletJack:  { label:'Pallet Jacks',         emoji:'🔄' },
-  dozer:       { label:'Dozers Bulldozers Track-Type Tractors', emoji:'🏔️' },
+  forklift:     { label:'Forklifts',                                              emoji:'🍴' },
+  telehandler:  { label:'Telehandlers',                                           emoji:'🏗️' },
+  scissor:      { label:'Scissor Lifts',                                          emoji:'✂️' },
+  boom:         { label:'Boom Lifts',                                             emoji:'💥' },
+  material:     { label:'Material Lifts',                                         emoji:'📦' },
+  pushAround:   { label:'Push-Around Lifts Manlift Man-Lift AWP Vertical Mast',  emoji:'🧍' },
+  verticalMast: { label:'Vertical Mast Lift Self-Propelled Manlift',              emoji:'🏢' },
+  palletJack:   { label:'Pallet Jacks',                                           emoji:'🔄' },
+  dozer:        { label:'Dozers Bulldozers Track-Type Tractors',                  emoji:'🏔️' },
+  em_excavator: { label:'Excavators Diggers Excavation',                          emoji:'⛏️' },
+  em_bobcat:    { label:'Bobcats Skid Steers Compact Track Loaders CTL',          emoji:'🚜' },
+  em_grader:    { label:'Motor Graders Grading',                                  emoji:'🛣️' },
+  em_compactor: { label:'Compactors Rollers Vibratory',                           emoji:'🔄' },
+  em_dumper:    { label:'Dump Trucks Articulated Dumpers ADT',                    emoji:'🚛' },
+  em_water_cart:{ label:'Water Carts Water Trucks Dust Suppression',              emoji:'💧' },
+  em_mulcher:   { label:'Mulchers Forestry Mulchers Vegetation',                  emoji:'🌿' },
 };
 
 // ── Dozer brand registry — drives brand filter pills in KYM ────────────
@@ -52744,6 +52751,95 @@ var KYM_CAT_SYNONYMS = {
   'bulk push':             ['dozer'],
   'vpat':                  ['dozer'],
   'hydrostatic dozer':     ['dozer'],
+  // ── Excavators ───────────────────────────────────────────────────────────
+  excavator:             ['em_excavator'],
+  excavators:            ['em_excavator'],
+  digger:                ['em_excavator'],
+  diggers:               ['em_excavator'],
+  excavation:            ['em_excavator'],
+  'mini excavator':      ['em_excavator'],
+  'mini digger':         ['em_excavator'],
+  'micro excavator':     ['em_excavator'],
+  'zero swing':          ['em_excavator'],
+  'zero tail swing':     ['em_excavator'],
+  'zero tailswing':      ['em_excavator'],
+  'compact excavator':   ['em_excavator'],
+  'hydraulic excavator': ['em_excavator'],
+  'tracked excavator':   ['em_excavator'],
+  'wheeled excavator':   ['em_excavator'],
+  'cat excavator':       ['em_excavator'],
+  'caterpillar excavator':['em_excavator'],
+  'komatsu excavator':   ['em_excavator'],
+  'hitachi':             ['em_excavator'],
+  'volvo excavator':     ['em_excavator'],
+  'kobelco':             ['em_excavator'],
+  'pc30':                ['em_excavator'],
+  'pc55':                ['em_excavator'],
+  'pc88':                ['em_excavator'],
+  'pc138':               ['em_excavator'],
+  'pc200':               ['em_excavator'],
+  'pc300':               ['em_excavator'],
+  'pc360':               ['em_excavator'],
+  '301':                 ['em_excavator'],
+  '303':                 ['em_excavator'],
+  '308':                 ['em_excavator'],
+  '320':                 ['em_excavator'],
+  '323':                 ['em_excavator'],
+  '336':                 ['em_excavator'],
+  '340':                 ['em_excavator'],
+  'backhoe':             ['em_excavator'],
+  'long reach':          ['em_excavator'],
+  'mining excavator':    ['em_excavator'],
+  'mining shovel':       ['em_excavator'],
+  'pc8000':              ['em_excavator'],
+  // ── Bobcats / Skid Steers ────────────────────────────────────────────────
+  bobcat:                ['em_bobcat'],
+  bobcats:               ['em_bobcat'],
+  'skid steer':          ['em_bobcat'],
+  'skid steers':         ['em_bobcat'],
+  'skid loader':         ['em_bobcat'],
+  'compact loader':      ['em_bobcat'],
+  ctl:                   ['em_bobcat'],
+  'compact track loader':['em_bobcat'],
+  't450':                ['em_bobcat'],
+  't590':                ['em_bobcat'],
+  't650':                ['em_bobcat'],
+  // ── Graders ──────────────────────────────────────────────────────────────
+  grader:                ['em_grader'],
+  graders:               ['em_grader'],
+  'motor grader':        ['em_grader'],
+  'road grader':         ['em_grader'],
+  'blade':               ['em_grader'],
+  // ── Compactors / Rollers ─────────────────────────────────────────────────
+  compactor:             ['em_compactor'],
+  compactors:            ['em_compactor'],
+  roller:                ['em_compactor'],
+  rollers:               ['em_compactor'],
+  'vibratory roller':    ['em_compactor'],
+  'smooth drum':         ['em_compactor'],
+  'padfoot':             ['em_compactor'],
+  // ── Dump Trucks ──────────────────────────────────────────────────────────
+  dumper:                ['em_dumper'],
+  dumpers:               ['em_dumper'],
+  'dump truck':          ['em_dumper'],
+  'dump trucks':         ['em_dumper'],
+  adt:                   ['em_dumper'],
+  'articulated dump':    ['em_dumper'],
+  'articulated truck':   ['em_dumper'],
+  'haul truck':          ['em_dumper'],
+  'mining truck':        ['em_dumper'],
+  // ── Water Carts ──────────────────────────────────────────────────────────
+  'water cart':          ['em_water_cart'],
+  'water carts':         ['em_water_cart'],
+  'water truck':         ['em_water_cart'],
+  'dust suppression':    ['em_water_cart'],
+  'water tanker':        ['em_water_cart'],
+  // ── Mulchers ─────────────────────────────────────────────────────────────
+  mulcher:               ['em_mulcher'],
+  mulchers:              ['em_mulcher'],
+  'forestry mulcher':    ['em_mulcher'],
+  'forestry head':       ['em_mulcher'],
+  vegetation:            ['em_mulcher'],
   // ── Push-around ──────────────────────────────────────────────────────────
   awp:                   ['pushAround'],
   'push around':         ['pushAround'],
@@ -53003,9 +53099,21 @@ function kymRender() {
   }
 
   // Collect matching machines
+  // Helper: resolve the machine array for a category key, including earthworks sub-types
+  const _kymGetArr = (catKey) => {
+    if (catKey === 'em_excavator')   return (MACHINES.earthworks||[]).filter(m => m.type === 'excavator');
+    if (catKey === 'em_bobcat')      return (MACHINES.earthworks||[]).filter(m => m.type === 'bobcat');
+    if (catKey === 'em_grader')      return (MACHINES.earthworks||[]).filter(m => m.type === 'grader');
+    if (catKey === 'em_compactor')   return (MACHINES.earthworks||[]).filter(m => m.type === 'compactor');
+    if (catKey === 'em_dumper')      return (MACHINES.earthworks||[]).filter(m => m.type === 'dumper' || m.type === 'mining_truck');
+    if (catKey === 'em_water_cart')  return (MACHINES.earthworks||[]).filter(m => m.type === 'water_cart');
+    if (catKey === 'em_mulcher')     return (MACHINES.earthworks||[]).filter(m => m.type === 'mulcher');
+    return MACHINES[catKey] || [];
+  };
+
   const results = [];
   cats.forEach(catKey => {
-    const arr = MACHINES[catKey] || [];
+    const arr = _kymGetArr(catKey);
     arr.forEach(m => {
       if (kymMatchesQuery(m, catKey, _kymQuery)) {
         // Apply brand filter when active (dozer subcategory)
@@ -56642,12 +56750,72 @@ async function renderAdminRentalCos() {
           <button onclick="adminRejectRentalCo('${c.email}')" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:6px;padding:.25rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer">Revoke</button>
         ` : '<span style="color:#CBD5E1;font-size:.75rem">—</span>'}
         ${!c.isHardcoded ? `<button onclick="openAdminPlanModal('${c.email}','${c.plan||''}','${c.enquiriesUsed||0}')" style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">📦 Plan</button>` : ''}
+        <button onclick="adminShowRcBilling('${c.email}')" style="background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">💳 Billing</button>
+      </td>
+    </tr>
+    <tr id="rc-billing-row-${c.email.replace(/[@.]/g,'-')}" style="display:none;background:#F8FAFC">
+      <td colspan="15" style="padding:.6rem 1.2rem 1rem">
+        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1.1rem">
+          <div style="font-weight:800;color:#0F172A;font-size:.88rem;margin-bottom:.6rem">💳 Billing — ${c.company||c.name}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:.6rem">
+            ${(() => {
+              const plan = c.plan ? NOYO_PLANS[c.plan] : null;
+              const b2 = _billing(c);
+              const subStart = c.subscriptionStart ? new Date(c.subscriptionStart).toLocaleDateString('en-AU') : (c.registeredAt ? new Date(c.registeredAt).toLocaleDateString('en-AU') : '—');
+              const subEndD  = c.subscriptionEnd   ? new Date(c.subscriptionEnd) : null;
+              const subEnd   = subEndD ? subEndD.toLocaleDateString('en-AU') : '—';
+              const daysLeft = subEndD ? Math.ceil((subEndD - Date.now())/(1000*60*60*24)) : null;
+              const payStatus = c.paymentStatus === 'overdue' || (daysLeft !== null && daysLeft < 0) ? '🔴 OVERDUE' :
+                                daysLeft !== null && daysLeft <= 7 ? '⚠️ Expiring in ' + daysLeft + ' days' :
+                                plan ? '✅ Active' : '— No plan';
+              const payColor  = payStatus.startsWith('🔴') ? '#DC2626' : payStatus.startsWith('⚠️') ? '#B45309' : plan ? '#16A34A' : '#94A3B8';
+              return `
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
+                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Plan</div>
+                  <div style="font-weight:900;color:${plan ? NOYO_PLANS[c.plan].color : '#94A3B8'};font-size:.95rem">${plan ? plan.label : '—'}</div>
+                  <div style="font-size:.72rem;color:#64748B">${plan ? '$'+plan.price+'/mo' : 'Not subscribed'}</div>
+                </div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
+                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Subscribed From</div>
+                  <div style="font-weight:800;color:#0F172A;font-size:.88rem">${subStart}</div>
+                </div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
+                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Renews / Expires</div>
+                  <div style="font-weight:800;color:${daysLeft!==null&&daysLeft<0?'#DC2626':daysLeft!==null&&daysLeft<=7?'#B45309':'#0F172A'};font-size:.88rem">${subEnd}</div>
+                </div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
+                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Payment Status</div>
+                  <div style="font-weight:900;color:${payColor};font-size:.85rem">${payStatus}</div>
+                </div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
+                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">This Month</div>
+                  <div style="font-weight:900;color:#0F172A;font-size:.95rem">$\${(b2.total||0).toLocaleString('en-AU')}</div>
+                  <div style="font-size:.72rem;color:#64748B">Base $\${b2.base||0}${b2.overage>0?' + $'+b2.overage+' overage':''}</div>
+                </div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
+                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Enquiries</div>
+                  <div style="font-weight:900;color:#0F172A;font-size:.95rem">${b2.used||0} / ${b2.included||'—'}</div>
+                  <div style="font-size:.72rem;color:${(b2.remaining||0)<=2?'#DC2626':(b2.remaining||0)<=5?'#B45309':'#16A34A'}">${b2.cfg?b2.remaining+' remaining':'—'}</div>
+                </div>`;
+            })()}
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <button onclick="openAdminPlanModal('${c.email}','${c.plan||''}','${c.enquiriesUsed||0}')" style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:8px;padding:.38rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✏️ Change Plan</button>
+            <button onclick="adminSendBillingReminder('${c.email}','${(c.company||c.name||'').replace(/'/g,'')}')" style="background:#FEF3C7;color:#92400E;border:1.5px solid #FCD34D;border-radius:8px;padding:.38rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">📧 Send Renewal Reminder</button>
+          </div>
+        </div>
       </td>
     </tr>`;
   }).join('')
     : '<tr><td colspan="15" style="text-align:center;color:#94a3b8;padding:2rem">No rental companies found.</td></tr>';
 
   _updateRcTabBadge();
+}
+
+function adminShowRcBilling(email) {
+  const rowId = 'rc-billing-row-' + email.replace(/[@.]/g, '-');
+  const row = document.getElementById(rowId);
+  if (row) row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
 }
 
 function renderAdminUsers() {
@@ -58798,6 +58966,55 @@ window.addEventListener('load', () => {
   if (typeof _fbDb !== 'undefined') _loadCustomMachines();
 });
 
+function adminSendBillingReminder(email, company) {
+  // Send an in-app notification + email-style reminder to a rental company
+  const subject = encodeURIComponent('Noyo Subscription Renewal Reminder — ' + company);
+  const body = encodeURIComponent(
+    'Hi ' + company + ',\n\n' +
+    'This is a friendly reminder from Noyo that your subscription is due for renewal soon.\n\n' +
+    'To continue receiving quote requests and accessing the Noyo platform, please renew your plan before it expires.\n\n' +
+    'Log in at noyo.com.au to manage your subscription.\n\n' +
+    'If you have any questions, reply to this email or call us on +61 450 133 133.\n\n' +
+    'Cheers,\nThe Noyo Team'
+  );
+  window.open('mailto:' + email + '?subject=' + subject + '&body=' + body);
+  showToast('📧 Reminder drafted for ' + company, '#0052CC');
+}
+
+// ── Auto-send 7-day billing reminders on admin login ──────────────────────
+async function _checkBillingReminders() {
+  try {
+    const all = await _getAllRegisteredRentalCos();
+    const now = Date.now();
+    const soon = all.filter(c => {
+      if (!c.subscriptionEnd) return false;
+      const daysLeft = Math.ceil((new Date(c.subscriptionEnd) - now) / (1000*60*60*24));
+      return daysLeft >= 0 && daysLeft <= 7 && c.approvalStatus === 'approved' && c.plan;
+    });
+    if (soon.length > 0) {
+      // Show admin notification banner
+      const existing = document.getElementById('billing-reminder-banner');
+      if (existing) existing.remove();
+      const banner = document.createElement('div');
+      banner.id = 'billing-reminder-banner';
+      banner.style.cssText = 'position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:linear-gradient(135deg,#FEF3C7,#FEF9C3);border:2px solid #FCD34D;border-radius:14px;padding:1rem 1.3rem;max-width:340px;box-shadow:0 8px 30px rgba(0,0,0,.15)';
+      banner.innerHTML = `
+        <div style="font-weight:900;color:#92400E;font-size:.92rem;margin-bottom:.4rem">⚠️ ${soon.length} Subscription${soon.length>1?'s':''} Expiring Soon</div>
+        ${soon.map(c => {
+          const d = Math.ceil((new Date(c.subscriptionEnd) - now)/(1000*60*60*24));
+          return `<div style="font-size:.8rem;color:#78350F;margin-bottom:.2rem">• <strong>${c.company||c.name}</strong> — ${d===0?'expires today':d+'d left'}</div>`;
+        }).join('')}
+        <div style="display:flex;gap:.5rem;margin-top:.6rem">
+          <button onclick="showAdminSection('billing',document.getElementById('admin-tab-billing'));this.closest('#billing-reminder-banner').remove()"
+            style="background:#F59E0B;color:#fff;border:none;border-radius:8px;padding:.35rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer">View Billing</button>
+          <button onclick="this.closest('#billing-reminder-banner').remove()"
+            style="background:rgba(0,0,0,.06);color:#92400E;border:none;border-radius:8px;padding:.35rem .8rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer">Dismiss</button>
+        </div>`;
+      document.body.appendChild(banner);
+    }
+  } catch(e) {}
+}
+
 async function renderAdminBilling() {
   const el = document.getElementById('admin-sec-billing');
   if (!el) return;
@@ -58989,59 +59206,95 @@ async function renderAdminBilling() {
     </div>
 
     <!-- ═══ PER-COMPANY BILLING TABLE ═══ -->
-    <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">📋 Per-Company Billing — Current Month</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem">
+      <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">📋 All Rental Companies — Subscription Status</div>
+      <div style="font-size:.72rem;color:#64748B">${allRcos.filter(c=>c.approvalStatus==='approved').length} approved · ${allRcos.length} total registered</div>
+    </div>
     <div style="overflow-x:auto;margin-bottom:1.6rem">
       <table style="width:100%;border-collapse:collapse;font-size:.78rem">
         <thead>
           <tr style="background:rgba(255,255,255,.04);border-bottom:2px solid rgba(255,255,255,.08)">
             <th style="padding:.5rem .7rem;text-align:left;color:#94A3B8;font-weight:800;white-space:nowrap">Company</th>
             <th style="padding:.5rem .7rem;text-align:left;color:#94A3B8;font-weight:800">Plan</th>
+            <th style="padding:.5rem .7rem;text-align:left;color:#94A3B8;font-weight:800;white-space:nowrap">Sub Start</th>
+            <th style="padding:.5rem .7rem;text-align:left;color:#94A3B8;font-weight:800;white-space:nowrap">Sub End / Renews</th>
             <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Included</th>
             <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Used</th>
             <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Remaining</th>
-            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Overage</th>
             <th style="padding:.5rem .7rem;text-align:right;color:#94A3B8;font-weight:800">Base Fee</th>
             <th style="padding:.5rem .7rem;text-align:right;color:#94A3B8;font-weight:800">Overage $</th>
             <th style="padding:.5rem .7rem;text-align:right;color:#94A3B8;font-weight:800">Total Bill</th>
-            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Status</th>
+            <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Payment</th>
             <th style="padding:.5rem .7rem;text-align:center;color:#94A3B8;font-weight:800">Actions</th>
           </tr>
         </thead>
         <tbody>
-          ${activeRcos.length ? activeRcos.map(c => {
+          ${allRcos.filter(c => c.approvalStatus === 'approved' || c.approvalStatus === 'pending' || c.plan).map(c => {
             const b = _billing(c);
-            const overBg = b.overageCount > 0 ? 'rgba(245,158,11,.08)' : '';
+            const now = Date.now();
+            
+            // Subscription dates
+            const subStart = c.subscriptionStart ? new Date(c.subscriptionStart) : (c.registeredAt ? new Date(c.registeredAt) : null);
+            const subEnd   = c.subscriptionEnd   ? new Date(c.subscriptionEnd)   : (subStart ? new Date(subStart.getTime() + 30*24*60*60*1000) : null);
+            const daysLeft = subEnd ? Math.ceil((subEnd - now) / (1000*60*60*24)) : null;
+            
+            // Payment status logic
+            const isOverdue   = c.paymentStatus === 'overdue' || (daysLeft !== null && daysLeft < 0);
+            const isExpiring  = daysLeft !== null && daysLeft >= 0 && daysLeft <= 7;
+            const isPaid      = c.plan && !isOverdue && c.approvalStatus === 'approved';
+            const isNoPlan    = !c.plan;
+            const isPending   = c.approvalStatus === 'pending';
+            
+            // Row background
+            const rowBg = isOverdue  ? 'background:rgba(239,68,68,.08);border-left:3px solid #EF4444' :
+                          isExpiring ? 'background:rgba(245,158,11,.07);border-left:3px solid #F59E0B' :
+                          isPending  ? 'background:rgba(253,230,138,.12)' : '';
+            
             const remColor = b.remaining <= 2 ? '#EF4444' : b.remaining <= 5 ? '#F59E0B' : '#22C55E';
-            return `<tr style="border-bottom:1px solid rgba(255,255,255,.05);background:${overBg}">
-              <td style="padding:.45rem .7rem;font-weight:800;color:#E2E8F0">${c.company||c.name||'—'}<br><span style="font-size:.68rem;color:#475569;font-weight:400">${c.email}</span></td>
-              <td style="padding:.45rem .7rem">${planBadgeHtml(c.plan)}</td>
-              <td style="padding:.45rem .7rem;text-align:center;color:#94A3B8">${b.included}</td>
-              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:#CBD5E1">${b.used}</td>
-              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:${remColor}">${b.remaining}</td>
-              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:${b.overageCount>0?'#F59E0B':'#475569'}">${b.overageCount>0?b.overageCount+'×':'—'}</td>
-              <td style="padding:.45rem .7rem;text-align:right;color:#94A3B8">${$$(b.base)}</td>
-              <td style="padding:.45rem .7rem;text-align:right;font-weight:${b.overage>0?800:400};color:${b.overage>0?'#F59E0B':'#475569'}">${b.overage>0?$$(b.overage):'—'}</td>
-              <td style="padding:.45rem .7rem;text-align:right;font-weight:900;color:#22C55E">${$$(b.total)}</td>
-              <td style="padding:.45rem .7rem;text-align:center">
-                <span style="background:#DCFCE7;color:#16A34A;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">✅ Active</span>
+            
+            // Payment badge
+            const payBadge = isOverdue  ? '<span style="background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">🔴 OVERDUE</span>' :
+                             isExpiring  ? `<span style="background:#FEF3C7;color:#B45309;border:1px solid #FCD34D;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">⚠️ ${daysLeft}d left</span>` :
+                             isPending   ? '<span style="background:#FEF9C3;color:#92400E;border:1px solid #FDE68A;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">⏳ Pending</span>' :
+                             isNoPlan    ? '<span style="background:#F1F5F9;color:#94A3B8;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">— No Plan</span>' :
+                             '<span style="background:#DCFCE7;color:#16A34A;border:1px solid #86EFAC;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">✅ Active</span>';
+
+            const fmtDate = (d) => d ? d.toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+            
+            return `<tr style="border-bottom:1px solid rgba(255,255,255,.05);${rowBg}">
+              <td style="padding:.45rem .7rem">
+                <div style="font-weight:800;color:${isOverdue?'#EF4444':'#E2E8F0'}">${c.company||c.name||'—'}</div>
+                <div style="font-size:.68rem;color:#475569">${c.email}</div>
+                <div style="font-size:.68rem;color:#64748B">${c.city||''}${c.state?' · '+c.state:''}</div>
               </td>
-              <td style="padding:.45rem .7rem;text-align:center">
+              <td style="padding:.45rem .7rem">${planBadgeHtml(c.plan)}</td>
+              <td style="padding:.45rem .7rem;font-size:.76rem;color:#94A3B8;white-space:nowrap">${fmtDate(subStart)}</td>
+              <td style="padding:.45rem .7rem;font-size:.76rem;white-space:nowrap;font-weight:${isExpiring||isOverdue?800:400};color:${isOverdue?'#EF4444':isExpiring?'#F59E0B':'#94A3B8'}">${fmtDate(subEnd)}${isExpiring&&!isOverdue?' ⚠️':isOverdue?' 🔴':''}</td>
+              <td style="padding:.45rem .7rem;text-align:center;color:#94A3B8">${b.included||'—'}</td>
+              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:#CBD5E1">${b.used||0}</td>
+              <td style="padding:.45rem .7rem;text-align:center;font-weight:800;color:${remColor}">${b.cfg?b.remaining:'—'}</td>
+              <td style="padding:.45rem .7rem;text-align:right;color:#94A3B8">${b.base?$$(b.base):'—'}</td>
+              <td style="padding:.45rem .7rem;text-align:right;font-weight:${b.overage>0?800:400};color:${b.overage>0?'#F59E0B':'#475569'}">${b.overage>0?$$(b.overage):'—'}</td>
+              <td style="padding:.45rem .7rem;text-align:right;font-weight:900;color:${isOverdue?'#EF4444':'#22C55E'}">${b.total?$$(b.total):'—'}</td>
+              <td style="padding:.45rem .7rem;text-align:center">${payBadge}</td>
+              <td style="padding:.45rem .7rem;text-align:center;white-space:nowrap">
                 <button onclick="openAdminPlanModal('${c.email}','${c.plan||''}','${b.used}')"
-                  style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.22rem .55rem;font-size:.72rem;font-weight:800;cursor:pointer">✏️ Plan</button>
+                  style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.2rem .45rem;font-size:.7rem;font-weight:800;cursor:pointer">✏️ Plan</button>
+                ${isExpiring||isOverdue?`<button onclick="adminSendBillingReminder('${c.email}','${(c.company||c.name||'').replace(/'/g,'')}')"
+                  style="background:#FEF3C7;color:#92400E;border:1.5px solid #FCD34D;border-radius:6px;padding:.2rem .45rem;font-size:.7rem;font-weight:800;cursor:pointer;margin-left:.2rem">📧 Remind</button>`:''}
               </td>
             </tr>`;
-          }).join('') : `<tr><td colspan="11" style="text-align:center;color:#475569;padding:2rem">No active subscriptions yet.</td></tr>`}
+          }).join('') || `<tr><td colspan="12" style="text-align:center;color:#475569;padding:2rem">No rental companies registered yet.</td></tr>`}
         </tbody>
-        ${activeRcos.length ? `
         <tfoot>
           <tr style="background:rgba(34,197,94,.06);border-top:2px solid rgba(34,197,94,.2)">
-            <td colspan="6" style="padding:.5rem .7rem;font-weight:800;color:#94A3B8;font-size:.78rem">TOTALS</td>
+            <td colspan="7" style="padding:.5rem .7rem;font-weight:800;color:#94A3B8;font-size:.78rem">TOTALS (active plans)</td>
             <td style="padding:.5rem .7rem;text-align:right;font-weight:800;color:#94A3B8">${$$(mrrBase)}</td>
             <td style="padding:.5rem .7rem;text-align:right;font-weight:800;color:#F59E0B">${$$(mrrOverage)}</td>
             <td style="padding:.5rem .7rem;text-align:right;font-weight:900;font-size:.9rem;color:#22C55E">${$$(mrrTotal)}</td>
             <td colspan="2"></td>
           </tr>
-        </tfoot>` : ''}
+        </tfoot>
       </table>
     </div>
 
@@ -59446,6 +59699,7 @@ function showAdminSection(name, btn) {
   if (name === 'analytics')     { analyticsSetPreset('30d'); }
   if (name === 'liteanalytics') renderAdminLiteAnalytics();
   if (name === 'billing')       renderAdminBilling();
+  if (name === 'billing')       _checkBillingReminders();
   if (name === 'sponsored')     renderAdminSponsored();
   if (name === 'addmachine')    renderAdminAddMachine();
   if (name === 'addmachine')  { /* panel is static HTML — nothing to render */ }
