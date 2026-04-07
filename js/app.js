@@ -23994,20 +23994,20 @@ const MACHINES = {
     // ── MINI EXCAVATORS (1–3t) ───────────────────────────────────
     {
       id:'ex-mini-1t', brand:'Various', emoji:'⛏️', type:'excavator',
-      name:'Mini Excavator 1.0–1.5t', shortName:'Mini Excavator 1.5t',
+      name:'Mini Excavator 1.5t', shortName:'Mini Excavator 1.5t',
       weightClass:'mini', operatingWeightT:1.5,
       digDepthM:1.8, bucketCapM3:0.03,
       tags:['tight access','backyard','shallow dig','indoor'],
-      note:'1.0–1.5t class. Rubber tracks protect indoor and paved surfaces. Ideal for tight backyards, trenching under structures, or access through narrow gates (from ~750mm wide). Brands: Kubota U10, Yanmar SV08, Caterpillar 301.7.',
+      note:'1.5t class. Rubber tracks protect indoor and paved surfaces. Ideal for tight backyards, trenching under structures, or access through narrow gates (from ~750mm wide). Brands: Kubota U10, Yanmar SV08, Caterpillar 301.7.',
       hireRateType:'wet_or_dry',
     },
     {
       id:'ex-mini-2t', brand:'Various', emoji:'⛏️', type:'excavator',
-      name:'Mini Excavator 2.0–2.5t', shortName:'Mini Excavator 2t',
+      name:'Mini Excavator 2.5t', shortName:'Mini Excavator 2t',
       weightClass:'mini', operatingWeightT:2.5,
       digDepthM:2.5, bucketCapM3:0.06,
       tags:['tight access','backyard','residential','trench'],
-      note:'2–2.5t class. Most common backyard and residential excavator. Fits through standard gates (~900mm+). Dig depth 2.2–2.6m. Brands: Kubota U20, Yanmar SV26, JCB 26C, Bobcat E26.',
+      note:'2.5t class. Most common backyard and residential excavator. Fits through standard gates (~900mm+). Dig depth 2.2–2.6m. Brands: Kubota U20, Yanmar SV26, JCB 26C, Bobcat E26.',
       hireRateType:'wet_or_dry',
     },
     {
@@ -24023,20 +24023,20 @@ const MACHINES = {
     // ── MIDI EXCAVATORS (3–8t) ───────────────────────────────────
     {
       id:'ex-midi-5t', brand:'Various', emoji:'⛏️', type:'excavator',
-      name:'Midi Excavator 4.5–5.5t', shortName:'Midi Excavator 5t',
+      name:'Midi Excavator 5t', shortName:'Midi Excavator 5t',
       weightClass:'midi', operatingWeightT:5.0,
       digDepthM:3.8, bucketCapM3:0.16,
       tags:['residential','commercial','footing','trench','standard site'],
-      note:'4.5–5.5t class. Handles residential footings, commercial trenches, and medium-scale earthworks. Good balance of reach and access. Dig depth 3.5–4m. Brands: Kubota KX057, Caterpillar 305, JCB 48Z.',
+      note:'5t class. Handles residential footings, commercial trenches, and medium-scale earthworks. Good balance of reach and access. Dig depth 3.5–4m. Brands: Kubota KX057, Caterpillar 305, JCB 48Z.',
       hireRateType:'wet_or_dry',
     },
     {
       id:'ex-midi-8t', brand:'Various', emoji:'⛏️', type:'excavator',
-      name:'Midi Excavator 7–8t', shortName:'Midi Excavator 8t',
+      name:'Midi Excavator 8t', shortName:'Midi Excavator 8t',
       weightClass:'midi', operatingWeightT:8.0,
       digDepthM:4.2, bucketCapM3:0.24,
       tags:['commercial','deep trench','footing','civil light'],
-      note:'7–8t class. Commercial footings, deeper service trenches, subdivision works. Suits standard site access. Dig depth 4–4.5m. Brands: Caterpillar 308, Komatsu PC80, Volvo EC80.',
+      note:'8t class. Commercial footings, deeper service trenches, subdivision works. Suits standard site access. Dig depth 4–4.5m. Brands: Caterpillar 308, Komatsu PC80, Volvo EC80.',
       hireRateType:'wet_or_dry',
     },
 
@@ -24044,21 +24044,21 @@ const MACHINES = {
 
     {
       id:'ex-std-13t', brand:'Various', emoji:'⛏️', type:'excavator',
-      name:'Standard Excavator 12–14t', shortName:'Excavator 13t',
+      name:'Standard Excavator 13t', shortName:'Excavator 13t',
       weightClass:'standard', operatingWeightT:13.0,
       digDepthM:5.5, bucketCapM3:0.50,
       tags:['commercial','civil','bulk excavation','deep','basement'],
-      note:'12–14t class. The most common commercial excavator. Bulk residential cut, commercial basement, civil trenching, road works. Dig depth 5–5.5m. Brands: Caterpillar 313, Komatsu PC130, Hitachi ZX135, Volvo EC140.',
+      note:'13t class. The most common commercial excavator. Bulk residential cut, commercial basement, civil trenching, road works. Dig depth 5–5.5m. Brands: Caterpillar 313, Komatsu PC130, Hitachi ZX135, Volvo EC140.',
       hireRateType:'wet_or_dry',
     },
 
     {
       id:'ex-std-20t', brand:'Various', emoji:'⛏️', type:'excavator',
-      name:'Standard Excavator 18–22t', shortName:'Excavator 20t',
+      name:'Standard Excavator 20t', shortName:'Excavator 20t',
       weightClass:'standard', operatingWeightT:20.0,
       digDepthM:6.5, bucketCapM3:0.90,
       tags:['civil','bulk','deep','heavy commercial'],
-      note:'18–22t class. Civil works, major bulk excavation, quarry face work, heavy road construction. Dig depth 6–7m. Brands: Caterpillar 320, Komatsu PC200, Hitachi ZX200, Liebherr R922.',
+      note:'20t class. Civil works, major bulk excavation, quarry face work, heavy road construction. Dig depth 6–7m. Brands: Caterpillar 320, Komatsu PC200, Hitachi ZX200, Liebherr R922.',
       hireRateType:'wet_or_dry',
     },
 
@@ -24069,7 +24069,7 @@ const MACHINES = {
       weightClass:'large', operatingWeightT:35.0,
       digDepthM:8.0, bucketCapM3:1.80,
       tags:['civil','mining','bulk','deep','shaft'],
-      note:'30–50t+ class. Major civil earthworks, mine cut, dam works, large infrastructure. Dig depth 7–9m+. Brands: Caterpillar 330/336, Komatsu PC300/PC360, Hitachi ZX350/ZX450, Liebherr R936.',
+      note:'35t+ class. Major civil earthworks, mine cut, dam works, large infrastructure. Dig depth 7–9m+. Brands: Caterpillar 330/336, Komatsu PC300/PC360, Hitachi ZX350/ZX450, Liebherr R936.',
       hireRateType:'wet_or_dry',
     },
 
@@ -41400,6 +41400,28 @@ const GENERAL_QS = [
     ]
   },
 
+  // EM-Q2c2: Dig — what machine size? (drill-down from depth range)
+  {
+    id:'em_excavator_size', icon:'⚖️',
+    text:'What machine size do you need?',
+    hint:'Now let\'s get specific. Your rental company quotes on exact machine size — this ensures the right machine and accurate pricing.',
+    showIf:{key:'em_job', val:'dig'},
+    type:'options',
+    options:[
+      {ico:'🔵', lbl:'1t micro',     sub:'Under 1.2t — garden access, indoor, narrowest gate (under 700mm)',   val:'1t'},
+      {ico:'🔵', lbl:'1.5t mini',    sub:'~1.5t — tight residential, standard backyard gate (800–900mm)',      val:'1.5t'},
+      {ico:'🔵', lbl:'2t mini',      sub:'~2t — backyard, standard gate clearance, shallow residential dig',   val:'2t'},
+      {ico:'🔵', lbl:'3t mini',      sub:'~3t — pool excavation, residential footings, standard driveway access',val:'3t'},
+      {ico:'🟡', lbl:'5t midi',      sub:'~5t — residential commercial, deeper trenches, small subdivisions',  val:'5t'},
+      {ico:'🟡', lbl:'8t midi',      sub:'~8t — commercial site, deep service trenches, subdiv works',        val:'8t'},
+      {ico:'🟠', lbl:'13t standard', sub:'~13t — bulk residential cut, commercial buildings, road works',     val:'13t'},
+      {ico:'🟠', lbl:'20t standard', sub:'~20t — major civil, bulk excavation, heavy road construction',      val:'20t'},
+      {ico:'🔴', lbl:'30t+ large',   sub:'30t+ — major civil earthworks, dam works, infrastructure projects', val:'30t'},
+      {ico:'⚫', lbl:'50t+ mining',  sub:'50t+ — mine cut, large infrastructure, mining operations',          val:'50t'},
+      {ico:'❓', lbl:'Not sure',     sub:'I know my dig depth and access — show me what fits',                val:'unsure'},
+    ]
+  },
+
   // EM-Q2d: Dig — exact depth required?
   {
     id:'em_exact_depth_m', icon:'📐',
@@ -43512,6 +43534,12 @@ function matchEarthworks(ans) {
   const reqReachM    = parseFloat(ans.em_exact_reach_m)  || 0;  // exact reach required
   const reqGateMm    = parseFloat(ans.em_gate_width_mm)  || 0;  // narrowest access gap
 
+  // Specific machine size selected by customer (overrides depth-range estimate)
+  const _sizeMap = { '1t':1, '1.5t':1.5, '2t':2, '3t':3, '5t':5,
+                     '8t':8, '13t':13, '20t':20, '30t':30, '50t':50 };
+  const reqExactWeightT = ans.em_excavator_size && ans.em_excavator_size !== 'unsure'
+    ? (_sizeMap[ans.em_excavator_size] || 0) : 0;
+
   // Ground bearing capacity from soil type — maps to max safe kPa
   const soilKPaLimit = { soft:32, standard:55, hard:999, grading:65 }[ground] || 0;
 
@@ -43577,6 +43605,17 @@ function matchEarthworks(ans) {
         if (machGndKPa <= soilKPaLimit)              s += 4;  // Ground pressure OK
         else if (machGndKPa <= soilKPaLimit * 1.2)   s += 1;  // Marginal
         else                                          s -= 4;  // Too heavy for ground
+      }
+
+      // ── EXACT MACHINE SIZE (customer selected specific tonnage) ──────
+      // reqExactWeightT = exact machine weight customer specified (e.g. 2t, 5t, 13t)
+      if (reqExactWeightT > 0 && m.operatingWeightT > 0) {
+        const wDiff = Math.abs(m.operatingWeightT - reqExactWeightT);
+        const wRatio = wDiff / reqExactWeightT;
+        if (wRatio < 0.15)       s += 10;  // within 15% — excellent match
+        else if (wRatio < 0.30)  s +=  6;  // within 30% — good match
+        else if (wRatio < 0.60)  s +=  2;  // within 60% — acceptable
+        else                     s -=  4;  // too far off — penalise
       }
 
       // ── CATEGORY-BASED SCORING (fallback when no exact data) ──
@@ -48405,6 +48444,10 @@ function getJobRequirements() {
     if (a.em_exact_depth_m) req.exactDigDepthM = parseFloat(a.em_exact_depth_m);
     if (a.em_exact_reach_m) req.exactReachM    = parseFloat(a.em_exact_reach_m);
     if (a.em_gate_width_mm) req.gateWidthMm    = parseFloat(a.em_gate_width_mm);
+    // Specific machine size customer selected
+    if (a.em_excavator_size && a.em_excavator_size !== 'unsure') {
+      req.excavatorSize = a.em_excavator_size; // e.g. '2t', '5t', '13t'
+    }
 
     const emAccessMap = { tight:'Very tight / confined', standard:'Standard site access', open:'Open land' };
     if (a.em_dig_access) req.siteAccess = emAccessMap[a.em_dig_access] || a.em_dig_access;
@@ -53253,6 +53296,42 @@ function kymRender() {
     }
     if (m.terrain)         specs.push(`<span>🌍 ${m.terrain}</span>`);
 
+    // ── Excavator-specific spec pills ──────────────────────────────
+    if (catKey === 'em_excavator') {
+      // Weight class badge
+      const _wcMap = { micro:'⚪ Micro', mini:'🔵 Mini', midi:'🟡 Midi', standard:'🟠 Standard', large:'🔴 Large', mining:'⚫ Mining' };
+      if (m.weightClass) specs.push(`<span style="background:#FFFBEB;color:#92400E;border:1px solid #FDE68A;border-radius:6px;padding:.15rem .5rem;font-weight:800">${_wcMap[m.weightClass] || m.weightClass}</span>`);
+      // Core specs from real fields
+      if (m.operatingWeightT) specs.push(`<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;padding:.15rem .5rem;font-weight:700">⚖️ ${m.operatingWeightT}t operating weight</span>`);
+      if (m.digDepthM)        specs.push(`<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #93C5FD;border-radius:6px;padding:.15rem .5rem;font-weight:700">⛏️ ${m.digDepthM}m dig depth</span>`);
+      if (m.bucketCapM3)      specs.push(`<span style="background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE;border-radius:6px;padding:.15rem .5rem;font-weight:700">🪣 ${m.bucketCapM3}m³ bucket</span>`);
+      // Parse engine kW from note text (stored as "XX.XkW engine" or "XXkW engine")
+      const _engMatch = (m.note||'').match(/(\d+\.?\d*)\s*kW/i);
+      if (_engMatch) specs.push(`<span style="background:#F8FAFC;color:#475569;border:1px solid #E2E8F0;border-radius:6px;padding:.15rem .5rem;font-weight:600">⚡ ${_engMatch[1]}kW engine</span>`);
+      // Zero tail swing — check name and note
+      const _nm = (m.name||'').toLowerCase(), _nt = (m.note||'').toLowerCase();
+      if (_nm.includes('zts') || _nm.includes('zero tail') || _nt.includes('zero tail swing') || _nm.includes('uts') || _nm.includes('us-') || _nm.includes('usb'))
+        specs.push(`<span style="background:#F0FDF4;color:#166534;border:1px solid #86EFAC;border-radius:6px;padding:.15rem .5rem;font-weight:700">↩️ Zero Tail Swing</span>`);
+      // Tags (tight access etc.)
+      if ((m.tags||[]).includes('tight access')) specs.push(`<span style="background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;border-radius:6px;padding:.15rem .5rem;font-weight:700">🚪 Tight access</span>`);
+      if ((m.tags||[]).includes('indoor'))        specs.push(`<span style="background:#F0FDF4;color:#166534;border:1px solid #86EFAC;border-radius:6px;padding:.15rem .5rem;font-weight:700">🏭 Indoor safe</span>`);
+      if ((m.tags||[]).includes('long reach'))    specs.push(`<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #93C5FD;border-radius:6px;padding:.15rem .5rem;font-weight:700">↔️ Long reach</span>`);
+      // Brand note if Various
+      if (m.brand === 'Various' && m.note) {
+        // Extract brand examples from note (e.g. "Brands: Kubota U10, Yanmar SV08")
+        const _brandsMatch = m.note.match(/[Bb]rands?:\s*([^.]+)/);
+        if (_brandsMatch) specs.push(`<span style="background:#F8FAFC;color:#64748B;border:1px solid #E2E8F0;border-radius:6px;padding:.15rem .5rem;font-weight:600">🏭 e.g. ${_brandsMatch[1].trim()}</span>`);
+      }
+    }
+
+    // ── Generic earthworks spec pills ───────────────────────────
+    if (catKey && catKey.startsWith('em_') && catKey !== 'em_excavator') {
+      if (m.operatingWeightT) specs.push(`<span style="background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA;border-radius:6px;padding:.15rem .5rem;font-weight:700">⚖️ ${m.operatingWeightT}t</span>`);
+      // Parse engine from note
+      const _engM2 = (m.note||'').match(/(\d+\.?\d*)\s*kW/i);
+      if (_engM2) specs.push(`<span style="background:#F8FAFC;color:#475569;border:1px solid #E2E8F0;border-radius:6px;padding:.15rem .5rem;font-weight:600">⚡ ${_engM2[1]}kW</span>`);
+    }
+
     // ── Machine dimensions row ───────────────────────────────────
     // Dims stored either in mm (>30) or metres (<30) — normalise to metres
     const toM = v => v > 30 ? (v/1000) : v;
@@ -53330,6 +53409,37 @@ function kymRender() {
       if (m.brochureRef) {
         attachHtml += `<div style="margin-top:.4rem;font-size:.68rem;color:#9CA3AF;font-style:italic">📄 Source: ${m.brochureRef}</div>`;
       }
+    }
+
+    // ── Excavator attachments / spec table ──────────────────────
+    else if (catKey === 'em_excavator') {
+      const _excAtts = ['Standard bucket (included)','Rock breaker / hammer','Auger / boring head','Grab / grapple bucket','Ripper','Tilting bucket','Quick hitch'].map(a =>
+        `<label style="display:flex;align-items:center;gap:.3rem;cursor:pointer"><input type="checkbox" data-mid="${m.id}" data-opt="attachment" value="${a}" style="accent-color:#C2410C"> ${a}</label>`
+      ).join('');
+      // Spec table rows — only show fields that have data
+      const _specRows = [
+        m.operatingWeightT ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Operating weight</td><td style="font-weight:700;padding:.22rem .4rem;font-size:.77rem">${m.operatingWeightT}t</td></tr>` : '',
+        m.digDepthM        ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Max dig depth</td><td style="font-weight:700;padding:.22rem .4rem;font-size:.77rem">${m.digDepthM}m</td></tr>` : '',
+        m.bucketCapM3      ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Bucket capacity</td><td style="font-weight:700;padding:.22rem .4rem;font-size:.77rem">${m.bucketCapM3}m³</td></tr>` : '',
+        (() => { const em = (m.note||'').match(/(\d+\.?\d*)\s*kW/i); return em ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Engine</td><td style="font-weight:700;padding:.22rem .4rem;font-size:.77rem">${em[1]}kW</td></tr>` : ''; })(),
+        m.weightClass      ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Class</td><td style="font-weight:700;padding:.22rem .4rem;font-size:.77rem">${{micro:'Micro',mini:'Mini',midi:'Midi',standard:'Standard',large:'Large',mining:'Mining'}[m.weightClass]||m.weightClass}</td></tr>` : '',
+        ((m.note||'').toLowerCase().includes('zero tail swing') || (m.name||'').match(/ZTS|USB|TS\b/i)) ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Tail swing</td><td style="font-weight:700;color:#16A34A;padding:.22rem .4rem;font-size:.77rem">Zero tail swing</td></tr>` : '',
+        (m.tags||[]).includes('tight access') ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Access</td><td style="font-weight:700;color:#92400E;padding:.22rem .4rem;font-size:.77rem">Tight access / backyard</td></tr>` : '',
+        m.brand && m.brand !== 'Various' ? `<tr><td style="color:#64748B;padding:.22rem .4rem;font-size:.77rem">Brand</td><td style="font-weight:700;padding:.22rem .4rem;font-size:.77rem">${m.brand}</td></tr>` : '',
+      ].filter(Boolean).join('');
+
+      const _brandNote = m.brand === 'Various' ? (() => {
+        const bm = (m.note||'').match(/[Bb]rands?:([^.]+)/);
+        return bm ? `<div style="font-size:.72rem;color:#64748B;margin-top:.3rem;font-style:italic">e.g. ${bm[1].trim()}</div>` : '';
+      })() : '';
+
+      attachHtml = `
+        <div style="border-top:1px solid #E2E8F0;padding-top:.65rem;margin-top:.2rem">
+          ${_specRows ? `<table style="width:100%;border-collapse:collapse;margin-bottom:.55rem">${_specRows}</table>` : ''}
+          ${_brandNote}
+          <div style="font-size:.75rem;font-weight:800;color:#C2410C;margin-bottom:.4rem">🔩 Attachments / Options</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.8rem;color:#334155">${_excAtts}</div>
+        </div>`;
     }
 
     return `<div class="kym-result-card" id="${cardId}">
