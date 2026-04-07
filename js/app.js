@@ -45821,14 +45821,15 @@ function _renderCards(matches, machineType, answers) {
         </div>
 
         ${(() => {
-          const _spReqHt = parseFloat(answers.boom_ht_m || answers.ppl_ht_m || 0);
-          const _spReqRe = parseFloat(answers.boom_reach_m || answers.ppl_reach_m || 0);
-          const _spPlatH = spMachine.platformHeight || 0;
+          // Use the right height field per machine type: liftHeight for scissor/forklift, platformHeight for boom
+          const _spReqHt = parseFloat(answers.boom_ht_m || answers.ppl_ht_m || answers.tele_ht_m || answers.scis_ht_m || answers.mat_ht_m || 0);
+          const _spReqRe = parseFloat(answers.boom_reach_m || answers.ppl_reach_m || answers.tele_reach_m || 0);
+          const _spPlatH = spMachine.platformHeight || spMachine.liftHeight || 0;
           const _spMaxR  = spMachine.maxReach || 0;
           const _spHtOk  = !_spReqHt || _spPlatH >= _spReqHt;
           const _spReOk  = !_spReqRe || _spMaxR  >= _spReqRe;
           if (!_spReqHt && !_spReqRe) return '';
-          return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.55rem 0">
+          return `<div style="display:grid;grid-template-columns:${_spReqRe > 0 ? '1fr 1fr' : '1fr'};gap:.4rem;margin:.55rem 0">
             ${_spReqHt > 0 ? `<div style="background:${_spHtOk?'#F0FDF4':'#FEF2F2'};border:1px solid ${_spHtOk?'#86EFAC':'#FCA5A5'};border-radius:8px;padding:.32rem .55rem">
               <div style="font-size:.67rem;font-weight:700;color:${_spHtOk?'#15803D':'#DC2626'}">Height Match ${_spHtOk?'✅':'⚠️'}</div>
               <div style="font-size:.8rem;font-weight:900;color:${_spHtOk?'#065F46':'#991B1B'}">Need ${_spReqHt}m → Has ${_spPlatH}m</div>
@@ -45868,13 +45869,22 @@ function _renderCards(matches, machineType, answers) {
         </div>` : ''}
         <div style="font-size:.68rem;color:#94A3B8;margin-bottom:.5rem">ℹ️ Paid brand sponsorship. ${ad.sponsorCompany ? ad.sponsorCompany + ' is an official brand partner.' : 'Sponsored by the machine manufacturer.'} Organic results appear below.</div>
         <div style="padding-bottom:1rem">
-          <button onclick="_trackSpnClick(ad.id);addToCartDirect('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\\'")}')"
+          <button id="sp-cart-btn-${_spIdx}"
             style="width:100%;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
             🛒 Add to Cart
           </button>
         </div>
       </div>`;
     container.appendChild(spCard);
+
+    // Wire the Add to Cart button safely — avoids all quote-escaping issues
+    const _spBtn = document.getElementById('sp-cart-btn-' + _spIdx);
+    if (_spBtn) {
+      _spBtn.addEventListener('click', () => {
+        _trackSpnClick(ad.id);
+        addToCartDirect(spMachine.id, spMachine.name || spMachine.id, machineType);
+      });
+    }
   });
 
   // ── Organic results ────────────────────────────────────────────
@@ -53280,11 +53290,12 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
 
 // ── end Know Your Machines ───────────────────────────────────────────
 
-function addToCartDirect(machineId, machineName) {
+function addToCartDirect(machineId, machineName, _overrideType) {
   const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
   const already = quoteCart.find(m => m.id === machineId);
   if (already) { showToast('Already in cart','#64748B'); return; }
-  quoteCart.push({ id:machineId, name:machineName, emoji:typeEmojis[machineType]||'💥', type:machineType, _isEarthworks:!!(machineType && machineType.startsWith('em_')), jobRequirements:getJobRequirements() });
+  const _useType = _overrideType || machineType;
+  quoteCart.push({ id:machineId, name:machineName, emoji:typeEmojis[_useType]||'💥', type:_useType, _isEarthworks:!!(_useType && _useType.startsWith('em_')), jobRequirements:getJobRequirements() });
   saveCartToStorage();
   updateCartUI();
   showToast(`🛒 ${machineName} added to cart`,'#0052CC');
