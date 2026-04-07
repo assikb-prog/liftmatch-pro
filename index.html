@@ -1008,7 +1008,7 @@
       <button class="admin-tab" onclick="showAdminSection('analytics',this)" id="admin-tab-analytics">📈 Analytics</button>
       <button class="admin-tab" onclick="showAdminSection('liteanalytics',this)" id="admin-tab-liteanalytics">🔵 Lite Analytics</button>
       <button class="admin-tab" onclick="showAdminSection('billing',this)" id="admin-tab-billing">💳 Billing & Revenue</button>
-      <button class="admin-tab" onclick="showAdminSection('sponsored',this)" id="admin-tab-sponsored">⭐ Sponsored Ads</button>
+      <button class="admin-tab" onclick="showAdminSection('sponsored',this)" id="admin-tab-sponsored">⭐ Brand Partner (Sponsored)</button>
       <button class="admin-tab" onclick="showAdminSection('addmachine',this)" id="admin-tab-addmachine">➕ Add Machine</button>
       <button class="admin-tab" onclick="showAdminSection('usermgmt',this)" id="admin-tab-usermgmt">🔐 User Management</button>
     </div>
@@ -1194,11 +1194,11 @@
 
 
     <!-- ANALYTICS TAB -->
-    <div class="admin-section" id="admin-sec-liteanalytics" style="display:none">
+    <div class="admin-section" id="admin-sec-liteanalytics">
       <!-- Populated entirely by renderAdminLiteAnalytics() -->
     </div>
 
-    <div class="admin-section" id="admin-sec-billing" style="display:none">
+    <div class="admin-section" id="admin-sec-billing">
       <!-- Populated entirely by renderAdminBilling() -->
     </div>
 
@@ -1313,12 +1313,12 @@
     </div>
 
     <!-- ── SPONSORED ADS TAB ───────────────────────────────────── -->
-    <div class="admin-section" id="admin-sec-sponsored" style="display:none">
+    <div class="admin-section" id="admin-sec-sponsored">
       <!-- Content rendered dynamically by renderAdminSponsored() -->
       <div style="padding:2rem;text-align:center;color:#94A3B8;font-size:.9rem">Loading sponsored ads…</div>
     </div>
 
-    <div class="admin-section" id="admin-sec-feedback" style="display:none">
+    <div class="admin-section" id="admin-sec-feedback">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
         <div class="admin-section-title" style="margin:0">💬 Customer Feedback &amp; Ratings</div>
         <button onclick="renderAdminFeedback()" style="font-size:.8rem;padding:.35rem .8rem;border:1px solid #E2E8F0;border-radius:8px;background:#fff;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700">↻ Refresh</button>
