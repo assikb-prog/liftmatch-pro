@@ -43071,13 +43071,30 @@ function matchMachines(ans, type) {
     const scissorQualified = scoredScissor.filter(m => !m._underSpec);
     const scissorUnder     = scoredScissor.filter(m =>  m._underSpec);
 
-    // Diverse pick: max 1 per brand (more if brand preferred)
     const _sBPref = (ans.brand_pref || 'any').toLowerCase();
     const main = diversePick(scissorQualified, 5, 1, _sBPref !== 'any' ? _sBPref : null);
     const up   = findNextUp(scissorQualified, main, m => m.liftHeight || 0);
-    const results = [...main];
-    if (up) results.push({...up, _overSpec:true, _overSpecMsg:'⚠️ This machine is larger than your stated height requirement. Confirm floor loading, licensing requirements and suitability before hire.'});
-    // Append best undersized last — skip for crawler terrain (only machines meeting height shown)
+
+    // Apply size labels based on how much above requirement each machine is
+    const _scisReqHt = exactHt > 0 ? exactHt : minHt;
+    const results = main.map((m, idx) => {
+      if (m._underSpec || m._tightFit) return m; // keep as-is
+      const _htAbove = (m.liftHeight || 0) - _scisReqHt;
+      let _sizeLabel = null, _sizeMsg = null;
+      if (_htAbove > 8) {
+        _sizeLabel = 'much_larger';
+        _sizeMsg = `This machine is <strong>${(m.liftHeight||0).toFixed(1)}m</strong> platform — <strong>${_htAbove.toFixed(0)}m above</strong> your ${_scisReqHt.toFixed(1)}m requirement. Significantly oversized — confirm floor loading, weight limits and licensing.`;
+      } else if (_htAbove > 5) {
+        _sizeLabel = 'two_up';
+        _sizeMsg = `This machine is <strong>${(m.liftHeight||0).toFixed(1)}m</strong> platform — <strong>${_htAbove.toFixed(0)}m above</strong> your ${_scisReqHt.toFixed(1)}m requirement. Two size classes up — useful if you need extra clearance.`;
+      } else if (_htAbove > 2) {
+        _sizeLabel = 'one_up';
+        _sizeMsg = `This machine is <strong>${(m.liftHeight||0).toFixed(1)}m</strong> platform — <strong>${_htAbove.toFixed(0)}m above</strong> your ${_scisReqHt.toFixed(1)}m requirement. One size class up.`;
+      }
+      return _sizeLabel ? {...m, _overSpec: true, _sizeLabel, _overSpecMsg: _sizeMsg} : m;
+    });
+
+    if (up) results.push({...up, _overSpec:true, _sizeLabel:'much_larger', _overSpecMsg:`⚠️ This machine is larger than your stated height requirement. Confirm floor loading, licensing requirements and suitability before hire.`});
     const _isCrawlerScissTerrain = surf === 'crawler_scis';
     if (!_isCrawlerScissTerrain && scissorUnder.length > 0 && results.length < 6) results.push(scissorUnder[0]);
     const _sMaxResults = (_sBPref !== 'any') ? 6 : 5;
@@ -43372,8 +43389,26 @@ function matchMachines(ans, type) {
       }
 
       const merged = [];
-      // Articulating machines first — always
-      artPicks.forEach(m => merged.push({...m, _boomTypeLabel:'🦾 Articulating / Knuckle Boom'}));
+      // Articulating machines first — always, with size labels
+      const _bestArtHt = artPicks.length ? (artPicks[0].platformHeight||0) : minHt;
+      artPicks.forEach((m, idx) => {
+        const _mHt = m.platformHeight || 0;
+        const _htAboveReq = _mHt - minHt;
+        let _sizeLabel = null, _sizeMsg = null;
+        if (idx > 0 || _htAboveReq > 3) {
+          // Relative to REQUIREMENT (not best match) for clearer guidance
+          if (_htAboveReq > 8)      { _sizeLabel = 'much_larger'; _sizeMsg = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform height — <strong>${_htAboveReq.toFixed(0)}m above</strong> your ${minHt}m requirement. Significantly oversized. Check site clearances and licensing.`; }
+          else if (_htAboveReq > 5) { _sizeLabel = 'two_up';      _sizeMsg = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform — <strong>${_htAboveReq.toFixed(0)}m above</strong> your ${minHt}m requirement. Two size classes up — useful for extra margin or if reach is tight at your height.`; }
+          else if (_htAboveReq > 2) { _sizeLabel = 'one_up';      _sizeMsg = `This machine is <strong>${_mHt.toFixed(1)}m</strong> platform — <strong>${_htAboveReq.toFixed(0)}m above</strong> your ${minHt}m requirement. One size class up — good margin for windy sites or uncertain heights.`; }
+        }
+        const _isOver = _sizeLabel !== null;
+        merged.push({...m,
+          _boomTypeLabel: '🦾 Articulating / Knuckle Boom',
+          _overSpec: _isOver,
+          _sizeLabel: _sizeLabel,
+          _overSpecMsg: _sizeMsg
+        });
+      });
 
       // Telescopic machines — with a clear ⚠️ not-articulating warning when customer asked for articulating
       telePicks.forEach(m => {
@@ -45555,18 +45590,46 @@ function _renderCards(matches, machineType, answers) {
         if (machineType === 'forklift')    return  MACHINES.forklift    || [];
         return MACHINES[machineType]       || [];
       })();
-      // Filter by brand and key requirements — check ALL possible answer keys for each machine type
-      const _reqHt   = parseFloat(answers.boom_ht_m   || answers.ppl_ht_m   || answers.tele_ht_m   || answers.scis_ht_m   || 0);
-      const _reqRe   = parseFloat(answers.boom_reach_m || answers.ppl_reach_m || answers.tele_reach_m || 0);
-      const _reqKg   = parseFloat(answers.tele_kg || answers.ppl_basket_swl || answers.load_weight_kg || 0);
-      let _qualifying = _catPool2.filter(m =>
-        m.brand && m.brand.toLowerCase() === _spBrand.toLowerCase()
-        && (!_reqHt || (m.platformHeight || m.liftHeight || 0) >= _reqHt)
-        && (!_reqRe || (m.maxReach || 999) >= _reqRe)
-        && (!_reqKg || (m.swl || m.capacity * 1000 || 999) >= _reqKg)
-        // Exclude crawlers for non-crawler terrain
-        && !(machineType === 'boom' && (m.filters||[]).some(f => ['crawler','spider','tracked'].includes(f)))
-      );
+
+      // Type-specific requirement keys
+      const _reqHt = parseFloat(
+        machineType === 'telehandler' || machineType === 'rotating' ? (answers.tele_ht_m || answers.mat_ht_m || 0) :
+        machineType === 'scissor'     ? (answers.ppl_ht_m || answers.scis_ht_m || 0) :
+        machineType === 'boom'        ? (answers.boom_ht_m || answers.ppl_ht_m || 0) :
+        machineType === 'forklift'    ? (answers.mat_ht_m || 0) :
+        (answers.ppl_ht_m || 0)
+      ) || 0;
+
+      const _reqRe = parseFloat(
+        machineType === 'telehandler' || machineType === 'rotating' ? (answers.tele_reach_m || 0) :
+        machineType === 'boom'        ? (answers.boom_reach_m || answers.ppl_reach_m || 0) :
+        0  // scissor/forklift — no reach requirement
+      ) || 0;
+
+      const _reqKg = parseFloat(
+        machineType === 'telehandler' || machineType === 'rotating' ? (answers.tele_kg || 0) :
+        machineType === 'boom'        ? (answers.ppl_basket_swl || 0) :
+        machineType === 'scissor'     ? (answers.ppl_basket_swl || answers.scis_load_kg || 0) :
+        machineType === 'forklift'    ? (answers.load_weight_kg || answers.mat_kg || 0) :
+        0
+      ) || 0;
+
+      let _qualifying = _catPool2.filter(m => {
+        if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase()) return false;
+        // Exclude crawlers/spiders for boom
+        if (machineType === 'boom' && (m.name||'').toLowerCase().match(/spider|crawler|tracked/)) return false;
+        // Height check: use platformHeight for booms/scissors, liftHeight as fallback
+        const mHt = m.platformHeight || m.liftHeight || 0;
+        if (_reqHt > 0 && mHt < _reqHt) return false;
+        // Reach check: for tele/boom only
+        if (_reqRe > 0 && (m.maxReach || 0) < _reqRe) return false;
+        // Capacity/SWL check
+        if (_reqKg > 0) {
+          const capKg = m.swl || (m.capacity ? m.capacity * 1000 : 0) || 0;
+          if (capKg > 0 && capKg < _reqKg) return false;
+        }
+        return true;
+      });
       // Sort by closest platform height to requirement (tight fit preferred)
       if (_reqHt > 0) {
         _qualifying.sort((a,b) => {
@@ -45574,6 +45637,24 @@ function _renderCards(matches, machineType, answers) {
           const bH = (b.platformHeight||b.liftHeight||0);
           return (aH - _reqHt) - (bH - _reqHt); // smallest excess first
         });
+      }
+      // For booms: prefer articulating when customer asked for it
+      const _boomTypePref = answers.boom_type_pref || '';
+      if (machineType === 'boom' && _boomTypePref === 'boom_articulating') {
+        const _artOnly = _qualifying.filter(m => m.boomType === 'articulating');
+        if (_artOnly.length) {
+          _qualifying = _artOnly;
+        } else if (_qualifying.length) {
+          _qualifying[0]._spTelescopicWarning = true;
+        }
+      }
+      // For rotating telehandlers: only show machines with isRotating=true
+      if (machineType === 'rotating') {
+        _qualifying = _qualifying.filter(m => m.isRotating);
+      }
+      // For standard telehandlers: exclude rotating machines
+      if (machineType === 'telehandler') {
+        _qualifying = _qualifying.filter(m => !m.isRotating);
       }
       if (_qualifying.length) { spMachine = _qualifying[0]; _spDynamicPick = true; }
     }
@@ -45621,7 +45702,7 @@ function _renderCards(matches, machineType, answers) {
               <span style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;border:1.5px solid #F59E0B;border-radius:20px;font-size:.7rem;font-weight:900;padding:.1rem .5rem;letter-spacing:.03em">⭐ SPONSORED</span>
               <span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">🏭 Official Brand Partner</span>
               ${spMachine.boomType === 'articulating' ? '<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">🦾 Articulating</span>' : ''}
-              ${spMachine.boomType === 'telescopic'   ? '<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">📡 Telescopic</span>' : ''}
+              ${spMachine.boomType === 'telescopic'   ? '<span style="background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:20px;font-size:.7rem;font-weight:700;padding:.1rem .5rem">⚠️ Telescopic — not articulating</span>' : ''}
             </div>
           </div>
         </div>
@@ -45660,6 +45741,17 @@ function _renderCards(matches, machineType, answers) {
           ${spMachine.gradeability     ? `<span class="rec-spec-pill">📐 ${spMachine.gradeability}% grade</span>` : ''}
         </div>
         ${spMachine.bestFor ? `<div style="font-size:.8rem;color:#475569;line-height:1.5;margin-bottom:.5rem;background:#FFFBEB;border-left:3px solid #F59E0B;padding:.3rem .55rem;border-radius:0 6px 6px 0">✅ ${spMachine.bestFor}</div>` : ''}
+        ${(spMachine.boomType === 'telescopic' && answers.boom_type_pref === 'boom_articulating') ? `
+        <div style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:2px solid #F97316;border-radius:10px;padding:.6rem .8rem;margin-bottom:.5rem">
+          <div style="font-weight:900;font-size:.82rem;color:#C2410C;margin-bottom:.25rem">⚠️ This is a Telescopic Boom — You Asked for Articulating</div>
+          <div style="font-size:.78rem;color:#C2410C;line-height:1.55">
+            This sponsored ${ad.sponsorCompany||ad.brand} machine is a <strong>straight telescopic boom</strong>, not articulating.
+            It provides <strong>${(spMachine.platformHeight||0).toFixed(1)}m</strong> platform height and <strong>${(spMachine.maxReach||0).toFixed(1)}m</strong> outreach in a straight line.
+            It <strong>cannot</strong> reach over or around obstacles the way a knuckle boom can.
+            If you need up-and-over capability, choose an articulating model from the organic results below.
+            ⚠️ Noyo takes no responsibility if this machine type does not suit your site conditions.
+          </div>
+        </div>` : ''}
         <div style="font-size:.68rem;color:#94A3B8;margin-bottom:.5rem">ℹ️ Paid brand sponsorship. ${ad.sponsorCompany ? ad.sponsorCompany + ' is an official brand partner.' : 'Sponsored by the machine manufacturer.'} Organic results appear below.</div>
         <div style="padding-bottom:1rem">
           <button onclick="_trackSpnClick(ad.id);addToCartDirect('${spMachine.id}','${(spMachine.name||'').replace(/'/g,"\\'")}')"
