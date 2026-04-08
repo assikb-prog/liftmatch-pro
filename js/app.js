@@ -11901,7 +11901,7 @@ const MACHINES = {
         // h=8m
         {h:8,r:0,kg:4500},{h:8,r:4,kg:4500},{h:8,r:5,kg:4000},{h:8,r:6,kg:3000},{h:8,r:8,kg:2500},{h:8,r:9,kg:2000},{h:8,r:10,kg:2000},
         // h=10m
-        {h:10,r:0,kg:4500},{h:10,r:3,kg:4500},{h:10,r:4,kg:4000},{h:10,r:6,kg:3000},{h:10,r:7,kg:2500},{h:10,r:8,kg:2500},
+        {h:10,r:0,kg:4500},{h:10,r:3,kg:4500},{h:10,r:4,kg:4000},{h:10,r:5,kg:3000},{h:10,r:6,kg:2500},{h:10,r:7,kg:2000},{h:10,r:8,kg:1500},
         // h=12m
         {h:12,r:0,kg:4500},{h:12,r:3,kg:4500},{h:12,r:4,kg:4000},{h:12,r:5,kg:3000},{h:12,r:6,kg:3000},
         // h=14m
@@ -12024,7 +12024,7 @@ const MACHINES = {
         {h:4,r:0,kg:4500},{h:4,r:5,kg:4500},{h:4,r:6,kg:4000},{h:4,r:7,kg:3000},{h:4,r:8,kg:2500},{h:4,r:10,kg:2000},{h:4,r:11,kg:1500},{h:4,r:12,kg:1000},
         {h:6,r:0,kg:4500},{h:6,r:5,kg:4500},{h:6,r:6,kg:4000},{h:6,r:7,kg:3000},{h:6,r:8,kg:2500},{h:6,r:10,kg:2000},{h:6,r:11,kg:1000},
         {h:8,r:0,kg:4500},{h:8,r:4,kg:4500},{h:8,r:5,kg:4000},{h:8,r:6,kg:3000},{h:8,r:8,kg:2500},{h:8,r:9,kg:2000},{h:8,r:10,kg:2000},
-        {h:10,r:0,kg:4500},{h:10,r:3,kg:4500},{h:10,r:4,kg:4000},{h:10,r:6,kg:3000},{h:10,r:7,kg:2500},{h:10,r:8,kg:2500},
+        {h:10,r:0,kg:4500},{h:10,r:3,kg:4500},{h:10,r:4,kg:4000},{h:10,r:5,kg:3000},{h:10,r:6,kg:2500},{h:10,r:7,kg:2000},{h:10,r:8,kg:1500},
         {h:12,r:0,kg:4500},{h:12,r:3,kg:4500},{h:12,r:4,kg:4000},{h:12,r:5,kg:3000},{h:12,r:6,kg:3000},
         {h:14,r:0,kg:4500},{h:14,r:2,kg:4500},{h:14,r:3,kg:4000},{h:14,r:4,kg:4000},
         {h:15.8,r:0,kg:4500},{h:15.8,r:2,kg:4000}
@@ -13207,15 +13207,13 @@ const MACHINES = {
       bestFor:'6T rotating at 16.2m — compact 360° crane-replacement for mid-rise construction',
       note:'Dieci Pegasus 60.16 Classic — 6,000 kg, 16.2m lift, 13.7m reach. 360° rotation. Perkins 100kW Stage V. 17,320 kg. 18R22.5". 40 km/h. Source: Dieci Pegasus Classic brochure DOCCT0000123-UK-10.',
       tags:['Rotating 360°','6T','16.2m','Perkins 100kW','Dieci Classic','Compact RTH'],
-      loadMatrix:[
-        {h:0,r:1.5,kg:800},{h:0,r:3.0,kg:1400},{h:0,r:4.5,kg:2000},{h:0,r:6.0,kg:2900},{h:0,r:7.5,kg:3750},{h:0,r:9.0,kg:4600},{h:0,r:10.5,kg:5500},{h:0,r:11.5,kg:6000},
-        {h:0,r:13.7,kg:6000},{h:3,r:1.2,kg:800},{h:3,r:2.5,kg:1400},{h:3,r:4.0,kg:2000},{h:3,r:5.5,kg:2900},{h:3,r:7.0,kg:3750},{h:3,r:8.5,kg:4600},{h:3,r:9.8,kg:5500},
-        {h:3,r:10.8,kg:6000},{h:3,r:13.0,kg:6000},{h:6,r:0.8,kg:800},{h:6,r:2.0,kg:1400},{h:6,r:3.5,kg:2000},{h:6,r:4.8,kg:2900},{h:6,r:6.2,kg:3750},{h:6,r:7.5,kg:4600},
-        {h:6,r:8.8,kg:5500},{h:6,r:9.8,kg:6000},{h:6,r:12.0,kg:6000},{h:9,r:1.3,kg:1400},{h:9,r:2.5,kg:2000},{h:9,r:3.8,kg:2900},{h:9,r:5.0,kg:3750},{h:9,r:6.3,kg:4600},
-        {h:9,r:7.5,kg:5500},{h:9,r:8.5,kg:6000},{h:9,r:10.5,kg:6000},{h:12,r:1.5,kg:2000},{h:12,r:2.5,kg:2900},{h:12,r:3.5,kg:3750},{h:12,r:4.5,kg:4600},{h:12,r:5.5,kg:5500},
-        {h:12,r:6.5,kg:6000},{h:12,r:8.5,kg:6000},{h:14,r:0.5,kg:2900},{h:14,r:1.5,kg:3750},{h:14,r:2.5,kg:4600},{h:14,r:3.5,kg:5500},{h:14,r:4.5,kg:6000},{h:14,r:6.5,kg:6000},
-        {h:16.2,r:1.0,kg:5000},{h:16.2,r:2.0,kg:6000},{h:16.2,r:3.5,kg:6000}
-      ],
+      loadMatrix:[{h:0,r:1.5,kg:6000},{h:0,r:3,kg:6000},{h:0,r:4.5,kg:5500},{h:0,r:6,kg:4600},{h:0,r:7.5,kg:3750},{h:0,r:9,kg:2900},{h:0,r:10.5,kg:2000},{h:0,r:11.5,kg:1400},{h:0,r:13.7,kg:800},
+        {h:3,r:1.2,kg:6000},{h:3,r:2.5,kg:6000},{h:3,r:4,kg:5500},{h:3,r:5.5,kg:4600},{h:3,r:7,kg:3750},{h:3,r:8.5,kg:2900},{h:3,r:9.8,kg:2000},{h:3,r:10.8,kg:1400},{h:3,r:13,kg:800},
+        {h:6,r:0.8,kg:6000},{h:6,r:2,kg:6000},{h:6,r:3.5,kg:5500},{h:6,r:4.8,kg:4600},{h:6,r:6.2,kg:3750},{h:6,r:7.5,kg:2900},{h:6,r:8.8,kg:2000},{h:6,r:9.8,kg:1400},{h:6,r:12,kg:800},
+        {h:9,r:1.3,kg:6000},{h:9,r:2.5,kg:6000},{h:9,r:3.8,kg:5500},{h:9,r:5,kg:4600},{h:9,r:6.3,kg:3750},{h:9,r:7.5,kg:2900},{h:9,r:8.5,kg:2000},{h:9,r:10.5,kg:1400},
+        {h:12,r:1.5,kg:6000},{h:12,r:2.5,kg:6000},{h:12,r:3.5,kg:5500},{h:12,r:4.5,kg:4600},{h:12,r:5.5,kg:3750},{h:12,r:6.5,kg:2900},{h:12,r:8.5,kg:2000},
+        {h:14,r:0.5,kg:6000},{h:14,r:1.5,kg:6000},{h:14,r:2.5,kg:5500},{h:14,r:3.5,kg:4600},{h:14,r:4.5,kg:3750},{h:14,r:6.5,kg:2900},
+        {h:16.2,r:1,kg:6000},{h:16.2,r:2,kg:6000},{h:16.2,r:3.5,kg:5000}],
       // ── ON-TYRES estimate — no separate chart in brochure; scaled from stabiliser data ±20% ──
       loadMatrixTyres:[
         {h:0.0,r:0.5,kg:600},{h:0.0,r:0.8,kg:600},{h:0.0,r:1.0,kg:600},{h:0.0,r:1.2,kg:600},{h:0.0,r:1.3,kg:600},{h:0.0,r:1.5,kg:550},{h:0.0,r:2.0,kg:700},{h:0.0,r:2.5,kg:800},
@@ -13517,17 +13515,15 @@ filters:['telehandler','rough','heavy']
       bestFor:'5T rotating at 24.1m — 7-storey height with 360° rotation, Perkins 100kW',
       note:'Dieci Pegasus 50.25 Classic — 5,000 kg, 24.1m lift, 21.5m reach. 360° rotation. Perkins 100kW Stage V. 17,740 kg. 18R22.5". 40 km/h. Source: Dieci Pegasus Classic brochure DOCCT0000123-UK-10.',
       tags:['Rotating 360°','5T','24.1m','Perkins 100kW','Dieci Classic','7 Storey'],
-      loadMatrix:[
-        {h:0,r:2.5,kg:400},{h:0,r:5.0,kg:700},{h:0,r:7.5,kg:1000},{h:0,r:10.5,kg:1500},{h:0,r:12.75,kg:2000},{h:0,r:14.5,kg:3000},{h:0,r:16.5,kg:4000},{h:0,r:19.5,kg:5000},
-        {h:0,r:21.5,kg:5000},{h:3,r:2.0,kg:400},{h:3,r:4.3,kg:700},{h:3,r:6.8,kg:1000},{h:3,r:9.5,kg:1500},{h:3,r:11.75,kg:2000},{h:3,r:13.5,kg:3000},{h:3,r:15.5,kg:4000},
-        {h:3,r:18.5,kg:5000},{h:3,r:20.5,kg:5000},{h:6,r:1.5,kg:400},{h:6,r:3.5,kg:700},{h:6,r:6.0,kg:1000},{h:6,r:8.5,kg:1500},{h:6,r:10.75,kg:2000},{h:6,r:12.5,kg:3000},
-        {h:6,r:14.5,kg:4000},{h:6,r:17.5,kg:5000},{h:6,r:19.5,kg:5000},{h:9,r:1.0,kg:400},{h:9,r:2.8,kg:700},{h:9,r:4.8,kg:1000},{h:9,r:7.0,kg:1500},{h:9,r:9.0,kg:2000},
-        {h:9,r:11.0,kg:3000},{h:9,r:13.0,kg:4000},{h:9,r:16.0,kg:5000},{h:9,r:18.0,kg:5000},{h:12,r:1.8,kg:700},{h:12,r:3.5,kg:1000},{h:12,r:5.5,kg:1500},{h:12,r:7.5,kg:2000},
-        {h:12,r:9.5,kg:3000},{h:12,r:11.5,kg:4000},{h:12,r:14.5,kg:5000},{h:12,r:16.5,kg:5000},{h:15,r:2.0,kg:1000},{h:15,r:3.8,kg:1500},{h:15,r:5.5,kg:2000},{h:15,r:7.5,kg:3000},
-        {h:15,r:9.5,kg:4000},{h:15,r:12.5,kg:5000},{h:15,r:14.5,kg:5000},{h:18,r:1.8,kg:1500},{h:18,r:3.5,kg:2000},{h:18,r:5.5,kg:3000},{h:18,r:7.5,kg:4000},{h:18,r:10.0,kg:5000},
-        {h:18,r:12.0,kg:5000},{h:21,r:1.5,kg:2000},{h:21,r:3.0,kg:3000},{h:21,r:5.0,kg:4000},{h:21,r:7.0,kg:5000},{h:21,r:9.0,kg:5000},{h:24.1,r:1.0,kg:4000},{h:24.1,r:2.5,kg:5000},
-        {h:24.1,r:4.5,kg:5000}
-      ],
+      loadMatrix:[{h:0,r:2.5,kg:5000},{h:0,r:5,kg:5000},{h:0,r:7.5,kg:4000},{h:0,r:10.5,kg:3000},{h:0,r:12.75,kg:2000},{h:0,r:14.5,kg:1500},{h:0,r:16.5,kg:1000},{h:0,r:19.5,kg:700},{h:0,r:21.5,kg:400},
+        {h:3,r:2,kg:5000},{h:3,r:4.3,kg:5000},{h:3,r:6.8,kg:4000},{h:3,r:9.5,kg:3000},{h:3,r:11.75,kg:2000},{h:3,r:13.5,kg:1500},{h:3,r:15.5,kg:1000},{h:3,r:18.5,kg:700},{h:3,r:20.5,kg:400},
+        {h:6,r:1.5,kg:5000},{h:6,r:3.5,kg:5000},{h:6,r:6,kg:4000},{h:6,r:8.5,kg:3000},{h:6,r:10.75,kg:2000},{h:6,r:12.5,kg:1500},{h:6,r:14.5,kg:1000},{h:6,r:17.5,kg:700},{h:6,r:19.5,kg:400},
+        {h:9,r:1,kg:5000},{h:9,r:2.8,kg:5000},{h:9,r:4.8,kg:4000},{h:9,r:7,kg:3000},{h:9,r:9,kg:2000},{h:9,r:11,kg:1500},{h:9,r:13,kg:1000},{h:9,r:16,kg:700},{h:9,r:18,kg:400},
+        {h:12,r:1.8,kg:5000},{h:12,r:3.5,kg:5000},{h:12,r:5.5,kg:4000},{h:12,r:7.5,kg:3000},{h:12,r:9.5,kg:2000},{h:12,r:11.5,kg:1500},{h:12,r:14.5,kg:1000},{h:12,r:16.5,kg:700},
+        {h:15,r:2,kg:5000},{h:15,r:3.8,kg:5000},{h:15,r:5.5,kg:4000},{h:15,r:7.5,kg:3000},{h:15,r:9.5,kg:2000},{h:15,r:12.5,kg:1500},{h:15,r:14.5,kg:1000},
+        {h:18,r:1.8,kg:5000},{h:18,r:3.5,kg:5000},{h:18,r:5.5,kg:4000},{h:18,r:7.5,kg:3000},{h:18,r:10,kg:2000},{h:18,r:12,kg:1500},
+        {h:21,r:1.5,kg:5000},{h:21,r:3,kg:5000},{h:21,r:5,kg:4000},{h:21,r:7,kg:3000},{h:21,r:9,kg:2000},
+        {h:24.1,r:1,kg:5000},{h:24.1,r:2.5,kg:5000},{h:24.1,r:4.5,kg:4000}],
       // ── ON-TYRES estimate — no separate chart in brochure; scaled from stabiliser data ±20% ──
       loadMatrixTyres:[
         {h:0.0,r:0.0,kg:4800},{h:0.0,r:0.5,kg:4650},{h:0.0,r:1.0,kg:4500},{h:0.0,r:1.5,kg:4350},{h:0.0,r:2.0,kg:4200},{h:0.0,r:2.5,kg:3900},{h:0.0,r:3.0,kg:3600},{h:0.0,r:3.5,kg:3300},
@@ -47784,10 +47780,26 @@ function _renderCards(matches, machineType, answers) {
               return Math.round(q00*(1-th)*(1-tr)+q01*(1-th)*tr+q10*th*(1-tr)+q11*th*tr);
             };
 
-            // JIB: re-read forks matrix at extended reach, deduct jib weight
-            let capAtJibReach2 = _capAt2(reqHt, jibEffectiveReach2);
+            // JIB: re-read forks matrix at extended reach (jib adds jibLen2 to horizontal reach)
+            // Use _interpMatrix (row-by-row) not _capAt2 (bilinear) — works for non-rectangular charts
+            let capAtJibReach2 = _interpMatrix(m.loadMatrix, reqHt, jibEffectiveReach2);
             if (!capAtJibReach2 || capAtJibReach2 <= 0) {
-              capAtJibReach2 = Math.round(onTynesKg * 0.72); // fallback if beyond envelope
+              // Beyond envelope — interpolate boundary capacity at this height rather than guessing
+              if (m.loadMatrix && m.loadMatrix.length) {
+                const _jhs = [...new Set(m.loadMatrix.map(p=>p.h))].sort((a,b)=>a-b);
+                const _jcH = Math.max(_jhs[0], Math.min(reqHt, _jhs[_jhs.length-1]));
+                const _jh0 = _jhs.filter(h=>h<=_jcH).pop()??_jhs[0];
+                const _jh1 = _jhs.filter(h=>h>=_jcH)[0]??_jhs[_jhs.length-1];
+                const _jr0 = m.loadMatrix.filter(p=>p.h===_jh0).sort((a,b)=>a.r-b.r);
+                const _jr1 = m.loadMatrix.filter(p=>p.h===_jh1).sort((a,b)=>a.r-b.r);
+                const _jb0 = _jr0.length ? _jr0[_jr0.length-1].kg : null;
+                const _jb1 = _jr1.length ? _jr1[_jr1.length-1].kg : null;
+                if (_jb0 != null && _jb1 != null) {
+                  const _jth = _jh1===_jh0 ? 0 : (_jcH-_jh0)/(_jh1-_jh0);
+                  capAtJibReach2 = Math.round((_jb0+_jth*(_jb1-_jb0))/50)*50;
+                }
+              }
+              if (!capAtJibReach2 || capAtJibReach2 <= 0) capAtJibReach2 = Math.round(onTynesKg * 0.80);
             }
             const jibKg = Math.max(0, capAtJibReach2 - jibWt2);
 
@@ -47874,7 +47886,7 @@ function _renderCards(matches, machineType, answers) {
                 ${hookKg != null ? row(`🔗 Hook / crane mode — boom tip, zero reach extension`, hookKg, okHook, `Direct crane hook hanging vertically at ${reqHt}m / ${reqRe}m — no reach extension. Hook rated 5T. From ${hookSrc}.`) : ''}
                 ${tattArr.includes('jib')
                   ? (hasStoredJib && jibWt2 && jibLen2
-                      ? row(`🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`, jibKg, okJib, `Jib adds ${jibLen2}m horizontal reach → effective reach ${jibEffectiveReach2.toFixed(1)}m. Capacity re-read at extended reach then jib weight deducted. Source: ${jibSource}.`)
+                      ? row(`🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`, jibKg, okJib, `Jib adds ${jibLen2}m horizontal reach → effective reach ${jibEffectiveReach2.toFixed(1)}m. ${capAtJibReach2 && capAtJibReach2 === jibKg + jibWt2 && jibEffectiveReach2 > (m.maxReach||99)*0.95 ? '⚠️ Effective reach exceeds this machine\'s chart maximum at this height — capacity shown is the boundary value (maximum reach at this elevation). ' : ''}Capacity interpolated from load chart at extended reach, jib weight deducted. Source: ${jibSource}.`)
                       : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
                           <div style="font-size:.82rem;font-weight:700;color:#475569">🔩 With jib attachment</div>
                           <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm jib capacity with rental company</div>
@@ -59148,9 +59160,12 @@ async function _loadSponsoredAds() {
 // Checks: active flag + date range (startDate <= today <= endDate)
 function _getSponsoredForCategory(catKey) {
   const now = Date.now();
+  // Rotating telehandlers should also pick up 'telehandler' category sponsors
+  // since most sponsors will have set category:'telehandler' not category:'rotating'
+  const catKeys = catKey === 'rotating' ? ['rotating', 'telehandler'] : [catKey];
   return _sponsoredAds.filter(a => {
     if (!a.active) return false;
-    if (a.category !== catKey) return false;
+    if (!catKeys.includes(a.category)) return false;
     // Date range check
     if (a.startDate && new Date(a.startDate).getTime() > now) return false; // not started yet
     if (a.endDate   && new Date(a.endDate).getTime()   < now) return false; // expired
