@@ -47039,7 +47039,7 @@ function _renderCards(matches, machineType, answers) {
   const _catKey         = _resultCatKey(machineType, _firstMachine);
   const _sponsoredForCat = _getSponsoredForCategory(_catKey);
 
-    _sponsoredForCat.forEach((ad, _spIdx) => {
+    _sponsoredForCat.forEach((ad, _spIdx) => { try {
     // Find the BEST matching machine from this sponsor's brand for the current search.
     // Priority: 1) highest-scored organic result from this brand (already meets requirements)
     //           2) best machine from this brand that meets height/reach requirements
@@ -47084,6 +47084,8 @@ function _renderCards(matches, machineType, answers) {
     // Try 2: best machine from this brand that meets the customer's key requirements
     if (!spMachine && _spBrand) {
       const _catPool2 = (() => {
+        const _wantsRot = answers && answers.tele_rotation === 'need_rotation';
+        if (machineType === 'telehandler' && _wantsRot) return (MACHINES.telehandler||[]).filter(m => m.isRotating);
         if (machineType === 'telehandler') return (MACHINES.telehandler||[]).filter(m => !m.isRotating);
         if (machineType === 'rotating')    return (MACHINES.telehandler||[]).filter(m =>  m.isRotating);
         if (machineType === 'boom')        return  MACHINES.boom        || [];
@@ -47280,10 +47282,12 @@ function _renderCards(matches, machineType, answers) {
         addToCartDirect(spMachine.id, spMachine.name || spMachine.id, machineType);
       });
     }
+  } catch(e) { console.error('[Noyo] Sponsored card error:', e.message); }
   });
 
   // ── Organic results ────────────────────────────────────────────
   matches.forEach((m,i)=>{
+    try {
     const rankClass=['rank-1','rank-2','rank-3'][i]||'';
     const isOverSpec = !!(m._overSpec);
     const boomTypeLabel = m._boomTypeLabel
@@ -48474,6 +48478,18 @@ function _renderCards(matches, machineType, answers) {
       </div>
     `;
     container.appendChild(card);
+    } catch(e) {
+      // Card render error — show a minimal fallback card instead of silently failing
+      console.error('[Noyo] Card render error for', m.id, ':', e.message, e.stack);
+      const errCard = document.createElement('div');
+      errCard.className = 'rec-card';
+      errCard.innerHTML = `<div style="padding:1.5rem;text-align:center;color:#6B7280">
+        <div style="font-size:2rem">${m.emoji||'🏗️'}</div>
+        <div style="font-weight:700;margin:.5rem 0">${m.name||m.id}</div>
+        <div style="font-size:.8rem;color:#EF4444">Card render error — check console</div>
+      </div>`;
+      container.appendChild(errCard);
+    }
   });
 }
 
