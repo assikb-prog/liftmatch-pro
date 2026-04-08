@@ -11220,8 +11220,8 @@ const MACHINES = {
       name:'Manitou MRT-X 2550 Privilege+', shortName:'Manitou MRT-X 2550',
       isRotating:true,
       // ── Capacity — MRT-X 2550 Privilege Plus Technical Sheet (June 2019) ──
-      capacity:4999,            // 4,999 kg (11,020 lb) at 500mm LC
-      capacityOnTyres:4000,     // On tyres frontal: ~4000 kg close-in (degrades sharply)
+      capacity:4.999,           // 4,999 kg (11,020 lb) at 500mm LC — stored in TONNES like all other machines
+      capacityOnTyres:4.0,      // On tyres frontal: ~4T close-in (stored in TONNES) — degrades sharply
       liftHeight:24.70,         // Max lift height on stabilisers (m)
       maxReach:21.40,           // Max outreach on stabilisers (m)
       liftHeightOnTyres:21.80,  // Max height on tyres
@@ -46912,7 +46912,7 @@ function showResults() {
         reasons.push(`At <strong>${ht}m</strong>, no standard (non-rotating) telehandler in our fleet can reach this height. Standard telescopic machines top out at around ${maxStdHt}m.`);
         suggestions.push('Allow rotating telehandlers — they use a slewing turret and can reach up to 50m with outriggers deployed.');
         suggestions.push('If rotation is not possible on site, contact us — we may be able to source a specialist fixed-boom machine.');
-      } else if (kg > maxRotKg) {
+      } else if (kg > maxRotKg * 1000) {
         reasons.push(`Your load of <strong>${kg.toLocaleString()}kg</strong> exceeds the maximum capacity of any telehandler in our fleet (${(maxRotKg*1000).toLocaleString()}kg).`);
         suggestions.push('For loads over 13T, a mobile crane or crawler crane is the appropriate machine type.');
       } else if (kg > maxStdKg * 1000 && rotation === 'no_rotation') {
