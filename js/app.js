@@ -47388,6 +47388,10 @@ function _renderCards(matches, machineType, answers) {
     }
     const specsHtml = buildSpecBoxes(m, machineType, answers);
     const tyneInfo = machineType==='forklift' ? buildTyneInfo(m, answers) : '';
+    // ── tattArr must be in scope for the card template IIFEs ──────────────
+    // (matchMachines defines it locally; _renderCards needs its own copy)
+    const _tattRawR = answers.tele_attachment || '';
+    const tattArr = Array.isArray(_tattRawR) ? _tattRawR : _tattRawR.split(',').filter(Boolean);
 
     const card=document.createElement('div');
     card.className=`rec-card ${rankClass}${isOverSpec ? ' over-spec-card' : ''}${m._underSpec ? ' under-spec-card' : ''}`;
@@ -48486,7 +48490,8 @@ function _renderCards(matches, machineType, answers) {
       errCard.innerHTML = `<div style="padding:1.5rem;text-align:center;color:#6B7280">
         <div style="font-size:2rem">${m.emoji||'🏗️'}</div>
         <div style="font-weight:700;margin:.5rem 0">${m.name||m.id}</div>
-        <div style="font-size:.8rem;color:#EF4444">Card render error — check console</div>
+        <div style="font-size:.75rem;color:#EF4444;margin:.3rem 0;font-weight:600">ERR: ${e.message}</div>
+        <div style="font-size:.65rem;color:#94A3B8;text-align:left;background:#F8FAFC;padding:.5rem;border-radius:6px;margin-top:.3rem;overflow:auto;max-height:120px;white-space:pre-wrap">${(e.stack||'').slice(0,400)}</div>
       </div>`;
       container.appendChild(errCard);
     }
