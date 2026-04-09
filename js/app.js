@@ -13918,7 +13918,7 @@ const MACHINES = {
       name:'Dieci Pegasus 40.16 Essential', shortName:'Dieci Pegasus 40.16',
       isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:5.0, capacityOnTyresMaxReach:3.5,
       tyreCapacityNote:'On rubber (tyres only — no outriggers): max ~2.5T at limited height/reach. Full 4.0T rated capacity requires outriggers deployed. Consult load chart.',
-      capacity:4.0, liftHeight:15.90, maxReach:12.80, engine:'Stage V Diesel 55kW',
+      capacity:4.0, liftHeight:15.60, maxReach:11.30, engine:'Stage V Diesel 55kW',
       machineWeight:12500, machineWidth:2300, machineLength:6200, machineHeight:2900,
       jibWeight:125, jibLength:3.0, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:250,
       stabilizerSpreadM:4.80, stabilizerDepthM:4.40,
@@ -13927,51 +13927,44 @@ const MACHINES = {
       bestFor:'Compact 4T 400° rotating telehandler — rental market, tight construction sites',
       note:'Dieci Pegasus 40.16 Essential — 4T, 15.9m lift height, 12.8m outreach. 400° rotating (non-continuous). Capacity at 4.5m reach = 4,000 kg (max) across all heights — zones are near-vertical bands (reach-governed). Designed for rental market — robust and easy to use.',
       tags:['400° Rotating','4T','15.9m','Essential','Rental','Dieci'],
-      // Load matrix: digitised from Dieci Pegasus 40.18 official load chart (same family, same zone pattern)
-      // Zone boundaries (reach): 4.5m → 4000kg | 6.5m → 3000kg | 7.5m → 2000kg | 9.5m → 1500kg | 11m → 1000kg | 12.8m → 500kg
-      // Capacity is REACH-GOVERNED (near-vertical bands) — height only reduces capacity near the top of the envelope
+      // ─────────────────────────────────────────────────────────────────────────────
+      // FORKS 360° ON OUTRIGGERS — loadMatrix
+      // Source: Dieci Pegasus 40.16 Essential load chart AXBI338/I (outriggers deployed)
+      // Read directly from chart image. Zones (t): 0.6 | 1.0 | 1.5 | 2.0 | 2.5 | 3.0 | 4.0
+      // Each entry = outer reach boundary for that capacity zone at that height.
+      // CONFIRMED calibration point: h=10m, r=6m → 1,500 kg ✓
+      // Max reach: 11.30m (printed) | Max height on outriggers: 15.60m (printed)
+      // ─────────────────────────────────────────────────────────────────────────────
       loadMatrix:[
-        // 0.5m (ground)
-        {h:0.5,r:0.0,kg:4000},{h:0.5,r:1.5,kg:4000},{h:0.5,r:3.0,kg:4000},{h:0.5,r:4.5,kg:4000},
-        {h:0.5,r:5.5,kg:3200},{h:0.5,r:6.5,kg:3000},{h:0.5,r:7.5,kg:2000},{h:0.5,r:8.5,kg:1700},
-        {h:0.5,r:9.5,kg:1500},{h:0.5,r:11.0,kg:1000},{h:0.5,r:12.0,kg:700},{h:0.5,r:12.8,kg:500},
-        // 3m
-        {h:3.0,r:0.0,kg:4000},{h:3.0,r:1.5,kg:4000},{h:3.0,r:3.0,kg:4000},{h:3.0,r:4.5,kg:4000},
-        {h:3.0,r:5.5,kg:3200},{h:3.0,r:6.5,kg:3000},{h:3.0,r:7.5,kg:2000},{h:3.0,r:8.5,kg:1700},
-        {h:3.0,r:9.5,kg:1500},{h:3.0,r:11.0,kg:1000},{h:3.0,r:12.0,kg:700},{h:3.0,r:12.8,kg:500},
-        // 5m
-        {h:5.0,r:0.0,kg:4000},{h:5.0,r:1.5,kg:4000},{h:5.0,r:3.0,kg:4000},{h:5.0,r:4.5,kg:4000},
-        {h:5.0,r:5.5,kg:3200},{h:5.0,r:6.5,kg:3000},{h:5.0,r:7.5,kg:2000},{h:5.0,r:8.5,kg:1700},
-        {h:5.0,r:9.5,kg:1500},{h:5.0,r:11.0,kg:1000},{h:5.0,r:12.0,kg:700},{h:5.0,r:12.8,kg:500},
-        // 7m
-        {h:7.0,r:0.0,kg:4000},{h:7.0,r:1.5,kg:4000},{h:7.0,r:3.0,kg:4000},{h:7.0,r:4.5,kg:4000},
-        {h:7.0,r:5.5,kg:3200},{h:7.0,r:6.5,kg:3000},{h:7.0,r:7.5,kg:2000},{h:7.0,r:8.5,kg:1700},
-        {h:7.0,r:9.5,kg:1500},{h:7.0,r:11.0,kg:1000},{h:7.0,r:12.0,kg:700},{h:7.0,r:12.8,kg:500},
-        // 9m
-        {h:9.0,r:0.0,kg:4000},{h:9.0,r:1.5,kg:4000},{h:9.0,r:3.0,kg:4000},{h:9.0,r:4.5,kg:4000},
-        {h:9.0,r:5.5,kg:3200},{h:9.0,r:6.5,kg:3000},{h:9.0,r:7.5,kg:2000},{h:9.0,r:8.5,kg:1700},
-        {h:9.0,r:9.5,kg:1500},{h:9.0,r:11.0,kg:1000},{h:9.0,r:12.0,kg:700},
-        // 12m — envelope starts narrowing at outer reaches
-        {h:12.0,r:0.0,kg:4000},{h:12.0,r:1.5,kg:4000},{h:12.0,r:3.0,kg:4000},{h:12.0,r:4.5,kg:4000},
-        {h:12.0,r:5.5,kg:3200},{h:12.0,r:6.5,kg:3000},{h:12.0,r:7.5,kg:2000},{h:12.0,r:8.5,kg:1600},
-        {h:12.0,r:9.5,kg:1300},{h:12.0,r:11.0,kg:850},
-        // 14m — envelope narrows significantly
-        {h:14.0,r:0.0,kg:4000},{h:14.0,r:1.5,kg:4000},{h:14.0,r:3.0,kg:4000},{h:14.0,r:4.5,kg:3800},
-        {h:14.0,r:5.5,kg:3000},{h:14.0,r:6.5,kg:2500},{h:14.0,r:7.5,kg:1800},{h:14.0,r:8.5,kg:1300},
-        {h:14.0,r:9.5,kg:900},
-        // 15.9m — max height, reach limited to ~8m
-        {h:15.9,r:0.0,kg:4000},{h:15.9,r:1.5,kg:4000},{h:15.9,r:3.0,kg:3800},{h:15.9,r:4.5,kg:3400},
-        {h:15.9,r:5.5,kg:2700},{h:15.9,r:6.5,kg:2000},{h:15.9,r:7.5,kg:1400},{h:15.9,r:8.0,kg:1000}
+        {h:1,r:11.3,kg:600},{h:1,r:9.5,kg:1000},{h:1,r:7.5,kg:1500},{h:1,r:6.5,kg:2000},{h:1,r:5.5,kg:2500},{h:1,r:4.5,kg:3000},{h:1,r:2.5,kg:4000},
+        {h:4,r:10.8,kg:600},{h:4,r:9.0,kg:1000},{h:4,r:7.5,kg:1500},{h:4,r:6.5,kg:2000},{h:4,r:5.5,kg:2500},{h:4,r:4.5,kg:3000},{h:4,r:2.5,kg:4000},
+        {h:7,r:9.5,kg:600},{h:7,r:8.0,kg:1000},{h:7,r:7.0,kg:1500},{h:7,r:6.0,kg:2000},{h:7,r:5.0,kg:2500},{h:7,r:4.5,kg:3000},{h:7,r:2.5,kg:4000},
+        {h:10,r:8.5,kg:600},{h:10,r:7.5,kg:1000},{h:10,r:7.0,kg:1500},{h:10,r:5.5,kg:2000},{h:10,r:4.5,kg:2500},{h:10,r:3.5,kg:3000},{h:10,r:2.0,kg:4000},
+        {h:12,r:7.0,kg:600},{h:12,r:6.0,kg:1000},{h:12,r:5.0,kg:1500},{h:12,r:4.0,kg:2000},{h:12,r:3.0,kg:2500},{h:12,r:2.5,kg:3000},{h:12,r:1.5,kg:4000},
+        {h:14,r:4.5,kg:600},{h:14,r:3.5,kg:1000},{h:14,r:2.5,kg:1500},{h:14,r:1.5,kg:2000},
+        {h:15.6,r:0,kg:600}
       ],
-      // ⚠️ loadMatrixTyres — ESTIMATED (proportional from loadMatrix). Cap: 2500kg. Deploy outriggers for rated capacity.
-      loadMatrixTyres:[{h:0.5,r:0.0,kg:2500},{h:0.5,r:1.5,kg:2400},{h:0.5,r:3.0,kg:2200},{h:0.5,r:4.5,kg:1900},{h:0.5,r:5.5,kg:1400},{h:0.5,r:6.5,kg:1200},{h:0.5,r:7.5,kg:700},{h:0.5,r:8.5,kg:600},{h:0.5,r:9.5,kg:500},{h:0.5,r:11.0,kg:200},{h:0.5,r:12.0,kg:100},{h:0.5,r:12.8,kg:100},{h:3.0,r:0.0,kg:2500},{h:3.0,r:1.5,kg:2400},{h:3.0,r:3.0,kg:2200},{h:3.0,r:4.5,kg:1900},{h:3.0,r:5.5,kg:1400},{h:3.0,r:6.5,kg:1200},{h:3.0,r:7.5,kg:700},{h:3.0,r:8.5,kg:600},{h:3.0,r:9.5,kg:500},{h:3.0,r:11.0,kg:200},{h:3.0,r:12.0,kg:100},{h:3.0,r:12.8,kg:100},{h:5.0,r:0.0,kg:2500},{h:5.0,r:1.5,kg:2400},{h:5.0,r:3.0,kg:2200},{h:5.0,r:4.5,kg:1900},{h:5.0,r:5.5,kg:1400},{h:5.0,r:6.5,kg:1200},{h:5.0,r:7.5,kg:700},{h:5.0,r:8.5,kg:600},{h:5.0,r:9.5,kg:500},{h:5.0,r:11.0,kg:200},{h:5.0,r:12.0,kg:100},{h:5.0,r:12.8,kg:100},{h:7.0,r:0.0,kg:2500},{h:7.0,r:1.5,kg:2400},{h:7.0,r:3.0,kg:2200},{h:7.0,r:4.5,kg:1900},{h:7.0,r:5.5,kg:1400},{h:7.0,r:6.5,kg:1200},{h:7.0,r:7.5,kg:700},{h:7.0,r:8.5,kg:600},{h:7.0,r:9.5,kg:500},{h:7.0,r:11.0,kg:200},{h:7.0,r:12.0,kg:100},{h:7.0,r:12.8,kg:100},{h:9.0,r:0.0,kg:2500},{h:9.0,r:1.5,kg:2400},{h:9.0,r:3.0,kg:2200},{h:9.0,r:4.5,kg:1900},{h:9.0,r:5.5,kg:1400},{h:9.0,r:6.5,kg:1200},{h:9.0,r:7.5,kg:700},{h:9.0,r:8.5,kg:600},{h:9.0,r:9.5,kg:500},{h:9.0,r:11.0,kg:200},{h:9.0,r:12.0,kg:100},{h:12.0,r:0.0,kg:2500},{h:12.0,r:1.5,kg:2400},{h:12.0,r:3.0,kg:2200},{h:12.0,r:4.5,kg:1900},{h:12.0,r:5.5,kg:1400},{h:12.0,r:6.5,kg:1200},{h:12.0,r:7.5,kg:700},{h:12.0,r:8.5,kg:500},{h:12.0,r:9.5,kg:400},{h:12.0,r:11.0,kg:200},{h:14.0,r:0.0,kg:2500},{h:14.0,r:1.5,kg:2400},{h:14.0,r:3.0,kg:2200},{h:14.0,r:4.5,kg:1800},{h:14.0,r:5.5,kg:1300},{h:14.0,r:6.5,kg:1000},{h:14.0,r:7.5,kg:700},{h:14.0,r:8.5,kg:400},{h:14.0,r:9.5,kg:300},{h:15.9,r:0.0,kg:2500},{h:15.9,r:1.5,kg:2400},{h:15.9,r:3.0,kg:2100},{h:15.9,r:4.5,kg:1600},{h:15.9,r:5.5,kg:1200},{h:15.9,r:6.5,kg:800},{h:15.9,r:7.5,kg:500},{h:15.9,r:8.0,kg:400}],
-      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[{h:0.5,r:0.0,kg:2000},{h:0.5,r:3.7,kg:1500},{h:0.5,r:7.4,kg:1000},{h:0.5,r:11.1,kg:600},{h:3.0,r:0.0,kg:2000},{h:3.0,r:3.7,kg:1500},{h:3.0,r:7.4,kg:1000},{h:3.0,r:11.1,kg:600},{h:5.0,r:0.0,kg:2000},{h:5.0,r:3.7,kg:1500},{h:5.0,r:7.4,kg:1000},{h:5.0,r:11.1,kg:600},{h:7.0,r:0.0,kg:2000},{h:7.0,r:3.7,kg:1500},{h:7.0,r:7.4,kg:1000},{h:7.0,r:11.1,kg:600},{h:9.0,r:0.0,kg:2000},{h:9.0,r:3.5,kg:1500},{h:9.0,r:7.0,kg:1000},{h:9.0,r:10.5,kg:600},{h:12.0,r:0.0,kg:2000},{h:12.0,r:3.2,kg:1500},{h:12.0,r:6.5,kg:1000},{h:12.0,r:9.8,kg:600},{h:14.0,r:0.0,kg:2000},{h:14.0,r:2.9,kg:1500},{h:14.0,r:5.8,kg:1000},{h:14.0,r:8.6,kg:600},{h:15.9,r:0.0,kg:2000},{h:15.9,r:2.5,kg:1500},{h:15.9,r:5.0,kg:1000},{h:15.9,r:7.5,kg:600},{h:17.9,r:0.0,kg:2000},{h:17.9,r:2.1,kg:1500},{h:17.9,r:4.3,kg:1000},{h:17.9,r:6.4,kg:600}],
-      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (250kg constant throughout working envelope).
-      loadMatrixJib1500:[{h:0.5,r:0.0,kg:250},{h:0.5,r:1.5,kg:250},{h:0.5,r:3.0,kg:250},{h:0.5,r:4.5,kg:250},{h:0.5,r:5.5,kg:250},{h:0.5,r:6.5,kg:250},{h:0.5,r:7.5,kg:250},{h:0.5,r:8.5,kg:250},{h:0.5,r:9.5,kg:250},{h:0.5,r:11.0,kg:250},{h:0.5,r:12.0,kg:250},{h:0.5,r:12.8,kg:250},{h:3.0,r:0.0,kg:250},{h:3.0,r:1.5,kg:250},{h:3.0,r:3.0,kg:250},{h:3.0,r:4.5,kg:250},{h:3.0,r:5.5,kg:250},{h:3.0,r:6.5,kg:250},{h:3.0,r:7.5,kg:250},{h:3.0,r:8.5,kg:250},{h:3.0,r:9.5,kg:250},{h:3.0,r:11.0,kg:250},{h:3.0,r:12.0,kg:250},{h:3.0,r:12.8,kg:250},{h:5.0,r:0.0,kg:250},{h:5.0,r:1.5,kg:250},{h:5.0,r:3.0,kg:250},{h:5.0,r:4.5,kg:250},{h:5.0,r:5.5,kg:250},{h:5.0,r:6.5,kg:250},{h:5.0,r:7.5,kg:250},{h:5.0,r:8.5,kg:250},{h:5.0,r:9.5,kg:250},{h:5.0,r:11.0,kg:250},{h:5.0,r:12.0,kg:250},{h:5.0,r:12.8,kg:250},{h:7.0,r:0.0,kg:250},{h:7.0,r:1.5,kg:250},{h:7.0,r:3.0,kg:250},{h:7.0,r:4.5,kg:250},{h:7.0,r:5.5,kg:250},{h:7.0,r:6.5,kg:250},{h:7.0,r:7.5,kg:250},{h:7.0,r:8.5,kg:250},{h:7.0,r:9.5,kg:250},{h:7.0,r:11.0,kg:250},{h:7.0,r:12.0,kg:250},{h:7.0,r:12.8,kg:250},{h:9.0,r:0.0,kg:250},{h:9.0,r:1.5,kg:250},{h:9.0,r:3.0,kg:250},{h:9.0,r:4.5,kg:250},{h:9.0,r:5.5,kg:250},{h:9.0,r:6.5,kg:250},{h:9.0,r:7.5,kg:250},{h:9.0,r:8.5,kg:250},{h:9.0,r:9.5,kg:250},{h:9.0,r:11.0,kg:250},{h:9.0,r:12.0,kg:250},{h:12.0,r:0.0,kg:250},{h:12.0,r:1.5,kg:250},{h:12.0,r:3.0,kg:250},{h:12.0,r:4.5,kg:250},{h:12.0,r:5.5,kg:250},{h:12.0,r:6.5,kg:250},{h:12.0,r:7.5,kg:250},{h:12.0,r:8.5,kg:250},{h:12.0,r:9.5,kg:250},{h:12.0,r:11.0,kg:250},{h:14.0,r:0.0,kg:250},{h:14.0,r:1.5,kg:250},{h:14.0,r:3.0,kg:250},{h:14.0,r:4.5,kg:250},{h:14.0,r:5.5,kg:250},{h:14.0,r:6.5,kg:250},{h:14.0,r:7.5,kg:250},{h:14.0,r:8.5,kg:250},{h:14.0,r:9.5,kg:250},{h:15.9,r:0.0,kg:250},{h:15.9,r:1.5,kg:250},{h:15.9,r:3.0,kg:250},{h:15.9,r:4.5,kg:250},{h:15.9,r:5.5,kg:250},{h:15.9,r:6.5,kg:250},{h:15.9,r:7.5,kg:250},{h:15.9,r:8.0,kg:250}],
-      // ⚠️ loadMatrixWinch — ESTIMATED (hook/jib lift: loadMatrix × 0.93, cap 1500kg).
-      loadMatrixWinch:[{h:0.5,r:0.0,kg:1500},{h:0.5,r:1.5,kg:1500},{h:0.5,r:3.0,kg:1500},{h:0.5,r:4.5,kg:1500},{h:0.5,r:5.5,kg:1500},{h:0.5,r:6.5,kg:1500},{h:0.5,r:7.5,kg:1500},{h:0.5,r:8.5,kg:1500},{h:0.5,r:9.5,kg:1400},{h:0.5,r:11.0,kg:900},{h:0.5,r:12.0,kg:700},{h:0.5,r:12.8,kg:500},{h:3.0,r:0.0,kg:1500},{h:3.0,r:1.5,kg:1500},{h:3.0,r:3.0,kg:1500},{h:3.0,r:4.5,kg:1500},{h:3.0,r:5.5,kg:1500},{h:3.0,r:6.5,kg:1500},{h:3.0,r:7.5,kg:1500},{h:3.0,r:8.5,kg:1500},{h:3.0,r:9.5,kg:1400},{h:3.0,r:11.0,kg:900},{h:3.0,r:12.0,kg:700},{h:3.0,r:12.8,kg:500},{h:5.0,r:0.0,kg:1500},{h:5.0,r:1.5,kg:1500},{h:5.0,r:3.0,kg:1500},{h:5.0,r:4.5,kg:1500},{h:5.0,r:5.5,kg:1500},{h:5.0,r:6.5,kg:1500},{h:5.0,r:7.5,kg:1500},{h:5.0,r:8.5,kg:1500},{h:5.0,r:9.5,kg:1400},{h:5.0,r:11.0,kg:900},{h:5.0,r:12.0,kg:700},{h:5.0,r:12.8,kg:500},{h:7.0,r:0.0,kg:1500},{h:7.0,r:1.5,kg:1500},{h:7.0,r:3.0,kg:1500},{h:7.0,r:4.5,kg:1500},{h:7.0,r:5.5,kg:1500},{h:7.0,r:6.5,kg:1500},{h:7.0,r:7.5,kg:1500},{h:7.0,r:8.5,kg:1500},{h:7.0,r:9.5,kg:1400},{h:7.0,r:11.0,kg:900},{h:7.0,r:12.0,kg:700},{h:7.0,r:12.8,kg:500},{h:9.0,r:0.0,kg:1500},{h:9.0,r:1.5,kg:1500},{h:9.0,r:3.0,kg:1500},{h:9.0,r:4.5,kg:1500},{h:9.0,r:5.5,kg:1500},{h:9.0,r:6.5,kg:1500},{h:9.0,r:7.5,kg:1500},{h:9.0,r:8.5,kg:1500},{h:9.0,r:9.5,kg:1400},{h:9.0,r:11.0,kg:900},{h:9.0,r:12.0,kg:700},{h:12.0,r:0.0,kg:1500},{h:12.0,r:1.5,kg:1500},{h:12.0,r:3.0,kg:1500},{h:12.0,r:4.5,kg:1500},{h:12.0,r:5.5,kg:1500},{h:12.0,r:6.5,kg:1500},{h:12.0,r:7.5,kg:1500},{h:12.0,r:8.5,kg:1500},{h:12.0,r:9.5,kg:1200},{h:12.0,r:11.0,kg:800},{h:14.0,r:0.0,kg:1500},{h:14.0,r:1.5,kg:1500},{h:14.0,r:3.0,kg:1500},{h:14.0,r:4.5,kg:1500},{h:14.0,r:5.5,kg:1500},{h:14.0,r:6.5,kg:1500},{h:14.0,r:7.5,kg:1500},{h:14.0,r:8.5,kg:1200},{h:14.0,r:9.5,kg:800},{h:15.9,r:0.0,kg:1500},{h:15.9,r:1.5,kg:1500},{h:15.9,r:3.0,kg:1500},{h:15.9,r:4.5,kg:1500},{h:15.9,r:5.5,kg:1500},{h:15.9,r:6.5,kg:1500},{h:15.9,r:7.5,kg:1300},{h:15.9,r:8.0,kg:900}],
-      loadMatrixTyres360:[{h:0.5,r:0.0,kg:1300},{h:0.5,r:1.5,kg:1250},{h:0.5,r:3.0,kg:1150},{h:0.5,r:4.5,kg:1000},{h:0.5,r:5.5,kg:750},{h:0.5,r:6.5,kg:600},{h:0.5,r:7.5,kg:350},{h:0.5,r:8.5,kg:300},{h:0.5,r:9.5,kg:250},{h:0.5,r:11.0,kg:100},{h:0.5,r:12.0,kg:100},{h:0.5,r:12.8,kg:100},{h:3.0,r:0.0,kg:1300},{h:3.0,r:1.5,kg:1250},{h:3.0,r:3.0,kg:1150},{h:3.0,r:4.5,kg:1000},{h:3.0,r:5.5,kg:750},{h:3.0,r:6.5,kg:600},{h:3.0,r:7.5,kg:350},{h:3.0,r:8.5,kg:300},{h:3.0,r:9.5,kg:250},{h:3.0,r:11.0,kg:100},{h:3.0,r:12.0,kg:100},{h:3.0,r:12.8,kg:100},{h:5.0,r:0.0,kg:1300},{h:5.0,r:1.5,kg:1250},{h:5.0,r:3.0,kg:1150},{h:5.0,r:4.5,kg:1000},{h:5.0,r:5.5,kg:750},{h:5.0,r:6.5,kg:600},{h:5.0,r:7.5,kg:350},{h:5.0,r:8.5,kg:300},{h:5.0,r:9.5,kg:250},{h:5.0,r:11.0,kg:100},{h:5.0,r:12.0,kg:100},{h:5.0,r:12.8,kg:100},{h:7.0,r:0.0,kg:1300},{h:7.0,r:1.5,kg:1250},{h:7.0,r:3.0,kg:1150},{h:7.0,r:4.5,kg:1000},{h:7.0,r:5.5,kg:750},{h:7.0,r:6.5,kg:600},{h:7.0,r:7.5,kg:350},{h:7.0,r:8.5,kg:300},{h:7.0,r:9.5,kg:250},{h:7.0,r:11.0,kg:100},{h:7.0,r:12.0,kg:100},{h:7.0,r:12.8,kg:100},{h:9.0,r:0.0,kg:1300},{h:9.0,r:1.5,kg:1250},{h:9.0,r:3.0,kg:1150},{h:9.0,r:4.5,kg:1000},{h:9.0,r:5.5,kg:750},{h:9.0,r:6.5,kg:600},{h:9.0,r:7.5,kg:350},{h:9.0,r:8.5,kg:300},{h:9.0,r:9.5,kg:250},{h:9.0,r:11.0,kg:100},{h:9.0,r:12.0,kg:100},{h:12.0,r:0.0,kg:1300},{h:12.0,r:1.5,kg:1250},{h:12.0,r:3.0,kg:1150},{h:12.0,r:4.5,kg:1000},{h:12.0,r:5.5,kg:750},{h:12.0,r:6.5,kg:600},{h:12.0,r:7.5,kg:350},{h:12.0,r:8.5,kg:250},{h:12.0,r:9.5,kg:200},{h:12.0,r:11.0,kg:100},{h:14.0,r:0.0,kg:1300},{h:14.0,r:1.5,kg:1250},{h:14.0,r:3.0,kg:1150},{h:14.0,r:4.5,kg:950},{h:14.0,r:5.5,kg:700},{h:14.0,r:6.5,kg:500},{h:14.0,r:7.5,kg:350},{h:14.0,r:8.5,kg:200},{h:14.0,r:9.5,kg:150},{h:15.9,r:0.0,kg:1300},{h:15.9,r:1.5,kg:1250},{h:15.9,r:3.0,kg:1100},{h:15.9,r:4.5,kg:850},{h:15.9,r:5.5,kg:600},{h:15.9,r:6.5,kg:400},{h:15.9,r:7.5,kg:250},{h:15.9,r:8.0,kg:200}],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // ON TYRES — loadMatrixTyres
+      // Source: Dieci Pegasus 40.16 Essential load chart AXBI338 (on tyres, 360° rated)
+      // Zones (t): 0.2 | 0.4 | 0.8 | 1.0 | 1.5 | 2.0 | 2.5 | 3.0 | 4.0
+      // CONFIRMED calibration point: h=10m, r=6m → 1,000 kg ✓
+      // Max height on tyres: 15.30m (printed)
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrixTyres:[
+        {h:1,r:11.3,kg:200},{h:1,r:10.5,kg:400},{h:1,r:8.5,kg:800},{h:1,r:7.5,kg:1000},{h:1,r:6.0,kg:1500},{h:1,r:5.0,kg:2000},{h:1,r:4.5,kg:2500},{h:1,r:4.0,kg:3000},{h:1,r:2.0,kg:4000},
+        {h:4,r:11.0,kg:200},{h:4,r:10.0,kg:400},{h:4,r:8.0,kg:800},{h:4,r:7.0,kg:1000},{h:4,r:5.5,kg:1500},{h:4,r:4.5,kg:2000},{h:4,r:4.0,kg:2500},{h:4,r:3.5,kg:3000},{h:4,r:2.0,kg:4000},
+        {h:7,r:10.5,kg:200},{h:7,r:9.5,kg:400},{h:7,r:7.5,kg:800},{h:7,r:7.0,kg:1000},{h:7,r:5.5,kg:1500},{h:7,r:4.5,kg:2000},{h:7,r:3.5,kg:2500},{h:7,r:3.0,kg:3000},{h:7,r:2.0,kg:4000},
+        {h:10,r:9.5,kg:200},{h:10,r:8.5,kg:400},{h:10,r:7.0,kg:800},{h:10,r:6.5,kg:1000},{h:10,r:5.0,kg:1500},{h:10,r:4.0,kg:2000},{h:10,r:3.0,kg:2500},{h:10,r:2.5,kg:3000},{h:10,r:1.5,kg:4000},
+        {h:12,r:8.0,kg:200},{h:12,r:7.0,kg:400},{h:12,r:5.5,kg:800},{h:12,r:5.0,kg:1000},{h:12,r:4.0,kg:1500},{h:12,r:3.0,kg:2000},{h:12,r:2.0,kg:2500},{h:12,r:1.5,kg:3000},
+        {h:14,r:5.5,kg:200},{h:14,r:4.5,kg:400},{h:14,r:3.0,kg:800},{h:14,r:2.5,kg:1000},{h:14,r:1.5,kg:1500},
+        {h:15.3,r:0,kg:200}
+      ],
+      // Jib/winch/man platform load charts not in brochure — confirm with rental company.
+      loadMatrixWinch:[],
+      loadMatrixJib800:[],
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
 
       filters:['telehandler','rough','heavy']
     },
@@ -44695,6 +44688,7 @@ function matchMachines(ans, type) {
   if (type === 'telehandler') {
     // Bridge mat_ answer keys → tele_ so matching engine always reads the right fields
     // These bridges only run if tele_ values are missing/zero (don't overwrite explicit entries)
+    if (!ans.tele_kg      && ans.load_weight_kg) ans.tele_kg = ans.load_weight_kg; // exact entry takes priority
     if (!ans.tele_kg      && ans.mat_kg)       ans.tele_kg      = ans.mat_kg;
     if (!ans.tele_ht_m    && ans.mat_ht_m)     ans.tele_ht_m    = ans.mat_ht_m;
     if (!ans.tele_reach_m && ans.mat_reach_m)  ans.tele_reach_m = ans.mat_reach_m;
@@ -45020,7 +45014,7 @@ function matchMachines(ans, type) {
   //  TELEHANDLER
   // ═══════════════════════════════════════════════════════
   if (type === 'telehandler') {
-    const exactKg     = parseFloat(ans.tele_kg     || 0);
+    const exactKg     = parseFloat(ans.tele_kg || ans.load_weight_kg || 0);
     const exactHt     = parseFloat(ans.tele_ht_m   || 0);
     const exactReach  = parseFloat(ans.tele_reach_m|| 0);
     const exactRw     = parseFloat(ans.tele_rw || ans.tele_site_max_weight || 0);
@@ -48053,7 +48047,7 @@ function showResults() {
 // Called from both organic cards and sponsored cards so both get identical detail
 function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
   if (machineType !== 'telehandler') return '';
-        const reqKg = parseFloat(answers.tele_kg||answers.mat_kg||0);
+        const reqKg = parseFloat(answers.tele_kg||answers.load_weight_kg||answers.mat_kg||0);
         const reqHt = parseFloat(answers.tele_ht_m||answers.mat_ht_m||0);
         const reqRe = parseFloat(answers.tele_reach_m||answers.mat_reach_m||0);
         // Try _actualKgAtPoint first (set during scoring when reqHt/reqRe were provided)
