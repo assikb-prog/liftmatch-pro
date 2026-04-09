@@ -12835,12 +12835,20 @@ const MACHINES = {
       tags:['Rotating 400°','4.5T','18m','75hp Economy','Wing Stabs','MRT 1845 75'],
       // ─────────────────────────────────────────────────────────────────────────────────
       // ON STABILISERS WITH FORKS — loadMatrix
-      // Source: MRT 1845 75 PDF p.3 right "Machine on lowered stabilisers with forks Metric"
-      // 10 capacity zones: 4500, 4000, 3500, 2700, 2000, 1500, 1200, 1000, 750, 600 kg
-      // NOTE: Zone structure is completely different to MRT 1645 — this is a larger boom.
-      // Max height 18m. Max outreach 15.2m.
+      // Source: MRT 1845 75 load chart "Machine on lowered stabilisers with forks Metric"
+      // 10 capacity zones (printed labels): 600,750,1000,1200,1500,2000,2700,3500,4000,4500 kg
+      // Each {h,r,kg} = outer boundary reach of that kg zone at that height.
+      // CALIBRATION: h=10m, r=6m → ~2,000 kg (NOT 3,500 kg — previous data was wrong)
+      // Max reach: 15.2m | Max height: 18m
       // ─────────────────────────────────────────────────────────────────────────────────
-      loadMatrix:[{h:0.5,r:0.0,kg:4500},{h:0.5,r:1.5,kg:4500},{h:0.5,r:3.0,kg:4500},{h:0.5,r:4.6,kg:4300},{h:0.5,r:6.1,kg:3800},{h:0.5,r:7.6,kg:3150},{h:0.5,r:9.9,kg:2150},{h:0.5,r:11.4,kg:1600},{h:0.5,r:12.9,kg:1200},{h:0.5,r:15.2,kg:800},{h:4.5,r:0.0,kg:4500},{h:4.5,r:1.5,kg:4500},{h:4.5,r:3.0,kg:4500},{h:4.5,r:4.6,kg:4300},{h:4.5,r:6.1,kg:3800},{h:4.5,r:7.6,kg:3150},{h:4.5,r:9.9,kg:2150},{h:4.5,r:11.4,kg:1600},{h:4.5,r:12.9,kg:1200},{h:4.5,r:15.2,kg:800},{h:9.0,r:0.0,kg:4500},{h:9.0,r:1.5,kg:4500},{h:9.0,r:3.0,kg:4500},{h:9.0,r:4.6,kg:4300},{h:9.0,r:6.1,kg:3800},{h:9.0,r:7.6,kg:3150},{h:9.0,r:9.9,kg:2150},{h:9.0,r:11.4,kg:1600},{h:9.0,r:12.9,kg:1200},{h:9.0,r:15.2,kg:800},{h:12.6,r:0.0,kg:4300},{h:12.6,r:1.5,kg:4300},{h:12.6,r:3.0,kg:4300},{h:12.6,r:4.6,kg:4100},{h:12.6,r:6.1,kg:3650},{h:12.6,r:7.6,kg:3000},{h:12.6,r:9.9,kg:2050},{h:12.6,r:11.4,kg:1550},{h:12.6,r:12.9,kg:1150},{h:12.6,r:15.2,kg:750},{h:15.3,r:0.0,kg:3950},{h:15.3,r:1.5,kg:3950},{h:15.3,r:3.0,kg:3950},{h:15.3,r:4.6,kg:3800},{h:15.3,r:6.1,kg:3350},{h:15.3,r:7.6,kg:2750},{h:15.3,r:9.9,kg:1900},{h:15.3,r:11.4,kg:1450},{h:15.3,r:12.9,kg:1050},{h:15.3,r:15.2,kg:700},{h:18.0,r:0.0,kg:3500},{h:18.0,r:1.5,kg:3500},{h:18.0,r:3.0,kg:3500},{h:18.0,r:4.6,kg:3350},{h:18.0,r:6.1,kg:3000},{h:18.0,r:7.6,kg:2450},{h:18.0,r:9.9,kg:1700},{h:18.0,r:11.4,kg:1250},{h:18.0,r:12.9,kg:950},{h:18.0,r:15.2,kg:650}],
+      loadMatrix:[
+        {h:1,r:15.2,kg:600},{h:1,r:13.0,kg:750},{h:1,r:11.5,kg:1000},{h:1,r:10.5,kg:1200},{h:1,r:9.5,kg:1500},{h:1,r:8.0,kg:2000},{h:1,r:7.0,kg:2700},{h:1,r:5.5,kg:3500},{h:1,r:3.5,kg:4000},{h:1,r:2.0,kg:4500},
+        {h:4,r:14.0,kg:600},{h:4,r:12.5,kg:750},{h:4,r:11.0,kg:1000},{h:4,r:10.0,kg:1200},{h:4,r:9.0,kg:1500},{h:4,r:7.5,kg:2000},{h:4,r:6.5,kg:2700},{h:4,r:5.5,kg:3500},{h:4,r:3.5,kg:4000},{h:4,r:1.5,kg:4500},
+        {h:8,r:12.5,kg:600},{h:8,r:11.0,kg:750},{h:8,r:9.5,kg:1000},{h:8,r:8.5,kg:1200},{h:8,r:8.0,kg:1500},{h:8,r:7.0,kg:2000},{h:8,r:6.0,kg:2700},{h:8,r:5.0,kg:3500},{h:8,r:3.5,kg:4000},{h:8,r:2.0,kg:4500},
+        {h:12,r:10.0,kg:600},{h:12,r:8.5,kg:750},{h:12,r:7.0,kg:1000},{h:12,r:6.5,kg:1200},{h:12,r:5.5,kg:1500},{h:12,r:5.0,kg:2000},{h:12,r:4.0,kg:2700},{h:12,r:3.0,kg:3500},{h:12,r:2.0,kg:4000},
+        {h:16,r:6.5,kg:600},{h:16,r:5.5,kg:750},{h:16,r:4.5,kg:1000},{h:16,r:4.0,kg:1200},{h:16,r:3.0,kg:1500},{h:16,r:2.5,kg:2000},
+        {h:18,r:0,kg:600}
+      ],
       // ─────────────────────────────────────────────────────────────────────────────────
       // HOOK 5000 kg ON STABILISERS — loadMatrixHook
       // Source: MRT 1845 75 PDF p.5 top-left "Machine on lowered stabilisers with hook 5000 kg Metric"
@@ -14737,26 +14745,28 @@ filters:['telehandler','rough','heavy']
       tags:['Rotating 400°','3.8T','15.7m','13.4m Reach','Dieci Pegasus','Kubota 73.4kW','Australia','AS1418.19','Compact'],
       // ─────────────────────────────────────────────────────────────────────────────
       // 400° FULL ROTATION ON OUTRIGGERS — loadMatrix
-      // Source: Dieci Pegasus 38.16 brochure p.4 LEFT chart "MAX 3.2 t — 400° rotation"
-      // Zones (T): 0.1, 0.35, 0.6, 0.75, 0.9, 1.4, 2.0, 2.8, MAX 3.2
-      // Max height: 15.5m. Max reach: 13.4m.
-      // ⚠️ Zone boundaries approximate — read from small marketing brochure chart (Pegasus400°_0924).
+      // Source: Dieci Pegasus 38.16 brochure RIGHT chart "MAX 3.8 t — 400° full rotation on outriggers"
+      // METHOD: Arc formula r=sqrt(L²-h²). L = ground-level arc intercept at h=0.
+      // L=13.4m CONFIRMED from printed red label. Inner L values: pixel-level read of 4× chart ±0.3m.
+      // Zones (kg→L): 300→13.4✓, 450→12.5, 600→11.5, 800→10.5, 1000→9.5, 1300→8.5,
+      //               1700→7.5, 2000→7.0, 2500→6.0, 3000→5.0, 3500→4.0, 3800→3.0
+      // Inner zone vertical extensions (label positions from 4× chart, approx):
+      //   3800kg label ~(h=5,r=2.5) | 3500kg label ~(h=7,r=3.0) | 3000kg label ~(h=8,r=4.0)
+      // Max height 15.70m (printed). Min retracted 600mm.
       // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrix:[],
+      loadMatrix:[{h:1,r:13.4,kg:300},{h:1,r:12.5,kg:450},{h:1,r:11.5,kg:600},{h:1,r:10.5,kg:800},{h:1,r:9.4,kg:1000},{h:1,r:8.4,kg:1300},{h:1,r:7.4,kg:1700},{h:1,r:6.9,kg:2000},{h:1,r:5.9,kg:2500},{h:1,r:4.9,kg:3000},{h:1,r:3.9,kg:3500},{h:1,r:2.8,kg:3800},{h:3.0,r:0,kg:3800},{h:4,r:12.8,kg:300},{h:4,r:11.8,kg:450},{h:4,r:10.8,kg:600},{h:4,r:9.7,kg:800},{h:4,r:8.6,kg:1000},{h:4,r:7.5,kg:1300},{h:4,r:6.3,kg:1700},{h:4,r:5.7,kg:2000},{h:4,r:4.5,kg:2500},{h:4,r:3.0,kg:3000},{h:4.0,r:0,kg:3500},{h:5,r:2.5,kg:3800},{h:5.0,r:0,kg:3000},{h:6.0,r:0,kg:2500},{h:7,r:3.0,kg:3500},{h:7.0,r:0,kg:2000},{h:7.5,r:0,kg:1700},{h:8,r:10.7,kg:300},{h:8,r:9.6,kg:450},{h:8,r:8.3,kg:600},{h:8,r:6.8,kg:800},{h:8,r:5.1,kg:1000},{h:8,r:4.0,kg:3000},{h:8,r:2.9,kg:1300},{h:8.5,r:0,kg:1300},{h:9.5,r:0,kg:1000},{h:10.5,r:0,kg:800},{h:11.5,r:0,kg:600},{h:12,r:6.0,kg:300},{h:12,r:3.5,kg:450},{h:12.5,r:0,kg:450},{h:13.4,r:0,kg:300}],
       // ─────────────────────────────────────────────────────────────────────────────
-      // FRONTAL DIRECTION ON OUTRIGGERS — loadMatrixTyres
-      // Source: Dieci Pegasus 38.16 brochure p.4 RIGHT chart "MAX 3.8 t — frontal direction"
-      // Zones (T): 0.3, 0.45, 0.6, 0.8, 1.0, 1.3, 1.7, 2.0, 2.35, MAX 3.8
-      // Max height: 15.7m. Max reach: 13.4m.
-      // NOTE: "frontal direction" on outriggers — NOT on-tyres. Higher capacity than 400° rotation.
-      // ⚠️ Zone boundaries approximate — read from small marketing brochure chart (Pegasus400°_0924).
+      // ON TYRES / FRONTAL (0°) — loadMatrixTyres
+      // Source: Dieci Pegasus 38.16 brochure LEFT chart "MAX 3.2 t — 0° frontal on tyres"
+      // METHOD: Arc formula. L=13.4m CONFIRMED. Inner L values: pixel-level read ±0.3m.
+      // Zones (kg→L): 100→13.4✓, 200→12.5, 350→11.5, 600→10.5, 750→9.5, 1000→8.5,
+      //               1400→7.5, 1700→7.0, 2000→6.0, 2500→5.0, 3200→3.5
+      // Max height 15.50m (printed). Min retracted 600mm.
       // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrixTyres:[],
-      // ⚠️ loadMatrixWinch — ESTIMATED (loadMatrix × 0.93, cap 3420kg).
+      loadMatrixTyres:[{h:1,r:13.4,kg:100},{h:1,r:12.5,kg:200},{h:1,r:11.5,kg:350},{h:1,r:10.5,kg:600},{h:1,r:9.4,kg:750},{h:1,r:8.4,kg:1000},{h:1,r:7.4,kg:1400},{h:1,r:6.9,kg:1700},{h:1,r:5.9,kg:2000},{h:1,r:4.9,kg:2500},{h:1,r:3.4,kg:3200},{h:3.5,r:0,kg:3200},{h:4,r:12.8,kg:100},{h:4,r:11.8,kg:200},{h:4,r:10.8,kg:350},{h:4,r:9.7,kg:600},{h:4,r:8.6,kg:750},{h:4,r:7.5,kg:1000},{h:4,r:6.3,kg:1400},{h:4,r:5.7,kg:1700},{h:4,r:4.5,kg:2000},{h:4,r:3.0,kg:2500},{h:5.0,r:0,kg:2500},{h:6.0,r:0,kg:2000},{h:7.0,r:0,kg:1700},{h:7.5,r:0,kg:1400},{h:8,r:10.7,kg:100},{h:8,r:9.6,kg:200},{h:8,r:8.3,kg:350},{h:8,r:6.8,kg:600},{h:8,r:5.1,kg:750},{h:8,r:2.9,kg:1000},{h:8.5,r:0,kg:1000},{h:9.5,r:0,kg:750},{h:10.5,r:0,kg:600},{h:11.5,r:0,kg:350},{h:12,r:6.0,kg:100},{h:12,r:3.5,kg:200},{h:12.5,r:0,kg:200},{h:13.4,r:0,kg:100}],
+      // Winch/jib/platform charts not in this brochure — confirm with rental company.
       loadMatrixWinch:[],
-      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
       loadMatrixJib800:[],
-      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (1000kg constant throughout working envelope).
       loadMatrixJib1500:[],
       loadMatrixTyres360:[],
       filters:['telehandler','rough','heavy']
@@ -23867,15 +23877,18 @@ filters:['telehandler','rough','heavy']
       bestFor:'3.8T 400° rotating — compact crane replacement, 4-5 storey, AS1418.19/10896.1',
       note:'Dieci Pegasus 400° 38.16 — 3.8T max (frontal), 3.2T max (full 400°). 15.7m lift, 13.4m reach. Kubota 73.4kW Stage IIIA. 13,200 kg. 400/70×20" tyres. Source: Dieci Australia brochure (Pegasus400°_0924). ⚠️ Zone boundaries approximate.',
       tags:['Rotating 400°','3.8T','15.7m','13.4m Reach','Kubota 73.4kW','Australia','AS1418.19','Compact'],
-      loadMatrix:[],
-      loadMatrixTyres:[],
-      // ⚠️ loadMatrixWinch — ESTIMATED (loadMatrix × 0.93, cap 3420kg).
-      loadMatrixWinch:[],
-      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[],
-      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (1000kg constant throughout working envelope).
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
+      // 400° FULL ROTATION ON OUTRIGGERS — loadMatrix
+      // SOURCE: Right chart "MAX 3.8 t" | METHOD: Arc formula r=sqrt(L²-h²)
+      // L=13.4m CONFIRMED printed red label. Inner L: 4× chart pixel read ±0.3m.
+      // Zones(kg→L): 300→13.4✓,450→12.5,600→11.5,800→10.5,1000→9.5,1300→8.5,
+      //              1700→7.5,2000→7.0,2500→6.0,3000→5.0,3500→4.0,3800→3.0
+      // Inner zone vertical extensions from label positions: 3800@(h5,r2.5) 3500@(h7,r3.0) 3000@(h8,r4.0)
+      loadMatrix:[{h:1,r:13.4,kg:300},{h:1,r:12.5,kg:450},{h:1,r:11.5,kg:600},{h:1,r:10.5,kg:800},{h:1,r:9.4,kg:1000},{h:1,r:8.4,kg:1300},{h:1,r:7.4,kg:1700},{h:1,r:6.9,kg:2000},{h:1,r:5.9,kg:2500},{h:1,r:4.9,kg:3000},{h:1,r:3.9,kg:3500},{h:1,r:2.8,kg:3800},{h:3.0,r:0,kg:3800},{h:4,r:12.8,kg:300},{h:4,r:11.8,kg:450},{h:4,r:10.8,kg:600},{h:4,r:9.7,kg:800},{h:4,r:8.6,kg:1000},{h:4,r:7.5,kg:1300},{h:4,r:6.3,kg:1700},{h:4,r:5.7,kg:2000},{h:4,r:4.5,kg:2500},{h:4,r:3.0,kg:3000},{h:4.0,r:0,kg:3500},{h:5,r:2.5,kg:3800},{h:5.0,r:0,kg:3000},{h:6.0,r:0,kg:2500},{h:7,r:3.0,kg:3500},{h:7.0,r:0,kg:2000},{h:7.5,r:0,kg:1700},{h:8,r:10.7,kg:300},{h:8,r:9.6,kg:450},{h:8,r:8.3,kg:600},{h:8,r:6.8,kg:800},{h:8,r:5.1,kg:1000},{h:8,r:4.0,kg:3000},{h:8,r:2.9,kg:1300},{h:8.5,r:0,kg:1300},{h:9.5,r:0,kg:1000},{h:10.5,r:0,kg:800},{h:11.5,r:0,kg:600},{h:12,r:6.0,kg:300},{h:12,r:3.5,kg:450},{h:12.5,r:0,kg:450},{h:13.4,r:0,kg:300}],
+      // ON TYRES / FRONTAL (0°) — loadMatrixTyres
+      // SOURCE: Left chart "MAX 3.2 t" | Zones(kg→L): 100→13.4✓,200→12.5,350→11.5,600→10.5,
+      //         750→9.5,1000→8.5,1400→7.5,1700→7.0,2000→6.0,2500→5.0,3200→3.5
+      loadMatrixTyres:[{h:1,r:13.4,kg:100},{h:1,r:12.5,kg:200},{h:1,r:11.5,kg:350},{h:1,r:10.5,kg:600},{h:1,r:9.4,kg:750},{h:1,r:8.4,kg:1000},{h:1,r:7.4,kg:1400},{h:1,r:6.9,kg:1700},{h:1,r:5.9,kg:2000},{h:1,r:4.9,kg:2500},{h:1,r:3.4,kg:3200},{h:3.5,r:0,kg:3200},{h:4,r:12.8,kg:100},{h:4,r:11.8,kg:200},{h:4,r:10.8,kg:350},{h:4,r:9.7,kg:600},{h:4,r:8.6,kg:750},{h:4,r:7.5,kg:1000},{h:4,r:6.3,kg:1400},{h:4,r:5.7,kg:1700},{h:4,r:4.5,kg:2000},{h:4,r:3.0,kg:2500},{h:5.0,r:0,kg:2500},{h:6.0,r:0,kg:2000},{h:7.0,r:0,kg:1700},{h:7.5,r:0,kg:1400},{h:8,r:10.7,kg:100},{h:8,r:9.6,kg:200},{h:8,r:8.3,kg:350},{h:8,r:6.8,kg:600},{h:8,r:5.1,kg:750},{h:8,r:2.9,kg:1000},{h:8.5,r:0,kg:1000},{h:9.5,r:0,kg:750},{h:10.5,r:0,kg:600},{h:11.5,r:0,kg:350},{h:12,r:6.0,kg:100},{h:12,r:3.5,kg:200},{h:12.5,r:0,kg:200},{h:13.4,r:0,kg:100}],
+      loadMatrixWinch:[], loadMatrixJib800:[], loadMatrixJib1500:[], loadMatrixTyres360:[],
       filters:['telehandler','outdoor','rough']
     },
     {
@@ -23885,7 +23898,7 @@ filters:['telehandler','rough','heavy']
       // ── Capacity — Dieci Australia Pegasus 400° 40.18 brochure (Pegasus400°_0924) ──
       capacity:4.0, capacityOnTyres:3.5, liftHeight:18.00, liftHeightOnTyres:15.70,
       maxReach:15.30, maxReachOnTyres:12.00, turretRotation:400,
-      tyreCapacityNote:'400° on outriggers: max 3,500 kg (full rotation) to 12m. Frontal direction: max 4,000 kg to 15.3m/18m. Outriggers required for ALL lifts.',
+      tyreCapacityNote:'400° on outriggers (stabilisers deployed): max 4,000 kg. On tyres / frontal (0°, no stabilisers): max 3,500 kg. Outriggers MUST be deployed for 400° rotation.',
       engine:'Kubota 4-cyl 73.4kW (98hp) @ 2,600 rpm, 3,769cc, Stage IIIA/Tier 3',
       machineWeight:13700, machineWidth:2280, machineLength:6630, machineHeight:3035,
       stabilizerType:'4 independent outriggers', stabilizerSpreadM:4.75,
@@ -23893,27 +23906,19 @@ filters:['telehandler','rough','heavy']
       terrain:'rough/outdoor',
       attachments:['Standard Forks','Man Basket','Winch','Jib','Hook Block','Work Platform'],
       bestFor:'4T 400° rotating — 5-6 storey crane replacement, compact, AS1418.19/10896.1',
-      note:'Dieci Pegasus 400° 40.18 — 4T max (frontal), 3.5T max (full 400°). 18m lift, 15.3m reach. Kubota 73.4kW Stage IIIA. 13,700 kg. 400/70×20" tyres. Source: Dieci Australia brochure (Pegasus400°_0924). ⚠️ Zone boundaries approximate.',
+      note:'Dieci Pegasus 400° 40.18 — 4T max (400° on outriggers), 3.5T max (0° frontal on tyres). 18m lift, 15.3m reach. Kubota 73.4kW Stage IIIA. 13,700 kg. 400/70×20" tyres. Source: Dieci Australia brochure (Pegasus400°_0924). Zone L values: max reach printed, inner zones grid-read ±0.3m.',
       tags:['Rotating 400°','4T','18m','15.3m Reach','Kubota 73.4kW','Australia','AS1418.19'],
-      loadMatrix:[
-        {h:0,r:0,kg:3500},{h:0,r:1.5,kg:2700},{h:0,r:4.5,kg:1400},{h:0,r:7.5,kg:800},{h:0,r:12,kg:300},
-        {h:3,r:0,kg:3500},{h:3,r:1.5,kg:2700},{h:3,r:4.5,kg:1400},{h:3,r:7.5,kg:800},{h:3,r:11.5,kg:300},
-        {h:6,r:0,kg:3500},{h:6,r:1.5,kg:2700},{h:6,r:4.5,kg:1400},{h:6,r:7,kg:800},{h:6,r:11,kg:300},
-        {h:9,r:0,kg:3500},{h:9,r:1.5,kg:2700},{h:9,r:4,kg:1400},{h:9,r:6.5,kg:800},
-        {h:12,r:0,kg:3500},{h:12,r:1.5,kg:2700},{h:12,r:3.5,kg:1400},{h:12,r:6,kg:800},
-        {h:14,r:0,kg:3500},{h:14,r:1,kg:2700},{h:14,r:3,kg:1400},
-        {h:15.7,r:0,kg:3500},{h:15.7,r:0.5,kg:2700},{h:15.7,r:2.5,kg:1400}
-      ],
-      loadMatrixTyres:[
-        {h:0,r:0,kg:4000},{h:0,r:1.5,kg:3500},{h:0,r:3,kg:2700},{h:0,r:5,kg:2000},{h:0,r:7,kg:1500},{h:0,r:9,kg:1200},{h:0,r:10.5,kg:1000},{h:0,r:12,kg:800},{h:0,r:13.5,kg:500},
-        {h:3,r:0,kg:4000},{h:3,r:1.5,kg:3500},{h:3,r:3,kg:2700},{h:3,r:5,kg:2000},{h:3,r:7,kg:1500},{h:3,r:9,kg:1200},{h:3,r:10.5,kg:1000},{h:3,r:12,kg:800},{h:3,r:13.5,kg:500},
-        {h:6,r:0,kg:4000},{h:6,r:1.5,kg:3500},{h:6,r:3,kg:2700},{h:6,r:5,kg:2000},{h:6,r:7,kg:1500},{h:6,r:8.5,kg:1200},{h:6,r:10,kg:1000},{h:6,r:11.5,kg:800},{h:6,r:13,kg:500},
-        {h:9,r:0,kg:4000},{h:9,r:1.5,kg:3500},{h:9,r:3,kg:2700},{h:9,r:4.5,kg:2000},{h:9,r:6.5,kg:1500},{h:9,r:8,kg:1200},{h:9,r:9.5,kg:1000},{h:9,r:11,kg:800},{h:9,r:12.5,kg:500},
-        {h:12,r:0,kg:4000},{h:12,r:1.5,kg:3500},{h:12,r:3,kg:2700},{h:12,r:4.5,kg:2000},{h:12,r:6,kg:1500},{h:12,r:7.5,kg:1200},{h:12,r:9,kg:1000},{h:12,r:10.5,kg:800},
-        {h:15,r:0,kg:4000},{h:15,r:1,kg:3500},{h:15,r:2.5,kg:2700},{h:15,r:4,kg:2000},{h:15,r:5.5,kg:1500},{h:15,r:7,kg:1200},{h:15,r:8.5,kg:1000},
-        {h:17,r:0,kg:4000},{h:17,r:1,kg:3500},{h:17,r:2,kg:2700},{h:17,r:3.5,kg:2000},{h:17,r:5,kg:1500},{h:17,r:6.5,kg:1200},
-        {h:18,r:0,kg:4000},{h:18,r:0.5,kg:3500},{h:18,r:1.5,kg:2700},{h:18,r:3,kg:2000},{h:18,r:4.5,kg:1500}
-      ],
+      // 400° FULL ROTATION ON OUTRIGGERS — loadMatrix
+      // SOURCE: Right chart "MAX 4.0 t" | METHOD: Arc formula r=sqrt(L²-h²)
+      // L=15.3m CONFIRMED printed red label. Inner L: 4× chart pixel read ±0.3m.
+      // Zones(kg→L): 500→15.3✓, 600→13.5, 800→12.0, 1000→10.5, 1200→9.5, 1500→8.5,
+      //              2000→7.5, 2700→6.0, 3500→4.5, 4000→3.0
+      // Inner zone vertical extensions from chart label positions: 4000@(h7,r3.0) 3500@(h10,r3.5)
+      loadMatrix:[{h:1,r:15.3,kg:500},{h:1,r:13.5,kg:600},{h:1,r:12.0,kg:800},{h:1,r:10.5,kg:1000},{h:1,r:9.4,kg:1200},{h:1,r:8.4,kg:1500},{h:1,r:7.4,kg:2000},{h:1,r:5.9,kg:2700},{h:1,r:4.4,kg:3500},{h:1,r:2.8,kg:4000},{h:3.0,r:0,kg:4000},{h:4,r:14.8,kg:500},{h:4,r:12.9,kg:600},{h:4,r:11.3,kg:800},{h:4,r:9.7,kg:1000},{h:4,r:8.6,kg:1200},{h:4,r:7.5,kg:1500},{h:4,r:6.3,kg:2000},{h:4,r:4.5,kg:2700},{h:4,r:2.1,kg:3500},{h:4.5,r:0,kg:3500},{h:6.0,r:0,kg:2700},{h:7,r:3.0,kg:4000},{h:7.5,r:0,kg:2000},{h:8,r:13.0,kg:500},{h:8,r:10.9,kg:600},{h:8,r:8.9,kg:800},{h:8,r:6.8,kg:1000},{h:8,r:5.1,kg:1200},{h:8,r:2.9,kg:1500},{h:8.5,r:0,kg:1500},{h:9.5,r:0,kg:1200},{h:10,r:3.5,kg:3500},{h:10.5,r:0,kg:1000},{h:12,r:9.5,kg:500},{h:12,r:6.2,kg:600},{h:12.0,r:0,kg:800},{h:13.5,r:0,kg:600},{h:15.3,r:0,kg:500}],
+      // ON TYRES / FRONTAL (0°) — loadMatrixTyres
+      // SOURCE: Left chart "MAX 3.5 t" | Zones(kg→L): 300→12.0✓,500→10.5,800→9.0,
+      //         1000→8.0,1400→7.0,2000→5.5,2700→4.0,3500→2.5
+      loadMatrixTyres:[{h:1,r:12.0,kg:300},{h:1,r:10.5,kg:500},{h:1,r:8.9,kg:800},{h:1,r:7.9,kg:1000},{h:1,r:6.9,kg:1400},{h:1,r:5.4,kg:2000},{h:1,r:3.9,kg:2700},{h:1,r:2.3,kg:3500},{h:2.5,r:0,kg:3500},{h:4,r:11.3,kg:300},{h:4,r:9.7,kg:500},{h:4,r:8.1,kg:800},{h:4,r:6.9,kg:1000},{h:4,r:5.7,kg:1400},{h:4,r:3.8,kg:2000},{h:4.0,r:0,kg:2700},{h:5.5,r:0,kg:2000},{h:7.0,r:0,kg:1400},{h:8,r:8.9,kg:300},{h:8,r:6.8,kg:500},{h:8,r:4.1,kg:800},{h:8.0,r:0,kg:1000},{h:9.0,r:0,kg:800},{h:10.5,r:0,kg:500},{h:12.0,r:0,kg:300}],
       // ⚠️ loadMatrixWinch — ESTIMATED (loadMatrix × 0.93, cap 3600kg).
       loadMatrixWinch:[{h:0.0,r:0.0,kg:3300},{h:0.0,r:1.5,kg:2500},{h:0.0,r:4.5,kg:1300},{h:0.0,r:7.5,kg:700},{h:0.0,r:12.0,kg:300},{h:3.0,r:0.0,kg:3300},{h:3.0,r:1.5,kg:2500},{h:3.0,r:4.5,kg:1300},{h:3.0,r:7.5,kg:700},{h:3.0,r:11.5,kg:300},{h:6.0,r:0.0,kg:3300},{h:6.0,r:1.5,kg:2500},{h:6.0,r:4.5,kg:1300},{h:6.0,r:7.0,kg:700},{h:6.0,r:11.0,kg:300},{h:9.0,r:0.0,kg:3300},{h:9.0,r:1.5,kg:2500},{h:9.0,r:4.0,kg:1300},{h:9.0,r:6.5,kg:700},{h:12.0,r:0.0,kg:3300},{h:12.0,r:1.5,kg:2500},{h:12.0,r:3.5,kg:1300},{h:12.0,r:6.0,kg:700},{h:14.0,r:0.0,kg:3300},{h:14.0,r:1.0,kg:2500},{h:14.0,r:3.0,kg:1300},{h:15.7,r:0.0,kg:3300},{h:15.7,r:0.5,kg:2500},{h:15.7,r:2.5,kg:1300}],
       // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
