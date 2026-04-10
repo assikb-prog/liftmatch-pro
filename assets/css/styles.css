@@ -551,10 +551,14 @@ select.q-input{cursor:pointer}
 .lp-form-wrap{
   position:absolute;inset:0;z-index:3;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(13,17,32,.7);backdrop-filter:blur(8px);
-  opacity:0;pointer-events:none;transition:opacity .3s;
+  background:rgba(13,17,32,.7);
+  opacity:0;pointer-events:none;visibility:hidden;
+  transition:opacity .3s,visibility .3s;
 }
-.lp-form-wrap.visible{opacity:1;pointer-events:all}
+.lp-form-wrap.visible{
+  opacity:1;pointer-events:all;visibility:visible;
+  backdrop-filter:blur(8px);
+}
 
 .lp-form{
   background:#1e2440;border:1.5px solid rgba(255,255,255,.1);
