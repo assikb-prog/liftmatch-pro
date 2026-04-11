@@ -10999,32 +10999,6 @@ const MACHINES = {
     // Source: Magni ETH brochures (2023-2024) — fully electric rotating platform
     // Zero emissions, suitable for indoor/covered construction sites
     {
-      id:'magni-eth-4-21', brand:'Magni', emoji:'🔄', brandColor:'#1A1F36',
-      name:'Magni ETH 4.21 Electric Rotating', shortName:'Magni ETH 4.21',
-      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.5,
-      capacity:4.0, liftHeight:21.10, maxReach:17.50, engine:'Full Electric — 48V Li-ion, 110kWh battery pack',
-      machineWeight:18500, machineWidth:2490, machineLength:7000, machineHeight:3050,
-      stabilizerSpreadM:5.40, stabilizerDepthM:5.00,
-      jibWeight:135, jibLength:3.2, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
-      power:'Electric (Li-ion)',
-      terrain:'rough/outdoor', maxSpeed:20,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
-      bestFor:'4T electric 360° rotating telehandler — zero emissions for covered sites, hospitals, residential areas with noise restrictions',
-      note:'Magni ETH 4.21 — 4T, 21.1m lift, 17.5m reach. Fully electric rotating telehandler. Zero emissions and low noise — suitable for indoor construction, hospitals, schools, residential areas and emission-restricted zones. 110kWh Li-ion battery, 8+ hours typical operation. 360° continuous rotation. Duplex stabilizers (spread 5.4m). Stage V equivalent emissions = zero.',
-      tags:['Rotating 360°','4T','21m','Electric','Zero Emissions','ETH','Magni','Indoor','Low Noise'],
-      loadMatrix:[],
-      // ⚠️ loadMatrixTyres — ESTIMATED (proportional from loadMatrix). Cap: 2500kg. Deploy outriggers for rated capacity.
-      loadMatrixTyres:[],
-      // ⚠️ loadMatrixWinch — ESTIMATED (loadMatrix × 0.93, cap 3600kg).
-      loadMatrixWinch:[],
-      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[],
-      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (300kg constant throughout working envelope).
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','rough','heavy','electric']
-    },
-    {
       id:'magni-eth-5-26', brand:'Magni', emoji:'🔄', brandColor:'#1A1F36',
       name:'Magni ETH 5.26 Electric Rotating', shortName:'Magni ETH 5.26',
       isRotating:true, capacityOnTyres:3.0, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.5,
@@ -12187,92 +12161,6 @@ const MACHINES = {
         {h:8,r:0,kg:600},{h:8,r:2,kg:400},{h:8,r:4,kg:250},
         {h:12,r:0,kg:400},{h:12,r:2,kg:250},
         {h:16,r:0,kg:200},
-      ],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'manitou-mrt-2150', brand:'Manitou', emoji:'🔄', brandColor:'#E8001B',
-      name:'Manitou MRT 2150 Rotating', shortName:'Manitou MRT 2150',
-      isRotating:true,
-      // ── Confirmed — MRT Privilege+ Series Brochure p.30 ──────────────────
-      capacity:4.999, capacityOnTyres:3.0,
-      tyreCapacityNote:'On tyres: frontal sector only. ~3T close-in at ground, drops sharply with reach. Deploy Telescopic Duplex stabilisers for full 4,999 kg 360° capacity.',
-      liftHeight:20.60, maxReach:17.90,
-      engine:'Mercedes Stage IV / Final Tier 4, 156 hp (115 kW)',
-      machineWeight:17930, machineWidth:2490, machineLength:6870, machineHeight:3050,
-      groundClearanceM:0.35, turningRadiusM:4.88, drawbarPull:7900,
-      stabilizerType:'Telescopic Duplex', stabilizerSpreadM:5.55, stabilizerDepthM:5.19,
-      turretRotation:360, maxSpeed:25, steeringModes:'2WS/4WS/Crab',
-      // Attachment capacities — MRT Privilege+ Series Brochure
-      winchCapacity:4999,   // 7.2T twinchl — machine max 4999 kg
-      jibCapacity:1500,     // P Jib 1500 kg — p.28
-      ewpBasketSWL:365,     // 365 kg standard platform — p.30
-      ewpBasketSWL2:1000,
-      jibWeight:155, jibLength:3.5, rotatorWeight:770,
-      terrain:'rough/outdoor',
-      attachments:['Standard Forks','Winch / 7.2T Twinch','Jib 1.5T','EWP 365 kg','Man Basket','Hook Block'],
-      bestFor:'5T Privilege+ rotating at 20.6m — compact 360° rotating for mid-rise construction',
-      note:'Manitou MRT 2150 Privilege+ — 4,999 kg, 20.6m lift, 17.9m outreach. 360° continuous rotation. Mercedes Stage IV/Final Tier 4 115 kW. Telescopic Duplex stabilisers (5.55m spread). Drawbar 7,900 daN. 3-in-1: telehandler + crane + EWP. E-Reco attachment recognition. Source: Manitou MRT Privilege+ Series Brochure (MRT_Series.pdf p.30).',
-      tags:['Rotating 360°','5T','20.6m','Privilege+','Mercedes','Stage IV'],
-      // ── FORKS ON STABILISERS — "Rotation on lowered stabilizers with forks" ─
-      // Source: MRT Privilege+ Series brochure p.30 right chart
-      // Zones: 500,800,1000,1500,2000,2500,3000,3500,4000,4999 kg | Max h=20.9m Max r=17.9m
-      loadMatrix:[
-        {h:0,r:0,kg:4999},{h:0,r:2.5,kg:4999},{h:0,r:4.9,kg:4000},{h:0,r:6.5,kg:3500},{h:0,r:8,kg:3000},{h:0,r:9.5,kg:2500},{h:0,r:11,kg:2000},{h:0,r:13,kg:1500},{h:0,r:14.5,kg:1000},{h:0,r:16,kg:800},{h:0,r:17.9,kg:500},
-        {h:4,r:0,kg:4999},{h:4,r:2.5,kg:4999},{h:4,r:4.9,kg:4000},{h:4,r:6.5,kg:3500},{h:4,r:8,kg:3000},{h:4,r:9.5,kg:2500},{h:4,r:11,kg:2000},{h:4,r:13,kg:1500},{h:4,r:14.5,kg:1000},{h:4,r:16,kg:800},{h:4,r:17.5,kg:500},
-        {h:8,r:0,kg:4999},{h:8,r:2,kg:4999},{h:8,r:4,kg:4000},{h:8,r:5.5,kg:3500},{h:8,r:7,kg:3000},{h:8,r:8.5,kg:2500},{h:8,r:10.5,kg:2000},{h:8,r:12,kg:1500},{h:8,r:14,kg:1000},{h:8,r:15.5,kg:800},{h:8,r:17,kg:500},
-        {h:12,r:0,kg:4999},{h:12,r:1.5,kg:4999},{h:12,r:3.5,kg:4000},{h:12,r:5,kg:3500},{h:12,r:6.5,kg:3000},{h:12,r:8,kg:2500},{h:12,r:9.5,kg:2000},{h:12,r:11.5,kg:1500},{h:12,r:13,kg:1000},{h:12,r:14.5,kg:800},{h:12,r:15.5,kg:500},
-        {h:16,r:0,kg:4999},{h:16,r:1,kg:4999},{h:16,r:2.5,kg:4000},{h:16,r:4,kg:3500},{h:16,r:5.5,kg:3000},{h:16,r:7,kg:2500},{h:16,r:8.5,kg:2000},{h:16,r:10,kg:1500},{h:16,r:11.5,kg:1000},{h:16,r:13,kg:800},{h:16,r:14,kg:500},
-        {h:20,r:0,kg:4999},{h:20,r:0.5,kg:4000},{h:20,r:2,kg:3500},{h:20,r:3.5,kg:3000},{h:20,r:5,kg:2500},{h:20,r:6.5,kg:2000},{h:20,r:8,kg:1500},{h:20,r:10,kg:1000},{h:20,r:11,kg:800},{h:20,r:12.5,kg:500},
-        {h:20.9,r:0,kg:4000},{h:20.9,r:1.5,kg:3500},{h:20.9,r:3,kg:3000},{h:20.9,r:4.5,kg:2500},{h:20.9,r:6,kg:2000},{h:20.9,r:7.5,kg:1500},{h:20.9,r:9,kg:1000},
-      ],
-      // ── ON TYRES — frontal sector (estimated from envelope proportions)
-      loadMatrixTyres:[
-        {h:0,r:0,kg:3000},{h:0,r:1.5,kg:2500},{h:0,r:3.5,kg:2000},{h:0,r:5.5,kg:1500},{h:0,r:7.5,kg:1000},{h:0,r:10,kg:600},{h:0,r:12,kg:400},{h:0,r:14,kg:300},
-        {h:4,r:0,kg:2500},{h:4,r:1.5,kg:2000},{h:4,r:3.5,kg:1500},{h:4,r:6,kg:1000},{h:4,r:9,kg:600},{h:4,r:11,kg:400},{h:4,r:13,kg:300},
-        {h:8,r:0,kg:2000},{h:8,r:1.5,kg:1500},{h:8,r:4,kg:1000},{h:8,r:7,kg:600},{h:8,r:9,kg:400},{h:8,r:11,kg:300},
-        {h:12,r:0,kg:1500},{h:12,r:2,kg:1000},{h:12,r:5,kg:600},{h:12,r:8,kg:400},
-        {h:16,r:0,kg:800},{h:16,r:2,kg:600},{h:16,r:5,kg:400},
-        {h:19,r:0,kg:400},{h:19,r:2,kg:300},
-      ],
-      // ── JIB 1500 kg — "Rotation on lowered stabilisers with 1500 kg jib" ──
-      // Source: MRT Privilege+ Series brochure p.30 centre chart
-      // Zones: 500,600,900,1100,1300,1700,2000,2500,3000,4000,5000 kg | Max h=18.1m Max r=20.7m
-      loadMatrixWinch:[
-        {h:0,r:0,kg:5000},{h:0,r:3,kg:5000},{h:0,r:6,kg:4000},{h:0,r:7.5,kg:3000},{h:0,r:9.5,kg:2500},{h:0,r:11,kg:2000},{h:0,r:12,kg:1700},{h:0,r:13,kg:1300},{h:0,r:14,kg:1100},{h:0,r:15,kg:900},{h:0,r:16.5,kg:600},{h:0,r:18.1,kg:500},
-        {h:4,r:0,kg:5000},{h:4,r:2.5,kg:5000},{h:4,r:5.5,kg:4000},{h:4,r:7,kg:3000},{h:4,r:9,kg:2500},{h:4,r:10.5,kg:2000},{h:4,r:11.5,kg:1700},{h:4,r:12.5,kg:1300},{h:4,r:13.5,kg:1100},{h:4,r:14.5,kg:900},{h:4,r:16,kg:600},{h:4,r:17.5,kg:500},
-        {h:8,r:0,kg:5000},{h:8,r:2,kg:5000},{h:8,r:5,kg:4000},{h:8,r:6.5,kg:3000},{h:8,r:8.5,kg:2500},{h:8,r:10,kg:2000},{h:8,r:11,kg:1700},{h:8,r:12,kg:1300},{h:8,r:13,kg:1100},{h:8,r:14,kg:900},{h:8,r:15.5,kg:600},
-        {h:12,r:0,kg:5000},{h:12,r:1.5,kg:5000},{h:12,r:4.5,kg:4000},{h:12,r:6,kg:3000},{h:12,r:8,kg:2500},{h:12,r:9.5,kg:2000},{h:12,r:10.5,kg:1700},{h:12,r:11.5,kg:1300},{h:12,r:12.5,kg:1100},{h:12,r:13.5,kg:900},{h:12,r:14.5,kg:600},
-        {h:16,r:0,kg:5000},{h:16,r:1,kg:5000},{h:16,r:4,kg:4000},{h:16,r:5.5,kg:3000},{h:16,r:7.5,kg:2500},{h:16,r:9,kg:2000},{h:16,r:10,kg:1700},{h:16,r:11,kg:1300},{h:16,r:12,kg:1100},{h:16,r:13,kg:900},{h:16,r:14,kg:600},
-        {h:18.1,r:0,kg:5000},{h:18.1,r:2,kg:4000},{h:18.1,r:4,kg:3000},{h:18.1,r:6,kg:2500},{h:18.1,r:8,kg:2000},{h:18.1,r:10,kg:1700},{h:18.1,r:12,kg:1300},
-      ],
-      // loadMatrixJib = P Jib 1500 kg rated capacity profile
-      loadMatrixJib:[
-        {h:0,r:0,kg:1500},{h:0,r:8,kg:1500},{h:0,r:12,kg:1000},{h:0,r:15,kg:600},{h:0,r:17.5,kg:300},
-        {h:4,r:0,kg:1500},{h:4,r:7,kg:1500},{h:4,r:11,kg:1000},{h:4,r:14.5,kg:600},{h:4,r:17,kg:300},
-        {h:8,r:0,kg:1500},{h:8,r:6,kg:1500},{h:8,r:10,kg:1000},{h:8,r:13.5,kg:600},{h:8,r:16.5,kg:300},
-        {h:12,r:0,kg:1500},{h:12,r:5,kg:1500},{h:12,r:9,kg:1000},{h:12,r:12.5,kg:600},{h:12,r:15.5,kg:300},
-        {h:16,r:0,kg:1500},{h:16,r:4,kg:1500},{h:16,r:8,kg:1000},{h:16,r:11.5,kg:600},
-        {h:18.1,r:0,kg:1500},{h:18.1,r:3,kg:1500},{h:18.1,r:7,kg:1000},
-      ],
-      // loadMatrixJib800 = 365 kg EWP platform — constant throughout working envelope (max h=20.7m)
-      // Source: MRT Privilege+ Series brochure p.30 left chart
-      loadMatrixJib800:[
-        {h:0,r:0,kg:365},{h:0,r:17,kg:365},{h:4,r:0,kg:365},{h:4,r:17,kg:365},
-        {h:8,r:0,kg:365},{h:8,r:16.5,kg:365},{h:12,r:0,kg:365},{h:12,r:15.5,kg:365},
-        {h:16,r:0,kg:365},{h:16,r:14,kg:365},{h:20,r:0,kg:365},{h:20,r:12,kg:365},
-        {h:20.7,r:0,kg:365},{h:20.7,r:9,kg:365},
-      ],
-      loadMatrixJib1500:[
-        {h:0,r:0,kg:365},{h:4,r:0,kg:365},{h:8,r:0,kg:365},{h:12,r:0,kg:365},
-        {h:16,r:0,kg:365},{h:20,r:0,kg:365},{h:20.7,r:0,kg:365},
-      ],
-      loadMatrixTyres360:[
-        {h:0,r:0,kg:1500},{h:0,r:2,kg:1200},{h:0,r:4,kg:900},{h:0,r:6,kg:600},{h:0,r:8,kg:400},{h:0,r:10,kg:250},{h:0,r:12,kg:150},
-        {h:4,r:0,kg:1200},{h:4,r:2,kg:900},{h:4,r:4,kg:600},{h:4,r:6,kg:400},{h:4,r:8,kg:250},
-        {h:8,r:0,kg:900},{h:8,r:2,kg:600},{h:8,r:4,kg:400},{h:8,r:6,kg:250},
-        {h:12,r:0,kg:600},{h:12,r:2,kg:400},{h:12,r:4,kg:250},
-        {h:16,r:0,kg:300},{h:16,r:2,kg:200},
       ],
       filters:['telehandler','rough','heavy']
     },
@@ -52814,10 +52702,20 @@ function matchMachines(ans, type) {
       pool = pool.filter(m => {
         const actualKg = getCapacityAtPoint(m, exactHt, exactReach);
         if (actualKg === null) {
-          // No loadMatrix — fall back to checking rated max capacity only
+          // No loadMatrix — can only verify using basic specs.
+          // For rotating telehandlers: if height+reach both specified, require both spec values
+          // to exceed requirements. Rated capacity alone is NOT sufficient — the machine must
+          // also physically be able to reach the required outreach at the required height.
           const capT = m.liftCapacity || m.capacity || 0;
           const capKg = capT > 100 ? capT : capT * 1000;
-          return capKg >= exactKg;
+          if (capKg < exactKg) return false; // rated capacity too low
+          // If both height and reach are specified, also require spec values to cover them.
+          // This prevents machines from appearing when their working envelope can't be verified.
+          if (exactHt > 0 && (m.liftHeight || 0) < exactHt) return false;
+          if (exactReach > 0 && m.maxReach && m.maxReach < exactReach) return false;
+          // No load chart data — machine passes basic spec check but will show
+          // "📞 Confirm with rental company" panel in the card (not "outside envelope")
+          return true;
         }
         // Must be able to lift required kg at the required working point
         return actualKg >= exactKg;
