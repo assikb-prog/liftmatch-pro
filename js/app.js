@@ -49795,8 +49795,26 @@ function _renderCards(matches, machineType, answers) {
         <div style="font-size:.65rem;color:#94A3B8;text-align:left;background:#F8FAFC;padding:.5rem;border-radius:6px;margin-top:.3rem;overflow:auto;max-height:120px;white-space:pre-wrap">${(e.stack||'').slice(0,400)}</div>
       </div>`;
       container.appendChild(errCard);
+      _cardsRendered++;
     }
-  });
+  }); // end matches.forEach
+  } catch(_outerErr) {
+    // Ultimate fallback: outer loop crashed — render plain-text cards
+    console.error('[Noyo] _renderCards outer error:', _outerErr.message);
+    try {
+      matches.forEach(function(m) {
+        var fb = document.createElement('div');
+        fb.className = 'rec-card';
+        var _cap = ((m.liftCapacity||m.capacity||0)>100?(m.liftCapacity||m.capacity||0):(m.liftCapacity||m.capacity||0)*1000)||0;
+        fb.innerHTML = '<div style="padding:1.2rem"><strong>'+(m.emoji||'🔄')+' '+(m.name||m.id)+'</strong>'
+          +(_cap>0?' — '+(_cap/1000).toFixed(1)+'T':'')
+          +(m.liftHeight?' / '+m.liftHeight+'m lift':'')
+          +(m.maxReach?' / '+m.maxReach+'m reach':'')
+          +'<br><small style="color:#94A3B8">⚠️ '+_outerErr.message.slice(0,80)+'</small></div>';
+        container.appendChild(fb);
+      });
+    } catch(_e2) { console.error('[Noyo] fallback render also failed:', _e2.message); }
+  }
 }
 
 function buildXCBasketHtml(m, ans) {
