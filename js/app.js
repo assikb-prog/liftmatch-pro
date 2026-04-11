@@ -13810,7 +13810,7 @@ const MACHINES = {
     {
       id:'jcb-555-260r', brand:'JCB', emoji:'🔄', brandColor:'#F7C200',
       name:'JCB 555-260R Rotating', shortName:'JCB 555-260R',
-      isRotating:true, capacity:5.5, capacityOnTyres:4.0, liftHeight:25.50, maxReach:21.40, turretRotation:360,
+      isRotating:true, capacity:5.5, capacityOnTyres:4.0, liftHeight:26.0, maxReach:22.0, turretRotation:360,
       tyreCapacityNote:'Three modes: on outriggers 360° (5.5T max), straight ahead on tyres (4.0T max), full 360° on tyres (2.5T max). See detailed entry.',
       engine:'JCB DieselMax 112kW (150hp) Stage V',
       machineWeight:19400, machineWidth:2510, machineLength:8090, machineHeight:3080,
@@ -13818,77 +13818,103 @@ const MACHINES = {
       maxSpeed:40, gradeability:40, winchCapacity:5500, jibCapacity:2000, jibWeight:420, jibLength:2.0, hookCapacity:5500, ewpBasketSWL:1000,
       terrain:'rough/outdoor',
       attachments:['Standard Forks','5.5T Carriage Winch','2T Jib Winch','5.5T Hook','Man Platform 1000kg','Jib 5.5T 3-position'],
-      bestFor:'5.5T at 25.5m — 360° crane replacement, 7-8 storey construction',
-      note:'JCB 555-260R — 5,500kg max, 25.5m lift, 21.4m max reach (outriggers, 360°). 2,000kg at max height. 300kg at max reach. DieselMax 112kW Stage V. 19,400kg. 4x telescopic outriggers (5.0m spread). 6 brochure load charts digitised: forks 360°/outriggers, forks straight-ahead/tyres, forks 360°/tyres, 5.5T winch, 2T/2m jib winch, 1000kg man platform (varying capacity at outer reach: 300kg min). Attachment weights (brochure): 5.5T winch 469kg, 2T/2m jib winch 420kg, man platform 930kg. EN1459-2/EN280/ROPS/FOPS Stage V. Source: JCB 29460 08/21 + 30143 08/22.',
-      tags:['Rotating 360°','5.5T','25.5m','JCB','112kW'],
-      // ── CHART 1: FORKS 360° WITH OUTRIGGERS DEPLOYED ─────────────────────────────
-      // Zones: 300/700/1000/2000/3000/4000/5000/5500 kg
-      // Anchors: 5500kg max | 2000kg at max height (25.5m) | 300kg at max reach (21.4m)
-      loadMatrix:[{h:0,r:19.8,kg:300},{h:0,r:16.9,kg:700},{h:0,r:15.1,kg:1000},{h:0,r:11.1,kg:2000},{h:0,r:8.6,kg:3000},{h:0,r:6.8,kg:4000},{h:0,r:5.6,kg:5000},{h:0,r:4.9,kg:5500},
-        {h:2,r:19.8,kg:300},{h:2,r:18.5,kg:700},{h:2,r:16.9,kg:1000},{h:2,r:15.1,kg:2000},{h:2,r:11.1,kg:3000},{h:2,r:8.6,kg:4000},{h:2,r:7.6,kg:5000},{h:2,r:6.8,kg:5500},
-        {h:4,r:19.4,kg:300},{h:4,r:16.5,kg:700},{h:4,r:14.7,kg:1000},{h:4,r:13.9,kg:2000},{h:4,r:12.8,kg:3000},{h:4,r:10.9,kg:4000},{h:4,r:8.4,kg:5000},{h:4,r:6.8,kg:5500},
-        {h:6,r:19.0,kg:300},{h:6,r:16.1,kg:700},{h:6,r:14.3,kg:1000},{h:6,r:10.7,kg:2000},{h:6,r:8.1,kg:3000},{h:6,r:6.5,kg:4000},{h:6,r:5.6,kg:5000},{h:6,r:3.8,kg:5500},
-        {h:8,r:18.5,kg:300},{h:8,r:15.7,kg:700},{h:8,r:14.0,kg:1000},{h:8,r:10.6,kg:2000},{h:8,r:9.3,kg:3000},{h:8,r:7.9,kg:4000},{h:8,r:6.2,kg:5000},{h:8,r:5.6,kg:5500},
-        {h:10,r:18.0,kg:300},{h:10,r:15.3,kg:700},{h:10,r:13.6,kg:1000},{h:10,r:11.5,kg:2000},{h:10,r:10.4,kg:3000},{h:10,r:7.6,kg:4000},{h:10,r:5.9,kg:5000},{h:10,r:3.8,kg:5500},
-        {h:12,r:17.1,kg:300},{h:12,r:14.9,kg:700},{h:12,r:13.3,kg:1000},{h:12,r:10.3,kg:2000},{h:12,r:9.1,kg:3000},{h:12,r:8.6,kg:4000},{h:12,r:7.5,kg:5000},{h:12,r:5.0,kg:5500},
-        {h:14,r:15.6,kg:300},{h:14,r:14.5,kg:700},{h:14,r:12.8,kg:1000},{h:14,r:10.9,kg:2000},{h:14,r:10.1,kg:3000},{h:14,r:6.4,kg:4000},{h:14,r:2.7,kg:5000},
-        {h:16,r:13.7,kg:300},{h:16,r:12.4,kg:700},{h:16,r:9.3,kg:1000},{h:16,r:7.4,kg:2000},{h:16,r:2.3,kg:3000},
-        {h:18,r:11.5,kg:300},{h:18,r:8.5,kg:700},{h:18,r:4.2,kg:1000},{h:18,r:2.2,kg:2000},
-        {h:20,r:8.1,kg:300},{h:20,r:5.0,kg:700},{h:20,r:2.7,kg:1000},
-        {h:22,r:4.0,kg:300},{h:22,r:2.5,kg:700},{h:24,r:2.5,kg:300},{h:24,r:1.5,kg:700},{h:25.5,r:1.0,kg:700}],
-      // ── CHART 2: FORKS STRAIGHT AHEAD ON TYRES ───────────────────────────────────
-      // Zones: 300/400/600/1000/1400/2000/2500/3000/4000 kg
-      loadMatrixTyres:[{h:0,r:14.3,kg:300},{h:0,r:13.5,kg:400},{h:0,r:12.6,kg:600},{h:0,r:10.4,kg:1000},{h:0,r:8.5,kg:1400},{h:0,r:7.2,kg:2000},{h:0,r:6.4,kg:2500},{h:0,r:5.6,kg:3000},{h:0,r:4.0,kg:4000},
-        {h:2,r:13.6,kg:300},{h:2,r:12.4,kg:400},{h:2,r:10.2,kg:600},{h:2,r:8.5,kg:1000},{h:2,r:7.1,kg:1400},{h:2,r:6.3,kg:2000},{h:2,r:5.5,kg:2500},{h:2,r:4.0,kg:3000},
-        {h:4,r:13.8,kg:300},{h:4,r:13.1,kg:400},{h:4,r:12.1,kg:600},{h:4,r:11.1,kg:1000},{h:4,r:9.9,kg:1400},{h:4,r:8.5,kg:2000},{h:4,r:6.9,kg:2500},{h:4,r:5.9,kg:3000},{h:4,r:4.0,kg:4000},
-        {h:6,r:13.4,kg:300},{h:6,r:12.8,kg:400},{h:6,r:11.7,kg:600},{h:6,r:10.7,kg:1000},{h:6,r:9.7,kg:1400},{h:6,r:8.2,kg:2000},{h:6,r:6.7,kg:2500},{h:6,r:5.8,kg:3000},{h:6,r:5.1,kg:4000},
-        {h:8,r:13.1,kg:300},{h:8,r:12.6,kg:400},{h:8,r:11.4,kg:600},{h:8,r:9.3,kg:1000},{h:8,r:8.8,kg:1400},{h:8,r:7.9,kg:2000},{h:8,r:6.5,kg:2500},{h:8,r:5.4,kg:3000},{h:8,r:3.5,kg:4000},
-        {h:10,r:12.8,kg:300},{h:10,r:12.3,kg:400},{h:10,r:11.6,kg:600},{h:10,r:11.0,kg:1000},{h:10,r:9.1,kg:1400},{h:10,r:7.6,kg:2000},{h:10,r:6.2,kg:2500},{h:10,r:5.3,kg:3000},{h:10,r:4.4,kg:4000},
-        {h:12,r:12.5,kg:300},{h:12,r:12.1,kg:400},{h:12,r:10.7,kg:600},{h:12,r:9.0,kg:1000},{h:12,r:7.4,kg:1400},{h:12,r:5.9,kg:2000},{h:12,r:5.1,kg:2500},{h:12,r:3.9,kg:3000},{h:12,r:2.2,kg:4000},
-        {h:14,r:10.5,kg:300},{h:14,r:8.5,kg:400},{h:14,r:7.0,kg:600},{h:14,r:5.6,kg:1000},{h:14,r:2.2,kg:1400},
-        {h:16,r:7.1,kg:300},{h:16,r:5.3,kg:400},{h:16,r:3.9,kg:600},{h:16,r:1.9,kg:1000},
-        {h:18,r:1.6,kg:300}],
-      // ── CHART 3: FORKS 360° ON TYRES ─────────────────────────────────────────────
-      // Zones: 300/500/1000/1500/2000/2500 kg
-      loadMatrixTyres360:[{h:0,r:0,kg:2500},{h:0,r:1.5,kg:2000},{h:0,r:4,kg:1500},{h:0,r:8,kg:1000},{h:0,r:13,kg:500},{h:0,r:18,kg:300},{h:4,r:0,kg:2500},{h:4,r:1.5,kg:2000},{h:4,r:4,kg:1500},{h:4,r:8,kg:1000},{h:4,r:13,kg:500},{h:4,r:18,kg:300},{h:8,r:0,kg:2500},{h:8,r:1.5,kg:2000},{h:8,r:4,kg:1500},{h:8,r:8,kg:1000},{h:8,r:12.5,kg:500},{h:12,r:0,kg:2500},{h:12,r:1.5,kg:2000},{h:12,r:3.5,kg:1500},{h:12,r:7.5,kg:1000},{h:12,r:12,kg:500},{h:16,r:0,kg:2500},{h:16,r:1,kg:2000},{h:16,r:3,kg:1500},{h:16,r:7,kg:1000},{h:18,r:0,kg:2000},{h:18,r:2.5,kg:1500},{h:18,r:6.5,kg:1000},{h:20,r:0,kg:2000},{h:20,r:2,kg:1500},{h:20,r:6,kg:1000},{h:21,r:0,kg:2000},{h:21,r:1.5,kg:1500}],
-      // ── CHART 4: 5.5T WINCH 360° WITH OUTRIGGERS DEPLOYED ────────────────────────
-      // Zones: 300/1000/2000/3000/4000/5000/5500 kg
-      loadMatrixWinch:[{h:0,r:0,kg:5500},{h:0,r:1.5,kg:5000},{h:0,r:3,kg:4000},{h:0,r:5.5,kg:3000},{h:0,r:9,kg:2000},{h:0,r:14,kg:1000},{h:0,r:20,kg:300},{h:4,r:0,kg:5500},{h:4,r:1.5,kg:5000},{h:4,r:3,kg:4000},{h:4,r:5.5,kg:3000},{h:4,r:9,kg:2000},{h:4,r:14,kg:1000},{h:4,r:20,kg:300},{h:8,r:0,kg:5500},{h:8,r:1.5,kg:5000},{h:8,r:3,kg:4000},{h:8,r:5.5,kg:3000},{h:8,r:9,kg:2000},{h:8,r:14,kg:1000},{h:8,r:18,kg:300},{h:12,r:0,kg:5500},{h:12,r:1.5,kg:5000},{h:12,r:3,kg:4000},{h:12,r:5,kg:3000},{h:12,r:8.5,kg:2000},{h:12,r:13.5,kg:1000},{h:12,r:17,kg:300},{h:16,r:0,kg:5500},{h:16,r:1.5,kg:5000},{h:16,r:2.5,kg:4000},{h:16,r:5,kg:3000},{h:16,r:8,kg:2000},{h:16,r:13,kg:1000},{h:16,r:15,kg:300},{h:20,r:0,kg:5500},{h:20,r:1.0,kg:5000},{h:20,r:2.5,kg:4000},{h:20,r:4.5,kg:3000},{h:20,r:8.0,kg:2000},{h:20,r:12,kg:1000},{h:20,r:16,kg:300},{h:23,r:0,kg:5500},{h:23,r:1.0,kg:5000},{h:23,r:2.5,kg:4000},{h:23,r:5.0,kg:3000},{h:23,r:9.0,kg:2000},{h:26,r:0,kg:5500},{h:26,r:0.5,kg:5000},{h:26,r:2.5,kg:4000},{h:26,r:5.0,kg:3000},{h:27,r:0,kg:5500},{h:27,r:0.5,kg:5000},{h:27,r:3.0,kg:4000}],
-      // ── CHART 5: 2T/2M JIB WINCH 360° WITH OUTRIGGERS DEPLOYED ──────────────────
-      // Zones: 300/500/1000/1500/2000 kg | Max 2000kg (winch rating). Attachment weight 420kg already in chart zones.
-      loadMatrixJib800:[{h:0,r:0,kg:2000},{h:0,r:3,kg:1500},{h:0,r:7,kg:1000},{h:0,r:15,kg:500},{h:0,r:21,kg:300},{h:4,r:0,kg:2000},{h:4,r:3,kg:1500},{h:4,r:7,kg:1000},{h:4,r:15,kg:500},{h:4,r:21,kg:300},{h:8,r:0,kg:2000},{h:8,r:3,kg:1500},{h:8,r:7,kg:1000},{h:8,r:15,kg:500},{h:12,r:0,kg:2000},{h:12,r:2.5,kg:1500},{h:12,r:6.5,kg:1000},{h:12,r:14.5,kg:500},{h:16,r:0,kg:2000},{h:16,r:2.5,kg:1500},{h:16,r:6,kg:1000},{h:16,r:14,kg:500},{h:20,r:0,kg:2000},{h:20,r:2,kg:1500},{h:20,r:5.5,kg:1000},{h:20,r:13.5,kg:500},{h:24,r:0,kg:2000},{h:24,r:2,kg:1500},{h:24,r:5,kg:1000},{h:26,r:0,kg:2000},{h:26,r:1.5,kg:1500},{h:26,r:4.5,kg:1000},{h:28,r:0,kg:2000},{h:28,r:1,kg:1500}],
-      // ── CHART 6: 1000KG SLEWING MAN PLATFORM WITH OUTRIGGERS DEPLOYED ────────────
-      // Zones: 300/500/1000/1500/2000 kg. Effective capacity = min(zone_value, basket_SWL_1000kg).
-      // At close reach / normal height: machine stable for full 1000kg SWL.
-      // At extended reach (>10m): machine stability limits to 500kg or 300kg.
-      loadMatrixJib1500:[{h:0,r:0,kg:1000},{h:0,r:13.0,kg:1000},{h:4,r:0,kg:1000},{h:4,r:13.0,kg:1000},{h:8,r:0,kg:1000},{h:8,r:12.0,kg:1000},{h:12,r:0,kg:1000},{h:12,r:10.5,kg:1000},{h:16,r:0,kg:1000},{h:16,r:9.0,kg:1000},{h:20,r:0,kg:1000},{h:20,r:7.0,kg:1000},{h:24,r:0,kg:1000},{h:24,r:4.0,kg:1000},{h:26,r:0,kg:1000},{h:26,r:2.5,kg:1000},{h:28,r:0,kg:1000},{h:28,r:1.5,kg:1000}],
+      bestFor:'5.5T at 26m — 360° crane replacement, 7-8 storey construction',
+      note:'JCB 555-260R — 5,500kg max, 26.0m lift, 22.0m max reach (outriggers, 360°). 2,000kg at max height. 300kg at max reach. DieselMax 112kW Stage V. 19,400kg. 4x telescopic outriggers (5.0m spread). 6 load charts digitised from JCB 555-260R brochure: forks 360°/outriggers, forks straight-ahead/tyres, forks 360°/tyres, 5.5T winch, 2T/2m jib winch, 1000kg man platform. Attachment weights (brochure): 5.5T winch 469kg, 2T/2m jib winch 420kg, man platform 930kg. EN1459-2/EN280/ROPS/FOPS Stage V.',
+      tags:['Rotating 360°','5.5T','26m','JCB','112kW'],
+      // ── CHART 1: FORKS 360° WITH OUTRIGGERS DEPLOYED ─────────────────────
+      // Source: JCB 555-260R brochure — digitised April 2026
+      // Zones: 300/700/1000/2000/3000/4000/5000/5500 kg | Max h=26m | Max r≈22m
+      loadMatrix:[
+        {h:0,r:0.6,kg:5500},{h:0,r:5.5,kg:5000},{h:0,r:7.5,kg:4000},{h:0,r:10.0,kg:3000},{h:0,r:13.0,kg:2000},{h:0,r:17.0,kg:1000},{h:0,r:19.0,kg:700},{h:0,r:20.5,kg:300},
+        {h:2,r:0.6,kg:5500},{h:2,r:6.0,kg:5000},{h:2,r:8.5,kg:4000},{h:2,r:11.5,kg:3000},{h:2,r:15.0,kg:2000},{h:2,r:19.0,kg:1000},{h:2,r:21.0,kg:700},{h:2,r:22.0,kg:300},
+        {h:4,r:0.6,kg:5500},{h:4,r:6.5,kg:5000},{h:4,r:9.5,kg:4000},{h:4,r:12.5,kg:3000},{h:4,r:16.0,kg:2000},{h:4,r:20.0,kg:1000},{h:4,r:21.5,kg:700},{h:4,r:22.5,kg:300},
+        {h:6,r:0.6,kg:5500},{h:6,r:7.0,kg:5000},{h:6,r:10.0,kg:4000},{h:6,r:13.5,kg:3000},{h:6,r:17.0,kg:2000},{h:6,r:21.0,kg:1000},{h:6,r:22.5,kg:700},
+        {h:8,r:0.6,kg:5500},{h:8,r:7.5,kg:5000},{h:8,r:10.5,kg:4000},{h:8,r:14.0,kg:3000},{h:8,r:17.5,kg:2000},{h:8,r:21.5,kg:1000},{h:8,r:22.5,kg:700},
+        {h:10,r:0.6,kg:5500},{h:10,r:7.0,kg:5000},{h:10,r:10.5,kg:4000},{h:10,r:14.0,kg:3000},{h:10,r:17.5,kg:2000},{h:10,r:21.0,kg:1000},{h:10,r:22.0,kg:700},
+        {h:12,r:0.6,kg:5500},{h:12,r:7.0,kg:5000},{h:12,r:10.0,kg:4000},{h:12,r:13.5,kg:3000},{h:12,r:17.0,kg:2000},{h:12,r:20.5,kg:1000},{h:12,r:21.5,kg:700},
+        {h:14,r:0.6,kg:5500},{h:14,r:6.5,kg:5000},{h:14,r:9.5,kg:4000},{h:14,r:13.0,kg:3000},{h:14,r:16.5,kg:2000},{h:14,r:20.0,kg:1000},{h:14,r:21.0,kg:700},
+        {h:16,r:0.6,kg:5500},{h:16,r:6.0,kg:5000},{h:16,r:9.0,kg:4000},{h:16,r:12.5,kg:3000},{h:16,r:16.0,kg:2000},{h:16,r:19.5,kg:1000},{h:16,r:20.5,kg:700},
+        {h:18,r:0.6,kg:5500},{h:18,r:5.0,kg:5000},{h:18,r:7.5,kg:4000},{h:18,r:11.0,kg:3000},{h:18,r:14.5,kg:2000},{h:18,r:18.0,kg:1000},{h:18,r:19.0,kg:700},
+        {h:20,r:0.6,kg:5000},{h:20,r:5.0,kg:4000},{h:20,r:8.5,kg:3000},{h:20,r:12.5,kg:2000},{h:20,r:16.5,kg:1000},{h:20,r:17.5,kg:700},
+        {h:22,r:0.6,kg:4000},{h:22,r:5.0,kg:3000},{h:22,r:9.0,kg:2000},{h:22,r:13.5,kg:1000},{h:22,r:15.0,kg:700},
+        {h:24,r:0.6,kg:3000},{h:24,r:3.5,kg:2000},{h:24,r:8.5,kg:1000},{h:24,r:11.0,kg:700},
+        {h:26,r:0.6,kg:2000},{h:26,r:4.0,kg:1000},{h:26,r:7.0,kg:700},
+      ],
+      // ── CHART 2: FORKS STRAIGHT AHEAD ON TYRES ───────────────────────────
+      // Source: JCB 555-260R brochure | Zones: 300/400/600/1000/1400/2000/2500/3000/4000 kg
+      loadMatrixTyres:[
+        {h:0,r:0.6,kg:4000},{h:0,r:4.5,kg:3000},{h:0,r:6.0,kg:2500},{h:0,r:7.5,kg:2000},{h:0,r:9.5,kg:1400},{h:0,r:11.5,kg:1000},{h:0,r:13.0,kg:600},{h:0,r:14.5,kg:400},{h:0,r:15.5,kg:300},
+        {h:2,r:0.6,kg:3000},{h:2,r:4.5,kg:2500},{h:2,r:6.5,kg:2000},{h:2,r:8.5,kg:1400},{h:2,r:11.0,kg:1000},{h:2,r:12.5,kg:600},{h:2,r:14.0,kg:400},{h:2,r:15.0,kg:300},
+        {h:4,r:0.6,kg:4000},{h:4,r:4.5,kg:3000},{h:4,r:6.5,kg:2500},{h:4,r:8.5,kg:2000},{h:4,r:10.5,kg:1400},{h:4,r:13.0,kg:1000},{h:4,r:15.0,kg:600},{h:4,r:16.5,kg:400},{h:4,r:17.5,kg:300},
+        {h:6,r:0.6,kg:4000},{h:6,r:4.5,kg:3000},{h:6,r:6.5,kg:2500},{h:6,r:8.5,kg:2000},{h:6,r:10.5,kg:1400},{h:6,r:13.0,kg:1000},{h:6,r:15.0,kg:600},{h:6,r:16.5,kg:400},{h:6,r:17.5,kg:300},
+        {h:8,r:0.6,kg:4000},{h:8,r:4.0,kg:3000},{h:8,r:6.0,kg:2500},{h:8,r:8.0,kg:2000},{h:8,r:10.0,kg:1400},{h:8,r:12.5,kg:1000},{h:8,r:14.5,kg:600},{h:8,r:16.0,kg:400},{h:8,r:17.0,kg:300},
+        {h:10,r:0.6,kg:4000},{h:10,r:4.5,kg:3000},{h:10,r:6.5,kg:2500},{h:10,r:8.5,kg:2000},{h:10,r:10.5,kg:1400},{h:10,r:13.0,kg:1000},{h:10,r:15.5,kg:600},{h:10,r:17.0,kg:400},{h:10,r:18.0,kg:300},
+        {h:12,r:0.6,kg:4000},{h:12,r:3.5,kg:3000},{h:12,r:5.5,kg:2500},{h:12,r:7.5,kg:2000},{h:12,r:9.5,kg:1400},{h:12,r:11.5,kg:1000},{h:12,r:13.5,kg:600},{h:12,r:15.0,kg:400},{h:12,r:16.0,kg:300},
+        {h:14,r:0.6,kg:2500},{h:14,r:3.0,kg:2000},{h:14,r:5.5,kg:1400},{h:14,r:8.0,kg:1000},{h:14,r:10.0,kg:600},{h:14,r:11.5,kg:400},{h:14,r:12.5,kg:300},
+        {h:16,r:0.6,kg:1400},{h:16,r:3.0,kg:1000},{h:16,r:5.5,kg:600},{h:16,r:7.5,kg:400},{h:16,r:8.5,kg:300},
+        {h:18,r:0.6,kg:600},{h:18,r:2.0,kg:400},{h:18,r:3.0,kg:300},
+        {h:20,r:0.6,kg:300},
+      ],
+      // ── CHART 3: FORKS 360° ON TYRES ──────────────────────────────────────
+      // Source: JCB 555-260R brochure | Zones: 300/500/1000/1500/2000/2500 kg
+      loadMatrixTyres360:[
+        {h:0,r:0.6,kg:2500},{h:0,r:2.0,kg:2000},{h:0,r:4.5,kg:1500},{h:0,r:8.5,kg:1000},{h:0,r:13.5,kg:500},{h:0,r:18.5,kg:300},
+        {h:2,r:0.6,kg:2500},{h:2,r:2.0,kg:2000},{h:2,r:4.5,kg:1500},{h:2,r:8.5,kg:1000},{h:2,r:13.5,kg:500},{h:2,r:18.5,kg:300},
+        {h:4,r:0.6,kg:2500},{h:4,r:2.0,kg:2000},{h:4,r:4.5,kg:1500},{h:4,r:8.5,kg:1000},{h:4,r:13.5,kg:500},{h:4,r:18.5,kg:300},
+        {h:6,r:0.6,kg:2500},{h:6,r:2.0,kg:2000},{h:6,r:4.5,kg:1500},{h:6,r:8.5,kg:1000},{h:6,r:13.5,kg:500},{h:6,r:18.0,kg:300},
+        {h:8,r:0.6,kg:2500},{h:8,r:2.0,kg:2000},{h:8,r:4.0,kg:1500},{h:8,r:8.0,kg:1000},{h:8,r:13.0,kg:500},{h:8,r:17.5,kg:300},
+        {h:10,r:0.6,kg:2500},{h:10,r:2.0,kg:2000},{h:10,r:4.0,kg:1500},{h:10,r:7.5,kg:1000},{h:10,r:12.5,kg:500},{h:10,r:17.0,kg:300},
+        {h:12,r:0.6,kg:2500},{h:12,r:1.5,kg:2000},{h:12,r:3.5,kg:1500},{h:12,r:7.5,kg:1000},{h:12,r:12.0,kg:500},{h:12,r:16.5,kg:300},
+        {h:14,r:0.6,kg:2000},{h:14,r:3.0,kg:1500},{h:14,r:7.0,kg:1000},{h:14,r:11.5,kg:500},{h:14,r:16.0,kg:300},
+        {h:16,r:0.6,kg:2000},{h:16,r:2.5,kg:1500},{h:16,r:6.5,kg:1000},{h:16,r:11.0,kg:500},{h:16,r:15.5,kg:300},
+        {h:18,r:0.6,kg:2000},{h:18,r:2.0,kg:1500},{h:18,r:6.0,kg:1000},{h:18,r:10.5,kg:500},{h:18,r:14.5,kg:300},
+        {h:20,r:0.6,kg:2000},{h:20,r:2.0,kg:1500},{h:20,r:5.5,kg:1000},{h:20,r:10.0,kg:500},{h:20,r:14.0,kg:300},
+        {h:21,r:0.6,kg:2000},{h:21,r:1.5,kg:1500},{h:21,r:5.0,kg:1000},{h:21,r:9.5,kg:500},
+      ],
+      // ── CHART 4: 5.5T WINCH, 360° WITH OUTRIGGERS DEPLOYED ───────────────
+      // Source: JCB 555-260R brochure | Zones: 300/1000/2000/3000/4000/5000/5500 kg
+      loadMatrixWinch:[
+        {h:0,r:0.6,kg:5500},{h:0,r:1.5,kg:5000},{h:0,r:3.0,kg:4000},{h:0,r:5.5,kg:3000},{h:0,r:9.0,kg:2000},{h:0,r:14.5,kg:1000},{h:0,r:20.0,kg:300},
+        {h:4,r:0.6,kg:5500},{h:4,r:1.5,kg:5000},{h:4,r:3.0,kg:4000},{h:4,r:5.5,kg:3000},{h:4,r:9.5,kg:2000},{h:4,r:15.5,kg:1000},{h:4,r:21.0,kg:300},
+        {h:8,r:0.6,kg:5500},{h:8,r:1.5,kg:5000},{h:8,r:3.0,kg:4000},{h:8,r:6.0,kg:3000},{h:8,r:10.0,kg:2000},{h:8,r:16.0,kg:1000},{h:8,r:21.5,kg:300},
+        {h:12,r:0.6,kg:5500},{h:12,r:1.5,kg:5000},{h:12,r:3.5,kg:4000},{h:12,r:6.5,kg:3000},{h:12,r:10.5,kg:2000},{h:12,r:16.5,kg:1000},{h:12,r:21.0,kg:300},
+        {h:16,r:0.6,kg:5500},{h:16,r:1.5,kg:5000},{h:16,r:3.5,kg:4000},{h:16,r:6.5,kg:3000},{h:16,r:10.5,kg:2000},{h:16,r:16.0,kg:1000},{h:16,r:20.0,kg:300},
+        {h:20,r:0.6,kg:5500},{h:20,r:1.5,kg:5000},{h:20,r:3.0,kg:4000},{h:20,r:6.0,kg:3000},{h:20,r:10.0,kg:2000},{h:20,r:15.5,kg:1000},{h:20,r:19.0,kg:300},
+        {h:24,r:0.6,kg:5500},{h:24,r:1.0,kg:5000},{h:24,r:3.0,kg:4000},{h:24,r:6.0,kg:3000},{h:24,r:10.0,kg:2000},{h:24,r:15.0,kg:1000},
+        {h:26,r:0.6,kg:5500},{h:26,r:1.0,kg:5000},{h:26,r:3.0,kg:4000},{h:26,r:6.0,kg:3000},{h:26,r:10.0,kg:2000},{h:26,r:14.0,kg:1000},
+        {h:27,r:0.6,kg:5500},{h:27,r:1.0,kg:5000},{h:27,r:3.0,kg:4000},{h:27,r:6.0,kg:3000},
+        {h:28,r:0.6,kg:5500},{h:28,r:1.5,kg:5000},{h:28,r:3.5,kg:4000},
+      ],
+      // ── CHART 5: 2T/2M JIB WINCH, 360° WITH OUTRIGGERS DEPLOYED ─────────
+      // Source: JCB 555-260R brochure | Zones: 300/500/1000/1500/2000 kg
+      // Attachment weight (420kg) already factored into brochure chart zones.
+      loadMatrixJib800:[
+        {h:0,r:0.6,kg:2000},{h:0,r:3.5,kg:1500},{h:0,r:8.0,kg:1000},{h:0,r:17.0,kg:500},{h:0,r:22.0,kg:300},
+        {h:4,r:0.6,kg:2000},{h:4,r:3.5,kg:1500},{h:4,r:8.0,kg:1000},{h:4,r:17.5,kg:500},{h:4,r:22.5,kg:300},
+        {h:8,r:0.6,kg:2000},{h:8,r:3.5,kg:1500},{h:8,r:8.0,kg:1000},{h:8,r:17.5,kg:500},{h:8,r:22.5,kg:300},
+        {h:12,r:0.6,kg:2000},{h:12,r:3.0,kg:1500},{h:12,r:7.5,kg:1000},{h:12,r:17.0,kg:500},{h:12,r:22.0,kg:300},
+        {h:16,r:0.6,kg:2000},{h:16,r:3.0,kg:1500},{h:16,r:7.0,kg:1000},{h:16,r:16.5,kg:500},{h:16,r:21.5,kg:300},
+        {h:20,r:0.6,kg:2000},{h:20,r:2.5,kg:1500},{h:20,r:7.0,kg:1000},{h:20,r:16.0,kg:500},{h:20,r:21.0,kg:300},
+        {h:24,r:0.6,kg:2000},{h:24,r:2.5,kg:1500},{h:24,r:6.5,kg:1000},{h:24,r:15.5,kg:500},
+        {h:26,r:0.6,kg:2000},{h:26,r:2.0,kg:1500},{h:26,r:6.0,kg:1000},{h:26,r:15.0,kg:500},
+        {h:28,r:0.6,kg:2000},{h:28,r:1.5,kg:1500},{h:28,r:5.5,kg:1000},
+      ],
+      // ── CHART 6: 1000KG SLEWING MAN PLATFORM WITH OUTRIGGERS ─────────────
+      // Source: JCB 555-260R brochure | 1000kg constant within zone.
+      // Effective capacity = min(zone_value, basket_SWL_1000kg).
+      loadMatrixJib1500:[
+        {h:0,r:0.6,kg:1000},{h:0,r:13.0,kg:1000},
+        {h:4,r:0.6,kg:1000},{h:4,r:13.0,kg:1000},
+        {h:8,r:0.6,kg:1000},{h:8,r:12.5,kg:1000},
+        {h:12,r:0.6,kg:1000},{h:12,r:11.5,kg:1000},
+        {h:16,r:0.6,kg:1000},{h:16,r:10.5,kg:1000},
+        {h:20,r:0.6,kg:1000},{h:20,r:9.0,kg:1000},
+        {h:24,r:0.6,kg:1000},{h:24,r:7.0,kg:1000},
+        {h:26,r:0.6,kg:1000},{h:26,r:5.0,kg:1000},
+        {h:28,r:0.6,kg:1000},{h:28,r:3.5,kg:1000},
+      ],
       filters:['telehandler','rough','heavy']
     },
-
-    {
-      id:'jcb-555-210r-hiviz', brand:'JCB', emoji:'🔄', brandColor:'#FFDA00',
-      name:'JCB 555-210R HiViz Rotating', shortName:'JCB 555-210R HiViz',
-      isRotating:true, capacityOnTyres:3.5, tyreCapacityNote:'On rubber (tyres only — no outriggers): max ~3.5T at limited height/reach. Full 5.5T rated capacity requires outriggers deployed. Consult load chart.', capacity:5.5, liftHeight:20.90, maxReach:17.50, engine:'JCB DieselMax Stage V 74kW',
-      machineWeight:17200, machineWidth:2490, machineLength:7100, machineHeight:2980,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Man Basket','Work Platform','Hook'],
-      bestFor:'Maximum visibility rotating telehandler — urban construction and confined sites',
-      note:'JCB 555-210R HiViz — Same specs as 555-210R but with elevated HiViz cab for superior operator sightlines. 5.5T, 20.9m, 17.5m outreach. 360° rotation. Ideal for congested urban sites.',
-      tags:['Rotating 360°','5.5T','20.9m','HiViz Cab','Urban Sites'],
-      loadMatrix:[],
-      // ⚠️ loadMatrixTyres — ESTIMATED (proportional from loadMatrix). Cap: 3500kg. Deploy outriggers for rated capacity.
-      loadMatrixTyres:[],
-      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[],
-      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (1000kg constant throughout working envelope).
-      loadMatrixJib1500:[],
-      // ⚠️ loadMatrixWinch — ESTIMATED (hook/jib lift: loadMatrix × 0.93, cap 5500kg).
-      loadMatrixWinch:[],
-      loadMatrixTyres360:[],
-
-      filters:['telehandler','rough','heavy']
-    },
-    // ── JCB Missing models ────────────────────────────────────────────────
     {
       id:'jcb-555-260r-hiviz', brand:'JCB', emoji:'🔄', brandColor:'#FFDA00',
       name:'JCB 555-260R HiViz Rotating', shortName:'JCB 555-260R HiViz',
