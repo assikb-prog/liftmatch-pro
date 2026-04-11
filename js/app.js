@@ -10249,7 +10249,7 @@ const MACHINES = {
       ewpBasketSWL3:500,         // REP 5.2-6.5 W0.3: 500 kg platform + 300 kg winch (Chart 12)
       terrain:'rough/outdoor',
       attachments:['Standard Forks 7T','Winch W6 6000kg','Hook H6 6000kg','Jib+Winch JW3000','Jib+Winch JW2000','Jib+Winch JW1500','Jib+Winch JW800','Jib J2000 (no winch)','REP Platform 1000kg','REP Platform 500kg','Basket 500kg+Winch 300kg'],
-      bestFor:['heavy lifting on rough terrain','360 degree slewing','industrial construction','mining site access','restricted site work'],
+      bestFor:'Heavy lifting on rough terrain — 360° slewing, industrial construction, mining site access, restricted site work.',
       // ── Load matrices — all from Magni RTH 7.26 brochure load charts ──
       // Chart 1: 360° on stabs ATT-03-004 (stabs fully extended)
       loadMatrix:[{h:0.6,r:0.0,kg:7000},{h:0.6,r:2.5,kg:6000},{h:0.6,r:5.0,kg:5000},{h:0.6,r:7.5,kg:4000},{h:0.6,r:10.5,kg:3000},{h:0.6,r:13.5,kg:2500},{h:0.6,r:16.0,kg:2000},{h:0.6,r:18.0,kg:1500},{h:0.6,r:20.0,kg:1000},{h:0.6,r:22.0,kg:750},{h:3.7,r:0.0,kg:7000},{h:3.7,r:2.5,kg:6000},{h:3.7,r:5.0,kg:5000},{h:3.7,r:7.5,kg:4000},{h:3.7,r:10.5,kg:3000},{h:3.7,r:13.5,kg:2500},{h:3.7,r:15.5,kg:2000},{h:3.7,r:17.5,kg:1500},{h:3.7,r:19.5,kg:1000},{h:3.7,r:21.8,kg:750},{h:6.8,r:0.0,kg:7000},{h:6.8,r:2.5,kg:6000},{h:6.8,r:5.0,kg:5000},{h:6.8,r:7.5,kg:4000},{h:6.8,r:10.0,kg:3000},{h:6.8,r:13.0,kg:2500},{h:6.8,r:15.0,kg:2000},{h:6.8,r:17.0,kg:1500},{h:6.8,r:19.0,kg:1000},{h:6.8,r:21.5,kg:750},{h:9.9,r:0.0,kg:7000},{h:9.9,r:2.5,kg:6000},{h:9.9,r:5.0,kg:5000},{h:9.9,r:7.5,kg:4000},{h:9.9,r:10.0,kg:3000},{h:9.9,r:12.5,kg:2500},{h:9.9,r:14.5,kg:2000},{h:9.9,r:16.5,kg:1500},{h:9.9,r:18.5,kg:1000},{h:9.9,r:21.0,kg:750},{h:12.9,r:0.0,kg:7000},{h:12.9,r:2.5,kg:6000},{h:12.9,r:5.0,kg:5000},{h:12.9,r:7.0,kg:4000},{h:12.9,r:9.5,kg:3000},{h:12.9,r:12.0,kg:2500},{h:12.9,r:14.0,kg:2000},{h:12.9,r:16.0,kg:1500},{h:12.9,r:18.0,kg:1000},{h:12.9,r:20.0,kg:750},{h:16,r:0.0,kg:7000},{h:16,r:2.5,kg:6000},{h:16,r:5.0,kg:5000},{h:16,r:7.0,kg:4000},{h:16,r:9.5,kg:3000},{h:16,r:12.0,kg:2500},{h:16,r:13.5,kg:2000},{h:16,r:15.5,kg:1500},{h:16,r:17.5,kg:1000},{h:16,r:19.0,kg:750},{h:19.1,r:0.0,kg:7000},{h:19.1,r:2.5,kg:6000},{h:19.1,r:4.5,kg:5000},{h:19.1,r:6.5,kg:4000},{h:19.1,r:9.0,kg:3000},{h:19.1,r:11.5,kg:2500},{h:19.1,r:13.0,kg:2000},{h:19.1,r:15.0,kg:1500},{h:19.1,r:16.5,kg:1000},{h:22.2,r:0.0,kg:7000},{h:22.2,r:2.5,kg:6000},{h:22.2,r:4.5,kg:5000},{h:22.2,r:6.5,kg:4000},{h:22.2,r:8.5,kg:3000},{h:22.2,r:10.5,kg:2500},{h:22.2,r:12.0,kg:2000},{h:22.2,r:14.0,kg:1500},{h:25.8,r:0.0,kg:7000},{h:25.8,r:2.5,kg:6000},{h:25.8,r:4.0,kg:5000},{h:25.8,r:6.0,kg:4000},{h:25.8,r:7.5,kg:3000}],
@@ -44684,12 +44684,8 @@ function getMachinePhoto(m, type) {
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 // Pick up to `maxPer` machines per brand from a sorted pool, until we have `total`
-// ── getCapacityAtPoint — module-level so _buildTeleCapacityPanel can call it ──
-// Given a machine's loadMatrix (grid of {h,r,kg} points), bilinearly interpolate
-// to find actual rated capacity at (needH, needR).
-// Returns null if no loadMatrix; 0 if outside envelope.
+// ── getCapacityAtPoint — MODULE LEVEL so _buildTeleCapacityPanel can call it ──
 function getCapacityAtPoint(m, needH, needR) {
-  // Handle liftChart array format (legacy — envelope curve)
   if ((!m.loadMatrix || !m.loadMatrix.length) && m.liftChart && Array.isArray(m.liftChart) && m.liftChart.length) {
     const ratedKg = (m.liftCapacity||m.capacity||0) > 100 ? (m.liftCapacity||m.capacity||0) : (m.liftCapacity||m.capacity||0)*1000;
     const lm = m.liftChart.map(p => ({ h: p.height, r: p.reach, kg: Math.round(p.capacity > 100 ? p.capacity : p.capacity * 1000) }));
@@ -44705,13 +44701,11 @@ function getCapacityAtPoint(m, needH, needR) {
     return Math.round(ratedKg - (ratedKg - capAtMaxH) * Math.pow(htFrac, 0.65));
   }
   if (!m.loadMatrix || !m.loadMatrix.length) return null;
-
   const heights = [...new Set(m.loadMatrix.map(p=>p.h))].sort((a,b)=>a-b);
   if (needH > heights[heights.length-1]) return 0;
   const clampH = Math.max(heights[0], Math.min(needH, heights[heights.length-1]));
   const h0 = heights.filter(h=>h<=clampH).pop() ?? heights[0];
   const h1 = heights.filter(h=>h>=clampH)[0] ?? heights[heights.length-1];
-
   function capAtRow(targetH, r) {
     const row = m.loadMatrix.filter(p=>p.h===targetH).sort((a,b)=>a.r-b.r);
     if (!row.length) return null;
@@ -44723,7 +44717,6 @@ function getCapacityAtPoint(m, needH, needR) {
     const tr = (clampR - lo.r) / (hi.r - lo.r);
     return Math.round(lo.kg + (hi.kg - lo.kg) * tr);
   }
-
   const cap0 = capAtRow(h0, needR);
   const cap1 = capAtRow(h1, needR);
   if (cap0 === null && cap1 === null) return null;
@@ -44943,7 +44936,7 @@ function matchMachines(ans, type) {
   if (type === 'boom') {
   }
 
-  // 'rotating' machines live under MACHINES.telehandler (isRotating:true), not a separate key
+  // 'rotating' machines live under MACHINES.telehandler with isRotating:true
   let pool = type === 'rotating'
     ? (MACHINES.telehandler || []).filter(m => m.isRotating)
     : (MACHINES[type] ? [...MACHINES[type]] : []);
@@ -45289,8 +45282,8 @@ function matchMachines(ans, type) {
     const tattRaw = ans.tele_attachment || '';
     const tattArr = Array.isArray(tattRaw) ? tattRaw : tattRaw.split(',').filter(Boolean);
 
-    // getCapacityAtPoint is defined at module level (see above matchMachines)
-    // so _buildTeleCapacityPanel can also call it without scope errors.
+    // getCapacityAtPoint is at module level above — accessible here and in _buildTeleCapacityPanel
+
     // Site restrictions
     if (ans.has_restrictions === 'has_restrict') {
       const rw=parseFloat(ans.rw||99999), rh=parseFloat(ans.rh||99), rwid=parseFloat(ans.rwid||99), rl=parseFloat(ans.rl||99);
@@ -45309,6 +45302,7 @@ function matchMachines(ans, type) {
     if (teleMaxWeight > 0) pool = pool.filter(m => !m.machineWeight || m.machineWeight <= teleMaxWeight);
 
     // Hard filter: rotation preference
+    if (type === 'rotating') pool = pool.filter(m => m.isRotating); // defensive — pool already filtered at init
     if (ans.tele_rotation === 'need_rotation') pool = pool.filter(m => m.isRotating);
     if (ans.tele_rotation === 'no_rotation')   pool = pool.filter(m => !m.isRotating);
 
@@ -48797,8 +48791,14 @@ function _renderCards(matches, machineType, answers) {
   // ── Sponsored ads — injected before organic results ────────────
   // Determine which category key applies for this result set
   const _firstMachine   = matches[0];
-  const _catKey         = _resultCatKey(machineType, _firstMachine);
-  const _sponsoredForCat = _getSponsoredForCategory(_catKey);
+  let _sponsoredForCat = [];
+  try {
+    const _catKey = _resultCatKey(machineType, _firstMachine);
+    _sponsoredForCat = _getSponsoredForCategory(_catKey) || [];
+  } catch(_spnErr) {
+    // Never let a sponsored-ads error kill organic results
+    console.warn('[Noyo] Sponsored ads lookup failed:', _spnErr.message);
+  }
 
     _sponsoredForCat.forEach((ad, _spIdx) => { try {
     // Find the BEST matching machine from this sponsor's brand for the current search.
@@ -60449,6 +60449,7 @@ async function _loadSponsoredAds() {
 // Checks: active flag + date range (startDate <= today <= endDate)
 function _getSponsoredForCategory(catKey) {
   const now = Date.now();
+  if (!Array.isArray(_sponsoredAds)) return []; // defensive guard — never crash card rendering
   // Rotating telehandlers should also pick up 'telehandler' category sponsors
   // since most sponsors will have set category:'telehandler' not category:'rotating'
   const catKeys = catKey === 'rotating' ? ['rotating', 'telehandler'] : [catKey];
