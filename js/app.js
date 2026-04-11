@@ -44853,7 +44853,7 @@ function matchMachines(ans, type) {
   // When the customer came through the materials path (mat_params), they already
   // entered kg/height/reach there. Copy those into the tele_ fields so the
   // telehandler scorer sees them — and so the tele_exact question is skippable.
-  if (type === 'telehandler') {
+  if (type === 'telehandler' || type === 'rotating') {
     // Bridge mat_ answer keys → tele_ so matching engine always reads the right fields
     // These bridges only run if tele_ values are missing/zero (don't overwrite explicit entries)
     if (!ans.tele_kg      && ans.load_weight_kg) ans.tele_kg = ans.load_weight_kg; // exact entry takes priority
@@ -44893,7 +44893,10 @@ function matchMachines(ans, type) {
   if (type === 'boom') {
   }
 
-  let pool = MACHINES[type] ? [...MACHINES[type]] : [];
+  // 'rotating' machines live under MACHINES.telehandler (isRotating:true), not a separate key
+  let pool = type === 'rotating'
+    ? (MACHINES.telehandler || []).filter(m => m.isRotating)
+    : (MACHINES[type] ? [...MACHINES[type]] : []);
 
   // ═══════════════════════════════════════════════════════
   //  FORKLIFT
@@ -45181,7 +45184,7 @@ function matchMachines(ans, type) {
   // ═══════════════════════════════════════════════════════
   //  TELEHANDLER
   // ═══════════════════════════════════════════════════════
-  if (type === 'telehandler') {
+  if (type === 'telehandler' || type === 'rotating') {
     const exactKg     = parseFloat(ans.tele_kg || ans.load_weight_kg || 0);
     const exactHt     = parseFloat(ans.tele_ht_m   || 0);
     const exactReach  = parseFloat(ans.tele_reach_m|| 0);
