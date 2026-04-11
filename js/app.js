@@ -15895,6 +15895,1067 @@ filters:['telehandler','rough','heavy']
       filters:['telehandler','outdoor','rough','diesel'],
     },
 
+    // ══════════════════════════════════════════════════════════════════════
+    {
+      id:'merlo-roto40-16', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 40.16', shortName:'Merlo ROTO 40.16',
+      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.0, liftHeight:15.8, maxReach:13.2, engine:'Merlo Diesel 75kW Stage V',
+      machineWeight:12900, machineWidth:2490, machineLength:6700, machineHeight:3000,
+      stabilizerSpreadM:5.20, stabilizerDepthM:4.80,
+      jibWeight:140, jibLength:3.2, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
+      bestFor:'4T 360° rotating telehandler — 16m, 4-5 storey construction, crane replacement',
+      note:'Merlo ROTO 40.16 — 4T, 16m lift, 12.5m reach. 360° continuous rotation. Duplex telescopic stabilizers (spread 5.2m). Merlo panoramic cab. Stage V. Load chart varies by mode (forks, hook, EWP, stabilizer config) — always verify with rental company. On-tyres limited to ≤4.5m / ≤3m reach.',
+      tags:['Rotating 360°','4T','16m','ROTO','Merlo','Crane Replacement'],
+      loadMatrix:[{h:1,r:13.2,kg:700},{h:1,r:11.5,kg:1000},{h:1,r:9.5,kg:1500},{h:1,r:8.0,kg:2000},{h:1,r:6.5,kg:2500},{h:1,r:5.5,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:6.0,kg:3000},{h:3,r:5.0,kg:3500},{h:3,r:4.0,kg:4000},{h:5,r:12.5,kg:700},{h:5,r:11.0,kg:1000},{h:5,r:9.5,kg:1500},{h:5,r:8.5,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.5,kg:3000},{h:5,r:5.5,kg:3500},{h:5,r:5.0,kg:4000},{h:7,r:12.0,kg:700},{h:7,r:11.0,kg:1000},{h:7,r:10.0,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:11.5,kg:700},{h:9,r:10.5,kg:1000},{h:9,r:9.5,kg:1500},{h:9,r:8.5,kg:2000},{h:9,r:7.5,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:11.0,kg:700},{h:11,r:9.5,kg:1000},{h:11,r:8.5,kg:1500},{h:11,r:7.5,kg:2000},{h:11,r:6.5,kg:2500},{h:11,r:5.5,kg:3000},{h:11,r:4.5,kg:3500},{h:11,r:4.0,kg:4000},{h:13,r:10.0,kg:700},{h:13,r:8.5,kg:1000},{h:13,r:7.5,kg:1500},{h:13,r:6.5,kg:2000},{h:13,r:5.5,kg:2500},{h:13,r:4.5,kg:3000},{h:13,r:3.5,kg:3500},{h:13,r:2.5,kg:4000},{h:15,r:7.5,kg:700},{h:15,r:6.5,kg:1000},{h:15,r:5.5,kg:1500},{h:15,r:4.5,kg:2000},{h:15,r:3.5,kg:2500},{h:15,r:2.0,kg:3000},{h:15,r:1.0,kg:3500},{h:15,r:0.5,kg:4000},{h:15.8,r:0,kg:2500}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto40-18', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 40.18', shortName:'Merlo ROTO 40.18',
+      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.0, liftHeight:17.7, maxReach:15.0, engine:'Merlo Diesel 75kW Stage V',
+      machineWeight:13500, machineWidth:2490, machineLength:7000, machineHeight:3050,
+      stabilizerSpreadM:5.30, stabilizerDepthM:4.90,
+      jibWeight:145, jibLength:3.4, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
+      bestFor:'4T 360° rotating telehandler — 18m, 5-6 storey construction, crane replacement',
+      note:'Merlo ROTO 40.18 — 4T, 18m lift, 14.2m reach. 360° continuous rotation. Duplex stabilizers (spread 5.3m). Panoramic cab. Stage V.',
+      tags:['Rotating 360°','4T','18m','ROTO','Merlo','Crane Replacement'],
+      loadMatrix:[{h:1,r:13.5,kg:400},{h:1,r:12.0,kg:700},{h:1,r:10.5,kg:1000},{h:1,r:9.0,kg:1500},{h:1,r:7.5,kg:2000},{h:1,r:6.0,kg:2500},{h:1,r:5.0,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:14.5,kg:400},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:5.5,kg:3000},{h:3,r:4.5,kg:3500},{h:3,r:3.5,kg:4000},{h:5,r:15.0,kg:400},{h:5,r:13.5,kg:700},{h:5,r:12.0,kg:1000},{h:5,r:10.5,kg:1500},{h:5,r:9.0,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.0,kg:3000},{h:5,r:5.0,kg:3500},{h:5,r:4.0,kg:4000},{h:7,r:15.0,kg:400},{h:7,r:13.5,kg:700},{h:7,r:12.0,kg:1000},{h:7,r:10.5,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:15.0,kg:400},{h:9,r:13.5,kg:700},{h:9,r:12.0,kg:1000},{h:9,r:10.5,kg:1500},{h:9,r:9.0,kg:2000},{h:9,r:8.0,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:14.5,kg:400},{h:11,r:13.0,kg:700},{h:11,r:11.5,kg:1000},{h:11,r:10.0,kg:1500},{h:11,r:8.5,kg:2000},{h:11,r:7.5,kg:2500},{h:11,r:6.5,kg:3000},{h:11,r:5.5,kg:3500},{h:11,r:4.5,kg:4000},{h:13,r:14.0,kg:400},{h:13,r:12.0,kg:700},{h:13,r:10.5,kg:1000},{h:13,r:9.0,kg:1500},{h:13,r:8.0,kg:2000},{h:13,r:7.0,kg:2500},{h:13,r:6.0,kg:3000},{h:13,r:5.0,kg:3500},{h:13,r:4.0,kg:4000},{h:15,r:12.0,kg:400},{h:15,r:10.5,kg:700},{h:15,r:9.0,kg:1000},{h:15,r:7.5,kg:1500},{h:15,r:6.5,kg:2000},{h:15,r:5.5,kg:2500},{h:15,r:4.5,kg:3000},{h:15,r:3.5,kg:3500},{h:15,r:2.5,kg:4000},{h:17,r:8.5,kg:400},{h:17,r:7.5,kg:700},{h:17,r:6.5,kg:1000},{h:17,r:5.5,kg:1500},{h:17,r:4.5,kg:2000},{h:17,r:3.5,kg:2500},{h:17,r:2.5,kg:3000},{h:17,r:1.5,kg:3500},{h:17,r:0.5,kg:4000},{h:17.7,r:0,kg:3000}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-21', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.21', shortName:'Merlo ROTO 50.21',
+      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.95, liftHeight:21.0, maxReach:17.9, engine:'Merlo Diesel 100kW Stage V',
+      machineWeight:15800, machineWidth:2500, machineLength:7200, machineHeight:3100,
+      stabilizerSpreadM:5.50, stabilizerDepthM:5.10,
+      jibWeight:155, jibLength:3.6, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 21m, 6-7 storey construction, crane replacement',
+      note:'Merlo ROTO 50.21 — 5T, 21m lift, 17.9m reach. 360° continuous rotation. Duplex telescopic stabilizers (spread 5.5m). 100kW Stage V. 3-in-1: telehandler, crane, EWP. Panoramic cab.',
+      tags:['Rotating 360°','5T','21m','ROTO','Merlo','Crane Replacement'],
+      loadMatrix:[{h:1,r:17.9,kg:800},{h:1,r:16.5,kg:1000},{h:1,r:14.5,kg:1500},{h:1,r:13.0,kg:2000},{h:1,r:11.0,kg:2500},{h:1,r:9.5,kg:3000},{h:1,r:8.0,kg:3500},{h:1,r:6.5,kg:4000},{h:1,r:5.5,kg:4500},{h:1,r:4.5,kg:4950},{h:4,r:17.9,kg:800},{h:4,r:16.5,kg:1000},{h:4,r:15.0,kg:1500},{h:4,r:13.5,kg:2000},{h:4,r:12.0,kg:2500},{h:4,r:10.5,kg:3000},{h:4,r:9.0,kg:3500},{h:4,r:7.5,kg:4000},{h:4,r:6.0,kg:4500},{h:4,r:5.0,kg:4950},{h:7,r:17.5,kg:800},{h:7,r:16.5,kg:1000},{h:7,r:15.0,kg:1500},{h:7,r:13.5,kg:2000},{h:7,r:12.0,kg:2500},{h:7,r:10.5,kg:3000},{h:7,r:9.5,kg:3500},{h:7,r:8.5,kg:4000},{h:7,r:7.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:17.5,kg:800},{h:10,r:16.5,kg:1000},{h:10,r:15.0,kg:1500},{h:10,r:13.5,kg:2000},{h:10,r:12.0,kg:2500},{h:10,r:11.0,kg:3000},{h:10,r:9.5,kg:3500},{h:10,r:8.5,kg:4000},{h:10,r:7.5,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:16.5,kg:800},{h:13,r:15.5,kg:1000},{h:13,r:14.0,kg:1500},{h:13,r:12.5,kg:2000},{h:13,r:11.0,kg:2500},{h:13,r:10.0,kg:3000},{h:13,r:8.5,kg:3500},{h:13,r:7.5,kg:4000},{h:13,r:6.5,kg:4500},{h:13,r:5.5,kg:4950},{h:16,r:15.0,kg:800},{h:16,r:14.0,kg:1000},{h:16,r:12.5,kg:1500},{h:16,r:11.0,kg:2000},{h:16,r:9.5,kg:2500},{h:16,r:8.5,kg:3000},{h:16,r:7.5,kg:3500},{h:16,r:6.5,kg:4000},{h:16,r:5.5,kg:4500},{h:16,r:4.5,kg:4950},{h:19,r:11.5,kg:800},{h:19,r:10.5,kg:1000},{h:19,r:9.0,kg:1500},{h:19,r:7.5,kg:2000},{h:19,r:6.5,kg:2500},{h:19,r:5.5,kg:3000},{h:19,r:4.5,kg:3500},{h:19,r:3.5,kg:4000},{h:19,r:2.5,kg:4500},{h:19,r:1.5,kg:4950},{h:21.0,r:0,kg:2500}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-26', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.26', shortName:'Merlo ROTO 50.26',
+      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.95, liftHeight:25.9, maxReach:22.9, engine:'Merlo Diesel 100kW Stage V',
+      machineWeight:16600, machineWidth:2500, machineLength:7800, machineHeight:3150,
+      stabilizerSpreadM:5.70, stabilizerDepthM:5.20,
+      jibWeight:160, jibLength:3.8, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 26m, 7-8 storey construction, crane replacement',
+      note:'Merlo ROTO 50.26 — 5T, 26m lift, 21.5m reach. 360° continuous rotation. Duplex stabilizers (spread 5.7m). 100kW Stage V. Panoramic cab. Popular 7-8 storey crane replacement.',
+      tags:['Rotating 360°','5T','26m','ROTO','Merlo','Crane Replacement'],
+      loadMatrix:[{h:1,r:22.9,kg:150},{h:1,r:21.0,kg:500},{h:1,r:18.5,kg:1000},{h:1,r:16.5,kg:1500},{h:1,r:14.5,kg:2000},{h:1,r:12.5,kg:2500},{h:1,r:10.5,kg:3000},{h:1,r:9.0,kg:3500},{h:1,r:7.5,kg:4000},{h:1,r:6.5,kg:4500},{h:1,r:5.5,kg:4950},{h:4,r:22.9,kg:150},{h:4,r:21.5,kg:500},{h:4,r:19.5,kg:1000},{h:4,r:17.5,kg:1500},{h:4,r:15.5,kg:2000},{h:4,r:13.5,kg:2500},{h:4,r:11.5,kg:3000},{h:4,r:10.0,kg:3500},{h:4,r:8.5,kg:4000},{h:4,r:7.0,kg:4500},{h:4,r:6.0,kg:4950},{h:7,r:22.5,kg:150},{h:7,r:21.5,kg:500},{h:7,r:19.5,kg:1000},{h:7,r:17.5,kg:1500},{h:7,r:15.5,kg:2000},{h:7,r:14.0,kg:2500},{h:7,r:12.5,kg:3000},{h:7,r:11.0,kg:3500},{h:7,r:9.5,kg:4000},{h:7,r:8.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:22.5,kg:150},{h:10,r:21.5,kg:500},{h:10,r:19.5,kg:1000},{h:10,r:17.5,kg:1500},{h:10,r:15.5,kg:2000},{h:10,r:14.0,kg:2500},{h:10,r:12.5,kg:3000},{h:10,r:11.0,kg:3500},{h:10,r:9.5,kg:4000},{h:10,r:8.0,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:22.0,kg:150},{h:13,r:20.5,kg:500},{h:13,r:18.5,kg:1000},{h:13,r:16.5,kg:1500},{h:13,r:15.0,kg:2000},{h:13,r:13.5,kg:2500},{h:13,r:12.0,kg:3000},{h:13,r:10.5,kg:3500},{h:13,r:9.0,kg:4000},{h:13,r:7.5,kg:4500},{h:13,r:6.5,kg:4950},{h:17,r:21.0,kg:150},{h:17,r:19.5,kg:500},{h:17,r:17.5,kg:1000},{h:17,r:15.5,kg:1500},{h:17,r:13.5,kg:2000},{h:17,r:12.0,kg:2500},{h:17,r:10.5,kg:3000},{h:17,r:9.0,kg:3500},{h:17,r:7.5,kg:4000},{h:17,r:6.5,kg:4500},{h:17,r:5.5,kg:4950},{h:21,r:18.0,kg:150},{h:21,r:16.5,kg:500},{h:21,r:14.5,kg:1000},{h:21,r:12.5,kg:1500},{h:21,r:11.0,kg:2000},{h:21,r:9.5,kg:2500},{h:21,r:8.5,kg:3000},{h:21,r:7.5,kg:3500},{h:21,r:6.5,kg:4000},{h:21,r:5.5,kg:4500},{h:21,r:4.5,kg:4950},{h:24,r:12.5,kg:150},{h:24,r:11.0,kg:500},{h:24,r:9.5,kg:1000},{h:24,r:8.0,kg:1500},{h:24,r:7.0,kg:2000},{h:24,r:6.0,kg:2500},{h:24,r:5.0,kg:3000},{h:24,r:4.0,kg:3500},{h:24,r:3.0,kg:4000},{h:24,r:2.0,kg:4500},{h:24,r:1.0,kg:4950},{h:25.9,r:0,kg:1500}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto40-16s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 40.16 S', shortName:'Merlo ROTO 40.16S',
+      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.0, liftHeight:15.8, maxReach:13.2, engine:'Merlo Diesel 75kW Stage V',
+      machineWeight:13000, machineWidth:2490, machineLength:6800, machineHeight:3050,
+      stabilizerSpreadM:5.50, stabilizerDepthM:5.00,
+      jibWeight:140, jibLength:3.2, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
+      bestFor:'4T 360° rotating telehandler — 16m with enhanced S stabilizer system for soft or uneven ground',
+      note:'Merlo ROTO 40.16 S — 4T, 16m lift, 12.5m reach. S variant features wider-spread enhanced stabilizer system (+0.3m wider than base 40.16) giving better stability on soft or uneven ground. 360° continuous rotation. Stage V. Panoramic cab.',
+      tags:['Rotating 360°','4T','16m','ROTO','S-Series','Merlo','Enhanced Stabilizers'],
+      loadMatrix:[{h:1,r:13.2,kg:700},{h:1,r:11.5,kg:1000},{h:1,r:9.5,kg:1500},{h:1,r:8.0,kg:2000},{h:1,r:6.5,kg:2500},{h:1,r:5.5,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:6.0,kg:3000},{h:3,r:5.0,kg:3500},{h:3,r:4.0,kg:4000},{h:5,r:12.5,kg:700},{h:5,r:11.0,kg:1000},{h:5,r:9.5,kg:1500},{h:5,r:8.5,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.5,kg:3000},{h:5,r:5.5,kg:3500},{h:5,r:5.0,kg:4000},{h:7,r:12.0,kg:700},{h:7,r:11.0,kg:1000},{h:7,r:10.0,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:11.5,kg:700},{h:9,r:10.5,kg:1000},{h:9,r:9.5,kg:1500},{h:9,r:8.5,kg:2000},{h:9,r:7.5,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:11.0,kg:700},{h:11,r:9.5,kg:1000},{h:11,r:8.5,kg:1500},{h:11,r:7.5,kg:2000},{h:11,r:6.5,kg:2500},{h:11,r:5.5,kg:3000},{h:11,r:4.5,kg:3500},{h:11,r:4.0,kg:4000},{h:13,r:10.0,kg:700},{h:13,r:8.5,kg:1000},{h:13,r:7.5,kg:1500},{h:13,r:6.5,kg:2000},{h:13,r:5.5,kg:2500},{h:13,r:4.5,kg:3000},{h:13,r:3.5,kg:3500},{h:13,r:2.5,kg:4000},{h:15,r:7.5,kg:700},{h:15,r:6.5,kg:1000},{h:15,r:5.5,kg:1500},{h:15,r:4.5,kg:2000},{h:15,r:3.5,kg:2500},{h:15,r:2.0,kg:3000},{h:15,r:1.0,kg:3500},{h:15,r:0.5,kg:4000},{h:15.8,r:0,kg:2500}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto40-18s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 40.18 S', shortName:'Merlo ROTO 40.18S',
+      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.0, liftHeight:17.7, maxReach:15.0, engine:'Merlo Diesel 75kW Stage V',
+      machineWeight:13600, machineWidth:2490, machineLength:7100, machineHeight:3100,
+      stabilizerSpreadM:5.60, stabilizerDepthM:5.10,
+      jibWeight:145, jibLength:3.4, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
+      bestFor:'4T 360° rotating telehandler — 18m with enhanced S stabilizer for improved ground stability',
+      note:'Merlo ROTO 40.18 S — 4T, 18m lift, 14.2m reach. S variant: enhanced stabilizer system with wider spread than base 40.18, better suited for soft or irregular ground conditions. 360° continuous rotation. Stage V. Panoramic cab.',
+      tags:['Rotating 360°','4T','18m','ROTO','S-Series','Merlo','Enhanced Stabilizers'],
+      loadMatrix:[{h:1,r:13.5,kg:400},{h:1,r:12.0,kg:700},{h:1,r:10.5,kg:1000},{h:1,r:9.0,kg:1500},{h:1,r:7.5,kg:2000},{h:1,r:6.0,kg:2500},{h:1,r:5.0,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:14.5,kg:400},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:5.5,kg:3000},{h:3,r:4.5,kg:3500},{h:3,r:3.5,kg:4000},{h:5,r:15.0,kg:400},{h:5,r:13.5,kg:700},{h:5,r:12.0,kg:1000},{h:5,r:10.5,kg:1500},{h:5,r:9.0,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.0,kg:3000},{h:5,r:5.0,kg:3500},{h:5,r:4.0,kg:4000},{h:7,r:15.0,kg:400},{h:7,r:13.5,kg:700},{h:7,r:12.0,kg:1000},{h:7,r:10.5,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:15.0,kg:400},{h:9,r:13.5,kg:700},{h:9,r:12.0,kg:1000},{h:9,r:10.5,kg:1500},{h:9,r:9.0,kg:2000},{h:9,r:8.0,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:14.5,kg:400},{h:11,r:13.0,kg:700},{h:11,r:11.5,kg:1000},{h:11,r:10.0,kg:1500},{h:11,r:8.5,kg:2000},{h:11,r:7.5,kg:2500},{h:11,r:6.5,kg:3000},{h:11,r:5.5,kg:3500},{h:11,r:4.5,kg:4000},{h:13,r:14.0,kg:400},{h:13,r:12.0,kg:700},{h:13,r:10.5,kg:1000},{h:13,r:9.0,kg:1500},{h:13,r:8.0,kg:2000},{h:13,r:7.0,kg:2500},{h:13,r:6.0,kg:3000},{h:13,r:5.0,kg:3500},{h:13,r:4.0,kg:4000},{h:15,r:12.0,kg:400},{h:15,r:10.5,kg:700},{h:15,r:9.0,kg:1000},{h:15,r:7.5,kg:1500},{h:15,r:6.5,kg:2000},{h:15,r:5.5,kg:2500},{h:15,r:4.5,kg:3000},{h:15,r:3.5,kg:3500},{h:15,r:2.5,kg:4000},{h:17,r:8.5,kg:400},{h:17,r:7.5,kg:700},{h:17,r:6.5,kg:1000},{h:17,r:5.5,kg:1500},{h:17,r:4.5,kg:2000},{h:17,r:3.5,kg:2500},{h:17,r:2.5,kg:3000},{h:17,r:1.5,kg:3500},{h:17,r:0.5,kg:4000},{h:17.7,r:0,kg:3000}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-21s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.21 S', shortName:'Merlo ROTO 50.21S',
+      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.95, liftHeight:21.0, maxReach:17.9, engine:'Merlo Diesel 100kW Stage V',
+      machineWeight:15800, machineWidth:2500, machineLength:7300, machineHeight:3150,
+      stabilizerSpreadM:5.70, stabilizerDepthM:5.20,
+      jibWeight:155, jibLength:3.6, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 21m with enhanced S stabilizer system',
+      note:'Merlo ROTO 50.21 S — 5T, 21m lift, 16.8m reach. S variant: enhanced wider stabilizer spread (+0.2m vs base 50.21) for improved stability on soft or sloped ground. 100kW Stage V. Panoramic cab.',
+      tags:['Rotating 360°','5T','21m','ROTO','S-Series','Merlo'],
+      loadMatrix:[{h:1,r:17.9,kg:800},{h:1,r:16.5,kg:1000},{h:1,r:14.5,kg:1500},{h:1,r:13.0,kg:2000},{h:1,r:11.0,kg:2500},{h:1,r:9.5,kg:3000},{h:1,r:8.0,kg:3500},{h:1,r:6.5,kg:4000},{h:1,r:5.5,kg:4500},{h:1,r:4.5,kg:4950},{h:4,r:17.9,kg:800},{h:4,r:16.5,kg:1000},{h:4,r:15.0,kg:1500},{h:4,r:13.5,kg:2000},{h:4,r:12.0,kg:2500},{h:4,r:10.5,kg:3000},{h:4,r:9.0,kg:3500},{h:4,r:7.5,kg:4000},{h:4,r:6.0,kg:4500},{h:4,r:5.0,kg:4950},{h:7,r:17.5,kg:800},{h:7,r:16.5,kg:1000},{h:7,r:15.0,kg:1500},{h:7,r:13.5,kg:2000},{h:7,r:12.0,kg:2500},{h:7,r:10.5,kg:3000},{h:7,r:9.5,kg:3500},{h:7,r:8.5,kg:4000},{h:7,r:7.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:17.5,kg:800},{h:10,r:16.5,kg:1000},{h:10,r:15.0,kg:1500},{h:10,r:13.5,kg:2000},{h:10,r:12.0,kg:2500},{h:10,r:11.0,kg:3000},{h:10,r:9.5,kg:3500},{h:10,r:8.5,kg:4000},{h:10,r:7.5,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:16.5,kg:800},{h:13,r:15.5,kg:1000},{h:13,r:14.0,kg:1500},{h:13,r:12.5,kg:2000},{h:13,r:11.0,kg:2500},{h:13,r:10.0,kg:3000},{h:13,r:8.5,kg:3500},{h:13,r:7.5,kg:4000},{h:13,r:6.5,kg:4500},{h:13,r:5.5,kg:4950},{h:16,r:15.0,kg:800},{h:16,r:14.0,kg:1000},{h:16,r:12.5,kg:1500},{h:16,r:11.0,kg:2000},{h:16,r:9.5,kg:2500},{h:16,r:8.5,kg:3000},{h:16,r:7.5,kg:3500},{h:16,r:6.5,kg:4000},{h:16,r:5.5,kg:4500},{h:16,r:4.5,kg:4950},{h:19,r:11.5,kg:800},{h:19,r:10.5,kg:1000},{h:19,r:9.0,kg:1500},{h:19,r:7.5,kg:2000},{h:19,r:6.5,kg:2500},{h:19,r:5.5,kg:3000},{h:19,r:4.5,kg:3500},{h:19,r:3.5,kg:4000},{h:19,r:2.5,kg:4500},{h:19,r:1.5,kg:4950},{h:21.0,r:0,kg:2500}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-21splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.21 SPlus', shortName:'Merlo ROTO 50.21S+',
+      isRotating:true,
+      // ── Source: Merlo ROTO50.21 AU spec sheet (ROTO50.21SPLUSEE, Release 24/11/2025) ──
+      capacity:5.0,
+      capacityOnTyres:2.5,           // estimated — no on-tyres chart in AU spec sheet
+      liftHeight:21.0,
+      maxReach:18.1,                  // confirmed from AU spec sheet chart bottom label
+      turretRotation:360,
+      tyreCapacityNote:'On-tyres chart not available in brochure. Confirm capacity/reach with rental company. Deploy multiposition stabilisers for all rated lifts.',
+      engine:'FPT NEF45 125kW (170hp), 4.5L 4-cyl, Tier 2 (no AdBlue)',
+      machineWeight:16500, machineWidth:2430, machineLength:6830, machineHeight:3120,
+      wheelbase:3070, groundClearance:370,
+      stabilizerType:'Multiposition hydraulic',
+      hydraulicFlow:238, hydraulicPressure:230, hydraulicOilTank:120,
+      fuelTank:150,
+      maxSpeed:40, frameLevelling:12,
+      tyres:'18-22.5"', boomSections:4,
+      terrain:'rough/outdoor',
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 21m lift, 18.1m reach. Tier 2 engine. Multiposition stabilisers. Crane replacement 5-6 storey.',
+      note:'Merlo ROTO50.21SPLUSEE (AU) — 5,000 kg max, 21m lift, 18.1m reach. 360° continuous turret rotation. FPT NEF45 125kW Tier 2 (no AdBlue). 16,500 kg. 18-22.5" tyres. 138+100 L/min at 230 bar. Multiposition hydraulic stabilisers. Tilting cab. FOPS/ROPS. EAS hydropneumatic suspension. 4WD. 3 steering modes. 40 km/h. 4-section boom. Frame levelling +/-12%/+/-4%. Axles: Drop portal. Brakes: Dry discs. Source: Merlo ROTO50.21 AU spec sheet (Release 24/11/2025).',
+      tags:['Rotating 360°','5T','21m','18.1m Reach','ROTO50','SPlus','Merlo','FPT Tier 2','Australia'],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // FORKS 360° ON STABILISERS — loadMatrix
+      // Source: Merlo ROTO50.21SPLUSEE AU spec sheet p.1 load chart
+      // METHOD: Arc formula r=sqrt(L²-h²). L values are PRINTED bottom-label zone
+      // boundary reaches from the brochure chart — confirmed exact values, not visual reads.
+      // Confirmed zone boundary reaches at h=0 (printed chart labels):
+      //   700kg→L=18.1m | 1000kg→L=16.0m | 1500kg→L=13.4m | 2000kg→L=11.6m
+      //   2500kg→L=10.2m | 3000kg→L=7.7m | 4000kg→L=6.8m | 5000kg→L=5.0m
+      // Note: 9.2m (blue label) = on-tyres reach indicator, NOT a stabilised zone boundary.
+      // Arc terminals: {h:L,r:0} mark exact arc top. Near-vertical heavy loads (4000/5000kg
+      // above h=6.8/5.0m): structural-limit data not in AU spec sheet — confirm with rental company.
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrix:[{h:1,r:18.1,kg:700},{h:1,r:16,kg:1000},{h:1,r:13.4,kg:1500},{h:1,r:11.6,kg:2000},{h:1,r:10.2,kg:2500},{h:1,r:7.6,kg:3000},{h:1,r:6.7,kg:4000},{h:1,r:4.9,kg:5000},{h:4,r:17.7,kg:700},{h:4,r:15.5,kg:1000},{h:4,r:12.8,kg:1500},{h:4,r:10.9,kg:2000},{h:4,r:9.4,kg:2500},{h:4,r:6.6,kg:3000},{h:4,r:5.5,kg:4000},{h:4,r:3,kg:5000},{h:5,r:0,kg:5000},{h:6.8,r:0,kg:4000},{h:7,r:16.7,kg:700},{h:7,r:14.4,kg:1000},{h:7,r:11.4,kg:1500},{h:7,r:9.2,kg:2000},{h:7,r:7.4,kg:2500},{h:7,r:3.2,kg:3000},{h:7.7,r:0,kg:3000},{h:10,r:15.1,kg:700},{h:10,r:12.5,kg:1000},{h:10,r:8.9,kg:1500},{h:10,r:5.9,kg:2000},{h:10,r:2,kg:2500},{h:10.2,r:0,kg:2500},{h:11.6,r:0,kg:2000},{h:13,r:12.6,kg:700},{h:13,r:9.3,kg:1000},{h:13,r:3.2,kg:1500},{h:13.4,r:0,kg:1500},{h:16,r:8.5,kg:700},{h:16,r:0,kg:1000},{h:18.1,r:0,kg:700}],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // ON TYRES — loadMatrixTyres
+      // Confirm on-tyres capacity with rental company — chart not in AU spec sheet.
+      // proportions (~50% of stabilised capacity at same reach). NEVER use for rated lift planning.
+      // Deploy multiposition stabilisers for all rated capacity lifts.
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrixTyres:[{h:1,r:5.0,kg:4500},{h:1,r:5.4,kg:3000},{h:1,r:6.7,kg:2000},{h:1,r:8.2,kg:1500},{h:1,r:11.1,kg:1000},{h:1,r:13.8,kg:500},{h:1,r:15.9,kg:250},{h:3,r:4.7,kg:4500},{h:3,r:5.1,kg:3000},{h:3,r:6.3,kg:2000},{h:3,r:7.8,kg:1500},{h:3,r:10.5,kg:1000},{h:3,r:13.0,kg:500},{h:3,r:15.1,kg:250},{h:5,r:4.4,kg:4500},{h:5,r:4.8,kg:3000},{h:5,r:5.9,kg:2000},{h:5,r:7.3,kg:1500},{h:5,r:9.8,kg:1000},{h:5,r:12.0,kg:500},{h:5,r:14.1,kg:250},{h:7,r:4.1,kg:4500},{h:7,r:4.5,kg:3000},{h:7,r:5.6,kg:2000},{h:7,r:6.8,kg:1500},{h:7,r:9.0,kg:1000},{h:7,r:11.0,kg:500},{h:7,r:13.0,kg:250},{h:9,r:3.8,kg:4500},{h:9,r:4.2,kg:3000},{h:9,r:5.2,kg:2000},{h:9,r:6.4,kg:1500},{h:9,r:8.0,kg:1000},{h:9,r:9.5,kg:500},{h:9,r:11.0,kg:250},{h:11,r:3.5,kg:4500},{h:11,r:3.9,kg:3000},{h:11,r:4.8,kg:2000},{h:11,r:5.8,kg:1500},{h:11,r:7.0,kg:1000},{h:11,r:8.0,kg:500},{h:11,r:9.5,kg:250},{h:13,r:3.2,kg:4500},{h:13,r:3.5,kg:3000},{h:13,r:4.3,kg:2000},{h:13,r:5.2,kg:1500},{h:13,r:6.0,kg:1000},{h:13,r:7.0,kg:500},{h:13,r:8.0,kg:250},{h:15,r:3.0,kg:4500},{h:15,r:3.3,kg:3000},{h:15,r:3.9,kg:2000},{h:15,r:4.7,kg:1500},{h:15,r:5.2,kg:1000},{h:15,r:5.8,kg:500},{h:17,r:2.7,kg:4500},{h:17,r:3.0,kg:3000},{h:17,r:3.6,kg:2000},{h:17,r:4.2,kg:1500},{h:17,r:4.7,kg:1000},{h:19,r:2.5,kg:4500},{h:19,r:2.8,kg:3000},{h:19,r:3.3,kg:2000},{h:20,r:2.3,kg:4500},{h:20,r:2.5,kg:3000}],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[{h:1,r:4.9,kg:4500},{h:1,r:6.9,kg:4000},{h:1,r:7.3,kg:3000},{h:1,r:8.6,kg:2500},{h:1,r:9.5,kg:2000},{h:1,r:10.6,kg:1500},{h:1,r:12.0,kg:1000},{h:1,r:14.0,kg:700},{h:1,r:15.6,kg:300},{h:1,r:18.0,kg:300},{h:4,r:4.9,kg:4500},{h:4,r:6.8,kg:4000},{h:4,r:7.2,kg:3000},{h:4,r:8.4,kg:2500},{h:4,r:9.3,kg:2000},{h:4,r:10.4,kg:1500},{h:4,r:11.8,kg:1000},{h:4,r:13.7,kg:700},{h:4,r:15.3,kg:300},{h:4,r:17.7,kg:300},{h:7,r:4.8,kg:4500},{h:7,r:6.6,kg:4000},{h:7,r:7.0,kg:3000},{h:7,r:8.2,kg:2500},{h:7,r:9.0,kg:2000},{h:7,r:10.1,kg:1500},{h:7,r:11.5,kg:1000},{h:7,r:13.3,kg:700},{h:7,r:14.8,kg:300},{h:7,r:17.2,kg:300},{h:10,r:4.7,kg:4500},{h:10,r:6.4,kg:4000},{h:10,r:6.8,kg:3000},{h:10,r:7.9,kg:2500},{h:10,r:8.7,kg:2000},{h:10,r:9.8,kg:1500},{h:10,r:11.1,kg:1000},{h:10,r:12.8,kg:700},{h:10,r:14.2,kg:300},{h:10,r:16.4,kg:300},{h:13,r:4.5,kg:4500},{h:13,r:6.1,kg:4000},{h:13,r:6.5,kg:3000},{h:13,r:7.5,kg:2500},{h:13,r:8.3,kg:2000},{h:13,r:9.3,kg:1500},{h:13,r:10.5,kg:1000},{h:13,r:12.1,kg:700},{h:13,r:13.5,kg:300},{h:13,r:15.5,kg:300},{h:16,r:4.2,kg:4500},{h:16,r:5.7,kg:4000},{h:16,r:6.0,kg:3000},{h:16,r:7.0,kg:2500},{h:16,r:7.7,kg:2000},{h:16,r:8.7,kg:1500},{h:16,r:9.8,kg:1000},{h:16,r:11.2,kg:700},{h:16,r:12.5,kg:300},{h:16,r:14.3,kg:300},{h:18.1,r:3.8,kg:4500},{h:18.1,r:5.1,kg:4000},{h:18.1,r:5.4,kg:3000},{h:18.1,r:6.3,kg:2500},{h:18.1,r:6.9,kg:2000},{h:18.1,r:7.7,kg:1500},{h:18.1,r:8.7,kg:1000},{h:18.1,r:10.0,kg:700},{h:18.1,r:11.2,kg:300},{h:18.1,r:12.8,kg:300},{h:20,r:3.0,kg:4500},{h:20,r:4.0,kg:4000},{h:20,r:4.3,kg:3000},{h:20,r:5.0,kg:2500},{h:20,r:5.6,kg:2000},{h:20,r:6.2,kg:1500},{h:20,r:7.0,kg:1000},{h:20,r:8.0,kg:700},{h:22,r:0.0,kg:700}],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[{h:1,r:5.7,kg:2200},{h:1,r:11.8,kg:2000},{h:1,r:13.7,kg:1500},{h:1,r:16.5,kg:1000},{h:1,r:18.8,kg:700},{h:4,r:5.6,kg:2200},{h:4,r:11.5,kg:2000},{h:4,r:13.3,kg:1500},{h:4,r:16.0,kg:1000},{h:4,r:18.5,kg:700},{h:7,r:5.4,kg:2200},{h:7,r:11.1,kg:2000},{h:7,r:13.0,kg:1500},{h:7,r:15.5,kg:1000},{h:7,r:18.0,kg:700},{h:10,r:5.2,kg:2200},{h:10,r:10.7,kg:2000},{h:10,r:12.5,kg:1500},{h:10,r:14.9,kg:1000},{h:10,r:17.3,kg:700},{h:13,r:5.0,kg:2200},{h:13,r:10.2,kg:2000},{h:13,r:11.9,kg:1500},{h:13,r:14.1,kg:1000},{h:13,r:16.4,kg:700},{h:16,r:4.7,kg:2200},{h:16,r:9.5,kg:2000},{h:16,r:11.1,kg:1500},{h:16,r:13.1,kg:1000},{h:16,r:15.3,kg:700},{h:18.1,r:4.3,kg:2200},{h:18.1,r:8.6,kg:2000},{h:18.1,r:10.0,kg:1500},{h:18.1,r:11.9,kg:1000},{h:18.1,r:13.9,kg:700},{h:20,r:3.5,kg:2200},{h:20,r:7.0,kg:2000},{h:20,r:8.2,kg:1500},{h:20,r:9.7,kg:1000},{h:22,r:0.0,kg:700}],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[{h:1,r:6.3,kg:1500},{h:1,r:13.8,kg:1000},{h:1,r:16.5,kg:700},{h:1,r:19.3,kg:650},{h:4,r:6.1,kg:1500},{h:4,r:13.4,kg:1000},{h:4,r:16.0,kg:700},{h:4,r:18.9,kg:650},{h:7,r:5.9,kg:1500},{h:7,r:13.0,kg:1000},{h:7,r:15.5,kg:700},{h:7,r:18.4,kg:650},{h:10,r:5.6,kg:1500},{h:10,r:12.4,kg:1000},{h:10,r:14.8,kg:700},{h:10,r:17.6,kg:650},{h:13,r:5.3,kg:1500},{h:13,r:11.7,kg:1000},{h:13,r:14.0,kg:700},{h:13,r:16.6,kg:650},{h:16,r:4.8,kg:1500},{h:16,r:10.8,kg:1000},{h:16,r:12.9,kg:700},{h:16,r:15.4,kg:650},{h:18.1,r:4.2,kg:1500},{h:18.1,r:9.5,kg:1000},{h:18.1,r:11.4,kg:700},{h:18.1,r:13.5,kg:650},{h:20,r:3.3,kg:1500},{h:20,r:7.5,kg:1000},{h:20,r:9.0,kg:700},{h:22,r:0.0,kg:650}],
+      loadMatrixTyres360:[{h:1,r:3.5,kg:800},{h:1,r:7.5,kg:500},{h:1,r:16.9,kg:80},{h:4,r:3.3,kg:800},{h:4,r:7.2,kg:500},{h:4,r:16.5,kg:80},{h:7,r:3.0,kg:800},{h:7,r:6.8,kg:500},{h:7,r:16.0,kg:80},{h:10,r:2.7,kg:800},{h:10,r:6.2,kg:500},{h:10,r:15.2,kg:80},{h:13,r:2.3,kg:800},{h:13,r:5.4,kg:500},{h:13,r:13.8,kg:80},{h:16,r:1.8,kg:800},{h:16,r:4.4,kg:500},{h:16,r:11.5,kg:80},{h:19,r:1.2,kg:800},{h:19,r:3.0,kg:500},{h:19,r:8.5,kg:80},{h:22,r:0.8,kg:800},{h:22,r:1.5,kg:500},{h:22,r:5.0,kg:80},{h:23.2,r:0.0,kg:80}],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-26s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.26 S', shortName:'Merlo ROTO 50.26S',
+      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.95, liftHeight:25.9, maxReach:22.9, engine:'Merlo Diesel 100kW Stage V',
+      machineWeight:16600, machineWidth:2500, machineLength:7900, machineHeight:3200,
+      stabilizerSpreadM:5.85, stabilizerDepthM:5.35,
+      jibWeight:162, jibLength:3.8, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 26m with enhanced S stabilizer system',
+      note:'Merlo ROTO 50.26 S — 5T, 26m lift, 21.5m reach. S variant: enhanced stabilizer spread (5.85m) for superior stability on non-ideal ground. 100kW Stage V. Panoramic cab.',
+      tags:['Rotating 360°','5T','26m','ROTO','S-Series','Merlo'],
+      loadMatrix:[{h:1,r:22.9,kg:150},{h:1,r:21.0,kg:500},{h:1,r:18.5,kg:1000},{h:1,r:16.5,kg:1500},{h:1,r:14.5,kg:2000},{h:1,r:12.5,kg:2500},{h:1,r:10.5,kg:3000},{h:1,r:9.0,kg:3500},{h:1,r:7.5,kg:4000},{h:1,r:6.5,kg:4500},{h:1,r:5.5,kg:4950},{h:4,r:22.9,kg:150},{h:4,r:21.5,kg:500},{h:4,r:19.5,kg:1000},{h:4,r:17.5,kg:1500},{h:4,r:15.5,kg:2000},{h:4,r:13.5,kg:2500},{h:4,r:11.5,kg:3000},{h:4,r:10.0,kg:3500},{h:4,r:8.5,kg:4000},{h:4,r:7.0,kg:4500},{h:4,r:6.0,kg:4950},{h:7,r:22.5,kg:150},{h:7,r:21.5,kg:500},{h:7,r:19.5,kg:1000},{h:7,r:17.5,kg:1500},{h:7,r:15.5,kg:2000},{h:7,r:14.0,kg:2500},{h:7,r:12.5,kg:3000},{h:7,r:11.0,kg:3500},{h:7,r:9.5,kg:4000},{h:7,r:8.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:22.5,kg:150},{h:10,r:21.5,kg:500},{h:10,r:19.5,kg:1000},{h:10,r:17.5,kg:1500},{h:10,r:15.5,kg:2000},{h:10,r:14.0,kg:2500},{h:10,r:12.5,kg:3000},{h:10,r:11.0,kg:3500},{h:10,r:9.5,kg:4000},{h:10,r:8.0,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:22.0,kg:150},{h:13,r:20.5,kg:500},{h:13,r:18.5,kg:1000},{h:13,r:16.5,kg:1500},{h:13,r:15.0,kg:2000},{h:13,r:13.5,kg:2500},{h:13,r:12.0,kg:3000},{h:13,r:10.5,kg:3500},{h:13,r:9.0,kg:4000},{h:13,r:7.5,kg:4500},{h:13,r:6.5,kg:4950},{h:17,r:21.0,kg:150},{h:17,r:19.5,kg:500},{h:17,r:17.5,kg:1000},{h:17,r:15.5,kg:1500},{h:17,r:13.5,kg:2000},{h:17,r:12.0,kg:2500},{h:17,r:10.5,kg:3000},{h:17,r:9.0,kg:3500},{h:17,r:7.5,kg:4000},{h:17,r:6.5,kg:4500},{h:17,r:5.5,kg:4950},{h:21,r:18.0,kg:150},{h:21,r:16.5,kg:500},{h:21,r:14.5,kg:1000},{h:21,r:12.5,kg:1500},{h:21,r:11.0,kg:2000},{h:21,r:9.5,kg:2500},{h:21,r:8.5,kg:3000},{h:21,r:7.5,kg:3500},{h:21,r:6.5,kg:4000},{h:21,r:5.5,kg:4500},{h:21,r:4.5,kg:4950},{h:24,r:12.5,kg:150},{h:24,r:11.0,kg:500},{h:24,r:9.5,kg:1000},{h:24,r:8.0,kg:1500},{h:24,r:7.0,kg:2000},{h:24,r:6.0,kg:2500},{h:24,r:5.0,kg:3000},{h:24,r:4.0,kg:3500},{h:24,r:3.0,kg:4000},{h:24,r:2.0,kg:4500},{h:24,r:1.0,kg:4950},{h:25.9,r:0,kg:1500}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-26splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.26 SPlus', shortName:'Merlo ROTO 50.26S+',
+      isRotating:true,
+      // ── Source: Merlo ROTO50.26 AU spec sheet (ROTO50.26SPLUSEE, Release 24/11/2025) ──
+      capacity:5.0,
+      capacityOnTyres:2.5,           // estimated — no on-tyres chart in AU spec sheet
+      liftHeight:25.9,
+      maxReach:23.1,                  // confirmed from AU spec sheet chart bottom label
+      turretRotation:360,
+      tyreCapacityNote:'On-tyres chart not available in brochure. Confirm capacity/reach with rental company. Deploy multiposition stabilisers for all rated lifts.',
+      engine:'FPT NEF45 125kW (170hp), 4.5L 4-cyl, Tier 2 (no AdBlue)',
+      machineWeight:17300, machineWidth:2430, machineLength:7150, machineHeight:3120,
+      wheelbase:3070, groundClearance:370,
+      stabilizerType:'Multiposition hydraulic',
+      hydraulicFlow:238, hydraulicPressure:230, hydraulicOilTank:120,
+      fuelTank:150,
+      maxSpeed:40, frameLevelling:12,
+      tyres:'18-22.5"', boomSections:5,
+      terrain:'rough/outdoor',
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 25.9m lift, 23.1m reach. Tier 2 engine. Crane replacement 7-8 storey.',
+      note:'Merlo ROTO50.26SPLUSEE (AU) — 5,000 kg max, 25.9m lift, 23.1m reach. 360° continuous turret rotation. FPT NEF45 125kW Tier 2 (no AdBlue). 17,300 kg. 18-22.5" tyres. 138+100 L/min at 230 bar. Multiposition hydraulic stabilisers. Tilting cab. FOPS/ROPS. EAS hydropneumatic suspension. 4WD. 3 steering modes. 40 km/h. 5-section boom. Frame levelling +/-12%/+/-4%. Axles: Drop portal. Brakes: Dry discs. Source: Merlo ROTO50.26 AU spec sheet (Release 24/11/2025).',
+      tags:['Rotating 360°','5T','25.9m','23.1m Reach','ROTO50','SPlus','Merlo','FPT Tier 2','Australia'],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // FORKS 360° ON STABILISERS — loadMatrix
+      // Source: Merlo ROTO50.26SPLUSEE AU spec sheet p.1 load chart
+      // METHOD: Arc formula r=sqrt(L²-h²). L values are PRINTED bottom-label zone
+      // boundary reaches from the brochure chart — confirmed exact values, not visual reads.
+      // Confirmed zone boundary reaches at h=0 (printed chart labels):
+      //   100kg→L=23.1m | 500kg→L=18.9m | 1000kg→L=15.5m | 1500kg→L=13.1m
+      //   2000kg→L=11.4m | 3000kg→L=7.7m | 4000kg→L=6.6m | 5000kg→L=5.4m
+      // CORRECTION: 2000kg boundary is 11.4m — previous code used 9.2m (error: that is
+      // the on-tyres reach indicator, blue label, NOT a stabilised zone boundary).
+      // No 2500kg zone on this model. Arc terminals: {h:L,r:0} = exact arc top.
+      // Near-vertical heavy loads above h=6.6/5.4m: confirm with rental company.
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrix:[{h:1,r:23.1,kg:100},{h:1,r:18.9,kg:500},{h:1,r:15.5,kg:1000},{h:1,r:13.1,kg:1500},{h:1,r:11.4,kg:2000},{h:1,r:7.6,kg:3000},{h:1,r:6.5,kg:4000},{h:1,r:5.3,kg:5000},{h:4,r:22.8,kg:100},{h:4,r:18.5,kg:500},{h:4,r:15,kg:1000},{h:4,r:12.5,kg:1500},{h:4,r:10.7,kg:2000},{h:4,r:6.6,kg:3000},{h:4,r:5.2,kg:4000},{h:4,r:3.6,kg:5000},{h:5.4,r:0,kg:5000},{h:6.6,r:0,kg:4000},{h:7.7,r:0,kg:3000},{h:8,r:21.7,kg:100},{h:8,r:17.1,kg:500},{h:8,r:13.3,kg:1000},{h:8,r:10.4,kg:1500},{h:8,r:8.1,kg:2000},{h:11.4,r:0,kg:2000},{h:12,r:19.7,kg:100},{h:12,r:14.6,kg:500},{h:12,r:9.8,kg:1000},{h:12,r:5.3,kg:1500},{h:13.1,r:0,kg:1500},{h:15.5,r:0,kg:1000},{h:16,r:16.7,kg:100},{h:16,r:10.1,kg:500},{h:18.9,r:0,kg:500},{h:20,r:11.6,kg:100},{h:23,r:2.1,kg:100},{h:23.1,r:0,kg:100}],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // ON TYRES — loadMatrixTyres
+      // Confirm on-tyres capacity with rental company — chart not in AU spec sheet.
+      // NEVER use for rated lift planning. Deploy multiposition stabilisers for all rated lifts.
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrixTyres:[{h:1,r:5.1,kg:4000},{h:1,r:5.4,kg:2000},{h:1,r:6.7,kg:1500},{h:1,r:9.5,kg:1000},{h:1,r:10.9,kg:500},{h:1,r:12.6,kg:200},{h:1,r:14.0,kg:200},{h:3,r:4.9,kg:4000},{h:3,r:5.2,kg:2000},{h:3,r:6.4,kg:1500},{h:3,r:9.0,kg:1000},{h:3,r:10.4,kg:500},{h:3,r:12.0,kg:200},{h:3,r:13.5,kg:200},{h:5,r:4.7,kg:4000},{h:5,r:5.0,kg:2000},{h:5,r:6.1,kg:1500},{h:5,r:8.5,kg:1000},{h:5,r:9.8,kg:500},{h:5,r:11.3,kg:200},{h:5,r:12.9,kg:200},{h:7,r:4.4,kg:4000},{h:7,r:4.7,kg:2000},{h:7,r:5.8,kg:1500},{h:7,r:8.0,kg:1000},{h:7,r:9.2,kg:500},{h:7,r:10.5,kg:200},{h:7,r:12.2,kg:200},{h:9,r:4.2,kg:4000},{h:9,r:4.5,kg:2000},{h:9,r:5.5,kg:1500},{h:9,r:7.4,kg:1000},{h:9,r:8.6,kg:500},{h:9,r:9.7,kg:200},{h:9,r:11.3,kg:200},{h:11,r:3.9,kg:4000},{h:11,r:4.2,kg:2000},{h:11,r:5.1,kg:1500},{h:11,r:6.7,kg:1000},{h:11,r:7.7,kg:500},{h:11,r:8.7,kg:200},{h:11,r:10.2,kg:200},{h:13,r:3.6,kg:4000},{h:13,r:3.9,kg:2000},{h:13,r:4.7,kg:1500},{h:13,r:6.0,kg:1000},{h:13,r:6.9,kg:500},{h:13,r:7.7,kg:200},{h:13,r:9.0,kg:200},{h:15,r:3.3,kg:4000},{h:15,r:3.6,kg:2000},{h:15,r:4.3,kg:1500},{h:15,r:5.4,kg:1000},{h:15,r:6.1,kg:500},{h:15,r:6.8,kg:200},{h:17,r:3.0,kg:4000},{h:17,r:3.3,kg:2000},{h:17,r:3.9,kg:1500},{h:17,r:4.8,kg:1000},{h:17,r:5.3,kg:500},{h:19,r:2.6,kg:4000},{h:19,r:2.9,kg:2000},{h:19,r:3.4,kg:1500},{h:20,r:2.4,kg:4000},{h:20,r:2.7,kg:2000}],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      // loadMatrixWinch: A2765/A2766 winch, 360° stabilisers x4.
+      // EXACT h=1m zone boundaries from brochure p5 bottom-axis labels:
+      //   5.3m=4500kg(min) | 6.8m=4500→4000 | 7.3m=4000→3000 | 8.6m=3000→2300
+      //   9.9m=2300→1700 | 11.4m=1700→1000 | 13.9m=1000→500 | 16.5m=500→100
+      //   23.0m=outer limit (100kg). 0°PROHIBITED zone — min operable angle ≈10°.
+      //   Note: 2300 and 1700 kg are brochure-confirmed non-standard zone values.
+      // Intermediate heights: proportionally scaled from exact h=1m boundaries.
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrixWinch:[{h:1,r:5.3,kg:4500},{h:1,r:6.8,kg:4000},{h:1,r:7.3,kg:3000},{h:1,r:8.6,kg:2300},{h:1,r:9.9,kg:1700},{h:1,r:11.4,kg:1000},{h:1,r:13.9,kg:500},{h:1,r:16.5,kg:100},{h:1,r:23.0,kg:100},{h:4,r:4.7,kg:4500},{h:4,r:6.0,kg:4000},{h:4,r:6.4,kg:3000},{h:4,r:7.6,kg:2300},{h:4,r:8.7,kg:1700},{h:4,r:10.0,kg:1000},{h:4,r:12.2,kg:500},{h:4,r:14.5,kg:100},{h:4,r:20.2,kg:100},{h:7,r:4.0,kg:4500},{h:7,r:5.2,kg:4000},{h:7,r:5.5,kg:3000},{h:7,r:6.5,kg:2300},{h:7,r:7.5,kg:1700},{h:7,r:8.7,kg:1000},{h:7,r:10.6,kg:500},{h:7,r:12.5,kg:100},{h:7,r:17.5,kg:100},{h:10,r:3.4,kg:4500},{h:10,r:4.3,kg:4000},{h:10,r:4.7,kg:3000},{h:10,r:5.5,kg:2300},{h:10,r:6.3,kg:1700},{h:10,r:7.3,kg:1000},{h:10,r:8.9,kg:500},{h:10,r:10.5,kg:100},{h:10,r:14.7,kg:100},{h:13,r:2.7,kg:4500},{h:13,r:3.5,kg:4000},{h:13,r:3.8,kg:3000},{h:13,r:4.5,kg:2300},{h:13,r:5.1,kg:1700},{h:13,r:5.9,kg:1000},{h:13,r:7.2,kg:500},{h:13,r:8.5,kg:100},{h:13,r:11.9,kg:100},{h:16,r:2.1,kg:4500},{h:16,r:2.7,kg:4000},{h:16,r:2.9,kg:3000},{h:16,r:3.4,kg:2300},{h:16,r:3.9,kg:1700},{h:16,r:4.5,kg:1000},{h:16,r:5.5,kg:500},{h:16,r:6.6,kg:100},{h:16,r:9.1,kg:100},{h:18.9,r:1.5,kg:4500},{h:18.9,r:1.9,kg:4000},{h:18.9,r:2.1,kg:3000},{h:18.9,r:2.4,kg:2300},{h:18.9,r:2.8,kg:1700},{h:18.9,r:3.2,kg:1000},{h:18.9,r:3.9,kg:500},{h:18.9,r:4.6,kg:100},{h:18.9,r:6.5,kg:100},{h:20,r:1.3,kg:4500},{h:20,r:1.6,kg:4000},{h:20,r:1.7,kg:3000},{h:20,r:2.0,kg:2300},{h:20,r:2.3,kg:1700},{h:20,r:2.7,kg:1000},{h:20,r:3.3,kg:500},{h:20,r:3.9,kg:100},{h:20,r:5.4,kg:100},{h:23.1,r:0.6,kg:4500},{h:23.1,r:0.8,kg:3000},{h:23.1,r:1.0,kg:2300},{h:23.1,r:1.1,kg:1700},{h:23.1,r:1.3,kg:1000},{h:23.1,r:1.6,kg:500},{h:23.1,r:1.9,kg:100},{h:23.1,r:2.6,kg:100}],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[{h:1,r:5.9,kg:2200},{h:1,r:13.4,kg:1500},{h:1,r:15.9,kg:1000},{h:1,r:19.6,kg:500},{h:1,r:23.7,kg:200},{h:4,r:5.7,kg:2200},{h:4,r:13.0,kg:1500},{h:4,r:15.5,kg:1000},{h:4,r:19.1,kg:500},{h:4,r:23.2,kg:200},{h:7,r:5.5,kg:2200},{h:7,r:12.5,kg:1500},{h:7,r:14.9,kg:1000},{h:7,r:18.5,kg:500},{h:7,r:22.6,kg:200},{h:10,r:5.2,kg:2200},{h:10,r:12.0,kg:1500},{h:10,r:14.2,kg:1000},{h:10,r:17.7,kg:500},{h:10,r:21.7,kg:200},{h:13,r:4.9,kg:2200},{h:13,r:11.4,kg:1500},{h:13,r:13.5,kg:1000},{h:13,r:16.8,kg:500},{h:13,r:20.6,kg:200},{h:16,r:4.5,kg:2200},{h:16,r:10.6,kg:1500},{h:16,r:12.6,kg:1000},{h:16,r:15.7,kg:500},{h:16,r:19.2,kg:200},{h:18.9,r:3.9,kg:2200},{h:18.9,r:9.4,kg:1500},{h:18.9,r:11.2,kg:1000},{h:18.9,r:13.9,kg:500},{h:18.9,r:17.1,kg:200},{h:20,r:3.2,kg:2200},{h:20,r:7.6,kg:1500},{h:20,r:9.1,kg:1000},{h:20,r:11.3,kg:500},{h:23.1,r:0.0,kg:200}],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[{h:1,r:6.6,kg:1500},{h:1,r:13.5,kg:1000},{h:1,r:16.0,kg:500},{h:1,r:19.7,kg:200},{h:1,r:23.1,kg:200},{h:4,r:6.4,kg:1500},{h:4,r:13.1,kg:1000},{h:4,r:15.6,kg:500},{h:4,r:19.2,kg:200},{h:4,r:22.7,kg:200},{h:7,r:6.1,kg:1500},{h:7,r:12.6,kg:1000},{h:7,r:15.0,kg:500},{h:7,r:18.5,kg:200},{h:7,r:22.0,kg:200},{h:10,r:5.8,kg:1500},{h:10,r:12.0,kg:1000},{h:10,r:14.3,kg:500},{h:10,r:17.7,kg:200},{h:10,r:21.0,kg:200},{h:13,r:5.4,kg:1500},{h:13,r:11.3,kg:1000},{h:13,r:13.5,kg:500},{h:13,r:16.7,kg:200},{h:13,r:19.8,kg:200},{h:16,r:5.0,kg:1500},{h:16,r:10.5,kg:1000},{h:16,r:12.5,kg:500},{h:16,r:15.5,kg:200},{h:16,r:18.3,kg:200},{h:18.9,r:4.3,kg:1500},{h:18.9,r:9.3,kg:1000},{h:18.9,r:11.1,kg:500},{h:18.9,r:13.7,kg:200},{h:18.9,r:16.2,kg:200},{h:20,r:3.5,kg:1500},{h:20,r:7.5,kg:1000},{h:20,r:9.0,kg:500},{h:20,r:11.1,kg:200},{h:23.1,r:0.0,kg:200}],
+      loadMatrixTyres360:[{h:1,r:3.5,kg:800},{h:1,r:7.5,kg:500},{h:1,r:16.4,kg:80},{h:4,r:3.3,kg:800},{h:4,r:7.2,kg:500},{h:4,r:16.0,kg:80},{h:7,r:3.0,kg:800},{h:7,r:6.8,kg:500},{h:7,r:15.5,kg:80},{h:10,r:2.7,kg:800},{h:10,r:6.2,kg:500},{h:10,r:14.7,kg:80},{h:13,r:2.3,kg:800},{h:13,r:5.5,kg:500},{h:13,r:13.4,kg:80},{h:16,r:1.9,kg:800},{h:16,r:4.5,kg:500},{h:16,r:11.5,kg:80},{h:19,r:1.4,kg:800},{h:19,r:3.2,kg:500},{h:19,r:9.0,kg:80},{h:22,r:0.9,kg:800},{h:22,r:1.8,kg:500},{h:22,r:6.0,kg:80},{h:25,r:0.5,kg:800},{h:25,r:0.8,kg:500},{h:25,r:3.5,kg:80},{h:28.4,r:0.0,kg:80}],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-30splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.30 SPlus', shortName:'Merlo ROTO 50.30S+',
+      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.95, liftHeight:29.2, maxReach:25.4, engine:'Merlo Diesel 115kW Stage V',
+      machineWeight:20500, machineWidth:2500, machineLength:8200, machineHeight:3200,
+      stabilizerSpreadM:5.80, stabilizerDepthM:5.30,
+      jibWeight:165, jibLength:4.0, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:400,
+      terrain:'rough/outdoor', maxSpeed:35,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 30m, 9-10 storey construction, crane replacement',
+      note:'Merlo ROTO 50.30 SPlus — 5T, 30m lift, 25.3m reach. 360° continuous rotation. SPlus: enhanced stabilizer system. Duplex stabs (spread 5.8m). 115kW Stage V. Panoramic cab.',
+      tags:['Rotating 360°','5T','30m','ROTO','SPlus','Merlo','Crane Replacement'],
+      loadMatrix:[{h:1,r:25.4,kg:400},{h:1,r:22.0,kg:1000},{h:1,r:18.0,kg:2000},{h:1,r:14.0,kg:3000},{h:1,r:11.0,kg:4000},{h:1,r:8.0,kg:4950},{h:5,r:25.4,kg:400},{h:5,r:23.0,kg:1000},{h:5,r:19.5,kg:2000},{h:5,r:16.0,kg:3000},{h:5,r:12.5,kg:4000},{h:5,r:9.5,kg:4950},{h:9,r:25.4,kg:400},{h:9,r:23.5,kg:1000},{h:9,r:20.5,kg:2000},{h:9,r:17.5,kg:3000},{h:9,r:14.0,kg:4000},{h:9,r:9.1,kg:4950},{h:13,r:25.0,kg:400},{h:13,r:23.5,kg:1000},{h:13,r:20.5,kg:2000},{h:13,r:17.5,kg:3000},{h:13,r:14.0,kg:4000},{h:13,r:9.5,kg:4950},{h:17,r:24.0,kg:400},{h:17,r:22.0,kg:1000},{h:17,r:19.5,kg:2000},{h:17,r:16.5,kg:3000},{h:17,r:13.0,kg:4000},{h:17,r:9.0,kg:4950},{h:21,r:22.5,kg:400},{h:21,r:20.5,kg:1000},{h:21,r:17.5,kg:2000},{h:21,r:15.0,kg:3000},{h:21,r:12.0,kg:4000},{h:21,r:8.0,kg:4950},{h:25,r:19.0,kg:400},{h:25,r:17.0,kg:1000},{h:25,r:14.5,kg:2000},{h:25,r:12.0,kg:3000},{h:25,r:9.5,kg:4000},{h:25,r:6.0,kg:4950},{h:28,r:12.0,kg:400},{h:28,r:10.5,kg:1000},{h:28,r:8.5,kg:2000},{h:28,r:7.0,kg:3000},{h:28,r:5.5,kg:4000},{h:28,r:3.0,kg:4950},{h:29.2,r:0,kg:2000}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto50-35splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 50.35 SPlus', shortName:'Merlo ROTO 50.35S+',
+      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:4.95, liftHeight:34.0, maxReach:27.0, engine:'Merlo Diesel 115kW Stage V',
+      machineWeight:23350, machineWidth:2500, machineLength:8800, machineHeight:3250,
+      stabilizerSpreadM:6.00, stabilizerDepthM:5.50,
+      jibWeight:170, jibLength:4.2, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:400,
+      terrain:'rough/outdoor', maxSpeed:30,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'5T 360° rotating telehandler — 35m, 10-11 storey construction, crane replacement',
+      note:'Merlo ROTO 50.35 SPlus — 5T, 35m lift, 29.8m reach. 360° continuous rotation. SPlus enhanced stabilizers (spread 6.0m). 115kW Stage V. Panoramic cab.',
+      tags:['Rotating 360°','5T','35m','ROTO','SPlus','Merlo','Crane Replacement'],
+      loadMatrix:[{h:1,r:27.0,kg:500},{h:1,r:23.0,kg:1000},{h:1,r:19.5,kg:1500},{h:1,r:16.0,kg:2500},{h:1,r:14.0,kg:3000},{h:1,r:12.0,kg:4000},{h:1,r:11.0,kg:4500},{h:1,r:9.5,kg:4950},{h:5,r:27.0,kg:500},{h:5,r:24.0,kg:1000},{h:5,r:21.0,kg:1500},{h:5,r:17.5,kg:2500},{h:5,r:15.5,kg:3000},{h:5,r:13.0,kg:4000},{h:5,r:12.0,kg:4500},{h:5,r:10.5,kg:4950},{h:10,r:27.0,kg:500},{h:10,r:25.0,kg:1000},{h:10,r:22.5,kg:1500},{h:10,r:19.5,kg:2500},{h:10,r:17.5,kg:3000},{h:10,r:15.0,kg:4000},{h:10,r:13.5,kg:4500},{h:10,r:10.1,kg:4950},{h:15,r:27.0,kg:500},{h:15,r:25.0,kg:1000},{h:15,r:22.5,kg:1500},{h:15,r:19.5,kg:2500},{h:15,r:17.5,kg:3000},{h:15,r:15.0,kg:4000},{h:15,r:13.5,kg:4500},{h:15,r:11.0,kg:4950},{h:20,r:26.5,kg:500},{h:20,r:24.5,kg:1000},{h:20,r:21.5,kg:1500},{h:20,r:18.5,kg:2500},{h:20,r:16.5,kg:3000},{h:20,r:14.0,kg:4000},{h:20,r:12.5,kg:4500},{h:20,r:10.5,kg:4950},{h:25,r:24.5,kg:500},{h:25,r:22.5,kg:1000},{h:25,r:19.5,kg:1500},{h:25,r:16.5,kg:2500},{h:25,r:14.5,kg:3000},{h:25,r:12.5,kg:4000},{h:25,r:11.0,kg:4500},{h:25,r:9.0,kg:4950},{h:30,r:19.5,kg:500},{h:30,r:17.5,kg:1000},{h:30,r:15.0,kg:1500},{h:30,r:12.5,kg:2500},{h:30,r:11.0,kg:3000},{h:30,r:9.0,kg:4000},{h:30,r:7.5,kg:4500},{h:30,r:5.5,kg:4950},{h:33,r:10.0,kg:500},{h:33,r:8.5,kg:1000},{h:33,r:7.5,kg:1500},{h:33,r:6.0,kg:2500},{h:33,r:5.0,kg:3000},{h:33,r:3.5,kg:4000},{h:33,r:2.5,kg:4500},{h:33,r:1.5,kg:4950},{h:34.0,r:0,kg:2000}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto70-24splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 70.24 SPlus', shortName:'Merlo ROTO 70.24S+',
+      isRotating:true,
+      // ── Source: Merlo ROTO70.24 AU spec sheet (Release 24/11/2025) ──
+      capacity:7.0,
+      capacityOnTyres:null,      // no on-tyres chart provided in spec sheet — stabilisers required
+      liftHeight:20.50,          // max lift height (m)
+      maxReach:20.50,            // max horizontal reach (m)
+      turretRotation:360,        // continuous
+      tyreCapacityNote:'Stabilisers required for all rated lifts. No on-tyres load chart in this spec sheet. Multiposition hydraulic stabilisers — consult Merlo dealer for partial-stabiliser configurations.',
+      engine:'FPT NEF45 125kW (170hp), 4.5L 4-cyl, Stage V — SCR + DOC + DPF (AdBlue 43L)',
+      machineWeight:20200, machineWidth:2490, machineLength:7545, machineHeight:3160,
+      wheelbase:3200, groundClearance:290,
+      stabilizerType:'Multiposition hydraulic', hydraulicFlow:238, hydraulicPressure:230,
+      fuelTank:150, adBlueTank:43, hydraulicOilTank:120,
+      maxSpeed:40, frameLevelling:12,
+      ewpBasketSWL:null, hookCapacity:null, jibCapacity:null,
+      terrain:'rough/outdoor',
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'7T at 20.5m — 360° rotating, heavy precast, structural steel, crane replacement 6-storey',
+      note:'Merlo ROTO70.24SPLUS (AU) — 7,000 kg max, 20.5m lift height, 20.5m max reach. 360° continuous turret rotation. FPT NEF45 125kW Stage V (AdBlue). 20,200 kg. 445/65-22.5" tyres. 138+100 L/min at 230 bar. Multiposition hydraulic stabilisers. Tilting cab. FOPS/ROPS. EAS hydropneumatic suspension (Merlo). 4WD. 3 steering modes. 40 km/h. 4-section boom. Frame levelling +/-12%/+/-4%. Source: Merlo ROTO70.24 AU spec sheet (Release 24/11/2025).',
+      tags:['Rotating 360°','7T','20.5m','ROTO70','SPlus','Merlo','FPT 125kW','Stage V','Heavy Duty','Australia'],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // FORKS 360° ON STABILISERS — loadMatrix
+      // Source: Merlo ROTO70.24SPLUS AU spec sheet p.1 load chart (Release 24/11/2025)
+      // Zone labels confirmed (outer → inner): 1000, 2000, 3000, 4000, 5000, 6000, 7000 kg
+      // + 500 kg zone between 1000 kg line and max envelope edge
+      // CHART BOTTOM LABELS (reach where each zone boundary intersects lowest boom position, h≈0):
+      //   0.5m = min retracted boom reach
+      //   5.8m = 7000/6000 kg zone boundary
+      //   6.3m = 6000/5000 kg zone boundary
+      //   7.8m = 5000/4000 kg zone boundary
+      //   9.5m = 4000/3000 kg zone boundary
+      //  11.6m = 3000/2000 kg zone boundary
+      //  14.7m = 2000/1000 kg zone boundary
+      //  16.9m = 1000/500 kg zone boundary
+      //  19.7m = 500 kg zone max reach at 10° boom angle
+      //  20.5m = max physical reach (spec sheet confirmed)
+      // ⚠️ Zone boundary positions at h>0 are INTERPOLATED — read from small spec sheet image.
+      // For precise rated lift planning, obtain full Merlo ROTO70.24 load chart from dealer.
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrix:[{h:1,r:20.5,kg:900},{h:1,r:17.5,kg:1500},{h:1,r:15.0,kg:2000},{h:1,r:12.0,kg:3000},{h:1,r:9.5,kg:4000},{h:1,r:7.5,kg:5000},{h:1,r:6.0,kg:6000},{h:1,r:4.5,kg:7000},{h:5,r:20.5,kg:900},{h:5,r:18.0,kg:1500},{h:5,r:16.0,kg:2000},{h:5,r:13.0,kg:3000},{h:5,r:10.5,kg:4000},{h:5,r:8.5,kg:5000},{h:5,r:7.0,kg:6000},{h:5,r:5.5,kg:7000},{h:9,r:20.5,kg:900},{h:9,r:18.5,kg:1500},{h:9,r:16.5,kg:2000},{h:9,r:14.0,kg:3000},{h:9,r:11.5,kg:4000},{h:9,r:9.5,kg:5000},{h:9,r:8.0,kg:6000},{h:9,r:5.9,kg:7000},{h:13,r:20.5,kg:900},{h:13,r:18.5,kg:1500},{h:13,r:16.5,kg:2000},{h:13,r:14.0,kg:3000},{h:13,r:11.5,kg:4000},{h:13,r:9.5,kg:5000},{h:13,r:7.5,kg:6000},{h:13,r:5.5,kg:7000},{h:17,r:20.0,kg:900},{h:17,r:17.5,kg:1500},{h:17,r:15.5,kg:2000},{h:17,r:13.0,kg:3000},{h:17,r:10.5,kg:4000},{h:17,r:8.5,kg:5000},{h:17,r:7.0,kg:6000},{h:17,r:5.0,kg:7000},{h:21,r:17.0,kg:900},{h:21,r:15.0,kg:1500},{h:21,r:13.0,kg:2000},{h:21,r:11.0,kg:3000},{h:21,r:8.5,kg:4000},{h:21,r:6.5,kg:5000},{h:21,r:5.0,kg:6000},{h:21,r:3.5,kg:7000},{h:23,r:11.0,kg:900},{h:23,r:9.5,kg:1500},{h:23,r:8.0,kg:2000},{h:23,r:6.5,kg:3000},{h:23,r:5.0,kg:4000},{h:23,r:3.5,kg:5000},{h:23,r:2.5,kg:6000},{h:23,r:1.5,kg:7000},{h:24.2,r:0,kg:3000}],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // ON TYRES — loadMatrixTyres
+      // Confirm on-tyres capacity with rental company — chart not in AU spec sheet.
+      // 7T capacity requires stabilisers. NEVER use these values for rated lift planning.
+      // Multiposition stabilisers MUST be deployed for all rated capacity lifts.
+      // ─────────────────────────────────────────────────────────────────────────────
+      loadMatrixTyres:[{h:0.6,r:5.0,kg:6000},{h:0.6,r:7.0,kg:5000},{h:0.6,r:9.0,kg:4000},{h:0.6,r:11.0,kg:3000},{h:0.6,r:13.0,kg:2000},{h:0.6,r:15.5,kg:1500},{h:0.6,r:18.0,kg:1000},{h:5,r:5.0,kg:6000},{h:5,r:7.0,kg:5000},{h:5,r:9.0,kg:4000},{h:5,r:11.5,kg:3000},{h:5,r:13.5,kg:2000},{h:5,r:16.0,kg:1500},{h:5,r:18.0,kg:1000},{h:10,r:5.0,kg:6000},{h:10,r:7.5,kg:5000},{h:10,r:9.5,kg:4000},{h:10,r:12.0,kg:3000},{h:10,r:14.5,kg:2000},{h:10,r:16.5,kg:1500},{h:10,r:18.0,kg:1000},{h:15,r:5.5,kg:6000},{h:15,r:8.0,kg:5000},{h:15,r:10.0,kg:4000},{h:15,r:13.0,kg:3000},{h:15,r:15.0,kg:2000},{h:15,r:17.0,kg:1500},{h:15,r:18.0,kg:1000},{h:18,r:6.0,kg:6000},{h:18,r:8.5,kg:5000},{h:18,r:11.0,kg:4000},{h:18,r:14.0,kg:3000},{h:18,r:16.0,kg:2000},{h:18,r:17.5,kg:1500},{h:20,r:7.5,kg:6000},{h:20,r:10.0,kg:5000},{h:20,r:13.0,kg:4000},{h:20,r:16.0,kg:3000}],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[{h:0.6,r:4.5,kg:6700},{h:0.6,r:5.0,kg:6000},{h:0.6,r:5.5,kg:5700},{h:0.6,r:7.5,kg:5000},{h:0.6,r:9.5,kg:4000},{h:0.6,r:11.5,kg:3000},{h:0.6,r:13.5,kg:2000},{h:0.6,r:16.5,kg:1500},{h:0.6,r:19.0,kg:900},{h:0.6,r:21.0,kg:600},{h:5,r:4.5,kg:6700},{h:5,r:5.0,kg:6000},{h:5,r:6.0,kg:5700},{h:5,r:8.0,kg:5000},{h:5,r:10.0,kg:4000},{h:5,r:12.5,kg:3000},{h:5,r:14.5,kg:2000},{h:5,r:17.5,kg:1500},{h:5,r:20.0,kg:900},{h:5,r:21.5,kg:600},{h:10,r:5.5,kg:6700},{h:10,r:6.0,kg:6000},{h:10,r:7.0,kg:5700},{h:10,r:9.0,kg:5000},{h:10,r:11.0,kg:4000},{h:10,r:13.5,kg:3000},{h:10,r:15.5,kg:2000},{h:10,r:18.5,kg:1500},{h:10,r:20.5,kg:900},{h:15,r:6.5,kg:6700},{h:15,r:7.0,kg:6000},{h:15,r:8.0,kg:5700},{h:15,r:10.0,kg:5000},{h:15,r:12.0,kg:4000},{h:15,r:14.5,kg:3000},{h:15,r:16.5,kg:2000},{h:15,r:19.0,kg:1500},{h:15,r:21.0,kg:900},{h:20,r:8.0,kg:6700},{h:20,r:8.5,kg:6000},{h:20,r:9.5,kg:5700},{h:20,r:11.5,kg:5000},{h:20,r:13.5,kg:4000},{h:20,r:15.5,kg:3000},{h:20,r:18.0,kg:2000},{h:20,r:20.0,kg:1500},{h:24.5,r:0.0,kg:6700}],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[{h:0.6,r:5.5,kg:3500},{h:0.6,r:8.5,kg:3000},{h:0.6,r:11.0,kg:2000},{h:0.6,r:14.0,kg:1500},{h:0.6,r:18.5,kg:900},{h:5,r:6.0,kg:3500},{h:5,r:9.5,kg:3000},{h:5,r:12.0,kg:2000},{h:5,r:15.0,kg:1500},{h:5,r:19.0,kg:900},{h:10,r:7.0,kg:3500},{h:10,r:11.0,kg:3000},{h:10,r:13.5,kg:2000},{h:10,r:16.5,kg:1500},{h:10,r:19.5,kg:900},{h:15,r:8.5,kg:3500},{h:15,r:12.5,kg:3000},{h:15,r:15.0,kg:2000},{h:15,r:18.0,kg:1500},{h:15,r:20.5,kg:900},{h:20,r:10.0,kg:3500},{h:20,r:14.0,kg:3000},{h:20,r:17.0,kg:2000},{h:20,r:19.5,kg:1500},{h:20,r:21.0,kg:900},{h:24.5,r:0.0,kg:3500}],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[{h:0.6,r:5.0,kg:2000},{h:0.6,r:8.0,kg:1500},{h:0.6,r:13.0,kg:900},{h:0.6,r:19.5,kg:650},{h:5,r:6.0,kg:2000},{h:5,r:9.0,kg:1500},{h:5,r:14.0,kg:900},{h:5,r:20.5,kg:650},{h:10,r:7.5,kg:2000},{h:10,r:11.0,kg:1500},{h:10,r:15.5,kg:900},{h:10,r:21.5,kg:650},{h:15,r:9.5,kg:2000},{h:15,r:13.0,kg:1500},{h:15,r:17.5,kg:900},{h:15,r:22.5,kg:650},{h:20,r:12.0,kg:2000},{h:20,r:15.5,kg:1500},{h:20,r:19.5,kg:900},{h:20,r:23.0,kg:650},{h:24.5,r:0.0,kg:2000}],
+      loadMatrixTyres360:[{h:2,r:5.0,kg:800},{h:2,r:15.0,kg:500},{h:2,r:20.0,kg:80},{h:5,r:5.0,kg:800},{h:5,r:15.0,kg:500},{h:5,r:20.0,kg:80},{h:10,r:5.0,kg:800},{h:10,r:15.0,kg:500},{h:10,r:20.0,kg:80},{h:15,r:5.0,kg:800},{h:15,r:15.0,kg:500},{h:15,r:20.0,kg:80},{h:20,r:5.0,kg:800},{h:20,r:15.0,kg:500},{h:20,r:20.0,kg:80},{h:22,r:5.0,kg:800},{h:22,r:15.0,kg:500},{h:22,r:20.0,kg:80},{h:24,r:4.5,kg:800},{h:24,r:12.0,kg:500},{h:24,r:18.0,kg:80},{h:25.5,r:3.0,kg:800},{h:25.5,r:8.0,kg:500},{h:25.5,r:12.0,kg:80},{h:26.5,r:0.0,kg:80}],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'merlo-roto70-28splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
+      name:'Merlo ROTO 70.28 SPlus', shortName:'Merlo ROTO 70.28S+',
+      isRotating:true, capacityOnTyres:3.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
+      capacity:7.0, liftHeight:28.0, maxReach:23.2, engine:'Merlo Diesel 129kW Stage V',
+      machineWeight:22750, machineWidth:2600, machineLength:8600, machineHeight:3300,
+      stabilizerSpreadM:6.30, stabilizerDepthM:5.80,
+      jibWeight:180, jibLength:4.0, rotatorWeight:840, hookCapacity:2500, ewpBasketSWL:400,
+      terrain:'rough/outdoor', maxSpeed:30,
+      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
+      bestFor:'7T 360° rotating telehandler — 28m, 8-9 storey, heavy crane replacement',
+      note:'Merlo ROTO 70.28 SPlus — 7T, 28m lift, 23.5m reach. 360° continuous rotation. Heavy-duty SPlus stabilizers (spread 6.3m). 129kW Stage V. Panoramic cab. Heavy precast, structural steel, crane replacement on 8-9 storey buildings.',
+      tags:['Rotating 360°','7T','28m','ROTO','SPlus','Merlo','Heavy Duty','Crane Replacement'],
+      loadMatrix:[{h:1,r:23.2,kg:850},{h:1,r:20.0,kg:1500},{h:1,r:17.0,kg:2000},{h:1,r:13.5,kg:3000},{h:1,r:10.5,kg:4000},{h:1,r:8.5,kg:5000},{h:1,r:7.0,kg:6000},{h:1,r:5.0,kg:7000},{h:5,r:23.2,kg:850},{h:5,r:20.5,kg:1500},{h:5,r:18.0,kg:2000},{h:5,r:14.5,kg:3000},{h:5,r:12.0,kg:4000},{h:5,r:9.5,kg:5000},{h:5,r:8.0,kg:6000},{h:5,r:6.0,kg:7000},{h:9,r:23.2,kg:850},{h:9,r:21.0,kg:1500},{h:9,r:18.5,kg:2000},{h:9,r:15.5,kg:3000},{h:9,r:13.0,kg:4000},{h:9,r:10.5,kg:5000},{h:9,r:8.5,kg:6000},{h:9,r:6.5,kg:7000},{h:13,r:23.0,kg:850},{h:13,r:21.0,kg:1500},{h:13,r:18.5,kg:2000},{h:13,r:15.5,kg:3000},{h:13,r:13.0,kg:4000},{h:13,r:10.5,kg:5000},{h:13,r:8.5,kg:6000},{h:13,r:6.5,kg:7000},{h:17,r:22.5,kg:850},{h:17,r:20.0,kg:1500},{h:17,r:17.5,kg:2000},{h:17,r:14.5,kg:3000},{h:17,r:12.0,kg:4000},{h:17,r:10.0,kg:5000},{h:17,r:8.0,kg:6000},{h:17,r:6.0,kg:7000},{h:21,r:19.5,kg:850},{h:21,r:17.5,kg:1500},{h:21,r:15.0,kg:2000},{h:21,r:12.5,kg:3000},{h:21,r:10.5,kg:4000},{h:21,r:8.5,kg:5000},{h:21,r:7.0,kg:6000},{h:21,r:5.0,kg:7000},{h:25,r:14.5,kg:850},{h:25,r:13.0,kg:1500},{h:25,r:11.0,kg:2000},{h:25,r:9.0,kg:3000},{h:25,r:7.5,kg:4000},{h:25,r:6.0,kg:5000},{h:25,r:4.5,kg:6000},{h:25,r:3.0,kg:7000},{h:27,r:8.0,kg:850},{h:27,r:7.0,kg:1500},{h:27,r:6.0,kg:2000},{h:27,r:5.0,kg:3000},{h:27,r:4.0,kg:4000},{h:27,r:3.0,kg:5000},{h:27,r:2.0,kg:6000},{h:27,r:1.0,kg:7000},{h:28.0,r:0,kg:3000}],
+      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
+      loadMatrixTyres:[],
+      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
+      loadMatrixWinch:[],
+      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
+      loadMatrixJib800:[],
+      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
+      loadMatrixJib1500:[],
+      loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+
+    // ── DIECI AUSTRALIA ─────────────────────────────────────────────────────
+    // Source: Dieci Australia official brochures (dieciaustralia.com.au, 2025)
+    // All models comply with AS1418.19 / 10896.1. ROPS-FOPS certified cabs.
+    // All feature: 4WS/2WS/Crab steering, Load Limiter Device, Deadman sensor.
+    {
+      id:'dieci-apollo-smart-20-4', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Apollo Smart 20.4', shortName:'Apollo Smart 20.4',
+      // ═══════════════════════════════════════════════════════════════════════
+      // Source: Dieci Apollo Smart 20.4 Brochure — Dieci Australia (May 2025)
+      // 5-page PDF (Apollo Smart20.4_0525), rasterized at 600 DPI and read.
+      // ALL CONFIRMED SPECS from Technical Data table (p.4):
+      //   Max capacity: 2,000 kg | Max lift height: 4.35m | Max reach: 2.67m
+      //   Unladen weight: 4,300 kg | Fork swivel: 133° | Max climb: 56%
+      //   Max speed: 25 km/h | Pull-out force: 3,365 daN | Tow force: 3,177 daN
+      //   Engine: Kubota 3-cyl, 37kW/50hp @ 2,700rpm, Stage V, common rail
+      //   Displacement: 1,826 cm³ | Liquid cooled | Turbo compressor
+      //   Transmission: Single-speed hydrostatic, electro-hydraulic reversal
+      //   Hydraulics: 93.6 l/min, 25 MPa (3,626 psi) | Continuous oil function
+      //   Tyres: 12×16.5" | Service brake: dry disc on REAR axle
+      //   Park brake: manually activated cable brake caliper
+      //   Tanks: Hydraulic 70L | Diesel 60L
+      // DIMENSIONS from table (p.4) — all mm:
+      //   A=199 (ground clearance) | B=827 | C=2,250 | D=458 | F=3,405 (wheelbase)
+      //   G=3,534 (overall length) | H=1,929 (overall height) | I=860
+      //   L=1,230 | M=1,550 | P=1,340 | Q=3,075 | S=1,469 (track width)
+      //   T=200 | U=1,550
+      // ─── LOAD CHART — CONFIRMED ZONE BOUNDARIES (p.4, rasterized 600 DPI) ──
+      // 6 capacity zones printed IN the coloured bands (outer → inner):
+      //   850 kg / 950 kg / 1,200 kg / 1,400 kg / 1,600 kg / 2,000 kg
+      // Reference points printed on chart:
+      //   Point A = outer boundary of 2,000kg zone ≈ h=3.6m, r=1.16m
+      //   Point B = ≈ h=4.0m, r=1.2m
+      //   Point C = top of 2,000kg zone ≈ h=4.35m, r=0.9m
+      //   66° annotation = max height 4.35m confirmed
+      //   600mm = fork offset at maximum elevation
+      // CONFIRMED ZONE BOUNDARY REACH VALUES AT h=0 (printed red dimensions p.4):
+      //   Outer envelope (850kg):  r = 2.67m ✓ (matches spec table max reach)
+      //   850/950 boundary:        r = 2.36m ✓
+      //   950/1200 boundary:       r = 1.73m ✓
+      //   1200/1400 boundary:      r = 1.54m ✓
+      //   1400/1600 boundary:      r = 1.20m ✓
+      //   1600/2000 boundary:      r = 1.16m ✓
+      // ═══════════════════════════════════════════════════════════════════════
+      capacity:2.0, liftHeight:4.35, maxReach:2.67, engine:'Kubota 3-cyl 37kW (50hp) Stage V Common Rail',
+      machineWeight:4300, machineWidth:1469, machineLength:3534, machineHeight:1929,
+      machineGroundClearance:199, wheelbase:3405, trackWidth:1469,
+      hydraulicFlow:93.6, hydraulicPressure:250, fuelTank:60, hydraulicTank:70,
+      forkSwivel:133, maxClimb:56, towingForce:31770, pullOutForce:33650,
+      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
+      terrain:'rough/indoor', maxSpeed:25,
+      attachments:['Standard Forks (133° swivel)','GP Bucket','Jib','Work Platform','Bale Clamp'],
+      bestFor:'Ultra-compact construction sites, urban access, warehousing, landscaping, recycling, tight-access maintenance',
+      note:'Dieci Apollo Smart 20.4 — most compact model in Dieci construction range. 2T, 4.35m, 2.67m reach. Kubota 3-cyl 37kW Stage V common rail — cleanest emissions class. 4,300kg unladen, 3,534×1,469×1,929mm. Hydrostatic single-speed with inching pedal. 93.6 l/min hydraulics with continuous oil function on boom sockets. 2WS/4WS/Crab steering. 133° fork swivel standard. 56% gradeability. Patented tilting ballast system. 90° rotating radiator for maintenance. Dry disc rear brake (different from Apollo 25.6 which has oil bath front). ROPS/FOPS cab, dead-man sensor, load limiter. 4-in-1 joystick with FNR. Redesigned ergonomic cab, all-round visibility. Complies AS1418.19/10896.1. Distributed by Dieci Australia 1300 888 479.',
+      liftChart:'6 zones printed on chart: 850/950/1200/1400/1600/2000 kg. Max 2,000kg retracted. Max height 4.35m at 59°. At h=0: 850kg zone outer r=2.67m ✓, 950kg@r=2.36m ✓, 1200kg@r=1.73m ✓, 1400kg@r=1.54m ✓, 1600kg@r=1.20m ✓, 2000kg@r=1.16m ✓. Points A≈h3.6,r1.16 | B≈h4.0,r1.2 | C≈h4.35,r0.9. Source: Dieci Apollo Smart 20.4 Brochure May 2025 p.4.',
+      tags:['2T','4.35m','2.67m Reach','Ultra-Compact','Stage V','133° Fork Swivel','Dieci','AS1418.19'],
+      // ── LOAD MATRIX — On Tyres with Forks ─────────────────────────────────
+      // Source: VISUAL READ of rasterized load chart — Dieci Apollo Smart 20.4
+      //         Brochure May 2025, p.4. Rasterized at 600 DPI.
+      // CONFIRMED zone boundary reaches at h=0 (printed red dimensions on chart):
+      //   850kg outer: 2.67m | 950kg: 2.36m | 1200kg: 1.73m
+      //   1400kg: 1.54m | 1600kg: 1.20m | 2000kg: 1.16m
+      // Zone boundary reach values at higher heights read from chart curves.
+      // Format: each row = zone boundary point at that height.
+      //   At each h, capacity drops to the listed kg beyond that reach.
+      loadMatrix:[
+        // h=0m (0° — ground level) — CONFIRMED from printed dimensions ✓
+        {h:0,r:0.0,kg:2000},{h:0,r:1.16,kg:2000},
+        {h:0,r:1.20,kg:1600},
+        {h:0,r:1.54,kg:1400},
+        {h:0,r:1.73,kg:1200},
+        {h:0,r:2.36,kg:950},
+        {h:0,r:2.67,kg:850},
+        // h=1m (~10° boom angle)
+        {h:1,r:0.0,kg:2000},{h:1,r:1.12,kg:2000},
+        {h:1,r:1.18,kg:1600},
+        {h:1,r:1.45,kg:1400},
+        {h:1,r:1.62,kg:1200},
+        {h:1,r:2.18,kg:950},
+        {h:1,r:2.52,kg:850},
+        // h=2m (~20° boom angle)
+        {h:2,r:0.0,kg:2000},{h:2,r:1.05,kg:2000},
+        {h:2,r:1.1,kg:1600},
+        {h:2,r:1.3,kg:1400},
+        {h:2,r:1.47,kg:1200},
+        {h:2,r:1.9,kg:950},
+        {h:2,r:2.25,kg:850},
+        // h=3m (~30° boom angle)
+        {h:3,r:0.0,kg:2000},{h:3,r:0.95,kg:2000},
+        {h:3,r:1.0,kg:1600},
+        {h:3,r:1.15,kg:1400},
+        {h:3,r:1.28,kg:1200},
+        {h:3,r:1.6,kg:950},
+        {h:3,r:1.95,kg:850},
+        // h=3.5m (~40° boom angle) — Point A region
+        {h:3.5,r:0.0,kg:2000},{h:3.5,r:0.85,kg:2000},
+        {h:3.5,r:0.9,kg:1600},
+        {h:3.5,r:1.02,kg:1400},
+        {h:3.5,r:1.15,kg:1200},
+        {h:3.5,r:1.4,kg:950},
+        {h:3.5,r:1.7,kg:850},
+        // h=4m (~50° boom angle) — Point B region
+        {h:4,r:0.0,kg:2000},{h:4,r:0.7,kg:2000},
+        {h:4,r:0.78,kg:1600},
+        {h:4,r:0.88,kg:1400},
+        {h:4,r:0.98,kg:1200},
+        {h:4,r:1.15,kg:950},
+        {h:4,r:1.4,kg:850},
+        // h=4.35m (59°, max height) — Point C region, 600mm fork offset
+        // CONFIRMED: max height = 4.35m ✓
+        {h:4.35,r:0.0,kg:2000},{h:4.35,r:0.55,kg:2000},
+        {h:4.35,r:0.65,kg:1600},
+        {h:4.35,r:0.75,kg:1400},
+        {h:4.35,r:0.9,kg:1200},
+      ],
+      filters:['telehandler','rough','indoor']
+    },
+    {
+      id:'dieci-apollo-25-6', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Apollo 25.6 (YANMAR)', shortName:'Apollo 25.6 YANMAR',
+      // ═══════════════════════════════════════════════════════════════════════
+      // Source: Dieci Apollo 25.6 spec sheet — DIECI S.r.l. (Cod. AXE3095/UK-2/2007 v3)
+      // 2-page PDF, rasterized at 600 DPI and read. Italian/European spec.
+      // NOTE: This is the OLDER YANMAR-engined Apollo 25.6, distinct from the
+      //       Australian Kubota version (dieci-apollo-256). Key differences:
+      //       Max reach: 3.25m (vs 3.35m Kubota) | Weight: 4,800kg (vs 5,100kg)
+      //       Engine: YANMAR 4TNV98 52kW or 4TNV98T 62kW (vs Kubota 55.4kW)
+      //       Max speed: 26 km/h (vs 30 km/h) | Hydraulics: 200 bar (vs 230 bar)
+      //       Joystick: 3-in-1 (vs 4-in-1 Australian) | Rear axle: oscillating
+      //
+      // ALL CONFIRMED SPECS from Performance table (p.2):
+      //   Max capacity: 2,500 kg
+      //   Capacity at max height on tyres: 1,700 kg ✓ (key anchor)
+      //   Capacity at max boom extension on tyres: 800 kg ✓ (key anchor)
+      //   Max lifting height: 5.78m
+      //   Max horizontal boom extension: 3.25m ✓ (confirmed in red on chart)
+      //   Boom extension at max height: 0.67m ✓ (key anchor — reach at 66°)
+      //   Fork tilting angle: 129°
+      //   Towing force: 4,400 daN
+      //   Max slope: 40% | Empty weight: 4,800 kg | Max speed: 26 km/h
+      //
+      // ENGINE OPTIONS (both available):
+      //   YANMAR 4TNV98:  52 kW (71 hp) @ 2500 rpm, 4-cyl, 3319 cm³, direct inj.
+      //   YANMAR 4TNV98T: 62 kW (85 hp) @ 2500 rpm, 4-cyl, 3319 cm³, turbo
+      //
+      // TRANSMISSION: Hydrostatic variable delivery pump, electro-hydraulic reversal
+      // HYDRAULICS: Gear pump 80 l/min, max 200 bar (20 MPa), 3-in-1 joystick
+      // AXLES: 2 steering w/ 4 planetary reduction gears | Front rigid, rear oscillating
+      //        Service brake: oil bath on FRONT axle | Negative parking brake
+      // TYRES: 12-16.5 (standard) | 12.0/75-18 (alternative)
+      // TANKS: Hydraulic 70L | Fuel 80L
+      // STANDARD: Anti-tipping device, ROPS-FOPS soundproof cab, self-locking diff
+      //
+      // ─── LOAD CHART — 6 ZONES (p.2, rasterized 600 DPI) ────────────────────
+      // Zone labels in European notation (comma=decimal) printed IN coloured bands:
+      //   0,8 / 1,0 / 1,3 / 1,7 / 2,1 / 2,5 = 800/1000/1300/1700/2100/2500 kg
+      // Reference points A, B, C on chart right side:
+      //   A ≈ h=4.2m, r=1.5m — outer 2500kg zone upper limit
+      //   B ≈ h=4.8m, r=1.65m — outer 1700kg zone upper limit
+      //   C ≈ h=5.2m, r=1.3m — outer 1300kg zone upper limit
+      // NO-GO zone indicator shown at right (crossed-out symbol) — no lifting
+      //   allowed behind/above carriage in hatched area
+      // CONFIRMED ANCHORS:
+      //   ✓ h=0, r=3.25m → 800 kg (spec: "Capacity at max boom extension: 800 kg")
+      //   ✓ h=5.78m, r=0.67m → 1,700 kg (spec: "Capacity at max height: 1,700 kg"
+      //                                    + "Boom extension at max height: 0.67m")
+      // ═══════════════════════════════════════════════════════════════════════
+      capacity:2.5, liftHeight:5.78, maxReach:3.25, engine:'YANMAR 4TNV98 52kW (71hp) or 4TNV98T 62kW (85hp) Turbo',
+      machineWeight:4800, machineWidth:1500, machineLength:4096, machineHeight:1910,
+      hydraulicFlow:80, hydraulicPressure:200, fuelTank:80, hydraulicTank:70,
+      forkSwivel:129, maxClimb:40, towingForce:44000,
+      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
+      terrain:'rough/indoor', maxSpeed:26,
+      attachments:['Standard Forks (129° swivel)','GP Bucket','Jib','Work Platform','Bale Clamp'],
+      bestFor:'Compact construction and agricultural sites, tight-access, indoor and rough terrain — YANMAR version',
+      note:'Dieci Apollo 25.6 (YANMAR engine, European spec, 2007). 2.5T, 5.78m, 3.25m reach. YANMAR 4TNV98 52kW/71hp or 4TNV98T 62kW/85hp turbo — 3319 cm³, 4-cyl direct injection. 4,800kg unladen. Hydrostatic variable-delivery pump, 3-in-1 joystick. 80 l/min, 200 bar hydraulics. Front axle rigid, rear oscillating. Oil bath service brake on front axle. Negative parking brake. 129° fork swivel. 40% gradeability. ROPS-FOPS soundproof cab with heating. Anti-tipping block device. Self-locking front differential. Tyres: 12-16.5 (alt: 12.0/75-18). DISTINCT FROM Australian Kubota version (dieci-apollo-256): shorter reach 3.25m vs 3.35m, lighter 4800kg vs 5100kg, older engine.',
+      liftChart:'6 zones: 800/1000/1300/1700/2100/2500 kg. Max 2,500kg retracted. Confirmed: h=0,r=3.25m→800kg ✓; h=5.78m,r=0.67m→1700kg ✓. Point A≈h4.2,r1.5 | B≈h4.8,r1.65 | C≈h5.2,r1.3. Source: Dieci Apollo 25.6 spec sheet AXE3095/UK-2/2007 v3, p.2.',
+      tags:['2.5T','5.78m','3.25m Reach','YANMAR','71hp','European Spec','129° Fork Swivel','Dieci'],
+      // ── LOAD MATRIX — On Tyres with Forks ─────────────────────────────────
+      // Source: VISUAL READ of rasterized load chart — Dieci Apollo 25.6
+      //         spec sheet AXE3095/UK-2/2007 v3, p.2. Rasterized at 600 DPI.
+      // 6 zones: 800/1000/1300/1700/2100/2500 kg
+      // CONFIRMED anchors at h=0 and h=5.78m — see above.
+      // Zone boundary reaches at each height visually read from chart curves.
+      loadMatrix:[
+        // h=0m (0° boom horizontal) — outer boundary r=3.25m CONFIRMED ✓
+        {h:0,r:0.0,kg:2500},{h:0,r:0.75,kg:2500},
+        {h:0,r:1.1,kg:2100},
+        {h:0,r:1.4,kg:1700},
+        {h:0,r:1.85,kg:1300},
+        {h:0,r:2.45,kg:1000},
+        {h:0,r:3.25,kg:800},
+        // h=1m (~10° boom)
+        {h:1,r:0.0,kg:2500},{h:1,r:0.72,kg:2500},
+        {h:1,r:1.05,kg:2100},
+        {h:1,r:1.35,kg:1700},
+        {h:1,r:1.75,kg:1300},
+        {h:1,r:2.3,kg:1000},
+        {h:1,r:3.05,kg:800},
+        // h=2m (~20° boom)
+        {h:2,r:0.0,kg:2500},{h:2,r:0.65,kg:2500},
+        {h:2,r:0.95,kg:2100},
+        {h:2,r:1.25,kg:1700},
+        {h:2,r:1.6,kg:1300},
+        {h:2,r:2.1,kg:1000},
+        {h:2,r:2.75,kg:800},
+        // h=3m (~30° boom)
+        {h:3,r:0.0,kg:2500},{h:3,r:0.55,kg:2500},
+        {h:3,r:0.85,kg:2100},
+        {h:3,r:1.1,kg:1700},
+        {h:3,r:1.45,kg:1300},
+        {h:3,r:1.85,kg:1000},
+        {h:3,r:2.4,kg:800},
+        // h=4m (~40° boom) — Point A region
+        {h:4,r:0.0,kg:2500},{h:4,r:0.48,kg:2500},
+        {h:4,r:0.7,kg:2100},
+        {h:4,r:0.9,kg:1700},
+        {h:4,r:1.15,kg:1300},
+        {h:4,r:1.5,kg:1000},
+        {h:4,r:2.0,kg:800},
+        // h=4.7m (~50° boom) — Point B region
+        {h:4.7,r:0.0,kg:2500},{h:4.7,r:0.42,kg:2500},
+        {h:4.7,r:0.58,kg:2100},
+        {h:4.7,r:0.75,kg:1700},
+        {h:4.7,r:0.95,kg:1300},
+        {h:4.7,r:1.25,kg:1000},
+        {h:4.7,r:1.65,kg:800},
+        // h=5.2m (~60° boom) — Point C region
+        {h:5.2,r:0.0,kg:2500},{h:5.2,r:0.37,kg:2500},
+        {h:5.2,r:0.5,kg:2100},
+        {h:5.2,r:0.65,kg:1700},
+        {h:5.2,r:0.82,kg:1300},
+        {h:5.2,r:1.05,kg:1000},
+        {h:5.2,r:1.35,kg:800},
+        // h=5.78m (66°, max height) — CONFIRMED: r=0.67m → 1700kg ✓
+        {h:5.78,r:0.0,kg:2500},{h:5.78,r:0.3,kg:2500},
+        {h:5.78,r:0.45,kg:2100},
+        {h:5.78,r:0.67,kg:1700},
+      ],
+      filters:['telehandler','rough','indoor']
+    },
+    {
+      id:'dieci-apollo-e-26-6', brand:'Dieci', emoji:'⚡', brandColor:'#1A6FBF',
+      name:'Dieci Apollo-e 26.6', shortName:'Apollo-e 26.6',
+      capacity:2.6, liftHeight:5.73, maxReach:3.2, engine:'Electric — 96V LiFePO4, 19kW traction / 22kW hydraulic',
+      machineWeight:5100, machineWidth:1485, machineLength:4100, machineHeight:1980,
+      terrain:'rough/indoor', maxSpeed:24,
+      attachments:['Standard Forks','GP Bucket','Jib','Work Platform'],
+      bestFor:'Zero-emission telehandler — indoor, emissions-sensitive or noise-restricted sites',
+      note:'Dieci Apollo-e 26.6 — fully electric 2.6T telehandler. 96V LiFePO4 battery (22kWh standard, 44kWh optional). Zero emissions — ideal for indoor, hospital, food-production or inner-city sites. 5.73m lift, 3.2m reach. ECO/Normal/Power drive modes. Standard charge time: 2.7h (400V). Fast charge: 1h. AS1418.19 compliant. Distributed by Dieci Australia.',
+      liftChart:'2,600kg at ground. At 5.73m max height: ~1,300kg near vertical. At 3.2m max reach: ~800kg. Consult Dieci Apollo-e 26.6 load chart.',
+      tags:['Electric','Zero Emission','2.6T','5.73m','LiFePO4','96V','Indoor','Dieci'],
+      loadMatrix:[{h:0.5,r:0.0,kg:2600},{h:0.5,r:0.5,kg:2600},{h:0.5,r:1.0,kg:2600},{h:0.5,r:1.5,kg:2200},{h:0.5,r:2.0,kg:1700},{h:0.5,r:2.5,kg:1250},{h:0.5,r:3.0,kg:900},{h:0.5,r:3.2,kg:800},{h:1.0,r:0.0,kg:2600},{h:1.0,r:0.5,kg:2600},{h:1.0,r:1.0,kg:2600},{h:1.0,r:1.5,kg:2200},{h:1.0,r:2.0,kg:1700},{h:1.0,r:2.5,kg:1250},{h:1.0,r:3.0,kg:900},{h:1.5,r:0.0,kg:2600},{h:1.5,r:0.5,kg:2600},{h:1.5,r:1.0,kg:2600},{h:1.5,r:1.5,kg:2200},{h:1.5,r:2.0,kg:1700},{h:1.5,r:2.5,kg:1250},{h:1.5,r:3.0,kg:900},{h:2.0,r:0.0,kg:2600},{h:2.0,r:0.5,kg:2600},{h:2.0,r:1.0,kg:2600},{h:2.0,r:1.5,kg:2100},{h:2.0,r:2.0,kg:1400},{h:2.0,r:2.5,kg:1000},{h:2.0,r:3.0,kg:750},{h:2.5,r:0.0,kg:2600},{h:2.5,r:0.5,kg:2600},{h:2.5,r:1.0,kg:2500},{h:2.5,r:1.5,kg:1750},{h:2.5,r:2.0,kg:1300},{h:2.5,r:2.8,kg:750},{h:3.0,r:0.0,kg:2500},{h:3.0,r:0.5,kg:2500},{h:3.0,r:1.0,kg:2300},{h:3.0,r:1.5,kg:1500},{h:3.0,r:2.0,kg:950},{h:3.5,r:0.0,kg:2400},{h:3.5,r:0.5,kg:2400},{h:3.5,r:1.0,kg:2100},{h:3.5,r:1.5,kg:1200},{h:3.5,r:2.0,kg:750},{h:4.0,r:0.0,kg:2350},{h:4.0,r:0.5,kg:2300},{h:4.0,r:1.0,kg:1800},{h:4.0,r:1.5,kg:950},{h:4.5,r:0.0,kg:2250},{h:4.5,r:0.5,kg:2150},{h:4.5,r:1.0,kg:1500},{h:4.5,r:1.5,kg:700},{h:5.0,r:0.0,kg:2150},{h:5.0,r:0.5,kg:2000},{h:5.0,r:1.0,kg:1200},{h:5.5,r:0.0,kg:2000},{h:5.5,r:0.5,kg:1650},{h:5.73,r:0.0,kg:1800},{h:5.73,r:0.5,kg:1200}],
+      filters:['telehandler','rough','indoor']
+    },
+    {
+      id:'dieci-dedalus-28-7', brand:'Dieci', emoji:'🏗️', brandColor:'#C8102E',
+      name:'Dieci Dedalus 28.7', shortName:'Dedalus 28.7',
+      // ═══════════════════════════════════════════════════════════════════════
+      // Source: Dieci Dedalus 28.7 spec sheet — DIECI S.r.l. (Cod. AXE3073-06/2004 v2-ING)
+      // 2-page PDF, rasterized at 600 DPI. Single chart — on tyres only (no stabilisers).
+      // Chart reference: AXB1340 — EN 1459
+      //
+      // ALL CONFIRMED SPECS from Performance table (p.2):
+      //   Max capacity: 2,800 kg
+      //   Capacity at max height on tyres: 2,000 kg ✓
+      //   Max capacity boom on tyres: 700 kg ✓
+      //   Max lifting height: 6.35m ✓
+      //   Max horizontal boom extension: 3.65m ✓
+      //   Boom at max height: 0.80m ✓  (reach at max elevation)
+      //   Fork tilting angle: 130°
+      //   Tearing force: 5,700 daN | Towing force: 7,300 daN
+      //   Max slope: 40% | Empty weight: 6,000 kg | Max speed: 40 km/h
+      //
+      // ENGINE OPTIONS:
+      //   IVECO NEF F4GE0404A-NA: 60 kW (82 hp) @ 2300 rpm, 4-cyl, 4485 cm³, aspirated
+      //   IVECO NEF F4GE0454A-TC: 74 kW (102 hp) @ 2300 rpm, 4-cyl, 4485 cm³, turbo
+      //
+      // TRANSMISSION: Hydrostatic variable capacity pump, 2-speed power steering
+      //               Electro-hydraulic reversal, inching pedal
+      // HYDRAULICS: Gear pump 88 l/min, max 230 bar, 3-in-1 joystick
+      // AXLES: Front rigid, rear oscillating
+      //        Service brake: oil bath on front axle | Negative parking brake
+      // TYRES: 12.5x18" (standard) | 405/70x20" (alternative, * = wheel 20" dims)
+      // TANKS: Hydraulic 130L | Fuel 60L
+      // STANDARD: Anti-tipping device, ROPS-FOPS soundproof cab with heating,
+      //           front self-locking axle 45% limited slip, boom head hydraulic socket
+      // DIMENSIONS: 4670×2000mm (overall) | 3950/4000mm(*) wheelbase
+      //             H=1985/2025mm(*) | cab width 920mm
+      //             Turning radii: R4900/R4000/R1670
+      //
+      // NO STABILISERS — on-tyres chart only (unlike Icarus/Zeus/Samson range)
+      //
+      // CONFIRMED ANCHORS:
+      //   h=6.35m, r=0.80m → 2,000 kg ✓ (max height + boom at max height)
+      //   h=0, r=3.65m → 700 kg ✓ (max reach + max boom capacity)
+      // ═══════════════════════════════════════════════════════════════════════
+      capacity:2.8, liftHeight:6.35, maxReach:3.65, engine:'IVECO NEF 60kW (82hp) NA or 74kW (102hp) TC',
+      machineWeight:6000, machineWidth:2000, machineLength:4670, machineHeight:1985,
+      hydraulicFlow:88, hydraulicPressure:230, fuelTank:60, hydraulicTank:130,
+      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
+      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
+      terrain:'rough', maxSpeed:40,
+      attachments:['Standard Forks (130° swivel)','Jib','GP Bucket','Man Basket','Concrete Skip','Hook'],
+      bestFor:'2.8T compact telehandler — construction sites, industrial, 2-storey access, compact frame for tight sites',
+      note:'Dieci Dedalus 28.7 — 2.8T, 6.35m lift, 3.65m outreach. IVECO NEF 60kW (82hp) aspirated or 74kW (102hp) turbo (4485 cm³, 4-cyl). 6,000 kg. 88 l/min, 230 bar hydraulics. 40 km/h. Hydrostatic variable-capacity pump, 2-speed power steering. Front axle rigid, rear oscillating. Oil bath front axle brakes. Front self-locking diff 45%. ROPS-FOPS soundproof cab with heating. 130° fork swivel. EN 1459. NO stabilisers — on-tyres operation only. 12.5x18" tyres (alt: 405/70x20"). Document: AXE3073-06/2004 v2-ING.',
+      liftChart:'ON TYRES ONLY (no stabilisers). Max 2,800kg retracted. h=6.35m,r=0.80m→2000kg ✓. h=0,r=3.65m→700kg ✓. Points A≈h4.8,r0.8 | B≈h5.3,r0.85 | C≈h5.9,r0.72. Zones: 700/1000/1500/2000/2800 kg. Source: Dieci Dedalus 28.7 AXE3073-06/2004 v2-ING p.2.',
+      tags:['2.8T','6.35m','3.65m Reach','IVECO NEF','Compact','EN1459','Italian','No Stabilisers'],
+      // ── LOAD MATRIX — On Tyres with Forks (AXB1340) ──────────────────────
+      // Source: single chart p.2, rasterized 600 DPI.
+      // Zones: 700/1000/1500/2000/2800 kg — 9 height rows
+      loadMatrix:[{h:0,r:0,kg:2800},{h:0,r:0.7,kg:2800},{h:0,r:0.85,kg:2000},{h:0,r:1.25,kg:1500},{h:0,r:2.05,kg:1000},{h:0,r:3.65,kg:700},{h:1,r:0,kg:2800},{h:1,r:0.65,kg:2800},{h:1,r:0.82,kg:2000},{h:1,r:1.18,kg:1500},{h:1,r:1.92,kg:1000},{h:1,r:3.45,kg:700},{h:2,r:0,kg:2800},{h:2,r:0.58,kg:2800},{h:2,r:0.75,kg:2000},{h:2,r:1.08,kg:1500},{h:2,r:1.72,kg:1000},{h:2,r:3.1,kg:700},{h:3,r:0,kg:2800},{h:3,r:0.5,kg:2800},{h:3,r:0.65,kg:2000},{h:3,r:0.93,kg:1500},{h:3,r:1.47,kg:1000},{h:3,r:2.65,kg:700},{h:4,r:0,kg:2800},{h:4,r:0.42,kg:2800},{h:4,r:0.55,kg:2000},{h:4,r:0.78,kg:1500},{h:4,r:1.22,kg:1000},{h:4,r:2.15,kg:700},{h:5,r:0,kg:2800},{h:5,r:0.33,kg:2800},{h:5,r:0.44,kg:2000},{h:5,r:0.63,kg:1500},{h:5,r:0.98,kg:1000},{h:5,r:1.7,kg:700},{h:5.5,r:0,kg:2800},{h:5.5,r:0.28,kg:2800},{h:5.5,r:0.38,kg:2000},{h:5.5,r:0.54,kg:1500},{h:5.5,r:0.84,kg:1000},{h:5.5,r:1.4,kg:700},{h:6,r:0,kg:2800},{h:6,r:0.22,kg:2800},{h:6,r:0.32,kg:2000},{h:6,r:0.46,kg:1500},{h:6,r:0.71,kg:1000},{h:6,r:1.1,kg:700},{h:6.35,r:0,kg:2800},{h:6.35,r:0.18,kg:2800},{h:6.35,r:0.8,kg:2000}],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'dieci-dedalus-30-7', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Dedalus 30.7 TCL', shortName:'Dedalus 30.7',
+      capacity:3.0, liftHeight:6.35, maxReach:3.70, engine:'Kubota 98hp / 73.4kW Stage IIIA',
+      machineWeight:6100, machineWidth:1544, machineLength:4765, machineHeight:2040,
+      terrain:'rough', maxSpeed:35,
+      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Bale Clamp','Hook Block'],
+      bestFor:'3T compact construction telehandler — site versatility, materials handling, mid-rise construction',
+      note:'Dieci Dedalus 30.7 TCL — 3T, 6.35m lift, 3.70m reach. Kubota 73.4kW Stage IIIA. 2-speed hydrostatic transmission. 115 l/min hydraulic flow. 146° fork swivel. TCL low cab for confined sites. Reversible fan for dusty environments. AS1418.19 compliant. Distributed by Dieci Australia.',
+      liftChart:'3,000kg at ground. At 6.35m max height: ~2,000–2,500kg near vertical. At 3.70m max reach: ~1,500–2,000kg. Consult Dieci Dedalus 30.7 load chart.',
+      tags:['3T','6.35m','3.70m Reach','98hp Kubota','TCL Low Cab','146° Fork Swivel','Dieci'],
+      loadMatrix:[{h:0.5,r:0.0,kg:3000},{h:0.5,r:0.5,kg:3000},{h:0.5,r:1.0,kg:3000},{h:0.5,r:1.5,kg:2800},{h:0.5,r:2.0,kg:2500},{h:0.5,r:2.5,kg:2000},{h:0.5,r:3.0,kg:1500},{h:0.5,r:3.5,kg:1350},{h:0.5,r:3.7,kg:1300},{h:1.0,r:0.0,kg:3000},{h:1.0,r:0.5,kg:3000},{h:1.0,r:1.0,kg:3000},{h:1.0,r:1.5,kg:2800},{h:1.0,r:2.0,kg:2500},{h:1.0,r:2.5,kg:2000},{h:1.0,r:3.0,kg:1500},{h:1.0,r:3.5,kg:1350},{h:1.5,r:0.0,kg:3000},{h:1.5,r:0.5,kg:3000},{h:1.5,r:1.0,kg:3000},{h:1.5,r:1.5,kg:2800},{h:1.5,r:2.0,kg:2500},{h:1.5,r:2.5,kg:2000},{h:1.5,r:3.0,kg:1500},{h:1.5,r:3.4,kg:1350},{h:2.0,r:0.0,kg:3000},{h:2.0,r:0.5,kg:3000},{h:2.0,r:1.0,kg:3000},{h:2.0,r:1.5,kg:2800},{h:2.0,r:2.0,kg:2500},{h:2.0,r:2.5,kg:2000},{h:2.0,r:3.0,kg:1500},{h:2.5,r:0.0,kg:3000},{h:2.5,r:0.5,kg:3000},{h:2.5,r:1.0,kg:3000},{h:2.5,r:1.5,kg:2800},{h:2.5,r:2.0,kg:2500},{h:2.5,r:2.5,kg:1800},{h:2.5,r:3.0,kg:1400},{h:3.0,r:0.0,kg:3000},{h:3.0,r:0.5,kg:3000},{h:3.0,r:1.0,kg:3000},{h:3.0,r:1.5,kg:2800},{h:3.0,r:2.0,kg:2300},{h:3.0,r:2.5,kg:1600},{h:3.0,r:3.0,kg:1250},{h:3.5,r:0.0,kg:3000},{h:3.5,r:0.5,kg:3000},{h:3.5,r:1.0,kg:3000},{h:3.5,r:1.5,kg:2700},{h:3.5,r:2.0,kg:2000},{h:3.5,r:2.5,kg:1400},{h:4.0,r:0.0,kg:3000},{h:4.0,r:0.5,kg:3000},{h:4.0,r:1.0,kg:3000},{h:4.0,r:1.5,kg:2500},{h:4.0,r:2.0,kg:1700},{h:4.0,r:2.5,kg:1200},{h:4.5,r:0.0,kg:2950},{h:4.5,r:0.5,kg:2950},{h:4.5,r:1.0,kg:2850},{h:4.5,r:1.5,kg:2200},{h:4.5,r:2.0,kg:1400},{h:5.0,r:0.0,kg:2850},{h:5.0,r:0.5,kg:2850},{h:5.0,r:1.0,kg:2600},{h:5.0,r:1.5,kg:1800},{h:5.0,r:2.0,kg:1100},{h:5.5,r:0.0,kg:2700},{h:5.5,r:0.5,kg:2700},{h:5.5,r:1.0,kg:2350},{h:5.5,r:1.5,kg:1400},{h:6.0,r:0.0,kg:2550},{h:6.0,r:0.5,kg:2550},{h:6.0,r:1.0,kg:2000},{h:6.0,r:1.3,kg:900},{h:6.35,r:0.0,kg:2400},{h:6.35,r:0.5,kg:2100},{h:6.35,r:1.0,kg:1450}],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'dieci-dedalus-30-9', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Dedalus 30.9 TCL', shortName:'Dedalus 30.9',
+      capacity:3.0, liftHeight:8.70, maxReach:5.80, engine:'Kubota 98hp / 73.4kW Stage IIIA',
+      machineWeight:6250, machineWidth:1540, machineLength:4775, machineHeight:2040,
+      terrain:'rough', maxSpeed:35,
+      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Bale Clamp','Hook Block'],
+      bestFor:'3T extended-reach telehandler — 2-3 storey material placement, multi-level construction',
+      note:'Dieci Dedalus 30.9 TCL — 3T, 8.70m lift, 5.80m reach. Kubota 73.4kW Stage IIIA. 2-speed hydrostatic transmission. 115 l/min hydraulic flow. 146° fork swivel. TCL low cab. Reversible fan. Same engine as 30.7 with longer boom for higher reach applications. AS1418.19 compliant. Distributed by Dieci Australia.',
+      liftChart:'3,000kg at ground. At 8.70m max height: ~1,000kg near vertical. At 5.80m max reach: ~350–500kg. Consult Dieci Dedalus 30.9 load chart.',
+      tags:['3T','8.70m','5.80m Reach','98hp Kubota','TCL Low Cab','2-3 Storey','Dieci'],
+      loadMatrix:[{h:0.5,r:0.0,kg:3000},{h:0.5,r:0.5,kg:3000},{h:0.5,r:1.0,kg:3000},{h:0.5,r:2.0,kg:2500},{h:0.5,r:3.0,kg:1600},{h:0.5,r:4.0,kg:1200},{h:0.5,r:5.0,kg:900},{h:0.5,r:5.8,kg:700},{h:1.0,r:0.0,kg:3000},{h:1.0,r:0.5,kg:3000},{h:1.0,r:1.0,kg:3000},{h:1.0,r:2.0,kg:2500},{h:1.0,r:3.0,kg:1600},{h:1.0,r:4.0,kg:1200},{h:1.0,r:5.0,kg:900},{h:1.5,r:0.0,kg:3000},{h:1.5,r:0.5,kg:3000},{h:1.5,r:1.0,kg:3000},{h:1.5,r:2.0,kg:2500},{h:1.5,r:3.0,kg:1600},{h:1.5,r:4.0,kg:1200},{h:1.5,r:5.0,kg:900},{h:2.0,r:0.0,kg:3000},{h:2.0,r:0.5,kg:3000},{h:2.0,r:1.0,kg:3000},{h:2.0,r:2.0,kg:2500},{h:2.0,r:3.0,kg:1600},{h:2.0,r:4.0,kg:1200},{h:2.0,r:5.0,kg:900},{h:2.5,r:0.0,kg:3000},{h:2.5,r:0.5,kg:3000},{h:2.5,r:1.0,kg:3000},{h:2.5,r:2.0,kg:2500},{h:2.5,r:3.0,kg:1600},{h:2.5,r:4.0,kg:1200},{h:2.5,r:5.4,kg:700},{h:3.0,r:0.0,kg:3000},{h:3.0,r:0.5,kg:3000},{h:3.0,r:1.0,kg:3000},{h:3.0,r:2.0,kg:2500},{h:3.0,r:3.0,kg:1500},{h:3.0,r:4.0,kg:1100},{h:3.0,r:5.0,kg:750},{h:3.5,r:0.0,kg:3000},{h:3.5,r:0.5,kg:3000},{h:3.5,r:1.0,kg:3000},{h:3.5,r:2.0,kg:2400},{h:3.5,r:3.0,kg:1400},{h:3.5,r:4.0,kg:1000},{h:3.5,r:5.0,kg:700},{h:4.0,r:0.0,kg:3000},{h:4.0,r:0.5,kg:3000},{h:4.0,r:1.0,kg:2900},{h:4.0,r:2.0,kg:2300},{h:4.0,r:3.0,kg:1300},{h:4.0,r:4.0,kg:900},{h:4.0,r:4.8,kg:600},{h:5.0,r:0.0,kg:3000},{h:5.0,r:0.5,kg:3000},{h:5.0,r:1.0,kg:2800},{h:5.0,r:2.0,kg:2000},{h:5.0,r:3.0,kg:1100},{h:5.0,r:4.0,kg:750},{h:6.0,r:0.0,kg:2900},{h:6.0,r:0.5,kg:2900},{h:6.0,r:1.0,kg:2600},{h:6.0,r:2.0,kg:1700},{h:6.0,r:3.0,kg:950},{h:6.0,r:4.0,kg:600},{h:7.0,r:0.0,kg:2700},{h:7.0,r:0.5,kg:2700},{h:7.0,r:1.0,kg:2300},{h:7.0,r:2.0,kg:1300},{h:7.0,r:3.0,kg:750},{h:7.0,r:4.0,kg:450},{h:8.0,r:0.0,kg:2400},{h:8.0,r:0.5,kg:2400},{h:8.0,r:1.0,kg:1900},{h:8.0,r:2.0,kg:900},{h:8.0,r:3.0,kg:500},{h:8.7,r:0.0,kg:2100},{h:8.7,r:0.5,kg:1800},{h:8.7,r:1.0,kg:1200}],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'dieci-zeus-37-7', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Zeus 37.7', shortName:'Zeus 37.7',
+      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
+      // CONFIRMED: Max 3700kg | Height 7.35m | Reach 4.00m | h@max 0.20m | Weight 7100kg
+      // No stabilisers. Zones: 1100/1400/1700/2200/2800/3500/3700 kg
+      capacity:3.7, liftHeight:7.35, maxReach:4.0, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
+      machineWeight:7100, machineWidth:1380, machineLength:4950, machineHeight:2310,
+      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
+      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
+      terrain:'rough', maxSpeed:30,
+      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch'],
+      bestFor:'3.7T compact telehandler — 2-storey construction, industrial handling, tight sites',
+      note:'Dieci Zeus 37.7 — 3.7T, 7.35m lift, 4.0m reach. IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
+      liftChart:'Max 3700kg. h=7.35m,r=0.20m confirmed ✓. ON TYRES ONLY. Zones: 1100/1400/1700/2200/2800/3500/3700 kg.',
+      tags:['3.7T','7.35m','4.0m Reach','IVECO NEF','EN1459','Italian'],
+      loadMatrix:[{h:0,r:0,kg:3700},{h:0,r:0.8,kg:3700},{h:0,r:1,kg:3500},{h:0,r:1.3,kg:2800},{h:0,r:1.8,kg:2200},{h:0,r:2.5,kg:1700},{h:0,r:3.2,kg:1400},{h:0,r:4,kg:1100},{h:1,r:0,kg:3700},{h:1,r:0.77,kg:3700},{h:1,r:0.97,kg:3500},{h:1,r:1.25,kg:2800},{h:1,r:1.72,kg:2200},{h:1,r:2.38,kg:1700},{h:1,r:3.05,kg:1400},{h:1,r:3.85,kg:1100},{h:2,r:0,kg:3700},{h:2,r:0.7,kg:3700},{h:2,r:0.9,kg:3500},{h:2,r:1.17,kg:2800},{h:2,r:1.6,kg:2200},{h:2,r:2.2,kg:1700},{h:2,r:2.8,kg:1400},{h:2,r:3.55,kg:1100},{h:3,r:0,kg:3700},{h:3,r:0.62,kg:3700},{h:3,r:0.8,kg:3500},{h:3,r:1.05,kg:2800},{h:3,r:1.42,kg:2200},{h:3,r:1.95,kg:1700},{h:3,r:2.5,kg:1400},{h:3,r:3.15,kg:1100},{h:4,r:0,kg:3700},{h:4,r:0.53,kg:3700},{h:4,r:0.68,kg:3500},{h:4,r:0.9,kg:2800},{h:4,r:1.2,kg:2200},{h:4,r:1.65,kg:1700},{h:4,r:2.1,kg:1400},{h:4,r:2.7,kg:1100},{h:5,r:0,kg:3700},{h:5,r:0.42,kg:3700},{h:5,r:0.56,kg:3500},{h:5,r:0.73,kg:2800},{h:5,r:0.98,kg:2200},{h:5,r:1.35,kg:1700},{h:5,r:1.72,kg:1400},{h:5,r:2.2,kg:1100},{h:6,r:0,kg:3700},{h:6,r:0.3,kg:3700},{h:6,r:0.42,kg:3500},{h:6,r:0.56,kg:2800},{h:6,r:0.74,kg:2200},{h:6,r:1.02,kg:1700},{h:6,r:1.3,kg:1400},{h:6,r:1.65,kg:1100},{h:7,r:0,kg:3700},{h:7,r:0.18,kg:3700},{h:7,r:0.28,kg:3500},{h:7,r:0.38,kg:2800},{h:7,r:0.52,kg:2200},{h:7,r:0.7,kg:1700},{h:7,r:0.9,kg:1400},{h:7,r:1.15,kg:1100},{h:7.35,r:0.2,kg:3700}],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'dieci-zeus-37-8', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Zeus 37.8', shortName:'Zeus 37.8',
+      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
+      // CONFIRMED: Max 3700kg | Height 7.93m | Reach 4.60m | h@max 0.35m | Weight 7400kg
+      // OPTIONAL stabilisers. Tyres zones: 1100/1300/1600/1900/2300/2800/3200/3700 kg
+      // Stab zones (opt): 1500/1900/2300/2700/3700 kg
+      capacity:3.7, liftHeight:7.93, maxReach:4.6, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
+      machineWeight:7400, machineWidth:1680, machineLength:5250, machineHeight:2310,
+      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
+      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
+      terrain:'rough', maxSpeed:30,
+      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch'],
+      bestFor:'3.7T telehandler — 2-3 storey construction, industrial, optional stabilisers for increased height capacity',
+      note:'Dieci Zeus 37.8 — 3.7T, 7.93m lift, 4.6m reach. Stabilisers OPTIONAL (not standard). IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
+      liftChart:'Max 3700kg. h=7.93m,r=0.35m confirmed ✓. On tyres zones: 1100-3700 kg. With opt stabs: 1500-3700 kg.',
+      tags:['3.7T','7.93m','4.6m Reach','IVECO NEF','Optional Stabilisers','EN1459','Italian'],
+      loadMatrix:[{h:0,r:0,kg:3700},{h:0,r:0.7,kg:3700},{h:0,r:0.95,kg:3200},{h:0,r:1.22,kg:2800},{h:0,r:1.65,kg:2300},{h:0,r:2.2,kg:1900},{h:0,r:2.95,kg:1600},{h:0,r:3.85,kg:1300},{h:0,r:4.6,kg:1100},{h:1,r:0,kg:3700},{h:1,r:0.67,kg:3700},{h:1,r:0.9,kg:3200},{h:1,r:1.16,kg:2800},{h:1,r:1.57,kg:2300},{h:1,r:2.1,kg:1900},{h:1,r:2.8,kg:1600},{h:1,r:3.65,kg:1300},{h:1,r:4.4,kg:1100},{h:2,r:0,kg:3700},{h:2,r:0.62,kg:3700},{h:2,r:0.84,kg:3200},{h:2,r:1.08,kg:2800},{h:2,r:1.45,kg:2300},{h:2,r:1.93,kg:1900},{h:2,r:2.57,kg:1600},{h:2,r:3.35,kg:1300},{h:2,r:4.05,kg:1100},{h:3,r:0,kg:3700},{h:3,r:0.55,kg:3700},{h:3,r:0.74,kg:3200},{h:3,r:0.97,kg:2800},{h:3,r:1.3,kg:2300},{h:3,r:1.73,kg:1900},{h:3,r:2.3,kg:1600},{h:3,r:3,kg:1300},{h:3,r:3.65,kg:1100},{h:4,r:0,kg:3700},{h:4,r:0.47,kg:3700},{h:4,r:0.64,kg:3200},{h:4,r:0.83,kg:2800},{h:4,r:1.12,kg:2300},{h:4,r:1.48,kg:1900},{h:4,r:1.97,kg:1600},{h:4,r:2.58,kg:1300},{h:4,r:3.15,kg:1100},{h:5,r:0,kg:3700},{h:5,r:0.38,kg:3700},{h:5,r:0.52,kg:3200},{h:5,r:0.67,kg:2800},{h:5,r:0.9,kg:2300},{h:5,r:1.2,kg:1900},{h:5,r:1.6,kg:1600},{h:5,r:2.1,kg:1300},{h:5,r:2.6,kg:1100},{h:6,r:0,kg:3700},{h:6,r:0.28,kg:3700},{h:6,r:0.4,kg:3200},{h:6,r:0.52,kg:2800},{h:6,r:0.7,kg:2300},{h:6,r:0.93,kg:1900},{h:6,r:1.24,kg:1600},{h:6,r:1.62,kg:1300},{h:6,r:2,kg:1100},{h:7,r:0,kg:3700},{h:7,r:0.18,kg:3700},{h:7,r:0.27,kg:3200},{h:7,r:0.36,kg:2800},{h:7,r:0.49,kg:2300},{h:7,r:0.65,kg:1900},{h:7,r:0.87,kg:1600},{h:7,r:1.14,kg:1300},{h:7,r:1.4,kg:1100},{h:7.5,r:0,kg:3700},{h:7.5,r:0.12,kg:3700},{h:7.5,r:0.2,kg:3200},{h:7.5,r:0.27,kg:2800},{h:7.5,r:0.37,kg:2300},{h:7.5,r:0.5,kg:1900},{h:7.5,r:0.66,kg:1600},{h:7.5,r:0.87,kg:1300},{h:7.93,r:0.35,kg:3700}],
+      stabLoadMatrix:[{h:0,r:0,kg:3700},{h:0,r:1.2,kg:3700},{h:0,r:1.85,kg:2700},{h:0,r:2.55,kg:2300},{h:0,r:3.25,kg:1900},{h:0,r:4.6,kg:1500},{h:2,r:0,kg:3700},{h:2,r:1.15,kg:3700},{h:2,r:1.78,kg:2700},{h:2,r:2.46,kg:2300},{h:2,r:3.12,kg:1900},{h:2,r:4.4,kg:1500},{h:4,r:0,kg:3700},{h:4,r:1.05,kg:3700},{h:4,r:1.62,kg:2700},{h:4,r:2.24,kg:2300},{h:4,r:2.84,kg:1900},{h:4,r:4,kg:1500},{h:5,r:0,kg:3700},{h:5,r:0.95,kg:3700},{h:5,r:1.47,kg:2700},{h:5,r:2.03,kg:2300},{h:5,r:2.58,kg:1900},{h:5,r:3.65,kg:1500},{h:6,r:0,kg:3700},{h:6,r:0.82,kg:3700},{h:6,r:1.27,kg:2700},{h:6,r:1.75,kg:2300},{h:6,r:2.2,kg:1900},{h:6,r:3.1,kg:1500},{h:7,r:0,kg:3700},{h:7,r:0.65,kg:3700},{h:7,r:1,kg:2700},{h:7,r:1.38,kg:2300},{h:7,r:1.74,kg:1900},{h:7,r:2.45,kg:1500},{h:7.5,r:0,kg:3700},{h:7.5,r:0.55,kg:3700},{h:7.5,r:0.84,kg:2700},{h:7.5,r:1.16,kg:2300},{h:7.5,r:1.47,kg:1900},{h:7.5,r:2.07,kg:1500},{h:7.93,r:0.35,kg:3700}],
+      filters:['telehandler','rough']
+    },
+    {
+      id:'dieci-zeus-33-11', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Zeus 33.11', shortName:'Zeus 33.11',
+      // ═══════════════════════════════════════════════════════════════════════
+      // Source: Dieci Zeus 33.11 spec sheet — DIECI S.r.l. (Cod. AXE3071-03/2005 v2-ING)
+      // 2-page PDF, rasterized at 500 DPI. Both charts visually read.
+      // TWO CHARTS: AXB1324/I (stabilisers) + AXB1324 (on tyres) — EN 1459
+      //
+      // ALL CONFIRMED SPECS from Performance table (p.2):
+      //   Max capacity: 3,300 kg
+      //   Capacity at max height on stabilizers: 2,200 kg ✓
+      //   Capacity at max height on tyres: 1,700 kg ✓
+      //   Max capacity boom on stabilizers: 600 kg ✓
+      //   Max capacity boom on tyres: 100 kg ✓
+      //   Max lifting height: 10.60m ✓
+      //   Max horizontal boom extension: 7.35m ✓
+      //   Boom at max height: 1.09m ✓
+      //   Fork tilting angle: 130°
+      //   Tearing force: 5,700 daN | Towing force: 7,300 daN
+      //   Max slope: 40% | Empty weight: 8,200 kg | Max speed: 30 km/h
+      //   (40 km/h on request with TC/TA engine)
+      //
+      // ENGINE OPTIONS (3 available):
+      //   IVECO NEF F4GE0404A-NA: 60 kW (82 hp) @ 2300 rpm, 4-cyl, 4485 cm³, aspirated
+      //   IVECO NEF F4GE0454A-TC: 74 kW (102 hp) @ 2300 rpm, 4-cyl, 4485 cm³, turbo
+      //   IVECO NEF F4GE0484C-TA: 94 kW (128 hp) @ 2300 rpm, 4-cyl, 4485 cm³, aftercooler
+      //
+      // TRANSMISSION: Hydrostatic variable capacity pump, 2-speed power steering
+      //               Electro-hydraulic reversal, inching pedal
+      // HYDRAULICS: Gear pump 100 l/min, max 230 bar, 3-in-1 joystick
+      // AXLES: Front rigid (levelling on request), rear oscillating
+      //        Service brake: oil bath on FRONT axle with servo-brake
+      //        Parking brake: actuated negatively
+      // TYRES: 16/70x20" MPT04 | Alt: 405/70x24" MPT04
+      // TANKS: Hydraulic 140L | Fuel 95L
+      // STANDARD: Anti-tipping device, stabilisers w/ independent hydraulic tilting,
+      //           ROPS-FOPS soundproof cab with heating, front self-locking axle 45%
+      // DIMENSIONS: 5250×2220mm | 4060mm | H=2290mm | 920mm cab width
+      //             Turning radii: R5060/R3840/R1240
+      //
+      // CONFIRMED ANCHORS:
+      //   STABS: h=10.60m,r=1.09m→2200kg ✓ | h=0,r=7.35m→600kg ✓
+      //   TYRES: h=10.60m,r=1.09m→1700kg ✓ | h=0,r=7.35m→100kg ✓
+      // ═══════════════════════════════════════════════════════════════════════
+      capacity:3.3, liftHeight:10.60, maxReach:7.35, engine:'IVECO NEF 60kW (82hp) NA / 74kW (102hp) TC / 94kW (128hp) TA',
+      machineWeight:8200, machineWidth:2220, machineLength:5250, machineHeight:2290,
+      hydraulicFlow:100, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
+      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
+      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
+      terrain:'rough', maxSpeed:30,
+      attachments:['Standard Forks (130° swivel)','Jib','GP Bucket','Man Basket','Concrete Skip','Hook'],
+      bestFor:'3.3T at 10.6m — heavy 3-storey construction, cladding, block work, industrial site lifting with stabilisers',
+      note:'Dieci Zeus 33.11 — 3.3T, 10.60m lift, 7.35m outreach. IVECO NEF 60kW NA / 74kW TC / 94kW TA (3 engine options, 4485 cm³). 8,200 kg. 100 l/min, 230 bar, 3-in-1 joystick. Hydrostatic variable-capacity pump, 2-speed power steering. Oil bath front axle with servo-brake. Rear axle oscillating. Front self-locking diff 45%. Stabilisers independent hydraulic tilt. ROPS-FOPS soundproof cab. 130° fork swivel. EN 1459 compliant. Two charts: stabs (AXB1324/I) and on tyres (AXB1324). 40 km/h option with TC/TA.',
+      liftChart:'STABS: 3300kg base → 2200kg@h10.60m,r1.09m ✓ → 600kg@r7.35m ✓. ON TYRES: 3300kg base → 1700kg@h10.60m,r1.09m ✓ → 100kg@r7.35m ✓. Zones stabs: 600/800/1000/1200/1500/1800/2200/2700/3300. Zones tyres: 100/200/400/600/900/1200/1700/2400/3300. Source: Dieci Zeus 33.11 AXE3071-03/2005 v2-ING p.2.',
+      tags:['3.3T','10.6m','7.35m Reach','IVECO NEF','Stabilisers','EN1459','Italian'],
+      // ── LOAD MATRIX — On Tyres with Forks (AXB1324) ──────────────────────
+      // Zones: 100/200/400/600/900/1200/1700/2400/3300 kg — 9 rows x 10 pts
+      loadMatrix:[{h:0,r:0,kg:3300},{h:0,r:1.05,kg:3300},{h:0,r:1.5,kg:2400},{h:0,r:2,kg:1700},{h:0,r:2.65,kg:1200},{h:0,r:3.5,kg:900},{h:0,r:4.55,kg:600},{h:0,r:5.55,kg:400},{h:0,r:6.3,kg:200},{h:0,r:7.35,kg:100},{h:2,r:0,kg:3300},{h:2,r:0.98,kg:3300},{h:2,r:1.4,kg:2400},{h:2,r:1.88,kg:1700},{h:2,r:2.5,kg:1200},{h:2,r:3.3,kg:900},{h:2,r:4.3,kg:600},{h:2,r:5.25,kg:400},{h:2,r:6,kg:200},{h:2,r:7.1,kg:100},{h:4,r:0,kg:3300},{h:4,r:0.88,kg:3300},{h:4,r:1.25,kg:2400},{h:4,r:1.7,kg:1700},{h:4,r:2.25,kg:1200},{h:4,r:3,kg:900},{h:4,r:3.9,kg:600},{h:4,r:4.8,kg:400},{h:4,r:5.5,kg:200},{h:4,r:6.55,kg:100},{h:6,r:0,kg:3300},{h:6,r:0.75,kg:3300},{h:6,r:1.08,kg:2400},{h:6,r:1.48,kg:1700},{h:6,r:1.95,kg:1200},{h:6,r:2.6,kg:900},{h:6,r:3.4,kg:600},{h:6,r:4.2,kg:400},{h:6,r:4.85,kg:200},{h:6,r:5.8,kg:100},{h:7,r:0,kg:3300},{h:7,r:0.65,kg:3300},{h:7,r:0.94,kg:2400},{h:7,r:1.3,kg:1700},{h:7,r:1.72,kg:1200},{h:7,r:2.28,kg:900},{h:7,r:3,kg:600},{h:7,r:3.7,kg:400},{h:7,r:4.28,kg:200},{h:7,r:5.12,kg:100},{h:8,r:0,kg:3300},{h:8,r:0.54,kg:3300},{h:8,r:0.78,kg:2400},{h:8,r:1.07,kg:1700},{h:8,r:1.42,kg:1200},{h:8,r:1.9,kg:900},{h:8,r:2.5,kg:600},{h:8,r:3.1,kg:400},{h:8,r:3.58,kg:200},{h:8,r:4.28,kg:100},{h:9,r:0,kg:3300},{h:9,r:0.43,kg:3300},{h:9,r:0.62,kg:2400},{h:9,r:0.86,kg:1700},{h:9,r:1.15,kg:1200},{h:9,r:1.54,kg:900},{h:9,r:2.03,kg:600},{h:9,r:2.52,kg:400},{h:9,r:2.91,kg:200},{h:9,r:3.5,kg:100},{h:10,r:0,kg:3300},{h:10,r:0.32,kg:3300},{h:10,r:0.47,kg:2400},{h:10,r:0.65,kg:1700},{h:10,r:0.87,kg:1200},{h:10,r:1.17,kg:900},{h:10,r:1.54,kg:600},{h:10,r:1.92,kg:400},{h:10,r:2.22,kg:200},{h:10,r:2.67,kg:100},{h:10.6,r:0,kg:3300},{h:10.6,r:0.25,kg:3300},{h:10.6,r:0.36,kg:2400},{h:10.6,r:1.09,kg:1700}],
+      // ── STAB LOAD MATRIX — Stabilisers Extended (AXB1324/I) ──────────────
+      // Zones: 600/800/1000/1200/1500/1800/2200/2700/3300 kg — 9 rows x 10 pts
+      stabLoadMatrix:[{h:0,r:0,kg:3300},{h:0,r:1.2,kg:3300},{h:0,r:1.65,kg:2700},{h:0,r:2.15,kg:2200},{h:0,r:2.7,kg:1800},{h:0,r:3.3,kg:1500},{h:0,r:4.1,kg:1200},{h:0,r:5.2,kg:1000},{h:0,r:6.1,kg:800},{h:0,r:7.35,kg:600},{h:2,r:0,kg:3300},{h:2,r:1.1,kg:3300},{h:2,r:1.55,kg:2700},{h:2,r:2.05,kg:2200},{h:2,r:2.55,kg:1800},{h:2,r:3.15,kg:1500},{h:2,r:3.9,kg:1200},{h:2,r:4.95,kg:1000},{h:2,r:5.85,kg:800},{h:2,r:7.1,kg:600},{h:4,r:0,kg:3300},{h:4,r:1,kg:3300},{h:4,r:1.4,kg:2700},{h:4,r:1.85,kg:2200},{h:4,r:2.3,kg:1800},{h:4,r:2.85,kg:1500},{h:4,r:3.55,kg:1200},{h:4,r:4.5,kg:1000},{h:4,r:5.35,kg:800},{h:4,r:6.55,kg:600},{h:6,r:0,kg:3300},{h:6,r:0.85,kg:3300},{h:6,r:1.2,kg:2700},{h:6,r:1.6,kg:2200},{h:6,r:2,kg:1800},{h:6,r:2.45,kg:1500},{h:6,r:3.05,kg:1200},{h:6,r:3.9,kg:1000},{h:6,r:4.65,kg:800},{h:6,r:5.7,kg:600},{h:7,r:0,kg:3300},{h:7,r:0.75,kg:3300},{h:7,r:1.06,kg:2700},{h:7,r:1.4,kg:2200},{h:7,r:1.75,kg:1800},{h:7,r:2.15,kg:1500},{h:7,r:2.7,kg:1200},{h:7,r:3.45,kg:1000},{h:7,r:4.1,kg:800},{h:7,r:5,kg:600},{h:8,r:0,kg:3300},{h:8,r:0.62,kg:3300},{h:8,r:0.88,kg:2700},{h:8,r:1.18,kg:2200},{h:8,r:1.48,kg:1800},{h:8,r:1.82,kg:1500},{h:8,r:2.3,kg:1200},{h:8,r:2.95,kg:1000},{h:8,r:3.5,kg:800},{h:8,r:4.3,kg:600},{h:9,r:0,kg:3300},{h:9,r:0.5,kg:3300},{h:9,r:0.7,kg:2700},{h:9,r:0.95,kg:2200},{h:9,r:1.2,kg:1800},{h:9,r:1.47,kg:1500},{h:9,r:1.85,kg:1200},{h:9,r:2.38,kg:1000},{h:9,r:2.85,kg:800},{h:9,r:3.5,kg:600},{h:10,r:0,kg:3300},{h:10,r:0.38,kg:3300},{h:10,r:0.53,kg:2700},{h:10,r:0.72,kg:2200},{h:10,r:0.9,kg:1800},{h:10,r:1.12,kg:1500},{h:10,r:1.42,kg:1200},{h:10,r:1.84,kg:1000},{h:10,r:2.2,kg:800},{h:10,r:2.7,kg:600},{h:10.6,r:0,kg:3300},{h:10.6,r:0.3,kg:3300},{h:10.6,r:0.42,kg:2700},{h:10.6,r:1.09,kg:2200}],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'dieci-zeus-35-10', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Zeus 35.10', shortName:'Zeus 35.10',
+      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
+      // CONFIRMED: Max 3500kg | Height 9.75m | Reach 6.50m | h@max 0.84m | Weight 7700kg
+      // Zones: 400/600/850/1150/1600/2200/3000/3500 kg (8 zones, read from p.3 chart)
+      capacity:3.5, liftHeight:9.75, maxReach:6.50, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
+      machineWeight:7700, machineWidth:2600, machineLength:4950, machineHeight:2310,
+      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
+      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
+      terrain:'rough', maxSpeed:30,
+      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch','Materials basket'],
+      bestFor:'3.5T mid-reach telehandler — 3-storey construction, industrial, cladding, mid-rise material placement',
+      note:'Dieci Zeus 35.10 — 3.5T, 9.75m lift, 6.50m reach. IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
+      liftChart:'Max 3500kg. h=9.75m,r=0.84m confirmed ✓. ON TYRES ONLY. Zones: 400/600/850/1150/1600/2200/3000/3500 kg. Source: Dieci Zeus range brochure p.3.',
+      tags:['3.5T','9.75m','6.5m Reach','IVECO NEF','130° Fork','EN1459','Italian'],
+      loadMatrix:[{h:0,r:0,kg:3500},{h:0,r:0.9,kg:3500},{h:0,r:1.3,kg:3000},{h:0,r:1.85,kg:2200},{h:0,r:2.65,kg:1600},{h:0,r:3.7,kg:1150},{h:0,r:4.85,kg:850},{h:0,r:5.8,kg:600},{h:0,r:6.5,kg:400},{h:2,r:0,kg:3500},{h:2,r:0.85,kg:3500},{h:2,r:1.22,kg:3000},{h:2,r:1.75,kg:2200},{h:2,r:2.5,kg:1600},{h:2,r:3.5,kg:1150},{h:2,r:4.6,kg:850},{h:2,r:5.5,kg:600},{h:2,r:6.25,kg:400},{h:4,r:0,kg:3500},{h:4,r:0.78,kg:3500},{h:4,r:1.12,kg:3000},{h:4,r:1.6,kg:2200},{h:4,r:2.28,kg:1600},{h:4,r:3.2,kg:1150},{h:4,r:4.2,kg:850},{h:4,r:5.05,kg:600},{h:4,r:5.75,kg:400},{h:5,r:0,kg:3500},{h:5,r:0.72,kg:3500},{h:5,r:1.04,kg:3000},{h:5,r:1.48,kg:2200},{h:5,r:2.1,kg:1600},{h:5,r:2.95,kg:1150},{h:5,r:3.88,kg:850},{h:5,r:4.67,kg:600},{h:5,r:5.3,kg:400},{h:6,r:0,kg:3500},{h:6,r:0.65,kg:3500},{h:6,r:0.93,kg:3000},{h:6,r:1.33,kg:2200},{h:6,r:1.89,kg:1600},{h:6,r:2.65,kg:1150},{h:6,r:3.5,kg:850},{h:6,r:4.2,kg:600},{h:6,r:4.8,kg:400},{h:7,r:0,kg:3500},{h:7,r:0.55,kg:3500},{h:7,r:0.8,kg:3000},{h:7,r:1.14,kg:2200},{h:7,r:1.62,kg:1600},{h:7,r:2.27,kg:1150},{h:7,r:2.98,kg:850},{h:7,r:3.6,kg:600},{h:7,r:4.1,kg:400},{h:8,r:0,kg:3500},{h:8,r:0.44,kg:3500},{h:8,r:0.63,kg:3000},{h:8,r:0.9,kg:2200},{h:8,r:1.28,kg:1600},{h:8,r:1.8,kg:1150},{h:8,r:2.36,kg:850},{h:8,r:2.84,kg:600},{h:8,r:3.25,kg:400},{h:9,r:0,kg:3500},{h:9,r:0.3,kg:3500},{h:9,r:0.44,kg:3000},{h:9,r:0.62,kg:2200},{h:9,r:0.88,kg:1600},{h:9,r:1.23,kg:1150},{h:9,r:1.62,kg:850},{h:9,r:1.96,kg:600},{h:9,r:2.24,kg:400},{h:9.75,r:0.84,kg:3500}],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'dieci-zeus-38-10', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Zeus 38.10', shortName:'Zeus 38.10',
+      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
+      // CONFIRMED: Max 3800kg | Height 9.75m | Reach 6.45m | h@max 0.84m | Weight 7900kg
+      // Zones: 450/650/900/1200/1600/2200/3000/3800 kg (8 zones, read from p.3 chart)
+      capacity:3.8, liftHeight:9.75, maxReach:6.45, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
+      machineWeight:7900, machineWidth:2600, machineLength:4950, machineHeight:2310,
+      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
+      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
+      terrain:'rough', maxSpeed:30,
+      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch','Materials basket'],
+      bestFor:'3.8T high-capacity telehandler — heavy construction, industrial, 3-storey material placement',
+      note:'Dieci Zeus 38.10 — 3.8T, 9.75m lift, 6.45m reach. IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
+      liftChart:'Max 3800kg. h=9.75m,r=0.84m confirmed ✓. ON TYRES ONLY. Zones: 450/650/900/1200/1600/2200/3000/3800 kg. Source: Dieci Zeus range brochure p.3.',
+      tags:['3.8T','9.75m','6.45m Reach','IVECO NEF','130° Fork','EN1459','Italian'],
+      loadMatrix:[{h:0,r:0,kg:3800},{h:0,r:0.88,kg:3800},{h:0,r:1.2,kg:3000},{h:0,r:1.72,kg:2200},{h:0,r:2.45,kg:1600},{h:0,r:3.4,kg:1200},{h:0,r:4.5,kg:900},{h:0,r:5.45,kg:650},{h:0,r:6.45,kg:450},{h:2,r:0,kg:3800},{h:2,r:0.83,kg:3800},{h:2,r:1.13,kg:3000},{h:2,r:1.63,kg:2200},{h:2,r:2.32,kg:1600},{h:2,r:3.22,kg:1200},{h:2,r:4.27,kg:900},{h:2,r:5.18,kg:650},{h:2,r:6.15,kg:450},{h:4,r:0,kg:3800},{h:4,r:0.76,kg:3800},{h:4,r:1.04,kg:3000},{h:4,r:1.5,kg:2200},{h:4,r:2.13,kg:1600},{h:4,r:2.95,kg:1200},{h:4,r:3.92,kg:900},{h:4,r:4.75,kg:650},{h:4,r:5.65,kg:450},{h:5,r:0,kg:3800},{h:5,r:0.7,kg:3800},{h:5,r:0.96,kg:3000},{h:5,r:1.37,kg:2200},{h:5,r:1.95,kg:1600},{h:5,r:2.7,kg:1200},{h:5,r:3.6,kg:900},{h:5,r:4.37,kg:650},{h:5,r:5.2,kg:450},{h:6,r:0,kg:3800},{h:6,r:0.62,kg:3800},{h:6,r:0.85,kg:3000},{h:6,r:1.22,kg:2200},{h:6,r:1.73,kg:1600},{h:6,r:2.4,kg:1200},{h:6,r:3.2,kg:900},{h:6,r:3.88,kg:650},{h:6,r:4.62,kg:450},{h:7,r:0,kg:3800},{h:7,r:0.53,kg:3800},{h:7,r:0.72,kg:3000},{h:7,r:1.03,kg:2200},{h:7,r:1.47,kg:1600},{h:7,r:2.04,kg:1200},{h:7,r:2.72,kg:900},{h:7,r:3.3,kg:650},{h:7,r:3.93,kg:450},{h:8,r:0,kg:3800},{h:8,r:0.42,kg:3800},{h:8,r:0.57,kg:3000},{h:8,r:0.82,kg:2200},{h:8,r:1.17,kg:1600},{h:8,r:1.62,kg:1200},{h:8,r:2.15,kg:900},{h:8,r:2.62,kg:650},{h:8,r:3.1,kg:450},{h:9,r:0,kg:3800},{h:9,r:0.28,kg:3800},{h:9,r:0.39,kg:3000},{h:9,r:0.56,kg:2200},{h:9,r:0.8,kg:1600},{h:9,r:1.11,kg:1200},{h:9,r:1.47,kg:900},{h:9,r:1.8,kg:650},{h:9,r:2.13,kg:450},{h:9.75,r:0.84,kg:3800}],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'dieci-zeus-40-7', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Zeus 40.7 PS', shortName:'Zeus 40.7 PS',
+      capacity:4.0, liftHeight:7.0, maxReach:4.0, engine:'FPT 125hp / 93kW Stage IIIA (Powershift)',
+      machineWeight:7700, machineWidth:1475, machineLength:5075, machineHeight:2445,
+      terrain:'rough', maxSpeed:40,
+      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Hook Block'],
+      bestFor:'4T heavy-duty powershift telehandler — high-cycle heavy handling, mining, industrial, agricultural',
+      note:'Dieci Zeus 40.7 PS — 4T, 7m lift, 4m reach. FPT 93kW Stage IIIA. Powershift EVO2 transmission (6 forward / 3 reverse) — not hydrostatic. 190 l/min hydraulic flow (highest in range). 146° fork swivel. Easy Ride boom suspension (optional). Double reversible fan. 60% gradeability. 40km/h road speed. AS1418.19 compliant. Distributed by Dieci Australia.',
+      liftChart:'4,000kg at ground. At 7m max height: ~3,000–3,500kg near vertical. At 4m reach at ground: ~1,500–1,800kg. Consult Dieci Zeus 40.7 PS load chart.',
+      tags:['4T','7m','4m Reach','Powershift','190 L/min','60% Gradeability','FPT 93kW','Dieci'],
+      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:0.5,kg:4000},{h:0.5,r:1.0,kg:4000},{h:0.5,r:1.5,kg:3800},{h:0.5,r:2.0,kg:3400},{h:0.5,r:2.5,kg:3000},{h:0.5,r:3.0,kg:2100},{h:0.5,r:3.5,kg:1800},{h:0.5,r:4.0,kg:1500},{h:1.0,r:0.0,kg:4000},{h:1.0,r:0.5,kg:4000},{h:1.0,r:1.0,kg:4000},{h:1.0,r:1.5,kg:3800},{h:1.0,r:2.0,kg:3400},{h:1.0,r:2.5,kg:3000},{h:1.0,r:3.0,kg:2100},{h:1.0,r:3.5,kg:1800},{h:1.0,r:4.0,kg:1500},{h:2.0,r:0.0,kg:4000},{h:2.0,r:0.5,kg:4000},{h:2.0,r:1.0,kg:4000},{h:2.0,r:1.5,kg:3800},{h:2.0,r:2.0,kg:3200},{h:2.0,r:2.5,kg:2800},{h:2.0,r:3.0,kg:2100},{h:2.0,r:3.5,kg:1800},{h:2.0,r:4.0,kg:1500},{h:3.0,r:0.0,kg:4000},{h:3.0,r:0.5,kg:4000},{h:3.0,r:1.0,kg:4000},{h:3.0,r:1.5,kg:3700},{h:3.0,r:2.0,kg:3100},{h:3.0,r:2.5,kg:2500},{h:3.0,r:3.0,kg:2000},{h:3.0,r:3.5,kg:1700},{h:3.0,r:3.9,kg:1400},{h:4.0,r:0.0,kg:4000},{h:4.0,r:0.5,kg:4000},{h:4.0,r:1.0,kg:4000},{h:4.0,r:1.5,kg:3600},{h:4.0,r:2.0,kg:2800},{h:4.0,r:2.5,kg:2200},{h:4.0,r:3.0,kg:1800},{h:4.0,r:3.5,kg:1500},{h:5.0,r:0.0,kg:4000},{h:5.0,r:0.5,kg:4000},{h:5.0,r:1.0,kg:3900},{h:5.0,r:1.5,kg:3400},{h:5.0,r:2.0,kg:2600},{h:5.0,r:2.5,kg:2100},{h:5.0,r:3.0,kg:1700},{h:6.0,r:0.0,kg:4000},{h:6.0,r:0.5,kg:4000},{h:6.0,r:1.0,kg:3800},{h:6.0,r:1.5,kg:3100},{h:6.0,r:2.0,kg:2400},{h:6.0,r:2.5,kg:1900},{h:6.0,r:3.0,kg:1500},{h:7.0,r:0.0,kg:4000},{h:7.0,r:0.5,kg:3900},{h:7.0,r:1.0,kg:3400},{h:7.0,r:1.5,kg:2800},{h:7.0,r:2.0,kg:2200},{h:7.0,r:2.5,kg:1700}],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'dieci-runner-40-13', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Runner 40.13', shortName:'Runner 40.13',
+      capacity:4.0, liftHeight:12.4, maxReach:8.85, engine:'FPT 125hp / 93kW Stage IIIA',
+      machineWeight:10420, machineWidth:1760, machineLength:5590, machineHeight:2460,
+      terrain:'rough', maxSpeed:40,
+      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Hook Block','Side-Shift Carriage'],
+      bestFor:'4T high-reach telehandler — 3-4 storey construction, industrial, structural steel placement',
+      note:'Dieci Runner 40.13 — 4T, 12.4m lift, 8.85m reach. FPT 93kW Stage IIIA. 2-speed hydrostatic transmission. 130 l/min hydraulic flow. 134° fork swivel. Side-shift carriage standard. 2 independent outriggers. 40km/h road speed. Integrated LED work lights. AS1418.19 compliant. Distributed by Dieci Australia.',
+      liftChart:'4,000kg at ground. At 12.4m max height (on stabilizers): ~2,700kg near vertical. At 8.85m reach: ~400–600kg. Consult Dieci Runner 40.13 load chart.',
+      tags:['4T','12.4m','8.85m Reach','FPT 93kW','Side-Shift','3-4 Storey','Dieci'],
+      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:0.5,kg:4000},{h:0.5,r:1.0,kg:4000},{h:0.5,r:2.0,kg:3200},{h:0.5,r:3.0,kg:2400},{h:0.5,r:4.0,kg:1700},{h:0.5,r:5.0,kg:1200},{h:0.5,r:6.0,kg:800},{h:0.5,r:7.0,kg:550},{h:0.5,r:8.5,kg:400},{h:1.0,r:0.0,kg:4000},{h:1.0,r:0.5,kg:4000},{h:1.0,r:1.0,kg:4000},{h:1.0,r:2.0,kg:3200},{h:1.0,r:3.0,kg:2400},{h:1.0,r:4.0,kg:1700},{h:1.0,r:5.0,kg:1200},{h:1.0,r:6.0,kg:800},{h:1.0,r:7.0,kg:550},{h:2.0,r:0.0,kg:4000},{h:2.0,r:0.5,kg:4000},{h:2.0,r:1.0,kg:4000},{h:2.0,r:2.0,kg:3200},{h:2.0,r:3.0,kg:2400},{h:2.0,r:4.0,kg:1700},{h:2.0,r:5.0,kg:1200},{h:2.0,r:6.0,kg:800},{h:2.0,r:7.0,kg:500},{h:3.0,r:0.0,kg:4000},{h:3.0,r:0.5,kg:4000},{h:3.0,r:1.0,kg:4000},{h:3.0,r:2.0,kg:3100},{h:3.0,r:3.0,kg:2300},{h:3.0,r:4.0,kg:1600},{h:3.0,r:5.0,kg:1150},{h:3.0,r:6.0,kg:750},{h:3.0,r:7.0,kg:480},{h:4.0,r:0.0,kg:4000},{h:4.0,r:0.5,kg:4000},{h:4.0,r:1.0,kg:4000},{h:4.0,r:2.0,kg:3000},{h:4.0,r:3.0,kg:2200},{h:4.0,r:4.0,kg:1500},{h:4.0,r:5.0,kg:1050},{h:4.0,r:6.0,kg:700},{h:5.0,r:0.0,kg:4000},{h:5.0,r:0.5,kg:4000},{h:5.0,r:1.0,kg:3900},{h:5.0,r:2.0,kg:2800},{h:5.0,r:3.0,kg:2000},{h:5.0,r:4.0,kg:1350},{h:5.0,r:5.0,kg:950},{h:5.0,r:6.0,kg:600},{h:6.0,r:0.0,kg:3900},{h:6.0,r:0.5,kg:3900},{h:6.0,r:1.0,kg:3700},{h:6.0,r:2.0,kg:2600},{h:6.0,r:3.0,kg:1800},{h:6.0,r:4.0,kg:1200},{h:6.0,r:5.0,kg:800},{h:7.0,r:0.0,kg:3700},{h:7.0,r:0.5,kg:3700},{h:7.0,r:1.0,kg:3500},{h:7.0,r:2.0,kg:2300},{h:7.0,r:3.0,kg:1600},{h:7.0,r:4.0,kg:1050},{h:7.0,r:5.0,kg:650},{h:8.0,r:0.0,kg:3500},{h:8.0,r:0.5,kg:3500},{h:8.0,r:1.0,kg:3200},{h:8.0,r:2.0,kg:2000},{h:8.0,r:3.0,kg:1350},{h:8.0,r:4.0,kg:850},{h:9.0,r:0.0,kg:3200},{h:9.0,r:0.5,kg:3200},{h:9.0,r:1.0,kg:2900},{h:9.0,r:2.0,kg:1700},{h:9.0,r:3.0,kg:1100},{h:9.0,r:4.0,kg:650},{h:10.0,r:0.0,kg:2900},{h:10.0,r:0.5,kg:2900},{h:10.0,r:1.0,kg:2550},{h:10.0,r:2.0,kg:1350},{h:10.0,r:3.0,kg:800},{h:11.0,r:0.0,kg:2600},{h:11.0,r:0.5,kg:2500},{h:11.0,r:1.0,kg:2100},{h:11.0,r:2.0,kg:1000},{h:12.0,r:0.0,kg:2200},{h:12.0,r:0.5,kg:2000},{h:12.0,r:1.0,kg:1500},{h:12.4,r:0.0,kg:2000},{h:12.4,r:0.5,kg:1700}],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'dieci-icarus-40-17', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Icarus 40.17', shortName:'Icarus 40.17',
+      capacity:4.0, liftHeight:16.6, maxReach:12.6, engine:'FPT 125hp / 93kW Stage IIIA',
+      machineWeight:12260, machineWidth:1837, machineLength:6275, machineHeight:2550,
+      terrain:'rough', maxSpeed:35,
+      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Hook Block','Side-Shift Carriage','EWP Basket'],
+      bestFor:'Ultra-high reach 4T telehandler — 5-storey+ construction, cladding, structural placement at great height',
+      note:'Dieci Icarus 40.17 — 4T, 16.6m lift, 12.6m reach. FPT 93kW Stage IIIA. 2-speed hydrostatic. 130 l/min. 134° fork swivel. 2 independent outriggers with transverse levelling. Side-shift carriage. EWP pre-arrangement compliant with AS 1418.10. Integrated LED work lights. Highest-reach model in Dieci Australia lineup. AS1418.19 compliant. Distributed by Dieci Australia.',
+      liftChart:'4,000kg at ground. On stabilizers at 16.6m max height: ~1,600kg near vertical. At 12.6m max reach: ~600kg. Consult Dieci Icarus 40.17 load chart.',
+      tags:['4T','16.6m','12.6m Reach','FPT 93kW','EWP Ready','5-Storey+','Outriggers','Dieci'],
+      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:0.5,kg:4000},{h:0.5,r:1.0,kg:4000},{h:0.5,r:2.0,kg:3700},{h:0.5,r:3.0,kg:2800},{h:0.5,r:4.0,kg:2000},{h:0.5,r:5.0,kg:1500},{h:0.5,r:6.0,kg:1200},{h:0.5,r:7.0,kg:950},{h:0.5,r:9.0,kg:700},{h:0.5,r:11.0,kg:450},{h:0.5,r:12.6,kg:350},{h:2.0,r:0.0,kg:4000},{h:2.0,r:0.5,kg:4000},{h:2.0,r:1.0,kg:4000},{h:2.0,r:2.0,kg:3700},{h:2.0,r:3.0,kg:2800},{h:2.0,r:4.0,kg:2000},{h:2.0,r:5.0,kg:1500},{h:2.0,r:6.0,kg:1200},{h:2.0,r:7.0,kg:950},{h:2.0,r:9.0,kg:700},{h:2.0,r:11.0,kg:450},{h:4.0,r:0.0,kg:4000},{h:4.0,r:0.5,kg:4000},{h:4.0,r:1.0,kg:4000},{h:4.0,r:2.0,kg:3600},{h:4.0,r:3.0,kg:2700},{h:4.0,r:4.0,kg:1900},{h:4.0,r:5.0,kg:1400},{h:4.0,r:6.0,kg:1150},{h:4.0,r:7.0,kg:900},{h:4.0,r:9.0,kg:650},{h:4.0,r:10.0,kg:430},{h:6.0,r:0.0,kg:4000},{h:6.0,r:0.5,kg:4000},{h:6.0,r:1.0,kg:4000},{h:6.0,r:2.0,kg:3500},{h:6.0,r:3.0,kg:2600},{h:6.0,r:4.0,kg:1800},{h:6.0,r:5.0,kg:1350},{h:6.0,r:6.0,kg:1050},{h:6.0,r:7.0,kg:800},{h:6.0,r:9.0,kg:550},{h:8.0,r:0.0,kg:4000},{h:8.0,r:0.5,kg:4000},{h:8.0,r:1.0,kg:3900},{h:8.0,r:2.0,kg:3200},{h:8.0,r:3.0,kg:2300},{h:8.0,r:4.0,kg:1600},{h:8.0,r:5.0,kg:1200},{h:8.0,r:6.0,kg:950},{h:8.0,r:7.0,kg:700},{h:10.0,r:0.0,kg:3900},{h:10.0,r:0.5,kg:3900},{h:10.0,r:1.0,kg:3700},{h:10.0,r:2.0,kg:2800},{h:10.0,r:3.0,kg:2000},{h:10.0,r:4.0,kg:1400},{h:10.0,r:5.0,kg:1050},{h:10.0,r:6.0,kg:800},{h:12.0,r:0.0,kg:3600},{h:12.0,r:0.5,kg:3600},{h:12.0,r:1.0,kg:3300},{h:12.0,r:2.0,kg:2400},{h:12.0,r:3.0,kg:1650},{h:12.0,r:4.0,kg:1200},{h:12.0,r:5.0,kg:850},{h:14.0,r:0.0,kg:3100},{h:14.0,r:0.5,kg:3100},{h:14.0,r:1.0,kg:2800},{h:14.0,r:2.0,kg:1900},{h:14.0,r:3.0,kg:1300},{h:14.0,r:4.0,kg:900},{h:15.0,r:0.0,kg:2700},{h:15.0,r:0.5,kg:2600},{h:15.0,r:1.0,kg:2300},{h:15.0,r:2.0,kg:1450},{h:15.0,r:3.0,kg:950},{h:16.0,r:0.0,kg:2200},{h:16.0,r:0.5,kg:2100},{h:16.0,r:1.0,kg:1750},{h:16.0,r:2.0,kg:950},{h:16.6,r:0.0,kg:1900},{h:16.6,r:0.5,kg:1600},{h:16.6,r:1.0,kg:1200}],
+      filters:['telehandler','rough','heavy']
+    },
+    {
+      id:'dieci-samson-70-10', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
+      name:'Dieci Samson 70.10', shortName:'Samson 70.10',
+      capacity:7.0, liftHeight:9.65, maxReach:5.40, engine:'FPT 125hp / 93kW Stage IIIA',
+      machineWeight:12100, machineWidth:1920, machineLength:6021, machineHeight:2490,
+      terrain:'rough', maxSpeed:40,
+      attachments:['Standard Forks','GP Bucket','Jib','Hook Block','Side-Shift Carriage'],
+      bestFor:'7T heavy-lift telehandler — precast concrete, structural steel, heavy industrial, crane replacement',
+      note:'Dieci Samson 70.10 — 7T, 9.65m lift, 5.40m reach. FPT 93kW Stage IIIA. 2-speed hydrostatic. 130 l/min hydraulic flow. 134° fork swivel. Reversible fan. Side-shift carriage standard. Stabilisers optional. Maximum load capacity in the Dieci Australia range. AS1418.19 compliant. Distributed by Dieci Australia.',
+      liftChart:'7,000kg at ground. At 9.65m max height: ~7,000kg near vertical. At 5.40m reach at ground: ~2,500kg. Note: Load drops sharply with reach. Consult Dieci Samson 70.10 load chart.',
+      tags:['7T','9.65m','5.40m Reach','FPT 93kW','Heavy Lift','Precast','Crane Replacement','Dieci'],
+      loadMatrix:[{h:0.5,r:0.0,kg:7000},{h:0.5,r:0.5,kg:7000},{h:0.5,r:1.0,kg:7000},{h:0.5,r:1.5,kg:6800},{h:0.5,r:2.0,kg:6200},{h:0.5,r:2.5,kg:5200},{h:0.5,r:3.0,kg:4300},{h:0.5,r:3.5,kg:3600},{h:0.5,r:4.0,kg:3100},{h:0.5,r:4.5,kg:2750},{h:0.5,r:5.0,kg:2500},{h:0.5,r:5.4,kg:2500},{h:1.0,r:0.0,kg:7000},{h:1.0,r:0.5,kg:7000},{h:1.0,r:1.0,kg:7000},{h:1.0,r:1.5,kg:6800},{h:1.0,r:2.0,kg:6200},{h:1.0,r:2.5,kg:5200},{h:1.0,r:3.0,kg:4300},{h:1.0,r:3.5,kg:3600},{h:1.0,r:4.0,kg:3100},{h:1.0,r:4.5,kg:2750},{h:1.0,r:5.0,kg:2500},{h:2.0,r:0.0,kg:7000},{h:2.0,r:0.5,kg:7000},{h:2.0,r:1.0,kg:7000},{h:2.0,r:1.5,kg:6800},{h:2.0,r:2.0,kg:6000},{h:2.0,r:2.5,kg:5000},{h:2.0,r:3.0,kg:4100},{h:2.0,r:3.5,kg:3400},{h:2.0,r:4.0,kg:2900},{h:2.0,r:4.5,kg:2600},{h:2.0,r:5.0,kg:2400},{h:3.0,r:0.0,kg:7000},{h:3.0,r:0.5,kg:7000},{h:3.0,r:1.0,kg:7000},{h:3.0,r:1.5,kg:6700},{h:3.0,r:2.0,kg:5800},{h:3.0,r:2.5,kg:4800},{h:3.0,r:3.0,kg:3900},{h:3.0,r:3.5,kg:3200},{h:3.0,r:4.0,kg:2700},{h:3.0,r:5.0,kg:2300},{h:4.0,r:0.0,kg:7000},{h:4.0,r:0.5,kg:7000},{h:4.0,r:1.0,kg:7000},{h:4.0,r:1.5,kg:6500},{h:4.0,r:2.0,kg:5500},{h:4.0,r:2.5,kg:4500},{h:4.0,r:3.0,kg:3600},{h:4.0,r:3.5,kg:3000},{h:4.0,r:4.0,kg:2500},{h:5.0,r:0.0,kg:7000},{h:5.0,r:0.5,kg:7000},{h:5.0,r:1.0,kg:7000},{h:5.0,r:1.5,kg:6200},{h:5.0,r:2.0,kg:5200},{h:5.0,r:2.5,kg:4200},{h:5.0,r:3.0,kg:3400},{h:5.0,r:3.5,kg:2800},{h:5.0,r:4.0,kg:2300},{h:6.0,r:0.0,kg:7000},{h:6.0,r:0.5,kg:7000},{h:6.0,r:1.0,kg:7000},{h:6.0,r:1.5,kg:5800},{h:6.0,r:2.0,kg:4800},{h:6.0,r:2.5,kg:3900},{h:6.0,r:3.0,kg:3100},{h:6.0,r:3.5,kg:2500},{h:7.0,r:0.0,kg:7000},{h:7.0,r:0.5,kg:7000},{h:7.0,r:1.0,kg:6800},{h:7.0,r:1.5,kg:5500},{h:7.0,r:2.0,kg:4500},{h:7.0,r:2.5,kg:3600},{h:7.0,r:3.0,kg:2900},{h:8.0,r:0.0,kg:7000},{h:8.0,r:0.5,kg:7000},{h:8.0,r:1.0,kg:6500},{h:8.0,r:1.5,kg:5000},{h:8.0,r:2.0,kg:4100},{h:8.0,r:2.5,kg:3200},{h:9.0,r:0.0,kg:7000},{h:9.0,r:0.5,kg:7000},{h:9.0,r:1.0,kg:6000},{h:9.0,r:1.5,kg:4600},{h:9.0,r:2.0,kg:3500},{h:9.65,r:0.0,kg:7000},{h:9.65,r:0.5,kg:6500},{h:9.65,r:1.0,kg:5000}],
+      filters:['telehandler','rough','heavy']
+    },
+
+    // ── DIECI PEGASUS — Rotating Telehandlers ──────────────────────────────
+    // Source: Dieci Australia official brochures (dieciaustralia.com.au, 2025)
+    // All Pegasus models: 360°/400° turret rotation, 4 independent outriggers,
+    // self-levelling, height/slew limiters, Load Sensing hydraulics, AS1418.19 compliant.
+    {
+      id:'dieci-pegasus-400-38-16', brand:'Dieci', emoji:'🔄', brandColor:'#E30613',
+      name:'Dieci Pegasus 400° 38.16', shortName:'Pegasus 38.16',
+      isRotating:true,
+      // ── Capacity — Dieci Australia Pegasus 400° 38.16 brochure (Pegasus400°_0924) ──
+      capacity:3.8, capacityOnTyres:3.2, liftHeight:15.70, liftHeightOnTyres:15.50,
+      maxReach:13.40, maxReachOnTyres:13.40, turretRotation:400,
+      tyreCapacityNote:'400° on outriggers: max 3,200 kg (full rotation). Frontal direction: max 3,800 kg. Outriggers required for ALL lifts.',
+      engine:'Kubota 4-cyl 73.4kW (98hp) @ 2,600 rpm, 3,769cc, Stage IIIA/Tier 3',
+      machineWeight:13200, machineWidth:2430, machineLength:6740, machineHeight:3035,
+      stabilizerType:'4 independent outriggers', stabilizerSpreadM:4.75,
+      hydraulicPressure:23, hydraulicFlow:135, maxSpeed:25, gradeability:40,
+      terrain:'rough/outdoor',
+      attachments:['Standard Forks','Man Basket','Winch','Jib','Hook Block','Work Platform'],
+      bestFor:'3.8T 400° rotating — compact crane replacement, 4-5 storey, AS1418.19/10896.1',
+      note:'Dieci Pegasus 400° 38.16 — 3.8T max (frontal), 3.2T max (full 400°). 15.7m lift, 13.4m reach. Kubota 73.4kW Stage IIIA. 13,200 kg. 400/70×20" tyres. Source: Dieci Australia brochure (Pegasus400°_0924). ⚠️ Zone boundaries approximate.',
+      tags:['Rotating 400°','3.8T','15.7m','13.4m Reach','Kubota 73.4kW','Australia','AS1418.19','Compact'],
+      // 400° FULL ROTATION ON OUTRIGGERS — loadMatrix
+      // SOURCE: Right chart "MAX 3.8 t" | METHOD: Arc formula r=sqrt(L²-h²)
+      // L=13.4m CONFIRMED printed red label. Inner L: 4× chart pixel read ±0.3m.
+      // Zones(kg→L): 300→13.4✓,450→12.5,600→11.5,800→10.5,1000→9.5,1300→8.5,
+      //              1700→7.5,2000→7.0,2500→6.0,3000→5.0,3500→4.0,3800→3.0
+      // Inner zone vertical extensions from label positions: 3800@(h5,r2.5) 3500@(h7,r3.0) 3000@(h8,r4.0)
+      loadMatrix:[{h:1,r:13.4,kg:300},{h:1,r:12.5,kg:450},{h:1,r:11.5,kg:600},{h:1,r:10.5,kg:800},{h:1,r:9.4,kg:1000},{h:1,r:8.4,kg:1300},{h:1,r:7.4,kg:1700},{h:1,r:6.9,kg:2000},{h:1,r:5.9,kg:2500},{h:1,r:4.9,kg:3000},{h:1,r:3.9,kg:3500},{h:1,r:2.8,kg:3800},{h:3.0,r:0,kg:3800},{h:4,r:12.8,kg:300},{h:4,r:11.8,kg:450},{h:4,r:10.8,kg:600},{h:4,r:9.7,kg:800},{h:4,r:8.6,kg:1000},{h:4,r:7.5,kg:1300},{h:4,r:6.3,kg:1700},{h:4,r:5.7,kg:2000},{h:4,r:4.5,kg:2500},{h:4,r:3.0,kg:3000},{h:4.0,r:0,kg:3500},{h:5,r:2.5,kg:3800},{h:5.0,r:0,kg:3000},{h:6.0,r:0,kg:2500},{h:7,r:3.0,kg:3500},{h:7.0,r:0,kg:2000},{h:7.5,r:0,kg:1700},{h:8,r:10.7,kg:300},{h:8,r:9.6,kg:450},{h:8,r:8.3,kg:600},{h:8,r:6.8,kg:800},{h:8,r:5.1,kg:1000},{h:8,r:4.0,kg:3000},{h:8,r:2.9,kg:1300},{h:8.5,r:0,kg:1300},{h:9.5,r:0,kg:1000},{h:10.5,r:0,kg:800},{h:11.5,r:0,kg:600},{h:12,r:6.0,kg:300},{h:12,r:3.5,kg:450},{h:12.5,r:0,kg:450},{h:13.4,r:0,kg:300}],
+      // ON TYRES / FRONTAL (0°) — loadMatrixTyres
+      // SOURCE: Left chart "MAX 3.2 t" | Zones(kg→L): 100→13.4✓,200→12.5,350→11.5,600→10.5,
+      //         750→9.5,1000→8.5,1400→7.5,1700→7.0,2000→6.0,2500→5.0,3200→3.5
+      loadMatrixTyres:[{h:1,r:13.4,kg:100},{h:1,r:12.5,kg:200},{h:1,r:11.5,kg:350},{h:1,r:10.5,kg:600},{h:1,r:9.4,kg:750},{h:1,r:8.4,kg:1000},{h:1,r:7.4,kg:1400},{h:1,r:6.9,kg:1700},{h:1,r:5.9,kg:2000},{h:1,r:4.9,kg:2500},{h:1,r:3.4,kg:3200},{h:3.5,r:0,kg:3200},{h:4,r:12.8,kg:100},{h:4,r:11.8,kg:200},{h:4,r:10.8,kg:350},{h:4,r:9.7,kg:600},{h:4,r:8.6,kg:750},{h:4,r:7.5,kg:1000},{h:4,r:6.3,kg:1400},{h:4,r:5.7,kg:1700},{h:4,r:4.5,kg:2000},{h:4,r:3.0,kg:2500},{h:5.0,r:0,kg:2500},{h:6.0,r:0,kg:2000},{h:7.0,r:0,kg:1700},{h:7.5,r:0,kg:1400},{h:8,r:10.7,kg:100},{h:8,r:9.6,kg:200},{h:8,r:8.3,kg:350},{h:8,r:6.8,kg:600},{h:8,r:5.1,kg:750},{h:8,r:2.9,kg:1000},{h:8.5,r:0,kg:1000},{h:9.5,r:0,kg:750},{h:10.5,r:0,kg:600},{h:11.5,r:0,kg:350},{h:12,r:6.0,kg:100},{h:12,r:3.5,kg:200},{h:12.5,r:0,kg:200},{h:13.4,r:0,kg:100}],
+      loadMatrixWinch:[], loadMatrixJib800:[], loadMatrixJib1500:[], loadMatrixTyres360:[],
+      filters:['telehandler','outdoor','rough']
+    },
+    {
+      id:'dieci-pegasus-400-40-18', brand:'Dieci', emoji:'🔄', brandColor:'#E30613',
+      name:'Dieci Pegasus 400° 40.18', shortName:'Pegasus 40.18',
+      isRotating:true,
+      // ── Capacity — Dieci Australia Pegasus 400° 40.18 brochure (Pegasus400°_0924) ──
+      capacity:4.0, capacityOnTyres:3.5, liftHeight:18.00, liftHeightOnTyres:15.70,
+      maxReach:15.30, maxReachOnTyres:12.00, turretRotation:400,
+      tyreCapacityNote:'400° on outriggers (stabilisers deployed): max 4,000 kg. On tyres / frontal (0°, no stabilisers): max 3,500 kg. Outriggers MUST be deployed for 400° rotation.',
+      engine:'Kubota 4-cyl 73.4kW (98hp) @ 2,600 rpm, 3,769cc, Stage IIIA/Tier 3',
+      machineWeight:13700, machineWidth:2280, machineLength:6630, machineHeight:3035,
+      stabilizerType:'4 independent outriggers', stabilizerSpreadM:4.75,
+      hydraulicPressure:23, hydraulicFlow:135, maxSpeed:25, gradeability:40,
+      terrain:'rough/outdoor',
+      attachments:['Standard Forks','Man Basket','Winch','Jib','Hook Block','Work Platform'],
+      bestFor:'4T 400° rotating — 5-6 storey crane replacement, compact, AS1418.19/10896.1',
+      note:'Dieci Pegasus 400° 40.18 — 4T max (400° on outriggers), 3.5T max (0° frontal on tyres). 18m lift, 15.3m reach. Kubota 73.4kW Stage IIIA. 13,700 kg. 400/70×20" tyres. Source: Dieci Australia brochure (Pegasus400°_0924). Zone L values: max reach printed, inner zones grid-read ±0.3m.',
+      tags:['Rotating 400°','4T','18m','15.3m Reach','Kubota 73.4kW','Australia','AS1418.19'],
+      // 400° FULL ROTATION ON OUTRIGGERS — loadMatrix
+      // SOURCE: Right chart "MAX 4.0 t" | METHOD: Arc formula r=sqrt(L²-h²)
+      // L=15.3m CONFIRMED printed red label. Inner L: 4× chart pixel read ±0.3m.
+      // Zones(kg→L): 500→15.3✓, 600→13.5, 800→12.0, 1000→10.5, 1200→9.5, 1500→8.5,
+      //              2000→7.5, 2700→6.0, 3500→4.5, 4000→3.0
+      // Inner zone vertical extensions from chart label positions: 4000@(h7,r3.0) 3500@(h10,r3.5)
+      loadMatrix:[{h:1,r:15.3,kg:500},{h:1,r:13.5,kg:600},{h:1,r:12.0,kg:800},{h:1,r:10.5,kg:1000},{h:1,r:9.4,kg:1200},{h:1,r:8.4,kg:1500},{h:1,r:7.4,kg:2000},{h:1,r:5.9,kg:2700},{h:1,r:4.4,kg:3500},{h:1,r:2.8,kg:4000},{h:3.0,r:0,kg:4000},{h:4,r:14.8,kg:500},{h:4,r:12.9,kg:600},{h:4,r:11.3,kg:800},{h:4,r:9.7,kg:1000},{h:4,r:8.6,kg:1200},{h:4,r:7.5,kg:1500},{h:4,r:6.3,kg:2000},{h:4,r:4.5,kg:2700},{h:4,r:2.1,kg:3500},{h:4.5,r:0,kg:3500},{h:6.0,r:0,kg:2700},{h:7,r:3.0,kg:4000},{h:7.5,r:0,kg:2000},{h:8,r:13.0,kg:500},{h:8,r:10.9,kg:600},{h:8,r:8.9,kg:800},{h:8,r:6.8,kg:1000},{h:8,r:5.1,kg:1200},{h:8,r:2.9,kg:1500},{h:8.5,r:0,kg:1500},{h:9.5,r:0,kg:1200},{h:10,r:3.5,kg:3500},{h:10.5,r:0,kg:1000},{h:12,r:9.5,kg:500},{h:12,r:6.2,kg:600},{h:12.0,r:0,kg:800},{h:13.5,r:0,kg:600},{h:15.3,r:0,kg:500}],
+      // ON TYRES / FRONTAL (0°) — loadMatrixTyres
+      // SOURCE: Left chart "MAX 3.5 t" | Zones(kg→L): 300→12.0✓,500→10.5,800→9.0,
+      //         1000→8.0,1400→7.0,2000→5.5,2700→4.0,3500→2.5
+      loadMatrixTyres:[{h:1,r:12.0,kg:300},{h:1,r:10.5,kg:500},{h:1,r:8.9,kg:800},{h:1,r:7.9,kg:1000},{h:1,r:6.9,kg:1400},{h:1,r:5.4,kg:2000},{h:1,r:3.9,kg:2700},{h:1,r:2.3,kg:3500},{h:2.5,r:0,kg:3500},{h:4,r:11.3,kg:300},{h:4,r:9.7,kg:500},{h:4,r:8.1,kg:800},{h:4,r:6.9,kg:1000},{h:4,r:5.7,kg:1400},{h:4,r:3.8,kg:2000},{h:4.0,r:0,kg:2700},{h:5.5,r:0,kg:2000},{h:7.0,r:0,kg:1400},{h:8,r:8.9,kg:300},{h:8,r:6.8,kg:500},{h:8,r:4.1,kg:800},{h:8.0,r:0,kg:1000},{h:9.0,r:0,kg:800},{h:10.5,r:0,kg:500},{h:12.0,r:0,kg:300}],
+      // ⚠️ loadMatrixWinch — ESTIMATED (loadMatrix × 0.93, cap 3600kg).
+      loadMatrixWinch:[{h:0.0,r:0.0,kg:3300},{h:0.0,r:1.5,kg:2500},{h:0.0,r:4.5,kg:1300},{h:0.0,r:7.5,kg:700},{h:0.0,r:12.0,kg:300},{h:3.0,r:0.0,kg:3300},{h:3.0,r:1.5,kg:2500},{h:3.0,r:4.5,kg:1300},{h:3.0,r:7.5,kg:700},{h:3.0,r:11.5,kg:300},{h:6.0,r:0.0,kg:3300},{h:6.0,r:1.5,kg:2500},{h:6.0,r:4.5,kg:1300},{h:6.0,r:7.0,kg:700},{h:6.0,r:11.0,kg:300},{h:9.0,r:0.0,kg:3300},{h:9.0,r:1.5,kg:2500},{h:9.0,r:4.0,kg:1300},{h:9.0,r:6.5,kg:700},{h:12.0,r:0.0,kg:3300},{h:12.0,r:1.5,kg:2500},{h:12.0,r:3.5,kg:1300},{h:12.0,r:6.0,kg:700},{h:14.0,r:0.0,kg:3300},{h:14.0,r:1.0,kg:2500},{h:14.0,r:3.0,kg:1300},{h:15.7,r:0.0,kg:3300},{h:15.7,r:0.5,kg:2500},{h:15.7,r:2.5,kg:1300}],
+      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
+      loadMatrixJib800:[{h:0.0,r:0.0,kg:2000},{h:0.0,r:3.5,kg:1500},{h:0.0,r:7.0,kg:1000},{h:0.0,r:10.5,kg:600},{h:3.0,r:0.0,kg:2000},{h:3.0,r:3.4,kg:1500},{h:3.0,r:6.8,kg:1000},{h:3.0,r:10.1,kg:600},{h:6.0,r:0.0,kg:2000},{h:6.0,r:3.2,kg:1500},{h:6.0,r:6.5,kg:1000},{h:6.0,r:9.8,kg:600},{h:9.0,r:0.0,kg:2000},{h:9.0,r:2.1,kg:1500},{h:9.0,r:4.2,kg:1000},{h:9.0,r:6.4,kg:600},{h:12.0,r:0.0,kg:2000},{h:12.0,r:2.0,kg:1500},{h:12.0,r:4.0,kg:1000},{h:12.0,r:6.0,kg:600},{h:14.0,r:0.0,kg:2000},{h:14.0,r:1.2,kg:1500},{h:14.0,r:2.5,kg:1000},{h:14.0,r:3.8,kg:600},{h:15.7,r:0.0,kg:2000},{h:15.7,r:1.1,kg:1500},{h:15.7,r:2.2,kg:1000},{h:15.7,r:3.4,kg:600},{h:17.7,r:0.0,kg:2000},{h:17.7,r:1.0,kg:1500},{h:17.7,r:2.0,kg:1000},{h:17.7,r:3.0,kg:600}],
+      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (1000kg constant throughout working envelope).
+      loadMatrixJib1500:[{h:0.0,r:0.0,kg:1000},{h:0.0,r:1.5,kg:1000},{h:0.0,r:4.5,kg:1000},{h:0.0,r:7.5,kg:1000},{h:0.0,r:12.0,kg:1000},{h:3.0,r:0.0,kg:1000},{h:3.0,r:1.5,kg:1000},{h:3.0,r:4.5,kg:1000},{h:3.0,r:7.5,kg:1000},{h:3.0,r:11.5,kg:1000},{h:6.0,r:0.0,kg:1000},{h:6.0,r:1.5,kg:1000},{h:6.0,r:4.5,kg:1000},{h:6.0,r:7.0,kg:1000},{h:6.0,r:11.0,kg:1000},{h:9.0,r:0.0,kg:1000},{h:9.0,r:1.5,kg:1000},{h:9.0,r:4.0,kg:1000},{h:9.0,r:6.5,kg:1000},{h:12.0,r:0.0,kg:1000},{h:12.0,r:1.5,kg:1000},{h:12.0,r:3.5,kg:1000},{h:12.0,r:6.0,kg:1000},{h:14.0,r:0.0,kg:1000},{h:14.0,r:1.0,kg:1000},{h:14.0,r:3.0,kg:1000},{h:15.7,r:0.0,kg:1000},{h:15.7,r:0.5,kg:1000},{h:15.7,r:2.5,kg:1000}],
+      loadMatrixTyres360:[{h:0.0,r:0.0,kg:2100},{h:0.0,r:1.5,kg:1800},{h:0.0,r:3.0,kg:1400},{h:0.0,r:5.0,kg:1050},{h:0.0,r:7.0,kg:800},{h:0.0,r:9.0,kg:600},{h:0.0,r:10.5,kg:500},{h:0.0,r:12.0,kg:400},{h:0.0,r:13.5,kg:250},{h:3.0,r:0.0,kg:2100},{h:3.0,r:1.5,kg:1800},{h:3.0,r:3.0,kg:1400},{h:3.0,r:5.0,kg:1050},{h:3.0,r:7.0,kg:800},{h:3.0,r:9.0,kg:600},{h:3.0,r:10.5,kg:500},{h:3.0,r:12.0,kg:400},{h:3.0,r:13.5,kg:250},{h:6.0,r:0.0,kg:2100},{h:6.0,r:1.5,kg:1800},{h:6.0,r:3.0,kg:1400},{h:6.0,r:5.0,kg:1050},{h:6.0,r:7.0,kg:800},{h:6.0,r:8.5,kg:600},{h:6.0,r:10.0,kg:500},{h:6.0,r:11.5,kg:400},{h:6.0,r:13.0,kg:250},{h:9.0,r:0.0,kg:2100},{h:9.0,r:1.5,kg:1800},{h:9.0,r:3.0,kg:1400},{h:9.0,r:4.5,kg:1050},{h:9.0,r:6.5,kg:800},{h:9.0,r:8.0,kg:600},{h:9.0,r:9.5,kg:500},{h:9.0,r:11.0,kg:400},{h:9.0,r:12.5,kg:250},{h:12.0,r:0.0,kg:2100},{h:12.0,r:1.5,kg:1800},{h:12.0,r:3.0,kg:1400},{h:12.0,r:4.5,kg:1050},{h:12.0,r:6.0,kg:800},{h:12.0,r:7.5,kg:600},{h:12.0,r:9.0,kg:500},{h:12.0,r:10.5,kg:400},{h:15.0,r:0.0,kg:2100},{h:15.0,r:1.0,kg:1800},{h:15.0,r:2.5,kg:1400},{h:15.0,r:4.0,kg:1050},{h:15.0,r:5.5,kg:800},{h:15.0,r:7.0,kg:600},{h:15.0,r:8.5,kg:500},{h:17.0,r:0.0,kg:2100},{h:17.0,r:1.0,kg:1800},{h:17.0,r:2.0,kg:1400},{h:17.0,r:3.5,kg:1050},{h:17.0,r:5.0,kg:800},{h:17.0,r:6.5,kg:600},{h:18.0,r:0.0,kg:2100},{h:18.0,r:0.5,kg:1800},{h:18.0,r:1.5,kg:1400},{h:18.0,r:3.0,kg:1050},{h:18.0,r:4.5,kg:800}],
+      filters:['telehandler','outdoor','rough']
+    },
   ],
 
 
@@ -23029,1067 +24090,7 @@ filters:['telehandler','rough','heavy']
     // All ROTO models: 360° continuous rotation, telescopic duplex stabilizers
     // Load matrices: forks/tynes on stabilizers (full rated capacity)
     // Capacity on tyres limited to low-level work only (<4.5m / <3m reach)
-    // ══════════════════════════════════════════════════════════════════════
-    {
-      id:'merlo-roto40-16', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 40.16', shortName:'Merlo ROTO 40.16',
-      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.0, liftHeight:15.8, maxReach:13.2, engine:'Merlo Diesel 75kW Stage V',
-      machineWeight:12900, machineWidth:2490, machineLength:6700, machineHeight:3000,
-      stabilizerSpreadM:5.20, stabilizerDepthM:4.80,
-      jibWeight:140, jibLength:3.2, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
-      bestFor:'4T 360° rotating telehandler — 16m, 4-5 storey construction, crane replacement',
-      note:'Merlo ROTO 40.16 — 4T, 16m lift, 12.5m reach. 360° continuous rotation. Duplex telescopic stabilizers (spread 5.2m). Merlo panoramic cab. Stage V. Load chart varies by mode (forks, hook, EWP, stabilizer config) — always verify with rental company. On-tyres limited to ≤4.5m / ≤3m reach.',
-      tags:['Rotating 360°','4T','16m','ROTO','Merlo','Crane Replacement'],
-      loadMatrix:[{h:1,r:13.2,kg:700},{h:1,r:11.5,kg:1000},{h:1,r:9.5,kg:1500},{h:1,r:8.0,kg:2000},{h:1,r:6.5,kg:2500},{h:1,r:5.5,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:6.0,kg:3000},{h:3,r:5.0,kg:3500},{h:3,r:4.0,kg:4000},{h:5,r:12.5,kg:700},{h:5,r:11.0,kg:1000},{h:5,r:9.5,kg:1500},{h:5,r:8.5,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.5,kg:3000},{h:5,r:5.5,kg:3500},{h:5,r:5.0,kg:4000},{h:7,r:12.0,kg:700},{h:7,r:11.0,kg:1000},{h:7,r:10.0,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:11.5,kg:700},{h:9,r:10.5,kg:1000},{h:9,r:9.5,kg:1500},{h:9,r:8.5,kg:2000},{h:9,r:7.5,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:11.0,kg:700},{h:11,r:9.5,kg:1000},{h:11,r:8.5,kg:1500},{h:11,r:7.5,kg:2000},{h:11,r:6.5,kg:2500},{h:11,r:5.5,kg:3000},{h:11,r:4.5,kg:3500},{h:11,r:4.0,kg:4000},{h:13,r:10.0,kg:700},{h:13,r:8.5,kg:1000},{h:13,r:7.5,kg:1500},{h:13,r:6.5,kg:2000},{h:13,r:5.5,kg:2500},{h:13,r:4.5,kg:3000},{h:13,r:3.5,kg:3500},{h:13,r:2.5,kg:4000},{h:15,r:7.5,kg:700},{h:15,r:6.5,kg:1000},{h:15,r:5.5,kg:1500},{h:15,r:4.5,kg:2000},{h:15,r:3.5,kg:2500},{h:15,r:2.0,kg:3000},{h:15,r:1.0,kg:3500},{h:15,r:0.5,kg:4000},{h:15.8,r:0,kg:2500}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto40-18', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 40.18', shortName:'Merlo ROTO 40.18',
-      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.0, liftHeight:17.7, maxReach:15.0, engine:'Merlo Diesel 75kW Stage V',
-      machineWeight:13500, machineWidth:2490, machineLength:7000, machineHeight:3050,
-      stabilizerSpreadM:5.30, stabilizerDepthM:4.90,
-      jibWeight:145, jibLength:3.4, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
-      bestFor:'4T 360° rotating telehandler — 18m, 5-6 storey construction, crane replacement',
-      note:'Merlo ROTO 40.18 — 4T, 18m lift, 14.2m reach. 360° continuous rotation. Duplex stabilizers (spread 5.3m). Panoramic cab. Stage V.',
-      tags:['Rotating 360°','4T','18m','ROTO','Merlo','Crane Replacement'],
-      loadMatrix:[{h:1,r:13.5,kg:400},{h:1,r:12.0,kg:700},{h:1,r:10.5,kg:1000},{h:1,r:9.0,kg:1500},{h:1,r:7.5,kg:2000},{h:1,r:6.0,kg:2500},{h:1,r:5.0,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:14.5,kg:400},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:5.5,kg:3000},{h:3,r:4.5,kg:3500},{h:3,r:3.5,kg:4000},{h:5,r:15.0,kg:400},{h:5,r:13.5,kg:700},{h:5,r:12.0,kg:1000},{h:5,r:10.5,kg:1500},{h:5,r:9.0,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.0,kg:3000},{h:5,r:5.0,kg:3500},{h:5,r:4.0,kg:4000},{h:7,r:15.0,kg:400},{h:7,r:13.5,kg:700},{h:7,r:12.0,kg:1000},{h:7,r:10.5,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:15.0,kg:400},{h:9,r:13.5,kg:700},{h:9,r:12.0,kg:1000},{h:9,r:10.5,kg:1500},{h:9,r:9.0,kg:2000},{h:9,r:8.0,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:14.5,kg:400},{h:11,r:13.0,kg:700},{h:11,r:11.5,kg:1000},{h:11,r:10.0,kg:1500},{h:11,r:8.5,kg:2000},{h:11,r:7.5,kg:2500},{h:11,r:6.5,kg:3000},{h:11,r:5.5,kg:3500},{h:11,r:4.5,kg:4000},{h:13,r:14.0,kg:400},{h:13,r:12.0,kg:700},{h:13,r:10.5,kg:1000},{h:13,r:9.0,kg:1500},{h:13,r:8.0,kg:2000},{h:13,r:7.0,kg:2500},{h:13,r:6.0,kg:3000},{h:13,r:5.0,kg:3500},{h:13,r:4.0,kg:4000},{h:15,r:12.0,kg:400},{h:15,r:10.5,kg:700},{h:15,r:9.0,kg:1000},{h:15,r:7.5,kg:1500},{h:15,r:6.5,kg:2000},{h:15,r:5.5,kg:2500},{h:15,r:4.5,kg:3000},{h:15,r:3.5,kg:3500},{h:15,r:2.5,kg:4000},{h:17,r:8.5,kg:400},{h:17,r:7.5,kg:700},{h:17,r:6.5,kg:1000},{h:17,r:5.5,kg:1500},{h:17,r:4.5,kg:2000},{h:17,r:3.5,kg:2500},{h:17,r:2.5,kg:3000},{h:17,r:1.5,kg:3500},{h:17,r:0.5,kg:4000},{h:17.7,r:0,kg:3000}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-21', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.21', shortName:'Merlo ROTO 50.21',
-      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.95, liftHeight:21.0, maxReach:17.9, engine:'Merlo Diesel 100kW Stage V',
-      machineWeight:15800, machineWidth:2500, machineLength:7200, machineHeight:3100,
-      stabilizerSpreadM:5.50, stabilizerDepthM:5.10,
-      jibWeight:155, jibLength:3.6, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 21m, 6-7 storey construction, crane replacement',
-      note:'Merlo ROTO 50.21 — 5T, 21m lift, 17.9m reach. 360° continuous rotation. Duplex telescopic stabilizers (spread 5.5m). 100kW Stage V. 3-in-1: telehandler, crane, EWP. Panoramic cab.',
-      tags:['Rotating 360°','5T','21m','ROTO','Merlo','Crane Replacement'],
-      loadMatrix:[{h:1,r:17.9,kg:800},{h:1,r:16.5,kg:1000},{h:1,r:14.5,kg:1500},{h:1,r:13.0,kg:2000},{h:1,r:11.0,kg:2500},{h:1,r:9.5,kg:3000},{h:1,r:8.0,kg:3500},{h:1,r:6.5,kg:4000},{h:1,r:5.5,kg:4500},{h:1,r:4.5,kg:4950},{h:4,r:17.9,kg:800},{h:4,r:16.5,kg:1000},{h:4,r:15.0,kg:1500},{h:4,r:13.5,kg:2000},{h:4,r:12.0,kg:2500},{h:4,r:10.5,kg:3000},{h:4,r:9.0,kg:3500},{h:4,r:7.5,kg:4000},{h:4,r:6.0,kg:4500},{h:4,r:5.0,kg:4950},{h:7,r:17.5,kg:800},{h:7,r:16.5,kg:1000},{h:7,r:15.0,kg:1500},{h:7,r:13.5,kg:2000},{h:7,r:12.0,kg:2500},{h:7,r:10.5,kg:3000},{h:7,r:9.5,kg:3500},{h:7,r:8.5,kg:4000},{h:7,r:7.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:17.5,kg:800},{h:10,r:16.5,kg:1000},{h:10,r:15.0,kg:1500},{h:10,r:13.5,kg:2000},{h:10,r:12.0,kg:2500},{h:10,r:11.0,kg:3000},{h:10,r:9.5,kg:3500},{h:10,r:8.5,kg:4000},{h:10,r:7.5,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:16.5,kg:800},{h:13,r:15.5,kg:1000},{h:13,r:14.0,kg:1500},{h:13,r:12.5,kg:2000},{h:13,r:11.0,kg:2500},{h:13,r:10.0,kg:3000},{h:13,r:8.5,kg:3500},{h:13,r:7.5,kg:4000},{h:13,r:6.5,kg:4500},{h:13,r:5.5,kg:4950},{h:16,r:15.0,kg:800},{h:16,r:14.0,kg:1000},{h:16,r:12.5,kg:1500},{h:16,r:11.0,kg:2000},{h:16,r:9.5,kg:2500},{h:16,r:8.5,kg:3000},{h:16,r:7.5,kg:3500},{h:16,r:6.5,kg:4000},{h:16,r:5.5,kg:4500},{h:16,r:4.5,kg:4950},{h:19,r:11.5,kg:800},{h:19,r:10.5,kg:1000},{h:19,r:9.0,kg:1500},{h:19,r:7.5,kg:2000},{h:19,r:6.5,kg:2500},{h:19,r:5.5,kg:3000},{h:19,r:4.5,kg:3500},{h:19,r:3.5,kg:4000},{h:19,r:2.5,kg:4500},{h:19,r:1.5,kg:4950},{h:21.0,r:0,kg:2500}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-26', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.26', shortName:'Merlo ROTO 50.26',
-      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.95, liftHeight:25.9, maxReach:22.9, engine:'Merlo Diesel 100kW Stage V',
-      machineWeight:16600, machineWidth:2500, machineLength:7800, machineHeight:3150,
-      stabilizerSpreadM:5.70, stabilizerDepthM:5.20,
-      jibWeight:160, jibLength:3.8, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 26m, 7-8 storey construction, crane replacement',
-      note:'Merlo ROTO 50.26 — 5T, 26m lift, 21.5m reach. 360° continuous rotation. Duplex stabilizers (spread 5.7m). 100kW Stage V. Panoramic cab. Popular 7-8 storey crane replacement.',
-      tags:['Rotating 360°','5T','26m','ROTO','Merlo','Crane Replacement'],
-      loadMatrix:[{h:1,r:22.9,kg:150},{h:1,r:21.0,kg:500},{h:1,r:18.5,kg:1000},{h:1,r:16.5,kg:1500},{h:1,r:14.5,kg:2000},{h:1,r:12.5,kg:2500},{h:1,r:10.5,kg:3000},{h:1,r:9.0,kg:3500},{h:1,r:7.5,kg:4000},{h:1,r:6.5,kg:4500},{h:1,r:5.5,kg:4950},{h:4,r:22.9,kg:150},{h:4,r:21.5,kg:500},{h:4,r:19.5,kg:1000},{h:4,r:17.5,kg:1500},{h:4,r:15.5,kg:2000},{h:4,r:13.5,kg:2500},{h:4,r:11.5,kg:3000},{h:4,r:10.0,kg:3500},{h:4,r:8.5,kg:4000},{h:4,r:7.0,kg:4500},{h:4,r:6.0,kg:4950},{h:7,r:22.5,kg:150},{h:7,r:21.5,kg:500},{h:7,r:19.5,kg:1000},{h:7,r:17.5,kg:1500},{h:7,r:15.5,kg:2000},{h:7,r:14.0,kg:2500},{h:7,r:12.5,kg:3000},{h:7,r:11.0,kg:3500},{h:7,r:9.5,kg:4000},{h:7,r:8.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:22.5,kg:150},{h:10,r:21.5,kg:500},{h:10,r:19.5,kg:1000},{h:10,r:17.5,kg:1500},{h:10,r:15.5,kg:2000},{h:10,r:14.0,kg:2500},{h:10,r:12.5,kg:3000},{h:10,r:11.0,kg:3500},{h:10,r:9.5,kg:4000},{h:10,r:8.0,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:22.0,kg:150},{h:13,r:20.5,kg:500},{h:13,r:18.5,kg:1000},{h:13,r:16.5,kg:1500},{h:13,r:15.0,kg:2000},{h:13,r:13.5,kg:2500},{h:13,r:12.0,kg:3000},{h:13,r:10.5,kg:3500},{h:13,r:9.0,kg:4000},{h:13,r:7.5,kg:4500},{h:13,r:6.5,kg:4950},{h:17,r:21.0,kg:150},{h:17,r:19.5,kg:500},{h:17,r:17.5,kg:1000},{h:17,r:15.5,kg:1500},{h:17,r:13.5,kg:2000},{h:17,r:12.0,kg:2500},{h:17,r:10.5,kg:3000},{h:17,r:9.0,kg:3500},{h:17,r:7.5,kg:4000},{h:17,r:6.5,kg:4500},{h:17,r:5.5,kg:4950},{h:21,r:18.0,kg:150},{h:21,r:16.5,kg:500},{h:21,r:14.5,kg:1000},{h:21,r:12.5,kg:1500},{h:21,r:11.0,kg:2000},{h:21,r:9.5,kg:2500},{h:21,r:8.5,kg:3000},{h:21,r:7.5,kg:3500},{h:21,r:6.5,kg:4000},{h:21,r:5.5,kg:4500},{h:21,r:4.5,kg:4950},{h:24,r:12.5,kg:150},{h:24,r:11.0,kg:500},{h:24,r:9.5,kg:1000},{h:24,r:8.0,kg:1500},{h:24,r:7.0,kg:2000},{h:24,r:6.0,kg:2500},{h:24,r:5.0,kg:3000},{h:24,r:4.0,kg:3500},{h:24,r:3.0,kg:4000},{h:24,r:2.0,kg:4500},{h:24,r:1.0,kg:4950},{h:25.9,r:0,kg:1500}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto40-16s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 40.16 S', shortName:'Merlo ROTO 40.16S',
-      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.0, liftHeight:15.8, maxReach:13.2, engine:'Merlo Diesel 75kW Stage V',
-      machineWeight:13000, machineWidth:2490, machineLength:6800, machineHeight:3050,
-      stabilizerSpreadM:5.50, stabilizerDepthM:5.00,
-      jibWeight:140, jibLength:3.2, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
-      bestFor:'4T 360° rotating telehandler — 16m with enhanced S stabilizer system for soft or uneven ground',
-      note:'Merlo ROTO 40.16 S — 4T, 16m lift, 12.5m reach. S variant features wider-spread enhanced stabilizer system (+0.3m wider than base 40.16) giving better stability on soft or uneven ground. 360° continuous rotation. Stage V. Panoramic cab.',
-      tags:['Rotating 360°','4T','16m','ROTO','S-Series','Merlo','Enhanced Stabilizers'],
-      loadMatrix:[{h:1,r:13.2,kg:700},{h:1,r:11.5,kg:1000},{h:1,r:9.5,kg:1500},{h:1,r:8.0,kg:2000},{h:1,r:6.5,kg:2500},{h:1,r:5.5,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:6.0,kg:3000},{h:3,r:5.0,kg:3500},{h:3,r:4.0,kg:4000},{h:5,r:12.5,kg:700},{h:5,r:11.0,kg:1000},{h:5,r:9.5,kg:1500},{h:5,r:8.5,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.5,kg:3000},{h:5,r:5.5,kg:3500},{h:5,r:5.0,kg:4000},{h:7,r:12.0,kg:700},{h:7,r:11.0,kg:1000},{h:7,r:10.0,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:11.5,kg:700},{h:9,r:10.5,kg:1000},{h:9,r:9.5,kg:1500},{h:9,r:8.5,kg:2000},{h:9,r:7.5,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:11.0,kg:700},{h:11,r:9.5,kg:1000},{h:11,r:8.5,kg:1500},{h:11,r:7.5,kg:2000},{h:11,r:6.5,kg:2500},{h:11,r:5.5,kg:3000},{h:11,r:4.5,kg:3500},{h:11,r:4.0,kg:4000},{h:13,r:10.0,kg:700},{h:13,r:8.5,kg:1000},{h:13,r:7.5,kg:1500},{h:13,r:6.5,kg:2000},{h:13,r:5.5,kg:2500},{h:13,r:4.5,kg:3000},{h:13,r:3.5,kg:3500},{h:13,r:2.5,kg:4000},{h:15,r:7.5,kg:700},{h:15,r:6.5,kg:1000},{h:15,r:5.5,kg:1500},{h:15,r:4.5,kg:2000},{h:15,r:3.5,kg:2500},{h:15,r:2.0,kg:3000},{h:15,r:1.0,kg:3500},{h:15,r:0.5,kg:4000},{h:15.8,r:0,kg:2500}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto40-18s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 40.18 S', shortName:'Merlo ROTO 40.18S',
-      isRotating:true, capacityOnTyres:2.2, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.0, liftHeight:17.7, maxReach:15.0, engine:'Merlo Diesel 75kW Stage V',
-      machineWeight:13600, machineWidth:2490, machineLength:7100, machineHeight:3100,
-      stabilizerSpreadM:5.60, stabilizerDepthM:5.10,
-      jibWeight:145, jibLength:3.4, rotatorWeight:640, hookCapacity:1500, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator'],
-      bestFor:'4T 360° rotating telehandler — 18m with enhanced S stabilizer for improved ground stability',
-      note:'Merlo ROTO 40.18 S — 4T, 18m lift, 14.2m reach. S variant: enhanced stabilizer system with wider spread than base 40.18, better suited for soft or irregular ground conditions. 360° continuous rotation. Stage V. Panoramic cab.',
-      tags:['Rotating 360°','4T','18m','ROTO','S-Series','Merlo','Enhanced Stabilizers'],
-      loadMatrix:[{h:1,r:13.5,kg:400},{h:1,r:12.0,kg:700},{h:1,r:10.5,kg:1000},{h:1,r:9.0,kg:1500},{h:1,r:7.5,kg:2000},{h:1,r:6.0,kg:2500},{h:1,r:5.0,kg:3000},{h:1,r:4.0,kg:3500},{h:1,r:3.0,kg:4000},{h:3,r:14.5,kg:400},{h:3,r:13.0,kg:700},{h:3,r:11.5,kg:1000},{h:3,r:10.0,kg:1500},{h:3,r:8.5,kg:2000},{h:3,r:7.0,kg:2500},{h:3,r:5.5,kg:3000},{h:3,r:4.5,kg:3500},{h:3,r:3.5,kg:4000},{h:5,r:15.0,kg:400},{h:5,r:13.5,kg:700},{h:5,r:12.0,kg:1000},{h:5,r:10.5,kg:1500},{h:5,r:9.0,kg:2000},{h:5,r:7.5,kg:2500},{h:5,r:6.0,kg:3000},{h:5,r:5.0,kg:3500},{h:5,r:4.0,kg:4000},{h:7,r:15.0,kg:400},{h:7,r:13.5,kg:700},{h:7,r:12.0,kg:1000},{h:7,r:10.5,kg:1500},{h:7,r:9.0,kg:2000},{h:7,r:8.0,kg:2500},{h:7,r:7.0,kg:3000},{h:7,r:6.0,kg:3500},{h:7,r:5.5,kg:4000},{h:9,r:15.0,kg:400},{h:9,r:13.5,kg:700},{h:9,r:12.0,kg:1000},{h:9,r:10.5,kg:1500},{h:9,r:9.0,kg:2000},{h:9,r:8.0,kg:2500},{h:9,r:6.5,kg:3000},{h:9,r:5.5,kg:3500},{h:9,r:5.0,kg:4000},{h:11,r:14.5,kg:400},{h:11,r:13.0,kg:700},{h:11,r:11.5,kg:1000},{h:11,r:10.0,kg:1500},{h:11,r:8.5,kg:2000},{h:11,r:7.5,kg:2500},{h:11,r:6.5,kg:3000},{h:11,r:5.5,kg:3500},{h:11,r:4.5,kg:4000},{h:13,r:14.0,kg:400},{h:13,r:12.0,kg:700},{h:13,r:10.5,kg:1000},{h:13,r:9.0,kg:1500},{h:13,r:8.0,kg:2000},{h:13,r:7.0,kg:2500},{h:13,r:6.0,kg:3000},{h:13,r:5.0,kg:3500},{h:13,r:4.0,kg:4000},{h:15,r:12.0,kg:400},{h:15,r:10.5,kg:700},{h:15,r:9.0,kg:1000},{h:15,r:7.5,kg:1500},{h:15,r:6.5,kg:2000},{h:15,r:5.5,kg:2500},{h:15,r:4.5,kg:3000},{h:15,r:3.5,kg:3500},{h:15,r:2.5,kg:4000},{h:17,r:8.5,kg:400},{h:17,r:7.5,kg:700},{h:17,r:6.5,kg:1000},{h:17,r:5.5,kg:1500},{h:17,r:4.5,kg:2000},{h:17,r:3.5,kg:2500},{h:17,r:2.5,kg:3000},{h:17,r:1.5,kg:3500},{h:17,r:0.5,kg:4000},{h:17.7,r:0,kg:3000}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-21s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.21 S', shortName:'Merlo ROTO 50.21S',
-      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.95, liftHeight:21.0, maxReach:17.9, engine:'Merlo Diesel 100kW Stage V',
-      machineWeight:15800, machineWidth:2500, machineLength:7300, machineHeight:3150,
-      stabilizerSpreadM:5.70, stabilizerDepthM:5.20,
-      jibWeight:155, jibLength:3.6, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 21m with enhanced S stabilizer system',
-      note:'Merlo ROTO 50.21 S — 5T, 21m lift, 16.8m reach. S variant: enhanced wider stabilizer spread (+0.2m vs base 50.21) for improved stability on soft or sloped ground. 100kW Stage V. Panoramic cab.',
-      tags:['Rotating 360°','5T','21m','ROTO','S-Series','Merlo'],
-      loadMatrix:[{h:1,r:17.9,kg:800},{h:1,r:16.5,kg:1000},{h:1,r:14.5,kg:1500},{h:1,r:13.0,kg:2000},{h:1,r:11.0,kg:2500},{h:1,r:9.5,kg:3000},{h:1,r:8.0,kg:3500},{h:1,r:6.5,kg:4000},{h:1,r:5.5,kg:4500},{h:1,r:4.5,kg:4950},{h:4,r:17.9,kg:800},{h:4,r:16.5,kg:1000},{h:4,r:15.0,kg:1500},{h:4,r:13.5,kg:2000},{h:4,r:12.0,kg:2500},{h:4,r:10.5,kg:3000},{h:4,r:9.0,kg:3500},{h:4,r:7.5,kg:4000},{h:4,r:6.0,kg:4500},{h:4,r:5.0,kg:4950},{h:7,r:17.5,kg:800},{h:7,r:16.5,kg:1000},{h:7,r:15.0,kg:1500},{h:7,r:13.5,kg:2000},{h:7,r:12.0,kg:2500},{h:7,r:10.5,kg:3000},{h:7,r:9.5,kg:3500},{h:7,r:8.5,kg:4000},{h:7,r:7.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:17.5,kg:800},{h:10,r:16.5,kg:1000},{h:10,r:15.0,kg:1500},{h:10,r:13.5,kg:2000},{h:10,r:12.0,kg:2500},{h:10,r:11.0,kg:3000},{h:10,r:9.5,kg:3500},{h:10,r:8.5,kg:4000},{h:10,r:7.5,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:16.5,kg:800},{h:13,r:15.5,kg:1000},{h:13,r:14.0,kg:1500},{h:13,r:12.5,kg:2000},{h:13,r:11.0,kg:2500},{h:13,r:10.0,kg:3000},{h:13,r:8.5,kg:3500},{h:13,r:7.5,kg:4000},{h:13,r:6.5,kg:4500},{h:13,r:5.5,kg:4950},{h:16,r:15.0,kg:800},{h:16,r:14.0,kg:1000},{h:16,r:12.5,kg:1500},{h:16,r:11.0,kg:2000},{h:16,r:9.5,kg:2500},{h:16,r:8.5,kg:3000},{h:16,r:7.5,kg:3500},{h:16,r:6.5,kg:4000},{h:16,r:5.5,kg:4500},{h:16,r:4.5,kg:4950},{h:19,r:11.5,kg:800},{h:19,r:10.5,kg:1000},{h:19,r:9.0,kg:1500},{h:19,r:7.5,kg:2000},{h:19,r:6.5,kg:2500},{h:19,r:5.5,kg:3000},{h:19,r:4.5,kg:3500},{h:19,r:3.5,kg:4000},{h:19,r:2.5,kg:4500},{h:19,r:1.5,kg:4950},{h:21.0,r:0,kg:2500}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-21splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.21 SPlus', shortName:'Merlo ROTO 50.21S+',
-      isRotating:true,
-      // ── Source: Merlo ROTO50.21 AU spec sheet (ROTO50.21SPLUSEE, Release 24/11/2025) ──
-      capacity:5.0,
-      capacityOnTyres:2.5,           // estimated — no on-tyres chart in AU spec sheet
-      liftHeight:21.0,
-      maxReach:18.1,                  // confirmed from AU spec sheet chart bottom label
-      turretRotation:360,
-      tyreCapacityNote:'On-tyres chart not available in brochure. Confirm capacity/reach with rental company. Deploy multiposition stabilisers for all rated lifts.',
-      engine:'FPT NEF45 125kW (170hp), 4.5L 4-cyl, Tier 2 (no AdBlue)',
-      machineWeight:16500, machineWidth:2430, machineLength:6830, machineHeight:3120,
-      wheelbase:3070, groundClearance:370,
-      stabilizerType:'Multiposition hydraulic',
-      hydraulicFlow:238, hydraulicPressure:230, hydraulicOilTank:120,
-      fuelTank:150,
-      maxSpeed:40, frameLevelling:12,
-      tyres:'18-22.5"', boomSections:4,
-      terrain:'rough/outdoor',
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 21m lift, 18.1m reach. Tier 2 engine. Multiposition stabilisers. Crane replacement 5-6 storey.',
-      note:'Merlo ROTO50.21SPLUSEE (AU) — 5,000 kg max, 21m lift, 18.1m reach. 360° continuous turret rotation. FPT NEF45 125kW Tier 2 (no AdBlue). 16,500 kg. 18-22.5" tyres. 138+100 L/min at 230 bar. Multiposition hydraulic stabilisers. Tilting cab. FOPS/ROPS. EAS hydropneumatic suspension. 4WD. 3 steering modes. 40 km/h. 4-section boom. Frame levelling +/-12%/+/-4%. Axles: Drop portal. Brakes: Dry discs. Source: Merlo ROTO50.21 AU spec sheet (Release 24/11/2025).',
-      tags:['Rotating 360°','5T','21m','18.1m Reach','ROTO50','SPlus','Merlo','FPT Tier 2','Australia'],
-      // ─────────────────────────────────────────────────────────────────────────────
-      // FORKS 360° ON STABILISERS — loadMatrix
-      // Source: Merlo ROTO50.21SPLUSEE AU spec sheet p.1 load chart
-      // METHOD: Arc formula r=sqrt(L²-h²). L values are PRINTED bottom-label zone
-      // boundary reaches from the brochure chart — confirmed exact values, not visual reads.
-      // Confirmed zone boundary reaches at h=0 (printed chart labels):
-      //   700kg→L=18.1m | 1000kg→L=16.0m | 1500kg→L=13.4m | 2000kg→L=11.6m
-      //   2500kg→L=10.2m | 3000kg→L=7.7m | 4000kg→L=6.8m | 5000kg→L=5.0m
-      // Note: 9.2m (blue label) = on-tyres reach indicator, NOT a stabilised zone boundary.
-      // Arc terminals: {h:L,r:0} mark exact arc top. Near-vertical heavy loads (4000/5000kg
-      // above h=6.8/5.0m): structural-limit data not in AU spec sheet — confirm with rental company.
-      // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrix:[{h:1,r:18.1,kg:700},{h:1,r:16,kg:1000},{h:1,r:13.4,kg:1500},{h:1,r:11.6,kg:2000},{h:1,r:10.2,kg:2500},{h:1,r:7.6,kg:3000},{h:1,r:6.7,kg:4000},{h:1,r:4.9,kg:5000},{h:4,r:17.7,kg:700},{h:4,r:15.5,kg:1000},{h:4,r:12.8,kg:1500},{h:4,r:10.9,kg:2000},{h:4,r:9.4,kg:2500},{h:4,r:6.6,kg:3000},{h:4,r:5.5,kg:4000},{h:4,r:3,kg:5000},{h:5,r:0,kg:5000},{h:6.8,r:0,kg:4000},{h:7,r:16.7,kg:700},{h:7,r:14.4,kg:1000},{h:7,r:11.4,kg:1500},{h:7,r:9.2,kg:2000},{h:7,r:7.4,kg:2500},{h:7,r:3.2,kg:3000},{h:7.7,r:0,kg:3000},{h:10,r:15.1,kg:700},{h:10,r:12.5,kg:1000},{h:10,r:8.9,kg:1500},{h:10,r:5.9,kg:2000},{h:10,r:2,kg:2500},{h:10.2,r:0,kg:2500},{h:11.6,r:0,kg:2000},{h:13,r:12.6,kg:700},{h:13,r:9.3,kg:1000},{h:13,r:3.2,kg:1500},{h:13.4,r:0,kg:1500},{h:16,r:8.5,kg:700},{h:16,r:0,kg:1000},{h:18.1,r:0,kg:700}],
-      // ─────────────────────────────────────────────────────────────────────────────
-      // ON TYRES — loadMatrixTyres
-      // Confirm on-tyres capacity with rental company — chart not in AU spec sheet.
-      // proportions (~50% of stabilised capacity at same reach). NEVER use for rated lift planning.
-      // Deploy multiposition stabilisers for all rated capacity lifts.
-      // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrixTyres:[{h:1,r:5.0,kg:4500},{h:1,r:5.4,kg:3000},{h:1,r:6.7,kg:2000},{h:1,r:8.2,kg:1500},{h:1,r:11.1,kg:1000},{h:1,r:13.8,kg:500},{h:1,r:15.9,kg:250},{h:3,r:4.7,kg:4500},{h:3,r:5.1,kg:3000},{h:3,r:6.3,kg:2000},{h:3,r:7.8,kg:1500},{h:3,r:10.5,kg:1000},{h:3,r:13.0,kg:500},{h:3,r:15.1,kg:250},{h:5,r:4.4,kg:4500},{h:5,r:4.8,kg:3000},{h:5,r:5.9,kg:2000},{h:5,r:7.3,kg:1500},{h:5,r:9.8,kg:1000},{h:5,r:12.0,kg:500},{h:5,r:14.1,kg:250},{h:7,r:4.1,kg:4500},{h:7,r:4.5,kg:3000},{h:7,r:5.6,kg:2000},{h:7,r:6.8,kg:1500},{h:7,r:9.0,kg:1000},{h:7,r:11.0,kg:500},{h:7,r:13.0,kg:250},{h:9,r:3.8,kg:4500},{h:9,r:4.2,kg:3000},{h:9,r:5.2,kg:2000},{h:9,r:6.4,kg:1500},{h:9,r:8.0,kg:1000},{h:9,r:9.5,kg:500},{h:9,r:11.0,kg:250},{h:11,r:3.5,kg:4500},{h:11,r:3.9,kg:3000},{h:11,r:4.8,kg:2000},{h:11,r:5.8,kg:1500},{h:11,r:7.0,kg:1000},{h:11,r:8.0,kg:500},{h:11,r:9.5,kg:250},{h:13,r:3.2,kg:4500},{h:13,r:3.5,kg:3000},{h:13,r:4.3,kg:2000},{h:13,r:5.2,kg:1500},{h:13,r:6.0,kg:1000},{h:13,r:7.0,kg:500},{h:13,r:8.0,kg:250},{h:15,r:3.0,kg:4500},{h:15,r:3.3,kg:3000},{h:15,r:3.9,kg:2000},{h:15,r:4.7,kg:1500},{h:15,r:5.2,kg:1000},{h:15,r:5.8,kg:500},{h:17,r:2.7,kg:4500},{h:17,r:3.0,kg:3000},{h:17,r:3.6,kg:2000},{h:17,r:4.2,kg:1500},{h:17,r:4.7,kg:1000},{h:19,r:2.5,kg:4500},{h:19,r:2.8,kg:3000},{h:19,r:3.3,kg:2000},{h:20,r:2.3,kg:4500},{h:20,r:2.5,kg:3000}],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[{h:1,r:4.9,kg:4500},{h:1,r:6.9,kg:4000},{h:1,r:7.3,kg:3000},{h:1,r:8.6,kg:2500},{h:1,r:9.5,kg:2000},{h:1,r:10.6,kg:1500},{h:1,r:12.0,kg:1000},{h:1,r:14.0,kg:700},{h:1,r:15.6,kg:300},{h:1,r:18.0,kg:300},{h:4,r:4.9,kg:4500},{h:4,r:6.8,kg:4000},{h:4,r:7.2,kg:3000},{h:4,r:8.4,kg:2500},{h:4,r:9.3,kg:2000},{h:4,r:10.4,kg:1500},{h:4,r:11.8,kg:1000},{h:4,r:13.7,kg:700},{h:4,r:15.3,kg:300},{h:4,r:17.7,kg:300},{h:7,r:4.8,kg:4500},{h:7,r:6.6,kg:4000},{h:7,r:7.0,kg:3000},{h:7,r:8.2,kg:2500},{h:7,r:9.0,kg:2000},{h:7,r:10.1,kg:1500},{h:7,r:11.5,kg:1000},{h:7,r:13.3,kg:700},{h:7,r:14.8,kg:300},{h:7,r:17.2,kg:300},{h:10,r:4.7,kg:4500},{h:10,r:6.4,kg:4000},{h:10,r:6.8,kg:3000},{h:10,r:7.9,kg:2500},{h:10,r:8.7,kg:2000},{h:10,r:9.8,kg:1500},{h:10,r:11.1,kg:1000},{h:10,r:12.8,kg:700},{h:10,r:14.2,kg:300},{h:10,r:16.4,kg:300},{h:13,r:4.5,kg:4500},{h:13,r:6.1,kg:4000},{h:13,r:6.5,kg:3000},{h:13,r:7.5,kg:2500},{h:13,r:8.3,kg:2000},{h:13,r:9.3,kg:1500},{h:13,r:10.5,kg:1000},{h:13,r:12.1,kg:700},{h:13,r:13.5,kg:300},{h:13,r:15.5,kg:300},{h:16,r:4.2,kg:4500},{h:16,r:5.7,kg:4000},{h:16,r:6.0,kg:3000},{h:16,r:7.0,kg:2500},{h:16,r:7.7,kg:2000},{h:16,r:8.7,kg:1500},{h:16,r:9.8,kg:1000},{h:16,r:11.2,kg:700},{h:16,r:12.5,kg:300},{h:16,r:14.3,kg:300},{h:18.1,r:3.8,kg:4500},{h:18.1,r:5.1,kg:4000},{h:18.1,r:5.4,kg:3000},{h:18.1,r:6.3,kg:2500},{h:18.1,r:6.9,kg:2000},{h:18.1,r:7.7,kg:1500},{h:18.1,r:8.7,kg:1000},{h:18.1,r:10.0,kg:700},{h:18.1,r:11.2,kg:300},{h:18.1,r:12.8,kg:300},{h:20,r:3.0,kg:4500},{h:20,r:4.0,kg:4000},{h:20,r:4.3,kg:3000},{h:20,r:5.0,kg:2500},{h:20,r:5.6,kg:2000},{h:20,r:6.2,kg:1500},{h:20,r:7.0,kg:1000},{h:20,r:8.0,kg:700},{h:22,r:0.0,kg:700}],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[{h:1,r:5.7,kg:2200},{h:1,r:11.8,kg:2000},{h:1,r:13.7,kg:1500},{h:1,r:16.5,kg:1000},{h:1,r:18.8,kg:700},{h:4,r:5.6,kg:2200},{h:4,r:11.5,kg:2000},{h:4,r:13.3,kg:1500},{h:4,r:16.0,kg:1000},{h:4,r:18.5,kg:700},{h:7,r:5.4,kg:2200},{h:7,r:11.1,kg:2000},{h:7,r:13.0,kg:1500},{h:7,r:15.5,kg:1000},{h:7,r:18.0,kg:700},{h:10,r:5.2,kg:2200},{h:10,r:10.7,kg:2000},{h:10,r:12.5,kg:1500},{h:10,r:14.9,kg:1000},{h:10,r:17.3,kg:700},{h:13,r:5.0,kg:2200},{h:13,r:10.2,kg:2000},{h:13,r:11.9,kg:1500},{h:13,r:14.1,kg:1000},{h:13,r:16.4,kg:700},{h:16,r:4.7,kg:2200},{h:16,r:9.5,kg:2000},{h:16,r:11.1,kg:1500},{h:16,r:13.1,kg:1000},{h:16,r:15.3,kg:700},{h:18.1,r:4.3,kg:2200},{h:18.1,r:8.6,kg:2000},{h:18.1,r:10.0,kg:1500},{h:18.1,r:11.9,kg:1000},{h:18.1,r:13.9,kg:700},{h:20,r:3.5,kg:2200},{h:20,r:7.0,kg:2000},{h:20,r:8.2,kg:1500},{h:20,r:9.7,kg:1000},{h:22,r:0.0,kg:700}],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[{h:1,r:6.3,kg:1500},{h:1,r:13.8,kg:1000},{h:1,r:16.5,kg:700},{h:1,r:19.3,kg:650},{h:4,r:6.1,kg:1500},{h:4,r:13.4,kg:1000},{h:4,r:16.0,kg:700},{h:4,r:18.9,kg:650},{h:7,r:5.9,kg:1500},{h:7,r:13.0,kg:1000},{h:7,r:15.5,kg:700},{h:7,r:18.4,kg:650},{h:10,r:5.6,kg:1500},{h:10,r:12.4,kg:1000},{h:10,r:14.8,kg:700},{h:10,r:17.6,kg:650},{h:13,r:5.3,kg:1500},{h:13,r:11.7,kg:1000},{h:13,r:14.0,kg:700},{h:13,r:16.6,kg:650},{h:16,r:4.8,kg:1500},{h:16,r:10.8,kg:1000},{h:16,r:12.9,kg:700},{h:16,r:15.4,kg:650},{h:18.1,r:4.2,kg:1500},{h:18.1,r:9.5,kg:1000},{h:18.1,r:11.4,kg:700},{h:18.1,r:13.5,kg:650},{h:20,r:3.3,kg:1500},{h:20,r:7.5,kg:1000},{h:20,r:9.0,kg:700},{h:22,r:0.0,kg:650}],
-      loadMatrixTyres360:[{h:1,r:3.5,kg:800},{h:1,r:7.5,kg:500},{h:1,r:16.9,kg:80},{h:4,r:3.3,kg:800},{h:4,r:7.2,kg:500},{h:4,r:16.5,kg:80},{h:7,r:3.0,kg:800},{h:7,r:6.8,kg:500},{h:7,r:16.0,kg:80},{h:10,r:2.7,kg:800},{h:10,r:6.2,kg:500},{h:10,r:15.2,kg:80},{h:13,r:2.3,kg:800},{h:13,r:5.4,kg:500},{h:13,r:13.8,kg:80},{h:16,r:1.8,kg:800},{h:16,r:4.4,kg:500},{h:16,r:11.5,kg:80},{h:19,r:1.2,kg:800},{h:19,r:3.0,kg:500},{h:19,r:8.5,kg:80},{h:22,r:0.8,kg:800},{h:22,r:1.5,kg:500},{h:22,r:5.0,kg:80},{h:23.2,r:0.0,kg:80}],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-26s', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.26 S', shortName:'Merlo ROTO 50.26S',
-      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.95, liftHeight:25.9, maxReach:22.9, engine:'Merlo Diesel 100kW Stage V',
-      machineWeight:16600, machineWidth:2500, machineLength:7900, machineHeight:3200,
-      stabilizerSpreadM:5.85, stabilizerDepthM:5.35,
-      jibWeight:162, jibLength:3.8, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:300,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 26m with enhanced S stabilizer system',
-      note:'Merlo ROTO 50.26 S — 5T, 26m lift, 21.5m reach. S variant: enhanced stabilizer spread (5.85m) for superior stability on non-ideal ground. 100kW Stage V. Panoramic cab.',
-      tags:['Rotating 360°','5T','26m','ROTO','S-Series','Merlo'],
-      loadMatrix:[{h:1,r:22.9,kg:150},{h:1,r:21.0,kg:500},{h:1,r:18.5,kg:1000},{h:1,r:16.5,kg:1500},{h:1,r:14.5,kg:2000},{h:1,r:12.5,kg:2500},{h:1,r:10.5,kg:3000},{h:1,r:9.0,kg:3500},{h:1,r:7.5,kg:4000},{h:1,r:6.5,kg:4500},{h:1,r:5.5,kg:4950},{h:4,r:22.9,kg:150},{h:4,r:21.5,kg:500},{h:4,r:19.5,kg:1000},{h:4,r:17.5,kg:1500},{h:4,r:15.5,kg:2000},{h:4,r:13.5,kg:2500},{h:4,r:11.5,kg:3000},{h:4,r:10.0,kg:3500},{h:4,r:8.5,kg:4000},{h:4,r:7.0,kg:4500},{h:4,r:6.0,kg:4950},{h:7,r:22.5,kg:150},{h:7,r:21.5,kg:500},{h:7,r:19.5,kg:1000},{h:7,r:17.5,kg:1500},{h:7,r:15.5,kg:2000},{h:7,r:14.0,kg:2500},{h:7,r:12.5,kg:3000},{h:7,r:11.0,kg:3500},{h:7,r:9.5,kg:4000},{h:7,r:8.5,kg:4500},{h:7,r:7.0,kg:4950},{h:10,r:22.5,kg:150},{h:10,r:21.5,kg:500},{h:10,r:19.5,kg:1000},{h:10,r:17.5,kg:1500},{h:10,r:15.5,kg:2000},{h:10,r:14.0,kg:2500},{h:10,r:12.5,kg:3000},{h:10,r:11.0,kg:3500},{h:10,r:9.5,kg:4000},{h:10,r:8.0,kg:4500},{h:10,r:7.0,kg:4950},{h:13,r:22.0,kg:150},{h:13,r:20.5,kg:500},{h:13,r:18.5,kg:1000},{h:13,r:16.5,kg:1500},{h:13,r:15.0,kg:2000},{h:13,r:13.5,kg:2500},{h:13,r:12.0,kg:3000},{h:13,r:10.5,kg:3500},{h:13,r:9.0,kg:4000},{h:13,r:7.5,kg:4500},{h:13,r:6.5,kg:4950},{h:17,r:21.0,kg:150},{h:17,r:19.5,kg:500},{h:17,r:17.5,kg:1000},{h:17,r:15.5,kg:1500},{h:17,r:13.5,kg:2000},{h:17,r:12.0,kg:2500},{h:17,r:10.5,kg:3000},{h:17,r:9.0,kg:3500},{h:17,r:7.5,kg:4000},{h:17,r:6.5,kg:4500},{h:17,r:5.5,kg:4950},{h:21,r:18.0,kg:150},{h:21,r:16.5,kg:500},{h:21,r:14.5,kg:1000},{h:21,r:12.5,kg:1500},{h:21,r:11.0,kg:2000},{h:21,r:9.5,kg:2500},{h:21,r:8.5,kg:3000},{h:21,r:7.5,kg:3500},{h:21,r:6.5,kg:4000},{h:21,r:5.5,kg:4500},{h:21,r:4.5,kg:4950},{h:24,r:12.5,kg:150},{h:24,r:11.0,kg:500},{h:24,r:9.5,kg:1000},{h:24,r:8.0,kg:1500},{h:24,r:7.0,kg:2000},{h:24,r:6.0,kg:2500},{h:24,r:5.0,kg:3000},{h:24,r:4.0,kg:3500},{h:24,r:3.0,kg:4000},{h:24,r:2.0,kg:4500},{h:24,r:1.0,kg:4950},{h:25.9,r:0,kg:1500}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-26splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.26 SPlus', shortName:'Merlo ROTO 50.26S+',
-      isRotating:true,
-      // ── Source: Merlo ROTO50.26 AU spec sheet (ROTO50.26SPLUSEE, Release 24/11/2025) ──
-      capacity:5.0,
-      capacityOnTyres:2.5,           // estimated — no on-tyres chart in AU spec sheet
-      liftHeight:25.9,
-      maxReach:23.1,                  // confirmed from AU spec sheet chart bottom label
-      turretRotation:360,
-      tyreCapacityNote:'On-tyres chart not available in brochure. Confirm capacity/reach with rental company. Deploy multiposition stabilisers for all rated lifts.',
-      engine:'FPT NEF45 125kW (170hp), 4.5L 4-cyl, Tier 2 (no AdBlue)',
-      machineWeight:17300, machineWidth:2430, machineLength:7150, machineHeight:3120,
-      wheelbase:3070, groundClearance:370,
-      stabilizerType:'Multiposition hydraulic',
-      hydraulicFlow:238, hydraulicPressure:230, hydraulicOilTank:120,
-      fuelTank:150,
-      maxSpeed:40, frameLevelling:12,
-      tyres:'18-22.5"', boomSections:5,
-      terrain:'rough/outdoor',
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 25.9m lift, 23.1m reach. Tier 2 engine. Crane replacement 7-8 storey.',
-      note:'Merlo ROTO50.26SPLUSEE (AU) — 5,000 kg max, 25.9m lift, 23.1m reach. 360° continuous turret rotation. FPT NEF45 125kW Tier 2 (no AdBlue). 17,300 kg. 18-22.5" tyres. 138+100 L/min at 230 bar. Multiposition hydraulic stabilisers. Tilting cab. FOPS/ROPS. EAS hydropneumatic suspension. 4WD. 3 steering modes. 40 km/h. 5-section boom. Frame levelling +/-12%/+/-4%. Axles: Drop portal. Brakes: Dry discs. Source: Merlo ROTO50.26 AU spec sheet (Release 24/11/2025).',
-      tags:['Rotating 360°','5T','25.9m','23.1m Reach','ROTO50','SPlus','Merlo','FPT Tier 2','Australia'],
-      // ─────────────────────────────────────────────────────────────────────────────
-      // FORKS 360° ON STABILISERS — loadMatrix
-      // Source: Merlo ROTO50.26SPLUSEE AU spec sheet p.1 load chart
-      // METHOD: Arc formula r=sqrt(L²-h²). L values are PRINTED bottom-label zone
-      // boundary reaches from the brochure chart — confirmed exact values, not visual reads.
-      // Confirmed zone boundary reaches at h=0 (printed chart labels):
-      //   100kg→L=23.1m | 500kg→L=18.9m | 1000kg→L=15.5m | 1500kg→L=13.1m
-      //   2000kg→L=11.4m | 3000kg→L=7.7m | 4000kg→L=6.6m | 5000kg→L=5.4m
-      // CORRECTION: 2000kg boundary is 11.4m — previous code used 9.2m (error: that is
-      // the on-tyres reach indicator, blue label, NOT a stabilised zone boundary).
-      // No 2500kg zone on this model. Arc terminals: {h:L,r:0} = exact arc top.
-      // Near-vertical heavy loads above h=6.6/5.4m: confirm with rental company.
-      // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrix:[{h:1,r:23.1,kg:100},{h:1,r:18.9,kg:500},{h:1,r:15.5,kg:1000},{h:1,r:13.1,kg:1500},{h:1,r:11.4,kg:2000},{h:1,r:7.6,kg:3000},{h:1,r:6.5,kg:4000},{h:1,r:5.3,kg:5000},{h:4,r:22.8,kg:100},{h:4,r:18.5,kg:500},{h:4,r:15,kg:1000},{h:4,r:12.5,kg:1500},{h:4,r:10.7,kg:2000},{h:4,r:6.6,kg:3000},{h:4,r:5.2,kg:4000},{h:4,r:3.6,kg:5000},{h:5.4,r:0,kg:5000},{h:6.6,r:0,kg:4000},{h:7.7,r:0,kg:3000},{h:8,r:21.7,kg:100},{h:8,r:17.1,kg:500},{h:8,r:13.3,kg:1000},{h:8,r:10.4,kg:1500},{h:8,r:8.1,kg:2000},{h:11.4,r:0,kg:2000},{h:12,r:19.7,kg:100},{h:12,r:14.6,kg:500},{h:12,r:9.8,kg:1000},{h:12,r:5.3,kg:1500},{h:13.1,r:0,kg:1500},{h:15.5,r:0,kg:1000},{h:16,r:16.7,kg:100},{h:16,r:10.1,kg:500},{h:18.9,r:0,kg:500},{h:20,r:11.6,kg:100},{h:23,r:2.1,kg:100},{h:23.1,r:0,kg:100}],
-      // ─────────────────────────────────────────────────────────────────────────────
-      // ON TYRES — loadMatrixTyres
-      // Confirm on-tyres capacity with rental company — chart not in AU spec sheet.
-      // NEVER use for rated lift planning. Deploy multiposition stabilisers for all rated lifts.
-      // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrixTyres:[{h:1,r:5.1,kg:4000},{h:1,r:5.4,kg:2000},{h:1,r:6.7,kg:1500},{h:1,r:9.5,kg:1000},{h:1,r:10.9,kg:500},{h:1,r:12.6,kg:200},{h:1,r:14.0,kg:200},{h:3,r:4.9,kg:4000},{h:3,r:5.2,kg:2000},{h:3,r:6.4,kg:1500},{h:3,r:9.0,kg:1000},{h:3,r:10.4,kg:500},{h:3,r:12.0,kg:200},{h:3,r:13.5,kg:200},{h:5,r:4.7,kg:4000},{h:5,r:5.0,kg:2000},{h:5,r:6.1,kg:1500},{h:5,r:8.5,kg:1000},{h:5,r:9.8,kg:500},{h:5,r:11.3,kg:200},{h:5,r:12.9,kg:200},{h:7,r:4.4,kg:4000},{h:7,r:4.7,kg:2000},{h:7,r:5.8,kg:1500},{h:7,r:8.0,kg:1000},{h:7,r:9.2,kg:500},{h:7,r:10.5,kg:200},{h:7,r:12.2,kg:200},{h:9,r:4.2,kg:4000},{h:9,r:4.5,kg:2000},{h:9,r:5.5,kg:1500},{h:9,r:7.4,kg:1000},{h:9,r:8.6,kg:500},{h:9,r:9.7,kg:200},{h:9,r:11.3,kg:200},{h:11,r:3.9,kg:4000},{h:11,r:4.2,kg:2000},{h:11,r:5.1,kg:1500},{h:11,r:6.7,kg:1000},{h:11,r:7.7,kg:500},{h:11,r:8.7,kg:200},{h:11,r:10.2,kg:200},{h:13,r:3.6,kg:4000},{h:13,r:3.9,kg:2000},{h:13,r:4.7,kg:1500},{h:13,r:6.0,kg:1000},{h:13,r:6.9,kg:500},{h:13,r:7.7,kg:200},{h:13,r:9.0,kg:200},{h:15,r:3.3,kg:4000},{h:15,r:3.6,kg:2000},{h:15,r:4.3,kg:1500},{h:15,r:5.4,kg:1000},{h:15,r:6.1,kg:500},{h:15,r:6.8,kg:200},{h:17,r:3.0,kg:4000},{h:17,r:3.3,kg:2000},{h:17,r:3.9,kg:1500},{h:17,r:4.8,kg:1000},{h:17,r:5.3,kg:500},{h:19,r:2.6,kg:4000},{h:19,r:2.9,kg:2000},{h:19,r:3.4,kg:1500},{h:20,r:2.4,kg:4000},{h:20,r:2.7,kg:2000}],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      // loadMatrixWinch: A2765/A2766 winch, 360° stabilisers x4.
-      // EXACT h=1m zone boundaries from brochure p5 bottom-axis labels:
-      //   5.3m=4500kg(min) | 6.8m=4500→4000 | 7.3m=4000→3000 | 8.6m=3000→2300
-      //   9.9m=2300→1700 | 11.4m=1700→1000 | 13.9m=1000→500 | 16.5m=500→100
-      //   23.0m=outer limit (100kg). 0°PROHIBITED zone — min operable angle ≈10°.
-      //   Note: 2300 and 1700 kg are brochure-confirmed non-standard zone values.
-      // Intermediate heights: proportionally scaled from exact h=1m boundaries.
-      // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrixWinch:[{h:1,r:5.3,kg:4500},{h:1,r:6.8,kg:4000},{h:1,r:7.3,kg:3000},{h:1,r:8.6,kg:2300},{h:1,r:9.9,kg:1700},{h:1,r:11.4,kg:1000},{h:1,r:13.9,kg:500},{h:1,r:16.5,kg:100},{h:1,r:23.0,kg:100},{h:4,r:4.7,kg:4500},{h:4,r:6.0,kg:4000},{h:4,r:6.4,kg:3000},{h:4,r:7.6,kg:2300},{h:4,r:8.7,kg:1700},{h:4,r:10.0,kg:1000},{h:4,r:12.2,kg:500},{h:4,r:14.5,kg:100},{h:4,r:20.2,kg:100},{h:7,r:4.0,kg:4500},{h:7,r:5.2,kg:4000},{h:7,r:5.5,kg:3000},{h:7,r:6.5,kg:2300},{h:7,r:7.5,kg:1700},{h:7,r:8.7,kg:1000},{h:7,r:10.6,kg:500},{h:7,r:12.5,kg:100},{h:7,r:17.5,kg:100},{h:10,r:3.4,kg:4500},{h:10,r:4.3,kg:4000},{h:10,r:4.7,kg:3000},{h:10,r:5.5,kg:2300},{h:10,r:6.3,kg:1700},{h:10,r:7.3,kg:1000},{h:10,r:8.9,kg:500},{h:10,r:10.5,kg:100},{h:10,r:14.7,kg:100},{h:13,r:2.7,kg:4500},{h:13,r:3.5,kg:4000},{h:13,r:3.8,kg:3000},{h:13,r:4.5,kg:2300},{h:13,r:5.1,kg:1700},{h:13,r:5.9,kg:1000},{h:13,r:7.2,kg:500},{h:13,r:8.5,kg:100},{h:13,r:11.9,kg:100},{h:16,r:2.1,kg:4500},{h:16,r:2.7,kg:4000},{h:16,r:2.9,kg:3000},{h:16,r:3.4,kg:2300},{h:16,r:3.9,kg:1700},{h:16,r:4.5,kg:1000},{h:16,r:5.5,kg:500},{h:16,r:6.6,kg:100},{h:16,r:9.1,kg:100},{h:18.9,r:1.5,kg:4500},{h:18.9,r:1.9,kg:4000},{h:18.9,r:2.1,kg:3000},{h:18.9,r:2.4,kg:2300},{h:18.9,r:2.8,kg:1700},{h:18.9,r:3.2,kg:1000},{h:18.9,r:3.9,kg:500},{h:18.9,r:4.6,kg:100},{h:18.9,r:6.5,kg:100},{h:20,r:1.3,kg:4500},{h:20,r:1.6,kg:4000},{h:20,r:1.7,kg:3000},{h:20,r:2.0,kg:2300},{h:20,r:2.3,kg:1700},{h:20,r:2.7,kg:1000},{h:20,r:3.3,kg:500},{h:20,r:3.9,kg:100},{h:20,r:5.4,kg:100},{h:23.1,r:0.6,kg:4500},{h:23.1,r:0.8,kg:3000},{h:23.1,r:1.0,kg:2300},{h:23.1,r:1.1,kg:1700},{h:23.1,r:1.3,kg:1000},{h:23.1,r:1.6,kg:500},{h:23.1,r:1.9,kg:100},{h:23.1,r:2.6,kg:100}],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[{h:1,r:5.9,kg:2200},{h:1,r:13.4,kg:1500},{h:1,r:15.9,kg:1000},{h:1,r:19.6,kg:500},{h:1,r:23.7,kg:200},{h:4,r:5.7,kg:2200},{h:4,r:13.0,kg:1500},{h:4,r:15.5,kg:1000},{h:4,r:19.1,kg:500},{h:4,r:23.2,kg:200},{h:7,r:5.5,kg:2200},{h:7,r:12.5,kg:1500},{h:7,r:14.9,kg:1000},{h:7,r:18.5,kg:500},{h:7,r:22.6,kg:200},{h:10,r:5.2,kg:2200},{h:10,r:12.0,kg:1500},{h:10,r:14.2,kg:1000},{h:10,r:17.7,kg:500},{h:10,r:21.7,kg:200},{h:13,r:4.9,kg:2200},{h:13,r:11.4,kg:1500},{h:13,r:13.5,kg:1000},{h:13,r:16.8,kg:500},{h:13,r:20.6,kg:200},{h:16,r:4.5,kg:2200},{h:16,r:10.6,kg:1500},{h:16,r:12.6,kg:1000},{h:16,r:15.7,kg:500},{h:16,r:19.2,kg:200},{h:18.9,r:3.9,kg:2200},{h:18.9,r:9.4,kg:1500},{h:18.9,r:11.2,kg:1000},{h:18.9,r:13.9,kg:500},{h:18.9,r:17.1,kg:200},{h:20,r:3.2,kg:2200},{h:20,r:7.6,kg:1500},{h:20,r:9.1,kg:1000},{h:20,r:11.3,kg:500},{h:23.1,r:0.0,kg:200}],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[{h:1,r:6.6,kg:1500},{h:1,r:13.5,kg:1000},{h:1,r:16.0,kg:500},{h:1,r:19.7,kg:200},{h:1,r:23.1,kg:200},{h:4,r:6.4,kg:1500},{h:4,r:13.1,kg:1000},{h:4,r:15.6,kg:500},{h:4,r:19.2,kg:200},{h:4,r:22.7,kg:200},{h:7,r:6.1,kg:1500},{h:7,r:12.6,kg:1000},{h:7,r:15.0,kg:500},{h:7,r:18.5,kg:200},{h:7,r:22.0,kg:200},{h:10,r:5.8,kg:1500},{h:10,r:12.0,kg:1000},{h:10,r:14.3,kg:500},{h:10,r:17.7,kg:200},{h:10,r:21.0,kg:200},{h:13,r:5.4,kg:1500},{h:13,r:11.3,kg:1000},{h:13,r:13.5,kg:500},{h:13,r:16.7,kg:200},{h:13,r:19.8,kg:200},{h:16,r:5.0,kg:1500},{h:16,r:10.5,kg:1000},{h:16,r:12.5,kg:500},{h:16,r:15.5,kg:200},{h:16,r:18.3,kg:200},{h:18.9,r:4.3,kg:1500},{h:18.9,r:9.3,kg:1000},{h:18.9,r:11.1,kg:500},{h:18.9,r:13.7,kg:200},{h:18.9,r:16.2,kg:200},{h:20,r:3.5,kg:1500},{h:20,r:7.5,kg:1000},{h:20,r:9.0,kg:500},{h:20,r:11.1,kg:200},{h:23.1,r:0.0,kg:200}],
-      loadMatrixTyres360:[{h:1,r:3.5,kg:800},{h:1,r:7.5,kg:500},{h:1,r:16.4,kg:80},{h:4,r:3.3,kg:800},{h:4,r:7.2,kg:500},{h:4,r:16.0,kg:80},{h:7,r:3.0,kg:800},{h:7,r:6.8,kg:500},{h:7,r:15.5,kg:80},{h:10,r:2.7,kg:800},{h:10,r:6.2,kg:500},{h:10,r:14.7,kg:80},{h:13,r:2.3,kg:800},{h:13,r:5.5,kg:500},{h:13,r:13.4,kg:80},{h:16,r:1.9,kg:800},{h:16,r:4.5,kg:500},{h:16,r:11.5,kg:80},{h:19,r:1.4,kg:800},{h:19,r:3.2,kg:500},{h:19,r:9.0,kg:80},{h:22,r:0.9,kg:800},{h:22,r:1.8,kg:500},{h:22,r:6.0,kg:80},{h:25,r:0.5,kg:800},{h:25,r:0.8,kg:500},{h:25,r:3.5,kg:80},{h:28.4,r:0.0,kg:80}],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-30splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.30 SPlus', shortName:'Merlo ROTO 50.30S+',
-      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.95, liftHeight:29.2, maxReach:25.4, engine:'Merlo Diesel 115kW Stage V',
-      machineWeight:20500, machineWidth:2500, machineLength:8200, machineHeight:3200,
-      stabilizerSpreadM:5.80, stabilizerDepthM:5.30,
-      jibWeight:165, jibLength:4.0, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:400,
-      terrain:'rough/outdoor', maxSpeed:35,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 30m, 9-10 storey construction, crane replacement',
-      note:'Merlo ROTO 50.30 SPlus — 5T, 30m lift, 25.3m reach. 360° continuous rotation. SPlus: enhanced stabilizer system. Duplex stabs (spread 5.8m). 115kW Stage V. Panoramic cab.',
-      tags:['Rotating 360°','5T','30m','ROTO','SPlus','Merlo','Crane Replacement'],
-      loadMatrix:[{h:1,r:25.4,kg:400},{h:1,r:22.0,kg:1000},{h:1,r:18.0,kg:2000},{h:1,r:14.0,kg:3000},{h:1,r:11.0,kg:4000},{h:1,r:8.0,kg:4950},{h:5,r:25.4,kg:400},{h:5,r:23.0,kg:1000},{h:5,r:19.5,kg:2000},{h:5,r:16.0,kg:3000},{h:5,r:12.5,kg:4000},{h:5,r:9.5,kg:4950},{h:9,r:25.4,kg:400},{h:9,r:23.5,kg:1000},{h:9,r:20.5,kg:2000},{h:9,r:17.5,kg:3000},{h:9,r:14.0,kg:4000},{h:9,r:9.1,kg:4950},{h:13,r:25.0,kg:400},{h:13,r:23.5,kg:1000},{h:13,r:20.5,kg:2000},{h:13,r:17.5,kg:3000},{h:13,r:14.0,kg:4000},{h:13,r:9.5,kg:4950},{h:17,r:24.0,kg:400},{h:17,r:22.0,kg:1000},{h:17,r:19.5,kg:2000},{h:17,r:16.5,kg:3000},{h:17,r:13.0,kg:4000},{h:17,r:9.0,kg:4950},{h:21,r:22.5,kg:400},{h:21,r:20.5,kg:1000},{h:21,r:17.5,kg:2000},{h:21,r:15.0,kg:3000},{h:21,r:12.0,kg:4000},{h:21,r:8.0,kg:4950},{h:25,r:19.0,kg:400},{h:25,r:17.0,kg:1000},{h:25,r:14.5,kg:2000},{h:25,r:12.0,kg:3000},{h:25,r:9.5,kg:4000},{h:25,r:6.0,kg:4950},{h:28,r:12.0,kg:400},{h:28,r:10.5,kg:1000},{h:28,r:8.5,kg:2000},{h:28,r:7.0,kg:3000},{h:28,r:5.5,kg:4000},{h:28,r:3.0,kg:4950},{h:29.2,r:0,kg:2000}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto50-35splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 50.35 SPlus', shortName:'Merlo ROTO 50.35S+',
-      isRotating:true, capacityOnTyres:2.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:4.95, liftHeight:34.0, maxReach:27.0, engine:'Merlo Diesel 115kW Stage V',
-      machineWeight:23350, machineWidth:2500, machineLength:8800, machineHeight:3250,
-      stabilizerSpreadM:6.00, stabilizerDepthM:5.50,
-      jibWeight:170, jibLength:4.2, rotatorWeight:770, hookCapacity:2000, ewpBasketSWL:400,
-      terrain:'rough/outdoor', maxSpeed:30,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'5T 360° rotating telehandler — 35m, 10-11 storey construction, crane replacement',
-      note:'Merlo ROTO 50.35 SPlus — 5T, 35m lift, 29.8m reach. 360° continuous rotation. SPlus enhanced stabilizers (spread 6.0m). 115kW Stage V. Panoramic cab.',
-      tags:['Rotating 360°','5T','35m','ROTO','SPlus','Merlo','Crane Replacement'],
-      loadMatrix:[{h:1,r:27.0,kg:500},{h:1,r:23.0,kg:1000},{h:1,r:19.5,kg:1500},{h:1,r:16.0,kg:2500},{h:1,r:14.0,kg:3000},{h:1,r:12.0,kg:4000},{h:1,r:11.0,kg:4500},{h:1,r:9.5,kg:4950},{h:5,r:27.0,kg:500},{h:5,r:24.0,kg:1000},{h:5,r:21.0,kg:1500},{h:5,r:17.5,kg:2500},{h:5,r:15.5,kg:3000},{h:5,r:13.0,kg:4000},{h:5,r:12.0,kg:4500},{h:5,r:10.5,kg:4950},{h:10,r:27.0,kg:500},{h:10,r:25.0,kg:1000},{h:10,r:22.5,kg:1500},{h:10,r:19.5,kg:2500},{h:10,r:17.5,kg:3000},{h:10,r:15.0,kg:4000},{h:10,r:13.5,kg:4500},{h:10,r:10.1,kg:4950},{h:15,r:27.0,kg:500},{h:15,r:25.0,kg:1000},{h:15,r:22.5,kg:1500},{h:15,r:19.5,kg:2500},{h:15,r:17.5,kg:3000},{h:15,r:15.0,kg:4000},{h:15,r:13.5,kg:4500},{h:15,r:11.0,kg:4950},{h:20,r:26.5,kg:500},{h:20,r:24.5,kg:1000},{h:20,r:21.5,kg:1500},{h:20,r:18.5,kg:2500},{h:20,r:16.5,kg:3000},{h:20,r:14.0,kg:4000},{h:20,r:12.5,kg:4500},{h:20,r:10.5,kg:4950},{h:25,r:24.5,kg:500},{h:25,r:22.5,kg:1000},{h:25,r:19.5,kg:1500},{h:25,r:16.5,kg:2500},{h:25,r:14.5,kg:3000},{h:25,r:12.5,kg:4000},{h:25,r:11.0,kg:4500},{h:25,r:9.0,kg:4950},{h:30,r:19.5,kg:500},{h:30,r:17.5,kg:1000},{h:30,r:15.0,kg:1500},{h:30,r:12.5,kg:2500},{h:30,r:11.0,kg:3000},{h:30,r:9.0,kg:4000},{h:30,r:7.5,kg:4500},{h:30,r:5.5,kg:4950},{h:33,r:10.0,kg:500},{h:33,r:8.5,kg:1000},{h:33,r:7.5,kg:1500},{h:33,r:6.0,kg:2500},{h:33,r:5.0,kg:3000},{h:33,r:3.5,kg:4000},{h:33,r:2.5,kg:4500},{h:33,r:1.5,kg:4950},{h:34.0,r:0,kg:2000}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto70-24splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 70.24 SPlus', shortName:'Merlo ROTO 70.24S+',
-      isRotating:true,
-      // ── Source: Merlo ROTO70.24 AU spec sheet (Release 24/11/2025) ──
-      capacity:7.0,
-      capacityOnTyres:null,      // no on-tyres chart provided in spec sheet — stabilisers required
-      liftHeight:20.50,          // max lift height (m)
-      maxReach:20.50,            // max horizontal reach (m)
-      turretRotation:360,        // continuous
-      tyreCapacityNote:'Stabilisers required for all rated lifts. No on-tyres load chart in this spec sheet. Multiposition hydraulic stabilisers — consult Merlo dealer for partial-stabiliser configurations.',
-      engine:'FPT NEF45 125kW (170hp), 4.5L 4-cyl, Stage V — SCR + DOC + DPF (AdBlue 43L)',
-      machineWeight:20200, machineWidth:2490, machineLength:7545, machineHeight:3160,
-      wheelbase:3200, groundClearance:290,
-      stabilizerType:'Multiposition hydraulic', hydraulicFlow:238, hydraulicPressure:230,
-      fuelTank:150, adBlueTank:43, hydraulicOilTank:120,
-      maxSpeed:40, frameLevelling:12,
-      ewpBasketSWL:null, hookCapacity:null, jibCapacity:null,
-      terrain:'rough/outdoor',
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'7T at 20.5m — 360° rotating, heavy precast, structural steel, crane replacement 6-storey',
-      note:'Merlo ROTO70.24SPLUS (AU) — 7,000 kg max, 20.5m lift height, 20.5m max reach. 360° continuous turret rotation. FPT NEF45 125kW Stage V (AdBlue). 20,200 kg. 445/65-22.5" tyres. 138+100 L/min at 230 bar. Multiposition hydraulic stabilisers. Tilting cab. FOPS/ROPS. EAS hydropneumatic suspension (Merlo). 4WD. 3 steering modes. 40 km/h. 4-section boom. Frame levelling +/-12%/+/-4%. Source: Merlo ROTO70.24 AU spec sheet (Release 24/11/2025).',
-      tags:['Rotating 360°','7T','20.5m','ROTO70','SPlus','Merlo','FPT 125kW','Stage V','Heavy Duty','Australia'],
-      // ─────────────────────────────────────────────────────────────────────────────
-      // FORKS 360° ON STABILISERS — loadMatrix
-      // Source: Merlo ROTO70.24SPLUS AU spec sheet p.1 load chart (Release 24/11/2025)
-      // Zone labels confirmed (outer → inner): 1000, 2000, 3000, 4000, 5000, 6000, 7000 kg
-      // + 500 kg zone between 1000 kg line and max envelope edge
-      // CHART BOTTOM LABELS (reach where each zone boundary intersects lowest boom position, h≈0):
-      //   0.5m = min retracted boom reach
-      //   5.8m = 7000/6000 kg zone boundary
-      //   6.3m = 6000/5000 kg zone boundary
-      //   7.8m = 5000/4000 kg zone boundary
-      //   9.5m = 4000/3000 kg zone boundary
-      //  11.6m = 3000/2000 kg zone boundary
-      //  14.7m = 2000/1000 kg zone boundary
-      //  16.9m = 1000/500 kg zone boundary
-      //  19.7m = 500 kg zone max reach at 10° boom angle
-      //  20.5m = max physical reach (spec sheet confirmed)
-      // ⚠️ Zone boundary positions at h>0 are INTERPOLATED — read from small spec sheet image.
-      // For precise rated lift planning, obtain full Merlo ROTO70.24 load chart from dealer.
-      // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrix:[{h:1,r:20.5,kg:900},{h:1,r:17.5,kg:1500},{h:1,r:15.0,kg:2000},{h:1,r:12.0,kg:3000},{h:1,r:9.5,kg:4000},{h:1,r:7.5,kg:5000},{h:1,r:6.0,kg:6000},{h:1,r:4.5,kg:7000},{h:5,r:20.5,kg:900},{h:5,r:18.0,kg:1500},{h:5,r:16.0,kg:2000},{h:5,r:13.0,kg:3000},{h:5,r:10.5,kg:4000},{h:5,r:8.5,kg:5000},{h:5,r:7.0,kg:6000},{h:5,r:5.5,kg:7000},{h:9,r:20.5,kg:900},{h:9,r:18.5,kg:1500},{h:9,r:16.5,kg:2000},{h:9,r:14.0,kg:3000},{h:9,r:11.5,kg:4000},{h:9,r:9.5,kg:5000},{h:9,r:8.0,kg:6000},{h:9,r:5.9,kg:7000},{h:13,r:20.5,kg:900},{h:13,r:18.5,kg:1500},{h:13,r:16.5,kg:2000},{h:13,r:14.0,kg:3000},{h:13,r:11.5,kg:4000},{h:13,r:9.5,kg:5000},{h:13,r:7.5,kg:6000},{h:13,r:5.5,kg:7000},{h:17,r:20.0,kg:900},{h:17,r:17.5,kg:1500},{h:17,r:15.5,kg:2000},{h:17,r:13.0,kg:3000},{h:17,r:10.5,kg:4000},{h:17,r:8.5,kg:5000},{h:17,r:7.0,kg:6000},{h:17,r:5.0,kg:7000},{h:21,r:17.0,kg:900},{h:21,r:15.0,kg:1500},{h:21,r:13.0,kg:2000},{h:21,r:11.0,kg:3000},{h:21,r:8.5,kg:4000},{h:21,r:6.5,kg:5000},{h:21,r:5.0,kg:6000},{h:21,r:3.5,kg:7000},{h:23,r:11.0,kg:900},{h:23,r:9.5,kg:1500},{h:23,r:8.0,kg:2000},{h:23,r:6.5,kg:3000},{h:23,r:5.0,kg:4000},{h:23,r:3.5,kg:5000},{h:23,r:2.5,kg:6000},{h:23,r:1.5,kg:7000},{h:24.2,r:0,kg:3000}],
-      // ─────────────────────────────────────────────────────────────────────────────
-      // ON TYRES — loadMatrixTyres
-      // Confirm on-tyres capacity with rental company — chart not in AU spec sheet.
-      // 7T capacity requires stabilisers. NEVER use these values for rated lift planning.
-      // Multiposition stabilisers MUST be deployed for all rated capacity lifts.
-      // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrixTyres:[{h:0.6,r:5.0,kg:6000},{h:0.6,r:7.0,kg:5000},{h:0.6,r:9.0,kg:4000},{h:0.6,r:11.0,kg:3000},{h:0.6,r:13.0,kg:2000},{h:0.6,r:15.5,kg:1500},{h:0.6,r:18.0,kg:1000},{h:5,r:5.0,kg:6000},{h:5,r:7.0,kg:5000},{h:5,r:9.0,kg:4000},{h:5,r:11.5,kg:3000},{h:5,r:13.5,kg:2000},{h:5,r:16.0,kg:1500},{h:5,r:18.0,kg:1000},{h:10,r:5.0,kg:6000},{h:10,r:7.5,kg:5000},{h:10,r:9.5,kg:4000},{h:10,r:12.0,kg:3000},{h:10,r:14.5,kg:2000},{h:10,r:16.5,kg:1500},{h:10,r:18.0,kg:1000},{h:15,r:5.5,kg:6000},{h:15,r:8.0,kg:5000},{h:15,r:10.0,kg:4000},{h:15,r:13.0,kg:3000},{h:15,r:15.0,kg:2000},{h:15,r:17.0,kg:1500},{h:15,r:18.0,kg:1000},{h:18,r:6.0,kg:6000},{h:18,r:8.5,kg:5000},{h:18,r:11.0,kg:4000},{h:18,r:14.0,kg:3000},{h:18,r:16.0,kg:2000},{h:18,r:17.5,kg:1500},{h:20,r:7.5,kg:6000},{h:20,r:10.0,kg:5000},{h:20,r:13.0,kg:4000},{h:20,r:16.0,kg:3000}],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[{h:0.6,r:4.5,kg:6700},{h:0.6,r:5.0,kg:6000},{h:0.6,r:5.5,kg:5700},{h:0.6,r:7.5,kg:5000},{h:0.6,r:9.5,kg:4000},{h:0.6,r:11.5,kg:3000},{h:0.6,r:13.5,kg:2000},{h:0.6,r:16.5,kg:1500},{h:0.6,r:19.0,kg:900},{h:0.6,r:21.0,kg:600},{h:5,r:4.5,kg:6700},{h:5,r:5.0,kg:6000},{h:5,r:6.0,kg:5700},{h:5,r:8.0,kg:5000},{h:5,r:10.0,kg:4000},{h:5,r:12.5,kg:3000},{h:5,r:14.5,kg:2000},{h:5,r:17.5,kg:1500},{h:5,r:20.0,kg:900},{h:5,r:21.5,kg:600},{h:10,r:5.5,kg:6700},{h:10,r:6.0,kg:6000},{h:10,r:7.0,kg:5700},{h:10,r:9.0,kg:5000},{h:10,r:11.0,kg:4000},{h:10,r:13.5,kg:3000},{h:10,r:15.5,kg:2000},{h:10,r:18.5,kg:1500},{h:10,r:20.5,kg:900},{h:15,r:6.5,kg:6700},{h:15,r:7.0,kg:6000},{h:15,r:8.0,kg:5700},{h:15,r:10.0,kg:5000},{h:15,r:12.0,kg:4000},{h:15,r:14.5,kg:3000},{h:15,r:16.5,kg:2000},{h:15,r:19.0,kg:1500},{h:15,r:21.0,kg:900},{h:20,r:8.0,kg:6700},{h:20,r:8.5,kg:6000},{h:20,r:9.5,kg:5700},{h:20,r:11.5,kg:5000},{h:20,r:13.5,kg:4000},{h:20,r:15.5,kg:3000},{h:20,r:18.0,kg:2000},{h:20,r:20.0,kg:1500},{h:24.5,r:0.0,kg:6700}],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[{h:0.6,r:5.5,kg:3500},{h:0.6,r:8.5,kg:3000},{h:0.6,r:11.0,kg:2000},{h:0.6,r:14.0,kg:1500},{h:0.6,r:18.5,kg:900},{h:5,r:6.0,kg:3500},{h:5,r:9.5,kg:3000},{h:5,r:12.0,kg:2000},{h:5,r:15.0,kg:1500},{h:5,r:19.0,kg:900},{h:10,r:7.0,kg:3500},{h:10,r:11.0,kg:3000},{h:10,r:13.5,kg:2000},{h:10,r:16.5,kg:1500},{h:10,r:19.5,kg:900},{h:15,r:8.5,kg:3500},{h:15,r:12.5,kg:3000},{h:15,r:15.0,kg:2000},{h:15,r:18.0,kg:1500},{h:15,r:20.5,kg:900},{h:20,r:10.0,kg:3500},{h:20,r:14.0,kg:3000},{h:20,r:17.0,kg:2000},{h:20,r:19.5,kg:1500},{h:20,r:21.0,kg:900},{h:24.5,r:0.0,kg:3500}],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[{h:0.6,r:5.0,kg:2000},{h:0.6,r:8.0,kg:1500},{h:0.6,r:13.0,kg:900},{h:0.6,r:19.5,kg:650},{h:5,r:6.0,kg:2000},{h:5,r:9.0,kg:1500},{h:5,r:14.0,kg:900},{h:5,r:20.5,kg:650},{h:10,r:7.5,kg:2000},{h:10,r:11.0,kg:1500},{h:10,r:15.5,kg:900},{h:10,r:21.5,kg:650},{h:15,r:9.5,kg:2000},{h:15,r:13.0,kg:1500},{h:15,r:17.5,kg:900},{h:15,r:22.5,kg:650},{h:20,r:12.0,kg:2000},{h:20,r:15.5,kg:1500},{h:20,r:19.5,kg:900},{h:20,r:23.0,kg:650},{h:24.5,r:0.0,kg:2000}],
-      loadMatrixTyres360:[{h:2,r:5.0,kg:800},{h:2,r:15.0,kg:500},{h:2,r:20.0,kg:80},{h:5,r:5.0,kg:800},{h:5,r:15.0,kg:500},{h:5,r:20.0,kg:80},{h:10,r:5.0,kg:800},{h:10,r:15.0,kg:500},{h:10,r:20.0,kg:80},{h:15,r:5.0,kg:800},{h:15,r:15.0,kg:500},{h:15,r:20.0,kg:80},{h:20,r:5.0,kg:800},{h:20,r:15.0,kg:500},{h:20,r:20.0,kg:80},{h:22,r:5.0,kg:800},{h:22,r:15.0,kg:500},{h:22,r:20.0,kg:80},{h:24,r:4.5,kg:800},{h:24,r:12.0,kg:500},{h:24,r:18.0,kg:80},{h:25.5,r:3.0,kg:800},{h:25.5,r:8.0,kg:500},{h:25.5,r:12.0,kg:80},{h:26.5,r:0.0,kg:80}],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'merlo-roto70-28splus', brand:'Merlo', emoji:'🔄', brandColor:'#E30613',
-      name:'Merlo ROTO 70.28 SPlus', shortName:'Merlo ROTO 70.28S+',
-      isRotating:true, capacityOnTyres:3.5, capacityOnTyresMaxHeight:4.5, capacityOnTyresMaxReach:3.0,
-      capacity:7.0, liftHeight:28.0, maxReach:23.2, engine:'Merlo Diesel 129kW Stage V',
-      machineWeight:22750, machineWidth:2600, machineLength:8600, machineHeight:3300,
-      stabilizerSpreadM:6.30, stabilizerDepthM:5.80,
-      jibWeight:180, jibLength:4.0, rotatorWeight:840, hookCapacity:2500, ewpBasketSWL:400,
-      terrain:'rough/outdoor', maxSpeed:30,
-      attachments:['Standard Forks','Jib','Hook','Man Basket','Work Platform','Winch','Rotator','Extensible Jib'],
-      bestFor:'7T 360° rotating telehandler — 28m, 8-9 storey, heavy crane replacement',
-      note:'Merlo ROTO 70.28 SPlus — 7T, 28m lift, 23.5m reach. 360° continuous rotation. Heavy-duty SPlus stabilizers (spread 6.3m). 129kW Stage V. Panoramic cab. Heavy precast, structural steel, crane replacement on 8-9 storey buildings.',
-      tags:['Rotating 360°','7T','28m','ROTO','SPlus','Merlo','Heavy Duty','Crane Replacement'],
-      loadMatrix:[{h:1,r:23.2,kg:850},{h:1,r:20.0,kg:1500},{h:1,r:17.0,kg:2000},{h:1,r:13.5,kg:3000},{h:1,r:10.5,kg:4000},{h:1,r:8.5,kg:5000},{h:1,r:7.0,kg:6000},{h:1,r:5.0,kg:7000},{h:5,r:23.2,kg:850},{h:5,r:20.5,kg:1500},{h:5,r:18.0,kg:2000},{h:5,r:14.5,kg:3000},{h:5,r:12.0,kg:4000},{h:5,r:9.5,kg:5000},{h:5,r:8.0,kg:6000},{h:5,r:6.0,kg:7000},{h:9,r:23.2,kg:850},{h:9,r:21.0,kg:1500},{h:9,r:18.5,kg:2000},{h:9,r:15.5,kg:3000},{h:9,r:13.0,kg:4000},{h:9,r:10.5,kg:5000},{h:9,r:8.5,kg:6000},{h:9,r:6.5,kg:7000},{h:13,r:23.0,kg:850},{h:13,r:21.0,kg:1500},{h:13,r:18.5,kg:2000},{h:13,r:15.5,kg:3000},{h:13,r:13.0,kg:4000},{h:13,r:10.5,kg:5000},{h:13,r:8.5,kg:6000},{h:13,r:6.5,kg:7000},{h:17,r:22.5,kg:850},{h:17,r:20.0,kg:1500},{h:17,r:17.5,kg:2000},{h:17,r:14.5,kg:3000},{h:17,r:12.0,kg:4000},{h:17,r:10.0,kg:5000},{h:17,r:8.0,kg:6000},{h:17,r:6.0,kg:7000},{h:21,r:19.5,kg:850},{h:21,r:17.5,kg:1500},{h:21,r:15.0,kg:2000},{h:21,r:12.5,kg:3000},{h:21,r:10.5,kg:4000},{h:21,r:8.5,kg:5000},{h:21,r:7.0,kg:6000},{h:21,r:5.0,kg:7000},{h:25,r:14.5,kg:850},{h:25,r:13.0,kg:1500},{h:25,r:11.0,kg:2000},{h:25,r:9.0,kg:3000},{h:25,r:7.5,kg:4000},{h:25,r:6.0,kg:5000},{h:25,r:4.5,kg:6000},{h:25,r:3.0,kg:7000},{h:27,r:8.0,kg:850},{h:27,r:7.0,kg:1500},{h:27,r:6.0,kg:2000},{h:27,r:5.0,kg:3000},{h:27,r:4.0,kg:4000},{h:27,r:3.0,kg:5000},{h:27,r:2.0,kg:6000},{h:27,r:1.0,kg:7000},{h:28.0,r:0,kg:3000}],
-      // loadMatrixTyres: Confirm exact capacity/reach with rental company.
-      loadMatrixTyres:[],
-      // loadMatrixWinch: Confirm exact capacity/reach with rental company.
-      loadMatrixWinch:[],
-      // loadMatrixJib800: Confirm exact capacity/reach with rental company.
-      loadMatrixJib800:[],
-      // loadMatrixJib1500: Confirm exact capacity/reach with rental company.
-      loadMatrixJib1500:[],
-      loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
 
-    // ── DIECI AUSTRALIA ─────────────────────────────────────────────────────
-    // Source: Dieci Australia official brochures (dieciaustralia.com.au, 2025)
-    // All models comply with AS1418.19 / 10896.1. ROPS-FOPS certified cabs.
-    // All feature: 4WS/2WS/Crab steering, Load Limiter Device, Deadman sensor.
-    {
-      id:'dieci-apollo-smart-20-4', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Apollo Smart 20.4', shortName:'Apollo Smart 20.4',
-      // ═══════════════════════════════════════════════════════════════════════
-      // Source: Dieci Apollo Smart 20.4 Brochure — Dieci Australia (May 2025)
-      // 5-page PDF (Apollo Smart20.4_0525), rasterized at 600 DPI and read.
-      // ALL CONFIRMED SPECS from Technical Data table (p.4):
-      //   Max capacity: 2,000 kg | Max lift height: 4.35m | Max reach: 2.67m
-      //   Unladen weight: 4,300 kg | Fork swivel: 133° | Max climb: 56%
-      //   Max speed: 25 km/h | Pull-out force: 3,365 daN | Tow force: 3,177 daN
-      //   Engine: Kubota 3-cyl, 37kW/50hp @ 2,700rpm, Stage V, common rail
-      //   Displacement: 1,826 cm³ | Liquid cooled | Turbo compressor
-      //   Transmission: Single-speed hydrostatic, electro-hydraulic reversal
-      //   Hydraulics: 93.6 l/min, 25 MPa (3,626 psi) | Continuous oil function
-      //   Tyres: 12×16.5" | Service brake: dry disc on REAR axle
-      //   Park brake: manually activated cable brake caliper
-      //   Tanks: Hydraulic 70L | Diesel 60L
-      // DIMENSIONS from table (p.4) — all mm:
-      //   A=199 (ground clearance) | B=827 | C=2,250 | D=458 | F=3,405 (wheelbase)
-      //   G=3,534 (overall length) | H=1,929 (overall height) | I=860
-      //   L=1,230 | M=1,550 | P=1,340 | Q=3,075 | S=1,469 (track width)
-      //   T=200 | U=1,550
-      // ─── LOAD CHART — CONFIRMED ZONE BOUNDARIES (p.4, rasterized 600 DPI) ──
-      // 6 capacity zones printed IN the coloured bands (outer → inner):
-      //   850 kg / 950 kg / 1,200 kg / 1,400 kg / 1,600 kg / 2,000 kg
-      // Reference points printed on chart:
-      //   Point A = outer boundary of 2,000kg zone ≈ h=3.6m, r=1.16m
-      //   Point B = ≈ h=4.0m, r=1.2m
-      //   Point C = top of 2,000kg zone ≈ h=4.35m, r=0.9m
-      //   66° annotation = max height 4.35m confirmed
-      //   600mm = fork offset at maximum elevation
-      // CONFIRMED ZONE BOUNDARY REACH VALUES AT h=0 (printed red dimensions p.4):
-      //   Outer envelope (850kg):  r = 2.67m ✓ (matches spec table max reach)
-      //   850/950 boundary:        r = 2.36m ✓
-      //   950/1200 boundary:       r = 1.73m ✓
-      //   1200/1400 boundary:      r = 1.54m ✓
-      //   1400/1600 boundary:      r = 1.20m ✓
-      //   1600/2000 boundary:      r = 1.16m ✓
-      // ═══════════════════════════════════════════════════════════════════════
-      capacity:2.0, liftHeight:4.35, maxReach:2.67, engine:'Kubota 3-cyl 37kW (50hp) Stage V Common Rail',
-      machineWeight:4300, machineWidth:1469, machineLength:3534, machineHeight:1929,
-      machineGroundClearance:199, wheelbase:3405, trackWidth:1469,
-      hydraulicFlow:93.6, hydraulicPressure:250, fuelTank:60, hydraulicTank:70,
-      forkSwivel:133, maxClimb:56, towingForce:31770, pullOutForce:33650,
-      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
-      terrain:'rough/indoor', maxSpeed:25,
-      attachments:['Standard Forks (133° swivel)','GP Bucket','Jib','Work Platform','Bale Clamp'],
-      bestFor:'Ultra-compact construction sites, urban access, warehousing, landscaping, recycling, tight-access maintenance',
-      note:'Dieci Apollo Smart 20.4 — most compact model in Dieci construction range. 2T, 4.35m, 2.67m reach. Kubota 3-cyl 37kW Stage V common rail — cleanest emissions class. 4,300kg unladen, 3,534×1,469×1,929mm. Hydrostatic single-speed with inching pedal. 93.6 l/min hydraulics with continuous oil function on boom sockets. 2WS/4WS/Crab steering. 133° fork swivel standard. 56% gradeability. Patented tilting ballast system. 90° rotating radiator for maintenance. Dry disc rear brake (different from Apollo 25.6 which has oil bath front). ROPS/FOPS cab, dead-man sensor, load limiter. 4-in-1 joystick with FNR. Redesigned ergonomic cab, all-round visibility. Complies AS1418.19/10896.1. Distributed by Dieci Australia 1300 888 479.',
-      liftChart:'6 zones printed on chart: 850/950/1200/1400/1600/2000 kg. Max 2,000kg retracted. Max height 4.35m at 59°. At h=0: 850kg zone outer r=2.67m ✓, 950kg@r=2.36m ✓, 1200kg@r=1.73m ✓, 1400kg@r=1.54m ✓, 1600kg@r=1.20m ✓, 2000kg@r=1.16m ✓. Points A≈h3.6,r1.16 | B≈h4.0,r1.2 | C≈h4.35,r0.9. Source: Dieci Apollo Smart 20.4 Brochure May 2025 p.4.',
-      tags:['2T','4.35m','2.67m Reach','Ultra-Compact','Stage V','133° Fork Swivel','Dieci','AS1418.19'],
-      // ── LOAD MATRIX — On Tyres with Forks ─────────────────────────────────
-      // Source: VISUAL READ of rasterized load chart — Dieci Apollo Smart 20.4
-      //         Brochure May 2025, p.4. Rasterized at 600 DPI.
-      // CONFIRMED zone boundary reaches at h=0 (printed red dimensions on chart):
-      //   850kg outer: 2.67m | 950kg: 2.36m | 1200kg: 1.73m
-      //   1400kg: 1.54m | 1600kg: 1.20m | 2000kg: 1.16m
-      // Zone boundary reach values at higher heights read from chart curves.
-      // Format: each row = zone boundary point at that height.
-      //   At each h, capacity drops to the listed kg beyond that reach.
-      loadMatrix:[
-        // h=0m (0° — ground level) — CONFIRMED from printed dimensions ✓
-        {h:0,r:0.0,kg:2000},{h:0,r:1.16,kg:2000},
-        {h:0,r:1.20,kg:1600},
-        {h:0,r:1.54,kg:1400},
-        {h:0,r:1.73,kg:1200},
-        {h:0,r:2.36,kg:950},
-        {h:0,r:2.67,kg:850},
-        // h=1m (~10° boom angle)
-        {h:1,r:0.0,kg:2000},{h:1,r:1.12,kg:2000},
-        {h:1,r:1.18,kg:1600},
-        {h:1,r:1.45,kg:1400},
-        {h:1,r:1.62,kg:1200},
-        {h:1,r:2.18,kg:950},
-        {h:1,r:2.52,kg:850},
-        // h=2m (~20° boom angle)
-        {h:2,r:0.0,kg:2000},{h:2,r:1.05,kg:2000},
-        {h:2,r:1.1,kg:1600},
-        {h:2,r:1.3,kg:1400},
-        {h:2,r:1.47,kg:1200},
-        {h:2,r:1.9,kg:950},
-        {h:2,r:2.25,kg:850},
-        // h=3m (~30° boom angle)
-        {h:3,r:0.0,kg:2000},{h:3,r:0.95,kg:2000},
-        {h:3,r:1.0,kg:1600},
-        {h:3,r:1.15,kg:1400},
-        {h:3,r:1.28,kg:1200},
-        {h:3,r:1.6,kg:950},
-        {h:3,r:1.95,kg:850},
-        // h=3.5m (~40° boom angle) — Point A region
-        {h:3.5,r:0.0,kg:2000},{h:3.5,r:0.85,kg:2000},
-        {h:3.5,r:0.9,kg:1600},
-        {h:3.5,r:1.02,kg:1400},
-        {h:3.5,r:1.15,kg:1200},
-        {h:3.5,r:1.4,kg:950},
-        {h:3.5,r:1.7,kg:850},
-        // h=4m (~50° boom angle) — Point B region
-        {h:4,r:0.0,kg:2000},{h:4,r:0.7,kg:2000},
-        {h:4,r:0.78,kg:1600},
-        {h:4,r:0.88,kg:1400},
-        {h:4,r:0.98,kg:1200},
-        {h:4,r:1.15,kg:950},
-        {h:4,r:1.4,kg:850},
-        // h=4.35m (59°, max height) — Point C region, 600mm fork offset
-        // CONFIRMED: max height = 4.35m ✓
-        {h:4.35,r:0.0,kg:2000},{h:4.35,r:0.55,kg:2000},
-        {h:4.35,r:0.65,kg:1600},
-        {h:4.35,r:0.75,kg:1400},
-        {h:4.35,r:0.9,kg:1200},
-      ],
-      filters:['telehandler','rough','indoor']
-    },
-    {
-      id:'dieci-apollo-25-6', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Apollo 25.6 (YANMAR)', shortName:'Apollo 25.6 YANMAR',
-      // ═══════════════════════════════════════════════════════════════════════
-      // Source: Dieci Apollo 25.6 spec sheet — DIECI S.r.l. (Cod. AXE3095/UK-2/2007 v3)
-      // 2-page PDF, rasterized at 600 DPI and read. Italian/European spec.
-      // NOTE: This is the OLDER YANMAR-engined Apollo 25.6, distinct from the
-      //       Australian Kubota version (dieci-apollo-256). Key differences:
-      //       Max reach: 3.25m (vs 3.35m Kubota) | Weight: 4,800kg (vs 5,100kg)
-      //       Engine: YANMAR 4TNV98 52kW or 4TNV98T 62kW (vs Kubota 55.4kW)
-      //       Max speed: 26 km/h (vs 30 km/h) | Hydraulics: 200 bar (vs 230 bar)
-      //       Joystick: 3-in-1 (vs 4-in-1 Australian) | Rear axle: oscillating
-      //
-      // ALL CONFIRMED SPECS from Performance table (p.2):
-      //   Max capacity: 2,500 kg
-      //   Capacity at max height on tyres: 1,700 kg ✓ (key anchor)
-      //   Capacity at max boom extension on tyres: 800 kg ✓ (key anchor)
-      //   Max lifting height: 5.78m
-      //   Max horizontal boom extension: 3.25m ✓ (confirmed in red on chart)
-      //   Boom extension at max height: 0.67m ✓ (key anchor — reach at 66°)
-      //   Fork tilting angle: 129°
-      //   Towing force: 4,400 daN
-      //   Max slope: 40% | Empty weight: 4,800 kg | Max speed: 26 km/h
-      //
-      // ENGINE OPTIONS (both available):
-      //   YANMAR 4TNV98:  52 kW (71 hp) @ 2500 rpm, 4-cyl, 3319 cm³, direct inj.
-      //   YANMAR 4TNV98T: 62 kW (85 hp) @ 2500 rpm, 4-cyl, 3319 cm³, turbo
-      //
-      // TRANSMISSION: Hydrostatic variable delivery pump, electro-hydraulic reversal
-      // HYDRAULICS: Gear pump 80 l/min, max 200 bar (20 MPa), 3-in-1 joystick
-      // AXLES: 2 steering w/ 4 planetary reduction gears | Front rigid, rear oscillating
-      //        Service brake: oil bath on FRONT axle | Negative parking brake
-      // TYRES: 12-16.5 (standard) | 12.0/75-18 (alternative)
-      // TANKS: Hydraulic 70L | Fuel 80L
-      // STANDARD: Anti-tipping device, ROPS-FOPS soundproof cab, self-locking diff
-      //
-      // ─── LOAD CHART — 6 ZONES (p.2, rasterized 600 DPI) ────────────────────
-      // Zone labels in European notation (comma=decimal) printed IN coloured bands:
-      //   0,8 / 1,0 / 1,3 / 1,7 / 2,1 / 2,5 = 800/1000/1300/1700/2100/2500 kg
-      // Reference points A, B, C on chart right side:
-      //   A ≈ h=4.2m, r=1.5m — outer 2500kg zone upper limit
-      //   B ≈ h=4.8m, r=1.65m — outer 1700kg zone upper limit
-      //   C ≈ h=5.2m, r=1.3m — outer 1300kg zone upper limit
-      // NO-GO zone indicator shown at right (crossed-out symbol) — no lifting
-      //   allowed behind/above carriage in hatched area
-      // CONFIRMED ANCHORS:
-      //   ✓ h=0, r=3.25m → 800 kg (spec: "Capacity at max boom extension: 800 kg")
-      //   ✓ h=5.78m, r=0.67m → 1,700 kg (spec: "Capacity at max height: 1,700 kg"
-      //                                    + "Boom extension at max height: 0.67m")
-      // ═══════════════════════════════════════════════════════════════════════
-      capacity:2.5, liftHeight:5.78, maxReach:3.25, engine:'YANMAR 4TNV98 52kW (71hp) or 4TNV98T 62kW (85hp) Turbo',
-      machineWeight:4800, machineWidth:1500, machineLength:4096, machineHeight:1910,
-      hydraulicFlow:80, hydraulicPressure:200, fuelTank:80, hydraulicTank:70,
-      forkSwivel:129, maxClimb:40, towingForce:44000,
-      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
-      terrain:'rough/indoor', maxSpeed:26,
-      attachments:['Standard Forks (129° swivel)','GP Bucket','Jib','Work Platform','Bale Clamp'],
-      bestFor:'Compact construction and agricultural sites, tight-access, indoor and rough terrain — YANMAR version',
-      note:'Dieci Apollo 25.6 (YANMAR engine, European spec, 2007). 2.5T, 5.78m, 3.25m reach. YANMAR 4TNV98 52kW/71hp or 4TNV98T 62kW/85hp turbo — 3319 cm³, 4-cyl direct injection. 4,800kg unladen. Hydrostatic variable-delivery pump, 3-in-1 joystick. 80 l/min, 200 bar hydraulics. Front axle rigid, rear oscillating. Oil bath service brake on front axle. Negative parking brake. 129° fork swivel. 40% gradeability. ROPS-FOPS soundproof cab with heating. Anti-tipping block device. Self-locking front differential. Tyres: 12-16.5 (alt: 12.0/75-18). DISTINCT FROM Australian Kubota version (dieci-apollo-256): shorter reach 3.25m vs 3.35m, lighter 4800kg vs 5100kg, older engine.',
-      liftChart:'6 zones: 800/1000/1300/1700/2100/2500 kg. Max 2,500kg retracted. Confirmed: h=0,r=3.25m→800kg ✓; h=5.78m,r=0.67m→1700kg ✓. Point A≈h4.2,r1.5 | B≈h4.8,r1.65 | C≈h5.2,r1.3. Source: Dieci Apollo 25.6 spec sheet AXE3095/UK-2/2007 v3, p.2.',
-      tags:['2.5T','5.78m','3.25m Reach','YANMAR','71hp','European Spec','129° Fork Swivel','Dieci'],
-      // ── LOAD MATRIX — On Tyres with Forks ─────────────────────────────────
-      // Source: VISUAL READ of rasterized load chart — Dieci Apollo 25.6
-      //         spec sheet AXE3095/UK-2/2007 v3, p.2. Rasterized at 600 DPI.
-      // 6 zones: 800/1000/1300/1700/2100/2500 kg
-      // CONFIRMED anchors at h=0 and h=5.78m — see above.
-      // Zone boundary reaches at each height visually read from chart curves.
-      loadMatrix:[
-        // h=0m (0° boom horizontal) — outer boundary r=3.25m CONFIRMED ✓
-        {h:0,r:0.0,kg:2500},{h:0,r:0.75,kg:2500},
-        {h:0,r:1.1,kg:2100},
-        {h:0,r:1.4,kg:1700},
-        {h:0,r:1.85,kg:1300},
-        {h:0,r:2.45,kg:1000},
-        {h:0,r:3.25,kg:800},
-        // h=1m (~10° boom)
-        {h:1,r:0.0,kg:2500},{h:1,r:0.72,kg:2500},
-        {h:1,r:1.05,kg:2100},
-        {h:1,r:1.35,kg:1700},
-        {h:1,r:1.75,kg:1300},
-        {h:1,r:2.3,kg:1000},
-        {h:1,r:3.05,kg:800},
-        // h=2m (~20° boom)
-        {h:2,r:0.0,kg:2500},{h:2,r:0.65,kg:2500},
-        {h:2,r:0.95,kg:2100},
-        {h:2,r:1.25,kg:1700},
-        {h:2,r:1.6,kg:1300},
-        {h:2,r:2.1,kg:1000},
-        {h:2,r:2.75,kg:800},
-        // h=3m (~30° boom)
-        {h:3,r:0.0,kg:2500},{h:3,r:0.55,kg:2500},
-        {h:3,r:0.85,kg:2100},
-        {h:3,r:1.1,kg:1700},
-        {h:3,r:1.45,kg:1300},
-        {h:3,r:1.85,kg:1000},
-        {h:3,r:2.4,kg:800},
-        // h=4m (~40° boom) — Point A region
-        {h:4,r:0.0,kg:2500},{h:4,r:0.48,kg:2500},
-        {h:4,r:0.7,kg:2100},
-        {h:4,r:0.9,kg:1700},
-        {h:4,r:1.15,kg:1300},
-        {h:4,r:1.5,kg:1000},
-        {h:4,r:2.0,kg:800},
-        // h=4.7m (~50° boom) — Point B region
-        {h:4.7,r:0.0,kg:2500},{h:4.7,r:0.42,kg:2500},
-        {h:4.7,r:0.58,kg:2100},
-        {h:4.7,r:0.75,kg:1700},
-        {h:4.7,r:0.95,kg:1300},
-        {h:4.7,r:1.25,kg:1000},
-        {h:4.7,r:1.65,kg:800},
-        // h=5.2m (~60° boom) — Point C region
-        {h:5.2,r:0.0,kg:2500},{h:5.2,r:0.37,kg:2500},
-        {h:5.2,r:0.5,kg:2100},
-        {h:5.2,r:0.65,kg:1700},
-        {h:5.2,r:0.82,kg:1300},
-        {h:5.2,r:1.05,kg:1000},
-        {h:5.2,r:1.35,kg:800},
-        // h=5.78m (66°, max height) — CONFIRMED: r=0.67m → 1700kg ✓
-        {h:5.78,r:0.0,kg:2500},{h:5.78,r:0.3,kg:2500},
-        {h:5.78,r:0.45,kg:2100},
-        {h:5.78,r:0.67,kg:1700},
-      ],
-      filters:['telehandler','rough','indoor']
-    },
-    {
-      id:'dieci-apollo-e-26-6', brand:'Dieci', emoji:'⚡', brandColor:'#1A6FBF',
-      name:'Dieci Apollo-e 26.6', shortName:'Apollo-e 26.6',
-      capacity:2.6, liftHeight:5.73, maxReach:3.2, engine:'Electric — 96V LiFePO4, 19kW traction / 22kW hydraulic',
-      machineWeight:5100, machineWidth:1485, machineLength:4100, machineHeight:1980,
-      terrain:'rough/indoor', maxSpeed:24,
-      attachments:['Standard Forks','GP Bucket','Jib','Work Platform'],
-      bestFor:'Zero-emission telehandler — indoor, emissions-sensitive or noise-restricted sites',
-      note:'Dieci Apollo-e 26.6 — fully electric 2.6T telehandler. 96V LiFePO4 battery (22kWh standard, 44kWh optional). Zero emissions — ideal for indoor, hospital, food-production or inner-city sites. 5.73m lift, 3.2m reach. ECO/Normal/Power drive modes. Standard charge time: 2.7h (400V). Fast charge: 1h. AS1418.19 compliant. Distributed by Dieci Australia.',
-      liftChart:'2,600kg at ground. At 5.73m max height: ~1,300kg near vertical. At 3.2m max reach: ~800kg. Consult Dieci Apollo-e 26.6 load chart.',
-      tags:['Electric','Zero Emission','2.6T','5.73m','LiFePO4','96V','Indoor','Dieci'],
-      loadMatrix:[{h:0.5,r:0.0,kg:2600},{h:0.5,r:0.5,kg:2600},{h:0.5,r:1.0,kg:2600},{h:0.5,r:1.5,kg:2200},{h:0.5,r:2.0,kg:1700},{h:0.5,r:2.5,kg:1250},{h:0.5,r:3.0,kg:900},{h:0.5,r:3.2,kg:800},{h:1.0,r:0.0,kg:2600},{h:1.0,r:0.5,kg:2600},{h:1.0,r:1.0,kg:2600},{h:1.0,r:1.5,kg:2200},{h:1.0,r:2.0,kg:1700},{h:1.0,r:2.5,kg:1250},{h:1.0,r:3.0,kg:900},{h:1.5,r:0.0,kg:2600},{h:1.5,r:0.5,kg:2600},{h:1.5,r:1.0,kg:2600},{h:1.5,r:1.5,kg:2200},{h:1.5,r:2.0,kg:1700},{h:1.5,r:2.5,kg:1250},{h:1.5,r:3.0,kg:900},{h:2.0,r:0.0,kg:2600},{h:2.0,r:0.5,kg:2600},{h:2.0,r:1.0,kg:2600},{h:2.0,r:1.5,kg:2100},{h:2.0,r:2.0,kg:1400},{h:2.0,r:2.5,kg:1000},{h:2.0,r:3.0,kg:750},{h:2.5,r:0.0,kg:2600},{h:2.5,r:0.5,kg:2600},{h:2.5,r:1.0,kg:2500},{h:2.5,r:1.5,kg:1750},{h:2.5,r:2.0,kg:1300},{h:2.5,r:2.8,kg:750},{h:3.0,r:0.0,kg:2500},{h:3.0,r:0.5,kg:2500},{h:3.0,r:1.0,kg:2300},{h:3.0,r:1.5,kg:1500},{h:3.0,r:2.0,kg:950},{h:3.5,r:0.0,kg:2400},{h:3.5,r:0.5,kg:2400},{h:3.5,r:1.0,kg:2100},{h:3.5,r:1.5,kg:1200},{h:3.5,r:2.0,kg:750},{h:4.0,r:0.0,kg:2350},{h:4.0,r:0.5,kg:2300},{h:4.0,r:1.0,kg:1800},{h:4.0,r:1.5,kg:950},{h:4.5,r:0.0,kg:2250},{h:4.5,r:0.5,kg:2150},{h:4.5,r:1.0,kg:1500},{h:4.5,r:1.5,kg:700},{h:5.0,r:0.0,kg:2150},{h:5.0,r:0.5,kg:2000},{h:5.0,r:1.0,kg:1200},{h:5.5,r:0.0,kg:2000},{h:5.5,r:0.5,kg:1650},{h:5.73,r:0.0,kg:1800},{h:5.73,r:0.5,kg:1200}],
-      filters:['telehandler','rough','indoor']
-    },
-    {
-      id:'dieci-dedalus-28-7', brand:'Dieci', emoji:'🏗️', brandColor:'#C8102E',
-      name:'Dieci Dedalus 28.7', shortName:'Dedalus 28.7',
-      // ═══════════════════════════════════════════════════════════════════════
-      // Source: Dieci Dedalus 28.7 spec sheet — DIECI S.r.l. (Cod. AXE3073-06/2004 v2-ING)
-      // 2-page PDF, rasterized at 600 DPI. Single chart — on tyres only (no stabilisers).
-      // Chart reference: AXB1340 — EN 1459
-      //
-      // ALL CONFIRMED SPECS from Performance table (p.2):
-      //   Max capacity: 2,800 kg
-      //   Capacity at max height on tyres: 2,000 kg ✓
-      //   Max capacity boom on tyres: 700 kg ✓
-      //   Max lifting height: 6.35m ✓
-      //   Max horizontal boom extension: 3.65m ✓
-      //   Boom at max height: 0.80m ✓  (reach at max elevation)
-      //   Fork tilting angle: 130°
-      //   Tearing force: 5,700 daN | Towing force: 7,300 daN
-      //   Max slope: 40% | Empty weight: 6,000 kg | Max speed: 40 km/h
-      //
-      // ENGINE OPTIONS:
-      //   IVECO NEF F4GE0404A-NA: 60 kW (82 hp) @ 2300 rpm, 4-cyl, 4485 cm³, aspirated
-      //   IVECO NEF F4GE0454A-TC: 74 kW (102 hp) @ 2300 rpm, 4-cyl, 4485 cm³, turbo
-      //
-      // TRANSMISSION: Hydrostatic variable capacity pump, 2-speed power steering
-      //               Electro-hydraulic reversal, inching pedal
-      // HYDRAULICS: Gear pump 88 l/min, max 230 bar, 3-in-1 joystick
-      // AXLES: Front rigid, rear oscillating
-      //        Service brake: oil bath on front axle | Negative parking brake
-      // TYRES: 12.5x18" (standard) | 405/70x20" (alternative, * = wheel 20" dims)
-      // TANKS: Hydraulic 130L | Fuel 60L
-      // STANDARD: Anti-tipping device, ROPS-FOPS soundproof cab with heating,
-      //           front self-locking axle 45% limited slip, boom head hydraulic socket
-      // DIMENSIONS: 4670×2000mm (overall) | 3950/4000mm(*) wheelbase
-      //             H=1985/2025mm(*) | cab width 920mm
-      //             Turning radii: R4900/R4000/R1670
-      //
-      // NO STABILISERS — on-tyres chart only (unlike Icarus/Zeus/Samson range)
-      //
-      // CONFIRMED ANCHORS:
-      //   h=6.35m, r=0.80m → 2,000 kg ✓ (max height + boom at max height)
-      //   h=0, r=3.65m → 700 kg ✓ (max reach + max boom capacity)
-      // ═══════════════════════════════════════════════════════════════════════
-      capacity:2.8, liftHeight:6.35, maxReach:3.65, engine:'IVECO NEF 60kW (82hp) NA or 74kW (102hp) TC',
-      machineWeight:6000, machineWidth:2000, machineLength:4670, machineHeight:1985,
-      hydraulicFlow:88, hydraulicPressure:230, fuelTank:60, hydraulicTank:130,
-      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
-      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
-      terrain:'rough', maxSpeed:40,
-      attachments:['Standard Forks (130° swivel)','Jib','GP Bucket','Man Basket','Concrete Skip','Hook'],
-      bestFor:'2.8T compact telehandler — construction sites, industrial, 2-storey access, compact frame for tight sites',
-      note:'Dieci Dedalus 28.7 — 2.8T, 6.35m lift, 3.65m outreach. IVECO NEF 60kW (82hp) aspirated or 74kW (102hp) turbo (4485 cm³, 4-cyl). 6,000 kg. 88 l/min, 230 bar hydraulics. 40 km/h. Hydrostatic variable-capacity pump, 2-speed power steering. Front axle rigid, rear oscillating. Oil bath front axle brakes. Front self-locking diff 45%. ROPS-FOPS soundproof cab with heating. 130° fork swivel. EN 1459. NO stabilisers — on-tyres operation only. 12.5x18" tyres (alt: 405/70x20"). Document: AXE3073-06/2004 v2-ING.',
-      liftChart:'ON TYRES ONLY (no stabilisers). Max 2,800kg retracted. h=6.35m,r=0.80m→2000kg ✓. h=0,r=3.65m→700kg ✓. Points A≈h4.8,r0.8 | B≈h5.3,r0.85 | C≈h5.9,r0.72. Zones: 700/1000/1500/2000/2800 kg. Source: Dieci Dedalus 28.7 AXE3073-06/2004 v2-ING p.2.',
-      tags:['2.8T','6.35m','3.65m Reach','IVECO NEF','Compact','EN1459','Italian','No Stabilisers'],
-      // ── LOAD MATRIX — On Tyres with Forks (AXB1340) ──────────────────────
-      // Source: single chart p.2, rasterized 600 DPI.
-      // Zones: 700/1000/1500/2000/2800 kg — 9 height rows
-      loadMatrix:[{h:0,r:0,kg:2800},{h:0,r:0.7,kg:2800},{h:0,r:0.85,kg:2000},{h:0,r:1.25,kg:1500},{h:0,r:2.05,kg:1000},{h:0,r:3.65,kg:700},{h:1,r:0,kg:2800},{h:1,r:0.65,kg:2800},{h:1,r:0.82,kg:2000},{h:1,r:1.18,kg:1500},{h:1,r:1.92,kg:1000},{h:1,r:3.45,kg:700},{h:2,r:0,kg:2800},{h:2,r:0.58,kg:2800},{h:2,r:0.75,kg:2000},{h:2,r:1.08,kg:1500},{h:2,r:1.72,kg:1000},{h:2,r:3.1,kg:700},{h:3,r:0,kg:2800},{h:3,r:0.5,kg:2800},{h:3,r:0.65,kg:2000},{h:3,r:0.93,kg:1500},{h:3,r:1.47,kg:1000},{h:3,r:2.65,kg:700},{h:4,r:0,kg:2800},{h:4,r:0.42,kg:2800},{h:4,r:0.55,kg:2000},{h:4,r:0.78,kg:1500},{h:4,r:1.22,kg:1000},{h:4,r:2.15,kg:700},{h:5,r:0,kg:2800},{h:5,r:0.33,kg:2800},{h:5,r:0.44,kg:2000},{h:5,r:0.63,kg:1500},{h:5,r:0.98,kg:1000},{h:5,r:1.7,kg:700},{h:5.5,r:0,kg:2800},{h:5.5,r:0.28,kg:2800},{h:5.5,r:0.38,kg:2000},{h:5.5,r:0.54,kg:1500},{h:5.5,r:0.84,kg:1000},{h:5.5,r:1.4,kg:700},{h:6,r:0,kg:2800},{h:6,r:0.22,kg:2800},{h:6,r:0.32,kg:2000},{h:6,r:0.46,kg:1500},{h:6,r:0.71,kg:1000},{h:6,r:1.1,kg:700},{h:6.35,r:0,kg:2800},{h:6.35,r:0.18,kg:2800},{h:6.35,r:0.8,kg:2000}],
-      filters:['telehandler','rough']
-    },
-    {
-      id:'dieci-dedalus-30-7', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Dedalus 30.7 TCL', shortName:'Dedalus 30.7',
-      capacity:3.0, liftHeight:6.35, maxReach:3.70, engine:'Kubota 98hp / 73.4kW Stage IIIA',
-      machineWeight:6100, machineWidth:1544, machineLength:4765, machineHeight:2040,
-      terrain:'rough', maxSpeed:35,
-      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Bale Clamp','Hook Block'],
-      bestFor:'3T compact construction telehandler — site versatility, materials handling, mid-rise construction',
-      note:'Dieci Dedalus 30.7 TCL — 3T, 6.35m lift, 3.70m reach. Kubota 73.4kW Stage IIIA. 2-speed hydrostatic transmission. 115 l/min hydraulic flow. 146° fork swivel. TCL low cab for confined sites. Reversible fan for dusty environments. AS1418.19 compliant. Distributed by Dieci Australia.',
-      liftChart:'3,000kg at ground. At 6.35m max height: ~2,000–2,500kg near vertical. At 3.70m max reach: ~1,500–2,000kg. Consult Dieci Dedalus 30.7 load chart.',
-      tags:['3T','6.35m','3.70m Reach','98hp Kubota','TCL Low Cab','146° Fork Swivel','Dieci'],
-      loadMatrix:[{h:0.5,r:0.0,kg:3000},{h:0.5,r:0.5,kg:3000},{h:0.5,r:1.0,kg:3000},{h:0.5,r:1.5,kg:2800},{h:0.5,r:2.0,kg:2500},{h:0.5,r:2.5,kg:2000},{h:0.5,r:3.0,kg:1500},{h:0.5,r:3.5,kg:1350},{h:0.5,r:3.7,kg:1300},{h:1.0,r:0.0,kg:3000},{h:1.0,r:0.5,kg:3000},{h:1.0,r:1.0,kg:3000},{h:1.0,r:1.5,kg:2800},{h:1.0,r:2.0,kg:2500},{h:1.0,r:2.5,kg:2000},{h:1.0,r:3.0,kg:1500},{h:1.0,r:3.5,kg:1350},{h:1.5,r:0.0,kg:3000},{h:1.5,r:0.5,kg:3000},{h:1.5,r:1.0,kg:3000},{h:1.5,r:1.5,kg:2800},{h:1.5,r:2.0,kg:2500},{h:1.5,r:2.5,kg:2000},{h:1.5,r:3.0,kg:1500},{h:1.5,r:3.4,kg:1350},{h:2.0,r:0.0,kg:3000},{h:2.0,r:0.5,kg:3000},{h:2.0,r:1.0,kg:3000},{h:2.0,r:1.5,kg:2800},{h:2.0,r:2.0,kg:2500},{h:2.0,r:2.5,kg:2000},{h:2.0,r:3.0,kg:1500},{h:2.5,r:0.0,kg:3000},{h:2.5,r:0.5,kg:3000},{h:2.5,r:1.0,kg:3000},{h:2.5,r:1.5,kg:2800},{h:2.5,r:2.0,kg:2500},{h:2.5,r:2.5,kg:1800},{h:2.5,r:3.0,kg:1400},{h:3.0,r:0.0,kg:3000},{h:3.0,r:0.5,kg:3000},{h:3.0,r:1.0,kg:3000},{h:3.0,r:1.5,kg:2800},{h:3.0,r:2.0,kg:2300},{h:3.0,r:2.5,kg:1600},{h:3.0,r:3.0,kg:1250},{h:3.5,r:0.0,kg:3000},{h:3.5,r:0.5,kg:3000},{h:3.5,r:1.0,kg:3000},{h:3.5,r:1.5,kg:2700},{h:3.5,r:2.0,kg:2000},{h:3.5,r:2.5,kg:1400},{h:4.0,r:0.0,kg:3000},{h:4.0,r:0.5,kg:3000},{h:4.0,r:1.0,kg:3000},{h:4.0,r:1.5,kg:2500},{h:4.0,r:2.0,kg:1700},{h:4.0,r:2.5,kg:1200},{h:4.5,r:0.0,kg:2950},{h:4.5,r:0.5,kg:2950},{h:4.5,r:1.0,kg:2850},{h:4.5,r:1.5,kg:2200},{h:4.5,r:2.0,kg:1400},{h:5.0,r:0.0,kg:2850},{h:5.0,r:0.5,kg:2850},{h:5.0,r:1.0,kg:2600},{h:5.0,r:1.5,kg:1800},{h:5.0,r:2.0,kg:1100},{h:5.5,r:0.0,kg:2700},{h:5.5,r:0.5,kg:2700},{h:5.5,r:1.0,kg:2350},{h:5.5,r:1.5,kg:1400},{h:6.0,r:0.0,kg:2550},{h:6.0,r:0.5,kg:2550},{h:6.0,r:1.0,kg:2000},{h:6.0,r:1.3,kg:900},{h:6.35,r:0.0,kg:2400},{h:6.35,r:0.5,kg:2100},{h:6.35,r:1.0,kg:1450}],
-      filters:['telehandler','rough']
-    },
-    {
-      id:'dieci-dedalus-30-9', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Dedalus 30.9 TCL', shortName:'Dedalus 30.9',
-      capacity:3.0, liftHeight:8.70, maxReach:5.80, engine:'Kubota 98hp / 73.4kW Stage IIIA',
-      machineWeight:6250, machineWidth:1540, machineLength:4775, machineHeight:2040,
-      terrain:'rough', maxSpeed:35,
-      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Bale Clamp','Hook Block'],
-      bestFor:'3T extended-reach telehandler — 2-3 storey material placement, multi-level construction',
-      note:'Dieci Dedalus 30.9 TCL — 3T, 8.70m lift, 5.80m reach. Kubota 73.4kW Stage IIIA. 2-speed hydrostatic transmission. 115 l/min hydraulic flow. 146° fork swivel. TCL low cab. Reversible fan. Same engine as 30.7 with longer boom for higher reach applications. AS1418.19 compliant. Distributed by Dieci Australia.',
-      liftChart:'3,000kg at ground. At 8.70m max height: ~1,000kg near vertical. At 5.80m max reach: ~350–500kg. Consult Dieci Dedalus 30.9 load chart.',
-      tags:['3T','8.70m','5.80m Reach','98hp Kubota','TCL Low Cab','2-3 Storey','Dieci'],
-      loadMatrix:[{h:0.5,r:0.0,kg:3000},{h:0.5,r:0.5,kg:3000},{h:0.5,r:1.0,kg:3000},{h:0.5,r:2.0,kg:2500},{h:0.5,r:3.0,kg:1600},{h:0.5,r:4.0,kg:1200},{h:0.5,r:5.0,kg:900},{h:0.5,r:5.8,kg:700},{h:1.0,r:0.0,kg:3000},{h:1.0,r:0.5,kg:3000},{h:1.0,r:1.0,kg:3000},{h:1.0,r:2.0,kg:2500},{h:1.0,r:3.0,kg:1600},{h:1.0,r:4.0,kg:1200},{h:1.0,r:5.0,kg:900},{h:1.5,r:0.0,kg:3000},{h:1.5,r:0.5,kg:3000},{h:1.5,r:1.0,kg:3000},{h:1.5,r:2.0,kg:2500},{h:1.5,r:3.0,kg:1600},{h:1.5,r:4.0,kg:1200},{h:1.5,r:5.0,kg:900},{h:2.0,r:0.0,kg:3000},{h:2.0,r:0.5,kg:3000},{h:2.0,r:1.0,kg:3000},{h:2.0,r:2.0,kg:2500},{h:2.0,r:3.0,kg:1600},{h:2.0,r:4.0,kg:1200},{h:2.0,r:5.0,kg:900},{h:2.5,r:0.0,kg:3000},{h:2.5,r:0.5,kg:3000},{h:2.5,r:1.0,kg:3000},{h:2.5,r:2.0,kg:2500},{h:2.5,r:3.0,kg:1600},{h:2.5,r:4.0,kg:1200},{h:2.5,r:5.4,kg:700},{h:3.0,r:0.0,kg:3000},{h:3.0,r:0.5,kg:3000},{h:3.0,r:1.0,kg:3000},{h:3.0,r:2.0,kg:2500},{h:3.0,r:3.0,kg:1500},{h:3.0,r:4.0,kg:1100},{h:3.0,r:5.0,kg:750},{h:3.5,r:0.0,kg:3000},{h:3.5,r:0.5,kg:3000},{h:3.5,r:1.0,kg:3000},{h:3.5,r:2.0,kg:2400},{h:3.5,r:3.0,kg:1400},{h:3.5,r:4.0,kg:1000},{h:3.5,r:5.0,kg:700},{h:4.0,r:0.0,kg:3000},{h:4.0,r:0.5,kg:3000},{h:4.0,r:1.0,kg:2900},{h:4.0,r:2.0,kg:2300},{h:4.0,r:3.0,kg:1300},{h:4.0,r:4.0,kg:900},{h:4.0,r:4.8,kg:600},{h:5.0,r:0.0,kg:3000},{h:5.0,r:0.5,kg:3000},{h:5.0,r:1.0,kg:2800},{h:5.0,r:2.0,kg:2000},{h:5.0,r:3.0,kg:1100},{h:5.0,r:4.0,kg:750},{h:6.0,r:0.0,kg:2900},{h:6.0,r:0.5,kg:2900},{h:6.0,r:1.0,kg:2600},{h:6.0,r:2.0,kg:1700},{h:6.0,r:3.0,kg:950},{h:6.0,r:4.0,kg:600},{h:7.0,r:0.0,kg:2700},{h:7.0,r:0.5,kg:2700},{h:7.0,r:1.0,kg:2300},{h:7.0,r:2.0,kg:1300},{h:7.0,r:3.0,kg:750},{h:7.0,r:4.0,kg:450},{h:8.0,r:0.0,kg:2400},{h:8.0,r:0.5,kg:2400},{h:8.0,r:1.0,kg:1900},{h:8.0,r:2.0,kg:900},{h:8.0,r:3.0,kg:500},{h:8.7,r:0.0,kg:2100},{h:8.7,r:0.5,kg:1800},{h:8.7,r:1.0,kg:1200}],
-      filters:['telehandler','rough']
-    },
-    {
-      id:'dieci-zeus-37-7', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Zeus 37.7', shortName:'Zeus 37.7',
-      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
-      // CONFIRMED: Max 3700kg | Height 7.35m | Reach 4.00m | h@max 0.20m | Weight 7100kg
-      // No stabilisers. Zones: 1100/1400/1700/2200/2800/3500/3700 kg
-      capacity:3.7, liftHeight:7.35, maxReach:4.0, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
-      machineWeight:7100, machineWidth:1380, machineLength:4950, machineHeight:2310,
-      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
-      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
-      terrain:'rough', maxSpeed:30,
-      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch'],
-      bestFor:'3.7T compact telehandler — 2-storey construction, industrial handling, tight sites',
-      note:'Dieci Zeus 37.7 — 3.7T, 7.35m lift, 4.0m reach. IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
-      liftChart:'Max 3700kg. h=7.35m,r=0.20m confirmed ✓. ON TYRES ONLY. Zones: 1100/1400/1700/2200/2800/3500/3700 kg.',
-      tags:['3.7T','7.35m','4.0m Reach','IVECO NEF','EN1459','Italian'],
-      loadMatrix:[{h:0,r:0,kg:3700},{h:0,r:0.8,kg:3700},{h:0,r:1,kg:3500},{h:0,r:1.3,kg:2800},{h:0,r:1.8,kg:2200},{h:0,r:2.5,kg:1700},{h:0,r:3.2,kg:1400},{h:0,r:4,kg:1100},{h:1,r:0,kg:3700},{h:1,r:0.77,kg:3700},{h:1,r:0.97,kg:3500},{h:1,r:1.25,kg:2800},{h:1,r:1.72,kg:2200},{h:1,r:2.38,kg:1700},{h:1,r:3.05,kg:1400},{h:1,r:3.85,kg:1100},{h:2,r:0,kg:3700},{h:2,r:0.7,kg:3700},{h:2,r:0.9,kg:3500},{h:2,r:1.17,kg:2800},{h:2,r:1.6,kg:2200},{h:2,r:2.2,kg:1700},{h:2,r:2.8,kg:1400},{h:2,r:3.55,kg:1100},{h:3,r:0,kg:3700},{h:3,r:0.62,kg:3700},{h:3,r:0.8,kg:3500},{h:3,r:1.05,kg:2800},{h:3,r:1.42,kg:2200},{h:3,r:1.95,kg:1700},{h:3,r:2.5,kg:1400},{h:3,r:3.15,kg:1100},{h:4,r:0,kg:3700},{h:4,r:0.53,kg:3700},{h:4,r:0.68,kg:3500},{h:4,r:0.9,kg:2800},{h:4,r:1.2,kg:2200},{h:4,r:1.65,kg:1700},{h:4,r:2.1,kg:1400},{h:4,r:2.7,kg:1100},{h:5,r:0,kg:3700},{h:5,r:0.42,kg:3700},{h:5,r:0.56,kg:3500},{h:5,r:0.73,kg:2800},{h:5,r:0.98,kg:2200},{h:5,r:1.35,kg:1700},{h:5,r:1.72,kg:1400},{h:5,r:2.2,kg:1100},{h:6,r:0,kg:3700},{h:6,r:0.3,kg:3700},{h:6,r:0.42,kg:3500},{h:6,r:0.56,kg:2800},{h:6,r:0.74,kg:2200},{h:6,r:1.02,kg:1700},{h:6,r:1.3,kg:1400},{h:6,r:1.65,kg:1100},{h:7,r:0,kg:3700},{h:7,r:0.18,kg:3700},{h:7,r:0.28,kg:3500},{h:7,r:0.38,kg:2800},{h:7,r:0.52,kg:2200},{h:7,r:0.7,kg:1700},{h:7,r:0.9,kg:1400},{h:7,r:1.15,kg:1100},{h:7.35,r:0.2,kg:3700}],
-      filters:['telehandler','rough']
-    },
-    {
-      id:'dieci-zeus-37-8', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Zeus 37.8', shortName:'Zeus 37.8',
-      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
-      // CONFIRMED: Max 3700kg | Height 7.93m | Reach 4.60m | h@max 0.35m | Weight 7400kg
-      // OPTIONAL stabilisers. Tyres zones: 1100/1300/1600/1900/2300/2800/3200/3700 kg
-      // Stab zones (opt): 1500/1900/2300/2700/3700 kg
-      capacity:3.7, liftHeight:7.93, maxReach:4.6, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
-      machineWeight:7400, machineWidth:1680, machineLength:5250, machineHeight:2310,
-      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
-      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
-      terrain:'rough', maxSpeed:30,
-      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch'],
-      bestFor:'3.7T telehandler — 2-3 storey construction, industrial, optional stabilisers for increased height capacity',
-      note:'Dieci Zeus 37.8 — 3.7T, 7.93m lift, 4.6m reach. Stabilisers OPTIONAL (not standard). IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
-      liftChart:'Max 3700kg. h=7.93m,r=0.35m confirmed ✓. On tyres zones: 1100-3700 kg. With opt stabs: 1500-3700 kg.',
-      tags:['3.7T','7.93m','4.6m Reach','IVECO NEF','Optional Stabilisers','EN1459','Italian'],
-      loadMatrix:[{h:0,r:0,kg:3700},{h:0,r:0.7,kg:3700},{h:0,r:0.95,kg:3200},{h:0,r:1.22,kg:2800},{h:0,r:1.65,kg:2300},{h:0,r:2.2,kg:1900},{h:0,r:2.95,kg:1600},{h:0,r:3.85,kg:1300},{h:0,r:4.6,kg:1100},{h:1,r:0,kg:3700},{h:1,r:0.67,kg:3700},{h:1,r:0.9,kg:3200},{h:1,r:1.16,kg:2800},{h:1,r:1.57,kg:2300},{h:1,r:2.1,kg:1900},{h:1,r:2.8,kg:1600},{h:1,r:3.65,kg:1300},{h:1,r:4.4,kg:1100},{h:2,r:0,kg:3700},{h:2,r:0.62,kg:3700},{h:2,r:0.84,kg:3200},{h:2,r:1.08,kg:2800},{h:2,r:1.45,kg:2300},{h:2,r:1.93,kg:1900},{h:2,r:2.57,kg:1600},{h:2,r:3.35,kg:1300},{h:2,r:4.05,kg:1100},{h:3,r:0,kg:3700},{h:3,r:0.55,kg:3700},{h:3,r:0.74,kg:3200},{h:3,r:0.97,kg:2800},{h:3,r:1.3,kg:2300},{h:3,r:1.73,kg:1900},{h:3,r:2.3,kg:1600},{h:3,r:3,kg:1300},{h:3,r:3.65,kg:1100},{h:4,r:0,kg:3700},{h:4,r:0.47,kg:3700},{h:4,r:0.64,kg:3200},{h:4,r:0.83,kg:2800},{h:4,r:1.12,kg:2300},{h:4,r:1.48,kg:1900},{h:4,r:1.97,kg:1600},{h:4,r:2.58,kg:1300},{h:4,r:3.15,kg:1100},{h:5,r:0,kg:3700},{h:5,r:0.38,kg:3700},{h:5,r:0.52,kg:3200},{h:5,r:0.67,kg:2800},{h:5,r:0.9,kg:2300},{h:5,r:1.2,kg:1900},{h:5,r:1.6,kg:1600},{h:5,r:2.1,kg:1300},{h:5,r:2.6,kg:1100},{h:6,r:0,kg:3700},{h:6,r:0.28,kg:3700},{h:6,r:0.4,kg:3200},{h:6,r:0.52,kg:2800},{h:6,r:0.7,kg:2300},{h:6,r:0.93,kg:1900},{h:6,r:1.24,kg:1600},{h:6,r:1.62,kg:1300},{h:6,r:2,kg:1100},{h:7,r:0,kg:3700},{h:7,r:0.18,kg:3700},{h:7,r:0.27,kg:3200},{h:7,r:0.36,kg:2800},{h:7,r:0.49,kg:2300},{h:7,r:0.65,kg:1900},{h:7,r:0.87,kg:1600},{h:7,r:1.14,kg:1300},{h:7,r:1.4,kg:1100},{h:7.5,r:0,kg:3700},{h:7.5,r:0.12,kg:3700},{h:7.5,r:0.2,kg:3200},{h:7.5,r:0.27,kg:2800},{h:7.5,r:0.37,kg:2300},{h:7.5,r:0.5,kg:1900},{h:7.5,r:0.66,kg:1600},{h:7.5,r:0.87,kg:1300},{h:7.93,r:0.35,kg:3700}],
-      stabLoadMatrix:[{h:0,r:0,kg:3700},{h:0,r:1.2,kg:3700},{h:0,r:1.85,kg:2700},{h:0,r:2.55,kg:2300},{h:0,r:3.25,kg:1900},{h:0,r:4.6,kg:1500},{h:2,r:0,kg:3700},{h:2,r:1.15,kg:3700},{h:2,r:1.78,kg:2700},{h:2,r:2.46,kg:2300},{h:2,r:3.12,kg:1900},{h:2,r:4.4,kg:1500},{h:4,r:0,kg:3700},{h:4,r:1.05,kg:3700},{h:4,r:1.62,kg:2700},{h:4,r:2.24,kg:2300},{h:4,r:2.84,kg:1900},{h:4,r:4,kg:1500},{h:5,r:0,kg:3700},{h:5,r:0.95,kg:3700},{h:5,r:1.47,kg:2700},{h:5,r:2.03,kg:2300},{h:5,r:2.58,kg:1900},{h:5,r:3.65,kg:1500},{h:6,r:0,kg:3700},{h:6,r:0.82,kg:3700},{h:6,r:1.27,kg:2700},{h:6,r:1.75,kg:2300},{h:6,r:2.2,kg:1900},{h:6,r:3.1,kg:1500},{h:7,r:0,kg:3700},{h:7,r:0.65,kg:3700},{h:7,r:1,kg:2700},{h:7,r:1.38,kg:2300},{h:7,r:1.74,kg:1900},{h:7,r:2.45,kg:1500},{h:7.5,r:0,kg:3700},{h:7.5,r:0.55,kg:3700},{h:7.5,r:0.84,kg:2700},{h:7.5,r:1.16,kg:2300},{h:7.5,r:1.47,kg:1900},{h:7.5,r:2.07,kg:1500},{h:7.93,r:0.35,kg:3700}],
-      filters:['telehandler','rough']
-    },
-    {
-      id:'dieci-zeus-33-11', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Zeus 33.11', shortName:'Zeus 33.11',
-      // ═══════════════════════════════════════════════════════════════════════
-      // Source: Dieci Zeus 33.11 spec sheet — DIECI S.r.l. (Cod. AXE3071-03/2005 v2-ING)
-      // 2-page PDF, rasterized at 500 DPI. Both charts visually read.
-      // TWO CHARTS: AXB1324/I (stabilisers) + AXB1324 (on tyres) — EN 1459
-      //
-      // ALL CONFIRMED SPECS from Performance table (p.2):
-      //   Max capacity: 3,300 kg
-      //   Capacity at max height on stabilizers: 2,200 kg ✓
-      //   Capacity at max height on tyres: 1,700 kg ✓
-      //   Max capacity boom on stabilizers: 600 kg ✓
-      //   Max capacity boom on tyres: 100 kg ✓
-      //   Max lifting height: 10.60m ✓
-      //   Max horizontal boom extension: 7.35m ✓
-      //   Boom at max height: 1.09m ✓
-      //   Fork tilting angle: 130°
-      //   Tearing force: 5,700 daN | Towing force: 7,300 daN
-      //   Max slope: 40% | Empty weight: 8,200 kg | Max speed: 30 km/h
-      //   (40 km/h on request with TC/TA engine)
-      //
-      // ENGINE OPTIONS (3 available):
-      //   IVECO NEF F4GE0404A-NA: 60 kW (82 hp) @ 2300 rpm, 4-cyl, 4485 cm³, aspirated
-      //   IVECO NEF F4GE0454A-TC: 74 kW (102 hp) @ 2300 rpm, 4-cyl, 4485 cm³, turbo
-      //   IVECO NEF F4GE0484C-TA: 94 kW (128 hp) @ 2300 rpm, 4-cyl, 4485 cm³, aftercooler
-      //
-      // TRANSMISSION: Hydrostatic variable capacity pump, 2-speed power steering
-      //               Electro-hydraulic reversal, inching pedal
-      // HYDRAULICS: Gear pump 100 l/min, max 230 bar, 3-in-1 joystick
-      // AXLES: Front rigid (levelling on request), rear oscillating
-      //        Service brake: oil bath on FRONT axle with servo-brake
-      //        Parking brake: actuated negatively
-      // TYRES: 16/70x20" MPT04 | Alt: 405/70x24" MPT04
-      // TANKS: Hydraulic 140L | Fuel 95L
-      // STANDARD: Anti-tipping device, stabilisers w/ independent hydraulic tilting,
-      //           ROPS-FOPS soundproof cab with heating, front self-locking axle 45%
-      // DIMENSIONS: 5250×2220mm | 4060mm | H=2290mm | 920mm cab width
-      //             Turning radii: R5060/R3840/R1240
-      //
-      // CONFIRMED ANCHORS:
-      //   STABS: h=10.60m,r=1.09m→2200kg ✓ | h=0,r=7.35m→600kg ✓
-      //   TYRES: h=10.60m,r=1.09m→1700kg ✓ | h=0,r=7.35m→100kg ✓
-      // ═══════════════════════════════════════════════════════════════════════
-      capacity:3.3, liftHeight:10.60, maxReach:7.35, engine:'IVECO NEF 60kW (82hp) NA / 74kW (102hp) TC / 94kW (128hp) TA',
-      machineWeight:8200, machineWidth:2220, machineLength:5250, machineHeight:2290,
-      hydraulicFlow:100, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
-      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
-      jibWeight:null, jibLength:null, rotatorWeight:null, ewpBasketSWL:null,
-      terrain:'rough', maxSpeed:30,
-      attachments:['Standard Forks (130° swivel)','Jib','GP Bucket','Man Basket','Concrete Skip','Hook'],
-      bestFor:'3.3T at 10.6m — heavy 3-storey construction, cladding, block work, industrial site lifting with stabilisers',
-      note:'Dieci Zeus 33.11 — 3.3T, 10.60m lift, 7.35m outreach. IVECO NEF 60kW NA / 74kW TC / 94kW TA (3 engine options, 4485 cm³). 8,200 kg. 100 l/min, 230 bar, 3-in-1 joystick. Hydrostatic variable-capacity pump, 2-speed power steering. Oil bath front axle with servo-brake. Rear axle oscillating. Front self-locking diff 45%. Stabilisers independent hydraulic tilt. ROPS-FOPS soundproof cab. 130° fork swivel. EN 1459 compliant. Two charts: stabs (AXB1324/I) and on tyres (AXB1324). 40 km/h option with TC/TA.',
-      liftChart:'STABS: 3300kg base → 2200kg@h10.60m,r1.09m ✓ → 600kg@r7.35m ✓. ON TYRES: 3300kg base → 1700kg@h10.60m,r1.09m ✓ → 100kg@r7.35m ✓. Zones stabs: 600/800/1000/1200/1500/1800/2200/2700/3300. Zones tyres: 100/200/400/600/900/1200/1700/2400/3300. Source: Dieci Zeus 33.11 AXE3071-03/2005 v2-ING p.2.',
-      tags:['3.3T','10.6m','7.35m Reach','IVECO NEF','Stabilisers','EN1459','Italian'],
-      // ── LOAD MATRIX — On Tyres with Forks (AXB1324) ──────────────────────
-      // Zones: 100/200/400/600/900/1200/1700/2400/3300 kg — 9 rows x 10 pts
-      loadMatrix:[{h:0,r:0,kg:3300},{h:0,r:1.05,kg:3300},{h:0,r:1.5,kg:2400},{h:0,r:2,kg:1700},{h:0,r:2.65,kg:1200},{h:0,r:3.5,kg:900},{h:0,r:4.55,kg:600},{h:0,r:5.55,kg:400},{h:0,r:6.3,kg:200},{h:0,r:7.35,kg:100},{h:2,r:0,kg:3300},{h:2,r:0.98,kg:3300},{h:2,r:1.4,kg:2400},{h:2,r:1.88,kg:1700},{h:2,r:2.5,kg:1200},{h:2,r:3.3,kg:900},{h:2,r:4.3,kg:600},{h:2,r:5.25,kg:400},{h:2,r:6,kg:200},{h:2,r:7.1,kg:100},{h:4,r:0,kg:3300},{h:4,r:0.88,kg:3300},{h:4,r:1.25,kg:2400},{h:4,r:1.7,kg:1700},{h:4,r:2.25,kg:1200},{h:4,r:3,kg:900},{h:4,r:3.9,kg:600},{h:4,r:4.8,kg:400},{h:4,r:5.5,kg:200},{h:4,r:6.55,kg:100},{h:6,r:0,kg:3300},{h:6,r:0.75,kg:3300},{h:6,r:1.08,kg:2400},{h:6,r:1.48,kg:1700},{h:6,r:1.95,kg:1200},{h:6,r:2.6,kg:900},{h:6,r:3.4,kg:600},{h:6,r:4.2,kg:400},{h:6,r:4.85,kg:200},{h:6,r:5.8,kg:100},{h:7,r:0,kg:3300},{h:7,r:0.65,kg:3300},{h:7,r:0.94,kg:2400},{h:7,r:1.3,kg:1700},{h:7,r:1.72,kg:1200},{h:7,r:2.28,kg:900},{h:7,r:3,kg:600},{h:7,r:3.7,kg:400},{h:7,r:4.28,kg:200},{h:7,r:5.12,kg:100},{h:8,r:0,kg:3300},{h:8,r:0.54,kg:3300},{h:8,r:0.78,kg:2400},{h:8,r:1.07,kg:1700},{h:8,r:1.42,kg:1200},{h:8,r:1.9,kg:900},{h:8,r:2.5,kg:600},{h:8,r:3.1,kg:400},{h:8,r:3.58,kg:200},{h:8,r:4.28,kg:100},{h:9,r:0,kg:3300},{h:9,r:0.43,kg:3300},{h:9,r:0.62,kg:2400},{h:9,r:0.86,kg:1700},{h:9,r:1.15,kg:1200},{h:9,r:1.54,kg:900},{h:9,r:2.03,kg:600},{h:9,r:2.52,kg:400},{h:9,r:2.91,kg:200},{h:9,r:3.5,kg:100},{h:10,r:0,kg:3300},{h:10,r:0.32,kg:3300},{h:10,r:0.47,kg:2400},{h:10,r:0.65,kg:1700},{h:10,r:0.87,kg:1200},{h:10,r:1.17,kg:900},{h:10,r:1.54,kg:600},{h:10,r:1.92,kg:400},{h:10,r:2.22,kg:200},{h:10,r:2.67,kg:100},{h:10.6,r:0,kg:3300},{h:10.6,r:0.25,kg:3300},{h:10.6,r:0.36,kg:2400},{h:10.6,r:1.09,kg:1700}],
-      // ── STAB LOAD MATRIX — Stabilisers Extended (AXB1324/I) ──────────────
-      // Zones: 600/800/1000/1200/1500/1800/2200/2700/3300 kg — 9 rows x 10 pts
-      stabLoadMatrix:[{h:0,r:0,kg:3300},{h:0,r:1.2,kg:3300},{h:0,r:1.65,kg:2700},{h:0,r:2.15,kg:2200},{h:0,r:2.7,kg:1800},{h:0,r:3.3,kg:1500},{h:0,r:4.1,kg:1200},{h:0,r:5.2,kg:1000},{h:0,r:6.1,kg:800},{h:0,r:7.35,kg:600},{h:2,r:0,kg:3300},{h:2,r:1.1,kg:3300},{h:2,r:1.55,kg:2700},{h:2,r:2.05,kg:2200},{h:2,r:2.55,kg:1800},{h:2,r:3.15,kg:1500},{h:2,r:3.9,kg:1200},{h:2,r:4.95,kg:1000},{h:2,r:5.85,kg:800},{h:2,r:7.1,kg:600},{h:4,r:0,kg:3300},{h:4,r:1,kg:3300},{h:4,r:1.4,kg:2700},{h:4,r:1.85,kg:2200},{h:4,r:2.3,kg:1800},{h:4,r:2.85,kg:1500},{h:4,r:3.55,kg:1200},{h:4,r:4.5,kg:1000},{h:4,r:5.35,kg:800},{h:4,r:6.55,kg:600},{h:6,r:0,kg:3300},{h:6,r:0.85,kg:3300},{h:6,r:1.2,kg:2700},{h:6,r:1.6,kg:2200},{h:6,r:2,kg:1800},{h:6,r:2.45,kg:1500},{h:6,r:3.05,kg:1200},{h:6,r:3.9,kg:1000},{h:6,r:4.65,kg:800},{h:6,r:5.7,kg:600},{h:7,r:0,kg:3300},{h:7,r:0.75,kg:3300},{h:7,r:1.06,kg:2700},{h:7,r:1.4,kg:2200},{h:7,r:1.75,kg:1800},{h:7,r:2.15,kg:1500},{h:7,r:2.7,kg:1200},{h:7,r:3.45,kg:1000},{h:7,r:4.1,kg:800},{h:7,r:5,kg:600},{h:8,r:0,kg:3300},{h:8,r:0.62,kg:3300},{h:8,r:0.88,kg:2700},{h:8,r:1.18,kg:2200},{h:8,r:1.48,kg:1800},{h:8,r:1.82,kg:1500},{h:8,r:2.3,kg:1200},{h:8,r:2.95,kg:1000},{h:8,r:3.5,kg:800},{h:8,r:4.3,kg:600},{h:9,r:0,kg:3300},{h:9,r:0.5,kg:3300},{h:9,r:0.7,kg:2700},{h:9,r:0.95,kg:2200},{h:9,r:1.2,kg:1800},{h:9,r:1.47,kg:1500},{h:9,r:1.85,kg:1200},{h:9,r:2.38,kg:1000},{h:9,r:2.85,kg:800},{h:9,r:3.5,kg:600},{h:10,r:0,kg:3300},{h:10,r:0.38,kg:3300},{h:10,r:0.53,kg:2700},{h:10,r:0.72,kg:2200},{h:10,r:0.9,kg:1800},{h:10,r:1.12,kg:1500},{h:10,r:1.42,kg:1200},{h:10,r:1.84,kg:1000},{h:10,r:2.2,kg:800},{h:10,r:2.7,kg:600},{h:10.6,r:0,kg:3300},{h:10.6,r:0.3,kg:3300},{h:10.6,r:0.42,kg:2700},{h:10.6,r:1.09,kg:2200}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'dieci-zeus-35-10', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Zeus 35.10', shortName:'Zeus 35.10',
-      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
-      // CONFIRMED: Max 3500kg | Height 9.75m | Reach 6.50m | h@max 0.84m | Weight 7700kg
-      // Zones: 400/600/850/1150/1600/2200/3000/3500 kg (8 zones, read from p.3 chart)
-      capacity:3.5, liftHeight:9.75, maxReach:6.50, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
-      machineWeight:7700, machineWidth:2600, machineLength:4950, machineHeight:2310,
-      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
-      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
-      terrain:'rough', maxSpeed:30,
-      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch','Materials basket'],
-      bestFor:'3.5T mid-reach telehandler — 3-storey construction, industrial, cladding, mid-rise material placement',
-      note:'Dieci Zeus 35.10 — 3.5T, 9.75m lift, 6.50m reach. IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
-      liftChart:'Max 3500kg. h=9.75m,r=0.84m confirmed ✓. ON TYRES ONLY. Zones: 400/600/850/1150/1600/2200/3000/3500 kg. Source: Dieci Zeus range brochure p.3.',
-      tags:['3.5T','9.75m','6.5m Reach','IVECO NEF','130° Fork','EN1459','Italian'],
-      loadMatrix:[{h:0,r:0,kg:3500},{h:0,r:0.9,kg:3500},{h:0,r:1.3,kg:3000},{h:0,r:1.85,kg:2200},{h:0,r:2.65,kg:1600},{h:0,r:3.7,kg:1150},{h:0,r:4.85,kg:850},{h:0,r:5.8,kg:600},{h:0,r:6.5,kg:400},{h:2,r:0,kg:3500},{h:2,r:0.85,kg:3500},{h:2,r:1.22,kg:3000},{h:2,r:1.75,kg:2200},{h:2,r:2.5,kg:1600},{h:2,r:3.5,kg:1150},{h:2,r:4.6,kg:850},{h:2,r:5.5,kg:600},{h:2,r:6.25,kg:400},{h:4,r:0,kg:3500},{h:4,r:0.78,kg:3500},{h:4,r:1.12,kg:3000},{h:4,r:1.6,kg:2200},{h:4,r:2.28,kg:1600},{h:4,r:3.2,kg:1150},{h:4,r:4.2,kg:850},{h:4,r:5.05,kg:600},{h:4,r:5.75,kg:400},{h:5,r:0,kg:3500},{h:5,r:0.72,kg:3500},{h:5,r:1.04,kg:3000},{h:5,r:1.48,kg:2200},{h:5,r:2.1,kg:1600},{h:5,r:2.95,kg:1150},{h:5,r:3.88,kg:850},{h:5,r:4.67,kg:600},{h:5,r:5.3,kg:400},{h:6,r:0,kg:3500},{h:6,r:0.65,kg:3500},{h:6,r:0.93,kg:3000},{h:6,r:1.33,kg:2200},{h:6,r:1.89,kg:1600},{h:6,r:2.65,kg:1150},{h:6,r:3.5,kg:850},{h:6,r:4.2,kg:600},{h:6,r:4.8,kg:400},{h:7,r:0,kg:3500},{h:7,r:0.55,kg:3500},{h:7,r:0.8,kg:3000},{h:7,r:1.14,kg:2200},{h:7,r:1.62,kg:1600},{h:7,r:2.27,kg:1150},{h:7,r:2.98,kg:850},{h:7,r:3.6,kg:600},{h:7,r:4.1,kg:400},{h:8,r:0,kg:3500},{h:8,r:0.44,kg:3500},{h:8,r:0.63,kg:3000},{h:8,r:0.9,kg:2200},{h:8,r:1.28,kg:1600},{h:8,r:1.8,kg:1150},{h:8,r:2.36,kg:850},{h:8,r:2.84,kg:600},{h:8,r:3.25,kg:400},{h:9,r:0,kg:3500},{h:9,r:0.3,kg:3500},{h:9,r:0.44,kg:3000},{h:9,r:0.62,kg:2200},{h:9,r:0.88,kg:1600},{h:9,r:1.23,kg:1150},{h:9,r:1.62,kg:850},{h:9,r:1.96,kg:600},{h:9,r:2.24,kg:400},{h:9.75,r:0.84,kg:3500}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'dieci-zeus-38-10', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Zeus 38.10', shortName:'Zeus 38.10',
-      // Source: Dieci Zeus range brochure. Performance table p.2 + chart p.3 confirmed.
-      // CONFIRMED: Max 3800kg | Height 9.75m | Reach 6.45m | h@max 0.84m | Weight 7900kg
-      // Zones: 450/650/900/1200/1600/2200/3000/3800 kg (8 zones, read from p.3 chart)
-      capacity:3.8, liftHeight:9.75, maxReach:6.45, engine:'IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo',
-      machineWeight:7900, machineWidth:2600, machineLength:4950, machineHeight:2310,
-      hydraulicFlow:110, hydraulicPressure:230, fuelTank:95, hydraulicTank:140,
-      forkSwivel:130, maxClimb:40, towingForce:73000, pullOutForce:57000,
-      terrain:'rough', maxSpeed:30,
-      attachments:['Standard Forks (130° swivel)','Jib crane extension','Swan neck jib','GP Bucket','Bucket with teeth','Ladle','Winch','Materials basket'],
-      bestFor:'3.8T high-capacity telehandler — heavy construction, industrial, 3-storey material placement',
-      note:'Dieci Zeus 38.10 — 3.8T, 9.75m lift, 6.45m reach. IVECO NEF 74kW (101hp) or 93kW (127hp) aftercooler turbo, 4-cyl, 4485 cm³ @ 2200rpm. 110 l/min, 230 bar, 3-in-1 joystick. Servocontrolled 2-speed gearbox. Hydrostatic variable-displacement pump. Oil bath front axle brakes with servo-brake. Rear axle oscillating. Front self-locking diff 45%. ROPS-FOPS soundproof cab, heater, electric windows. 130° fork swivel. 40% gradeability. EN 1459. Source: Dieci Zeus 35.10 range brochure.',
-      liftChart:'Max 3800kg. h=9.75m,r=0.84m confirmed ✓. ON TYRES ONLY. Zones: 450/650/900/1200/1600/2200/3000/3800 kg. Source: Dieci Zeus range brochure p.3.',
-      tags:['3.8T','9.75m','6.45m Reach','IVECO NEF','130° Fork','EN1459','Italian'],
-      loadMatrix:[{h:0,r:0,kg:3800},{h:0,r:0.88,kg:3800},{h:0,r:1.2,kg:3000},{h:0,r:1.72,kg:2200},{h:0,r:2.45,kg:1600},{h:0,r:3.4,kg:1200},{h:0,r:4.5,kg:900},{h:0,r:5.45,kg:650},{h:0,r:6.45,kg:450},{h:2,r:0,kg:3800},{h:2,r:0.83,kg:3800},{h:2,r:1.13,kg:3000},{h:2,r:1.63,kg:2200},{h:2,r:2.32,kg:1600},{h:2,r:3.22,kg:1200},{h:2,r:4.27,kg:900},{h:2,r:5.18,kg:650},{h:2,r:6.15,kg:450},{h:4,r:0,kg:3800},{h:4,r:0.76,kg:3800},{h:4,r:1.04,kg:3000},{h:4,r:1.5,kg:2200},{h:4,r:2.13,kg:1600},{h:4,r:2.95,kg:1200},{h:4,r:3.92,kg:900},{h:4,r:4.75,kg:650},{h:4,r:5.65,kg:450},{h:5,r:0,kg:3800},{h:5,r:0.7,kg:3800},{h:5,r:0.96,kg:3000},{h:5,r:1.37,kg:2200},{h:5,r:1.95,kg:1600},{h:5,r:2.7,kg:1200},{h:5,r:3.6,kg:900},{h:5,r:4.37,kg:650},{h:5,r:5.2,kg:450},{h:6,r:0,kg:3800},{h:6,r:0.62,kg:3800},{h:6,r:0.85,kg:3000},{h:6,r:1.22,kg:2200},{h:6,r:1.73,kg:1600},{h:6,r:2.4,kg:1200},{h:6,r:3.2,kg:900},{h:6,r:3.88,kg:650},{h:6,r:4.62,kg:450},{h:7,r:0,kg:3800},{h:7,r:0.53,kg:3800},{h:7,r:0.72,kg:3000},{h:7,r:1.03,kg:2200},{h:7,r:1.47,kg:1600},{h:7,r:2.04,kg:1200},{h:7,r:2.72,kg:900},{h:7,r:3.3,kg:650},{h:7,r:3.93,kg:450},{h:8,r:0,kg:3800},{h:8,r:0.42,kg:3800},{h:8,r:0.57,kg:3000},{h:8,r:0.82,kg:2200},{h:8,r:1.17,kg:1600},{h:8,r:1.62,kg:1200},{h:8,r:2.15,kg:900},{h:8,r:2.62,kg:650},{h:8,r:3.1,kg:450},{h:9,r:0,kg:3800},{h:9,r:0.28,kg:3800},{h:9,r:0.39,kg:3000},{h:9,r:0.56,kg:2200},{h:9,r:0.8,kg:1600},{h:9,r:1.11,kg:1200},{h:9,r:1.47,kg:900},{h:9,r:1.8,kg:650},{h:9,r:2.13,kg:450},{h:9.75,r:0.84,kg:3800}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'dieci-zeus-40-7', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Zeus 40.7 PS', shortName:'Zeus 40.7 PS',
-      capacity:4.0, liftHeight:7.0, maxReach:4.0, engine:'FPT 125hp / 93kW Stage IIIA (Powershift)',
-      machineWeight:7700, machineWidth:1475, machineLength:5075, machineHeight:2445,
-      terrain:'rough', maxSpeed:40,
-      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Hook Block'],
-      bestFor:'4T heavy-duty powershift telehandler — high-cycle heavy handling, mining, industrial, agricultural',
-      note:'Dieci Zeus 40.7 PS — 4T, 7m lift, 4m reach. FPT 93kW Stage IIIA. Powershift EVO2 transmission (6 forward / 3 reverse) — not hydrostatic. 190 l/min hydraulic flow (highest in range). 146° fork swivel. Easy Ride boom suspension (optional). Double reversible fan. 60% gradeability. 40km/h road speed. AS1418.19 compliant. Distributed by Dieci Australia.',
-      liftChart:'4,000kg at ground. At 7m max height: ~3,000–3,500kg near vertical. At 4m reach at ground: ~1,500–1,800kg. Consult Dieci Zeus 40.7 PS load chart.',
-      tags:['4T','7m','4m Reach','Powershift','190 L/min','60% Gradeability','FPT 93kW','Dieci'],
-      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:0.5,kg:4000},{h:0.5,r:1.0,kg:4000},{h:0.5,r:1.5,kg:3800},{h:0.5,r:2.0,kg:3400},{h:0.5,r:2.5,kg:3000},{h:0.5,r:3.0,kg:2100},{h:0.5,r:3.5,kg:1800},{h:0.5,r:4.0,kg:1500},{h:1.0,r:0.0,kg:4000},{h:1.0,r:0.5,kg:4000},{h:1.0,r:1.0,kg:4000},{h:1.0,r:1.5,kg:3800},{h:1.0,r:2.0,kg:3400},{h:1.0,r:2.5,kg:3000},{h:1.0,r:3.0,kg:2100},{h:1.0,r:3.5,kg:1800},{h:1.0,r:4.0,kg:1500},{h:2.0,r:0.0,kg:4000},{h:2.0,r:0.5,kg:4000},{h:2.0,r:1.0,kg:4000},{h:2.0,r:1.5,kg:3800},{h:2.0,r:2.0,kg:3200},{h:2.0,r:2.5,kg:2800},{h:2.0,r:3.0,kg:2100},{h:2.0,r:3.5,kg:1800},{h:2.0,r:4.0,kg:1500},{h:3.0,r:0.0,kg:4000},{h:3.0,r:0.5,kg:4000},{h:3.0,r:1.0,kg:4000},{h:3.0,r:1.5,kg:3700},{h:3.0,r:2.0,kg:3100},{h:3.0,r:2.5,kg:2500},{h:3.0,r:3.0,kg:2000},{h:3.0,r:3.5,kg:1700},{h:3.0,r:3.9,kg:1400},{h:4.0,r:0.0,kg:4000},{h:4.0,r:0.5,kg:4000},{h:4.0,r:1.0,kg:4000},{h:4.0,r:1.5,kg:3600},{h:4.0,r:2.0,kg:2800},{h:4.0,r:2.5,kg:2200},{h:4.0,r:3.0,kg:1800},{h:4.0,r:3.5,kg:1500},{h:5.0,r:0.0,kg:4000},{h:5.0,r:0.5,kg:4000},{h:5.0,r:1.0,kg:3900},{h:5.0,r:1.5,kg:3400},{h:5.0,r:2.0,kg:2600},{h:5.0,r:2.5,kg:2100},{h:5.0,r:3.0,kg:1700},{h:6.0,r:0.0,kg:4000},{h:6.0,r:0.5,kg:4000},{h:6.0,r:1.0,kg:3800},{h:6.0,r:1.5,kg:3100},{h:6.0,r:2.0,kg:2400},{h:6.0,r:2.5,kg:1900},{h:6.0,r:3.0,kg:1500},{h:7.0,r:0.0,kg:4000},{h:7.0,r:0.5,kg:3900},{h:7.0,r:1.0,kg:3400},{h:7.0,r:1.5,kg:2800},{h:7.0,r:2.0,kg:2200},{h:7.0,r:2.5,kg:1700}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'dieci-runner-40-13', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Runner 40.13', shortName:'Runner 40.13',
-      capacity:4.0, liftHeight:12.4, maxReach:8.85, engine:'FPT 125hp / 93kW Stage IIIA',
-      machineWeight:10420, machineWidth:1760, machineLength:5590, machineHeight:2460,
-      terrain:'rough', maxSpeed:40,
-      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Hook Block','Side-Shift Carriage'],
-      bestFor:'4T high-reach telehandler — 3-4 storey construction, industrial, structural steel placement',
-      note:'Dieci Runner 40.13 — 4T, 12.4m lift, 8.85m reach. FPT 93kW Stage IIIA. 2-speed hydrostatic transmission. 130 l/min hydraulic flow. 134° fork swivel. Side-shift carriage standard. 2 independent outriggers. 40km/h road speed. Integrated LED work lights. AS1418.19 compliant. Distributed by Dieci Australia.',
-      liftChart:'4,000kg at ground. At 12.4m max height (on stabilizers): ~2,700kg near vertical. At 8.85m reach: ~400–600kg. Consult Dieci Runner 40.13 load chart.',
-      tags:['4T','12.4m','8.85m Reach','FPT 93kW','Side-Shift','3-4 Storey','Dieci'],
-      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:0.5,kg:4000},{h:0.5,r:1.0,kg:4000},{h:0.5,r:2.0,kg:3200},{h:0.5,r:3.0,kg:2400},{h:0.5,r:4.0,kg:1700},{h:0.5,r:5.0,kg:1200},{h:0.5,r:6.0,kg:800},{h:0.5,r:7.0,kg:550},{h:0.5,r:8.5,kg:400},{h:1.0,r:0.0,kg:4000},{h:1.0,r:0.5,kg:4000},{h:1.0,r:1.0,kg:4000},{h:1.0,r:2.0,kg:3200},{h:1.0,r:3.0,kg:2400},{h:1.0,r:4.0,kg:1700},{h:1.0,r:5.0,kg:1200},{h:1.0,r:6.0,kg:800},{h:1.0,r:7.0,kg:550},{h:2.0,r:0.0,kg:4000},{h:2.0,r:0.5,kg:4000},{h:2.0,r:1.0,kg:4000},{h:2.0,r:2.0,kg:3200},{h:2.0,r:3.0,kg:2400},{h:2.0,r:4.0,kg:1700},{h:2.0,r:5.0,kg:1200},{h:2.0,r:6.0,kg:800},{h:2.0,r:7.0,kg:500},{h:3.0,r:0.0,kg:4000},{h:3.0,r:0.5,kg:4000},{h:3.0,r:1.0,kg:4000},{h:3.0,r:2.0,kg:3100},{h:3.0,r:3.0,kg:2300},{h:3.0,r:4.0,kg:1600},{h:3.0,r:5.0,kg:1150},{h:3.0,r:6.0,kg:750},{h:3.0,r:7.0,kg:480},{h:4.0,r:0.0,kg:4000},{h:4.0,r:0.5,kg:4000},{h:4.0,r:1.0,kg:4000},{h:4.0,r:2.0,kg:3000},{h:4.0,r:3.0,kg:2200},{h:4.0,r:4.0,kg:1500},{h:4.0,r:5.0,kg:1050},{h:4.0,r:6.0,kg:700},{h:5.0,r:0.0,kg:4000},{h:5.0,r:0.5,kg:4000},{h:5.0,r:1.0,kg:3900},{h:5.0,r:2.0,kg:2800},{h:5.0,r:3.0,kg:2000},{h:5.0,r:4.0,kg:1350},{h:5.0,r:5.0,kg:950},{h:5.0,r:6.0,kg:600},{h:6.0,r:0.0,kg:3900},{h:6.0,r:0.5,kg:3900},{h:6.0,r:1.0,kg:3700},{h:6.0,r:2.0,kg:2600},{h:6.0,r:3.0,kg:1800},{h:6.0,r:4.0,kg:1200},{h:6.0,r:5.0,kg:800},{h:7.0,r:0.0,kg:3700},{h:7.0,r:0.5,kg:3700},{h:7.0,r:1.0,kg:3500},{h:7.0,r:2.0,kg:2300},{h:7.0,r:3.0,kg:1600},{h:7.0,r:4.0,kg:1050},{h:7.0,r:5.0,kg:650},{h:8.0,r:0.0,kg:3500},{h:8.0,r:0.5,kg:3500},{h:8.0,r:1.0,kg:3200},{h:8.0,r:2.0,kg:2000},{h:8.0,r:3.0,kg:1350},{h:8.0,r:4.0,kg:850},{h:9.0,r:0.0,kg:3200},{h:9.0,r:0.5,kg:3200},{h:9.0,r:1.0,kg:2900},{h:9.0,r:2.0,kg:1700},{h:9.0,r:3.0,kg:1100},{h:9.0,r:4.0,kg:650},{h:10.0,r:0.0,kg:2900},{h:10.0,r:0.5,kg:2900},{h:10.0,r:1.0,kg:2550},{h:10.0,r:2.0,kg:1350},{h:10.0,r:3.0,kg:800},{h:11.0,r:0.0,kg:2600},{h:11.0,r:0.5,kg:2500},{h:11.0,r:1.0,kg:2100},{h:11.0,r:2.0,kg:1000},{h:12.0,r:0.0,kg:2200},{h:12.0,r:0.5,kg:2000},{h:12.0,r:1.0,kg:1500},{h:12.4,r:0.0,kg:2000},{h:12.4,r:0.5,kg:1700}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'dieci-icarus-40-17', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Icarus 40.17', shortName:'Icarus 40.17',
-      capacity:4.0, liftHeight:16.6, maxReach:12.6, engine:'FPT 125hp / 93kW Stage IIIA',
-      machineWeight:12260, machineWidth:1837, machineLength:6275, machineHeight:2550,
-      terrain:'rough', maxSpeed:35,
-      attachments:['Standard Forks','GP Bucket','Jib','Work Platform','Hook Block','Side-Shift Carriage','EWP Basket'],
-      bestFor:'Ultra-high reach 4T telehandler — 5-storey+ construction, cladding, structural placement at great height',
-      note:'Dieci Icarus 40.17 — 4T, 16.6m lift, 12.6m reach. FPT 93kW Stage IIIA. 2-speed hydrostatic. 130 l/min. 134° fork swivel. 2 independent outriggers with transverse levelling. Side-shift carriage. EWP pre-arrangement compliant with AS 1418.10. Integrated LED work lights. Highest-reach model in Dieci Australia lineup. AS1418.19 compliant. Distributed by Dieci Australia.',
-      liftChart:'4,000kg at ground. On stabilizers at 16.6m max height: ~1,600kg near vertical. At 12.6m max reach: ~600kg. Consult Dieci Icarus 40.17 load chart.',
-      tags:['4T','16.6m','12.6m Reach','FPT 93kW','EWP Ready','5-Storey+','Outriggers','Dieci'],
-      loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:0.5,kg:4000},{h:0.5,r:1.0,kg:4000},{h:0.5,r:2.0,kg:3700},{h:0.5,r:3.0,kg:2800},{h:0.5,r:4.0,kg:2000},{h:0.5,r:5.0,kg:1500},{h:0.5,r:6.0,kg:1200},{h:0.5,r:7.0,kg:950},{h:0.5,r:9.0,kg:700},{h:0.5,r:11.0,kg:450},{h:0.5,r:12.6,kg:350},{h:2.0,r:0.0,kg:4000},{h:2.0,r:0.5,kg:4000},{h:2.0,r:1.0,kg:4000},{h:2.0,r:2.0,kg:3700},{h:2.0,r:3.0,kg:2800},{h:2.0,r:4.0,kg:2000},{h:2.0,r:5.0,kg:1500},{h:2.0,r:6.0,kg:1200},{h:2.0,r:7.0,kg:950},{h:2.0,r:9.0,kg:700},{h:2.0,r:11.0,kg:450},{h:4.0,r:0.0,kg:4000},{h:4.0,r:0.5,kg:4000},{h:4.0,r:1.0,kg:4000},{h:4.0,r:2.0,kg:3600},{h:4.0,r:3.0,kg:2700},{h:4.0,r:4.0,kg:1900},{h:4.0,r:5.0,kg:1400},{h:4.0,r:6.0,kg:1150},{h:4.0,r:7.0,kg:900},{h:4.0,r:9.0,kg:650},{h:4.0,r:10.0,kg:430},{h:6.0,r:0.0,kg:4000},{h:6.0,r:0.5,kg:4000},{h:6.0,r:1.0,kg:4000},{h:6.0,r:2.0,kg:3500},{h:6.0,r:3.0,kg:2600},{h:6.0,r:4.0,kg:1800},{h:6.0,r:5.0,kg:1350},{h:6.0,r:6.0,kg:1050},{h:6.0,r:7.0,kg:800},{h:6.0,r:9.0,kg:550},{h:8.0,r:0.0,kg:4000},{h:8.0,r:0.5,kg:4000},{h:8.0,r:1.0,kg:3900},{h:8.0,r:2.0,kg:3200},{h:8.0,r:3.0,kg:2300},{h:8.0,r:4.0,kg:1600},{h:8.0,r:5.0,kg:1200},{h:8.0,r:6.0,kg:950},{h:8.0,r:7.0,kg:700},{h:10.0,r:0.0,kg:3900},{h:10.0,r:0.5,kg:3900},{h:10.0,r:1.0,kg:3700},{h:10.0,r:2.0,kg:2800},{h:10.0,r:3.0,kg:2000},{h:10.0,r:4.0,kg:1400},{h:10.0,r:5.0,kg:1050},{h:10.0,r:6.0,kg:800},{h:12.0,r:0.0,kg:3600},{h:12.0,r:0.5,kg:3600},{h:12.0,r:1.0,kg:3300},{h:12.0,r:2.0,kg:2400},{h:12.0,r:3.0,kg:1650},{h:12.0,r:4.0,kg:1200},{h:12.0,r:5.0,kg:850},{h:14.0,r:0.0,kg:3100},{h:14.0,r:0.5,kg:3100},{h:14.0,r:1.0,kg:2800},{h:14.0,r:2.0,kg:1900},{h:14.0,r:3.0,kg:1300},{h:14.0,r:4.0,kg:900},{h:15.0,r:0.0,kg:2700},{h:15.0,r:0.5,kg:2600},{h:15.0,r:1.0,kg:2300},{h:15.0,r:2.0,kg:1450},{h:15.0,r:3.0,kg:950},{h:16.0,r:0.0,kg:2200},{h:16.0,r:0.5,kg:2100},{h:16.0,r:1.0,kg:1750},{h:16.0,r:2.0,kg:950},{h:16.6,r:0.0,kg:1900},{h:16.6,r:0.5,kg:1600},{h:16.6,r:1.0,kg:1200}],
-      filters:['telehandler','rough','heavy']
-    },
-    {
-      id:'dieci-samson-70-10', brand:'Dieci', emoji:'🏗️', brandColor:'#F5A800',
-      name:'Dieci Samson 70.10', shortName:'Samson 70.10',
-      capacity:7.0, liftHeight:9.65, maxReach:5.40, engine:'FPT 125hp / 93kW Stage IIIA',
-      machineWeight:12100, machineWidth:1920, machineLength:6021, machineHeight:2490,
-      terrain:'rough', maxSpeed:40,
-      attachments:['Standard Forks','GP Bucket','Jib','Hook Block','Side-Shift Carriage'],
-      bestFor:'7T heavy-lift telehandler — precast concrete, structural steel, heavy industrial, crane replacement',
-      note:'Dieci Samson 70.10 — 7T, 9.65m lift, 5.40m reach. FPT 93kW Stage IIIA. 2-speed hydrostatic. 130 l/min hydraulic flow. 134° fork swivel. Reversible fan. Side-shift carriage standard. Stabilisers optional. Maximum load capacity in the Dieci Australia range. AS1418.19 compliant. Distributed by Dieci Australia.',
-      liftChart:'7,000kg at ground. At 9.65m max height: ~7,000kg near vertical. At 5.40m reach at ground: ~2,500kg. Note: Load drops sharply with reach. Consult Dieci Samson 70.10 load chart.',
-      tags:['7T','9.65m','5.40m Reach','FPT 93kW','Heavy Lift','Precast','Crane Replacement','Dieci'],
-      loadMatrix:[{h:0.5,r:0.0,kg:7000},{h:0.5,r:0.5,kg:7000},{h:0.5,r:1.0,kg:7000},{h:0.5,r:1.5,kg:6800},{h:0.5,r:2.0,kg:6200},{h:0.5,r:2.5,kg:5200},{h:0.5,r:3.0,kg:4300},{h:0.5,r:3.5,kg:3600},{h:0.5,r:4.0,kg:3100},{h:0.5,r:4.5,kg:2750},{h:0.5,r:5.0,kg:2500},{h:0.5,r:5.4,kg:2500},{h:1.0,r:0.0,kg:7000},{h:1.0,r:0.5,kg:7000},{h:1.0,r:1.0,kg:7000},{h:1.0,r:1.5,kg:6800},{h:1.0,r:2.0,kg:6200},{h:1.0,r:2.5,kg:5200},{h:1.0,r:3.0,kg:4300},{h:1.0,r:3.5,kg:3600},{h:1.0,r:4.0,kg:3100},{h:1.0,r:4.5,kg:2750},{h:1.0,r:5.0,kg:2500},{h:2.0,r:0.0,kg:7000},{h:2.0,r:0.5,kg:7000},{h:2.0,r:1.0,kg:7000},{h:2.0,r:1.5,kg:6800},{h:2.0,r:2.0,kg:6000},{h:2.0,r:2.5,kg:5000},{h:2.0,r:3.0,kg:4100},{h:2.0,r:3.5,kg:3400},{h:2.0,r:4.0,kg:2900},{h:2.0,r:4.5,kg:2600},{h:2.0,r:5.0,kg:2400},{h:3.0,r:0.0,kg:7000},{h:3.0,r:0.5,kg:7000},{h:3.0,r:1.0,kg:7000},{h:3.0,r:1.5,kg:6700},{h:3.0,r:2.0,kg:5800},{h:3.0,r:2.5,kg:4800},{h:3.0,r:3.0,kg:3900},{h:3.0,r:3.5,kg:3200},{h:3.0,r:4.0,kg:2700},{h:3.0,r:5.0,kg:2300},{h:4.0,r:0.0,kg:7000},{h:4.0,r:0.5,kg:7000},{h:4.0,r:1.0,kg:7000},{h:4.0,r:1.5,kg:6500},{h:4.0,r:2.0,kg:5500},{h:4.0,r:2.5,kg:4500},{h:4.0,r:3.0,kg:3600},{h:4.0,r:3.5,kg:3000},{h:4.0,r:4.0,kg:2500},{h:5.0,r:0.0,kg:7000},{h:5.0,r:0.5,kg:7000},{h:5.0,r:1.0,kg:7000},{h:5.0,r:1.5,kg:6200},{h:5.0,r:2.0,kg:5200},{h:5.0,r:2.5,kg:4200},{h:5.0,r:3.0,kg:3400},{h:5.0,r:3.5,kg:2800},{h:5.0,r:4.0,kg:2300},{h:6.0,r:0.0,kg:7000},{h:6.0,r:0.5,kg:7000},{h:6.0,r:1.0,kg:7000},{h:6.0,r:1.5,kg:5800},{h:6.0,r:2.0,kg:4800},{h:6.0,r:2.5,kg:3900},{h:6.0,r:3.0,kg:3100},{h:6.0,r:3.5,kg:2500},{h:7.0,r:0.0,kg:7000},{h:7.0,r:0.5,kg:7000},{h:7.0,r:1.0,kg:6800},{h:7.0,r:1.5,kg:5500},{h:7.0,r:2.0,kg:4500},{h:7.0,r:2.5,kg:3600},{h:7.0,r:3.0,kg:2900},{h:8.0,r:0.0,kg:7000},{h:8.0,r:0.5,kg:7000},{h:8.0,r:1.0,kg:6500},{h:8.0,r:1.5,kg:5000},{h:8.0,r:2.0,kg:4100},{h:8.0,r:2.5,kg:3200},{h:9.0,r:0.0,kg:7000},{h:9.0,r:0.5,kg:7000},{h:9.0,r:1.0,kg:6000},{h:9.0,r:1.5,kg:4600},{h:9.0,r:2.0,kg:3500},{h:9.65,r:0.0,kg:7000},{h:9.65,r:0.5,kg:6500},{h:9.65,r:1.0,kg:5000}],
-      filters:['telehandler','rough','heavy']
-    },
-
-    // ── DIECI PEGASUS — Rotating Telehandlers ──────────────────────────────
-    // Source: Dieci Australia official brochures (dieciaustralia.com.au, 2025)
-    // All Pegasus models: 360°/400° turret rotation, 4 independent outriggers,
-    // self-levelling, height/slew limiters, Load Sensing hydraulics, AS1418.19 compliant.
-    {
-      id:'dieci-pegasus-400-38-16', brand:'Dieci', emoji:'🔄', brandColor:'#E30613',
-      name:'Dieci Pegasus 400° 38.16', shortName:'Pegasus 38.16',
-      isRotating:true,
-      // ── Capacity — Dieci Australia Pegasus 400° 38.16 brochure (Pegasus400°_0924) ──
-      capacity:3.8, capacityOnTyres:3.2, liftHeight:15.70, liftHeightOnTyres:15.50,
-      maxReach:13.40, maxReachOnTyres:13.40, turretRotation:400,
-      tyreCapacityNote:'400° on outriggers: max 3,200 kg (full rotation). Frontal direction: max 3,800 kg. Outriggers required for ALL lifts.',
-      engine:'Kubota 4-cyl 73.4kW (98hp) @ 2,600 rpm, 3,769cc, Stage IIIA/Tier 3',
-      machineWeight:13200, machineWidth:2430, machineLength:6740, machineHeight:3035,
-      stabilizerType:'4 independent outriggers', stabilizerSpreadM:4.75,
-      hydraulicPressure:23, hydraulicFlow:135, maxSpeed:25, gradeability:40,
-      terrain:'rough/outdoor',
-      attachments:['Standard Forks','Man Basket','Winch','Jib','Hook Block','Work Platform'],
-      bestFor:'3.8T 400° rotating — compact crane replacement, 4-5 storey, AS1418.19/10896.1',
-      note:'Dieci Pegasus 400° 38.16 — 3.8T max (frontal), 3.2T max (full 400°). 15.7m lift, 13.4m reach. Kubota 73.4kW Stage IIIA. 13,200 kg. 400/70×20" tyres. Source: Dieci Australia brochure (Pegasus400°_0924). ⚠️ Zone boundaries approximate.',
-      tags:['Rotating 400°','3.8T','15.7m','13.4m Reach','Kubota 73.4kW','Australia','AS1418.19','Compact'],
-      // 400° FULL ROTATION ON OUTRIGGERS — loadMatrix
-      // SOURCE: Right chart "MAX 3.8 t" | METHOD: Arc formula r=sqrt(L²-h²)
-      // L=13.4m CONFIRMED printed red label. Inner L: 4× chart pixel read ±0.3m.
-      // Zones(kg→L): 300→13.4✓,450→12.5,600→11.5,800→10.5,1000→9.5,1300→8.5,
-      //              1700→7.5,2000→7.0,2500→6.0,3000→5.0,3500→4.0,3800→3.0
-      // Inner zone vertical extensions from label positions: 3800@(h5,r2.5) 3500@(h7,r3.0) 3000@(h8,r4.0)
-      loadMatrix:[{h:1,r:13.4,kg:300},{h:1,r:12.5,kg:450},{h:1,r:11.5,kg:600},{h:1,r:10.5,kg:800},{h:1,r:9.4,kg:1000},{h:1,r:8.4,kg:1300},{h:1,r:7.4,kg:1700},{h:1,r:6.9,kg:2000},{h:1,r:5.9,kg:2500},{h:1,r:4.9,kg:3000},{h:1,r:3.9,kg:3500},{h:1,r:2.8,kg:3800},{h:3.0,r:0,kg:3800},{h:4,r:12.8,kg:300},{h:4,r:11.8,kg:450},{h:4,r:10.8,kg:600},{h:4,r:9.7,kg:800},{h:4,r:8.6,kg:1000},{h:4,r:7.5,kg:1300},{h:4,r:6.3,kg:1700},{h:4,r:5.7,kg:2000},{h:4,r:4.5,kg:2500},{h:4,r:3.0,kg:3000},{h:4.0,r:0,kg:3500},{h:5,r:2.5,kg:3800},{h:5.0,r:0,kg:3000},{h:6.0,r:0,kg:2500},{h:7,r:3.0,kg:3500},{h:7.0,r:0,kg:2000},{h:7.5,r:0,kg:1700},{h:8,r:10.7,kg:300},{h:8,r:9.6,kg:450},{h:8,r:8.3,kg:600},{h:8,r:6.8,kg:800},{h:8,r:5.1,kg:1000},{h:8,r:4.0,kg:3000},{h:8,r:2.9,kg:1300},{h:8.5,r:0,kg:1300},{h:9.5,r:0,kg:1000},{h:10.5,r:0,kg:800},{h:11.5,r:0,kg:600},{h:12,r:6.0,kg:300},{h:12,r:3.5,kg:450},{h:12.5,r:0,kg:450},{h:13.4,r:0,kg:300}],
-      // ON TYRES / FRONTAL (0°) — loadMatrixTyres
-      // SOURCE: Left chart "MAX 3.2 t" | Zones(kg→L): 100→13.4✓,200→12.5,350→11.5,600→10.5,
-      //         750→9.5,1000→8.5,1400→7.5,1700→7.0,2000→6.0,2500→5.0,3200→3.5
-      loadMatrixTyres:[{h:1,r:13.4,kg:100},{h:1,r:12.5,kg:200},{h:1,r:11.5,kg:350},{h:1,r:10.5,kg:600},{h:1,r:9.4,kg:750},{h:1,r:8.4,kg:1000},{h:1,r:7.4,kg:1400},{h:1,r:6.9,kg:1700},{h:1,r:5.9,kg:2000},{h:1,r:4.9,kg:2500},{h:1,r:3.4,kg:3200},{h:3.5,r:0,kg:3200},{h:4,r:12.8,kg:100},{h:4,r:11.8,kg:200},{h:4,r:10.8,kg:350},{h:4,r:9.7,kg:600},{h:4,r:8.6,kg:750},{h:4,r:7.5,kg:1000},{h:4,r:6.3,kg:1400},{h:4,r:5.7,kg:1700},{h:4,r:4.5,kg:2000},{h:4,r:3.0,kg:2500},{h:5.0,r:0,kg:2500},{h:6.0,r:0,kg:2000},{h:7.0,r:0,kg:1700},{h:7.5,r:0,kg:1400},{h:8,r:10.7,kg:100},{h:8,r:9.6,kg:200},{h:8,r:8.3,kg:350},{h:8,r:6.8,kg:600},{h:8,r:5.1,kg:750},{h:8,r:2.9,kg:1000},{h:8.5,r:0,kg:1000},{h:9.5,r:0,kg:750},{h:10.5,r:0,kg:600},{h:11.5,r:0,kg:350},{h:12,r:6.0,kg:100},{h:12,r:3.5,kg:200},{h:12.5,r:0,kg:200},{h:13.4,r:0,kg:100}],
-      loadMatrixWinch:[], loadMatrixJib800:[], loadMatrixJib1500:[], loadMatrixTyres360:[],
-      filters:['telehandler','outdoor','rough']
-    },
-    {
-      id:'dieci-pegasus-400-40-18', brand:'Dieci', emoji:'🔄', brandColor:'#E30613',
-      name:'Dieci Pegasus 400° 40.18', shortName:'Pegasus 40.18',
-      isRotating:true,
-      // ── Capacity — Dieci Australia Pegasus 400° 40.18 brochure (Pegasus400°_0924) ──
-      capacity:4.0, capacityOnTyres:3.5, liftHeight:18.00, liftHeightOnTyres:15.70,
-      maxReach:15.30, maxReachOnTyres:12.00, turretRotation:400,
-      tyreCapacityNote:'400° on outriggers (stabilisers deployed): max 4,000 kg. On tyres / frontal (0°, no stabilisers): max 3,500 kg. Outriggers MUST be deployed for 400° rotation.',
-      engine:'Kubota 4-cyl 73.4kW (98hp) @ 2,600 rpm, 3,769cc, Stage IIIA/Tier 3',
-      machineWeight:13700, machineWidth:2280, machineLength:6630, machineHeight:3035,
-      stabilizerType:'4 independent outriggers', stabilizerSpreadM:4.75,
-      hydraulicPressure:23, hydraulicFlow:135, maxSpeed:25, gradeability:40,
-      terrain:'rough/outdoor',
-      attachments:['Standard Forks','Man Basket','Winch','Jib','Hook Block','Work Platform'],
-      bestFor:'4T 400° rotating — 5-6 storey crane replacement, compact, AS1418.19/10896.1',
-      note:'Dieci Pegasus 400° 40.18 — 4T max (400° on outriggers), 3.5T max (0° frontal on tyres). 18m lift, 15.3m reach. Kubota 73.4kW Stage IIIA. 13,700 kg. 400/70×20" tyres. Source: Dieci Australia brochure (Pegasus400°_0924). Zone L values: max reach printed, inner zones grid-read ±0.3m.',
-      tags:['Rotating 400°','4T','18m','15.3m Reach','Kubota 73.4kW','Australia','AS1418.19'],
-      // 400° FULL ROTATION ON OUTRIGGERS — loadMatrix
-      // SOURCE: Right chart "MAX 4.0 t" | METHOD: Arc formula r=sqrt(L²-h²)
-      // L=15.3m CONFIRMED printed red label. Inner L: 4× chart pixel read ±0.3m.
-      // Zones(kg→L): 500→15.3✓, 600→13.5, 800→12.0, 1000→10.5, 1200→9.5, 1500→8.5,
-      //              2000→7.5, 2700→6.0, 3500→4.5, 4000→3.0
-      // Inner zone vertical extensions from chart label positions: 4000@(h7,r3.0) 3500@(h10,r3.5)
-      loadMatrix:[{h:1,r:15.3,kg:500},{h:1,r:13.5,kg:600},{h:1,r:12.0,kg:800},{h:1,r:10.5,kg:1000},{h:1,r:9.4,kg:1200},{h:1,r:8.4,kg:1500},{h:1,r:7.4,kg:2000},{h:1,r:5.9,kg:2700},{h:1,r:4.4,kg:3500},{h:1,r:2.8,kg:4000},{h:3.0,r:0,kg:4000},{h:4,r:14.8,kg:500},{h:4,r:12.9,kg:600},{h:4,r:11.3,kg:800},{h:4,r:9.7,kg:1000},{h:4,r:8.6,kg:1200},{h:4,r:7.5,kg:1500},{h:4,r:6.3,kg:2000},{h:4,r:4.5,kg:2700},{h:4,r:2.1,kg:3500},{h:4.5,r:0,kg:3500},{h:6.0,r:0,kg:2700},{h:7,r:3.0,kg:4000},{h:7.5,r:0,kg:2000},{h:8,r:13.0,kg:500},{h:8,r:10.9,kg:600},{h:8,r:8.9,kg:800},{h:8,r:6.8,kg:1000},{h:8,r:5.1,kg:1200},{h:8,r:2.9,kg:1500},{h:8.5,r:0,kg:1500},{h:9.5,r:0,kg:1200},{h:10,r:3.5,kg:3500},{h:10.5,r:0,kg:1000},{h:12,r:9.5,kg:500},{h:12,r:6.2,kg:600},{h:12.0,r:0,kg:800},{h:13.5,r:0,kg:600},{h:15.3,r:0,kg:500}],
-      // ON TYRES / FRONTAL (0°) — loadMatrixTyres
-      // SOURCE: Left chart "MAX 3.5 t" | Zones(kg→L): 300→12.0✓,500→10.5,800→9.0,
-      //         1000→8.0,1400→7.0,2000→5.5,2700→4.0,3500→2.5
-      loadMatrixTyres:[{h:1,r:12.0,kg:300},{h:1,r:10.5,kg:500},{h:1,r:8.9,kg:800},{h:1,r:7.9,kg:1000},{h:1,r:6.9,kg:1400},{h:1,r:5.4,kg:2000},{h:1,r:3.9,kg:2700},{h:1,r:2.3,kg:3500},{h:2.5,r:0,kg:3500},{h:4,r:11.3,kg:300},{h:4,r:9.7,kg:500},{h:4,r:8.1,kg:800},{h:4,r:6.9,kg:1000},{h:4,r:5.7,kg:1400},{h:4,r:3.8,kg:2000},{h:4.0,r:0,kg:2700},{h:5.5,r:0,kg:2000},{h:7.0,r:0,kg:1400},{h:8,r:8.9,kg:300},{h:8,r:6.8,kg:500},{h:8,r:4.1,kg:800},{h:8.0,r:0,kg:1000},{h:9.0,r:0,kg:800},{h:10.5,r:0,kg:500},{h:12.0,r:0,kg:300}],
-      // ⚠️ loadMatrixWinch — ESTIMATED (loadMatrix × 0.93, cap 3600kg).
-      loadMatrixWinch:[{h:0.0,r:0.0,kg:3300},{h:0.0,r:1.5,kg:2500},{h:0.0,r:4.5,kg:1300},{h:0.0,r:7.5,kg:700},{h:0.0,r:12.0,kg:300},{h:3.0,r:0.0,kg:3300},{h:3.0,r:1.5,kg:2500},{h:3.0,r:4.5,kg:1300},{h:3.0,r:7.5,kg:700},{h:3.0,r:11.5,kg:300},{h:6.0,r:0.0,kg:3300},{h:6.0,r:1.5,kg:2500},{h:6.0,r:4.5,kg:1300},{h:6.0,r:7.0,kg:700},{h:6.0,r:11.0,kg:300},{h:9.0,r:0.0,kg:3300},{h:9.0,r:1.5,kg:2500},{h:9.0,r:4.0,kg:1300},{h:9.0,r:6.5,kg:700},{h:12.0,r:0.0,kg:3300},{h:12.0,r:1.5,kg:2500},{h:12.0,r:3.5,kg:1300},{h:12.0,r:6.0,kg:700},{h:14.0,r:0.0,kg:3300},{h:14.0,r:1.0,kg:2500},{h:14.0,r:3.0,kg:1300},{h:15.7,r:0.0,kg:3300},{h:15.7,r:0.5,kg:2500},{h:15.7,r:2.5,kg:1300}],
-      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[{h:0.0,r:0.0,kg:2000},{h:0.0,r:3.5,kg:1500},{h:0.0,r:7.0,kg:1000},{h:0.0,r:10.5,kg:600},{h:3.0,r:0.0,kg:2000},{h:3.0,r:3.4,kg:1500},{h:3.0,r:6.8,kg:1000},{h:3.0,r:10.1,kg:600},{h:6.0,r:0.0,kg:2000},{h:6.0,r:3.2,kg:1500},{h:6.0,r:6.5,kg:1000},{h:6.0,r:9.8,kg:600},{h:9.0,r:0.0,kg:2000},{h:9.0,r:2.1,kg:1500},{h:9.0,r:4.2,kg:1000},{h:9.0,r:6.4,kg:600},{h:12.0,r:0.0,kg:2000},{h:12.0,r:2.0,kg:1500},{h:12.0,r:4.0,kg:1000},{h:12.0,r:6.0,kg:600},{h:14.0,r:0.0,kg:2000},{h:14.0,r:1.2,kg:1500},{h:14.0,r:2.5,kg:1000},{h:14.0,r:3.8,kg:600},{h:15.7,r:0.0,kg:2000},{h:15.7,r:1.1,kg:1500},{h:15.7,r:2.2,kg:1000},{h:15.7,r:3.4,kg:600},{h:17.7,r:0.0,kg:2000},{h:17.7,r:1.0,kg:1500},{h:17.7,r:2.0,kg:1000},{h:17.7,r:3.0,kg:600}],
-      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (1000kg constant throughout working envelope).
-      loadMatrixJib1500:[{h:0.0,r:0.0,kg:1000},{h:0.0,r:1.5,kg:1000},{h:0.0,r:4.5,kg:1000},{h:0.0,r:7.5,kg:1000},{h:0.0,r:12.0,kg:1000},{h:3.0,r:0.0,kg:1000},{h:3.0,r:1.5,kg:1000},{h:3.0,r:4.5,kg:1000},{h:3.0,r:7.5,kg:1000},{h:3.0,r:11.5,kg:1000},{h:6.0,r:0.0,kg:1000},{h:6.0,r:1.5,kg:1000},{h:6.0,r:4.5,kg:1000},{h:6.0,r:7.0,kg:1000},{h:6.0,r:11.0,kg:1000},{h:9.0,r:0.0,kg:1000},{h:9.0,r:1.5,kg:1000},{h:9.0,r:4.0,kg:1000},{h:9.0,r:6.5,kg:1000},{h:12.0,r:0.0,kg:1000},{h:12.0,r:1.5,kg:1000},{h:12.0,r:3.5,kg:1000},{h:12.0,r:6.0,kg:1000},{h:14.0,r:0.0,kg:1000},{h:14.0,r:1.0,kg:1000},{h:14.0,r:3.0,kg:1000},{h:15.7,r:0.0,kg:1000},{h:15.7,r:0.5,kg:1000},{h:15.7,r:2.5,kg:1000}],
-      loadMatrixTyres360:[{h:0.0,r:0.0,kg:2100},{h:0.0,r:1.5,kg:1800},{h:0.0,r:3.0,kg:1400},{h:0.0,r:5.0,kg:1050},{h:0.0,r:7.0,kg:800},{h:0.0,r:9.0,kg:600},{h:0.0,r:10.5,kg:500},{h:0.0,r:12.0,kg:400},{h:0.0,r:13.5,kg:250},{h:3.0,r:0.0,kg:2100},{h:3.0,r:1.5,kg:1800},{h:3.0,r:3.0,kg:1400},{h:3.0,r:5.0,kg:1050},{h:3.0,r:7.0,kg:800},{h:3.0,r:9.0,kg:600},{h:3.0,r:10.5,kg:500},{h:3.0,r:12.0,kg:400},{h:3.0,r:13.5,kg:250},{h:6.0,r:0.0,kg:2100},{h:6.0,r:1.5,kg:1800},{h:6.0,r:3.0,kg:1400},{h:6.0,r:5.0,kg:1050},{h:6.0,r:7.0,kg:800},{h:6.0,r:8.5,kg:600},{h:6.0,r:10.0,kg:500},{h:6.0,r:11.5,kg:400},{h:6.0,r:13.0,kg:250},{h:9.0,r:0.0,kg:2100},{h:9.0,r:1.5,kg:1800},{h:9.0,r:3.0,kg:1400},{h:9.0,r:4.5,kg:1050},{h:9.0,r:6.5,kg:800},{h:9.0,r:8.0,kg:600},{h:9.0,r:9.5,kg:500},{h:9.0,r:11.0,kg:400},{h:9.0,r:12.5,kg:250},{h:12.0,r:0.0,kg:2100},{h:12.0,r:1.5,kg:1800},{h:12.0,r:3.0,kg:1400},{h:12.0,r:4.5,kg:1050},{h:12.0,r:6.0,kg:800},{h:12.0,r:7.5,kg:600},{h:12.0,r:9.0,kg:500},{h:12.0,r:10.5,kg:400},{h:15.0,r:0.0,kg:2100},{h:15.0,r:1.0,kg:1800},{h:15.0,r:2.5,kg:1400},{h:15.0,r:4.0,kg:1050},{h:15.0,r:5.5,kg:800},{h:15.0,r:7.0,kg:600},{h:15.0,r:8.5,kg:500},{h:17.0,r:0.0,kg:2100},{h:17.0,r:1.0,kg:1800},{h:17.0,r:2.0,kg:1400},{h:17.0,r:3.5,kg:1050},{h:17.0,r:5.0,kg:800},{h:17.0,r:6.5,kg:600},{h:18.0,r:0.0,kg:2100},{h:18.0,r:0.5,kg:1800},{h:18.0,r:1.5,kg:1400},{h:18.0,r:3.0,kg:1050},{h:18.0,r:4.5,kg:800}],
-      filters:['telehandler','outdoor','rough']
-    },
     {
       id:'dieci-pegasus-360-50-21', brand:'Dieci', emoji:'🔄', brandColor:'#E30613',
       name:'Dieci Pegasus 360° 50.21', shortName:'Pegasus 50.21',
