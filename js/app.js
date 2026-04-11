@@ -12221,6 +12221,7 @@ const MACHINES = {
         {h:46,r:0,kg:200},{h:46,r:2.0,kg:200},
       ],
       filters:['telehandler','rough','heavy'],
+    },
 
     // ── MANITOU ROTATING TELEHANDLERS (MRT Series) ───────────────────────
     {
@@ -65039,18 +65040,4 @@ async function umDoDelete(uid, email) {
   }
 }
 
-// (Firebase db and currentUser accessed directly as globals in user mgmt functions)  ];
-
-  document.getElementById('admin-stat-grid').innerHTML = cards.map(c => `
-    <div class="stat-card ${c.color}" onclick="adminStatClick('${c.section}','')" style="cursor:pointer">
-      <div class="stat-arrow">→</div>
-      <div class="stat-icon">${c.icon}</div>
-      <div class="stat-value">${c.value}</div>
-      <div class="stat-label">${c.label}</div>
-      <div class="stat-sub">${c.sub}</div>
-      <div style="font-size:.68rem;color:#94A3B8;margin-top:.3rem;font-style:italic">${c.detail}</div>
-    </div>`).join('');
-
-// =====================================================================
-// MACHINE DATABASE
-// =====================================================================
+// (Firebase db and currentUser accessed directly as globals in user mgmt functions)
