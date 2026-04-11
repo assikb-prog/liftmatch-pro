@@ -44684,6 +44684,56 @@ function getMachinePhoto(m, type) {
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 // Pick up to `maxPer` machines per brand from a sorted pool, until we have `total`
+// ── getCapacityAtPoint — module-level so _buildTeleCapacityPanel can call it ──
+// Given a machine's loadMatrix (grid of {h,r,kg} points), bilinearly interpolate
+// to find actual rated capacity at (needH, needR).
+// Returns null if no loadMatrix; 0 if outside envelope.
+function getCapacityAtPoint(m, needH, needR) {
+  // Handle liftChart array format (legacy — envelope curve)
+  if ((!m.loadMatrix || !m.loadMatrix.length) && m.liftChart && Array.isArray(m.liftChart) && m.liftChart.length) {
+    const ratedKg = (m.liftCapacity||m.capacity||0) > 100 ? (m.liftCapacity||m.capacity||0) : (m.liftCapacity||m.capacity||0)*1000;
+    const lm = m.liftChart.map(p => ({ h: p.height, r: p.reach, kg: Math.round(p.capacity > 100 ? p.capacity : p.capacity * 1000) }));
+    const byReach = [...lm].sort((a,b) => a.r - b.r);
+    if (needR > byReach[byReach.length-1].r) return 0;
+    const lo = byReach.filter(p => p.r <= needR).pop() ?? byReach[0];
+    const hi = byReach.filter(p => p.r >= needR)[0] ?? byReach[byReach.length-1];
+    const tr = (hi.r === lo.r) ? 0 : (needR - lo.r) / (hi.r - lo.r);
+    const capAtMaxH = Math.round(lo.kg + (hi.kg - lo.kg) * tr);
+    const maxHAtR   = lo.h  + (hi.h  - lo.h ) * tr;
+    if (needH > maxHAtR) return 0;
+    const htFrac = maxHAtR > 0 ? Math.min(needH / maxHAtR, 1.0) : 0;
+    return Math.round(ratedKg - (ratedKg - capAtMaxH) * Math.pow(htFrac, 0.65));
+  }
+  if (!m.loadMatrix || !m.loadMatrix.length) return null;
+
+  const heights = [...new Set(m.loadMatrix.map(p=>p.h))].sort((a,b)=>a-b);
+  if (needH > heights[heights.length-1]) return 0;
+  const clampH = Math.max(heights[0], Math.min(needH, heights[heights.length-1]));
+  const h0 = heights.filter(h=>h<=clampH).pop() ?? heights[0];
+  const h1 = heights.filter(h=>h>=clampH)[0] ?? heights[heights.length-1];
+
+  function capAtRow(targetH, r) {
+    const row = m.loadMatrix.filter(p=>p.h===targetH).sort((a,b)=>a.r-b.r);
+    if (!row.length) return null;
+    if (r > row[row.length-1].r * 1.02) return 0;
+    const clampR = Math.min(r, row[row.length-1].r);
+    const lo = row.filter(p=>p.r<=clampR).pop() ?? row[0];
+    const hi = row.filter(p=>p.r>=clampR)[0] ?? row[row.length-1];
+    if (lo.r === hi.r) return lo.kg;
+    const tr = (clampR - lo.r) / (hi.r - lo.r);
+    return Math.round(lo.kg + (hi.kg - lo.kg) * tr);
+  }
+
+  const cap0 = capAtRow(h0, needR);
+  const cap1 = capAtRow(h1, needR);
+  if (cap0 === null && cap1 === null) return null;
+  if (cap0 === null) return cap1;
+  if (cap1 === null) return cap0;
+  if (h1 === h0) return cap0;
+  const th = (clampH - h0) / (h1 - h0);
+  return Math.round(cap0 + (cap1 - cap0) * th);
+}
+
 function diversePick(sortedPool, total, maxPer, preferredBrand) {
   const brandCount = {};
   const picked = [];
@@ -45239,75 +45289,8 @@ function matchMachines(ans, type) {
     const tattRaw = ans.tele_attachment || '';
     const tattArr = Array.isArray(tattRaw) ? tattRaw : tattRaw.split(',').filter(Boolean);
 
-    // ── Load-chart interpolation ────────────────────────────────────────────
-    // Given a machine's loadMatrix (grid of {h, r, kg} points), bilinearly
-    // interpolate to find actual rated capacity at (needH, needR).
-    // Returns null if no loadMatrix or point is outside the machine's envelope.
-    function getCapacityAtPoint(m, needH, needR) {
-      // Handle liftChart array format (legacy — envelope curve)
-      if ((!m.loadMatrix || !m.loadMatrix.length) && m.liftChart && Array.isArray(m.liftChart) && m.liftChart.length) {
-        const ratedKg = (m.liftCapacity||m.capacity||0) > 100 ? (m.liftCapacity||m.capacity||0) : (m.liftCapacity||m.capacity||0)*1000;
-        const lm = m.liftChart.map(p => ({ h: p.height, r: p.reach, kg: Math.round(p.capacity > 100 ? p.capacity : p.capacity * 1000) }));
-        const byReach = [...lm].sort((a,b) => a.r - b.r);
-        if (needR > byReach[byReach.length-1].r) return 0;
-        const lo = byReach.filter(p => p.r <= needR).pop() ?? byReach[0];
-        const hi = byReach.filter(p => p.r >= needR)[0] ?? byReach[byReach.length-1];
-        const tr = (hi.r === lo.r) ? 0 : (needR - lo.r) / (hi.r - lo.r);
-        const capAtMaxH = Math.round(lo.kg + (hi.kg - lo.kg) * tr);
-        const maxHAtR   = lo.h  + (hi.h  - lo.h ) * tr;
-        if (needH > maxHAtR) return 0;
-        const htFrac = maxHAtR > 0 ? Math.min(needH / maxHAtR, 1.0) : 0;
-        return Math.round(ratedKg - (ratedKg - capAtMaxH) * Math.pow(htFrac, 0.65));
-      }
-      if (!m.loadMatrix || !m.loadMatrix.length) return null;
-
-      // ── ROBUST ROW-BY-ROW INTERPOLATION ──────────────────────────────────
-      // Each row is a list of (reach, kg) breakpoints at a fixed height.
-      // 1. Find bracketing height rows.
-      // 2. For each height row, linearly interpolate across reach breakpoints.
-      // 3. Interpolate between the two height rows.
-      // This never needs a rectangular grid and always gives a correct result.
-      // ─────────────────────────────────────────────────────────────────────
-      const heights = [...new Set(m.loadMatrix.map(p=>p.h))].sort((a,b)=>a-b);
-
-      // Outside height envelope
-      if (needH > heights[heights.length-1]) return 0;
-
-      // Clamp height to matrix range
-      const clampH = Math.max(heights[0], Math.min(needH, heights[heights.length-1]));
-
-      // Find bracketing height rows
-      const h0 = heights.filter(h=>h<=clampH).pop() ?? heights[0];
-      const h1 = heights.filter(h=>h>=clampH)[0] ?? heights[heights.length-1];
-
-      // Interpolate capacity within a single height row at a given reach
-      function capAtRow(targetH, r) {
-        const row = m.loadMatrix.filter(p=>p.h===targetH).sort((a,b)=>a.r-b.r);
-        if (!row.length) return null;
-        // Outside reach envelope for this row
-        if (r > row[row.length-1].r * 1.02) return 0;
-        // Clamp reach to row max
-        const clampR = Math.min(r, row[row.length-1].r);
-        // Find bracketing reach points within this row
-        const lo = row.filter(p=>p.r<=clampR).pop() ?? row[0];
-        const hi = row.filter(p=>p.r>=clampR)[0] ?? row[row.length-1];
-        if (lo.r === hi.r) return lo.kg;
-        const tr = (clampR - lo.r) / (hi.r - lo.r);
-        return Math.round(lo.kg + (hi.kg - lo.kg) * tr);
-      }
-
-      const cap0 = capAtRow(h0, needR);
-      const cap1 = capAtRow(h1, needR);
-      if (cap0 === null && cap1 === null) return null;
-      if (cap0 === null) return cap1;
-      if (cap1 === null) return cap0;
-
-      // Interpolate between the two height rows
-      if (h1 === h0) return cap0;
-      const th = (clampH - h0) / (h1 - h0);
-      return Math.round(cap0 + (cap1 - cap0) * th);
-    }
-
+    // getCapacityAtPoint is defined at module level (see above matchMachines)
+    // so _buildTeleCapacityPanel can also call it without scope errors.
     // Site restrictions
     if (ans.has_restrictions === 'has_restrict') {
       const rw=parseFloat(ans.rw||99999), rh=parseFloat(ans.rh||99), rwid=parseFloat(ans.rwid||99), rl=parseFloat(ans.rl||99);
