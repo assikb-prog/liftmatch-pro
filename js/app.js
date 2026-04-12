@@ -4558,30 +4558,8 @@ const MACHINES = {
       // Source: JCB 555-210R brochure — re-digitised April 2026, zone-boundary format
       // Each {h,r,kg} = outer boundary of that kg zone at that height (zone-floor semantics)
       // CONFIRMED: h=10m/r=6m=5000; h=9m/r=6.5m=4000 (just past 5000 boundary)
-      loadMatrix:[
-        // h=0
-        {h:0,r:0.6,kg:5500},{h:0,r:2.0,kg:5000},{h:0,r:4.0,kg:4000},{h:0,r:6.0,kg:3500},{h:0,r:8.0,kg:3000},{h:0,r:10.0,kg:2500},{h:0,r:12.0,kg:2000},{h:0,r:15.0,kg:1500},{h:0,r:17.0,kg:1000},{h:0,r:18.0,kg:850},
-        // h=4
-        {h:4,r:0.6,kg:5500},{h:4,r:3.5,kg:5000},{h:4,r:5.5,kg:4000},{h:4,r:7.5,kg:3500},{h:4,r:9.5,kg:3000},{h:4,r:11.5,kg:2500},{h:4,r:13.5,kg:2000},{h:4,r:16.0,kg:1500},{h:4,r:17.5,kg:1000},{h:4,r:18.0,kg:850},
-        // h=8
-        {h:8,r:0.6,kg:5500},{h:8,r:4.0,kg:5000},{h:8,r:5.5,kg:5000},{h:8,r:6.5,kg:4000},{h:8,r:8.5,kg:3500},{h:8,r:10.5,kg:3000},{h:8,r:12.5,kg:2500},{h:8,r:14.5,kg:2000},{h:8,r:16.5,kg:1500},{h:8,r:17.5,kg:1000},
-        // h=9 — EXPLICIT: 5000kg boundary at r=6.0m, 4000kg at r=8.0m
-        // Confirmed from brochure: at h=9m/r=6.5m = 4000kg zone
-        {h:9,r:0.6,kg:5500},{h:9,r:4.0,kg:5000},{h:9,r:6.0,kg:5000},{h:9,r:6.5,kg:4000},{h:9,r:9.0,kg:3500},{h:9,r:11.0,kg:3000},{h:9,r:13.5,kg:2500},{h:9,r:15.5,kg:2000},{h:9,r:17.0,kg:1500},
-        // h=10 — BROCHURE CONFIRMED: 5000kg boundary at r=6.0m, 4000kg at r=8.0m
-        {h:10,r:0.6,kg:5500},{h:10,r:4.0,kg:5000},{h:10,r:6.0,kg:5000},{h:10,r:6.5,kg:4000},{h:10,r:8.5,kg:3500},{h:10,r:11.0,kg:3000},{h:10,r:13.5,kg:2500},{h:10,r:16.0,kg:2000},{h:10,r:17.0,kg:1500},
-        // h=12
-        {h:12,r:0.6,kg:5500},{h:12,r:4.0,kg:5000},{h:12,r:6.0,kg:4000},{h:12,r:8.0,kg:3500},{h:12,r:10.0,kg:3000},{h:12,r:12.5,kg:2500},{h:12,r:15.0,kg:2000},{h:12,r:16.5,kg:1500},
-        // h=16
-        {h:16,r:0.6,kg:5500},{h:16,r:3.5,kg:5000},{h:16,r:5.5,kg:4000},{h:16,r:7.5,kg:3500},{h:16,r:9.5,kg:3000},{h:16,r:11.5,kg:2500},{h:16,r:13.5,kg:2000},
-        // h=18
-        {h:18,r:0.6,kg:5500},{h:18,r:3.0,kg:5000},{h:18,r:5.0,kg:4000},{h:18,r:7.0,kg:3500},{h:18,r:9.0,kg:3000},{h:18,r:11.0,kg:2500},
-        // h=20
-        {h:20,r:0.6,kg:5500},{h:20,r:2.5,kg:5000},{h:20,r:4.5,kg:4000},{h:20,r:6.5,kg:3500},
-        // h=20.5 (max height — spec: 2500kg at max height)
-        {h:20.5,r:0.6,kg:5500},{h:20.5,r:2.0,kg:5000},{h:20.5,r:4.0,kg:4000},{h:20.5,r:6.0,kg:3500},
-      ],
-            loadMatrixTyres:[{h:0,r:0.6,kg:4500},{h:0,r:4.0,kg:4000},{h:0,r:5.5,kg:3000},{h:0,r:7.0,kg:2000},{h:0,r:8.5,kg:1500},{h:0,r:10.5,kg:1000},{h:0,r:12.5,kg:500},{h:0,r:14.5,kg:300},{h:4,r:0.6,kg:4500},{h:4,r:4.5,kg:4000},{h:4,r:6.0,kg:3000},{h:4,r:7.5,kg:2000},{h:4,r:9.0,kg:1500},{h:4,r:10.5,kg:1000},{h:4,r:12.5,kg:500},{h:4,r:14.5,kg:300},{h:8,r:0.6,kg:4500},{h:8,r:4.0,kg:4000},{h:8,r:5.5,kg:3000},{h:8,r:7.0,kg:2000},{h:8,r:8.5,kg:1500},{h:8,r:10.0,kg:1000},{h:8,r:12.0,kg:500},{h:8,r:13.5,kg:300},{h:12,r:0.6,kg:4500},{h:12,r:3.5,kg:4000},{h:12,r:5.0,kg:3000},{h:12,r:6.5,kg:2000},{h:12,r:8.0,kg:1500},{h:12,r:9.5,kg:1000},{h:12,r:11.5,kg:500},{h:12,r:13.0,kg:300},{h:16,r:0.6,kg:4500},{h:16,r:3.0,kg:4000},{h:16,r:4.5,kg:3000},{h:16,r:6.0,kg:2000},{h:16,r:7.5,kg:1500},{h:16,r:9.0,kg:1000},{h:16,r:11.0,kg:500},{h:18,r:0.6,kg:4500},{h:18,r:2.5,kg:4000},{h:18,r:4.0,kg:3000},{h:18,r:5.5,kg:2000},{h:18,r:7.0,kg:1500},{h:18,r:8.5,kg:1000},{h:18,r:10.5,kg:500},{h:20,r:0.6,kg:4500},{h:20,r:2.0,kg:4000},{h:20,r:3.5,kg:3000},{h:20,r:5.0,kg:2000},{h:20,r:6.5,kg:1500},{h:20,r:8.0,kg:1000},{h:21,r:0.6,kg:4000},{h:21,r:2.0,kg:3000},{h:21,r:4.0,kg:2000},{h:21,r:5.5,kg:1500}],
+      loadMatrix:[{h:0,r:0.6,kg:5500},{h:0,r:6.0,kg:5000},{h:0,r:8.0,kg:4000},{h:0,r:10.0,kg:3000},{h:0,r:12.0,kg:2500},{h:0,r:15.0,kg:2000},{h:0,r:17.0,kg:1500},{h:0,r:17.9,kg:1000},{h:0,r:18.0,kg:850},{h:4,r:0.6,kg:5500},{h:4,r:7.0,kg:5000},{h:4,r:9.0,kg:4000},{h:4,r:11.0,kg:3500},{h:4,r:12.5,kg:3000},{h:4,r:15.0,kg:2500},{h:4,r:16.5,kg:2000},{h:4,r:17.5,kg:1500},{h:4,r:18.0,kg:1000},{h:8,r:0.6,kg:5500},{h:8,r:5.0,kg:5000},{h:8,r:7.0,kg:4000},{h:8,r:9.0,kg:3500},{h:8,r:10.5,kg:3000},{h:8,r:12.5,kg:2500},{h:8,r:14.0,kg:2000},{h:8,r:15.5,kg:1500},{h:8,r:16.5,kg:1000},{h:8,r:17.5,kg:850},{h:10,r:0.6,kg:5500},{h:10,r:6.0,kg:5000},{h:10,r:8.0,kg:4000},{h:10,r:10.0,kg:3500},{h:10,r:11.5,kg:3000},{h:10,r:13.5,kg:2500},{h:10,r:15.0,kg:2000},{h:10,r:16.0,kg:1500},{h:10,r:17.0,kg:1000},{h:12,r:0.6,kg:5500},{h:12,r:5.0,kg:5000},{h:12,r:7.0,kg:4000},{h:12,r:9.0,kg:3500},{h:12,r:10.5,kg:3000},{h:12,r:12.5,kg:2500},{h:12,r:14.0,kg:2000},{h:12,r:15.5,kg:1500},{h:12,r:16.5,kg:1000},{h:16,r:0.6,kg:5500},{h:16,r:4.5,kg:5000},{h:16,r:6.5,kg:4000},{h:16,r:8.5,kg:3500},{h:16,r:10.0,kg:3000},{h:16,r:11.5,kg:2500},{h:16,r:12.5,kg:2000},{h:16,r:13.5,kg:1500},{h:18,r:0.6,kg:5500},{h:18,r:4.0,kg:5000},{h:18,r:6.0,kg:4000},{h:18,r:7.5,kg:3500},{h:18,r:9.5,kg:3000},{h:20,r:0.6,kg:5500},{h:20,r:3.0,kg:5000},{h:20,r:4.5,kg:4000},{h:20,r:6.0,kg:3500},{h:20.5,r:0.6,kg:5500},{h:20.5,r:2.5,kg:5000},{h:20.5,r:4.0,kg:4000}],
+            loadMatrixTyres:[{h:0,r:0.6,kg:4500},{h:0,r:4.0,kg:4000},{h:0,r:5.5,kg:3000},{h:0,r:7.0,kg:2000},{h:0,r:8.5,kg:1500},{h:0,r:10.0,kg:1000},{h:0,r:12.0,kg:500},{h:0,r:14.0,kg:300},{h:4,r:0.6,kg:4500},{h:4,r:4.0,kg:4000},{h:4,r:5.5,kg:3000},{h:4,r:7.0,kg:2000},{h:4,r:8.0,kg:1500},{h:4,r:9.0,kg:1000},{h:4,r:10.5,kg:500},{h:4,r:12.0,kg:300},{h:8,r:0.6,kg:4500},{h:8,r:4.0,kg:4000},{h:8,r:6.5,kg:3000},{h:8,r:7.5,kg:2000},{h:8,r:8.5,kg:1500},{h:8,r:9.5,kg:1000},{h:8,r:10.5,kg:500},{h:12,r:0.6,kg:4500},{h:12,r:3.5,kg:4000},{h:12,r:5.5,kg:3000},{h:12,r:7.0,kg:2000},{h:12,r:8.0,kg:1500},{h:12,r:8.5,kg:500},{h:16,r:0.6,kg:4500},{h:16,r:3.0,kg:4000},{h:16,r:4.5,kg:3000},{h:16,r:6.0,kg:2000},{h:16,r:7.0,kg:1000},{h:16,r:8.5,kg:500},{h:18,r:0.6,kg:4500},{h:18,r:2.5,kg:3000},{h:18,r:4.0,kg:2000},{h:18,r:5.5,kg:1500},{h:18,r:7.0,kg:500},{h:20,r:0.6,kg:4500},{h:20,r:2.0,kg:3000},{h:20,r:4.0,kg:2000},{h:21,r:0.6,kg:4500}],
       loadMatrixWinch:[{h:0,r:0.6,kg:5500},{h:0,r:2.0,kg:5000},{h:0,r:4.0,kg:4000},{h:0,r:6.0,kg:3000},{h:0,r:8.0,kg:2500},{h:0,r:10.0,kg:2000},{h:0,r:12.5,kg:1500},{h:0,r:14.5,kg:1000},{h:0,r:16.5,kg:800},{h:0,r:18.0,kg:550},{h:4,r:0.6,kg:5500},{h:4,r:3.5,kg:5000},{h:4,r:5.5,kg:4000},{h:4,r:7.5,kg:3000},{h:4,r:9.5,kg:2500},{h:4,r:11.5,kg:2000},{h:4,r:13.5,kg:1500},{h:4,r:15.5,kg:1000},{h:4,r:17.0,kg:800},{h:4,r:18.5,kg:550},{h:8,r:0.6,kg:5500},{h:8,r:5.0,kg:5000},{h:8,r:7.5,kg:4000},{h:8,r:10.0,kg:3000},{h:8,r:12.0,kg:2500},{h:8,r:14.0,kg:2000},{h:8,r:16.0,kg:1500},{h:8,r:17.5,kg:1000},{h:8,r:18.5,kg:800},{h:10,r:0.6,kg:5500},{h:10,r:5.5,kg:5000},{h:10,r:8.0,kg:4000},{h:10,r:10.5,kg:3000},{h:10,r:12.5,kg:2500},{h:10,r:14.5,kg:2000},{h:10,r:16.5,kg:1500},{h:10,r:17.5,kg:1000},{h:12,r:0.6,kg:5500},{h:12,r:5.0,kg:5000},{h:12,r:7.5,kg:4000},{h:12,r:10.0,kg:3000},{h:12,r:12.0,kg:2500},{h:12,r:14.0,kg:2000},{h:12,r:16.0,kg:1500},{h:12,r:17.0,kg:1000},{h:16,r:0.6,kg:5500},{h:16,r:4.5,kg:5000},{h:16,r:7.0,kg:4000},{h:16,r:9.5,kg:3000},{h:16,r:11.5,kg:2500},{h:16,r:13.5,kg:2000},{h:16,r:15.0,kg:1500},{h:18,r:0.6,kg:5500},{h:18,r:4.0,kg:5000},{h:18,r:6.5,kg:4000},{h:18,r:9.0,kg:3000},{h:18,r:11.0,kg:2500},{h:18,r:13.0,kg:2000},{h:20,r:0.6,kg:5500},{h:20,r:3.0,kg:5000},{h:20,r:5.5,kg:4000},{h:20,r:8.0,kg:3000},{h:20,r:10.5,kg:2500},{h:21,r:0.6,kg:5500},{h:21,r:2.5,kg:5000},{h:21,r:5.0,kg:4000},{h:21,r:7.5,kg:3000}],
       filters:['telehandler','rough','heavy']
     },
@@ -5782,7 +5760,7 @@ const MACHINES = {
       loadMatrixJib800:[{h:0.0,r:0.0,kg:2000},{h:0.0,r:3.5,kg:1500},{h:0.0,r:7.0,kg:1000},{h:0.0,r:10.5,kg:600},{h:3.0,r:0.0,kg:2000},{h:3.0,r:3.4,kg:1500},{h:3.0,r:6.8,kg:1000},{h:3.0,r:10.1,kg:600},{h:6.0,r:0.0,kg:2000},{h:6.0,r:3.2,kg:1500},{h:6.0,r:6.5,kg:1000},{h:6.0,r:9.8,kg:600},{h:9.0,r:0.0,kg:2000},{h:9.0,r:2.1,kg:1500},{h:9.0,r:4.2,kg:1000},{h:9.0,r:6.4,kg:600},{h:12.0,r:0.0,kg:2000},{h:12.0,r:2.0,kg:1500},{h:12.0,r:4.0,kg:1000},{h:12.0,r:6.0,kg:600},{h:14.0,r:0.0,kg:2000},{h:14.0,r:1.2,kg:1500},{h:14.0,r:2.5,kg:1000},{h:14.0,r:3.8,kg:600},{h:15.7,r:0.0,kg:2000},{h:15.7,r:1.1,kg:1500},{h:15.7,r:2.2,kg:1000},{h:15.7,r:3.4,kg:600},{h:17.7,r:0.0,kg:2000},{h:17.7,r:1.0,kg:1500},{h:17.7,r:2.0,kg:1000},{h:17.7,r:3.0,kg:600}],
       // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (1000kg constant throughout working envelope).
       loadMatrixJib1500:[{h:0,r:0.6,kg:1000},{h:0,r:13.0,kg:1000},{h:4,r:0.6,kg:1000},{h:4,r:13.5,kg:1000},{h:8,r:0.6,kg:1000},{h:8,r:13.5,kg:1000},{h:12,r:0.6,kg:1000},{h:12,r:12.0,kg:1000},{h:14,r:0.6,kg:1000},{h:14,r:11.0,kg:1000},{h:16,r:0.6,kg:1000},{h:16,r:10.0,kg:1000},{h:18,r:0.6,kg:1000},{h:18,r:8.5,kg:1000},{h:20,r:0.6,kg:1000},{h:20,r:7.0,kg:1000},{h:22,r:0.6,kg:1000},{h:22,r:5.0,kg:1000}],
-      loadMatrixTyres360:[{h:0,r:0.6,kg:2500},{h:0,r:1.5,kg:2000},{h:0,r:4.5,kg:1000},{h:0,r:7.5,kg:500},{h:0,r:9.5,kg:200},{h:4,r:0.6,kg:2500},{h:4,r:1.5,kg:2000},{h:4,r:4.5,kg:1000},{h:4,r:7.5,kg:500},{h:4,r:9.5,kg:200},{h:8,r:0.6,kg:2500},{h:8,r:1.5,kg:2000},{h:8,r:4.5,kg:1000},{h:8,r:7.5,kg:500},{h:10,r:0.6,kg:2500},{h:10,r:1.5,kg:2000},{h:10,r:4.0,kg:1000},{h:10,r:7.0,kg:500},{h:12,r:0.6,kg:2500},{h:12,r:1.5,kg:2000},{h:12,r:4.0,kg:1000},{h:14,r:0.6,kg:2500},{h:14,r:1.5,kg:2000},{h:14,r:3.5,kg:1000},{h:16,r:0.6,kg:2500},{h:16,r:1.0,kg:2000},{h:16,r:3.0,kg:1000},{h:17,r:0.6,kg:2500},{h:17,r:2.0,kg:1000}],
+      loadMatrixTyres360:[{h:0,r:0.6,kg:2500},{h:0,r:1.5,kg:2000},{h:0,r:4.0,kg:1000},{h:0,r:6.5,kg:500},{h:0,r:7.5,kg:200},{h:0,r:8.5,kg:200},{h:4,r:0.6,kg:2500},{h:4,r:1.5,kg:2000},{h:4,r:4.0,kg:1000},{h:4,r:6.5,kg:500},{h:4,r:7.5,kg:200},{h:4,r:8.5,kg:200},{h:8,r:0.6,kg:2500},{h:8,r:1.5,kg:2000},{h:8,r:4.0,kg:1000},{h:8,r:6.5,kg:500},{h:8,r:7.5,kg:200},{h:8,r:8.0,kg:200},{h:12,r:0.6,kg:2500},{h:12,r:1.5,kg:2000},{h:12,r:3.5,kg:1000},{h:12,r:5.5,kg:500},{h:12,r:7.0,kg:200},{h:12,r:7.5,kg:200},{h:16,r:0.6,kg:2500},{h:16,r:3.0,kg:2000},{h:16,r:4.5,kg:1000},{h:16,r:5.5,kg:500},{h:17,r:0.6,kg:2500},{h:18,r:0.6,kg:2000}],
       filters:['telehandler','rough','heavy']
     },
     {
@@ -11178,56 +11156,29 @@ const MACHINES = {
       terrain:'rough/outdoor',
       attachments:['Standard Forks 1200×100×60mm','Jib 1.5T','Hook 6T','Man Basket 365kg','Work Platform 1000kg','Winch 6T','Extensible Jib with Winch','3D Positive Jib','3D Positive/Negative Jib'],
       bestFor:'6T at 21.8m — diesel rotating crane replacement, 7-storey construction, precast handling',
-      note:'Manitou MRT-X 2260 Vision+ — diesel rotating telehandler. 6T, 21.8m lift, 18.2m outreach. 360° rotation. Yanmar 156hp (115kW) Speedshift. Telescopic Duplex stabilisers (5.78m spread). 185 L/min hydraulics at 350 bar. Frame levelling ±7°. E-Reco. Hook 6T, Winch 6T, Jib 1.5T, Extensible jib with winch, 3D positive/negative jib. Identical chassis and load charts to MRT 2260 E. Source: Official Manitou MRT-X 2260 Technical Sheet (September 2022).',
+      note:'Manitou MRT-X 2260 Vision+ — 6T, 21.8m lift, 18.2m outreach. 360° rotation. Yanmar 156hp (115kW) Speedshift. Telescopic Duplex stabilisers (5.78m spread). All load charts re-digitised via pixel analysis from official Manitou MRT-X 2260 brochure (Sep 2022). Key confirmed: h=10m/r=6.5m = 5,000–5,500 kg on stabilisers (previous code was wrong at 4,125 kg). 11 zones in stabilisers chart: 1000/1200/1500/2000/2500/3500/4000/4500/5000/5500/6000 (no 3000 kg zone). Jib row now shows 1500 kg jib capacity (previously showed EWP 365 data incorrectly).',
       tags:['Rotating 360°','6T','21.8m','Vision+','Yanmar Diesel','MRT-X 2260'],
       // Load charts confirmed from Manitou MRT-X 2260 Technical Sheet (September 1, 2022)
-      loadMatrix:[{h:0,r:0.6,kg:6000},{h:0,r:2.0,kg:5500},{h:0,r:3.5,kg:5000},{h:0,r:5.0,kg:4500},{h:0,r:6.5,kg:4000},{h:0,r:8.0,kg:3500},{h:0,r:9.5,kg:3000},{h:0,r:11.0,kg:2500},{h:0,r:13.0,kg:2000},{h:0,r:15.0,kg:1500},{h:0,r:16.5,kg:1200},{h:0,r:18.2,kg:1000},{h:4,r:0.6,kg:6000},{h:4,r:2.0,kg:5500},{h:4,r:3.5,kg:5000},{h:4,r:5.0,kg:4500},{h:4,r:7.0,kg:4000},{h:4,r:8.5,kg:3500},{h:4,r:10.0,kg:3000},{h:4,r:12.0,kg:2500},{h:4,r:13.5,kg:2000},{h:4,r:15.0,kg:1500},{h:4,r:17.0,kg:1200},{h:4,r:18.2,kg:1000},{h:8,r:0.6,kg:6000},{h:8,r:2.0,kg:5500},{h:8,r:3.5,kg:5000},{h:8,r:5.0,kg:4500},{h:8,r:7.0,kg:4000},{h:8,r:8.5,kg:3500},{h:8,r:10.5,kg:3000},{h:8,r:12.0,kg:2500},{h:8,r:13.5,kg:2000},{h:8,r:15.5,kg:1500},{h:8,r:17.0,kg:1200},{h:8,r:18.2,kg:1000},{h:12,r:0.6,kg:6000},{h:12,r:2.0,kg:5500},{h:12,r:3.5,kg:5000},{h:12,r:5.0,kg:4500},{h:12,r:7.0,kg:4000},{h:12,r:8.5,kg:3500},{h:12,r:10.5,kg:3000},{h:12,r:12.0,kg:2500},{h:12,r:13.5,kg:2000},{h:12,r:15.0,kg:1500},{h:12,r:17.0,kg:1200},{h:12,r:17.5,kg:1000},{h:16,r:0.6,kg:6000},{h:16,r:2.0,kg:5500},{h:16,r:4.0,kg:5000},{h:16,r:6.0,kg:4500},{h:16,r:7.5,kg:4000},{h:16,r:9.5,kg:3500},{h:16,r:11.5,kg:3000},{h:16,r:13.5,kg:2500},{h:16,r:15.5,kg:2000},{h:16,r:17.0,kg:1500},{h:20,r:0.6,kg:6000},{h:20,r:2.5,kg:5500},{h:20,r:5.0,kg:5000},{h:20,r:7.5,kg:4500},{h:20,r:9.5,kg:4000},{h:20,r:12.0,kg:3500},{h:20,r:14.0,kg:3000},{h:20,r:15.5,kg:2000},{h:21.8,r:0.6,kg:6000},{h:21.8,r:3.0,kg:5500},{h:21.8,r:6.0,kg:5000},{h:21.8,r:8.5,kg:4500},{h:21.8,r:11.0,kg:4000},{h:21.8,r:13.0,kg:3500}],
+      // loadMatrix — zone outer boundaries from pixel analysis of Manitou MRT-X 2260 brochure (Sep 2022)
+      // Format: {h,r,kg} = outer reach boundary of that zone at that height. Zone lookup (step fn), no interpolation.
+      loadMatrix:[{h:0,r:4.0,kg:6000},{h:0,r:5.5,kg:5500},{h:0,r:6.0,kg:5000},{h:0,r:7.0,kg:4500},{h:0,r:8.0,kg:4000},{h:0,r:9.5,kg:3500},{h:0,r:11.5,kg:2500},{h:0,r:13.5,kg:2000},{h:0,r:15.5,kg:1500},{h:0,r:17.0,kg:1200},{h:0,r:18.2,kg:1000},{h:4,r:4.5,kg:6000},{h:4,r:6.0,kg:5500},{h:4,r:7.0,kg:5000},{h:4,r:8.0,kg:4500},{h:4,r:9.5,kg:4000},{h:4,r:11.0,kg:3500},{h:4,r:13.0,kg:2500},{h:4,r:15.0,kg:2000},{h:4,r:16.5,kg:1500},{h:4,r:17.5,kg:1200},{h:4,r:18.2,kg:1000},{h:6,r:2.1,kg:6000},{h:6,r:2.3,kg:5500},{h:6,r:2.7,kg:5000},{h:6,r:3.6,kg:4500},{h:6,r:3.8,kg:4000},{h:6,r:4.0,kg:3500},{h:6,r:5.1,kg:2500},{h:6,r:6.5,kg:2000},{h:6,r:8.0,kg:1500},{h:6,r:10.0,kg:1200},{h:6,r:12.0,kg:1000},{h:8,r:5.9,kg:6000},{h:8,r:6.8,kg:5500},{h:8,r:8.0,kg:5000},{h:8,r:8.6,kg:4500},{h:8,r:9.5,kg:4000},{h:8,r:11.5,kg:3500},{h:8,r:12.5,kg:2500},{h:10,r:5.7,kg:6000},{h:10,r:6.8,kg:5500},{h:10,r:7.2,kg:5000},{h:10,r:8.1,kg:4500},{h:10,r:9.2,kg:4000},{h:10,r:11.6,kg:3500},{h:10,r:12.1,kg:2500},{h:12,r:2.5,kg:6000},{h:12,r:4.0,kg:5500},{h:12,r:6.0,kg:5000},{h:12,r:7.5,kg:4500},{h:12,r:9.0,kg:4000},{h:12,r:11.0,kg:3500},{h:12,r:13.0,kg:2500},{h:12,r:15.0,kg:2000},{h:12,r:16.5,kg:1500},{h:16,r:2.0,kg:6000},{h:16,r:4.5,kg:5000},{h:16,r:6.5,kg:4500},{h:16,r:8.0,kg:4000},{h:16,r:9.5,kg:3500},{h:16,r:11.0,kg:2500},{h:20,r:3.0,kg:6000},{h:20,r:5.5,kg:5000},{h:20,r:8.0,kg:4000},{h:20,r:10.0,kg:3500},{h:20,r:12.0,kg:2500},{h:21.8,r:2.5,kg:6000},{h:21.8,r:5.0,kg:5500},{h:21.8,r:7.5,kg:5000},{h:21.8,r:10.0,kg:4000},{h:21.8,r:12.0,kg:3500}],
       // ── FORKS ON TYRES
       // Source: "Machine on tyres with forks Metric"
       // Zones: 300,500,1000,1500,2000,2500,3000,4000,4500 kg | LC 600mm/24in | Max h=21.4m (70.2ft) Max r=14m (45.9ft)
       // ⚠️ 4000 kg zone confirmed from chart — was missing from prior data
-      loadMatrixTyres:[
-        {h:0,r:0,kg:4500},{h:0,r:3.0,kg:4000},{h:0,r:5.0,kg:3000},{h:0,r:6.5,kg:2500},{h:0,r:8.0,kg:2000},{h:0,r:9.5,kg:1500},{h:0,r:11.0,kg:1000},{h:0,r:13.0,kg:500},{h:0,r:14.0,kg:300},
-        {h:2,r:0,kg:4500},{h:2,r:3.0,kg:4000},{h:2,r:5.0,kg:3000},{h:2,r:6.5,kg:2500},{h:2,r:8.0,kg:2000},{h:2,r:9.5,kg:1500},{h:2,r:11.0,kg:1000},{h:2,r:13.0,kg:500},
-        {h:4,r:0,kg:4500},{h:4,r:3.0,kg:4000},{h:4,r:4.5,kg:3000},{h:4,r:6.0,kg:2500},{h:4,r:7.5,kg:2000},{h:4,r:9.0,kg:1500},{h:4,r:10.5,kg:1000},{h:4,r:12.0,kg:500},
-        {h:6,r:0,kg:4500},{h:6,r:2.5,kg:4000},{h:6,r:4.5,kg:3000},{h:6,r:6.0,kg:2500},{h:6,r:7.5,kg:2000},{h:6,r:9.0,kg:1500},{h:6,r:11.0,kg:500},
-        {h:8,r:0,kg:4500},{h:8,r:2.5,kg:4000},{h:8,r:4.0,kg:3000},{h:8,r:5.5,kg:2500},{h:8,r:7.0,kg:2000},{h:8,r:8.5,kg:1500},{h:8,r:10.5,kg:500},
-        {h:10,r:0,kg:4500},{h:10,r:2.5,kg:4000},{h:10,r:4.0,kg:3000},{h:10,r:5.5,kg:2500},{h:10,r:7.0,kg:2000},{h:10,r:9.0,kg:500},
-        {h:12,r:0,kg:4500},{h:12,r:2.0,kg:4000},{h:12,r:3.5,kg:3000},{h:12,r:5.0,kg:2500},{h:12,r:9.5,kg:500},
-        {h:14,r:0,kg:4500},{h:14,r:2.0,kg:4000},{h:14,r:3.5,kg:3000},{h:14,r:9.0,kg:500},
-        {h:16,r:0,kg:4500},{h:16,r:1.5,kg:4000},{h:16,r:3.0,kg:3000},{h:16,r:8.0,kg:500},
-        {h:18,r:0,kg:4500},{h:18,r:1.0,kg:4000},{h:18,r:2.5,kg:3000},{h:18,r:7.0,kg:500},
-        {h:20,r:0,kg:4500},{h:20,r:2.0,kg:3000},{h:20,r:5.5,kg:500},
-        {h:21.4,r:0,kg:4500},{h:21.4,r:1.5,kg:3000},
-      ],
+      loadMatrixTyres:[{h:0,r:0.6,kg:4500},{h:0,r:3.0,kg:4000},{h:0,r:5.0,kg:3000},{h:0,r:7.0,kg:2500},{h:0,r:8.5,kg:2000},{h:0,r:10.0,kg:1500},{h:0,r:11.5,kg:1000},{h:0,r:13.0,kg:500},{h:0,r:14.0,kg:300},{h:2,r:0.6,kg:4500},{h:2,r:1.7,kg:3000},{h:2,r:2.6,kg:2500},{h:2,r:4.3,kg:2000},{h:2,r:5.5,kg:1500},{h:2,r:6.6,kg:1000},{h:2,r:7.7,kg:500},{h:2,r:8.9,kg:300},{h:4,r:0.6,kg:4500},{h:4,r:1.9,kg:3000},{h:4,r:2.6,kg:2500},{h:4,r:4.4,kg:2000},{h:4,r:5.5,kg:1500},{h:4,r:6.6,kg:1000},{h:4,r:7.5,kg:500},{h:4,r:7.6,kg:300},{h:6,r:0.6,kg:4500},{h:6,r:2.6,kg:2500},{h:6,r:5.3,kg:2000},{h:6,r:6.6,kg:1500},{h:6,r:8.9,kg:1000},{h:6,r:12.5,kg:500},{h:6,r:13.5,kg:300},{h:8,r:0.6,kg:4500},{h:8,r:2.5,kg:3000},{h:8,r:2.6,kg:2500},{h:8,r:4.9,kg:2000},{h:8,r:6.6,kg:1500},{h:8,r:8.9,kg:1000},{h:8,r:13.0,kg:500},{h:8,r:13.5,kg:300},{h:10,r:0.6,kg:4500},{h:10,r:2.2,kg:1500},{h:10,r:4.5,kg:1000},{h:10,r:8.7,kg:500},{h:10,r:13.0,kg:300},{h:12,r:0.6,kg:4500},{h:12,r:1.8,kg:2000},{h:12,r:4.1,kg:1500},{h:12,r:8.3,kg:1000},{h:12,r:12.5,kg:500},{h:12,r:13.0,kg:300},{h:14,r:0.6,kg:4500},{h:14,r:1.4,kg:1000},{h:14,r:3.6,kg:500},{h:14,r:7.8,kg:300},{h:16,r:0.6,kg:4500},{h:16,r:3.0,kg:1000},{h:16,r:5.9,kg:500},{h:16,r:6.5,kg:300},{h:18,r:0.6,kg:4500},{h:18,r:1.5,kg:1000},{h:18,r:3.5,kg:500},{h:20,r:0.6,kg:4500},{h:20,r:2.0,kg:500},{h:21.4,r:0.6,kg:4500}],
       // ── WINCH 6000 kg ON STABILISERS
       // Source: "Machine on lowered stabilisers with winch 6000 kg (Metric)"
       // Zones: 900,1000,1500,2000,3500,4000,5000,5500,6000 kg | Max h≈22m Max r=17.9m (58.8ft)
       // ⚠️ 3000 kg zone NOT in chart — removed from prior estimated data
       winchCapacity:6000,
-      loadMatrixWinch:[
-        {h:0,r:0,kg:6000},{h:0,r:2.0,kg:5500},{h:0,r:3.5,kg:5000},{h:0,r:5.5,kg:4000},{h:0,r:7.0,kg:3500},{h:0,r:10.5,kg:2000},{h:0,r:13.5,kg:1500},{h:0,r:16.0,kg:1000},{h:0,r:17.0,kg:900},
-        {h:4,r:0,kg:6000},{h:4,r:2.0,kg:5500},{h:4,r:3.5,kg:5000},{h:4,r:5.5,kg:4000},{h:4,r:7.0,kg:3500},{h:4,r:10.5,kg:2000},{h:4,r:13.5,kg:1500},{h:4,r:16.0,kg:1000},{h:4,r:17.0,kg:900},
-        {h:8,r:0,kg:6000},{h:8,r:2.0,kg:5500},{h:8,r:3.5,kg:5000},{h:8,r:5.5,kg:4000},{h:8,r:7.0,kg:3500},{h:8,r:10.5,kg:2000},{h:8,r:14.0,kg:1500},{h:8,r:17.0,kg:1000},
-        {h:12,r:0,kg:6000},{h:12,r:2.0,kg:5500},{h:12,r:3.5,kg:5000},{h:12,r:6.0,kg:4000},{h:12,r:8.0,kg:3500},{h:12,r:12.0,kg:2000},{h:12,r:15.5,kg:1500},{h:12,r:17.5,kg:1000},
-        {h:16,r:0,kg:6000},{h:16,r:2.0,kg:5500},{h:16,r:4.0,kg:5000},{h:16,r:7.0,kg:4000},{h:16,r:9.5,kg:3500},{h:16,r:14.0,kg:2000},{h:16,r:17.5,kg:1000},
-        {h:20,r:0,kg:6000},{h:20,r:2.5,kg:5500},{h:20,r:5.5,kg:5000},{h:20,r:8.5,kg:4000},{h:20,r:11.5,kg:3500},
-        {h:22,r:0,kg:6000},{h:22,r:3.0,kg:5500},{h:22,r:7.0,kg:5000},{h:22,r:10.5,kg:4000},
-      ],
+      loadMatrixWinch:[{h:0,r:0.6,kg:6000},{h:0,r:2.0,kg:5500},{h:0,r:4.0,kg:5000},{h:0,r:6.5,kg:4000},{h:0,r:8.5,kg:3500},{h:0,r:12.0,kg:2000},{h:0,r:14.5,kg:1500},{h:0,r:16.5,kg:1000},{h:0,r:17.9,kg:900},{h:4,r:0.6,kg:6000},{h:4,r:2.5,kg:5500},{h:4,r:5.0,kg:5000},{h:4,r:7.5,kg:4000},{h:4,r:9.5,kg:3500},{h:4,r:13.0,kg:2000},{h:4,r:15.0,kg:1500},{h:4,r:17.0,kg:1000},{h:4,r:17.9,kg:900},{h:8,r:0.6,kg:6000},{h:8,r:2.0,kg:5500},{h:8,r:4.5,kg:5000},{h:8,r:7.5,kg:4000},{h:8,r:9.5,kg:3500},{h:8,r:14.0,kg:2000},{h:8,r:16.5,kg:1000},{h:8,r:17.5,kg:900},{h:10,r:0.6,kg:6000},{h:10,r:2.0,kg:5500},{h:10,r:4.5,kg:5000},{h:10,r:7.0,kg:4000},{h:10,r:9.0,kg:3500},{h:10,r:13.5,kg:2000},{h:10,r:16.0,kg:1000},{h:10,r:17.5,kg:900},{h:12,r:0.6,kg:6000},{h:12,r:2.0,kg:5500},{h:12,r:4.5,kg:5000},{h:12,r:7.0,kg:4000},{h:12,r:9.0,kg:3500},{h:12,r:13.0,kg:2000},{h:12,r:16.5,kg:1000},{h:16,r:0.6,kg:6000},{h:16,r:2.5,kg:5500},{h:16,r:5.0,kg:5000},{h:16,r:8.0,kg:4000},{h:16,r:10.5,kg:3500},{h:16,r:15.0,kg:2000},{h:20,r:0.6,kg:6000},{h:20,r:3.0,kg:5000},{h:20,r:6.5,kg:4000},{h:20,r:9.5,kg:3500},{h:21.2,r:0.6,kg:6000},{h:21.2,r:2.0,kg:5500},{h:21.2,r:5.0,kg:5000},{h:21.2,r:8.0,kg:4000}],
       // ── HOOK 6000 kg ON STABILISERS
       // Source: "Machine on lowered stabilisers with hook 6000 kg (Metric)"
       // Zones: 1200,1500,2000,2500,3000,3500,4000,5000,5500,6000 kg | Max h≈22.2m (71.2ft) Max r=17.8m (58.4ft)
       // ⚠️ 1000 kg zone NOT in chart (outermost = 1200 kg); 3500+4000 zones ADDED (were missing)
       hookCapacity:6000,
-      loadMatrixHook:[
-        {h:0,r:0,kg:6000},{h:0,r:2.0,kg:5500},{h:0,r:3.5,kg:5000},{h:0,r:5.5,kg:4000},{h:0,r:7.0,kg:3500},{h:0,r:8.5,kg:3000},{h:0,r:10.0,kg:2500},{h:0,r:12.0,kg:2000},{h:0,r:14.0,kg:1500},{h:0,r:16.0,kg:1200},
-        {h:4,r:0,kg:6000},{h:4,r:2.0,kg:5500},{h:4,r:3.5,kg:5000},{h:4,r:5.5,kg:4000},{h:4,r:7.0,kg:3500},{h:4,r:8.5,kg:3000},{h:4,r:10.0,kg:2500},{h:4,r:12.0,kg:2000},{h:4,r:14.0,kg:1500},{h:4,r:16.0,kg:1200},
-        {h:8,r:0,kg:6000},{h:8,r:2.0,kg:5500},{h:8,r:3.5,kg:5000},{h:8,r:5.5,kg:4000},{h:8,r:7.0,kg:3500},{h:8,r:8.5,kg:3000},{h:8,r:10.0,kg:2500},{h:8,r:12.0,kg:2000},{h:8,r:14.0,kg:1500},{h:8,r:16.5,kg:1200},
-        {h:12,r:0,kg:6000},{h:12,r:2.0,kg:5500},{h:12,r:3.5,kg:5000},{h:12,r:5.5,kg:4000},{h:12,r:7.0,kg:3500},{h:12,r:9.0,kg:3000},{h:12,r:11.0,kg:2500},{h:12,r:13.0,kg:2000},{h:12,r:15.0,kg:1500},{h:12,r:17.0,kg:1200},
-        {h:16,r:0,kg:6000},{h:16,r:2.0,kg:5500},{h:16,r:4.0,kg:5000},{h:16,r:6.5,kg:4000},{h:16,r:8.5,kg:3500},{h:16,r:10.5,kg:3000},{h:16,r:12.5,kg:2500},{h:16,r:15.0,kg:1500},
-        {h:20,r:0,kg:6000},{h:20,r:2.5,kg:5500},{h:20,r:5.0,kg:5000},{h:20,r:7.5,kg:4000},{h:20,r:9.5,kg:3500},{h:20,r:12.5,kg:3000},
-        {h:22.2,r:0,kg:6000},{h:22.2,r:3.0,kg:5500},{h:22.2,r:6.0,kg:5000},{h:22.2,r:9.0,kg:4000},
-      ],
+      loadMatrixHook:[{h:0,r:0.6,kg:6000},{h:0,r:2.0,kg:5500},{h:0,r:3.5,kg:5000},{h:0,r:6.0,kg:4000},{h:0,r:8.0,kg:3500},{h:0,r:9.5,kg:3000},{h:0,r:11.5,kg:2500},{h:0,r:13.5,kg:2000},{h:0,r:15.5,kg:1500},{h:0,r:17.0,kg:1200},{h:4,r:0.6,kg:6000},{h:4,r:2.0,kg:5500},{h:4,r:3.5,kg:5000},{h:4,r:6.0,kg:4000},{h:4,r:7.5,kg:3500},{h:4,r:9.0,kg:3000},{h:4,r:10.5,kg:2500},{h:4,r:13.0,kg:2000},{h:4,r:15.5,kg:1500},{h:4,r:17.0,kg:1200},{h:8,r:0.6,kg:6000},{h:8,r:2.0,kg:5500},{h:8,r:3.5,kg:5000},{h:8,r:6.0,kg:4000},{h:8,r:7.5,kg:3500},{h:8,r:9.0,kg:3000},{h:8,r:11.0,kg:2500},{h:8,r:12.5,kg:2000},{h:8,r:14.5,kg:1500},{h:8,r:16.5,kg:1200},{h:10,r:0.6,kg:6000},{h:10,r:2.0,kg:5500},{h:10,r:4.0,kg:5000},{h:10,r:6.5,kg:4000},{h:10,r:8.5,kg:3500},{h:10,r:10.5,kg:3000},{h:10,r:12.5,kg:2500},{h:10,r:14.5,kg:2000},{h:10,r:16.5,kg:1500},{h:12,r:0.6,kg:6000},{h:12,r:2.0,kg:5500},{h:12,r:4.0,kg:5000},{h:12,r:6.5,kg:4000},{h:12,r:8.5,kg:3500},{h:12,r:11.0,kg:3000},{h:12,r:13.5,kg:2500},{h:12,r:15.5,kg:2000},{h:16,r:0.6,kg:6000},{h:16,r:2.5,kg:5500},{h:16,r:5.0,kg:5000},{h:16,r:8.0,kg:4000},{h:16,r:10.0,kg:3500},{h:16,r:12.5,kg:3000},{h:16,r:15.0,kg:2500},{h:20,r:0.6,kg:6000},{h:20,r:3.0,kg:5000},{h:20,r:6.5,kg:4000},{h:20,r:9.5,kg:3500},{h:22.2,r:0.6,kg:6000},{h:22.2,r:2.5,kg:5500},{h:22.2,r:5.5,kg:5000},{h:22.2,r:9.0,kg:4000}],
       // ── ATTACHMENT CAPACITIES
       jibCapacity:1500, ewpBasketSWL:365, ewpBasketSWL2:1000, jibWithWinchCapacity:800,
       // ── JIB 1500 kg ON STABILISERS
@@ -11245,16 +11196,7 @@ const MACHINES = {
       // ── EWP 365 kg PLATFORM (replaces ⚠️ estimated loadMatrixJib800)
       // Source: "Machine on lowered stabilisers with 365 kg platform Metric"
       // Constant 365 kg throughout | Max h≈26m (85ft) Max r≈20.1m (65.9ft)
-      loadMatrixJib800:[
-        {h:0,r:0,kg:365},{h:0,r:20.0,kg:365},
-        {h:4,r:0,kg:365},{h:4,r:20.0,kg:365},
-        {h:8,r:0,kg:365},{h:8,r:19.5,kg:365},
-        {h:12,r:0,kg:365},{h:12,r:18.5,kg:365},
-        {h:16,r:0,kg:365},{h:16,r:16.5,kg:365},
-        {h:20,r:0,kg:365},{h:20,r:13.5,kg:365},
-        {h:24,r:0,kg:365},{h:24,r:9.0,kg:365},
-        {h:26,r:0,kg:365},{h:26,r:5.0,kg:365},
-      ],
+      loadMatrixJib800:[{h:0,r:0.6,kg:1500},{h:0,r:11.0,kg:1250},{h:0,r:14.0,kg:1000},{h:0,r:17.5,kg:800},{h:4,r:0.6,kg:1500},{h:4,r:9.5,kg:1250},{h:4,r:12.5,kg:1000},{h:4,r:16.5,kg:800},{h:8,r:0.6,kg:1500},{h:8,r:7.5,kg:1250},{h:8,r:10.5,kg:1000},{h:8,r:14.5,kg:800},{h:10,r:0.6,kg:1500},{h:10,r:6.5,kg:1250},{h:10,r:9.5,kg:1000},{h:10,r:13.0,kg:800},{h:12,r:0.6,kg:1500},{h:12,r:5.5,kg:1250},{h:12,r:8.0,kg:1000},{h:12,r:11.5,kg:800},{h:16,r:0.6,kg:1500},{h:16,r:3.0,kg:1250},{h:16,r:5.5,kg:1000},{h:16,r:8.5,kg:800},{h:20,r:0.6,kg:1250},{h:20,r:1.5,kg:1000},{h:20,r:4.0,kg:800},{h:21.6,r:0.6,kg:1000},{h:21.6,r:2.5,kg:800}],
       // ── EWP 1000 kg PLATFORM (replaces ⚠️ estimated loadMatrixJib1500)
       // Source: "Machine on lowered stabilisers with 1000 kg platform Metric"
       // Constant 1000 kg throughout | Max h≈25m Max r≈18m
@@ -52061,6 +52003,10 @@ function getMachinePhoto(m, type) {
 // Pick up to `maxPer` machines per brand from a sorted pool, until we have `total`
 // ── getCapacityAtPoint — MODULE LEVEL so _buildTeleCapacityPanel can call it ──
 function getCapacityAtPoint(m, needH, needR) {
+  // ZONE LOOKUP — load charts define constant-capacity zones, not gradients.
+  // Each {h, r, kg} point is the OUTER BOUNDARY of that zone at that height.
+  // We find the first boundary point where reach <= boundary.r → return that zone's kg.
+  // Between height rows: take the minimum (more conservative) zone from the two bounding rows.
   if ((!m.loadMatrix || !m.loadMatrix.length) && m.liftChart && Array.isArray(m.liftChart) && m.liftChart.length) {
     const ratedKg = (m.liftCapacity||m.capacity||0) > 100 ? (m.liftCapacity||m.capacity||0) : (m.liftCapacity||m.capacity||0)*1000;
     const lm = m.liftChart.map(p => ({ h: p.height, r: p.reach, kg: Math.round(p.capacity > 100 ? p.capacity : p.capacity * 1000) }));
@@ -52081,25 +52027,30 @@ function getCapacityAtPoint(m, needH, needR) {
   const clampH = Math.max(heights[0], Math.min(needH, heights[heights.length-1]));
   const h0 = heights.filter(h=>h<=clampH).pop() ?? heights[0];
   const h1 = heights.filter(h=>h>=clampH)[0] ?? heights[heights.length-1];
-  function capAtRow(targetH, r) {
+
+  // Zone lookup: find which zone reach falls in (step function, no interpolation)
+  function zoneAtRow(targetH, r) {
     const row = m.loadMatrix.filter(p=>p.h===targetH).sort((a,b)=>a.r-b.r);
     if (!row.length) return null;
+    // Outside envelope (beyond max reach at this height)
     if (r > row[row.length-1].r * 1.02) return 0;
-    const clampR = Math.min(r, row[row.length-1].r);
-    const lo = row.filter(p=>p.r<=clampR).pop() ?? row[0];
-    const hi = row.filter(p=>p.r>=clampR)[0] ?? row[row.length-1];
-    if (lo.r === hi.r) return lo.kg;
-    const tr = (clampR - lo.r) / (hi.r - lo.r);
-    return Math.round(lo.kg + (hi.kg - lo.kg) * tr);
+    // Walk zone boundaries: first boundary where r <= boundary.r is the zone we're in
+    for (const pt of row) {
+      if (r <= pt.r) return pt.kg;
+    }
+    return row[row.length-1].kg;
   }
-  const cap0 = capAtRow(h0, needR);
-  const cap1 = capAtRow(h1, needR);
+
+  const cap0 = zoneAtRow(h0, needR);
+  const cap1 = zoneAtRow(h1, needR);
   if (cap0 === null && cap1 === null) return null;
   if (cap0 === null) return cap1;
   if (cap1 === null) return cap0;
   if (h1 === h0) return cap0;
-  const th = (clampH - h0) / (h1 - h0);
-  return Math.round(cap0 + (cap1 - cap0) * th);
+  // Between height rows: return the more conservative (lower) zone value
+  // This matches what a physical chart would show — at an intermediate height,
+  // the machine's actual zone is no better than the most conservative bounding row.
+  return Math.min(cap0, cap1);
 }
 
 function diversePick(sortedPool, total, maxPer, preferredBrand) {
@@ -55765,28 +55716,25 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
             const jibEffectiveReach2 = reqRe + jibLen2;
             // Generic bilinear interpolation against any load matrix
             const _interpMatrix = (matrix, needH, needR) => {
+              // ZONE LOOKUP — step function, no interpolation between zone boundaries.
               if (!matrix || !matrix.length) return null;
               const hs = [...new Set(matrix.map(p=>p.h))].sort((a,b)=>a-b);
-              const h0 = hs.filter(h=>h<=needH).pop(); const h1 = hs.filter(h=>h>=needH)[0];
-              if (h0==null||h1==null) return null;
-              const _row = (th) => {
+              if (needH > hs[hs.length-1]) return 0;
+              const clampH = Math.max(hs[0], Math.min(needH, hs[hs.length-1]));
+              const h0 = hs.filter(h=>h<=clampH).pop() ?? hs[0];
+              const h1 = hs.filter(h=>h>=clampH)[0] ?? hs[hs.length-1];
+              const _zone = (th) => {
                 const row = matrix.filter(p=>p.h===th).sort((a,b)=>a.r-b.r);
                 if (!row.length) return null;
-                if (needR <= row[0].r) return row[0].kg;
-                if (needR >= row[row.length-1].r) return row[row.length-1].r < needR ? null : row[row.length-1].kg;
-                for (let i=0;i<row.length-1;i++) {
-                  if (needR>=row[i].r && needR<=row[i+1].r) {
-                    const t=(needR-row[i].r)/(row[i+1].r-row[i].r);
-                    return Math.round((row[i].kg+t*(row[i+1].kg-row[i].kg))/50)*50;
-                  }
-                }
-                return null;
+                if (needR > row[row.length-1].r * 1.02) return 0;
+                for (const pt of row) { if (needR <= pt.r) return pt.kg; }
+                return row[row.length-1].kg;
               };
-              if (h0===h1) return _row(h0);
-              const k0=_row(h0), k1=_row(h1);
+              if (h0===h1) return _zone(h0);
+              const k0=_zone(h0), k1=_zone(h1);
               if (k0==null&&k1==null) return null;
               if (k0==null) return k1; if (k1==null) return k0;
-              return Math.round((k0+(k1-k0)*(needH-h0)/(h1-h0))/50)*50;
+              return Math.min(k0, k1); // conservative: use lower zone value between rows
             };
             // Inline interpolation for forks loadMatrix (used for jib reach)
             const _capAt2 = (needH, needR) => {
