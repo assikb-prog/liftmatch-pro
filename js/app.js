@@ -1,4 +1,4 @@
-// NOYO v7 build 2026-04-11 — rotation fix + Magni 5.18 removed + Merlo rotator cleaned
+// NOYO v7 build 2026-04-13 — shared_enquiries delivery, reach@height filter, hire wording, sponsored gate, up_over mode fix, 17 Dieci machines recovered
 // =====================================================================
 // MACHINE DATABASE
 // =====================================================================
@@ -49403,6 +49403,43 @@ function _renderCards(matches, machineType, answers) {
     }
     if (!spMachine) return;
 
+    // ── Capability gate: skip sponsored slot if machine can't do the job ──────────
+    // Check height requirement
+    const _spGateHt   = parseFloat(answers.boom_ht_m || answers.ppl_ht_m || answers.tele_ht_m || answers.scis_ht_m || answers.mat_ht_m || 0);
+    const _spGateRe   = parseFloat(answers.boom_reach_m || answers.ppl_reach_m || answers.tele_reach_m || 0);
+    const _spGateKg   = parseFloat(answers.tele_kg || answers.mat_kg || answers.load_weight_kg || 0);
+    const _spGatePlatH = spMachine.platformHeight || spMachine.liftHeight || 0;
+    const _spGateMaxR  = spMachine.maxReach || 0;
+
+    // Height check: machine must meet the required platform height
+    if (_spGateHt > 0 && _spGatePlatH < _spGateHt) return;
+
+    // Capacity check for telehandlers: machine must be able to lift required kg
+    if (_spGateKg > 0 && (machineType === 'telehandler' || machineType === 'rotating')) {
+      const _spCapT = spMachine.liftCapacity || spMachine.capacity || 0;
+      const _spCapKg = _spCapT > 100 ? _spCapT : _spCapT * 1000;
+      if (_spCapKg > 0 && _spCapKg < _spGateKg) return;  // rated capacity too low
+      // If we have a load chart, check capacity at the required point
+      if (_spGateHt > 0 && typeof getCapacityAtPoint === 'function') {
+        try {
+          const _spActualKg = getCapacityAtPoint(spMachine, _spGateHt, _spGateRe);
+          if (_spActualKg !== null && _spActualKg < _spGateKg) return;
+        } catch(e) {}
+      }
+    }
+
+    // Reach check: compute reach at required height if not already done
+    if (_spGateRe > 0 && _spGateMaxR >= _spGateRe) {
+      // maxReach passes brochure check — now verify reach at the required height
+      if (spMachine._reachAtReqHt == null && _spGateHt > 0 && typeof getReachAtHeight === 'function') {
+        try { spMachine._reachAtReqHt = getReachAtHeight(spMachine, _spGateHt); } catch(e) {}
+      }
+      const _spActualReach = spMachine._reachAtReqHt != null ? spMachine._reachAtReqHt : _spGateMaxR;
+      if (_spActualReach < _spGateRe - 0.3) return;  // can't reach at required height
+    } else if (_spGateRe > 0 && _spGateMaxR < _spGateRe) {
+      return;  // brochure max reach itself is insufficient
+    }
+
     // Track this brand so organic results can be deduplicated
     if (spMachine.brand) _shownSponsoredBrands.add(spMachine.brand);
 
@@ -50943,10 +50980,69 @@ function _mergeInboxArrays(remote, local) {
 async function loadInboxFromFirebase() {
   if (!currentUser || !currentUser.uid) return loadInbox();
   try {
+    // Rental companies read from shared_enquiries — enquiries submitted by all customers
+    // Customers/admins read from their own quote_inboxes
+    const isRentalCo = currentUser.role === 'rental' || currentUser.role === 'admin_rental';
+    const isAdmin    = currentUser.role === 'admin';
+
+    if (isRentalCo && !isAdmin) {
+      // Load shared enquiries for rental company view
+      const sharedSnap = await _fbDb.collection('shared_enquiries').orderBy('ts', 'desc').limit(200).get();
+      const sharedArr  = sharedSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      // Also read quote_requests for backward compat with pre-fix submissions
+      let legacyArr = [];
+      try {
+        const legacySnap = await _fbDb.collection('quote_requests').orderBy('ts', 'desc').limit(200).get();
+        legacyArr = legacySnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch(e) {}
+      // Merge with own inbox (admin broadcast direct writes)
+      const ownSnap = await _fbDb.collection('quote_inboxes').doc(currentUser.uid).get();
+      const ownArr  = ownSnap.exists ? (ownSnap.data().quotes || []) : [];
+      const merged  = _mergeInboxArrays([...sharedArr, ...legacyArr, ...ownArr], _readCache());
+      quoteInbox = merged;
+      _cacheInbox(merged);
+      return quoteInbox;
+    }
+
+    // Admin reads ALL enquiries from shared_enquiries + own inbox
+    if (isAdmin) {
+      const sharedSnap = await _fbDb.collection('shared_enquiries').orderBy('ts', 'desc').limit(500).get();
+      const sharedArr  = sharedSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      let legacyArr = [];
+      try {
+        const legacySnap = await _fbDb.collection('quote_requests').orderBy('ts', 'desc').limit(500).get();
+        legacyArr = legacySnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch(e) {}
+      const ownSnap2 = await _fbDb.collection('quote_inboxes').doc(currentUser.uid).get();
+      const ownArr2  = ownSnap2.exists ? (ownSnap2.data().quotes || []) : [];
+      const merged2  = _mergeInboxArrays([...sharedArr, ...legacyArr, ...ownArr2], _readCache());
+      quoteInbox = merged2;
+      _cacheInbox(merged2);
+      return quoteInbox;
+    }
+
     const snap = await _fbDb.collection('quote_inboxes').doc(currentUser.uid).get();
     const remoteArr = snap.exists ? (snap.data().quotes || []) : [];
+    // Also read from shared_enquiries to pick up rental company responses
+    // Filter to only this customer's own enquiries (by email)
+    let sharedCustomerArr = [];
+    const custEmail = (currentUser.email || '').toLowerCase();
+    try {
+      const sharedSnap = await _fbDb.collection('shared_enquiries')
+        .where('email', '==', custEmail)
+        .orderBy('ts', 'desc').limit(100).get();
+      sharedCustomerArr = sharedSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch(e) {
+      // Fallback if no index: load all and filter client-side
+      try {
+        const allSnap = await _fbDb.collection('shared_enquiries').orderBy('ts', 'desc').limit(200).get();
+        sharedCustomerArr = allSnap.docs
+          .map(d => ({ id: d.id, ...d.data() }))
+          .filter(r => (r.email || '').toLowerCase() === custEmail);
+      } catch(e2) {}
+    }
     const localArr  = _readCache();
-    const merged = _mergeInboxArrays(remoteArr, localArr);
+    const merged = _mergeInboxArrays([...remoteArr, ...sharedCustomerArr], localArr);
     quoteInbox = merged;
     _cacheInbox(merged);
     return quoteInbox;
@@ -50963,12 +51059,17 @@ async function saveQuoteToFirebase(quote) {
   saveInbox(); // updates the user's inbox doc
   if (!quote || !quote.id) return;
   try {
-    // Also write to top-level quotes collection for admin visibility
-    await _fbDb.collection('quote_requests').doc(quote.id).set({
+    const payload = {
       ...quote,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    // Write to shared_enquiries — primary collection all rental companies read from
+    await _fbDb.collection('shared_enquiries').doc(quote.id).set(payload, { merge: true });
+    // Also write to quote_requests for admin visibility
+    await _fbDb.collection('quote_requests').doc(quote.id).set({
+      ...payload,
       customerId: currentUser ? currentUser.uid : null,
       customerEmail: currentUser ? currentUser.email : null,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
   } catch(e) { console.warn('Quote Firestore write failed:', e.message); }
 }
@@ -53374,10 +53475,49 @@ function getEffectiveOrg() {
   return null;
 }
 
+// ── Hire date validation helper ──────────────────────────────────────────────
+function sqmValidateDate(el) {
+  const today = new Date().toISOString().split('T')[0];
+  if (el.value && el.value < today) {
+    el.style.borderColor = '#EF4444';
+    showToast('Hire start date cannot be in the past — please select today or a future date', '#EF4444');
+    el.value = today;
+  } else {
+    el.style.borderColor = '';
+  }
+}
+
+// ── Customer withdraw/cancel a submitted enquiry ──────────────────────────────
+function withdrawEnquiry(reqId) {
+  const req = quoteInbox.find(r => r.id === reqId);
+  if (!req) return;
+  if (req.acceptedBy) {
+    showToast('Cannot withdraw — a quote has already been accepted', '#EF4444'); return;
+  }
+  if (!confirm('Withdraw this hire enquiry? Rental companies will no longer see it.')) return;
+  req.withdrawn = true;
+  req.withdrawnAt = Date.now();
+  saveInbox();
+  saveQuoteToFirebase(req);
+  // Update shared_enquiries to mark withdrawn
+  if (_fbDb) {
+    _fbDb.collection('shared_enquiries').doc(reqId).update({ withdrawn: true, withdrawnAt: Date.now() }).catch(()=>{});
+  }
+  renderMyQuotes();
+  showToast('Hire enquiry withdrawn ✅', '#64748B');
+}
+
 function openSendQuotesModal() {
   if (quoteCart.length === 0) {
     showToast('Add at least 1 machine to your hire enquiry first','#EF4444');
     return;
+  }
+  // Set minimum hire date to today so customers can't enter past dates
+  const _dateEl = document.getElementById('sqm-date');
+  if (_dateEl) {
+    const _today = new Date().toISOString().split('T')[0];
+    _dateEl.min = _today;
+    if (_dateEl.value && _dateEl.value < _today) _dateEl.value = _today;
   }
   const ref = generateQuoteRef();
   { const _el_sqm_ref_badge = document.getElementById('sqm-ref-badge'); if (_el_sqm_ref_badge) _el_sqm_ref_badge.textContent = ref; }
@@ -53763,6 +53903,18 @@ function submitQuoteRequest() {
   if (!email)       { showToast('Email not found — please check your account details','#EF4444'); return; }
   if (!mobile)      { document.getElementById('sqm-mobile').focus(); showToast('Please enter your mobile number','#EF4444'); return; }
 
+  // Hire date validation — must be today or future
+  const _hireDateEl = document.getElementById('sqm-date');
+  const _hireDate = _hireDateEl ? _hireDateEl.value : '';
+  if (_hireDate) {
+    const _today = new Date().toISOString().split('T')[0];
+    if (_hireDate < _today) {
+      if (_hireDateEl) { _hireDateEl.style.borderColor='#EF4444'; _hireDateEl.focus(); }
+      showToast('Hire start date cannot be in the past','#EF4444');
+      return;
+    }
+  }
+
   // Resolve suburb to depot cluster — 3-layer: exact → rural map → nearest depot
   let clusterResolved = null;
   let isRuralSite = _sqmIsRural || false;
@@ -53849,6 +54001,18 @@ function submitQuoteRequest() {
   };
   quoteInbox.push(req);
   saveInbox();
+  // ── Write to shared_enquiries so ALL rental companies can see this enquiry ──
+  // This is the primary delivery mechanism — rental companies read from this collection.
+  (async () => {
+    try {
+      await _fbDb.collection('shared_enquiries').doc(req.id).set({
+        ...req,
+        submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch(e) {
+      console.warn('[Noyo] shared_enquiries write failed:', e.message);
+    }
+  })();
   renderQuoteInbox();
   updateQRUnreadBadge();
   try { adminTrackQuote('sent', req); } catch(e) {}
@@ -53863,7 +54027,10 @@ function submitQuoteRequest() {
   const _toastMsg = isRuralSite
     ? `✅ Enquiry ${ref} sent — Rural site · Depots contacted: ${_clusterNames}`
     : `✅ Enquiry ${ref} sent to rental companies in ${clusterResult[0]}`;
-  showToast(_toastMsg, '#16A34A');
+  showToast(
+    _toastMsg + ' — <a href="#" onclick="event.preventDefault();switchView(\'my-quotes\')" style="color:#fff;font-weight:800;text-decoration:underline">Track in My Quotes →</a>',
+    '#16A34A', 6000
+  );
 }
 
 // ── Broadcast Enquiry to Rental Companies ───────────────────
@@ -54024,6 +54191,9 @@ function confirmBroadcast() {
   req.broadcastSent = true;
   req.broadcastAt   = formatTsPlain(Date.now(), req.state);
   req.broadcastCount = matchedCos.length;
+
+  // Also ensure this enquiry is in shared_enquiries so rental cos see it in their portal
+  saveQuoteToFirebase(req);
 
   closeBroadcastModal();
   renderQuoteInbox();
@@ -54472,6 +54642,9 @@ function _resolveUserCompany() {
 }
 
 function enquiryVisibleToCompany(req, company) {
+  // Withdrawn enquiries are never visible to rental companies
+  if (req.withdrawn) return false;
+
   // Zero-radius sentinel — no depot configured, block all enquiries
   if (company.serviceRadiusKm === 0 && !company.baseCity) return false;
 
@@ -54561,6 +54734,7 @@ function inboxAcceptQuote(reqId, responseIdx) {
     else { r.rejected = true; r.accepted = false; r.autoRejected = true; }
   });
   req.acceptedBy = acceptedCompany;
+  req.acceptedAt = Date.now();
   req.responded  = true;
   saveInbox();
   saveQuoteToFirebase(req);
@@ -54791,18 +54965,25 @@ function renderQuoteInbox() {
     // Actions
     // After submitting a quote, reveal customer contact details
     const myRespObj = (req.responses||[]).find(r => r.company === currentUser?.name);
-    const showContacts = !!myRespObj; // show contacts once you've submitted a quote
+    const showContacts = !!myRespObj; // show customer contacts once rental co submits quote — gated button (NOYO tracks every reveal)
+    const _custContactId = 'cust-contact-' + req.id;
     const contactRevealHtml = showContacts ? `
-      <div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:12px;padding:.75rem 1rem;margin:.65rem 0;display:flex;flex-direction:column;gap:.35rem">
-        <div style="font-size:.72rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.2rem">📞 Customer Contact Details</div>
-        <div style="display:flex;align-items:center;gap:.5rem;font-size:.85rem">
-          <span style="font-size:1rem">👤</span>
-          <span style="font-weight:700;color:#0F172A">${req.customer||'—'}</span>
+      <div id="${_custContactId}-wrap" style="margin:.5rem 0">
+        <button onclick="revealContactDetails('${_custContactId}','rental','${req.id}','${(req.customer||'').replace(/'/g,'').split(' ')[0]}')"
+          style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;border:none;border-radius:8px;padding:.42rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:.4rem">
+          👤 See Customer Contact Details
+        </button>
+        <div id="${_custContactId}" style="display:none;margin-top:.45rem;background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:12px;padding:.75rem 1rem;display:flex;flex-direction:column;gap:.35rem">
+          <div style="font-size:.72rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.2rem">📞 Customer Contact Details</div>
+          <div style="display:flex;align-items:center;gap:.5rem;font-size:.85rem">
+            <span style="font-size:1rem">👤</span>
+            <span style="font-weight:700;color:#0F172A">${req.customer||'—'}</span>
+          </div>
+          ${req.email ? `<div style="display:flex;align-items:center;gap:.5rem;font-size:.84rem"><span>📧</span><a href="mailto:${req.email}" style="color:#0052CC;font-weight:700;text-decoration:none">${req.email}</a></div>` : ''}
+          ${req.mobile ? `<div style="display:flex;align-items:center;gap:.5rem;font-size:.84rem"><span>📱</span><a href="tel:${req.mobile}" style="color:#0052CC;font-weight:700;text-decoration:none">${req.mobile}</a></div>` : ''}
+          ${req.siteAddress ? `<div style="display:flex;align-items:center;gap:.5rem;font-size:.84rem"><span>📍</span><span style="color:#334155">${req.siteAddress}</span></div>` : ''}
+          ${req.acceptedBy === currentUser?.name ? `<div style="margin-top:.3rem;padding:.35rem .7rem;background:#DCFCE7;border-radius:8px;font-size:.78rem;font-weight:800;color:#166534;text-align:center">✅ This quote was accepted — contact the customer to arrange delivery</div>` : ''}
         </div>
-        ${req.email ? `<div style="display:flex;align-items:center;gap:.5rem;font-size:.84rem"><span>📧</span><a href="mailto:${req.email}" style="color:#0052CC;font-weight:700;text-decoration:none">${req.email}</a></div>` : ''}
-        ${req.mobile ? `<div style="display:flex;align-items:center;gap:.5rem;font-size:.84rem"><span>📱</span><a href="tel:${req.mobile}" style="color:#0052CC;font-weight:700;text-decoration:none">${req.mobile}</a></div>` : ''}
-        ${req.siteAddress ? `<div style="display:flex;align-items:center;gap:.5rem;font-size:.84rem"><span>📍</span><span style="color:#334155">${req.siteAddress}</span></div>` : ''}
-        ${req.acceptedBy === currentUser?.name ? `<div style="margin-top:.3rem;padding:.35rem .7rem;background:#DCFCE7;border-radius:8px;font-size:.78rem;font-weight:800;color:#166534;text-align:center">✅ This quote was accepted — contact the customer to arrange delivery</div>` : ''}
       </div>` : '';
 
     const actionsHtml = req.responded
@@ -55718,7 +55899,7 @@ async function submitResponse() {
 
 function declineQuote(reqId) {
   const req = quoteInbox.find(r => r.id === reqId);
-  if (req) { req.responded = true; req.declined = true; saveInbox(); }
+  if (req) { req.responded = true; req.declined = true; saveInbox(); saveQuoteToFirebase(req); }
   renderQuoteInbox();
   showToast('Quote declined','#64748B');
 }
@@ -56715,14 +56896,50 @@ function addToCartDirect(machineId, machineName, _overrideType) {
 // ── Timer refresh ────────────────────────────────────────────
 setInterval(() => { if (quoteInbox.length) renderQuoteInbox(); }, 30000);
 
+// ── Background Firestore reload every 60s — picks up new quotes/responses without page refresh ──
+setInterval(async () => {
+  if (!currentUser || !_fbDb) return;
+  const _prevResponseCount = quoteInbox.reduce((s,r) => s + (r.responses||[]).length, 0);
+  const _prevAcceptedCount = quoteInbox.filter(r => r.acceptedBy).length;
+  try {
+    await loadInboxFromFirebase();
+    const _newResponseCount = quoteInbox.reduce((s,r) => s + (r.responses||[]).length, 0);
+    const _newAcceptedCount = quoteInbox.filter(r => r.acceptedBy).length;
+    // Notify customer when new responses arrive
+    if (currentUser.role === 'customer' && _newResponseCount > _prevResponseCount) {
+      const _diff = _newResponseCount - _prevResponseCount;
+      showToast(
+        `💬 ${_diff} new quote${_diff>1?'s':''}  received! <a href="#" onclick="event.preventDefault();switchView('my-quotes')" style="color:#fff;font-weight:800;text-decoration:underline">View in My Hire Enquiries →</a>`,
+        '#0052CC', 6000
+      );
+      updateMQUnreadBadge();
+    }
+    // Notify rental co when a quote they submitted was accepted
+    if (currentUser.role === 'rental' && _newAcceptedCount > _prevAcceptedCount) {
+      showToast(
+        `🏆 A customer accepted your quote! <a href="#" onclick="event.preventDefault();switchView('quote-requests')" style="color:#fff;font-weight:800;text-decoration:underline">View →</a>`,
+        '#16A34A', 7000
+      );
+      updateQRUnreadBadge();
+    }
+    renderQuoteInbox();
+    renderMyQuotes();
+  } catch(e) {}
+}, 60000);
+
 // ── Toast helper ─────────────────────────────────────────────
-function showToast(msg, bg='#27AE60') {
+function showToast(msg, bg='#27AE60', durationMs=3500) {
   const t = document.createElement('div');
   t.className = 'noyo-toast';
   t.style.background = bg;
-  t.textContent = msg;
+  // Support HTML in msg (for links etc.)
+  if (msg && (msg.includes('<a ') || msg.includes('<strong>'))) {
+    t.innerHTML = msg;
+  } else {
+    t.textContent = msg;
+  }
   document.body.appendChild(t);
-  setTimeout(()=>t.remove(), 3500);
+  setTimeout(()=>t.remove(), durationMs);
 }
 
 
@@ -57339,6 +57556,49 @@ function mqClearFilters() {
   renderMyQuotes();
 }
 
+// ── Contact Details Reveal — with NOYO tracking ──────────────────────────────
+// viewerRole: 'customer' (seeing rental co) | 'rental' (seeing customer)
+function revealContactDetails(elementId, viewerRole, reqId, partyName) {
+  // Show the hidden contact panel
+  const panel = document.getElementById(elementId);
+  const wrap  = document.getElementById(elementId + '-wrap');
+  if (panel) {
+    panel.style.display = 'flex';
+    panel.style.flexDirection = 'column';
+  }
+  // Hide the button (replace with "Details shown" label)
+  if (wrap) {
+    const btn = wrap.querySelector('button');
+    if (btn) {
+      btn.style.background = '#94A3B8';
+      btn.style.cursor = 'default';
+      btn.textContent = '✅ Contact details revealed';
+      btn.disabled = true;
+    }
+  }
+  // ── Track the reveal in Firestore for NOYO analytics ──────────────
+  try {
+    const _trackPayload = {
+      type: 'contact_reveal',
+      viewerRole,        // 'customer' or 'rental'
+      reqId,
+      partyName,         // name of person whose contact was revealed
+      viewerEmail: currentUser ? currentUser.email : 'anon',
+      viewerName:  currentUser ? currentUser.name  : 'anon',
+      ts: Date.now(),
+      date: new Date().toLocaleDateString('en-AU', {day:'2-digit', month:'short', year:'numeric'}),
+    };
+    if (_fbDb) {
+      _fbDb.collection('events').add({
+        ..._trackPayload,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }).catch(() => {});
+    }
+    // Also count in admin analytics
+    try { adminData.contactReveals = (adminData.contactReveals || 0) + 1; } catch(e) {}
+  } catch(e) {}
+}
+
 function renderMyQuotes() {
   // Allow customer role AND admin/manager (who can also send enquiries as customers)
   if (!currentUser || (currentUser.role !== 'customer' && currentUser.role !== 'admin')) return;
@@ -57492,8 +57752,8 @@ function renderMyQuotes() {
   if (total === 0) {
     listEl.innerHTML = `<div style="text-align:center;padding:3rem 1rem;color:#94A3B8">
       <div style="font-size:2.5rem;margin-bottom:.8rem">📭</div>
-      <div style="font-weight:700;font-size:1rem;margin-bottom:.4rem">No quote requests yet</div>
-      <div style="font-size:.85rem">Use the machine finder to build a cart and request quotes.</div>
+      <div style="font-weight:700;font-size:1rem;margin-bottom:.4rem">No hire enquiries yet</div>
+      <div style="font-size:.85rem">Use the machine finder to find a machine and submit a hire enquiry.</div>
     </div>`;
     mqRenderSavings([]);
     return;
@@ -57561,90 +57821,251 @@ function renderMyQuotes() {
           if (!allMachineNames.includes(mb.name)) allMachineNames.push(mb.name);
         });
       });
+      // Collect ALL unique accessory names across all responses
+      const allAccNames = [];
+      sortedResponses.forEach(r => {
+        (r.machineBreakdowns||[]).forEach(mb => {
+          (mb.accs||[]).forEach(a => {
+            if (a.name && !allAccNames.includes(a.name)) allAccNames.push(a.name);
+          });
+        });
+      });
+
+      // Helper: find lowest non-zero value in a row for highlighting
+      function rowMin(vals) {
+        const nums = vals.map(v => parseFloat(v)).filter(n => !isNaN(n) && n > 0);
+        return nums.length ? Math.min(...nums) : null;
+      }
+      function cellBg(val, min, colIsLow) {
+        if (!min) return colIsLow ? '#F7FEF9' : '#fff';
+        const n = parseFloat(val);
+        if (isNaN(n) || n === 0) return '#FAFAFA';
+        if (n === min) return '#F0FDF4';  // lowest = green tint
+        return colIsLow ? '#F7FEF9' : '#fff';
+      }
 
       const colW = `${Math.floor(80/sortedResponses.length)}%`;
+      const sectionHead = (icon, label, bg='#F8FAFC', color='#475569') =>
+        `<tr><td colspan="${sortedResponses.length+1}" style="padding:.4rem .5rem .2rem;font-size:.7rem;font-weight:900;color:${color};background:${bg};text-transform:uppercase;letter-spacing:.5px;border-top:2px solid #E2E8F0">${icon} ${label}</td></tr>`;
+
       comparisonHtml = `
         <div style="margin-top:.8rem;overflow-x:auto">
-          <div style="font-size:.72rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">📊 Side-by-Side Comparison</div>
-          <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:400px">
+          <div style="font-size:.78rem;font-weight:800;color:#0052CC;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem">
+            📊 <span>Dollar-for-Dollar Quote Comparison</span>
+            <span style="font-size:.72rem;font-weight:600;color:#94A3B8">— sorted cheapest first</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:480px;border-radius:12px;overflow:hidden;border:1.5px solid #E2E8F0">
+
+            <!-- ── HEADER ROW: Company names ── -->
             <thead>
               <tr>
-                <td style="padding:.35rem .5rem;font-weight:700;color:#64748B;width:20%;border-bottom:2px solid #E2E8F0">Item</td>
+                <th style="padding:.45rem .6rem;font-weight:700;color:#64748B;width:22%;background:#F8FAFC;border-bottom:2px solid #E2E8F0;text-align:left">Line Item</th>
                 ${sortedResponses.map((r, si) => {
                   const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
                   const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
-                  const tReq2 = (req.machines||[]).length;
-                  const tQtd2 = (r.machineBreakdowns||[]).filter(mb=>mb.rateDay>0||mb.rateWeek>0||mb.rentalCost>0).length;
-                  const isPart2 = tReq2 > 1 && tQtd2 < tReq2;
-                  return `<td style="padding:.35rem .5rem;font-weight:800;color:${isLow?'#166534':'#334155'};background:${isPart2?'#FFFBEB':isLow?'#F0FDF4':'#F8FAFC'};border-bottom:2px solid ${isPart2?'#FCD34D':isLow?'#86EFAC':'#E2E8F0'};text-align:center;border-radius:${si===0?'8px 0 0 0':''}${si===sortedResponses.length-1?' 0 8px 0 0':''};width:${colW}">
-                    🏢 ${r.company||'Co.'}
-                    ${isLow?'<span style="font-size:.65rem;background:#DCFCE7;color:#15803D;padding:.05rem .35rem;border-radius:20px">Lowest</span>':''}
-                    ${isPart2?`<span style="font-size:.65rem;background:#FEF3C7;color:#92400E;padding:.05rem .35rem;border-radius:20px;border:1px solid #FCD34D">⚠️ Partial</span>`:''}
-                  </td>`;
+                  const tReq = (req.machines||[]).length;
+                  const tQtd = (r.machineBreakdowns||[]).filter(mb=>mb.rateDay>0||mb.rateWeek>0||mb.rentalCost>0).length;
+                  const isPart = tReq > 1 && tQtd < tReq;
+                  return `<th style="padding:.45rem .5rem;font-weight:900;color:${isLow?'#166534':'#0F172A'};background:${isPart?'#FFFBEB':isLow?'#DCFCE7':'#EFF6FF'};border-bottom:2px solid ${isPart?'#FCD34D':isLow?'#86EFAC':'#BFDBFE'};text-align:center;width:${colW}">
+                    🏢 ${r.company||'Co. '+(si+1)}
+                    ${isLow?'<div style="font-size:.66rem;background:#16A34A;color:#fff;padding:.05rem .4rem;border-radius:20px;margin-top:.2rem;display:inline-block">🏆 Lowest</div>':''}
+                    ${isPart?'<div style="font-size:.65rem;color:#92400E;margin-top:.1rem">⚠️ Partial quote</div>':''}
+                  </th>`;
                 }).join('')}
               </tr>
             </thead>
             <tbody>
-              ${allMachineNames.map(name => `
-                <tr>
-                  <td style="padding:.3rem .5rem;color:#475569;border-bottom:1px solid #F1F5F9;font-weight:600">${name}</td>
-                  ${sortedResponses.map(r => {
-                    const mb = (r.machineBreakdowns||[]).find(m => m.name === name);
-                    const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
-                    const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
-                    return `<td style="padding:.3rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;background:${isLow?'#F7FEF9':'#fff'}">
-                      ${mb ? `<span style="font-weight:700;color:#0F172A">$${(mb.rentalCost||0).toFixed(2)}</span><br><span style="color:#64748B;font-size:.72rem">$${mb.rateDay||0}/d · $${mb.rateWeek||0}/wk</span>` : '<span style="color:#CBD5E1">—</span>'}
-                    </td>`;
-                  }).join('')}
-                </tr>`).join('')}
-              ${sortedResponses.some(r=>(r.machineBreakdowns||[]).some(mb=>(mb.accs||[]).length>0)) ? `
-                <tr>
-                  <td style="padding:.3rem .5rem;color:#C2410C;font-weight:700;border-bottom:1px solid #F1F5F9">🔧 Accessories</td>
-                  ${sortedResponses.map(r => {
-                    const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
-                    const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
-                    const accTotal = (r.machineBreakdowns||[]).reduce((s,mb)=>s+(mb.accs||[]).reduce((ss,a)=>ss+(a.total||0),0),0);
-                    return `<td style="padding:.3rem .5rem;text-align:center;font-weight:700;color:#C2410C;border-bottom:1px solid #F1F5F9;background:${isLow?'#F7FEF9':'#fff'}">${accTotal>0?`$${accTotal.toFixed(2)}`:'—'}</td>`;
-                  }).join('')}
-                </tr>` : ''}
+
+              <!-- ── HIRE DURATION + COVERAGE ── -->
+              ${sectionHead('⏳','Hire Period & Coverage','#F1F5F9','#64748B')}
               <tr>
-                <td style="padding:.3rem .5rem;color:#64748B;border-bottom:1px solid #F1F5F9">🛡️ Insurance</td>
+                <td style="padding:.32rem .6rem;color:#475569;border-bottom:1px solid #F1F5F9">Duration</td>
                 ${sortedResponses.map(r => {
                   const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
-                  const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
-                  const ins = (r.machineBreakdowns||[]).reduce((s,mb)=>s+(mb.insurance||0),0);
-                  return `<td style="padding:.3rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;background:${isLow?'#F7FEF9':'#fff'}">${ins>0?`$${ins.toFixed(2)} (${r.insurePct||0}%)`:'—'}</td>`;
+                  const isLow = !isNaN(pn) && pn === minP;
+                  const durLabel = DUR_LABEL && r.machineBreakdowns?.[0]?.duration ? (DUR_LABEL[r.machineBreakdowns[0].duration]||'') : (req.machines?.[0]?.duration ? (DUR_LABEL?.[req.machines[0].duration]||req.machines[0].duration) : '—');
+                  return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;background:${isLow?'#F7FEF9':'#fff'};color:#334155;font-weight:600">${durLabel||'—'}</td>`;
                 }).join('')}
               </tr>
               <tr>
-                <td style="padding:.3rem .5rem;color:#1E40AF;border-bottom:1px solid #F1F5F9">🚚 Transport</td>
+                <td style="padding:.32rem .6rem;color:#475569;border-bottom:1px solid #F1F5F9;font-weight:700">📋 Machines covered</td>
                 ${sortedResponses.map(r => {
                   const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
-                  const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
-                  const tr = (r.transInTotal||r.transport||0);
-                  return `<td style="padding:.3rem .5rem;text-align:center;font-weight:700;color:#1E40AF;border-bottom:1px solid #F1F5F9;background:${isLow?'#F7FEF9':'#fff'}">${tr>0?`$${tr.toFixed(2)}`:'—'}</td>`;
-                }).join('')}
-              </tr>
-              <tr>
-                <td style="padding:.3rem .5rem;color:#64748B;border-bottom:1px solid #F1F5F9">GST (10%)</td>
-                ${sortedResponses.map(r => {
-                  const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
-                  const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
-                  return `<td style="padding:.3rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;background:${isLow?'#F7FEF9':'#fff'}">${r.gst?`$${r.gst.toFixed(2)}`:'—'}</td>`;
-                }).join('')}
-              </tr>
-              <tr style="background:linear-gradient(90deg,#EFF6FF,#F0FDF4)">
-                <td style="padding:.45rem .5rem;font-weight:900;color:#0F172A">💰 Total inc. GST</td>
-                ${sortedResponses.map((r, si) => {
-                  const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
-                  const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
-                  return `<td style="padding:.45rem .5rem;text-align:center;font-weight:900;font-size:1rem;color:${isLow?'#15803D':'#0052CC'};background:${isLow?'#DCFCE7':'#EFF6FF'}">
-                    $${(!isNaN(pn)?pn:0).toFixed(2)}${si>0&&!isNaN(pn)&&priceNums[0]>0?`<br><span style="font-size:.7rem;color:#EF4444;font-weight:700">+$${(pn-priceNums[0]).toFixed(2)}</span>`:''}
+                  const isLow = !isNaN(pn) && pn === minP;
+                  const tReqC = (req.machines||[]).length;
+                  const tQtdC = (r.machineBreakdowns||[]).filter(mb=>mb.rateDay>0||mb.rateWeek>0||mb.rentalCost>0).length;
+                  const isFullC = tReqC <= 1 || tQtdC >= tReqC;
+                  return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;font-weight:900;background:${isFullC?(isLow?'#F7FEF9':'#fff'):'#FEF3C7'}">
+                    ${isFullC
+                      ? `<span style="color:#16A34A">✅ Full Quote</span><div style="font-size:.7rem;color:#64748B">All ${tReqC} machine${tReqC>1?'s':''}</div>`
+                      : `<span style="color:#92400E">⚠️ Partial</span><div style="font-size:.7rem;color:#92400E;font-weight:700">${tQtdC}/${tReqC} machines<br>${tReqC-tQtdC} not covered</div>`
+                    }
                   </td>`;
                 }).join('')}
               </tr>
+
+              <!-- ── PER-MACHINE ROWS ── -->
+              ${allMachineNames.map(name => {
+                const perMachineRates = sortedResponses.map(r => {
+                  const mb = (r.machineBreakdowns||[]).find(m => m.name === name);
+                  return mb ? (mb.rentalCost||0) : null;
+                });
+                const rMin = rowMin(perMachineRates);
+                return `
+                  ${sectionHead('🏗️', name, '#FFFBEB', '#92400E')}
+                  <tr>
+                    <td style="padding:.32rem .6rem;color:#78350F;border-bottom:1px solid #F1F5F9;font-weight:700;padding-left:1rem">Hire cost</td>
+                    ${sortedResponses.map((r,si) => {
+                      const mb = (r.machineBreakdowns||[]).find(m => m.name === name);
+                      const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                      const isLow = !isNaN(pn) && pn === minP;
+                      const cost = mb ? (mb.rentalCost||0) : null;
+                      const notQuoted = cost === null;
+                      const tReqM = (req.machines||[]).length;
+                      return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;background:${notQuoted?'#FEF2F2':cellBg(cost,rMin,isLow)};font-weight:700;color:${notQuoted?'#DC2626':cost&&cost===rMin&&rMin>0?'#15803D':'#334155'}">
+                        ${notQuoted
+                          ? `<span style="font-size:.75rem">❌ Not quoted</span>`
+                          : `$${cost.toFixed(2)}`}
+                      </td>`;
+                    }).join('')}
+                  </tr>
+                  <tr>
+                    <td style="padding:.28rem .6rem;color:#94A3B8;border-bottom:1px solid #F1F5F9;font-size:.74rem;padding-left:1.5rem">Rate/day</td>
+                    ${sortedResponses.map(r => {
+                      const mb = (r.machineBreakdowns||[]).find(m => m.name === name);
+                      const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                      const isLow = !isNaN(pn) && pn === minP;
+                      return `<td style="padding:.28rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;font-size:.74rem;color:#64748B;background:${isLow?'#F7FEF9':'#fff'}">
+                        ${mb&&mb.rateDay>0 ? `$${mb.rateDay}/day` : '<span style="color:#CBD5E1">—</span>'}
+                      </td>`;
+                    }).join('')}
+                  </tr>
+                  <tr>
+                    <td style="padding:.28rem .6rem;color:#94A3B8;border-bottom:1px solid #F1F5F9;font-size:.74rem;padding-left:1.5rem">Rate/week</td>
+                    ${sortedResponses.map(r => {
+                      const mb = (r.machineBreakdowns||[]).find(m => m.name === name);
+                      const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                      const isLow = !isNaN(pn) && pn === minP;
+                      return `<td style="padding:.28rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;font-size:.74rem;color:#64748B;background:${isLow?'#F7FEF9':'#fff'}">
+                        ${mb&&mb.rateWeek>0 ? `$${mb.rateWeek}/wk` : '<span style="color:#CBD5E1">—</span>'}
+                      </td>`;
+                    }).join('')}
+                  </tr>
+                  ${allAccNames.filter(aName => sortedResponses.some(r => (r.machineBreakdowns||[]).find(m=>m.name===name) && ((r.machineBreakdowns||[]).find(m=>m.name===name)?.accs||[]).some(a=>a.name===aName))).map(aName => {
+                    const accVals = sortedResponses.map(r => {
+                      const mb = (r.machineBreakdowns||[]).find(m=>m.name===name);
+                      const acc = (mb?.accs||[]).find(a=>a.name===aName);
+                      return acc ? (acc.total||0) : null;
+                    });
+                    const accMin = rowMin(accVals);
+                    return `<tr>
+                      <td style="padding:.28rem .6rem;color:#C2410C;border-bottom:1px solid #F1F5F9;font-size:.74rem;padding-left:1.5rem">🔧 ${aName}</td>
+                      ${sortedResponses.map(r => {
+                        const mb = (r.machineBreakdowns||[]).find(m=>m.name===name);
+                        const acc = (mb?.accs||[]).find(a=>a.name===aName);
+                        const v = acc ? (acc.total||0) : null;
+                        const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                        const isLow = !isNaN(pn) && pn === minP;
+                        return `<td style="padding:.28rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;font-size:.74rem;color:${v&&v===accMin&&accMin>0?'#15803D':'#C2410C'};background:${cellBg(v,accMin,isLow)}">
+                          ${v!=null&&v>0 ? `$${v.toFixed(2)}` : '<span style="color:#CBD5E1">—</span>'}
+                        </td>`;
+                      }).join('')}
+                    </tr>`;
+                  }).join('')}
+                `;
+              }).join('')}
+
+              <!-- ── INSURANCE ── -->
+              ${sectionHead('🛡️','Insurance & Other Fees','#F8FAFC','#475569')}
               <tr>
-                <td style="padding:.5rem .5rem;font-weight:700;color:#334155;border-top:2px solid #E2E8F0">Action</td>
+                <td style="padding:.32rem .6rem;color:#475569;border-bottom:1px solid #F1F5F9">Insurance</td>
+                ${sortedResponses.map(r => {
+                  const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                  const isLow = !isNaN(pn) && pn === minP;
+                  const ins = (r.machineBreakdowns||[]).reduce((s,mb)=>s+(mb.insurance||0),0);
+                  return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;background:${isLow?'#F7FEF9':'#fff'}">
+                    ${ins>0 ? `$${ins.toFixed(2)}<span style="color:#94A3B8;font-size:.72rem"> (${r.insurePct||0}%)</span>` : '<span style="color:#CBD5E1">—</span>'}
+                  </td>`;
+                }).join('')}
+              </tr>
+
+              <!-- ── TRANSPORT ── -->
+              <tr>
+                <td style="padding:.32rem .6rem;color:#1E40AF;border-bottom:1px solid #F1F5F9">🚚 Delivery</td>
+                ${(() => {
+                  const transVals = sortedResponses.map(r => (r.transInTotal||0)>0 ? (r.transInTotal||0) : null);
+                  const transMin = rowMin(transVals);
+                  return sortedResponses.map(r => {
+                    const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                    const isLow = !isNaN(pn) && pn === minP;
+                    const v = r.transInTotal||0;
+                    return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;font-weight:700;color:${v&&v===transMin&&transMin>0?'#15803D':'#1E40AF'};background:${cellBg(v,transMin,isLow)}">
+                      ${v>0 ? `$${v.toFixed(2)}` : '<span style="color:#CBD5E1">—</span>'}
+                    </td>`;
+                  }).join('');
+                })()}
+              </tr>
+              <tr>
+                <td style="padding:.32rem .6rem;color:#1E40AF;border-bottom:1px solid #F1F5F9">🚚 Pickup</td>
+                ${(() => {
+                  const pickVals = sortedResponses.map(r => (r.transOutTotal||0)>0 ? (r.transOutTotal||0) : null);
+                  const pickMin = rowMin(pickVals);
+                  return sortedResponses.map(r => {
+                    const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                    const isLow = !isNaN(pn) && pn === minP;
+                    const v = r.transOutTotal||0;
+                    return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;font-weight:700;color:${v&&v===pickMin&&pickMin>0?'#15803D':'#1E40AF'};background:${cellBg(v,pickMin,isLow)}">
+                      ${v>0 ? `$${v.toFixed(2)}` : '<span style="color:#CBD5E1">—</span>'}
+                    </td>`;
+                  }).join('');
+                })()}
+              </tr>
+
+              <!-- ── GST ── -->
+              <tr>
+                <td style="padding:.32rem .6rem;color:#64748B;border-bottom:2px solid #E2E8F0">GST (10%)</td>
+                ${sortedResponses.map(r => {
+                  const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                  const isLow = !isNaN(pn) && pn === minP;
+                  return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:2px solid #E2E8F0;background:${isLow?'#F7FEF9':'#fff'}">
+                    ${r.gst ? `$${r.gst.toFixed(2)}` : '<span style="color:#CBD5E1">—</span>'}
+                  </td>`;
+                }).join('')}
+              </tr>
+
+              <!-- ── GRAND TOTAL ── -->
+              <tr style="background:linear-gradient(90deg,#EFF6FF,#F0FDF4)">
+                <td style="padding:.55rem .6rem;font-weight:900;color:#0F172A;font-size:.88rem">💰 Total inc. GST</td>
+                ${sortedResponses.map((r, si) => {
+                  const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                  const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
+                  const diff = si>0 && !isNaN(pn) && priceNums[0]>0 ? pn - priceNums[0] : 0;
+                  return `<td style="padding:.55rem .5rem;text-align:center;font-weight:900;font-size:1.05rem;color:${isLow?'#15803D':'#0052CC'};background:${isLow?'#DCFCE7':'#EFF6FF'}">
+                    $${(!isNaN(pn)?pn:0).toFixed(2)}
+                    ${diff>0 ? `<div style="font-size:.72rem;color:#EF4444;font-weight:800">+$${diff.toFixed(2)} more</div>` : ''}
+                    ${isLow ? '<div style="font-size:.7rem;color:#15803D;font-weight:700">✓ Best price</div>' : ''}
+                  </td>`;
+                }).join('')}
+              </tr>
+
+              <!-- ── NOTES / ALT MACHINE ── -->
+              ${sortedResponses.some(r => r.altMachine || r.notes || r.question) ? `
+                ${sectionHead('📝','Notes & Alternatives','#FFFBEB','#92400E')}
+                <tr>
+                  <td style="padding:.32rem .6rem;color:#78350F;border-bottom:1px solid #F1F5F9">Notes</td>
+                  ${sortedResponses.map(r => {
+                    const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
+                    const isLow = !isNaN(pn) && pn === minP;
+                    const note = [r.altMachine?`🔄 ${r.altMachine}`:'', r.notes?`"${r.notes}"`:'', r.question?`❓ ${r.question}`:''].filter(Boolean).join('<br>');
+                    return `<td style="padding:.32rem .5rem;text-align:center;border-bottom:1px solid #F1F5F9;font-size:.75rem;color:#78350F;background:${isLow?'#F7FEF9':'#fff'}">
+                      ${note || '<span style="color:#CBD5E1">—</span>'}
+                    </td>`;
+                  }).join('')}
+                </tr>` : ''}
+
+              <!-- ── ACTION ROW ── -->
+              <tr>
+                <td style="padding:.55rem .6rem;font-weight:700;color:#334155;border-top:2px solid #E2E8F0;background:#F8FAFC">Action</td>
                 ${sortedResponses.map((r, si) => {
                   const pn = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,''));
                   const isLow = !isNaN(pn) && pn === minP && priceNums.length > 1;
@@ -57657,25 +58078,25 @@ function renderMyQuotes() {
                   const origIdxC = r._origIdx !== undefined ? r._origIdx : si;
                   let btnHtml = '';
                   if (isAcc2) {
-                    btnHtml = `<div style="background:#DCFCE7;color:#166534;font-weight:800;font-size:.75rem;padding:.3rem .6rem;border-radius:8px;text-align:center">✅ Accepted</div>`;
+                    btnHtml = `<div style="background:#DCFCE7;color:#166534;font-weight:800;font-size:.75rem;padding:.35rem .6rem;border-radius:8px;text-align:center">✅ Accepted</div>`;
                   } else if (isRej2) {
-                    btnHtml = `<div style="background:#F1F5F9;color:#94A3B8;font-weight:700;font-size:.75rem;padding:.3rem .6rem;border-radius:8px;text-align:center">✗ Declined</div>`;
+                    btnHtml = `<div style="background:#F1F5F9;color:#94A3B8;font-weight:700;font-size:.75rem;padding:.35rem .6rem;border-radius:8px;text-align:center">${rOrig.autoRejected?'✗ Auto-rejected':'✗ Declined'}</div>`;
                   } else if (!req.acceptedBy) {
                     const _mqWinOpen3 = req.expires && Date.now() <= req.expires;
                     const _aExp3 = req.customerAcceptExpires && Date.now() > req.customerAcceptExpires;
                     btnHtml = _mqWinOpen3
-                      ? `<div style="color:#B45309;font-size:.73rem;font-weight:700;text-align:center;padding:.25rem .3rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:7px">⏳ Window open</div>`
+                      ? `<div style="color:#B45309;font-size:.73rem;font-weight:700;text-align:center;padding:.3rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:7px">⏳ Window open — accept once closed</div>`
                       : _aExp3
                         ? `<div style="color:#94A3B8;font-size:.74rem;font-weight:700;text-align:center">🔒 Window closed</div>`
                         : `<div style="display:flex;flex-direction:column;gap:.3rem">
-                            <button onclick="mqAccept('${req.id}',${origIdxC})" style="width:100%;background:${isPart3?'#D97706':'#16A34A'};color:#fff;border:none;border-radius:7px;padding:.42rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer">✅ Accept${isPart3?' Partial':''}</button>
-                            <button onclick="mqReject('${req.id}',${origIdxC})" style="width:100%;background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer">✗ Decline</button>
-                            ${(() => { const _rn = r.notes||r.altMachine||r.question; return _rn ? `<button onclick="var d=document.getElementById('mq-notes-pop-${origIdxC}-${req.id.replace(/[^a-z0-9]/gi,'')}');if(d)d.style.display=d.style.display==='none'?'block':'none'" style="width:100%;background:#FFF7ED;color:#C2410C;border:1.5px solid #FCD34D;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer">📝 Read Notes</button><div id="mq-notes-pop-${origIdxC}-${req.id.replace(/[^a-z0-9]/gi,'')}" style="display:none;background:#FFF7ED;border:1px solid #FCD34D;border-radius:8px;padding:.5rem .65rem;font-size:.77rem;color:#78350F;margin-top:.1rem;text-align:left;line-height:1.5">${r.altMachine?`<strong>🔄 Offering:</strong> ${r.altMachine}<br>`:''}${r.altType&&r.altType!=='Exact match'?`<em>${r.altType}</em><br>`:''}${r.notes?`<strong>Note:</strong> "${r.notes}"<br>`:''}${r.question?`<strong>❓ Question:</strong> "${r.question}"`:''}</div>` : `<div style="width:100%;background:#F8FAFC;color:#CBD5E1;border:1.5px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;text-align:center">📝 No Notes</div>`; })()}
+                            <button onclick="mqAccept('${req.id}',${origIdxC})" style="width:100%;background:${isPart3?'#D97706':'#16A34A'};color:#fff;border:none;border-radius:7px;padding:.42rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✅ Accept${isPart3?' Partial':''}</button>
+                            <button onclick="mqReject('${req.id}',${origIdxC})" style="width:100%;background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✗ Decline</button>
                           </div>`;
                   }
                   return `<td style="padding:.5rem .5rem;text-align:center;background:${isLow?'#F0FDF4':'#F8FAFC'};border-top:2px solid ${isLow?'#86EFAC':'#E2E8F0'}">${btnHtml}</td>`;
                 }).join('')}
               </tr>
+
             </tbody>
           </table>
         </div>`;
@@ -57788,6 +58209,23 @@ function renderMyQuotes() {
             </div>`;
           }
 
+          // ── Rental company contact details — gated button (NOYO tracks every reveal) ──
+          const _respRc = RENTAL_COMPANIES.find(c => c.name === (p.company||''));
+          const _respRcEmail = _respRc ? _respRc.email : (p.companyEmail || '');
+          const _respRcPhone = _respRc ? (_respRc.phone || '') : '';
+          const _respContactId = 'rc-contact-' + req.id + '-' + origIdx;
+          const _respContactHtml = (_respRcEmail || _respRcPhone) ? `
+            <div id="${_respContactId}-wrap" style="margin-top:.5rem">
+              <button onclick="revealContactDetails('${_respContactId}','customer','${req.id}','${(p.company||'').replace(/'/g,'')}')"
+                style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:8px;padding:.38rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;display:flex;align-items:center;gap:.4rem">
+                📞 See Contact Details — ${p.company||'Rental Co.'}
+              </button>
+              <div id="${_respContactId}" style="display:none;margin-top:.4rem;padding:.5rem .75rem;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1.5px solid #93C5FD;border-radius:9px">
+                <div style="font-size:.72rem;font-weight:800;color:#1E40AF;text-transform:uppercase;letter-spacing:.3px;margin-bottom:.35rem">📞 ${p.company||'Rental Co.'}</div>
+                ${_respRcEmail ? `<a href="mailto:${_respRcEmail}" style="display:flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:#0052CC;text-decoration:none;margin-bottom:.2rem">📧 ${_respRcEmail}</a>` : ''}
+                ${_respRcPhone ? `<a href="tel:${_respRcPhone}" style="display:flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:#0052CC;text-decoration:none">📱 ${_respRcPhone}</a>` : ''}
+              </div>
+            </div>` : '';
 
           // Status badge only on individual cards — buttons are in comparison table above
           let mqActBtns = '';
@@ -57838,6 +58276,7 @@ function renderMyQuotes() {
               </div>
             </div>
             ${detail}
+            ${_respContactHtml}
             ${mqActBtns}
           ${(() => {
             // ── Secure messaging thread (unlocked once quote submitted) ──
@@ -57848,10 +58287,10 @@ function renderMyQuotes() {
             if (!isAcc) return '';
             const now = Date.now();
             const hireDate = req.date ? new Date(req.date).getTime() : null;
-            const hireCompleted = hireDate && now > hireDate + 86400000; // 1 day after hire start
+                        const hireCompleted = localStorage.getItem('noyo_hire_done_' + req.id) === '1';
             let ratingHtml = '';
 
-            // ── EMAIL REVEAL — shown after acceptance so customer can contact rental company ──
+            // ── ACCEPTED COMPANY SUMMARY — contact details + rating on the accepted response ──
             const _rc = RENTAL_COMPANIES.find(c => c.name === (p.company||''));
             const _rcEmail = _rc ? _rc.email : (p.companyEmail || '');
             const _rcPhone = _rc ? (_rc.phone || '') : '';
@@ -57874,19 +58313,25 @@ function renderMyQuotes() {
               ratingHtml += `<div style="margin-top:.4rem;font-size:.76rem;color:#16A34A;font-weight:700">✅ Noyo rated ${'⭐'.repeat(req._ratedNoyo)}</div>`;
             }
 
-            // Rate rental company — only after hire completion
-            if (hireCompleted && !req._ratedRental) {
-              ratingHtml += `<div style="margin-top:.4rem;padding:.5rem .75rem;background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
-                <div style="font-size:.82rem;font-weight:700;color:#166534">🏢 How was ${p.company||'the rental company'}? Rate your hire</div>
-                <button onclick="openRateRentalCompany('${req.id}')" style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;border:none;border-radius:8px;padding:.35rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">Rate Company</button>
-              </div>`;
-            } else if (req._ratedRental) {
+            // Rate rental company — customer-controlled "hire finished" toggle
+            if (req._ratedRental) {
+              // Already rated
               ratingHtml += `<div style="margin-top:.4rem;font-size:.76rem;color:#16A34A;font-weight:700">✅ ${p.company||'Rental company'} rated ${'⭐'.repeat(req._ratedRental)}</div>`;
-            } else if (!hireCompleted && hireDate) {
-              const hireStr = new Date(hireDate).toLocaleDateString('en-AU',{day:'2-digit',month:'short'});
-              ratingHtml += `<div style="margin-top:.4rem;font-size:.74rem;color:#64748B;font-style:italic">Rate the rental company becomes available after hire completion (${hireStr})</div>`;
+            } else if (hireCompleted) {
+              // Hire marked complete — show rate button
+              ratingHtml += `<div style="margin-top:.5rem;padding:.5rem .75rem;background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
+                <div style="font-size:.82rem;font-weight:700;color:#166534">🏢 How was ${p.company||'the rental company'}? Leave a rating</div>
+                <button onclick="openRateRentalCompany('${req.id}')" style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;border:none;border-radius:8px;padding:.35rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">⭐ Rate Company</button>
+              </div>`;
+            } else {
+              // Show "mark hire complete" toggle — NOYO doesn't know when hire ends
+              const _hKey = 'noyo_hire_done_' + req.id;
+              ratingHtml += `<div style="margin-top:.5rem;padding:.45rem .75rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
+                <div style="font-size:.79rem;color:#64748B;font-weight:600">🏁 Has your hire finished?</div>
+                <button onclick="localStorage.setItem('${_hKey}','1');renderMyQuotes()" style="background:#0052CC;color:#fff;border:none;border-radius:7px;padding:.28rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;cursor:pointer">Yes — Mark Hire Complete &amp; Rate</button>
+              </div>`;
             }
-            return ratingHtml;
+return ratingHtml;
           })()}
           </div>`;
         }).join('')}
@@ -57904,6 +58349,10 @@ function renderMyQuotes() {
           ${respCount > 0 ? `<span style="background:#0052CC;color:#fff;font-size:.78rem;font-weight:900;padding:.25rem .65rem;border-radius:50px;min-width:22px;text-align:center">${respCount}</span>` : ''}
           <span style="background:${statusBg};color:${statusColor};font-size:.8rem;font-weight:700;padding:.3rem .75rem;border-radius:20px">${statusDot} ${statusText}</span>
           ${expiryHtml}
+          ${!req.acceptedBy && !req.withdrawn && req.expires && Date.now() <= req.expires
+            ? `<button onclick="withdrawEnquiry('${req.id}')"
+                style="font-size:.7rem;color:#94A3B8;background:none;border:none;cursor:pointer;padding:0;font-family:'Nunito',sans-serif;font-weight:700;text-decoration:underline;margin-left:.5rem">✕ Withdraw</button>`
+            : req.withdrawn ? `<span style="font-size:.7rem;color:#94A3B8;font-weight:700;margin-left:.5rem">Withdrawn</span>` : ''}
         </div>
       </div>
       <div style="font-size:.82rem;color:#475569;margin-top:.6rem;background:#F8FAFC;border-radius:8px;padding:.45rem .7rem">${machines}</div>
@@ -59118,8 +59567,45 @@ function loginSuccess(user) {
     const _ffab = document.getElementById('feedback-fab');
     if (_ffab) _ffab.style.display = 'none';
     // Load latest quotes from Firebase
-    loadInboxFromFirebase().then(() => { renderQuoteInbox(); renderMyQuotes(); updateQRUnreadBadge(); updateMQUnreadBadge(); }).catch(()=>{});
+    loadInboxFromFirebase().then(() => {
+      renderQuoteInbox(); renderMyQuotes(); updateQRUnreadBadge(); updateMQUnreadBadge();
+      // Notify rental company if any of their quotes were accepted since last visit
+      try {
+        const _lastVisit = parseInt(localStorage.getItem('noyo_last_visit_' + currentUser.email) || '0');
+        const _newlyAccepted = quoteInbox.filter(r =>
+          r.acceptedBy === currentUser.name &&
+          r.responses?.some(rsp => rsp.company === currentUser.name) &&
+          r.acceptedAt && r.acceptedAt > _lastVisit
+        );
+        if (_newlyAccepted.length > 0) {
+          setTimeout(() => {
+            showToast(
+              `🏆 ${_newlyAccepted.length} quote${_newlyAccepted.length>1?'s were':' was'} accepted while you were away! <a href="#" onclick="event.preventDefault();switchView('quote-requests')" style="color:#fff;font-weight:800;text-decoration:underline">View →</a>`,
+              '#16A34A', 7000
+            );
+          }, 1500);
+        }
+        localStorage.setItem('noyo_last_visit_' + currentUser.email, Date.now().toString());
+      } catch(e) {}
+    }).catch(()=>{});
     _loadNotificationStateFromFirestore().catch(() => {});
+    // Load ratings from Firestore so rental company sees ratings from all customers (cross-device)
+    if (_fbDb && user.name) {
+      _fbDb.collection('ratings').where('company','==', user.name).where('type','==','rental')
+        .get().then(snap => {
+          if (!snap.empty) {
+            const fsRatings = snap.docs.map(d => d.data());
+            // Merge with localStorage ratings
+            const existing = JSON.parse(localStorage.getItem('noyo_ratings') || '[]');
+            const existingReqIds = new Set(existing.map(r => r.reqId));
+            const newOnes = fsRatings.filter(r => !existingReqIds.has(r.reqId));
+            if (newOnes.length) {
+              localStorage.setItem('noyo_ratings', JSON.stringify([...existing, ...newOnes]));
+              renderQuoteRequests(); // refresh badge
+            }
+          }
+        }).catch(()=>{});
+    }
   } else {
     if (user.role === 'lite') {
       if (avatar)  avatar.className  = 'nav-avatar lite-av';
@@ -59222,10 +59708,11 @@ function logOut() {
 
 // ── In-session tracking store ─────────────────────────────────────────
 var adminData = {
-  sessions:    [],  // {id, user, email, role, loginAt, logoutAt, searchCount, quoteCount}
-  searches:    [],  // {id, ts, user, email, jobType, machineType, machineName, swl, height, city, cartAdded}
-  quoteEvents: [],  // {ts, type:'sent'|'responded'|'broadcast', quoteId, ref, user, company, machines}
-  activityLog: [],  // {ts, type, icon, title, meta, colorClass}
+  sessions:      [],  // {id, user, email, role, loginAt, logoutAt, searchCount, quoteCount}
+  searches:      [],  // {id, ts, user, email, jobType, machineType, machineName, swl, height, city, cartAdded}
+  quoteEvents:   [],  // {ts, type:'sent'|'responded'|'broadcast', quoteId, ref, user, company, machines}
+  activityLog:   [],  // {ts, type, icon, title, meta, colorClass}
+  contactReveals: 0,  // count of contact detail reveals (customer sees RC contact or RC sees customer contact)
 };
 
 // Registered users = RENTAL_CREDS + any customers who log in this session
@@ -59449,6 +59936,12 @@ async function _loadAdminAnalyticsFromFirestore() {
     adminData.quoteEvents = [...qeMap.values()].sort((a, b) => (a.ts||0) - (b.ts||0));
 
     console.log(`📊 Admin analytics loaded from Firestore: ${adminData.searches.length} searches, ${adminData.activityLog.length} activity events`);
+
+    // Load contact reveal count from top-level events collection
+    try {
+      const revSnap = await _fbDb.collection('events').where('type','==','contact_reveal').get();
+      adminData.contactReveals = revSnap.size;
+    } catch(e) {}
   } catch(e) {
     console.warn('Admin analytics Firestore load failed:', e.message);
   }
@@ -63168,6 +63661,7 @@ async function renderAnalytics() {
       { label:'🔍 Searches', val: totalSearches, color:'#0052CC' },
       { label:'🛒 Hire Enquiry Adds', val: totalCartAdds, pct: totalSearches > 0 ? ((totalCartAdds/totalSearches)*100).toFixed(0) : 0, color:'#7C3AED' },
       { label:'📨 Quotes Sent', val: totalQuotes, pct: totalCartAdds > 0 ? ((totalQuotes/totalCartAdds)*100).toFixed(0) : 0, color:'#0891B2' },
+      { label:'📞 Contact Reveals', val: adminData.contactReveals || 0, color:'#7C3AED' },
       { label:'✅ Accepted', val: totalAccepted, pct: totalQuotes > 0 ? ((totalAccepted/totalQuotes)*100).toFixed(0) : 0, color:'#16A34A' },
     ];
     const maxVal = totalSearches || 1;
@@ -63882,6 +64376,7 @@ async function confirmUnlockLead(isExtra) {
   if (!req.leadsPurchased) req.leadsPurchased = [];
   if (!req.leadsPurchased.includes(userEmail)) req.leadsPurchased.push(userEmail);
   saveInbox();
+  saveQuoteToFirebase(req);  // sync leadsPurchased back to shared_enquiries
   await _rcDecrementQuota();
 
   _revealLeadInModal(req);
@@ -63899,6 +64394,7 @@ async function _stripeUnlockOnReturn(reqId) {
   if (!req.leadsPurchased.includes(userEmail)) {
     req.leadsPurchased.push(userEmail);
     saveInbox();
+    saveQuoteToFirebase(req);  // sync unlock back to shared_enquiries
     // Extra enquiry does NOT decrement the monthly quota
   }
   renderQuoteInbox();
@@ -64340,6 +64836,17 @@ function renderQuoteRequests() {
     ${active > 0 ? `<span style="background:#FFFDF0;color:#B45309;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:1.5px solid #FCD34D">✓ ${myResponded} Quoted</span>` : ''}
     ${myWon > 0 ? `<span style="background:#F0FDF4;color:#166534;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:1.5px solid #86EFAC">🏆 ${myWon} Won</span>` : ''}
     ${myLost > 0 ? `<span style="background:#F8FAFC;color:#94A3B8;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:1px solid #E2E8F0">✗ ${myLost} Lost</span>` : ''}
+    ${(() => {
+      // Compute average rating from all ratings in localStorage for this company
+      try {
+        const allRatings = JSON.parse(localStorage.getItem('noyo_ratings') || '[]');
+        const myRatings = allRatings.filter(r => r.type === 'rental' && r.company === currentUser?.name && r.overall > 0);
+        if (!myRatings.length) return '';
+        const avg = (myRatings.reduce((s,r) => s + r.overall, 0) / myRatings.length).toFixed(1);
+        const stars = '⭐'.repeat(Math.round(avg));
+        return `<span style="background:#FFFBEB;color:#B45309;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:1.5px solid #FCD34D">${stars} ${avg} avg (${myRatings.length} rating${myRatings.length!==1?'s':''})</span>`;
+      } catch(e) { return ''; }
+    })()}
     <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:.3rem;font-size:.7rem;color:#94A3B8;font-weight:600">
       <span style="display:inline-flex;align-items:center;gap:.3rem"><span style="width:10px;height:10px;border-radius:2px;background:#0052CC;display:inline-block"></span>New</span>
       <span style="display:inline-flex;align-items:center;gap:.3rem"><span style="width:10px;height:10px;border-radius:2px;background:#EF4444;display:inline-block"></span>Urgent</span>
@@ -64478,6 +64985,7 @@ function markQrResponded(reqId) {
   if (!req) return;
   req.responded = true;
   saveInbox();
+  saveQuoteToFirebase(req);
   renderQuoteRequests();
   renderQuoteInbox();
   showToast('✅ Marked as responded', '#166534');
