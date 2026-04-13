@@ -363,8 +363,15 @@
     </div>
     <button class="nav-tab" id="tab-admin" style="display:none" onclick="switchView('admin',this)">📊 Admin</button>
   </div>
+  <!-- ── Hire Enquiry Cart button in navbar (customer only) ── -->
+  <div id="nav-cart-btn-wrap" style="display:none;margin-right:.5rem">
+    <button onclick="openSendQuotesModal()"
+      style="position:relative;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;padding:.42rem .85rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:.4rem;white-space:nowrap">
+      🛒 Hire Enquiry
+      <span id="nav-cart-badge" style="display:none;background:#fff;color:#EA580C;font-size:.7rem;font-weight:900;border-radius:50%;min-width:18px;height:18px;line-height:18px;text-align:center;padding:0 3px">0</span>
+    </button>
+  </div>
   <div style="display:none;position:relative" id="nav-user-pill">
-    <div class="nav-user" style="cursor:pointer;user-select:none" onclick="toggleUserMenu()" id="nav-user-btn">
       <div class="nav-avatar rental-av" id="nav-avatar">S</div>
       <div>
         <div class="nav-uname" id="nav-uname">Staff User</div>
@@ -553,6 +560,9 @@
         <p>Based on your job requirements — here are your best options.</p>
       </div>
       <div class="result-summary" id="result-summary"></div>
+
+      <!-- ── MACHINE RESTRICTIONS PANEL ─────────────────────────────── -->
+      <div id="result-restrictions" style="display:none;background:#fff;border-radius:14px;padding:.75rem 1rem;box-shadow:0 1px 4px rgba(0,0,0,.06);border:1.5px solid #E2E8F0;margin-bottom:.75rem"></div>
 
       <!-- ── SORT / FILTER BAR ─────────────────────────────────────────── -->
       <div id="result-sort-bar" style="display:none;background:#fff;border-radius:14px;padding:.75rem 1rem;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:1rem;border:1.5px solid #E2E8F0">
