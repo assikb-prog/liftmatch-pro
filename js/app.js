@@ -45993,7 +45993,10 @@ function matchMachines(ans, type) {
     // Note: pwr === 'diesel' intentionally NOT filtered — it means "no restriction on power"
     // Diesel scissors are all outdoor/RT machines; the terrain filter handles exclusion for indoor jobs.
 
-    // Score (keep undersized in pool, tag them)
+    // Hard exclusions: remove machines that physically cannot do the job
+    if (minHt > 0) pool = pool.filter(m => (m.liftHeight || 0) >= minHt);
+
+    // Score the remaining pool
     const scoredScissor = pool.map(m => {
       const _minHtForScore = exactHt > 0 ? exactHt : minHt;
       const isUnderSpec = m.liftHeight < _minHtForScore;
@@ -46080,7 +46083,7 @@ function matchMachines(ans, type) {
 
     if (up) results.push({...up, _overSpec:true, _sizeLabel:'much_larger', _overSpecMsg:`⚠️ This machine is larger than your stated height requirement. Confirm floor loading, licensing requirements and suitability before hire.`});
     const _isCrawlerScissTerrain = surf === 'crawler_scis';
-    if (!_isCrawlerScissTerrain && scissorUnder.length > 0 && results.length < 6) results.push(scissorUnder[0]);
+        // underSpec scissors excluded — machines must meet stated height requirement
     const _sMaxResults = (_sBPref !== 'any') ? 6 : 5;
     return results.slice(0, _sMaxResults);
   }
@@ -46112,6 +46115,9 @@ function matchMachines(ans, type) {
     // ppl_ht_m / boom_ht_m is already the platform height required
     const minPlatformHt = exactHt > 0 ? exactHt : (minHtMap[ht] || 0);
     const minHt = minPlatformHt;
+
+    // Hard height filter — remove machines that can't reach the required height
+    if (minHt > 0) pool = pool.filter(m => (m.platformHeight || m.liftHeight || 0) >= minHt);
     const minReach = exactReach > 0 ? exactReach : 0;
     const minUpMap  = { 'over_4m':4, 'over_7m':7, 'over_10m':10, 'over_14m':14 };
     const minOutMap = { 'out_3m':3, 'out_6m':6, 'out_10m':10, 'out_15m':15 };
@@ -46235,17 +46241,19 @@ function matchMachines(ans, type) {
       const isUnderSpec = (m.platformHeight||0) < minHt;
 
       // Hard reach minimum only for machines that DO meet height
-      // IMPORTANT: Use m.maxReach (brochure spec) for hard exclusion — NOT the geometry estimate.
-      // getReachAtHeight() is a display model that approximates reach at a given height;
-      // it can be slightly conservative and must never hard-eliminate valid machines.
-      // Brochure max reach is always the authoritative spec.
       if (!isUnderSpec) {
         if (minReach > 0) {
           if ((m.maxReach||0) < minReach) return null;   // machine physically can't reach that far
         }
-        // Still compute geometry estimate for display (scoring + card info) — but don't exclude on it
+        // Compute geometry estimate for display AND for reach-at-height exclusion
         if (minHt > 0 && minReach > 0) {
           m._reachAtReqHt = getReachAtHeight(m, minHt);
+          // Hard exclude: if the machine genuinely cannot reach minReach at the required height,
+          // it cannot do the job — remove it entirely rather than showing it with a yellow warning.
+          // Use a small tolerance (0.3m) to avoid excluding borderline machines due to geometry rounding.
+          if (m._reachAtReqHt !== null && m._reachAtReqHt < minReach - 0.3) {
+            return null;  // machine fails reach at required height — don't show it
+          }
         }
       }
 
@@ -46361,7 +46369,7 @@ function matchMachines(ans, type) {
       const up   = findNextUp(qualifiedAll, main, m => m.platformHeight||0);
       const results = [...main];
       if (up) results.push({...up, _overSpec:true, _overSpecMsg:'⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.'});
-      if (!_isCrawlerTerrainUp && underSpecAll.length > 0) results.push(underSpecAll[0]);
+      // underSpec machines excluded — machine must meet stated height requirement
       // If too few articulating results, fill remaining slots with telescopic alternatives
       if (results.length < 3) {
         const _allBooms = (MACHINES.boom||[]).filter(m => m.boomType === 'telescopic');
@@ -46486,10 +46494,8 @@ function matchMachines(ans, type) {
       const up = merged.length ? findNextUp(qualifiedAll, merged, m => m.platformHeight||0) : null;
       if (up) merged.push({...up, _overSpec:true, _overSpecMsg:'⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.'});
       const _isCrawlerTerrain = terr === 'crawler_boom';
-      if (!_isCrawlerTerrain && underSpecAll.length > 0 && merged.length < 6) {
-        const bestUnder = underSpecAll[0];
-        merged.push({...bestUnder, _boomTypeLabel: bestUnder.boomType === 'articulating' ? '🦾 Articulating / Knuckle Boom' : '📡 Straight / Telescopic Boom'});
-      }
+      // underSpec machines excluded — machine must meet stated height requirement
+      // underSpec machines excluded — machines must meet stated height requirement
       const maxResults = (_bPref2 !== 'any') ? 6 : 5;
       return merged.slice(0, maxResults);
     }
@@ -49448,7 +49454,9 @@ function _renderCards(matches, machineType, answers) {
           const _spPlatH = spMachine.platformHeight || spMachine.liftHeight || 0;
           const _spMaxR  = spMachine.maxReach || 0;
           const _spHtOk  = !_spReqHt || _spPlatH >= _spReqHt;
-          const _spReOk  = !_spReqRe || _spMaxR  >= _spReqRe;
+          // Use reach at required height for accuracy if available
+          const _spReachAtHt = (_spReqHt > 0 && spMachine._reachAtReqHt != null) ? spMachine._reachAtReqHt : _spMaxR;
+          const _spReOk  = !_spReqRe || _spReachAtHt >= _spReqRe;
           if (!_spReqHt && !_spReqRe) return '';
           return `<div style="display:grid;grid-template-columns:${_spReqRe > 0 ? '1fr 1fr' : '1fr'};gap:.4rem;margin:.55rem 0">
             ${_spReqHt > 0 ? `<div style="background:${_spHtOk?'#F0FDF4':'#FEF2F2'};border:1px solid ${_spHtOk?'#86EFAC':'#FCA5A5'};border-radius:8px;padding:.32rem .55rem">
@@ -50598,12 +50606,16 @@ function buildSpecBoxes(m, type, ans) {
     }
     if (_reqRchBoom > 0 && m.maxReach != null) {
       const _rchMet = m.maxReach >= _reqRchBoom;
-      const _rBg  = _rchMet ? 'linear-gradient(135deg,#ECFDF5,#D1FAE5)' : 'linear-gradient(135deg,#FEF2F2,#FECACA)';
-      const _rBdr = _rchMet ? '#6EE7B7' : '#FCA5A5';
-      const _rClr = _rchMet ? '#065F46' : '#991B1B';
+      // Use actual reach at required height if computed — more accurate than brochure max
+      const _reachAtHt = m._reachAtReqHt != null ? m._reachAtReqHt : m.maxReach;
+      const _rchMetActual = _reachAtHt >= _reqRchBoom;
+      const _rBg  = _rchMetActual ? 'linear-gradient(135deg,#ECFDF5,#D1FAE5)' : 'linear-gradient(135deg,#FEF2F2,#FECACA)';
+      const _rBdr = _rchMetActual ? '#6EE7B7' : '#FCA5A5';
+      const _rClr = _rchMetActual ? '#065F46' : '#991B1B';
+      const _rchDisplayVal = m._reachAtReqHt != null ? m._reachAtReqHt.toFixed(1) : m.maxReach;
       boxes+=`<div class="spec-box" style="background:${_rBg};border:2px solid ${_rBdr}">
-        <div class="spec-box-lbl" style="color:${_rClr}">Reach Match ${_rchMet?'✅':'⚠️'}</div>
-        <div class="spec-box-val" style="color:${_rClr};font-size:.82rem">Need: <strong>${_reqRchBoom}m</strong> → Has: <strong>${m.maxReach}m</strong></div>
+        <div class="spec-box-lbl" style="color:${_rClr}">Reach Match ${_rchMetActual?'✅':'⚠️'}</div>
+        <div class="spec-box-val" style="color:${_rClr};font-size:.82rem">Need: <strong>${_reqRchBoom}m</strong> → Has: <strong>${_rchDisplayVal}m</strong>${m._reachAtReqHt != null ? ` at ${_reqRchBoom > 0 ? parseFloat(answers.boom_ht_m||answers.ppl_ht_m||0).toFixed(0) : '?'}m height` : ''}</div>
       </div>`;
     } else {
       boxes+=`<div class="spec-box"><div class="spec-box-lbl">Max Outreach</div><div class="spec-box-val">${m.maxReach}m</div></div>`;
