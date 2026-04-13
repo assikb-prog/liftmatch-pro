@@ -25348,6 +25348,8 @@ filters:['telehandler','rough','heavy','rotating']
     // ── GENIE SUPER BOOMS (large telescopic) ────────────────────────────────
     {
       id:'genie-s120', brand:'Genie', emoji:'📡', brandColor:'#FF6600',
+      name:'Genie S-120 Telescopic Boom',
+      shortName:'Genie S-120',
       model:'Genie S-120',
       boomType:'telescopic',
       platformHeight:36.58, workHeight:38.58, maxReach:22.86,
@@ -25364,6 +25366,8 @@ filters:['telehandler','rough','heavy','rotating']
     },
     {
       id:'genie-sx125-xc', brand:'Genie', emoji:'📡', brandColor:'#FF6600',
+      name:'Genie SX-125 XC Telescopic Boom',
+      shortName:'Genie SX-125 XC',
       model:'Genie SX-125 XC',
       boomType:'telescopic',
       platformHeight:38.10, workHeight:40.10, maxReach:24.38,
@@ -25380,6 +25384,8 @@ filters:['telehandler','rough','heavy','rotating']
     },
     {
       id:'genie-sx135-xc', brand:'Genie', emoji:'📡', brandColor:'#FF6600',
+      name:'Genie SX-135 XC Telescopic Boom',
+      shortName:'Genie SX-135 XC',
       model:'Genie SX-135 XC',
       boomType:'telescopic',
       platformHeight:41.15, workHeight:43.15, maxReach:27.43,
@@ -25396,6 +25402,8 @@ filters:['telehandler','rough','heavy','rotating']
     },
     {
       id:'genie-sx150', brand:'Genie', emoji:'📡', brandColor:'#FF6600',
+      name:'Genie SX-150 Telescopic Boom',
+      shortName:'Genie SX-150',
       model:'Genie SX-150',
       boomType:'telescopic',
       platformHeight:46.33, workHeight:48.33, maxReach:24.38,
@@ -25411,6 +25419,8 @@ filters:['telehandler','rough','heavy','rotating']
     },
     {
       id:'genie-sx180', brand:'Genie', emoji:'📡', brandColor:'#FF6600',
+      name:'Genie SX-180 Super Boom',
+      shortName:'Genie SX-180',
       model:'Genie SX-180',
       boomType:'telescopic',
       platformHeight:54.86, workHeight:56.86, maxReach:24.38,
@@ -25428,6 +25438,8 @@ filters:['telehandler','rough','heavy','rotating']
     // ── SKYJACK LARGE BOOMS ──────────────────────────────────────────────────
     {
       id:'skyjack-sj63aj', brand:'Skyjack', emoji:'🦾', brandColor:'#FFD700',
+      name:'Skyjack SJ63AJ Articulating Boom',
+      shortName:'Skyjack SJ63AJ',
       model:'Skyjack SJ63AJ',
       boomType:'articulating',
       platformHeight:19.38, workHeight:21.38, maxReach:12.19,
@@ -25458,6 +25470,8 @@ filters:['telehandler','rough','heavy','rotating']
     },
     {
       id:'skyjack-sj86t', brand:'Skyjack', emoji:'📡', brandColor:'#FFD700',
+      name:'Skyjack SJ86T Telescopic Boom',
+      shortName:'Skyjack SJ86T',
       model:'Skyjack SJ86T',
       boomType:'telescopic',
       platformHeight:26.21, workHeight:28.21, maxReach:23.42,
@@ -46081,7 +46095,8 @@ function matchMachines(ans, type) {
     const exactPeople  = parseInt(  ans.boom_people     || 0);
     const exactRw      = parseFloat(ans.boom_rweight    || 0);
     const ht      = ans.boom_height;
-    const mode    = ans.boom_mode;
+    // Derive mode from people_reach (the quiz stores 'over_out' not 'up_over')
+    const mode    = ans.boom_mode || (ans.people_reach === 'over_out' ? 'up_over' : (ans.people_reach === 'straight_up' ? 'straight' : undefined));
     const overUp  = ans.boom_over_up;
     const overOut = ans.boom_over_out;
     const terr    = ans.boom_terrain;
@@ -46347,6 +46362,35 @@ function matchMachines(ans, type) {
       const results = [...main];
       if (up) results.push({...up, _overSpec:true, _overSpecMsg:'⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.'});
       if (!_isCrawlerTerrainUp && underSpecAll.length > 0) results.push(underSpecAll[0]);
+      // If too few articulating results, fill remaining slots with telescopic alternatives
+      if (results.length < 3) {
+        const _allBooms = (MACHINES.boom||[]).filter(m => m.boomType === 'telescopic');
+        const _telePool = _allBooms.filter(m => {
+          if ((m.platformHeight||0) < minHt) return false;
+          if (minReach > 0 && (m.maxReach||0) < minReach) return false;
+          const p = (m.power||'').toLowerCase();
+          if (pwr === 'electric_boom' && !p.includes('electric') && !p.includes('hybrid')) return false;
+          if (pwr === 'diesel_boom' && !p.includes('diesel') && !p.includes('hybrid')) return false;
+          if (terr === 'rough_boom' && p === 'electric') return false;  // no electric on rough
+          return true;
+        }).sort((a,b) => (a.platformHeight||0) - (b.platformHeight||0));
+        const teleWarning = `⚠️ This is a <strong>straight telescopic boom</strong> — it cannot work up-and-over obstacles the way an articulating boom can. ` +
+          `It provides <strong>${0}m</strong> platform height and <strong>${0}m</strong> horizontal outreach in a straight line. ` +
+          `If you need to reach over a wall, beam or obstruction, choose an articulating model instead. ` +
+          `⚠️ Noyo takes no responsibility if this machine type does not suit your site conditions.`;
+        const existingIds = new Set(results.map(r => r.id));
+        for (const tm of _telePool) {
+          if (results.length >= 5) break;
+          if (existingIds.has(tm.id)) continue;
+          const tw = `⚠️ This is a <strong>straight telescopic boom</strong> — it cannot work up-and-over obstacles. It provides <strong>${(tm.platformHeight||0).toFixed(1)}m</strong> platform height and <strong>${(tm.maxReach||0).toFixed(1)}m</strong> outreach in a straight line. ⚠️ Noyo takes no responsibility if this machine type does not suit your site conditions.`;
+          results.push({...tm,
+            _boomTypeLabel: '📡 Straight / Telescopic Boom',
+            _telescopicWarning: tw,
+            _allTelescopicFallback: results.filter(r=>r.boomType==='articulating').length === 0
+          });
+          existingIds.add(tm.id);
+        }
+      }
       return results.slice(0, 5);
     } else {
       const _bPref2 = (ans.brand_pref || 'any').toLowerCase();
@@ -46422,7 +46466,10 @@ function matchMachines(ans, type) {
       });
 
       // Telescopic machines — with a clear ⚠️ not-articulating warning when customer asked for articulating
-      telePicks.forEach(m => {
+      // Flag: did we have to fall back entirely to telescopic when user wanted articulating?
+      const _allTelescopicFallback = _wantsArticulating && artPicks.length === 0 && telePicks.length > 0;
+
+      telePicks.forEach((m, _tIdx) => {
         const teleWarning = _wantsArticulating
           ? `⚠️ This is a <strong>straight telescopic boom</strong> — it cannot work up-and-over obstacles the way an articulating boom can. ` +
             `It provides <strong>${(m.platformHeight||0).toFixed(1)}m</strong> platform height and <strong>${(m.maxReach||0).toFixed(1)}m</strong> horizontal outreach in a straight line. ` +
@@ -46431,7 +46478,8 @@ function matchMachines(ans, type) {
           : null;
         merged.push({...m,
           _boomTypeLabel: '📡 Straight / Telescopic Boom',
-          _telescopicWarning: teleWarning
+          _telescopicWarning: teleWarning,
+          _allTelescopicFallback,  // flag for rendering
         });
       });
 
@@ -49476,6 +49524,26 @@ function _renderCards(matches, machineType, answers) {
   }
 
   // ── Organic results ────────────────────────────────────────────
+
+  // Show banner if user wanted articulating but only telescopic available at this height
+  if (matches.length > 0 && matches[0]._allTelescopicFallback) {
+    const _reqHtArt = parseFloat((answers||{}).boom_ht_m||(answers||{}).ppl_ht_m||0);
+    const noArtBanner = document.createElement('div');
+    noArtBanner.style.cssText = 'background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:2px solid #FB923C;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem;display:flex;gap:.75rem;align-items:flex-start';
+    noArtBanner.innerHTML =
+      '<div style="font-size:1.5rem;flex-shrink:0">🦾</div>' +
+      '<div>' +
+        '<div style="font-weight:900;font-size:.95rem;color:#9A3412;margin-bottom:.3rem">No Articulating Booms Reach This Height</div>' +
+        '<div style="font-size:.85rem;color:#7C2D12;line-height:1.5">' +
+          'Articulating (knuckle) booms typically reach up to <strong>~46m</strong>. ' +
+          'Your requirement of <strong>' + (_reqHtArt > 0 ? _reqHtArt.toFixed(0) : '?') + 'm</strong> is in the telescopic-only range. ' +
+          'The results below are <strong>straight telescopic booms</strong> — they <strong>cannot reach over or around obstacles</strong>. ' +
+          'If up-and-over access is essential at this height, discuss options with the rental company.' +
+        '</div>' +
+      '</div>';
+    container.appendChild(noArtBanner);
+  }
+
   matches.forEach((m,i)=>{
     try {
     const rankClass=['rank-1','rank-2','rank-3'][i]||'';
@@ -49509,7 +49577,12 @@ function _renderCards(matches, machineType, answers) {
     if (m._underSpec) {
       badge = '<span class="badge-alt" style="background:linear-gradient(135deg,#FFF1F2,#FFE4E6);color:#BE123C;border:1px solid #FB7185">⬇️ Below Requirement</span>';
     } else if (i === 0 && !isOverSpec) {
-      badge = '<span class="badge-best">⭐ Best Match</span>';
+      // If user wanted articulating but ALL results are telescopic, don't call it "Best Match"
+      if (m._allTelescopicFallback) {
+        badge = '<span class="badge-alt" style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);color:#9A3412;border:1px solid #FB923C">📡 Telescopic Alternative</span>';
+      } else {
+        badge = '<span class="badge-best">⭐ Best Match</span>';
+      }
     } else {
 
       // Helper: get the "comparable value" of a machine for this type
