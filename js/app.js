@@ -45174,6 +45174,141 @@ const SORT_FIELDS_BY_TYPE = {
   palletJack:  ['capacity','machineWeight','machineWidth'],
 };
 
+// ── Machine Restrictions Panel ───────────────────────────────────────────────
+// Shown after results load — lets customer add optional hard-filter restrictions.
+// Fields match quiz order for that machine type.
+function buildRestrictionsPanel(machineType) {
+  const panel = document.getElementById('result-restrictions');
+  if (!panel) return;
+
+  // Only show for machine types where physical restrictions matter
+  const typesWithRestrictions = ['scissor','boom','telehandler','forklift','material','palletJack'];
+  const isEarthworks = machineType && machineType.startsWith('em_');
+  if (!typesWithRestrictions.includes(machineType) && !isEarthworks) {
+    panel.style.display = 'none';
+    return;
+  }
+
+  // Build field list in quiz order — fields relevant to each type
+  const fields = [];
+
+  if (machineType === 'scissor' || machineType === 'boom') {
+    fields.push(
+      { id:'restrict_max_weight_kg', label:'Max machine weight', unit:'kg', icon:'⚖️',
+        hint:'e.g. 3500 — site has a weight limit or floor loading restriction',
+        placeholder:'e.g. 3500' },
+      { id:'restrict_max_width_m', label:'Max machine width', unit:'m', icon:'↔️',
+        hint:'e.g. 1.2 — doorway, aisle or access gap width',
+        placeholder:'e.g. 1.2' },
+      { id:'restrict_max_length_m', label:'Max machine length', unit:'m', icon:'↕️',
+        hint:'e.g. 2.8 — lift, passage or site access length limit',
+        placeholder:'e.g. 2.8' },
+      { id:'restrict_max_wh_m', label:'Max working height', unit:'m', icon:'📐',
+        hint:'e.g. 12 — overhead obstruction or power line clearance',
+        placeholder:'e.g. 12' }
+    );
+  } else if (machineType === 'telehandler') {
+    fields.push(
+      { id:'restrict_max_weight_kg', label:'Max machine weight', unit:'kg', icon:'⚖️',
+        hint:'e.g. 8000 — site or ground bearing limit',
+        placeholder:'e.g. 8000' },
+      { id:'restrict_max_width_m', label:'Max machine width', unit:'m', icon:'↔️',
+        hint:'e.g. 2.5 — site access gate or track width',
+        placeholder:'e.g. 2.5' },
+      { id:'restrict_max_length_m', label:'Max machine length', unit:'m', icon:'↕️',
+        hint:'e.g. 6 — turning radius or site access limit',
+        placeholder:'e.g. 6' }
+    );
+  } else if (machineType === 'forklift') {
+    fields.push(
+      { id:'restrict_max_weight_kg', label:'Max machine weight', unit:'kg', icon:'⚖️',
+        hint:'e.g. 4000 — floor or dock loading limit',
+        placeholder:'e.g. 4000' },
+      { id:'restrict_max_width_m', label:'Max machine width', unit:'m', icon:'↔️',
+        hint:'e.g. 1.8 — aisle or doorway width',
+        placeholder:'e.g. 1.8' }
+    );
+  } else if (machineType === 'material' || machineType === 'palletJack') {
+    fields.push(
+      { id:'restrict_max_weight_kg', label:'Max machine weight', unit:'kg', icon:'⚖️',
+        hint:'e.g. 2000 — floor loading limit',
+        placeholder:'e.g. 2000' },
+      { id:'restrict_max_width_m', label:'Max machine width', unit:'m', icon:'↔️',
+        hint:'e.g. 1.1 — aisle or doorway width',
+        placeholder:'e.g. 1.1' }
+    );
+  } else if (isEarthworks) {
+    fields.push(
+      { id:'restrict_max_weight_kg', label:'Max operating weight', unit:'kg', icon:'⚖️',
+        hint:'e.g. 8000 — access bridge or site weight limit',
+        placeholder:'e.g. 8000' },
+      { id:'restrict_max_width_m', label:'Max machine width', unit:'m', icon:'↔️',
+        hint:'e.g. 2.0 — access track or gate width',
+        placeholder:'e.g. 2.0' }
+    );
+  }
+
+  if (fields.length === 0) { panel.style.display = 'none'; return; }
+
+  panel.style.display = 'block';
+  panel.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.65rem">
+      <div style="font-size:.8rem;font-weight:900;color:#334155;display:flex;align-items:center;gap:.4rem">
+        🔧 <span>Site & Machine Restrictions</span>
+        <span style="font-size:.72rem;font-weight:600;color:#94A3B8">— optional hard filters</span>
+      </div>
+      <button onclick="clearRestrictions()" id="clear-restrictions-btn"
+        style="display:none;font-size:.73rem;color:#94A3B8;background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;text-decoration:underline">
+        ✕ Clear all restrictions
+      </button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.55rem">
+      ${fields.map(f => `
+        <div>
+          <label style="font-size:.75rem;font-weight:800;color:#475569;display:flex;align-items:center;gap:.3rem;margin-bottom:.2rem">
+            ${f.icon} ${f.label}
+            <span style="font-weight:600;color:#94A3B8">(${f.unit})</span>
+          </label>
+          <div style="font-size:.69rem;color:#94A3B8;margin-bottom:.3rem">${f.hint}</div>
+          <div style="display:flex;align-items:center;gap:.35rem">
+            <input id="${f.id}" type="number" min="0" step="any"
+              placeholder="${f.placeholder}"
+              value="${answers[f.id] || ''}"
+              oninput="applyRestriction('${f.id}', this.value)"
+              style="width:100%;padding:.3rem .5rem;border:1.5px solid #E2E8F0;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:#334155;outline:none"
+              onfocus="this.style.borderColor='#0052CC'" onblur="this.style.borderColor='#E2E8F0'">
+            ${answers[f.id] ? `<button onclick="clearOneRestriction('${f.id}')" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:.85rem;padding:0;line-height:1">✕</button>` : ''}
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// Apply a single restriction and re-run results
+function applyRestriction(fieldId, value) {
+  if (value && parseFloat(value) > 0) {
+    answers[fieldId] = parseFloat(value);
+  } else {
+    delete answers[fieldId];
+  }
+  // Show/hide clear button
+  const anyActive = ['restrict_max_weight_kg','restrict_max_width_m','restrict_max_length_m',
+                     'restrict_max_wh_m'].some(k => answers[k] > 0);
+  const clearBtn = document.getElementById('clear-restrictions-btn');
+  if (clearBtn) clearBtn.style.display = anyActive ? 'inline' : 'none';
+  showResults();
+}
+
+function clearOneRestriction(fieldId) {
+  delete answers[fieldId];
+  showResults();
+}
+
+function clearRestrictions() {
+  ['restrict_max_weight_kg','restrict_max_width_m','restrict_max_length_m','restrict_max_wh_m']
+    .forEach(k => delete answers[k]);
+  showResults();
+}
+
 function buildSortBar(machineType) {
   const bar = document.getElementById('result-sort-bar');
   const btnGroup = document.getElementById('sort-btn-group');
@@ -45417,6 +45552,14 @@ function matchMachines(ans, type) {
     // Machine weight hard filter — floor/site weight limit from constraints step
     const forkMaxWeight = parseFloat(ans.ppl_weight_kg) || 0;
     if (forkMaxWeight > 0) pool = pool.filter(m => !m.machineWeight || m.machineWeight <= forkMaxWeight);
+
+    // ── Hard restriction filters (customer-specified) ──
+    if (answers.restrict_max_weight_kg > 0)
+      pool = pool.filter(m => !m.machineWeight || m.machineWeight <= answers.restrict_max_weight_kg);
+    if (answers.restrict_max_width_m > 0)
+      pool = pool.filter(m => !m.machineWidth || m.machineWidth <= answers.restrict_max_width_m);
+    if (answers.restrict_max_length_m > 0)
+      pool = pool.filter(m => !m.machineLength || m.machineLength <= answers.restrict_max_length_m);
 
     // Exact kg capacity filter
     const exactReach = 0; // forklifts don't have reach — reserved for future use
@@ -45996,6 +46139,16 @@ function matchMachines(ans, type) {
     // Hard exclusions: remove machines that physically cannot do the job
     if (minHt > 0) pool = pool.filter(m => (m.liftHeight || 0) >= minHt);
 
+    // ── Hard restriction filters (customer-specified site/machine limits) ──
+    if (answers.restrict_max_weight_kg > 0)
+      pool = pool.filter(m => !m.machineWeight || m.machineWeight <= answers.restrict_max_weight_kg);
+    if (answers.restrict_max_width_m > 0)
+      pool = pool.filter(m => !m.machineWidth || m.machineWidth <= answers.restrict_max_width_m);
+    if (answers.restrict_max_length_m > 0)
+      pool = pool.filter(m => !m.machineLength || m.machineLength <= answers.restrict_max_length_m);
+    if (answers.restrict_max_wh_m > 0)
+      pool = pool.filter(m => ((m.liftHeight||0) + 2) <= answers.restrict_max_wh_m);
+
     // Score the remaining pool
     const scoredScissor = pool.map(m => {
       const _minHtForScore = exactHt > 0 ? exactHt : minHt;
@@ -46118,6 +46271,16 @@ function matchMachines(ans, type) {
 
     // Hard height filter — remove machines that can't reach the required height
     if (minHt > 0) pool = pool.filter(m => (m.platformHeight || m.liftHeight || 0) >= minHt);
+
+    // ── Hard restriction filters (customer-specified site/machine limits) ──
+    if (answers.restrict_max_weight_kg > 0)
+      pool = pool.filter(m => !m.machineWeight || m.machineWeight <= answers.restrict_max_weight_kg);
+    if (answers.restrict_max_width_m > 0)
+      pool = pool.filter(m => !m.machineWidth || m.machineWidth <= answers.restrict_max_width_m);
+    if (answers.restrict_max_length_m > 0)
+      pool = pool.filter(m => !m.machineLength || m.machineLength <= answers.restrict_max_length_m);
+    if (answers.restrict_max_wh_m > 0)
+      pool = pool.filter(m => ((m.platformHeight||m.liftHeight||0) + 2) <= answers.restrict_max_wh_m);
     const minReach = exactReach > 0 ? exactReach : 0;
     const minUpMap  = { 'over_4m':4, 'over_7m':7, 'over_10m':10, 'over_14m':14 };
     const minOutMap = { 'out_3m':3, 'out_6m':6, 'out_10m':10, 'out_15m':15 };
@@ -48621,6 +48784,7 @@ function showResults() {
 
   // Build sort bar for this machine type and render cards
   buildSortBar(machineType);
+  buildRestrictionsPanel(machineType);
   _updateSortUI();
   _renderCards(matches, machineType, answers);
   showResultDisclaimer();
@@ -49237,8 +49401,11 @@ function _renderCards(matches, machineType, answers) {
 
   // Track which brands appear in sponsored slots (to limit organic deduplication)
   const _shownSponsoredBrands = new Set();
+  let _spShownCount = 0; // Maximum 1 sponsored ad per results page
 
     _sponsoredForCat.forEach((ad, _spIdx) => { try {
+    // Cap at 1 sponsored ad total
+    if (_spShownCount >= 1) return;
     // Find the BEST matching machine from this sponsor's brand for the current search.
     // Priority: 1) highest-scored organic result from this brand (already meets requirements)
     //           2) best machine from this brand that meets height/reach requirements
@@ -49543,6 +49710,8 @@ function _renderCards(matches, machineType, answers) {
         </div>
       </div>`;
     container.appendChild(spCard);
+    _spShownCount++;
+    _shownSponsoredBrands.add((ad.brand||'').toLowerCase());
 
     // Wire the Add to Cart button safely — avoids all quote-escaping issues
     const _spBtn = document.getElementById('sp-cart-btn-' + _spIdx);
@@ -51158,6 +51327,12 @@ function updateCartUI() {
   if (heroCount) heroCount.textContent = count;
   const heroPlural = document.getElementById('hero-cart-plural');
   if (heroPlural) heroPlural.textContent = count === 1 ? '' : 's';
+  // ── Navbar cart button badge ──
+  const navBadge = document.getElementById('nav-cart-badge');
+  if (navBadge) {
+    navBadge.textContent = count;
+    navBadge.style.display = count > 0 ? 'inline-block' : 'none';
+  }
   renderCartItems();
 }
 
@@ -56881,7 +57056,12 @@ function addToCartDirect(machineId, machineName, _overrideType) {
   quoteCart.push({ id:machineId, name:machineName, emoji:typeEmojis[_useType]||'💥', type:_useType, _isEarthworks:!!(_useType && _useType.startsWith('em_')), jobRequirements:getJobRequirements() });
   saveCartToStorage();
   updateCartUI();
-  showToast(`🛒 ${machineName} added to cart`,'#0052CC');
+  showToast(`🛒 ${machineName} added to hire enquiry`, '#0052CC');
+  // Update all card buttons for this machine to "✅ In Hire Enquiry"
+  const _btnId = 'cart-btn-' + machineId.replace(/[^a-z0-9]/gi,'-');
+  document.querySelectorAll('[id="' + _btnId + '"]').forEach(btn => {
+    btn.outerHTML = `<div id="${_btnId}" style="flex:1;min-width:130px;background:linear-gradient(135deg,#166534,#15803D);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;text-align:center;display:flex;align-items:center;justify-content:center;gap:.4rem">✅ In Hire Enquiry</div>`;
+  });
   // Track cart add
   try {
     const _cFields = { cartAdds: 1 };
@@ -59554,6 +59734,9 @@ function loginSuccess(user) {
       // Hide My Quotes (customer tab) for rental
       const tabMQHide = document.getElementById('tab-my-quotes-wrap');
       if (tabMQHide) tabMQHide.style.display = 'none';
+      // Hide cart button for rental/admin
+      const navCartHide = document.getElementById('nav-cart-btn-wrap');
+      if (navCartHide) navCartHide.style.display = 'none';
       // My Details is in the avatar dropdown — keep nav tab hidden
       const tabDet = document.getElementById('tab-my-details');
       if (tabDet) tabDet.style.display = 'none';
@@ -59621,6 +59804,9 @@ function loginSuccess(user) {
     // Show My Quotes for customer
     const tabMQ = document.getElementById('tab-my-quotes-wrap');
     if (tabMQ) tabMQ.style.display = 'inline-flex';
+    // Show navbar cart button for customers
+    const navCartWrap = document.getElementById('nav-cart-btn-wrap');
+    if (navCartWrap) navCartWrap.style.display = 'block';
     // Hide Quote Requests (rental tab) for customer
     const tabQRHide = document.getElementById('tab-quote-requests-wrap');
     if (tabQRHide) tabQRHide.style.display = 'none';
