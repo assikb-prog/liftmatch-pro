@@ -844,9 +844,12 @@
     <div id="rq-grand-total" style="background:linear-gradient(135deg,#0A1628,#0052CC);color:#fff;border-radius:12px;padding:1rem 1.2rem;margin-top:.9rem"></div>
     <!-- FILE UPLOADS — 4 fixed slots + expandable extras -->
     <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:12px;padding:.85rem 1rem;margin-top:.9rem">
-      <div style="font-size:.73rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem">📎 Attach Documents (optional)</div>
+      <div style="font-size:.73rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem">📋 Documents — Formal Quote Required + Optional Attachments</div>
       <div id="rq-file-slots" style="display:flex;flex-direction:column;gap:.55rem">
-        <!-- Slot 1: Formal Quote -->
+        <!-- Slot 1: Formal Quote (required before customer can accept) -->
+        <div style="background:#FFF7ED;border:1.5px solid #FB923C;border-radius:8px;padding:.35rem .7rem;margin-bottom:.4rem;font-size:.76rem;font-weight:700;color:#9A3412">
+          ⚠️ A <strong>Formal Quote / Hire Agreement</strong> must be attached before the customer can accept your quote. Add it in Slot 1 below.
+        </div>
         <div class="rq-file-row" data-slot="0">
           <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
             <select class="rq-file-type" onchange="rqFileTypeChange(this)" style="flex:0 0 auto;border:1.5px solid #86EFAC;border-radius:8px;padding:.32rem .55rem;font-size:.8rem;font-family:inherit;background:#fff;color:#166534;font-weight:700">
@@ -980,7 +983,7 @@
   </div>
   <div class="cart-footer" id="cart-footer" style="display:none">
     <button class="btn-search-another cart-search-btn" onclick="toggleCart();searchAnotherMachine()">🔍 Search Another Machine</button>
-    <button class="btn-send-quotes" onclick="openSendQuotesModal()">📨 Request Quotes from Rental Companies</button>
+    <button class="btn-send-quotes" onclick="openSendQuotesModal()">📨 Send Hire Enquiry to Rental Companies</button>
   </div>
 </div>
 
@@ -1167,7 +1170,7 @@
           <div id="admin-window-breakdown"></div>
         </div>
       </div>
-      <div class="admin-section-title">📨 All Quote Requests</div>
+      <div class="admin-section-title">📨 All Hire Enquiries</div>
       <div class="admin-table-wrap">
         <table class="admin-table">
           <thead><tr>
@@ -1510,8 +1513,8 @@
 <div id="view-my-quotes" class="view">
   <div class="internal-wrap">
     <div class="int-header">
-      <h2>📋 My Quote Requests</h2>
-      <p>Track the status of every quote you've sent to rental companies.</p>
+      <h2>📋 My Hire Enquiries</h2>
+      <p>Track the status of every hire enquiry you've sent to rental companies.</p>
     </div>
     <div id="mqv-summary" style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem"></div>
 
@@ -1768,7 +1771,7 @@
 
     <!-- Quote ref header -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-      <h3 style="margin:0">📨 Request Quotes</h3>
+      <h3 style="margin:0">📨 Send Hire Enquiry</h3>
       <div id="sqm-ref-badge" style="background:#0052CC;color:#fff;font-size:.78rem;font-weight:800;padding:.3rem .8rem;border-radius:20px;letter-spacing:.5px;font-family:monospace"></div>
     </div>
 
@@ -1981,7 +1984,7 @@
       <!-- Hire start date -->
       <div class="ff" style="margin-top:.2rem">
         <label>📅 Hire Start Date <span style="color:#EF4444">*</span></label>
-        <input id="sqm-date" type="date" style="width:100%"/>
+        <input id="sqm-date" type="date" style="width:100%" onchange="sqmValidateDate(this)"/>
       </div>
 
       <!-- Contact row — auto-filled, read-only -->

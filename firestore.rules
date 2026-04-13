@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Shared enquiries — written by customers, readable by all authenticated users
+    match /shared_enquiries/{enquiryId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Per-user quote inbox (admin/customer submissions + legacy)
+    match /quote_inboxes/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Admin can also read any inbox
+      allow read: if request.auth != null;
+    }
+
+    // Rental company profiles
+    match /rental_profiles/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null;
+    }
+
+    // Customer profiles  
+    match /customer_profiles/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // All other collections — authenticated access
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
