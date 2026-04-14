@@ -44088,11 +44088,9 @@ const GENERAL_QS = [
     id:'ppl_platform_pref', icon:'🏗️',
     text:'What type of platform suits your job?',
     hint:'Both can reach your height. Scissor lifts have a larger platform and higher weight capacity. Push-around manlifts are more compact for tight spaces.',
-    showIf: {fn: ans => ans.lifting_for==='people' && ans.people_reach==='straight_up'
-      && (ans.people_location==='indoor'||ans.people_location==='outdoor_firm')
-      && parseFloat(ans.ppl_ht_m||0) >= 6
-      && parseFloat(ans.ppl_ht_m||0) <= 14
-      && ans.people_crew === 'one'},
+    showIf: {key:'people_location', vals:['indoor','outdoor_firm']},
+    showIfAlso: [{key:'lifting_for', val:'people'},{key:'people_reach', val:'straight_up'},{key:'people_crew', val:'one'}],
+    showIfHeightRange: {key:'ppl_ht_m', min:6, max:14},
     type:'options',
     options:[
       {ico:'🏗️', lbl:'Scissor lift',         sub:'Larger platform, higher SWL (200–450kg) — fits tools and equipment comfortably', val:'scissor'},
@@ -47401,13 +47399,21 @@ function getAllQuestions() {
   return base.filter(q => {
     if (q.showIf) {
       const si = q.showIf;
-      if (typeof si.fn === 'function') {
-        if (!si.fn(answers)) return false;
-      } else {
-        const actual = answers[si.key];
-        if (si.vals) { if (!si.vals.includes(actual)) return false; }
-        else { if (actual !== si.val) return false; }
+      const actual = answers[si.key];
+      if (si.vals) { if (!si.vals.includes(actual)) return false; }
+      else if (si.val !== undefined) { if (actual !== si.val) return false; }
+    }
+    if (q.showIfAlso) {
+      for (const c of q.showIfAlso) {
+        const a = answers[c.key];
+        if (c.vals) { if (!c.vals.includes(a)) return false; }
+        else { if (a !== c.val) return false; }
       }
+    }
+    if (q.showIfHeightRange) {
+      const hr = q.showIfHeightRange;
+      const htVal = parseFloat(answers[hr.key] || 0);
+      if (htVal === 0 || htVal < hr.min || htVal > hr.max) return false;
     }
     if (q.showIfNot) {
       const sn = q.showIfNot;
@@ -48040,6 +48046,7 @@ function renderStep() {
   const qs = getAllQuestions();
   const total = qs.length;
   const q = qs[step];
+  if (!q) { if (card) card.innerHTML='<div style="padding:2rem;text-align:center;color:#94A3B8">Loading…</div>'; return; }
   const _stepLbl = document.getElementById('step-lbl');
   const _progFill = document.getElementById('prog-fill');
   const card = document.getElementById('q-card');
@@ -51265,19 +51272,59 @@ async function saveQuoteToFirebase(quote) {
   saveInbox(); // updates the user's inbox doc
   if (!quote || !quote.id) return;
   try {
-    const payload = {
-      ...quote,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-    // Write to shared_enquiries — primary collection all rental companies read from
-    await _fbDb.collection('shared_enquiries').doc(quote.id).set(payload, { merge: true });
+    const FieldValue = firebase.firestore.FieldValue;
+
+    // ── Step 1: Write all non-response fields with merge (safe — scalars only) ──
+    const { responses, ...quoteWithoutResponses } = quote;
+    await _fbDb.collection('shared_enquiries').doc(quote.id).set({
+      ...quoteWithoutResponses,
+      updatedAt: FieldValue.serverTimestamp(),
+    }, { merge: true });
+
+    // ── Step 2: For each response, use arrayUnion so multiple rental companies
+    //    can all write their response without overwriting each other ─────────────
+    if (responses && responses.length > 0) {
+      // Get the response(s) this company just added (last item, or all new ones)
+      const companyName = currentUser ? (currentUser.name || currentUser.email) : '';
+      const myResponses = responses.filter(r => r.company === companyName);
+
+      if (myResponses.length > 0) {
+        // Remove old response from this company first, then add fresh one
+        // Firestore doesn't support arrayRemove+arrayUnion in one op so we do two
+        const docRef = _fbDb.collection('shared_enquiries').doc(quote.id);
+        const snap = await docRef.get();
+        if (snap.exists) {
+          const existing = snap.data().responses || [];
+          // Remove old entries from this company, add fresh ones
+          const otherResponses = existing.filter(r => r.company !== companyName);
+          await docRef.update({
+            responses: [...otherResponses, ...myResponses],
+            responded: true,
+            updatedAt: FieldValue.serverTimestamp(),
+          });
+        } else {
+          await docRef.update({
+            responses: FieldValue.arrayUnion(...myResponses),
+            responded: true,
+            updatedAt: FieldValue.serverTimestamp(),
+          });
+        }
+      }
+    }
+
     // Also write to quote_requests for admin visibility
     await _fbDb.collection('quote_requests').doc(quote.id).set({
-      ...payload,
-      customerId: currentUser ? currentUser.uid : null,
+      ...quoteWithoutResponses,
+      responses: responses || [],
+      customerId:    currentUser ? currentUser.uid   : null,
       customerEmail: currentUser ? currentUser.email : null,
+      updatedAt: FieldValue.serverTimestamp(),
     }, { merge: true });
-  } catch(e) { console.warn('Quote Firestore write failed:', e.message); }
+
+    console.log('[Noyo] ✅ saveQuoteToFirebase OK for', quote.id, '— responses:', (responses||[]).length);
+  } catch(e) {
+    console.error('[Noyo] ❌ saveQuoteToFirebase FAILED:', e.message);
+  }
 }
 
 
@@ -58241,8 +58288,34 @@ async function openQuoteDetailModal(reqId) {
     const wMins = workingMinsRemaining(Date.now(), req.expires, req.state);
     return wMins > 60 ? `${Math.floor(wMins/60)}h ${wMins%60}m left` : `${wMins}m left`;
   })() : 'Closed';
+  // Format submission time in the city's local timezone
+  const _tz       = stateToTZ(req.state || '');
+  const _tzCityMap = {
+    'Australia/Sydney':   'Sydney / Melbourne / Brisbane (AEST/AEDT)',
+    'Australia/Brisbane': 'Brisbane / QLD (AEST)',
+    'Australia/Adelaide': 'Adelaide (ACST/ACDT)',
+    'Australia/Perth':    'Perth (AWST)',
+    'Australia/Darwin':   'Darwin (ACST)',
+    'Australia/Hobart':   'Hobart (AEST/AEDT)',
+  };
+  const _tzLabel  = _tzCityMap[_tz] || _tz;
+  let _submittedStr = '';
+  if (req.ts) {
+    try {
+      const _subDate = new Date(req.ts);
+      const _localTime = _subDate.toLocaleString('en-AU', {
+        timeZone: _tz,
+        weekday: 'short', day: 'numeric', month: 'short',
+        hour: '2-digit', minute: '2-digit', hour12: true
+      });
+      _submittedStr = `<div style="font-size:.76rem;color:#64748B;margin-top:.2rem">
+        🕐 Submitted ${_localTime} &nbsp;·&nbsp; 📍 ${_tzLabel}
+      </div>`;
+    } catch(e) {}
+  }
+
   document.getElementById('qdm-meta').innerHTML =
-    `📅 ${req.date||'—'} &nbsp;·&nbsp; 📍 ${req.suburb||req.city||'—'}${req.state?', '+req.state:''} &nbsp;·&nbsp; ${windowLabel} &nbsp;·&nbsp; <span style="color:${expired?'#94A3B8':'#B45309'}">${timeLeft}</span>`;
+    `📅 ${req.date||'—'} &nbsp;·&nbsp; 📍 ${req.suburb||req.city||'—'}${req.state?', '+req.state:''} &nbsp;·&nbsp; ${windowLabel} &nbsp;·&nbsp; <span style="color:${expired?'#94A3B8':'#B45309'}">${timeLeft}</span>${_submittedStr}`;
 
   // Customer acceptance window display
   const _qdmAccEl = document.getElementById('qdm-accept-window');
@@ -58623,6 +58696,17 @@ function renderMyQuotes() {
     const declined    = req.declined && respCount === 0;
     const hasReply    = respCount > 0;
     const windowLabel = req.responseWindowHours===2 ? '🚨 2h' : req.responseWindowHours===4 ? '⚡ 4h' : '📋 8h';
+
+    // Submitted time in local timezone
+    let _cardTimeStr = '';
+    if (req.ts) {
+      try {
+        const _tz2 = stateToTZ(req.state||'');
+        const _tzCity = {'Australia/Sydney':'Sydney','Australia/Brisbane':'Brisbane','Australia/Adelaide':'Adelaide','Australia/Perth':'Perth','Australia/Darwin':'Darwin','Australia/Hobart':'Hobart'};
+        const _t = new Date(req.ts).toLocaleString('en-AU',{timeZone:_tz2,hour:'2-digit',minute:'2-digit',hour12:true});
+        _cardTimeStr = ` · 🕐 ${_t} ${_tzCity[_tz2]||''}`;
+      } catch(e) {}
+    }
 
     // Status
     let statusBg, statusColor, statusText, statusDot;
@@ -59199,7 +59283,7 @@ return ratingHtml;
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap">
         <div>
           <div style="font-weight:900;color:#0052CC;font-size:.95rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onclick="openQuoteDetailModal('${req.id}')">${req.id}</div>
-          <div style="font-size:.8rem;color:#64748B;margin-top:.15rem">📅 ${req.date||'—'} · 📍 ${req.suburb||req.city||'—'}${req.state?', '+req.state:''} · ${windowLabel}${req.isRural ? ' · <span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:2px solid #F97316;font-size:.72rem;font-weight:800;padding:.15rem .55rem;border-radius:12px">🏗️ Rural/Remote — depot: '+req.city+'</span>' : ''}</div>
+          <div style="font-size:.8rem;color:#64748B;margin-top:.15rem">📅 ${req.date||'—'} · 📍 ${req.suburb||req.city||'—'}${req.state?', '+req.state:''} · ${windowLabel}${_cardTimeStr}${req.isRural ? ' · <span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:2px solid #F97316;font-size:.72rem;font-weight:800;padding:.15rem .55rem;border-radius:12px">🏗️ Rural/Remote — depot: '+req.city+'</span>' : ''}</div>
         </div>
         <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
           ${hasReply ? `<span style="background:${windowStillOpen?'#1D4ED8':'#15803D'};color:#fff;font-size:.79rem;font-weight:900;padding:.25rem .75rem;border-radius:50px">💬 ${respCount} quote${respCount>1?'s':''}</span>` : ''}
