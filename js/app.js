@@ -44063,9 +44063,7 @@ const GENERAL_QS = [
     ]
   },
 
-  // Q6-people: width restriction (optional — helps filter push-around vs scissor)
-
-,
+  // Q6-people: site restrictions
 
   {
     id:'people_constraints', icon:'📐',
