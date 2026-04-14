@@ -1,7 +1,3 @@
-// NOYO v7 build 2026-04-13 — shared_enquiries delivery, reach@height filter, hire wording, sponsored gate, up_over mode fix, 17 Dieci machines recovered
-// =====================================================================
-// MACHINE DATABASE
-// =====================================================================
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
   //  FORKLIFTS
@@ -44068,27 +44064,30 @@ const GENERAL_QS = [
   },
 
   // Q6-people: width restriction (optional — helps filter push-around vs scissor)
+
+,
+
   {
     id:'people_constraints', icon:'📐',
-    text:'Any space or access restrictions on site?',
-    hint:'Leave blank if nothing is restricted.',
+    text:'Any site restrictions? — height, width, length or floor weight limit',
+    hint:'Leave blank if there are no restrictions. These help us filter out machines that won\'t fit through your doorway or exceed your floor loading.',
     showIf:{key:'lifting_for', val:'people'},
     type:'inputs',
+    optional:true,
     fields:[
-      {key:'ppl_width_mm',  label:'Max machine width (mm) — tight doorway or aisle?',        placeholder:'e.g. 790 for a standard doorway', unit:'mm'},
-      {key:'ppl_length_mm', label:'Max machine length (mm) — tight turning or storage area?',  placeholder:'e.g. 2400', unit:'mm'},
-      {key:'ppl_height_mm', label:'Max machine height (mm) — low ceiling or doorway height?',  placeholder:'e.g. 2000', unit:'mm'},
-      {key:'ppl_weight_kg', label:'Max machine weight (kg) — floor loading limit?',            placeholder:'e.g. 2000', unit:'kg'},
-      {key:'ppl_site_notes',label:'Any other site notes (optional)',                           placeholder:'e.g. no diesel indoors, sloped ground, permit required', unit:'text'},
+      {key:'ppl_height_mm', label:'📏 Max stowed height (mm) — low ceiling, roller door or overhead obstacle?', placeholder:'e.g. 2000 (standard roller door)', unit:'mm'},
+      {key:'ppl_width_mm',  label:'↔️ Max machine width (mm) — narrow doorway, aisle or gate?',               placeholder:'e.g. 790 (standard single door)',   unit:'mm'},
+      {key:'ppl_length_mm', label:'↕️ Max machine length (mm) — tight turning radius or parking area?',        placeholder:'e.g. 2400',                         unit:'mm'},
+      {key:'ppl_weight_kg', label:'⚖️ Max machine weight (kg) — floor loading, mezzanine or grating limit?',  placeholder:'e.g. 2000',                         unit:'kg'},
+      {key:'ppl_site_notes',label:'📝 Any other site notes (optional)',                                         placeholder:'e.g. no diesel indoors, sloped ground', unit:'text'},
     ]
   },
 
-  // ── Platform type preference — only shown when height is in the ambiguous zone (6m–14m, 1 person, indoor)
-  // Avoids forcing push-around when customer might actually want a scissor lift
+  // ── Platform type preference — shown for ambiguous 1-person indoor 6–14m cases
   {
     id:'ppl_platform_pref', icon:'🏗️',
     text:'What type of platform suits your job?',
-    hint:'Both can reach your height. Scissor lifts have a larger platform and higher weight capacity — better for tools and equipment. Push-around manlifts are more compact and easier to manoeuvre in tight spaces.',
+    hint:'Both can reach your height. Scissor lifts have a larger platform and higher weight capacity. Push-around manlifts are more compact for tight spaces.',
     showIf: {fn: ans => ans.lifting_for==='people' && ans.people_reach==='straight_up'
       && (ans.people_location==='indoor'||ans.people_location==='outdoor_firm')
       && parseFloat(ans.ppl_ht_m||0) >= 6
@@ -44096,9 +44095,9 @@ const GENERAL_QS = [
       && ans.people_crew === 'one'},
     type:'options',
     options:[
-      {ico:'🏗️', lbl:'Scissor lift',          sub:'Larger platform, higher SWL (200–450kg) — fits tools, equipment and a worker comfortably', val:'scissor'},
-      {ico:'🧍', lbl:'Push-around manlift',    sub:'Compact and easy to move — ideal when space is tight and load is light (person + small tools)', val:'push_around'},
-      {ico:'🤷', lbl:'Show me both options',   sub:'Not sure — display scissor lifts and push-around manlifts side by side', val:'both'},
+      {ico:'🏗️', lbl:'Scissor lift',         sub:'Larger platform, higher SWL (200–450kg) — fits tools and equipment comfortably', val:'scissor'},
+      {ico:'🧍', lbl:'Push-around manlift',   sub:'Compact, easy to move in tight spaces — best for one person + light tools',      val:'push_around'},
+      {ico:'🤷', lbl:'Show me both options',  sub:'Not sure — show scissor lifts and push-around manlifts side by side',            val:'both'},
     ]
   },
 
