@@ -58203,10 +58203,19 @@ function qdmReject(reqId, responseIdx) {
   showToast('Quote declined', '#64748B');
 }
 
+function qdmRefresh() {
+  // Re-fetch the currently open enquiry from Firestore and re-render
+  const el = document.getElementById('qdm-ref');
+  const id = el ? (el.textContent || el.innerText || '').trim() : '';
+  if (id && id.startsWith('QR-')) openQuoteDetailModal(id);
+}
+
 async function openQuoteDetailModal(reqId) {
+  reqId = (reqId || '').trim();
   // First show modal immediately with cached data so it feels responsive
   let req = quoteInbox.find(r => r.id === reqId);
-  if (!req) return;
+  if (!req) req = quoteInbox.find(r => (r.id||'').toLowerCase() === reqId.toLowerCase());
+  if (!req) { console.warn('[Noyo] openQuoteDetailModal: not found:', reqId); return; }
 
   // Then silently fetch fresh copy from Firestore (picks up any new responses)
   try {
