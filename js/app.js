@@ -51226,7 +51226,20 @@ async function loadInboxFromFirebase() {
       } catch(e) {}
       const ownSnap2 = await _fbDb.collection('quote_inboxes').doc(currentUser.uid).get();
       const ownArr2  = ownSnap2.exists ? (ownSnap2.data().quotes || []) : [];
-      const merged2  = _mergeInboxArrays([...sharedArr, ...legacyArr, ...ownArr2], _readCache());
+      // For admin: Firestore responses ALWAYS win over local cache
+      // Build a map from Firestore data first, then layer in local-only items
+      const firestoreMap = new Map();
+      [...sharedArr, ...legacyArr, ...ownArr2].forEach(r => {
+        if (!r || !r.id) return;
+        const existing = firestoreMap.get(r.id);
+        const rCount = (r.responses||[]).length;
+        const eCount = existing ? (existing.responses||[]).length : -1;
+        if (!existing || rCount >= eCount) firestoreMap.set(r.id, r);
+      });
+      // Add any local-only items (not yet in Firestore)
+      const cached2 = _readCache() || [];
+      cached2.forEach(r => { if (r && r.id && !firestoreMap.has(r.id)) firestoreMap.set(r.id, r); });
+      const merged2 = [...firestoreMap.values()];
       quoteInbox = merged2;
       _cacheInbox(merged2);
       return quoteInbox;
@@ -51267,40 +51280,50 @@ async function loadInboxFromFirebase() {
 
 // ── Save individual quote to Firestore quotes collection ──────
 async function saveQuoteToFirebase(quote) {
-  saveInbox(); // updates the user's quote_inboxes doc
+  saveInbox();
   if (!quote || !quote.id) return;
   try {
     const FieldValue = firebase.firestore.FieldValue;
     const docRef = _fbDb.collection('shared_enquiries').doc(quote.id);
 
-    // ── Read current Firestore state ──────────────────────────────────
-    let currentResponses = [];
+    // Read current Firestore responses (what other companies have already written)
+    let firestoreResponses = [];
     try {
       const snap = await docRef.get();
-      if (snap.exists) currentResponses = snap.data().responses || [];
-    } catch(e) { /* doc may not exist yet — that's fine */ }
+      if (snap.exists) firestoreResponses = snap.data().responses || [];
+    } catch(e) {}
 
-    // ── Merge responses: keep all other companies + replace this company's ──
-    const companyName = currentUser ? (currentUser.name || currentUser.email) : '';
-    const myResponses = (quote.responses || []).filter(r => r.company === companyName);
-    const otherResponses = currentResponses.filter(r => r.company !== companyName);
-    const mergedResponses = [...otherResponses, ...myResponses];
+    // Merge local responses with Firestore responses
+    // Per company: newest timestamp wins — no filtering, no name matching needed
+    const merged = [...firestoreResponses];
+    for (const localResp of (quote.responses || [])) {
+      const existingIdx = merged.findIndex(r => r.company === localResp.company);
+      if (existingIdx >= 0) {
+        if ((localResp.ts || 0) >= (merged[existingIdx].ts || 0)) {
+          merged[existingIdx] = localResp; // replace with newer
+        }
+      } else {
+        merged.push(localResp); // new company — add it
+      }
+    }
 
-    // ── Write full doc with merged responses — set() creates or overwrites ──
+    // Write everything back — set() creates or updates
     await docRef.set({
       ...quote,
-      responses:  mergedResponses,
-      responded:  mergedResponses.length > 0,
-      updatedAt:  FieldValue.serverTimestamp(),
+      responses: merged,
+      responded: merged.length > 0,
+      updatedAt: FieldValue.serverTimestamp(),
     }, { merge: true });
 
-    console.log('[Noyo] ✅ shared_enquiries write OK:', quote.id,
-      '— responses now:', mergedResponses.length,
-      '(this company:', myResponses.length, ', others:', otherResponses.length, ')');
+    const _coNames = merged.map(r=>r.company||'?').join(', ');
+    console.log('[Noyo] ✅ Firestore write OK:', quote.id, '| responses:', merged.length, '|', _coNames);
+    if (currentUser && (currentUser.role === 'rental' || currentUser.role === 'admin_rental')) {
+      showToast('✅ Quote sent to Firestore — customer will see it on refresh (' + merged.length + ' response' + (merged.length!==1?'s':'') + ' total)', '#15803D', 5000);
+    }
 
   } catch(e) {
     console.error('[Noyo] ❌ saveQuoteToFirebase FAILED:', e.message);
-    console.error('[Noyo] Check Firebase Console → Firestore → Rules');
+    showToast('⚠️ Quote saved locally but cloud sync failed — check connection', '#EF4444', 6000);
   }
 }
 
@@ -55963,18 +55986,17 @@ function openRespondModal(reqId) {
   });
 
   rqRecalcAll();
-  document.getElementById('respond-modal').classList.add('open');
-  // Always scroll modal to top so rental company starts at the pricing fields
-  setTimeout(() => {
-    const rm = document.getElementById('respond-modal');
-    if (rm) rm.scrollTop = 0;
-    const rmInner = rm ? rm.querySelector('.modal, .modal-wide') : null;
-    if (rmInner) rmInner.scrollTop = 0;
-  }, 50);
+  const _rm = document.getElementById('respond-modal');
+  _rm.classList.add('open');
+  _rm.scrollTop = 0;  // scroll the overlay container to top immediately
+  // Belt-and-suspenders: also force after paint
+  requestAnimationFrame(() => { _rm.scrollTop = 0; });
 }
 
 function closeRespondModal() {
-  document.getElementById('respond-modal').classList.remove('open');
+  const _rmClose = document.getElementById('respond-modal');
+  _rmClose.classList.remove('open');
+  _rmClose.scrollTop = 0;  // reset so next open starts at top
   window._rqReq = null;
   window._rqTotals = null;
   // Reset all per-machine alt/question fields
@@ -58252,22 +58274,19 @@ async function openQuoteDetailModal(reqId) {
   if (!req) req = quoteInbox.find(r => (r.id||'').toLowerCase() === reqId.toLowerCase());
   if (!req) { console.warn('[Noyo] openQuoteDetailModal: not found:', reqId); return; }
 
-  // Then silently fetch fresh copy from Firestore (picks up any new responses)
+  // Always fetch fresh from Firestore — picks up responses from rental companies
   try {
     const snap = await _fbDb.collection('shared_enquiries').doc(reqId).get();
     if (snap.exists) {
       const fresh = { id: snap.id, ...snap.data() };
-      // Only update if fresh has MORE responses than cached
-      const cachedRespCount = (req.responses||[]).length;
-      const freshRespCount  = (fresh.responses||[]).length;
-      if (freshRespCount > cachedRespCount) {
-        // Update the local quoteInbox entry
-        const idx = quoteInbox.findIndex(r => r.id === reqId);
-        if (idx >= 0) quoteInbox[idx] = { ...quoteInbox[idx], ...fresh };
-        req = quoteInbox[idx] || fresh;
-      }
+      // Always use Firestore version — it has the most up-to-date responses
+      const idx = quoteInbox.findIndex(r => r.id === reqId);
+      if (idx >= 0) quoteInbox[idx] = { ...quoteInbox[idx], ...fresh, responses: fresh.responses || [] };
+      req = (idx >= 0 ? quoteInbox[idx] : fresh);
     }
-  } catch(e) { /* silently use cached version */ }
+  } catch(e) {
+    console.error('[Noyo] openQuoteDetailModal Firestore fetch failed:', e.message);
+  }
 
 
   document.getElementById('qdm-ref').textContent = req.id;
@@ -58452,6 +58471,27 @@ async function openQuoteDetailModal(reqId) {
         </div>`;
       }).join('')}
       ${nums.length > 1 ? `<div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:.5rem .85rem;font-size:.78rem;color:#1D4ED8;margin-top:.2rem">💡 Price range: <strong>$${Math.min(...nums).toFixed(2)}</strong> – <strong>$${Math.max(...nums).toFixed(2)}</strong></div>` : ''}`;
+  }
+
+  // Show Firestore response count directly in modal header for transparency
+  const _qdmFSBadge = document.getElementById('qdm-fs-badge');
+  if (_qdmFSBadge) {
+    _qdmFSBadge.textContent = '⏳ Checking Firestore...';
+    _qdmFSBadge.style.display = 'inline-block';
+    _fbDb.collection('shared_enquiries').doc(reqId).get().then(snap => {
+      if (snap.exists) {
+        const fsResponses = snap.data().responses || [];
+        _qdmFSBadge.textContent = `📡 Firestore: ${fsResponses.length} response${fsResponses.length!==1?'s':''} (${fsResponses.map(r=>r.company||'?').join(', ')||'none'})`;
+        _qdmFSBadge.style.background = fsResponses.length > 0 ? '#DCFCE7' : '#FEF9C3';
+        _qdmFSBadge.style.color = fsResponses.length > 0 ? '#15803D' : '#92400E';
+      } else {
+        _qdmFSBadge.textContent = '⚠️ Doc not in Firestore yet — click 📡 Resync in Admin tab';
+        _qdmFSBadge.style.background = '#FEF2F2'; _qdmFSBadge.style.color = '#DC2626';
+      }
+    }).catch(e => {
+      _qdmFSBadge.textContent = '❌ Firestore read failed: ' + e.message;
+      _qdmFSBadge.style.background = '#FEF2F2'; _qdmFSBadge.style.color = '#DC2626';
+    });
   }
 
   document.getElementById('quote-detail-modal').classList.add('open');
