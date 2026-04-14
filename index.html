@@ -1804,13 +1804,31 @@
 
     <!-- Equipment Categories — rental only, hidden for customers -->
     <div id="det-cats-section" style="display:none;background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:1.4rem">
-      <div style="margin-bottom:.8rem">
-        <div style="font-weight:800;color:#1E293B;font-size:.95rem">🏷️ My Equipment Categories</div>
-        <div style="font-size:.78rem;color:#94A3B8;margin-top:.15rem">Tick the equipment types your company rents out</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem">
+        <div>
+          <div style="font-weight:800;color:#1E293B;font-size:.95rem">🏷️ My Equipment Categories</div>
+          <div style="font-size:.78rem;color:#94A3B8;margin-top:.15rem" id="det-cats-subtitle">Your registered equipment types</div>
+        </div>
+        <button id="det-cats-amend-btn" onclick="catEnterEditMode()"
+          style="background:#F8FAFC;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:8px;padding:.38rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">
+          ✏️ Amend Categories
+        </button>
       </div>
-      <div id="det-sector-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.3rem .5rem;padding:.65rem .8rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;max-height:270px;overflow-y:auto"></div>
-      <div style="display:flex;justify-content:flex-end;margin-top:.65rem">
-        <button onclick="saveDetailsSectors()" style="background:#0052CC;color:#fff;border:none;border-radius:8px;padding:.45rem 1.1rem;font-weight:700;font-size:.85rem;cursor:pointer">💾 Save Categories</button>
+      <!-- VIEW MODE: grey tiles -->
+      <div id="det-sector-view" style="display:flex;flex-wrap:wrap;gap:.35rem;padding:.65rem .8rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;min-height:48px"></div>
+      <!-- EDIT MODE: checkboxes (hidden by default) -->
+      <div id="det-sector-edit" style="display:none">
+        <div id="det-sector-grid" style="padding:.65rem .8rem;background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px;margin-top:.5rem"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.65rem;flex-wrap:wrap;gap:.5rem">
+          <button onclick="catCancelEdit()"
+            style="background:#F8FAFC;color:#64748B;border:1.5px solid #E2E8F0;border-radius:8px;padding:.38rem .9rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer">
+            ✕ Cancel
+          </button>
+          <button onclick="catSubmitEdit()"
+            style="background:linear-gradient(135deg,#15803D,#166534);color:#fff;border:none;border-radius:8px;padding:.45rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">
+            ✅ Submit Changes
+          </button>
+        </div>
       </div>
     </div>
 
