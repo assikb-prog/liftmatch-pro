@@ -64,7 +64,10 @@ function loadAccountField(email, field) {
     address: 'address', suburb: 'suburb', city: 'city', state: 'state',
     serviceRadiusKm: 'serviceRadiusKm', baseCity: 'city', sectors: '_sectorsJson',
     ruralOptIn: '_ruralOptIn', ruralRadiusKm: 'ruralRadiusKm',
-    approvalStatus: 'approvalStatus', pass: ''
+    approvalStatus: 'approvalStatus', pass: '',
+    industry: 'industry', preferredDuration: 'preferredDuration',
+    contactPref: 'contactPref', abnVerified: 'abnVerified', abnEntityName: 'abnEntityName',
+    billingPlan: 'billingPlan',
   };
   const key = fieldMap[field] !== undefined ? fieldMap[field] : field;
   if (!key) return '';
@@ -73,15 +76,36 @@ function loadAccountField(email, field) {
   return String(profile[key] || '');
 }
 
+// Save a single field to user profile (used by customer details panel)
+function saveAccountField(email, field, value) {
+  if (!currentUser || !currentUser.uid) return;
+  const fieldMap = {
+    abn: 'abn', abnVerified: 'abnVerified', abnEntityName: 'abnEntityName',
+    industry: 'industry', preferredDuration: 'preferredDuration',
+    contactPref: 'contactPref', billingPlan: 'billingPlan',
+  };
+  const fsField = fieldMap[field] || field;
+  _fbSaveUserProfile(currentUser.uid, { [fsField]: value });
+}
+
 // Compat shim — saveDetailsField now writes to Firestore
 function saveDetailsField(field) {
   if (!currentUser || !currentUser.uid) return;
+  // Try input first, then select, then radio
+  let val = '';
   const inp = document.getElementById('det-' + field + '-input');
-  if (!inp) return;
-  const val = inp ? inp.value.trim() : '';
+  const sel = document.getElementById('det-' + field + '-select');
+  const radio = document.querySelector('input[name="det-' + field + '"]:checked');
+  if      (inp)   val = inp.value.trim();
+  else if (sel)   val = sel.value;
+  else if (radio) val = radio.value;
+  else return; // element not found
+
   const fieldMap = {
     name: 'fullName', company: 'companyName', mobile: 'phone',
-    address: 'address', suburb: 'suburb', city: 'city', state: 'state'
+    address: 'address', suburb: 'suburb', city: 'city', state: 'state',
+    industry: 'industry', preferredDuration: 'preferredDuration',
+    'contact-pref': 'contactPref', contactPref: 'contactPref',
   };
   const fsField = fieldMap[field] || field;
   _fbSaveUserProfile(currentUser.uid, { [fsField]: val });

@@ -1776,7 +1776,7 @@ const MACHINES = {
       capacity:3.5, liftHeight:5.5, power:'Diesel / LPG',
       machineWeight:4200, forkPocket:'Class II/III',
       bestFor:'General warehousing, distribution, manufacturing — configurable A Series drivetrain (Primematch / Corematch / Powermatch)',
-      note:'Award-winning A Series. Configurable from economy to premium. Optional Dynamic Stability System (DSS). Mast heights 3m–5.5m. LPG suits indoor/outdoor; Diesel for heavy outdoor use.',
+      note:'Award-winning A Series. Configurable from economy to higher-bid. Optional Dynamic Stability System (DSS). Mast heights 3m–5.5m. LPG suits indoor/outdoor; Diesel for heavy outdoor use.',
       tags:['Diesel','LPG','2–3.5T','A Series','Configurable'],
       filters:['forklift','indoor','outdoor']
     },
@@ -14738,7 +14738,7 @@ filters:['telehandler','rough','heavy','rotating']
       terrain:'rough/outdoor', maxSpeed:30,
       attachments:['Standard Forks','Jib','GP Bucket','Man Basket'],
       bestFor:'3.5T at 10.7m — top-spec Vision+ comfort and visibility package',
-      note:'Manitou MT 1135 Vision+ — flagship specification in the 1135 family. Enhanced visibility cab PLUS full comfort package, advanced lighting, premium seat and controls. Best operator experience in the MT 1135 range.',
+      note:'Manitou MT 1135 Vision+ — flagship specification in the 1135 family. Enhanced visibility cab PLUS full comfort package, advanced lighting, higher-bid seat and controls. Best operator experience in the MT 1135 range.',
       tags:['3.5T','10.7m','Vision+','Premium Cab'],
       loadMatrix:[{h:0.5,r:0.0,kg:3500},{h:0.5,r:1.0,kg:3500},{h:0.5,r:2.0,kg:3500},{h:0.5,r:2.5,kg:3150},{h:0.5,r:3.5,kg:2600},{h:0.5,r:4.5,kg:1900},{h:0.5,r:6.0,kg:1350},{h:0.5,r:6.5,kg:950},{h:0.5,r:7.0,kg:750},{h:1.3,r:0.0,kg:3500},{h:1.3,r:1.0,kg:3500},{h:1.3,r:2.0,kg:3500},{h:1.3,r:2.5,kg:3150},{h:1.3,r:3.5,kg:2600},{h:1.3,r:4.5,kg:1900},{h:1.3,r:6.0,kg:1350},{h:1.3,r:6.5,kg:950},{h:1.3,r:7.0,kg:750},{h:2.7,r:0.0,kg:3500},{h:2.7,r:1.0,kg:3500},{h:2.7,r:2.0,kg:3500},{h:2.7,r:2.5,kg:3150},{h:2.7,r:3.5,kg:2600},{h:2.7,r:4.5,kg:1900},{h:2.7,r:5.5,kg:1350},{h:2.7,r:6.5,kg:950},{h:2.7,r:7.0,kg:750},{h:4.1,r:0.0,kg:3500},{h:4.1,r:1.0,kg:3500},{h:4.1,r:1.5,kg:3500},{h:4.1,r:2.5,kg:3150},{h:4.1,r:3.5,kg:2600},{h:4.1,r:4.5,kg:1900},{h:4.1,r:5.5,kg:1350},{h:4.1,r:6.0,kg:950},{h:4.1,r:6.5,kg:750},{h:5.3,r:0.0,kg:3500},{h:5.3,r:0.5,kg:3500},{h:5.3,r:1.5,kg:3500},{h:5.3,r:2.5,kg:3150},{h:5.3,r:3.0,kg:2600},{h:5.3,r:4.0,kg:1900},{h:5.3,r:5.0,kg:1350},{h:5.3,r:5.5,kg:950},{h:5.3,r:6.0,kg:750},{h:6.6,r:0.0,kg:3500},{h:6.6,r:0.5,kg:3500},{h:6.6,r:1.5,kg:3500},{h:6.6,r:2.0,kg:3150},{h:6.6,r:2.5,kg:2600},{h:6.6,r:3.5,kg:1900},{h:6.6,r:4.5,kg:1300},{h:6.6,r:5.0,kg:950},{h:6.6,r:5.4,kg:750},{h:7.7,r:0.0,kg:3400},{h:7.7,r:0.5,kg:3400},{h:7.7,r:1.0,kg:3400},{h:7.7,r:1.5,kg:3050},{h:7.7,r:2.0,kg:2550},{h:7.7,r:3.0,kg:1850},{h:7.7,r:3.5,kg:1300},{h:7.7,r:4.0,kg:950},{h:7.7,r:4.5,kg:750},{h:8.8,r:0.0,kg:3300},{h:8.8,r:0.5,kg:3300},{h:8.8,r:1.0,kg:3300},{h:8.8,r:1.5,kg:3000},{h:8.8,r:2.0,kg:2500},{h:8.8,r:2.5,kg:1800},{h:8.8,r:3.0,kg:1250},{h:8.8,r:3.5,kg:750},{h:9.6,r:0.0,kg:3250},{h:9.6,r:0.5,kg:3250},{h:9.6,r:1.0,kg:2900},{h:9.6,r:1.5,kg:1750},{h:9.6,r:2.0,kg:1250},{h:9.6,r:2.5,kg:900},{h:10.3,r:0.0,kg:3150},{h:10.3,r:0.5,kg:3150},{h:10.3,r:1.0,kg:2350},{h:10.3,r:1.5,kg:1200},{h:10.7,r:0.0,kg:3100},{h:10.7,r:0.5,kg:3100},{h:10.7,r:1.0,kg:1150}],
       filters:['telehandler','rough']
@@ -14778,7 +14778,7 @@ filters:['telehandler','rough','heavy','rotating']
       terrain:'rough/outdoor', maxSpeed:35,
       attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Work Platform'],
       bestFor:'4T at 13.6m — top-spec MT 1440 with Vision+ comfort and safety pack',
-      note:'Manitou MT 1440 Vision+ — premium specification with advanced cab, enhanced visibility, full comfort pack. 4T, 13.6m, 10.1m. The top-of-line MT 1440. Preferred by operators who spend long days on the machine.',
+      note:'Manitou MT 1440 Vision+ — higher-bid specification with advanced cab, enhanced visibility, full comfort pack. 4T, 13.6m, 10.1m. The top-of-line MT 1440. Preferred by operators who spend long days on the machine.',
       tags:['4T','13.6m','Vision+','Premium Cab','Full Spec'],
       loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:1.0,kg:4000},{h:0.5,r:2.5,kg:4000},{h:0.5,r:4.0,kg:3600},{h:0.5,r:5.0,kg:3000},{h:0.5,r:6.5,kg:2200},{h:0.5,r:8.0,kg:1500},{h:0.5,r:9.5,kg:1100},{h:0.5,r:10.0,kg:900},{h:1.6,r:0.0,kg:4000},{h:1.6,r:1.0,kg:4000},{h:1.6,r:2.5,kg:4000},{h:1.6,r:4.0,kg:3600},{h:1.6,r:5.0,kg:3000},{h:1.6,r:6.5,kg:2200},{h:1.6,r:8.0,kg:1500},{h:1.6,r:9.5,kg:1100},{h:1.6,r:10.0,kg:900},{h:3.4,r:0.0,kg:4000},{h:3.4,r:1.0,kg:4000},{h:3.4,r:2.5,kg:4000},{h:3.4,r:3.5,kg:3600},{h:3.4,r:5.0,kg:3000},{h:3.4,r:6.5,kg:2200},{h:3.4,r:8.0,kg:1500},{h:3.4,r:9.0,kg:1100},{h:3.4,r:9.8,kg:900},{h:5.2,r:0.0,kg:4000},{h:5.2,r:1.0,kg:4000},{h:5.2,r:2.5,kg:4000},{h:5.2,r:3.5,kg:3600},{h:5.2,r:4.5,kg:3000},{h:5.2,r:6.0,kg:2200},{h:5.2,r:7.5,kg:1500},{h:5.2,r:8.5,kg:1100},{h:5.2,r:9.3,kg:900},{h:6.8,r:0.0,kg:4000},{h:6.8,r:1.0,kg:4000},{h:6.8,r:2.0,kg:4000},{h:6.8,r:3.0,kg:3600},{h:6.8,r:4.0,kg:3000},{h:6.8,r:5.5,kg:2200},{h:6.8,r:7.0,kg:1500},{h:6.8,r:8.0,kg:1100},{h:6.8,r:8.5,kg:900},{h:8.4,r:0.0,kg:4000},{h:8.4,r:1.0,kg:4000},{h:8.4,r:2.0,kg:4000},{h:8.4,r:3.0,kg:3600},{h:8.4,r:3.5,kg:2950},{h:8.4,r:5.0,kg:2200},{h:8.4,r:6.0,kg:1500},{h:8.4,r:7.0,kg:1100},{h:8.4,r:7.4,kg:900},{h:9.8,r:0.0,kg:3900},{h:9.8,r:0.5,kg:3900},{h:9.8,r:1.5,kg:3900},{h:9.8,r:2.5,kg:3500},{h:9.8,r:3.0,kg:2900},{h:9.8,r:4.0,kg:2150},{h:9.8,r:5.0,kg:1500},{h:9.8,r:5.5,kg:1050},{h:9.8,r:6.0,kg:850},{h:11.2,r:0.0,kg:3800},{h:11.2,r:0.5,kg:3800},{h:11.2,r:1.0,kg:3800},{h:11.2,r:2.0,kg:3400},{h:11.2,r:2.5,kg:2850},{h:11.2,r:3.0,kg:2100},{h:11.2,r:4.0,kg:1450},{h:11.2,r:4.5,kg:1050},{h:12.2,r:0.0,kg:3700},{h:12.2,r:0.5,kg:3700},{h:12.2,r:1.0,kg:3700},{h:12.2,r:1.5,kg:3300},{h:12.2,r:2.0,kg:2000},{h:12.2,r:2.5,kg:1400},{h:12.2,r:3.0,kg:1000},{h:12.2,r:3.3,kg:800},{h:13.1,r:0.0,kg:3600},{h:13.1,r:0.5,kg:3600},{h:13.1,r:1.0,kg:3250},{h:13.1,r:1.5,kg:1950},{h:13.1,r:2.0,kg:1350},{h:13.6,r:0.0,kg:3500},{h:13.6,r:0.5,kg:3500},{h:13.6,r:1.0,kg:1950},{h:13.6,r:1.3,kg:750}],
       filters:['telehandler','rough','heavy']
@@ -14816,8 +14816,8 @@ filters:['telehandler','rough','heavy','rotating']
       machineWeight:13800, machineWidth:2480, machineLength:7020, machineHeight:3020,
       terrain:'rough/outdoor', maxSpeed:35,
       attachments:['Standard Forks','Jib','GP Bucket','Man Basket','Work Platform','Hook'],
-      bestFor:'4T at 17.6m — full Vision+ spec with premium cab comfort and safety systems',
-      note:'Manitou MT 1840 Vision+ — top-specification 4T, 17.6m, 13.1m reach. Full comfort, advanced visibility, premium lighting, best-in-class operator environment. Most specified MT 1840 variant in Australia.',
+      bestFor:'4T at 17.6m — full Vision+ spec with higher-bid cab comfort and safety systems',
+      note:'Manitou MT 1840 Vision+ — top-specification 4T, 17.6m, 13.1m reach. Full comfort, advanced visibility, higher-bid lighting, best-in-class operator environment. Most specified MT 1840 variant in Australia.',
       tags:['4T','17.6m','Vision+','6-Storey','Premium'],
       loadMatrix:[{h:0.5,r:0.0,kg:4000},{h:0.5,r:1.5,kg:4000},{h:0.5,r:3.5,kg:4000},{h:0.5,r:5.0,kg:3600},{h:0.5,r:6.5,kg:3000},{h:0.5,r:8.5,kg:2200},{h:0.5,r:10.5,kg:1500},{h:0.5,r:12.0,kg:1100},{h:0.5,r:13.0,kg:900},{h:2.1,r:0.0,kg:4000},{h:2.1,r:1.5,kg:4000},{h:2.1,r:3.0,kg:4000},{h:2.1,r:5.0,kg:3600},{h:2.1,r:6.5,kg:3000},{h:2.1,r:8.5,kg:2200},{h:2.1,r:10.5,kg:1500},{h:2.1,r:12.0,kg:1100},{h:2.1,r:13.0,kg:900},{h:4.4,r:0.0,kg:4000},{h:4.4,r:1.5,kg:4000},{h:4.4,r:3.0,kg:4000},{h:4.4,r:5.0,kg:3600},{h:4.4,r:6.5,kg:3000},{h:4.4,r:8.5,kg:2200},{h:4.4,r:10.0,kg:1500},{h:4.4,r:11.5,kg:1100},{h:4.4,r:12.5,kg:900},{h:6.7,r:0.0,kg:4000},{h:6.7,r:1.5,kg:4000},{h:6.7,r:3.0,kg:4000},{h:6.7,r:4.5,kg:3600},{h:6.7,r:6.0,kg:3000},{h:6.7,r:8.0,kg:2200},{h:6.7,r:9.5,kg:1500},{h:6.7,r:11.0,kg:1100},{h:6.7,r:12.0,kg:900},{h:8.8,r:0.0,kg:4000},{h:8.8,r:1.5,kg:4000},{h:8.8,r:3.0,kg:4000},{h:8.8,r:4.0,kg:3600},{h:8.8,r:5.5,kg:3000},{h:8.8,r:7.0,kg:2200},{h:8.8,r:9.0,kg:1500},{h:8.8,r:10.0,kg:1100},{h:8.8,r:11.0,kg:900},{h:10.9,r:0.0,kg:4000},{h:10.9,r:1.0,kg:4000},{h:10.9,r:2.5,kg:4000},{h:10.9,r:3.5,kg:3600},{h:10.9,r:5.0,kg:2950},{h:10.9,r:6.0,kg:2200},{h:10.9,r:7.5,kg:1500},{h:10.9,r:9.0,kg:1100},{h:10.9,r:9.5,kg:900},{h:12.7,r:0.0,kg:3900},{h:12.7,r:1.0,kg:3900},{h:12.7,r:2.0,kg:3900},{h:12.7,r:3.0,kg:3500},{h:12.7,r:4.0,kg:2900},{h:12.7,r:5.0,kg:2150},{h:12.7,r:6.5,kg:1500},{h:12.7,r:7.5,kg:1050},{h:12.7,r:8.0,kg:850},{h:14.4,r:0.0,kg:3800},{h:14.4,r:0.5,kg:3800},{h:14.4,r:1.5,kg:3800},{h:14.4,r:2.5,kg:3400},{h:14.4,r:3.0,kg:2850},{h:14.4,r:4.0,kg:2100},{h:14.4,r:5.0,kg:1450},{h:14.4,r:5.5,kg:1050},{h:14.4,r:6.0,kg:850},{h:15.8,r:0.0,kg:3700},{h:15.8,r:0.5,kg:3700},{h:15.8,r:1.0,kg:3700},{h:15.8,r:1.5,kg:3300},{h:15.8,r:2.0,kg:2750},{h:15.8,r:2.5,kg:2000},{h:15.8,r:3.5,kg:1400},{h:15.8,r:4.0,kg:1000},{h:16.9,r:0.0,kg:3600},{h:16.9,r:0.5,kg:3600},{h:16.9,r:1.0,kg:3250},{h:16.9,r:1.5,kg:2700},{h:16.9,r:2.0,kg:1350},{h:16.9,r:2.5,kg:1000},{h:17.6,r:0.0,kg:3500},{h:17.6,r:0.5,kg:3500},{h:17.6,r:1.0,kg:2650},{h:17.6,r:1.5,kg:950}],
       filters:['telehandler','rough','heavy']
@@ -16617,7 +16617,7 @@ filters:['telehandler','rough','heavy','rotating']
   scissor: [
     // ── GENIE ─────────────────────────────────────────────────
     {
-      id:'genie-gs1330', brand:'Genie', emoji:'✂️',
+      id:'genie-gs1330', brand:'Genie', emoji:'SL',
       name:'Genie GS-1330 Electric', shortName:'Genie GS-1330',
       capacity:0.227, liftHeight:3.9, platformSize:'1.52m × 0.76m',
       terrain:'indoor', power:'Electric', swl:227, machineWeight:1180, machineWidth:0.76,
@@ -16627,7 +16627,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'genie-gs1930', brand:'Genie', emoji:'✂️',
+      id:'genie-gs1930', brand:'Genie', emoji:'SL',
       name:'Genie GS-1930 Electric', shortName:'Genie GS-1930',
       capacity:0.227, liftHeight:5.8, platformSize:'1.83m × 0.76m',
       terrain:'indoor', power:'Electric', machineWeight:1450, machineWidth:0.81,
@@ -16637,7 +16637,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'genie-gs2032', brand:'Genie', emoji:'✂️',
+      id:'genie-gs2032', brand:'Genie', emoji:'SL',
       name:'Genie GS-2032 Electric', shortName:'Genie GS-2032',
       capacity:0.340, liftHeight:6.1, platformSize:'2.26m × 0.81m',
       terrain:'indoor',
@@ -16648,7 +16648,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'genie-gs2632', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs2632', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-2632 Electric', shortName:'Genie GS-2632',
       capacity:0.227, liftHeight:7.85, workingHeight:9.85,
       liftHeightOutdoor:5.33, workingHeightOutdoor:7.33,
@@ -16679,7 +16679,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'genie-gs4047', brand:'Genie', emoji:'✂️',
+      id:'genie-gs4047', brand:'Genie', emoji:'SL',
       name:'Genie GS-4047 Electric', shortName:'Genie GS-4047',
       capacity:0.567, liftHeight:12.1, platformSize:'3.56m × 1.17m',
       terrain:'indoor',
@@ -16691,7 +16691,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── GENIE SLAB SCISSORS (additional models) ──────────────────────────
     {
-      id:'genie-gs1530', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs1530', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-1530 Electric', shortName:'Genie GS-1530',
       capacity:0.227, liftHeight:4.57, platformSize:'1.52m × 0.76m',
       terrain:'indoor',
@@ -16704,7 +16704,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'genie-gs1932', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs1932', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-1932 Electric', shortName:'Genie GS-1932',
       capacity:0.227, liftHeight:5.79, platformSize:'1.83m × 0.81m',
       terrain:'indoor',
@@ -16717,7 +16717,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'genie-gs2646', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs2646', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-2646 Electric', shortName:'Genie GS-2646',
       capacity:0.454, liftHeight:7.85, workingHeight:9.85,
       platformSize:'2.16m × 1.10m', platformLength:2.16, platformWidth:1.10,
@@ -16747,7 +16747,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'genie-gs3232', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs3232', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-3232 Electric', shortName:'Genie GS-3232',
       capacity:0.227, liftHeight:9.60, workingHeight:11.60,
       liftHeightOutdoor:5.49, workingHeightOutdoor:7.49,
@@ -16778,7 +16778,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'genie-gs3246', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs3246', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-3246 Electric', shortName:'Genie GS-3246',
       capacity:0.318, liftHeight:9.60, workingHeight:11.60,
       platformSize:'2.16m × 1.10m', platformLength:2.16, platformWidth:1.10,
@@ -16808,7 +16808,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'genie-gs4046', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs4046', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-4046 Electric', shortName:'Genie GS-4046',
       capacity:0.318, liftHeight:11.91, workingHeight:13.91,
       liftHeightOutdoor:7.01, workingHeightOutdoor:9.01,
@@ -16839,7 +16839,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'genie-gs4655', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs4655', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-4655 Electric', shortName:'Genie GS-4655',
       capacity:0.350, liftHeight:13.95, workingHeight:15.95,
       liftHeightOutdoor:6.55, workingHeightOutdoor:8.55,
@@ -16870,7 +16870,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'genie-gs1432m', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs1432m', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-1432m E-Drive', shortName:'GS-1432m E-Drive',
       capacity:0.227, liftHeight:4.30, workingHeight:6.30,
       liftHeightOutdoor:3.66, workingHeightOutdoor:5.66,
@@ -16902,7 +16902,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'genie-gs1932m', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs1932m', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-1932m E-Drive', shortName:'GS-1932m E-Drive',
       capacity:0.227, liftHeight:5.55, workingHeight:7.55,
       platformSize:'1.40m × 0.78m', platformLength:1.40, platformWidth:0.78,
@@ -16934,7 +16934,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── GENIE ROUGH TERRAIN SCISSOR LIFTS ─────────────────────────────────
     {
-      id:'genie-gs2669rt', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs2669rt', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-2669 RT', shortName:'GS-2669 RT',
       capacity:0.680, liftHeight:8.0, workingHeight:10.0,
       platformSize:'2.79m × 1.60m', platformLength:2.79, platformWidth:1.60,
@@ -16963,7 +16963,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'genie-gs2669dc', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs2669dc', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-2669 DC', shortName:'GS-2669 DC',
       capacity:0.544, liftHeight:7.92, platformSize:'2.44m × 1.75m',
       terrain:'outdoor rough',
@@ -16976,7 +16976,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'genie-gs3369rt', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs3369rt', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-3369 RT', shortName:'GS-3369 RT',
       capacity:0.454, liftHeight:9.96, workingHeight:11.96,
       platformSize:'2.79m × 1.60m', platformLength:2.79, platformWidth:1.60,
@@ -17005,7 +17005,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'genie-gs3369dc', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs3369dc', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-3369 DC', shortName:'GS-3369 DC',
       capacity:0.544, liftHeight:11.59, platformSize:'3.56m × 1.75m',
       terrain:'outdoor rough',
@@ -17018,7 +17018,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'genie-gs3390rt', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs3390rt', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-3390 RT', shortName:'GS-3390 RT',
       capacity:1.134, liftHeight:10.06, workingHeight:12.06,
       platformSize:'3.98m × 1.83m', platformLength:3.98, platformWidth:1.83,
@@ -17048,7 +17048,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','heavy','highcap']
     },
     {
-      id:'genie-gs4069rt', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs4069rt', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-4069 RT', shortName:'GS-4069 RT',
       capacity:0.363, liftHeight:12.30, workingHeight:14.30,
       platformSize:'2.79m × 1.60m', platformLength:2.79, platformWidth:1.60,
@@ -17077,7 +17077,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high']
     },
     {
-      id:'genie-gs4069dc', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs4069dc', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-4069 DC', shortName:'GS-4069 DC',
       capacity:0.544, liftHeight:12.19, platformSize:'3.56m × 1.75m',
       terrain:'outdoor rough',
@@ -17090,7 +17090,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'genie-gs4390rt', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs4390rt', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-4390 RT', shortName:'GS-4390 RT',
       capacity:0.680, liftHeight:13.11, workingHeight:15.11,
       platformSize:'3.98m × 1.83m', platformLength:3.98, platformWidth:1.83,
@@ -17120,7 +17120,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high','heavy']
     },
     {
-      id:'genie-gs5390rt', brand:'Genie', emoji:'✂️', brandColor:'#FF6600',
+      id:'genie-gs5390rt', brand:'Genie', emoji:'SL', brandColor:'#FF6600',
       name:'Genie GS-5390 RT', shortName:'GS-5390 RT',
       capacity:0.680, liftHeight:16.15, workingHeight:18.15,
       platformSize:'3.98m × 1.83m', platformLength:3.98, platformWidth:1.83,
@@ -17152,7 +17152,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── JLG SCISSOR ────────────────────────────────────────────
     {
-      id:'jlg-1930es', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-1930es', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ES1932 Electric', shortName:'JLG ES1932',
       capacity:0.230, liftHeight:5.80, workingHeight:7.80,
       platformSize:'1.59m × 0.64m', platformLength:1.59, platformWidth:0.64,
@@ -17181,7 +17181,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'jlg-2630es', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-2630es', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ES2632 Electric', shortName:'JLG ES2632',
       capacity:0.230, liftHeight:7.80, workingHeight:9.80,
       liftHeightOutdoor:6.40, workingHeightOutdoor:8.40,
@@ -17211,7 +17211,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'jlg-rt2669', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-rt2669', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG RT2669 Rough Terrain Scissor', shortName:'JLG RT2669',
       capacity:0.680, liftHeight:8.0, workingHeight:10.0,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17241,7 +17241,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel']
     },
     {
-      id:'jlg-rt3369', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-rt3369', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG RT3369 Rough Terrain Scissor', shortName:'JLG RT3369',
       capacity:0.454, liftHeight:10.0, workingHeight:12.0,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17271,7 +17271,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel']
     },
     {
-      id:'jlg-rt4069', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-rt4069', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG RT4069 Rough Terrain Scissor', shortName:'JLG RT4069',
       capacity:0.363, liftHeight:12.3, workingHeight:14.3,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17301,7 +17301,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','high']
     },
     {
-      id:'jlg-rt4769', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-rt4769', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG RT4769 Rough Terrain Scissor', shortName:'JLG RT4769',
       capacity:0.363, liftHeight:14.3, workingHeight:16.3,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17331,7 +17331,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','high']
     },
     {
-      id:'jlg-ert2669', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-ert2669', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ERT2669 Electric RT Scissor', shortName:'JLG ERT2669',
       capacity:0.680, liftHeight:8.0, workingHeight:10.0,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17360,7 +17360,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'jlg-ert3369', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-ert3369', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ERT3369 Electric RT Scissor', shortName:'JLG ERT3369',
       capacity:0.454, liftHeight:10.0, workingHeight:12.0,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17389,7 +17389,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'jlg-ert4069', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-ert4069', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ERT4069 Electric RT Scissor', shortName:'JLG ERT4069',
       capacity:0.363, liftHeight:12.3, workingHeight:14.3,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17418,7 +17418,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric','high']
     },
     {
-      id:'jlg-ert4769', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-ert4769', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ERT4769 Electric RT Scissor', shortName:'JLG ERT4769',
       capacity:0.363, liftHeight:14.3, workingHeight:16.3,
       platformSize:'3.30m × 1.60m', platformLength:3.30, platformWidth:1.60,
@@ -17447,7 +17447,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric','high']
     },
     {
-      id:'jlg-3369rts', brand:'JLG', emoji:'✂️',
+      id:'jlg-3369rts', brand:'JLG', emoji:'SL',
       name:'JLG 3369RTS Rough Terrain', shortName:'JLG 3369RTS',
       capacity:0.567, liftHeight:10.1, platformSize:'2.74m × 1.12m',
       terrain:'outdoor rough', power:'Diesel', machineWeight:4944, machineWidth:1.52,
@@ -17457,7 +17457,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','rough','heavy']
     },
     {
-      id:'jlg-4069le', brand:'JLG', emoji:'✂️',
+      id:'jlg-4069le', brand:'JLG', emoji:'SL',
       name:'JLG 4069LE Electric', shortName:'JLG 4069LE',
       capacity:0.454, liftHeight:12.1, platformSize:'3.56m × 1.17m',
       terrain:'indoor/outdoor firm',
@@ -17469,7 +17469,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── JLG ELECTRIC SCISSOR LIFTS (NEW ADDITIONS) ───────────────────
     {
-      id:'jlg-1530es', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-1530es', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ES1530L Electric', shortName:'JLG ES1530L',
       capacity:0.227, liftHeight:4.50, workingHeight:6.50,
       liftHeightOutdoor:3.00, workingHeightOutdoor:5.00,
@@ -17499,7 +17499,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric'],
     },
     {
-      id:'jlg-2030es', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-2030es', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ES1330L Electric', shortName:'JLG ES1330L',
       capacity:0.227, liftHeight:3.80, workingHeight:5.80,
       platformSize:'1.30m × 0.60m', platformLength:1.30, platformWidth:0.60,
@@ -17528,7 +17528,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric'],
     },
     {
-      id:'jlg-2646es', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-2646es', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ES2646 Electric', shortName:'JLG ES2646',
       capacity:0.545, liftHeight:7.92, workingHeight:9.92,
       platformSize:'2.10m × 1.10m', platformLength:2.10, platformWidth:1.10,
@@ -17557,7 +17557,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric'],
     },
     {
-      id:'jlg-3246es', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-3246es', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ES3246 Electric', shortName:'JLG ES3246',
       capacity:0.320, liftHeight:9.80, workingHeight:11.80,
       platformSize:'2.10m × 1.10m', platformLength:2.10, platformWidth:1.10,
@@ -17586,7 +17586,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric','high'],
     },
     {
-      id:'jlg-4045r', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-4045r', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG ES4046 Electric', shortName:'JLG ES4046',
       capacity:0.350, liftHeight:11.92, workingHeight:13.92,
       liftHeightOutdoor:8.75, workingHeightOutdoor:10.75,
@@ -17617,7 +17617,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── JLG ROUGH TERRAIN SCISSOR LIFTS (NEW ADDITIONS) ──────────────
     {
-      id:'jlg-260mrt', brand:'JLG', emoji:'✂️',
+      id:'jlg-260mrt', brand:'JLG', emoji:'SL',
       name:'JLG 260MRT Rough Terrain Scissor', shortName:'JLG 260MRT',
       capacity:0.567, liftHeight:7.92, platformSize:'2.46m × 1.22m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -17628,7 +17628,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel'],
     },
     {
-      id:'jlg-3394rt', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-3394rt', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG RT3394 Rough Terrain Scissor', shortName:'JLG RT3394',
       capacity:1.020, liftHeight:10.06, workingHeight:12.06,
       platformSize:'3.80m × 1.80m', platformLength:3.80, platformWidth:1.80,
@@ -17659,7 +17659,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','highcap'],
     },
     {
-      id:'jlg-4394rt', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-4394rt', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG RT4394 Rough Terrain Scissor', shortName:'JLG RT4394',
       capacity:0.680, liftHeight:13.11, workingHeight:15.11,
       platformSize:'3.80m × 1.80m', platformLength:3.80, platformWidth:1.80,
@@ -17690,7 +17690,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','high'],
     },
     {
-      id:'jlg-5394rt', brand:'JLG', emoji:'✂️', brandColor:'#FF6B00',
+      id:'jlg-5394rt', brand:'JLG', emoji:'SL', brandColor:'#FF6B00',
       name:'JLG RT5394 Rough Terrain Scissor', shortName:'JLG RT5394',
       capacity:0.680, liftHeight:16.20, workingHeight:18.20,
       platformSize:'3.80m × 1.80m', platformLength:3.80, platformWidth:1.80,
@@ -17721,7 +17721,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','high','heavy'],
     },
     {
-      id:'jlg-3369le', brand:'JLG', emoji:'✂️',
+      id:'jlg-3369le', brand:'JLG', emoji:'SL',
       name:'JLG 3369LE Electric RT Scissor', shortName:'JLG 3369LE',
       capacity:0.454, liftHeight:10.06, platformSize:'3.25m × 1.75m',
       terrain:'outdoor rough', power:'Electric', swl:454,
@@ -17732,7 +17732,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric'],
     },
     {
-      id:'jlg-430lrt', brand:'JLG', emoji:'✂️',
+      id:'jlg-430lrt', brand:'JLG', emoji:'SL',
       name:'JLG 430LRT Large RT Scissor', shortName:'JLG 430LRT',
       capacity:0.454, liftHeight:13.11, platformSize:'3.25m × 1.75m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -17743,7 +17743,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','high'],
     },
     {
-      id:'jlg-530lrt', brand:'JLG', emoji:'✂️',
+      id:'jlg-530lrt', brand:'JLG', emoji:'SL',
       name:'JLG 530LRT Large RT Scissor', shortName:'JLG 530LRT',
       capacity:0.680, liftHeight:16.15, platformSize:'4.27m × 1.98m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -17756,7 +17756,7 @@ filters:['telehandler','rough','heavy','rotating']
 
     // ── SKYJACK SCISSOR ────────────────────────────────────────
     {
-      id:'skyjack-sj3219', brand:'Skyjack', emoji:'✂️',
+      id:'skyjack-sj3219', brand:'Skyjack', emoji:'SL',
       name:'Skyjack SJ3219 Electric', shortName:'Skyjack SJ3219',
       capacity:0.272, liftHeight:5.8, platformSize:'1.83m × 0.76m',
       terrain:'indoor',
@@ -17767,7 +17767,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'skyjack-sj3226', brand:'Skyjack', emoji:'✂️',
+      id:'skyjack-sj3226', brand:'Skyjack', emoji:'SL',
       name:'Skyjack SJ3226 Narrow Electric', shortName:'Skyjack SJ3226',
       capacity:0.227, liftHeight:7.79, workingHeight:9.79,
       platformSize:'2.11m × 0.71m', platformLength:2.11, platformWidth:0.71,
@@ -17800,7 +17800,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'skyjack-sj6832rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj6832rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ6832 RT', shortName:'Skyjack SJ6832 RT',
       capacity:0.454, liftHeight:9.75, workingHeight:11.75,
       platformSize:'2.44m × 1.42m', platformLength:2.44, platformWidth:1.42,
@@ -17831,7 +17831,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── SKYJACK ELECTRIC SCISSORS (additional models) ──────────────────
     {
-      id:'skyjack-sj3013', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj3013', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ3013 Micro', shortName:'Skyjack SJ3013',
       capacity:0.227, liftHeight:3.96, workHeight:5.96, platformSize:'1.19m × 0.69m',
       terrain:'indoor',
@@ -17844,7 +17844,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'skyjack-sj3215', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj3215', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJIII 3215 Electric', shortName:'Skyjack SJ3215',
       capacity:0.272, liftHeight:4.57, workingHeight:6.40,
       platformSize:'1.63m × 0.66m', platformLength:1.63, platformWidth:0.66,
@@ -17877,7 +17877,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'skyjack-sj3219e', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj3219e', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJIII 3219 Electric', shortName:'Skyjack SJ3219',
       capacity:0.249, liftHeight:5.79, workingHeight:7.62,
       platformSize:'1.63m × 0.66m', platformLength:1.63, platformWidth:0.66,
@@ -17910,7 +17910,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'skyjack-sj3220', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj3220', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ3220 Electric', shortName:'Skyjack SJ3220',
       capacity:0.408, liftHeight:5.95, workingHeight:7.95,
       platformSize:'2.11m × 0.71m', platformLength:2.11, platformWidth:0.71,
@@ -17943,7 +17943,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'skyjack-sj4626', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj4626', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ4626 Electric', shortName:'Skyjack SJ4626',
       capacity:0.454, liftHeight:7.92, workHeight:9.92, platformSize:'2.44m × 0.81m',
       terrain:'indoor',
@@ -17956,7 +17956,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'skyjack-sj4632', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj4632', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ4632 Electric', shortName:'Skyjack SJ4632',
       capacity:0.454, liftHeight:9.75, workHeight:11.75, platformSize:'2.44m × 0.81m',
       terrain:'indoor',
@@ -17969,7 +17969,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'skyjack-sj4726', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj4726', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ4726 Electric', shortName:'Skyjack SJ4726',
       capacity:0.454, liftHeight:7.92, workHeight:9.92, platformSize:'2.44m × 1.17m',
       terrain:'indoor/outdoor firm',
@@ -17982,7 +17982,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'skyjack-sj4732', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj4732', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ4732 Electric', shortName:'Skyjack SJ4732',
       capacity:0.318, liftHeight:9.63, workingHeight:11.46,
       platformSize:'2.11m × 1.07m', platformLength:2.11, platformWidth:1.07,
@@ -18015,7 +18015,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'skyjack-sj4740', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj4740', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ4740 Electric', shortName:'Skyjack SJ4740',
       capacity:0.349, liftHeight:11.86, workingHeight:13.86,
       platformSize:'2.19m × 1.06m', platformLength:2.19, platformWidth:1.06,
@@ -18048,7 +18048,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'skyjack-sj5545e', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj5545e', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ5545 E Electric', shortName:'Skyjack SJ5545E',
       capacity:0.350, liftHeight:13.72, workingHeight:15.54,
       platformSize:'2.64m × 1.19m', platformLength:2.64, platformWidth:1.19,
@@ -18083,7 +18083,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── SKYJACK ROUGH TERRAIN SCISSORS (additional models) ──────────────
     {
-      id:'skyjack-sj6826rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj6826rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ6826 RT', shortName:'Skyjack SJ6826 RT',
       capacity:0.567, liftHeight:7.92, workingHeight:9.92,
       platformSize:'2.44m × 1.42m', platformLength:2.44, platformWidth:1.42,
@@ -18113,7 +18113,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'skyjack-sj7135rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj7135rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ7135 RT', shortName:'Skyjack SJ7135 RT',
       capacity:0.544, liftHeight:10.67, workHeight:12.67, platformSize:'3.18m × 1.75m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -18125,7 +18125,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'skyjack-sj7127rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj7127rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ7127 RT', shortName:'Skyjack SJ7127 RT',
       capacity:0.680, liftHeight:7.92, workHeight:9.92, platformSize:'2.44m × 1.75m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -18137,7 +18137,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','heavy']
     },
     {
-      id:'skyjack-sj8831rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj8831rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ8831 RT', shortName:'Skyjack SJ8831 RT',
       capacity:0.544, liftHeight:13.26, workHeight:15.26, platformSize:'3.56m × 1.75m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -18149,7 +18149,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'skyjack-sj8841rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj8841rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ8841 RT', shortName:'Skyjack SJ8841 RT',
       capacity:0.680, liftHeight:13.26, workHeight:15.26, platformSize:'3.56m × 2.06m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -18161,7 +18161,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','heavy']
     },
     {
-      id:'skyjack-sj9233rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj9233rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ9233 RT', shortName:'Skyjack SJ9233 RT',
       capacity:0.544, liftHeight:14.63, workHeight:16.63, platformSize:'3.56m × 1.75m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -18173,7 +18173,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high']
     },
     {
-      id:'skyjack-sj9243rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj9243rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ9243 RT', shortName:'Skyjack SJ9243 RT',
       capacity:0.680, liftHeight:14.63, workHeight:16.63, platformSize:'3.56m × 2.06m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -18185,7 +18185,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high','heavy']
     },
     {
-      id:'skyjack-sj9253rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj9253rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ9253 RT', shortName:'Skyjack SJ9253 RT',
       capacity:0.907, liftHeight:14.63, workHeight:16.63, platformSize:'3.56m × 2.44m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -18197,7 +18197,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high','heavy']
     },
     {
-      id:'skyjack-sj9241rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj9241rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ9241 RT', shortName:'Skyjack SJ9241 RT',
       capacity:0.681, liftHeight:12.50, workingHeight:14.50,
       platformSize:'4.27m × 1.88m', platformLength:4.27, platformWidth:1.88,
@@ -18226,7 +18226,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high']
     },
     {
-      id:'skyjack-sj9250rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj9250rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ9250 RT', shortName:'Skyjack SJ9250 RT',
       capacity:0.681, liftHeight:15.24, workingHeight:17.24,
       platformSize:'4.27m × 1.88m', platformLength:4.27, platformWidth:1.88,
@@ -18255,7 +18255,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high']
     },
     {
-      id:'skyjack-sj9664rt', brand:'Skyjack', emoji:'✂️', brandColor:'#FFD700',
+      id:'skyjack-sj9664rt', brand:'Skyjack', emoji:'SL', brandColor:'#FFD700',
       name:'Skyjack SJ9664 RT', shortName:'Skyjack SJ9664 RT',
       capacity:0.513, liftHeight:19.51, workingHeight:21.51,
       platformSize:'4.36m × 1.90m', platformLength:4.36, platformWidth:1.90,
@@ -18287,7 +18287,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── SINOBOOM SCISSOR ───────────────────────────────────────
     {
-      id:'sinoboom-0407se', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-0407se', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 0407SE Electric', shortName:'Sinoboom 0407SE',
       capacity:0.227, liftHeight:3.8, workHeight:5.8, platformSize:'1.83m × 0.76m',
       terrain:'indoor', power:'Electric', swl:227, machineWeight:1080, machineWidth:0.76,
@@ -18297,7 +18297,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'sinoboom-0607se', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-0607se', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 0607SE Electric', shortName:'Sinoboom 0607SE',
       capacity:0.227, liftHeight:5.8, workHeight:7.8, platformSize:'1.83m × 0.76m',
       terrain:'indoor', power:'Electric', swl:227, machineWeight:1350, machineWidth:0.76,
@@ -18307,7 +18307,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'sinoboom-0608me', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-0608me', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 0608ME Electric', shortName:'Sinoboom 0608ME',
       capacity:0.320, liftHeight:5.8, workHeight:7.8, platformSize:'1.83m × 0.81m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:320, machineWeight:1600, machineWidth:0.81,
@@ -18317,7 +18317,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'sinoboom-0808e', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-0808e', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 0808E Electric', shortName:'Sinoboom 0808E',
       capacity:0.320, liftHeight:7.7, workHeight:9.7, platformSize:'2.26m × 0.81m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:320, machineWeight:1950, machineWidth:0.81,
@@ -18327,7 +18327,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'sinoboom-0812e', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-0812e', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 0812E Electric', shortName:'Sinoboom 0812E',
       capacity:0.454, liftHeight:7.7, workHeight:9.7, platformSize:'2.26m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454, machineWeight:2350, machineWidth:1.17,
@@ -18337,7 +18337,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'sinoboom-1012e', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1012e', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1012E Electric', shortName:'Sinoboom 1012E',
       capacity:0.454, liftHeight:9.7, workHeight:11.7, platformSize:'2.26m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454, machineWeight:2950, machineWidth:1.17,
@@ -18347,7 +18347,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'sinoboom-1212e', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1212e', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1212E Electric', shortName:'Sinoboom 1212E',
       capacity:0.680, liftHeight:11.6, workHeight:13.6, platformSize:'2.44m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:680, machineWeight:3800, machineWidth:1.17,
@@ -18357,7 +18357,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'sinoboom-1414e-plus', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1414e-plus', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1414E Plus Electric', shortName:'Sinoboom 1414E Plus',
       capacity:0.454, liftHeight:13.1, workHeight:15.1, platformSize:'2.44m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454, machineWeight:4400, machineWidth:1.17,
@@ -18367,7 +18367,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'sinoboom-1018rd', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1018rd', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1018RD Rough Terrain', shortName:'Sinoboom 1018RD',
       capacity:0.544, liftHeight:9.7, workHeight:11.7, platformSize:'2.44m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:454, machineWeight:4200, machineWidth:1.83,
@@ -18377,7 +18377,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'sinoboom-1018re', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1018re', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1018RE Electric RT', shortName:'Sinoboom 1018RE',
       capacity:0.544, liftHeight:9.7, workHeight:11.7, platformSize:'2.44m × 1.83m',
       terrain:'outdoor rough', power:'Electric (Battery)', swl:454, machineWeight:4000, machineWidth:1.83,
@@ -18387,7 +18387,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'sinoboom-1218rd', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1218rd', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1218RD Rough Terrain', shortName:'Sinoboom 1218RD',
       capacity:0.544, liftHeight:11.6, workHeight:13.6, platformSize:'2.80m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:454, machineWeight:5200, machineWidth:1.83,
@@ -18397,7 +18397,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'sinoboom-1323rd', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1323rd', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1323RD Rough Terrain', shortName:'Sinoboom 1323RD',
       capacity:0.544, liftHeight:12.6, workHeight:14.6, platformSize:'3.07m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:454, machineWeight:5800, machineWidth:1.83,
@@ -18407,7 +18407,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'sinoboom-1323re', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1323re', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1323RE Electric RT', shortName:'Sinoboom 1323RE',
       capacity:0.544, liftHeight:12.6, workHeight:14.6, platformSize:'3.07m × 1.83m',
       terrain:'outdoor rough', power:'Electric (Battery)', swl:454, machineWeight:5600, machineWidth:1.83,
@@ -18417,7 +18417,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'sinoboom-1323rh', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1323rh', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1323RH Rough Terrain', shortName:'Sinoboom 1323RH',
       capacity:0.680, liftHeight:13.1, workHeight:15.1, platformSize:'3.98m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:680, machineWeight:5200, machineWidth:2.28,
@@ -18427,7 +18427,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','rough','heavy']
     },
     {
-      id:'sinoboom-1623rd', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1623rd', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1623RD Rough Terrain', shortName:'Sinoboom 1623RD',
       capacity:0.680, liftHeight:15.7, workHeight:17.7, platformSize:'3.56m × 2.06m',
       terrain:'outdoor rough', power:'Diesel', swl:680, machineWeight:8500, machineWidth:2.06,
@@ -18437,7 +18437,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high','heavy']
     },
     {
-      id:'sinoboom-1623re', brand:'Sinoboom', emoji:'✂️', brandColor:'#005BAA',
+      id:'sinoboom-1623re', brand:'Sinoboom', emoji:'SL', brandColor:'#005BAA',
       name:'Sinoboom 1623RE Electric RT', shortName:'Sinoboom 1623RE',
       capacity:0.680, liftHeight:15.7, workHeight:17.7, platformSize:'3.56m × 2.06m',
       terrain:'outdoor rough', power:'Electric (Battery)', swl:680, machineWeight:8200, machineWidth:2.06,
@@ -18448,7 +18448,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── LGMG SCISSOR ───────────────────────────────────────────
     {
-      id:'lgmg-ss0407e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-ss0407e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SS0407E Electric', shortName:'LGMG SS0407E',
       capacity:0.227, liftHeight:3.9, workHeight:5.9, platformSize:'1.83m × 0.76m',
       terrain:'indoor', power:'Electric', swl:227,
@@ -18459,7 +18459,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'lgmg-s0607e2', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-s0607e2', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG S0607E-2 Electric', shortName:'LGMG S0607E-2',
       capacity:0.227, liftHeight:5.8, workHeight:7.8, platformSize:'1.83m × 0.76m',
       terrain:'indoor', power:'Electric', swl:227,
@@ -18470,7 +18470,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'lgmg-as0607e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-as0607e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG AS0607E Electric', shortName:'LGMG AS0607E',
       capacity:0.227, liftHeight:5.8, workHeight:7.8, platformSize:'1.83m × 0.76m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:227,
@@ -18481,7 +18481,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'lgmg-as0808e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-as0808e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG AS0808E Electric', shortName:'LGMG AS0808E',
       capacity:0.320, liftHeight:7.7, workHeight:9.7, platformSize:'2.26m × 0.81m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:320,
@@ -18492,7 +18492,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'lgmg-as0812e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-as0812e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG AS0812E Electric', shortName:'LGMG AS0812E',
       capacity:0.454, liftHeight:7.7, workHeight:9.7, platformSize:'2.26m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454,
@@ -18503,7 +18503,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'lgmg-as1012e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-as1012e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG AS1012E Electric', shortName:'LGMG AS1012E',
       capacity:0.454, liftHeight:9.7, workHeight:11.7, platformSize:'2.26m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454,
@@ -18514,7 +18514,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'lgmg-as1212e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-as1212e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG AS1212E Electric', shortName:'LGMG AS1212E',
       capacity:0.680, liftHeight:11.6, workHeight:13.6, platformSize:'2.26m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:680,
@@ -18525,7 +18525,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'lgmg-as1413e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-as1413e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG AS1413E Electric', shortName:'LGMG AS1413E',
       capacity:0.454, liftHeight:13.1, workHeight:15.1, platformSize:'2.44m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454,
@@ -18536,7 +18536,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'lgmg-sr0818e2', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-sr0818e2', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SR0818E-2 Electric RT', shortName:'LGMG SR0818E-2',
       capacity:0.544, liftHeight:8.1, workHeight:10.1, platformSize:'2.44m × 1.83m',
       terrain:'outdoor rough', power:'Electric (Battery)', swl:454,
@@ -18548,7 +18548,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // LGMG RT Diesel scissors
     {
-      id:'lgmg-sr1018e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-sr1018e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SR1018E Rough Terrain', shortName:'LGMG SR1018E',
       capacity:0.544, liftHeight:9.7, workHeight:11.7, platformSize:'2.44m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -18559,7 +18559,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'lgmg-sr1218e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-sr1218e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SR1218E Rough Terrain', shortName:'LGMG SR1218E',
       capacity:0.680, liftHeight:11.6, workHeight:13.6, platformSize:'3.07m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -18570,7 +18570,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','heavy']
     },
     {
-      id:'lgmg-sr1623e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-sr1623e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SR1623E Rough Terrain', shortName:'LGMG SR1623E',
       capacity:0.680, liftHeight:15.7, workHeight:17.7, platformSize:'3.56m × 2.06m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -18581,7 +18581,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','high','heavy']
     },
     {
-      id:'lgmg-sr2023e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-sr2023e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SR2023E Rough Terrain', shortName:'LGMG SR2023E',
       capacity:0.680, liftHeight:19.5, workHeight:21.5, platformSize:'3.94m × 2.06m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -18853,7 +18853,7 @@ filters:['telehandler','rough','heavy','rotating']
 
     // LGMG Crawler scissors
     {
-      id:'lgmg-sc0407e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-sc0407e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SC0407E Crawler Electric', shortName:'LGMG SC0407E Crawler',
       capacity:0.227, liftHeight:3.9, workHeight:5.9, platformSize:'1.83m × 0.76m',
       terrain:'outdoor crawler rough', power:'Electric (Battery)', swl:227,
@@ -18864,7 +18864,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric','crawler']
     },
     {
-      id:'lgmg-sc0607e', brand:'LGMG', emoji:'✂️', brandColor:'#D62828',
+      id:'lgmg-sc0607e', brand:'LGMG', emoji:'SL', brandColor:'#D62828',
       name:'LGMG SC0607E Crawler Electric', shortName:'LGMG SC0607E Crawler',
       capacity:0.227, liftHeight:5.8, workHeight:7.8, platformSize:'1.83m × 0.76m',
       terrain:'outdoor crawler rough', power:'Electric (Battery)', swl:227,
@@ -18876,7 +18876,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── LIUGONG SCISSOR ────────────────────────────────────────
     {
-      id:'liugong-ls0507em', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls0507em', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS0507EM Electric', shortName:'LiuGong LS0507EM',
       capacity:0.227, liftHeight:4.9, workHeight:6.9, platformSize:'1.52m × 0.76m',
       terrain:'indoor', power:'Electric', swl:227, machineWeight:900, machineWidth:0.76,
@@ -18886,7 +18886,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'liugong-ls0607em', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls0607em', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS0607EM Electric', shortName:'LiuGong LS0607EM',
       capacity:0.227, liftHeight:5.8, workHeight:7.8, platformSize:'1.83m × 0.76m',
       terrain:'indoor', power:'Electric', swl:227, machineWeight:1250, machineWidth:0.76,
@@ -18896,7 +18896,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'liugong-ls0608e', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls0608e', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS0608E Electric', shortName:'LiuGong LS0608E',
       capacity:0.320, liftHeight:5.8, workHeight:7.8, platformSize:'1.83m × 0.81m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:320, machineWeight:1550, machineWidth:0.81,
@@ -18906,7 +18906,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'liugong-ls0808e', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls0808e', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS0808E Electric', shortName:'LiuGong LS0808E',
       capacity:0.320, liftHeight:7.7, workHeight:9.7, platformSize:'2.26m × 0.81m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:320, machineWeight:1870, machineWidth:0.81,
@@ -18916,7 +18916,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'liugong-ls0812e', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls0812e', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS0812E Electric', shortName:'LiuGong LS0812E',
       capacity:0.454, liftHeight:7.7, workHeight:9.7, platformSize:'2.26m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454, machineWeight:2250, machineWidth:1.17,
@@ -18926,7 +18926,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'liugong-ls1012e', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls1012e', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS1012E Electric', shortName:'LiuGong LS1012E',
       capacity:0.454, liftHeight:9.7, workHeight:11.7, platformSize:'2.26m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454, machineWeight:2900, machineWidth:1.17,
@@ -18936,7 +18936,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'liugong-ls1212e', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls1212e', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS1212E Electric', shortName:'LiuGong LS1212E',
       capacity:0.680, liftHeight:11.6, workHeight:13.6, platformSize:'2.44m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:680, machineWeight:3600, machineWidth:1.17,
@@ -18946,7 +18946,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor']
     },
     {
-      id:'liugong-ls1414e', brand:'LiuGong', emoji:'✂️', brandColor:'#0066B3',
+      id:'liugong-ls1414e', brand:'LiuGong', emoji:'SL', brandColor:'#0066B3',
       name:'LiuGong LS1414E Electric', shortName:'LiuGong LS1414E',
       capacity:0.454, liftHeight:13.1, workHeight:15.1, platformSize:'2.44m × 1.17m',
       terrain:'indoor/outdoor firm', power:'Electric', swl:454, machineWeight:4300, machineWidth:1.17,
@@ -18958,7 +18958,7 @@ filters:['telehandler','rough','heavy','rotating']
 
     // ── MAGNI SCISSOR (large/heavy) ──────────────────────────────
     {
-      id:'magni-ps1932', brand:'Magni', emoji:'✂️', brandColor:'#1A1F36',
+      id:'magni-ps1932', brand:'Magni', emoji:'SL', brandColor:'#1A1F36',
       name:'Magni PS 19/32 Electric', shortName:'Magni PS 19/32',
       capacity:0.700, liftHeight:8.2, platformSize:'3.21m × 1.16m',
       terrain:'indoor', power:'Electric', machineWeight:4530, machineWidth:1.16,
@@ -18968,7 +18968,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'magni-ps2646', brand:'Magni', emoji:'✂️', brandColor:'#1A1F36',
+      id:'magni-ps2646', brand:'Magni', emoji:'SL', brandColor:'#1A1F36',
       name:'Magni PS 26/46 Electric', shortName:'Magni PS 26/46',
       capacity:0.700, liftHeight:11.8, platformSize:'4.57m × 1.16m',
       terrain:'indoor', power:'Electric', machineWeight:7300, machineWidth:1.16,
@@ -18978,7 +18978,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'magni-ds1218rt', brand:'Magni', emoji:'✂️', brandColor:'#1A1F36',
+      id:'magni-ds1218rt', brand:'Magni', emoji:'SL', brandColor:'#1A1F36',
       name:'Magni DS 12/18 RT', shortName:'Magni DS 12/18 RT',
       capacity:0.680, liftHeight:5.70, platformSize:'2.68m × 1.17m',
       terrain:'outdoor rough', power:'Diesel', machineWeight:4600, machineWidth:1.17,
@@ -18989,7 +18989,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'magni-es1523rt', brand:'Magni', emoji:'✂️', brandColor:'#1A1F36',
+      id:'magni-es1523rt', brand:'Magni', emoji:'SL', brandColor:'#1A1F36',
       name:'Magni ES 15/23 RT Electric', shortName:'Magni ES 15/23 RT',
       capacity:0.680, liftHeight:6.90, platformSize:'3.48m × 1.78m',
       terrain:'outdoor rough', power:'Electric', machineWeight:5800, machineWidth:1.78,
@@ -19000,7 +19000,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'magni-hs1523rt', brand:'Magni', emoji:'✂️', brandColor:'#1A1F36',
+      id:'magni-hs1523rt', brand:'Magni', emoji:'SL', brandColor:'#1A1F36',
       name:'Magni HS 15/23 RT Hybrid', shortName:'Magni HS 15/23 RT',
       capacity:0.680, liftHeight:6.90, platformSize:'3.48m × 1.78m',
       terrain:'outdoor rough', power:'Hybrid', machineWeight:6100, machineWidth:1.78,
@@ -19011,7 +19011,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'magni-es32225rt', brand:'Magni', emoji:'✂️', brandColor:'#1A1F36',
+      id:'magni-es32225rt', brand:'Magni', emoji:'SL', brandColor:'#1A1F36',
       name:'Magni ES 32/225 RT Electric', shortName:'Magni ES 32/225 RT',
       capacity:0.680, liftHeight:10.60, platformSize:'5.38m × 2.25m',
       terrain:'outdoor rough', power:'Electric', machineWeight:11500, machineWidth:2.25,
@@ -19024,7 +19024,7 @@ filters:['telehandler','rough','heavy','rotating']
 
     // ── LIFTLUX SCISSOR (large/heavy) ────────────────────────────
     {
-      id:'liftlux-sl172', brand:'Liftlux', emoji:'✂️', brandColor:'#005FA3',
+      id:'liftlux-sl172', brand:'Liftlux', emoji:'SL', brandColor:'#005FA3',
       name:'Liftlux SL 172-24 Electric', shortName:'Liftlux SL 172-24',
       capacity:0.750, liftHeight:16.2, platformSize:'4.4m × 2.3m',
       terrain:'indoor', power:'Electric', machineWeight:10600, machineWidth:2.3,
@@ -19034,7 +19034,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor']
     },
     {
-      id:'liftlux-sl205', brand:'Liftlux', emoji:'✂️', brandColor:'#005FA3',
+      id:'liftlux-sl205', brand:'Liftlux', emoji:'SL', brandColor:'#005FA3',
       name:'Liftlux SL 205-25 Diesel', shortName:'Liftlux SL 205-25',
       capacity:1.000, liftHeight:19.5, platformSize:'5.3m × 2.5m',
       terrain:'outdoor', power:'Diesel', machineWeight:14800, machineWidth:2.5,
@@ -19044,7 +19044,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','heavy']
     },
     {
-      id:'liftlux-sl260', brand:'Liftlux', emoji:'✂️', brandColor:'#005FA3',
+      id:'liftlux-sl260', brand:'Liftlux', emoji:'SL', brandColor:'#005FA3',
       name:'Liftlux SL 260-25 SP Diesel', shortName:'Liftlux SL 260-25',
       capacity:1.000, liftHeight:25.0, platformSize:'6.7m × 2.5m',
       terrain:'outdoor', power:'Diesel', machineWeight:24700, machineWidth:2.5,
@@ -19056,7 +19056,7 @@ filters:['telehandler','rough','heavy','rotating']
 
     // ── Haulotte Scissor Lifts ─────────────────────────────────────────────
     {
-      id:'haulotte-compact10n', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact10n', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 10N', shortName:'Compact 10N',
       capacity:0.250, liftHeight:7.80, workingHeight:9.80,
       platformSize:'2.40m × 0.80m', platformLength:2.40, platformWidth:0.80,
@@ -19086,7 +19086,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','narrow']
     },
     {
-      id:'haulotte-compact12', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact12', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 12', shortName:'Compact 12',
       capacity:0.320, liftHeight:9.75, workingHeight:11.75,
       platformSize:'2.40m × 1.17m', platformLength:2.40, platformWidth:1.17,
@@ -19116,7 +19116,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'haulotte-compact14', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact14', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 14', shortName:'Compact 14',
       capacity:null, liftHeight:11.75, workingHeight:13.75,
       platformSize:'2.40m × 1.17m', platformLength:2.40, platformWidth:1.17,
@@ -19146,7 +19146,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'haulotte-compact10dx', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact10dx', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 10 DX', shortName:'Compact 10 DX',
       capacity:0.565, liftHeight:8.28, workingHeight:10.28,
       platformSize:'2.45m × 1.45m', platformLength:2.45, platformWidth:1.45,
@@ -19176,7 +19176,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'haulotte-compact8n', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact8n', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 8N', shortName:'Compact 8N',
       capacity:0.350, liftHeight:6.0, workingHeight:8.0,
       platformSize:'2.40m × 0.80m', platformLength:2.40, platformWidth:0.80,
@@ -19206,7 +19206,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric','narrow']
     },
     {
-      id:'haulotte-hs18e-max', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-hs18e-max', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte HS18 E MAX', shortName:'HS18 E MAX',
       capacity:0.750, liftHeight:16.0, workingHeight:18.0,
       platformSize:'3.93m × 1.89m', platformLength:3.93, platformWidth:1.89,
@@ -19235,7 +19235,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric','high']
     },
     {
-      id:'haulotte-hs21e', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-hs21e', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte HS21 E', shortName:'HS21 E',
       capacity:0.750, liftHeight:19.2, workingHeight:21.2,
       platformSize:'4.96m × 2.08m', platformLength:4.96, platformWidth:2.08,
@@ -19265,7 +19265,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric','high','heavy']
     },
     {
-      id:'haulotte-hs21e-pro', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-hs21e-pro', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte HS21 E PRO', shortName:'HS21 E PRO',
       capacity:0.750, liftHeight:19.2, workingHeight:21.2,
       platformSize:'4.96m × 2.08m', platformLength:4.96, platformWidth:2.08,
@@ -19295,7 +19295,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric','high','heavy']
     },
     {
-      id:'haulotte-compact12dx', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact12dx', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 12 DX', shortName:'Compact 12 DX',
       capacity:0.450, liftHeight:10.06, workingHeight:12.06,
       platformSize:'2.45m × 1.45m', platformLength:2.45, platformWidth:1.45,
@@ -19325,7 +19325,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough']
     },
     {
-      id:'haulotte-hs15e', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-hs15e', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte HS15 E', shortName:'HS15 E',
       capacity:0.750, liftHeight:13.0, workingHeight:15.0,
       platformSize:'3.93m × 1.89m', platformLength:3.93, platformWidth:1.89,
@@ -19355,7 +19355,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'haulotte-hs18e', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-hs18e', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte HS18 E', shortName:'HS18 E',
       capacity:0.750, liftHeight:16.0, workingHeight:18.0,
       platformSize:'3.93m × 1.89m', platformLength:3.93, platformWidth:1.89,
@@ -19386,7 +19386,7 @@ filters:['telehandler','rough','heavy','rotating']
 
     // ── Haulotte Optimum Series (Electric Scissors) ──────────────────────
     {
-      id:'haulotte-optimum6', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-optimum6', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Optimum 6', shortName:'Optimum 6',
       platformHeight:3.86, liftHeight:3.86, workingHeight:5.86, capacity:300, power:'Electric',
       swl:300,
@@ -19401,7 +19401,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','narrow']
     },
     {
-      id:'haulotte-optimum8', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-optimum8', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Optimum 8', shortName:'Optimum 8',
       capacity:0.230, liftHeight:5.77, workingHeight:7.77,
       platformSize:'1.72m × 0.74m', platformLength:1.72, platformWidth:0.74,
@@ -19431,7 +19431,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric','narrow']
     },
     {
-      id:'haulotte-optimum8ac', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-optimum8ac', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Optimum 8 AC', shortName:'Optimum 8 AC',
       platformHeight:5.95, liftHeight:5.95, workingHeight:7.95, capacity:300, power:'Electric (AC)',
       swl:300,
@@ -19446,7 +19446,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','narrow']
     },
     {
-      id:'haulotte-optimum10', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-optimum10', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Optimum 10', shortName:'Optimum 10',
       platformHeight:7.97, liftHeight:7.97, liftHeight:7.97, workingHeight:9.97, capacity:400, power:'Electric',
       swl:400,
@@ -19461,7 +19461,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'haulotte-optimum10n', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-optimum10n', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Optimum 10N', shortName:'Optimum 10N',
       platformHeight:7.97, liftHeight:7.97, workingHeight:9.97, capacity:300, power:'Electric',
       swl:300,
@@ -19476,7 +19476,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','narrow']
     },
     {
-      id:'haulotte-optimum1530e', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-optimum1530e', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Optimum 1530E', shortName:'Optimum 1530E',
       platformHeight:13.08, liftHeight:13.08, workingHeight:15.08, capacity:450, power:'Electric',
       swl:450,
@@ -19491,7 +19491,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'haulotte-optimum1931ac', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-optimum1931ac', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Optimum 1931 AC', shortName:'Optimum 1931 AC',
       platformHeight:16.97, liftHeight:16.97, workingHeight:18.97, capacity:450, power:'Electric (AC)',
       swl:450,
@@ -19506,7 +19506,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric','high']
     },
     {
-      id:'haulotte-compact8', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact8', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 8', shortName:'Compact 8',
       platformHeight:5.60, liftHeight:5.60, workingHeight:7.60, capacity:350, power:'Electric',
       swl:350,
@@ -19521,7 +19521,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','narrow']
     },
     {
-      id:'haulotte-compact10', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact10', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 10', shortName:'Compact 10',
       capacity:0.450, liftHeight:8.0, workingHeight:10.0,
       platformSize:'2.40m × 1.17m', platformLength:2.40, platformWidth:1.17,
@@ -19551,7 +19551,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric']
     },
     {
-      id:'haulotte-compact3347e', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact3347e', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 3347E', shortName:'Compact 3347E',
       platformHeight:11.60, liftHeight:11.60, workingHeight:13.60, capacity:680, power:'Electric',
       swl:680,
@@ -19566,7 +19566,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','outdoor','electric','high']
     },
     {
-      id:'haulotte-compact3947e', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact3947e', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 3947E', shortName:'Compact 3947E',
       platformHeight:16.97, liftHeight:16.97, workingHeight:18.97, capacity:680, power:'Electric',
       swl:680,
@@ -19582,7 +19582,7 @@ filters:['telehandler','rough','heavy','rotating']
     },
     // ── Haulotte Rough Terrain Scissors (additional) ────────────────────
     {
-      id:'haulotte-compact3368rt', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-compact3368rt', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte Compact 3368 RT', shortName:'Compact 3368 RT',
       platformHeight:11.60, liftHeight:11.60, workingHeight:13.60, capacity:1000, power:'Diesel 4WD',
       swl:454,
@@ -19597,7 +19597,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','heavy']
     },
     {
-      id:'haulotte-h12sx', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-h12sx', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte H12 SX', shortName:'H12 SX',
       platformHeight:9.80, liftHeight:9.80, workingHeight:11.80, capacity:450, power:'Diesel 4WD',
       swl:454,
@@ -19612,7 +19612,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel']
     },
     {
-      id:'haulotte-h15sx', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-h15sx', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte H15 SX', shortName:'H15 SX',
       platformHeight:13.00, liftHeight:13.00, workingHeight:15.00, capacity:600, power:'Diesel 4WD',
       swl:454,
@@ -19627,7 +19627,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel']
     },
     {
-      id:'haulotte-h18sx', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-h18sx', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte H18 SX', shortName:'H18 SX',
       platformHeight:16.00, liftHeight:16.00, workingHeight:18.00, capacity:600, power:'Diesel 4WD',
       swl:454,
@@ -19642,7 +19642,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','high']
     },
     {
-      id:'haulotte-hs15e-pro', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-hs15e-pro', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte HS15 E PRO', shortName:'HS15 E PRO',
       capacity:0.750, liftHeight:13.0, workingHeight:15.0,
       platformSize:'3.93m × 1.89m', platformLength:3.93, platformWidth:1.89,
@@ -19670,7 +19670,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'haulotte-hs18e-pro', brand:'Haulotte', emoji:'✂️', brandColor:'#E8001B',
+      id:'haulotte-hs18e-pro', brand:'Haulotte', emoji:'SL', brandColor:'#E8001B',
       name:'Haulotte HS18 E PRO', shortName:'HS18 E PRO',
       capacity:0.750, liftHeight:16.0, workingHeight:18.0,
       platformSize:'3.93m × 1.89m', platformLength:3.93, platformWidth:1.89,
@@ -19721,7 +19721,7 @@ filters:['telehandler','rough','heavy','rotating']
     // --- Electric / Slab Scissor Lifts ---
 
     {
-      id:'zoomlion-zs0407e', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs0407e', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS0407E Full Electric', shortName:'ZS0407E',
       capacity:0.240, liftHeight:4.20, platformSize:'1.29m × 0.70m',
       terrain:'indoor', power:'Electric (Full Electric)', swl:240,
@@ -19734,7 +19734,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'zoomlion-zs0607e', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs0607e', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS0607E Full Electric', shortName:'ZS0607E',
       capacity:0.230, liftHeight:5.80, platformSize:'1.65m × 0.76m',
       terrain:'indoor', power:'Electric (Full Electric)', swl:230,
@@ -19747,7 +19747,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'zoomlion-zs0607acwli', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs0607acwli', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS0607ACW-Li Lithium Scissor', shortName:'ZS0607ACW-Li',
       capacity:0.230, liftHeight:6.00, platformSize:'1.37m × 0.81m',
       terrain:'indoor', power:'Electric (AC Lithium)', swl:230,
@@ -19760,7 +19760,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'zoomlion-zs0808acli', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs0808acli', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS0808AC-Li Scissor', shortName:'ZS0808AC-Li',
       capacity:0.230, liftHeight:8.00, platformSize:'2.26m × 1.14m',
       terrain:'indoor', power:'Electric (AC Lithium)', swl:230,
@@ -19773,7 +19773,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric']
     },
     {
-      id:'zoomlion-zs1012acli', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs1012acli', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS1012AC-Li Scissor', shortName:'ZS1012AC-Li',
       capacity:0.230, liftHeight:9.80, platformSize:'2.49m × 1.15m',
       terrain:'indoor', power:'Electric (AC Lithium)', swl:230,
@@ -19789,7 +19789,7 @@ filters:['telehandler','rough','heavy','rotating']
     // --- Crawler Scissor Lifts ---
 
     {
-      id:'zoomlion-zs0508c', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs0508c', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS0508C Crawler Scissor', shortName:'ZS0508C',
       capacity:0.230, liftHeight:5.00, platformSize:'1.37m × 0.81m',
       terrain:'outdoor rough', power:'Electric (AC)', swl:230,
@@ -19801,7 +19801,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'zoomlion-zs0610c', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs0610c', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS0610C Crawler Scissor', shortName:'ZS0610C',
       capacity:0.230, liftHeight:6.00, platformSize:'1.65m × 0.81m',
       terrain:'outdoor rough', power:'Electric (AC)', swl:230,
@@ -19813,7 +19813,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'zoomlion-zs0612c', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs0612c', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS0612C Crawler Scissor', shortName:'ZS0612C',
       capacity:0.230, liftHeight:6.00, platformSize:'1.65m × 1.00m',
       terrain:'outdoor rough', power:'Electric (AC)', swl:230,
@@ -19825,7 +19825,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','electric']
     },
     {
-      id:'zoomlion-zs1216c', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs1216c', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS1216C Crawler Scissor', shortName:'ZS1216C',
       capacity:0.350, liftHeight:11.80, platformSize:'2.23m × 1.16m',
       terrain:'outdoor rough', power:'Electric (AC)', swl:350,
@@ -19841,7 +19841,7 @@ filters:['telehandler','rough','heavy','rotating']
     // --- Rough Terrain Scissor Lifts ---
 
     {
-      id:'zoomlion-zs1018rt', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs1018rt', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS1018RT Rough Terrain Scissor', shortName:'ZS1018RT',
       capacity:0.454, liftHeight:8.00, platformSize:'2.44m × 1.17m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -19853,7 +19853,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel']
     },
     {
-      id:'zoomlion-zs1023rt', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs1023rt', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS1023RT Rough Terrain Scissor', shortName:'ZS1023RT',
       capacity:0.454, liftHeight:8.00, platformSize:'3.00m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:454,
@@ -19865,7 +19865,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel']
     },
     {
-      id:'zoomlion-zs1218rt', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs1218rt', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS1218RT Rough Terrain Scissor', shortName:'ZS1218RT',
       capacity:0.680, liftHeight:10.00, platformSize:'3.08m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -19878,7 +19878,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel']
     },
     {
-      id:'zoomlion-zs1323rt', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs1323rt', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS1323RT Rough Terrain Scissor', shortName:'ZS1323RT',
       capacity:0.680, liftHeight:11.00, platformSize:'3.48m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -19890,7 +19890,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','outdoor','rough','diesel','high']
     },
     {
-      id:'zoomlion-zs1623rt', brand:'Zoomlion', emoji:'✂️', brandColor:'#D32F2F',
+      id:'zoomlion-zs1623rt', brand:'Zoomlion', emoji:'SL', brandColor:'#D32F2F',
       name:'Zoomlion ZS1623RT Rough Terrain Scissor', shortName:'ZS1623RT',
       capacity:0.680, liftHeight:16.00, platformSize:'3.98m × 1.83m',
       terrain:'outdoor rough', power:'Diesel', swl:680,
@@ -19935,7 +19935,7 @@ filters:['telehandler','rough','heavy','rotating']
 
     // ── SNORKEL ELECTRIC SCISSOR LIFTS (SLAB) ────────────────────
     {
-      id:'snorkel-s3013', brand:'Snorkel', emoji:'✂️', brandColor:'#1A5276',
+      id:'snorkel-s3013', brand:'Snorkel', emoji:'SL', brandColor:'#1A5276',
       name:'Snorkel S3013 Electric Scissor', shortName:'S3013',
       capacity:0.272, liftHeight:3.96, platformSize:'0.74m × 1.32m (ext 0.74m × 1.93m)',
       terrain:'indoor', power:'Electric Lithium 24V', swl:272,
@@ -19949,7 +19949,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','low','compact']
     },
     {
-      id:'snorkel-s3215e', brand:'Snorkel', emoji:'✂️', brandColor:'#1A5276',
+      id:'snorkel-s3215e', brand:'Snorkel', emoji:'SL', brandColor:'#1A5276',
       name:'Snorkel S3215E Electric Scissor', shortName:'S3215E',
       capacity:0.272, liftHeight:4.57, platformSize:'0.72m × 1.62m (ext 0.72m × 2.53m)',
       terrain:'indoor', power:'Electric 24V', swl:272,
@@ -19963,7 +19963,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','low','compact']
     },
     {
-      id:'snorkel-s3219e', brand:'Snorkel', emoji:'✂️', brandColor:'#1A5276',
+      id:'snorkel-s3219e', brand:'Snorkel', emoji:'SL', brandColor:'#1A5276',
       name:'Snorkel S3219E Electric Scissor', shortName:'S3219E',
       capacity:0.250, liftHeight:5.79, platformSize:'0.72m × 1.62m (ext 0.72m × 2.53m)',
       terrain:'indoor', power:'Electric 24V', swl:250,
@@ -19977,7 +19977,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','medium','compact']
     },
     {
-      id:'snorkel-s3220e', brand:'Snorkel', emoji:'✂️', brandColor:'#1A5276',
+      id:'snorkel-s3220e', brand:'Snorkel', emoji:'SL', brandColor:'#1A5276',
       name:'Snorkel S3220E Electric Scissor', shortName:'S3220E',
       capacity:0.408, liftHeight:4.57, platformSize:'0.71m × 2.14m (ext 0.71m × 3.05m)',
       terrain:'indoor', power:'Electric 24V', swl:408,
@@ -19991,7 +19991,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','low','highcap']
     },
     {
-      id:'snorkel-s3226e', brand:'Snorkel', emoji:'✂️', brandColor:'#1A5276',
+      id:'snorkel-s3226e', brand:'Snorkel', emoji:'SL', brandColor:'#1A5276',
       name:'Snorkel S3226E Electric Scissor', shortName:'S3226E',
       capacity:0.249, liftHeight:6.09, platformSize:'0.71m × 2.14m (ext 0.71m × 3.05m)',
       terrain:'indoor', power:'Electric 24V', swl:249,
@@ -20005,7 +20005,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','medium','compact']
     },
     {
-      id:'snorkel-s4726e', brand:'Snorkel', emoji:'✂️', brandColor:'#1A5276',
+      id:'snorkel-s4726e', brand:'Snorkel', emoji:'SL', brandColor:'#1A5276',
       name:'Snorkel S4726E Electric Scissor', shortName:'S4726E',
       capacity:0.454, liftHeight:6.09, platformSize:'1.09m × 2.14m (ext 1.09m × 3.36m)',
       terrain:'indoor', power:'Electric 24V', swl:454,
@@ -20019,7 +20019,7 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['scissor','indoor','electric','medium','highcap']
     },
     {
-      id:'snorkel-s4732e', brand:'Snorkel', emoji:'✂️', brandColor:'#1A5276',
+      id:'snorkel-s4732e', brand:'Snorkel', emoji:'SL', brandColor:'#1A5276',
       name:'Snorkel S4732E Electric Scissor', shortName:'S4732E',
       capacity:0.318, liftHeight:7.92, platformSize:'1.09m × 2.14m (ext 1.09m × 3.36m)',
       terrain:'indoor', power:'Electric 24V', swl:318,
@@ -23907,7 +23907,7 @@ filters:['telehandler','rough','heavy','rotating']
       supplier:'Monitor Access — monitor.net.au — 1800 025 024',
       bestFor:'Spider lift 27.5m heavy duty — 250kg capacity, 15.5m outreach, 1.1m narrow, 5.3T battery indoor rated, first choice for tougher commercial applications',
       note:'Monitor 2750RX Spider Lift: 27.50m working height (26.50m in narrow set) / ~25.50m platform height. 250kg SWL — increased capacity for heavy-duty versatility. Max horizontal outreach 15.50m. Stowed: 1.10m wide × 7.34m long × 2.19m high — suited to indoor applications. Weight: 5,315kg (expandable tracks). Kubota 20 HP diesel + battery dual power. Turret rotation 710° (non-continuous). Basket rotation 100°. Auto-levelling standard. Max stabiliser slope 21.8°. 19.3° lengthwise / 14° sideways gradeability. Ground pressure driving 78.5 kN/m². Stabilised live load: wide 2.84 / narrow 4.0 kN/m². Max stabiliser force 32.6 kN / pressure 326 kN/m². 2.6 km/h drive. Expanding tracks standard. Non-marking rubber tracks — no damage on good surfaces. Battery power + compact dimensions + light weight + non-marking tracks = perfect indoor spider lift. Exceptional up-and-over outreach capability for confined/congested areas. First choice for tougher commercial applications. Electric emergency lowering standard. Australian distributor: Monitor Access (monitor.net.au, 1800 025 024). Source: Monitor Access 2750RX Brochure (V1.0, 250122).',
-      upOverNote:'Up-and-over from 27.50m. 15.50m outreach — exceptional up-and-over in class. 250kg capacity + 1.1m narrow + non-marking tracks + battery = the premium heavy-duty indoor spider lift choice.',
+      upOverNote:'Up-and-over from 27.50m. 15.50m outreach — exceptional up-and-over in class. 250kg capacity + 1.1m narrow + non-marking tracks + battery = the higher-bid heavy-duty indoor spider lift choice.',
       tags:['27.5m Working Height','250kg Heavy Duty','Spider Lift','Monitor','OMME','Tracked Crawler','110cm Narrow','15.5m Outreach','5315kg','Non-Marking Tracks','Battery Indoor','Kubota 20HP','Expanding Tracks','710° Rotation','Commercial Heavy Duty','Monitor Access','AU Brand','2750RX'],
       filters:['boom','articulating','outdoor','rough','electric','narrow','indoor','crawler']
     },
@@ -24650,7 +24650,7 @@ filters:['telehandler','rough','heavy','rotating']
       upOverHeight:7.30, upOverReach:7.50,
       machineWeight:7000, machineWidth:1.98, machineLength:6.10, machineHeight:2.10,
       power:'Diesel/Electric Hybrid', swl:230, terrain:'indoor/outdoor',
-      bestFor:'PRO version HA15 IP — ACTILEV telematics, extended warranty, premium service',
+      bestFor:'PRO version HA15 IP — ACTILEV telematics, extended warranty, higher-bid service',
       note:'Haulotte HA15 IP PRO: same specs as HA15 IP (13.10m platform / 15.10m working height, 7.5m outreach) with PRO package: ACTILEV fleet telematics, load management, preventive maintenance alerts and enhanced support contract.',
       upOverNote:'Up-and-over: 7.5m reach clearing 7.3m. Dual power indoor/outdoor.',
       tags:['Articulating','13.1m Platform','15.1m Working Height','7.5m Reach','Hybrid','PRO','ACTILEV'],
@@ -40882,7 +40882,7 @@ filters:['telehandler','rough','heavy','rotating']
         '10-inch (254mm) touchscreen main display (standard)',
         'HD rearview camera standard',
         'Redesigned cab: 15% more glass area, 30% better forward visibility vs D6N',
-        '13 seat adjustments + 4 armrest adjustments (premium seat)',
+        '13 seat adjustments + 4 armrest adjustments (higher-bid seat)',
         'HDXL with DuraLink™ undercarriage — up to 20% more seal life (high impact)',
         'Cat Abrasion undercarriage option — double seal life, eliminates bushing turns, up to 50% cost savings vs traditional',
       ],
@@ -41474,7 +41474,7 @@ filters:['telehandler','rough','heavy','rotating']
         'Next Generation cab — common controls/interface D5–D8; 10-inch colour touchscreen; integrated ROPS and FOPS; HD rearview camera standard',
         'Wide air-suspension seat; ample storage; distributed heating/cooling; electrohydraulic implement and steering controls',
         'Cloth seat standard; deluxe leather heated/ventilated seat optional',
-        '6 LED lights standard; premium 12 LED optional; integrated warning lights optional',
+        '6 LED lights standard; higher-bid 12 LED optional; integrated warning lights optional',
         'HDXL DuraLink undercarriage — Heavy Duty Extended Life (standard)',
         'Moderate Service and Extreme Service track shoe options',
         'SU and Straight blades 10% larger than D7E — fewer passes',
@@ -44641,7 +44641,7 @@ const SPEC_QS = {
         {ico:'📦', lbl:'1200mm (standard)', sub:'Suits most CHEP and standard pallets', val:'1200'},
         {ico:'📏', lbl:'1500mm (extended)', sub:'For longer loads or non-standard pallets', val:'1500'},
         {ico:'📐', lbl:'1800mm tynes + 2400mm slippers', sub:'Long timber, steel, or loads over 1.5m — slippers slide over 1800mm base tynes', val:'1800_2400slip'},
-        {ico:'✂️', lbl:'1200mm tynes + 1800mm slippers', sub:'Slippers extend over 1200mm base tynes — no tyne swap needed, suits most long loads', val:'2400slip'},
+        {ico:'📏', lbl:'1200mm tynes + 1800mm slippers', sub:'Slippers extend over 1200mm base tynes — no tyne swap needed, suits most long loads', val:'2400slip'},
       ]
     },
     {
@@ -47671,7 +47671,7 @@ function renderConfirmStep(d) {
   // Build field definitions — only numeric/editable fields need re-typing
   // Location and machine type are shown read-only (no re-type needed)
   const locLabels = { indoor:'🏭 Indoors', outdoor_firm:'🌤️ Outdoors — firm', outdoor_rough:'⛰️ Outdoors — rough terrain', both:'🔄 Both indoor & outdoor' };
-  const machLabels = { forklift:'🍴 Forklift', telehandler:'🏗️ Telehandler', scissor:'✂️ Scissor Lift', boom:'💥 Boom Lift', unknown:'❓ Unknown' };
+  const machLabels = { forklift:'🍴 Forklift', telehandler:'🏗️ Telehandler', scissor:'SL Scissor Lift', boom:'💥 Boom Lift', unknown:'❓ Unknown' };
 
   // Fields that require re-type confirmation (numeric estimates)
   const confirmFields = [];
@@ -48447,8 +48447,8 @@ function showResults() {
   const MAX_BOOM_SWL = 454;
   if (machineType === 'boom' && _swlCheck > MAX_BOOM_SWL) machineType = 'scissor';
 
-  const typeEmojis={forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
-  const typeNames={forklift:'Forklift',telehandler:'Telehandler',scissor:'Scissor Lift',boom:'Boom Lift',material:'Material Lift / Duct Lifter',pushAround:'Push-Around Manlift',palletJack:'Pallet Jack / Floor Mover',em_excavator:'Excavator',em_bobcat:'Bobcat / Skid Steer',em_dozer:'Bulldozer',em_grader:'Motor Grader',em_compactor:'Compactor / Roller',em_dumper:'Dump Truck / Dumper',em_water_cart:'Water Cart',em_mulcher:'Forestry Mulcher'};
+  const typeEmojis={forklift:'🍴',telehandler:'🏗️',scissor:'SL',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
+  const typeNames={forklift:'Forklift',telehandler:'Telehandler',scissor:'SL Scissor Lift',boom:'💥 Boom Lift',material:'Material Lift / Duct Lifter',pushAround:'Push-Around Manlift',palletJack:'Pallet Jack / Floor Mover',em_excavator:'Excavator',em_bobcat:'Bobcat / Skid Steer',em_dozer:'Bulldozer',em_grader:'Motor Grader',em_compactor:'Compactor / Roller',em_dumper:'Dump Truck / Dumper',em_water_cart:'Water Cart',em_mulcher:'Forestry Mulcher'};
 
   // ── Admin tracking: record this search ──
   try {
@@ -48460,7 +48460,10 @@ function showResults() {
     window._lastSearchId = adminTrackSearch({
       jobType, machineType, machineName: typeNames[machineType] || machineType,
       swl: swlVal !== '—' ? swlVal + 'kg' : '—',
-      height: htVal !== '—' ? htVal + 'm' : '—', city: cityVal
+      height: htVal !== '—' ? htVal + 'm' : '—', city: cityVal,
+      resultCount: matches ? matches.length : 0,
+      zeroResults: !matches || matches.length === 0,
+      hour: new Date().getHours(),
     });
     // Daily aggregate tracking — feeds the analytics dashboard
     const _trackFields = { searches: 1 };
@@ -48488,7 +48491,7 @@ function showResults() {
     need_container_mast:{yes:'✅ Container mast required',no:'Not required'},
     lift_height_fork: {ht_2m:'📦 Ground to 2m',ht_4m:'📦 2m – 4m',ht_6m:'📦 4m – 6m',ht_over6m:'🏗️ Over 6m'},
     surface_fork:     {smooth_indoor:'🏭 Smooth concrete — indoor',sealed_outdoor:'🏗️ Sealed yard / hardstand',gravel:'🌿 Gravel / compacted dirt',rough_fork:'⛰️ Rough / uneven terrain'},
-    tyne_length:      {'1200':'📦 1200mm (standard)','1500':'📏 1500mm extended','1800_2400slip':'📐 1800mm tynes + 2400mm slippers','2400slip':'✂️ 1200mm tynes + 1800mm slippers'},
+    tyne_length:      {'1200':'📦 1200mm (standard)','1500':'📏 1500mm extended','1800_2400slip':'📐 1800mm tynes + 2400mm slippers','2400slip':'📏 1200mm tynes + 1800mm slippers'},
     has_restrictions: {no_restrict:'No site restrictions',has_restrict:'⚠️ Site restrictions apply'},
     tele_rotation:    {no_rotate:'No rotation needed',yes_rotate:'🔄 Rotation required'},
     fork_power_pref:  {any:'⏭️ No preference',electric:'⚡ Electric (battery)',lpg:'🔥 LPG / Petrol',diesel:'⛽ Diesel'},
@@ -49705,7 +49708,7 @@ function _renderCards(matches, machineType, answers) {
         <div style="padding-bottom:1rem">
           <button id="sp-cart-btn-${_spIdx}"
             style="width:100%;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
-            🛒 Add to Hire Enquiry
+            🛒 Add to Hire Cart
           </button>
         </div>
       </div>`;
@@ -50490,7 +50493,7 @@ function _renderCards(matches, machineType, answers) {
       <div class="rec-tags">${(m.tags||[]).map(t=>`<span class="rtag">${t}</span>`).join('')}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
         ${(!currentUser || (currentUser.role !== 'rental' && currentUser.role !== 'lite')) ? `
-        <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name||'').replace(/'/g,"\\'")}')">🛒 Add to Hire Enquiry</button>
+        <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name||'').replace(/'/g,"\\'")}')">🛒 Add to Hire Cart</button>
         ` : (currentUser && currentUser.role === 'lite') ? `
         <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.55rem .8rem;font-size:.78rem;font-weight:700;color:#38BDF8;text-align:center;width:100%">ℹ️ For information only — contact a rental company to hire</div>
         ` : ''}
@@ -51340,10 +51343,10 @@ function renderCartItems() {
   const list = document.getElementById('cart-items-list');
   if (!list) return;
   if (quoteCart.length === 0) {
-    if (list) list.innerHTML = '<div class="cart-empty-msg">No machines added yet.<br>Click \"Add to Hire Enquiry\" on any recommendation.</div>';
+    if (list) list.innerHTML = '<div class="cart-empty-msg">No machines added yet.<br>Click \"Add to Hire Cart\" on any recommendation.</div>';
     return;
   }
-  const typeNames = {forklift:'Forklift',telehandler:'Telehandler',scissor:'Scissor Lift',boom:'Boom Lift',material:'Material Lift',pushAround:'Push-Around',palletJack:'Pallet Jack',em_excavator:'Excavator',em_bobcat:'Bobcat / Skid Steer',em_dozer:'Bulldozer',em_grader:'Motor Grader',em_compactor:'Compactor / Roller',em_dumper:'Dump Truck',em_water_cart:'Water Cart',em_mulcher:'Forestry Mulcher'};
+  const typeNames = {forklift:'Forklift',telehandler:'Telehandler',scissor:'SL Scissor Lift',boom:'💥 Boom Lift',material:'Material Lift',pushAround:'Push-Around',palletJack:'Pallet Jack',em_excavator:'Excavator',em_bobcat:'Bobcat / Skid Steer',em_dozer:'Bulldozer',em_grader:'Motor Grader',em_compactor:'Compactor / Roller',em_dumper:'Dump Truck',em_water_cart:'Water Cart',em_mulcher:'Forestry Mulcher'};
   list.innerHTML = quoteCart.map((m,i) => {
     const jr = m.jobRequirements || {};
     // Build comprehensive requirement pills
@@ -51397,10 +51400,13 @@ function renderCartItems() {
 
     // ── Attachment breakdown: included (forks/slippers) vs chargeable (jib, rotator) ──
     const chargeableAtts = jr.chargeableAttachments || [];
+    const _isForkMachine = (m.type === 'forklift' || m.type === 'telehandler');
     const attHtml = (() => {
       const parts = [];
-      // Standard forks always included
-      parts.push(`<span style="background:#DCFCE7;color:#166534;border:1px solid #86EFAC;border-radius:6px;padding:.15rem .5rem;font-size:.74rem;font-weight:700">🍴 Standard forks — included</span>`);
+      // Standard forks only shown for forklifts and telehandlers
+      if (_isForkMachine) {
+        parts.push(`<span style="background:#DCFCE7;color:#166534;border:1px solid #86EFAC;border-radius:6px;padding:.15rem .5rem;font-size:.74rem;font-weight:700">🍴 Standard forks — included</span>`);
+      }
       // Chargeable attachments — shown as separate quotable items
       chargeableAtts.forEach(att => {
         parts.push(`<span style="background:#FEF3C7;color:#92400E;border:1.5px solid #FCD34D;border-radius:6px;padding:.15rem .5rem;font-size:.74rem;font-weight:800">🔩 ${att} — quoted separately ↓</span>`);
@@ -51456,7 +51462,7 @@ function renderCartItems() {
             </div>
           </div>
         </div>` : ''}
-        <div style="font-size:.7rem;color:#92400E;font-style:italic">Standard forks included. Each rental company will quote day &amp; week rates for the above add-ons separately.</div>
+        ${_isForkMachine ? `<div style="font-size:.7rem;color:#92400E;font-style:italic">Standard forks included. Each rental company will quote day &amp; week rates for the above add-ons separately.</div>` : ''}
       </div>` : '';
 
     const loadDesc = jr.loadDescription
@@ -51958,7 +51964,7 @@ function getJobRequirements() {
 }
 
 function requestQuote(machineId, machineName) {
-  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
+  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'SL',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
   currentModalMachine = {
     id: machineId,
     name: machineName,
@@ -56089,7 +56095,7 @@ var _kymBrand = '';       // active brand filter (dozer subcategory)
 var KYM_CAT_META = {
   forklift:     { label:'Forklifts',                                              emoji:'🍴' },
   telehandler:  { label:'Telehandlers',                                           emoji:'🏗️' },
-  scissor:      { label:'Scissor Lifts',                                          emoji:'✂️' },
+  scissor:      { label:'Scissor Lifts',                                          emoji:'SL' },
   boom:         { label:'Boom Lifts',                                             emoji:'💥' },
   material:     { label:'Material Lifts',                                         emoji:'📦' },
   pushAround:   { label:'Push-Around Lifts Manlift Man-Lift AWP Vertical Mast',  emoji:'🧍' },
@@ -57049,14 +57055,14 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
 // ── end Know Your Machines ───────────────────────────────────────────
 
 function addToCartDirect(machineId, machineName, _overrideType) {
-  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'✂️',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
+  const typeEmojis = {forklift:'🍴',telehandler:'🏗️',scissor:'SL',boom:'💥',material:'📦',pushAround:'🧍',palletJack:'🔄',em_excavator:'⛏️',em_bobcat:'🚜',em_dozer:'🏔️',em_grader:'🛣️',em_compactor:'🔄',em_dumper:'🚛',em_water_cart:'💧',em_mulcher:'🌿'};
   const already = quoteCart.find(m => m.id === machineId);
   if (already) { showToast('Already in cart','#64748B'); return; }
   const _useType = _overrideType || machineType;
   quoteCart.push({ id:machineId, name:machineName, emoji:typeEmojis[_useType]||'💥', type:_useType, _isEarthworks:!!(_useType && _useType.startsWith('em_')), jobRequirements:getJobRequirements() });
   saveCartToStorage();
   updateCartUI();
-  showToast(`🛒 ${machineName} added to hire enquiry`, '#0052CC');
+  showToast(`🛒 ${machineName} added to Hire Cart`, '#0052CC');
   // Update all card buttons for this machine to "✅ In Hire Enquiry"
   const _btnId = 'cart-btn-' + machineId.replace(/[^a-z0-9]/gi,'-');
   document.querySelectorAll('[id="' + _btnId + '"]').forEach(btn => {
@@ -57079,6 +57085,8 @@ setInterval(() => { if (quoteInbox.length) renderQuoteInbox(); }, 30000);
 // ── Background Firestore reload every 60s — picks up new quotes/responses without page refresh ──
 setInterval(async () => {
   if (!currentUser || !_fbDb) return;
+  if (window._bgReloadRunning) return; // prevent stacking on slow connections
+  window._bgReloadRunning = true;
   const _prevResponseCount = quoteInbox.reduce((s,r) => s + (r.responses||[]).length, 0);
   const _prevAcceptedCount = quoteInbox.filter(r => r.acceptedBy).length;
   try {
@@ -57104,7 +57112,11 @@ setInterval(async () => {
     }
     renderQuoteInbox();
     renderMyQuotes();
-  } catch(e) {}
+  } catch(e) {
+    console.warn('[Noyo] Background reload failed:', e.message);
+  } finally {
+    window._bgReloadRunning = false;
+  }
 }, 60000);
 
 // ── Toast helper ─────────────────────────────────────────────
@@ -57246,6 +57258,349 @@ function saveDetailsRural() {
   showToast(enabled ? `✅ Rural enquiries enabled — up to ${ruralKm} km` : '🏗️ Rural enquiries turned off', enabled ? '#F97316' : '#64748B');
 }
 
+// ══════════════════════════════════════════════════════════════════
+// CUSTOMER PROFILE — ABN LOOKUP, EMAIL VERIFY, HIRE HISTORY
+// ══════════════════════════════════════════════════════════════════
+
+// ── ABN format & checksum validation (Australian Business Register algorithm) ──
+function _validateABN(abn) {
+  const d = abn.replace(/\s/g,'');
+  if (!/^\d{11}$/.test(d)) return { valid: false, reason: 'ABN must be 11 digits' };
+  const weights = [10,1,3,5,7,9,11,13,15,17,19];
+  const digits  = d.split('').map(Number);
+  digits[0] -= 1; // subtract 1 from first digit
+  const sum = digits.reduce((s, v, i) => s + v * weights[i], 0);
+  return sum % 89 === 0
+    ? { valid: true }
+    : { valid: false, reason: 'Invalid ABN — checksum failed' };
+}
+
+function detABNInput(val) {
+  // Auto-format: XX XXX XXX XXX
+  let d = val.replace(/\D/g,'').slice(0,11);
+  if (d.length > 2)  d = d.slice(0,2)  + ' ' + d.slice(2);
+  if (d.length > 6)  d = d.slice(0,6)  + ' ' + d.slice(6);
+  if (d.length > 10) d = d.slice(0,10) + ' ' + d.slice(10);
+  const inp = document.getElementById('det-abn-input');
+  if (inp) inp.value = d;
+
+  // Show inline validation
+  const st = document.getElementById('det-abn-status');
+  const digits = d.replace(/\s/g,'');
+  if (!st) return;
+  if (digits.length < 11) { st.style.display = 'none'; return; }
+  const check = _validateABN(digits);
+  st.style.display = 'block';
+  if (check.valid) {
+    st.innerHTML = '<span style="color:#15803D;font-weight:700">✓ Valid ABN format</span>';
+  } else {
+    st.innerHTML = `<span style="color:#DC2626;font-weight:700">✗ ${check.reason}</span>`;
+  }
+}
+
+async function detLookupABN() {
+  const inp = document.getElementById('det-abn-input');
+  const st  = document.getElementById('det-abn-status');
+  const res = document.getElementById('det-abn-result');
+  const btn = document.getElementById('det-abn-lookup-btn');
+  if (!inp || !st || !res) return;
+
+  const abn = inp.value.replace(/\s/g,'');
+  const check = _validateABN(abn);
+  if (!check.valid) {
+    st.style.display = 'block';
+    st.innerHTML = `<span style="color:#DC2626;font-weight:700">✗ ${check.reason}</span>`;
+    return;
+  }
+
+  // Use Claude API to look up the ABN via web search
+  btn.textContent = '⏳ Looking up…';
+  btn.disabled = true;
+  st.style.display = 'block';
+  st.innerHTML = '<span style="color:#B45309">🔍 Querying ABR register…</span>';
+  res.style.display = 'none';
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        messages: [{
+          role: 'user',
+          content: `Look up ABN ${abn} on the Australian Business Register (abr.business.gov.au). Return ONLY a JSON object with these fields: { "entityName": string, "tradingName": string or null, "status": "Active" or "Cancelled", "type": string (e.g. "Company"), "state": string (e.g. "NSW"), "gst": boolean }. Return ONLY the JSON, nothing else.`
+        }]
+      })
+    });
+    const data = await response.json();
+    const text = (data.content || []).filter(c=>c.type==='text').map(c=>c.text).join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    const info  = JSON.parse(clean);
+
+    if (info.entityName) {
+      res.style.display = 'block';
+      res.innerHTML = `
+        <div style="font-size:.82rem;font-weight:900;color:#15803D;margin-bottom:.4rem">✅ ABN Verified — ${info.status}</div>
+        <div style="display:grid;gap:.25rem;font-size:.8rem">
+          <div><span style="color:#64748B;font-weight:700;min-width:100px;display:inline-block">Business Name</span> <strong>${info.entityName}</strong></div>
+          ${info.tradingName ? `<div><span style="color:#64748B;font-weight:700;min-width:100px;display:inline-block">Trading As</span> ${info.tradingName}</div>` : ''}
+          <div><span style="color:#64748B;font-weight:700;min-width:100px;display:inline-block">Type</span> ${info.type||'—'}</div>
+          <div><span style="color:#64748B;font-weight:700;min-width:100px;display:inline-block">State</span> ${info.state||'—'}</div>
+          <div><span style="color:#64748B;font-weight:700;min-width:100px;display:inline-block">GST Registered</span> ${info.gst?'Yes ✓':'No'}</div>
+        </div>
+        <button onclick="detSaveABN(this.dataset.abn, this.dataset.name)"
+          data-abn="${abn}" data-name="${(info.entityName||'').replace(/"/g,'&quot;')}"
+          style="margin-top:.6rem;background:linear-gradient(135deg,#15803D,#166534);color:#fff;border:none;border-radius:8px;padding:.38rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">
+          💾 Save Verified ABN
+        </button>`;
+      st.innerHTML = '';
+    } else {
+      throw new Error('No entity found');
+    }
+  } catch(e) {
+    st.innerHTML = '<span style="color:#DC2626;font-weight:700">✗ Could not verify — check the ABN number or try again</span>';
+    res.style.display = 'none';
+  }
+  btn.textContent = '🔍 Verify';
+  btn.disabled = false;
+}
+
+function detSaveABN(abn, name) {
+  if (!currentUser) return;
+  saveAccountField(currentUser.email, 'abn', abn);
+  saveAccountField(currentUser.email, 'abnVerified', '1');
+  saveAccountField(currentUser.email, 'abnEntityName', name);
+  showToast('✅ ABN saved — ' + name, '#15803D', 4000);
+  const res = document.getElementById('det-abn-result');
+  if (res) res.style.background = '#DCFCE7';
+}
+
+// ── Email Verification (Firebase Auth built-in) ──────────────────
+function detRenderEmailVerification() {
+  const el = document.getElementById('det-email-verified-state');
+  if (!el || !currentUser) return;
+  const user = firebase.auth().currentUser;
+  if (!user) return;
+
+  if (user.emailVerified) {
+    el.innerHTML = `<div style="display:flex;align-items:center;gap:.5rem;color:#15803D;font-weight:800;font-size:.85rem">
+      ✅ Email verified — <span style="font-weight:600;color:#475569">${currentUser.email}</span>
+    </div>`;
+  } else {
+    el.innerHTML = `<div>
+      <div style="display:flex;align-items:center;gap:.5rem;color:#B45309;font-weight:700;font-size:.83rem;margin-bottom:.5rem">
+        ⚠️ Email not verified — <span style="font-weight:600;color:#475569">${currentUser.email}</span>
+      </div>
+      <div style="font-size:.78rem;color:#64748B;margin-bottom:.6rem">
+        Verifying your email unlocks full platform features and ensures you receive quote notifications.
+      </div>
+      <button onclick="detSendVerification()"
+        style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
+        📧 Send Verification Email
+      </button>
+    </div>`;
+  }
+}
+
+async function detSendVerification() {
+  const user = firebase.auth().currentUser;
+  if (!user) return;
+  try {
+    await user.sendEmailVerification({
+      url: window.location.origin,
+      handleCodeInApp: false
+    });
+    showToast('📧 Verification email sent to ' + user.email + ' — check your inbox', '#0052CC', 6000);
+    const el = document.getElementById('det-email-verified-state');
+    if (el) el.innerHTML = `<div style="color:#15803D;font-weight:700;font-size:.83rem">
+      ✅ Verification email sent to <strong>${user.email}</strong>.
+      Check your inbox and click the link, then refresh this page.
+    </div>`;
+  } catch(e) {
+    showToast('Could not send verification email — try again shortly', '#EF4444');
+  }
+}
+
+// ── Hire History Summary ─────────────────────────────────────────
+// ── Rental Company Business Dashboard ────────────────────────────────────────
+function renderRCBusinessDashboard() {
+  const el = document.getElementById('rc-business-content');
+  if (!el || !currentUser) return;
+
+  const fromVal = document.getElementById('rc-biz-from')?.value;
+  const toVal   = document.getElementById('rc-biz-to')?.value;
+  const fromTs  = fromVal ? new Date(fromVal).getTime() : 0;
+  const toTs    = toVal   ? new Date(toVal + 'T23:59:59').getTime() : Infinity;
+
+  const myName = currentUser.name || '';
+  const allEnq = quoteInbox;
+
+  // All enquiries this company responded to
+  const responded = allEnq.filter(r => {
+    const myResp = (r.responses||[]).find(rsp => rsp.company === myName);
+    if (!myResp) return false;
+    const ts = r.ts || 0;
+    return ts >= fromTs && ts <= toTs;
+  });
+
+  const won  = responded.filter(r => r.acceptedBy === myName);
+  const lost = responded.filter(r => r.acceptedBy && r.acceptedBy !== myName);
+  const pending = responded.filter(r => !r.acceptedBy);
+
+  // Revenue from won jobs
+  let totalRevenue = 0;
+  won.forEach(r => {
+    const myResp = (r.responses||[]).find(rsp => rsp.company === myName);
+    if (myResp) {
+      const v = parseFloat(String(myResp.grandTotal||myResp.price||0).replace(/[^0-9.]/g,''));
+      if (!isNaN(v)) totalRevenue += v;
+    }
+  });
+
+  // Pipeline (pending responses)
+  let pipeline = 0;
+  pending.forEach(r => {
+    const myResp = (r.responses||[]).find(rsp => rsp.company === myName);
+    if (myResp) {
+      const v = parseFloat(String(myResp.grandTotal||myResp.price||0).replace(/[^0-9.]/g,''));
+      if (!isNaN(v)) pipeline += v;
+    }
+  });
+
+  const winRate = responded.length > 0 ? Math.round(won.length / responded.filter(r=>r.acceptedBy).length * 100) : 0;
+  const responseRate = allEnq.filter(r=>{const ts=r.ts||0;return ts>=fromTs&&ts<=toTs;}).length > 0
+    ? Math.round(responded.length / allEnq.filter(r=>{const ts=r.ts||0;return ts>=fromTs&&ts<=toTs;}).length * 100) : 0;
+
+  // Date range
+  const ts = responded.map(r=>r.ts||0).filter(t=>t>0).sort();
+  const rangeLabel = fromVal && toVal
+    ? `${new Date(fromTs).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'})} – ${new Date(toTs).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'})}`
+    : ts.length >= 2
+    ? `${new Date(ts[0]).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'})} – ${new Date(ts[ts.length-1]).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'})}`
+    : 'All time';
+
+  const fmt = n => 'A$' + n.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  if (!responded.length) {
+    el.innerHTML = `<div style="background:#F8FAFC;border:1.5px dashed #E2E8F0;border-radius:14px;padding:2rem;text-align:center;color:#94A3B8">
+      <div style="font-size:1.8rem;margin-bottom:.5rem">📭</div>
+      <div style="font-weight:700">No business activity in this period</div>
+      <div style="font-size:.8rem;margin-top:.3rem">Submit quotes to start tracking your business performance</div>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = `
+    <!-- Won jobs hero banner -->
+    <div style="background:linear-gradient(135deg,#0A2E1A,#15803D);color:#fff;border-radius:18px;padding:1.4rem 1.6rem;margin-bottom:.8rem">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+        <div>
+          <div style="font-size:1.05rem;font-weight:900;margin-bottom:.2rem">🏆 Business Won</div>
+          <div style="font-size:.74rem;opacity:.6">${rangeLabel}</div>
+        </div>
+      </div>
+
+      <!-- Revenue hero -->
+      <div style="background:rgba(74,222,128,.15);border:1.5px solid rgba(74,222,128,.35);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:center">
+        <div style="font-size:.7rem;font-weight:800;opacity:.7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.25rem">Total Revenue Won</div>
+        <div style="font-size:2.3rem;font-weight:900;color:#4ADE80">${fmt(totalRevenue)}</div>
+        <div style="font-size:.75rem;opacity:.65;margin-top:.2rem">${won.length} hire${won.length!==1?'s':''} accepted · Avg ${fmt(won.length>0?totalRevenue/won.length:0)} per job</div>
+      </div>
+
+      <!-- Stats grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.55rem;margin-bottom:1rem">
+        ${[
+          ['📨','Quotes Submitted', responded.length, '#93C5FD'],
+          ['✅','Jobs Won',         won.length,        '#4ADE80'],
+          ['✗', 'Jobs Lost',        lost.length,       '#FCA5A5'],
+          ['⏳','Pending Decision', pending.length,    '#FCD34D'],
+          ['🏆','Win Rate',         (won.length > 0 && (won.length+lost.length)>0 ? Math.round(won.length/(won.length+lost.length)*100) : 0)+'%', '#4ADE80'],
+          ['💰','Pipeline Value',   fmt(pipeline),     '#F9A8D4'],
+        ].map(([icon,lbl,val,color]) => `
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.65rem .75rem;text-align:center">
+            <div style="font-size:.64rem;opacity:.62;text-transform:uppercase;letter-spacing:.3px;margin-bottom:.15rem">${icon} ${lbl}</div>
+            <div style="font-size:${typeof val==='string'&&val.startsWith('A$')?'.9rem':'1.05rem'};font-weight:900;color:${color}">${val}</div>
+          </div>`).join('')}
+      </div>
+
+      <!-- Won jobs list -->
+      ${won.length > 0 ? `
+        <div style="font-size:.7rem;font-weight:800;opacity:.55;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.45rem">Jobs Won</div>
+        <div style="display:flex;flex-direction:column;gap:.4rem">
+          ${won.map(r => {
+            const myResp = (r.responses||[]).find(rsp=>rsp.company===myName);
+            const val = myResp ? parseFloat(String(myResp.grandTotal||myResp.price||0).replace(/[^0-9.]/g,'')) : 0;
+            const dateStr = r.ts ? new Date(r.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+            const machines = (r.machines||[]).map(m=>m.name||m.id).join(', ') || r.id;
+            const city = r.city || r.suburb || '—';
+            return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(74,222,128,.2);border-radius:10px;padding:.6rem .85rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
+              <div>
+                <div style="font-size:.8rem;font-weight:800">${machines}</div>
+                <div style="font-size:.7rem;opacity:.6;margin-top:.1rem">📅 ${dateStr} · 📍 ${city}</div>
+              </div>
+              <div style="color:#4ADE80;font-weight:900;font-size:.95rem">${val>0?fmt(val):'—'}</div>
+            </div>`;
+          }).join('')}
+        </div>` : ''}
+    </div>`;
+}
+
+function detRenderHireHistory() {
+  const el = document.getElementById('det-hire-history');
+  if (!el || !currentUser) return;
+
+  const myEnq = quoteInbox.filter(r =>
+    (r.email || '').toLowerCase() === currentUser.email.toLowerCase()
+  );
+
+  if (!myEnq.length) {
+    el.innerHTML = '<div style="color:#94A3B8;font-size:.83rem">No hire enquiries yet — use the machine finder to get started.</div>';
+    return;
+  }
+
+  const accepted  = myEnq.filter(r => r.acceptedBy);
+  const pending   = myEnq.filter(r => !r.acceptedBy && (r.responses||[]).length > 0);
+  const awaiting  = myEnq.filter(r => !r.acceptedBy && (r.responses||[]).length === 0);
+
+  // GMV
+  let totalSpend = 0;
+  accepted.forEach(r => {
+    const p = (r.responses||[]).find(x=>x.accepted);
+    if (p) { const v = parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')); if(!isNaN(v)) totalSpend+=v; }
+  });
+
+  // Most hired machine
+  const machineCounts = {};
+  myEnq.forEach(r => (r.machines||[]).forEach(m => { const n=m.name||m.id; machineCounts[n]=(machineCounts[n]||0)+1; }));
+  const topMachine = Object.entries(machineCounts).sort((a,b)=>b[1]-a[1])[0];
+
+  // Last hire date
+  const lastEnq = myEnq.sort((a,b)=>(b.ts||0)-(a.ts||0))[0];
+  const lastDate = lastEnq?.ts ? new Date(lastEnq.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.5rem;margin-bottom:.85rem">
+      ${[
+        ['📨', 'Total Enquiries', myEnq.length],
+        ['✅', 'Completed', accepted.length],
+        ['💬', 'Awaiting Response', awaiting.length],
+        ['💰', 'Est. Total Spend', totalSpend>0?'A$'+totalSpend.toLocaleString('en-AU',{maximumFractionDigits:0}):'—'],
+      ].map(([icon,label,val])=>`
+        <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.6rem .75rem;text-align:center">
+          <div style="font-size:.68rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.3px">${icon} ${label}</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#0052CC;margin-top:.1rem">${val}</div>
+        </div>`).join('')}
+    </div>
+    <div style="font-size:.78rem;color:#475569;display:flex;flex-direction:column;gap:.25rem">
+      ${topMachine ? `<div>🏗️ <strong>Most hired:</strong> ${topMachine[0]} (${topMachine[1]} time${topMachine[1]>1?'s':''})</div>` : ''}
+      <div>📅 <strong>Last enquiry:</strong> ${lastDate}</div>
+      <a href="#" onclick="event.preventDefault();switchView('my-quotes')" style="color:#0052CC;font-weight:700;font-size:.8rem;margin-top:.3rem">View all in My Hire Enquiries →</a>
+    </div>`;
+}
+
+
 function renderMyDetails() {
   if (!currentUser) return;
   const avatarEl = document.getElementById('det-avatar');
@@ -57321,6 +57676,40 @@ function renderMyDetails() {
     } else {
       catsSection.style.display = 'none';
     }
+  }
+
+  // ── Rental company business dashboard ──────────────────────────────
+  const rcBizPanel = document.getElementById('det-rental-business-panel');
+  if (rcBizPanel) rcBizPanel.style.display = currentUser.role === 'rental' ? 'block' : 'none';
+  if (currentUser.role === 'rental') renderRCBusinessDashboard();
+
+  // ── Customer-specific sections ──────────────────────────────────
+  const custSections = document.getElementById('det-customer-sections');
+  if (custSections) custSections.style.display = currentUser.role === 'customer' ? 'block' : 'none';
+
+  if (currentUser.role === 'customer') {
+    // Load ABN
+    const abnInp = document.getElementById('det-abn-input');
+    if (abnInp) abnInp.value = loadAccountField(currentUser.email, 'abn') || '';
+
+    // Load industry
+    const indSel = document.getElementById('det-industry-select');
+    if (indSel) indSel.value = loadAccountField(currentUser.email, 'industry') || '';
+
+    // Load preferred duration
+    const durSel = document.getElementById('det-duration-select');
+    if (durSel) durSel.value = loadAccountField(currentUser.email, 'preferredDuration') || '';
+
+    // Load contact preference
+    const pref = loadAccountField(currentUser.email, 'contactPref') || 'email';
+    const prefRadio = document.querySelector(`input[name="det-contact-pref"][value="${pref}"]`);
+    if (prefRadio) prefRadio.checked = true;
+
+    // Email verification status
+    detRenderEmailVerification();
+
+    // Hire history
+    detRenderHireHistory();
   }
 }
 
@@ -58545,137 +58934,163 @@ return ratingHtml;
 }
 
 function mqRenderSavings(allMyReqs) {
+  // Show filter bar whenever there are 2+ responses
+  const filterBar = document.getElementById('mqv-savings-filter');
+  const hasCompetitive = allMyReqs.some(r => (r.responses||[]).length >= 2);
+  if (filterBar) filterBar.style.display = hasCompetitive ? 'block' : 'none';
+
+  // Date filter state
+  const fromDate = document.getElementById('mqv-from-date')?.value;
+  const toDate   = document.getElementById('mqv-to-date')?.value;
+  const fromTs   = fromDate ? new Date(fromDate).getTime() : 0;
+  const toTs     = toDate   ? new Date(toDate + 'T23:59:59').getTime() : Infinity;
+
   const el = document.getElementById('mqv-savings');
   if (!el) return;
 
-  // Only compute from requests that had at least 2 responses (meaningful comparison)
-  const competitive = allMyReqs.filter(r => (r.responses||[]).length >= 2);
+  // Filter to competitive quotes in date range
+  const competitive = allMyReqs.filter(r =>
+    (r.responses||[]).length >= 2 &&
+    (!r.ts || (r.ts >= fromTs && r.ts <= toTs))
+  );
+
   if (competitive.length === 0) { el.innerHTML = ''; return; }
 
-  // Per-order: lowest vs highest price
+  // Per-order data
   const orderData = competitive.map(r => {
-    const prices = (r.responses||[])
-      .map(p => parseFloat(String(p.grandTotal||p.price||'').replace(/[^0-9.]/g,'')))
-      .filter(n => !isNaN(n) && n > 0);
-    if (prices.length < 2) return null;
-    const low  = Math.min(...prices);
-    const high = Math.max(...prices);
-    const saved = high - low;
-    const pct   = ((saved / high) * 100);
-    const acceptedP = (r.responses||[]).find(p=>p.accepted);
-    const acceptedPrice = acceptedP ? parseFloat(String(acceptedP.grandTotal||acceptedP.price||'').replace(/[^0-9.]/g,'')) : null;
-    return { id:r.id, low, high, saved, pct, acceptedPrice, ts:r.ts||0 };
+    const pricedResponses = (r.responses||[])
+      .map(p => ({ ...p, _price: parseFloat(String(p.grandTotal||p.price||'').replace(/[^0-9.]/g,'')) }))
+      .filter(p => !isNaN(p._price) && p._price > 0)
+      .sort((a,b) => a._price - b._price);
+    if (pricedResponses.length < 2) return null;
+
+    const low      = pricedResponses[0]._price;
+    const high     = pricedResponses[pricedResponses.length-1]._price;
+    const lowCo    = pricedResponses[0].company || '—';
+    const highCo   = pricedResponses[pricedResponses.length-1].company || '—';
+    const saved    = high - low;
+    const pct      = (saved / high) * 100;
+    const accepted = pricedResponses.find(p => p.accepted);
+    const accPrice = accepted ? accepted._price : null;
+    const accVsHigh = accPrice != null ? high - accPrice : null;
+    const accPct    = accPrice != null && high > 0 ? ((high - accPrice) / high * 100) : null;
+    const machines  = (r.machines||[]).map(m=>m.name||m.id).join(', ');
+    const dateStr   = r.ts ? new Date(r.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+    return { id:r.id, ts:r.ts||0, low, high, lowCo, highCo, saved, pct,
+             accPrice, accVsHigh, accPct, machines, dateStr,
+             quoteCount: pricedResponses.length };
   }).filter(Boolean);
 
-  if (orderData.length === 0) { el.innerHTML = ''; return; }
+  if (!orderData.length) { el.innerHTML = ''; return; }
 
-  const totalSaved    = orderData.reduce((s,o)=>s+o.saved, 0);
-  const totalHighest  = orderData.reduce((s,o)=>s+o.high, 0);
-  const totalLowest   = orderData.reduce((s,o)=>s+o.low, 0);
-  const avgPctSaving  = orderData.reduce((s,o)=>s+o.pct, 0) / orderData.length;
-  const totalAccepted = orderData.filter(o=>o.acceptedPrice!=null).reduce((s,o)=>s+o.acceptedPrice,0);
-  const totalHighestForAccepted = orderData.filter(o=>o.acceptedPrice!=null).reduce((s,o)=>s+o.high,0);
-  const acceptedVsHighest = totalHighestForAccepted > 0 ? ((totalHighestForAccepted - totalAccepted) / totalHighestForAccepted * 100) : 0;
-  const avgOrderValue = totalLowest / orderData.length;
+  const totalSaved   = orderData.reduce((s,o) => s + (o.accVsHigh != null ? o.accVsHigh : o.saved), 0);
+  const totalHigh    = orderData.reduce((s,o) => s + o.high, 0);
+  const totalLow     = orderData.reduce((s,o) => s + o.low, 0);
+  const acceptedOrders = orderData.filter(o => o.accPrice != null);
+  const totalAccepted  = acceptedOrders.reduce((s,o) => s + o.accPrice, 0);
+  const totalHighForAcc = acceptedOrders.reduce((s,o) => s + o.high, 0);
+  const overallSavingPct = totalHighForAcc > 0
+    ? ((totalHighForAcc - totalAccepted) / totalHighForAcc * 100) : 0;
+  const avgSavedPerOrder = orderData.length > 0 ? totalSaved / orderData.length : 0;
 
-  // Annualise: extrapolate savings rate to year, half-year, quarter
-  // Based on order frequency over date range of data
-  const timestamps = orderData.map(o=>o.ts).filter(t=>t>0).sort();
-  let annualMultiplier = 12; // default: assume monthly
-  if (timestamps.length >= 2) {
-    const spanMs  = timestamps[timestamps.length-1] - timestamps[0];
-    const spanDays = spanMs / 86400000;
-    if (spanDays > 7) {
-      const ordersPerDay = orderData.length / spanDays;
-      annualMultiplier = ordersPerDay * 365;
-    }
-  }
-  const projAnnual  = totalSaved * (annualMultiplier / orderData.length);
-  const projHalf    = projAnnual / 2;
-  const projQ       = projAnnual / 4;
-  const projMonthly = projAnnual / 12;
+  // Date range label
+  const ts = orderData.map(o=>o.ts).filter(t=>t>0).sort();
+  const rangeLabel = ts.length >= 2
+    ? `${new Date(ts[0]).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'})} – ${new Date(ts[ts.length-1]).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'})}`
+    : ts.length === 1 ? new Date(ts[0]).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) : '—';
 
-  const fmt = n => '$' + n.toLocaleString('en-AU', {minimumFractionDigits:2, maximumFractionDigits:2});
+  const fmt    = n => 'A$' + n.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
   const fmtPct = n => n.toFixed(1) + '%';
 
   el.innerHTML = `
-    <div style="background:linear-gradient(135deg,#0A1628,#0052CC);color:#fff;border-radius:16px;padding:1.3rem 1.5rem;margin-top:.5rem">
-      <div style="font-size:.78rem;font-weight:800;opacity:.75;text-transform:uppercase;letter-spacing:.6px;margin-bottom:1rem">💹 Your Savings Analytics — ${orderData.length} Competitive Quote${orderData.length>1?'s':''}</div>
+    <div style="background:linear-gradient(135deg,#0A1628,#0D2B52);color:#fff;border-radius:18px;padding:1.4rem 1.6rem;overflow:hidden;position:relative">
 
-      <!-- Per-order stats -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.1rem">
-        <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8rem 1rem;text-align:center">
-          <div style="font-size:1.5rem;font-weight:900;color:#4ADE80">${fmt(totalSaved)}</div>
-          <div style="font-size:.73rem;opacity:.85;margin-top:.15rem">Total saved vs highest quotes</div>
+      <!-- Header -->
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem">
+        <div>
+          <div style="font-size:1.05rem;font-weight:900;margin-bottom:.2rem">💹 Your Savings Report</div>
+          <div style="font-size:.75rem;opacity:.6">${orderData.length} competitive hire${orderData.length>1?'s':''} · ${rangeLabel}</div>
         </div>
-        <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8rem 1rem;text-align:center">
-          <div style="font-size:1.5rem;font-weight:900;color:#FCD34D">${fmtPct(avgPctSaving)}</div>
-          <div style="font-size:.73rem;opacity:.85;margin-top:.15rem">Avg saving per order vs highest</div>
-        </div>
-        <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8rem 1rem;text-align:center">
-          <div style="font-size:1.5rem;font-weight:900;color:#93C5FD">${fmt(totalSaved / orderData.length)}</div>
-          <div style="font-size:.73rem;opacity:.85;margin-top:.15rem">Avg $ saved per order</div>
-        </div>
-        ${acceptedVsHighest > 0 ? `<div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8rem 1rem;text-align:center">
-          <div style="font-size:1.5rem;font-weight:900;color:#F9A8D4">${fmtPct(acceptedVsHighest)}</div>
-          <div style="font-size:.73rem;opacity:.85;margin-top:.15rem">Accepted price vs highest available</div>
-        </div>` : ''}
+        ${fromDate||toDate ? `<div style="background:rgba(255,255,255,.12);border-radius:8px;padding:.3rem .7rem;font-size:.72rem;font-weight:700;opacity:.85">📅 Filtered</div>` : ''}
       </div>
 
-      <!-- Projected savings -->
-      <div style="border-top:1px solid rgba(255,255,255,.2);padding-top:.9rem;margin-bottom:.75rem">
-        <div style="font-size:.72rem;font-weight:800;opacity:.65;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.6rem">📈 Projected Annual Savings (based on your order rate)</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem">
-          ${[['Monthly', projMonthly], ['Quarterly', projQ], ['Half-yearly', projHalf], ['Annual', projAnnual]].map(([lbl,val]) => `
-            <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:9px;padding:.65rem .5rem;text-align:center">
-              <div style="font-size:1.05rem;font-weight:900;color:#4ADE80">${fmt(val)}</div>
-              <div style="font-size:.68rem;opacity:.75;margin-top:.1rem">${lbl}</div>
-            </div>`).join('')}
+      <!-- Hero savings number -->
+      <div style="background:linear-gradient(135deg,rgba(74,222,128,.18),rgba(74,222,128,.08));border:1.5px solid rgba(74,222,128,.4);border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:1rem;text-align:center">
+        <div style="font-size:.72rem;font-weight:800;opacity:.7;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.3rem">
+          Total saved by choosing the best quote
+        </div>
+        <div style="font-size:2.4rem;font-weight:900;color:#4ADE80;line-height:1">${fmt(totalSaved)}</div>
+        <div style="font-size:.78rem;opacity:.75;margin-top:.3rem">
+          vs. highest quotes received&nbsp;&nbsp;·&nbsp;&nbsp;
+          <strong style="color:#FCD34D">${fmtPct(overallSavingPct)}</strong> average saving
         </div>
       </div>
 
-      <!-- Per-order breakdown table -->
-      <details style="margin-top:.5rem">
-        <summary style="cursor:pointer;font-size:.77rem;font-weight:800;opacity:.8;padding:.3rem 0;list-style:none;display:flex;align-items:center;gap:.4rem">
-          <span>▶</span> Per-order savings breakdown
-        </summary>
-        <div style="margin-top:.6rem;overflow-x:auto">
-          <table style="width:100%;border-collapse:collapse;font-size:.77rem">
-            <thead>
-              <tr style="opacity:.65;text-transform:uppercase;font-size:.66rem;letter-spacing:.4px">
-                <th style="text-align:left;padding:.3rem .5rem">Order</th>
-                <th style="text-align:right;padding:.3rem .5rem">Lowest</th>
-                <th style="text-align:right;padding:.3rem .5rem">Highest</th>
-                <th style="text-align:right;padding:.3rem .5rem">Saved</th>
-                <th style="text-align:right;padding:.3rem .5rem">% Saving</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${orderData.map(o => `
-                <tr style="border-top:1px solid rgba(255,255,255,.1)">
-                  <td style="padding:.35rem .5rem;opacity:.8;font-size:.72rem">${o.id}</td>
-                  <td style="padding:.35rem .5rem;text-align:right;color:#4ADE80;font-weight:700">${fmt(o.low)}</td>
-                  <td style="padding:.35rem .5rem;text-align:right;opacity:.7">${fmt(o.high)}</td>
-                  <td style="padding:.35rem .5rem;text-align:right;color:#FCD34D;font-weight:700">${fmt(o.saved)}</td>
-                  <td style="padding:.35rem .5rem;text-align:right;color:#FCD34D;font-weight:700">${fmtPct(o.pct)}</td>
-                </tr>`).join('')}
-            </tbody>
-            <tfoot>
-              <tr style="border-top:2px solid rgba(255,255,255,.3);font-weight:900">
-                <td style="padding:.4rem .5rem;font-size:.74rem">TOTAL</td>
-                <td style="padding:.4rem .5rem;text-align:right;color:#4ADE80">${fmt(totalLowest)}</td>
-                <td style="padding:.4rem .5rem;text-align:right;opacity:.7">${fmt(totalHighest)}</td>
-                <td style="padding:.4rem .5rem;text-align:right;color:#FCD34D">${fmt(totalSaved)}</td>
-                <td style="padding:.4rem .5rem;text-align:right;color:#FCD34D">${fmtPct(avgPctSaving)} avg</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </details>
+      <!-- Stats grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin-bottom:1.1rem">
+        ${[
+          ['💰','Avg saved / hire', fmt(avgSavedPerOrder), '#93C5FD'],
+          ['📊','Avg saving %',     fmtPct(overallSavingPct), '#FCD34D'],
+          ['🏆','Best deal accepted', acceptedOrders.length + ' of ' + orderData.length, '#4ADE80'],
+          ['📝','Quotes compared',   (orderData.reduce((s,o)=>s+o.quoteCount,0)) + ' total', '#F9A8D4'],
+        ].map(([icon,lbl,val,color]) => `
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.7rem .8rem;text-align:center">
+            <div style="font-size:.66rem;opacity:.65;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.2rem">${icon} ${lbl}</div>
+            <div style="font-size:1.1rem;font-weight:900;color:${color}">${val}</div>
+          </div>`).join('')}
+      </div>
 
-      <div style="margin-top:.75rem;font-size:.69rem;opacity:.5;line-height:1.5">Savings calculated as difference between lowest and highest quote received per order. Projected figures extrapolated from your historical order frequency. Past savings are not a guarantee of future savings.</div>
+      <!-- Per-hire breakdown -->
+      <div style="font-size:.72rem;font-weight:800;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">Per-hire breakdown</div>
+      <div style="display:flex;flex-direction:column;gap:.55rem">
+        ${orderData.map((o,i) => `
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.8rem 1rem">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.55rem">
+              <div>
+                <div style="font-size:.82rem;font-weight:800">${o.machines || o.id}</div>
+                <div style="font-size:.7rem;opacity:.6;margin-top:.1rem">📅 ${o.dateStr} · ${o.quoteCount} quotes received</div>
+              </div>
+              ${o.accVsHigh != null
+                ? `<div style="background:rgba(74,222,128,.2);border:1px solid rgba(74,222,128,.4);border-radius:8px;padding:.3rem .7rem;text-align:center">
+                    <div style="font-size:.65rem;opacity:.75;font-weight:700">SAVED</div>
+                    <div style="font-size:1rem;font-weight:900;color:#4ADE80">${fmt(o.accVsHigh)}</div>
+                    <div style="font-size:.65rem;color:#4ADE80;font-weight:700">${fmtPct(o.accPct)}</div>
+                  </div>`
+                : `<div style="background:rgba(255,255,255,.08);border-radius:8px;padding:.3rem .7rem;font-size:.7rem;opacity:.5">No acceptance</div>`}
+            </div>
+            <!-- Quote comparison bar -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+              <div style="background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.3);border-radius:8px;padding:.4rem .65rem">
+                <div style="font-size:.64rem;font-weight:800;color:#4ADE80;margin-bottom:.1rem">✅ ${o.accPrice != null ? 'ACCEPTED' : 'LOWEST'} · ${o.accPrice != null ? (o.accPrice === o.low ? o.lowCo : '—') : o.lowCo}</div>
+                <div style="font-size:.95rem;font-weight:900;color:#4ADE80">${fmt(o.accPrice != null ? o.accPrice : o.low)}</div>
+              </div>
+              <div style="background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:.4rem .65rem">
+                <div style="font-size:.64rem;font-weight:800;color:#FCA5A5;margin-bottom:.1rem">📈 HIGHEST · ${o.highCo}</div>
+                <div style="font-size:.95rem;font-weight:900;color:#FCA5A5">${fmt(o.high)}</div>
+              </div>
+            </div>
+          </div>`).join('')}
+      </div>
+
+      <div style="margin-top:.9rem;font-size:.67rem;opacity:.4;line-height:1.5">
+        Savings = difference between your accepted/lowest quote and the highest quote received per hire.
+        Noyo does not guarantee savings. Prices vary by availability, location and rental company terms.
+      </div>
     </div>`;
 }
+
+function mqFilterSavings() {
+  // Re-run renderMyQuotes to apply date filter
+  renderMyQuotes();
+}
+function mqClearSavingsFilter() {
+  const f = document.getElementById('mqv-from-date');
+  const t = document.getElementById('mqv-to-date');
+  if (f) f.value = '';
+  if (t) t.value = '';
+  renderMyQuotes();
+}
+
 
 function mqSendAnswer(reqId, responseIdx, cid) {
   const req = quoteInbox.find(r => r.id === reqId);
@@ -58736,8 +59151,14 @@ document.addEventListener('click', function(e) {
 function switchView(view,btn){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('view-'+view).classList.add('active');
-  btn.classList.add('active');
+  const viewEl = document.getElementById('view-'+view);
+  if (viewEl) viewEl.classList.add('active');
+  if (btn && btn.classList) btn.classList.add('active');
+  else {
+    // Programmatic call (e.g. from toast link) — highlight the matching nav tab
+    const matchTab = document.querySelector(`.nav-tab[onclick*="${view}"]`);
+    if (matchTab) matchTab.classList.add('active');
+  }
   if (view === 'finder')       { _resetWizardToHome(); }
   if (view === 'my-quotes')    setTimeout(async () => { await loadInboxFromFirebase(); renderMyQuotes(); }, 50);
   if (view === 'my-details')   setTimeout(renderMyDetails, 50);
@@ -58746,6 +59167,44 @@ function switchView(view,btn){
 }
 
 // ── RENTAL COMPANIES DATA & MANAGEMENT ───────────────────────
+// ── Custom Machine Categories (admin-extendable) ─────────────────────────────
+var _BUILTIN_CATEGORIES = [
+  { key:'boom',        label:'Boom Lift',             emoji:'💥', description:'Articulating and telescopic aerial work platforms' },
+  { key:'scissor',     label:'Scissor Lift',           emoji:'SL',  description:'Electric and diesel scissor lifts' },
+  { key:'telehandler', label:'Telehandler',             emoji:'🏗️', description:'Fixed and rotating telehandlers' },
+  { key:'forklift',    label:'Forklift',                emoji:'🍴', description:'Counterbalance, reach and rough terrain forklifts' },
+  { key:'material',    label:'Material Lift',           emoji:'📦', description:'Vertical material lifts and hoists' },
+  { key:'pushAround',  label:'Push-Around Lift',        emoji:'🧍', description:'Non-powered push-around personnel lifts' },
+  { key:'palletJack',  label:'Pallet Jack',             emoji:'🔄', description:'Manual and electric pallet jacks' },
+  { key:'em_excavator',label:'Excavator',               emoji:'⛏️',  description:'Mini, midi and large excavators' },
+  { key:'em_bobcat',   label:'Bobcat / Skid Steer',     emoji:'🚜', description:'Compact track and wheeled loaders' },
+  { key:'em_dozer',    label:'Bulldozer',               emoji:'🏔️', description:'Track and wheeled dozers' },
+  { key:'em_grader',   label:'Motor Grader',            emoji:'🛣️',  description:'Road graders' },
+  { key:'em_compactor',label:'Compactor / Roller',      emoji:'🔄', description:'Soil and road compactors' },
+  { key:'em_dumper',   label:'Dump Truck',              emoji:'🚛', description:'Articulated and rigid dump trucks' },
+  { key:'em_water_cart',label:'Water Cart',             emoji:'💧', description:'Dust suppression water carts' },
+  { key:'em_mulcher',  label:'Forestry Mulcher',        emoji:'🌿', description:'Vegetation mulchers' },
+];
+
+function _getAllCategories() {
+  const custom = JSON.parse(localStorage.getItem('noyo_custom_cats') || '[]');
+  return [..._BUILTIN_CATEGORIES, ...custom];
+}
+function _addCustomCategory(cat) {
+  const existing = JSON.parse(localStorage.getItem('noyo_custom_cats') || '[]');
+  if (existing.find(c => c.key === cat.key)) return false;
+  existing.push(cat);
+  localStorage.setItem('noyo_custom_cats', JSON.stringify(existing));
+  if (_fbDb) _fbDb.collection('_config').doc('custom_categories').set({ categories: existing }).catch(()=>{});
+  return true;
+}
+function _deleteCustomCategory(key) {
+  const existing = JSON.parse(localStorage.getItem('noyo_custom_cats') || '[]');
+  const filtered = existing.filter(c => c.key !== key);
+  localStorage.setItem('noyo_custom_cats', JSON.stringify(filtered));
+  if (_fbDb) _fbDb.collection('_config').doc('custom_categories').set({ categories: filtered }).catch(()=>{});
+}
+
 var RENTAL_COMPANIES = [
   {
     id: 'rc1', name: 'Kennards Hire', email: 'quotes@kennards.com.au',
@@ -60000,7 +60459,10 @@ function adminTrackSearch(result) {
     terrain:     result.terrain     || '—',
     power:       result.power       || result.powerPreference || '—',
     city:        result.city        || (user.role === 'lite' ? user.depot || '—' : '—'),
-    cartAdded: false
+    cartAdded: false,
+    resultCount: result.resultCount || 0,
+    zeroResults: !!result.zeroResults,
+    hour: result.hour != null ? result.hour : new Date().getHours(),
   };
   adminData.searches.push(rec);
   if (customerRegistry[user.email]) {
@@ -60133,6 +60595,1714 @@ async function _loadAdminAnalyticsFromFirestore() {
   }
 }
 
+// ── Admin: Routing Test Panel (UI) ─────────────────────────────────────────
+var _rtDebounce = null;
+
+function rtSuburbInput(val) {
+  clearTimeout(_rtDebounce);
+  const drop = document.getElementById('rt-suburb-drop');
+  if (!val || val.length < 2) { if (drop) drop.style.display = 'none'; return; }
+  _rtDebounce = setTimeout(() => {
+    const matches = _suburbMatches ? _suburbMatches(val.toLowerCase().trim()) : [];
+    if (!matches.length) { if (drop) drop.style.display = 'none'; return; }
+    if (drop) {
+      drop.innerHTML = matches.slice(0, 8).map(m => {
+        const display = m.suburb.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        return `<div onclick="rtSelectSuburb('${display}')"
+          style="padding:.5rem .85rem;cursor:pointer;font-size:.86rem;border-bottom:1px solid #F1F5F9"
+          onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background=''">
+          <strong>${display}</strong> <span style="color:#64748B;font-size:.78rem">${m.city}, ${m.state}</span>
+        </div>`;
+      }).join('');
+      drop.style.display = 'block';
+    }
+  }, 180);
+}
+
+function rtSelectSuburb(suburb) {
+  const inp = document.getElementById('rt-suburb-input');
+  const drop = document.getElementById('rt-suburb-drop');
+  if (inp) inp.value = suburb;
+  if (drop) drop.style.display = 'none';
+  rtRunTest();
+}
+
+function rtRunTest() {
+  const inp = document.getElementById('rt-suburb-input');
+  const resultEl = document.getElementById('rt-result');
+  const machineTypeEl = document.getElementById('rt-machine-type');
+  const suburb = inp ? inp.value.trim() : '';
+  const selectedMType = machineTypeEl ? machineTypeEl.value : '';
+  if (!suburb) { showToast('Please enter a suburb first', '#EF4444'); return; }
+
+  const resolved = _resolveSuburbToCluster(suburb);
+  if (!resultEl) return;
+
+  if (!resolved) {
+    resultEl.style.display = 'block';
+    resultEl.innerHTML = `
+      <div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:12px;padding:1rem 1.2rem">
+        <div style="font-weight:800;color:#DC2626;margin-bottom:.4rem">❌ Suburb Not Recognised</div>
+        <div style="font-size:.84rem;color:#475569">
+          "<strong>${suburb}</strong>" is not in the suburb database. Customers entering this suburb would see an error.
+          Check spelling, or try a nearby larger town.
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Build mock enquiry
+  const mockReq = { city: resolved.city, state: resolved.state, isRural: resolved.isRural, withdrawn: false };
+  const siteCoord = _getCityCentroid(resolved.city);
+
+  // SECTOR_MAP for machine type → sector label
+  const mtSectorMap = {
+    scissor: 'Access Equipment', boom: 'Access Equipment',
+    telehandler: 'Telehandlers', forklift: 'Forklifts',
+    material: 'Material Handling', earthworks: 'Earthworks'
+  };
+  const reqSector = selectedMType ? (mtSectorMap[selectedMType] || '') : '';
+
+  const allCos = (RENTAL_COMPANIES || []).filter(c => c.active !== false);
+
+  // For each company, compute visibility + distance + sector match
+  const coResults = allCos.map(c => {
+    const visible = enquiryVisibleToCompany(mockReq, c);
+    const depotCoord = _getCityCentroid(c.baseCity || '');
+    const distKm = (depotCoord && siteCoord) ? Math.round(_haversineKm(depotCoord, siteCoord)) : null;
+    const sectorMatch = !reqSector || !c.sectors || c.sectors.length === 0
+      ? true  // no sector filter set — all match
+      : c.sectors.some(s => s === reqSector || (typeof s === 'string' && s.toLowerCase().includes(reqSector.toLowerCase())));
+    const hasMachines = !reqSector || !c.machines || c.machines.toLowerCase().includes(selectedMType || '');
+    return { ...c, visible, distKm, sectorMatch };
+  });
+
+  const visible = coResults.filter(c => c.visible);
+  const notVisible = coResults.filter(c => !c.visible);
+
+  const cityBadge = `<span style="background:#DBEAFE;color:#1E40AF;border-radius:6px;padding:.15rem .5rem;font-size:.8rem;font-weight:800">${resolved.city}, ${resolved.state}</span>`;
+  const ruralBadge = resolved.isRural
+    ? `<span style="background:#FEF3C7;color:#92400E;border-radius:6px;padding:.15rem .5rem;font-size:.8rem;font-weight:700">🌾 Rural</span>`
+    : `<span style="background:#F0FDF4;color:#15803D;border-radius:6px;padding:.15rem .5rem;font-size:.8rem;font-weight:700">🏙️ Metro</span>`;
+
+  const mTypeBadge = selectedMType
+    ? `<span style="background:#F3E8FF;color:#7C3AED;border-radius:6px;padding:.15rem .5rem;font-size:.8rem;font-weight:700">🏗️ ${selectedMType}</span>`
+    : '';
+
+  const coCards = visible.map(c => {
+    const distStr = c.distKm != null ? (c.distKm === 0 ? 'Same city' : `${c.distKm}km away`) : '';
+    const sectorNote = reqSector && !c.sectorMatch
+      ? `<span style="background:#FEF3C7;color:#92400E;font-size:.7rem;font-weight:700;padding:.1rem .4rem;border-radius:20px">⚠️ Sector mismatch</span>`
+      : (reqSector ? `<span style="background:#DCFCE7;color:#15803D;font-size:.7rem;font-weight:700;padding:.1rem .4rem;border-radius:20px">✓ ${reqSector}</span>` : '');
+    return `<div style="background:#fff;border:1.5px solid #86EFAC;border-radius:10px;padding:.65rem .9rem">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:800;color:#0F172A;font-size:.88rem">🏢 ${c.name}</div>
+          <div style="font-size:.75rem;color:#64748B;margin-top:.2rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">
+            <span>📍 ${c.baseCity}</span>
+            ${distStr ? `<span>·</span><span>${distStr}</span>` : ''}
+            <span>·</span><span>${c.serviceRadiusKm}km radius</span>
+            ${sectorNote}
+          </div>
+          ${c.machines ? `<div style="font-size:.72rem;color:#94A3B8;margin-top:.2rem">Categories: ${c.machines}</div>` : ''}
+        </div>
+        <span style="background:#DCFCE7;color:#166534;font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px;white-space:nowrap">✅ Will receive</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  const noCards = notVisible.map(c => {
+    const distStr = c.distKm != null ? `${c.distKm}km away (max ${c.serviceRadiusKm}km)` : `max ${c.serviceRadiusKm}km`;
+    return `<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.55rem .9rem;opacity:.75">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:700;color:#64748B;font-size:.85rem">🏢 ${c.name}</div>
+          <div style="font-size:.73rem;color:#94A3B8;margin-top:.1rem">📍 ${c.baseCity} · ${distStr}</div>
+        </div>
+        <span style="background:#F1F5F9;color:#94A3B8;font-size:.73rem;font-weight:700;padding:.15rem .5rem;border-radius:20px">✗ Out of range</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  resultEl.style.display = 'block';
+  resultEl.innerHTML = `
+    <!-- Summary banner -->
+    <div style="background:${visible.length > 0 ? 'linear-gradient(135deg,#F0FDF4,#DCFCE7)' : 'linear-gradient(135deg,#FEF2F2,#FEE2E2)'};border:2px solid ${visible.length > 0 ? '#86EFAC' : '#FCA5A5'};border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.5rem">
+        <div style="font-size:2rem">${visible.length > 0 ? '✅' : '⚠️'}</div>
+        <div>
+          <div style="font-weight:900;font-size:1.15rem;color:${visible.length > 0 ? '#15803D' : '#DC2626'}">
+            ${visible.length > 0
+              ? `${visible.length} rental compan${visible.length === 1 ? 'y' : 'ies'} would receive this enquiry`
+              : 'No rental companies in range'}
+          </div>
+          <div style="font-size:.82rem;color:#475569;margin-top:.3rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">
+            <span>📍 <strong>${suburb}</strong> → resolves to</span>
+            ${cityBadge} ${ruralBadge} ${mTypeBadge}
+          </div>
+        </div>
+      </div>
+      ${visible.length === 0 ? `<div style="font-size:.82rem;color:#DC2626;font-weight:700;margin-top:.5rem;padding:.5rem .75rem;background:#FEF2F2;border-radius:8px">
+        ⚠️ No rental companies cover this area. Consider registering a depot in ${resolved.city}.
+      </div>` : ''}
+    </div>
+
+    <!-- Receiving companies -->
+    ${visible.length > 0 ? `
+      <div style="font-size:.78rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.5rem">
+        ✅ Will Receive — ${visible.length} compan${visible.length===1?'y':'ies'}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem">${coCards}</div>
+    ` : ''}
+
+    <!-- Out of range companies -->
+    ${notVisible.length > 0 ? `
+      <details style="margin-top:.5rem">
+        <summary style="cursor:pointer;font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.5rem;user-select:none;list-style:none">
+          ▶ Out of Range — ${notVisible.length} compan${notVisible.length===1?'y':'ies'} (click to expand)
+        </summary>
+        <div style="display:flex;flex-direction:column;gap:.35rem;margin-top:.5rem">${noCards}</div>
+      </details>
+    ` : ''}
+  `;
+}
+
+
+
+// ── Admin: Suburb Routing Debugger (also accessible from browser console) ────
+function testRoutingForSuburb(suburb) {
+  const result = _resolveSuburbToCluster(suburb);
+  const inMap   = AU_SUBURB_CITY[suburb.toLowerCase().trim()];
+  const msg = result
+    ? '✅ "' + suburb + '" → City: ' + result.city + ', State: ' + result.state + ', Rural: ' + result.isRural
+    : '❌ "' + suburb + '" not found in suburb map';
+  console.log('[Noyo Routing]', msg);
+  if (inMap) console.log('[Noyo Routing] AU_SUBURB_CITY:', JSON.stringify(inMap));
+  if (result) {
+    const mockReq = { city: result.city, state: result.state, isRural: result.isRural, withdrawn: false };
+    const visible = (RENTAL_COMPANIES||[]).filter(c => c.active !== false && enquiryVisibleToCompany(mockReq, c));
+    console.log('[Noyo Routing] Would be sent to ' + visible.length + ' rental co(s):');
+    visible.forEach(c => console.log('  - ' + c.name + ' (' + c.baseCity + ', ' + c.serviceRadiusKm + 'km)'));
+    if (!visible.length) console.warn('[Noyo Routing] ⚠️ No rental companies would receive this enquiry!');
+  }
+  return result;
+}
+window.testRoutingForSuburb = testRoutingForSuburb;
+
+
+// ══════════════════════════════════════════════════════════════════
+// LIVE MAP — Admin interactive Australia map with filter + list
+// ══════════════════════════════════════════════════════════════════
+
+var _liveMapFilter  = 'enquiries';
+var _liveMapView    = 'map';   // 'map' or 'list'
+var _liveMapSort    = 'value'; // 'value', 'name', 'city'
+var _liveMapDir     = 'desc';
+var _liveMapRefresh = null;
+
+const _LM_FILTERS = [
+  { key:'online',   label:'🟢 Currently Online', color:'#16A34A', bg:'#DCFCE7', border:'#86EFAC' },
+  { key:'enquiries',label:'📨 All Enquiries',    color:'#0052CC', bg:'#DBEAFE', border:'#93C5FD' },
+  { key:'accepted', label:'✅ Quotes Accepted',  color:'#0891B2', bg:'#CFFAFE', border:'#67E8F9' },
+  { key:'pending',  label:'⏳ Awaiting Response',color:'#B45309', bg:'#FEF3C7', border:'#FCD34D' },
+  { key:'revenue',  label:'💰 Highest Revenue',  color:'#15803D', bg:'#DCFCE7', border:'#86EFAC' },
+  { key:'users',    label:'👥 Highest Users',    color:'#7C3AED', bg:'#F3E8FF', border:'#C4B5FD' },
+];
+
+function renderLiveMap() {
+  // Start auto-refresh every 30s
+  if (_liveMapRefresh) clearInterval(_liveMapRefresh);
+  _liveMapRefresh = setInterval(() => {
+    if (document.getElementById('livemap-content')) _renderLiveMapInner();
+  }, 30000);
+  _renderLiveMapInner();
+}
+
+function _renderLiveMapInner() {
+  const el = document.getElementById('livemap-content');
+  if (!el) return;
+
+  const filter = _LM_FILTERS.find(f=>f.key===_liveMapFilter) || _LM_FILTERS[1];
+
+  // ── Compute data per city ─────────────────────────────────────
+  const allEnq = quoteInbox;
+  const sessions = adminData.sessions || [];
+  const searches = adminData.searches || [];
+  const cityData = {};
+
+  const ensure = city => {
+    if (!cityData[city]) cityData[city] = {
+      city, enquiries:0, accepted:0, pending:0, revenue:0,
+      users:new Set(), online:0
+    };
+  };
+
+  // Session-based: online = active in last 5 min
+  const fiveMinAgo = Date.now() - 5 * 60000;
+  sessions.forEach(s => {
+    const city = s.city || '';
+    if (!city) return;
+    ensure(city);
+    cityData[city].users.add(s.email||s.id||'anon');
+    if (!s.logoutAt && s.loginAt > fiveMinAgo) cityData[city].online++;
+  });
+
+  // Search-based users
+  searches.forEach(s => {
+    const city = s.city || '';
+    if (!city) return;
+    ensure(city);
+    if (s.email) cityData[city].users.add(s.email);
+  });
+
+  // Enquiry-based
+  allEnq.forEach(r => {
+    const city = r.city || r.cluster;
+    if (!city) return;
+    ensure(city);
+    cityData[city].enquiries++;
+    if (r.email) cityData[city].users.add(r.email);
+    if (r.acceptedBy) {
+      cityData[city].accepted++;
+      const p = (r.responses||[]).find(x=>x.accepted);
+      if (p) { const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')); if(!isNaN(v)) cityData[city].revenue+=v; }
+    } else if ((r.responses||[]).length===0 && (!r.expires||r.expires>Date.now())) {
+      cityData[city].pending++;
+    }
+  });
+
+  // Convert sets to counts
+  Object.values(cityData).forEach(d => { d.users = d.users.size; });
+
+  // Get value by filter key
+  const getVal = (d) => {
+    if (_liveMapFilter==='online')    return d.online;
+    if (_liveMapFilter==='enquiries') return d.enquiries;
+    if (_liveMapFilter==='accepted')  return d.accepted;
+    if (_liveMapFilter==='pending')   return d.pending;
+    if (_liveMapFilter==='revenue')   return d.revenue;
+    if (_liveMapFilter==='users')     return d.users;
+    return 0;
+  };
+
+  const rows = Object.values(cityData)
+    .map(d => ({ ...d, val: getVal(d) }))
+    .filter(d => d.val > 0);
+
+  // Sort for list
+  const sorted = [...rows].sort((a,b) => {
+    let cmp = 0;
+    if (_liveMapSort==='value') cmp = b.val - a.val;
+    else if (_liveMapSort==='city') cmp = a.city.localeCompare(b.city);
+    if (_liveMapDir==='asc') cmp = -cmp;
+    return cmp;
+  });
+
+  const maxVal = Math.max(...rows.map(r=>r.val), 1);
+  const totalVal = rows.reduce((s,r)=>s+r.val, 0);
+  const fmt = n => filter.key==='revenue'
+    ? 'A$' + (n>=1000?(n/1000).toFixed(1)+'k':n.toFixed(0))
+    : n;
+  const fmtFull = n => filter.key==='revenue'
+    ? 'A$' + n.toLocaleString('en-AU',{maximumFractionDigits:0})
+    : n;
+
+  // Build map dots
+  const dotR = val => val<=0 ? 0 : Math.max(7, Math.min(42, 7 + Math.log1p(val)/Math.log1p(maxVal) * 35));
+
+  const mapDots = Object.entries(_AUS_CITIES).map(([name, pos], i) => {
+    const d = cityData[name];
+    const val = d ? getVal(d) : 0;
+    const r = dotR(val);
+    if (r < 4) return `<circle cx="${pos.x}" cy="${pos.y}" r="3" fill="#CBD5E1" opacity="0.4"/>
+      <text x="${pos.x}" y="${pos.y+10}" text-anchor="middle" fill="#94A3B8" font-family="Nunito,sans-serif" font-size="7" font-weight="600">${name}</text>`;
+    const delay = (i*0.12).toFixed(2);
+    const isOnline = _liveMapFilter==='online';
+    return `
+      <g onclick="_lmShowCity('${name}')" style="cursor:pointer" class="lm-city-g">
+        <circle cx="${pos.x}" cy="${pos.y}" r="${r+10}" fill="${filter.color}" opacity="0"
+          style="-webkit-animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${delay}s infinite;animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${delay}s infinite"/>
+        <circle cx="${pos.x}" cy="${pos.y}" r="${r+5}" fill="${filter.color}" opacity="0"
+          style="-webkit-animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${(parseFloat(delay)+.25).toFixed(2)}s infinite;animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${(parseFloat(delay)+.25).toFixed(2)}s infinite"/>
+        <circle cx="${pos.x}" cy="${pos.y}" r="${r}" fill="${filter.color}" opacity="0.88" stroke="white" stroke-width="1.5"/>
+        ${r>=14?`<text x="${pos.x}" y="${pos.y+1}" text-anchor="middle" dominant-baseline="middle" fill="white"
+          font-family="Nunito,sans-serif" font-weight="900" font-size="${r>=22?'10':'8'}">${fmt(val)}</text>`:''}
+        <text x="${pos.x}" y="${pos.y+r+12}" text-anchor="middle" fill="#1E293B"
+          font-family="Nunito,sans-serif" font-weight="800" font-size="9.5">${name}</text>
+      </g>`;
+  }).join('');
+
+  el.innerHTML = `
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+      <div>
+        <div style="font-size:1.15rem;font-weight:900;color:#0F172A">📡 Live Australia Map</div>
+        <div style="font-size:.75rem;color:#94A3B8;margin-top:.1rem" id="lm-last-updated">
+          Updated: ${new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}
+          &nbsp;·&nbsp; Auto-refreshes every 30s
+        </div>
+      </div>
+      <div style="display:flex;gap:.4rem;align-items:center">
+        <!-- Map / List toggle -->
+        <div style="display:flex;background:#F1F5F9;border-radius:10px;padding:3px;gap:2px">
+          <button onclick="_liveMapView='map';_renderLiveMapInner()"
+            style="padding:.32rem .8rem;border-radius:8px;border:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;background:${_liveMapView==='map'?'#0052CC':'transparent'};color:${_liveMapView==='map'?'#fff':'#64748B'}">
+            🗺️ Map
+          </button>
+          <button onclick="_liveMapView='list';_renderLiveMapInner()"
+            style="padding:.32rem .8rem;border-radius:8px;border:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;background:${_liveMapView==='list'?'#0052CC':'transparent'};color:${_liveMapView==='list'?'#fff':'#64748B'}">
+            📋 List
+          </button>
+        </div>
+        <button onclick="_renderLiveMapInner()"
+          style="background:#F1F5F9;border:1.5px solid #E2E8F0;color:#475569;border-radius:8px;padding:.32rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer">
+          ↻ Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter pills -->
+    <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.2rem">
+      ${_LM_FILTERS.map(f => `
+        <button onclick="_liveMapFilter='${f.key}';_renderLiveMapInner()"
+          style="padding:.35rem .9rem;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer;white-space:nowrap;
+                 border:2px solid ${f.color};
+                 background:${_liveMapFilter===f.key?f.color:f.bg};
+                 color:${_liveMapFilter===f.key?'#fff':f.color};
+                 -webkit-transition:all .15s;transition:all .15s">
+          ${f.label}
+        </button>`).join('')}
+    </div>
+
+    <!-- Summary bar -->
+    <div style="background:${filter.bg};border:1.5px solid ${filter.border};border-radius:10px;padding:.55rem 1rem;margin-bottom:.9rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem">
+      <div style="font-size:.82rem;font-weight:800;color:${filter.color}">
+        ${filter.label}: <strong>${fmtFull(totalVal)}</strong> across ${rows.length} cit${rows.length===1?'y':'ies'}
+      </div>
+      ${rows.length>0?`<div style="font-size:.75rem;color:${filter.color};opacity:.75">Top: ${sorted[0]?.city||'—'} (${fmtFull(sorted[0]?.val||0)})</div>`:''}
+    </div>
+
+    <!-- MAP VIEW -->
+    ${_liveMapView==='map' ? `
+    <div style="background:linear-gradient(160deg,#EFF6FF,#ECFDF5);border:1.5px solid #E2E8F0;border-radius:16px;padding:.75rem;position:relative;overflow:hidden">
+      <div id="lm-tooltip" style="display:none;position:absolute;background:#fff;border:1.5px solid ${filter.border};border-radius:12px;padding:.7rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.13);font-family:'Nunito',sans-serif;min-width:190px;z-index:100;pointer-events:none;max-width:220px"></div>
+      <svg viewBox="0 0 700 570" style="width:100%;height:auto;display:block;overflow:visible"
+        onmouseleave="const t=document.getElementById('lm-tooltip');if(t)t.style.display='none'">
+        <path d="${_AUS_PATH}" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5"/>
+        <line x1="439" y1="20" x2="439" y2="425" stroke="#CBD5E1" stroke-width=".7" stroke-dasharray="4,3"/>
+        <line x1="439" y1="340" x2="700" y2="340" stroke="#CBD5E1" stroke-width=".7" stroke-dasharray="4,3"/>
+        <line x1="300" y1="31" x2="300" y2="530" stroke="#CBD5E1" stroke-width=".7" stroke-dasharray="4,3"/>
+        ${mapDots}
+      </svg>
+      <!-- Legend -->
+      <div style="position:absolute;bottom:12px;left:14px;background:rgba(255,255,255,.85);border-radius:8px;padding:.4rem .6rem">
+        <div style="font-size:.65rem;font-weight:800;color:#64748B;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.3px">${filter.label}</div>
+        ${[[7,'1'],[16,'5–10'],[26,'10–50'],[36,'50+']].map(([r,lbl])=>`
+          <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+            <svg width="${r*2+2}" height="${r*2+2}" style="flex-shrink:0"><circle cx="${r+1}" cy="${r+1}" r="${r}" fill="${filter.color}" opacity=".75"/></svg>
+            <span style="font-size:.63rem;color:#64748B;font-family:'Nunito',sans-serif;font-weight:700">${lbl}</span>
+          </div>`).join('')}
+      </div>
+    </div>` : ''}
+
+    <!-- LIST VIEW -->
+    ${_liveMapView==='list' ? `
+    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;overflow:hidden">
+      <!-- Sort controls -->
+      <div style="padding:.65rem 1rem;border-bottom:1.5px solid #F1F5F9;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:#F8FAFC">
+        <span style="font-size:.74rem;font-weight:800;color:#64748B">Sort by:</span>
+        ${[['value','Value'],['city','City (A–Z)']].map(([key,lbl]) => `
+          <button onclick="_liveMapSort='${key}';_renderLiveMapInner()"
+            style="padding:.28rem .7rem;border-radius:20px;border:1.5px solid ${_liveMapSort===key?filter.color:'#E2E8F0'};
+                   background:${_liveMapSort===key?filter.bg:'#fff'};color:${_liveMapSort===key?filter.color:'#64748B'};
+                   font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer">
+            ${lbl}
+          </button>`).join('')}
+        <button onclick="_liveMapDir=_liveMapDir==='desc'?'asc':'desc';_renderLiveMapInner()"
+          style="padding:.28rem .7rem;border-radius:20px;border:1.5px solid #E2E8F0;background:#fff;color:#64748B;
+                 font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer">
+          ${_liveMapDir==='desc'?'↓ High → Low':'↑ Low → High'}
+        </button>
+      </div>
+      <!-- List rows -->
+      ${sorted.length===0
+        ? `<div style="padding:2rem;text-align:center;color:#94A3B8;font-size:.85rem">No data for this filter yet</div>`
+        : `<div style="max-height:520px;overflow-y:auto;-webkit-overflow-scrolling:touch">
+          ${sorted.map((d,i)=>{
+            const pct = totalVal>0?(d.val/totalVal*100):0;
+            const barW = maxVal>0?Math.max(3,d.val/maxVal*100):0;
+            return `<div style="display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:.65rem;padding:.65rem 1rem;border-bottom:1px solid #F8FAFC;cursor:pointer"
+              onclick="_liveMapFilter='${_liveMapFilter}';_liveMapView='map';_renderLiveMapInner();setTimeout(()=>_lmShowCity('${d.city}'),300)"
+              onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background=''">
+              <div style="font-size:.75rem;font-weight:800;color:#94A3B8;text-align:center">${i+1}</div>
+              <div>
+                <div style="font-size:.85rem;font-weight:800;color:#0F172A;margin-bottom:.25rem">${d.city}</div>
+                <div style="background:#F1F5F9;border-radius:20px;height:6px;overflow:hidden">
+                  <div style="width:${barW}%;background:${filter.color};height:100%;border-radius:20px"></div>
+                </div>
+                <div style="font-size:.68rem;color:#94A3B8;margin-top:.2rem">
+                  ${pct.toFixed(1)}% · E:${d.enquiries} A:${d.accepted} P:${d.pending} U:${d.users}
+                </div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:1rem;font-weight:900;color:${filter.color}">${fmtFull(d.val)}</div>
+                <div style="font-size:.68rem;color:#94A3B8">${filter.label.replace(/^[^\s]+\s/,'')}</div>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>`}
+    </div>` : ''}`;
+}
+
+function _lmShowCity(name) {
+  const d = (() => {
+    const allEnq = quoteInbox;
+    const sessions = adminData.sessions || [];
+    const c = { city:name, enquiries:0, accepted:0, pending:0, revenue:0, users:new Set(), online:0 };
+    const fiveMinAgo = Date.now() - 5*60000;
+    sessions.forEach(s => {
+      if ((s.city||'')!==name) return;
+      c.users.add(s.email||s.id||'anon');
+      if (!s.logoutAt && s.loginAt > fiveMinAgo) c.online++;
+    });
+    allEnq.forEach(r => {
+      if ((r.city||r.cluster||'')!==name) return;
+      c.enquiries++;
+      if (r.email) c.users.add(r.email);
+      if (r.acceptedBy) {
+        c.accepted++;
+        const p = (r.responses||[]).find(x=>x.accepted);
+        if (p) { const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')); if(!isNaN(v)) c.revenue+=v; }
+      } else if ((r.responses||[]).length===0) c.pending++;
+    });
+    c.users = c.users.size;
+    return c;
+  })();
+
+  const tip = document.getElementById('lm-tooltip');
+  if (!tip) return;
+
+  const filter = _LM_FILTERS.find(f=>f.key===_liveMapFilter)||_LM_FILTERS[1];
+  const pos = (_AUS_CITIES[name]||{});
+  const left = pos.x > 500 ? 'auto' : `${(pos.x/700*100).toFixed(1)}%`;
+  const right = pos.x > 500 ? `${((700-pos.x)/700*100).toFixed(1)}%` : 'auto';
+  const top  = pos.y > 350 ? 'auto' : `${(pos.y/570*100+8).toFixed(1)}%`;
+  const bottom = pos.y > 350 ? `${((570-pos.y)/570*100+5).toFixed(1)}%` : 'auto';
+  tip.style.left   = left;
+  tip.style.right  = right;
+  tip.style.top    = top;
+  tip.style.bottom = bottom;
+  tip.style.display = 'block';
+  tip.innerHTML = `
+    <div style="font-size:.9rem;font-weight:900;color:#0F172A;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem">
+      <span style="width:10px;height:10px;border-radius:50%;background:${filter.color};display:inline-block"></span>
+      ${name}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.2rem;font-size:.79rem">
+      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">📨 Enquiries</span><strong>${d.enquiries}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">✅ Accepted</span><strong style="color:#15803D">${d.accepted}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">⏳ Pending</span><strong style="color:#B45309">${d.pending}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">💰 Revenue</span><strong>A$${d.revenue.toLocaleString('en-AU',{maximumFractionDigits:0})}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">👥 Users</span><strong>${d.users}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">🟢 Online now</span><strong style="color:#16A34A">${d.online}</strong></div>
+    </div>`;
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// LIVE MAP — Real-time Australia Market View
+// ══════════════════════════════════════════════════════════════════
+var _liveMapState = {
+  view:     'map',      // 'map' | 'list'
+  metric:   'enquiries', // enquiries | online | accepted | pending | lost | revenue | users
+  category: '',          // machine type filter
+  location: '',          // city filter
+  sortKey:  'value',
+  sortDir:  'desc',
+  refreshTimer: null,
+};
+
+var _LIVE_METRICS = [
+  { key:'enquiries', label:'📨 All Enquiries',   color:'#0052CC', bg:'#DBEAFE' },
+  { key:'online',    label:'🟢 Currently Online', color:'#15803D', bg:'#DCFCE7' },
+  { key:'accepted',  label:'✅ Accepted',          color:'#0891B2', bg:'#CFFAFE' },
+  { key:'pending',   label:'⏳ Pending Quotes',   color:'#B45309', bg:'#FEF3C7' },
+  { key:'lost',      label:'✗ Lost / No Accept',  color:'#DC2626', bg:'#FEE2E2' },
+  { key:'revenue',   label:'💰 Revenue',           color:'#7C3AED', bg:'#F3E8FF' },
+  { key:'users',     label:'👥 Unique Users',      color:'#475569', bg:'#F1F5F9' },
+];
+
+function renderLiveMap() {
+  const el = document.getElementById('livemap-content');
+  if (!el) return;
+  if (_liveMapState.refreshTimer) clearInterval(_liveMapState.refreshTimer);
+
+  // Auto-refresh every 30 seconds
+  _liveMapState.refreshTimer = setInterval(() => {
+    if (document.getElementById('admin-sec-livemap')?.classList.contains('active')) {
+      _renderLiveMapInner();
+    }
+  }, 30000);
+
+  el.innerHTML = _buildLiveMapShell();
+  _renderLiveMapInner();
+}
+
+function _buildLiveMapShell() {
+  const s = _liveMapState;
+  const cats = _getAllCategories ? _getAllCategories() : [];
+
+  return `
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem">
+      <div>
+        <div style="font-size:1.2rem;font-weight:900;color:#0F172A;display:flex;align-items:center;gap:.5rem">
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#EF4444;box-shadow:0 0 0 3px rgba(239,68,68,.3);animation:livePulse 1.5s ease-in-out infinite"></span>
+          Live Map — Australia
+        </div>
+        <div style="font-size:.75rem;color:#94A3B8;margin-top:.2rem" id="livemap-last-updated">Auto-refreshes every 30s</div>
+      </div>
+      <div style="display:flex;gap:.4rem">
+        <button onclick="_liveMapState.view='map';_renderLiveMapInner()"
+          id="lm-btn-map"
+          style="padding:.38rem .9rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;border:2px solid #0052CC;background:${s.view==='map'?'#0052CC':'#fff'};color:${s.view==='map'?'#fff':'#0052CC'}">
+          🗺️ Map
+        </button>
+        <button onclick="_liveMapState.view='list';_renderLiveMapInner()"
+          id="lm-btn-list"
+          style="padding:.38rem .9rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;border:2px solid #0052CC;background:${s.view==='list'?'#0052CC':'#fff'};color:${s.view==='list'?'#fff':'#0052CC'}">
+          📋 List
+        </button>
+        <button onclick="_renderLiveMapInner()"
+          style="padding:.38rem .8rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;border:1.5px solid #E2E8F0;background:#F8FAFC;color:#64748B">
+          ↻
+        </button>
+      </div>
+    </div>
+
+    <!-- Metric selector -->
+    <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem">
+      ${_LIVE_METRICS.map(m => `
+        <button onclick="_liveMapState.metric='${m.key}';_renderLiveMapInner()"
+          style="padding:.32rem .75rem;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer;border:2px solid ${m.color};background:${_liveMapState.metric===m.key?m.color:'#fff'};color:${_liveMapState.metric===m.key?'#fff':m.color};transition:all .15s;white-space:nowrap">
+          ${m.label}
+        </button>`).join('')}
+    </div>
+
+    <!-- Filters -->
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.9rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:.6rem .85rem">
+      <span style="font-size:.74rem;font-weight:800;color:#64748B">Filter:</span>
+
+      <select onchange="_liveMapState.category=this.value;_renderLiveMapInner()"
+        style="padding:.3rem .65rem;border:1.5px solid #E2E8F0;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;background:#fff;color:#334155;outline:none;min-height:32px">
+        <option value="">All Categories</option>
+        ${cats.map(c=>`<option value="${c.key}" ${_liveMapState.category===c.key?'selected':''}>${c.emoji} ${c.label}</option>`).join('')}
+      </select>
+
+      <select onchange="_liveMapState.location=this.value;_renderLiveMapInner()"
+        id="lm-location-select"
+        style="padding:.3rem .65rem;border:1.5px solid #E2E8F0;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;background:#fff;color:#334155;outline:none;min-height:32px">
+        <option value="">All Locations</option>
+        ${Object.keys(_AUS_CITIES||{}).map(c=>`<option value="${c}" ${_liveMapState.location===c?'selected':''}>${c}</option>`).join('')}
+      </select>
+
+      ${_liveMapState.category||_liveMapState.location ? `
+        <button onclick="_liveMapState.category='';_liveMapState.location='';_renderLiveMapInner()"
+          style="padding:.3rem .65rem;border:1.5px solid #FCA5A5;border-radius:8px;background:#FEF2F2;color:#DC2626;font-family:'Nunito',sans-serif;font-weight:700;font-size:.74rem;cursor:pointer;min-height:32px">
+          ✕ Clear filters
+        </button>` : ''}
+    </div>
+
+    <style>
+      @keyframes livePulse { 0%,100%{box-shadow:0 0 0 3px rgba(239,68,68,.3)} 50%{box-shadow:0 0 0 7px rgba(239,68,68,.1)} }
+      @keyframes dotPulse { 0%{opacity:.5;transform:scale(1)} 60%{opacity:0;transform:scale(2.4)} 100%{opacity:0;transform:scale(2.4)} }
+    </style>
+
+    <div id="livemap-body"></div>`;
+}
+
+function _renderLiveMapInner() {
+  const el = document.getElementById('livemap-body');
+  if (!el) { renderLiveMap(); return; }
+
+  const s    = _liveMapState;
+  const now  = Date.now();
+  const allEnq = quoteInbox;
+  const searches = adminData.searches || [];
+  const sessions  = adminData.sessions || [];
+
+  // Update last-updated timestamp
+  const lu = document.getElementById('livemap-last-updated');
+  if (lu) lu.textContent = 'Last updated: ' + new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+  // ── Filter enquiries by category ────────────────────────────────
+  const filteredEnq = allEnq.filter(r => {
+    if (!s.category) return true;
+    return (r.machines||[]).some(m => (m.type||m.machineType||'') === s.category);
+  });
+
+  // ── Build city data ─────────────────────────────────────────────
+  const cityData = {};
+  const ensureCity = c => { if (!cityData[c]) cityData[c] = { enquiries:0, accepted:0, pending:0, lost:0, revenue:0, users:new Set(), online:0 }; };
+
+  filteredEnq.forEach(r => {
+    const city = s.location || (r.city||r.cluster);
+    if (!city) return;
+    if (s.location && city !== s.location) return;
+    ensureCity(city);
+    cityData[city].enquiries++;
+    if (r.email) cityData[city].users.add(r.email);
+    if (r.acceptedBy) {
+      cityData[city].accepted++;
+      const p = (r.responses||[]).find(x=>x.accepted);
+      if (p) { const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')); if(!isNaN(v)) cityData[city].revenue+=v; }
+    } else if ((r.responses||[]).some(x=>x.rejected||x.autoRejected)) {
+      cityData[city].lost++;
+    } else if ((r.responses||[]).length > 0) {
+      cityData[city].pending++;
+    }
+  });
+
+  // Online users — sessions active in last 15 minutes
+  const onlineThreshold = now - 15*60*1000;
+  sessions.filter(s2 => s2.loginAt > onlineThreshold && !s2.logoutAt).forEach(s2 => {
+    const city = s2.city || '';
+    if (city) { ensureCity(city); cityData[city].online++; }
+  });
+
+  // Searches → users
+  searches.filter(sr => {
+    if (s.category && (sr.machineType||sr.jobType) !== s.category) return false;
+    return true;
+  }).forEach(sr => {
+    const city = sr.city;
+    if (!city) return;
+    ensureCity(city);
+    if (sr.email) cityData[city].users.add(sr.email);
+  });
+
+  // Compute the metric value per city
+  const getValue = (stats) => {
+    if (!stats) return 0;
+    switch(s.metric) {
+      case 'enquiries': return stats.enquiries;
+      case 'online':    return stats.online;
+      case 'accepted':  return stats.accepted;
+      case 'pending':   return stats.pending;
+      case 'lost':      return stats.lost;
+      case 'revenue':   return stats.revenue;
+      case 'users':     return stats.users ? stats.users.size : 0;
+      default:          return stats.enquiries;
+    }
+  };
+
+  const curMetric = _LIVE_METRICS.find(m=>m.key===s.metric)||_LIVE_METRICS[0];
+
+  // Build city list sorted
+  let cityList = Object.entries(cityData).map(([name, stats]) => ({
+    name, stats, value: getValue(stats), pos: _AUS_CITIES[name]
+  }));
+
+  // Apply location filter
+  if (s.location) cityList = cityList.filter(c => c.name === s.location);
+
+  // Sort
+  cityList.sort((a,b) => s.sortDir === 'desc' ? b.value - a.value : a.value - b.value);
+
+  const maxVal = Math.max(...cityList.map(c=>c.value), 1);
+  const totalVal = cityList.reduce((s2,c)=>s2+c.value, 0);
+
+  const fmtVal = v => s.metric === 'revenue'
+    ? 'A$' + (v>=1000?(v/1000).toFixed(1)+'k':v.toFixed(0))
+    : v;
+
+  // ════════════════════════════════════════════════════════════════
+  // MAP VIEW
+  // ════════════════════════════════════════════════════════════════
+  if (s.view === 'map') {
+    const dotR = v => v <= 0 ? 0 : Math.max(7, Math.min(42, 7 + Math.log1p(v)/Math.log1p(maxVal) * 35));
+
+    const activeDots = cityList
+      .filter(c => c.value > 0 && c.pos)
+      .map((c, i) => {
+        const r     = dotR(c.value);
+        const delay = (i * 0.18).toFixed(2);
+        return `
+          <g onclick="_lmShowTooltip('${c.name}')" style="cursor:pointer">
+            <circle cx="${c.pos.x}" cy="${c.pos.y}" r="${r+10}" fill="${curMetric.color}" opacity="0"
+              style="animation:dotPulse 2.2s ease-out ${delay}s infinite"/>
+            <circle cx="${c.pos.x}" cy="${c.pos.y}" r="${r+5}" fill="${curMetric.color}" opacity="0"
+              style="animation:dotPulse 2.2s ease-out ${(parseFloat(delay)+.35).toFixed(2)}s infinite"/>
+            <circle cx="${c.pos.x}" cy="${c.pos.y}" r="${r}" fill="${curMetric.color}" opacity=".88"
+              stroke="white" stroke-width="2"/>
+            ${r>=14?`<text x="${c.pos.x}" y="${c.pos.y+1}" text-anchor="middle" dominant-baseline="middle"
+              fill="white" font-family="Nunito,sans-serif" font-weight="900" font-size="${r>=22?'10':'8'}">${fmtVal(c.value)}</text>`:''}
+            <text x="${c.pos.x}" y="${c.pos.y+r+12}" text-anchor="middle" fill="#1E293B"
+              font-family="Nunito,sans-serif" font-weight="800" font-size="9" style="pointer-events:none">${c.name}</text>
+          </g>`;
+      }).join('');
+
+    const ghostDots = Object.entries(_AUS_CITIES||{})
+      .filter(([n]) => !cityList.find(c=>c.name===n) || cityList.find(c=>c.name===n)?.value===0)
+      .map(([n,p]) => `<circle cx="${p.x}" cy="${p.y}" r="3" fill="#CBD5E1" opacity=".4"/>
+        <text x="${p.x}" y="${p.y+9}" text-anchor="middle" fill="#CBD5E1" font-size="7" font-family="Nunito,sans-serif">${n}</text>`).join('');
+
+    el.innerHTML = `
+      <!-- Summary strip -->
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem">
+        ${cityList.filter(c=>c.value>0).slice(0,5).map(c=>`
+          <div style="background:${curMetric.bg};border:1.5px solid ${curMetric.color}33;border-radius:10px;padding:.35rem .7rem;display:flex;align-items:center;gap:.35rem">
+            <span style="font-size:.8rem;font-weight:900;color:${curMetric.color}">${fmtVal(c.value)}</span>
+            <span style="font-size:.75rem;color:#475569;font-weight:700">${c.name}</span>
+          </div>`).join('')}
+        ${totalVal > 0 ? `<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.35rem .7rem;font-size:.75rem;font-weight:700;color:#94A3B8">Total: ${fmtVal(totalVal)}</div>` : ''}
+      </div>
+
+      <!-- Map -->
+      <div style="position:relative;background:linear-gradient(160deg,#EFF6FF,#F0FDF4);border:1.5px solid #E2E8F0;border-radius:18px;padding:1rem;overflow:hidden">
+        <div id="lm-tooltip" style="display:none;position:absolute;background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.7rem 1rem;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:10;font-family:'Nunito',sans-serif;min-width:190px;pointer-events:none;top:12px;right:12px"></div>
+        <svg viewBox="0 0 700 570" style="width:100%;height:auto;display:block;overflow:visible;max-height:62vh"
+          onmouseleave="const t=document.getElementById('lm-tooltip');if(t)t.style.display='none'">
+          <defs><filter id="ls"><feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#94A3B8" flood-opacity=".25"/></filter></defs>
+          <path d="${_AUS_PATH}" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" filter="url(#ls)"/>
+          <line x1="439" y1="20" x2="439" y2="425" stroke="#CBD5E1" stroke-width=".6" stroke-dasharray="4,3"/>
+          <line x1="439" y1="340" x2="700" y2="340" stroke="#CBD5E1" stroke-width=".6" stroke-dasharray="4,3"/>
+          <line x1="300" y1="31" x2="300" y2="530" stroke="#CBD5E1" stroke-width=".6" stroke-dasharray="4,3"/>
+          ${ghostDots}
+          ${activeDots}
+        </svg>
+      </div>`;
+  }
+
+  // ════════════════════════════════════════════════════════════════
+  // LIST VIEW
+  // ════════════════════════════════════════════════════════════════
+  else {
+    const sortBtn = (key, label) => {
+      const active = s.sortKey === key;
+      const dir    = active && s.sortDir === 'asc' ? '↑' : active ? '↓' : '↕';
+      return `<button onclick="_liveMapState.sortKey='${key}';_liveMapState.sortDir=(_liveMapState.sortKey==='${key}'&&_liveMapState.sortDir==='desc')?'asc':'desc';_renderLiveMapInner()"
+        style="background:${active?curMetric.bg:'#F8FAFC'};border:1.5px solid ${active?curMetric.color:'#E2E8F0'};color:${active?curMetric.color:'#64748B'};border-radius:7px;padding:.25rem .6rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer;white-space:nowrap">
+        ${label} ${dir}
+      </button>`;
+    };
+
+    const activeList = cityList.filter(c=>c.value>0);
+
+    el.innerHTML = `
+      <!-- Sort controls -->
+      <div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin-bottom:.7rem">
+        <span style="font-size:.74rem;font-weight:800;color:#64748B">Sort by:</span>
+        ${sortBtn('value', curMetric.label)}
+        ${sortBtn('name', 'City A–Z')}
+        ${sortBtn('enquiries', '📨 Enquiries')}
+        ${sortBtn('accepted', '✅ Accepted')}
+        ${sortBtn('pending', '⏳ Pending')}
+        ${sortBtn('revenue', '💰 Revenue')}
+      </div>
+
+      <!-- Table -->
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;overflow:hidden">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+          <table style="width:100%;border-collapse:collapse;font-family:'Nunito',sans-serif;min-width:600px">
+            <thead>
+              <tr style="background:#F8FAFC;border-bottom:1.5px solid #E2E8F0">
+                <th style="text-align:left;padding:.6rem 1rem;font-size:.72rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.4px">#</th>
+                <th style="text-align:left;padding:.6rem .75rem;font-size:.72rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.4px">City</th>
+                <th style="text-align:center;padding:.6rem .75rem;font-size:.72rem;font-weight:900;color:${curMetric.color};text-transform:uppercase;letter-spacing:.4px">${curMetric.label}</th>
+                <th style="text-align:center;padding:.6rem .75rem;font-size:.72rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.4px">📨 Enq</th>
+                <th style="text-align:center;padding:.6rem .75rem;font-size:.72rem;font-weight:900;color:#15803D;text-transform:uppercase;letter-spacing:.4px">✅ Won</th>
+                <th style="text-align:center;padding:.6rem .75rem;font-size:.72rem;font-weight:900;color:#B45309;text-transform:uppercase;letter-spacing:.4px">⏳ Pending</th>
+                <th style="text-align:center;padding:.6rem .75rem;font-size:.72rem;font-weight:900;color:#DC2626;text-transform:uppercase;letter-spacing:.4px">✗ Lost</th>
+                <th style="text-align:right;padding:.6rem 1rem;font-size:.72rem;font-weight:900;color:#7C3AED;text-transform:uppercase;letter-spacing:.4px">💰 Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${activeList.length === 0
+                ? `<tr><td colspan="8" style="text-align:center;padding:2rem;color:#94A3B8;font-size:.85rem">No data matches current filters</td></tr>`
+                : activeList.map((c,i) => {
+                    const pct = totalVal > 0 ? (c.value/totalVal*100).toFixed(1) : '0';
+                    const isTop = i === 0;
+                    return `<tr style="border-bottom:1px solid #F1F5F9;${isTop?'background:'+curMetric.bg+'33;':''}">
+                      <td style="padding:.55rem 1rem;font-size:.78rem;font-weight:900;color:#94A3B8">${i+1}</td>
+                      <td style="padding:.55rem .75rem">
+                        <div style="font-weight:800;font-size:.85rem;color:#0F172A">${c.name}</div>
+                        <div style="font-size:.68rem;color:#94A3B8">${pct}% of total</div>
+                      </td>
+                      <td style="padding:.55rem .75rem;text-align:center">
+                        <span style="background:${curMetric.bg};color:${curMetric.color};font-weight:900;font-size:.88rem;padding:.2rem .55rem;border-radius:8px">${fmtVal(c.value)}</span>
+                      </td>
+                      <td style="padding:.55rem .75rem;text-align:center;font-weight:700;font-size:.82rem;color:#334155">${c.stats.enquiries}</td>
+                      <td style="padding:.55rem .75rem;text-align:center;font-weight:700;font-size:.82rem;color:#15803D">${c.stats.accepted}</td>
+                      <td style="padding:.55rem .75rem;text-align:center;font-weight:700;font-size:.82rem;color:#B45309">${c.stats.pending}</td>
+                      <td style="padding:.55rem .75rem;text-align:center;font-weight:700;font-size:.82rem;color:#DC2626">${c.stats.lost}</td>
+                      <td style="padding:.55rem 1rem;text-align:right;font-weight:800;font-size:.82rem;color:#7C3AED">
+                        ${c.stats.revenue > 0 ? 'A$'+c.stats.revenue.toLocaleString('en-AU',{maximumFractionDigits:0}) : '—'}
+                      </td>
+                    </tr>`;
+                  }).join('')}
+            </tbody>
+            ${activeList.length > 1 ? `
+              <tfoot>
+                <tr style="background:#F8FAFC;border-top:2px solid #E2E8F0;font-weight:900">
+                  <td colspan="2" style="padding:.55rem 1rem;font-size:.78rem;color:#475569">TOTAL (${activeList.length} cities)</td>
+                  <td style="padding:.55rem .75rem;text-align:center;font-size:.82rem;color:${curMetric.color};font-weight:900">${fmtVal(totalVal)}</td>
+                  <td style="padding:.55rem .75rem;text-align:center;font-size:.82rem;color:#334155;font-weight:900">${activeList.reduce((s2,c)=>s2+c.stats.enquiries,0)}</td>
+                  <td style="padding:.55rem .75rem;text-align:center;font-size:.82rem;color:#15803D;font-weight:900">${activeList.reduce((s2,c)=>s2+c.stats.accepted,0)}</td>
+                  <td style="padding:.55rem .75rem;text-align:center;font-size:.82rem;color:#B45309;font-weight:900">${activeList.reduce((s2,c)=>s2+c.stats.pending,0)}</td>
+                  <td style="padding:.55rem .75rem;text-align:center;font-size:.82rem;color:#DC2626;font-weight:900">${activeList.reduce((s2,c)=>s2+c.stats.lost,0)}</td>
+                  <td style="padding:.55rem 1rem;text-align:right;font-size:.82rem;color:#7C3AED;font-weight:900">A$${activeList.reduce((s2,c)=>s2+c.stats.revenue,0).toLocaleString('en-AU',{maximumFractionDigits:0})}</td>
+                </tr>
+              </tfoot>` : ''}
+          </table>
+        </div>
+      </div>`;
+  }
+}
+
+function _lmShowTooltip(city) {
+  const tip = document.getElementById('lm-tooltip');
+  if (!tip) return;
+  const enq = quoteInbox.filter(r => (r.city||r.cluster) === city);
+  const acc = enq.filter(r=>r.acceptedBy);
+  const pen = enq.filter(r=>!r.acceptedBy&&(r.responses||[]).length>0);
+  const lostE = enq.filter(r=>(r.responses||[]).some(x=>x.rejected||x.autoRejected));
+  let rev = 0;
+  acc.forEach(r=>{const p=(r.responses||[]).find(x=>x.accepted);if(p){const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,''));if(!isNaN(v))rev+=v;}});
+  const s = _liveMapState;
+  const now = Date.now();
+  const online = (adminData.sessions||[]).filter(s2=>s2.loginAt>(now-15*60*1000)&&!s2.logoutAt&&s2.city===city).length;
+  tip.style.display = 'block';
+  tip.innerHTML = `<strong style="font-size:.9rem;color:#0F172A">📍 ${city}</strong>
+    <div style="margin-top:.4rem;display:flex;flex-direction:column;gap:.2rem;font-size:.79rem;font-family:'Nunito',sans-serif">
+      <div style="display:flex;justify-content:space-between;gap:.75rem"><span style="color:#64748B">📨 Enquiries</span><strong>${enq.length}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.75rem"><span style="color:#15803D">✅ Accepted</span><strong style="color:#15803D">${acc.length}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.75rem"><span style="color:#B45309">⏳ Pending</span><strong style="color:#B45309">${pen.length}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.75rem"><span style="color:#DC2626">✗ Lost</span><strong style="color:#DC2626">${lostE.length}</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:.75rem"><span style="color:#7C3AED">💰 Revenue</span><strong style="color:#7C3AED">A$${rev.toLocaleString('en-AU',{maximumFractionDigits:0})}</strong></div>
+      ${online>0?`<div style="display:flex;justify-content:space-between;gap:.75rem"><span style="color:#15803D">🟢 Online now</span><strong style="color:#15803D">${online}</strong></div>`:''}
+    </div>`;
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// MAP & INTELLIGENCE DASHBOARD
+// ══════════════════════════════════════════════════════════════════
+
+// Australian city SVG positions (viewport 700×570)
+// Mapped from lat/lon: x=(lon-113.3)/40.3*700, y=(lat+10.7)/33*570
+const _AUS_CITIES = {
+  'Sydney':        { x:657, y:408, lat:-33.87, lon:151.21 },
+  'Melbourne':     { x:549, y:478, lat:-37.81, lon:144.96 },
+  'Brisbane':      { x:689, y:294, lat:-27.47, lon:153.02 },
+  'Perth':         { x: 44, y:373, lat:-31.95, lon:115.86 },
+  'Adelaide':      { x:439, y:425, lat:-34.93, lon:138.60 },
+  'Gold Coast':    { x:693, y:306, lat:-28.02, lon:153.43 },
+  'Canberra':      { x:633, y:441, lat:-35.28, lon:149.13 },
+  'Newcastle':     { x:667, y:390, lat:-32.93, lon:151.78 },
+  'Darwin':        { x:304, y: 31, lat:-12.46, lon:130.84 },
+  'Cairns':        { x:564, y:110, lat:-16.92, lon:145.77 },
+  'Townsville':    { x:581, y:150, lat:-19.26, lon:146.82 },
+  'Hobart':        { x:590, y:555, lat:-42.88, lon:147.33 },
+  'Wollongong':    { x:650, y:421, lat:-34.42, lon:150.89 },
+  'Geelong':       { x:533, y:485, lat:-38.15, lon:144.35 },
+  'Toowoomba':     { x:665, y:317, lat:-27.56, lon:151.95 },
+  'Sunshine Coast':{ x:684, y:278, lat:-26.65, lon:153.07 },
+  'Central Coast': { x:661, y:399, lat:-33.43, lon:151.34 },
+  'Rockhampton':   { x:651, y:218, lat:-23.38, lon:150.51 },
+  'Mackay':        { x:618, y:186, lat:-21.14, lon:149.19 },
+};
+
+// Simplified Australia SVG path (approximate coastline)
+const _AUS_PATH = `M 304 31 L 330 28 L 358 35 L 395 28 L 440 20 L 480 18 L 510 25 L 540 45 L 564 110 L 575 135 L 581 150 L 600 175 L 618 186 L 635 200 L 651 218 L 660 245 L 665 270 L 665 317 L 684 278 L 689 294 L 693 306 L 693 320 L 685 340 L 667 390 L 657 408 L 650 421 L 640 435 L 633 441 L 620 448 L 600 458 L 580 465 L 560 468 L 549 478 L 540 482 L 533 485 L 520 490 L 500 492 L 480 488 L 462 492 L 445 500 L 430 510 L 415 520 L 395 528 L 370 532 L 340 530 L 310 522 L 285 510 L 265 498 L 248 482 L 235 465 L 220 448 L 208 430 L 195 410 L 182 390 L 168 370 L 155 348 L 148 325 L 142 305 L 138 282 L 130 260 L 120 240 L 108 218 L 95 195 L 82 170 L 70 148 L 58 125 L 48 102 L 40 80 L 35 58 L 38 40 L 48 28 L 65 20 L 90 15 L 120 12 L 155 15 L 185 22 L 210 32 L 235 40 L 255 45 L 278 40 L 304 31 Z
+M 590 555 L 600 548 L 615 540 L 628 530 L 638 518 L 645 505 L 648 492 L 644 480 L 636 472 L 624 468 L 610 470 L 596 476 L 582 485 L 572 496 L 568 510 L 570 524 L 576 536 L 584 547 L 590 555 Z`;
+
+var _mapIntelMetric = 'enquiries';
+
+function renderMapIntelDashboard() {
+  const el = document.getElementById('mapintel-content');
+  if (!el) return;
+
+  el.innerHTML = `
+    <div style="font-size:1.2rem;font-weight:900;color:#0F172A;margin-bottom:1.2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <span>🗺️ Australia Market Map & Intelligence</span>
+      <button onclick="renderMapIntelDashboard()" style="background:#F1F5F9;border:1.5px solid #E2E8F0;color:#475569;border-radius:8px;padding:.32rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">↻ Refresh</button>
+    </div>
+    <div id="mapintel-inner"></div>`;
+
+  _renderMapIntelInner();
+}
+
+function _renderMapIntelInner() {
+  const el = document.getElementById('mapintel-inner');
+  if (!el) return;
+
+  const allEnq   = quoteInbox;
+  const searches = adminData.searches || [];
+
+  // ── Build city metrics ────────────────────────────────────────
+  const cityStats = {};
+  const ensureCity = c => {
+    if (!cityStats[c]) cityStats[c] = { enquiries:0, revenue:0, won:0, lost:0, responded:0 };
+  };
+
+  allEnq.forEach(r => {
+    const city = r.city || r.cluster;
+    if (!city) return;
+    ensureCity(city);
+    cityStats[city].enquiries++;
+    if ((r.responses||[]).length > 0) cityStats[city].responded++;
+    if (r.acceptedBy) {
+      cityStats[city].won++;
+      const p = (r.responses||[]).find(x=>x.accepted);
+      if (p) {
+        const v = parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,''));
+        if (!isNaN(v)) cityStats[city].revenue += v;
+      }
+    } else if ((r.responses||[]).some(x=>x.rejected||x.autoRejected)) {
+      cityStats[city].lost++;
+    }
+  });
+
+  // metric options
+  const metrics = [
+    { key:'enquiries', label:'📨 Enquiries',  color:'#0052CC', bg:'#DBEAFE' },
+    { key:'revenue',   label:'💰 Revenue',    color:'#15803D', bg:'#DCFCE7' },
+    { key:'won',       label:'✅ Won',         color:'#0891B2', bg:'#CFFAFE' },
+    { key:'lost',      label:'✗ Lost',        color:'#DC2626', bg:'#FEE2E2' },
+  ];
+  const curMetric = metrics.find(m=>m.key===_mapIntelMetric) || metrics[0];
+
+  // Get value for each known city
+  const cityValues = Object.entries(_AUS_CITIES).map(([name, pos]) => {
+    const stats = cityStats[name] || { enquiries:0, revenue:0, won:0, lost:0 };
+    const val = _mapIntelMetric === 'revenue'
+      ? stats.revenue
+      : stats[_mapIntelMetric] || 0;
+    return { name, pos, val, stats };
+  }).filter(c => c.val > 0);
+
+  const maxVal = Math.max(...cityValues.map(c=>c.val), 1);
+  const totalVal = cityValues.reduce((s,c)=>s+c.val,0);
+
+  // Dot radius: 6 (min) to 38 (max), logarithmic
+  const dotR = val => val <= 0 ? 0 : Math.max(6, Math.min(38, 6 + Math.log1p(val)/Math.log1p(maxVal) * 32));
+
+  // Build city dots SVG
+  const dots = cityValues.map((c,i) => {
+    const r = dotR(c.val);
+    const delay = (i * 0.15).toFixed(2);
+    const fmtVal = _mapIntelMetric === 'revenue'
+      ? 'A$' + (c.val>=1000 ? (c.val/1000).toFixed(1)+'k' : c.val.toFixed(0))
+      : c.val;
+    return `
+      <g class="city-dot-group" onclick="_mapShowCity('${c.name}')" style="cursor:pointer">
+        <circle cx="${c.pos.x}" cy="${c.pos.y}" r="${r+8}" fill="${curMetric.color}" opacity="0"
+          style="animation: mapPulse 2.4s ease-out ${delay}s infinite"/>
+        <circle cx="${c.pos.x}" cy="${c.pos.y}" r="${r+4}" fill="${curMetric.color}" opacity="0"
+          style="animation: mapPulse 2.4s ease-out ${(parseFloat(delay)+0.3).toFixed(2)}s infinite"/>
+        <circle cx="${c.pos.x}" cy="${c.pos.y}" r="${r}" fill="${curMetric.color}" opacity="0.85"
+          stroke="white" stroke-width="1.5"/>
+        ${r >= 12 ? `<text x="${c.pos.x}" y="${c.pos.y+1}" text-anchor="middle" dominant-baseline="middle"
+          fill="white" font-family="Nunito,sans-serif" font-weight="900"
+          font-size="${r>=20?'10':'8'}">${fmtVal}</text>` : ''}
+        <text x="${c.pos.x}" y="${c.pos.y + r + 11}" text-anchor="middle"
+          fill="#1E293B" font-family="Nunito,sans-serif" font-weight="800" font-size="9"
+          style="pointer-events:none">${c.name}</text>
+      </g>`;
+  }).join('');
+
+  // Zero-activity cities (faint dots)
+  const ghostDots = Object.entries(_AUS_CITIES)
+    .filter(([name]) => !cityValues.find(c=>c.name===name))
+    .map(([name,pos]) => `
+      <circle cx="${pos.x}" cy="${pos.y}" r="3" fill="#CBD5E1" opacity="0.5"/>
+      <text x="${pos.x}" y="${pos.y+10}" text-anchor="middle" fill="#94A3B8"
+        font-family="Nunito,sans-serif" font-size="7" font-weight="600">${name}</text>`).join('');
+
+  // Tooltip div state
+  const tooltip = `<div id="map-city-tooltip" style="display:none;position:absolute;background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.65rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.12);font-family:'Nunito',sans-serif;min-width:180px;z-index:100;pointer-events:none"></div>`;
+
+  el.innerHTML = `
+    <style>
+      @keyframes mapPulse {
+        0%   { opacity:.5; transform:scale(1); }
+        60%  { opacity:0;  transform:scale(2.2); }
+        100% { opacity:0;  transform:scale(2.2); }
+      }
+      .city-dot-group:hover circle:last-of-type { opacity:1 !important; }
+    </style>
+
+    <!-- Metric selector -->
+    <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1rem">
+      ${metrics.map(m => `
+        <button onclick="_mapIntelMetric='${m.key}';_renderMapIntelInner()"
+          style="padding:.38rem .9rem;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;border:2px solid ${m.color};background:${_mapIntelMetric===m.key?m.color:'#fff'};color:${_mapIntelMetric===m.key?'#fff':m.color};transition:all .15s">
+          ${m.label}
+        </button>`).join('')}
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:1rem;align-items:start;margin-bottom:1.2rem">
+
+      <!-- Map -->
+      <div style="background:linear-gradient(160deg,#EFF6FF,#F0FDF4);border:1.5px solid #E2E8F0;border-radius:16px;padding:1rem;position:relative;overflow:hidden">
+        ${tooltip}
+        <svg viewBox="0 0 700 570" style="width:100%;height:auto;display:block;overflow:visible"
+          onmouseleave="document.getElementById('map-city-tooltip')&&(document.getElementById('map-city-tooltip').style.display='none')">
+          <defs>
+            <filter id="land-shadow">
+              <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#94A3B8" flood-opacity="0.3"/>
+            </filter>
+          </defs>
+          <!-- Australia landmass -->
+          <path d="${_AUS_PATH}" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" filter="url(#land-shadow)"/>
+          <!-- State borders (rough) -->
+          <line x1="439" y1="20" x2="439" y2="425" stroke="#CBD5E1" stroke-width=".8" stroke-dasharray="4,3"/>
+          <line x1="439" y1="340" x2="700" y2="340" stroke="#CBD5E1" stroke-width=".8" stroke-dasharray="4,3"/>
+          <line x1="300" y1="31" x2="300" y2="530" stroke="#CBD5E1" stroke-width=".8" stroke-dasharray="4,3"/>
+          <!-- Ghost cities -->
+          ${ghostDots}
+          <!-- Active city dots -->
+          ${dots}
+        </svg>
+
+        <!-- Legend -->
+        <div style="position:absolute;bottom:12px;left:14px;display:flex;flex-direction:column;gap:4px">
+          ${[[6,'1'],[14,'5–10'],[24,'10–50'],[34,'50+']].map(([r,lbl])=>`
+            <div style="display:flex;align-items:center;gap:5px">
+              <svg width="${r*2+2}" height="${r*2+2}"><circle cx="${r+1}" cy="${r+1}" r="${r}" fill="${curMetric.color}" opacity=".7"/></svg>
+              <span style="font-size:.65rem;color:#64748B;font-family:'Nunito',sans-serif;font-weight:700">${lbl}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- City ranking panel -->
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:1rem;max-height:480px;overflow-y:auto">
+        <div style="font-size:.72rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">
+          ${curMetric.label} by City
+        </div>
+        ${cityValues.length === 0
+          ? `<div style="color:#94A3B8;font-size:.82rem;text-align:center;padding:1.5rem">No data yet</div>`
+          : cityValues.sort((a,b)=>b.val-a.val).map((c,i) => {
+              const pct = totalVal > 0 ? (c.val/totalVal*100) : 0;
+              const fmtVal = _mapIntelMetric === 'revenue'
+                ? 'A$' + c.val.toLocaleString('en-AU',{maximumFractionDigits:0})
+                : c.val;
+              return `<div style="margin-bottom:.55rem">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem">
+                  <span style="font-size:.8rem;font-weight:800;color:#0F172A">${i+1}. ${c.name}</span>
+                  <span style="font-size:.8rem;font-weight:900;color:${curMetric.color}">${fmtVal}</span>
+                </div>
+                <div style="background:#F1F5F9;border-radius:20px;height:7px;overflow:hidden">
+                  <div style="width:${Math.max(4,pct)}%;background:${curMetric.color};height:100%;border-radius:20px;transition:width .4s"></div>
+                </div>
+                <div style="font-size:.68rem;color:#94A3B8;margin-top:.1rem">${pct.toFixed(1)}% of total · E:${c.stats.enquiries} W:${c.stats.won} R:A$${Math.round(c.stats.revenue/1000||0)}k</div>
+              </div>`;
+            }).join('')}
+      </div>
+    </div>
+
+    <!-- ── Quote Intelligence ──────────────────────────────────────────── -->
+    <div id="mapintel-qi"></div>`;
+
+  _renderQuoteIntelligence();
+}
+
+function _mapShowCity(name) {
+  const stats = {};
+  quoteInbox.forEach(r => {
+    const city = r.city || r.cluster;
+    if (city !== name) return;
+    if (!stats.enquiries) Object.assign(stats, { enquiries:0, revenue:0, won:0, lost:0, pending:0 });
+    stats.enquiries++;
+    if (r.acceptedBy) {
+      stats.won++;
+      const p = (r.responses||[]).find(x=>x.accepted);
+      if (p) { const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')); if(!isNaN(v)) stats.revenue+=v; }
+    } else if ((r.responses||[]).some(x=>x.rejected||x.autoRejected)) stats.lost++;
+    else stats.pending++;
+  });
+  if (!stats.enquiries) return;
+  const tip = document.getElementById('map-city-tooltip');
+  if (!tip) return;
+  tip.style.display = 'block';
+  tip.innerHTML = `<strong style="font-size:.88rem;color:#0F172A">📍 ${name}</strong>
+    <div style="margin-top:.35rem;display:flex;flex-direction:column;gap:.18rem;font-size:.78rem">
+      <div>📨 Enquiries: <strong>${stats.enquiries}</strong></div>
+      <div>✅ Won: <strong style="color:#15803D">${stats.won||0}</strong></div>
+      <div>✗ Lost: <strong style="color:#DC2626">${stats.lost||0}</strong></div>
+      <div>⏳ Pending: <strong>${stats.pending||0}</strong></div>
+      <div>💰 Revenue: <strong>A$${(stats.revenue||0).toLocaleString('en-AU',{maximumFractionDigits:0})}</strong></div>
+    </div>`;
+}
+
+function _renderQuoteIntelligence() {
+  const el = document.getElementById('mapintel-qi');
+  if (!el) return;
+
+  const allEnq = quoteInbox;
+
+  // Only work with enquiries that have 2+ priced responses
+  const competitive = allEnq.filter(r => {
+    const priced = (r.responses||[]).filter(p => {
+      const v = parseFloat(String(p.grandTotal||p.price||0).replace(/[^0-9.]/g,''));
+      return !isNaN(v) && v > 0;
+    });
+    return priced.length >= 2;
+  });
+
+  const orders = competitive.map(r => {
+    const priced = (r.responses||[])
+      .map(p => ({ co: p.company||'—', price: parseFloat(String(p.grandTotal||p.price||0).replace(/[^0-9.]/g,'')), accepted: !!p.accepted }))
+      .filter(p => !isNaN(p.price) && p.price > 0)
+      .sort((a,b) => a.price - b.price);
+    const low    = priced[0];
+    const high   = priced[priced.length-1];
+    const accepted = priced.find(p => p.accepted);
+    return { id: r.id, ts: r.ts||0, low, high, accepted,
+             spread: high.price - low.price,
+             spreadPct: ((high.price - low.price) / low.price * 100),
+             city: r.city||'—', machines: (r.machines||[]).map(m=>m.name||m.id).join(', ')||r.id };
+  }).filter(o => o.low && o.high);
+
+  if (!orders.length) {
+    el.innerHTML = `<div style="background:#F8FAFC;border:1.5px dashed #E2E8F0;border-radius:14px;padding:2rem;text-align:center;color:#94A3B8;font-size:.85rem">
+      Quote intelligence requires at least 2 priced responses per enquiry — data will appear as quotes arrive.
+    </div>`;
+    return;
+  }
+
+  // ── Key intelligence metrics ──────────────────────────────────
+  const withAccepted = orders.filter(o => o.accepted);
+
+  // Cases where accepted > lowest (customer paid higher-bid)
+  const upliftCases = withAccepted.filter(o => o.accepted.price > o.low.price + 0.01);
+  const lowestWonCases    = withAccepted.filter(o => o.accepted.price <= o.low.price + 0.01);
+
+  // Above-lowest stats
+  const aboveLowestRate = withAccepted.length > 0 ? (upliftCases.length / withAccepted.length * 100) : 0;
+  const avgUpliftPct = upliftCases.length > 0
+    ? upliftCases.reduce((s,o) => s + ((o.accepted.price - o.low.price) / o.low.price * 100), 0) / upliftCases.length
+    : 0;
+  const avgUpliftAbs = upliftCases.length > 0
+    ? upliftCases.reduce((s,o) => s + (o.accepted.price - o.low.price), 0) / upliftCases.length
+    : 0;
+
+  // Spread between highest and lowest per order
+  const avgSpreadPct = orders.reduce((s,o) => s + o.spreadPct, 0) / orders.length;
+  const maxSpread = orders.reduce((a,o) => o.spreadPct > a.spreadPct ? o : a, orders[0]);
+
+  // Distribution: accepted / lowest price ratio buckets
+  const buckets = { 'Lowest wins (0–2%)':0, 'Slight uplift (2–10%)':0, 'Moderate uplift (10–25%)':0, 'Significant uplift (25–50%)':0, 'High uplift (50%+)':0 };
+  upliftCases.forEach(o => {
+    const pct = (o.accepted.price - o.low.price) / o.low.price * 100;
+    if      (pct <= 2)  buckets['Lowest wins (0–2%)']++;
+    else if (pct <= 10) buckets['Slight uplift (2–10%)']++;
+    else if (pct <= 25) buckets['Moderate uplift (10–25%)']++;
+    else if (pct <= 50) buckets['Significant uplift (25–50%)']++;
+    else                buckets['High uplift (50%+)']++;
+  });
+
+  const fmt    = n => 'A$' + n.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const fmtPct = n => n.toFixed(1) + '%';
+
+  el.innerHTML = `
+    <div style="background:#0F172A;border-radius:18px;padding:1.5rem 1.6rem;color:#fff;margin-top:.5rem">
+      <div style="font-size:.72rem;font-weight:900;opacity:.5;text-transform:uppercase;letter-spacing:.7px;margin-bottom:.3rem">🔬 Confidential</div>
+      <div style="font-size:1.05rem;font-weight:900;margin-bottom:.25rem">Quote Intelligence Report</div>
+      <div style="font-size:.74rem;opacity:.55;margin-bottom:1.3rem">${orders.length} competitive quotes analysed · ${withAccepted.length} with acceptance data</div>
+
+      <!-- Top KPIs -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.65rem;margin-bottom:1.3rem">
+        ${[
+          ['📊', 'Avg Quote Spread',   fmtPct(avgSpreadPct), 'difference between highest & lowest per enquiry', '#FCD34D'],
+          ['💡', 'Above-Lowest Win Rate',    fmtPct(aboveLowestRate), 'of accepted quotes were NOT the lowest bid', '#F9A8D4'],
+          ['💰', 'Avg Uplift Paid',    fmtPct(avgUpliftPct), 'above lowest when customer chose higher bid', '#4ADE80'],
+          ['💵', 'Avg Extra A$ Paid',   fmt(avgUpliftAbs), 'extra per order when higher bid was accepted', '#93C5FD'],
+          ['🏆', 'Lowest Quote Wins',   fmtPct(withAccepted.length>0?(lowestWonCases.length/withAccepted.length*100):0), 'of the time', '#86EFAC'],
+          ['📈', 'Max Spread Seen',     fmtPct(maxSpread.spreadPct), `on ${maxSpread.id}`, '#FCA5A5'],
+        ].map(([icon,label,val,sub,color]) => `
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.8rem .9rem">
+            <div style="font-size:.64rem;opacity:.55;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.25rem">${icon} ${label}</div>
+            <div style="font-size:1.15rem;font-weight:900;color:${color};margin-bottom:.15rem">${val}</div>
+            <div style="font-size:.66rem;opacity:.5;line-height:1.4">${sub}</div>
+          </div>`).join('')}
+      </div>
+
+      <!-- Two-column: Price uplift distribution + cases list -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">
+
+        <!-- Distribution buckets -->
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.85rem 1rem">
+          <div style="font-size:.7rem;font-weight:800;opacity:.6;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.7rem">Uplift Distribution (when higher bid wins) (when higher bid wins)</div>
+          ${Object.entries(buckets).map(([label,count]) => {
+            const pct = upliftCases.length > 0 ? count/upliftCases.length*100 : 0;
+            const colors = ['#4ADE80','#86EFAC','#FCD34D','#FCA5A5','#F87171'];
+            const i = Object.keys(buckets).indexOf(label);
+            return `<div style="margin-bottom:.5rem">
+              <div style="display:flex;justify-content:space-between;font-size:.74rem;margin-bottom:.2rem">
+                <span style="opacity:.8">${label}</span>
+                <span style="font-weight:800;color:${colors[i]}">${count}</span>
+              </div>
+              <div style="background:rgba(255,255,255,.1);border-radius:20px;height:6px">
+                <div style="width:${Math.max(2,pct)}%;background:${colors[i]};height:100%;border-radius:20px;transition:width .4s"></div>
+              </div>
+            </div>`;
+          }).join('')}
+          <div style="margin-top:.6rem;font-size:.68rem;opacity:.4">Lowest wins: ${lowestWonCases.length} · Higher bid wins: ${upliftCases.length}</div>
+        </div>
+
+        <!-- Insight cards -->
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.85rem 1rem">
+          <div style="font-size:.7rem;font-weight:800;opacity:.6;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.7rem">What This Means</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.78rem;line-height:1.5">
+            <div style="background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.25);border-radius:8px;padding:.5rem .7rem">
+              <strong style="color:#4ADE80">Price alone doesn't win.</strong><br>
+              <span style="opacity:.75">${fmtPct(aboveLowestRate)} of customers chose a higher quote — trust, documentation, and speed matter.</span>
+            </div>
+            <div style="background:rgba(249,168,212,.1);border:1px solid rgba(249,168,212,.2);border-radius:8px;padding:.5rem .7rem">
+              <strong style="color:#F9A8D4">Avg uplift paid: ${fmtPct(avgUpliftPct)}</strong><br>
+              <span style="opacity:.75">Rental companies that respond fast and submit formal quotes can win even at higher prices.</span>
+            </div>
+            <div style="background:rgba(147,197,253,.1);border:1px solid rgba(147,197,253,.2);border-radius:8px;padding:.5rem .7rem">
+              <strong style="color:#93C5FD">Quote spread avg: ${fmtPct(avgSpreadPct)}</strong><br>
+              <span style="opacity:.75">This is the pricing range customers see per enquiry — signals competitive pricing pressure.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Higher-bid cases table -->
+      ${upliftCases.length > 0 ? `
+        <details>
+          <summary style="cursor:pointer;font-size:.78rem;font-weight:800;opacity:.7;padding:.4rem 0;list-style:none;display:flex;align-items:center;gap:.4rem">
+            <span>▶</span> Cases where higher bidder won (${upliftCases.length} orders)
+          </summary>
+          <div style="margin-top:.65rem;overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-size:.76rem">
+              <thead>
+                <tr style="opacity:.5;font-size:.65rem;text-transform:uppercase;letter-spacing:.4px">
+                  <th style="text-align:left;padding:.3rem .5rem">Order / Machine</th>
+                  <th style="text-align:left;padding:.3rem .5rem">City</th>
+                  <th style="text-align:right;padding:.3rem .5rem">Lowest Quote</th>
+                  <th style="text-align:right;padding:.3rem .5rem">Accepted Quote</th>
+                  <th style="text-align:right;padding:.3rem .5rem">Premium A$</th>
+                  <th style="text-align:right;padding:.3rem .5rem">Uplift %</th>
+                  <th style="text-align:left;padding:.3rem .5rem">Winner</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${upliftCases.sort((a,b)=>((b.accepted.price-b.low.price)/b.low.price*100)-((a.accepted.price-a.low.price)/a.low.price*100)).map(o => {
+                  const upliftAbs = o.accepted.price - o.low.price;
+                  const upliftPct = (upliftAbs / o.low.price * 100);
+                  const barColor = upliftPct > 25 ? '#FCA5A5' : upliftPct > 10 ? '#FCD34D' : '#86EFAC';
+                  return `<tr style="border-top:1px solid rgba(255,255,255,.07)">
+                    <td style="padding:.35rem .5rem;opacity:.85;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.machines}</td>
+                    <td style="padding:.35rem .5rem;opacity:.6;font-size:.72rem">${o.city}</td>
+                    <td style="padding:.35rem .5rem;text-align:right;color:#4ADE80;font-weight:700">${fmt(o.low.price)}<div style="font-size:.66rem;opacity:.5">${o.low.co}</div></td>
+                    <td style="padding:.35rem .5rem;text-align:right;color:#FCD34D;font-weight:700">${fmt(o.accepted.price)}<div style="font-size:.66rem;opacity:.5">${o.accepted.co}</div></td>
+                    <td style="padding:.35rem .5rem;text-align:right;color:${barColor};font-weight:800">${fmt(upliftAbs)}</td>
+                    <td style="padding:.35rem .5rem;text-align:right;font-weight:900;color:${barColor}">+${fmtPct(upliftPct)}</td>
+                    <td style="padding:.35rem .5rem;opacity:.75;font-size:.72rem">${o.accepted.co}</td>
+                  </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        </details>` : ''}
+
+      <div style="margin-top:1rem;font-size:.67rem;opacity:.3;line-height:1.5">
+        Confidential intelligence. Analysis based on all enquiries with 2+ priced responses in the platform.
+        Premium = accepted quote price minus the lowest quote received for same enquiry.
+      </div>
+    </div>`;
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// MANAGEMENT DASHBOARD
+// ══════════════════════════════════════════════════════════════════
+// ── Management Dashboard Export ──────────────────────────────────────────────
+function exportManagementPDF() {
+  // Print-friendly view with CSS
+  const style = document.createElement('style');
+  style.id = 'noyo-print-style';
+  style.textContent = `
+    @media print {
+      body > *:not(#view-admin) { display:none !important; }
+      #view-admin .admin-tabs, #view-admin .admin-header button,
+      nav, .cart-fab, .feedback-fab, .noyo-toast { display:none !important; }
+      #admin-sec-investor { display:block !important; }
+      #admin-sec-investor button { display:none !important; }
+      @page { margin:15mm; size:A4 landscape; }
+    }`;
+  document.head.appendChild(style);
+  window.print();
+  setTimeout(() => { const el = document.getElementById('noyo-print-style'); if(el) el.remove(); }, 2000);
+}
+
+function exportManagementExcel() {
+  const now = Date.now();
+  const searches = adminData.searches || [];
+  const allEnq = quoteInbox;
+  const responded = allEnq.filter(r=>(r.responses||[]).length>0);
+  const accepted  = allEnq.filter(r=>r.acceptedBy);
+
+  // Build CSV data
+  const rows = [];
+
+  // Sheet 1: Platform Summary
+  rows.push(['NOYO MANAGEMENT DASHBOARD EXPORT']);
+  rows.push(['Generated:', new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'long',year:'numeric'})]);
+  rows.push([]);
+  rows.push(['PLATFORM SUMMARY']);
+  rows.push(['Metric','Value']);
+  rows.push(['Total Enquiries', allEnq.length]);
+  rows.push(['Enquiries Responded', responded.length]);
+  rows.push(['Match Rate %', allEnq.length>0?Math.round(responded.length/allEnq.length*100):0]);
+  rows.push(['Accepted', accepted.length]);
+  rows.push(['Acceptance Rate %', responded.length>0?Math.round(accepted.length/responded.length*100):0]);
+  rows.push(['Total Searches', searches.length]);
+  rows.push(['Active Rental Cos', (RENTAL_COMPANIES||[]).filter(c=>c.active!==false).length]);
+  rows.push([]);
+
+  // GMV
+  let gmv=0; accepted.forEach(r=>{const p=(r.responses||[]).find(x=>x.accepted);if(p){const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,''));if(!isNaN(v))gmv+=v;}});
+  rows.push(['FINANCIAL INDICATORS']);
+  rows.push(['GMV Facilitated (A$)', gmv.toFixed(2)]);
+  const planPrices={starter:99,growth:249,pro:499};
+  let mrr=0;(RENTAL_COMPANIES||[]).filter(c=>c.active!==false).forEach(c=>{const p=(c.email&&loadAccountField(c.email,'billingPlan'))||'starter';mrr+=planPrices[p]||0;});
+  rows.push(['Estimated MRR (A$)', mrr]);
+  rows.push(['Estimated ARR (A$)', mrr*12]);
+  rows.push([]);
+
+  // Searches by segment
+  rows.push(['SEARCHES BY SEGMENT']);
+  rows.push(['Segment','Searches','Unique Users','Zero Results %','Cart Rate %']);
+  ['customer','lite','rental'].forEach(role=>{
+    const s = searches.filter(x=>(x.role||'customer')===role);
+    const u = new Set(s.map(x=>x.email).filter(Boolean)).size;
+    const z = s.length>0?Math.round(s.filter(x=>x.zeroResults).length/s.length*100):0;
+    const c = s.length>0?Math.round(s.filter(x=>x.cartAdded).length/s.length*100):0;
+    rows.push([role, s.length, u, z+'%', c+'%']);
+  });
+  rows.push([]);
+
+  // City breakdown
+  rows.push(['TOP CITIES (ALL SEARCHES)']);
+  rows.push(['City','Search Count','%']);
+  const cm={};searches.forEach(s=>{const c=s.city||'Unknown';cm[c]=(cm[c]||0)+1;});
+  Object.entries(cm).sort((a,b)=>b[1]-a[1]).slice(0,15).forEach(([city,cnt])=>{
+    rows.push([city, cnt, searches.length>0?Math.round(cnt/searches.length*100)+'%':'0%']);
+  });
+  rows.push([]);
+
+  // Machine types
+  rows.push(['TOP MACHINE TYPES SEARCHED']);
+  rows.push(['Machine Type','Search Count']);
+  const mm={};searches.forEach(s=>{const t=s.machineType||'Unknown';mm[t]=(mm[t]||0)+1;});
+  Object.entries(mm).sort((a,b)=>b[1]-a[1]).forEach(([type,cnt])=>rows.push([type,cnt]));
+  rows.push([]);
+
+  // Enquiries
+  rows.push(['ENQUIRY DETAILS']);
+  rows.push(['Ref','Customer','City','State','Date Sent','Machines','Status','Accepted By','Grand Total (A$)']);
+  allEnq.slice().reverse().forEach(r=>{
+    const status = r.acceptedBy?'Accepted':r.responded?'Responded':'Pending';
+    const p = (r.responses||[]).find(x=>x.accepted);
+    const total = p?parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')).toFixed(2):'';
+    const machines = (r.machines||[]).map(m=>m.name||m.id).join('; ');
+    const dateSent = r.ts?new Date(r.ts).toLocaleDateString('en-AU'):'';
+    rows.push([r.id||'', r.customer||'', r.city||'', r.state||'', dateSent, machines, status, r.acceptedBy||'', total]);
+  });
+
+  // Convert to CSV
+  function _csvCell(v) {
+    const s = String(v == null ? '' : v);
+    const NL = 10; const CR = 13; const QT = 34; const CM = 44;
+    let needs = false;
+    for (let i=0;i<s.length;i++){const c=s.charCodeAt(i);if(c===NL||c===CR||c===QT||c===CM){needs=true;break;}}
+    return needs ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+  const csv = rows.map(function(row){return row.map(_csvCell).join(',');}).join('\r\n');
+
+  // Download
+  const blob = new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8;'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `Noyo-Management-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('📊 CSV downloaded — open in Excel or Google Sheets', '#15803D', 5000);
+}
+
+function renderInvestorDashboard() { renderManagementDashboard(); }
+function renderManagementDashboard() {
+  const el = document.getElementById('investor-dash-content');
+  if (!el) return;
+
+  const now = Date.now();
+  const searches = adminData.searches || [];
+  const sessions = adminData.sessions || [];
+  const allEnq   = quoteInbox;
+
+  // ── Segment helpers ─────────────────────────────────────────────
+  const seg = role => searches.filter(s => (s.role||'customer') === role);
+  const custSearches  = seg('customer');
+  const liteSearches  = seg('lite');
+  const rcSearches    = seg('rental');
+  const allSegments   = [
+    { key:'customer',  label:'👤 Customers',       color:'#0052CC', bg:'#EFF6FF', border:'#BFDBFE', searches: custSearches },
+    { key:'lite',      label:'🔎 Lite Users',       color:'#7C3AED', bg:'#F3E8FF', border:'#DDD6FE', searches: liteSearches },
+    { key:'rental',    label:'🏗️ Rental Companies', color:'#15803D', bg:'#F0FDF4', border:'#86EFAC', searches: rcSearches },
+  ];
+
+  // ── Unique users per segment ─────────────────────────────────
+  const uniq = arr => new Set(arr.map(s=>s.email).filter(Boolean)).size;
+
+  // ── City breakdown ───────────────────────────────────────────
+  const cityBreakdown = (arr) => {
+    const m = {};
+    arr.forEach(s => { const c = s.city||'Unknown'; m[c]=(m[c]||0)+1; });
+    return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  };
+
+  // ── Hour breakdown (when do they search) ─────────────────────
+  const hourBuckets = (arr) => {
+    const b = { 'Night (0-6)':0,'Morning (6-9)':0,'Business (9-17)':0,'Evening (17-21)':0,'Late (21-24)':0 };
+    arr.forEach(s => {
+      const h = s.hour != null ? s.hour : (s.ts ? new Date(s.ts).getHours() : -1);
+      if (h < 0) return;
+      if (h < 6) b['Night (0-6)']++;
+      else if (h < 9) b['Morning (6-9)']++;
+      else if (h < 17) b['Business (9-17)']++;
+      else if (h < 21) b['Evening (17-21)']++;
+      else b['Late (21-24)']++;
+    });
+    return Object.entries(b).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  };
+
+  // ── Machine type breakdown ────────────────────────────────────
+  const machineBreakdown = (arr) => {
+    const m = {};
+    arr.forEach(s => { const t = s.machineType||s.jobType||'Unknown'; m[t]=(m[t]||0)+1; });
+    return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  };
+
+  // ── Result quality ────────────────────────────────────────────
+  const zeroResultRate = (arr) => {
+    if (!arr.length) return 0;
+    return Math.round(arr.filter(s=>s.zeroResults).length/arr.length*100);
+  };
+  const cartRate = (arr) => {
+    if (!arr.length) return 0;
+    return Math.round(arr.filter(s=>s.cartAdded).length/arr.length*100);
+  };
+
+  // ── Last 30 days ─────────────────────────────────────────────
+  const d30 = now - 30*86400000;
+  const last30 = (arr) => arr.filter(s=>s.ts&&s.ts>d30);
+
+  // ── Marketplace ───────────────────────────────────────────────
+  const responded  = allEnq.filter(r=>(r.responses||[]).length>0);
+  const accepted   = allEnq.filter(r=>r.acceptedBy);
+  const matchRate  = allEnq.length>0?Math.round(responded.length/allEnq.length*100):0;
+  const acceptRate = responded.length>0?Math.round(accepted.length/responded.length*100):0;
+  let gmv = 0;
+  accepted.forEach(r=>{const p=(r.responses||[]).find(x=>x.accepted);if(p){const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,''));if(!isNaN(v))gmv+=v;}});
+
+  // ── Mini bar chart ────────────────────────────────────────────
+  const miniBar = (entries, total, colorFn) => {
+    if (!entries.length) return '<div style="color:#94A3B8;font-size:.78rem">No data yet</div>';
+    const max = Math.max(...entries.map(([,v])=>v));
+    return entries.map(([label, val], i) => {
+      const pct = Math.round(val/total*100);
+      const barW = Math.max(3, Math.round(val/max*100));
+      const colors = ['#0052CC','#0891B2','#7C3AED','#15803D','#B45309','#DC2626','#475569','#64748B'];
+      return `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+        <div style="font-size:.75rem;font-weight:700;color:#334155;min-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${label}</div>
+        <div style="flex:1;background:#F1F5F9;border-radius:20px;height:9px;overflow:hidden">
+          <div style="width:${barW}%;background:${colorFn?colorFn(i):colors[i%colors.length]};height:100%;border-radius:20px"></div>
+        </div>
+        <div style="font-size:.73rem;font-weight:800;color:#64748B;min-width:55px;text-align:right">${val} (${pct}%)</div>
+      </div>`;
+    }).join('');
+  };
+
+  // ── Segment card ─────────────────────────────────────────────
+  const segCard = (seg) => {
+    const s = seg.searches;
+    const s30 = last30(s);
+    const cities = cityBreakdown(s);
+    const hours  = hourBuckets(s);
+    const machines = machineBreakdown(s);
+    const zeroPct  = zeroResultRate(s);
+    const cartPct  = cartRate(s);
+    const totalU   = uniq(s);
+    const totalS   = s.length;
+
+    // Enquiry-level stats per segment
+    const segEnq = seg.key === 'customer'
+      ? allEnq.filter(r => {
+          const emailMatch = s.some(sr => sr.email && sr.email === r.email);
+          return emailMatch || r.email; // customers who sent enquiries
+        })
+      : seg.key === 'rental'
+      ? allEnq.filter(r => (r.responses||[]).some(rsp => rsp.company))
+      : [];
+
+    const totalEnq  = seg.key === 'customer' ? allEnq.length : segEnq.length;
+    const sentPct   = totalS > 0 ? Math.round(totalEnq / Math.max(1, totalU) * 100) : 0;
+    const responded = allEnq.filter(r=>(r.responses||[]).length>0);
+    const accepted  = allEnq.filter(r=>r.acceptedBy);
+    const rejected  = allEnq.filter(r=>(r.responses||[]).some(x=>x.rejected||x.autoRejected));
+    const quotedPct = totalEnq>0 ? Math.round(responded.length/allEnq.length*100) : 0;
+    const acceptPct = responded.length>0 ? Math.round(accepted.length/responded.length*100) : 0;
+    const rejectPct = responded.length>0 ? Math.round(rejected.filter(r=>!r.acceptedBy).length/responded.length*100) : 0;
+
+    return `<div style="background:#fff;border:2px solid ${seg.border};border-radius:16px;padding:1.1rem 1.2rem;margin-bottom:1.2rem">
+      <!-- Segment header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem">
+        <div style="font-size:1rem;font-weight:900;color:${seg.color}">${seg.label}</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <span style="background:${seg.bg};color:${seg.color};border:1px solid ${seg.border};border-radius:20px;padding:.15rem .6rem;font-size:.74rem;font-weight:800">${totalU} users</span>
+          <span style="background:${seg.bg};color:${seg.color};border:1px solid ${seg.border};border-radius:20px;padding:.15rem .6rem;font-size:.74rem;font-weight:800">${totalS} searches</span>
+          <span style="background:${seg.bg};color:${seg.color};border:1px solid ${seg.border};border-radius:20px;padding:.15rem .6rem;font-size:.74rem;font-weight:800">${s30.length} last 30d</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.9rem">
+
+        <!-- Funnel metrics -->
+        <div>
+          <div style="font-size:.7rem;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.45rem">🎯 Search → Hire Funnel</div>
+          <div style="display:flex;flex-direction:column;gap:.3rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;background:#F8FAFC;border-radius:8px;padding:.38rem .7rem">
+              <span style="font-size:.78rem;color:#475569;display:flex;align-items:center;gap:.35rem">🔍 Got results</span>
+              <span style="font-size:.84rem;font-weight:900;color:${(100-zeroPct)>=80?'#15803D':(100-zeroPct)>=50?'#B45309':'#DC2626'}">${100-zeroPct}%</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:.7rem">▼</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:#F8FAFC;border-radius:8px;padding:.38rem .7rem">
+              <span style="font-size:.78rem;color:#475569;display:flex;align-items:center;gap:.35rem">🛒 Added to Hire Cart</span>
+              <span style="font-size:.84rem;font-weight:900;color:${cartPct>=20?'#15803D':cartPct>=5?'#B45309':'#DC2626'}">${cartPct}%</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:.7rem">▼</div>
+            ${seg.key === 'customer' ? `
+            <div style="display:flex;justify-content:space-between;align-items:center;background:#EFF6FF;border-radius:8px;padding:.38rem .7rem;border:1px solid #BFDBFE">
+              <span style="font-size:.78rem;color:#1D4ED8;display:flex;align-items:center;gap:.35rem">📨 Quote Request Sent</span>
+              <span style="font-size:.84rem;font-weight:900;color:#1D4ED8">${allEnq.length}</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:.7rem">▼</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:#F0FDF4;border-radius:8px;padding:.38rem .7rem;border:1px solid #86EFAC">
+              <span style="font-size:.78rem;color:#15803D;display:flex;align-items:center;gap:.35rem">💬 Got Quoted</span>
+              <span style="font-size:.84rem;font-weight:900;color:#15803D">${responded.length} <span style="font-size:.72rem;font-weight:700;color:#64748B">(${quotedPct}%)</span></span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:.7rem">▼</div>
+            <div style="display:flex;gap:.3rem">
+              <div style="flex:1;background:#DCFCE7;border-radius:8px;padding:.38rem .6rem;border:1.5px solid #86EFAC;text-align:center">
+                <div style="font-size:.7rem;font-weight:800;color:#15803D">✅ Accepted</div>
+                <div style="font-size:.92rem;font-weight:900;color:#15803D">${accepted.length} <span style="font-size:.7rem;font-weight:700">(${acceptPct}%)</span></div>
+              </div>
+              <div style="flex:1;background:#FEF2F2;border-radius:8px;padding:.38rem .6rem;border:1.5px solid #FCA5A5;text-align:center">
+                <div style="font-size:.7rem;font-weight:800;color:#DC2626">✗ Declined</div>
+                <div style="font-size:.92rem;font-weight:900;color:#DC2626">${rejected.filter(r=>!r.acceptedBy).length} <span style="font-size:.7rem;font-weight:700">(${rejectPct}%)</span></div>
+              </div>
+            </div>
+            ` : seg.key === 'rental' ? `
+            <div style="display:flex;justify-content:space-between;align-items:center;background:#F0FDF4;border-radius:8px;padding:.38rem .7rem;border:1px solid #86EFAC">
+              <span style="font-size:.78rem;color:#15803D">📋 Enquiries Responded To</span>
+              <span style="font-size:.84rem;font-weight:900;color:#15803D">${responded.length} <span style="font-size:.72rem;font-weight:700;color:#64748B">(${quotedPct}%)</span></span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;color:#CBD5E1;font-size:.7rem">▼</div>
+            <div style="display:flex;gap:.3rem">
+              <div style="flex:1;background:#DCFCE7;border-radius:8px;padding:.38rem .6rem;border:1.5px solid #86EFAC;text-align:center">
+                <div style="font-size:.7rem;font-weight:800;color:#15803D">🏆 Won</div>
+                <div style="font-size:.92rem;font-weight:900;color:#15803D">${accepted.length} <span style="font-size:.7rem;font-weight:700">(${acceptPct}%)</span></div>
+              </div>
+              <div style="flex:1;background:#FEF2F2;border-radius:8px;padding:.38rem .6rem;border:1.5px solid #FCA5A5;text-align:center">
+                <div style="font-size:.7rem;font-weight:800;color:#DC2626">✗ Lost</div>
+                <div style="font-size:.92rem;font-weight:900;color:#DC2626">${rejected.filter(r=>!r.acceptedBy).length}</div>
+              </div>
+            </div>
+            ` : `
+            <div style="background:#F8FAFC;border-radius:8px;padding:.38rem .7rem;text-align:center">
+              <span style="font-size:.78rem;color:#94A3B8">Lite users browse only — no enquiries</span>
+            </div>
+            `}
+          </div>
+        </div>
+
+        <!-- Cities -->
+        <div>
+          <div style="font-size:.7rem;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.45rem">📍 Top Cities</div>
+          ${cities.length ? miniBar(cities, totalS, null) : '<div style="color:#94A3B8;font-size:.78rem">No city data yet</div>'}
+        </div>
+
+        <!-- Machine types -->
+        <div>
+          <div style="font-size:.7rem;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.45rem">🏗️ Machine Types Searched</div>
+          ${machines.length ? miniBar(machines, totalS, null) : '<div style="color:#94A3B8;font-size:.78rem">No data yet</div>'}
+        </div>
+
+        <!-- Time of day -->
+        <div>
+          <div style="font-size:.7rem;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.45rem">🕐 When They Search</div>
+          ${hours.length ? miniBar(hours, totalS, null) : '<div style="color:#94A3B8;font-size:.78rem">No data yet</div>'}
+        </div>
+
+      </div>
+    </div>`;
+  };
+
+  // ── Render ───────────────────────────────────────────────────
+  el.innerHTML = `
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem">
+      <div>
+        <div style="font-size:1.25rem;font-weight:900;color:#0F172A">📊 Management Dashboard</div>
+        <div style="font-size:.82rem;color:#64748B;margin-top:.2rem">
+          Platform overview — ${new Date().toLocaleDateString('en-AU',{day:'2-digit',month:'long',year:'numeric'})}
+        </div>
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <button onclick="renderManagementDashboard()" style="background:#F1F5F9;border:1.5px solid #E2E8F0;color:#475569;border-radius:8px;padding:.35rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">↻ Refresh</button>
+        <button onclick="exportManagementPDF()" style="background:linear-gradient(135deg,#DC2626,#B91C1C);color:#fff;border:none;border-radius:8px;padding:.35rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">🖨️ PDF</button>
+        <button onclick="exportManagementExcel()" style="background:linear-gradient(135deg,#15803D,#166534);color:#fff;border:none;border-radius:8px;padding:.35rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">📊 Excel</button>
+      </div>
+    </div>
+
+    <!-- Platform snapshot -->
+    <div style="font-size:.72rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.6px;margin-bottom:.65rem">🏪 Platform Snapshot</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin-bottom:1.5rem">
+      ${[
+        ['📨','Total Enquiries', allEnq.length, '', '#0052CC','#EFF6FF','#BFDBFE'],
+        ['💬','Match Rate', matchRate+'%', `${responded.length} got responses`, matchRate>=60?'#15803D':matchRate>=30?'#B45309':'#DC2626', matchRate>=60?'#F0FDF4':'#FFFBEB', matchRate>=60?'#86EFAC':'#FCD34D'],
+        ['✅','Accept Rate', acceptRate+'%', `${accepted.length} accepted`, '#15803D','#F0FDF4','#86EFAC'],
+        ['💰','GMV', gmv>0?'A$'+Math.round(gmv).toLocaleString():'A$0', 'accepted hires', '#15803D','#F0FDF4','#86EFAC'],
+        ['🔍','Total Searches', searches.length, `${last30(searches).length} last 30d`, '#7C3AED','#F3E8FF','#DDD6FE'],
+        ['👥','Unique Searchers', uniq(searches), 'distinct users', '#0891B2','#ECFEFF','#A5F3FC'],
+      ].map(([icon,label,val,sub,c,bg,border]) => `
+        <div style="background:${bg};border:1.5px solid ${border};border-radius:12px;padding:.8rem .9rem">
+          <div style="font-size:.68rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.3px">${icon} ${label}</div>
+          <div style="font-size:1.45rem;font-weight:900;color:${c};line-height:1.1;margin-top:.15rem">${val}</div>
+          ${sub?`<div style="font-size:.7rem;color:#94A3B8;font-weight:600">${sub}</div>`:''}
+        </div>`).join('')}
+    </div>
+
+    <!-- User Segments -->
+    <div style="font-size:.72rem;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.6px;margin-bottom:.7rem">👥 User Segments — Search Behaviour</div>
+    ${allSegments.map(s => segCard(s)).join('')}
+
+    <div style="font-size:.71rem;color:#94A3B8;text-align:center;padding:.5rem">
+      Search data accumulates in real time as users perform searches. City data requires suburb autocomplete selection to populate.
+    </div>`;
+}
+
+
+
 function renderAdminDashboard() {
   // Update pending rental company badge in tab
   try { _updateRcTabBadge(); } catch(e) {}
@@ -60202,6 +62372,7 @@ function renderAdminDashboard() {
   const cartAdds        = adminData.searches.filter(s => s.cartAdded).length;
   const cartRate        = totalSearches > 0 ? Math.round(cartAdds/totalSearches*100) : 0;
   const totalQuotes     = quoteInbox.length;
+  const sharedDelivered = quoteInbox.filter(r => r.submittedAt || r.cluster || r.city).length; // enquiries in shared_enquiries
   const responded       = quoteInbox.filter(r => r.responded || (r.responses||[]).length > 0).length;
   const accepted        = quoteInbox.filter(r => r.acceptedBy).length;
   const pending         = quoteInbox.filter(r => !(r.responses||[]).length && !r.acceptedBy).length;
@@ -61463,7 +63634,7 @@ async function amwSaveMachine() {
   const machineTypeFS = isRotating ? 'telehandler' : type;
 
   // Emoji per type
-  const emojiMap = { boom:'💥', scissor:'✂️', forklift:'🍴', telehandler:'🏗️',
+  const emojiMap = { boom:'💥', scissor:'SL', forklift:'🍴', telehandler:'🏗️',
                      'telehandler-rotating':'🔄', material:'📦', pushAround:'🧍', palletJack:'🔄' };
 
   // Filters array
@@ -61583,7 +63754,7 @@ function amwReset() {
 const SPONSORED_CATEGORIES = [
   // Access equipment
   { key: 'boom',          label: 'Boom Lifts (Articulated & Telescopic)', emoji: '💥', group: 'Access' },
-  { key: 'scissor',       label: 'Scissor Lifts',                          emoji: '✂️', group: 'Access' },
+  { key: 'scissor',       label: 'Scissor Lifts',                          emoji: 'SL', group: 'Access' },
   { key: 'telehandler',   label: 'Telehandlers (Standard)',                 emoji: '🏗️', group: 'Access' },
   { key: 'rotating',      label: 'Rotating Telehandlers (360°)',            emoji: '🔄', group: 'Access' },
   { key: 'forklift',      label: 'Forklifts',                               emoji: '🍴', group: 'Access' },
@@ -62453,15 +64624,61 @@ async function adminDeleteSponsoredAd(adId) {
 var _amExtracted = null; // last extracted machine object
 
 function renderAdminAddMachine() {
-  // No-op — the section HTML is static in index.html; just reset state
   _amExtracted = null;
   const form   = document.getElementById('am-review-form');
   const status = document.getElementById('am-status');
-  if (form)   { form.style.display = 'none'; form.innerHTML = ''; }
-  if (status) { status.style.display = 'none'; status.innerHTML = ''; }
-  const fi = document.getElementById('am-file-input');
-  if (fi) fi.value = '';
+  if (form)   form.style.display = 'none';
+  if (status) status.style.display = 'none';
+
+  // Render the category manager panel
+  const catSection = document.getElementById('am-category-manager');
+  if (!catSection) return;
+  const cats = _getAllCategories();
+  const builtin = _BUILTIN_CATEGORIES.map(c=>c.key);
+
+  catSection.innerHTML = `
+    <div style="font-size:.8rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">📂 Machine Categories (${cats.length})</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.45rem;margin-bottom:.9rem">
+      ${cats.map(c => `
+        <div style="background:#F8FAFC;border:1.5px solid ${builtin.includes(c.key)?'#E2E8F0':'#DDD6FE'};border-radius:10px;padding:.5rem .75rem;display:flex;align-items:center;gap:.4rem;justify-content:space-between">
+          <div>
+            <span style="font-size:1rem">${c.emoji}</span>
+            <span style="font-size:.8rem;font-weight:800;color:#0F172A;margin-left:.2rem">${c.label}</span>
+            ${!builtin.includes(c.key)?`<span style="font-size:.65rem;background:#F3E8FF;color:#7C3AED;border-radius:20px;padding:.05rem .35rem;margin-left:.2rem;font-weight:700">Custom</span>`:''}
+          </div>
+          ${!builtin.includes(c.key)?`<button onclick="amDeleteCategory('${c.key}')" style="background:none;border:none;color:#EF4444;cursor:pointer;font-size:.8rem;padding:.1rem .3rem" title="Delete">✕</button>`:''}
+        </div>`).join('')}
+    </div>
+    <!-- Add new category -->
+    <details style="margin-bottom:1rem">
+      <summary style="cursor:pointer;font-size:.78rem;font-weight:800;color:#7C3AED;user-select:none">➕ Add New Category</summary>
+      <div style="margin-top:.65rem;background:#F3E8FF;border:1.5px solid #DDD6FE;border-radius:12px;padding:.85rem 1rem">
+        <div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:.5rem;align-items:end">
+          <div>
+            <label style="font-size:.72rem;font-weight:800;color:#7C3AED;display:block;margin-bottom:.2rem">Category Name</label>
+            <input id="am-new-cat-label" placeholder="e.g. Crane" style="width:100%;padding:.38rem .6rem;border:1.5px solid #DDD6FE;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700">
+          </div>
+          <div>
+            <label style="font-size:.72rem;font-weight:800;color:#7C3AED;display:block;margin-bottom:.2rem">Internal Key (no spaces)</label>
+            <input id="am-new-cat-key" placeholder="e.g. crane" style="width:100%;padding:.38rem .6rem;border:1.5px solid #DDD6FE;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700">
+          </div>
+          <div>
+            <label style="font-size:.72rem;font-weight:800;color:#7C3AED;display:block;margin-bottom:.2rem">Emoji</label>
+            <input id="am-new-cat-emoji" placeholder="🏗️" maxlength="4" style="width:100%;padding:.38rem .6rem;border:1.5px solid #DDD6FE;border-radius:8px;font-family:'Nunito',sans-serif;font-size:1.1rem;text-align:center">
+          </div>
+        </div>
+        <div style="margin-top:.5rem">
+          <label style="font-size:.72rem;font-weight:800;color:#7C3AED;display:block;margin-bottom:.2rem">Description</label>
+          <input id="am-new-cat-desc" placeholder="Short description of this machine category" style="width:100%;padding:.38rem .6rem;border:1.5px solid #DDD6FE;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:600">
+        </div>
+        <button onclick="amAddCategory()"
+          style="margin-top:.6rem;background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;border:none;border-radius:8px;padding:.4rem 1.1rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.82rem;cursor:pointer">
+          ✅ Add Category
+        </button>
+      </div>
+    </details>`;
 }
+
 
 async function amHandleFile(file) {
   if (!file) return;
@@ -62629,6 +64846,26 @@ JSON schema:
   }
 }
 
+// ── Category management actions ──────────────────────────────────────────────
+function amAddCategory() {
+  const label = (document.getElementById('am-new-cat-label')?.value || '').trim();
+  const key   = (document.getElementById('am-new-cat-key')?.value || '').trim().replace(/\s+/g,'_').toLowerCase();
+  const emoji = (document.getElementById('am-new-cat-emoji')?.value || '').trim() || '🏗️';
+  const desc  = (document.getElementById('am-new-cat-desc')?.value || '').trim();
+  if (!label || !key) { showToast('Please enter both a name and a key', '#EF4444'); return; }
+  if (!/^[a-z0-9_]+$/.test(key)) { showToast('Key must be lowercase letters, numbers or underscores only', '#EF4444'); return; }
+  const ok = _addCustomCategory({ key, label, emoji, description: desc });
+  if (!ok) { showToast('A category with that key already exists', '#EF4444'); return; }
+  showToast(`✅ Category "${label}" added`, '#16A34A');
+  renderAdminAddMachine();
+}
+function amDeleteCategory(key) {
+  if (!confirm(`Delete the "${key}" category? This won't remove machines already using it.`)) return;
+  _deleteCustomCategory(key);
+  showToast('Category deleted', '#64748B');
+  renderAdminAddMachine();
+}
+
 function amStatus(msg, type) {
   const el = document.getElementById('am-status');
   if (!el) return;
@@ -62648,7 +64885,13 @@ function amStatus(msg, type) {
 function _amField(id, label, val, type='text', opts=null) {
   const v = val != null ? val : '';
   if (type === 'select' && opts) {
-    const options = opts.map(o => `<option value="${o}" ${o===v?'selected':''}>${o}</option>`).join('');
+    // opts can be array of strings OR use _getAllCategories() keys — show labels
+    const allCats = _getAllCategories();
+    const options = opts.map(o => {
+      const cat = allCats.find(c => c.key === o);
+      const display = cat ? `${cat.emoji} ${cat.label}` : o;
+      return `<option value="${o}" ${o===v?'selected':''}>${display}</option>`;
+    }).join('');
     return `<div style="display:flex;flex-direction:column;gap:.2rem">
       <label style="font-size:.73rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.03em">${label}</label>
       <select id="${id}" style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .55rem;font-size:.83rem;font-family:inherit;background:#fff">
@@ -62694,7 +64937,7 @@ function amRenderReviewForm(d, fileName) {
       </div>
       <div style="${g3}">
         ${_amField('am-shortName','Short Name',d.shortName)}
-        ${_amField('am-machineType','Machine Type',d.machineType,'select',['boom','scissor','telehandler','forklift','material','pushAround','palletJack'])}
+        ${_amField('am-machineType','Machine Type',d.machineType,'select',_getAllCategories().map(c=>c.key))}
         ${_amField('am-isRotating','Rotating Telehandler?',d.isRotating?'yes':'no','select',['no','yes'])}
       </div>
 
@@ -62819,7 +65062,7 @@ function amReadForm() {
   const name  = g('am-name') || `${brand} ${model}`.trim();
   const id    = (brand + '-' + model).toLowerCase().replace(/[^a-z0-9]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'') || `machine-${Date.now()}`;
 
-  const typeEmojis = { boom:'💥', scissor:'✂️', telehandler: isRotating ? '🔄' : '🏗️', forklift:'🍴', material:'📦', pushAround:'🧍', palletJack:'🔄' };
+  const typeEmojis = { boom:'💥', scissor:'SL', telehandler: isRotating ? '🔄' : '🏗️', forklift:'🍴', material:'📦', pushAround:'🧍', palletJack:'🔄' };
   const machineType = g('am-machineType') || 'boom';
 
   return {
@@ -63681,6 +65924,10 @@ function showAdminSection(name, btn) {
   if (name === 'addmachine')    renderAdminAddMachine();
   if (name === 'addmachine')  { /* panel is static HTML — nothing to render */ }
   if (name === 'usermgmt')     loadUserMgmtTable();
+  if (name === 'investor')     renderInvestorDashboard();
+  if (name === 'mapintel')     renderMapIntelDashboard();
+  if (name === 'livemap')      renderLiveMap();
+  if (name === 'livemap')      renderLiveMap();
 }
 
 
@@ -63845,9 +66092,10 @@ async function renderAnalytics() {
   if (funnelEl && totalSearches > 0) {
     const steps = [
       { label:'🔍 Searches', val: totalSearches, color:'#0052CC' },
-      { label:'🛒 Hire Enquiry Adds', val: totalCartAdds, pct: totalSearches > 0 ? ((totalCartAdds/totalSearches)*100).toFixed(0) : 0, color:'#7C3AED' },
+      { label:'🛒 Hire Cart Adds', val: totalCartAdds, pct: totalSearches > 0 ? ((totalCartAdds/totalSearches)*100).toFixed(0) : 0, color:'#7C3AED' },
       { label:'📨 Quotes Sent', val: totalQuotes, pct: totalCartAdds > 0 ? ((totalQuotes/totalCartAdds)*100).toFixed(0) : 0, color:'#0891B2' },
       { label:'📞 Contact Reveals', val: adminData.contactReveals || 0, color:'#7C3AED' },
+      { label:'📡 Delivered via Noyo', val: sharedDelivered, color:'#0891B2' },
       { label:'✅ Accepted', val: totalAccepted, pct: totalQuotes > 0 ? ((totalAccepted/totalQuotes)*100).toFixed(0) : 0, color:'#16A34A' },
     ];
     const maxVal = totalSearches || 1;
@@ -65050,6 +67298,14 @@ function renderQuoteRequests() {
     list.innerHTML = `<div style="background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:14px;padding:2.5rem;text-align:center">
       <div style="font-size:2.5rem;margin-bottom:.75rem">📭</div>
       <div style="font-weight:700;color:#334155;font-size:1rem;margin-bottom:.35rem">No enquiries yet</div>
+      <div style="font-size:.82rem;color:#64748B;line-height:1.6;max-width:380px;margin:0 auto">
+        Hire enquiries from customers in your service area will appear here automatically.
+        Make sure your service area and machine categories are set up in <strong>My Details</strong>.
+      </div>
+      <button onclick="switchView('my-details')"
+        style="margin-top:1rem;background:#0052CC;color:#fff;border:none;border-radius:8px;padding:.45rem 1.1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">
+        ⚙️ Set Up My Details
+      </button>
     </div>`;
     return;
   }
