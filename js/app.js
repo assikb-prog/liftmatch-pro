@@ -48043,14 +48043,14 @@ function startFinder() {
 }
 
 function renderStep() {
-  const qs = getAllQuestions();
-  const total = qs.length;
-  const q = qs[step];
-  if (!q) { if (card) card.innerHTML='<div style="padding:2rem;text-align:center;color:#94A3B8">Loading…</div>'; return; }
+  const qs       = getAllQuestions();
+  const total    = qs.length;
+  const q        = qs[step];
   const _stepLbl = document.getElementById('step-lbl');
-  const _progFill = document.getElementById('prog-fill');
-  const card = document.getElementById('q-card');
+  const _progFill= document.getElementById('prog-fill');
+  const card     = document.getElementById('q-card');
   if (!_stepLbl || !_progFill || !card) return;
+  if (!q) { card.innerHTML='<div style="padding:2rem;text-align:center;color:#94A3B8">Loading…</div>'; return; }
   if (_stepLbl) _stepLbl.textContent=`Step ${step+1} of ${total}`;
   if (_progFill) _progFill.style.width=`${((step+1)/total)*100}%`;
   if (card) card.innerHTML='';
