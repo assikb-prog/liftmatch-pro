@@ -367,11 +367,12 @@
   <div id="nav-cart-btn-wrap" style="display:none;margin-right:.5rem">
     <button onclick="openSendQuotesModal()"
       style="position:relative;background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;border:none;border-radius:10px;padding:.42rem .85rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:.4rem;white-space:nowrap">
-      🛒 Hire Enquiry
+      🛒 Hire Cart
       <span id="nav-cart-badge" style="display:none;background:#fff;color:#EA580C;font-size:.7rem;font-weight:900;border-radius:50%;min-width:18px;height:18px;line-height:18px;text-align:center;padding:0 3px">0</span>
     </button>
   </div>
   <div style="display:none;position:relative" id="nav-user-pill">
+    <div class="nav-user" style="cursor:pointer;user-select:none" onclick="toggleUserMenu()" id="nav-user-btn">
       <div class="nav-avatar rental-av" id="nav-avatar">S</div>
       <div>
         <div class="nav-uname" id="nav-uname">Staff User</div>
@@ -534,9 +535,7 @@
       <p>Answer a few questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts.</p>
       <button class="start-btn" onclick="openPhotoModal()">Find My Machine →</button>
       <button onclick="kymOpen()" style="margin-top:.8rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(22,163,74,.35)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">🔎 Know Your Machines →</button>
-      <div id="hero-cart-btn" style="display:none;margin-top:1rem">
-        <button class="hero-cart-cta" onclick="toggleCart()">🛒 View My Hire Enquiry (<span id="hero-cart-count">0</span> machine<span id="hero-cart-plural">s</span>)</button>
-      </div>
+
     </div>
   </div>
 
@@ -644,7 +643,7 @@
         <button class="kym-chip active" onclick="kymSetCat('',this)">All Categories</button>
         <button class="kym-chip" onclick="kymSetCat('forklift',this)">🍴 Forklifts</button>
         <button class="kym-chip" onclick="kymSetCat('telehandler',this)">🏗️ Telehandlers</button>
-        <button class="kym-chip" onclick="kymSetCat('scissor',this)">✂️ Scissor Lifts</button>
+        <button class="kym-chip" onclick="kymSetCat('scissor',this)">SL Scissor Lifts</button>
         <button class="kym-chip" onclick="kymSetCat('boom',this)">💥 Boom Lifts</button>
         <button class="kym-chip" onclick="kymSetCat('material',this)">📦 Material Lifts</button>
         <button class="kym-chip" onclick="kymSetCat('pushAround',this)">🧍 Push-Around Lifts</button>
@@ -715,7 +714,7 @@
       <button class="kym-chip active" onclick="kymSetCat2('',this)">All Categories</button>
       <button class="kym-chip" onclick="kymSetCat2('forklift',this)">🍴 Forklifts</button>
       <button class="kym-chip" onclick="kymSetCat2('telehandler',this)">🏗️ Telehandlers</button>
-      <button class="kym-chip" onclick="kymSetCat2('scissor',this)">✂️ Scissor Lifts</button>
+      <button class="kym-chip" onclick="kymSetCat2('scissor',this)">SL Scissor Lifts</button>
       <button class="kym-chip" onclick="kymSetCat2('boom',this)">💥 Boom Lifts</button>
       <button class="kym-chip" onclick="kymSetCat2('material',this)">📦 Material Lifts</button>
       <button class="kym-chip" onclick="kymSetCat2('pushAround',this)">🧍 Push-Around Lifts</button>
@@ -755,7 +754,7 @@
       <button class="fchip active" onclick="filterTable('all',this)">All</button>
       <button class="fchip" onclick="filterTable('forklift',this)">🍴 Forklifts</button>
       <button class="fchip" onclick="filterTable('telehandler',this)">🏗️ Telehandlers</button>
-      <button class="fchip" onclick="filterTable('scissor',this)">✂️ Scissor Lifts</button>
+      <button class="fchip" onclick="filterTable('scissor',this)">SL Scissor Lifts</button>
       <button class="fchip" onclick="filterTable('boom',this)">💥 Boom Lifts</button>
       <button class="fchip" onclick="filterTable('rough',this)">⛰️ Rough Terrain</button>
       <button class="fchip" onclick="filterTable('ultraboom',this)">🚀 Super/Ultra Booms</button>
@@ -794,7 +793,7 @@
 <!-- MODAL -->
 <div <!-- ── CART FAB ─────────────────────────────────────────────────── -->
 <button class="cart-fab" id="cart-fab" onclick="toggleCart()">
-  🛒 View Hire Enquiry <span class="cart-fab-badge" id="cart-fab-badge">0</span>
+  🛒 Hire Cart <span class="cart-fab-badge" id="cart-fab-badge">0</span>
 </button>
 <button class="feedback-fab" id="feedback-fab" onclick="openFeedbackModal()">
   💬 Feedback
@@ -985,11 +984,11 @@
 <!-- ── QUOTE CART SIDEBAR ─────────────────────────────────────── -->
 <div id="cart-sidebar" class="cart-sidebar">
   <div class="cart-header">
-    <div class="cart-title">🛒 Hire Enquiry <span id="cart-count-badge" class="cart-badge">0</span></div>
+    <div class="cart-title">🛒 Hire Cart <span id="cart-count-badge" class="cart-badge">0</span></div>
     <button class="cart-close-btn" onclick="toggleCart()">✕</button>
   </div>
   <div id="cart-items-list" class="cart-items-list">
-    <div class="cart-empty-msg">No machines added yet.<br>Click "Add to Hire Enquiry" on any recommendation.</div>
+    <div class="cart-empty-msg">No machines added yet.<br>Click "Add to Hire Cart" on any recommendation.</div>
   </div>
   <div class="cart-footer" id="cart-footer" style="display:none">
     <button class="btn-search-another cart-search-btn" onclick="toggleCart();searchAnotherMachine()">🔍 Search Another Machine</button>
@@ -1031,6 +1030,10 @@
       <button class="admin-tab" onclick="showAdminSection('sponsored',this)" id="admin-tab-sponsored">⭐ Brand Partner (Sponsored)</button>
       <button class="admin-tab" onclick="showAdminSection('addmachine',this)" id="admin-tab-addmachine">➕ Add Machine</button>
       <button class="admin-tab" onclick="showAdminSection('usermgmt',this)" id="admin-tab-usermgmt">🔐 User Management</button>
+      <button class="admin-tab" onclick="showAdminSection('routingtest',this)" id="admin-tab-routingtest">🧭 Routing Test</button>
+      <button class="admin-tab" onclick="showAdminSection('investor',this)" id="admin-tab-investor" style="background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;font-weight:900;border:none">📊 Management</button>
+      <button class="admin-tab" onclick="showAdminSection('mapintel',this)" id="admin-tab-mapintel" style="background:linear-gradient(135deg,#0891B2,#0E7490);color:#fff;font-weight:900;border:none">🗺️ Map & Intelligence</button>
+      <button class="admin-tab" onclick="showAdminSection('livemap',this)" id="admin-tab-livemap" style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;font-weight:900;border:none">📡 Live Map</button>
     </div>
 
     <!-- CUSTOMERS TAB -->
@@ -1313,6 +1316,9 @@
       <div class="admin-section-title">➕ Add Machine from Spec Sheet</div>
       <p style="color:#64748B;font-size:.85rem;margin-bottom:1.2rem">Upload a manufacturer PDF, brochure, or photo. Claude reads all specifications — capacity, height, reach, jib, on tyres/outriggers/tracks, load chart zones, dimensions, engine — and fills the form. Review, edit, then save directly to the machine database.</p>
 
+      <!-- Category Manager (rendered by renderAdminAddMachine) -->
+      <div id="am-category-manager" style="margin-bottom:1.2rem"></div>
+
       <!-- Upload zone -->
       <div id="am-upload-zone" style="border:2.5px dashed #BFDBFE;border-radius:16px;padding:2.5rem;text-align:center;background:#F8FBFF;cursor:pointer;transition:background .2s;margin-bottom:1.2rem"
         onclick="document.getElementById('am-file-input').click()"
@@ -1378,6 +1384,71 @@
       </div>
     </div>
   </div>
+
+    <!-- ROUTING TEST TAB -->
+    <div class="admin-section" id="admin-sec-routingtest" style="display:none">
+      <div class="admin-section-title" style="margin-bottom:1.2rem">🧭 Enquiry Routing Test</div>
+      <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:.85rem;color:#1E40AF;line-height:1.6">
+        <strong>How it works:</strong> Type any suburb or town below. The platform will show exactly how many rental companies would receive a hire enquiry from that location, and let you see who they are.
+      </div>
+
+      <!-- Search input -->
+      <div style="display:flex;gap:.6rem;align-items:flex-start;margin-bottom:.6rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px;position:relative">
+          <label style="font-size:.75rem;font-weight:800;color:#475569;display:block;margin-bottom:.25rem">📍 Suburb / Town</label>
+          <input id="rt-suburb-input" type="text" placeholder="e.g. Parramatta, Chatswood, Gold Coast…"
+            oninput="rtSuburbInput(this.value)"
+            onkeydown="if(event.key==='Enter') rtRunTest()"
+            style="width:100%;padding:.5rem .8rem;border:1.5px solid #BFDBFE;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:600;color:#0F172A;outline:none"
+            onfocus="this.style.borderColor='#0052CC'" onblur="this.style.borderColor='#BFDBFE'">
+          <div id="rt-suburb-drop" style="display:none;position:absolute;background:#fff;border:1.5px solid #BFDBFE;border-radius:8px;z-index:500;min-width:260px;box-shadow:0 4px 16px rgba(0,0,0,.1);max-height:220px;overflow-y:auto"></div>
+        </div>
+        <div style="min-width:180px">
+          <label style="font-size:.75rem;font-weight:800;color:#475569;display:block;margin-bottom:.25rem">🏗️ Machine Type (optional)</label>
+          <select id="rt-machine-type"
+            style="width:100%;padding:.5rem .8rem;border:1.5px solid #BFDBFE;border-radius:10px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:700;color:#334155;background:#fff;outline:none">
+            <option value="">All machine types</option>
+            <option value="scissor">SL Scissor Lift</option>
+            <option value="boom">💥 Boom Lift</option>
+            <option value="telehandler">🏗️ Telehandler</option>
+            <option value="forklift">🍴 Forklift</option>
+            <option value="material">📦 Material Lift</option>
+            <option value="earthworks">⛏️ Earthworks</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:.05rem">
+          <button onclick="rtRunTest()"
+            style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:10px;padding:.52rem 1.3rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.88rem;cursor:pointer;white-space:nowrap">
+            🧭 Test Routing
+          </button>
+        </div>
+      </div>
+
+      <!-- Result panel -->
+      <div id="rt-result" style="display:none"></div>
+    </div>
+
+    <!-- ═══════ INVESTOR DASHBOARD SECTION ═══════ -->
+    <div class="admin-section" id="admin-sec-livemap" style="display:none">
+      <div id="livemap-content"></div>
+    </div>
+
+    <!-- ── LIVE MAP SECTION ─────────────────────────────────── -->
+    <div class="admin-section" id="admin-sec-livemap" style="display:none">
+      <div id="livemap-content">
+        <div style="text-align:center;padding:2rem;color:#94A3B8">Loading live map…</div>
+      </div>
+    </div>
+
+        <div class="admin-section" id="admin-sec-mapintel" style="display:none">
+      <div id="mapintel-content"></div>
+    </div>
+
+    <div class="admin-section" id="admin-sec-investor" style="display:none">
+      <div id="investor-dash-content">
+        <div style="text-align:center;padding:2rem;color:#94A3B8">Loading investor metrics…</div>
+      </div>
+    </div>
 </div>
 
 
@@ -1577,7 +1648,23 @@
     </div>
 
     <div id="mqv-list" style="display:flex;flex-direction:column;gap:1rem"></div>
-    <div id="mqv-savings" style="margin-top:1.5rem"></div>
+    <!-- ── Savings Date Range Filter ── -->
+    <div id="mqv-savings-filter" style="display:none;background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.75rem 1rem;margin-top:1rem">
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+        <span style="font-size:.78rem;font-weight:800;color:#334155">📅 Show savings from</span>
+        <input type="date" id="mqv-from-date" onchange="mqFilterSavings()"
+          style="padding:.32rem .6rem;border:1.5px solid #BFDBFE;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:#334155;outline:none">
+        <span style="font-size:.78rem;font-weight:700;color:#64748B">to</span>
+        <input type="date" id="mqv-to-date" onchange="mqFilterSavings()"
+          style="padding:.32rem .6rem;border:1.5px solid #BFDBFE;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:#334155;outline:none">
+        <button onclick="mqClearSavingsFilter()"
+          style="font-size:.75rem;color:#94A3B8;background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;text-decoration:underline">
+          ✕ Clear filter
+        </button>
+      </div>
+    </div>
+
+    <div id="mqv-savings" style="margin-top:.65rem"></div>
   </div>
 </div>
 
@@ -1729,6 +1816,153 @@
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════════════════════════
+         CUSTOMER PROFILE SECTIONS (shown for customer role only)
+         ═══════════════════════════════════════════════════════ -->
+    <div id="det-customer-sections" style="display:none">
+
+      <!-- ── ABN / Business Verification ─────────────────────── -->
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:1rem">
+        <div style="font-size:.78rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.85rem">🏢 Business Details</div>
+
+        <!-- ABN with live lookup -->
+        <div style="display:grid;grid-template-columns:110px 1fr;align-items:start;gap:.6rem;margin-bottom:.75rem">
+          <div style="font-size:.8rem;font-weight:700;color:#64748B;padding-top:.5rem">ABN</div>
+          <div>
+            <div style="display:flex;align-items:center;gap:.5rem">
+              <input id="det-abn-input" type="text" placeholder="e.g. 51 824 753 556" maxlength="14"
+                oninput="detABNInput(this.value)"
+                style="flex:1;padding:.45rem .75rem;border:1.5px solid #CBD5E1;border-radius:8px;font-size:.85rem;font-family:inherit;color:#1E293B;outline:none;background:#fff"
+                onfocus="this.style.borderColor='#0052CC'" onblur="this.style.borderColor='#CBD5E1'">
+              <button onclick="detLookupABN()" id="det-abn-lookup-btn"
+                style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:8px;padding:.4rem .9rem;font-size:.78rem;font-weight:800;cursor:pointer;white-space:nowrap">
+                🔍 Verify
+              </button>
+            </div>
+            <div id="det-abn-status" style="margin-top:.35rem;font-size:.78rem;display:none"></div>
+            <div id="det-abn-result" style="margin-top:.4rem;display:none;background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:8px;padding:.5rem .75rem"></div>
+          </div>
+        </div>
+
+        <!-- Industry / Trade -->
+        <div style="display:grid;grid-template-columns:110px 1fr;align-items:center;gap:.6rem;margin-bottom:.75rem">
+          <div style="font-size:.8rem;font-weight:700;color:#64748B">Industry</div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <select id="det-industry-select" onchange="saveDetailsField('industry')"
+              style="flex:1;padding:.45rem .75rem;border:1.5px solid #CBD5E1;border-radius:8px;font-size:.84rem;font-family:inherit;color:#1E293B;background:#fff;outline:none"
+              onfocus="this.style.borderColor='#0052CC'" onblur="this.style.borderColor='#CBD5E1'">
+              <option value="">Select your industry…</option>
+              <optgroup label="Construction">
+                <option value="construction_general">🏗️ General Construction &amp; Building</option>
+                <option value="crane_rigging">🪝 Crane &amp; Rigging</option>
+                <option value="demolition">🏚️ Demolition</option>
+                <option value="infrastructure">🛣️ Infrastructure &amp; Civil Works</option>
+                <option value="fitout">🪟 Fitout &amp; Refurbishment</option>
+              </optgroup>
+              <optgroup label="Resources &amp; Energy">
+                <option value="mining">⛏️ Mining &amp; Resources</option>
+                <option value="oil_gas">🛢️ Oil &amp; Gas</option>
+                <option value="utilities">⚡ Utilities (Power / Water / Gas)</option>
+                <option value="renewables">☀️ Renewables &amp; Solar</option>
+              </optgroup>
+              <optgroup label="Industry &amp; Logistics">
+                <option value="manufacturing">🏭 Manufacturing</option>
+                <option value="warehousing">📦 Warehousing &amp; Logistics</option>
+                <option value="transport">🚛 Transport &amp; Freight</option>
+              </optgroup>
+              <optgroup label="Primary Industries">
+                <option value="agriculture">🌾 Agriculture &amp; Farming</option>
+                <option value="forestry">🌲 Forestry &amp; Land Management</option>
+                <option value="landscaping">🌿 Landscaping &amp; Earthworks</option>
+              </optgroup>
+              <optgroup label="Services &amp; Other">
+                <option value="events">🎪 Events &amp; Entertainment</option>
+                <option value="government">🏛️ Government &amp; Local Council</option>
+                <option value="hire_industry">🔧 Plant Hire / Equipment Industry</option>
+                <option value="facilities">🏢 Facilities Management</option>
+                <option value="film_production">🎬 Film &amp; TV Production</option>
+                <option value="other">🔘 Other</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Hire Preferences ──────────────────────────────────── -->
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:1rem">
+        <div style="font-size:.78rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.85rem">⚙️ Hire Preferences</div>
+
+        <!-- Preferred duration -->
+        <div style="display:grid;grid-template-columns:110px 1fr;align-items:center;gap:.6rem;margin-bottom:.75rem">
+          <div style="font-size:.8rem;font-weight:700;color:#64748B">Typical duration</div>
+          <select id="det-duration-select" onchange="saveDetailsField('preferredDuration')"
+            style="flex:1;padding:.45rem .75rem;border:1.5px solid #CBD5E1;border-radius:8px;font-size:.84rem;font-family:inherit;color:#1E293B;background:#fff;outline:none"
+            onfocus="this.style.borderColor='#0052CC'" onblur="this.style.borderColor='#CBD5E1'">
+            <option value="">Select typical hire length…</option>
+            <option value="depends">🤔 Depends on the job</option>
+            <option value="half-day">Half day</option>
+            <option value="1-day">1 day</option>
+            <option value="1-week">1 week</option>
+            <option value="2-weeks">2 weeks</option>
+            <option value="1-month">1 month</option>
+            <option value="3-months">3 months</option>
+            <option value="6-months">6 months</option>
+            <option value="12-months-plus">12+ months</option>
+          </select>
+        </div>
+
+        <!-- Communication preference -->
+        <div style="display:grid;grid-template-columns:110px 1fr;align-items:center;gap:.6rem">
+          <div style="font-size:.8rem;font-weight:700;color:#64748B">Contact via</div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.83rem;font-weight:700;color:#334155;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .75rem">
+              <input type="radio" name="det-contact-pref" value="email" onchange="saveDetailsField('contactPref')" style="accent-color:#0052CC"> 📧 Email
+            </label>
+            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.83rem;font-weight:700;color:#334155;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .75rem">
+              <input type="radio" name="det-contact-pref" value="sms" onchange="saveDetailsField('contactPref')" style="accent-color:#0052CC"> 📱 SMS
+            </label>
+            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.83rem;font-weight:700;color:#334155;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .75rem">
+              <input type="radio" name="det-contact-pref" value="both" onchange="saveDetailsField('contactPref')" style="accent-color:#0052CC"> 🔔 Both
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Email Verification ────────────────────────────────── -->
+      <div id="det-email-verify-section" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:1rem">
+        <div style="font-size:.78rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.75rem">✉️ Email Verification</div>
+        <div id="det-email-verified-state"></div>
+      </div>
+
+      <!-- ── Hire History Summary ──────────────────────────────── -->
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:1rem">
+        <div style="font-size:.78rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.75rem">📋 My Hire History</div>
+        <div id="det-hire-history"></div>
+      </div>
+
+    </div><!-- end det-customer-sections -->
+
+    <!-- ══════════════════════════════════════════════════════════
+         RENTAL COMPANY BUSINESS DASHBOARD (rental role only)
+         ═══════════════════════════════════════════════════════ -->
+    <div id="det-rental-business-panel" style="display:none">
+
+      <!-- Date Range Filter -->
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.75rem 1rem;margin-bottom:.8rem">
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+          <span style="font-size:.78rem;font-weight:800;color:#334155">📅 Business from</span>
+          <input type="date" id="rc-biz-from" onchange="renderRCBusinessDashboard()"
+            style="padding:.32rem .6rem;border:1.5px solid #86EFAC;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:#334155;outline:none">
+          <span style="font-size:.78rem;font-weight:700;color:#64748B">to</span>
+          <input type="date" id="rc-biz-to" onchange="renderRCBusinessDashboard()"
+            style="padding:.32rem .6rem;border:1.5px solid #86EFAC;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:#334155;outline:none">
+          <button onclick="document.getElementById('rc-biz-from').value='';document.getElementById('rc-biz-to').value='';renderRCBusinessDashboard()"
+            style="font-size:.74rem;color:#94A3B8;background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;text-decoration:underline">✕ All time</button>
+        </div>
+      </div>
+
+      <div id="rc-business-content"></div>
+    </div>
   </div>
 </div>
 
@@ -2111,11 +2345,11 @@
 <!-- ── SINGLE MACHINE QUICK QUOTE MODAL ──────────────────────── -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
-    <h3 id="modal-title">🛒 Add to Hire Enquiry</h3>
+    <h3 id="modal-title">🛒 Add to Hire Cart</h3>
     <p id="modal-machine-name" style="font-weight:700;color:var(--primary);margin-bottom:1rem"></p>
     <p style="color:#64748B;font-size:.88rem;margin-bottom:1.4rem;line-height:1.55">Add this machine to your cart. Once you've browsed all options, go to your cart to request quotes from rental companies for all machines at once.</p>
     <div style="display:flex;flex-direction:column;gap:.7rem">
-      <button class="btn-add-cart" onclick="addCurrentToCartFromModal()" id="modal-add-cart-btn" style="font-size:1rem;padding:.9rem">🛒 Add to Hire Enquiry &amp; Keep Looking</button>
+      <button class="btn-add-cart" onclick="addCurrentToCartFromModal()" id="modal-add-cart-btn" style="font-size:1rem;padding:.9rem">🛒 Add to Hire Cart &amp; Keep Looking</button>
       <button class="btn-cancel" onclick="closeModal()" style="text-align:center;border:none;background:none;color:#94A3B8;font-size:.85rem;cursor:pointer;padding:.4rem">Cancel</button>
     </div>
   </div>
