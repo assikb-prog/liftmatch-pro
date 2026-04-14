@@ -51267,61 +51267,40 @@ async function loadInboxFromFirebase() {
 
 // ── Save individual quote to Firestore quotes collection ──────
 async function saveQuoteToFirebase(quote) {
-  saveInbox(); // updates the user's inbox doc
+  saveInbox(); // updates the user's quote_inboxes doc
   if (!quote || !quote.id) return;
   try {
     const FieldValue = firebase.firestore.FieldValue;
+    const docRef = _fbDb.collection('shared_enquiries').doc(quote.id);
 
-    // ── Step 1: Write all non-response fields with merge (safe — scalars only) ──
-    const { responses, ...quoteWithoutResponses } = quote;
-    await _fbDb.collection('shared_enquiries').doc(quote.id).set({
-      ...quoteWithoutResponses,
-      updatedAt: FieldValue.serverTimestamp(),
+    // ── Read current Firestore state ──────────────────────────────────
+    let currentResponses = [];
+    try {
+      const snap = await docRef.get();
+      if (snap.exists) currentResponses = snap.data().responses || [];
+    } catch(e) { /* doc may not exist yet — that's fine */ }
+
+    // ── Merge responses: keep all other companies + replace this company's ──
+    const companyName = currentUser ? (currentUser.name || currentUser.email) : '';
+    const myResponses = (quote.responses || []).filter(r => r.company === companyName);
+    const otherResponses = currentResponses.filter(r => r.company !== companyName);
+    const mergedResponses = [...otherResponses, ...myResponses];
+
+    // ── Write full doc with merged responses — set() creates or overwrites ──
+    await docRef.set({
+      ...quote,
+      responses:  mergedResponses,
+      responded:  mergedResponses.length > 0,
+      updatedAt:  FieldValue.serverTimestamp(),
     }, { merge: true });
 
-    // ── Step 2: For each response, use arrayUnion so multiple rental companies
-    //    can all write their response without overwriting each other ─────────────
-    if (responses && responses.length > 0) {
-      // Get the response(s) this company just added (last item, or all new ones)
-      const companyName = currentUser ? (currentUser.name || currentUser.email) : '';
-      const myResponses = responses.filter(r => r.company === companyName);
+    console.log('[Noyo] ✅ shared_enquiries write OK:', quote.id,
+      '— responses now:', mergedResponses.length,
+      '(this company:', myResponses.length, ', others:', otherResponses.length, ')');
 
-      if (myResponses.length > 0) {
-        // Remove old response from this company first, then add fresh one
-        // Firestore doesn't support arrayRemove+arrayUnion in one op so we do two
-        const docRef = _fbDb.collection('shared_enquiries').doc(quote.id);
-        const snap = await docRef.get();
-        if (snap.exists) {
-          const existing = snap.data().responses || [];
-          // Remove old entries from this company, add fresh ones
-          const otherResponses = existing.filter(r => r.company !== companyName);
-          await docRef.update({
-            responses: [...otherResponses, ...myResponses],
-            responded: true,
-            updatedAt: FieldValue.serverTimestamp(),
-          });
-        } else {
-          await docRef.update({
-            responses: FieldValue.arrayUnion(...myResponses),
-            responded: true,
-            updatedAt: FieldValue.serverTimestamp(),
-          });
-        }
-      }
-    }
-
-    // Also write to quote_requests for admin visibility
-    await _fbDb.collection('quote_requests').doc(quote.id).set({
-      ...quoteWithoutResponses,
-      responses: responses || [],
-      customerId:    currentUser ? currentUser.uid   : null,
-      customerEmail: currentUser ? currentUser.email : null,
-      updatedAt: FieldValue.serverTimestamp(),
-    }, { merge: true });
-
-    console.log('[Noyo] ✅ saveQuoteToFirebase OK for', quote.id, '— responses:', (responses||[]).length);
   } catch(e) {
     console.error('[Noyo] ❌ saveQuoteToFirebase FAILED:', e.message);
+    console.error('[Noyo] Check Firebase Console → Firestore → Rules');
   }
 }
 
@@ -55985,6 +55964,13 @@ function openRespondModal(reqId) {
 
   rqRecalcAll();
   document.getElementById('respond-modal').classList.add('open');
+  // Always scroll modal to top so rental company starts at the pricing fields
+  setTimeout(() => {
+    const rm = document.getElementById('respond-modal');
+    if (rm) rm.scrollTop = 0;
+    const rmInner = rm ? rm.querySelector('.modal, .modal-wide') : null;
+    if (rmInner) rmInner.scrollTop = 0;
+  }, 50);
 }
 
 function closeRespondModal() {
@@ -56229,7 +56215,12 @@ async function submitResponse() {
   // On first response: set customer acceptance window = same hours as the response window
   if ((req.responses||[]).length === 1 && !req.customerAcceptExpires) {
     const windowHrs = req.responseWindowHours || 4;
-    req.customerAcceptExpires = calcWorkingDeadline(Date.now(), windowHrs, req.state);
+    // Customer accept window starts when the RESPONSE window closes, not from now
+    // This prevents the accept window from resetting if responses come in late
+    const _acceptBase = req.expires && Date.now() <= req.expires
+      ? req.expires      // window still open — accept starts from close
+      : Date.now();      // window already closed — accept starts from now (late response)
+    req.customerAcceptExpires = calcWorkingDeadline(_acceptBase, windowHrs, req.state);
     req.customerAcceptWindowHours = windowHrs;
   }
 
@@ -58729,7 +58720,12 @@ function renderMyQuotes() {
     const msLeft = req.expires ? req.expires - now : 0;
     const expired = msLeft <= 0;
     const expiryHtml = msLeft > 0
-      ? `<span style="font-size:.75rem;color:#B45309">⏱ ${Math.ceil(msLeft/3600000)}h left</span>`
+      ? (() => {
+          const _wc = buildWorkingCountdown(req.expires, req.state);
+          if (_wc.expired) return `<span style="font-size:.75rem;color:#94A3B8">Closed</span>`;
+          const _clr = _wc.urgent ? '#DC2626' : '#B45309';
+          return `<span style="font-size:.73rem;color:${_clr};font-weight:700" title="${_wc.fullLabel}">⏱ ${_wc.fullLabel}</span>`;
+        })()
       : `<span style="font-size:.75rem;color:#94A3B8">Closed</span>`;
 
     // Price data — sort responses lowest first
@@ -59529,7 +59525,13 @@ function switchView(view,btn){
     if (matchTab) matchTab.classList.add('active');
   }
   if (view === 'finder')       { _resetWizardToHome(); }
-  if (view === 'my-quotes')    setTimeout(async () => { await loadInboxFromFirebase(); renderMyQuotes(); }, 50);
+  if (view === 'my-quotes')    setTimeout(async () => {
+    // Clear local inbox cache so we always get the freshest Firestore data
+    // This ensures responses from rental companies are always visible
+    try { localStorage.removeItem('noyo_quote_inbox_v1'); } catch(e) {}
+    await loadInboxFromFirebase();
+    renderMyQuotes();
+  }, 50);
   if (view === 'my-details')   setTimeout(renderMyDetails, 50);
   if (view === 'quote-requests') setTimeout(async () => { await loadInboxFromFirebase(); renderQuoteRequests(); }, 50);
   if (view === 'admin')        setTimeout(renderAdminDashboard, 50);
@@ -66920,8 +66922,11 @@ function renderQuoteRequests() {
     const expired = msLeft <= 0;
     const myResp = (req.responses||[]).find(r => r.company === currentUser?.name);
     const sentDate = req.ts ? new Date(req.ts) : null;
+    // Display sent time in rental company's timezone
+    const _rcTZSent = _qrUserCompany ? cityToTZ(_qrUserCompany.baseCity || '') : 'Australia/Sydney';
+    const _rcTZAbbr = {'Australia/Sydney':'AEST','Australia/Brisbane':'AEST','Australia/Adelaide':'ACST','Australia/Perth':'AWST','Australia/Darwin':'ACST','Australia/Hobart':'AEST'}[_rcTZSent]||'AEST';
     const sentStr  = sentDate
-      ? sentDate.toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) + ' at ' + sentDate.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'})
+      ? sentDate.toLocaleString('en-AU',{timeZone:_rcTZSent,day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}) + ' ' + _rcTZAbbr
       : '—';
 
     // First name only
@@ -66937,10 +66942,10 @@ function renderQuoteRequests() {
     } else if (expired) {
       statusBadge = `<span style="background:#F1F5F9;color:#94A3B8;font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px">Closed</span>`;
     } else {
-      const wMins = workingMinsRemaining(now, req.expires, req.state);
-      const wHrs = Math.floor(wMins/60), wMin = wMins%60;
-      const urgent = wMins < 120;
-      statusBadge = `<span style="background:${urgent?'#FEF2F2':'#FFFBEB'};color:${urgent?'#B91C1C':'#B45309'};font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px">⏱ ${wHrs}h ${wMin}m left</span>`;
+      const _rcTZCard = _qrUserCompany ? cityToTZ(_qrUserCompany.baseCity || '') : null;
+      const _wcCard = buildWorkingCountdown(req.expires, req.state, _rcTZCard);
+      const urgent = _wcCard.urgent || (_wcCard.totalMins !== undefined && _wcCard.totalMins < 120);
+      statusBadge = `<span style="background:${urgent?'#FEF2F2':'#FFFBEB'};color:${urgent?'#B91C1C':'#B45309'};font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px" title="${_wcCard.fullLabel}">⏱ ${_wcCard.breakdown || _wcCard.label}</span>`;
     }
 
     const machineList = (req.machines||[]).map(m => `<span style="display:inline-flex;align-items:center;gap:.3rem;background:#F1F5F9;color:#334155;font-size:.78rem;font-weight:600;padding:.18rem .55rem;border-radius:7px">${m.emoji||'🏗️'} ${m.name}</span>`).join(' ');
@@ -66953,6 +66958,11 @@ function renderQuoteRequests() {
         ? `<div style="display:flex;gap:.5rem">
              <button onclick="openViewQuoteModal('${req.id}')" style="background:#F0FDF4;color:#166534;border:1.5px solid #86EFAC;border-radius:10px;padding:.55rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">👁️ View Quote</button>
              <button onclick="openRespondModal('${req.id}')" style="background:#E2E8F0;color:#475569;border:none;border-radius:10px;padding:.55rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">✏️ Edit Quote</button>
+           </div>`
+        : myResp && expired && !(req.acceptedBy)
+        ? `<div style="display:flex;gap:.5rem;align-items:center">
+             <button onclick="openViewQuoteModal('${req.id}')" style="background:#F0FDF4;color:#166534;border:1.5px solid #86EFAC;border-radius:10px;padding:.55rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">👁️ View Quote</button>
+             <span style="background:#F1F5F9;color:#94A3B8;border-radius:10px;padding:.55rem 1rem;font-size:.82rem;font-weight:700;cursor:not-allowed" title="Quote window closed — editing not allowed">🔒 Edit closed</span>
            </div>`
         : myResp && expired
           ? `<div style="display:flex;gap:.5rem;align-items:center">
@@ -67007,14 +67017,20 @@ function renderQuoteRequests() {
         if (_aExp) {
           return '<div style="margin-bottom:.6rem;padding:.35rem .75rem;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:.76rem;color:#94A3B8;font-weight:700">🔒 Customer acceptance window closed</div>';
         }
-        const _aMins = workingMinsRemaining(_now4, _aDeadline, req.state);
-        const _aLabel = _aMins > 60 ? Math.floor(_aMins/60)+'h '+(_aMins%60)+'m' : _aMins+'m';
-        const _urg = _aMins < 60;
+        // Use rental company's own timezone for display (not customer's site timezone)
+        const _rcTZ = _qrUserCompany
+          ? cityToTZ(_qrUserCompany.baseCity || '') || stateToTZ(_qrUserCompany.state || '')
+          : null;
+        const _wc = buildWorkingCountdown(_aDeadline, req.state, _rcTZ);
+        const _aLabel = _wc.breakdown || _wc.label;
+        const _aDeadlineStr = _wc.closeStr;
+        const _aTZCity = _wc.tzCity;
+        const _urg = _wc.urgent;
         const _bg = _urg ? '#FEF2F2' : '#FFFBEB';
         const _bdr = _urg ? '#FCA5A5' : '#FCD34D';
         const _clr = _urg ? '#DC2626' : '#B45309';
         const _ico = _urg ? '🚨' : '⏱️';
-        return '<div style="margin-bottom:.6rem;padding:.35rem .75rem;background:'+_bg+';border:1px solid '+_bdr+';border-radius:8px;font-size:.76rem;color:'+_clr+';font-weight:700">'+_ico+' Customer has <strong>'+_aLabel+'</strong> to accept your quote</div>';
+        return '<div style="margin-bottom:.6rem;padding:.35rem .75rem;background:'+_bg+';border:1px solid '+_bdr+';border-radius:8px;font-size:.76rem;color:'+_clr+';font-weight:700">'+_ico+' Customer accept window · <strong>'+_aLabel+'</strong> · closes <strong>'+_aDeadlineStr+'</strong> <span style="opacity:.7">('+_aTZCity+')</span></div>';
       })()}
       ${myResp ? (() => {
         const _nmTid = 'nm-' + (req.id||'x').replace(/[^a-z0-9]/gi,'') + '__' + encodeURIComponent(currentUser?.name||'co') + '__company';
@@ -68326,3 +68342,183 @@ function amDeleteCategory(key) {
   renderAdminAddMachine();
 }
 
+
+// ══════════════════════════════════════════════════════════════════
+// WORKING HOURS COUNTDOWN — shows precise breakdown like:
+// "1h 30m left today + 2h 30m tomorrow · closes Thu 17 Apr at 9:30 AM AEST"
+// No lunch breaks counted. No public holidays.
+// ══════════════════════════════════════════════════════════════════
+
+// ── City → timezone helper ────────────────────────────────────
+function cityToTZ(cityName) {
+  if (!cityName) return 'Australia/Sydney';
+  const cn = cityName.toLowerCase().trim();
+  // Check AU_SUBURB_CITY first
+  if (typeof AU_SUBURB_CITY !== 'undefined' && AU_SUBURB_CITY[cn]) {
+    return stateToTZ(AU_SUBURB_CITY[cn][1]);
+  }
+  // Direct city→state map for major cities
+  const cityStateMap = {
+    'perth':'WA','bunbury':'WA','geraldton':'WA','kalgoorlie':'WA',
+    'karratha':'WA','port hedland':'WA','broome':'WA',
+    'darwin':'NT','alice springs':'NT',
+    'brisbane':'QLD','gold coast':'QLD','sunshine coast':'QLD',
+    'townsville':'QLD','cairns':'QLD','toowoomba':'QLD',
+    'mackay':'QLD','rockhampton':'QLD','gladstone':'QLD',
+    'hervey Bay':'QLD','emerald':'QLD','mt isa':'QLD',
+    'adelaide':'SA','whyalla':'SA','port augusta':'SA','mount gambier':'SA',
+    'hobart':'TAS','launceston':'TAS',
+    'sydney':'NSW','newcastle':'NSW','wollongong':'NSW',
+    'canberra':'ACT','central coast':'NSW','dubbo':'NSW',
+    'wagga wagga':'NSW','albury':'NSW','orange':'NSW',
+    'melbourne':'VIC','geelong':'VIC','ballarat':'VIC',
+    'bendigo':'VIC','shepparton':'VIC','mildura':'VIC','albury':'VIC',
+  };
+  const state = cityStateMap[cn];
+  return state ? stateToTZ(state) : 'Australia/Sydney';
+}
+
+function buildWorkingCountdown(deadlineTs, siteState, viewerTZ) {
+  // viewerTZ = the timezone of the person VIEWING the countdown (rental company's TZ)
+  // If not supplied, falls back to siteState TZ (customer's location)
+  const tz = viewerTZ || stateToTZ(siteState || '');
+  const tzAbbr = {
+    'Australia/Sydney':   'AEST',
+    'Australia/Brisbane': 'AEST',
+    'Australia/Adelaide': 'ACST',
+    'Australia/Perth':    'AWST',
+    'Australia/Darwin':   'ACST',
+    'Australia/Hobart':   'AEST',
+  }[tz] || 'AEST';
+  const tzCity = {
+    'Australia/Sydney':   'Sydney',
+    'Australia/Brisbane': 'Brisbane',
+    'Australia/Adelaide': 'Adelaide',
+    'Australia/Perth':    'Perth',
+    'Australia/Darwin':   'Darwin',
+    'Australia/Hobart':   'Hobart',
+  }[tz] || 'Sydney';
+
+  const WORK_START = 7, WORK_END = 17;
+  const now = Date.now();
+
+  if (now >= deadlineTs) return { expired: true, label: 'Window closed', detail: '' };
+
+  // Format the close time as a string in local tz
+  const closeDate = new Date(deadlineTs);
+  const closeDateStr = closeDate.toLocaleString('en-AU', {
+    timeZone: tz, weekday:'short', day:'numeric', month:'short',
+    hour:'2-digit', minute:'2-digit', hour12:true
+  });
+
+  // Work out how much time is left today vs tomorrow vs later
+  // Get current local time parts
+  function localParts(ts) {
+    const d = new Date(ts);
+    const parts = new Intl.DateTimeFormat('en-AU', {
+      timeZone: tz,
+      hour:'numeric', minute:'numeric', hour12:false,
+      weekday:'short', year:'numeric', month:'2-digit', day:'2-digit'
+    }).formatToParts(d);
+    const get = type => parts.find(p => p.type===type)?.value || '0';
+    return {
+      hour: parseInt(get('hour')),
+      minute: parseInt(get('minute')),
+      weekday: get('weekday'),
+      dateStr: `${get('year')}-${get('month')}-${get('day')}`
+    };
+  }
+
+  const nowParts = localParts(now);
+  const deadParts = localParts(deadlineTs);
+  const isWeekend = d => ['Sat','Sun'].includes(d);
+
+  // How many working mins between now and deadline
+  let totalWorkMins = 0;
+  let cursor = now;
+  const maxIter = 300;
+  let iter = 0;
+
+  while (cursor < deadlineTs && iter++ < maxIter) {
+    const p = localParts(cursor);
+    // If weekend, jump to Monday 7am
+    if (isWeekend(p.weekday)) {
+      const daysToMon = p.weekday === 'Sat' ? 2 : 1;
+      cursor += daysToMon * 86400000;
+      const p2 = localParts(cursor);
+      // Set to 7am that day - approximate by subtracting current hour offset
+      cursor -= (p2.hour * 60 + p2.minute) * 60000;
+      cursor += WORK_START * 3600000;
+      continue;
+    }
+    // Before work starts
+    if (p.hour < WORK_START) {
+      cursor += (WORK_START - p.hour) * 3600000 - p.minute * 60000;
+      continue;
+    }
+    // After work ends — jump to next day 7am
+    if (p.hour >= WORK_END) {
+      cursor += (24 - p.hour + WORK_START) * 3600000 - p.minute * 60000;
+      continue;
+    }
+    // Within working hours — count mins until EOD or deadline
+    const minsToEOD = (WORK_END - p.hour) * 60 - p.minute;
+    const minsToDeadline = Math.ceil((deadlineTs - cursor) / 60000);
+    const take = Math.min(minsToEOD, minsToDeadline);
+    totalWorkMins += take;
+    cursor += take * 60000;
+  }
+
+  // Now build the breakdown: today's remaining + next day(s)
+  const todayParts = localParts(now);
+  const isWorkingNow = !isWeekend(todayParts.weekday)
+    && todayParts.hour >= WORK_START
+    && todayParts.hour < WORK_END;
+
+  let todayMins = 0;
+  if (isWorkingNow) {
+    const minsLeftToday = (WORK_END - todayParts.hour) * 60 - todayParts.minute;
+    todayMins = Math.min(minsLeftToday, totalWorkMins);
+  }
+
+  const remainingAfterToday = totalWorkMins - todayMins;
+
+  function fmtMins(m) {
+    if (m <= 0) return '';
+    if (m < 60) return m + 'm';
+    const h = Math.floor(m / 60);
+    const min = m % 60;
+    return min > 0 ? h + 'h ' + min + 'm' : h + 'h';
+  }
+
+  let parts = [];
+  if (isWorkingNow && todayMins > 0) {
+    parts.push(fmtMins(todayMins) + ' left today');
+  } else if (!isWorkingNow && todayParts.hour < WORK_START) {
+    parts.push('starts ' + WORK_START + ':00 AM today');
+  } else if (!isWorkingNow) {
+    parts.push('resumes tomorrow at ' + WORK_START + ':00 AM');
+  }
+
+  if (remainingAfterToday > 0 && todayMins < totalWorkMins) {
+    const nextDay = isWorkingNow ? 'tomorrow' : 'next working day';
+    parts.push(fmtMins(remainingAfterToday) + ' ' + nextDay);
+  }
+
+  const breakdown = parts.join(' + ');
+  const urgent = totalWorkMins < 60;
+
+  return {
+    expired: false,
+    totalMins: totalWorkMins,
+    label: fmtMins(totalWorkMins) + ' working time remaining',
+    breakdown,
+    closeStr: closeDateStr,
+    tzAbbr,
+    tzCity,
+    urgent,
+    fullLabel: breakdown
+      ? breakdown + ' · closes ' + closeDateStr + ' ' + tzAbbr
+      : 'closes ' + closeDateStr + ' ' + tzAbbr
+  };
+}
