@@ -2308,7 +2308,13 @@
   <div class="modal modal-wide" style="max-height:90vh;overflow-y:auto">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
       <div>
-        <h3 style="margin:0;font-size:1.1rem" id="qdm-ref">Quote Details</h3>
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+          <h3 style="margin:0;font-size:1.1rem" id="qdm-ref">Quote Details</h3>
+          <button onclick="openQuoteDetailModal(document.getElementById('qdm-ref').textContent)"
+            style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:20px;padding:.18rem .65rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.72rem;cursor:pointer;color:#1D4ED8">
+            🔄 Refresh quotes
+          </button>
+        </div>
         <div id="qdm-meta" style="font-size:.8rem;color:#64748B;margin-top:.2rem"></div>
       </div>
       <button onclick="document.getElementById('quote-detail-modal').classList.remove('open')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8;line-height:1">✕</button>
