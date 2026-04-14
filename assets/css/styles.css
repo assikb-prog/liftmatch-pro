@@ -1092,7 +1092,7 @@ select.lp-input option {
 /* ── 24. GENERAL TOUCH TARGETS ──────────────────────────────────────── */
 @media(max-width:768px){
   button,select,input[type="checkbox"],input[type="radio"]{
-    min-height:40px
+    min-height:14px
   }
   select{font-size:16px!important} /* prevent iOS auto-zoom on select */
   input[type="text"],input[type="email"],input[type="tel"],
@@ -1435,7 +1435,7 @@ img[src=""]{display:none}
 .admin-section { min-width: 0; }
 
 /* ── Ensure inputs look consistent across browsers ───────────────── */
-input[type="date"], input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+input[type="date"], input[type="search"] {
   -webkit-appearance: none;
   appearance: none;
 }
@@ -1456,8 +1456,7 @@ html, body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overscroll-
    ══════════════════════════════════════════════════════════════ */
 
 /* Minimum touch target size — all interactive elements */
-button, .nav-tab, .admin-tab, select, input[type="file"],
-input[type="checkbox"], input[type="radio"], a.btn {
+button, .nav-tab, .admin-tab, select, input[type="file"], a.btn {
   min-height: 38px;
 }
 
@@ -1539,9 +1538,16 @@ svg text { -moz-user-select: none; -webkit-user-select: none; user-select: none;
 details summary { cursor: pointer; }
 details summary::-webkit-details-marker { display: none; }
 
-/* ── Safari/iOS: fix input border-radius ──────────────── */
-input, select, textarea { -webkit-appearance: none; appearance: none; border-radius: 8px; }
+/* ── Safari/iOS: fix input border-radius (targeted only) ──────────── */
+input[type="text"], input[type="email"], input[type="tel"],
+input[type="password"], input[type="number"], input[type="date"],
+input[type="search"], textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 8px;
+}
 input[type="radio"], input[type="checkbox"] { -webkit-appearance: auto; appearance: auto; border-radius: 0; }
+select { border-radius: 8px; }
 
 /* ── Edge: fix gradient text if used ──────────────────── */
 @supports not (-webkit-background-clip: text) {
