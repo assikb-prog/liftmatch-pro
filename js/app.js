@@ -51251,6 +51251,45 @@ async function saveQuoteToFirebase(quote) {
 // DIAGNOSTIC — run testRoutingForSuburb('Parramatta') in console
 // Also run: noyoDiag() for full system check
 // ═══════════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════════
+// ADMIN RESYNC — pushes all local quoteInbox items to shared_enquiries
+// Run from console: noyoResync()  OR use the Admin button
+// ══════════════════════════════════════════════════════════════════
+async function noyoResync() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    console.warn('Must be logged in as admin');
+    return;
+  }
+  if (!quoteInbox.length) {
+    console.log('No enquiries in local inbox to sync');
+    return;
+  }
+  console.log(`[Noyo] Syncing ${quoteInbox.length} enquiries to shared_enquiries...`);
+  let ok = 0, fail = 0;
+  for (const req of quoteInbox) {
+    try {
+      await _fbDb.collection('shared_enquiries').doc(req.id).set({
+        ...req,
+        resynced: true,
+        resyncedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
+      ok++;
+    } catch(e) {
+      fail++;
+      console.error(`[Noyo] Failed to sync ${req.id}:`, e.message);
+    }
+  }
+  console.log(`[Noyo] Resync complete: ${ok} ok, ${fail} failed`);
+  if (fail > 0) {
+    console.error('[Noyo] → Some writes failed. Check Firebase Console → Firestore → Rules');
+    alert(`Resync: ${ok} ok, ${fail} FAILED. Check browser console for details. You need to deploy firestore.rules to Firebase Console.`);
+  } else {
+    alert(`✅ Resync complete! ${ok} enquiries now in Firestore. Sarah should refresh her Quote Requests.`);
+  }
+}
+window.noyoResync = noyoResync;
+
 async function noyoDiag() {
   console.group('🔍 Noyo Diagnostic');
   console.log('User:', currentUser ? `${currentUser.email} (role: ${currentUser.role})` : 'Not logged in');
@@ -54102,7 +54141,7 @@ function sqmSelectWindow(el) {
   }
 }
 
-function submitQuoteRequest() {
+async function submitQuoteRequest() {
   // Minimum 1 machine validation
   if (quoteCart.length === 0) {
     { const _w = document.getElementById('sqm-min-machine-warn'); if (_w) _w.style.display = 'flex'; }
@@ -54225,18 +54264,21 @@ function submitQuoteRequest() {
   };
   quoteInbox.push(req);
   saveInbox();
-  // ── Write to shared_enquiries so ALL rental companies can see this enquiry ──
+  // ── Write to shared_enquiries — awaited so we know if it worked ─────────────
   // This is the primary delivery mechanism — rental companies read from this collection.
-  (async () => {
-    try {
-      await _fbDb.collection('shared_enquiries').doc(req.id).set({
-        ...req,
-        submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-    } catch(e) {
-      console.warn('[Noyo] shared_enquiries write failed:', e.message);
-    }
-  })();
+  let _seWriteOk = false;
+  try {
+    await _fbDb.collection('shared_enquiries').doc(req.id).set({
+      ...req,
+      submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    _seWriteOk = true;
+    console.log('[Noyo] ✅ shared_enquiries write OK for', req.id);
+  } catch(e) {
+    console.error('[Noyo] ❌ shared_enquiries write FAILED:', e.message);
+    console.error('[Noyo] → Go to Firebase Console → Firestore → Rules and deploy firestore.rules');
+    showToast('⚠️ Enquiry saved locally but Firestore sync failed — rental companies may not see it. Check Firebase Rules.', '#EF4444', 8000);
+  }
   renderQuoteInbox();
   updateQRUnreadBadge();
   try { adminTrackQuote('sent', req); } catch(e) {}
@@ -61879,6 +61921,20 @@ function renderAdminDashboard() {
   // Update last-updated
   const lu = document.getElementById('admin-last-updated');
   if (lu) lu.textContent = 'Last updated: just now';
+
+  // Add resync button to admin header if not already there
+  const hdr = document.querySelector('.admin-header');
+  if (hdr && !document.getElementById('admin-resync-btn')) {
+    const rb = document.createElement('button');
+    rb.id = 'admin-resync-btn';
+    rb.innerHTML = '📡 Resync to Firestore';
+    rb.title = 'Push all local enquiries to shared_enquiries so rental companies can see them';
+    rb.style.cssText = 'background:#15803D;color:#fff;border:none;border-radius:8px;padding:.4rem .9rem;font-family:Nunito,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;margin-left:.5rem';
+    rb.onclick = noyoResync;
+    const btnWrap = hdr.querySelector('.admin-refresh-btn');
+    if (btnWrap) btnWrap.parentNode.insertBefore(rb, btnWrap.nextSibling);
+    else hdr.appendChild(rb);
+  }
 }
 
 
