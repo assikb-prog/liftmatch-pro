@@ -1398,3 +1398,161 @@ img[src=""]{display:none}
 }
 .analytics-preset-btn:hover { background: #EFF6FF; }
 .analytics-preset-btn.active { background: #0052CC; color: #fff; border-color: #0052CC; }
+
+/* ── Mobile & Cross-Browser Fixes ──────────────────────────────── */
+@media (max-width: 768px) {
+  .internal-wrap { padding: .75rem !important; }
+  .admin-wrap { padding: .75rem !important; }
+  .admin-tabs { gap: .25rem !important; overflow-x: auto; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch; padding-bottom: .3rem; }
+  .admin-tab { font-size: .72rem !important; padding: .38rem .65rem !important; white-space: nowrap; }
+  .nav-tab { font-size: .75rem !important; padding: .35rem .55rem !important; }
+  #main-nav-tabs { gap: .2rem !important; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: .2rem; }
+  .cart-fab { bottom: 1.2rem !important; right: 1rem !important; }
+}
+@media (max-width: 480px) {
+  .internal-wrap { padding: .5rem !important; }
+  h2 { font-size: 1.15rem !important; }
+}
+
+/* ── Firefox compatibility fixes ─────────────────────────────────── */
+@-moz-document url-prefix() {
+  .admin-tabs { scrollbar-width: thin; }
+}
+
+/* ── WebKit animation prefixes for map pulses ───────────────────── */
+@-webkit-keyframes mapPulse {
+  0%   { opacity: .5; -webkit-transform: scale(1); }
+  60%  { opacity: 0;  -webkit-transform: scale(2.2); }
+  100% { opacity: 0;  -webkit-transform: scale(2.2); }
+}
+@keyframes mapPulse {
+  0%   { opacity: .5; transform: scale(1); }
+  60%  { opacity: 0;  transform: scale(2.2); }
+  100% { opacity: 0;  transform: scale(2.2); }
+}
+
+/* ── Edge/Firefox grid fallbacks ─────────────────────────────────── */
+.admin-section { min-width: 0; }
+
+/* ── Ensure inputs look consistent across browsers ───────────────── */
+input[type="date"], input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator { opacity: 1; }
+
+/* ── Firefox number input spinner removal ────────────────────────── */
+input[type="number"] { -moz-appearance: textfield; }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+html, body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overscroll-behavior-y: contain; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   CROSS-BROWSER & MOBILE RESPONSIVE FIXES
+   Tested: Chrome, Firefox, Edge, Safari, iOS, Android
+   ══════════════════════════════════════════════════════════════ */
+
+/* Minimum touch target size — all interactive elements */
+button, .nav-tab, .admin-tab, select, input[type="file"],
+input[type="checkbox"], input[type="radio"], a.btn {
+  min-height: 38px;
+}
+
+/* Firefox: remove dotted outline on buttons */
+button::-moz-focus-inner { border: 0; padding: 0; }
+
+/* Firefox: fix font rendering */
+* { -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; }
+
+/* Edge/Firefox: ensure gap works in flex contexts */
+.admin-tabs { gap: .4rem; row-gap: .4rem; }
+
+/* Fix scrollbar appearance — Firefox */
+* { scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent; }
+
+/* Fix SVG on Firefox: prevent text selection on map dots */
+svg text { -moz-user-select: none; -webkit-user-select: none; user-select: none; }
+
+/* ── Mobile: phones (< 480px) ─────────────────────────── */
+@media (max-width: 480px) {
+  /* Nav: stack name + controls */
+  .nav-bar { padding: .5rem .75rem; gap: .35rem; }
+  .nav-title { font-size: .9rem !important; }
+
+  /* Admin tabs: 2-per-row on small screens */
+  .admin-tab { font-size: .7rem !important; padding: .4rem .55rem !important; flex: 1 1 calc(50% - .4rem); text-align: center; }
+
+  /* Internal wrap: tighter padding */
+  .internal-wrap { padding: 1rem .75rem; }
+  .admin-wrap { padding: .75rem .65rem 2rem; }
+
+  /* Cards: remove horizontal padding on very small screens */
+  .admin-section { padding: .75rem !important; }
+
+  /* Tables: horizontal scroll */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Grids: force single column */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  /* Quote comparison: stack vertically */
+  .quote-compare-grid { grid-template-columns: 1fr !important; }
+
+  /* Stat cards: 2 across */
+  [style*="minmax(160px"] { grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="minmax(140px"] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ── Tablet/small desktop (481px – 768px) ─────────────── */
+@media (min-width: 481px) and (max-width: 768px) {
+  .admin-wrap { padding: 1rem .85rem 2rem; }
+  .internal-wrap { padding: 1.25rem 1rem; }
+  .admin-tab { font-size: .75rem; padding: .42rem .75rem; }
+}
+
+/* ── Map on small screens ──────────────────────────────── */
+@media (max-width: 900px) {
+  #mapintel-inner [style*="grid-template-columns: 1fr 300px"],
+  #mapintel-inner [style*="grid-template-columns:1fr 300px"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Quote intelligence 2-col → 1-col */
+  #mapintel-qi [style*="grid-template-columns: 1fr 1fr"],
+  #mapintel-qi [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Savings report on mobile ──────────────────────────── */
+@media (max-width: 600px) {
+  #mqv-savings [style*="grid-template-columns: 1fr 1fr"],
+  #mqv-savings [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Firefox: fix details/summary styling ─────────────── */
+details summary { cursor: pointer; }
+details summary::-webkit-details-marker { display: none; }
+
+/* ── Safari/iOS: fix input border-radius ──────────────── */
+input, select, textarea { -webkit-appearance: none; appearance: none; border-radius: 8px; }
+input[type="radio"], input[type="checkbox"] { -webkit-appearance: auto; appearance: auto; border-radius: 0; }
+
+/* ── Edge: fix gradient text if used ──────────────────── */
+@supports not (-webkit-background-clip: text) {
+  .gradient-text { background: none !important; color: var(--navy) !important; -webkit-text-fill-color: unset !important; }
+}
+
+/* ── Print styles for Management Dashboard ─────────────── */
+@media print {
+  nav, .cart-fab, .feedback-fab, .noyo-toast,
+  .admin-tabs, .admin-header button, #admin-pending-banner { display: none !important; }
+  .admin-section.active { display: block !important; box-shadow: none !important; }
+  body { font-size: 11pt; }
+  @page { margin: 15mm; size: A4 landscape; }
+}
