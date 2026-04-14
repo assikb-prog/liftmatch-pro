@@ -58203,9 +58203,28 @@ function qdmReject(reqId, responseIdx) {
   showToast('Quote declined', '#64748B');
 }
 
-function openQuoteDetailModal(reqId) {
-  const req = quoteInbox.find(r => r.id === reqId);
+async function openQuoteDetailModal(reqId) {
+  // First show modal immediately with cached data so it feels responsive
+  let req = quoteInbox.find(r => r.id === reqId);
   if (!req) return;
+
+  // Then silently fetch fresh copy from Firestore (picks up any new responses)
+  try {
+    const snap = await _fbDb.collection('shared_enquiries').doc(reqId).get();
+    if (snap.exists) {
+      const fresh = { id: snap.id, ...snap.data() };
+      // Only update if fresh has MORE responses than cached
+      const cachedRespCount = (req.responses||[]).length;
+      const freshRespCount  = (fresh.responses||[]).length;
+      if (freshRespCount > cachedRespCount) {
+        // Update the local quoteInbox entry
+        const idx = quoteInbox.findIndex(r => r.id === reqId);
+        if (idx >= 0) quoteInbox[idx] = { ...quoteInbox[idx], ...fresh };
+        req = quoteInbox[idx] || fresh;
+      }
+    }
+  } catch(e) { /* silently use cached version */ }
+
 
   document.getElementById('qdm-ref').textContent = req.id;
   const windowLabel = req.responseWindowHours===2 ? '🚨 Express — 2h window' : req.responseWindowHours===4 ? '⚡ Same Day — 4h window' : '📋 Project / Bulk — 8h window';
