@@ -44083,6 +44083,25 @@ const GENERAL_QS = [
     ]
   },
 
+  // ── Platform type preference — only shown when height is in the ambiguous zone (6m–14m, 1 person, indoor)
+  // Avoids forcing push-around when customer might actually want a scissor lift
+  {
+    id:'ppl_platform_pref', icon:'🏗️',
+    text:'What type of platform suits your job?',
+    hint:'Both can reach your height. Scissor lifts have a larger platform and higher weight capacity — better for tools and equipment. Push-around manlifts are more compact and easier to manoeuvre in tight spaces.',
+    showIf: {fn: ans => ans.lifting_for==='people' && ans.people_reach==='straight_up'
+      && (ans.people_location==='indoor'||ans.people_location==='outdoor_firm')
+      && parseFloat(ans.ppl_ht_m||0) >= 6
+      && parseFloat(ans.ppl_ht_m||0) <= 14
+      && ans.people_crew === 'one'},
+    type:'options',
+    options:[
+      {ico:'🏗️', lbl:'Scissor lift',          sub:'Larger platform, higher SWL (200–450kg) — fits tools, equipment and a worker comfortably', val:'scissor'},
+      {ico:'🧍', lbl:'Push-around manlift',    sub:'Compact and easy to move — ideal when space is tight and load is light (person + small tools)', val:'push_around'},
+      {ico:'🤷', lbl:'Show me both options',   sub:'Not sure — display scissor lifts and push-around manlifts side by side', val:'both'},
+    ]
+  },
+
   // ══ MATERIALS BRANCH ══════════════════════════════════════════════════════
 
   // Q2-materials: just off the ground or lifting to height?
@@ -47231,17 +47250,29 @@ function determineMachineType(ans) {
     // Only escalate to boom if platform height exceeds what RT scissors cover
     if (rough && platHt > 16) return 'boom';
 
-    // Push-around: single person + straight up + not rough + platform height ≤ 14m
-    // (AWP-40S reaches ~14.2m platform; above that needs a proper scissor)
+    // Platform type preference — customer explicitly chose in quiz
+    const platPref = ans.ppl_platform_pref; // 'scissor' | 'push_around' | 'both' | undefined
+
+    // Customer explicitly picked push-around
+    if (platPref === 'push_around') return 'pushAround';
+
+    // Customer explicitly picked scissor or both — go scissor
+    // (scissor results include push-around 'also fits' cards too)
+    if (platPref === 'scissor' || platPref === 'both') return 'scissor';
+
+    // No preference stated — use smart defaults:
+    // Push-around ONLY when height is clearly in AWP range (≤9m) OR width is very tight
     const isPushAround = crew === 'one'
       && reachType !== 'over_out'
       && !rough
-      && (platHt === 0 || platHt <= 14)
-      && (widthMm === 0 || widthMm <= 1200);
+      && (
+        (widthMm > 0 && widthMm <= 900)          // explicitly tight width → push-around
+        || (platHt > 0 && platHt <= 9)            // clearly small job ≤9m → push-around
+      );
 
     if (isPushAround) return 'pushAround';
 
-    // Scissor: straight up, level surface, single or multi person
+    // Default: scissor lift — more capable, higher SWL, better for unknown requirements
     return 'scissor';
   }
 
@@ -47371,9 +47402,13 @@ function getAllQuestions() {
   return base.filter(q => {
     if (q.showIf) {
       const si = q.showIf;
-      const actual = answers[si.key];
-      if (si.vals) { if (!si.vals.includes(actual)) return false; }
-      else { if (actual !== si.val) return false; }
+      if (typeof si.fn === 'function') {
+        if (!si.fn(answers)) return false;
+      } else {
+        const actual = answers[si.key];
+        if (si.vals) { if (!si.vals.includes(actual)) return false; }
+        else { if (actual !== si.val) return false; }
+      }
     }
     if (q.showIfNot) {
       const sn = q.showIfNot;
@@ -57881,24 +57916,52 @@ function saveSectors(email, role, sectors) {
 }
 
 function _renderSectorView(selectedSectors) {
-  // VIEW MODE — grey/coloured tiles showing what is/isn't selected
+  // VIEW MODE — always show ALL categories grouped
+  // Blue pill with ✓ = selected/active   Grey pill = not selected
+  // Nothing is clickable — read only. Click Amend to edit.
   const el = document.getElementById('det-sector-view');
   if (!el) return;
-  const all = _getFlatSectors();
-  if (!selectedSectors.length) {
-    el.innerHTML = '<span style="font-size:.8rem;color:#94A3B8;font-style:italic">No categories selected yet — click Amend Categories to set up.</span>';
-    return;
+
+  const selSet = new Set((selectedSectors||[]).map(s => s.toLowerCase()));
+  const selectedCount = selSet.size;
+
+  const groups = [
+    { label:'🏗️ Elevated Access', items:['Boom Lifts (Articulated & Telescopic)','SL Scissor Lifts, Vertical Lifts, Personnel Lifts','Telehandlers and Rotating Telehandlers','Material Hoists'] },
+    { label:'🍴 Material Handling', items:['Forklifts, Reach Trucks, Pallet Jacks','Electric Chain Hoists','Glass Handling Equipment','Material Handling Trolleys'] },
+    { label:'🏚️ Lifting & Rigging', items:['Mini Cranes / Spider Cranes','Mobile Cranes','Rigging Equipment'] },
+    { label:'⛏️ Earthworks', items:['Excavators (Tracked & Wheeled)','Skid Steer Loaders & Bobcats','Crawler Dozers & Bulldozers','Motor Graders','Compactors, Rollers & Plate Compactors','Articulated Dump Trucks','Wheel Loaders','Water Carts'] },
+    { label:'⚡ Power & Site', items:['Generators','Lighting Towers','Air Compressors','Welding Machines','Traffic Management Equipment','Site Safety Equipment','Portable Site Accommodation'] },
+  ];
+
+  el.innerHTML = groups.map(group => `
+    <div style="margin-bottom:.6rem">
+      <div style="font-size:.68rem;font-weight:900;color:#94A3B8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem">${group.label}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.3rem">
+        ${group.items.map(s => {
+          const active = selSet.has(s.toLowerCase());
+          return `<span style="
+            display:inline-flex;align-items:center;gap:.3rem;
+            padding:.22rem .65rem;border-radius:20px;
+            font-size:.77rem;font-weight:${active?'800':'500'};
+            background:${active?'#DBEAFE':'#F1F5F9'};
+            color:${active?'#1D4ED8':'#CBD5E1'};
+            border:1.5px solid ${active?'#BFDBFE':'#E2E8F0'};
+            white-space:nowrap;cursor:default;user-select:none">
+            ${active?`<span style="color:#2563EB;font-size:.7rem">✓</span>`:''}
+            ${s}
+          </span>`;
+        }).join('')}
+      </div>
+    </div>`).join('');
+
+  // Update subtitle to show selection count
+  const sub = document.getElementById('det-cats-subtitle');
+  if (sub) {
+    sub.textContent = selectedCount > 0
+      ? `${selectedCount} categor${selectedCount===1?'y':'ies'} registered — click Amend to change`
+      : 'No categories selected yet — click Amend Categories to set up';
+    sub.style.color = selectedCount > 0 ? '#15803D' : '#94A3B8';
   }
-  const selSet = new Set(selectedSectors.map(s => s.toLowerCase()));
-  el.innerHTML = all.map(s => {
-    const active = selSet.has(s.toLowerCase());
-    return `<span style="
-      display:inline-block;padding:.25rem .65rem;border-radius:20px;font-size:.78rem;font-weight:${active?'800':'600'};
-      background:${active?'#DBEAFE':'#F1F5F9'};
-      color:${active?'#1D4ED8':'#94A3B8'};
-      border:1px solid ${active?'#BFDBFE':'#E2E8F0'};
-      white-space:nowrap;margin:.1rem 0">${active?'✓ ':''} ${s}</span>`;
-  }).join(' ');
 }
 
 function _getFlatSectors() {
@@ -58536,10 +58599,15 @@ function renderMyQuotes() {
 
     // Status
     let statusBg, statusColor, statusText, statusDot;
+    const windowStillOpen = req.expires && Date.now() <= req.expires;
     if (declined) {
       statusBg='#FEF2F2'; statusColor='#DC2626'; statusText='Declined'; statusDot='🔴';
-    } else if (hasReply) {
-      statusBg='#F0FDF4'; statusColor='#15803D'; statusText=respCount+' response'+(respCount>1?'s':''); statusDot='🟢';
+    } else if (hasReply && windowStillOpen) {
+      statusBg='#EFF6FF'; statusColor='#1D4ED8'; statusDot='💬';
+      statusText = respCount + ' quote'+(respCount>1?'s':'')+' received';
+    } else if (hasReply && !windowStillOpen) {
+      statusBg='#F0FDF4'; statusColor='#15803D'; statusDot='✅';
+      statusText = respCount + ' quote'+(respCount>1?'s':'')+' — ready to accept';
     } else {
       statusBg='#FFFBEB'; statusColor='#B45309'; statusText='Awaiting reply'; statusDot='🟡';
     }
@@ -58843,7 +58911,7 @@ function renderMyQuotes() {
                     const _mqWinOpen3 = req.expires && Date.now() <= req.expires;
                     const _aExp3 = req.customerAcceptExpires && Date.now() > req.customerAcceptExpires;
                     btnHtml = _mqWinOpen3
-                      ? `<div style="color:#B45309;font-size:.73rem;font-weight:700;text-align:center;padding:.3rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:7px">⏳ Window open — accept once closed</div>`
+                      ? `<div style="color:#1D4ED8;font-size:.78rem;font-weight:700;text-align:center;padding:.45rem .6rem;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:7px">⏱ Response window still open — you can compare quotes now, accept once the window closes</div>`
                       : _aExp3
                         ? `<div style="color:#94A3B8;font-size:.74rem;font-weight:700;text-align:center">🔒 Window closed</div>`
                         : `<div style="display:flex;flex-direction:column;gap:.3rem">
@@ -58890,8 +58958,11 @@ function renderMyQuotes() {
     const responseCardsHtml = responses.length === 0 ? '' : `
       <div style="margin-top:.9rem;border-top:1.5px solid #E2E8F0;padding-top:.85rem">
         ${_acceptCountdownHtml ? _acceptCountdownHtml : ''}
-        <div style="font-size:.73rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.55rem;margin-top:${_acceptCountdownHtml?'.75rem':'0'}">
-          Responses (${respCount})${priceNums.length > 1 ? ` &nbsp;·&nbsp; <span style="color:#1D4ED8">Range: $${minP.toFixed(2)} – $${maxP.toFixed(2)}</span>` : ''}
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.55rem;margin-top:${_acceptCountdownHtml?'.75rem':'0'}">
+          <span style="font-size:.73rem;font-weight:800;color:#1D4ED8;text-transform:uppercase;letter-spacing:.5px">
+            💬 ${respCount} Quote${respCount>1?'s':''} Received${priceNums.length > 1 ? ` &nbsp;·&nbsp; <span style="color:#0052CC">Range: A$${minP.toFixed(2)} – A$${maxP.toFixed(2)}</span>` : ''}
+          </span>
+          ${windowStillOpen ? `<span style="background:#EFF6FF;color:#1D4ED8;border:1.5px solid #BFDBFE;border-radius:20px;padding:.2rem .7rem;font-size:.73rem;font-weight:700">⏱ Accept opens when window closes</span>` : ''}
         </div>
         ${comparisonHtml}
         <div style="margin-top:${sortedResponses.length>=2?'.8rem':'0'}">
@@ -59097,14 +59168,14 @@ return ratingHtml;
       </div>`;
 
     return `
-    <div style="background:#fff;border:2px solid ${req.acceptedBy?'#86EFAC':hasReply?'#BFDBFE':declined?'#FECACA':'#E2E8F0'};border-radius:14px;padding:1.1rem 1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.04)">
+    <div style="background:#fff;border:2px solid ${req.acceptedBy?'#86EFAC':hasReply&&windowStillOpen?'#93C5FD':hasReply?'#86EFAC':declined?'#FECACA':'#E2E8F0'};border-radius:14px;padding:1.1rem 1.2rem;box-shadow:${hasReply&&windowStillOpen?'0 0 0 3px rgba(59,130,246,.1)':'0 2px 8px rgba(0,0,0,.04)'}">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap">
         <div>
           <div style="font-weight:900;color:#0052CC;font-size:.95rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onclick="openQuoteDetailModal('${req.id}')">${req.id}</div>
           <div style="font-size:.8rem;color:#64748B;margin-top:.15rem">📅 ${req.date||'—'} · 📍 ${req.suburb||req.city||'—'}${req.state?', '+req.state:''} · ${windowLabel}${req.isRural ? ' · <span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:2px solid #F97316;font-size:.72rem;font-weight:800;padding:.15rem .55rem;border-radius:12px">🏗️ Rural/Remote — depot: '+req.city+'</span>' : ''}</div>
         </div>
         <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
-          ${respCount > 0 ? `<span style="background:#0052CC;color:#fff;font-size:.78rem;font-weight:900;padding:.25rem .65rem;border-radius:50px;min-width:22px;text-align:center">${respCount}</span>` : ''}
+          ${hasReply ? `<span style="background:${windowStillOpen?'#1D4ED8':'#15803D'};color:#fff;font-size:.79rem;font-weight:900;padding:.25rem .75rem;border-radius:50px">💬 ${respCount} quote${respCount>1?'s':''}</span>` : ''}
           <span style="background:${statusBg};color:${statusColor};font-size:.8rem;font-weight:700;padding:.3rem .75rem;border-radius:20px">${statusDot} ${statusText}</span>
           ${expiryHtml}
           ${!req.acceptedBy && !req.withdrawn && req.expires && Date.now() <= req.expires
