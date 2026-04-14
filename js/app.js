@@ -51159,12 +51159,12 @@ async function loadInboxFromFirebase() {
 
     if (isRentalCo && !isAdmin) {
       // Load shared enquiries for rental company view
-      const sharedSnap = await _fbDb.collection('shared_enquiries').orderBy('ts', 'desc').limit(200).get();
-      const sharedArr  = sharedSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const sharedSnap = await _fbDb.collection('shared_enquiries').limit(300).get();
+      const sharedArr  = sharedSnap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b)=>(b.ts||0)-(a.ts||0));
       // Also read quote_requests for backward compat with pre-fix submissions
       let legacyArr = [];
       try {
-        const legacySnap = await _fbDb.collection('quote_requests').orderBy('ts', 'desc').limit(200).get();
+        const legacySnap = await _fbDb.collection('quote_requests').limit(300).get();
         legacyArr = legacySnap.docs.map(d => ({ id: d.id, ...d.data() }));
       } catch(e) {}
       // Merge with own inbox (admin broadcast direct writes)
@@ -51178,11 +51178,11 @@ async function loadInboxFromFirebase() {
 
     // Admin reads ALL enquiries from shared_enquiries + own inbox
     if (isAdmin) {
-      const sharedSnap = await _fbDb.collection('shared_enquiries').orderBy('ts', 'desc').limit(500).get();
+      const sharedSnap = await _fbDb.collection('shared_enquiries').limit(500).get();
       const sharedArr  = sharedSnap.docs.map(d => ({ id: d.id, ...d.data() }));
       let legacyArr = [];
       try {
-        const legacySnap = await _fbDb.collection('quote_requests').orderBy('ts', 'desc').limit(500).get();
+        const legacySnap = await _fbDb.collection('quote_requests').limit(500).get();
         legacyArr = legacySnap.docs.map(d => ({ id: d.id, ...d.data() }));
       } catch(e) {}
       const ownSnap2 = await _fbDb.collection('quote_inboxes').doc(currentUser.uid).get();
@@ -51202,12 +51202,12 @@ async function loadInboxFromFirebase() {
     try {
       const sharedSnap = await _fbDb.collection('shared_enquiries')
         .where('email', '==', custEmail)
-        .orderBy('ts', 'desc').limit(100).get();
+        .limit(100).get();
       sharedCustomerArr = sharedSnap.docs.map(d => ({ id: d.id, ...d.data() }));
     } catch(e) {
       // Fallback if no index: load all and filter client-side
       try {
-        const allSnap = await _fbDb.collection('shared_enquiries').orderBy('ts', 'desc').limit(200).get();
+        const allSnap = await _fbDb.collection('shared_enquiries').limit(300).get();
         sharedCustomerArr = allSnap.docs
           .map(d => ({ id: d.id, ...d.data() }))
           .filter(r => (r.email || '').toLowerCase() === custEmail);
@@ -51244,6 +51244,49 @@ async function saveQuoteToFirebase(quote) {
       customerEmail: currentUser ? currentUser.email : null,
     }, { merge: true });
   } catch(e) { console.warn('Quote Firestore write failed:', e.message); }
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// DIAGNOSTIC — run testRoutingForSuburb('Parramatta') in console
+// Also run: noyoDiag() for full system check
+// ═══════════════════════════════════════════════════════════════════
+async function noyoDiag() {
+  console.group('🔍 Noyo Diagnostic');
+  console.log('User:', currentUser ? `${currentUser.email} (role: ${currentUser.role})` : 'Not logged in');
+  console.log('quoteInbox length:', quoteInbox.length);
+
+  // Check Firebase connection
+  try {
+    const testSnap = await _fbDb.collection('shared_enquiries').limit(1).get();
+    console.log('✅ shared_enquiries readable — doc count (sample):', testSnap.docs.length);
+    if (testSnap.docs.length > 0) {
+      const d = testSnap.docs[0].data();
+      console.log('   Sample doc fields:', Object.keys(d).join(', '));
+      console.log('   Sample city:', d.city, '| ts:', d.ts, '| email:', d.email);
+    }
+  } catch(e) {
+    console.error('❌ shared_enquiries read FAILED:', e.message);
+    console.error('   → Check Firebase Console → Firestore → Rules');
+  }
+
+  // Check company resolution
+  if (currentUser && currentUser.role === 'rental') {
+    const co = _resolveUserCompany();
+    console.log('Company resolved:', co ? `${co.name} | ${co.baseCity} | ${co.serviceRadiusKm}km` : 'NULL — no depot found!');
+    if (!co || !co.baseCity) {
+      console.warn('⚠️ No depot city found — enquiries will be blocked. Check RENTAL_COMPANIES array for email:', currentUser.email);
+    }
+
+    // Test each enquiry
+    console.log('--- Inbox visibility for', currentUser.email, '---');
+    quoteInbox.forEach((req, i) => {
+      const visible = !co || enquiryVisibleToCompany(req, co);
+      console.log(`  [${i}] ${req.city||'?'} | ${req.suburb||req.siteAddress||'?'} | visible=${visible} | ts=${req.ts}`);
+    });
+  }
+
+  console.groupEnd();
 }
 
 // ── Record comparison snapshot ────────────────────────────────
@@ -65264,6 +65307,10 @@ function showAdminSection(name, btn) {
   if (name === 'addmachine')    renderAdminAddMachine();
   if (name === 'addmachine')  { /* panel is static HTML — nothing to render */ }
   if (name === 'usermgmt')     loadUserMgmtTable();
+  if (name === 'investor')     renderInvestorDashboard();
+  if (name === 'management')   renderManagementDashboard();
+  if (name === 'mapintel')     renderMapIntelDashboard();
+  if (name === 'livemap')      renderLiveMap();
 }
 
 
@@ -66618,7 +66665,15 @@ function renderQuoteRequests() {
   if (myLeads.length === 0) {
     list.innerHTML = `<div style="background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:14px;padding:2.5rem;text-align:center">
       <div style="font-size:2.5rem;margin-bottom:.75rem">📭</div>
-      <div style="font-weight:700;color:#334155;font-size:1rem;margin-bottom:.35rem">No enquiries yet</div>
+      <div style="font-weight:700;color:#334155;font-size:1rem;margin-bottom:.35rem">No enquiries in your area yet</div>
+      <div style="font-size:.78rem;color:#64748B;max-width:340px;line-height:1.5">
+        ${quoteInbox.length > 0 ? 
+          `<div style="margin-top:.4rem;padding:.5rem .75rem;background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;font-size:.75rem;color:#92400E">
+            ⚠️ ${quoteInbox.length} enquir${quoteInbox.length===1?'y':'ies'} loaded but none match your service area.<br>
+            Check your depot city and service radius in My Details.
+          </div>` : 
+          'Enquiries from customers in your area will appear here.'}
+      </div>
     </div>`;
     return;
   }
@@ -67784,3 +67839,254 @@ async function umDoDelete(uid, email) {
 }
 
 // (Firebase db and currentUser accessed directly as globals in user mgmt functions)
+
+// ══════════════════════════════════════════════════════════════════
+// MAP INTEL DASHBOARD
+// ══════════════════════════════════════════════════════════════════
+function renderMapIntelDashboard() {
+  const el = document.getElementById('mapintel-content');
+  if (!el) return;
+  el.innerHTML = `
+    <div id="mapintel-inner">
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
+        <button onclick="_setMapIntelMetric('enquiries')" id="mi-btn-enquiries"
+          style="padding:.38rem .9rem;border-radius:20px;border:2px solid #0052CC;background:#0052CC;color:#fff;font-weight:800;font-size:.78rem;cursor:pointer;font-family:'Nunito',sans-serif">📨 Enquiries</button>
+        <button onclick="_setMapIntelMetric('revenue')" id="mi-btn-revenue"
+          style="padding:.38rem .9rem;border-radius:20px;border:2px solid #E2E8F0;background:#F8FAFC;color:#64748B;font-weight:700;font-size:.78rem;cursor:pointer;font-family:'Nunito',sans-serif">💰 Revenue</button>
+        <button onclick="_setMapIntelMetric('won')" id="mi-btn-won"
+          style="padding:.38rem .9rem;border-radius:20px;border:2px solid #E2E8F0;background:#F8FAFC;color:#64748B;font-weight:700;font-size:.78rem;cursor:pointer;font-family:'Nunito',sans-serif">✅ Won</button>
+        <button onclick="_setMapIntelMetric('lost')" id="mi-btn-lost"
+          style="padding:.38rem .9rem;border-radius:20px;border:2px solid #E2E8F0;background:#F8FAFC;color:#64748B;font-weight:700;font-size:.78rem;cursor:pointer;font-family:'Nunito',sans-serif">✗ Lost</button>
+      </div>
+      <div id="mapintel-map-area"></div>
+    </div>`;
+  _mapIntelMetric = _mapIntelMetric || 'enquiries';
+  _renderMapIntelInner();
+}
+
+var _mapIntelMetric = 'enquiries';
+
+function _setMapIntelMetric(m) {
+  _mapIntelMetric = m;
+  ['enquiries','revenue','won','lost'].forEach(k => {
+    const b = document.getElementById('mi-btn-'+k);
+    if (!b) return;
+    const active = k === m;
+    b.style.background = active ? '#0052CC' : '#F8FAFC';
+    b.style.color = active ? '#fff' : '#64748B';
+    b.style.borderColor = active ? '#0052CC' : '#E2E8F0';
+  });
+  _renderMapIntelInner();
+}
+
+function _mapShowCity(name) {
+  const tip = document.getElementById('map-city-tooltip');
+  if (!tip) return;
+  const enqs = quoteInbox.filter(r => (r.city||r.cluster||'').toLowerCase() === name.toLowerCase());
+  tip.style.display = 'block';
+  tip.innerHTML = `<strong style="font-size:.88rem;color:#0052CC">${name}</strong>
+    <div style="font-size:.78rem;font-family:'Nunito',sans-serif;margin-top:.3rem;color:#475569">
+      <div>📨 ${enqs.length} enquir${enqs.length===1?'y':'ies'}</div>
+      <div>✅ ${enqs.filter(r=>r.acceptedBy).length} accepted</div>
+    </div>`;
+}
+
+function _mapShowDepot(company, city) {
+  const tip = document.getElementById('map-city-tooltip') || document.getElementById('lm-tooltip');
+  if (!tip) return;
+  const co = (RENTAL_COMPANIES||[]).find(c=>c.name===company) ||
+             (RENTAL_COMPANIES||[]).find(c=>c.baseCity===city);
+  tip.style.display = 'block';
+  tip.innerHTML = `<strong style="font-size:.88rem;color:#FF6B00">🏗️ ${company}</strong>
+    <div style="font-size:.78rem;font-family:'Nunito',sans-serif;margin-top:.3rem;color:#475569">
+      <div>📍 ${city}</div>
+      <div>📡 ${co ? co.serviceRadiusKm : 75}km radius</div>
+      ${co && co.machines ? '<div>🔧 '+co.machines+'</div>' : ''}
+    </div>`;
+}
+
+function _renderMapIntelInner() {
+  const el = document.getElementById('mapintel-map-area');
+  if (!el) return;
+
+  // Build city values from quoteInbox
+  const cityValues = Object.keys(_AUS_CITIES).map(name => {
+    const enqs = quoteInbox.filter(r => (r.city||r.cluster||'') === name);
+    let val = 0;
+    if (_mapIntelMetric === 'enquiries') val = enqs.length;
+    else if (_mapIntelMetric === 'revenue') val = enqs.reduce((s,r)=>{const a=(r.responses||[]).find(x=>x.accepted);return s+(a?parseFloat(a.amount||0):0);},0);
+    else if (_mapIntelMetric === 'won') val = enqs.filter(r=>r.acceptedBy).length;
+    else if (_mapIntelMetric === 'lost') val = enqs.filter(r=>r.declined).length;
+    return { name, ...(_AUS_CITIES[name]), val };
+  }).filter(c => c.val > 0);
+
+  const maxVal = Math.max(...cityValues.map(c=>c.val), 1);
+  const dotR = v => Math.max(5, Math.min(22, 5 + Math.sqrt(v/maxVal)*17));
+
+  const ghostDots = Object.entries(_AUS_CITIES)
+    .filter(([n]) => !cityValues.find(c=>c.name===n))
+    .map(([n,p]) => `<circle cx="${p.x}" cy="${p.y}" r="3" fill="#555" opacity=".35" stroke="white" stroke-width="1"/>
+      <text x="${p.x}" y="${p.y-6}" text-anchor="middle" fill="#333" font-size="8" font-family="Nunito,sans-serif" font-weight="600" opacity=".6">${n}</text>`).join('');
+
+  const dots = cityValues.map((c,i) => {
+    const r = dotR(c.val);
+    const delay = (i*0.15).toFixed(2);
+    return `<g onclick="_mapShowCity('${c.name}')" style="cursor:pointer">
+      <circle cx="${c.x}" cy="${c.y}" r="${r+12}" fill="#0052CC" opacity="0" style="animation:mapPulse 2.6s ease-out ${delay}s infinite"/>
+      <circle cx="${c.x}" cy="${c.y}" r="${r}" fill="#0052CC" stroke="white" stroke-width="2" opacity=".85"/>
+      <text x="${c.x}" y="${c.y+1}" text-anchor="middle" dominant-baseline="middle" font-family="Nunito,sans-serif" font-size="${r>9?'8':'7'}" font-weight="900" fill="white">${c.val}</text>
+      <text x="${c.x}" y="${c.y+r+11}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="8.5" font-weight="800" fill="#1E3A5F">${c.name}</text>
+    </g>`;
+  }).join('');
+
+  // Depot dots
+  const _dMap = {};
+  (RENTAL_COMPANIES||[]).filter(c=>c.active!==false&&c.baseCity).forEach(c=>{
+    if(!_dMap[c.baseCity]) _dMap[c.baseCity]=[];
+    _dMap[c.baseCity].push(c.name);
+  });
+  const depotDots = Object.entries(_dMap).map(([city,names],i) => {
+    const dp = _AUS_CITIES[city]; if (!dp) return '';
+    const cnt = names.length; const r = Math.min(10, 5+cnt*1.5);
+    const delay = (i*0.3).toFixed(2);
+    return `<g onclick="_mapShowDepot('${names[0].replace(/'/g,"&apos;")}','${city}')" style="cursor:pointer">
+      <circle cx="${dp.x}" cy="${dp.y}" r="${r+12}" fill="#FF6B00" opacity="0" style="animation:mapPulse 2.8s ease-out ${delay}s infinite"/>
+      <circle cx="${dp.x}" cy="${dp.y}" r="${r}" fill="#FF6B00" stroke="white" stroke-width="2" opacity=".95"/>
+      ${cnt>1?`<text x="${dp.x}" y="${dp.y+1}" text-anchor="middle" dominant-baseline="middle" font-family="Nunito,sans-serif" font-size="7" font-weight="900" fill="white">${cnt}</text>`:''}
+      <text x="${dp.x}" y="${dp.y+r+11}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="8.5" font-weight="800" fill="#8B2500">${city}</text>
+    </g>`;
+  }).join('');
+
+  // City ranking
+  const topCities = [...cityValues].sort((a,b)=>b.val-a.val).slice(0,10);
+  const maxRank = Math.max(...topCities.map(c=>c.val),1);
+  const ranking = topCities.map((c,i)=>`
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem">
+      <div style="font-size:.7rem;font-weight:900;color:#94A3B8;min-width:16px">${i+1}</div>
+      <div style="font-size:.78rem;font-weight:700;color:#334155;min-width:90px">${c.name}</div>
+      <div style="flex:1;background:#F1F5F9;border-radius:20px;height:7px;overflow:hidden">
+        <div style="width:${Math.round(c.val/maxRank*100)}%;background:#0052CC;height:100%;border-radius:20px"></div>
+      </div>
+      <div style="font-size:.72rem;font-weight:800;color:#0052CC;min-width:20px;text-align:right">${c.val}</div>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:1rem;align-items:start">
+      <div style="background:#C8DCF0;border:1.5px solid #A8C4DC;border-radius:16px;padding:.75rem;position:relative;overflow:hidden;min-width:0">
+        <div id="map-city-tooltip" style="display:none;position:absolute;background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.7rem 1rem;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:10;font-family:'Nunito',sans-serif;min-width:160px;pointer-events:none;top:12px;right:12px"></div>
+        <svg viewBox="0 0 700 570" style="width:100%;height:auto;display:block;overflow:hidden;max-height:520px"
+          onmouseleave="document.getElementById('map-city-tooltip')&&(document.getElementById('map-city-tooltip').style.display='none')">
+          <defs>
+            <filter id="land-shadow"><feDropShadow dx="1" dy="3" stdDeviation="5" flood-color="#4477AA" flood-opacity="0.25"/></filter>
+            <clipPath id="ausclip"><path d="${_AUS_PATH}"/></clipPath>
+          </defs>
+          <rect width="700" height="570" fill="${_MAP_OCEAN}"/>
+          ${_STATE_FILLS}
+          ${_STATE_BORDERS}
+          <path d="${_AUS_PATH}" fill="none" stroke="#444" stroke-width="1.8" filter="url(#land-shadow)"/>
+          <path d="${_TAS_PATH}" fill="none" stroke="#444" stroke-width="1.5"/>
+          ${_STATE_LABELS}
+          ${ghostDots}
+          ${dots}
+          ${depotDots}
+        </svg>
+      </div>
+      <div>
+        <div style="font-size:.72rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.6rem">📊 Enquiries by City</div>
+        ${ranking || '<div style="color:#94A3B8;font-size:.8rem">No data yet</div>'}
+      </div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// MANAGEMENT / INVESTOR DASHBOARD
+// ══════════════════════════════════════════════════════════════════
+function renderManagementDashboard() {
+  const el = document.getElementById('management-dash-content');
+  if (!el) return;
+  const allEnq = quoteInbox;
+  const total = allEnq.length;
+  const responded = allEnq.filter(r=>(r.responses||[]).length>0).length;
+  const accepted = allEnq.filter(r=>r.acceptedBy).length;
+  const pending = allEnq.filter(r=>!(r.responses||[]).length).length;
+  const matchRate = total ? Math.round(responded/total*100) : 0;
+  const acceptRate = responded ? Math.round(accepted/responded*100) : 0;
+  const gmv = allEnq.reduce((s,r)=>{const a=(r.responses||[]).find(x=>x.accepted);return s+(a?parseFloat(a.amount||0):0);},0);
+
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.75rem;margin-bottom:1.5rem">
+      ${[
+        ['📨','Total Enquiries', total, '#0052CC'],
+        ['💬','Match Rate', matchRate+'%', matchRate>=60?'#15803D':matchRate>=30?'#B45309':'#DC2626'],
+        ['✅','Acceptance Rate', acceptRate+'%', '#15803D'],
+        ['💰','Est. GMV', 'A$'+gmv.toLocaleString(), '#7C3AED'],
+        ['⏳','Pending', pending, '#B45309'],
+        ['🔍','Responded', responded, '#0891B2'],
+      ].map(([icon,label,val,color])=>`
+        <div style="background:#fff;border-radius:14px;padding:1rem 1.1rem;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid ${color}">
+          <div style="font-size:.72rem;font-weight:700;color:#64748B;text-transform:uppercase">${icon} ${label}</div>
+          <div style="font-size:1.7rem;font-weight:900;color:${color};margin:.15rem 0">${val}</div>
+        </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:.6rem;justify-content:flex-end;margin-bottom:1rem">
+      <button onclick="exportManagementPDF()" style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.38rem .9rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer">🖨️ PDF</button>
+      <button onclick="exportManagementExcel()" style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.38rem .9rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer">📊 Excel</button>
+    </div>`;
+}
+
+function renderInvestorDashboard() {
+  const el = document.getElementById('investor-dash-content');
+  if (!el) return;
+  renderManagementDashboard();
+  el.innerHTML = (document.getElementById('management-dash-content')||{}).innerHTML || '<div style="padding:1rem;color:#94A3B8">Management dashboard data</div>';
+}
+
+function exportManagementPDF() {
+  const css = `@media print{body *{visibility:hidden}#management-dash-content,#management-dash-content *{visibility:visible}#management-dash-content{position:fixed;left:0;top:0;width:100%}}`;
+  const s = document.createElement('style'); s.innerHTML = css;
+  document.head.appendChild(s); window.print();
+  setTimeout(()=>s.remove(), 1000);
+}
+
+function exportManagementExcel() {
+  const rows = [['Metric','Value'],
+    ['Total Enquiries', quoteInbox.length],
+    ['Responded', quoteInbox.filter(r=>(r.responses||[]).length>0).length],
+    ['Accepted', quoteInbox.filter(r=>r.acceptedBy).length],
+    ['Pending', quoteInbox.filter(r=>!(r.responses||[]).length).length],
+  ];
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = `Noyo-Management-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// CATEGORY MANAGEMENT (Add Machine tab)
+// ══════════════════════════════════════════════════════════════════
+function amAddCategory() {
+  const nameEl = document.getElementById('am-new-cat-name');
+  const name = nameEl ? nameEl.value.trim() : '';
+  if (!name) return;
+  const cats = _getAllCategories();
+  if (cats.find(c=>c.label.toLowerCase()===name.toLowerCase())) {
+    showToast('Category already exists','#EF4444'); return;
+  }
+  const key = name.toLowerCase().replace(/[^a-z0-9]/g,'_');
+  const custom = JSON.parse(localStorage.getItem('noyo_custom_cats')||'[]');
+  custom.push({key, label:name, emoji:'🔧', custom:true});
+  localStorage.setItem('noyo_custom_cats', JSON.stringify(custom));
+  if (nameEl) nameEl.value = '';
+  showToast('✅ Category added: '+name,'#15803D');
+  renderAdminAddMachine();
+}
+
+function amDeleteCategory(key) {
+  const custom = JSON.parse(localStorage.getItem('noyo_custom_cats')||'[]');
+  const updated = custom.filter(c=>c.key!==key);
+  localStorage.setItem('noyo_custom_cats', JSON.stringify(updated));
+  showToast('Category removed','#64748B');
+  renderAdminAddMachine();
+}
+
