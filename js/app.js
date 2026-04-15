@@ -58874,7 +58874,7 @@ function renderMyQuotes() {
           const _wc = buildWorkingCountdown(req.expires, req.state);
           if (_wc.expired) return `<span style="font-size:.75rem;color:#94A3B8">Closed</span>`;
           const _clr = _wc.urgent ? '#DC2626' : '#B45309';
-          return `<span style="font-size:.73rem;color:${_clr};font-weight:700" title="${_wc.fullLabel}">⏱ ${_wc.fullLabel}</span>`;
+          return `<span style="font-size:.73rem;color:${_clr};font-weight:700">⏱ Closes ${_wc.closeStr} ${_wc.tzAbbr}</span>`;
         })()
       : `<span style="font-size:.75rem;color:#94A3B8">Closed</span>`;
 
@@ -67100,7 +67100,7 @@ function renderQuoteRequests() {
       const _rcTZCard = _qrUserCompany ? cityToTZ(_qrUserCompany.baseCity || '') : null;
       const _wcCard = buildWorkingCountdown(req.expires, req.state, _rcTZCard);
       const urgent = _wcCard.urgent || (_wcCard.totalMins !== undefined && _wcCard.totalMins < 120);
-      statusBadge = `<span style="background:${urgent?'#FEF2F2':'#FFFBEB'};color:${urgent?'#B91C1C':'#B45309'};font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px" title="${_wcCard.fullLabel}">⏱ ${_wcCard.breakdown || _wcCard.label}</span>`;
+      statusBadge = `<span style="background:${urgent?'#FEF2F2':'#FFFBEB'};color:${urgent?'#B91C1C':'#B45309'};font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px" title="${_wcCard.fullLabel}">⏱ Closes ${_wcCard.closeStr} ${_wcCard.tzAbbr}</span>`;
     }
 
     const machineList = (req.machines||[]).map(m => `<span style="display:inline-flex;align-items:center;gap:.3rem;background:#F1F5F9;color:#334155;font-size:.78rem;font-weight:600;padding:.18rem .55rem;border-radius:7px">${m.emoji||'🏗️'} ${m.name}</span>`).join(' ');
@@ -67151,6 +67151,7 @@ function renderQuoteRequests() {
     };border-radius:14px;padding:1rem 1rem 1rem 1.1rem;box-shadow:0 1px 4px rgba(0,0,0,.05)">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-bottom:.7rem">
         <div>
+          <div style="font-size:.72rem;font-weight:800;color:#0052CC;font-family:monospace;margin-bottom:.2rem;letter-spacing:.03em">${req.id}</div>
           <div style="font-weight:900;color:#0F172A;font-size:.95rem">👤 ${firstName}</div>
           <div style="font-size:.8rem;color:#64748B;margin-top:.2rem">📍 ${suburb}${state?', '+state:''} &nbsp;·&nbsp; 📅 Hire start: ${hireStart} &nbsp;·&nbsp; ⏳ ${durLbl} &nbsp;·&nbsp; ${windowLabel}${req.isRural ? ` &nbsp;·&nbsp; <span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:2px solid #F97316;font-size:.72rem;font-weight:800;padding:.15rem .55rem;border-radius:12px">🏗️ Rural/Remote</span>` : ''}</div>
           <div style="font-size:.75rem;color:#94A3B8;margin-top:.1rem">Sent: ${sentStr}</div>
