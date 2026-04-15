@@ -51279,17 +51279,13 @@ async function loadInboxFromFirebase() {
 }
 
 // ── Save individual quote to Firestore quotes collection ──────
-// Strip undefined values recursively — Firestore rejects undefined fields
+// Clean object for Firestore — replaces undefined with null (Firestore rejects undefined)
 function _stripUndefined(obj) {
-  if (Array.isArray(obj)) return obj.map(_stripUndefined);
-  if (obj && typeof obj === 'object') {
-    const clean = {};
-    for (const [k, v] of Object.entries(obj)) {
-      if (v !== undefined) clean[k] = _stripUndefined(v);
-    }
-    return clean;
+  try {
+    return JSON.parse(JSON.stringify(obj, (key, val) => val === undefined ? null : val));
+  } catch(e) {
+    return obj;
   }
-  return obj;
 }
 
 async function saveQuoteToFirebase(quote) {
