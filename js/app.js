@@ -53933,10 +53933,13 @@ function openSendQuotesModal() {
     // Reset sector checkboxes
     document.querySelectorAll('input[name="sqm-sector"]').forEach(cb => { cb.checked = false; });
   }
-  const _sqm = document.getElementById('send-quotes-modal');
-  _sqm.classList.add('open');
-  _sqm.scrollTop = 0;
-  requestAnimationFrame(() => { _sqm.scrollTop = 0; });
+  document.getElementById('send-quotes-modal').classList.add('open');
+  requestAnimationFrame(() => {
+    const _sqmInner = document.querySelector('#send-quotes-modal .modal-wide, #send-quotes-modal .modal');
+    if (_sqmInner) _sqmInner.scrollTop = 0;
+    const _sqmOuter = document.getElementById('send-quotes-modal');
+    if (_sqmOuter) _sqmOuter.scrollTop = 0;
+  });
   const sidebar = document.getElementById('cart-sidebar');
   if (sidebar && sidebar.classList.contains('open')) toggleCart();
   // Attach Google Places if ready
@@ -54088,9 +54091,9 @@ function submitRegistration() {
 }
 
 function closeSendQuotesModal() {
-  const _sqmC = document.getElementById('send-quotes-modal');
-  _sqmC.classList.remove('open');
-  _sqmC.scrollTop = 0;
+  document.getElementById('send-quotes-modal').classList.remove('open');
+  const _sqmCI = document.querySelector('#send-quotes-modal .modal-wide, #send-quotes-modal .modal');
+  if (_sqmCI) _sqmCI.scrollTop = 0;
 }
 
 // ── Result page disclaimer ────────────────────────────────────
@@ -55995,17 +55998,25 @@ function openRespondModal(reqId) {
   });
 
   rqRecalcAll();
-  const _rm = document.getElementById('respond-modal');
-  _rm.classList.add('open');
-  _rm.scrollTop = 0;  // scroll the overlay container to top immediately
-  // Belt-and-suspenders: also force after paint
-  requestAnimationFrame(() => { _rm.scrollTop = 0; });
+  document.getElementById('respond-modal').classList.add('open');
+  // Scroll the INNER scroll body to top — this is the actual scrollable element
+  requestAnimationFrame(() => {
+    const sb = document.querySelector('#respond-modal .rq-scroll-body');
+    if (sb) sb.scrollTop = 0;
+    const modal = document.querySelector('#respond-modal .modal');
+    if (modal) modal.scrollTop = 0;
+    const rm = document.getElementById('respond-modal');
+    if (rm) rm.scrollTop = 0;
+  });
 }
 
 function closeRespondModal() {
+  document.getElementById('respond-modal').classList.remove('open');
+  // Reset ALL scroll positions so next open starts at top
+  const _sb = document.querySelector('#respond-modal .rq-scroll-body');
+  if (_sb) _sb.scrollTop = 0;
   const _rmClose = document.getElementById('respond-modal');
-  _rmClose.classList.remove('open');
-  _rmClose.scrollTop = 0;  // reset so next open starts at top
+  if (_rmClose) _rmClose.scrollTop = 0;
   window._rqReq = null;
   window._rqTotals = null;
   // Reset all per-machine alt/question fields
@@ -58528,9 +58539,17 @@ async function openQuoteDetailModal(reqId) {
     _fbDb.collection('shared_enquiries').doc(reqId).get().then(snap => {
       if (snap.exists) {
         const fsResponses = snap.data().responses || [];
-        _qdmFSBadge.textContent = `📡 Firestore: ${fsResponses.length} response${fsResponses.length!==1?'s':''} (${fsResponses.map(r=>r.company||'?').join(', ')||'none'})`;
-        _qdmFSBadge.style.background = fsResponses.length > 0 ? '#DCFCE7' : '#FEF9C3';
-        _qdmFSBadge.style.color = fsResponses.length > 0 ? '#15803D' : '#92400E';
+        if (fsResponses.length > 0) {
+          _qdmFSBadge.innerHTML = `📡 Firestore: <strong>${fsResponses.length} response${fsResponses.length!==1?'s':''}</strong> from: ${fsResponses.map(r=>r.company||'?').join(', ')}`;
+          _qdmFSBadge.style.background = '#DCFCE7';
+          _qdmFSBadge.style.color = '#15803D';
+          _qdmFSBadge.style.border = '1px solid #86EFAC';
+        } else {
+          _qdmFSBadge.innerHTML = `⚠️ Firestore: 0 responses — ask Sarah/Marcus/Helen to re-submit their quotes using the new app`;
+          _qdmFSBadge.style.background = '#FEF9C3';
+          _qdmFSBadge.style.color = '#92400E';
+          _qdmFSBadge.style.border = '1px solid #FCD34D';
+        }
       } else {
         _qdmFSBadge.textContent = '⚠️ Doc not in Firestore yet — click 📡 Resync in Admin tab';
         _qdmFSBadge.style.background = '#FEF2F2'; _qdmFSBadge.style.color = '#DC2626';
