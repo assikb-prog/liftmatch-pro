@@ -58659,6 +58659,27 @@ function revealContactDetails(elementId, viewerRole, reqId, partyName) {
   } catch(e) {}
 }
 
+
+// ── Fix legacy expires that were stored as calendar hours ─────────────
+// Old code did: expires = ts + windowHours * 3600000 (calendar hours)
+// New code does: expires = calcWorkingDeadline(ts, windowHours, state)
+// This detects legacy enquiries and recalculates on the fly
+function _getCorrectExpires(req) {
+  if (!req || !req.ts || !req.expires) return req.expires;
+  const hrs = req.responseWindowHours || 4;
+  const calendarExpires = req.ts + hrs * 3600000;
+  // If stored expires == ts + calendar hours (within 60 seconds), it's legacy
+  if (Math.abs(req.expires - calendarExpires) < 60000) {
+    return calcWorkingDeadline(req.ts, hrs, req.state || '');
+  }
+  // Also detect ts + 24h (old default)
+  const legacy24h = req.ts + 24 * 3600000;
+  if (Math.abs(req.expires - legacy24h) < 60000) {
+    return calcWorkingDeadline(req.ts, hrs, req.state || '');
+  }
+  return req.expires;
+}
+
 function renderMyQuotes() {
   // Allow customer role AND admin/manager (who can also send enquiries as customers)
   if (!currentUser || (currentUser.role !== 'customer' && currentUser.role !== 'admin')) return;
@@ -58867,6 +58888,10 @@ function renderMyQuotes() {
 
     // Expiry
     const now = Date.now();
+    const _correctedExpires = _getCorrectExpires(req);
+    if (_correctedExpires && _correctedExpires !== req.expires) req = {...req, expires: _correctedExpires};
+    const _corrExp = _getCorrectExpires(req);
+    if (_corrExp && _corrExp !== req.expires) req = {...req, expires: _corrExp};
     const msLeft = req.expires ? req.expires - now : 0;
     const expired = msLeft <= 0;
     const expiryHtml = msLeft > 0
