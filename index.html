@@ -685,11 +685,18 @@
         </div>
       </div>
       <!-- Orange Find My Machine button -->
-      <button onclick="kymGoToFinder()"
-        style="background:linear-gradient(135deg,var(--orange,#FF6B35),#FF8C42);border:none;border-radius:50px;padding:.65rem 1.4rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 3px 14px rgba(255,107,53,.35);transition:all .2s"
-        onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
-        👷 Find My Machine →
-      </button>
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+        <!-- Cart button — shows count, links to hire enquiry -->
+        <button id="kym-cart-header-btn" onclick="openSendQuotesModal()"
+          style="display:none;background:#0052CC;border:none;border-radius:50px;padding:.6rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 3px 10px rgba(0,82,204,.3)">
+          🛒 <span id="kym-cart-header-count">0</span> in cart → Hire Enquiry
+        </button>
+        <button onclick="kymGoToFinder()"
+          style="background:linear-gradient(135deg,var(--orange,#FF6B35),#FF8C42);border:none;border-radius:50px;padding:.65rem 1.4rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 3px 14px rgba(255,107,53,.35);transition:all .2s"
+          onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+          👷 Find My Machine →
+        </button>
+      </div>
     </div>
   </div>
 
@@ -2318,7 +2325,7 @@
         <div id="qdm-meta" style="font-size:.8rem;color:#64748B;margin-top:.2rem"></div>
         <div id="qdm-fs-badge" style="display:none;margin-top:.35rem;font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:20px;border:1px solid #E2E8F0"></div>
       </div>
-      <button onclick="document.getElementById('quote-detail-modal').classList.remove('open')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8;line-height:1">✕</button>
+      <button onclick="var _qd=document.getElementById('quote-detail-modal');_qd.classList.remove('open');_qd.scrollTop=0;" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8;line-height:1">✕</button>
     </div>
 
     <!-- Status badge -->
