@@ -57236,6 +57236,8 @@ function kymRender() {
       }
     </div>`;
   }).join('');
+  // Always update cart button count after render
+  setTimeout(_kymUpdateCartBtn, 0);
 }
 
 function addToCartFromKYM(machineId, machineName, catKey, btn) {
@@ -59895,7 +59897,7 @@ function showView(view) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   const btn = document.querySelector('.nav-tab[onclick*="' + view + '"]');
   if (btn) btn.classList.add('active');
-  if (view === 'know') setTimeout(kymRender, 80);
+  if (view === 'know') setTimeout(() => { kymRender(); _kymUpdateCartBtn(); }, 80);
 }
 
 // =====================================================================
