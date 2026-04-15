@@ -57207,7 +57207,7 @@ function kymRender() {
 
       ${attachHtml}
 
-      ${currentUser && currentUser.role === 'rental'
+      ${(currentUser && (currentUser.role === 'rental' || currentUser.role === 'admin_rental'))
         ? `<div style="margin-top:.7rem;background:#F1F5F9;border:1.5px solid #E2E8F0;border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#94A3B8;font-weight:700;text-align:center">🔒 Log in as a customer to add to hire enquiry</div>`
         : currentUser && currentUser.role === 'lite'
           ? `<div style="margin-top:.7rem;background:rgba(14,165,233,.07);border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#38BDF8;font-weight:700;text-align:center">ℹ️ For information only — contact a rental company to hire</div>`
