@@ -51279,13 +51279,22 @@ async function loadInboxFromFirebase() {
 }
 
 // ── Save individual quote to Firestore quotes collection ──────
-// Clean object for Firestore — replaces undefined with null (Firestore rejects undefined)
+// Clean object for Firestore — removes undefined fields (Firestore rejects them)
+// Preserves Firestore special objects (Timestamps, FieldValues etc)
 function _stripUndefined(obj) {
-  try {
-    return JSON.parse(JSON.stringify(obj, (key, val) => val === undefined ? null : val));
-  } catch(e) {
-    return obj;
+  if (obj === undefined) return null;
+  if (obj === null || typeof obj !== 'object') return obj;
+  // Preserve Firestore special objects (FieldValue, Timestamp, GeoPoint etc)
+  if (obj.constructor && obj.constructor.name !== 'Object' && obj.constructor.name !== 'Array') return obj;
+  if (Array.isArray(obj)) return obj.map(item => item === undefined ? null : _stripUndefined(item));
+  const clean = {};
+  for (const key of Object.keys(obj)) {
+    const val = obj[key];
+    if (val !== undefined) {
+      clean[key] = _stripUndefined(val);
+    }
   }
+  return clean;
 }
 
 async function saveQuoteToFirebase(quote) {
@@ -57281,15 +57290,22 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
 }
 
 function _kymUpdateCartBtn() {
+  const n = quoteCart ? quoteCart.length : 0;
+
+  // KYM header button
   const headerBtn   = document.getElementById('kym-cart-header-btn');
   const headerCount = document.getElementById('kym-cart-header-count');
-  if (!headerBtn) return;
-  const n = quoteCart ? quoteCart.length : 0;
-  if (n > 0) {
-    headerBtn.style.display = 'inline-flex';
+  if (headerBtn) {
+    headerBtn.style.display = n > 0 ? 'inline-flex' : 'none';
     if (headerCount) headerCount.textContent = n;
-  } else {
-    headerBtn.style.display = 'none';
+  }
+
+  // Home page cart button
+  const homeWrap  = document.getElementById('home-cart-btn-wrap');
+  const homeCount = document.getElementById('home-cart-count');
+  if (homeWrap) {
+    homeWrap.style.display = n > 0 ? 'block' : 'none';
+    if (homeCount) homeCount.textContent = n;
   }
 }
 
@@ -58453,9 +58469,17 @@ async function openQuoteDetailModal(reqId) {
   }).join('');
 
   // Responses
+  // Always load fresh from Firestore first, then render
+  const _qdmWindowOpen = req.expires && Date.now() <= req.expires;
+
   if (responses.length === 0) {
-    document.getElementById('qdm-responses').innerHTML =
-      `<div style="text-align:center;padding:1.2rem;color:#94A3B8;font-size:.85rem;background:#F8FAFC;border-radius:10px">No responses yet — rental companies have until the window closes to reply.</div>`;
+    document.getElementById('qdm-responses').innerHTML = _qdmWindowOpen
+      ? `<div style="text-align:center;padding:1.5rem;color:#94A3B8;font-size:.85rem;background:#F8FAFC;border-radius:10px;border:1.5px dashed #E2E8F0">
+          <div style="font-size:1.5rem;margin-bottom:.5rem">⏳</div>
+          <div style="font-weight:700;color:#64748B;margin-bottom:.3rem">Waiting for quotes</div>
+          <div>Rental companies are reviewing your enquiry. Quotes will appear here as they arrive.</div>
+         </div>`
+      : `<div style="text-align:center;padding:1.2rem;color:#94A3B8;font-size:.85rem;background:#F8FAFC;border-radius:10px">No quotes were received for this enquiry.</div>`;
   } else {
     const prices = responses.map(r => { const n = parseFloat(String(r.grandTotal||r.price||'').replace(/[^0-9.]/g,'')); return {...r, numP: isNaN(n)?null:n}; });
     const nums = prices.map(p=>p.numP).filter(p=>p!==null);
@@ -58502,7 +58526,11 @@ async function openQuoteDetailModal(reqId) {
         } else if (isRejected) {
           actionHtml = `<div style="background:#F1F5F9;color:#94A3B8;font-weight:800;font-size:.82rem;padding:.4rem .9rem;border-radius:8px;display:inline-block;margin-top:.6rem">${p.autoRejected ? '✗ Auto-rejected — another quote was accepted' : '✗ Declined'}</div>`;
         } else if (_qdmWindowOpen) {
-          actionHtml = `<div style="margin-top:.65rem;padding:.38rem .8rem;background:#FFF7ED;border:1px solid #FCD34D;border-radius:8px;font-size:.78rem;color:#B45309;font-weight:700">⏳ Accepting unlocks once the quote window closes</div>`;
+          actionHtml = `<div style="display:flex;gap:.5rem;margin-top:.7rem;position:relative">
+            <button disabled style="flex:1;background:#D1FAE5;color:#6EE7B7;border:none;border-radius:8px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:not-allowed;opacity:.6" title="Window still open — accept unlocks when window closes">✅ Accept</button>
+            <button disabled style="flex:1;background:#F1F5F9;color:#CBD5E1;border:1px solid #E2E8F0;border-radius:8px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:not-allowed;opacity:.6" title="Window still open — available when window closes">✗ Decline</button>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.55);color:#fff;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:20px;white-space:nowrap;pointer-events:none">🔒 Unlocks when window closes</div>
+          </div>`;
         } else {
           actionHtml = `<div style="display:flex;gap:.5rem;margin-top:.7rem">
             <button onclick="qdmAccept('${req.id}',${idx})" style="flex:1;background:#16A34A;color:#fff;border:none;border-radius:8px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">✅ Accept</button>
@@ -58567,6 +58595,16 @@ async function openQuoteDetailModal(reqId) {
   _qdm2.classList.add('open');
   _qdm2.scrollTop = 0;
   requestAnimationFrame(() => { _qdm2.scrollTop = 0; });
+
+  // Auto-refresh every 30s while open — customer sees quotes arrive live
+  if (window._qdmPollTimer) clearInterval(window._qdmPollTimer);
+  window._qdmPollTimer = setInterval(() => {
+    if (!document.getElementById('quote-detail-modal').classList.contains('open')) {
+      clearInterval(window._qdmPollTimer); return;
+    }
+    const _id = (document.getElementById('qdm-ref')?.textContent || '').trim();
+    if (_id && _id.startsWith('QR-')) openQuoteDetailModal(_id);
+  }, 30000);
 }
 
 function mqClearFilters() {
@@ -59128,7 +59166,11 @@ function renderMyQuotes() {
                     const _mqWinOpen3 = req.expires && Date.now() <= req.expires;
                     const _aExp3 = req.customerAcceptExpires && Date.now() > req.customerAcceptExpires;
                     btnHtml = _mqWinOpen3
-                      ? `<div style="color:#1D4ED8;font-size:.78rem;font-weight:700;text-align:center;padding:.45rem .6rem;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:7px">⏱ Response window still open — you can compare quotes now, accept once the window closes</div>`
+                      ? `<div style="display:flex;gap:.4rem;margin-top:.4rem;position:relative">
+                            <button disabled style="flex:1;background:#D1FAE5;color:#6EE7B7;border:none;border-radius:7px;padding:.42rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:not-allowed;opacity:.6">✅ Accept</button>
+                            <button disabled style="flex:1;background:#F1F5F9;color:#CBD5E1;border:1px solid #E2E8F0;border-radius:7px;padding:.35rem .5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:not-allowed;opacity:.6">✗ Decline</button>
+                            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;font-weight:700;padding:.18rem .5rem;border-radius:20px;white-space:nowrap;pointer-events:none">🔒 Unlocks when window closes</div>
+                          </div>`
                       : _aExp3
                         ? `<div style="color:#94A3B8;font-size:.74rem;font-weight:700;text-align:center">🔒 Window closed</div>`
                         : `<div style="display:flex;flex-direction:column;gap:.3rem">
@@ -59892,6 +59934,7 @@ function showView(view) {
   const btn = document.querySelector('.nav-tab[onclick*="' + view + '"]');
   if (btn) btn.classList.add('active');
   if (view === 'know') setTimeout(() => { kymRender(); _kymUpdateCartBtn(); }, 80);
+  if (view === 'home' || view === 'finder') setTimeout(_kymUpdateCartBtn, 80);
 }
 
 // =====================================================================
