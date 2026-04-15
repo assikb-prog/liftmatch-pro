@@ -537,7 +537,13 @@
       <p>Answer a few questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts.</p>
       <button class="start-btn" onclick="openPhotoModal()">Find My Machine →</button>
       <button onclick="kymOpen()" style="margin-top:.8rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(22,163,74,.35)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">🔎 Know Your Machines →</button>
-
+      <div id="home-cart-btn-wrap" style="display:none;margin-top:1.2rem">
+        <button onclick="openSendQuotesModal()" id="home-cart-btn"
+          style="background:#FF6B35;border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(255,107,53,.45);transition:all .2s"
+          onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          🛒 <span id="home-cart-count">0</span> machine(s) in cart — Send Hire Enquiry →
+        </button>
+      </div>
     </div>
   </div>
 
@@ -2325,7 +2331,7 @@
         <div id="qdm-meta" style="font-size:.8rem;color:#64748B;margin-top:.2rem"></div>
         <div id="qdm-fs-badge" style="display:none;margin-top:.35rem;font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:20px;border:1px solid #E2E8F0"></div>
       </div>
-      <button onclick="var _qd=document.getElementById('quote-detail-modal');_qd.classList.remove('open');_qd.scrollTop=0;" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8;line-height:1">✕</button>
+      <button onclick="var _qd=document.getElementById('quote-detail-modal');_qd.classList.remove('open');_qd.scrollTop=0;if(window._qdmPollTimer){clearInterval(window._qdmPollTimer);window._qdmPollTimer=null;}" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8;line-height:1">✕</button>
     </div>
 
     <!-- Status badge -->
