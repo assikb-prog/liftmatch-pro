@@ -51144,7 +51144,7 @@ function saveInbox() {
   (async () => {
     try {
       await _fbDb.collection('quote_inboxes').doc(currentUser.uid).set(
-        { quotes: quoteInbox, updatedAt: firebase.firestore.FieldValue.serverTimestamp() },
+        { quotes: _stripUndefined(quoteInbox), updatedAt: firebase.firestore.FieldValue.serverTimestamp() },
         { merge: true }
       );
     } catch(e) {
@@ -51364,11 +51364,9 @@ async function noyoResync() {
   let ok = 0, fail = 0;
   for (const req of quoteInbox) {
     try {
-      await _fbDb.collection('shared_enquiries').doc(req.id).set({
-        ...req,
-        resynced: true,
-        resyncedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      }, { merge: true });
+      const _rClean = _stripUndefined({...req, resynced: true});
+      _rClean.resyncedAt = firebase.firestore.FieldValue.serverTimestamp();
+      await _fbDb.collection('shared_enquiries').doc(req.id).set(_rClean, { merge: true });
       ok++;
     } catch(e) {
       fail++;
@@ -51462,7 +51460,7 @@ function saveCartToStorage() {
   // Write to Firestore (persistent across devices)
   if (currentUser.uid) {
     _fbDb.collection('users').doc(currentUser.uid).set(
-      { cart: quoteCart, cartUpdatedAt: firebase.firestore.FieldValue.serverTimestamp() },
+      { cart: _stripUndefined(quoteCart), cartUpdatedAt: firebase.firestore.FieldValue.serverTimestamp() },
       { merge: true }
     ).catch(e => console.warn('Cart save to Firestore failed:', e.message));
   }
