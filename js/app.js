@@ -51279,13 +51279,22 @@ async function loadInboxFromFirebase() {
 }
 
 // ── Save individual quote to Firestore quotes collection ──────
+// Strip undefined values recursively — Firestore rejects undefined fields
+function _stripUndefined(obj) {
+  if (Array.isArray(obj)) return obj.map(_stripUndefined);
+  if (obj && typeof obj === 'object') {
+    const clean = {};
+    for (const [k, v] of Object.entries(obj)) {
+      if (v !== undefined) clean[k] = _stripUndefined(v);
+    }
+    return clean;
+  }
+  return obj;
+}
+
 async function saveQuoteToFirebase(quote) {
   saveInbox();
-  console.log('[Noyo] saveQuoteToFirebase called — id:', quote?.id, '| responses:', (quote?.responses||[]).length, '| companies:', (quote?.responses||[]).map(r=>r.company).join(','));
-  if (!quote || !quote.id) {
-    console.error('[Noyo] saveQuoteToFirebase: quote or quote.id is missing!', quote);
-    return;
-  }
+  if (!quote || !quote.id) return;
   try {
     const FieldValue = firebase.firestore.FieldValue;
     const docRef = _fbDb.collection('shared_enquiries').doc(quote.id);
@@ -51311,13 +51320,14 @@ async function saveQuoteToFirebase(quote) {
       }
     }
 
-    // Write everything back — set() creates or updates
-    await docRef.set({
+    // Write everything back — strip undefined fields before writing (Firestore rejects them)
+    const cleanQuote = _stripUndefined({
       ...quote,
       responses: merged,
       responded: merged.length > 0,
-      updatedAt: FieldValue.serverTimestamp(),
-    }, { merge: true });
+    });
+    cleanQuote.updatedAt = FieldValue.serverTimestamp();
+    await docRef.set(cleanQuote, { merge: true });
 
     const _coNames = merged.map(r=>r.company||'?').join(', ');
     console.log('[Noyo] ✅ Firestore write OK:', quote.id, '| responses:', merged.length, '|', _coNames);
@@ -54361,10 +54371,9 @@ async function submitQuoteRequest() {
   // This is the primary delivery mechanism — rental companies read from this collection.
   let _seWriteOk = false;
   try {
-    await _fbDb.collection('shared_enquiries').doc(req.id).set({
-      ...req,
-      submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    const _cleanReq = _stripUndefined({ ...req });
+    _cleanReq.submittedAt = firebase.firestore.FieldValue.serverTimestamp();
+    await _fbDb.collection('shared_enquiries').doc(req.id).set(_cleanReq);
     _seWriteOk = true;
     console.log('[Noyo] ✅ shared_enquiries write OK for', req.id);
   } catch(e) {
@@ -56276,13 +56285,14 @@ async function submitResponse() {
       // Remove old entry from this company, add new one
       const _others = _existing.filter(r => r.company !== _directResponse.company);
       const _newResponses = [..._others, _directResponse];
-      await _docRef.set({
+      const _cleanPayload = _stripUndefined({
         ...(_snap.exists ? _snap.data() : {}),
         ...req,
         responses: _newResponses,
         responded: true,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      }, { merge: true });
+      });
+      _cleanPayload.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+      await _docRef.set(_cleanPayload, { merge: true });
       console.log('[Noyo] ✅ Direct Firestore write OK. enquiry:', req.id, '| now has', _newResponses.length, 'responses | companies:', _newResponses.map(r=>r.company).join(', '));
       showToast('✅ Quote sent! Customer can now see your response.', '#15803D', 5000);
     } catch(_e) {
@@ -58545,10 +58555,7 @@ async function openQuoteDetailModal(reqId) {
           _qdmFSBadge.style.color = '#15803D';
           _qdmFSBadge.style.border = '1px solid #86EFAC';
         } else {
-          _qdmFSBadge.innerHTML = `⚠️ Firestore: 0 responses — ask Sarah/Marcus/Helen to re-submit their quotes using the new app`;
-          _qdmFSBadge.style.background = '#FEF9C3';
-          _qdmFSBadge.style.color = '#92400E';
-          _qdmFSBadge.style.border = '1px solid #FCD34D';
+          _qdmFSBadge.style.display = 'none'; // hide badge when no responses — no need to show
         }
       } else {
         _qdmFSBadge.textContent = '⚠️ Doc not in Firestore yet — click 📡 Resync in Admin tab';
