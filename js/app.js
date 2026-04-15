@@ -51281,7 +51281,11 @@ async function loadInboxFromFirebase() {
 // ── Save individual quote to Firestore quotes collection ──────
 async function saveQuoteToFirebase(quote) {
   saveInbox();
-  if (!quote || !quote.id) return;
+  console.log('[Noyo] saveQuoteToFirebase called — id:', quote?.id, '| responses:', (quote?.responses||[]).length, '| companies:', (quote?.responses||[]).map(r=>r.company).join(','));
+  if (!quote || !quote.id) {
+    console.error('[Noyo] saveQuoteToFirebase: quote or quote.id is missing!', quote);
+    return;
+  }
   try {
     const FieldValue = firebase.firestore.FieldValue;
     const docRef = _fbDb.collection('shared_enquiries').doc(quote.id);
@@ -53929,7 +53933,10 @@ function openSendQuotesModal() {
     // Reset sector checkboxes
     document.querySelectorAll('input[name="sqm-sector"]').forEach(cb => { cb.checked = false; });
   }
-  document.getElementById('send-quotes-modal').classList.add('open');
+  const _sqm = document.getElementById('send-quotes-modal');
+  _sqm.classList.add('open');
+  _sqm.scrollTop = 0;
+  requestAnimationFrame(() => { _sqm.scrollTop = 0; });
   const sidebar = document.getElementById('cart-sidebar');
   if (sidebar && sidebar.classList.contains('open')) toggleCart();
   // Attach Google Places if ready
@@ -54081,7 +54088,9 @@ function submitRegistration() {
 }
 
 function closeSendQuotesModal() {
-  document.getElementById('send-quotes-modal').classList.remove('open');
+  const _sqmC = document.getElementById('send-quotes-modal');
+  _sqmC.classList.remove('open');
+  _sqmC.scrollTop = 0;
 }
 
 // ── Result page disclaimer ────────────────────────────────────
@@ -56246,13 +56255,37 @@ async function submitResponse() {
     req.customerAcceptWindowHours = windowHrs;
   }
 
+  // ── Write response DIRECTLY to Firestore — atomic, no local merge ──
+  const _directResponse = req.responses ? req.responses[req.responses.length - 1] : null;
+  if (_directResponse && req.id) {
+    try {
+      const _docRef = _fbDb.collection('shared_enquiries').doc(req.id);
+      const _snap = await _docRef.get();
+      const _existing = _snap.exists ? (_snap.data().responses || []) : [];
+      // Remove old entry from this company, add new one
+      const _others = _existing.filter(r => r.company !== _directResponse.company);
+      const _newResponses = [..._others, _directResponse];
+      await _docRef.set({
+        ...(_snap.exists ? _snap.data() : {}),
+        ...req,
+        responses: _newResponses,
+        responded: true,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge: true });
+      console.log('[Noyo] ✅ Direct Firestore write OK. enquiry:', req.id, '| now has', _newResponses.length, 'responses | companies:', _newResponses.map(r=>r.company).join(', '));
+      showToast('✅ Quote sent! Customer can now see your response.', '#15803D', 5000);
+    } catch(_e) {
+      console.error('[Noyo] ❌ Direct Firestore write FAILED:', _e.message);
+      showToast('❌ Firestore write failed: ' + _e.message + ' — check Firebase rules', '#EF4444', 8000);
+    }
+  }
+
   closeRespondModal();
   saveInbox();
-  saveQuoteToFirebase(req);
+  saveQuoteToFirebase(req); // also update local cache
   renderQuoteRequests();
   renderQuoteInbox();
   try { adminTrackQuote('responded', req); } catch(e) {}
-  showToast('✓ Quote submitted to customer!', '#16A34A');
 }
 
 function declineQuote(reqId) {
@@ -56301,7 +56334,7 @@ function kymOpen() {
   // Sync input and render
   const inp2 = document.getElementById('kym-search-input2');
   if (inp2) inp2.value = _kymQuery || '';
-  setTimeout(kymRender, 80);
+  setTimeout(() => { kymRender(); _kymUpdateCartBtn(); }, 80);
 }
 
 function kymClose() {
@@ -57226,6 +57259,20 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
     btn.textContent = '✓ In Cart';
     btn.classList.add('in-cart');
     btn.disabled = true;
+  }
+  _kymUpdateCartBtn();
+}
+
+function _kymUpdateCartBtn() {
+  const headerBtn   = document.getElementById('kym-cart-header-btn');
+  const headerCount = document.getElementById('kym-cart-header-count');
+  if (!headerBtn) return;
+  const n = quoteCart ? quoteCart.length : 0;
+  if (n > 0) {
+    headerBtn.style.display = 'inline-flex';
+    if (headerCount) headerCount.textContent = n;
+  } else {
+    headerBtn.style.display = 'none';
   }
 }
 
@@ -58494,7 +58541,10 @@ async function openQuoteDetailModal(reqId) {
     });
   }
 
-  document.getElementById('quote-detail-modal').classList.add('open');
+  const _qdm2 = document.getElementById('quote-detail-modal');
+  _qdm2.classList.add('open');
+  _qdm2.scrollTop = 0;
+  requestAnimationFrame(() => { _qdm2.scrollTop = 0; });
 }
 
 function mqClearFilters() {
@@ -68562,3 +68612,33 @@ function buildWorkingCountdown(deadlineTs, siteState, viewerTZ) {
       : 'closes ' + closeDateStr + ' ' + tzAbbr
   };
 }
+
+// ── RENTAL COMPANY WRITE TEST — run in console: noyoTestWrite() ──────
+window.noyoTestWrite = async function() {
+  if (!currentUser) { alert('Not logged in'); return; }
+  console.log('Testing Firestore write as:', currentUser.email, 'uid:', currentUser.uid);
+  try {
+    await _fbDb.collection('shared_enquiries').doc('_write_test_' + Date.now()).set({
+      test: true, by: currentUser.email, at: new Date().toISOString()
+    });
+    console.log('✅ Write test PASSED — Firestore accepts writes from this account');
+    alert('✅ WRITE TEST PASSED\nFirestore accepts writes from: ' + currentUser.email);
+  } catch(e) {
+    console.error('❌ Write test FAILED:', e.message);
+    alert('❌ WRITE TEST FAILED\nError: ' + e.message + '\nThis explains why quotes are not reaching Admin.');
+  }
+};
+
+// ── FORCE SUBMIT LAST QUOTE — run in console: noyoForceSubmit() ──────
+window.noyoForceSubmit = async function() {
+  if (!currentUser) { alert('Not logged in'); return; }
+  const myResponses = quoteInbox.filter(r => (r.responses||[]).some(resp => resp.company === currentUser.name));
+  if (!myResponses.length) { alert('No quotes found in local inbox for ' + currentUser.name); return; }
+  let ok = 0;
+  for (const req of myResponses) {
+    console.log('Force-writing', req.id, 'responses:', req.responses.length);
+    await saveQuoteToFirebase(req);
+    ok++;
+  }
+  alert('✅ Force-submitted ' + ok + ' quotes to Firestore. Admin should now refresh My Quotes.');
+};
