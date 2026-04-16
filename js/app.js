@@ -44781,14 +44781,16 @@ const SPEC_QS = {
     {
       id:'tele_attachment', icon:'🔩',
       text:'What attachments will you need? (select all that apply)',
-      hint:'You can select multiple attachments — this helps us match machines that support your full range of tasks.',
+      hint:'You can select multiple attachments — this helps us match machines that support your full range of tasks. Jib, winch, man basket and rotator are quoted as separate hire line items.',
       type:'multi',
       options:[
         {ico:'🍴', lbl:'Forks', sub:'Standard pallet forks — pallets, materials, panels', val:'forks_only'},
         {ico:'🏗️', lbl:'Jib / crane hook', sub:'Lifting loads via hook — steel, concrete, plant', val:'jib'},
+        {ico:'🪝', lbl:'Winch', sub:'Rope winch / hook block — controlled lowering or hoisting', val:'winch'},
+        {ico:'🔄', lbl:'Fork rotator', sub:'360° rotation attachment for rotating loads', val:'rotator'},
+        {ico:'🧑‍✈️', lbl:'Man basket / work platform', sub:'Personnel access platform — priced as separate hire item', val:'man_basket'},
         {ico:'🪣', lbl:'GP Bucket', sub:'General purpose bucket — dirt, rubble, aggregate', val:'gp_bucket'},
         {ico:'🪣', lbl:'GP Bucket with Grab', sub:'Hydraulic grab bucket — loose or awkward material', val:'gp_bucket_grab'},
-        {ico:'🧲', lbl:'Man basket / work platform', sub:'Personnel access platform on forks', val:'man_basket'},
         {ico:'🌾', lbl:'Bale clamp / grapple', sub:'Agricultural and bulk material handling', val:'bale_clamp'},
       ]
     },
@@ -44834,6 +44836,18 @@ const SPEC_QS = {
         {ico:'🤔', lbl:'Not sure', sub:'Show me options either way', val:'maybe'},
       ]
     },
+    {
+      id:'scissor_accessories', icon:'🔩',
+      text:'Do you need any accessories with the scissor lift? (select all that apply)',
+      hint:'These are quoted as separate hire line items — the rental company will price them individually.',
+      type:'multi',
+      optional: true,
+      options:[
+        {ico:'🪠', lbl:'Pipe racks', sub:'Platform-mounted pipe cradles for long pipe, conduit or bar stock', val:'pipe_racks'},
+        {ico:'🦺', lbl:'EQSS (Enhanced Quad Support System)', sub:'Quad outrigger stability system — required on some sites', val:'eqss'},
+        {ico:'💧', lbl:'Spill under guard', sub:'Drip tray / spill containment mat — one-time hire charge (not daily)', val:'spill_guard'},
+      ]
+    },
   ],
 
   boom:[
@@ -44846,6 +44860,17 @@ const SPEC_QS = {
         {ico:'⚡', lbl:'Electric / battery only', sub:'Indoor, no fumes, noise-sensitive areas', val:'electric_boom'},
         {ico:'🔋', lbl:'Hybrid (electric + diesel)', sub:'Best of both — indoor and outdoor', val:'hybrid_boom'},
         {ico:'⛽', lbl:'Diesel fine', sub:'Outdoor, no restrictions', val:'diesel_boom'},
+      ]
+    },
+    {
+      id:'boom_accessories', icon:'🔌',
+      text:'Do you need power to the basket?',
+      hint:'Power to basket (240V outlet in the platform) is quoted as a separate hire line item — the rental company will price it per day and per week.',
+      type:'options',
+      optional: true,
+      options:[
+        {ico:'🔌', lbl:'Yes — 240V power outlet in basket required', sub:'For tools, lighting, or equipment run from the platform', val:'power_basket'},
+        {ico:'❌', lbl:'No — not needed', sub:'No power outlet required in the basket', val:'no_power_basket'},
       ]
     },
     {
@@ -51943,10 +51968,12 @@ function getJobRequirements() {
   const tattArr = Array.isArray(tattRaw) ? tattRaw : tattRaw.split(',').filter(Boolean);
   if (tattArr.length > 0) req.attachmentsRequired = tattArr.map(t => attLabels[t] || t).join(', ');
 
-  // Jib and rotator are chargeable add-ons — populate as separate quotable line items
+  // Jib, winch, rotator and man basket are chargeable add-ons — populate as separate quotable line items
   const teleChargeableAtts = [];
-  if (tattArr.includes('jib'))     { req.jibRequested     = true; teleChargeableAtts.push('🏗️ Jib / crane hook'); }
-  if (tattArr.includes('rotator')) { req.rotatorRequested = true; teleChargeableAtts.push('🔄 Fork rotator'); }
+  if (tattArr.includes('jib'))        { req.jibRequested      = true; teleChargeableAtts.push('🏗️ Jib / crane hook'); }
+  if (tattArr.includes('winch'))      { req.winchRequested     = true; teleChargeableAtts.push('🪝 Winch / hook block'); }
+  if (tattArr.includes('rotator'))    { req.rotatorRequested   = true; teleChargeableAtts.push('🔄 Fork rotator'); }
+  if (tattArr.includes('man_basket')) { req.manBasketRequested = true; teleChargeableAtts.push('🧑‍✈️ Man basket / work platform'); }
   if (teleChargeableAtts.length)   req.chargeableAttachments = teleChargeableAtts;
 
   if (a.tele_brand_pref && a.tele_brand_pref !== 'any') req.brandPreference = a.tele_brand_pref;
@@ -52021,6 +52048,21 @@ function getJobRequirements() {
   if (a.scissor_drive_at_height === 'yes') req.driveAtHeight = 'Yes — must drive while platform is raised';
   if (a.scis_load_kg && parseFloat(a.scis_load_kg) > 0) req.scissorPlatformLoad = a.scis_load_kg + ' kg';
 
+  // ── Scissor lift accessories (chargeable line items) ─────────────────
+  if (a.scissor_accessories) {
+    const scissorAccRaw = Array.isArray(a.scissor_accessories) ? a.scissor_accessories : [a.scissor_accessories];
+    const scissorChargeableAtts = [];
+    const scissorOneTimeAtts    = [];
+    if (scissorAccRaw.includes('pipe_racks'))  scissorChargeableAtts.push('🪠 Pipe racks');
+    if (scissorAccRaw.includes('eqss'))        scissorChargeableAtts.push('🦺 EQSS (Enhanced Quad Support System)');
+    if (scissorAccRaw.includes('spill_guard')) scissorOneTimeAtts.push('💧 Spill under guard');
+    if (scissorChargeableAtts.length || scissorOneTimeAtts.length) {
+      const existing = req.chargeableAttachments || [];
+      req.chargeableAttachments = [...existing, ...scissorChargeableAtts];
+      req.oneTimeAttachments    = scissorOneTimeAtts; // separate — one-time charge not day/week
+    }
+  }
+
   // ── Boom lift specifics ───────────────────────────────────────────────
   if (a.boom_power) {
     const bpMap = { electric_boom:'Electric / battery', hybrid_boom:'Hybrid', diesel_boom:'Diesel' };
@@ -52028,6 +52070,13 @@ function getJobRequirements() {
   }
   const boomReach = parseFloat(a.boom_reach_m || 0);
   if (boomReach > 0) req.boomHorizontalReach = boomReach + ' m';
+
+  // ── Boom lift accessories (chargeable line items) ─────────────────────
+  if (a.boom_accessories === 'power_basket') {
+    const existing = req.chargeableAttachments || [];
+    req.chargeableAttachments = [...existing, '🔌 Power to basket (240V outlet)'];
+    req.powerToBasketRequired = true;
+  }
 
   // ── People / personnel access ─────────────────────────────────────────
   if (a.people_crew) req.crewSize = a.people_crew + ' person(s) on platform';
@@ -54050,6 +54099,12 @@ function submitRegistration() {
   const address = document.getElementById('sqm-reg-address').value.trim();
   if (!company) { showToast('Please enter your company name','#EF4444'); return; }
   if (!abn || abn.replace(/\s/g,'').length < 11) { showToast('Please enter a valid 11-digit ABN','#EF4444'); return; }
+  // Gate on live ABN verification (if lookup ran and failed)
+  if (window._sqmABNVerified === false) {
+    showToast('Please enter a valid, active ABN — check the number above.', '#EF4444');
+    document.getElementById('sqm-reg-abn')?.focus();
+    return;
+  }
   if (!street)  { showToast('Please enter your street address','#EF4444'); return; }
   if (!suburb)  { showToast('Please enter your suburb','#EF4444'); document.getElementById('sqm-reg-suburb')?.focus(); return; }
   const phone = document.getElementById('sqm-reg-phone').value.trim();
@@ -54173,7 +54228,7 @@ function openViewQuoteModal(reqId) {
       <div style="display:grid;grid-template-columns:1fr auto;gap:.15rem .5rem;font-size:.8rem;margin-top:.4rem;color:#475569">
         <span>Day rate: $${mb.rateDay||0}/day &nbsp;·&nbsp; Week rate: $${mb.rateWeek||0}/wk</span><span></span>
         <span>Hire total</span><span style="font-weight:700;text-align:right">$${(mb.rentalCost||0).toFixed(2)}</span>
-        ${(mb.accs||[]).map(a=>`<span style="color:#C2410C">↳ ${a.name}</span><span style="font-weight:700;text-align:right;color:#C2410C">$${(a.total||0).toFixed(2)}</span>`).join('')}
+        ${(mb.accs||[]).map(a=>`<span style="color:#C2410C">↳ ${a.name}${a.oneTime?' <span style=\"font-size:.72rem;font-weight:700;background:#DCFCE7;color:#15803D;border-radius:4px;padding:.05rem .3rem\">one-time</span>':''}</span><span style="font-weight:700;text-align:right;color:#C2410C">$${(a.total||0).toFixed(2)}</span>`).join('')}
         ${mb.insurance > 0 ? `<span>Insurance (${myResp.insurePct||0}%)</span><span style="font-weight:700;text-align:right">$${(mb.insurance||0).toFixed(2)}</span>` : ''}
         ${(mb.transIn||0) + (mb.transOut||0) > 0 ? `<span style="color:#1E40AF">🚚 Transport In</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${(mb.transIn||0).toFixed(2)}</span><span style="color:#1E40AF">🚚 Transport Out</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${(mb.transOut||0).toFixed(2)}</span>` : ''}
       </div>
@@ -55358,7 +55413,23 @@ function renderQuoteInbox() {
       </div>` : '';
 
     const actionsHtml = req.responded
-      ? `<div style="display:flex;flex-direction:column;gap:.3rem"><div class="qrc-responded">✓ Response sent</div>${contactRevealHtml}</div>`
+      ? (() => {
+          // If RC responded but customer made no decision and accept window has closed
+          const _rcNoDecision = !req.acceptedBy &&
+            req.customerAcceptExpires && Date.now() > req.customerAcceptExpires;
+          const _rcNoDecisionFresh = _rcNoDecision &&
+            (Date.now() - req.customerAcceptExpires) < 5 * 24 * 3600000; // within 5 days
+          const _noDecisionBanner = _rcNoDecision
+            ? `<div style="margin-top:.4rem;padding:.45rem .75rem;background:${_rcNoDecisionFresh?'#FFFBEB':'#F8FAFC'};border:1.5px solid ${_rcNoDecisionFresh?'#FCD34D':'#E2E8F0'};border-radius:9px;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:1rem">${_rcNoDecisionFresh?'⏳':'🔒'}</span>
+                <div>
+                  <div style="font-weight:800;color:${_rcNoDecisionFresh?'#B45309':'#64748B'};font-size:.78rem">${_rcNoDecisionFresh?'Awaiting customer decision — Noyo is following up':'No decision made'}</div>
+                  <div style="font-size:.72rem;color:#94A3B8;margin-top:.1rem">${_rcNoDecisionFresh?'The customer has not yet accepted or declined. We will contact them.':'The customer did not respond in time. This enquiry is now closed.'}</div>
+                </div>
+              </div>`
+            : '';
+          return `<div style="display:flex;flex-direction:column;gap:.3rem"><div class="qrc-responded">✓ Response sent</div>${_noDecisionBanner}${contactRevealHtml}</div>`;
+        })()
       : msLeft <= 0
         ? '<div style="color:#94A3B8;font-size:.82rem">Window expired</div>'
         : `<div class="qrc-actions">
@@ -55449,7 +55520,7 @@ function renderQuoteInbox() {
                     <div style="display:grid;grid-template-columns:1fr auto;gap:.1rem .5rem;color:#475569">
                       <span>${mb.rateHour?`$${mb.rateHour}/hr`:`$${mb.rateDay||0}/day · $${mb.rateWeek||0}/wk`}</span><span></span>
                       <span>Hire total</span><span style="font-weight:700;text-align:right">$${(mb.rentalCost||0).toFixed(2)}</span>
-                      ${(mb.accs||[]).map(a=>`<span style="color:#C2410C">↳ ${a.name}</span><span style="font-weight:700;text-align:right;color:#C2410C">$${(a.total||0).toFixed(2)}</span>`).join('')}
+                      ${(mb.accs||[]).map(a=>`<span style="color:#C2410C">↳ ${a.name}${a.oneTime?' <span style=\"font-size:.72rem;font-weight:700;background:#DCFCE7;color:#15803D;border-radius:4px;padding:.05rem .3rem\">one-time</span>':''}</span><span style="font-weight:700;text-align:right;color:#C2410C">$${(a.total||0).toFixed(2)}</span>`).join('')}
                       ${mb.insurance > 0 ? `<span style="color:#64748B">Insurance (${p.insurePct||0}%)</span><span style="font-weight:700;text-align:right">$${(mb.insurance||0).toFixed(2)}</span>` : ''}
                       ${(mb.transIn||0)+(mb.transOut||0)>0 ? `<span style="color:#1E40AF">🚚 Transport</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${((mb.transIn||0)+(mb.transOut||0)).toFixed(2)}</span>` : ''}
                     </div>
@@ -55719,6 +55790,14 @@ function rqAddAccessory(machineIdx) {
   container.appendChild(row);
 }
 
+function rqAccOneTimeCalc(inp) {
+  const row = inp.closest('[data-acc-machine]');
+  if (!row) return;
+  const val = parseFloat(inp.value) || 0;
+  const totalEl = row.querySelector('.acc-row-total');
+  if (totalEl) totalEl.textContent = val > 0 ? `$${val.toFixed(2)}` : '$—';
+}
+
 function openRespondModal(reqId) {
   _respondingId = reqId;
   const req = quoteInbox.find(r => r.id === reqId);
@@ -55839,15 +55918,23 @@ function openRespondModal(reqId) {
         attachmentLineItems.push(att);
       }
     });
-    const hasAccs = attachmentLineItems.length > 0;
-    const accPreRows = attachmentLineItems.map((a,ai) => `
+    const hasAccs = attachmentLineItems.length > 0 || (jr.oneTimeAttachments||[]).length > 0;
+    const accPreRows = [
+      ...attachmentLineItems.map((a,ai) => {
+        const label =
+          a.includes('Jib') || a.includes('jib')           ? '🏗️ Jib / Crane Hook — Day & Week Rate' :
+          a.includes('Winch') || a.includes('winch')        ? '🪝 Winch / Hook Block — Day & Week Rate' :
+          a.includes('otat')                                 ? '🔄 Fork Rotator — Day & Week Rate' :
+          a.includes('Man basket') || a.includes('man_basket') || a.includes('Man Basket') ? '🧑‍✈️ Man Basket / Work Platform — Day & Week Rate' :
+          a.includes('Pipe rack') || a.includes('pipe rack') ? '🪠 Pipe Racks — Day & Week Rate' :
+          a.includes('EQSS')                                 ? '🦺 EQSS Support System — Day & Week Rate' :
+          a.includes('Power to basket') || a.includes('240V')? '🔌 Power to Basket (240V) — Day & Week Rate' :
+          a;
+        return `
       <div data-acc-machine="${i}" style="background:#fff;border:1.5px solid #FCA572;border-radius:9px;padding:.55rem .7rem;margin-top:.45rem">
         <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
           <span style="font-size:.9rem">🔧</span>
-          <span style="font-weight:800;color:#C2410C;font-size:.86rem;flex:1">
-            ${a.includes('Jib') || a.includes('jib') ? '🏗️ Jib / Crane Hook — Day & Week Rate' :
-              a.includes('otat') ? '🔄 Fork Rotator — Day & Week Rate' : a}
-          </span>
+          <span style="font-weight:800;color:#C2410C;font-size:.86rem;flex:1">${label}</span>
           <button onclick="this.closest('[data-acc-machine]').remove();rqRecalcAll()" style="background:none;border:none;color:#EF4444;font-size:.9rem;cursor:pointer;padding:0;flex-shrink:0">✕</button>
         </div>
         <input class="acc-name" type="hidden" value="${a}">
@@ -55870,7 +55957,35 @@ function openRespondModal(reqId) {
           </div>
         </div>
         <div style="margin-top:.3rem;font-size:.71rem;color:#92400E;opacity:.75">${days} working day${days!==1?'s':''} @ ${durLbl} — system calculates best day/week rate automatically</div>
-      </div>`).join('');
+      </div>`;
+      }),
+      ...(jr.oneTimeAttachments||[]).map((a, ai) => {
+        const prevOt = (prevMB.accs||[]).find(x => x.name === a && x.oneTime);
+        return `
+      <div data-acc-machine="${i}" data-one-time="1" style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:9px;padding:.55rem .7rem;margin-top:.45rem">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+          <span style="font-size:.9rem">💧</span>
+          <span style="font-weight:800;color:#15803D;font-size:.86rem;flex:1">${a} — <span style="font-weight:700;color:#166534">One-time charge (not a daily rate)</span></span>
+          <button onclick="this.closest('[data-acc-machine]').remove();rqRecalcAll()" style="background:none;border:none;color:#EF4444;font-size:.9rem;cursor:pointer;padding:0;flex-shrink:0">✕</button>
+        </div>
+        <input class="acc-name" type="hidden" value="${a}">
+        <input class="acc-one-time" type="hidden" value="1">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:.35rem;align-items:end">
+          <div>
+            <div style="font-size:.67rem;font-weight:800;color:#15803D;margin-bottom:.18rem">One-time hire charge ($) — total for the full hire</div>
+            <input class="acc-rate-onetime" type="number" min="0" step="1" placeholder="e.g. 95" oninput="rqRecalcAll();rqAccOneTimeCalc(this)"
+              value="${prevOt?.total||''}"
+              style="width:100%;border:1.5px solid #86EFAC;border-radius:7px;padding:.32rem .45rem;font-size:.9rem;font-weight:700;font-family:inherit;box-sizing:border-box;text-align:center;background:#fff">
+          </div>
+          <div style="text-align:right;min-width:80px">
+            <div style="font-size:.67rem;font-weight:800;color:#15803D;margin-bottom:.18rem">Total</div>
+            <div class="acc-row-total" style="font-size:.95rem;font-weight:900;color:#15803D;padding:.3rem .4rem;background:#DCFCE7;border-radius:7px;text-align:center">$—</div>
+          </div>
+        </div>
+        <div style="margin-top:.3rem;font-size:.71rem;color:#15803D;opacity:.8">Charged once — not multiplied by days. Covers the full hire period.</div>
+      </div>`;
+      })
+    ].join('');
 
     const sec = document.createElement('div');
     sec.style.cssText = 'background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.85rem 1rem';
@@ -56198,13 +56313,19 @@ async function submitResponse() {
     const accs = [];
     document.querySelectorAll(`[data-acc-machine="${i}"]`).forEach(row => {
       const name    = row.querySelector('.acc-name')?.value.trim();
-      const rDay    = parseFloat(row.querySelector('.acc-rate-day')?.value)  || 0;
-      const rWeek   = parseFloat(row.querySelector('.acc-rate-week')?.value) || 0;
-      let total = 0;
-      if (days >= 5 && rWeek > 0)  total = (days/5)*rWeek;
-      else if (rDay > 0)            total = days*rDay;
-      else if (rWeek > 0)           total = (days/5)*rWeek;
-      if (name) accs.push({ name, rateDay: rDay, rateWeek: rWeek, total });
+      const isOneTime = row.querySelector('.acc-one-time')?.value === '1' || row.dataset.oneTime === '1';
+      if (isOneTime) {
+        const total = parseFloat(row.querySelector('.acc-rate-onetime')?.value) || 0;
+        if (name) accs.push({ name, rateDay: 0, rateWeek: 0, total, oneTime: true });
+      } else {
+        const rDay    = parseFloat(row.querySelector('.acc-rate-day')?.value)  || 0;
+        const rWeek   = parseFloat(row.querySelector('.acc-rate-week')?.value) || 0;
+        let total = 0;
+        if (days >= 5 && rWeek > 0)  total = (days/5)*rWeek;
+        else if (rDay > 0)            total = days*rDay;
+        else if (rWeek > 0)           total = (days/5)*rWeek;
+        if (name) accs.push({ name, rateDay: rDay, rateWeek: rWeek, total });
+      }
     });
     const accTotal  = accs.reduce((s,a)=>s+a.total, 0);
     const hireTotal = rentalCost + accTotal;
@@ -57300,12 +57421,26 @@ function _kymUpdateCartBtn() {
     if (headerCount) headerCount.textContent = n;
   }
 
-  // Home page cart button
+  // Home page cart button — always visible, shows count (greyed when empty)
   const homeWrap  = document.getElementById('home-cart-btn-wrap');
   const homeCount = document.getElementById('home-cart-count');
+  const homeBtn   = document.getElementById('home-cart-btn');
   if (homeWrap) {
-    homeWrap.style.display = n > 0 ? 'block' : 'none';
+    homeWrap.style.display = 'block';
     if (homeCount) homeCount.textContent = n;
+    if (homeBtn) {
+      if (n > 0) {
+        homeBtn.style.opacity = '1';
+        homeBtn.style.cursor = 'pointer';
+        homeBtn.disabled = false;
+        homeBtn.innerHTML = '🛒 <span id="home-cart-count">' + n + '</span> machine(s) in cart &mdash; Send Hire Enquiry &rarr;';
+      } else {
+        homeBtn.style.opacity = '0.45';
+        homeBtn.style.cursor = 'default';
+        homeBtn.disabled = true;
+        homeBtn.innerHTML = '🛒 Your cart is empty &mdash; add machines to get quotes';
+      }
+    }
   }
 }
 
@@ -57367,6 +57502,34 @@ setInterval(async () => {
       );
       updateQRUnreadBadge();
     }
+    // Notify rental co when an acceptance window closes with no decision (once per enquiry)
+    if (currentUser.role === 'rental') {
+      const myName = currentUser?.name;
+      const _noDecisionKey = 'noyo_nodecision_notified';
+      let _notified = {};
+      try { _notified = JSON.parse(localStorage.getItem(_noDecisionKey) || '{}'); } catch(e) {}
+      let _changed = false;
+      quoteInbox.forEach(r => {
+        if (_notified[r.id]) return; // already told them
+        const iResponded = (r.responses || []).some(p => p.company === myName);
+        if (!iResponded) return;
+        if (r.acceptedBy) return; // decided — not a ghost
+        if (!r.customerAcceptExpires) return;
+        if (Date.now() <= r.customerAcceptExpires) return; // window still open
+        // Window just closed with no decision — notify once
+        _notified[r.id] = Date.now();
+        _changed = true;
+        showToast(
+          `⏳ No decision yet on enquiry ${r.id} — the customer's accept window has closed. Noyo will follow up with them.`,
+          '#B45309', 9000
+        );
+      });
+      if (_changed) {
+        try { localStorage.setItem(_noDecisionKey, JSON.stringify(_notified)); } catch(e) {}
+      }
+    }
+    // Update admin follow-up badge whenever inbox reloads
+    try { _updateFollowUpBadge(); } catch(e) {}
     renderQuoteInbox();
     renderMyQuotes();
   } catch(e) {
@@ -57554,6 +57717,157 @@ function detABNInput(val) {
     st.innerHTML = `<span style="color:#DC2626;font-weight:700">✗ ${check.reason}</span>`;
   }
 }
+
+// ══════════════════════════════════════════════════════════════════
+// LIVE ABN LOOKUP — registration forms (rental co + customer)
+// ══════════════════════════════════════════════════════════════════
+
+// Debounce timers
+let _lpABNTimer = null;
+let _sqmABNTimer = null;
+
+// Shared: call ABR via Claude API, return parsed result or throw
+async function _lookupABNLive(abn) {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 500,
+      tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+      messages: [{
+        role: 'user',
+        content: `Look up ABN ${abn} on the Australian Business Register at abr.business.gov.au. Return ONLY a JSON object — no markdown, no explanation — with exactly these fields: { "entityName": string, "tradingName": string or null, "status": "Active" or "Cancelled", "type": string, "state": string, "gst": boolean }. If not found return { "entityName": null }.`
+      }]
+    })
+  });
+  const data = await response.json();
+  const text = (data.content || []).filter(c => c.type === 'text').map(c => c.text).join('');
+  const clean = text.replace(/```json|```/g, '').trim();
+  return JSON.parse(clean);
+}
+
+// ── Rental Company registration form ─────────────────────────────
+function lpABNInput(val) {
+  const digits = val.replace(/\s/g, '');
+  const st = document.getElementById('lp-abn-status');
+  if (!st) return;
+  // Clear previous debounce
+  clearTimeout(_lpABNTimer);
+  // Reset verified flag
+  window._lpABNVerified = false;
+  if (digits.length < 11) {
+    st.style.display = 'none';
+    st.innerHTML = '';
+    return;
+  }
+  // Checksum first
+  const check = _validateABN(digits);
+  if (!check.valid) {
+    st.style.display = 'block';
+    st.innerHTML = `<div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;font-weight:700;color:#DC2626">✗ ${check.reason}</div>`;
+    return;
+  }
+  // Show spinner immediately
+  st.style.display = 'block';
+  st.innerHTML = `<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;color:#64748B;display:flex;align-items:center;gap:.5rem"><span style="animation:spin 1s linear infinite;display:inline-block">⏳</span> Checking ABR register…</div>`;
+  // Debounce — fire after 600ms of no more typing
+  _lpABNTimer = setTimeout(async () => {
+    try {
+      const info = await _lookupABNLive(digits);
+      if (!info.entityName) {
+        st.innerHTML = `<div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;font-weight:700;color:#DC2626">✗ ABN not found on the ABR — please check the number</div>`;
+        window._lpABNVerified = false;
+      } else if (info.status && info.status.toLowerCase().includes('cancel')) {
+        st.innerHTML = `<div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:8px;padding:.5rem .75rem;font-size:.8rem;font-weight:700;color:#DC2626">
+          ✗ This ABN is <strong>Cancelled</strong> — ${info.entityName}. Noyo requires an active ABN to register.
+        </div>`;
+        window._lpABNVerified = false;
+      } else {
+        window._lpABNVerified = true;
+        window._lpABNEntityName = info.entityName;
+        // Auto-fill company name if blank
+        const compEl = document.getElementById('lp-company');
+        if (compEl && !compEl.value.trim()) compEl.value = info.tradingName || info.entityName;
+        st.innerHTML = `<div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:8px;padding:.5rem .85rem;font-size:.8rem">
+          <div style="font-weight:800;color:#15803D;margin-bottom:.25rem">✅ ABN Verified — ${info.status}</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:.15rem .6rem;color:#334155">
+            <span style="color:#64748B;font-weight:700">Business</span><span><strong>${info.entityName}</strong>${info.tradingName && info.tradingName !== info.entityName ? ` <span style="color:#64748B;font-size:.75rem">(trading as ${info.tradingName})</span>` : ''}</span>
+            <span style="color:#64748B;font-weight:700">Type</span><span>${info.type||'—'}</span>
+            <span style="color:#64748B;font-weight:700">State</span><span>${info.state||'—'}</span>
+            <span style="color:#64748B;font-weight:700">GST</span><span>${info.gst ? '✓ Registered' : 'Not registered'}</span>
+          </div>
+        </div>`;
+      }
+    } catch(e) {
+      st.innerHTML = `<div style="background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;color:#92400E;font-weight:700">⚠️ Could not reach ABR right now — you can continue, we'll verify manually</div>`;
+      window._lpABNVerified = true; // allow proceed if ABR unreachable
+    }
+  }, 600);
+}
+
+// ── Customer enquiry registration form ───────────────────────────
+function sqmABNInput(val) {
+  const digits = val.replace(/\s/g, '');
+  const st = document.getElementById('sqm-abn-status');
+  if (!st) return;
+  clearTimeout(_sqmABNTimer);
+  window._sqmABNVerified = false;
+  if (digits.length < 11) {
+    st.style.display = 'none';
+    st.innerHTML = '';
+    return;
+  }
+  const check = _validateABN(digits);
+  if (!check.valid) {
+    st.style.display = 'block';
+    st.innerHTML = `<div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;font-weight:700;color:#DC2626">✗ ${check.reason}</div>`;
+    return;
+  }
+  st.style.display = 'block';
+  st.innerHTML = `<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;color:#64748B;display:flex;align-items:center;gap:.5rem"><span style="animation:spin 1s linear infinite;display:inline-block">⏳</span> Checking ABR register…</div>`;
+  _sqmABNTimer = setTimeout(async () => {
+    try {
+      const info = await _lookupABNLive(digits);
+      if (!info.entityName) {
+        st.innerHTML = `<div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;font-weight:700;color:#DC2626">✗ ABN not found on the ABR — please check the number</div>`;
+        window._sqmABNVerified = false;
+      } else if (info.status && info.status.toLowerCase().includes('cancel')) {
+        st.innerHTML = `<div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:8px;padding:.5rem .75rem;font-size:.8rem;font-weight:700;color:#DC2626">
+          ✗ This ABN is <strong>Cancelled</strong> — ${info.entityName}. Please use an active ABN.
+        </div>`;
+        window._sqmABNVerified = false;
+      } else {
+        window._sqmABNVerified = true;
+        window._sqmABNEntityName = info.entityName;
+        // Auto-fill company name if blank
+        const compEl = document.getElementById('sqm-reg-company');
+        if (compEl && !compEl.value.trim()) compEl.value = info.tradingName || info.entityName;
+        st.innerHTML = `<div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:8px;padding:.5rem .85rem;font-size:.8rem">
+          <div style="font-weight:800;color:#15803D;margin-bottom:.25rem">✅ ABN Verified — ${info.status}</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:.15rem .6rem;color:#334155">
+            <span style="color:#64748B;font-weight:700">Business</span><span><strong>${info.entityName}</strong>${info.tradingName && info.tradingName !== info.entityName ? ` <span style="color:#64748B;font-size:.75rem">(trading as ${info.tradingName})</span>` : ''}</span>
+            <span style="color:#64748B;font-weight:700">Type</span><span>${info.type||'—'}</span>
+            <span style="color:#64748B;font-weight:700">State</span><span>${info.state||'—'}</span>
+            <span style="color:#64748B;font-weight:700">GST</span><span>${info.gst ? '✓ Registered' : 'Not registered'}</span>
+          </div>
+        </div>`;
+      }
+    } catch(e) {
+      st.innerHTML = `<div style="background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:8px;padding:.4rem .75rem;font-size:.8rem;color:#92400E;font-weight:700">⚠️ Could not reach ABR right now — you can continue, we'll verify manually</div>`;
+      window._sqmABNVerified = true; // allow proceed if ABR unreachable
+    }
+  }, 600);
+}
+
+// ── ABN spin animation (add once to page) ────────────────────────
+(function() {
+  if (document.getElementById('_abn-spin-style')) return;
+  const s = document.createElement('style');
+  s.id = '_abn-spin-style';
+  s.textContent = '@keyframes spin { from { transform:rotate(0deg) } to { transform:rotate(360deg) } }';
+  document.head.appendChild(s);
+})();
 
 async function detLookupABN() {
   const inp = document.getElementById('det-abn-input');
@@ -58503,7 +58817,7 @@ async function openQuoteDetailModal(reqId) {
                 <div style="display:grid;grid-template-columns:1fr auto;gap:.1rem .5rem;color:#475569">
                   <span>Day rate: $${mb.rateDay||0}/day &nbsp;|&nbsp; Week rate: $${mb.rateWeek||0}/wk</span><span></span>
                   <span>Hire total</span><span style="font-weight:700;text-align:right">$${(mb.rentalCost||0).toFixed(2)}</span>
-                  ${(mb.accs||[]).map(a=>`<span style="color:#64748B">↳ ${a.name}</span><span style="font-weight:700;text-align:right">$${(a.total||0).toFixed(2)}</span>`).join('')}
+                  ${(mb.accs||[]).map(a=>`<span style="color:#64748B">↳ ${a.name}${a.oneTime?' <span style=\"font-size:.72rem;font-weight:700;background:#DCFCE7;color:#15803D;border-radius:4px;padding:.05rem .3rem\">one-time</span>':''}</span><span style="font-weight:700;text-align:right">$${(a.total||0).toFixed(2)}</span>`).join('')}
                   ${mb.insurance > 0 ? `<span style="color:#64748B">Insurance levy (${p.insurePct||0}%)</span><span style="font-weight:700;text-align:right">$${(mb.insurance||0).toFixed(2)}</span>` : ''}
                   ${(mb.transIn||0)+(mb.transOut||0) > 0 ? `<span style="color:#1E40AF">🚚 Transport In</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${(mb.transIn||0).toFixed(2)}</span><span style="color:#1E40AF">🚚 Transport Out</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${(mb.transOut||0).toFixed(2)}</span>` : ''}
                 </div>
@@ -59286,7 +59600,7 @@ function renderMyQuotes() {
                   <div style="display:grid;grid-template-columns:1fr auto;gap:.1rem .5rem;color:#475569">
                     <span>$${mb.rateDay||0}/day · $${mb.rateWeek||0}/wk</span><span></span>
                     <span>Hire total</span><span style="font-weight:700;text-align:right">$${(mb.rentalCost||0).toFixed(2)}</span>
-                    ${(mb.accs||[]).map(a=>`<span style="color:#C2410C;padding-left:.4rem">↳ ${a.name}</span><span style="font-weight:700;text-align:right;color:#C2410C">$${(a.total||0).toFixed(2)}</span>`).join('')}
+                    ${(mb.accs||[]).map(a=>`<span style="color:#C2410C;padding-left:.4rem">↳ ${a.name}${a.oneTime?' <span style=\"font-size:.72rem;font-weight:700;background:#DCFCE7;color:#15803D;border-radius:4px;padding:.05rem .3rem\">one-time</span>':''}</span><span style="font-weight:700;text-align:right;color:#C2410C">$${(a.total||0).toFixed(2)}</span>`).join('')}
                     ${mb.insurance>0?`<span style="color:#64748B">Insurance (${p.insurePct||0}%)</span><span style="font-weight:700;text-align:right">$${(mb.insurance||0).toFixed(2)}</span>`:''}
                     ${(mb.transIn||0)+(mb.transOut||0)>0?`<span style="color:#1E40AF">🚚 Transport</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${((mb.transIn||0)+(mb.transOut||0)).toFixed(2)}</span>`:''}
                   </div>
@@ -60477,6 +60791,12 @@ function doLogin() {
     if (!fullName) { errEl.textContent = 'Please enter your full name.';     return; }
     if (!company)  { errEl.textContent = 'Please enter your company name.';  return; }
     if (!abn || abn.replace(/\s/g,'').length < 11) { errEl.textContent = 'Please enter a valid 11-digit ABN.'; return; }
+    // Gate on live ABN verification (if lookup ran and failed)
+    if (window._lpABNVerified === false) {
+      errEl.textContent = 'Please enter a valid, active ABN — check the number above.';
+      document.getElementById('lp-abn')?.focus();
+      return;
+    }
     if (!mobile)   { errEl.textContent = 'Please enter your mobile number.'; return; }
     if (!address)  { errEl.textContent = 'Please enter your street address.'; return; }
     if (!suburb)   { errEl.textContent = 'Please select your suburb.';       return; }
@@ -62166,6 +62486,7 @@ const _STATE_LABELS = `
 // ══════════════════════════════════════════════════════════════════
 function renderAdminDashboard() {
   try { _updateRcTabBadge(); } catch(e) {}
+  try { _updateFollowUpBadge(); } catch(e) {}
 
   const allEnq = quoteInbox;
   const searches = adminData.searches || [];
@@ -65705,6 +66026,126 @@ function renderAdminLiteAnalytics() {
 }
 
 
+// ══════════════════════════════════════════════════════════════════
+// ADMIN FOLLOW-UP QUEUE
+// ══════════════════════════════════════════════════════════════════
+
+function _getFollowUpJobs() {
+  const now = Date.now();
+  return (quoteInbox || []).filter(r =>
+    (r.responses || []).length > 0 &&
+    !r.acceptedBy &&
+    r.customerAcceptExpires &&
+    now > r.customerAcceptExpires
+  );
+}
+
+function _updateFollowUpBadge() {
+  const badge = document.getElementById('admin-followup-badge');
+  if (!badge) return;
+  const jobs = _getFollowUpJobs();
+  // Only show count for uncalled ones
+  const calledKey = 'noyo_followup_called';
+  let called = {};
+  try { called = JSON.parse(localStorage.getItem(calledKey) || '{}'); } catch(e) {}
+  const uncalled = jobs.filter(r => !called[r.id]);
+  if (uncalled.length > 0) {
+    badge.textContent = uncalled.length;
+    badge.style.display = 'inline';
+    const tab = document.getElementById('admin-tab-followup');
+    if (tab) tab.style.background = 'linear-gradient(135deg,#FEE2E2,#FFF)';
+  } else {
+    badge.style.display = 'none';
+    const tab = document.getElementById('admin-tab-followup');
+    if (tab) tab.style.background = 'linear-gradient(135deg,#F0FDF4,#fff)';
+  }
+}
+
+function renderAdminFollowUp() {
+  const el = document.getElementById('admin-followup-list');
+  if (!el) return;
+
+  const calledKey = 'noyo_followup_called';
+  let called = {};
+  try { called = JSON.parse(localStorage.getItem(calledKey) || '{}'); } catch(e) {}
+
+  const jobs = _getFollowUpJobs();
+
+  if (jobs.length === 0) {
+    el.innerHTML = `<div style="text-align:center;padding:2rem;color:#94A3B8">
+      <div style="font-size:2rem;margin-bottom:.5rem">🎉</div>
+      <div style="font-weight:700;margin-bottom:.3rem">No follow-ups needed right now</div>
+      <div style="font-size:.8rem">All enquiries with quotes have been decided on, or acceptance windows are still open.</div>
+    </div>`;
+    _updateFollowUpBadge();
+    return;
+  }
+
+  // Sort: uncalled first, then by how long ago window closed (most recent first)
+  jobs.sort((a, b) => {
+    const aCalled = !!called[a.id];
+    const bCalled = !!called[b.id];
+    if (aCalled !== bCalled) return aCalled ? 1 : -1;
+    return (b.customerAcceptExpires || 0) - (a.customerAcceptExpires || 0);
+  });
+
+  el.innerHTML = jobs.map(r => {
+    const isCalled    = !!called[r.id];
+    const calledAt    = called[r.id] ? new Date(called[r.id]).toLocaleString('en-AU', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : null;
+    const closedMs    = Date.now() - (r.customerAcceptExpires || 0);
+    const closedHrs   = Math.floor(closedMs / 3600000);
+    const closedLabel = closedHrs < 24 ? `${closedHrs}h ago` : `${Math.floor(closedHrs/24)}d ago`;
+    const rcNames     = (r.responses || []).map(p => p.company).filter(Boolean).join(', ');
+    const machineList = (r.machines || []).map(m => `${m.emoji||'🏗️'} ${m.name||m.type||'Machine'}`).join(', ') || r.machineType || '—';
+    const respCount   = (r.responses || []).length;
+    const prices      = (r.responses || []).map(p => parseFloat(String(p.grandTotal||p.price||'').replace(/[^0-9.]/g,''))).filter(n => !isNaN(n) && n > 0);
+    const priceRange  = prices.length > 1 ? `A$${Math.min(...prices).toLocaleString(undefined,{minimumFractionDigits:0})} – A$${Math.max(...prices).toLocaleString(undefined,{minimumFractionDigits:0})}` :
+                        prices.length === 1 ? `A$${prices[0].toLocaleString(undefined,{minimumFractionDigits:0})}` : 'No price data';
+
+    return `<div style="background:${isCalled?'#F8FAFC':'#fff'};border:1.5px solid ${isCalled?'#E2E8F0':'#FCA5A5'};border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;opacity:${isCalled?.75:1}">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem">
+            <span style="background:${isCalled?'#F1F5F9':'#FEE2E2'};color:${isCalled?'#64748B':'#991B1B'};font-size:.72rem;font-weight:900;padding:.15rem .55rem;border-radius:20px">${isCalled?'✅ Called':'📞 NEEDS CALL'}</span>
+            <span style="font-weight:800;color:#1E293B;font-size:.9rem">${r.id}</span>
+            <span style="font-size:.75rem;color:#64748B">Window closed ${closedLabel}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.3rem .8rem;font-size:.82rem">
+            <div><span style="color:#94A3B8;font-weight:700">👤 Customer:</span> <span style="font-weight:700;color:#334155">${r.customer||'—'}</span></div>
+            ${r.email?`<div><span style="color:#94A3B8;font-weight:700">📧 Email:</span> <a href="mailto:${r.email}" style="color:#0052CC;font-weight:700;text-decoration:none">${r.email}</a></div>`:''}
+            ${r.mobile?`<div><span style="color:#94A3B8;font-weight:700">📱 Mobile:</span> <a href="tel:${r.mobile}" style="color:#0052CC;font-weight:700;text-decoration:none">${r.mobile}</a></div>`:''}
+            <div><span style="color:#94A3B8;font-weight:700">📍 Location:</span> <span style="color:#334155">${r.suburb||r.city||r.cluster||'—'}${r.state?', '+r.state:''}</span></div>
+            <div><span style="color:#94A3B8;font-weight:700">🏗️ Machine:</span> <span style="color:#334155">${machineList}</span></div>
+            ${r.date?`<div><span style="color:#94A3B8;font-weight:700">📅 Hire Start:</span> <span style="color:#334155">${r.date}</span></div>`:''}
+            <div><span style="color:#94A3B8;font-weight:700">💬 Quotes received:</span> <span style="font-weight:800;color:#0052CC">${respCount} quote${respCount!==1?'s':''}</span> — ${priceRange}</div>
+            <div style="grid-column:1/-1"><span style="color:#94A3B8;font-weight:700">🏗️ From:</span> <span style="color:#334155">${rcNames||'—'}</span></div>
+          </div>
+          ${isCalled && calledAt ? `<div style="margin-top:.5rem;font-size:.75rem;color:#64748B;font-style:italic">✅ Marked as called on ${calledAt}</div>` : ''}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.4rem;min-width:130px">
+          ${!isCalled ? `<button onclick="adminMarkFollowUpCalled('${r.id}')" style="background:#16A34A;color:#fff;border:none;border-radius:8px;padding:.45rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;white-space:nowrap">✅ Mark Called</button>` : `<button onclick="adminMarkFollowUpCalled('${r.id}', true)" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:8px;padding:.4rem .8rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;white-space:nowrap">↩ Mark Uncalled</button>`}
+          ${r.email?`<a href="mailto:${r.email}?subject=Your%20Noyo%20hire%20enquiry%20${encodeURIComponent(r.id)}&body=Hi%20${encodeURIComponent(r.customer||'')},\n\nI'm%20following%20up%20on%20your%20hire%20enquiry%20${encodeURIComponent(r.id)}%20-%20you%20received%20${respCount}%20quote${respCount!==1?'s':''}%20and%20we%20wanted%20to%20check%20if%20you%27d%20like%20to%20proceed.\n\nKind%20regards,\nNoyo" style="display:block;text-align:center;background:#EFF6FF;color:#1D4ED8;border:1.5px solid #BFDBFE;border-radius:8px;padding:.38rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;text-decoration:none;white-space:nowrap">📧 Email Customer</a>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  _updateFollowUpBadge();
+}
+
+function adminMarkFollowUpCalled(id, undo) {
+  const calledKey = 'noyo_followup_called';
+  let called = {};
+  try { called = JSON.parse(localStorage.getItem(calledKey) || '{}'); } catch(e) {}
+  if (undo) {
+    delete called[id];
+  } else {
+    called[id] = Date.now();
+  }
+  try { localStorage.setItem(calledKey, JSON.stringify(called)); } catch(e) {}
+  renderAdminFollowUp();
+}
+
 function showAdminSection(name, btn) {
   document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -65726,6 +66167,7 @@ function showAdminSection(name, btn) {
   if (name === 'addmachine')  { /* panel is static HTML — nothing to render */ }
   if (name === 'usermgmt')     loadUserMgmtTable();
   if (name === 'investor')     renderInvestorDashboard();
+  if (name === 'followup')     renderAdminFollowUp();
   if (name === 'management')   renderManagementDashboard();
   if (name === 'mapintel')     renderMapIntelDashboard();
   if (name === 'livemap')      renderLiveMap();
