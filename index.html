@@ -83,7 +83,8 @@
       <div class="lp-field lp-reg-only lp-rental-only" style="display:none">
         <label class="lp-label">ABN <span style="color:#EF4444">*</span></label>
         <input class="lp-input" id="lp-abn" type="text" placeholder="XX XXX XXX XXX" maxlength="14"
-          oninput="this.value=this.value.replace(/[^0-9]/g,'').replace(/(\d{2})(\d{3})(\d{3})(\d{3})/,'$1 $2 $3 $4').trim()" autocomplete="off">
+          oninput="this.value=this.value.replace(/[^0-9]/g,'').replace(/(\d{2})(\d{3})(\d{3})(\d{3})/,'$1 $2 $3 $4').trim();lpABNInput(this.value)" autocomplete="off">
+        <div id="lp-abn-status" style="margin-top:.4rem;display:none"></div>
         <div style="margin-top:.3rem;font-size:.74rem;color:#94A3B8;line-height:1.4">
           For business verification only. Your ABN address (e.g. PO Box) is <strong>not</strong> used for location or routing — that's set by your depot suburb below.
         </div>
@@ -537,11 +538,11 @@
       <p>Answer a few questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts.</p>
       <button class="start-btn" onclick="openPhotoModal()">Find My Machine →</button>
       <button onclick="kymOpen()" style="margin-top:.8rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(22,163,74,.35)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">🔎 Know Your Machines →</button>
-      <div id="home-cart-btn-wrap" style="display:none;margin-top:1.2rem">
-        <button onclick="openSendQuotesModal()" id="home-cart-btn"
-          style="background:#FF6B35;border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(255,107,53,.45);transition:all .2s"
-          onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-          🛒 <span id="home-cart-count">0</span> machine(s) in cart — Send Hire Enquiry →
+      <div id="home-cart-btn-wrap" style="display:block;margin-top:1.2rem">
+        <button onclick="if(window.quoteCart&&quoteCart.length>0)openSendQuotesModal()" id="home-cart-btn"
+          style="background:#FF6B35;border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:default;box-shadow:0 4px 20px rgba(255,107,53,.2);transition:all .2s;opacity:.45"
+          onmouseover="if(window.quoteCart&&quoteCart.length>0)this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+          🛒 Your cart is empty — add machines to get quotes
         </button>
       </div>
     </div>
@@ -1037,6 +1038,7 @@
       <button class="admin-tab" onclick="showAdminSection('rentalcos',this)" id="admin-tab-rentalcos">🏗️ Rental Cos <span id="admin-rc-tab-badge" style="display:none;background:#EF4444;color:#fff;border-radius:20px;padding:.05rem .45rem;font-size:.68rem;font-weight:900;margin-left:.3rem;vertical-align:middle"></span></button>
       <button class="admin-tab" onclick="showAdminSection('searches',this)">🔍 Searches</button>
       <button class="admin-tab" onclick="showAdminSection('quotes',this)">📨 Quotes</button>
+      <button class="admin-tab" onclick="showAdminSection('followup',this)" id="admin-tab-followup" style="background:linear-gradient(135deg,#FEF2F2,#fff);border-color:#FCA5A5">📞 Follow-up Required <span id="admin-followup-badge" style="display:none;background:#EF4444;color:#fff;border-radius:20px;padding:.05rem .45rem;font-size:.68rem;font-weight:900;margin-left:.3rem;vertical-align:middle"></span></button>
       <button class="admin-tab" onclick="showAdminSection('activity',this)">⚡ Activity</button>
       <button class="admin-tab" onclick="showAdminSection('feedback',this)" id="admin-tab-feedback">💬 Feedback <span id="admin-feedback-badge" style="display:none;background:#7C3AED;color:#fff;border-radius:20px;padding:.05rem .45rem;font-size:.68rem;font-weight:900;margin-left:.3rem;vertical-align:middle"></span></button>
       <button class="admin-tab" onclick="showAdminSection('analytics',this)" id="admin-tab-analytics">📈 Analytics</button>
@@ -1207,6 +1209,20 @@
           </tr></thead>
           <tbody id="admin-quotes-tbody"></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- FOLLOW-UP REQUIRED -->
+    <div class="admin-section" id="admin-sec-followup">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+        <div class="admin-section-title" style="margin:0">📞 Follow-up Required — Customer Has Not Decided</div>
+        <button onclick="renderAdminFollowUp()" style="background:#EFF6FF;color:#1D4ED8;border:1.5px solid #BFDBFE;border-radius:8px;padding:.35rem .8rem;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit">🔄 Refresh</button>
+      </div>
+      <div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:12px;padding:.75rem 1rem;margin-bottom:1.2rem;font-size:.85rem;color:#7F1D1D;line-height:1.6">
+        <strong>📋 Your call queue:</strong> These are hire enquiries where one or more rental companies submitted quotes, but the customer acceptance window has now closed with <strong>no accept or decline made</strong>. Call the customer, find out what's happening, and mark it once done.
+      </div>
+      <div id="admin-followup-list">
+        <div style="color:#94A3B8;font-size:.85rem;padding:1rem">Loading…</div>
       </div>
     </div>
 
@@ -2065,7 +2081,8 @@
         </div>
         <div class="ff" style="flex:1;min-width:140px">
           <label>ABN <span style="color:#EF4444">*</span></label>
-          <input id="sqm-reg-abn" type="text" placeholder="XX XXX XXX XXX" maxlength="14" oninput="formatABN(this)"/>
+          <input id="sqm-reg-abn" type="text" placeholder="XX XXX XXX XXX" maxlength="14" oninput="formatABN(this);sqmABNInput(this.value)"/>
+          <div id="sqm-abn-status" style="margin-top:.4rem;display:none"></div>
         </div>
       </div>
       <div style="display:flex;gap:.8rem;flex-wrap:wrap">
