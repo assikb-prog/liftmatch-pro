@@ -56387,16 +56387,24 @@ async function submitResponse() {
   req.responded = true;
   req.response = req.responses[(req.responses||[]).length - 1];
 
-  // On first response: set customer acceptance window = same hours as the response window
+  // On first response: give customer 1 calendar day (24 real hours) to accept.
+  // If that lands on a weekend or public holiday, roll forward to the same time
+  // on the next working day.
   if ((req.responses||[]).length === 1 && !req.customerAcceptExpires) {
-    const windowHrs = req.responseWindowHours || 4;
-    // Customer accept window starts when the RESPONSE window closes, not from now
-    // This prevents the accept window from resetting if responses come in late
     const _acceptBase = req.expires && Date.now() <= req.expires
       ? req.expires      // window still open — accept starts from close
       : Date.now();      // window already closed — accept starts from now (late response)
-    req.customerAcceptExpires = calcWorkingDeadline(_acceptBase, windowHrs, req.state);
-    req.customerAcceptWindowHours = windowHrs;
+    // Add 24 real hours
+    let _deadline = _acceptBase + 24 * 3600000;
+    // If deadline lands on a weekend or public holiday, roll forward day by day
+    const _tz = stateToTZ(req.state || '');
+    for (let guard = 0; guard < 7; guard++) {
+      const _wc = _wcParts(_deadline, _tz);
+      if (_isWorkingIso(_wc.iso)) break;
+      _deadline += 24 * 3600000;
+    }
+    req.customerAcceptExpires = _deadline;
+    req.customerAcceptWindowHours = 24;
   }
 
   // ── Write response DIRECTLY to Firestore — atomic, no local merge ──
@@ -59211,11 +59219,11 @@ function renderMyQuotes() {
     const expiryHtml = msLeft > 0
       ? (() => {
           const _wc = buildWorkingCountdown(req.expires, req.state);
-          if (_wc.expired) return `<span style="font-size:.75rem;color:#94A3B8">Closed</span>`;
+          if (_wc.expired) return `<span style="font-size:.75rem;color:#94A3B8">${hasReply ? 'Quoting closed' : 'Closed'}</span>`;
           const _clr = _wc.urgent ? '#DC2626' : '#B45309';
           return `<span style="font-size:.73rem;color:${_clr};font-weight:700">⏱ Closes ${_wc.closeStr} ${_wc.tzAbbr}</span>`;
         })()
-      : `<span style="font-size:.75rem;color:#94A3B8">Closed</span>`;
+      : `<span style="font-size:.75rem;color:#94A3B8">${hasReply ? 'Quoting closed' : 'Closed'}</span>`;
 
     // Price data — sort responses lowest first
     const indexedResponses = responses.map((r, origIdx) => ({ ...r, _origIdx: origIdx }));
@@ -59534,14 +59542,14 @@ function renderMyQuotes() {
     let _acceptCountdownHtml = '';
     if (!req.acceptedBy && responses.length > 0) {
       if (_acceptDeadline && !_acceptExpired) {
-        const _wMins = workingMinsRemaining(_now2, _acceptDeadline, req.state);
-        const _tLabel = _wMins > 60 ? `${Math.floor(_wMins/60)}h ${_wMins%60}m` : `${_wMins}m`;
-        const _urgent = _wMins < 60;
+        const _totalMins = Math.max(0, Math.floor(_acceptMsLeft / 60000));
+        const _tLabel = _totalMins >= 60 ? `${Math.floor(_totalMins/60)}h ${_totalMins%60}m` : `${_totalMins}m`;
+        const _urgent = _totalMins < 60;
         _acceptCountdownHtml = `<div style="margin-top:.7rem;padding:.6rem .9rem;background:${_urgent?'#FEF2F2':'#FFFBEB'};border:1.5px solid ${_urgent?'#FCA5A5':'#FCD34D'};border-radius:10px;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
           <span style="font-size:1.1rem">${_urgent?'🚨':'⏱️'}</span>
           <div style="flex:1;min-width:0">
-            <div style="font-weight:800;color:${_urgent?'#DC2626':'#B45309'};font-size:.88rem">Accept by window closes in ${_tLabel}</div>
-            <div style="font-size:.75rem;color:#64748B;margin-top:.1rem">You have the same window to accept as rental companies had to respond — act before it closes.</div>
+            <div style="font-weight:800;color:${_urgent?'#DC2626':'#B45309'};font-size:.88rem">⏱️ Accept by window closes in ${_tLabel}</div>
+            <div style="font-size:.75rem;color:#64748B;margin-top:.1rem">Quoting is closed — no new quotes are coming. You still have time to accept one of the quotes received above.</div>
           </div>
         </div>`;
       } else if (_acceptDeadline && _acceptExpired) {
@@ -67562,7 +67570,8 @@ function renderQuoteRequests() {
     if (myResp) {
       statusBadge = `<span style="background:#DCFCE7;color:#166534;font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px">✓ Quoted — $${(myResp.grandTotal||0).toFixed(2)}</span>`;
     } else if (expired) {
-      statusBadge = `<span style="background:#F1F5F9;color:#94A3B8;font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px">Closed</span>`;
+      const _hasAnyResponse = (req.responses||[]).length > 0;
+      statusBadge = `<span style="background:#F1F5F9;color:#94A3B8;font-size:.74rem;font-weight:800;padding:.22rem .65rem;border-radius:20px">${_hasAnyResponse ? 'Quoting closed' : 'Closed'}</span>`;
     } else {
       const _rcTZCard = _qrUserCompany ? cityToTZ(_qrUserCompany.baseCity || '') : null;
       const _wcCard = buildWorkingCountdown(req.expires, req.state, _rcTZCard);
