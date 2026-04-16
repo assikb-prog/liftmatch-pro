@@ -45323,28 +45323,44 @@ function buildRestrictionsPanel(machineType) {
 }
 
 // Apply a single restriction and re-run results
+let _restrictDebounceTimer = null;
+
 function applyRestriction(fieldId, value) {
   if (value && parseFloat(value) > 0) {
     answers[fieldId] = parseFloat(value);
   } else {
     delete answers[fieldId];
   }
-  // Show/hide clear button
+  // Show/hide clear button immediately — no need to wait
   const anyActive = ['restrict_max_weight_kg','restrict_max_width_m','restrict_max_length_m',
                      'restrict_max_wh_m'].some(k => answers[k] > 0);
   const clearBtn = document.getElementById('clear-restrictions-btn');
   if (clearBtn) clearBtn.style.display = anyActive ? 'inline' : 'none';
-  showResults();
+  // Debounce — wait 600ms after last keystroke before re-running results
+  // This prevents the panel rebuilding and stealing focus mid-type
+  clearTimeout(_restrictDebounceTimer);
+  _restrictDebounceTimer = setTimeout(() => {
+    // Preserve focus: remember which field is active before rebuild
+    const _focusedId = document.activeElement ? document.activeElement.id : null;
+    showResults();
+    // Restore focus after rebuild
+    if (_focusedId) {
+      const _el = document.getElementById(_focusedId);
+      if (_el) { _el.focus(); _el.setSelectionRange && _el.setSelectionRange(9999, 9999); }
+    }
+  }, 600);
 }
 
 function clearOneRestriction(fieldId) {
   delete answers[fieldId];
+  clearTimeout(_restrictDebounceTimer);
   showResults();
 }
 
 function clearRestrictions() {
   ['restrict_max_weight_kg','restrict_max_width_m','restrict_max_length_m','restrict_max_wh_m']
     .forEach(k => delete answers[k]);
+  clearTimeout(_restrictDebounceTimer);
   showResults();
 }
 
@@ -55812,6 +55828,107 @@ function openRespondModal(reqId) {
   const sentStr   = req.ts ? new Date(req.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'numeric'}) + ' at ' + new Date(req.ts).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}) : '—';
   document.getElementById('respond-quote-summary').innerHTML =
     `<strong>👤 ${firstName}</strong> &nbsp;·&nbsp; 📍 ${suburb}${state?', '+state:''} &nbsp;·&nbsp; 📅 Hire start: ${req.date||'—'} &nbsp;·&nbsp; Sent: ${sentStr}`;
+
+  // ── CUSTOMER REQUIREMENTS PANEL ───────────────────────────────────────
+  // Build a full breakdown of every answer the customer gave — shown to RC
+  const _allJR = (req.machines||[]).map(m => m.jobRequirements || {});
+  const _jr0   = _allJR[0] || {};
+
+  function _reqPill(icon, label, val, style) {
+    if (!val) return '';
+    const s = style || 'background:#EFF6FF;border:1.5px solid #BFDBFE;color:#1E40AF';
+    return `<div style="${s};border-radius:8px;padding:.32rem .65rem;display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;white-space:nowrap"><span>${icon}</span><span style="color:#64748B;font-weight:600">${label}:</span><span>${val}</span></div>`;
+  }
+  function _reqPillWarn(icon, label, val) {
+    return _reqPill(icon, label, val, 'background:#FEF3C7;border:1.5px solid #FCD34D;color:#92400E');
+  }
+  function _reqPillGreen(icon, label, val) {
+    return _reqPill(icon, label, val, 'background:#F0FDF4;border:1.5px solid #86EFAC;color:#15803D');
+  }
+  function _reqPillRed(icon, label, val) {
+    return _reqPill(icon, label, val, 'background:#FEF2F2;border:1.5px solid #FCA5A5;color:#991B1B');
+  }
+
+  // Gather all pills across all machines (deduplicate by value)
+  const _seen = new Set();
+  function _pill(icon, label, val, type) {
+    const key = label + val;
+    if (!val || _seen.has(key)) return '';
+    _seen.add(key);
+    return type === 'warn' ? _reqPillWarn(icon, label, val)
+         : type === 'red'  ? _reqPillRed(icon, label, val)
+         :  type === 'green'? _reqPillGreen(icon, label, val)
+         : _reqPill(icon, label, val);
+  }
+
+  // Combine jobRequirements across all machines
+  const _mergedJR = Object.assign({}, ..._allJR);
+
+  const _pillRows = [
+    // ── What they're lifting ──────────────────────────────────
+    _pill('🏗️',  'Lifting for',        _mergedJR.liftingFor),
+    _pill('👷',  'Crew on platform',   _mergedJR.crewSize),
+    _pill('⚖️',  'Load weight',        _mergedJR.loadWeightKg ? _mergedJR.loadWeightKg.toLocaleString() + ' kg' : null),
+    _pill('📦',  'Load type',          _mergedJR.loadType),
+    _pill('⚖️',  'Basket SWL',         _mergedJR.basketSWL),
+    // ── Height & reach ────────────────────────────────────────
+    _pill('📏',  'Platform height',    _mergedJR.liftHeightM   ? _mergedJR.liftHeightM + ' m'   : null),
+    _pill('↔️',  'Horizontal reach',   _mergedJR.forwardReachM ? _mergedJR.forwardReachM + ' m' : null),
+    _pill('↔️',  'Boom reach',         _mergedJR.boomHorizontalReach),
+    _pill('📐',  'Obstacle height',    _mergedJR.obstacleHeightM ? _mergedJR.obstacleHeightM + ' m' : null),
+    _pill('🎯',  'Access type',        _mergedJR.accessType),
+    // ── Site & terrain ────────────────────────────────────────
+    _pill('⛰️',  'Terrain',            _mergedJR.terrain),
+    _pill('📍',  'Location',           _mergedJR.siteLocation || (_mergedJR.indoorOutdoor)),
+    _pill('⚡',  'Power source',       _mergedJR.scissorPower || _mergedJR.boomPower || _mergedJR.forkPowerPreference),
+    _pill('🚗',  'Drive at height',    _mergedJR.driveAtHeight),
+    _pill('🔄',  'Rotation required',  _mergedJR.rotationRequired),
+    // ── Attachments ───────────────────────────────────────────
+    _pill('🔩',  'Attachments',        _mergedJR.attachmentsRequired),
+    _pill('🔌',  'Power to basket',    _mergedJR.powerToBasketRequired ? 'Yes — 240V outlet required' : null, 'green'),
+    // ── Machine constraints (warnings) ────────────────────────
+    _mergedJR.maxMachineWeightKg  ? _reqPillWarn('⚠️', 'Max machine weight',  _mergedJR.maxMachineWeightKg)  : '',
+    _mergedJR.maxMachineWidthMm   ? _reqPillWarn('⚠️', 'Max machine width',   _mergedJR.maxMachineWidthMm)   : '',
+    _mergedJR.maxMachineHeightMm  ? _reqPillWarn('⚠️', 'Max machine height',  _mergedJR.maxMachineHeightMm)  : '',
+    _mergedJR.maxMachineLengthMm  ? _reqPillWarn('⚠️', 'Max machine length',  _mergedJR.maxMachineLengthMm)  : '',
+    // ── Preferences ───────────────────────────────────────────
+    _pill('🏷️',  'Brand preference',   _mergedJR.brandPreference || _mergedJR.forkBrandPreference),
+    _pill('🌿',  'Hire type',          _mergedJR.hireType),
+    _pill('🔑',  '3-phase charging',   _mergedJR.threePhaseCharging),
+    _pill('🏗️',  'Container mast',     _mergedJR.containerMastRequired ? 'Required' : null, 'warn'),
+    // ── Site restrictions ─────────────────────────────────────
+    ...(_mergedJR.siteAccessRestrictions||[]).map(r => _reqPillRed('🚧', 'Site restriction', r)),
+    // ── Earthworks ────────────────────────────────────────────
+    _pill('🚜',  'Task',               _mergedJR.earthworksJob,   'warn'),
+    _pill('⛏️',  'Dig depth',          _mergedJR.digDepth,        'warn'),
+    _pill('📊',  'Volume',             _mergedJR.cartVolume,      'warn'),
+    _pill('🌍',  'Ground condition',   _mergedJR.groundCondition, 'warn'),
+    _pill('📐',  'Work area',          _mergedJR.areaSize,        'warn'),
+    // ── Notes ─────────────────────────────────────────────────
+    _mergedJR.siteNotes ? `<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .65rem;font-size:.78rem;color:#334155;font-weight:600;width:100%">📝 <span style="color:#64748B;font-weight:600">Customer notes:</span> ${_mergedJR.siteNotes}</div>` : '',
+  ].filter(Boolean);
+
+  const _reqPanelEl = document.getElementById('rq-customer-requirements');
+  if (_reqPanelEl) {
+    if (_pillRows.length > 0) {
+      _reqPanelEl.style.display = 'block';
+      _reqPanelEl.innerHTML = `
+        <div style="background:linear-gradient(135deg,#F0F9FF,#EFF6FF);border:2px solid #0052CC;border-radius:12px;padding:.85rem 1rem;margin-bottom:1rem">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem">
+            <span style="font-size:1.1rem">📋</span>
+            <div>
+              <div style="font-weight:900;color:#0052CC;font-size:.88rem">Customer's Stated Requirements</div>
+              <div style="font-size:.72rem;color:#64748B;margin-top:.05rem">Every answer they gave in the Noyo quiz — quote against these exactly</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem .45rem">
+            ${_pillRows.join('')}
+          </div>
+        </div>`;
+    } else {
+      _reqPanelEl.style.display = 'none';
+    }
+  }
 
   // Restore previous response if editing (declared early so field resets can use it)
   const myPrev = (req.responses||[]).find(r => r.company === currentUser?.name);
