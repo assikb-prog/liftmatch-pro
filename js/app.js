@@ -12580,7 +12580,7 @@ const MACHINES = {
         // h=8m: 3200 zone shrinks, max reach reduces
         {h:8,r:0,kg:3200},{h:8,r:2,kg:3200},{h:8,r:4,kg:2000},{h:8,r:5,kg:1500},{h:8,r:7,kg:1000},{h:8,r:8,kg:1000},
         // h=10m: only close range viable
-        {h:10,r:0,kg:3200},{h:10,r:2,kg:3200},{h:10,r:4,kg:2000},{h:10,r:5,kg:1500},{h:10,r:6,kg:1500},
+        {h:10,r:0,kg:3200},{h:10,r:2,kg:3200},{h:10,r:5,kg:2000},{h:10,r:6,kg:1500},
         // h=12m: envelope tightens significantly
         {h:12,r:0,kg:3200},{h:12,r:2,kg:3200},{h:12,r:4,kg:2000},{h:12,r:4,kg:2000},
         // h=14m: very limited — close range only, 1800kg zone visible in chart
@@ -12634,7 +12634,7 @@ const MACHINES = {
         {h:15.8,r:0,kg:4500},{h:15.8,r:2,kg:3500}
       ],
       // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (4000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[{h:0.0,r:0.0,kg:4000},{h:0.0,r:3.9,kg:3000},{h:0.0,r:7.8,kg:2000},{h:0.0,r:11.6,kg:1200},{h:2.0,r:0.0,kg:4000},{h:2.0,r:3.9,kg:3000},{h:2.0,r:7.8,kg:2000},{h:2.0,r:11.6,kg:1200},{h:4.0,r:0.0,kg:4000},{h:4.0,r:3.5,kg:3000},{h:4.0,r:7.0,kg:2000},{h:4.0,r:10.5,kg:1200},{h:6.0,r:0.0,kg:4000},{h:6.0,r:3.2,kg:3000},{h:6.0,r:6.5,kg:2000},{h:6.0,r:9.8,kg:1200},{h:8.0,r:0.0,kg:4000},{h:8.0,r:3.0,kg:3000},{h:8.0,r:6.0,kg:2000},{h:8.0,r:9.0,kg:1200},{h:10.0,r:0.0,kg:4000},{h:10.0,r:2.5,kg:3000},{h:10.0,r:5.0,kg:2000},{h:10.0,r:7.5,kg:1200},{h:12.0,r:0.0,kg:4000},{h:12.0,r:2.0,kg:3000},{h:12.0,r:4.0,kg:2000},{h:12.0,r:6.0,kg:1200},{h:14.0,r:0.0,kg:4000},{h:14.0,r:1.5,kg:3000},{h:14.0,r:3.0,kg:2000},{h:14.0,r:4.5,kg:1200},{h:15.8,r:0.0,kg:4000},{h:15.8,r:1.0,kg:3000},{h:15.8,r:2.0,kg:2000},{h:15.8,r:3.0,kg:1200},{h:17.8,r:0.0,kg:4000},{h:17.8,r:0.9,kg:3000},{h:17.8,r:1.8,kg:2000},{h:17.8,r:2.7,kg:1200}],
+      loadMatrixJib800:[], // ⚠️ Cleared — no brochure jib winch chart available; displays 'Confirm with rental company'
       // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (365kg constant throughout working envelope).
       loadMatrixJib1500:[{h:0.0,r:0.0,kg:365},{h:0.0,r:5.0,kg:365},{h:0.0,r:6.0,kg:365},{h:0.0,r:7.0,kg:365},{h:0.0,r:9.0,kg:365},{h:0.0,r:10.0,kg:365},{h:0.0,r:11.0,kg:365},{h:0.0,r:12.0,kg:365},{h:0.0,r:13.5,kg:365},{h:2.0,r:0.0,kg:365},{h:2.0,r:5.0,kg:365},{h:2.0,r:6.0,kg:365},{h:2.0,r:7.0,kg:365},{h:2.0,r:9.0,kg:365},{h:2.0,r:10.0,kg:365},{h:2.0,r:11.0,kg:365},{h:2.0,r:12.0,kg:365},{h:2.0,r:13.5,kg:365},{h:4.0,r:0.0,kg:365},{h:4.0,r:5.0,kg:365},{h:4.0,r:6.0,kg:365},{h:4.0,r:7.0,kg:365},{h:4.0,r:8.0,kg:365},{h:4.0,r:10.0,kg:365},{h:4.0,r:11.0,kg:365},{h:4.0,r:12.0,kg:365},{h:6.0,r:0.0,kg:365},{h:6.0,r:5.0,kg:365},{h:6.0,r:6.0,kg:365},{h:6.0,r:7.0,kg:365},{h:6.0,r:8.0,kg:365},{h:6.0,r:10.0,kg:365},{h:6.0,r:11.0,kg:365},{h:8.0,r:0.0,kg:365},{h:8.0,r:4.0,kg:365},{h:8.0,r:5.0,kg:365},{h:8.0,r:6.0,kg:365},{h:8.0,r:8.0,kg:365},{h:8.0,r:9.0,kg:365},{h:8.0,r:10.0,kg:365},{h:10.0,r:0.0,kg:365},{h:10.0,r:3.0,kg:365},{h:10.0,r:4.0,kg:365},{h:10.0,r:5.0,kg:365},{h:10.0,r:6.0,kg:365},{h:10.0,r:7.0,kg:365},{h:10.0,r:8.0,kg:365},{h:12.0,r:0.0,kg:365},{h:12.0,r:3.0,kg:365},{h:12.0,r:4.0,kg:365},{h:12.0,r:5.0,kg:365},{h:12.0,r:6.0,kg:365},{h:14.0,r:0.0,kg:365},{h:14.0,r:2.0,kg:365},{h:14.0,r:3.0,kg:365},{h:14.0,r:4.0,kg:365},{h:15.8,r:0.0,kg:365},{h:15.8,r:2.0,kg:365}],
       loadMatrixTyres360:[{h:0.0,r:0.0,kg:1650},{h:0.0,r:2.0,kg:1650},{h:0.0,r:4.0,kg:1050},{h:0.0,r:5.0,kg:800},{h:0.0,r:7.0,kg:500},{h:0.0,r:9.0,kg:350},{h:0.0,r:10.0,kg:250},{h:0.0,r:11.0,kg:200},{h:0.0,r:13.0,kg:150},{h:2.0,r:0.0,kg:1650},{h:2.0,r:2.0,kg:1650},{h:2.0,r:4.0,kg:1050},{h:2.0,r:5.0,kg:800},{h:2.0,r:7.0,kg:500},{h:2.0,r:9.0,kg:350},{h:2.0,r:10.0,kg:250},{h:2.0,r:11.0,kg:200},{h:4.0,r:0.0,kg:1650},{h:4.0,r:2.0,kg:1650},{h:4.0,r:4.0,kg:1050},{h:4.0,r:5.0,kg:800},{h:4.0,r:7.0,kg:500},{h:4.0,r:9.0,kg:350},{h:4.0,r:10.0,kg:250},{h:4.0,r:11.0,kg:200},{h:6.0,r:0.0,kg:1650},{h:6.0,r:2.0,kg:1650},{h:6.0,r:4.0,kg:1050},{h:6.0,r:5.0,kg:800},{h:6.0,r:7.0,kg:500},{h:6.0,r:9.0,kg:350},{h:8.0,r:0.0,kg:1650},{h:8.0,r:2.0,kg:1650},{h:8.0,r:4.0,kg:1050},{h:8.0,r:5.0,kg:800},{h:8.0,r:7.0,kg:500},{h:8.0,r:8.0,kg:500},{h:10.0,r:0.0,kg:1650},{h:10.0,r:2.0,kg:1650},{h:10.0,r:4.0,kg:1050},{h:10.0,r:5.0,kg:800},{h:10.0,r:6.0,kg:800},{h:12.0,r:0.0,kg:1650},{h:12.0,r:2.0,kg:1650},{h:12.0,r:4.0,kg:1050},{h:12.0,r:4.0,kg:1050},{h:14.0,r:0.0,kg:950},{h:14.0,r:2.0,kg:950},{h:15.6,r:0.0,kg:950},{h:15.6,r:1.0,kg:950}],
@@ -12700,7 +12700,7 @@ const MACHINES = {
         {h:4,r:0,kg:3200},{h:4,r:2,kg:3200},{h:4,r:4,kg:2000},{h:4,r:5,kg:1500},{h:4,r:7,kg:1000},{h:4,r:9,kg:650},{h:4,r:10,kg:500},{h:4,r:11,kg:400},
         {h:6,r:0,kg:3200},{h:6,r:2,kg:3200},{h:6,r:4,kg:2000},{h:6,r:5,kg:1500},{h:6,r:7,kg:1000},{h:6,r:9,kg:650},
         {h:8,r:0,kg:3200},{h:8,r:2,kg:3200},{h:8,r:4,kg:2000},{h:8,r:5,kg:1500},{h:8,r:7,kg:1000},{h:8,r:8,kg:1000},
-        {h:10,r:0,kg:3200},{h:10,r:2,kg:3200},{h:10,r:4,kg:2000},{h:10,r:5,kg:1500},{h:10,r:6,kg:1500},
+        {h:10,r:0,kg:3200},{h:10,r:2,kg:3200},{h:10,r:5,kg:2000},{h:10,r:6,kg:1500},
         {h:12,r:0,kg:3200},{h:12,r:2,kg:3200},{h:12,r:4,kg:2000},{h:12,r:4,kg:2000},
         {h:14,r:0,kg:1800},{h:14,r:2,kg:1800},
         {h:15.6,r:0,kg:1800},{h:15.6,r:1,kg:1800}
@@ -12743,7 +12743,7 @@ const MACHINES = {
         {h:15.8,r:0,kg:4500},{h:15.8,r:2,kg:3500}
       ],
       // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (4000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[{h:0.0,r:0.0,kg:4000},{h:0.0,r:3.9,kg:3000},{h:0.0,r:7.8,kg:2000},{h:0.0,r:11.6,kg:1200},{h:2.0,r:0.0,kg:4000},{h:2.0,r:3.9,kg:3000},{h:2.0,r:7.8,kg:2000},{h:2.0,r:11.6,kg:1200},{h:4.0,r:0.0,kg:4000},{h:4.0,r:3.5,kg:3000},{h:4.0,r:7.0,kg:2000},{h:4.0,r:10.5,kg:1200},{h:6.0,r:0.0,kg:4000},{h:6.0,r:3.2,kg:3000},{h:6.0,r:6.5,kg:2000},{h:6.0,r:9.8,kg:1200},{h:8.0,r:0.0,kg:4000},{h:8.0,r:3.0,kg:3000},{h:8.0,r:6.0,kg:2000},{h:8.0,r:9.0,kg:1200},{h:10.0,r:0.0,kg:4000},{h:10.0,r:2.5,kg:3000},{h:10.0,r:5.0,kg:2000},{h:10.0,r:7.5,kg:1200},{h:12.0,r:0.0,kg:4000},{h:12.0,r:2.0,kg:3000},{h:12.0,r:4.0,kg:2000},{h:12.0,r:6.0,kg:1200},{h:14.0,r:0.0,kg:4000},{h:14.0,r:1.5,kg:3000},{h:14.0,r:3.0,kg:2000},{h:14.0,r:4.5,kg:1200},{h:15.8,r:0.0,kg:4000},{h:15.8,r:1.0,kg:3000},{h:15.8,r:2.0,kg:2000},{h:15.8,r:3.0,kg:1200},{h:17.8,r:0.0,kg:4000},{h:17.8,r:0.9,kg:3000},{h:17.8,r:1.8,kg:2000},{h:17.8,r:2.7,kg:1200}],
+      loadMatrixJib800:[], // ⚠️ Cleared — no brochure jib winch chart available; displays 'Confirm with rental company'
       // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (365kg constant throughout working envelope).
       loadMatrixJib1500:[{h:0.0,r:0.0,kg:365},{h:0.0,r:5.0,kg:365},{h:0.0,r:6.0,kg:365},{h:0.0,r:7.0,kg:365},{h:0.0,r:9.0,kg:365},{h:0.0,r:10.0,kg:365},{h:0.0,r:11.0,kg:365},{h:0.0,r:12.0,kg:365},{h:0.0,r:13.5,kg:365},{h:2.0,r:0.0,kg:365},{h:2.0,r:5.0,kg:365},{h:2.0,r:6.0,kg:365},{h:2.0,r:7.0,kg:365},{h:2.0,r:9.0,kg:365},{h:2.0,r:10.0,kg:365},{h:2.0,r:11.0,kg:365},{h:2.0,r:12.0,kg:365},{h:2.0,r:13.5,kg:365},{h:4.0,r:0.0,kg:365},{h:4.0,r:5.0,kg:365},{h:4.0,r:6.0,kg:365},{h:4.0,r:7.0,kg:365},{h:4.0,r:8.0,kg:365},{h:4.0,r:10.0,kg:365},{h:4.0,r:11.0,kg:365},{h:4.0,r:12.0,kg:365},{h:6.0,r:0.0,kg:365},{h:6.0,r:5.0,kg:365},{h:6.0,r:6.0,kg:365},{h:6.0,r:7.0,kg:365},{h:6.0,r:8.0,kg:365},{h:6.0,r:10.0,kg:365},{h:6.0,r:11.0,kg:365},{h:8.0,r:0.0,kg:365},{h:8.0,r:4.0,kg:365},{h:8.0,r:5.0,kg:365},{h:8.0,r:6.0,kg:365},{h:8.0,r:8.0,kg:365},{h:8.0,r:9.0,kg:365},{h:8.0,r:10.0,kg:365},{h:10.0,r:0.0,kg:365},{h:10.0,r:3.0,kg:365},{h:10.0,r:4.0,kg:365},{h:10.0,r:5.0,kg:365},{h:10.0,r:6.0,kg:365},{h:10.0,r:7.0,kg:365},{h:10.0,r:8.0,kg:365},{h:12.0,r:0.0,kg:365},{h:12.0,r:3.0,kg:365},{h:12.0,r:4.0,kg:365},{h:12.0,r:5.0,kg:365},{h:12.0,r:6.0,kg:365},{h:14.0,r:0.0,kg:365},{h:14.0,r:2.0,kg:365},{h:14.0,r:3.0,kg:365},{h:14.0,r:4.0,kg:365},{h:15.8,r:0.0,kg:365},{h:15.8,r:2.0,kg:365}],
       loadMatrixTyres360:[{h:0.0,r:0.0,kg:1650},{h:0.0,r:2.0,kg:1650},{h:0.0,r:4.0,kg:1050},{h:0.0,r:5.0,kg:800},{h:0.0,r:7.0,kg:500},{h:0.0,r:9.0,kg:350},{h:0.0,r:10.0,kg:250},{h:0.0,r:11.0,kg:200},{h:0.0,r:13.0,kg:150},{h:2.0,r:0.0,kg:1650},{h:2.0,r:2.0,kg:1650},{h:2.0,r:4.0,kg:1050},{h:2.0,r:5.0,kg:800},{h:2.0,r:7.0,kg:500},{h:2.0,r:9.0,kg:350},{h:2.0,r:10.0,kg:250},{h:2.0,r:11.0,kg:200},{h:4.0,r:0.0,kg:1650},{h:4.0,r:2.0,kg:1650},{h:4.0,r:4.0,kg:1050},{h:4.0,r:5.0,kg:800},{h:4.0,r:7.0,kg:500},{h:4.0,r:9.0,kg:350},{h:4.0,r:10.0,kg:250},{h:4.0,r:11.0,kg:200},{h:6.0,r:0.0,kg:1650},{h:6.0,r:2.0,kg:1650},{h:6.0,r:4.0,kg:1050},{h:6.0,r:5.0,kg:800},{h:6.0,r:7.0,kg:500},{h:6.0,r:9.0,kg:350},{h:8.0,r:0.0,kg:1650},{h:8.0,r:2.0,kg:1650},{h:8.0,r:4.0,kg:1050},{h:8.0,r:5.0,kg:800},{h:8.0,r:7.0,kg:500},{h:8.0,r:8.0,kg:500},{h:10.0,r:0.0,kg:1650},{h:10.0,r:2.0,kg:1650},{h:10.0,r:4.0,kg:1050},{h:10.0,r:5.0,kg:800},{h:10.0,r:6.0,kg:800},{h:12.0,r:0.0,kg:1650},{h:12.0,r:2.0,kg:1650},{h:12.0,r:4.0,kg:1050},{h:12.0,r:4.0,kg:1050},{h:14.0,r:0.0,kg:950},{h:14.0,r:2.0,kg:950},{h:15.6,r:0.0,kg:950},{h:15.6,r:1.0,kg:950}],
@@ -12989,7 +12989,7 @@ const MACHINES = {
       // ─────────────────────────────────────────────────────────────────────────────────
       loadMatrixHook:[{h:10,r:12.6,kg:500},{h:10,r:12.2,kg:4000},{h:10,r:0,kg:4000},{h:11,r:15.7,kg:500},{h:11,r:0.1,kg:4000},{h:11,r:0,kg:4000},{h:12,r:15.1,kg:500},{h:12,r:14.8,kg:800},{h:12,r:12.8,kg:0},{h:12,r:11.0,kg:800},{h:12,r:8.9,kg:1000},{h:12,r:8.4,kg:0},{h:12,r:8.0,kg:1000},{h:12,r:7.1,kg:2000},{h:12,r:6.5,kg:0},{h:12,r:6.1,kg:2000},{h:12,r:4.9,kg:2500},{h:12,r:4.6,kg:2500},{h:12,r:2.7,kg:3500},{h:12,r:1.8,kg:0},{h:12,r:1.0,kg:3500},{h:12,r:0.6,kg:4000},{h:12,r:0,kg:4000},{h:13,r:11.9,kg:500},{h:13,r:11.5,kg:800},{h:13,r:11.0,kg:800},{h:13,r:8.9,kg:1000},{h:13,r:8.4,kg:0},{h:13,r:8.0,kg:1000},{h:13,r:7.1,kg:2000},{h:13,r:6.5,kg:0},{h:13,r:6.1,kg:2000},{h:13,r:4.9,kg:2500},{h:13,r:4.3,kg:2500},{h:13,r:2.9,kg:3500},{h:13,r:2.3,kg:3500},{h:13,r:0.1,kg:4000},{h:13,r:0,kg:4000},{h:14,r:11.8,kg:500},{h:14,r:11.3,kg:800},{h:14,r:11.0,kg:800},{h:14,r:8.9,kg:1000},{h:14,r:8.7,kg:1000},{h:14,r:8.2,kg:1500},{h:14,r:8.0,kg:1500},{h:14,r:7.1,kg:2000},{h:14,r:6.8,kg:2000},{h:14,r:6.4,kg:2500},{h:14,r:6.1,kg:2500},{h:14,r:4.9,kg:3500},{h:14,r:4.8,kg:3500},{h:14,r:2.8,kg:4000},{h:14,r:0,kg:4000},{h:15,r:11.0,kg:500},{h:15,r:8.9,kg:800},{h:15,r:8.4,kg:0},{h:15,r:8.0,kg:800},{h:15,r:7.1,kg:1500},{h:15,r:6.8,kg:1500},{h:15,r:6.3,kg:2000},{h:15,r:6.1,kg:2000},{h:15,r:4.9,kg:3500},{h:15,r:4.5,kg:0},{h:15,r:4.2,kg:3500},{h:15,r:2.5,kg:4000},{h:15,r:0,kg:4000},{h:16,r:15.7,kg:500},{h:16,r:12.0,kg:800},{h:16,r:11.4,kg:0},{h:16,r:11.0,kg:800},{h:16,r:8.9,kg:1500},{h:16,r:8.4,kg:0},{h:16,r:8.0,kg:1500},{h:16,r:7.1,kg:2000},{h:16,r:6.5,kg:0},{h:16,r:6.1,kg:2000},{h:16,r:4.9,kg:3500},{h:16,r:4.3,kg:0},{h:16,r:3.8,kg:3500},{h:16,r:0.1,kg:4000},{h:16,r:0,kg:4000},{h:17,r:11.0,kg:500},{h:17,r:8.9,kg:1000},{h:17,r:8.4,kg:0},{h:17,r:8.0,kg:1000},{h:17,r:6.9,kg:2000},{h:17,r:6.4,kg:0},{h:17,r:6.1,kg:2000},{h:17,r:4.8,kg:3500},{h:17,r:4.0,kg:0},{h:17,r:3.3,kg:3500},{h:17,r:0.6,kg:4000},{h:17,r:0,kg:4000},{h:18,r:15.8,kg:500},{h:18,r:11.5,kg:800},{h:18,r:11.0,kg:800},{h:18,r:8.9,kg:1500},{h:18,r:8.4,kg:0},{h:18,r:8.0,kg:1500},{h:18,r:6.7,kg:2000},{h:18,r:6.3,kg:2000},{h:18,r:4.4,kg:3500},{h:18,r:3.1,kg:0},{h:18,r:2.0,kg:3500},{h:18,r:0.1,kg:4000},{h:18,r:0,kg:4000},{h:19,r:15.1,kg:500},{h:19,r:14.8,kg:1000},{h:19,r:13.3,kg:0},{h:19,r:11.9,kg:1000},{h:19,r:8.9,kg:2000},{h:19,r:8.3,kg:0},{h:19,r:7.8,kg:2000},{h:19,r:6.5,kg:3500},{h:19,r:6.1,kg:0},{h:19,r:5.8,kg:3500},{h:19,r:4.0,kg:4000},{h:19,r:0,kg:4000},{h:20,r:10.6,kg:500},{h:20,r:8.6,kg:1000},{h:20,r:8.1,kg:0},{h:20,r:7.6,kg:1000},{h:20,r:6.3,kg:2500},{h:20,r:5.9,kg:0},{h:20,r:5.6,kg:2500},{h:20,r:3.5,kg:4000},{h:20,r:0,kg:4000}],
       // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (4000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[{h:7,r:16.1,kg:500},{h:7,r:0.1,kg:4000},{h:7,r:0,kg:4000},{h:8,r:16.1,kg:500},{h:8,r:11.7,kg:1000},{h:8,r:11.2,kg:0},{h:8,r:10.8,kg:1000},{h:8,r:9.0,kg:3000},{h:8,r:8.5,kg:0},{h:8,r:8.1,kg:3000},{h:8,r:0.1,kg:4000},{h:8,r:0,kg:4000},{h:9,r:16.1,kg:500},{h:9,r:13.6,kg:4000},{h:9,r:13.1,kg:500},{h:9,r:11.8,kg:700},{h:9,r:11.2,kg:0},{h:9,r:10.8,kg:700},{h:9,r:9.0,kg:1000},{h:9,r:8.5,kg:0},{h:9,r:8.1,kg:1000},{h:9,r:6.0,kg:2000},{h:9,r:5.2,kg:0},{h:9,r:4.6,kg:2000},{h:9,r:2.8,kg:3000},{h:9,r:2.6,kg:3000},{h:9,r:0.6,kg:4000},{h:9,r:0.5,kg:4000},{h:9,r:0,kg:4000},{h:10,r:16.1,kg:500},{h:10,r:11.7,kg:700},{h:10,r:11.5,kg:700},{h:10,r:11.0,kg:1000},{h:10,r:10.8,kg:1000},{h:10,r:9.0,kg:2000},{h:10,r:8.5,kg:0},{h:10,r:8.1,kg:2000},{h:10,r:6.0,kg:3000},{h:10,r:5.5,kg:0},{h:10,r:5.1,kg:3000},{h:10,r:0.1,kg:4000},{h:10,r:0,kg:4000},{h:11,r:16.1,kg:500},{h:11,r:11.7,kg:4000},{h:11,r:11.4,kg:500},{h:11,r:11.0,kg:700},{h:11,r:10.8,kg:700},{h:11,r:9.0,kg:1000},{h:11,r:8.9,kg:1000},{h:11,r:8.3,kg:2000},{h:11,r:8.1,kg:2000},{h:11,r:6.0,kg:3000},{h:11,r:5.5,kg:3000},{h:11,r:5.1,kg:4000},{h:11,r:4.6,kg:4000},{h:11,r:0,kg:4000},{h:12,r:16.1,kg:500},{h:12,r:13.0,kg:4000},{h:12,r:12.9,kg:500},{h:12,r:11.7,kg:700},{h:12,r:11.2,kg:0},{h:12,r:10.8,kg:700},{h:12,r:9.0,kg:1000},{h:12,r:8.8,kg:1000},{h:12,r:8.3,kg:2000},{h:12,r:7.8,kg:2000},{h:12,r:5.7,kg:3000},{h:12,r:5.5,kg:3000},{h:12,r:5.1,kg:4000},{h:12,r:4.6,kg:4000},{h:12,r:0,kg:4000},{h:13,r:15.8,kg:500},{h:13,r:15.2,kg:4000},{h:13,r:15.0,kg:500},{h:13,r:14.3,kg:700},{h:13,r:13.9,kg:700},{h:13,r:13.5,kg:700},{h:13,r:11.7,kg:1000},{h:13,r:11.2,kg:0},{h:13,r:10.8,kg:1000},{h:13,r:9.0,kg:2000},{h:13,r:8.6,kg:0},{h:13,r:8.2,kg:2000},{h:13,r:5.5,kg:2000},{h:13,r:5.1,kg:3000},{h:13,r:4.8,kg:3000},{h:13,r:1.8,kg:3000},{h:13,r:1.5,kg:4000},{h:13,r:1.4,kg:4000},{h:13,r:0,kg:4000},{h:14,r:16.1,kg:500},{h:14,r:11.7,kg:700},{h:14,r:11.1,kg:0},{h:14,r:10.7,kg:700},{h:14,r:9.0,kg:2000},{h:14,r:8.2,kg:0},{h:14,r:7.6,kg:2000},{h:14,r:5.6,kg:3000},{h:14,r:5.0,kg:0},{h:14,r:4.5,kg:3000},{h:14,r:0.1,kg:4000},{h:14,r:0,kg:4000},{h:15,r:16.1,kg:500},{h:15,r:13.3,kg:700},{h:15,r:12.8,kg:0},{h:15,r:12.5,kg:700},{h:15,r:11.7,kg:1000},{h:15,r:11.1,kg:0},{h:15,r:10.7,kg:1000},{h:15,r:9.0,kg:2000},{h:15,r:8.2,kg:0},{h:15,r:7.5,kg:2000},{h:15,r:5.4,kg:3000},{h:15,r:4.7,kg:0},{h:15,r:4.1,kg:3000},{h:15,r:0.1,kg:4000},{h:15,r:0,kg:4000},{h:16,r:12.2,kg:500},{h:16,r:11.7,kg:700},{h:16,r:11.1,kg:0},{h:16,r:10.7,kg:700},{h:16,r:8.9,kg:1000},{h:16,r:8.7,kg:1000},{h:16,r:8.3,kg:2000},{h:16,r:7.8,kg:0},{h:16,r:7.5,kg:2000},{h:16,r:5.3,kg:3000},{h:16,r:4.5,kg:0},{h:16,r:3.8,kg:3000},{h:16,r:0.1,kg:4000},{h:16,r:0,kg:4000},{h:17,r:14.6,kg:500},{h:17,r:14.3,kg:4000},{h:17,r:13.9,kg:500},{h:17,r:13.6,kg:700},{h:17,r:12.9,kg:0},{h:17,r:12.4,kg:700},{h:17,r:12.1,kg:1000},{h:17,r:12.0,kg:1000},{h:17,r:11.7,kg:2000},{h:17,r:11.1,kg:0},{h:17,r:10.5,kg:2000},{h:17,r:8.9,kg:3000},{h:17,r:8.1,kg:0},{h:17,r:7.3,kg:3000},{h:17,r:5.0,kg:4000},{h:17,r:4.2,kg:0},{h:17,r:3.5,kg:4000},{h:17,r:0,kg:4000},{h:18,r:16.9,kg:500},{h:18,r:16.5,kg:700},{h:18,r:16.1,kg:700},{h:18,r:12.1,kg:1000},{h:18,r:11.8,kg:1000},{h:18,r:11.5,kg:2000},{h:18,r:10.9,kg:0},{h:18,r:10.5,kg:2000},{h:18,r:8.7,kg:3000},{h:18,r:8.1,kg:0},{h:18,r:7.5,kg:3000},{h:18,r:4.8,kg:4000},{h:18,r:3.9,kg:0},{h:18,r:3.1,kg:4000},{h:18,r:0,kg:4000},{h:19,r:16.9,kg:500},{h:19,r:16.5,kg:4000},{h:19,r:15.5,kg:0},{h:19,r:14.6,kg:500},{h:19,r:14.3,kg:700},{h:19,r:13.9,kg:700},{h:19,r:13.6,kg:1000},{h:19,r:12.9,kg:0},{h:19,r:12.4,kg:1000},{h:19,r:11.6,kg:1000},{h:19,r:11.2,kg:2000},{h:19,r:10.8,kg:0},{h:19,r:10.5,kg:2000},{h:19,r:8.7,kg:3000},{h:19,r:8.4,kg:3000},{h:19,r:7.5,kg:0},{h:19,r:7.0,kg:3000},{h:19,r:4.7,kg:4000},{h:19,r:3.7,kg:0},{h:19,r:2.8,kg:4000},{h:19,r:0,kg:4000},{h:20,r:16.9,kg:500},{h:20,r:16.5,kg:700},{h:20,r:13.4,kg:0},{h:20,r:10.4,kg:700},{h:20,r:8.6,kg:2000},{h:20,r:7.7,kg:0},{h:20,r:6.8,kg:2000},{h:20,r:4.4,kg:3000},{h:20,r:3.4,kg:0},{h:20,r:2.5,kg:3000},{h:20,r:0.5,kg:4000},{h:20,r:0,kg:4000}],
+      loadMatrixJib800:[], // ⚠️ Cleared — no brochure jib winch chart available; displays 'Confirm with rental company'
       // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (365kg constant throughout working envelope).
       loadMatrixJib1500:[{h:10,r:17.9,kg:300},{h:10,r:0.1,kg:2000},{h:10,r:0,kg:2000},{h:11,r:18.1,kg:300},{h:11,r:17.8,kg:2000},{h:11,r:17.4,kg:0},{h:11,r:17.1,kg:300},{h:11,r:16.8,kg:500},{h:11,r:16.4,kg:0},{h:11,r:16.0,kg:500},{h:11,r:14.6,kg:0},{h:11,r:13.6,kg:500},{h:11,r:11.3,kg:1500},{h:11,r:10.8,kg:0},{h:11,r:10.4,kg:1500},{h:11,r:6.0,kg:1500},{h:11,r:5.7,kg:2000},{h:11,r:3.2,kg:0},{h:11,r:0.8,kg:2000},{h:11,r:0,kg:2000},{h:12,r:17.1,kg:300},{h:12,r:16.8,kg:2000},{h:12,r:16.4,kg:0},{h:12,r:16.0,kg:300},{h:12,r:15.7,kg:500},{h:12,r:15.2,kg:0},{h:12,r:14.8,kg:500},{h:12,r:14.1,kg:1500},{h:12,r:13.6,kg:1500},{h:12,r:11.3,kg:2000},{h:12,r:10.1,kg:0},{h:12,r:9.0,kg:2000},{h:12,r:0,kg:2000},{h:13,r:17.1,kg:300},{h:13,r:16.8,kg:2000},{h:13,r:16.4,kg:0},{h:13,r:16.0,kg:300},{h:13,r:15.7,kg:500},{h:13,r:15.2,kg:0},{h:13,r:14.8,kg:500},{h:13,r:14.2,kg:1500},{h:13,r:13.6,kg:1500},{h:13,r:10.7,kg:0},{h:13,r:10.2,kg:1500},{h:13,r:9.6,kg:2000},{h:13,r:9.4,kg:2000},{h:13,r:0,kg:2000},{h:14,r:17.1,kg:300},{h:14,r:16.8,kg:2000},{h:14,r:16.6,kg:300},{h:14,r:15.7,kg:500},{h:14,r:14.6,kg:0},{h:14,r:13.6,kg:500},{h:14,r:11.3,kg:1500},{h:14,r:10.6,kg:0},{h:14,r:10.1,kg:1500},{h:14,r:9.5,kg:2000},{h:14,r:9.0,kg:2000},{h:14,r:0,kg:2000},{h:15,r:18.8,kg:300},{h:15,r:18.5,kg:2000},{h:15,r:18.1,kg:300},{h:15,r:17.8,kg:500},{h:15,r:17.4,kg:0},{h:15,r:17.1,kg:500},{h:15,r:16.4,kg:0},{h:15,r:16.0,kg:500},{h:15,r:15.5,kg:1500},{h:15,r:14.5,kg:0},{h:15,r:13.6,kg:1500},{h:15,r:11.1,kg:1500},{h:15,r:10.5,kg:2000},{h:15,r:9.7,kg:0},{h:15,r:9.0,kg:2000},{h:15,r:1.1,kg:0},{h:15,r:0.8,kg:2000},{h:15,r:0,kg:2000},{h:16,r:18.1,kg:300},{h:16,r:17.8,kg:2000},{h:16,r:17.4,kg:0},{h:16,r:17.1,kg:300},{h:16,r:16.8,kg:500},{h:16,r:16.1,kg:0},{h:16,r:15.4,kg:500},{h:16,r:14.3,kg:1500},{h:16,r:13.9,kg:0},{h:16,r:13.6,kg:1500},{h:16,r:11.3,kg:2000},{h:16,r:10.1,kg:0},{h:16,r:9.0,kg:2000},{h:16,r:0,kg:2000},{h:17,r:18.9,kg:300},{h:17,r:18.5,kg:2000},{h:17,r:18.1,kg:300},{h:17,r:14.7,kg:500},{h:17,r:14.1,kg:0},{h:17,r:13.6,kg:500},{h:17,r:11.3,kg:1500},{h:17,r:11.1,kg:1500},{h:17,r:10.6,kg:2000},{h:17,r:9.8,kg:0},{h:17,r:9.0,kg:2000},{h:17,r:0,kg:2000},{h:18,r:18.1,kg:300},{h:18,r:17.8,kg:2000},{h:18,r:17.4,kg:0},{h:18,r:17.1,kg:300},{h:18,r:16.8,kg:500},{h:18,r:16.4,kg:0},{h:18,r:16.0,kg:500},{h:18,r:15.3,kg:0},{h:18,r:15.0,kg:500},{h:18,r:14.7,kg:1500},{h:18,r:14.4,kg:1500},{h:18,r:13.7,kg:1500},{h:18,r:11.3,kg:2000},{h:18,r:10.1,kg:0},{h:18,r:9.0,kg:2000},{h:18,r:0,kg:2000},{h:19,r:19.1,kg:300},{h:19,r:18.6,kg:2000},{h:19,r:17.8,kg:0},{h:19,r:17.1,kg:300},{h:19,r:16.8,kg:500},{h:19,r:16.4,kg:0},{h:19,r:16.0,kg:500},{h:19,r:15.3,kg:0},{h:19,r:15.0,kg:500},{h:19,r:14.7,kg:1500},{h:19,r:14.1,kg:1500},{h:19,r:13.7,kg:1500},{h:19,r:11.1,kg:2000},{h:19,r:9.8,kg:0},{h:19,r:8.7,kg:2000},{h:19,r:0,kg:2000},{h:20,r:17.1,kg:300},{h:20,r:16.8,kg:500},{h:20,r:15.8,kg:0},{h:20,r:15.0,kg:500},{h:20,r:14.7,kg:1500},{h:20,r:13.8,kg:0},{h:20,r:13.0,kg:1500},{h:20,r:10.9,kg:2000},{h:20,r:9.5,kg:0},{h:20,r:8.2,kg:2000},{h:20,r:0,kg:2000}],
       loadMatrixTyres360:[{h:0.0,r:0.0,kg:1800},{h:0.0,r:4.5,kg:1800},{h:0.0,r:6.0,kg:1300},{h:0.0,r:7.5,kg:1050},{h:0.0,r:9.0,kg:800},{h:0.0,r:11.0,kg:500},{h:0.0,r:12.5,kg:350},{h:0.0,r:15.0,kg:150},{h:2.0,r:0.0,kg:1800},{h:2.0,r:4.5,kg:1800},{h:2.0,r:6.0,kg:1300},{h:2.0,r:7.5,kg:1050},{h:2.0,r:9.0,kg:800},{h:2.0,r:11.0,kg:500},{h:2.0,r:12.5,kg:350},{h:4.0,r:0.0,kg:1800},{h:4.0,r:4.0,kg:1800},{h:4.0,r:5.5,kg:1300},{h:4.0,r:7.0,kg:1050},{h:4.0,r:8.5,kg:800},{h:4.0,r:10.5,kg:500},{h:6.0,r:0.0,kg:1800},{h:6.0,r:3.5,kg:1800},{h:6.0,r:5.0,kg:1300},{h:6.0,r:6.5,kg:1050},{h:6.0,r:8.0,kg:800},{h:6.0,r:10.0,kg:500},{h:8.0,r:0.0,kg:1800},{h:8.0,r:3.0,kg:1800},{h:8.0,r:4.5,kg:1300},{h:8.0,r:6.0,kg:1050},{h:8.0,r:7.5,kg:800},{h:10.0,r:0.0,kg:1800},{h:10.0,r:2.5,kg:1800},{h:10.0,r:4.0,kg:1300},{h:10.0,r:5.5,kg:1050},{h:10.0,r:7.0,kg:800},{h:12.0,r:0.0,kg:1800},{h:12.0,r:3.5,kg:1300},{h:12.0,r:5.0,kg:1050},{h:12.0,r:6.0,kg:800},{h:14.0,r:0.0,kg:1300},{h:14.0,r:4.0,kg:1050},{h:14.0,r:5.0,kg:800},{h:16.0,r:0.0,kg:1050},{h:16.0,r:3.5,kg:800},{h:18.0,r:0.0,kg:800},{h:18.0,r:2.0,kg:800}],
@@ -13232,7 +13232,7 @@ const MACHINES = {
         {h:24.8,r:0,kg:4500},{h:24.8,r:1,kg:4000}
       ],
       // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (4000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800:[{h:0.0,r:0.0,kg:4000},{h:0.0,r:5.4,kg:3000},{h:0.0,r:10.8,kg:2000},{h:0.0,r:16.1,kg:1200},{h:2.0,r:0.0,kg:4000},{h:2.0,r:5.1,kg:3000},{h:2.0,r:10.2,kg:2000},{h:2.0,r:15.4,kg:1200},{h:4.0,r:0.0,kg:4000},{h:4.0,r:4.8,kg:3000},{h:4.0,r:9.5,kg:2000},{h:4.0,r:14.2,kg:1200},{h:6.0,r:0.0,kg:4000},{h:6.0,r:4.2,kg:3000},{h:6.0,r:8.5,kg:2000},{h:6.0,r:12.8,kg:1200},{h:8.0,r:0.0,kg:4000},{h:8.0,r:4.2,kg:3000},{h:8.0,r:8.5,kg:2000},{h:8.0,r:12.8,kg:1200},{h:10.0,r:0.0,kg:4000},{h:10.0,r:3.6,kg:3000},{h:10.0,r:7.2,kg:2000},{h:10.0,r:10.9,kg:1200},{h:12.0,r:0.0,kg:4000},{h:12.0,r:3.5,kg:3000},{h:12.0,r:7.0,kg:2000},{h:12.0,r:10.5,kg:1200},{h:14.0,r:0.0,kg:4000},{h:14.0,r:2.9,kg:3000},{h:14.0,r:5.8,kg:2000},{h:14.0,r:8.6,kg:1200},{h:16.0,r:0.0,kg:4000},{h:16.0,r:2.9,kg:3000},{h:16.0,r:5.8,kg:2000},{h:16.0,r:8.6,kg:1200},{h:18.0,r:0.0,kg:4000},{h:18.0,r:2.1,kg:3000},{h:18.0,r:4.2,kg:2000},{h:18.0,r:6.4,kg:1200},{h:20.0,r:0.0,kg:4000},{h:20.0,r:2.1,kg:3000},{h:20.0,r:4.2,kg:2000},{h:20.0,r:6.4,kg:1200},{h:22.0,r:0.0,kg:4000},{h:22.0,r:1.9,kg:3000},{h:22.0,r:3.8,kg:2000},{h:22.0,r:5.6,kg:1200},{h:24.0,r:0.0,kg:4000},{h:24.0,r:1.5,kg:3000},{h:24.0,r:3.0,kg:2000},{h:24.0,r:4.5,kg:1200},{h:24.6,r:0.0,kg:4000},{h:24.6,r:1.0,kg:3000},{h:24.6,r:2.0,kg:2000},{h:24.6,r:3.0,kg:1200},{h:26.6,r:0.0,kg:4000},{h:26.6,r:0.9,kg:3000},{h:26.6,r:1.8,kg:2000},{h:26.6,r:2.7,kg:1200}],
+      loadMatrixJib800:[], // ⚠️ Cleared — no brochure jib winch chart available; displays 'Confirm with rental company'
       // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (365kg constant throughout working envelope).
       loadMatrixJib1500:[{h:0.0,r:0.0,kg:365},{h:0.0,r:5.0,kg:365},{h:0.0,r:7.5,kg:365},{h:0.0,r:9.5,kg:365},{h:0.0,r:11.5,kg:365},{h:0.0,r:14.0,kg:365},{h:0.0,r:16.0,kg:365},{h:0.0,r:17.5,kg:365},{h:0.0,r:18.5,kg:365},{h:0.0,r:19.5,kg:365},{h:2.0,r:0.0,kg:365},{h:2.0,r:5.0,kg:365},{h:2.0,r:7.5,kg:365},{h:2.0,r:9.5,kg:365},{h:2.0,r:11.5,kg:365},{h:2.0,r:14.0,kg:365},{h:2.0,r:16.0,kg:365},{h:2.0,r:17.5,kg:365},{h:2.0,r:18.5,kg:365},{h:4.0,r:0.0,kg:365},{h:4.0,r:4.5,kg:365},{h:4.0,r:7.0,kg:365},{h:4.0,r:9.0,kg:365},{h:4.0,r:11.0,kg:365},{h:4.0,r:13.5,kg:365},{h:4.0,r:15.5,kg:365},{h:4.0,r:17.0,kg:365},{h:6.0,r:0.0,kg:365},{h:6.0,r:4.0,kg:365},{h:6.0,r:6.5,kg:365},{h:6.0,r:8.5,kg:365},{h:6.0,r:10.5,kg:365},{h:6.0,r:13.0,kg:365},{h:6.0,r:15.0,kg:365},{h:8.0,r:0.0,kg:365},{h:8.0,r:4.0,kg:365},{h:8.0,r:6.5,kg:365},{h:8.0,r:8.5,kg:365},{h:8.0,r:10.5,kg:365},{h:8.0,r:13.0,kg:365},{h:8.0,r:15.0,kg:365},{h:10.0,r:0.0,kg:365},{h:10.0,r:3.5,kg:365},{h:10.0,r:6.0,kg:365},{h:10.0,r:8.0,kg:365},{h:10.0,r:10.0,kg:365},{h:10.0,r:12.5,kg:365},{h:12.0,r:0.0,kg:365},{h:12.0,r:3.5,kg:365},{h:12.0,r:6.0,kg:365},{h:12.0,r:8.0,kg:365},{h:12.0,r:10.0,kg:365},{h:12.0,r:12.0,kg:365},{h:14.0,r:0.0,kg:365},{h:14.0,r:3.0,kg:365},{h:14.0,r:5.5,kg:365},{h:14.0,r:7.5,kg:365},{h:14.0,r:9.5,kg:365},{h:16.0,r:0.0,kg:365},{h:16.0,r:2.5,kg:365},{h:16.0,r:5.5,kg:365},{h:16.0,r:7.5,kg:365},{h:16.0,r:9.5,kg:365},{h:18.0,r:0.0,kg:365},{h:18.0,r:2.0,kg:365},{h:18.0,r:4.5,kg:365},{h:18.0,r:6.5,kg:365},{h:20.0,r:0.0,kg:365},{h:20.0,r:1.5,kg:365},{h:20.0,r:4.5,kg:365},{h:20.0,r:6.5,kg:365},{h:22.0,r:0.0,kg:365},{h:22.0,r:1.0,kg:365},{h:22.0,r:3.5,kg:365},{h:22.0,r:5.5,kg:365},{h:24.0,r:0.0,kg:365},{h:24.0,r:0.5,kg:365},{h:24.0,r:2.5,kg:365},{h:24.0,r:4.0,kg:365},{h:24.6,r:0.0,kg:365},{h:24.6,r:2.0,kg:365}],
       loadMatrixTyres360:[{h:0.0,r:0.0,kg:1800},{h:0.0,r:3.5,kg:1800},{h:0.0,r:5.5,kg:1300},{h:0.0,r:7.5,kg:1050},{h:0.0,r:9.0,kg:800},{h:0.0,r:10.5,kg:500},{h:0.0,r:11.5,kg:400},{h:0.0,r:12.5,kg:250},{h:0.0,r:13.1,kg:150},{h:2.0,r:0.0,kg:1800},{h:2.0,r:3.5,kg:1800},{h:2.0,r:5.5,kg:1300},{h:2.0,r:7.5,kg:1050},{h:2.0,r:9.0,kg:800},{h:2.0,r:10.5,kg:500},{h:2.0,r:11.5,kg:400},{h:2.0,r:12.5,kg:250},{h:4.0,r:0.0,kg:1800},{h:4.0,r:3.5,kg:1800},{h:4.0,r:5.5,kg:1300},{h:4.0,r:7.0,kg:1050},{h:4.0,r:8.5,kg:800},{h:4.0,r:10.0,kg:500},{h:4.0,r:11.0,kg:400},{h:6.0,r:0.0,kg:1800},{h:6.0,r:3.0,kg:1800},{h:6.0,r:5.0,kg:1300},{h:6.0,r:6.5,kg:1050},{h:6.0,r:8.0,kg:800},{h:6.0,r:9.5,kg:500},{h:8.0,r:0.0,kg:1800},{h:8.0,r:3.0,kg:1800},{h:8.0,r:4.5,kg:1300},{h:8.0,r:6.0,kg:1050},{h:8.0,r:7.5,kg:800},{h:10.0,r:0.0,kg:1800},{h:10.0,r:2.5,kg:1800},{h:10.0,r:4.0,kg:1300},{h:10.0,r:5.5,kg:1050},{h:10.0,r:7.0,kg:800},{h:12.0,r:0.0,kg:1800},{h:12.0,r:2.0,kg:1800},{h:12.0,r:4.0,kg:1300},{h:12.0,r:5.0,kg:1050},{h:14.0,r:0.0,kg:1800},{h:14.0,r:2.0,kg:1800},{h:14.0,r:3.5,kg:1300},{h:14.0,r:4.5,kg:1050},{h:16.3,r:0.0,kg:1800},{h:16.3,r:1.0,kg:1800},{h:16.3,r:2.5,kg:1300}],
@@ -44836,18 +44836,6 @@ const SPEC_QS = {
         {ico:'🤔', lbl:'Not sure', sub:'Show me options either way', val:'maybe'},
       ]
     },
-    {
-      id:'scissor_accessories', icon:'🔩',
-      text:'Do you need any accessories with the scissor lift? (select all that apply)',
-      hint:'These are quoted as separate hire line items — the rental company will price them individually.',
-      type:'multi',
-      optional: true,
-      options:[
-        {ico:'🪠', lbl:'Pipe racks', sub:'Platform-mounted pipe cradles for long pipe, conduit or bar stock', val:'pipe_racks'},
-        {ico:'🦺', lbl:'EQSS (Enhanced Quad Support System)', sub:'Quad outrigger stability system — required on some sites', val:'eqss'},
-        {ico:'💧', lbl:'Spill under guard', sub:'Drip tray / spill containment mat — one-time hire charge (not daily)', val:'spill_guard'},
-      ]
-    },
   ],
 
   boom:[
@@ -44860,17 +44848,6 @@ const SPEC_QS = {
         {ico:'⚡', lbl:'Electric / battery only', sub:'Indoor, no fumes, noise-sensitive areas', val:'electric_boom'},
         {ico:'🔋', lbl:'Hybrid (electric + diesel)', sub:'Best of both — indoor and outdoor', val:'hybrid_boom'},
         {ico:'⛽', lbl:'Diesel fine', sub:'Outdoor, no restrictions', val:'diesel_boom'},
-      ]
-    },
-    {
-      id:'boom_accessories', icon:'🔌',
-      text:'Do you need power to the basket?',
-      hint:'Power to basket (240V outlet in the platform) is quoted as a separate hire line item — the rental company will price it per day and per week.',
-      type:'options',
-      optional: true,
-      options:[
-        {ico:'🔌', lbl:'Yes — 240V power outlet in basket required', sub:'For tools, lighting, or equipment run from the platform', val:'power_basket'},
-        {ico:'❌', lbl:'No — not needed', sub:'No power outlet required in the basket', val:'no_power_basket'},
       ]
     },
     {
@@ -46178,9 +46155,8 @@ function matchMachines(ans, type) {
     if (scissorMaxWeight > 0) pool = pool.filter(m => !m.machineWeight || m.machineWeight <= scissorMaxWeight);
 
     // Power filter:
-    // electric = hard filter (user needs electric, e.g. indoor no-fumes site)
-    // diesel   = "Diesel fine" = NO RESTRICTION — show all machines incl. electric
-    //            (diesel machines will score higher if available, but don't exclude electric)
+    // electric  = hard filter — only show electric/battery machines (indoor no-fumes)
+    // diesel    = hard filter — only show diesel (and hybrid) machines; exclude electric-only
     // any_power = no filter at all
     if (pwr === 'electric') {
       pool = pool.filter(m => {
@@ -46188,8 +46164,13 @@ function matchMachines(ans, type) {
         return p.includes('electric') || p.includes('battery');
       });
     }
-    // Note: pwr === 'diesel' intentionally NOT filtered — it means "no restriction on power"
-    // Diesel scissors are all outdoor/RT machines; the terrain filter handles exclusion for indoor jobs.
+    if (pwr === 'diesel') {
+      pool = pool.filter(m => {
+        const p = (m.power||'').toLowerCase();
+        // Keep diesel, hybrid, dual-power. Exclude electric-only / battery-only.
+        return p.includes('diesel') || p.includes('hybrid') || p.includes('dual');
+      });
+    }
 
     // Hard exclusions: remove machines that physically cannot do the job
     if (minHt > 0) pool = pool.filter(m => (m.liftHeight || 0) >= minHt);
@@ -46314,6 +46295,29 @@ function matchMachines(ans, type) {
     const pwr     = ans.boom_power;
     const boomTypePref = ans.boom_type_pref;
     const basketSwl = parseFloat(ans.ppl_basket_swl) || 0;
+
+    // ── Reach = 0 redirect ──────────────────────────────────────────────────
+    // If the customer is in the boom quiz path but has entered 0 horizontal outreach
+    // (or left it blank) and there is no obstacle to reach over, they don't actually
+    // need a boom lift — a scissor lift is the correct machine.
+    // Override machine type globally and re-trigger showResults so the scissor block runs.
+    const _noReachNeeded = exactReach === 0 && !exactObstacle && overOut !== 'yes' && overUp !== 'yes';
+    if (_noReachNeeded) {
+      // Map boom power → scissor power before redirecting
+      const _pwrMap = { diesel_boom:'diesel', electric_boom:'electric', hybrid_boom:'any_power' };
+      if (pwr && _pwrMap[pwr] && !ans.scissor_power) answers.scissor_power = _pwrMap[pwr];
+      // Map height
+      if (exactHt > 0 && !answers.scis_ht_m) answers.scis_ht_m = String(exactHt);
+      // Map terrain
+      if (!answers.scissor_surface) {
+        const _t = terr || ans.people_location || '';
+        answers.scissor_surface = (_t.includes('rough') || _t === 'outdoor_rough') ? 'rough_scis' : 'smooth';
+      }
+      // Switch global machine type to scissor and re-run results
+      machineType = 'scissor';
+      showResults();
+      return [];
+    }
     const hasR    = ans.has_restrictions === 'has_restrict';
 
     // Hard SWL filter — never show a boom that can't handle the basket load
@@ -53157,6 +53161,164 @@ var AU_SUBURB_CITY = (function(){
     ['macksville',['Coffs Harbour','NSW']], ['dorrigo',['Coffs Harbour','NSW']],
     ['urunga',['Coffs Harbour','NSW']], ['mylestom',['Coffs Harbour','NSW']],
 
+    // ── Sydney CBD & inner precincts ─────────────────────────────────────────
+    ['darling harbour',['Sydney','NSW']], ['the rocks',['Sydney','NSW']],
+    ['circular quay',['Sydney','NSW']], ['barangaroo',['Sydney','NSW']],
+    ['walsh bay',['Sydney','NSW']], ['millers point',['Sydney','NSW']],
+    ['dawes point',['Sydney','NSW']], ['haymarket',['Sydney','NSW']],
+    ['sydney cbd',['Sydney','NSW']], ['cbd',['Sydney','NSW']],
+    ['pyrmont',['Sydney','NSW']], ['darlinghurst',['Sydney','NSW']],
+    ['potts point',['Sydney','NSW']], ['kings cross',['Sydney','NSW']],
+    ['elizabeth bay',['Sydney','NSW']], ['woolloomooloo',['Sydney','NSW']],
+    ['rushcutters bay',['Sydney','NSW']], ['centennial park',['Sydney','NSW']],
+    ['moore park',['Sydney','NSW']], ['forest lodge',['Sydney','NSW']],
+    ['lilyfield',['Sydney','NSW']], ['birchgrove',['Sydney','NSW']],
+    ['south eveleigh',['Sydney','NSW']], ['macdonaldtown',['Sydney','NSW']],
+    ['sydney olympic park',['Sydney','NSW']], ['sydney airport',['Sydney','NSW']],
+
+    // ── Sydney lower north shore ──────────────────────────────────────────────
+    ['neutral bay',['Sydney','NSW']], ['cremorne',['Sydney','NSW']],
+    ['cammeray',['Sydney','NSW']], ['naremburn',['Sydney','NSW']],
+    ['waverton',['Sydney','NSW']], ['wollstonecraft',['Sydney','NSW']],
+    ['crows nest',['Sydney','NSW']], ['st leonards',['Sydney','NSW']],
+    ['milsons point',['Sydney','NSW']], ['kirribilli',['Sydney','NSW']],
+    ['lavender bay',['Sydney','NSW']], ['mcmahons point',['Sydney','NSW']],
+    ['blues point',['Sydney','NSW']],
+
+    // ── Sydney inner west (missing) ───────────────────────────────────────────
+    ['cabarita',['Sydney','NSW']], ['mortlake',['Sydney','NSW']],
+    ['north strathfield',['Sydney','NSW']], ['abbotsford',['Sydney','NSW']],
+
+    // ── Sydney eastern suburbs ────────────────────────────────────────────────
+    ['randwick',['Sydney','NSW']], ['coogee',['Sydney','NSW']],
+    ['maroubra',['Sydney','NSW']], ['kingsford',['Sydney','NSW']],
+    ['pagewood',['Sydney','NSW']], ['eastgardens',['Sydney','NSW']],
+    ['hillsdale',['Sydney','NSW']], ['daceyville',['Sydney','NSW']],
+    ['la perouse',['Sydney','NSW']], ['little bay',['Sydney','NSW']],
+
+    // ── Sydney south & St George ──────────────────────────────────────────────
+    ['wolli creek',['Sydney','NSW']], ['arncliffe',['Sydney','NSW']],
+    ['banksia',['Sydney','NSW']], ['bardwell park',['Sydney','NSW']],
+    ['turella',['Sydney','NSW']], ['bexley',['Sydney','NSW']],
+    ['bexley north',['Sydney','NSW']], ['narwee',['Sydney','NSW']],
+    ['beverly hills',['Sydney','NSW']], ['penshurst',['Sydney','NSW']],
+    ['mortdale',['Sydney','NSW']], ['oatley',['Sydney','NSW']],
+    ['connells point',['Sydney','NSW']], ['south hurstville',['Sydney','NSW']],
+    ['blakehurst',['Sydney','NSW']], ['kyle bay',['Sydney','NSW']],
+    ['allawah',['Sydney','NSW']], ['brighton-le-sands',['Sydney','NSW']],
+    ['monterey',['Sydney','NSW']], ['ramsgate',['Sydney','NSW']],
+    ['sans souci',['Sydney','NSW']], ['dolls point',['Sydney','NSW']],
+    ['sylvania',['Sydney','NSW']], ['sylvania waters',['Sydney','NSW']],
+    ['bundeena',['Sydney','NSW']],
+
+    // ── Newcastle inner (missing) ─────────────────────────────────────────────
+    ['merewether heights',['Newcastle','NSW']], ['cooks hill',['Newcastle','NSW']],
+    ['the hill',['Newcastle','NSW']], ['broadmeadow',['Newcastle','NSW']],
+
+    // ── NSW Regional ──────────────────────────────────────────────────────────
+    ['port macquarie',['Port Macquarie','NSW']], ['wauchope',['Port Macquarie','NSW']],
+    ['laurieton',['Port Macquarie','NSW']], ['lake cathie',['Port Macquarie','NSW']],
+    ['forster',['Forster','NSW']], ['tuncurry',['Forster','NSW']],
+    ['taree',['Taree','NSW']], ['wingham',['Taree','NSW']], ['gloucester',['Taree','NSW']],
+    ['kempsey',['Kempsey','NSW']], ['south west rocks',['Kempsey','NSW']], ['hat head',['Kempsey','NSW']],
+    ['byron bay',['Byron Bay','NSW']], ['ballina',['Ballina','NSW']],
+    ['lismore',['Lismore','NSW']], ['casino',['Lismore','NSW']],
+    ['alstonville',['Ballina','NSW']], ['lennox head',['Ballina','NSW']],
+    ['mullumbimby',['Byron Bay','NSW']], ['brunswick heads',['Byron Bay','NSW']],
+    ['murwillumbah',['Tweed Heads','NSW']],
+    ['katoomba',['Blue Mountains','NSW']], ['leura',['Blue Mountains','NSW']],
+    ['hazelbrook',['Blue Mountains','NSW']], ['lapstone',['Blue Mountains','NSW']],
+    ['nelson bay',['Port Stephens','NSW']], ['anna bay',['Port Stephens','NSW']],
+    ['salamander bay',['Port Stephens','NSW']], ['tea gardens',['Port Stephens','NSW']],
+    ['hawks nest',['Port Stephens','NSW']], ['port stephens',['Port Stephens','NSW']],
+    ['maitland vale',['Newcastle','NSW']], ['metford',['Newcastle','NSW']],
+    ['tenambit',['Newcastle','NSW']],
+
+    // ── VIC Regional ─────────────────────────────────────────────────────────
+    ['mornington',['Mornington Peninsula','VIC']], ['rosebud',['Mornington Peninsula','VIC']],
+    ['rye',['Mornington Peninsula','VIC']], ['blairgowrie',['Mornington Peninsula','VIC']],
+    ['portsea',['Mornington Peninsula','VIC']], ['mount eliza',['Mornington Peninsula','VIC']],
+    ['mount martha',['Mornington Peninsula','VIC']], ['moorooduc',['Mornington Peninsula','VIC']],
+    ['frankston south',['Melbourne','VIC']], ['langwarrin south',['Melbourne','VIC']],
+    ['baxter',['Mornington Peninsula','VIC']], ['somerville',['Mornington Peninsula','VIC']],
+    ['healesville',['Melbourne','VIC']], ['yarra glen',['Melbourne','VIC']],
+    ['warburton',['Melbourne','VIC']], ['lilydale',['Melbourne','VIC']],
+    ['pakenham south',['Melbourne','VIC']], ['officer',['Melbourne','VIC']],
+    ['beaconsfield',['Melbourne','VIC']],
+    ['wonthaggi',['Wonthaggi','VIC']], ['san remo',['Wonthaggi','VIC']],
+    ['cowes',['Phillip Island','VIC']], ['phillip island',['Phillip Island','VIC']],
+    ['torquay',['Geelong','VIC']], ['jan juc',['Geelong','VIC']],
+    ['aireys inlet',['Geelong','VIC']], ['lorne',['Geelong','VIC']],
+    ['colac',['Colac','VIC']], ['apollo bay',['Colac','VIC']],
+    ['mildura',['Mildura','VIC']], ['red cliffs',['Mildura','VIC']],
+    ['irymple',['Mildura','VIC']], ['nichols point',['Mildura','VIC']],
+    ['sale',['Sale','VIC']], ['bairnsdale',['Bairnsdale','VIC']],
+    ['lakes entrance',['Bairnsdale','VIC']], ['paynesville',['Bairnsdale','VIC']],
+    ['horsham',['Horsham','VIC']], ['ararat',['Ararat','VIC']],
+    ['stawell',['Stawell','VIC']], ['nhill',['Horsham','VIC']],
+    ['hamilton',['Hamilton','VIC']], ['portland',['Portland','VIC']],
+
+    // ── QLD Regional ─────────────────────────────────────────────────────────
+    ['bundaberg',['Bundaberg','QLD']], ['bargara',['Bundaberg','QLD']],
+    ['avenell heights',['Bundaberg','QLD']], ['kepnock',['Bundaberg','QLD']],
+    ['gladstone',['Gladstone','QLD']], ['calliope',['Gladstone','QLD']],
+    ['boyne island',['Gladstone','QLD']], ['tannum sands',['Gladstone','QLD']],
+    ['gympie',['Gympie','QLD']], ['cooloola cove',['Gympie','QLD']],
+    ['rainbow beach',['Gympie','QLD']],
+    ['warwick',['Warwick','QLD']], ['stanthorpe',['Stanthorpe','QLD']],
+    ['dalby',['Dalby','QLD']], ['chinchilla',['Dalby','QLD']],
+    ['emerald',['Emerald','QLD']], ['blackwater',['Blackwater','QLD']],
+    ['biloela',['Biloela','QLD']], ['moura',['Biloela','QLD']],
+    ['longreach',['Longreach','QLD']], ['barcaldine',['Longreach','QLD']],
+    ['blackall',['Longreach','QLD']],
+    ['mount isa',['Mount Isa','QLD']], ['cloncurry',['Mount Isa','QLD']],
+    ['ingham',['Ingham','QLD']], ['tully',['Tully','QLD']],
+    ['innisfail',['Innisfail','QLD']],
+    ['port douglas',['Cairns','QLD']], ['mossman',['Cairns','QLD']],
+    ['palm island',['Townsville','QLD']],
+    ['weipa',['Weipa','QLD']], ['cooktown',['Cairns','QLD']],
+
+    // ── SA Regional ──────────────────────────────────────────────────────────
+    ['mount gambier',['Mount Gambier','SA']], ['millicent',['Mount Gambier','SA']],
+    ['naracoorte',['Naracoorte','SA']], ['bordertown',['Naracoorte','SA']],
+    ['port augusta',['Port Augusta','SA']], ['whyalla',['Whyalla','SA']],
+    ['port pirie',['Port Pirie','SA']], ['port lincoln',['Port Lincoln','SA']],
+    ['murray bridge',['Murray Bridge','SA']],
+    ['victor harbor',['Victor Harbor','SA']], ['goolwa',['Victor Harbor','SA']],
+    ['renmark',['Riverland','SA']], ['berri',['Riverland','SA']],
+    ['loxton',['Riverland','SA']], ['waikerie',['Riverland','SA']],
+    ['kadina',['Yorke Peninsula','SA']], ['wallaroo',['Yorke Peninsula','SA']],
+    ['moonta',['Yorke Peninsula','SA']],
+
+    // ── WA Regional ──────────────────────────────────────────────────────────
+    ['karratha',['Karratha','WA']], ['dampier',['Karratha','WA']],
+    ['roebourne',['Karratha','WA']], ['wickham',['Karratha','WA']],
+    ['port hedland',['Port Hedland','WA']], ['south hedland',['Port Hedland','WA']],
+    ['marble bar',['Port Hedland','WA']],
+    ['broome',['Broome','WA']], ['derby',['Broome','WA']],
+    ['fitzroy crossing',['Broome','WA']],
+    ['kununurra',['Kununurra','WA']], ['wyndham',['Kununurra','WA']],
+    ['albany',['Albany','WA']], ['denmark',['Albany','WA']],
+    ['mount barker',['Albany','WA']],
+    ['collie',['Collie','WA']], ['narrogin',['Narrogin','WA']],
+    ['katanning',['Katanning','WA']],
+    ['northam',['Northam','WA']], ['york',['Northam','WA']],
+    ['merredin',['Merredin','WA']],
+    ['newman',['Newman','WA']], ['tom price',['Newman','WA']],
+    ['meekatharra',['Meekatharra','WA']],
+
+    // ── NT Regional ──────────────────────────────────────────────────────────
+    ['alice springs',['Alice Springs','NT']], ['east side',['Alice Springs','NT']],
+    ['larapinta',['Alice Springs','NT']], ['stuart',['Alice Springs','NT']],
+    ['katherine',['Katherine','NT']], ['tennant creek',['Tennant Creek','NT']],
+
+    // ── TAS Regional ─────────────────────────────────────────────────────────
+    ['bicheno',['Bicheno','TAS']], ['swansea',['Swansea','TAS']],
+    ['triabunna',['Triabunna','TAS']], ['orford',['Triabunna','TAS']],
+    ['oatlands',['Oatlands','TAS']], ['ross',['Oatlands','TAS']],
+    ['campbell town',['Oatlands','TAS']],
+    ['deloraine',['Deloraine','TAS']], ['westbury',['Deloraine','TAS']],
+
     // ── State-qualified keys for ambiguous suburb names ──────────────────────
     // Allows typing "richmond vic" or "box hill vic" to get correct city
     ['richmond vic',['Melbourne','VIC']], ['richmond nsw',['Sydney','NSW']],
@@ -54056,6 +54218,47 @@ function populateSqmMachineList() {
     const curDur = m.duration || '1-day';
     const durOpts = ['half-day|Half day','1-day|1 day','1-week|1 week','2-weeks|2 weeks','1-month|1 month','3-months|3 months','6-months|6 months','12-months-plus|12+ months']
       .map(o=>{const[v,l]=o.split('|');return `<option value="${v}"${curDur===v?' selected':''}>${l}</option>`;}).join('');
+
+    // ── Accessory checkboxes — scissor lift ────────────────────────────────
+    const _isScissor = (m.type||'').toLowerCase().includes('scissor') || (m.filters||[]).includes('scissor');
+    const _isBoom    = (m.type||'').toLowerCase().includes('boom')    || (m.filters||[]).includes('boom');
+    const _cartAccs  = m.cartAccessories || {};
+
+    let accHtml = '';
+    if (_isScissor) {
+      accHtml = `
+        <div style="margin-top:.6rem;padding:.55rem .8rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px">
+          <div style="font-size:.75rem;font-weight:800;color:#334155;margin-bottom:.4rem">🔧 Accessories — quoted as separate line items by rental company</div>
+          <div style="display:flex;flex-direction:column;gap:.3rem">
+            <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
+              <input type="checkbox" id="sqm-acc-piperack-${i}" ${_cartAccs.pipe_racks?'checked':''} onchange="sqmCartAccChange(${i},'pipe_racks',this.checked)"
+                style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
+              <span><strong>🪠 Pipe racks</strong> — day &amp; week rate <span style="color:#64748B;font-weight:400">(platform-mounted pipe cradles for long pipe, conduit or bar stock)</span></span>
+            </label>
+            <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
+              <input type="checkbox" id="sqm-acc-eqss-${i}" ${_cartAccs.eqss?'checked':''} onchange="sqmCartAccChange(${i},'eqss',this.checked)"
+                style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
+              <span><strong>🦺 EQSS (Enhanced Quad Support System)</strong> — day &amp; week rate <span style="color:#64748B;font-weight:400">(quad outrigger stability system)</span></span>
+            </label>
+            <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
+              <input type="checkbox" id="sqm-acc-spill-${i}" ${_cartAccs.spill_guard?'checked':''} onchange="sqmCartAccChange(${i},'spill_guard',this.checked)"
+                style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
+              <span><strong>💧 Spill under guard</strong> — <span style="background:#DCFCE7;color:#15803D;font-size:.72rem;font-weight:700;padding:.05rem .3rem;border-radius:4px">one-time charge</span> <span style="color:#64748B;font-weight:400">(drip tray / spill containment mat)</span></span>
+            </label>
+          </div>
+        </div>`;
+    } else if (_isBoom) {
+      accHtml = `
+        <div style="margin-top:.6rem;padding:.55rem .8rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px">
+          <div style="font-size:.75rem;font-weight:800;color:#334155;margin-bottom:.4rem">🔧 Accessories — quoted as separate line items by rental company</div>
+          <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
+            <input type="checkbox" id="sqm-acc-power-${i}" ${_cartAccs.power_basket?'checked':''} onchange="sqmCartAccChange(${i},'power_basket',this.checked)"
+              style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
+            <span><strong>🔌 Power to basket (240V outlet)</strong> — day &amp; week rate <span style="color:#64748B;font-weight:400">(for tools, lighting or equipment run from the platform)</span></span>
+          </label>
+        </div>`;
+    }
+
     return `<div class="sqm-machine-item-wrap">
       <div class="sqm-machine-top">
         <span style="font-size:1.4rem">${m.emoji}</span>
@@ -54078,8 +54281,28 @@ function populateSqmMachineList() {
           <select class="sqm-dur-select" id="sqm-dur-${i}" onchange="quoteCart[${i}].duration=this.value" style="flex:1">${durOpts}</select>
         </div>
       </div>
+      ${accHtml}
     </div>`;
   }).join('');
+}
+
+function sqmCartAccChange(cartIdx, accKey, checked) {
+  if (!quoteCart[cartIdx]) return;
+  if (!quoteCart[cartIdx].cartAccessories) quoteCart[cartIdx].cartAccessories = {};
+  quoteCart[cartIdx].cartAccessories[accKey] = checked;
+  // Update chargeableAttachments and oneTimeAttachments on the jobRequirements
+  const acc = quoteCart[cartIdx].cartAccessories;
+  const jr  = quoteCart[cartIdx].jobRequirements || {};
+  const chargeable = [];
+  const oneTime    = [];
+  if (acc.pipe_racks)    chargeable.push('🪠 Pipe racks');
+  if (acc.eqss)          chargeable.push('🦺 EQSS (Enhanced Quad Support System)');
+  if (acc.spill_guard)   oneTime.push('💧 Spill under guard');
+  if (acc.power_basket)  chargeable.push('🔌 Power to basket (240V outlet)');
+  jr.chargeableAttachments = chargeable.length ? chargeable : undefined;
+  jr.oneTimeAttachments    = oneTime.length    ? oneTime    : undefined;
+  quoteCart[cartIdx].jobRequirements = jr;
+  saveCartToStorage();
 }
 
 function buildMachineListHtml() {
@@ -57606,10 +57829,13 @@ setInterval(async () => {
   window._bgReloadRunning = true;
   const _prevResponseCount = quoteInbox.reduce((s,r) => s + (r.responses||[]).length, 0);
   const _prevAcceptedCount = quoteInbox.filter(r => r.acceptedBy).length;
+  const _prevEnquiryCount  = quoteInbox.length;
+  const _prevEnquiryIds    = new Set(quoteInbox.map(r => r.id));
   try {
     await loadInboxFromFirebase();
     const _newResponseCount = quoteInbox.reduce((s,r) => s + (r.responses||[]).length, 0);
     const _newAcceptedCount = quoteInbox.filter(r => r.acceptedBy).length;
+    const _newEnquiryCount  = quoteInbox.length;
     // Notify customer when new responses arrive
     if (currentUser.role === 'customer' && _newResponseCount > _prevResponseCount) {
       const _diff = _newResponseCount - _prevResponseCount;
@@ -57619,6 +57845,16 @@ setInterval(async () => {
       );
       updateMQUnreadBadge();
     }
+    // Notify rental co when new enquiries arrive
+    if (currentUser.role === 'rental' && _newEnquiryCount > _prevEnquiryCount) {
+      const _newJobs = quoteInbox.filter(r => !_prevEnquiryIds.has(r.id));
+      const _diff = _newJobs.length;
+      showToast(
+        `🔔 ${_diff} new hire enquir${_diff>1?'ies':'y'} just arrived! <a href="#" onclick="event.preventDefault();switchView('quote-requests')" style="color:#fff;font-weight:800;text-decoration:underline">View Quote Requests →</a>`,
+        '#0052CC', 8000
+      );
+      updateQRUnreadBadge();
+    }
     // Notify rental co when a quote they submitted was accepted
     if (currentUser.role === 'rental' && _newAcceptedCount > _prevAcceptedCount) {
       showToast(
@@ -57627,6 +57863,8 @@ setInterval(async () => {
       );
       updateQRUnreadBadge();
     }
+    // Always refresh badge for rental co after any reload
+    if (currentUser.role === 'rental') updateQRUnreadBadge();
     // Notify rental co when an acceptance window closes with no decision (once per enquiry)
     if (currentUser.role === 'rental') {
       const myName = currentUser?.name;
@@ -63484,6 +63722,63 @@ function renderAdminSearches() {
   </tr>`).join('') || '<tr><td colspan="9" style="text-align:center;color:#94a3b8;padding:2rem">No searches recorded yet.</td></tr>';
 }
 
+// ── Admin: delete entire enquiry ─────────────────────────────────────────────
+async function adminDeleteEnquiry(reqId) {
+  const req = quoteInbox.find(r => r.id === reqId);
+  const label = req ? `${reqId} (${req.customer||'unknown'})` : reqId;
+  const respCount = (req?.responses||[]).length;
+  const warning = respCount > 0
+    ? `\n\n⚠️ This enquiry has ${respCount} response${respCount>1?'s':''} from rental companies. Deleting will remove all of them too.`
+    : '';
+  if (!confirm(`Delete enquiry ${label}?${warning}\n\nThis cannot be undone. The customer and rental companies will NOT be notified — contact them manually if needed.`)) return;
+  try {
+    // Remove from Firestore
+    if (_fbDb) await _fbDb.collection('shared_enquiries').doc(reqId).delete();
+    // Remove from local array
+    const idx = quoteInbox.findIndex(r => r.id === reqId);
+    if (idx > -1) quoteInbox.splice(idx, 1);
+    showToast(`🗑 Enquiry ${reqId} deleted`, '#DC2626', 4000);
+    renderAdminQuotes();
+    renderAdminDashboard();
+  } catch(e) {
+    showToast('Delete failed: ' + e.message, '#EF4444', 5000);
+  }
+}
+
+// ── Admin: delete a single rental company response ───────────────────────────
+async function adminDeleteResponse(reqId, responseIdx) {
+  const req = quoteInbox.find(r => r.id === reqId);
+  if (!req) { showToast('Enquiry not found', '#EF4444'); return; }
+  const resp = (req.responses||[])[responseIdx];
+  if (!resp) { showToast('Response not found', '#EF4444'); return; }
+  const company = resp.company || 'Unknown company';
+  if (!confirm(`Delete response from ${company} on enquiry ${reqId}?\n\nThis cannot be undone. Contact the rental company manually if they need to resubmit.`)) return;
+  try {
+    // Remove from local array
+    req.responses.splice(responseIdx, 1);
+    // If this was the accepted response, clear acceptance
+    if (req.acceptedBy === company) {
+      req.acceptedBy = null;
+      req.acceptedAt = null;
+      // Also clear accepted/rejected flags on remaining responses
+      (req.responses||[]).forEach(r => { r.accepted = false; r.autoRejected = false; });
+    }
+    // Persist to Firestore
+    if (_fbDb) {
+      await _fbDb.collection('shared_enquiries').doc(reqId).update({
+        responses: req.responses,
+        acceptedBy: req.acceptedBy || null,
+        acceptedAt: req.acceptedAt || null
+      });
+    }
+    showToast(`🗑 Response from ${company} deleted`, '#DC2626', 4000);
+    renderAdminQuotes();
+    renderAdminDashboard();
+  } catch(e) {
+    showToast('Delete failed: ' + e.message, '#EF4444', 5000);
+  }
+}
+
 function renderAdminQuotes() {
   const total      = quoteInbox.length;
   const withResp   = quoteInbox.filter(r=>(r.responses||[]).length>0).length;
@@ -63521,6 +63816,13 @@ function renderAdminQuotes() {
       : req.responseWindowHours===4
         ? '<span style="color:#B45309;font-weight:700">⚡ 4h</span>'
         : '<span style="color:#0052CC;font-weight:700">📋 8h</span>';
+    // Response sub-rows for individual response delete
+    const respRows = (req.responses||[]).map((r,ri) => `
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.2rem .4rem;background:#F8FAFC;border-radius:6px;margin-top:.2rem;font-size:.72rem">
+        <span>💬 <strong>${r.company||'Unknown'}</strong> — $${(r.grandTotal||0).toFixed(2)} ${r.accepted?'✅':r.rejected?'✗':''}</span>
+        <button onclick="adminDeleteResponse('${req.id}',${ri})"
+          style="background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800;cursor:pointer;white-space:nowrap">✕ Delete</button>
+      </div>`).join('');
     return `<tr>
       <td style="font-family:monospace;font-size:.78rem;color:#6366f1;font-weight:700">${req.id}</td>
       <td><strong>${req.customer||'—'}</strong><br><span style="font-size:.72rem;color:#94A3B8">${req.email||''}</span></td>
@@ -63529,11 +63831,20 @@ function renderAdminQuotes() {
       <td style="font-size:.78rem">${req.date||'—'}</td>
       <td>${win}</td>
       <td style="font-size:.75rem;color:#64748B;white-space:nowrap">${req.ts?adminFmtFull(req.ts):'—'}</td>
-      <td style="text-align:center;font-weight:700">${respCount}</td>
+      <td style="text-align:center;font-weight:700">
+        ${respCount}
+        ${respRows ? `<div style="margin-top:.3rem">${respRows}</div>` : ''}
+      </td>
       <td>${status}</td>
       <td style="font-size:.78rem;font-weight:700;color:#166534">${req.acceptedBy||'—'}</td>
+      <td style="text-align:center">
+        <button onclick="adminDeleteEnquiry('${req.id}')"
+          style="background:#FEF2F2;color:#DC2626;border:1.5px solid #FECACA;border-radius:8px;padding:.28rem .6rem;font-size:.72rem;font-weight:900;cursor:pointer;white-space:nowrap">
+          🗑 Delete
+        </button>
+      </td>
     </tr>`;
-  }).join('') || '<tr><td colspan="10" style="text-align:center;color:#94a3b8;padding:2rem">No quotes yet.</td></tr>';
+  }).join('') || '<tr><td colspan="11" style="text-align:center;color:#94a3b8;padding:2rem">No quotes yet.</td></tr>';
 }
 
 function renderAdminActivity() {
@@ -67489,8 +67800,16 @@ function markQuotesRead() {
 function markMyQuotesRead() {
   if (!currentUser || currentUser.role !== 'customer') return;
   const myEmail = currentUser.email.toLowerCase();
-  const allIds = quoteInbox.filter(r => (r.email||'').toLowerCase() === myEmail).map(r => r.id);
-  try { localStorage.setItem(_seenMQKey(), JSON.stringify(allIds)); } catch(e) {}
+  const myReqs = quoteInbox.filter(r => (r.email||'').toLowerCase() === myEmail);
+  const allIds = myReqs.map(r => r.id);
+  // Save current response count per enquiry so new ones trigger the badge
+  const _seenRespKey = 'noyo_mq_seen_resp_' + myEmail.replace(/[^a-z0-9]/g,'_');
+  const respCounts = {};
+  myReqs.forEach(r => { respCounts[r.id] = (r.responses||[]).length; });
+  try {
+    localStorage.setItem(_seenMQKey(), JSON.stringify(allIds));
+    localStorage.setItem(_seenRespKey, JSON.stringify(respCounts));
+  } catch(e) {}
   // Persist to Firestore
   if (_fbDb && currentUser.uid) {
     _fbDb.collection('notification_state').doc(currentUser.uid).set(
@@ -67527,18 +67846,21 @@ function updateMQUnreadBadge() {
   const badge = document.getElementById('mq-unread-badge');
   if (!badge || !currentUser || currentUser.role !== 'customer') return;
   const myEmail = currentUser.email.toLowerCase();
-  const seen = getSeenMyQuoteIds();
+  // Track response counts per enquiry — badge shows total new responses since last view
+  const _seenRespKey = 'noyo_mq_seen_resp_' + myEmail.replace(/[^a-z0-9]/g,'_');
+  let seenRespCounts = {};
+  try { seenRespCounts = JSON.parse(localStorage.getItem(_seenRespKey) || '{}'); } catch(e) {}
   const myReqs = quoteInbox.filter(r => (r.email||'').toLowerCase() === myEmail);
-  // Count: requests that have NEW responses since last seen, and aren't yet accepted/rejected
-  let unactioned = 0;
+  let newResponses = 0;
   myReqs.forEach(req => {
-    const hasResponses = (req.responses||[]).some(rsp => rsp.company);
-    const isActioned = !!req.acceptedBy;
-    const isSeen = seen.has(req.id);
-    if (hasResponses && !isActioned && !isSeen) unactioned++;
+    const currentCount = (req.responses||[]).length;
+    const seenCount    = seenRespCounts[req.id] || 0;
+    if (currentCount > seenCount && !req.acceptedBy) {
+      newResponses += (currentCount - seenCount);
+    }
   });
-  if (unactioned > 0) {
-    badge.textContent = unactioned;
+  if (newResponses > 0) {
+    badge.textContent = newResponses;
     badge.style.display = 'inline';
   } else {
     badge.style.display = 'none';
