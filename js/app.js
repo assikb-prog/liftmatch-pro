@@ -46301,26 +46301,7 @@ function matchMachines(ans, type) {
     const boomTypePref = ans.boom_type_pref;
     const basketSwl = parseFloat(ans.ppl_basket_swl) || 0;
 
-    // ── Reach = 0 redirect to scissor ───────────────────────────────────────
-    // Only redirect when the customer EXPLICITLY typed 0 in the reach field
-    // (ans.boom_reach_m === '0'). If the field is undefined/blank, they came
-    // from the boom quiz without entering reach at all — keep showing boom lifts.
-    // Also never redirect if they specified an obstacle to clear over/out.
-    const _reachExplicitlyZero = (ans.boom_reach_m === '0' || ans.boom_reach_m === 0 ||
-                                   ans.ppl_reach_m  === '0' || ans.ppl_reach_m  === 0);
-    const _noReachNeeded = _reachExplicitlyZero && !exactObstacle && overOut !== 'yes' && overUp !== 'yes';
-    if (_noReachNeeded) {
-      const _pwrMap = { diesel_boom:'diesel', electric_boom:'electric', hybrid_boom:'any_power' };
-      if (pwr && _pwrMap[pwr] && !ans.scissor_power) answers.scissor_power = _pwrMap[pwr];
-      if (exactHt > 0 && !answers.scis_ht_m) answers.scis_ht_m = String(exactHt);
-      if (!answers.scissor_surface) {
-        const _t = terr || ans.people_location || '';
-        answers.scissor_surface = (_t.includes('rough') || _t === 'outdoor_rough') ? 'rough_scis' : 'smooth';
-      }
-      machineType = 'scissor';
-      showResults();
-      return [];
-    }
+
 
     const hasR    = ans.has_restrictions === 'has_restrict';
 
@@ -47283,7 +47264,10 @@ function determineMachineType(ans) {
     const outreach   = parseFloat(ans.ppl_reach_m)   || 0;
     const widthMm    = parseFloat(ans.ppl_width_mm)  || 0;
     const crew       = ans.people_crew;
-    const reachType  = ans.people_reach;   // 'straight_up' | 'over_out'
+    // If customer edited reach to explicitly 0, treat as straight-up regardless of earlier answer
+    const _reachEditedToZero = (ans.ppl_reach_m === '0' || ans.ppl_reach_m === 0 ||
+                                 ans.boom_reach_m === '0' || ans.boom_reach_m === 0);
+    const reachType  = _reachEditedToZero ? 'straight_up' : (ans.people_reach);   // 'straight_up' | 'over_out'
     const loc        = ans.people_location;
     const rough      = loc === 'outdoor_rough';
 
