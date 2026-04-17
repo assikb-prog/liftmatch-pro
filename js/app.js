@@ -46297,11 +46297,11 @@ function matchMachines(ans, type) {
     const basketSwl = parseFloat(ans.ppl_basket_swl) || 0;
 
     // ── Reach = 0 redirect ──────────────────────────────────────────────────
-    // If the customer is in the boom quiz path but has entered 0 horizontal outreach
-    // (or left it blank) and there is no obstacle to reach over, they don't actually
-    // need a boom lift — a scissor lift is the correct machine.
-    // Override machine type globally and re-trigger showResults so the scissor block runs.
-    const _noReachNeeded = exactReach === 0 && !exactObstacle && overOut !== 'yes' && overUp !== 'yes';
+    // Only redirect to scissor when the customer genuinely doesn't need horizontal reach.
+    // MUST NOT trigger if they answered "up and over / out to the side" (people_reach='over_out')
+    // or if mode is 'up_over' — those customers explicitly need a boom lift.
+    const _customerWantsReach = ans.people_reach === 'over_out' || mode === 'up_over' || overOut === 'yes' || overUp === 'yes';
+    const _noReachNeeded = exactReach === 0 && !exactObstacle && !_customerWantsReach;
     if (_noReachNeeded) {
       // Map boom power → scissor power before redirecting
       const _pwrMap = { diesel_boom:'diesel', electric_boom:'electric', hybrid_boom:'any_power' };
