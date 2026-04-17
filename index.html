@@ -357,12 +357,12 @@
     <button class="nav-tab active" onclick="switchView('finder',this)">🏠 Home</button>
     <div style="position:relative;display:none" id="tab-my-quotes-wrap">
       <button class="nav-tab" id="tab-my-quotes" onclick="switchView('my-quotes',this);markMyQuotesRead()">📋 My Quotes</button>
-      <span id="mq-unread-badge" style="display:none;position:absolute;top:-7px;right:-7px;background:#EF4444;color:#fff;border-radius:50%;min-width:19px;height:19px;font-size:.7rem;font-weight:900;line-height:19px;text-align:center;padding:0 4px;box-shadow:0 2px 6px rgba(239,68,68,.5);pointer-events:none;z-index:10"></span>
+      <span id="mq-unread-badge" style="display:none;position:absolute;top:-8px;right:-8px;background:#EF4444;color:#fff;border-radius:50%;min-width:22px;height:22px;font-size:.72rem;font-weight:900;line-height:22px;text-align:center;padding:0 4px;box-shadow:0 2px 8px rgba(239,68,68,.6);pointer-events:none;z-index:10;animation:noyoBadgePulse 1.2s ease-in-out infinite"></span>
     </div>
     <button class="nav-tab" id="tab-my-details" style="display:none;pointer-events:none;position:absolute;left:-9999px" onclick="switchView('my-details',this)">👤 My Details</button>
     <div style="position:relative;display:none" id="tab-quote-requests-wrap">
       <button class="nav-tab" id="tab-quote-requests" onclick="switchView('quote-requests',this);markQuotesRead()">⭐ Quote Requests</button>
-      <span id="qr-unread-badge" style="display:none;position:absolute;top:-7px;right:-7px;background:#EF4444;color:#fff;border-radius:50%;min-width:19px;height:19px;font-size:.7rem;font-weight:900;line-height:19px;text-align:center;padding:0 4px;box-shadow:0 2px 6px rgba(239,68,68,.5);pointer-events:none;z-index:10"></span>
+      <span id="qr-unread-badge" style="display:none;position:absolute;top:-8px;right:-8px;background:#EF4444;color:#fff;border-radius:50%;min-width:22px;height:22px;font-size:.72rem;font-weight:900;line-height:22px;text-align:center;padding:0 4px;box-shadow:0 2px 8px rgba(239,68,68,.6);pointer-events:none;z-index:10;animation:noyoBadgePulse 1.2s ease-in-out infinite"></span>
     </div>
     <button class="nav-tab" id="tab-admin" style="display:none" onclick="switchView('admin',this)">📊 Admin</button>
   </div>
@@ -1206,7 +1206,7 @@
         <table class="admin-table">
           <thead><tr>
             <th>QR Ref</th><th>Customer</th><th>Machines</th><th>Suburb</th>
-            <th>Hire Start</th><th>Window</th><th>Sent</th><th>Responses</th><th>Status</th><th>Accepted From</th>
+            <th>Hire Start</th><th>Window</th><th>Sent</th><th>Responses</th><th>Status</th><th>Accepted From</th><th>Actions</th>
           </tr></thead>
           <tbody id="admin-quotes-tbody"></tbody>
         </table>
