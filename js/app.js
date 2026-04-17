@@ -46296,28 +46296,6 @@ function matchMachines(ans, type) {
     const boomTypePref = ans.boom_type_pref;
     const basketSwl = parseFloat(ans.ppl_basket_swl) || 0;
 
-    // ── Reach = 0 redirect ──────────────────────────────────────────────────
-    // Only redirect to scissor when the customer genuinely doesn't need horizontal reach.
-    // MUST NOT trigger if they answered "up and over / out to the side" (people_reach='over_out')
-    // or if mode is 'up_over' — those customers explicitly need a boom lift.
-    const _customerWantsReach = ans.people_reach === 'over_out' || mode === 'up_over' || overOut === 'yes' || overUp === 'yes';
-    const _noReachNeeded = exactReach === 0 && !exactObstacle && !_customerWantsReach;
-    if (_noReachNeeded) {
-      // Map boom power → scissor power before redirecting
-      const _pwrMap = { diesel_boom:'diesel', electric_boom:'electric', hybrid_boom:'any_power' };
-      if (pwr && _pwrMap[pwr] && !ans.scissor_power) answers.scissor_power = _pwrMap[pwr];
-      // Map height
-      if (exactHt > 0 && !answers.scis_ht_m) answers.scis_ht_m = String(exactHt);
-      // Map terrain
-      if (!answers.scissor_surface) {
-        const _t = terr || ans.people_location || '';
-        answers.scissor_surface = (_t.includes('rough') || _t === 'outdoor_rough') ? 'rough_scis' : 'smooth';
-      }
-      // Switch global machine type to scissor and re-run results
-      machineType = 'scissor';
-      showResults();
-      return [];
-    }
     const hasR    = ans.has_restrictions === 'has_restrict';
 
     // Hard SWL filter — never show a boom that can't handle the basket load
