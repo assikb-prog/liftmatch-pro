@@ -46165,11 +46165,16 @@ function matchMachines(ans, type) {
       });
     }
     if (pwr === 'diesel') {
-      pool = pool.filter(m => {
-        const p = (m.power||'').toLowerCase();
-        // Keep diesel, hybrid, dual-power. Exclude electric-only / battery-only.
-        return p.includes('diesel') || p.includes('hybrid') || p.includes('dual');
-      });
+      // On rough/outdoor jobs: diesel explicitly requested — exclude electric-only machines
+      // On smooth/indoor jobs: "Diesel fine" = no strong preference — show all power types
+      // (diesel machines are typically RT/outdoor anyway, so let terrain filter handle it)
+      if (surf === 'rough_scis' || surf === 'crawler_scis') {
+        pool = pool.filter(m => {
+          const p = (m.power||'').toLowerCase();
+          return p.includes('diesel') || p.includes('hybrid') || p.includes('dual');
+        });
+      }
+      // On smooth/indoor: no power filter — all machines remain, diesel gets score bonus below
     }
 
     // Hard exclusions: remove machines that physically cannot do the job
