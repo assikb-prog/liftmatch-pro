@@ -1562,3 +1562,5 @@ select { border-radius: 8px; }
   body { font-size: 11pt; }
   @page { margin: 15mm; size: A4 landscape; }
 }
+
+@keyframes noyoBadgePulse{0%,100%{transform:scale(1);box-shadow:0 2px 8px rgba(239,68,68,.6)}50%{transform:scale(1.2);box-shadow:0 2px 14px rgba(239,68,68,.9)}}
