@@ -62232,15 +62232,6 @@ const _LM_FILTERS = [
   { key:'users',    label:'👥 Highest Users',    color:'#7C3AED', bg:'#F3E8FF', border:'#C4B5FD' },
 ];
 
-function renderLiveMap() {
-  // Start auto-refresh every 30s
-  if (_liveMapRefresh) clearInterval(_liveMapRefresh);
-  _liveMapRefresh = setInterval(() => {
-    if (document.getElementById('livemap-content')) _renderLiveMapInner();
-  }, 30000);
-  _renderLiveMapInner();
-}
-
 function _renderLiveMapInner() {
   const el = document.getElementById('livemap-content');
   if (!el) return;
@@ -63962,72 +63953,358 @@ async function adminDeleteResponse(reqId, responseIdx) {
 }
 
 function renderAdminQuotes() {
-  const total      = quoteInbox.length;
-  const withResp   = quoteInbox.filter(r=>(r.responses||[]).length>0).length;
-  const accepted   = quoteInbox.filter(r=>r.acceptedBy).length;
-  const pending    = quoteInbox.filter(r=>!(r.responses||[]).length && !r.acceptedBy).length;
-  const express2   = quoteInbox.filter(r=>r.responseWindowHours===2).length;
-  const sameday4   = quoteInbox.filter(r=>r.responseWindowHours===4).length;
-  const project8   = quoteInbox.filter(r=>r.responseWindowHours===8||r.responseWindowHours===24||!r.responseWindowHours).length;
-  const avgResp    = total>0?(quoteInbox.reduce((s,r)=>s+(r.responses||[]).length,0)/total).toFixed(1):'0';
+  // ── Date filter ───────────────────────────────────────────────
+  const periodEl = document.getElementById('qt-period');
+  const statusEl = document.getElementById('qt-status');
+  const catEl    = document.getElementById('qt-category');
+  const searchEl = document.getElementById('qt-search');
+  const period   = periodEl?.value || 'all';
+  const statusF  = statusEl?.value || 'all';
+  const catF     = catEl?.value    || 'all';
+  const searchQ  = (searchEl?.value||'').toLowerCase().trim();
 
-  document.getElementById('admin-quote-breakdown').innerHTML = [
-    ['📥 Total requests',total,'#334155'],
-    ['💬 Received responses',withResp,'#8b5cf6'],
-    ['✅ Customer accepted',accepted,'#22c55e'],
-    ['⏳ Still awaiting',pending,'#f59e0b'],
-    ['💬 Avg responses/request',avgResp,'#3b82f6'],
-  ].map(([l,v,c])=>`<div class="quote-stat-row"><div class="quote-stat-label">${l}</div><div class="quote-stat-val" style="color:${c}">${v}</div></div>`).join('');
+  const now  = new Date();
+  const _d   = (d) => d.toISOString().slice(0,10);
+  let fromMs = 0, toMs = Date.now() + 86400000;
 
-  document.getElementById('admin-window-breakdown').innerHTML = [
-    ['🚨 Express (2h)',express2,'#DC2626'],
-    ['⚡ Same Day (4h)',sameday4,'#B45309'],
-    ['📋 Project / Bulk (8h)',project8,'#0052CC'],
-  ].map(([l,v,c])=>`<div class="quote-stat-row"><div class="quote-stat-label">${l}</div><div class="quote-stat-val" style="color:${c}">${v}</div></div>`).join('');
+  if (period === 'today')      { const d=new Date(); d.setHours(0,0,0,0); fromMs=d.getTime(); }
+  else if (period === '7d')    { fromMs = Date.now() - 7*86400000; }
+  else if (period === '30d')   { fromMs = Date.now() - 30*86400000; }
+  else if (period === '90d')   { fromMs = Date.now() - 90*86400000; }
+  else if (period === 'this_month') { const d=new Date(); fromMs=new Date(d.getFullYear(),d.getMonth(),1).getTime(); }
+  else if (period === 'last_month') { const d=new Date(); const f=new Date(d.getFullYear(),d.getMonth()-1,1); const t=new Date(d.getFullYear(),d.getMonth(),0); fromMs=f.getTime(); toMs=t.getTime()+86400000; }
+  else if (period === 'this_year')  { fromMs=new Date(now.getFullYear(),0,1).getTime(); }
 
-  document.getElementById('admin-quotes-tbody').innerHTML = [...quoteInbox].reverse().map(req=>{
-    const respCount = (req.responses||[]).length;
-    const status = req.acceptedBy
-      ? `<span style="background:#DCFCE7;color:#166534;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">✅ Accepted</span>`
-      : respCount > 0
-        ? `<span style="background:#EDE9FE;color:#7c3aed;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">💬 ${respCount} resp.</span>`
-        : `<span style="background:#FEF9C3;color:#92400E;border-radius:20px;padding:.12rem .5rem;font-size:.7rem;font-weight:800">⏳ Awaiting</span>`;
-    const machines = (req.machines||[]).map(m=>`${m.emoji||'🏗️'} ${m.name||m.id||'Unknown'}`).join(', ') || '—';
-    const win = req.responseWindowHours===2
-      ? '<span style="color:#DC2626;font-weight:700">🚨 2h</span>'
-      : req.responseWindowHours===4
-        ? '<span style="color:#B45309;font-weight:700">⚡ 4h</span>'
-        : '<span style="color:#0052CC;font-weight:700">📋 8h</span>';
-    // Response sub-rows for individual response delete
-    const respRows = (req.responses||[]).map((r,ri) => `
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.2rem .4rem;background:#F8FAFC;border-radius:6px;margin-top:.2rem;font-size:.72rem">
-        <span>💬 <strong>${r.company||'Unknown'}</strong> — $${(r.grandTotal||0).toFixed(2)} ${r.accepted?'✅':r.rejected?'✗':''}</span>
-        <button onclick="adminDeleteResponse('${req.id}',${ri})"
-          style="background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800;cursor:pointer;white-space:nowrap">✕ Delete</button>
-      </div>`).join('');
-    return `<tr>
-      <td style="font-family:monospace;font-size:.78rem;color:#6366f1;font-weight:700">${req.id}</td>
-      <td><strong>${req.customer||'—'}</strong><br><span style="font-size:.72rem;color:#94A3B8">${req.email||''}</span></td>
-      <td style="font-size:.78rem;max-width:160px;overflow:hidden;text-overflow:ellipsis">${machines}</td>
-      <td style="font-size:.78rem">${req.suburb||req.city||'—'}${req.state?', '+req.state:''}</td>
-      <td style="font-size:.78rem">${req.date||'—'}</td>
-      <td>${win}</td>
-      <td style="font-size:.75rem;color:#64748B;white-space:nowrap">${req.ts?adminFmtFull(req.ts):'—'}</td>
-      <td style="text-align:center;font-weight:700">
-        ${respCount}
-        ${respRows ? `<div style="margin-top:.3rem">${respRows}</div>` : ''}
-      </td>
-      <td>${status}</td>
-      <td style="font-size:.78rem;font-weight:700;color:#166534">${req.acceptedBy||'—'}</td>
-      <td style="text-align:center">
-        <button onclick="adminDeleteEnquiry('${req.id}')"
-          style="background:#FEF2F2;color:#DC2626;border:1.5px solid #FECACA;border-radius:8px;padding:.28rem .6rem;font-size:.72rem;font-weight:900;cursor:pointer;white-space:nowrap">
-          🗑 Delete
-        </button>
-      </td>
-    </tr>`;
-  }).join('') || '<tr><td colspan="11" style="text-align:center;color:#94a3b8;padding:2rem">No quotes yet.</td></tr>';
+  // ── Filter quotes ─────────────────────────────────────────────
+  let quotes = [...quoteInbox];
+  if (fromMs > 0) quotes = quotes.filter(q => (q.ts||0) >= fromMs && (q.ts||0) <= toMs);
+
+  if (statusF !== 'all') {
+    if (statusF === 'accepted') quotes = quotes.filter(q => q.acceptedBy);
+    else if (statusF === 'quoted') quotes = quotes.filter(q => (q.responses||[]).length>0 && !q.acceptedBy);
+    else if (statusF === 'pending') quotes = quotes.filter(q => !(q.responses||[]).length);
+  }
+  if (catF !== 'all') {
+    quotes = quotes.filter(q => {
+      const types = (q.machines||[]).map(m=>(m.type||m.machineType||'').toLowerCase());
+      return types.some(t => t.includes(catF)) || (q.machineType||'').toLowerCase().includes(catF);
+    });
+  }
+  if (searchQ) {
+    quotes = quotes.filter(q =>
+      (q.customer||'').toLowerCase().includes(searchQ) ||
+      (q.email||'').toLowerCase().includes(searchQ) ||
+      (q.city||q.suburb||'').toLowerCase().includes(searchQ) ||
+      (q.machines||[]).some(m=>(m.name||'').toLowerCase().includes(searchQ)) ||
+      (q.machineType||'').toLowerCase().includes(searchQ)
+    );
+  }
+
+  // ── Compute KPIs ───────────────────────────────────────────────
+  const total      = quotes.length;
+  const accepted   = quotes.filter(q => q.acceptedBy).length;
+  const withResp   = quotes.filter(q => (q.responses||[]).length > 0).length;
+  const noResp     = quotes.filter(q => !(q.responses||[]).length).length;
+  const pending    = quotes.filter(q => (q.responses||[]).length > 0 && !q.acceptedBy).length;
+  const declined   = quotes.filter(q => !q.acceptedBy && (q.responses||[]).some(r=>r.rejected)).length;
+  const matchRate  = total > 0 ? Math.round(withResp/total*100) : 0;
+  const acceptRate = withResp > 0 ? Math.round(accepted/withResp*100) : 0;
+
+  // GMV — sum of accepted quote grandTotals
+  const gmv = quotes.reduce((s,q) => {
+    const resp = (q.responses||[]).find(r=>r.accepted);
+    return s + (resp ? parseFloat(String(resp.grandTotal||0).replace(/[^0-9.]/g,''))||0 : 0);
+  }, 0);
+
+  // Pipeline value — sum of all quoted but not yet accepted
+  const pipeline = quotes.filter(q=>(q.responses||[]).length>0&&!q.acceptedBy).reduce((s,q) => {
+    const vals = (q.responses||[]).map(r=>parseFloat(String(r.grandTotal||0).replace(/[^0-9.]/g,''))||0);
+    return s + (vals.length ? Math.min(...vals.filter(v=>v>0)) : 0);
+  }, 0);
+
+  const totalRespCount = quotes.reduce((s,q)=>s+(q.responses||[]).length,0);
+  const avgResps = total > 0 ? (totalRespCount/total).toFixed(1) : '0';
+  const _fmt = v => v >= 1000000 ? '$'+( v/1000000).toFixed(2)+'M' : v >= 1000 ? '$'+(v/1000).toFixed(1)+'K' : '$'+v.toFixed(0);
+
+  // ── KPI tiles ───────────────────────────────────────────────────
+  const kpiRow = document.getElementById('qt-kpi-row');
+  if (kpiRow) kpiRow.innerHTML = [
+    { icon:'📨', val:total,           label:'Total Enquiries',    color:'#0052CC', bg:'#EFF6FF' },
+    { icon:'💬', val:withResp,        label:'Received Quotes',    color:'#7C3AED', bg:'#F5F3FF' },
+    { icon:'✅', val:accepted,        label:'Hires Confirmed',    color:'#16A34A', bg:'#F0FDF4' },
+    { icon:'⏳', val:pending,         label:'Quote — Deciding',   color:'#D97706', bg:'#FFFBEB' },
+    { icon:'🔇', val:noResp,          label:'No Response Yet',    color:'#DC2626', bg:'#FEF2F2' },
+    { icon:'📊', val:matchRate+'%',   label:'Match Rate',         color:'#0891B2', bg:'#ECFEFF' },
+    { icon:'🏆', val:acceptRate+'%',  label:'Close Rate',         color:'#16A34A', bg:'#F0FDF4' },
+    { icon:'💬', val:avgResps,        label:'Avg Quotes/Enquiry', color:'#64748B', bg:'#F8FAFC' },
+  ].map(k=>`
+    <div style="background:${k.bg};border:1.5px solid ${k.color}22;border-radius:12px;padding:.7rem .8rem;text-align:center;border-left:4px solid ${k.color}">
+      <div style="font-size:.95rem">${k.icon}</div>
+      <div style="font-size:1.3rem;font-weight:900;color:${k.color};line-height:1.2">${k.val}</div>
+      <div style="font-size:.68rem;font-weight:700;color:#64748B;margin-top:.1rem">${k.label}</div>
+    </div>`).join('');
+
+  // ── GMV Banner ───────────────────────────────────────────────────
+  const gmvBanner = document.getElementById('qt-gmv-banner');
+  if (gmvBanner) gmvBanner.innerHTML = `
+    <div style="background:linear-gradient(135deg,#0F172A,#1E3A5F);border-radius:16px;padding:1.2rem 1.6rem;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em">Confirmed GMV</div>
+        <div style="font-size:2.2rem;font-weight:900;color:#4ADE80;line-height:1">${_fmt(gmv)}</div>
+        <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.2rem">${accepted} hire${accepted!==1?'s':''} confirmed — ${period === 'all' ? 'all time' : period}</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.1);align-self:stretch"></div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em">Active Pipeline</div>
+        <div style="font-size:2.2rem;font-weight:900;color:#60A5FA;line-height:1">${_fmt(pipeline)}</div>
+        <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.2rem">${pending} quote${pending!==1?'s':''} awaiting customer decision</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,.1);align-self:stretch"></div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em">Total Quote Activity</div>
+        <div style="font-size:2.2rem;font-weight:900;color:#F59E0B;line-height:1">${total}</div>
+        <div style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.2rem">${totalRespCount} individual quotes from rental cos</div>
+      </div>
+      <div style="margin-left:auto;display:flex;flex-direction:column;gap:.5rem">
+        <button onclick="exportQuotesCSV()" style="background:#16A34A;color:#fff;border:none;border-radius:8px;padding:.45rem 1.1rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📗 Excel Export</button>
+        <button onclick="exportQuotesPDF()" style="background:#DC2626;color:#fff;border:none;border-radius:8px;padding:.45rem 1.1rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📕 PDF Report</button>
+      </div>
+    </div>`;
+
+  // ── RC Performance table ─────────────────────────────────────────
+  const rcEl = document.getElementById('qt-rc-table');
+  if (rcEl) {
+    const rcMap = {};
+    quotes.forEach(q => {
+      (q.responses||[]).forEach(r => {
+        if (!r.company) return;
+        if (!rcMap[r.company]) rcMap[r.company] = { quoted:0, won:0, value:0, totalQuoted:0 };
+        rcMap[r.company].quoted++;
+        rcMap[r.company].totalQuoted += parseFloat(String(r.grandTotal||0).replace(/[^0-9.]/g,''))||0;
+        if (r.accepted) { rcMap[r.company].won++; rcMap[r.company].value += parseFloat(String(r.grandTotal||0).replace(/[^0-9.]/g,''))||0; }
+      });
+    });
+    const rcSorted = Object.entries(rcMap).sort((a,b)=>b[1].quoted-a[1].quoted).slice(0,10);
+    rcEl.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">🏗️ Rental Company Performance</div>
+      ${rcSorted.length === 0
+        ? `<div style="text-align:center;color:#94A3B8;font-size:.82rem;padding:1.5rem">No RC responses in this period</div>`
+        : `<table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#F8FAFC">
+              <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:left;font-weight:700">Company</th>
+              <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:right;font-weight:700">Quoted</th>
+              <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:right;font-weight:700">Won</th>
+              <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:right;font-weight:700">Win%</th>
+              <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:right;font-weight:700">GMV Won</th>
+            </tr></thead>
+            <tbody>
+              ${rcSorted.map(([co,d])=>`
+                <tr style="border-top:1px solid #F1F5F9">
+                  <td style="padding:.32rem .5rem;font-size:.78rem;font-weight:700;color:#0F172A">${co}</td>
+                  <td style="padding:.32rem .5rem;font-size:.78rem;text-align:right;color:#7C3AED;font-weight:700">${d.quoted}</td>
+                  <td style="padding:.32rem .5rem;font-size:.78rem;text-align:right;color:#16A34A;font-weight:900">${d.won}</td>
+                  <td style="padding:.32rem .5rem;font-size:.78rem;text-align:right;font-weight:700;color:${d.quoted>0&&Math.round(d.won/d.quoted*100)>=30?'#16A34A':'#D97706'}">${d.quoted>0?Math.round(d.won/d.quoted*100):0}%</td>
+                  <td style="padding:.32rem .5rem;font-size:.78rem;text-align:right;font-weight:900;color:#16A34A">${_fmt(d.value)}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>`}`;
+  }
+
+  // ── Category breakdown ─────────────────────────────────────────
+  const catEl2 = document.getElementById('qt-category-table');
+  if (catEl2) {
+    const catMap = {};
+    quotes.forEach(q => {
+      const types = (q.machines||[]).map(m=>m.type||m.machineType||'Other');
+      const t = types[0] || q.machineType || 'Other';
+      if (!catMap[t]) catMap[t] = { total:0, accepted:0, value:0, responses:0 };
+      catMap[t].total++;
+      catMap[t].responses += (q.responses||[]).length;
+      if (q.acceptedBy) {
+        catMap[t].accepted++;
+        const resp = (q.responses||[]).find(r=>r.accepted);
+        catMap[t].value += resp ? parseFloat(String(resp.grandTotal||0).replace(/[^0-9.]/g,''))||0 : 0;
+      }
+    });
+    const catLabels = {telehandler:'Telehandlers',boom:'Boom Lifts',scissor:'Scissor Lifts',forklift:'Forklifts',
+      em_excavator:'Excavators',em_bobcat:'Bobcats',em_dozer:'Dozers',material:'Material Lifts',pushAround:'Push-Around'};
+    const catSorted = Object.entries(catMap).sort((a,b)=>b[1].total-a[1].total);
+    catEl2.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">🏗️ Enquiries by Category</div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="background:#F8FAFC">
+          <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:left;font-weight:700">Category</th>
+          <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:right;font-weight:700">Enquiries</th>
+          <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:right;font-weight:700">Accepted</th>
+          <th style="padding:.3rem .5rem;font-size:.7rem;color:#64748B;text-align:right;font-weight:700">GMV</th>
+        </tr></thead>
+        <tbody>
+          ${catSorted.map(([t,d])=>`
+            <tr style="border-top:1px solid #F1F5F9">
+              <td style="padding:.32rem .5rem;font-size:.78rem;font-weight:700;color:#0F172A">${catLabels[t]||t}</td>
+              <td style="padding:.32rem .5rem;font-size:.78rem;text-align:right;font-weight:700;color:#0052CC">${d.total}</td>
+              <td style="padding:.32rem .5rem;font-size:.78rem;text-align:right;font-weight:900;color:#16A34A">${d.accepted}</td>
+              <td style="padding:.32rem .5rem;font-size:.78rem;text-align:right;font-weight:900;color:#16A34A">${_fmt(d.value)}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  // ── Full quote list ───────────────────────────────────────────
+  const tbody = document.getElementById('qt-tbody');
+  const footer = document.getElementById('qt-table-footer');
+  if (tbody) {
+    const sorted = [...quotes].sort((a,b)=>(b.ts||0)-(a.ts||0));
+    tbody.innerHTML = sorted.map(q => {
+      const respCount = (q.responses||[]).length;
+      const acceptedResp = (q.responses||[]).find(r=>r.accepted);
+      const quoteVal = acceptedResp
+        ? parseFloat(String(acceptedResp.grandTotal||0).replace(/[^0-9.]/g,''))||0
+        : respCount > 0
+          ? Math.min(...(q.responses||[]).map(r=>parseFloat(String(r.grandTotal||0).replace(/[^0-9.]/g,''))||Infinity).filter(v=>v<Infinity))
+          : 0;
+
+      const statusBadge = q.acceptedBy
+        ? `<span style="background:#DCFCE7;color:#166534;border-radius:20px;padding:.12rem .55rem;font-size:.7rem;font-weight:800;white-space:nowrap">✅ Accepted</span>`
+        : respCount > 0
+          ? `<span style="background:#EDE9FE;color:#7C3AED;border-radius:20px;padding:.12rem .55rem;font-size:.7rem;font-weight:800;white-space:nowrap">💬 ${respCount} Quote${respCount>1?'s':''}</span>`
+          : `<span style="background:#FEF9C3;color:#92400E;border-radius:20px;padding:.12rem .55rem;font-size:.7rem;font-weight:800;white-space:nowrap">⏳ No Response</span>`;
+
+      const machines = (q.machines||[]).map(m=>`${m.emoji||'🏗️'} ${(m.name||m.id||'').slice(0,22)}`).join('<br>') || q.machineType || '—';
+      const dateStr = q.ts ? new Date(q.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short',year:'2-digit'}) : '—';
+
+      // RC quotes sub-rows
+      const respDetail = (q.responses||[]).map(r=>`
+        <div style="font-size:.7rem;color:#475569;padding:.1rem 0">
+          ${r.accepted?'✅':r.rejected?'✗':'💬'} <strong>${r.company||'—'}</strong>
+          ${r.grandTotal?` — <span style="color:#16A34A;font-weight:700">$${parseFloat(String(r.grandTotal).replace(/[^0-9.]/g,'')).toFixed(0)}</span>`:''}
+        </div>`).join('');
+
+      return `<tr style="border-top:1px solid #F1F5F9" onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background=''">
+        <td style="padding:.4rem .6rem;font-size:.72rem;font-weight:700;color:#6366F1;white-space:nowrap">${(q.id||'').slice(0,14)}</td>
+        <td style="padding:.4rem .6rem">
+          <div style="font-size:.8rem;font-weight:700;color:#0F172A">${q.customer||q.customerName||'—'}</div>
+          <div style="font-size:.7rem;color:#94A3B8">${(q.email||'').slice(0,24)}</div>
+        </td>
+        <td style="padding:.4rem .6rem;font-size:.78rem;max-width:160px">${machines}</td>
+        <td style="padding:.4rem .6rem;font-size:.78rem;color:#64748B;white-space:nowrap">${q.city||q.suburb||'—'}${q.state?', '+q.state:''}</td>
+        <td style="padding:.4rem .6rem;font-size:.75rem;color:#64748B;white-space:nowrap">${dateStr}</td>
+        <td style="padding:.4rem .6rem;text-align:center">
+          <div style="font-size:.9rem;font-weight:900;color:${respCount>0?'#7C3AED':'#94A3B8'}">${respCount}</div>
+          <div style="margin-top:.2rem">${respDetail}</div>
+        </td>
+        <td style="padding:.4rem .6rem;text-align:right;font-size:.85rem;font-weight:900;color:${q.acceptedBy?'#16A34A':respCount>0?'#D97706':'#94A3B8'}">${quoteVal>0?_fmt(quoteVal):'—'}</td>
+        <td style="padding:.4rem .6rem;text-align:center">${statusBadge}</td>
+        <td style="padding:.4rem .6rem;font-size:.78rem;font-weight:700;color:#16A34A">${q.acceptedBy||'—'}</td>
+        <td style="padding:.4rem .6rem;text-align:center">
+          <button onclick="adminDeleteEnquiry('${q.id}')"
+            style="background:#FEF2F2;color:#DC2626;border:1.5px solid #FECACA;border-radius:6px;padding:.2rem .5rem;font-size:.7rem;font-weight:800;cursor:pointer">🗑</button>
+        </td>
+      </tr>`;
+    }).join('') || `<tr><td colspan="10" style="text-align:center;color:#94A3B8;padding:2.5rem;font-size:.85rem">No enquiries match the selected filters.</td></tr>`;
+    if (footer) footer.textContent = `Showing ${sorted.length} of ${quoteInbox.length} total enquiries`;
+  }
+
+  // Store for export
+  window._qtSnapshot = { quotes, gmv, pipeline, accepted, total, pending, noResp, matchRate, acceptRate, period };
 }
+
+function exportQuotesCSV() {
+  const snap = window._qtSnapshot;
+  if (!snap) { renderAdminQuotes(); return; }
+  const _fmt = v => v >= 1000 ? '$'+(v/1000).toFixed(1)+'K' : '$'+v.toFixed(0);
+  const rows = [
+    ['NOYO QUOTE TRACKING REPORT'],
+    ['Period: ' + snap.period + '  |  Generated: ' + new Date().toLocaleString('en-AU')],
+    [],
+    ['SUMMARY'],
+    ['Total Enquiries', snap.total],
+    ['Received Quotes', snap.total - snap.noResp],
+    ['Hires Confirmed', snap.accepted],
+    ['No Response', snap.noResp],
+    ['Match Rate', snap.matchRate + '%'],
+    ['Close Rate', snap.acceptRate + '%'],
+    ['Confirmed GMV', snap.gmv.toFixed(2)],
+    ['Active Pipeline', snap.pipeline.toFixed(2)],
+    [],
+    ['ENQUIRY DETAIL'],
+    ['Ref','Customer','Email','Machines','Location','Date Sent','Quotes Received','Status','Won By','Value AUD'],
+    ...snap.quotes.map(q => {
+      const resp = (q.responses||[]).find(r=>r.accepted);
+      const val  = resp ? parseFloat(String(resp.grandTotal||0).replace(/[^0-9.]/g,''))||0 : 0;
+      const s    = q.acceptedBy ? 'Accepted' : (q.responses||[]).length>0 ? 'Quoted' : 'No Response';
+      return [q.id||'', q.customer||q.customerName||'', q.email||'',
+        (q.machines||[]).map(m=>m.name||m.id||'').join(' | ') || q.machineType||'',
+        (q.city||q.suburb||'') + (q.state?', '+q.state:''),
+        q.ts ? new Date(q.ts).toLocaleDateString('en-AU') : '',
+        (q.responses||[]).length, s, q.acceptedBy||'', val.toFixed(2)];
+    })
+  ];
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'noyo-quotes-' + snap.period + '.csv';
+  a.click(); URL.revokeObjectURL(url);
+  showToast('📗 Quote report exported', '#16A34A');
+}
+
+function exportQuotesPDF() {
+  if (typeof window.jspdf === 'undefined') { showToast('PDF library loading, try again', '#F59E0B'); return; }
+  const snap = window._qtSnapshot;
+  if (!snap) { renderAdminQuotes(); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  const W=210, M=14;
+  const _fmt = v => v>=1000000?'$'+(v/1000000).toFixed(2)+'M':v>=1000?'$'+(v/1000).toFixed(1)+'K':'$'+v.toFixed(0);
+
+  // Cover
+  doc.setFillColor(15,23,42); doc.rect(0,0,W,50,'F');
+  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(20);
+  doc.text('NOYO Quote Tracking Report', M, 22);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  doc.text('Period: ' + snap.period + '   |   Generated: ' + new Date().toLocaleString('en-AU'), M, 33);
+  doc.setTextColor(74,222,128); doc.setFontSize(13); doc.setFont('helvetica','bold');
+  doc.text('Confirmed GMV: ' + _fmt(snap.gmv), M, 44);
+
+  let y = 62;
+  // KPI grid
+  const kpis=[['Total Enquiries',snap.total,[0,82,204]],['Hires Confirmed',snap.accepted,[22,163,74]],['Quoted (pending)',snap.pending,[217,119,6]],['No Response',snap.noResp,[220,38,38]],['Match Rate',snap.matchRate+'%',[8,145,178]],['Close Rate',snap.acceptRate+'%',[22,163,74]]];
+  const cw=(W-M*2)/3;
+  kpis.forEach(([l,v,c],i)=>{
+    const col=i%3,row=Math.floor(i/3),bx=M+col*cw,by=y+row*18;
+    doc.setFillColor(248,250,252); doc.roundedRect(bx,by,cw-3,15,2,2,'F');
+    doc.setDrawColor(...c); doc.setLineWidth(0.8); doc.line(bx,by,bx,by+15);
+    doc.setTextColor(...c); doc.setFont('helvetica','bold'); doc.setFontSize(13);
+    doc.text(String(v),bx+4,by+9);
+    doc.setTextColor(100,116,139); doc.setFont('helvetica','normal'); doc.setFontSize(7);
+    doc.text(l,bx+4,by+13.5);
+  });
+  y+=42;
+
+  // Enquiry detail table
+  doc.autoTable({startY:y,margin:{left:M,right:M},
+    head:[['Ref','Customer','Machines','Location','Date','Quotes','Status','Value']],
+    headStyles:{fillColor:[0,82,204],fontSize:8,fontStyle:'bold'},
+    body:snap.quotes.slice(0,50).map(q=>{
+      const resp=(q.responses||[]).find(r=>r.accepted);
+      const val=resp?parseFloat(String(resp.grandTotal||0).replace(/[^0-9.]/g,''))||0:0;
+      const s=q.acceptedBy?'✅ Accepted':(q.responses||[]).length>0?'💬 Quoted':'⏳ Pending';
+      return [(q.id||'').slice(0,12),(q.customer||q.customerName||'').slice(0,18),
+        ((q.machines||[]).map(m=>(m.name||'').slice(0,15)).join(', ')||q.machineType||'').slice(0,22),
+        (q.city||q.suburb||'').slice(0,14),
+        q.ts?new Date(q.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short'}):'',
+        (q.responses||[]).length, s, val>0?_fmt(val):'—'];
+    }),
+    bodyStyles:{fontSize:7}, alternateRowStyles:{fillColor:[248,250,252]},
+  });
+
+  const pages=doc.internal.getNumberOfPages();
+  for(let p=1;p<=pages;p++){doc.setPage(p);doc.setFontSize(7);doc.setTextColor(148,163,184);doc.text('Noyo Quote Report  |  noyo.com.au  |  Page '+p+' of '+pages,M,292);}
+  doc.save('noyo-quotes-' + snap.period + '.pdf');
+  showToast('📕 PDF report exported', '#DC2626');
+}
+
 
 function renderAdminActivity() {
   const typeFilter = document.getElementById('admin-activity-filter')?.value || '';
