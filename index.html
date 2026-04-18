@@ -1194,26 +1194,84 @@
 
     <!-- QUOTES -->
     <div class="admin-section" id="admin-sec-quotes">
-      <div class="admin-two-col" style="margin-bottom:1.2rem">
-        <div class="admin-card">
-          <div class="admin-section-title">📊 Quote Status Breakdown</div>
-          <div id="admin-quote-breakdown"></div>
+
+      <!-- Quote Tracking Header + Date Filter -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;margin-bottom:1rem">
+        <div>
+          <div class="admin-section-title" style="margin:0">📊 Quote Tracking Dashboard</div>
+          <div style="font-size:.78rem;color:#64748B;margin-top:.2rem">Every hire enquiry — filter, analyse, export for investors</div>
         </div>
-        <div class="admin-card">
-          <div class="admin-section-title">⏱️ Response Window Types</div>
-          <div id="admin-window-breakdown"></div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center">
+          <select id="qt-period" onchange="renderAdminQuotes()" style="border:1.5px solid #CBD5E1;border-radius:8px;padding:.35rem .65rem;font-size:.8rem;font-family:'Nunito',sans-serif;font-weight:700;background:#fff">
+            <option value="all">All Time</option>
+            <option value="today">Today</option>
+            <option value="7d">Last 7 Days</option>
+            <option value="30d" selected>Last 30 Days</option>
+            <option value="this_month">This Month</option>
+            <option value="last_month">Last Month</option>
+            <option value="90d">Last 90 Days</option>
+            <option value="this_year">This Year</option>
+          </select>
+          <select id="qt-status" onchange="renderAdminQuotes()" style="border:1.5px solid #CBD5E1;border-radius:8px;padding:.35rem .65rem;font-size:.8rem;font-family:'Nunito',sans-serif;font-weight:700;background:#fff">
+            <option value="all">All Statuses</option>
+            <option value="accepted">✅ Accepted</option>
+            <option value="quoted">💬 Quoted (pending)</option>
+            <option value="pending">⏳ No Response Yet</option>
+          </select>
+          <select id="qt-category" onchange="renderAdminQuotes()" style="border:1.5px solid #CBD5E1;border-radius:8px;padding:.35rem .65rem;font-size:.8rem;font-family:'Nunito',sans-serif;font-weight:700;background:#fff">
+            <option value="all">All Categories</option>
+            <option value="boom">Boom Lifts</option>
+            <option value="scissor">Scissor Lifts</option>
+            <option value="telehandler">Telehandlers</option>
+            <option value="forklift">Forklifts</option>
+            <option value="excavator">Excavators</option>
+          </select>
+          <button onclick="exportQuotesCSV()" style="background:#16A34A;color:#fff;border:none;border-radius:8px;padding:.38rem .85rem;font-size:.78rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📗 Export Excel</button>
+          <button onclick="exportQuotesPDF()" style="background:#DC2626;color:#fff;border:none;border-radius:8px;padding:.38rem .85rem;font-size:.78rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📕 PDF Report</button>
         </div>
       </div>
-      <div class="admin-section-title">📨 All Hire Enquiries</div>
-      <div class="admin-table-wrap">
-        <table class="admin-table">
-          <thead><tr>
-            <th>QR Ref</th><th>Customer</th><th>Machines</th><th>Suburb</th>
-            <th>Hire Start</th><th>Window</th><th>Sent</th><th>Responses</th><th>Status</th><th>Accepted From</th><th>Actions</th>
-          </tr></thead>
-          <tbody id="admin-quotes-tbody"></tbody>
-        </table>
+
+      <!-- KPI tiles -->
+      <div id="qt-kpi-row" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:1.2rem"></div>
+
+      <!-- GMV Headline (investor-facing) -->
+      <div id="qt-gmv-banner" style="margin-bottom:1.2rem"></div>
+
+      <!-- RC Performance Table -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">
+        <div id="qt-rc-table" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="qt-category-table" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
       </div>
+
+      <!-- Full Quote List -->
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem">
+          <div style="font-weight:800;font-size:.9rem;color:#0F172A">📨 All Hire Enquiries</div>
+          <input id="qt-search" oninput="renderAdminQuotes()" placeholder="Search by customer, machine, city…"
+            style="border:1.5px solid #CBD5E1;border-radius:8px;padding:.3rem .7rem;font-size:.8rem;font-family:'Nunito',sans-serif;min-width:220px">
+        </div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;min-width:900px" id="qt-table">
+            <thead>
+              <tr style="background:#F8FAFC;border-bottom:2px solid #E2E8F0">
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:left">Ref</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:left">Customer</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:left">Machine(s)</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:left">Location</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:left">Sent</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:center">RCs Quoted</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:right">Quote Value</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:center">Status</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:left">Won By</th>
+                <th style="padding:.4rem .6rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:center">Action</th>
+              </tr>
+            </thead>
+            <tbody id="qt-tbody"></tbody>
+          </table>
+        </div>
+        <div id="qt-table-footer" style="font-size:.75rem;color:#94A3B8;margin-top:.6rem;text-align:right"></div>
+      </div>
+
     </div>
 
     <!-- FOLLOW-UP REQUIRED -->
