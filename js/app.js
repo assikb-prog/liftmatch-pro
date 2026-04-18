@@ -26371,6 +26371,48 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['pushAround','indoor','electric'],
     },
 
+    // ── Zoomlion Vertical Mast Lifts ────────────────────────────────────────
+    {
+      id:'zoomlion-zmp04', brand:'Zoomlion', emoji:'🧍', brandColor:'#E8001B',
+      name:'Zoomlion ZMP04 Vertical Mast Lift', shortName:'Zoomlion ZMP04',
+      platformHeight:3.82, workingHeight:5.82, capacity:230,
+      machineWeight:880, machineWidth:780, machineLength:1390, machineHeight:1720,
+      stowedH:1.72, stowedL:1.39, stowedW:0.78,
+      power:'Electric', terrain:'indoor',
+      maxWorkers:2, capacityKg:230, capacityExtensionKg:113,
+      driveSpeedStowed:4, driveSpeedRaised:0.5,
+      turningRadiusInside:0.14, turningRadiusOutside:1.43,
+      gradeability:'25% (14°)', groundClearance:65,
+      battery:'2×12V/137Ah', charger:'24V/20A',
+      liftMotor:'24V/2.5kW', driveMotor:'24V/2×0.6kW',
+      platformLength:1.02, platformWidth:0.76, platformExtension:0.5,
+      brochureRef:'Zoomlion ZMP04/ZMP06 brochure Jan 2025',
+      bestFor:'Indoor applications requiring compact access — warehouses, retail fit-outs and facilities maintenance up to 3.82m platform height. Front-wheel drive with small turning radius for flexible movement.',
+      note:'Zoomlion ZMP04 vertical mast lift: 3.82m platform / 5.82m working height. 230kg capacity (2 persons indoor). Permanent magnet synchronous motor. 0.78m wide — fits through standard doorways. Active pothole protection. Drivable at full height. Battery 2×12V/137Ah, 24V/20A charger. Gross weight 880kg. Self-closing entry gate, emergency descent, load sensing, over tilt protection, forklift pockets. Optional: platform work light, AC power to platform, GPS.',
+      tags:['Vertical Mast','Indoor','5.82m Working Height','3.82m Platform','230kg','Electric 24V','Compact','0.78m Wide','Zoomlion','ZMP04','Drivable at Height','Pothole Protection'],
+      filters:['pushAround','indoor','electric'],
+    },
+    {
+      id:'zoomlion-zmp06', brand:'Zoomlion', emoji:'🧍', brandColor:'#E8001B',
+      name:'Zoomlion ZMP06 Vertical Mast Lift', shortName:'Zoomlion ZMP06',
+      platformHeight:5.91, workingHeight:7.91, capacity:200,
+      machineWeight:1100, machineWidth:780, machineLength:1390, machineHeight:1990,
+      stowedH:1.99, stowedL:1.39, stowedW:0.78,
+      power:'Electric', terrain:'indoor',
+      maxWorkers:1, capacityKg:200, capacityExtensionKg:113,
+      driveSpeedStowed:4, driveSpeedRaised:0.5,
+      turningRadiusInside:0.14, turningRadiusOutside:1.43,
+      gradeability:'25% (14°)', groundClearance:65,
+      battery:'2×12V/137Ah', charger:'24V/20A',
+      liftMotor:'24V/2.5kW', driveMotor:'24V/2×0.6kW',
+      platformLength:1.02, platformWidth:0.76, platformExtension:0.5,
+      brochureRef:'Zoomlion ZMP04/ZMP06 brochure Jan 2025',
+      bestFor:'Indoor overhead work requiring elevated access up to 5.91m — ideal for warehouses, retail fit-outs and facilities maintenance where minimal footprint and quiet electric operation are required.',
+      note:'Zoomlion ZMP06 vertical mast lift: 5.91m platform / 7.91m working height. 200kg capacity (1 person indoor only — outdoor not rated). Permanent magnet synchronous motor. 0.78m wide — fits standard doorways. Active pothole protection. Drivable at full height. Battery 2×12V/137Ah, 24V/20A charger. Gross weight 1100kg. Self-closing entry gate, emergency descent, load sensing, over tilt protection, forklift pockets. Optional: platform work light, AC power to platform, GPS.',
+      tags:['Vertical Mast','Indoor','7.91m Working Height','5.91m Platform','200kg','Electric 24V','Compact','0.78m Wide','Zoomlion','ZMP06','Drivable at Height','Pothole Protection'],
+      filters:['pushAround','indoor','electric'],
+    },
+
   ],
 
   // ═══════════════════════════════════════════════════════════════
@@ -65465,13 +65507,19 @@ async function amHandleFile(file) {
     return;
   }
 
-  const extractionPrompt = `You are a technical specification extractor for heavy equipment hire machines. Carefully read every part of this document and extract ALL specifications into a single JSON object.
+  const extractionPrompt = `You are a technical specification extractor for heavy equipment hire machines. Carefully read every part of this document.
 
-REQUIRED OUTPUT: Return ONLY a valid JSON object — no markdown, no backticks, no explanation. Start with { and end with }.
+IMPORTANT: Many brochures contain MULTIPLE machine models (e.g. ZMP04 and ZMP06, or a range of models in a table). You MUST extract EVERY machine model found and return them ALL.
 
-Extract every field you can find. Use null for anything not found. Numbers as numbers, not strings.
+REQUIRED OUTPUT: Return ONLY a valid JSON array — no markdown, no backticks, no explanation.
+- If the document contains ONE machine: return a JSON array with one object: [{...}]
+- If the document contains TWO OR MORE machines: return a JSON array with one object per machine: [{...}, {...}, ...]
+- ALWAYS return an array, even for a single machine.
+- Start with [ and end with ]
 
-JSON schema:
+Extract every field you can find for each machine. Use null for anything not found. Numbers as numbers, not strings.
+
+JSON schema for EACH machine object in the array:
 
 {
   "brand": "string — manufacturer name e.g. JLG, Genie, Toyota, Manitou",
@@ -65594,19 +65642,28 @@ JSON schema:
 
     // Strip any accidental markdown fences
     const cleaned = rawText.replace(/^```json\s*/i,'').replace(/```$/,'').trim();
+
     let extracted;
     try {
       extracted = JSON.parse(cleaned);
     } catch(parseErr) {
-      // Try to extract just the JSON object if there's surrounding text
-      const match = cleaned.match(/\{[\s\S]*\}/);
-      if (match) extracted = JSON.parse(match[0]);
+      // Try to find array or object in response
+      const arrMatch = cleaned.match(/\[[\s\S]*\]/);
+      const objMatch = cleaned.match(/\{[\s\S]*\}/);
+      if (arrMatch) extracted = JSON.parse(arrMatch[0]);
+      else if (objMatch) extracted = JSON.parse(objMatch[0]);
       else throw new Error('Could not parse JSON from response. Try a cleaner PDF.');
     }
 
-    _amExtracted = extracted;
-    amStatus('✅ Extraction complete — review and edit the fields below, then save.', 'success');
-    amRenderReviewForm(extracted, file.name);
+    // Normalise to array — brochure may have 1 or many machines
+    const machines = Array.isArray(extracted) ? extracted : [extracted];
+
+    if (machines.length === 0) throw new Error('No machines found in document.');
+
+    _amExtracted = machines;
+    const plural = machines.length > 1 ? `${machines.length} machines` : '1 machine';
+    amStatus(`✅ Found ${plural} — review and edit below, then save all to database.`, 'success');
+    amRenderReviewForm(machines, file.name);
 
   } catch(e) {
     amStatus(`❌ Extraction failed: ${e.message}`, 'error');
@@ -65655,141 +65712,122 @@ function _amField(id, label, val, type='text', opts=null) {
     <input type="${type}" id="${id}" value="${String(v).replace(/"/g,'&quot;')}" style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.32rem .55rem;font-size:.83rem;font-family:inherit;background:#fff"></div>`;
 }
 
-function amRenderReviewForm(d, fileName) {
+function amRenderReviewForm(machines, fileName) {
   const form = document.getElementById('am-review-form');
   if (!form) return;
+
+  // Normalise to array
+  if (!Array.isArray(machines)) machines = [machines];
 
   const g2 = 'display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.9rem';
   const g3 = 'display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem;margin-bottom:.9rem';
   const g1 = 'display:grid;grid-template-columns:1fr;gap:.65rem;margin-bottom:.9rem';
   const sh = (t) => `<div style="font-size:.8rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.05em;margin:.9rem 0 .4rem;border-bottom:2px solid #EFF6FF;padding-bottom:.25rem">${t}</div>`;
 
+  // Render machine form fields for one machine (prefixed with machine index)
+  const renderMachineFields = (d, idx) => `
+    ${sh('Identity')}
+    <div style="${g3}">
+      ${_amField(`am-brand-${idx}`,'Brand',d.brand)}
+      ${_amField(`am-model-${idx}`,'Model',d.model)}
+      ${_amField(`am-name-${idx}`,'Full Name',d.name)}
+    </div>
+    <div style="${g3}">
+      ${_amField(`am-shortName-${idx}`,'Short Name',d.shortName)}
+      ${_amField(`am-machineType-${idx}`,'Machine Type',d.machineType,'select',['boom','scissor','telehandler','forklift','material','pushAround','palletJack'])}
+      ${_amField(`am-emoji-${idx}`,'Emoji',d.emoji)}
+    </div>
+
+    ${sh('Capacity')}
+    <div style="${g3}">
+      ${_amField(`am-capacityKg-${idx}`,'Capacity (kg)',d.capacityKg,'number')}
+      ${_amField(`am-capacityOnTyresKg-${idx}`,'On Tyres (kg)',d.capacityOnTyresKg,'number')}
+      ${_amField(`am-capacityOnOutriggersKg-${idx}`,'On Outriggers (kg)',d.capacityOnOutriggersKg,'number')}
+    </div>
+
+    ${sh('Height & Reach')}
+    <div style="${g3}">
+      ${_amField(`am-platformHeight-${idx}`,'Platform Height (m)',d.platformHeight,'number')}
+      ${_amField(`am-workingHeight-${idx}`,'Working Height (m)',d.workingHeight,'number')}
+      ${_amField(`am-maxReach-${idx}`,'Max Reach (m)',d.maxReach,'number')}
+    </div>
+
+    ${sh('Dimensions & Weight')}
+    <div style="${g3}">
+      ${_amField(`am-stowedWidth-${idx}`,'Width (mm)',d.stowedWidth,'number')}
+      ${_amField(`am-stowedLength-${idx}`,'Length (mm)',d.stowedLength,'number')}
+      ${_amField(`am-stowedHeight-${idx}`,'Height (mm)',d.stowedHeight,'number')}
+    </div>
+    <div style="${g2}">
+      ${_amField(`am-machineWeight-${idx}`,'Machine Weight (kg)',d.machineWeight,'number')}
+      ${_amField(`am-groundClearance-${idx}`,'Ground Clearance (mm)',d.groundClearance,'number')}
+    </div>
+
+    ${sh('Power & Engine')}
+    <div style="${g3}">
+      ${_amField(`am-power-${idx}`,'Power Source',d.power,'select',['Electric','Diesel','LPG','Petrol','Hybrid','Dual Power'])}
+      ${_amField(`am-engine-${idx}`,'Engine',d.engine)}
+      ${_amField(`am-terrain-${idx}`,'Terrain',d.terrain,'select',['indoor','outdoor','indoor/outdoor','rough-terrain','crawler'])}
+    </div>
+
+    ${sh('Notes & Tags')}
+    <div style="${g1}">
+      ${_amField(`am-bestFor-${idx}`,'Best For',d.bestFor,'textarea')}
+      ${_amField(`am-note-${idx}`,'Technical Note',d.note,'textarea')}
+      ${_amField(`am-filters-${idx}`,'Filters',d.filters,'array')}
+      ${_amField(`am-tags-${idx}`,'Tags',d.tags,'array')}
+    </div>`;
+
+  // Tab headers if multiple machines
+  const tabNav = machines.length > 1 ? `
+    <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;border-bottom:2px solid #E2E8F0;padding-bottom:.6rem">
+      ${machines.map((d,i) => `
+        <button id="am-tab-btn-${i}" onclick="amSwitchTab(${i},${machines.length})"
+          style="background:${i===0?'#0052CC':'#F1F5F9'};color:${i===0?'#fff':'#64748B'};border:none;border-radius:8px;padding:.35rem .85rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">
+          ${d.name || d.model || `Machine ${i+1}`}
+        </button>`).join('')}
+    </div>` : '';
+
   form.style.display = 'block';
   form.innerHTML = `
     <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1.2rem 1.4rem">
-      <div style="font-weight:900;color:#0F172A;font-size:1rem;margin-bottom:.2rem">📋 Review Extracted Data — ${fileName}</div>
-      <div style="font-size:.78rem;color:#64748B;margin-bottom:1.1rem">Edit any field before saving. Greyed values were not found in the document — fill them in manually if known.</div>
+      <div style="font-weight:900;color:#0F172A;font-size:1rem;margin-bottom:.2rem">
+        📋 ${machines.length > 1 ? `${machines.length} Machines Found` : 'Review Extracted Data'} — ${fileName}
+      </div>
+      ${machines.length > 1 ? `<div style="font-size:.78rem;color:#16A34A;font-weight:700;margin-bottom:.5rem">✅ ${machines.length} machines detected in this brochure — review each tab then save all at once.</div>` : ''}
+      <div style="font-size:.78rem;color:#64748B;margin-bottom:1rem">Edit any field before saving. Greyed values were not found in the document.</div>
 
-      ${sh('Identity')}
-      <div style="${g3}">
-        ${_amField('am-brand','Brand',d.brand)}
-        ${_amField('am-model','Model',d.model)}
-        ${_amField('am-name','Full Name',d.name)}
-      </div>
-      <div style="${g3}">
-        ${_amField('am-shortName','Short Name',d.shortName)}
-        ${_amField('am-machineType','Machine Type',d.machineType,'select',['boom','scissor','telehandler','forklift','material','pushAround','palletJack'])}
-        ${_amField('am-isRotating','Rotating Telehandler?',d.isRotating?'yes':'no','select',['no','yes'])}
-      </div>
+      ${tabNav}
 
-      ${sh('Capacity')}
-      <div style="${g3}">
-        ${_amField('am-capacity','Max Capacity (T)',d.capacity,'number')}
-        ${_amField('am-capacityOnTyres','On Tyres (T)',d.capacityOnTyres,'number')}
-        ${_amField('am-capacityOnOutriggers','On Outriggers (T)',d.capacityOnOutriggers,'number')}
-      </div>
-      <div style="${g3}">
-        ${_amField('am-capacityOnJib','On Jib (T)',d.capacityOnJib,'number')}
-        ${_amField('am-capacityOnRotator','On Rotator (T)',d.capacityOnRotator,'number')}
-        ${_amField('am-swl','SWL / Basket SWL (kg)',d.swl||d.basketSWL,'number')}
-      </div>
+      ${machines.map((d,i) => `
+        <div id="am-tab-panel-${i}" style="display:${i===0?'block':'none'}">
+          ${renderMachineFields(d, i)}
+        </div>`).join('')}
 
-      ${sh('Height & Reach')}
-      <div style="${g3}">
-        ${_amField('am-liftHeight','Max Lift Height (m)',d.liftHeight,'number')}
-        ${_amField('am-platformHeight','Platform Height (m)',d.platformHeight,'number')}
-        ${_amField('am-workingHeight','Working Height (m)',d.workingHeight,'number')}
-      </div>
-      <div style="${g3}">
-        ${_amField('am-maxReach','Max Reach / Outreach (m)',d.maxReach||d.maxOutreach,'number')}
-        ${_amField('am-upAndOverHeight','Up-and-Over Height (m)',d.upAndOverHeight,'number')}
-        ${_amField('am-occupants','Max Occupants',d.occupants,'number')}
-      </div>
-
-      ${sh('Jib & Rotator')}
-      <div style="${g3}">
-        ${_amField('am-jibWeight','Jib Weight (kg)',d.jibWeight,'number')}
-        ${_amField('am-jibLength','Jib Length (m)',d.jibLength,'number')}
-        ${_amField('am-jibCapacity','Jib Capacity (kg)',d.jibCapacity,'number')}
-      </div>
-      <div style="${g3}">
-        ${_amField('am-jibAngle','Jib Angle Range',d.jibAngle)}
-        ${_amField('am-rotatorWeight','Rotator Weight (kg)',d.rotatorWeight,'number')}
-        ${_amField('am-rotatorCapacity','Rotator Capacity (kg)',d.rotatorCapacity,'number')}
-      </div>
-      <div style="${g2}">
-        ${_amField('am-turretRotation','Turret Rotation (°)',d.turretRotation,'number')}
-        ${_amField('am-boomRotation','Boom Rotation',d.boomRotation)}
-      </div>
-
-      ${sh('Dimensions & Weight')}
-      <div style="${g3}">
-        ${_amField('am-stowedWidth','Stowed Width (mm)',d.stowedWidth,'number')}
-        ${_amField('am-stowedLength','Stowed Length (mm)',d.stowedLength,'number')}
-        ${_amField('am-stowedHeight','Stowed Height (mm)',d.stowedHeight,'number')}
-      </div>
-      <div style="${g3}">
-        ${_amField('am-machineWeight','Machine Weight (kg)',d.machineWeight,'number')}
-        ${_amField('am-stabWidth','Outrigger Spread Width (mm)',d.stabWidth,'number')}
-        ${_amField('am-stabDepth','Outrigger Spread Depth (mm)',d.stabDepth,'number')}
-      </div>
-
-      ${sh('Undercarriage & Mobility')}
-      <div style="${g3}">
-        ${_amField('am-undercarriage','Undercarriage',d.undercarriage,'select',['tyres','tracks','crawler','outriggers','skids'])}
-        ${_amField('am-tyreSize','Tyre Size',d.tyreSize)}
-        ${_amField('am-trackWidth','Track Width (mm)',d.trackWidth,'number')}
-      </div>
-      <div style="${g3}">
-        ${_amField('am-gradeability','Gradeability',d.gradeability)}
-        ${_amField('am-groundClearance','Ground Clearance (mm)',d.groundClearance,'number')}
-        ${_amField('am-turningRadius','Turning Radius (m)',d.turningRadius,'number')}
-      </div>
-
-      ${sh('Engine & Power')}
-      <div style="${g3}">
-        ${_amField('am-power','Power Source',d.power,'select',['Diesel','Electric','LPG','Petrol','Hybrid','Dual Power'])}
-        ${_amField('am-engine','Engine Description',d.engine)}
-        ${_amField('am-enginePower','Engine Power (kW)',d.enginePower,'number')}
-      </div>
-      <div style="${g3}">
-        ${_amField('am-terrain','Terrain',d.terrain,'select',['indoor','outdoor','indoor/outdoor','rough-terrain','crawler'])}
-        ${_amField('am-driveType','Drive Type',d.driveType)}
-        ${_amField('am-steeringModes','Steering Modes',d.steeringModes)}
-      </div>
-
-      ${sh('Attachments & Tags')}
-      <div style="${g1}">
-        ${_amField('am-attachments','Attachments',d.attachments,'array')}
-        ${_amField('am-tyneOptions','Tyne Options',d.tyneOptions,'array')}
-        ${_amField('am-certifications','Certifications',d.certifications,'array')}
-        ${_amField('am-tags','Tags',d.tags,'array')}
-        ${_amField('am-filters','Filters',d.filters,'array')}
-      </div>
-
-      ${sh('Description')}
-      <div style="${g1}">
-        ${_amField('am-bestFor','Best For',d.bestFor,'textarea')}
-        ${_amField('am-note','Full Technical Note',d.note,'textarea')}
-        ${_amField('am-loadChart','Load Chart Summary',d.loadChart,'textarea')}
-        ${_amField('am-source','Source Document',d.source)}
-        ${_amField('am-supplier','Australian Supplier',d.supplier)}
-      </div>
-
-      <div style="display:flex;gap:.7rem;margin-top:1.2rem;flex-wrap:wrap">
+      <div id="am-save-status" style="margin-top:.8rem"></div>
+      <div style="display:flex;gap:.75rem;margin-top:1.1rem;flex-wrap:wrap">
         <button onclick="amSaveMachine()" style="flex:1;min-width:180px;background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;border:none;border-radius:10px;padding:.65rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.92rem;cursor:pointer">
-          💾 Save to Machine Database
+          💾 Save ${machines.length > 1 ? `All ${machines.length} Machines` : 'Machine'} to Database
         </button>
         <button onclick="renderAdminAddMachine()" style="background:#F1F5F9;color:#475569;border:1.5px solid #E2E8F0;border-radius:10px;padding:.65rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer">
-          ↺ Upload Another
+          ↩ Start Over
         </button>
       </div>
-      <div id="am-save-status" style="margin-top:.7rem"></div>
     </div>`;
 }
 
-function amReadForm() {
-  const g  = (id) => document.getElementById(id)?.value?.trim() || null;
+function amSwitchTab(idx, total) {
+  for (let i = 0; i < total; i++) {
+    const panel = document.getElementById(`am-tab-panel-${i}`);
+    const btn   = document.getElementById(`am-tab-btn-${i}`);
+    if (panel) panel.style.display = i === idx ? 'block' : 'none';
+    if (btn) { btn.style.background = i === idx ? '#0052CC' : '#F1F5F9'; btn.style.color = i === idx ? '#fff' : '#64748B'; }
+  }
+}
+function amReadForm(idx) {
+  // idx = machine index (0, 1, 2...) — suffix for all field IDs
+  const sfx = idx !== undefined ? `-${idx}` : '';
+  const g  = (id) => document.getElementById(id + sfx)?.value?.trim() || null;
   const gn = (id) => { const v = g(id); return v ? parseFloat(v) : null; };
   const ga = (id) => {
     const v = g(id);
@@ -65797,113 +65835,95 @@ function amReadForm() {
     return v.split(',').map(s => s.trim()).filter(Boolean);
   };
 
-  const isRotating = g('am-isRotating') === 'yes';
   const brand = g('am-brand') || 'Unknown';
   const model = g('am-model') || '';
   const name  = g('am-name') || `${brand} ${model}`.trim();
   const id    = (brand + '-' + model).toLowerCase().replace(/[^a-z0-9]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'') || `machine-${Date.now()}`;
-
-  const typeEmojis = { boom:'💥', scissor:'✂️', telehandler: isRotating ? '🔄' : '🏗️', forklift:'🍴', material:'📦', pushAround:'🧍', palletJack:'🔄' };
   const machineType = g('am-machineType') || 'boom';
+  const typeEmojis  = { boom:'💥', scissor:'✂️', telehandler:'🏗️', forklift:'🍴', material:'📦', pushAround:'🧍', palletJack:'🔄' };
 
   return {
     id, brand, model, name,
-    shortName:              g('am-shortName') || name,
-    emoji:                  typeEmojis[machineType] || '🏗️',
+    shortName:        g('am-shortName') || name,
+    emoji:            typeEmojis[machineType] || '🏗️',
     machineType,
-    isRotating,
-    capacity:               gn('am-capacity'),
-    capacityOnTyres:        gn('am-capacityOnTyres'),
-    capacityOnOutriggers:   gn('am-capacityOnOutriggers'),
-    capacityOnJib:          gn('am-capacityOnJib'),
-    capacityOnRotator:      gn('am-capacityOnRotator'),
-    swl:                    gn('am-swl'),
-    liftHeight:             gn('am-liftHeight'),
-    platformHeight:         gn('am-platformHeight'),
-    workingHeight:          gn('am-workingHeight'),
-    maxReach:               gn('am-maxReach'),
-    upAndOverHeight:        gn('am-upAndOverHeight'),
-    occupants:              gn('am-occupants'),
-    jibWeight:              gn('am-jibWeight'),
-    jibLength:              gn('am-jibLength'),
-    jibCapacity:            gn('am-jibCapacity'),
-    jibAngle:               g('am-jibAngle'),
-    rotatorWeight:          gn('am-rotatorWeight'),
-    rotatorCapacity:        gn('am-rotatorCapacity'),
-    turretRotation:         gn('am-turretRotation'),
-    boomRotation:           g('am-boomRotation'),
-    stowedWidth:            gn('am-stowedWidth'),
-    stowedLength:           gn('am-stowedLength'),
-    stowedHeight:           gn('am-stowedHeight'),
-    machineWeight:          gn('am-machineWeight'),
-    stabWidth:              gn('am-stabWidth'),
-    stabDepth:              gn('am-stabDepth'),
-    undercarriage:          g('am-undercarriage'),
-    tyreSize:               g('am-tyreSize'),
-    trackWidth:             gn('am-trackWidth'),
-    gradeability:           g('am-gradeability'),
-    groundClearance:        gn('am-groundClearance'),
-    turningRadius:          gn('am-turningRadius'),
-    power:                  g('am-power'),
-    engine:                 g('am-engine'),
-    enginePower:            gn('am-enginePower'),
-    terrain:                g('am-terrain') || 'outdoor',
-    driveType:              g('am-driveType'),
-    steeringModes:          g('am-steeringModes'),
-    attachments:            ga('am-attachments'),
-    tyneOptions:            ga('am-tyneOptions'),
-    certifications:         ga('am-certifications'),
-    tags:                   ga('am-tags'),
-    filters:                ga('am-filters').length ? ga('am-filters') : [machineType],
-    bestFor:                g('am-bestFor'),
-    note:                   g('am-note'),
-    loadChart:              g('am-loadChart'),
-    source:                 g('am-source'),
-    supplier:               g('am-supplier'),
-    _customAdded:           true,
-    _addedAt:               new Date().toISOString(),
-    _addedBy:               currentUser ? currentUser.email : 'admin',
+    capacityKg:       gn('am-capacityKg'),
+    capacityOnTyresKg:     gn('am-capacityOnTyresKg'),
+    capacityOnOutriggersKg:gn('am-capacityOnOutriggersKg'),
+    platformHeight:   gn('am-platformHeight'),
+    workingHeight:    gn('am-workingHeight'),
+    maxReach:         gn('am-maxReach'),
+    stowedWidth:      gn('am-stowedWidth'),
+    stowedLength:     gn('am-stowedLength'),
+    stowedHeight:     gn('am-stowedHeight'),
+    machineWeight:    gn('am-machineWeight'),
+    groundClearance:  gn('am-groundClearance'),
+    power:            g('am-power'),
+    engine:           g('am-engine'),
+    terrain:          g('am-terrain') || 'indoor',
+    tags:             ga('am-tags'),
+    filters:          ga('am-filters').length ? ga('am-filters') : [machineType],
+    bestFor:          g('am-bestFor'),
+    note:             g('am-note'),
+    _customAdded:     true,
+    _addedAt:         new Date().toISOString(),
+    _addedBy:         currentUser ? currentUser.email : 'admin',
   };
 }
 
 async function amSaveMachine() {
-  const machine = amReadForm();
   const saveStatus = document.getElementById('am-save-status');
+  const machines = Array.isArray(_amExtracted) ? _amExtracted : [_amExtracted];
+  const count = machines.length;
 
-  if (!machine.brand || machine.brand === 'Unknown') {
-    if (saveStatus) saveStatus.innerHTML = `<div style="color:#DC2626;font-size:.83rem;font-weight:700">⚠️ Please fill in at least Brand and Machine Type before saving.</div>`;
-    return;
+  if (saveStatus) saveStatus.innerHTML = `<div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:9px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;color:#1E40AF">⏳ Saving ${count} machine${count>1?'s':''}…</div>`;
+
+  const saved = [], failed = [];
+
+  for (let i = 0; i < count; i++) {
+    const machine = amReadForm(i);
+    if (!machine.brand || machine.brand === 'Unknown') {
+      failed.push(`Machine ${i+1}: missing brand`);
+      continue;
+    }
+
+    try {
+      await _fbDb.collection('custom_machines').doc(machine.id).set(machine);
+
+      // Push to in-memory
+      const existIdx = ALL_MACHINES.findIndex(m => m.id === machine.id);
+      if (existIdx > -1) ALL_MACHINES.splice(existIdx, 1);
+      ALL_MACHINES.push(machine);
+      const typeKey = machine.machineType;
+      if (MACHINES[typeKey]) {
+        const tIdx = MACHINES[typeKey].findIndex(m => m.id === machine.id);
+        if (tIdx > -1) MACHINES[typeKey].splice(tIdx, 1);
+        MACHINES[typeKey].push(machine);
+      }
+      saved.push(machine.name);
+    } catch(e) {
+      failed.push(`${machine.name}: ${e.message}`);
+    }
   }
 
-  // ── 1. Save to Firestore custom_machines collection ─────────────
-  try {
-    await _fbDb.collection('custom_machines').doc(machine.id).set(machine);
-  } catch(e) {
-    if (saveStatus) saveStatus.innerHTML = `<div style="color:#DC2626;font-size:.83rem;font-weight:700">❌ Firestore save failed: ${e.message}</div>`;
-    return;
+  if (saveStatus) {
+    if (saved.length > 0 && failed.length === 0) {
+      saveStatus.innerHTML = `
+        <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:9px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;color:#15803D">
+          ✅ ${saved.length} machine${saved.length>1?'s':''} saved and immediately active in search results:<br>
+          ${saved.map(n=>`<span style="display:inline-block;background:#DCFCE7;border-radius:4px;padding:.05rem .4rem;margin:.15rem .2rem .15rem 0;font-size:.78rem">${n}</span>`).join('')}
+        </div>`;
+    } else if (saved.length > 0) {
+      saveStatus.innerHTML = `
+        <div style="background:#FEF3C7;border:1.5px solid #FCD34D;border-radius:9px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;color:#92400E">
+          ⚠️ Saved ${saved.length}, failed ${failed.length}: ${failed.join('; ')}
+        </div>`;
+    } else {
+      saveStatus.innerHTML = `<div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:9px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;color:#DC2626">❌ Save failed: ${failed.join('; ')}</div>`;
+    }
   }
 
-  // ── 2. Push to in-memory ALL_MACHINES and MACHINES[type] ────────
-  // Remove any existing entry with same id first
-  const existIdx = ALL_MACHINES.findIndex(m => m.id === machine.id);
-  if (existIdx > -1) ALL_MACHINES.splice(existIdx, 1);
-  ALL_MACHINES.push(machine);
-
-  const typeKey = machine.machineType;
-  if (MACHINES[typeKey]) {
-    const tIdx = MACHINES[typeKey].findIndex(m => m.id === machine.id);
-    if (tIdx > -1) MACHINES[typeKey].splice(tIdx, 1);
-    MACHINES[typeKey].push(machine);
-  }
-
-  // ── 3. Success feedback ─────────────────────────────────────────
-  if (saveStatus) saveStatus.innerHTML = `
-    <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:9px;padding:.65rem 1rem;font-size:.85rem;font-weight:700;color:#15803D">
-      ✅ <strong>${machine.name}</strong> saved to database and immediately active in search results.
-      <div style="font-size:.75rem;color:#16A34A;margin-top:.2rem">Firestore: custom_machines/${machine.id}</div>
-    </div>`;
-
-  showToast(`✅ ${machine.name} added — appears in ${machine.machineType} results immediately.`, '#16A34A');
+  if (saved.length > 0) showToast(`✅ ${saved.length} machine${saved.length>1?'s':''} added to database`, '#16A34A');
 }
 
 // Load any previously saved custom machines from Firestore on boot
