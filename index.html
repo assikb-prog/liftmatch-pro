@@ -15,6 +15,9 @@
 <script src="js/firebase-bridge.js"></script>
 <link rel="stylesheet" href="assets/css/styles.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.6.0/jspdf.plugin.autotable.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
@@ -1262,26 +1265,51 @@
 
       <!-- Date range controls -->
       <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:.75rem 1rem;margin-bottom:1.2rem">
-        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
-          <!-- Quick presets -->
-          <div style="display:flex;gap:.3rem;flex-wrap:wrap">
-            <button onclick="analyticsSetPreset('today')"   id="abtn-today"   class="analytics-preset-btn">Today</button>
-            <button onclick="analyticsSetPreset('7d')"      id="abtn-7d"      class="analytics-preset-btn">7 Days</button>
-            <button onclick="analyticsSetPreset('30d')"     id="abtn-30d"     class="analytics-preset-btn active">30 Days</button>
-            <button onclick="analyticsSetPreset('90d')"     id="abtn-90d"     class="analytics-preset-btn">90 Days</button>
-            <button onclick="analyticsSetPreset('12m')"     id="abtn-12m"     class="analytics-preset-btn">12 Months</button>
-            <button onclick="analyticsSetPreset('all')"     id="abtn-all"     class="analytics-preset-btn">All Time</button>
-          </div>
-          <!-- Custom date range -->
-          <div style="display:flex;align-items:center;gap:.4rem;margin-left:auto">
-            <label style="font-size:.73rem;font-weight:700;color:#64748B">From</label>
-            <input type="date" id="analytics-from" onchange="renderAnalytics()"
-              style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.28rem .45rem;font-size:.78rem;font-family:'Nunito',sans-serif">
-            <label style="font-size:.73rem;font-weight:700;color:#64748B">To</label>
-            <input type="date" id="analytics-to" onchange="renderAnalytics()"
-              style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.28rem .45rem;font-size:.78rem;font-family:'Nunito',sans-serif">
-            <button onclick="renderAnalytics()" style="background:#0052CC;color:#fff;border:none;border-radius:7px;padding:.3rem .75rem;font-size:.78rem;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer">↻</button>
-          </div>
+
+        <!-- Day presets -->
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.4rem">
+          <span style="font-size:.67rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;min-width:42px">Day</span>
+          <button onclick="analyticsSetPreset('today')"      id="abtn-today"      class="analytics-preset-btn">Today</button>
+          <button onclick="analyticsSetPreset('yesterday')"  id="abtn-yesterday"  class="analytics-preset-btn">Yesterday</button>
+        </div>
+
+        <!-- Week presets -->
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.4rem">
+          <span style="font-size:.67rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;min-width:42px">Week</span>
+          <button onclick="analyticsSetPreset('this_week')"  id="abtn-this_week"  class="analytics-preset-btn">This Week</button>
+          <button onclick="analyticsSetPreset('last_week')"  id="abtn-last_week"  class="analytics-preset-btn">Last Week</button>
+          <button onclick="analyticsSetPreset('7d')"         id="abtn-7d"         class="analytics-preset-btn">Last 7 Days</button>
+        </div>
+
+        <!-- Month presets -->
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.4rem">
+          <span style="font-size:.67rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;min-width:42px">Month</span>
+          <button onclick="analyticsSetPreset('this_month')" id="abtn-this_month" class="analytics-preset-btn">This Month</button>
+          <button onclick="analyticsSetPreset('last_month')" id="abtn-last_month" class="analytics-preset-btn">Last Month</button>
+          <button onclick="analyticsSetPreset('30d')"        id="abtn-30d"        class="analytics-preset-btn active">Last 30 Days</button>
+          <button onclick="analyticsSetPreset('90d')"        id="abtn-90d"        class="analytics-preset-btn">Last 90 Days</button>
+        </div>
+
+        <!-- Year presets -->
+        <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem">
+          <span style="font-size:.67rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;min-width:42px">Year</span>
+          <button onclick="analyticsSetPreset('this_year')"  id="abtn-this_year"  class="analytics-preset-btn">This Year</button>
+          <button onclick="analyticsSetPreset('last_year')"  id="abtn-last_year"  class="analytics-preset-btn">Last Year</button>
+          <button onclick="analyticsSetPreset('12m')"        id="abtn-12m"        class="analytics-preset-btn">Last 12 Months</button>
+          <button onclick="analyticsSetPreset('all')"        id="abtn-all"        class="analytics-preset-btn">All Time</button>
+        </div>
+
+        <!-- Custom date range -->
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding-top:.45rem;border-top:1px solid #E2E8F0">
+          <span style="font-size:.67rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;min-width:42px">Custom</span>
+          <label style="font-size:.73rem;font-weight:700;color:#64748B">From</label>
+          <input type="date" id="analytics-from"
+            style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.28rem .45rem;font-size:.78rem;font-family:'Nunito',sans-serif">
+          <label style="font-size:.73rem;font-weight:700;color:#64748B">To</label>
+          <input type="date" id="analytics-to"
+            style="border:1.5px solid #CBD5E1;border-radius:7px;padding:.28rem .45rem;font-size:.78rem;font-family:'Nunito',sans-serif">
+          <button onclick="analyticsApplyCustom()" style="background:#0052CC;color:#fff;border:none;border-radius:7px;padding:.3rem .85rem;font-size:.78rem;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer">Apply ↻</button>
+          <span id="analytics-range-label" style="font-size:.75rem;font-weight:700;color:#0052CC"></span>
         </div>
       </div>
 
@@ -1340,6 +1368,68 @@
 
       <!-- Search activity log -->
       <div id="analytics-recent-searches" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem"></div>
+
+      <!-- Zero results tracker -->
+      <div id="analytics-zero-results" style="background:#fff;border:1.5px solid #FCA5A5;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem"></div>
+
+      <!-- Traffic Sources + Audience -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:1rem">
+        <div id="analytics-traffic-sources" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="analytics-devices" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="analytics-countries" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="analytics-cities-detail" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+      </div>
+
+      <!-- Brand Partner Impression Report -->
+      <div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #FCD34D;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem">
+          <div style="font-weight:900;font-size:.95rem;color:#92400E">⭐ Brand Partner Impression Report</div>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <span style="font-size:.75rem;font-weight:700;color:#B45309">Share with sponsors →</span>
+            <button onclick="exportBrandReport()" style="background:#B45309;color:#fff;border:none;border-radius:8px;padding:.3rem .85rem;font-size:.78rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📥 Export CSV</button>
+          </div>
+        </div>
+        <div id="analytics-brand-report"></div>
+      </div>
+
+      <!-- Revenue & GMV Intelligence -->
+      <div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:2px solid #86EFAC;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem">
+        <div style="font-weight:900;font-size:.95rem;color:#14532D;margin-bottom:.9rem">💰 Revenue & GMV Intelligence</div>
+        <div id="analytics-revenue" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.8rem"></div>
+      </div>
+
+      <!-- Marketplace Health Score -->
+      <div id="analytics-health" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem"></div>
+
+      <!-- Response Time Intelligence -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:1rem">
+        <div id="analytics-response-times" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="analytics-peak-hours" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+      </div>
+
+      <!-- Demand Gaps — what people search for but don't find -->
+      <div id="analytics-demand-gaps" style="background:#fff;border:1.5px solid #FCA5A5;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem"></div>
+
+      <!-- Repeat vs New Users + Top Customers -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:1rem">
+        <div id="analytics-user-cohorts" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="analytics-top-customers" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+        <div id="analytics-rc-leaderboard" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.2rem"></div>
+      </div>
+
+      <!-- Weekly digest export -->
+      <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:14px;padding:.85rem 1.1rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+        <div>
+          <div style="font-weight:800;font-size:.88rem;color:#0F172A">📊 Export Analytics Report</div>
+          <div style="font-size:.75rem;color:#64748B">Download full analytics for investors, team or your own records</div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button onclick="exportAnalyticsExcel()" style="background:#16A34A;color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-size:.8rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📗 Excel (.xlsx)</button>
+          <button onclick="exportAnalyticsPDF()" style="background:#DC2626;color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-size:.8rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📕 PDF Report</button>
+          <button onclick="exportFullAnalyticsCSV()" style="background:#0052CC;color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-size:.8rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📥 CSV</button>
+          <button onclick="copyAnalyticsSummary()" style="background:#475569;color:#fff;border:none;border-radius:8px;padding:.4rem 1rem;font-size:.8rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif">📋 Copy</button>
+        </div>
+      </div>
 
       <div style="height:1rem"></div>
     </div>
