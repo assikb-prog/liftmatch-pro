@@ -47704,7 +47704,7 @@ If you cannot confidently determine a value, use null. Do not guess wildly.`;
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1500,
         messages: [{ role: 'user', content: [
           { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: _photoBase64 } },
@@ -51100,7 +51100,7 @@ async function sendChat() {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-sonnet-4-6',
         max_tokens:500,
         system:`You are a specialist lifting equipment advisor helping hire company staff recommend the right machine to customers. You have deep knowledge of forklifts, telehandlers, scissor lifts and boom lifts.
 
@@ -58233,7 +58233,7 @@ async function _lookupABNLive(abn) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 500,
       tools: [{ type: 'web_search_20250305', name: 'web_search' }],
       messages: [{
@@ -58397,7 +58397,7 @@ async function detLookupABN() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 500,
         tools: [{ type: 'web_search_20250305', name: 'web_search' }],
         messages: [{
@@ -61518,6 +61518,8 @@ function loginSuccess(user) {
     currentUser.uid = _fbAuth.currentUser.uid;
   }
   _sessionRegisteredOrg = null; // always start fresh — no bleed from previous session
+  // Tag analytics session with this user's role
+  try { _tagSessionRole(user.role || 'customer'); } catch(e) {}
 
   // For scustomer demo accounts: clear any stale company/ABN data from previous sessions
   // so they always see a clean registration form
@@ -64260,7 +64262,7 @@ Rules:
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 4096,
         system: systemPrompt,
         messages: [{ role: 'user', content: userContent }]
@@ -65570,7 +65572,7 @@ JSON schema:
         'anthropic-dangerous-direct-browser-access': 'true',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 4096,
         messages: [{
           role: 'user',
@@ -67360,16 +67362,122 @@ async function renderAnalytics() {
   // ── 11. Traffic Sources, Devices, Countries, Cities ─────────────────
   // Aggregate from dailyDocs
   const sourceAgg  = {}, mediumAgg = {}, deviceAgg = {}, browserAgg = {}, countryAgg = {}, cityDetailAgg = {};
+  const roleAgg    = {};  // role → sessions
+  const roleDevices= {};  // role → { device → count }
+  const roleCountries={}; // role → { country → count }
+  const roleCities = {};  // role → { city → count }
+  const roleSources= {};  // role → { source → count }
+  const roleHours  = {};  // role → { hour → count }
+  const hourAgg    = {};  // hour → count (all roles)
   let totalSessions = 0;
+
   dailyDocs.forEach(doc => {
     totalSessions += parseInt(doc.sessions||0);
-    if (doc.sources)  Object.entries(doc.sources).forEach(([k,v])  => { const k2=k.replace(/_/g,' '); sourceAgg[k2]  = (sourceAgg[k2] ||0)+parseInt(v||0); });
-    if (doc.mediums)  Object.entries(doc.mediums).forEach(([k,v])  => { mediumAgg[k]  = (mediumAgg[k] ||0)+parseInt(v||0); });
-    if (doc.devices)  Object.entries(doc.devices).forEach(([k,v])  => { deviceAgg[k]  = (deviceAgg[k] ||0)+parseInt(v||0); });
-    if (doc.browsers) Object.entries(doc.browsers).forEach(([k,v]) => { browserAgg[k] = (browserAgg[k]||0)+parseInt(v||0); });
-    if (doc.countries)Object.entries(doc.countries).forEach(([k,v])=> { const k2=k.replace(/_/g,' '); countryAgg[k2] = (countryAgg[k2]||0)+parseInt(v||0); });
-    if (doc.cities)   Object.entries(doc.cities).forEach(([k,v])   => { const k2=k.replace(/_/g,' '); cityDetailAgg[k2]=(cityDetailAgg[k2]||0)+parseInt(v||0); });
+    if (doc.sources)   Object.entries(doc.sources).forEach(([k,v])   => { const k2=k.replace(/_/g,' '); sourceAgg[k2]  = (sourceAgg[k2] ||0)+parseInt(v||0); });
+    if (doc.mediums)   Object.entries(doc.mediums).forEach(([k,v])   => { mediumAgg[k]  = (mediumAgg[k] ||0)+parseInt(v||0); });
+    if (doc.devices)   Object.entries(doc.devices).forEach(([k,v])   => { deviceAgg[k]  = (deviceAgg[k] ||0)+parseInt(v||0); });
+    if (doc.browsers)  Object.entries(doc.browsers).forEach(([k,v])  => { browserAgg[k] = (browserAgg[k]||0)+parseInt(v||0); });
+    if (doc.countries) Object.entries(doc.countries).forEach(([k,v]) => { const k2=k.replace(/_/g,' '); countryAgg[k2] = (countryAgg[k2]||0)+parseInt(v||0); });
+    if (doc.cities)    Object.entries(doc.cities).forEach(([k,v])    => { const k2=k.replace(/_/g,' '); cityDetailAgg[k2]=(cityDetailAgg[k2]||0)+parseInt(v||0); });
+    if (doc.hours)     Object.entries(doc.hours).forEach(([k,v])     => { hourAgg[k]=(hourAgg[k]||0)+parseInt(v||0); });
+
+    // Role segmentation
+    if (doc.roles) Object.entries(doc.roles).forEach(([role,v]) => {
+      roleAgg[role] = (roleAgg[role]||0) + parseInt(v||0);
+    });
+    ['customer','rental','lite','admin'].forEach(role => {
+      const rd = doc[`role_devices`];
+      const rc = doc[`role_countries`];
+      const rci= doc[`role_cities`];
+      const rs = doc[`role_sources`];
+      const rh = doc[`role_hours`];
+      if (rd?.[role]) { if (!roleDevices[role]) roleDevices[role]={}; Object.entries(rd[role]).forEach(([k,v])=>{ roleDevices[role][k]=(roleDevices[role][k]||0)+parseInt(v||0); }); }
+      if (rc?.[role]) { if (!roleCountries[role]) roleCountries[role]={}; Object.entries(rc[role]).forEach(([k,v])=>{ roleCountries[role][k.replace(/_/g,' ')]=(roleCountries[role][k.replace(/_/g,' ')]||0)+parseInt(v||0); }); }
+      if (rci?.[role]){ if (!roleCities[role])   roleCities[role]={};   Object.entries(rci[role]).forEach(([k,v])=>{ roleCities[role][k.replace(/_/g,' ')]=(roleCities[role][k.replace(/_/g,' ')]||0)+parseInt(v||0); }); }
+      if (rs?.[role]) { if (!roleSources[role])  roleSources[role]={};  Object.entries(rs[role]).forEach(([k,v])=>{ roleSources[role][k.replace(/_/g,' ')]=(roleSources[role][k.replace(/_/g,' ')]||0)+parseInt(v||0); }); }
+      if (rh?.[role]) { if (!roleHours[role])    roleHours[role]={};    Object.entries(rh[role]).forEach(([k,v])=>{ roleHours[role][k]=(roleHours[role][k]||0)+parseInt(v||0); }); }
+    });
   });
+
+  // Helper: horizontal bar mini-list
+  const _miniBar = (data, color, maxItems=5) => {
+    const sorted = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,maxItems);
+    const max = Math.max(...sorted.map(([,v])=>v),1);
+    const total = sorted.reduce((s,[,v])=>s+v,0);
+    if (sorted.length===0) return `<div style="color:#94A3B8;font-size:.75rem;padding:.3rem 0">No data yet</div>`;
+    return sorted.map(([k,v])=>{
+      const pct = total>0?Math.round(v/total*100):0;
+      return `<div style="margin-bottom:.3rem">
+        <div style="display:flex;justify-content:space-between;font-size:.73rem;font-weight:700;margin-bottom:.1rem">
+          <span style="color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:68%">${k}</span>
+          <span style="color:${color};white-space:nowrap">${v} <span style="color:#94A3B8;font-weight:500">(${pct}%)</span></span>
+        </div>
+        <div style="background:#F1F5F9;border-radius:99px;height:5px;overflow:hidden">
+          <div style="background:${color};width:${Math.round(v/max*100)}%;height:100%;border-radius:99px"></div>
+        </div>
+      </div>`;
+    }).join('');
+  };
+
+  // Helper: peak hour mini sparkline
+  const _hourSparkline = (hours) => {
+    const arr = Array.from({length:24},(_,i)=>parseInt(hours?.[i]||0));
+    const max = Math.max(...arr,1);
+    const peak = arr.indexOf(Math.max(...arr));
+    return `<div style="display:flex;gap:1px;align-items:flex-end;height:28px;margin:.3rem 0">
+      ${arr.map((v,i)=>`<div title="${i}:00 — ${v}" style="flex:1;background:${v>0?`rgba(0,82,204,${0.15+0.85*(v/max)})`:'#F1F5F9'};border-radius:2px 2px 0 0;height:${Math.max(3,Math.round(v/max*26))}px"></div>`).join('')}
+    </div>
+    <div style="font-size:.68rem;color:#64748B">Peak: ${peak}:00–${peak+1}:00 (${arr[peak]} sessions)</div>`;
+  };
+
+  // Helper: full role segment panel
+  const _rolePanel = (role, label, icon, color, sessions) => {
+    const devices   = roleDevices[role]   || {};
+    const countries = roleCountries[role] || {};
+    const cities    = roleCities[role]    || {};
+    const sources   = roleSources[role]   || {};
+    const hours     = roleHours[role]     || {};
+    const topDevice = Object.entries(devices).sort((a,b)=>b[1]-a[1])[0]?.[0] || '—';
+    const topCity   = Object.entries(cities).sort((a,b)=>b[1]-a[1])[0]?.[0]  || '—';
+    const topSource = Object.entries(sources).sort((a,b)=>b[1]-a[1])[0]?.[0] || '—';
+
+    return `
+      <div style="font-size:.82rem;font-weight:900;color:${color};margin-bottom:.6rem">${icon} ${label}</div>
+      <div style="font-size:1.8rem;font-weight:900;color:${color};line-height:1;margin-bottom:.2rem">${(sessions||0).toLocaleString()}</div>
+      <div style="font-size:.7rem;color:#94A3B8;margin-bottom:.8rem">sessions in period</div>
+
+      ${sessions === 0
+        ? `<div style="color:#94A3B8;font-size:.78rem;text-align:center;padding:.8rem">No sessions yet — data builds up as users log in</div>`
+        : `
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem">
+        <span style="background:${color}18;color:${color};border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">📱 ${topDevice}</span>
+        <span style="background:${color}18;color:${color};border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">📍 ${topCity}</span>
+        <span style="background:${color}18;color:${color};border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">🌐 ${topSource}</span>
+      </div>
+
+      <div style="font-size:.72rem;font-weight:800;color:#334155;margin-bottom:.3rem">📍 Top Cities</div>
+      ${_miniBar(cities, color, 5)}
+
+      <div style="font-size:.72rem;font-weight:800;color:#334155;margin-top:.55rem;margin-bottom:.3rem">🗺️ Countries</div>
+      ${_miniBar(countries, color, 4)}
+
+      <div style="font-size:.72rem;font-weight:800;color:#334155;margin-top:.55rem;margin-bottom:.3rem">📱 Devices</div>
+      ${_miniBar(devices, color, 3)}
+
+      <div style="font-size:.72rem;font-weight:800;color:#334155;margin-top:.55rem;margin-bottom:.3rem">🌐 Traffic Sources</div>
+      ${_miniBar(sources, color, 4)}
+
+      <div style="font-size:.72rem;font-weight:800;color:#334155;margin-top:.55rem;margin-bottom:.2rem">🕐 Active Hours (AEST)</div>
+      ${_hourSparkline(hours)}`}`;
+  };
+
+  // Render the 3 role panels
+  const segCustomer = document.getElementById('analytics-seg-customer');
+  const segRental   = document.getElementById('analytics-seg-rental');
+  const segLite     = document.getElementById('analytics-seg-lite');
+  if (segCustomer) segCustomer.innerHTML = _rolePanel('customer', 'Customers',       '🧑',  '#0052CC', roleAgg.customer||0);
+  if (segRental)   segRental.innerHTML   = _rolePanel('rental',   'Rental Companies','🏗️', '#16A34A', roleAgg.rental||0);
+  if (segLite)     segLite.innerHTML     = _rolePanel('lite',     'Lite Portal',     '🔵',  '#7C3AED', roleAgg.lite||0);
 
   // Helper: render a horizontal bar list
   const _barList = (title, icon, data, color, note='') => {
@@ -69304,16 +69412,52 @@ function _flushSessionToFirestore(data) {
     const devKey = (data.device||'Desktop');
     const cntKey = (data.country||'Unknown').replace(/[.\\/\[\]]/g,'_');
     const citKey = (data.city||'Unknown').replace(/[.\\/\[\]]/g,'_');
+    const role   = data.role || 'anonymous'; // customer | rental | lite | admin | anonymous
+
     const inc = {
       sessions: firebase.firestore.FieldValue.increment(1),
-      [`sources.${srcKey}`]:   firebase.firestore.FieldValue.increment(1),
-      [`mediums.${data.medium||'direct'}`]: firebase.firestore.FieldValue.increment(1),
-      [`devices.${devKey}`]:   firebase.firestore.FieldValue.increment(1),
-      [`browsers.${data.browser||'Other'}`]: firebase.firestore.FieldValue.increment(1),
-      [`countries.${cntKey}`]: firebase.firestore.FieldValue.increment(1),
-      [`cities.${citKey}`]:    firebase.firestore.FieldValue.increment(1),
+      [`sources.${srcKey}`]:                     firebase.firestore.FieldValue.increment(1),
+      [`mediums.${data.medium||'direct'}`]:       firebase.firestore.FieldValue.increment(1),
+      [`devices.${devKey}`]:                      firebase.firestore.FieldValue.increment(1),
+      [`browsers.${data.browser||'Other'}`]:      firebase.firestore.FieldValue.increment(1),
+      [`countries.${cntKey}`]:                    firebase.firestore.FieldValue.increment(1),
+      [`cities.${citKey}`]:                       firebase.firestore.FieldValue.increment(1),
+      // ── Role-segmented counters ──────────────────────────────────────────
+      [`roles.${role}`]:                          firebase.firestore.FieldValue.increment(1),
+      [`role_devices.${role}.${devKey}`]:         firebase.firestore.FieldValue.increment(1),
+      [`role_countries.${role}.${cntKey}`]:       firebase.firestore.FieldValue.increment(1),
+      [`role_cities.${role}.${citKey}`]:          firebase.firestore.FieldValue.increment(1),
+      [`role_sources.${role}.${srcKey}`]:         firebase.firestore.FieldValue.increment(1),
+      // Hour of day (AEST-aware)
+      [`hours.${data.hour||new Date().getHours()}`]: firebase.firestore.FieldValue.increment(1),
+      [`role_hours.${role}.${data.hour||new Date().getHours()}`]: firebase.firestore.FieldValue.increment(1),
     };
     _fbDb.collection('analytics_daily').doc(dayKey).set(inc, { merge: true }).catch(()=>{});
+  } catch(e) {}
+}
+
+// ── Tag session with role once user logs in ──────────────────────────────────
+function _tagSessionRole(role) {
+  try {
+    if (!window._noyoSession) return;
+    window._noyoSession.role = role;
+    // Re-flush with role now known
+    const data = window._noyoSession;
+    const dayKey = new Date().toISOString().slice(0,10);
+    const devKey = (data.device||'Desktop');
+    const cntKey = (data.country||'Unknown').replace(/[.\\/\[\]]/g,'_');
+    const citKey = (data.city||'Unknown').replace(/[.\\/\[\]]/g,'_');
+    const srcKey = (data.source||'Direct').replace(/[.\\/\[\]]/g,'_');
+    const hr = data.hour || new Date().getHours();
+    if (!_fbDb) return;
+    _fbDb.collection('analytics_daily').doc(dayKey).set({
+      [`roles.${role}`]:                          firebase.firestore.FieldValue.increment(1),
+      [`role_devices.${role}.${devKey}`]:         firebase.firestore.FieldValue.increment(1),
+      [`role_countries.${role}.${cntKey}`]:       firebase.firestore.FieldValue.increment(1),
+      [`role_cities.${role}.${citKey}`]:          firebase.firestore.FieldValue.increment(1),
+      [`role_sources.${role}.${srcKey}`]:         firebase.firestore.FieldValue.increment(1),
+      [`role_hours.${role}.${hr}`]:               firebase.firestore.FieldValue.increment(1),
+    }, { merge: true }).catch(()=>{});
   } catch(e) {}
 }
 
