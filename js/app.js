@@ -48289,13 +48289,16 @@ function nextStep() {
   if (curQ.type === 'inputs' && !answers[qId]) answers[qId] = 'done';
   // For multi-select, allow 0 selections
   if (curQ.type === 'multi') { if (!answers[qId]) answers[qId] = []; }
-  if (curQ.type === 'numeric') { return true; } // numeric is always optional
+  // For numeric, it's always optional — just fall through to advance to next step
+  // (do NOT return early — we still need to move forward)
   // For options, nudge if nothing selected
   if (curQ.type === 'options' && !answers[qId]) {
     showToast('👆 Please select an option above first', '#F59E0B');
     return;
   }
-  if (!answers[qId]) { showToast('👆 Please select an option above first', '#F59E0B'); return; }
+  if (curQ.type !== 'numeric' && curQ.type !== 'inputs' && curQ.type !== 'multi' && !answers[qId]) {
+    showToast('👆 Please select an option above first', '#F59E0B'); return;
+  }
 
   // Now re-fetch questions AFTER the answer is committed and find next step
   const qsNext = getAllQuestions();
@@ -54208,43 +54211,69 @@ function populateSqmMachineList() {
       .map(o=>{const[v,l]=o.split('|');return `<option value="${v}"${curDur===v?' selected':''}>${l}</option>`;}).join('');
 
     // ── Accessory checkboxes — scissor lift ────────────────────────────────
-    const _isScissor = (m.type||'').toLowerCase().includes('scissor') || (m.filters||[]).includes('scissor');
-    const _isBoom    = (m.type||'').toLowerCase().includes('boom')    || (m.filters||[]).includes('boom');
-    const _cartAccs  = m.cartAccessories || {};
+    const _isScissor  = (m.type||'').toLowerCase().includes('scissor') || (m.filters||[]).includes('scissor');
+    const _isBoom     = (m.type||'').toLowerCase().includes('boom')    || (m.filters||[]).includes('boom');
+    const _isTele     = (m.type||'') === 'telehandler' || (m.filters||[]).includes('telehandler');
+    const _isForklift = (m.type||'') === 'forklift';
+    const _isRotating = _isTele && (m.isRotating || (m.name||'').toLowerCase().includes('mrt') || (m.name||'').toLowerCase().includes('rth') || (m.filters||[]).includes('rotating'));
+    const _cartAccs   = m.cartAccessories || {};
+
+    const _accBox = (idx, key, label, checked) =>
+      `<label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.8rem;color:#334155;white-space:nowrap">
+        <input type="checkbox" ${checked?'checked':''} onchange="sqmCartAccChange(${idx},'${key}',this.checked)"
+          style="accent-color:#B45309;width:15px;height:15px;flex-shrink:0"> <strong>${label}</strong>
+      </label>`;
+
+    const _accWrap = (title, inner) =>
+      `<div style="margin-top:.6rem;padding:.55rem .8rem;background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:10px">
+        <div style="font-size:.75rem;font-weight:800;color:#92400E;margin-bottom:.5rem">${title}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem .8rem">${inner}</div>
+        <div style="font-size:.72rem;color:#92400E;margin-top:.45rem">Each ticked item will be quoted separately — rental company sets their own day &amp; week rates.</div>
+      </div>`;
 
     let accHtml = '';
     if (_isScissor) {
-      accHtml = `
-        <div style="margin-top:.6rem;padding:.55rem .8rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px">
-          <div style="font-size:.75rem;font-weight:800;color:#334155;margin-bottom:.4rem">🔧 Accessories — quoted as separate line items by rental company</div>
-          <div style="display:flex;flex-direction:column;gap:.3rem">
-            <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
-              <input type="checkbox" id="sqm-acc-piperack-${i}" ${_cartAccs.pipe_racks?'checked':''} onchange="sqmCartAccChange(${i},'pipe_racks',this.checked)"
-                style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
-              <span><strong>🪠 Pipe racks</strong> — day &amp; week rate <span style="color:#64748B;font-weight:400">(platform-mounted pipe cradles for long pipe, conduit or bar stock)</span></span>
-            </label>
-            <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
-              <input type="checkbox" id="sqm-acc-eqss-${i}" ${_cartAccs.eqss?'checked':''} onchange="sqmCartAccChange(${i},'eqss',this.checked)"
-                style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
-              <span><strong>🦺 EQSS (Enhanced Quad Support System)</strong> — day &amp; week rate <span style="color:#64748B;font-weight:400">(quad outrigger stability system)</span></span>
-            </label>
-            <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
-              <input type="checkbox" id="sqm-acc-spill-${i}" ${_cartAccs.spill_guard?'checked':''} onchange="sqmCartAccChange(${i},'spill_guard',this.checked)"
-                style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
-              <span><strong>💧 Spill under guard</strong> — <span style="background:#DCFCE7;color:#15803D;font-size:.72rem;font-weight:700;padding:.05rem .3rem;border-radius:4px">one-time charge</span> <span style="color:#64748B;font-weight:400">(drip tray / spill containment mat)</span></span>
-            </label>
-          </div>
-        </div>`;
+      accHtml = _accWrap('🔧 Scissor Lift Accessories — tick to add as separate quote line items',
+        _accBox(i,'pipe_racks',  '🪠 Pipe & Tube Rack',    !!_cartAccs.pipe_racks)  +
+        _accBox(i,'tool_tray',   '🧰 Tool Tray',            !!_cartAccs.tool_tray)   +
+        _accBox(i,'safety_gate', '🚧 Safety Gate',          !!_cartAccs.safety_gate) +
+        _accBox(i,'eqss',        '🦺 EQSS (Quad Support)',  !!_cartAccs.eqss)        +
+        _accBox(i,'spill_guard', '💧 Spill Under Guard',    !!_cartAccs.spill_guard)
+      );
     } else if (_isBoom) {
-      accHtml = `
-        <div style="margin-top:.6rem;padding:.55rem .8rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px">
-          <div style="font-size:.75rem;font-weight:800;color:#334155;margin-bottom:.4rem">🔧 Accessories — quoted as separate line items by rental company</div>
-          <label style="display:flex;align-items:flex-start;gap:.5rem;cursor:pointer;font-size:.8rem;color:#334155">
-            <input type="checkbox" id="sqm-acc-power-${i}" ${_cartAccs.power_basket?'checked':''} onchange="sqmCartAccChange(${i},'power_basket',this.checked)"
-              style="margin-top:.15rem;accent-color:#0052CC;width:15px;height:15px;flex-shrink:0">
-            <span><strong>🔌 Power to basket (240V outlet)</strong> — day &amp; week rate <span style="color:#64748B;font-weight:400">(for tools, lighting or equipment run from the platform)</span></span>
-          </label>
-        </div>`;
+      accHtml = _accWrap('🔧 Boom Lift Options — tick to add as separate quote line items',
+        _accBox(i,'std_basket',  '🧺 Standard Basket (230kg)',     !!_cartAccs.std_basket)  +
+        _accBox(i,'xc_basket',   '🧺 XC Capacity Basket (320kg+)', !!_cartAccs.xc_basket)   +
+        _accBox(i,'power_basket','🔌 Power to Basket (230V)',       !!_cartAccs.power_basket)+
+        _accBox(i,'jib_ext',     '🏗️ Jib Extension',               !!_cartAccs.jib_ext)     +
+        _accBox(i,'bi_fuel',     '⛽ Bi-Fuel',                      !!_cartAccs.bi_fuel)
+      );
+    } else if (_isRotating) {
+      accHtml = _accWrap('🔧 Rotating Telehandler Attachments — tick to add as separate quote line items',
+        _accBox(i,'man_basket',   '🧺 Man Basket',       !!_cartAccs.man_basket)   +
+        _accBox(i,'winch',        '⚙️ Winch',            !!_cartAccs.winch)        +
+        _accBox(i,'jib',          '🏗️ Jib Attachment',  !!_cartAccs.jib)          +
+        _accBox(i,'rotator_hook', '🔄 Rotator Hook',     !!_cartAccs.rotator_hook) +
+        _accBox(i,'pallet_forks', '🍴 Pallet Forks',     !!_cartAccs.pallet_forks)
+      );
+    } else if (_isTele) {
+      accHtml = _accWrap('🔩 Telehandler Attachments — tick to add as separate quote line items',
+        _accBox(i,'jib',         '🏗️ Jib / Crane Hook', !!_cartAccs.jib)         +
+        _accBox(i,'rotator',     '🔄 Rotator',           !!_cartAccs.rotator)     +
+        _accBox(i,'man_basket',  '🧺 Man Basket',        !!_cartAccs.man_basket)  +
+        _accBox(i,'pallet_forks','🍴 Pallet Forks',      !!_cartAccs.pallet_forks)+
+        _accBox(i,'bucket',      '🪣 Bucket',            !!_cartAccs.bucket)      +
+        _accBox(i,'bale_grab',   '🌾 Bale Grab',         !!_cartAccs.bale_grab)
+      );
+    } else if (_isForklift) {
+      accHtml = _accWrap('🔧 Forklift Attachments — tick to add as separate quote line items',
+        _accBox(i,'slipper_1800', '📦 1800mm Slippers',   !!_cartAccs.slipper_1800) +
+        _accBox(i,'slipper_2400', '📦 2400mm Slippers',   !!_cartAccs.slipper_2400) +
+        _accBox(i,'jib',          '🏗️ Jib Attachment',   !!_cartAccs.jib)           +
+        _accBox(i,'rotator',      '🔄 Rotator',           !!_cartAccs.rotator)       +
+        _accBox(i,'side_shift',   '↔️ Side Shift',        !!_cartAccs.side_shift)    +
+        _accBox(i,'fork_pos',     '🎛️ Fork Positioner',  !!_cartAccs.fork_pos)
+      );
     }
 
     return `<div class="sqm-machine-item-wrap">
@@ -54278,15 +54307,37 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   if (!quoteCart[cartIdx]) return;
   if (!quoteCart[cartIdx].cartAccessories) quoteCart[cartIdx].cartAccessories = {};
   quoteCart[cartIdx].cartAccessories[accKey] = checked;
-  // Update chargeableAttachments and oneTimeAttachments on the jobRequirements
   const acc = quoteCart[cartIdx].cartAccessories;
   const jr  = quoteCart[cartIdx].jobRequirements || {};
   const chargeable = [];
   const oneTime    = [];
-  if (acc.pipe_racks)    chargeable.push('🪠 Pipe racks');
-  if (acc.eqss)          chargeable.push('🦺 EQSS (Enhanced Quad Support System)');
-  if (acc.spill_guard)   oneTime.push('💧 Spill under guard');
-  if (acc.power_basket)  chargeable.push('🔌 Power to basket (240V outlet)');
+  // Scissor
+  if (acc.pipe_racks)    chargeable.push('🪠 Pipe & Tube Rack');
+  if (acc.tool_tray)     chargeable.push('🧰 Tool Tray');
+  if (acc.safety_gate)   chargeable.push('🚧 Safety Gate');
+  if (acc.eqss)          chargeable.push('🦺 EQSS (Quad Support System)');
+  if (acc.spill_guard)   oneTime.push('💧 Spill Under Guard');
+  // Boom
+  if (acc.std_basket)    chargeable.push('🧺 Standard Basket (230kg)');
+  if (acc.xc_basket)     chargeable.push('🧺 XC Capacity Basket (320kg+)');
+  if (acc.power_basket)  chargeable.push('🔌 Power to Basket (230V outlet)');
+  if (acc.jib_ext)       chargeable.push('🏗️ Jib Extension');
+  if (acc.bi_fuel)       chargeable.push('⛽ Bi-Fuel');
+  // Telehandler (standard)
+  if (acc.jib)           chargeable.push('🏗️ Jib / Crane Hook');
+  if (acc.rotator)       chargeable.push('🔄 Rotator');
+  if (acc.man_basket)    chargeable.push('🧺 Man Basket');
+  if (acc.pallet_forks)  chargeable.push('🍴 Pallet Forks');
+  if (acc.bucket)        chargeable.push('🪣 Bucket');
+  if (acc.bale_grab)     chargeable.push('🌾 Bale Grab');
+  // Rotating telehandler
+  if (acc.winch)         chargeable.push('⚙️ Winch');
+  if (acc.rotator_hook)  chargeable.push('🔄 Rotator Hook');
+  // Forklift
+  if (acc.slipper_1800)  chargeable.push('📦 1800mm Slippers');
+  if (acc.slipper_2400)  chargeable.push('📦 2400mm Slippers');
+  if (acc.side_shift)    chargeable.push('↔️ Side Shift');
+  if (acc.fork_pos)      chargeable.push('🎛️ Fork Positioner');
   jr.chargeableAttachments = chargeable.length ? chargeable : undefined;
   jr.oneTimeAttachments    = oneTime.length    ? oneTime    : undefined;
   quoteCart[cartIdx].jobRequirements = jr;
@@ -57827,28 +57878,49 @@ setInterval(async () => {
     // Notify customer when new responses arrive
     if (currentUser.role === 'customer' && _newResponseCount > _prevResponseCount) {
       const _diff = _newResponseCount - _prevResponseCount;
-      showToast(
-        `💬 ${_diff} new quote${_diff>1?'s':''}  received! <a href="#" onclick="event.preventDefault();switchView('my-quotes')" style="color:#fff;font-weight:800;text-decoration:underline">View in My Hire Enquiries →</a>`,
-        '#0052CC', 6000
-      );
+      noyoPlaySound('quote');
+      noyoPushNotif({
+        icon: '💬',
+        title: `${_diff} new quote${_diff>1?'s':''} received!`,
+        sub: 'A rental company has priced your hire enquiry. Tap to compare quotes.',
+        actionLabel: '📋 View My Hire Enquiries →',
+        actionFn: () => switchView('my-quotes'),
+        duration: 12000
+      });
+      noyoFlashTab('tab-my-quotes');
       updateMQUnreadBadge();
     }
     // Notify rental co when new enquiries arrive
     if (currentUser.role === 'rental' && _newEnquiryCount > _prevEnquiryCount) {
       const _newJobs = quoteInbox.filter(r => !_prevEnquiryIds.has(r.id));
       const _diff = _newJobs.length;
-      showToast(
-        `🔔 ${_diff} new hire enquir${_diff>1?'ies':'y'} just arrived! <a href="#" onclick="event.preventDefault();switchView('quote-requests')" style="color:#fff;font-weight:800;text-decoration:underline">View Quote Requests →</a>`,
-        '#0052CC', 8000
-      );
+      // Play sound
+      noyoPlaySound('enquiry');
+      // Push notification card
+      noyoPushNotif({
+        icon: '🔔',
+        title: `${_diff} new hire enquir${_diff>1?'ies':'y'} just arrived!`,
+        sub: _newJobs.map(j => (j.machines||[]).map(m=>m.name||m.id).join(', ')||'New enquiry').slice(0,2).join(' · '),
+        actionLabel: '👀 View Quote Requests →',
+        actionFn: () => switchView('quote-requests'),
+        duration: 12000
+      });
+      // Flash the tab
+      noyoFlashTab('tab-quote-requests');
       updateQRUnreadBadge();
     }
     // Notify rental co when a quote they submitted was accepted
     if (currentUser.role === 'rental' && _newAcceptedCount > _prevAcceptedCount) {
-      showToast(
-        `🏆 A customer accepted your quote! <a href="#" onclick="event.preventDefault();switchView('quote-requests')" style="color:#fff;font-weight:800;text-decoration:underline">View →</a>`,
-        '#16A34A', 7000
-      );
+      noyoPlaySound('enquiry');
+      noyoPushNotif({
+        icon: '🏆',
+        title: 'A customer accepted your quote!',
+        sub: 'Congratulations — you won this job. Check Quote Requests for details.',
+        actionLabel: '🏆 View Accepted Quote →',
+        actionFn: () => switchView('quote-requests'),
+        duration: 15000
+      });
+      noyoFlashTab('tab-quote-requests');
       updateQRUnreadBadge();
     }
     // Always refresh badge for rental co after any reload
@@ -57903,6 +57975,84 @@ function showToast(msg, bg='#27AE60', durationMs=3500) {
   }
   document.body.appendChild(t);
   setTimeout(()=>t.remove(), durationMs);
+}
+
+// ── Notification sound using Web Audio API (no file needed) ──────────────
+function noyoPlaySound(type='enquiry') {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    if (type === 'enquiry') {
+      // Two-tone ascending ding — friendly but noticeable
+      [[520, 0, 0.12], [780, 0.13, 0.22], [1040, 0.25, 0.18]].forEach(([freq, start, dur]) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'sine'; osc.frequency.setValueAtTime(freq, now + start);
+        gain.gain.setValueAtTime(0, now + start);
+        gain.gain.linearRampToValueAtTime(0.18, now + start + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+        osc.start(now + start); osc.stop(now + start + dur + 0.05);
+      });
+    } else if (type === 'quote') {
+      // Single soft chime for customer
+      const osc = ctx.createOscillator(); const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.setValueAtTime(880, now);
+      osc.frequency.exponentialRampToValueAtTime(660, now + 0.25);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+      osc.start(now); osc.stop(now + 0.55);
+    }
+  } catch(e) { /* audio blocked — silent fallback */ }
+}
+
+// ── Push notification card (top-right, like iOS/Android) ─────────────────
+function noyoPushNotif({ icon, title, sub, actionLabel, actionFn, duration=8000 }) {
+  // Remove any existing push notif
+  document.querySelectorAll('.noyo-push-notif').forEach(el => el.remove());
+
+  const el = document.createElement('div');
+  el.className = 'noyo-push-notif';
+  const now = new Date().toLocaleTimeString('en-AU', {hour:'2-digit', minute:'2-digit'});
+  el.innerHTML = `
+    <div class="noyo-push-top">
+      <img src="/assets/noyo-icon.png" onerror="this.style.display='none'" style="width:16px;height:16px;border-radius:4px;flex-shrink:0">
+      <span class="noyo-push-app">Noyo</span>
+      <span class="noyo-push-time">${now}</span>
+      <button class="noyo-push-close" onclick="this.closest('.noyo-push-notif').remove()">✕</button>
+    </div>
+    <div class="noyo-push-body">
+      <div class="noyo-push-icon">${icon}</div>
+      <div>
+        <div class="noyo-push-title">${title}</div>
+        <div class="noyo-push-sub">${sub}</div>
+      </div>
+    </div>
+    ${actionLabel ? `<button class="noyo-push-action" id="_push_action">${actionLabel}</button>` : ''}
+  `;
+  document.body.appendChild(el);
+
+  if (actionLabel && actionFn) {
+    el.querySelector('#_push_action').onclick = () => { actionFn(); el.remove(); };
+  }
+
+  // Auto-dismiss
+  const timer = setTimeout(() => {
+    el.classList.add('removing');
+    setTimeout(() => el.remove(), 320);
+  }, duration);
+  el.querySelector('.noyo-push-close').addEventListener('click', () => clearTimeout(timer));
+}
+
+// ── Flash nav tab to draw attention ──────────────────────────────────────
+function noyoFlashTab(tabId) {
+  const el = document.getElementById(tabId);
+  if (!el) return;
+  el.classList.remove('nav-tab-alerting');
+  void el.offsetWidth; // reflow
+  el.classList.add('nav-tab-alerting');
+  setTimeout(() => el.classList.remove('nav-tab-alerting'), 3200);
 }
 
 
@@ -66614,26 +66764,108 @@ function makeChart(id, cfg) {
   _chartInstances[id] = new Chart(canvas, cfg);
 }
 
-function analyticsSetPreset(preset) {
-  const now = new Date();
-  const today = now.toISOString().slice(0,10);
-  let from = today;
+function analyticsApplyCustom() {
+  // Mark all preset buttons as inactive, mark custom as active
+  ['today','yesterday','this_week','last_week','7d','this_month','last_month','30d','90d','this_year','last_year','12m','all'].forEach(p => {
+    const btn = document.getElementById('abtn-' + p);
+    if (btn) btn.classList.remove('active');
+  });
+  const fromEl = document.getElementById('analytics-from');
+  const toEl   = document.getElementById('analytics-to');
+  const lbl    = document.getElementById('analytics-range-label');
+  if (!fromEl.value || !toEl.value) { showToast('Please select both From and To dates', '#F59E0B'); return; }
+  if (fromEl.value > toEl.value) { showToast('From date must be before To date', '#EF4444'); return; }
+  // Calculate days in range
+  const days = Math.round((new Date(toEl.value) - new Date(fromEl.value)) / 86400000) + 1;
+  if (lbl) lbl.textContent = days + ' day' + (days !== 1 ? 's' : '') + ' selected';
+  renderAnalytics();
+}
 
-  if (preset === 'today') from = today;
-  else if (preset === '7d')  { const d = new Date(now); d.setDate(d.getDate()-6);  from = d.toISOString().slice(0,10); }
-  else if (preset === '30d') { const d = new Date(now); d.setDate(d.getDate()-29); from = d.toISOString().slice(0,10); }
-  else if (preset === '90d') { const d = new Date(now); d.setDate(d.getDate()-89); from = d.toISOString().slice(0,10); }
-  else if (preset === '12m') { const d = new Date(now); d.setFullYear(d.getFullYear()-1); from = d.toISOString().slice(0,10); }
-  else if (preset === 'all') { from = '2024-01-01'; }
+function analyticsSetPreset(preset) {
+  const now   = new Date();
+  const today = now.toISOString().slice(0, 10);
+  let from = today, to = today, label = '';
+
+  const _fmt = (d) => d.toISOString().slice(0, 10);
+
+  if (preset === 'today') {
+    from = to = today; label = 'Today';
+
+  } else if (preset === 'yesterday') {
+    const d = new Date(now); d.setDate(d.getDate() - 1);
+    from = to = _fmt(d); label = 'Yesterday';
+
+  } else if (preset === 'this_week') {
+    // Monday → today (ISO week Mon-Sun)
+    const d = new Date(now);
+    const day = d.getDay(); // 0=Sun
+    d.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+    from = _fmt(d); to = today; label = 'This Week';
+
+  } else if (preset === 'last_week') {
+    const d = new Date(now);
+    const day = d.getDay();
+    const thisMonday = new Date(d); thisMonday.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+    const lastMonday = new Date(thisMonday); lastMonday.setDate(thisMonday.getDate() - 7);
+    const lastSunday = new Date(thisMonday); lastSunday.setDate(thisMonday.getDate() - 1);
+    from = _fmt(lastMonday); to = _fmt(lastSunday); label = 'Last Week';
+
+  } else if (preset === '7d') {
+    const d = new Date(now); d.setDate(d.getDate() - 6);
+    from = _fmt(d); to = today; label = 'Last 7 Days';
+
+  } else if (preset === 'this_month') {
+    const d = new Date(now.getFullYear(), now.getMonth(), 1);
+    from = _fmt(d); to = today; label = 'This Month (' + now.toLocaleString('en-AU', {month:'long'}) + ')';
+
+  } else if (preset === 'last_month') {
+    const first = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const last  = new Date(now.getFullYear(), now.getMonth(), 0);
+    from = _fmt(first); to = _fmt(last);
+    label = 'Last Month (' + first.toLocaleString('en-AU', {month:'long'}) + ')';
+
+  } else if (preset === '30d') {
+    const d = new Date(now); d.setDate(d.getDate() - 29);
+    from = _fmt(d); to = today; label = 'Last 30 Days';
+
+  } else if (preset === '90d') {
+    const d = new Date(now); d.setDate(d.getDate() - 89);
+    from = _fmt(d); to = today; label = 'Last 90 Days';
+
+  } else if (preset === 'this_year') {
+    from = now.getFullYear() + '-01-01'; to = today;
+    label = 'This Year (' + now.getFullYear() + ')';
+
+  } else if (preset === 'last_year') {
+    const yr = now.getFullYear() - 1;
+    from = yr + '-01-01'; to = yr + '-12-31';
+    label = 'Last Year (' + yr + ')';
+
+  } else if (preset === '12m') {
+    const d = new Date(now); d.setFullYear(d.getFullYear() - 1);
+    from = _fmt(d); to = today; label = 'Last 12 Months';
+
+  } else if (preset === 'all') {
+    from = '2024-01-01'; to = today; label = 'All Time';
+
+  } else if (preset === 'custom') {
+    // Don't change dates — just refresh active state
+    const allBtns = ['today','yesterday','this_week','last_week','7d','this_month','last_month','30d','90d','this_year','last_year','12m','all'];
+    allBtns.forEach(p => { const b = document.getElementById('abtn-'+p); if(b) b.classList.remove('active'); });
+    return; // custom apply button handles the render
+  }
 
   const fromEl = document.getElementById('analytics-from');
   const toEl   = document.getElementById('analytics-to');
+  const lbl    = document.getElementById('analytics-range-label');
   if (fromEl) fromEl.value = from;
-  if (toEl)   toEl.value   = today;
+  if (toEl)   toEl.value   = to;
+  if (lbl)    lbl.textContent = label;
 
   // Update active button
-  ['today','7d','30d','90d','12m','all'].forEach(p => {
-    const btn = document.getElementById(`abtn-${p}`);
+  const allPresets = ['today','yesterday','this_week','last_week','7d','this_month','last_month','30d','90d','this_year','last_year','12m','all'];
+  allPresets.forEach(p => {
+    const btn = document.getElementById('abtn-' + p);
     if (btn) btn.classList.toggle('active', p === preset);
   });
   renderAnalytics();
@@ -66963,6 +67195,7 @@ async function renderAnalytics() {
                 <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">User</th>
                 <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:left">Location</th>
                 <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#64748B;text-align:center">Cart</th>
+                <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#DC2626;text-align:center">No Results</th>
               </tr></thead>
               <tbody>
               ${recentSearches.map(s => {
@@ -66974,12 +67207,817 @@ async function renderAnalytics() {
                   <td style="padding:.3rem .6rem;font-size:.75rem;color:#334155">${s.role==='customer'||!s.role?'Customer':s.user||'—'}</td>
                   <td style="padding:.3rem .6rem;font-size:.75rem;color:#64748B">${s.city&&s.city!=='—'?'📍 '+s.city:'—'}</td>
                   <td style="padding:.3rem .6rem;text-align:center">${s.cartAdded?'🛒':''}</td>
+                  <td style="padding:.3rem .6rem;text-align:center">${s.zeroResults?'<span style="color:#DC2626;font-weight:800">✕</span>':''}</td>
                 </tr>`;
               }).join('')}
               </tbody>
             </table>
           </div>`}`;
   }
+
+  // ── 9. Zero results tracker ───────────────────────────────────────────
+  const zrEl = document.getElementById('analytics-zero-results');
+  if (zrEl) {
+    const zeroHits = searchRecs.filter(s => s.zeroResults);
+    const zrByCat = {};
+    zeroHits.forEach(s => { const t = s.machineName||s.jobType||'Unknown'; zrByCat[t]=(zrByCat[t]||0)+1; });
+    const zrSorted = Object.entries(zrByCat).sort((a,b)=>b[1]-a[1]);
+    zrEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem">
+        <div style="font-weight:800;font-size:.88rem;color:#991B1B">⚠️ Zero-Result Searches — ${zeroHits.length} dead ends in period</div>
+        <span style="font-size:.72rem;color:#94A3B8">(searches that returned no machines — fix these first)</span>
+      </div>
+      ${zrSorted.length === 0
+        ? `<div style="text-align:center;color:#16A34A;font-size:.82rem;padding:.8rem">✅ No zero-result searches in this period</div>`
+        : `<div style="display:flex;flex-wrap:wrap;gap:.4rem">
+            ${zrSorted.slice(0,12).map(([cat,count])=>`
+              <div style="background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:8px;padding:.3rem .65rem;font-size:.78rem;font-weight:700;color:#991B1B">
+                ${cat} <span style="background:#DC2626;color:#fff;border-radius:20px;padding:.05rem .4rem;font-size:.7rem;margin-left:.3rem">${count}</span>
+              </div>`).join('')}
+           </div>`}`;
+  }
+
+  // ── 10. Brand Partner Impression Report ───────────────────────────────
+  const brEl = document.getElementById('analytics-brand-report');
+  if (brEl) {
+    // Aggregate impressions from sponsored ads — use their dailyStats field
+    const brandRows = (_sponsoredAds || []).map(ad => {
+      let imprInRange = 0, clicksInRange = 0;
+      if (ad.dailyStats) {
+        Object.entries(ad.dailyStats).forEach(([day, stats]) => {
+          if (day >= fromDate && day <= toDate) {
+            imprInRange  += parseInt(stats.impressions||0);
+            clicksInRange += parseInt(stats.clicks||0);
+          }
+        });
+      }
+      const totalImpr  = parseInt(ad.impressions)||0;
+      const totalClicks= parseInt(ad.clicks)||0;
+      const ctrRange   = imprInRange > 0 ? ((clicksInRange/imprInRange)*100).toFixed(1)+'%' : '—';
+      const ctrAll     = totalImpr   > 0 ? ((totalClicks/totalImpr)*100).toFixed(1)+'%'     : '—';
+      const isActive   = ad.active && !_spnIsExpired(ad);
+      return { ad, imprInRange, clicksInRange, ctrRange, totalImpr, totalClicks, ctrAll, isActive };
+    }).sort((a,b) => b.imprInRange - a.imprInRange);
+
+    if (brandRows.length === 0) {
+      brEl.innerHTML = `<div style="text-align:center;color:#92400E;font-size:.82rem;padding:1rem">No brand partner ads configured yet. Create one in the Brand Partner (Sponsored) tab.</div>`;
+    } else {
+      brEl.innerHTML = `
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;min-width:600px">
+            <thead>
+              <tr style="background:rgba(180,83,9,.1)">
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#92400E;text-align:left">Brand / Ad</th>
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#92400E;text-align:left">Category</th>
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#92400E;text-align:center">Status</th>
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#0052CC;text-align:right">Impressions<br><span style="color:#94A3B8;font-weight:600">(this period)</span></th>
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#0052CC;text-align:right">Clicks<br><span style="color:#94A3B8;font-weight:600">(this period)</span></th>
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#0052CC;text-align:right">CTR<br><span style="color:#94A3B8;font-weight:600">(this period)</span></th>
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:right">Total Impr<br><span style="font-weight:600">(all time)</span></th>
+                <th style="padding:.4rem .7rem;font-size:.72rem;font-weight:800;color:#64748B;text-align:right">Total CTR<br><span style="font-weight:600">(all time)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+            ${brandRows.map(row => `
+              <tr style="border-top:1px solid #FDE68A">
+                <td style="padding:.4rem .7rem">
+                  <div style="font-weight:800;font-size:.82rem;color:#1E293B">${row.ad.brand||'—'}</div>
+                  <div style="font-size:.7rem;color:#64748B">${row.ad.id||''}</div>
+                </td>
+                <td style="padding:.4rem .7rem;font-size:.78rem;color:#334155">${row.ad.category||'All'}</td>
+                <td style="padding:.4rem .7rem;text-align:center">
+                  <span style="background:${row.isActive?'#DCFCE7':'#F1F5F9'};color:${row.isActive?'#15803D':'#94A3B8'};border-radius:20px;padding:.1rem .5rem;font-size:.7rem;font-weight:800">
+                    ${row.isActive?'🟢 Live':'⚫ Inactive'}
+                  </span>
+                </td>
+                <td style="padding:.4rem .7rem;text-align:right;font-size:1rem;font-weight:900;color:#0052CC">${row.imprInRange.toLocaleString()}</td>
+                <td style="padding:.4rem .7rem;text-align:right;font-size:1rem;font-weight:900;color:#7C3AED">${row.clicksInRange.toLocaleString()}</td>
+                <td style="padding:.4rem .7rem;text-align:right;font-size:.88rem;font-weight:700;color:${parseFloat(row.ctrRange)>2?'#16A34A':'#D97706'}">${row.ctrRange}</td>
+                <td style="padding:.4rem .7rem;text-align:right;font-size:.82rem;color:#64748B">${row.totalImpr.toLocaleString()}</td>
+                <td style="padding:.4rem .7rem;text-align:right;font-size:.82rem;color:#64748B">${row.ctrAll}</td>
+              </tr>`).join('')}
+            </tbody>
+            <tfoot>
+              <tr style="border-top:2px solid #FCD34D;background:rgba(180,83,9,.05)">
+                <td colspan="3" style="padding:.4rem .7rem;font-weight:800;font-size:.82rem;color:#92400E">TOTAL</td>
+                <td style="padding:.4rem .7rem;text-align:right;font-weight:900;font-size:.95rem;color:#0052CC">${brandRows.reduce((s,r)=>s+r.imprInRange,0).toLocaleString()}</td>
+                <td style="padding:.4rem .7rem;text-align:right;font-weight:900;font-size:.95rem;color:#7C3AED">${brandRows.reduce((s,r)=>s+r.clicksInRange,0).toLocaleString()}</td>
+                <td colspan="3"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div style="font-size:.72rem;color:#92400E;margin-top:.5rem">
+          💡 Impressions = times the ad was shown in search results. Clicks = customer tapped the sponsored card. Use <strong>Export CSV</strong> to send a report to your brand partner.
+        </div>`;
+    }
+  }
+
+  // ── 11. Traffic Sources, Devices, Countries, Cities ─────────────────
+  // Aggregate from dailyDocs
+  const sourceAgg  = {}, mediumAgg = {}, deviceAgg = {}, browserAgg = {}, countryAgg = {}, cityDetailAgg = {};
+  let totalSessions = 0;
+  dailyDocs.forEach(doc => {
+    totalSessions += parseInt(doc.sessions||0);
+    if (doc.sources)  Object.entries(doc.sources).forEach(([k,v])  => { const k2=k.replace(/_/g,' '); sourceAgg[k2]  = (sourceAgg[k2] ||0)+parseInt(v||0); });
+    if (doc.mediums)  Object.entries(doc.mediums).forEach(([k,v])  => { mediumAgg[k]  = (mediumAgg[k] ||0)+parseInt(v||0); });
+    if (doc.devices)  Object.entries(doc.devices).forEach(([k,v])  => { deviceAgg[k]  = (deviceAgg[k] ||0)+parseInt(v||0); });
+    if (doc.browsers) Object.entries(doc.browsers).forEach(([k,v]) => { browserAgg[k] = (browserAgg[k]||0)+parseInt(v||0); });
+    if (doc.countries)Object.entries(doc.countries).forEach(([k,v])=> { const k2=k.replace(/_/g,' '); countryAgg[k2] = (countryAgg[k2]||0)+parseInt(v||0); });
+    if (doc.cities)   Object.entries(doc.cities).forEach(([k,v])   => { const k2=k.replace(/_/g,' '); cityDetailAgg[k2]=(cityDetailAgg[k2]||0)+parseInt(v||0); });
+  });
+
+  // Helper: render a horizontal bar list
+  const _barList = (title, icon, data, color, note='') => {
+    const sorted = Object.entries(data).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    const max = Math.max(...sorted.map(([,v])=>v), 1);
+    const total = sorted.reduce((s,[,v])=>s+v,0);
+    return `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.6rem">${icon} ${title}</div>
+      ${note ? `<div style="font-size:.72rem;color:#64748B;margin-bottom:.6rem">${note}</div>` : ''}
+      ${sorted.length === 0
+        ? `<div style="text-align:center;color:#94A3B8;font-size:.82rem;padding:1rem">No data yet — will populate as visitors arrive</div>`
+        : sorted.map(([k,v]) => {
+            const pct = total > 0 ? Math.round(v/total*100) : 0;
+            return `<div style="margin-bottom:.35rem">
+              <div style="display:flex;justify-content:space-between;font-size:.75rem;font-weight:700;margin-bottom:.15rem">
+                <span style="color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%">${k}</span>
+                <span style="color:${color};font-weight:900;white-space:nowrap">${v.toLocaleString()} <span style="color:#94A3B8;font-weight:500">(${pct}%)</span></span>
+              </div>
+              <div style="background:#F1F5F9;border-radius:99px;height:7px;overflow:hidden">
+                <div style="background:${color};width:${Math.round(v/max*100)}%;height:100%;border-radius:99px"></div>
+              </div>
+            </div>`;
+          }).join('')
+      }`;
+  };
+
+  // Traffic sources
+  const tsEl2 = document.getElementById('analytics-traffic-sources');
+  if (tsEl2) tsEl2.innerHTML = _barList(
+    `Traffic Sources — ${totalSessions.toLocaleString()} sessions`, '🌐', sourceAgg, '#0052CC',
+    'Where visitors come from before landing on Noyo'
+  ) + `<div style="margin-top:.8rem;border-top:1px solid #F1F5F9;padding-top:.6rem">` +
+    _barList('Traffic Medium', '📡', mediumAgg, '#7C3AED') + `</div>`;
+
+  // Devices
+  const devEl = document.getElementById('analytics-devices');
+  if (devEl) devEl.innerHTML = _barList('Devices', '📱', deviceAgg, '#16A34A',
+    'Desktop vs Mobile vs Tablet split'
+  ) + `<div style="margin-top:.8rem;border-top:1px solid #F1F5F9;padding-top:.6rem">` +
+    _barList('Browsers', '🌍', browserAgg, '#0891B2') + `</div>`;
+
+  // Countries
+  const ctrEl = document.getElementById('analytics-countries');
+  if (ctrEl) ctrEl.innerHTML = _barList('Countries', '🗺️', countryAgg, '#D97706',
+    'Visitor country — detected from IP address'
+  );
+
+  // Cities detail
+  const citEl = document.getElementById('analytics-cities-detail');
+  if (citEl) citEl.innerHTML = _barList('Cities', '📍', cityDetailAgg, '#DC2626',
+    'City-level breakdown across all visitors'
+  );
+
+  // ── 12. Revenue & GMV Intelligence ────────────────────────────────────
+  const revEl = document.getElementById('analytics-revenue');
+  if (revEl) {
+    const allAccepted   = recentQuotes.filter(q => q.acceptedBy);
+    const allResponded  = recentQuotes.filter(q => (q.responses||[]).length > 0);
+    const gmv           = allAccepted.reduce((s,q) => s + ((q.responses||[]).find(r=>r.accepted)?.grandTotal||0), 0);
+    const pipeline      = allResponded.filter(q=>!q.acceptedBy).reduce((s,q) => s + Math.min(...(q.responses||[]).map(r=>parseFloat(String(r.grandTotal||0).replace(/[^0-9.]/g,''))||0).filter(v=>v>0),0), 0);
+    const avgDeal       = allAccepted.length > 0 ? gmv / allAccepted.length : 0;
+    const allQuoteVals  = recentQuotes.flatMap(q => (q.responses||[]).map(r => parseFloat(String(r.grandTotal||0).replace(/[^0-9.]/g,''))||0)).filter(v=>v>0);
+    const avgQuote      = allQuoteVals.length > 0 ? allQuoteVals.reduce((a,b)=>a+b,0)/allQuoteVals.length : 0;
+    const conversionAmt = gmv > 0 && totalCartAdds > 0 ? (gmv / totalCartAdds) : 0;
+
+    // GMV by category
+    const gmvByCat = {};
+    allAccepted.forEach(q => {
+      const resp = (q.responses||[]).find(r=>r.accepted);
+      if (!resp) return;
+      const cat = q.machineType || q.machines?.[0]?.type || 'Other';
+      gmvByCat[cat] = (gmvByCat[cat]||0) + (resp.grandTotal||0);
+    });
+
+    const _moneyCard = (icon, val, label, sub, color) =>
+      `<div style="background:#fff;border-radius:12px;padding:.8rem 1rem;border-left:4px solid ${color}">
+        <div style="font-size:1.6rem;font-weight:900;color:${color}">${val}</div>
+        <div style="font-size:.8rem;font-weight:800;color:#0F172A;margin:.15rem 0">${icon} ${label}</div>
+        <div style="font-size:.72rem;color:#64748B">${sub}</div>
+       </div>`;
+
+    const _fmt = v => v >= 1000000 ? `$${(v/1000000).toFixed(2)}M` : v >= 1000 ? `$${(v/1000).toFixed(1)}K` : `$${v.toFixed(0)}`;
+
+    revEl.innerHTML =
+      _moneyCard('🏆', _fmt(gmv),      'Confirmed GMV',    `${allAccepted.length} hires confirmed`,     '#16A34A') +
+      _moneyCard('⏳', _fmt(pipeline),  'Quote Pipeline',   'Active quotes awaiting acceptance',          '#D97706') +
+      _moneyCard('📊', _fmt(avgDeal),   'Avg Deal Size',    'Per confirmed hire',                         '#0052CC') +
+      _moneyCard('💬', _fmt(avgQuote),  'Avg Quote Value',  'Across all rental co responses',             '#7C3AED') +
+      (Object.keys(gmvByCat).length > 0 ? `
+        <div style="background:#fff;border-radius:12px;padding:.8rem 1rem;grid-column:1/-1">
+          <div style="font-size:.78rem;font-weight:800;color:#14532D;margin-bottom:.5rem">💰 GMV by Category</div>
+          ${Object.entries(gmvByCat).sort((a,b)=>b[1]-a[1]).map(([cat,v])=>`
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;padding:.2rem 0;border-bottom:1px solid #F1F5F9">
+              <span style="color:#334155;font-weight:600">${cat}</span>
+              <span style="font-weight:900;color:#16A34A">${_fmt(v)}</span>
+            </div>`).join('')}
+        </div>` : '');
+  }
+
+  // ── 13. Marketplace Health Score ──────────────────────────────────────
+  const healthEl = document.getElementById('analytics-health');
+  if (healthEl) {
+    const liquidity    = totalQuotes > 0 ? Math.round(totalResponded/totalQuotes*100)   : 0; // % of enquiries that got ≥1 quote
+    const acceptRate   = totalResponded > 0 ? Math.round(totalAccepted/totalResponded*100) : 0;
+    const fillRate     = totalQuotes > 0 ? Math.round(totalAccepted/totalQuotes*100)    : 0;
+    const zeroRatePct  = totalSearches > 0 ? Math.round(searchRecs.filter(s=>s.zeroResults).length/Math.max(totalSearches,1)*100) : 0;
+    const avgRespPerEnq= totalResponded > 0 ? (recentQuotes.filter(q=>(q.responses||[]).length>0).reduce((s,q)=>s+(q.responses||[]).length,0) / totalResponded).toFixed(1) : '—';
+
+    const _score = (val, good, ok) => val >= good ? '#16A34A' : val >= ok ? '#D97706' : '#DC2626';
+    const _healthBar = (label, val, unit, good, ok, note) => {
+      const c = _score(val, good, ok);
+      return `<div style="margin-bottom:.6rem">
+        <div style="display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;margin-bottom:.18rem">
+          <span style="color:#334155">${label}</span>
+          <span style="color:${c};font-weight:900">${val}${unit} <span style="font-size:.68rem;color:#94A3B8">${note}</span></span>
+        </div>
+        <div style="background:#F1F5F9;border-radius:99px;height:8px;overflow:hidden">
+          <div style="background:${c};width:${Math.min(val,100)}%;height:100%;border-radius:99px;transition:width .5s"></div>
+        </div>
+      </div>`;
+    };
+
+    const overallScore = Math.round((liquidity*0.3 + acceptRate*0.3 + fillRate*0.2 + Math.max(0,100-zeroRatePct*5)*0.2));
+    const scoreColor   = overallScore >= 70 ? '#16A34A' : overallScore >= 45 ? '#D97706' : '#DC2626';
+    const scoreLabel   = overallScore >= 70 ? 'Healthy' : overallScore >= 45 ? 'Growing' : 'Early Stage';
+
+    healthEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.9rem;flex-wrap:wrap">
+        <div>
+          <div style="font-weight:900;font-size:.88rem;color:#0F172A">🩺 Marketplace Health Score</div>
+          <div style="font-size:.72rem;color:#64748B">How well supply is meeting demand</div>
+        </div>
+        <div style="margin-left:auto;text-align:center">
+          <div style="font-size:2.5rem;font-weight:900;color:${scoreColor};line-height:1">${overallScore}</div>
+          <div style="font-size:.72rem;font-weight:800;color:${scoreColor}">${scoreLabel}</div>
+        </div>
+      </div>
+      ${_healthBar('💧 Liquidity — enquiries getting ≥1 quote', liquidity, '%', 80, 50, '(target: 80%+)')}
+      ${_healthBar('✅ Accept Rate — quotes leading to hire', acceptRate, '%', 30, 15, '(target: 30%+)')}
+      ${_healthBar('📨 Fill Rate — enquiries leading to hire', fillRate, '%', 25, 10, '(target: 25%+)')}
+      ${_healthBar('🔍 Search Match Rate — searches finding machines', Math.max(0,100-zeroRatePct*2), '%', 85, 70, '(target: 85%+)')}
+      <div style="font-size:.75rem;color:#64748B;margin-top:.3rem">Avg quotes per enquiry: <strong>${avgRespPerEnq}</strong> (healthy = 3+)</div>`;
+  }
+
+  // ── 14. Response Time Intelligence ────────────────────────────────────
+  const rtEl = document.getElementById('analytics-response-times');
+  if (rtEl) {
+    const respTimes = [];
+    recentQuotes.forEach(q => {
+      if (!q.ts) return;
+      (q.responses||[]).forEach(r => {
+        if (r.ts && r.ts > q.ts) {
+          const hrs = (r.ts - q.ts) / 3600000;
+          if (hrs < 336) respTimes.push({ hrs, company: r.company });
+        }
+      });
+    });
+    const avg  = respTimes.length > 0 ? respTimes.reduce((s,r)=>s+r.hrs,0)/respTimes.length : null;
+    const med  = respTimes.length > 0 ? [...respTimes].sort((a,b)=>a.hrs-b.hrs)[Math.floor(respTimes.length/2)].hrs : null;
+    const u24  = respTimes.filter(r=>r.hrs<=24).length;
+    const u4   = respTimes.filter(r=>r.hrs<=4).length;
+
+    const byCompany = {};
+    respTimes.forEach(r => {
+      if (!byCompany[r.company]) byCompany[r.company] = [];
+      byCompany[r.company].push(r.hrs);
+    });
+    const rcTimes = Object.entries(byCompany).map(([co,hrs])=>({
+      co, avg: hrs.reduce((a,b)=>a+b,0)/hrs.length, count: hrs.length
+    })).sort((a,b)=>a.avg-b.avg).slice(0,6);
+
+    rtEl.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.6rem">⏱️ Response Time Intelligence</div>
+      ${avg === null
+        ? `<div style="color:#94A3B8;text-align:center;padding:1rem;font-size:.82rem">No response data yet in this period</div>`
+        : `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.7rem">
+            ${[['⚡ Avg Response', avg ? (avg<1?Math.round(avg*60)+'m':avg.toFixed(1)+'h') : '—', avg<4?'#16A34A':avg<24?'#D97706':'#DC2626'],
+               ['📊 Median', med ? (med<1?Math.round(med*60)+'m':med.toFixed(1)+'h') : '—', med<4?'#16A34A':med<24?'#D97706':'#DC2626'],
+               ['🚀 Under 4hrs', u4+' ('+Math.round(u4/Math.max(respTimes.length,1)*100)+'%)', '#0052CC'],
+               ['✅ Under 24hrs', u24+' ('+Math.round(u24/Math.max(respTimes.length,1)*100)+'%)', '#7C3AED']
+              ].map(([l,v,c])=>`<div style="background:#F8FAFC;border-radius:10px;padding:.5rem .7rem;border-left:3px solid ${c}">
+                <div style="font-size:1.1rem;font-weight:900;color:${c}">${v}</div>
+                <div style="font-size:.7rem;color:#64748B">${l}</div>
+              </div>`).join('')}
+          </div>
+          <div style="font-size:.75rem;font-weight:800;color:#334155;margin-bottom:.4rem">Fastest Responders</div>
+          ${rcTimes.map(r=>`<div style="display:flex;justify-content:space-between;font-size:.75rem;padding:.2rem 0;border-bottom:1px solid #F8FAFC">
+            <span style="color:#334155;font-weight:600">${r.co}</span>
+            <span style="font-weight:800;color:${r.avg<4?'#16A34A':r.avg<24?'#D97706':'#DC2626'}">${r.avg<1?Math.round(r.avg*60)+'m':r.avg.toFixed(1)+'h'} avg</span>
+          </div>`).join('')}`}`;
+  }
+
+  // ── 15. Peak Hours heatmap ─────────────────────────────────────────────
+  const phEl = document.getElementById('analytics-peak-hours');
+  if (phEl) {
+    const hourCounts = Array(24).fill(0);
+    const dayCounts  = Array(7).fill(0); // 0=Sun
+    searchRecs.forEach(s => {
+      if (s.hour != null) hourCounts[s.hour]++;
+      if (s.ts) dayCounts[new Date(s.ts).getDay()]++;
+    });
+    recentQuotes.forEach(q => { if (q.ts) { hourCounts[new Date(q.ts).getHours()]++; dayCounts[new Date(q.ts).getDay()]++; } });
+    const maxH = Math.max(...hourCounts, 1);
+    const maxD = Math.max(...dayCounts, 1);
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    phEl.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.6rem">🕐 Peak Activity Times</div>
+      <div style="font-size:.73rem;font-weight:700;color:#64748B;margin-bottom:.3rem">By hour (AEST)</div>
+      <div style="display:flex;gap:2px;align-items:flex-end;height:50px;margin-bottom:.8rem">
+        ${hourCounts.map((v,i)=>`<div title="${i}:00 — ${v} events" style="flex:1;background:${v>0?`rgba(0,82,204,${0.15+0.85*(v/maxH)})` :'#F1F5F9'};border-radius:3px 3px 0 0;height:${Math.max(4,Math.round(v/maxH*46))}px"></div>`).join('')}
+      </div>
+      <div style="display:flex;font-size:.6rem;color:#94A3B8;margin-bottom:.8rem;gap:2px">
+        ${Array.from({length:24},(_,i)=>i%4===0?`<div style="flex:1;text-align:left">${i}</div>`:`<div style="flex:1"></div>`).join('')}
+      </div>
+      <div style="font-size:.73rem;font-weight:700;color:#64748B;margin-bottom:.3rem">By day of week</div>
+      <div style="display:flex;gap:.3rem">
+        ${dayCounts.map((v,i)=>`<div style="flex:1;text-align:center">
+          <div style="background:${v>0?`rgba(124,58,237,${0.15+0.85*(v/maxD)})`:'#F1F5F9'};border-radius:6px;padding:.2rem;font-size:.65rem;font-weight:800;color:${v>maxD*0.5?'#fff':'#7C3AED'};min-height:28px;display:flex;align-items:center;justify-content:center">${v||''}</div>
+          <div style="font-size:.62rem;color:#94A3B8;margin-top:.15rem">${days[i]}</div>
+        </div>`).join('')}
+      </div>`;
+  }
+
+  // ── 16. Demand Gaps ────────────────────────────────────────────────────
+  const dgEl = document.getElementById('analytics-demand-gaps');
+  if (dgEl) {
+    const zeroHits = searchRecs.filter(s => s.zeroResults);
+    const zrByCat2 = {};
+    zeroHits.forEach(s => {
+      const t = s.machineName||s.jobType||'Unknown';
+      if (!zrByCat2[t]) zrByCat2[t] = { count:0, locations:[] };
+      zrByCat2[t].count++;
+      if (s.city && s.city!=='—') zrByCat2[t].locations.push(s.city);
+    });
+    const sorted = Object.entries(zrByCat2).sort((a,b)=>b[1].count-a[1].count);
+
+    dgEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem">
+        <div>
+          <div style="font-weight:800;font-size:.88rem;color:#991B1B">🎯 Demand Gaps — Unmet Customer Needs</div>
+          <div style="font-size:.72rem;color:#64748B">Searches that returned zero machines — these are your biggest growth opportunities</div>
+        </div>
+        <span style="margin-left:auto;background:#DC2626;color:#fff;border-radius:20px;padding:.2rem .65rem;font-size:.78rem;font-weight:900">${zeroHits.length} misses</span>
+      </div>
+      ${sorted.length === 0
+        ? `<div style="text-align:center;color:#16A34A;padding:.8rem;font-size:.82rem">✅ No unmet demand in this period — great fleet coverage!</div>`
+        : `<table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#FEF2F2">
+              <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#991B1B;text-align:left">Category</th>
+              <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#991B1B;text-align:right">Missed</th>
+              <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#991B1B;text-align:left">Top Locations</th>
+              <th style="padding:.3rem .6rem;font-size:.72rem;font-weight:700;color:#991B1B;text-align:left">Action</th>
+            </tr></thead><tbody>
+            ${sorted.slice(0,10).map(([cat,d])=>{
+              const topLoc = [...new Set(d.locations)].slice(0,2).join(', ')||'—';
+              return `<tr style="border-top:1px solid #FEE2E2">
+                <td style="padding:.35rem .6rem;font-size:.78rem;font-weight:700;color:#0F172A">${cat}</td>
+                <td style="padding:.35rem .6rem;text-align:right;font-weight:900;color:#DC2626">${d.count}</td>
+                <td style="padding:.35rem .6rem;font-size:.75rem;color:#64748B">${topLoc}</td>
+                <td style="padding:.35rem .6rem;font-size:.72rem;color:#0052CC;font-weight:700">Add to fleet / onboard RC</td>
+              </tr>`;
+            }).join('')}
+            </tbody></table>`}`;
+  }
+
+  // ── 17. User Cohorts (New vs Returning) ────────────────────────────────
+  const ucEl = document.getElementById('analytics-user-cohorts');
+  if (ucEl) {
+    const allEmails = new Set();
+    const periodEmails = new Set();
+    const returnEmails = new Set();
+    adminData.searches.forEach(s => { if (s.email&&s.email!=='unknown') allEmails.add(s.email); });
+    searchRecs.forEach(s => {
+      if (!s.email||s.email==='unknown') return;
+      periodEmails.add(s.email);
+      if (allEmails.has(s.email) && !periodEmails.has(s.email)) returnEmails.add(s.email);
+    });
+    const newUsers  = [...periodEmails].filter(e => !returnEmails.has(e)).length;
+    const retUsers  = returnEmails.size;
+    const totalU    = periodEmails.size;
+
+    ucEl.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.7rem">👥 New vs Returning Users</div>
+      <div style="display:flex;gap:.5rem;margin-bottom:.7rem">
+        <div style="flex:1;background:#EFF6FF;border-radius:10px;padding:.65rem;text-align:center;border-top:3px solid #0052CC">
+          <div style="font-size:1.6rem;font-weight:900;color:#0052CC">${newUsers}</div>
+          <div style="font-size:.72rem;color:#64748B">🆕 New Users</div>
+        </div>
+        <div style="flex:1;background:#F0FDF4;border-radius:10px;padding:.65rem;text-align:center;border-top:3px solid #16A34A">
+          <div style="font-size:1.6rem;font-weight:900;color:#16A34A">${retUsers}</div>
+          <div style="font-size:.72rem;color:#64748B">🔄 Returning</div>
+        </div>
+        <div style="flex:1;background:#F8FAFC;border-radius:10px;padding:.65rem;text-align:center;border-top:3px solid #64748B">
+          <div style="font-size:1.6rem;font-weight:900;color:#334155">${totalU}</div>
+          <div style="font-size:.72rem;color:#64748B">👤 Total</div>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:#64748B">
+        <strong>Retention rate:</strong> ${totalU>0?Math.round(retUsers/totalU*100):0}% of users in this period are returning visitors.<br>
+        <span style="color:#0052CC;font-weight:700">Target: 30%+</span> means your platform is sticky.
+      </div>`;
+  }
+
+  // ── 18. Top Customers by Enquiry Volume ────────────────────────────────
+  const tcEl2 = document.getElementById('analytics-top-customers');
+  if (tcEl2) {
+    const custActivity = {};
+    recentQuotes.forEach(q => {
+      const e = q.email||q.customerEmail||'unknown';
+      if (e==='unknown'||!e) return;
+      if (!custActivity[e]) custActivity[e] = { name:q.customerName||q.company||e.split('@')[0], enquiries:0, accepted:0, value:0 };
+      custActivity[e].enquiries++;
+      if (q.acceptedBy) {
+        custActivity[e].accepted++;
+        const v = parseFloat(((q.responses||[]).find(r=>r.accepted)||{}).grandTotal||0);
+        custActivity[e].value += v;
+      }
+    });
+    const topCust = Object.entries(custActivity).sort((a,b)=>b[1].enquiries-a[1].enquiries).slice(0,8);
+    tcEl2.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.6rem">🏆 Most Active Customers</div>
+      ${topCust.length===0
+        ? `<div style="text-align:center;color:#94A3B8;font-size:.82rem;padding:1rem">No customer data in this period</div>`
+        : topCust.map(([e,c],i)=>`
+          <div style="display:flex;align-items:center;gap:.5rem;padding:.3rem 0;border-bottom:1px solid #F8FAFC">
+            <div style="width:22px;height:22px;background:#EFF6FF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:900;color:#0052CC;flex-shrink:0">${i+1}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:.78rem;font-weight:700;color:#0F172A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</div>
+              <div style="font-size:.68rem;color:#94A3B8">${c.enquiries} enquir${c.enquiries!==1?'ies':'y'} · ${c.accepted} hired</div>
+            </div>
+            ${c.value>0?`<div style="font-size:.78rem;font-weight:900;color:#16A34A;flex-shrink:0">$${c.value>=1000?(c.value/1000).toFixed(1)+'K':c.value.toFixed(0)}</div>`:''}
+          </div>`).join('')}`;
+  }
+
+  // ── 19. RC Leaderboard ─────────────────────────────────────────────────
+  const rcLbEl = document.getElementById('analytics-rc-leaderboard');
+  if (rcLbEl) {
+    const rcBoard = {};
+    recentQuotes.forEach(q => {
+      (q.responses||[]).forEach(r => {
+        if (!r.company) return;
+        if (!rcBoard[r.company]) rcBoard[r.company] = { quotes:0, wins:0, value:0, avgTime:null, times:[] };
+        rcBoard[r.company].quotes++;
+        if (r.accepted) { rcBoard[r.company].wins++; rcBoard[r.company].value += parseFloat(String(r.grandTotal||0).replace(/[^0-9.]/g,''))||0; }
+        if (r.ts && q.ts && r.ts > q.ts) rcBoard[r.company].times.push((r.ts-q.ts)/3600000);
+      });
+    });
+    Object.values(rcBoard).forEach(rc => {
+      rc.avgTime = rc.times.length > 0 ? rc.times.reduce((a,b)=>a+b,0)/rc.times.length : null;
+      rc.winRate = rc.quotes > 0 ? Math.round(rc.wins/rc.quotes*100) : 0;
+    });
+    const sorted = Object.entries(rcBoard).sort((a,b)=>b[1].wins-a[1].wins).slice(0,8);
+    rcLbEl.innerHTML = `
+      <div style="font-weight:800;font-size:.88rem;color:#0F172A;margin-bottom:.6rem">🏗️ Rental Company Leaderboard</div>
+      ${sorted.length===0
+        ? `<div style="text-align:center;color:#94A3B8;font-size:.82rem;padding:1rem">No RC activity in this period</div>`
+        : `<table style="width:100%;border-collapse:collapse">
+            <thead><tr style="background:#F8FAFC">
+              <th style="padding:.25rem .4rem;font-size:.68rem;color:#64748B;text-align:left">#</th>
+              <th style="padding:.25rem .4rem;font-size:.68rem;color:#64748B;text-align:left">Company</th>
+              <th style="padding:.25rem .4rem;font-size:.68rem;color:#64748B;text-align:right">Quotes</th>
+              <th style="padding:.25rem .4rem;font-size:.68rem;color:#64748B;text-align:right">Wins</th>
+              <th style="padding:.25rem .4rem;font-size:.68rem;color:#64748B;text-align:right">Win%</th>
+              <th style="padding:.25rem .4rem;font-size:.68rem;color:#64748B;text-align:right">Avg Resp</th>
+            </tr></thead><tbody>
+            ${sorted.map(([co,rc],i)=>`
+              <tr style="border-top:1px solid #F1F5F9">
+                <td style="padding:.25rem .4rem;font-size:.72rem;color:#94A3B8;font-weight:700">${i+1}</td>
+                <td style="padding:.25rem .4rem;font-size:.75rem;font-weight:700;color:#0F172A">${co}</td>
+                <td style="padding:.25rem .4rem;text-align:right;font-size:.78rem;color:#7C3AED;font-weight:700">${rc.quotes}</td>
+                <td style="padding:.25rem .4rem;text-align:right;font-size:.78rem;color:#16A34A;font-weight:900">${rc.wins}</td>
+                <td style="padding:.25rem .4rem;text-align:right;font-size:.78rem;font-weight:700;color:${rc.winRate>=30?'#16A34A':rc.winRate>=15?'#D97706':'#DC2626'}">${rc.winRate}%</td>
+                <td style="padding:.25rem .4rem;text-align:right;font-size:.75rem;color:#64748B">${rc.avgTime!=null?(rc.avgTime<1?Math.round(rc.avgTime*60)+'m':rc.avgTime.toFixed(1)+'h'):'—'}</td>
+              </tr>`).join('')}
+            </tbody></table>`}`;
+  }
+
+  // Store brand rows in window for CSV export
+  window._lastBrandReportRows = (_sponsoredAds||[]).map(ad => {
+    let imprInRange=0, clicksInRange=0;
+    if (ad.dailyStats) Object.entries(ad.dailyStats).forEach(([day,s])=>{
+      if(day>=fromDate&&day<=toDate){imprInRange+=parseInt(s.impressions||0);clicksInRange+=parseInt(s.clicks||0);}
+    });
+    const ctrRange = imprInRange>0?((clicksInRange/imprInRange)*100).toFixed(1)+'%':'0%';
+    return { brand:ad.brand||'—', category:ad.category||'All', status:ad.active&&!_spnIsExpired(ad)?'Live':'Inactive',
+             imprInRange, clicksInRange, ctrRange, totalImpr:parseInt(ad.impressions)||0, totalClicks:parseInt(ad.clicks)||0 };
+  });
+  window._lastBrandReportPeriod = `${fromDate}_to_${toDate}`;
+
+  // ── Snapshot all analytics data for Excel/PDF export ──────────────────
+  window._noyoAnalyticsSnap = {
+    period: { from: fromDate, to: toDate },
+    kpis: { totalSearches, totalCartAdds, totalQuotes, totalAccepted, totalResponded, convRate: parseFloat(convRate), quoteRate: parseFloat(quoteRate) },
+    categories: combinedCat,
+    cities: cityAgg,
+    sources: Object.fromEntries(dailyDocs.flatMap(d=>Object.entries(d.sources||{})).reduce((m,[k,v])=>{m.set(k,(m.get(k)||0)+parseInt(v||0));return m;},new Map())),
+    devices: Object.fromEntries(dailyDocs.flatMap(d=>Object.entries(d.devices||{})).reduce((m,[k,v])=>{m.set(k,(m.get(k)||0)+parseInt(v||0));return m;},new Map())),
+    countries: Object.fromEntries(dailyDocs.flatMap(d=>Object.entries(d.countries||{})).reduce((m,[k,v])=>{m.set(k.replace(/_/g,' '),(m.get(k.replace(/_/g,' '))||0)+parseInt(v||0));return m;},new Map())),
+    quotes: recentQuotes,
+    brandRows: window._lastBrandReportRows || [],
+    machineTop: Object.entries(machineAgg).sort((a,b)=>b[1].views-a[1].views).slice(0,20).map(([id,m])=>({id,name:m.name,brand:m.brand,views:m.views,cartAdds:m.cartAdds})),
+    dailySeries: dateList.map(d=>({ date:d, searches:dailySearch[d]||0, cartAdds:dailyCart[d]||0, quotes:dailyQuote[d]||0 })),
+  };
+}
+
+
+function exportAnalyticsExcel() {
+  if (typeof XLSX === 'undefined') { showToast('Excel library loading — try again', '#F59E0B'); return; }
+  const snap = window._noyoAnalyticsSnap;
+  if (!snap) { showToast('Run analytics first', '#F59E0B'); return; }
+  showToast('Building Excel report...', '#16A34A', 2000);
+  const wb = XLSX.utils.book_new();
+  const { period, kpis } = snap;
+  const S = (rows) => XLSX.utils.aoa_to_sheet(rows);
+
+  // Sheet 1: Summary KPIs
+  wb.Sheets['Summary'] = S([
+    ['NOYO ANALYTICS REPORT'],
+    ['Period: ' + period.from + ' to ' + period.to],
+    ['Generated: ' + new Date().toLocaleString('en-AU')],
+    [],
+    ['KPI','Value','Notes'],
+    ['Total Searches', kpis.totalSearches, 'Unique search sessions'],
+    ['Cart Adds', kpis.totalCartAdds, 'Machines added to hire enquiry'],
+    ['Quotes Sent', kpis.totalQuotes, 'Enquiries submitted to rental companies'],
+    ['Hires Accepted', kpis.totalAccepted, 'Confirmed hire outcomes'],
+    ['Responded', kpis.totalResponded, 'Enquiries with at least 1 quote'],
+    ['Search to Cart Rate', kpis.convRate + '%', 'Target: 10%+'],
+    ['Cart to Quote Rate', kpis.quoteRate + '%', 'Target: 60%+'],
+    ['Match Rate', kpis.totalQuotes > 0 ? Math.round(kpis.totalResponded / kpis.totalQuotes * 100) + '%' : '0%', 'Target: 80%+'],
+  ]);
+  wb.SheetNames.push('Summary');
+
+  // Sheet 2: Daily Activity
+  wb.Sheets['Daily Activity'] = S([
+    ['Date','Searches','Cart Adds','Quotes Sent'],
+    ...snap.dailySeries.map(d => [d.date, d.searches, d.cartAdds, d.quotes])
+  ]);
+  wb.SheetNames.push('Daily Activity');
+
+  // Sheet 3: Categories
+  wb.Sheets['Categories'] = S([
+    ['Category','Search Count'],
+    ...Object.entries(snap.categories).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v])
+  ]);
+  wb.SheetNames.push('Categories');
+
+  // Sheet 4: Geography
+  wb.Sheets['Geography'] = S([
+    ['City','Sessions'],
+    ...Object.entries(snap.cities).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,Math.round(v)]),
+    [],[  'Country','Sessions'],
+    ...Object.entries(snap.countries||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v])
+  ]);
+  wb.SheetNames.push('Geography');
+
+  // Sheet 5: Traffic Sources
+  wb.Sheets['Traffic Sources'] = S([
+    ['Source','Sessions'],
+    ...Object.entries(snap.sources||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k.replace(/_/g,' '),v]),
+    [],['Device','Sessions'],
+    ...Object.entries(snap.devices||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v])
+  ]);
+  wb.SheetNames.push('Traffic Sources');
+
+  // Sheet 6: Top Machines
+  wb.Sheets['Top Machines'] = S([
+    ['#','Machine','Brand','Views','Cart Adds','Conversion %'],
+    ...snap.machineTop.map((m,i)=>[i+1,m.name,m.brand||'',m.views,m.cartAdds,m.views>0?((m.cartAdds/m.views)*100).toFixed(1)+'%':'0%'])
+  ]);
+  wb.SheetNames.push('Top Machines');
+
+  // Sheet 7: Quotes Pipeline
+  wb.Sheets['Quotes'] = S([
+    ['ID','Date','Customer','Machines','City','Responses','Status','Value AUD'],
+    ...snap.quotes.map(q => {
+      const resp = (q.responses||[]).find(r=>r.accepted);
+      const status = q.acceptedBy ? 'Accepted' : (q.responses||[]).length>0 ? 'Quoted' : 'Pending';
+      return [q.id, q.ts?new Date(q.ts).toLocaleDateString('en-AU'):'',
+        q.customerName||q.company||'', (q.machines||[]).map(m=>m.name||m.id).join(', ')||q.machineType||'',
+        q.city||q.suburb||'', (q.responses||[]).length, status, resp?(resp.grandTotal||0).toFixed(2):''];
+    })
+  ]);
+  wb.SheetNames.push('Quotes');
+
+  // Sheet 8: Brand Impressions
+  if (snap.brandRows.length > 0) {
+    wb.Sheets['Brand Impressions'] = S([
+      ['Brand','Category','Status','Impressions (Period)','Clicks (Period)','CTR (Period)','Total Impressions','Total Clicks'],
+      ...snap.brandRows.map(r=>[r.brand,r.category,r.status,r.imprInRange,r.clicksInRange,r.ctrRange,r.totalImpr,r.totalClicks])
+    ]);
+    wb.SheetNames.push('Brand Impressions');
+  }
+
+  XLSX.writeFile(wb, 'noyo-analytics-' + period.from + '-to-' + period.to + '.xlsx');
+  showToast('Excel exported successfully', '#16A34A', 4000);
+}
+
+function exportAnalyticsPDF() {
+  if (typeof window.jspdf === 'undefined') { showToast('PDF library loading — try again', '#F59E0B'); return; }
+  const snap = window._noyoAnalyticsSnap;
+  if (!snap) { showToast('Run analytics first', '#F59E0B'); return; }
+  showToast('Building PDF report...', '#DC2626', 2000);
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  const W = 210, M = 14;
+  let y = 0;
+
+  const addPage = (need=20) => { if (y + need > 278) { doc.addPage(); y = 16; } };
+
+  // Cover
+  doc.setFillColor(15,23,42); doc.rect(0,0,W,50,'F');
+  doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(22);
+  doc.text('NOYO Analytics Report', M, 22);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  doc.text('Period: ' + snap.period.from + '  to  ' + snap.period.to, M, 32);
+  doc.text('Generated: ' + new Date().toLocaleString('en-AU'), M, 40);
+  doc.setTextColor(148,163,184); doc.setFontSize(8);
+  doc.text('noyo.com.au  -  Australia\'s Heavy Equipment Hire Marketplace', M, 47);
+  y = 60;
+
+  // KPI tiles
+  doc.setTextColor(15,23,42); doc.setFont('helvetica','bold'); doc.setFontSize(12);
+  doc.text('Platform KPIs', M, y); y += 6;
+  const kpiData = [
+    ['Total Searches', snap.kpis.totalSearches.toLocaleString(), [0,82,204]],
+    ['Cart Adds', snap.kpis.totalCartAdds.toLocaleString(), [124,58,237]],
+    ['Quotes Sent', snap.kpis.totalQuotes.toLocaleString(), [8,145,178]],
+    ['Hires Confirmed', snap.kpis.totalAccepted.toLocaleString(), [22,163,74]],
+    ['Search to Cart', snap.kpis.convRate+'%', [217,119,6]],
+    ['Match Rate', snap.kpis.totalQuotes>0?Math.round(snap.kpis.totalResponded/snap.kpis.totalQuotes*100)+'%':'0%', [220,38,38]],
+  ];
+  const colW = (W-M*2)/3;
+  kpiData.forEach(([label,val,color],i) => {
+    const col=i%3, row=Math.floor(i/3);
+    const bx=M+col*colW, by=y+row*18;
+    doc.setFillColor(248,250,252); doc.roundedRect(bx,by,colW-3,15,2,2,'F');
+    doc.setDrawColor(...color); doc.setLineWidth(0.8); doc.line(bx,by,bx,by+15);
+    doc.setTextColor(...color); doc.setFont('helvetica','bold'); doc.setFontSize(14);
+    doc.text(val, bx+4, by+9);
+    doc.setTextColor(100,116,139); doc.setFont('helvetica','normal'); doc.setFontSize(7);
+    doc.text(label, bx+4, by+13.5);
+  });
+  y += 42;
+
+  // Top categories
+  addPage(60);
+  doc.autoTable({ startY:y, margin:{left:M,right:M},
+    head:[['Category','Searches']], headStyles:{fillColor:[0,82,204],fontSize:8,fontStyle:'bold'},
+    body:Object.entries(snap.categories).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,v])=>[k,v]),
+    bodyStyles:{fontSize:8}, alternateRowStyles:{fillColor:[248,250,252]},
+    columnStyles:{1:{halign:'right',fontStyle:'bold'}},
+  });
+  y = doc.lastAutoTable.finalY + 8;
+
+  // Geography - two columns
+  addPage(60);
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(15,23,42);
+  doc.text('Geography', M, y); y += 4;
+  doc.autoTable({ startY:y, margin:{left:M,right:W/2+1},
+    head:[['City','Sessions']], headStyles:{fillColor:[20,184,166],fontSize:8,fontStyle:'bold'},
+    body:Object.entries(snap.cities).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>[k,Math.round(v)]),
+    bodyStyles:{fontSize:8}, alternateRowStyles:{fillColor:[248,250,252]},
+  });
+  const leftFinal = doc.lastAutoTable.finalY;
+  doc.autoTable({ startY:y, margin:{left:W/2+1,right:M},
+    head:[['Country','Sessions']], headStyles:{fillColor:[217,119,6],fontSize:8,fontStyle:'bold'},
+    body:Object.entries(snap.countries||{}).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>[k,v]),
+    bodyStyles:{fontSize:8}, alternateRowStyles:{fillColor:[255,251,235]},
+  });
+  y = Math.max(leftFinal, doc.lastAutoTable.finalY) + 8;
+
+  // Traffic sources
+  addPage(50);
+  doc.autoTable({ startY:y, margin:{left:M,right:W/2+1},
+    head:[['Traffic Source','Sessions']], headStyles:{fillColor:[124,58,237],fontSize:8,fontStyle:'bold'},
+    body:Object.entries(snap.sources||{}).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>[k.replace(/_/g,' '),v]),
+    bodyStyles:{fontSize:8}, alternateRowStyles:{fillColor:[248,250,252]},
+  });
+  const srcFinal = doc.lastAutoTable.finalY;
+  doc.autoTable({ startY:y, margin:{left:W/2+1,right:M},
+    head:[['Device','Sessions']], headStyles:{fillColor:[15,118,110],fontSize:8,fontStyle:'bold'},
+    body:Object.entries(snap.devices||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v]),
+    bodyStyles:{fontSize:8}, alternateRowStyles:{fillColor:[240,253,250]},
+  });
+  y = Math.max(srcFinal, doc.lastAutoTable.finalY) + 8;
+
+  // Top machines
+  addPage(60);
+  doc.autoTable({ startY:y, margin:{left:M,right:M},
+    head:[['#','Machine','Brand','Views','Cart Adds','Conv%']], headStyles:{fillColor:[124,58,237],fontSize:8,fontStyle:'bold'},
+    body:snap.machineTop.slice(0,10).map((m,i)=>[i+1,m.name,m.brand||'',m.views,m.cartAdds,m.views>0?((m.cartAdds/m.views)*100).toFixed(1)+'%':'0%']),
+    bodyStyles:{fontSize:7.5}, alternateRowStyles:{fillColor:[248,250,252]},
+    columnStyles:{0:{halign:'center',cellWidth:8},3:{halign:'right'},4:{halign:'right'},5:{halign:'right',fontStyle:'bold'}},
+  });
+  y = doc.lastAutoTable.finalY + 8;
+
+  // Quotes pipeline
+  addPage(40);
+  doc.autoTable({ startY:y, margin:{left:M,right:M},
+    head:[['Date','Customer','Machines','City','Status','Value']], headStyles:{fillColor:[8,145,178],fontSize:8,fontStyle:'bold'},
+    body:snap.quotes.slice(0,20).map(q => {
+      const resp=(q.responses||[]).find(r=>r.accepted);
+      const s=q.acceptedBy?'Accepted':(q.responses||[]).length>0?'Quoted':'Pending';
+      return [q.ts?new Date(q.ts).toLocaleDateString('en-AU',{day:'2-digit',month:'short'}):'',
+        (q.customerName||q.company||'').slice(0,18),(((q.machines||[]).map(m=>m.name||'').join(', '))||q.machineType||'').slice(0,22),
+        (q.city||q.suburb||'').slice(0,14),s,resp?'$'+(resp.grandTotal||0).toFixed(0):''];
+    }),
+    bodyStyles:{fontSize:7}, alternateRowStyles:{fillColor:[248,250,252]},
+  });
+  y = doc.lastAutoTable.finalY + 8;
+
+  // Brand impressions
+  if (snap.brandRows.length > 0) {
+    addPage(40);
+    doc.autoTable({ startY:y, margin:{left:M,right:M},
+      head:[['Brand','Category','Status','Impr.','Clicks','CTR','Total Impr']], headStyles:{fillColor:[180,83,9],fontSize:8,fontStyle:'bold'},
+      body:snap.brandRows.map(r=>[r.brand,r.category,r.status,r.imprInRange,r.clicksInRange,r.ctrRange,r.totalImpr]),
+      bodyStyles:{fontSize:7.5}, alternateRowStyles:{fillColor:[255,251,235]},
+    });
+  }
+
+  // Page footers
+  const pages = doc.internal.getNumberOfPages();
+  for (let p=1; p<=pages; p++) {
+    doc.setPage(p);
+    doc.setFontSize(7); doc.setTextColor(148,163,184);
+    doc.text('Noyo Analytics  |  noyo.com.au  |  Page ' + p + ' of ' + pages + '  |  ' + snap.period.from + ' to ' + snap.period.to, M, 292);
+  }
+
+  doc.save('noyo-analytics-' + snap.period.from + '-to-' + snap.period.to + '.pdf');
+  showToast('PDF exported successfully', '#DC2626', 4000);
+}
+
+function exportFullAnalyticsCSV() {
+  const from = document.getElementById('analytics-from')?.value || 'all';
+  const to   = document.getElementById('analytics-to')?.value   || 'now';
+  const rows = [
+    ['Metric','Value','Period'],
+    ['Total Enquiries', quoteInbox.length, `${from} to ${to}`],
+    ['Responded', quoteInbox.filter(r=>(r.responses||[]).length>0).length, ''],
+    ['Accepted', quoteInbox.filter(r=>r.acceptedBy).length, ''],
+    ['Match Rate %', quoteInbox.length>0?Math.round(quoteInbox.filter(r=>(r.responses||[]).length>0).length/quoteInbox.length*100)+'%':'0%', ''],
+  ];
+  // Add brand rows
+  (window._lastBrandReportRows||[]).forEach(r => {
+    rows.push([`Brand: ${r.brand}`, `${r.imprInRange} impressions, ${r.clicksInRange} clicks, CTR ${r.ctrRange}`, from+' to '+to]);
+  });
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `noyo-analytics-${from}-${to}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('📥 Analytics exported', '#16A34A');
+}
+
+function copyAnalyticsSummary() {
+  const total    = quoteInbox.length;
+  const responded= quoteInbox.filter(r=>(r.responses||[]).length>0).length;
+  const accepted = quoteInbox.filter(r=>r.acceptedBy).length;
+  const matchRate= total>0?Math.round(responded/total*100):0;
+  const from = document.getElementById('analytics-from')?.value || '—';
+  const to   = document.getElementById('analytics-to')?.value   || '—';
+  const text = `📊 NOYO Platform Report (${from} → ${to})
+─────────────────────────────
+📨 Total Enquiries:    ${total}
+💬 Responses Received: ${responded} (${matchRate}% match rate)
+✅ Hires Confirmed:    ${accepted}
+📍 Active on Platform: ${Object.keys(customerRegistry||{}).length} users registered
+─────────────────────────────
+Powered by Noyo — noyo.com.au`;
+  navigator.clipboard.writeText(text).then(()=>showToast('📋 Summary copied to clipboard','#16A34A')).catch(()=>showToast('Copy failed','#EF4444'));
+}
+
+function exportBrandReport() {
+  const rows = window._lastBrandReportRows || [];
+  const period = window._lastBrandReportPeriod || 'all';
+  if (!rows.length) { showToast('No brand data to export', '#EF4444'); return; }
+  const headers = ['Brand','Category','Status','Impressions (Period)','Clicks (Period)','CTR (Period)','Total Impressions (All Time)','Total Clicks (All Time)'];
+  const csv = [headers.join(','), ...rows.map(r => [
+    `"${r.brand}"`, `"${r.category}"`, `"${r.status}"`,
+    r.imprInRange, r.clicksInRange, `"${r.ctrRange}"`,
+    r.totalImpr, r.totalClicks
+  ].join(','))].join('\n');
+  const blob = new Blob([csv], { type:'text/csv' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `noyo-brand-report-${period}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('📥 Brand report exported', '#16A34A');
 }
 
 // ── Auto-refresh and idle detection ───────────────────────────────────
@@ -68152,6 +69190,88 @@ _fbAuth.onAuthStateChanged(async (fbUser) => {
 window.addEventListener('load', () => {
   setTimeout(_showFirebaseStatus, 1500);
 });
+
+// ── Page session tracking — referrer, UTM, country, device ──────────────────
+(function _trackPageSession() {
+  try {
+    const params  = new URLSearchParams(window.location.search);
+    const ref     = document.referrer || '';
+    const ua      = navigator.userAgent || '';
+
+    // Traffic source classification
+    let source = 'Direct';
+    let medium = 'direct';
+    if (params.get('utm_source')) {
+      source = params.get('utm_source');
+      medium = params.get('utm_medium') || 'cpc';
+    } else if (ref) {
+      if (/google\./i.test(ref))      { source = 'Google';    medium = 'organic'; }
+      else if (/bing\./i.test(ref))   { source = 'Bing';      medium = 'organic'; }
+      else if (/facebook\.|fb\./i.test(ref)) { source = 'Facebook'; medium = 'social'; }
+      else if (/instagram\./i.test(ref))     { source = 'Instagram';medium = 'social'; }
+      else if (/linkedin\./i.test(ref))      { source = 'LinkedIn'; medium = 'social'; }
+      else if (/twitter\.|x\.com/i.test(ref)){ source = 'Twitter';  medium = 'social'; }
+      else if (/youtube\./i.test(ref))       { source = 'YouTube';  medium = 'social'; }
+      else { source = new URL(ref).hostname.replace('www.',''); medium = 'referral'; }
+    }
+
+    // Device type
+    const isMobile  = /Android|iPhone|iPod|Opera Mini|IEMobile|WPDesktop/i.test(ua);
+    const isTablet  = /iPad|Android(?!.*Mobile)/i.test(ua);
+    const device    = isMobile ? 'Mobile' : isTablet ? 'Tablet' : 'Desktop';
+
+    // Browser
+    let browser = 'Other';
+    if (/Chrome\/\d/.test(ua) && !/Edg\//.test(ua)) browser = 'Chrome';
+    else if (/Safari\/\d/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
+    else if (/Firefox\/\d/.test(ua)) browser = 'Firefox';
+    else if (/Edg\//.test(ua)) browser = 'Edge';
+
+    const sessionData = {
+      ts: Date.now(),
+      source, medium,
+      campaign: params.get('utm_campaign') || '—',
+      device, browser,
+      referrer: ref ? ref.slice(0, 120) : '—',
+      path: window.location.pathname,
+    };
+    window._noyoSession = sessionData;
+
+    // Fetch country + city via ip-api (free, no key needed, ~100ms)
+    fetch('https://ip-api.com/json/?fields=country,city,regionName,query')
+      .then(r => r.json())
+      .then(geo => {
+        sessionData.country = geo.country || '—';
+        sessionData.city    = sessionData.city || geo.city || '—';
+        sessionData.region  = geo.regionName || '—';
+        sessionData.ip      = geo.query || '—';
+        _flushSessionToFirestore(sessionData);
+      })
+      .catch(() => { _flushSessionToFirestore(sessionData); });
+
+  } catch(e) { /* non-critical */ }
+})();
+
+function _flushSessionToFirestore(data) {
+  if (!_fbDb) { setTimeout(() => _flushSessionToFirestore(data), 3000); return; }
+  try {
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const srcKey = (data.source||'Direct').replace(/[.\\/\[\]]/g,'_');
+    const devKey = (data.device||'Desktop');
+    const cntKey = (data.country||'Unknown').replace(/[.\\/\[\]]/g,'_');
+    const citKey = (data.city||'Unknown').replace(/[.\\/\[\]]/g,'_');
+    const inc = {
+      sessions: firebase.firestore.FieldValue.increment(1),
+      [`sources.${srcKey}`]:   firebase.firestore.FieldValue.increment(1),
+      [`mediums.${data.medium||'direct'}`]: firebase.firestore.FieldValue.increment(1),
+      [`devices.${devKey}`]:   firebase.firestore.FieldValue.increment(1),
+      [`browsers.${data.browser||'Other'}`]: firebase.firestore.FieldValue.increment(1),
+      [`countries.${cntKey}`]: firebase.firestore.FieldValue.increment(1),
+      [`cities.${citKey}`]:    firebase.firestore.FieldValue.increment(1),
+    };
+    _fbDb.collection('analytics_daily').doc(dayKey).set(inc, { merge: true }).catch(()=>{});
+  } catch(e) {}
+}
 
 // Poll Firebase every 30 seconds for new quotes/responses
 setInterval(async () => {
