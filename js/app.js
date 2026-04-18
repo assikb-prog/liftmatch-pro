@@ -44820,22 +44820,7 @@ const SPEC_QS = {
         {ico:'🏭', lbl:'Industrial / hardstand', sub:'Port, factory, hardstand areas', val:'industrial_t'},
       ]
     },
-    {
-      id:'tele_attachment', icon:'🔩',
-      text:'What attachments will you need? (select all that apply)',
-      hint:'You can select multiple attachments — this helps us match machines that support your full range of tasks. Jib, winch, man basket and rotator are quoted as separate hire line items.',
-      type:'multi',
-      options:[
-        {ico:'🍴', lbl:'Forks', sub:'Standard pallet forks — pallets, materials, panels', val:'forks_only'},
-        {ico:'🏗️', lbl:'Jib / crane hook', sub:'Lifting loads via hook — steel, concrete, plant', val:'jib'},
-        {ico:'🪝', lbl:'Winch', sub:'Rope winch / hook block — controlled lowering or hoisting', val:'winch'},
-        {ico:'🔄', lbl:'Fork rotator', sub:'360° rotation attachment for rotating loads', val:'rotator'},
-        {ico:'🧑‍✈️', lbl:'Man basket / work platform', sub:'Personnel access platform — priced as separate hire item', val:'man_basket'},
-        {ico:'🪣', lbl:'GP Bucket', sub:'General purpose bucket — dirt, rubble, aggregate', val:'gp_bucket'},
-        {ico:'🪣', lbl:'GP Bucket with Grab', sub:'Hydraulic grab bucket — loose or awkward material', val:'gp_bucket_grab'},
-        {ico:'🌾', lbl:'Bale clamp / grapple', sub:'Agricultural and bulk material handling', val:'bale_clamp'},
-      ]
-    },
+
     {
       id:'tele_brand_pref', icon:'🏷️',
       text:'Do you have a preferred telehandler brand?',
@@ -48705,7 +48690,6 @@ function showResults() {
    {id:'fork_3phase',label:'3-phase power',unit:'',icon:'🔌'},
    {id:'fork_brand_pref',label:'Brand preference',unit:'',icon:'🏷️'},
    {id:'tele_brand_pref',label:'Brand preference',unit:'',icon:'🏷️'},
-   {id:'tele_attachment',label:'Attachments required',unit:'',icon:'🔩'},
    {id:'tele_rotation',  label:'Rotation required',unit:'',icon:'🔄'},
    {id:'ppl_width_mm',label:'Max machine width',unit:'mm',icon:'📐'},
    {id:'ppl_length_mm',label:'Max machine length',unit:'mm',icon:'📐'},
@@ -51849,7 +51833,7 @@ var _cemIdx = -1;
 
 var CEM_ATTACH_OPTS = {
   forklift:     { tynes:['1200mm','1500mm','1800mm'], att:['1800mm slipper','2400mm slipper','Jib Attachment','Rotator','Side Shift','Fork Positioner'] },
-  telehandler:  { tynes:[], att:['Jib Attachment','Rotator','Man Basket','Pallet Forks','Bucket','Bale Grab'] },
+  telehandler:  { tynes:[], att:['Jib Attachment','Rotator','Man Basket','Pallet Forks','Bucket'] },
   scissor:      { tynes:[], att:['Pipe & Tube Rack','Tool Tray','Safety Gate'] },
   boom:         { tynes:[], att:['Standard Basket (230kg)','XC Capacity Basket (320kg+)','Power to Basket (230V outlet)','Jib Extension','Bi-Fuel'] },
   verticalMast: { tynes:[], att:[] },
@@ -54304,8 +54288,7 @@ function populateSqmMachineList() {
         _accBox(i,'rotator',     '🔄 Rotator',           !!_cartAccs.rotator)     +
         _accBox(i,'man_basket',  '🧺 Man Basket',        !!_cartAccs.man_basket)  +
         _accBox(i,'pallet_forks','🍴 Pallet Forks',      !!_cartAccs.pallet_forks)+
-        _accBox(i,'bucket',      '🪣 Bucket',            !!_cartAccs.bucket)      +
-        _accBox(i,'bale_grab',   '🌾 Bale Grab',         !!_cartAccs.bale_grab)
+        _accBox(i,'bucket',      '🪣 Bucket',            !!_cartAccs.bucket)
       );
     } else if (_isForklift) {
       accHtml = _accWrap('🔧 Forklift Attachments — tick to add as separate quote line items',
@@ -54371,7 +54354,6 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   if (acc.man_basket)    chargeable.push('🧺 Man Basket');
   if (acc.pallet_forks)  chargeable.push('🍴 Pallet Forks');
   if (acc.bucket)        chargeable.push('🪣 Bucket');
-  if (acc.bale_grab)     chargeable.push('🌾 Bale Grab');
   // Rotating telehandler
   if (acc.winch)         chargeable.push('⚙️ Winch');
   if (acc.rotator_hook)  chargeable.push('🔄 Rotator Hook');
@@ -62232,320 +62214,6 @@ const _LM_FILTERS = [
   { key:'users',    label:'👥 Highest Users',    color:'#7C3AED', bg:'#F3E8FF', border:'#C4B5FD' },
 ];
 
-function _renderLiveMapInner() {
-  const el = document.getElementById('livemap-content');
-  if (!el) return;
-
-  const filter = _LM_FILTERS.find(f=>f.key===_liveMapFilter) || _LM_FILTERS[1];
-
-  // ── Compute data per city ─────────────────────────────────────
-  const allEnq = quoteInbox;
-  const sessions = adminData.sessions || [];
-  const searches = adminData.searches || [];
-  const cityData = {};
-
-  const ensure = city => {
-    if (!cityData[city]) cityData[city] = {
-      city, enquiries:0, accepted:0, pending:0, revenue:0,
-      users:new Set(), online:0
-    };
-  };
-
-  // Session-based: online = active in last 5 min
-  const fiveMinAgo = Date.now() - 5 * 60000;
-  sessions.forEach(s => {
-    const city = s.city || '';
-    if (!city) return;
-    ensure(city);
-    cityData[city].users.add(s.email||s.id||'anon');
-    if (!s.logoutAt && s.loginAt > fiveMinAgo) cityData[city].online++;
-  });
-
-  // Search-based users
-  searches.forEach(s => {
-    const city = s.city || '';
-    if (!city) return;
-    ensure(city);
-    if (s.email) cityData[city].users.add(s.email);
-  });
-
-  // Enquiry-based
-  allEnq.forEach(r => {
-    const city = r.city || r.cluster;
-    if (!city) return;
-    ensure(city);
-    cityData[city].enquiries++;
-    if (r.email) cityData[city].users.add(r.email);
-    if (r.acceptedBy) {
-      cityData[city].accepted++;
-      const p = (r.responses||[]).find(x=>x.accepted);
-      if (p) { const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')); if(!isNaN(v)) cityData[city].revenue+=v; }
-    } else if ((r.responses||[]).length===0 && (!r.expires||r.expires>Date.now())) {
-      cityData[city].pending++;
-    }
-  });
-
-  // Convert sets to counts
-  Object.values(cityData).forEach(d => { d.users = d.users.size; });
-
-  // Get value by filter key
-  const getVal = (d) => {
-    if (_liveMapFilter==='online')    return d.online;
-    if (_liveMapFilter==='enquiries') return d.enquiries;
-    if (_liveMapFilter==='accepted')  return d.accepted;
-    if (_liveMapFilter==='pending')   return d.pending;
-    if (_liveMapFilter==='revenue')   return d.revenue;
-    if (_liveMapFilter==='users')     return d.users;
-    return 0;
-  };
-
-  const rows = Object.values(cityData)
-    .map(d => ({ ...d, val: getVal(d) }))
-    .filter(d => d.val > 0);
-
-  // Sort for list
-  const sorted = [...rows].sort((a,b) => {
-    let cmp = 0;
-    if (_liveMapSort==='value') cmp = b.val - a.val;
-    else if (_liveMapSort==='city') cmp = a.city.localeCompare(b.city);
-    if (_liveMapDir==='asc') cmp = -cmp;
-    return cmp;
-  });
-
-  const maxVal = Math.max(...rows.map(r=>r.val), 1);
-  const totalVal = rows.reduce((s,r)=>s+r.val, 0);
-  const fmt = n => filter.key==='revenue'
-    ? 'A$' + (n>=1000?(n/1000).toFixed(1)+'k':n.toFixed(0))
-    : n;
-  const fmtFull = n => filter.key==='revenue'
-    ? 'A$' + n.toLocaleString('en-AU',{maximumFractionDigits:0})
-    : n;
-
-  // Build map dots
-  const dotR = val => val<=0 ? 0 : Math.max(7, Math.min(42, 7 + Math.log1p(val)/Math.log1p(maxVal) * 35));
-
-  const mapDots = Object.entries(_AUS_CITIES).map(([name, pos], i) => {
-    const d = cityData[name];
-    const val = d ? getVal(d) : 0;
-    const r = dotR(val);
-    if (r < 4) return `<circle cx="${pos.x}" cy="${pos.y}" r="3" fill="#CBD5E1" opacity="0.4"/>
-      <text x="${pos.x}" y="${pos.y+10}" text-anchor="middle" fill="#94A3B8" font-family="Nunito,sans-serif" font-size="7" font-weight="600">${name}</text>`;
-    const delay = (i*0.12).toFixed(2);
-    const isOnline = _liveMapFilter==='online';
-    return `
-      <g onclick="_lmShowCity('${name}')" style="cursor:pointer" class="lm-city-g">
-        <circle cx="${pos.x}" cy="${pos.y}" r="${r+10}" fill="${filter.color}" opacity="0"
-          style="-webkit-animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${delay}s infinite;animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${delay}s infinite"/>
-        <circle cx="${pos.x}" cy="${pos.y}" r="${r+5}" fill="${filter.color}" opacity="0"
-          style="-webkit-animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${(parseFloat(delay)+.25).toFixed(2)}s infinite;animation:mapPulse ${isOnline?'1.8':'2.6'}s ease-out ${(parseFloat(delay)+.25).toFixed(2)}s infinite"/>
-        <circle cx="${pos.x}" cy="${pos.y}" r="${r}" fill="${filter.color}" opacity="0.88" stroke="white" stroke-width="1.5"/>
-        ${r>=14?`<text x="${pos.x}" y="${pos.y+1}" text-anchor="middle" dominant-baseline="middle" fill="white"
-          font-family="Nunito,sans-serif" font-weight="900" font-size="${r>=22?'10':'8'}">${fmt(val)}</text>`:''}
-        <text x="${pos.x}" y="${pos.y+r+12}" text-anchor="middle" fill="#1E293B"
-          font-family="Nunito,sans-serif" font-weight="800" font-size="9.5">${name}</text>
-      </g>`;
-  }).join('');
-
-  el.innerHTML = `
-    <!-- Header -->
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
-      <div>
-        <div style="font-size:1.15rem;font-weight:900;color:#0F172A">📡 Live Australia Map</div>
-        <div style="font-size:.75rem;color:#94A3B8;margin-top:.1rem" id="lm-last-updated">
-          Updated: ${new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}
-          &nbsp;·&nbsp; Auto-refreshes every 30s
-        </div>
-      </div>
-      <div style="display:flex;gap:.4rem;align-items:center">
-        <!-- Map / List toggle -->
-        <div style="display:flex;background:#F1F5F9;border-radius:10px;padding:3px;gap:2px">
-          <button onclick="_liveMapView='map';_renderLiveMapInner()"
-            style="padding:.32rem .8rem;border-radius:8px;border:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;background:${_liveMapView==='map'?'#0052CC':'transparent'};color:${_liveMapView==='map'?'#fff':'#64748B'}">
-            🗺️ Map
-          </button>
-          <button onclick="_liveMapView='list';_renderLiveMapInner()"
-            style="padding:.32rem .8rem;border-radius:8px;border:none;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer;background:${_liveMapView==='list'?'#0052CC':'transparent'};color:${_liveMapView==='list'?'#fff':'#64748B'}">
-            📋 List
-          </button>
-        </div>
-        <button onclick="_renderLiveMapInner()"
-          style="background:#F1F5F9;border:1.5px solid #E2E8F0;color:#475569;border-radius:8px;padding:.32rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer">
-          ↻ Refresh
-        </button>
-      </div>
-    </div>
-
-    <!-- Filter pills -->
-    <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.2rem">
-      ${_LM_FILTERS.map(f => `
-        <button onclick="_liveMapFilter='${f.key}';_renderLiveMapInner()"
-          style="padding:.35rem .9rem;border-radius:20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.79rem;cursor:pointer;white-space:nowrap;
-                 border:2px solid ${f.color};
-                 background:${_liveMapFilter===f.key?f.color:f.bg};
-                 color:${_liveMapFilter===f.key?'#fff':f.color};
-                 -webkit-transition:all .15s;transition:all .15s">
-          ${f.label}
-        </button>`).join('')}
-    </div>
-
-    <!-- Summary bar -->
-    <div style="background:${filter.bg};border:1.5px solid ${filter.border};border-radius:10px;padding:.55rem 1rem;margin-bottom:.9rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem">
-      <div style="font-size:.82rem;font-weight:800;color:${filter.color}">
-        ${filter.label}: <strong>${fmtFull(totalVal)}</strong> across ${rows.length} cit${rows.length===1?'y':'ies'}
-      </div>
-      ${rows.length>0?`<div style="font-size:.75rem;color:${filter.color};opacity:.75">Top: ${sorted[0]?.city||'—'} (${fmtFull(sorted[0]?.val||0)})</div>`:''}
-    </div>
-
-    <!-- MAP VIEW -->
-    ${_liveMapView==='map' ? `
-    <div style="background:linear-gradient(160deg,#EFF6FF,#ECFDF5);border:1.5px solid #E2E8F0;border-radius:16px;padding:.75rem;position:relative;overflow:hidden">
-      <div id="lm-tooltip" style="display:none;position:absolute;background:#fff;border:1.5px solid ${filter.border};border-radius:12px;padding:.7rem .9rem;box-shadow:0 8px 24px rgba(0,0,0,.13);font-family:'Nunito',sans-serif;min-width:190px;z-index:100;pointer-events:none;max-width:220px"></div>
-      <svg viewBox="0 0 700 570" style="width:100%;height:auto;display:block;overflow:hidden"
-        onmouseleave="const t=document.getElementById('lm-tooltip');if(t)t.style.display='none'">
-        <path d="${_AUS_PATH}" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5"/>
-        <line x1="439" y1="20" x2="439" y2="425" stroke="#CBD5E1" stroke-width=".7" stroke-dasharray="4,3"/>
-        <line x1="439" y1="340" x2="700" y2="340" stroke="#CBD5E1" stroke-width=".7" stroke-dasharray="4,3"/>
-        <line x1="300" y1="31" x2="300" y2="530" stroke="#CBD5E1" stroke-width=".7" stroke-dasharray="4,3"/>
-        ${mapDots}
-      </svg>
-      <!-- Legend -->
-      <div style="position:absolute;bottom:12px;left:14px;background:rgba(255,255,255,.85);border-radius:8px;padding:.4rem .6rem">
-        <div style="font-size:.65rem;font-weight:800;color:#64748B;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.3px">${filter.label}</div>
-        ${[[7,'1'],[16,'5–10'],[26,'10–50'],[36,'50+']].map(([r,lbl])=>`
-          <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
-            <svg width="${r*2+2}" height="${r*2+2}" style="flex-shrink:0"><circle cx="${r+1}" cy="${r+1}" r="${r}" fill="${filter.color}" opacity=".75"/></svg>
-            <span style="font-size:.63rem;color:#64748B;font-family:'Nunito',sans-serif;font-weight:700">${lbl}</span>
-          </div>`).join('')}
-      </div>
-    </div>` : ''}
-
-    <!-- LIST VIEW -->
-    ${_liveMapView==='list' ? `
-    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;overflow:hidden">
-      <!-- Sort controls -->
-      <div style="padding:.65rem 1rem;border-bottom:1.5px solid #F1F5F9;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:#F8FAFC">
-        <span style="font-size:.74rem;font-weight:800;color:#64748B">Sort by:</span>
-        ${[['value','Value'],['city','City (A–Z)']].map(([key,lbl]) => `
-          <button onclick="_liveMapSort='${key}';_renderLiveMapInner()"
-            style="padding:.28rem .7rem;border-radius:20px;border:1.5px solid ${_liveMapSort===key?filter.color:'#E2E8F0'};
-                   background:${_liveMapSort===key?filter.bg:'#fff'};color:${_liveMapSort===key?filter.color:'#64748B'};
-                   font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer">
-            ${lbl}
-          </button>`).join('')}
-        <button onclick="_liveMapDir=_liveMapDir==='desc'?'asc':'desc';_renderLiveMapInner()"
-          style="padding:.28rem .7rem;border-radius:20px;border:1.5px solid #E2E8F0;background:#fff;color:#64748B;
-                 font-family:'Nunito',sans-serif;font-weight:800;font-size:.75rem;cursor:pointer">
-          ${_liveMapDir==='desc'?'↓ High → Low':'↑ Low → High'}
-        </button>
-      </div>
-      <!-- List rows -->
-      ${sorted.length===0
-        ? `<div style="padding:2rem;text-align:center;color:#94A3B8;font-size:.85rem">No data for this filter yet</div>`
-        : `<div style="max-height:520px;overflow-y:auto;-webkit-overflow-scrolling:touch">
-          ${sorted.map((d,i)=>{
-            const pct = totalVal>0?(d.val/totalVal*100):0;
-            const barW = maxVal>0?Math.max(3,d.val/maxVal*100):0;
-            return `<div style="display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:.65rem;padding:.65rem 1rem;border-bottom:1px solid #F8FAFC;cursor:pointer"
-              onclick="_liveMapFilter='${_liveMapFilter}';_liveMapView='map';_renderLiveMapInner();setTimeout(()=>_lmShowCity('${d.city}'),300)"
-              onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background=''">
-              <div style="font-size:.75rem;font-weight:800;color:#94A3B8;text-align:center">${i+1}</div>
-              <div>
-                <div style="font-size:.85rem;font-weight:800;color:#0F172A;margin-bottom:.25rem">${d.city}</div>
-                <div style="background:#F1F5F9;border-radius:20px;height:6px;overflow:hidden">
-                  <div style="width:${barW}%;background:${filter.color};height:100%;border-radius:20px"></div>
-                </div>
-                <div style="font-size:.68rem;color:#94A3B8;margin-top:.2rem">
-                  ${pct.toFixed(1)}% · E:${d.enquiries} A:${d.accepted} P:${d.pending} U:${d.users}
-                </div>
-              </div>
-              <div style="text-align:right">
-                <div style="font-size:1rem;font-weight:900;color:${filter.color}">${fmtFull(d.val)}</div>
-                <div style="font-size:.68rem;color:#94A3B8">${filter.label.replace(/^[^\s]+\s/,'')}</div>
-              </div>
-            </div>`;
-          }).join('')}
-        </div>`}
-    </div>` : ''}`;
-}
-
-function _lmShowCity(name) {
-  const d = (() => {
-    const allEnq = quoteInbox;
-    const sessions = adminData.sessions || [];
-    const c = { city:name, enquiries:0, accepted:0, pending:0, revenue:0, users:new Set(), online:0 };
-    const fiveMinAgo = Date.now() - 5*60000;
-    sessions.forEach(s => {
-      if ((s.city||'')!==name) return;
-      c.users.add(s.email||s.id||'anon');
-      if (!s.logoutAt && s.loginAt > fiveMinAgo) c.online++;
-    });
-    allEnq.forEach(r => {
-      if ((r.city||r.cluster||'')!==name) return;
-      c.enquiries++;
-      if (r.email) c.users.add(r.email);
-      if (r.acceptedBy) {
-        c.accepted++;
-        const p = (r.responses||[]).find(x=>x.accepted);
-        if (p) { const v=parseFloat(String(p.grandTotal||0).replace(/[^0-9.]/g,'')); if(!isNaN(v)) c.revenue+=v; }
-      } else if ((r.responses||[]).length===0) c.pending++;
-    });
-    c.users = c.users.size;
-    return c;
-  })();
-
-  const tip = document.getElementById('lm-tooltip');
-  if (!tip) return;
-
-  const filter = _LM_FILTERS.find(f=>f.key===_liveMapFilter)||_LM_FILTERS[1];
-  const pos = (_AUS_CITIES[name]||{});
-  const left = pos.x > 500 ? 'auto' : `${(pos.x/700*100).toFixed(1)}%`;
-  const right = pos.x > 500 ? `${((700-pos.x)/700*100).toFixed(1)}%` : 'auto';
-  const top  = pos.y > 350 ? 'auto' : `${(pos.y/570*100+8).toFixed(1)}%`;
-  const bottom = pos.y > 350 ? `${((570-pos.y)/570*100+5).toFixed(1)}%` : 'auto';
-  tip.style.left   = left;
-  tip.style.right  = right;
-  tip.style.top    = top;
-  tip.style.bottom = bottom;
-  tip.style.display = 'block';
-  tip.innerHTML = `
-    <div style="font-size:.9rem;font-weight:900;color:#0F172A;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem">
-      <span style="width:10px;height:10px;border-radius:50%;background:${filter.color};display:inline-block"></span>
-      ${name}
-    </div>
-    <div style="display:flex;flex-direction:column;gap:.2rem;font-size:.79rem">
-      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">📨 Enquiries</span><strong>${d.enquiries}</strong></div>
-      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">✅ Accepted</span><strong style="color:#15803D">${d.accepted}</strong></div>
-      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">⏳ Pending</span><strong style="color:#B45309">${d.pending}</strong></div>
-      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">💰 Revenue</span><strong>A$${d.revenue.toLocaleString('en-AU',{maximumFractionDigits:0})}</strong></div>
-      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">👥 Users</span><strong>${d.users}</strong></div>
-      <div style="display:flex;justify-content:space-between;gap:.8rem"><span style="color:#64748B">🟢 Online now</span><strong style="color:#16A34A">${d.online}</strong></div>
-    </div>`;
-}
-
-
-// ══════════════════════════════════════════════════════════════════
-// LIVE MAP — Real-time Australia Market View
-// ══════════════════════════════════════════════════════════════════
-var _liveMapState = {
-  view:     'map',      // 'map' | 'list'
-  metric:   'enquiries', // enquiries | online | accepted | pending | lost | revenue | users
-  category: '',          // machine type filter
-  location: '',          // city filter
-  sortKey:  'value',
-  sortDir:  'desc',
-  refreshTimer: null,
-};
-
-var _LIVE_METRICS = [
-  { key:'enquiries', label:'📨 All Enquiries',   color:'#0052CC', bg:'#DBEAFE' },
-  { key:'online',    label:'🟢 Currently Online', color:'#15803D', bg:'#DCFCE7' },
-  { key:'accepted',  label:'✅ Accepted',          color:'#0891B2', bg:'#CFFAFE' },
-  { key:'pending',   label:'⏳ Pending Quotes',   color:'#B45309', bg:'#FEF3C7' },
-  { key:'lost',      label:'✗ Lost / No Accept',  color:'#DC2626', bg:'#FEE2E2' },
-  { key:'revenue',   label:'💰 Revenue',           color:'#7C3AED', bg:'#F3E8FF' },
-  { key:'users',     label:'👥 Unique Users',      color:'#475569', bg:'#F1F5F9' },
-];
-
 function renderLiveMap() {
   const el = document.getElementById('livemap-content');
   if (!el) return;
@@ -67070,6 +66738,7 @@ function showAdminSection(name, btn) {
   if (sec) sec.classList.add('active');
   if (btn) btn.classList.add('active');
   // Trigger renders for new sections
+  if (name === 'quotes')        renderAdminQuotes();
   if (name === 'customers')     renderAdminCustomers();
   if (name === 'rentalcos')     renderAdminRentalCos();
   if (name === 'users')         renderAdminUsers();
