@@ -65399,6 +65399,38 @@ function renderAdminAddMachine() {
   if (status) { status.style.display = 'none'; status.innerHTML = ''; }
   const fi = document.getElementById('am-file-input');
   if (fi) fi.value = '';
+  // Show current API key status
+  amRefreshKeyStatus();
+}
+
+function amGetApiKey() {
+  try { return localStorage.getItem('noyo_claude_api_key') || ''; } catch(e) { return ''; }
+}
+function amSaveApiKey() {
+  const inp = document.getElementById('am-apikey-input');
+  const val = (inp?.value || '').trim();
+  if (!val.startsWith('sk-ant-')) { showToast('That doesn\'t look like a valid Anthropic API key (should start with sk-ant-)', '#EF4444'); return; }
+  try { localStorage.setItem('noyo_claude_api_key', val); } catch(e) {}
+  if (inp) inp.value = '';
+  amRefreshKeyStatus();
+  showToast('✅ API key saved — you can now extract machine specs', '#16A34A');
+}
+function amClearApiKey() {
+  try { localStorage.removeItem('noyo_claude_api_key'); } catch(e) {}
+  amRefreshKeyStatus();
+  showToast('API key cleared', '#64748B');
+}
+function amRefreshKeyStatus() {
+  const key = amGetApiKey();
+  const el  = document.getElementById('am-apikey-status');
+  if (!el) return;
+  if (key) {
+    el.textContent = '✅ Key saved — ' + key.slice(0,12) + '••••••••';
+    el.style.color = '#16A34A';
+  } else {
+    el.textContent = '⚠️ Not set — enter your key above to enable extraction';
+    el.style.color = '#DC2626';
+  }
 }
 
 async function amHandleFile(file) {
@@ -65423,6 +65455,13 @@ async function amHandleFile(file) {
   const mediaType = isPdf ? 'application/pdf' : (file.type || 'image/jpeg');
 
   amStatus('🤖 Sending to Claude for extraction… this takes 15–30 seconds.', 'loading');
+
+  // Validate API key before proceeding
+  const _apiKey = amGetApiKey();
+  if (!_apiKey) {
+    amStatus('❌ No API key set. Please enter your Anthropic API key in the field above first.', 'error');
+    return;
+  }
 
   const extractionPrompt = `You are a technical specification extractor for heavy equipment hire machines. Carefully read every part of this document and extract ALL specifications into a single JSON object.
 
@@ -65524,7 +65563,12 @@ JSON schema:
 
     const resp = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': _apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 4096,
