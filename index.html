@@ -1438,6 +1438,21 @@
       <div class="admin-section-title">➕ Add Machine from Spec Sheet</div>
       <p style="color:#64748B;font-size:.85rem;margin-bottom:1.2rem">Upload a manufacturer PDF, brochure, or photo. Claude reads all specifications — capacity, height, reach, jib, on tyres/outriggers/tracks, load chart zones, dimensions, engine — and fills the form. Review, edit, then save directly to the machine database.</p>
 
+      <!-- API Key setup (required once) -->
+      <div id="am-apikey-section" style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:12px;padding:.85rem 1rem;margin-bottom:1.2rem">
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+          <span style="font-size:.85rem;font-weight:800;color:#92400E">🔑 Claude API Key</span>
+          <span id="am-apikey-status" style="font-size:.75rem;font-weight:700;color:#94A3B8">Not set</span>
+        </div>
+        <div style="display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap;align-items:center">
+          <input type="password" id="am-apikey-input" placeholder="sk-ant-api03-..." autocomplete="off"
+            style="flex:1;min-width:260px;padding:.4rem .7rem;border:1.5px solid #FCD34D;border-radius:8px;font-size:.82rem;font-family:'Nunito',sans-serif;background:#fff">
+          <button onclick="amSaveApiKey()" style="background:#B45309;color:#fff;border:none;border-radius:8px;padding:.4rem .9rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap">Save Key</button>
+          <button onclick="amClearApiKey()" style="background:#F1F5F9;color:#64748B;border:1.5px solid #E2E8F0;border-radius:8px;padding:.4rem .7rem;font-size:.78rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">Clear</button>
+        </div>
+        <div style="font-size:.72rem;color:#B45309;margin-top:.35rem">Your API key is stored only in this browser — never sent anywhere except directly to Anthropic. Get yours at <a href="https://console.anthropic.com/settings/keys" target="_blank" style="color:#B45309;font-weight:800">console.anthropic.com/keys</a></div>
+      </div>
+
       <!-- Category Manager (rendered by renderAdminAddMachine) -->
       <div id="am-category-manager" style="margin-bottom:1.2rem"></div>
 
