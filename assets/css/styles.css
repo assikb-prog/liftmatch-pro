@@ -1600,3 +1600,8 @@ select { border-radius: 8px; }
   display:flex;align-items:center;gap:.65rem;
   animation:fadeUp .4s ease;
 }
+
+/* ── Cart machine item wrapper ─────────────────────────────────────────── */
+.sqm-machine-item-wrap{background:#fff;border:1.5px solid #DBEAFE;border-radius:12px;padding:.75rem .85rem;margin-bottom:.6rem}
+.sqm-machine-top{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.5rem}
+.sqm-machine-dur{padding-top:.45rem;border-top:1px solid #F1F5F9}
