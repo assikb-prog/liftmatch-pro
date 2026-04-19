@@ -25483,63 +25483,8 @@ filters:['telehandler','rough','heavy','rotating']
       filters:['boom','rough','ultraboom']
     },
 
-    // ── Magni Boom Lifts – DAB Articulating & DTB Telescopic ──────────────
-    {
-      id:'magni-dab16rt', brand:'Magni', emoji:'🦾', brandColor:'#1A1F36',
-      name:'Magni DAB 16 RT', shortName:'Magni DAB 16', model:'Magni DAB 16 RT',
-      boomType:'articulating',
-      platformHeight:14.00, workHeight:16.00, maxReach:8.60,
-      upOverHeight:5.80, upOverReach:8.60,
-      machineWeight:6800, machineWidth:1.84, machineLength:4.50, machineHeight:1.99,
-      power:'Diesel', swl:230, terrain:'outdoor rough',
-      bestFor:'16m articulating RT boom — compact diesel for rough outdoor construction',
-      note:'Magni DAB 16 RT — 14m platform / 16m working height / 8.6m outreach. Diesel 4WD rough terrain articulating boom. Up-and-over capability. Compact 1.84m width. Italian engineering. 360° turntable. ROPS/FOPS.',
-      upOverNote:'Up-and-over height 5.8m with 8.6m horizontal reach. Diesel 4WD for rough terrain.',
-      tags:['Articulating','14m Platform','8.6m Reach','RT 4WD','Magni DAB','Diesel'],
-      filters:['boom','articulating','outdoor','rough']
-    },
-    {
-      id:'magni-dab20rt', brand:'Magni', emoji:'🦾', brandColor:'#1A1F36',
-      name:'Magni DAB 20 RT', shortName:'Magni DAB 20', model:'Magni DAB 20 RT',
-      boomType:'articulating',
-      platformHeight:17.80, workHeight:19.80, maxReach:11.50,
-      upOverHeight:7.20, upOverReach:11.50,
-      machineWeight:9500, machineWidth:2.22, machineLength:5.80, machineHeight:2.17,
-      power:'Diesel', swl:230, terrain:'outdoor rough',
-      bestFor:'20m RT articulating — outdoor rough terrain, industrial and construction',
-      note:'Magni DAB 20 RT — 17.8m platform / 19.8m working height / 11.5m outreach. Diesel 4WD rough terrain articulating boom. Italian engineering with strong up-and-over capability. Heavy-duty construction for outdoor jobsites.',
-      upOverNote:'Up-and-over height 7.2m with 11.5m horizontal reach. 4WD rough terrain diesel.',
-      tags:['Articulating','17.8m Platform','11.5m Reach','RT 4WD','Magni DAB','Diesel'],
-      filters:['boom','articulating','outdoor','rough']
-    },
-    {
-      id:'magni-dab26rt', brand:'Magni', emoji:'🦾', brandColor:'#1A1F36',
-      name:'Magni DAB 26 RT', shortName:'Magni DAB 26', model:'Magni DAB 26 RT',
-      boomType:'articulating',
-      platformHeight:23.60, workHeight:25.60, maxReach:16.20,
-      upOverHeight:10.00, upOverReach:16.20,
-      machineWeight:14200, machineWidth:2.44, machineLength:7.30, machineHeight:2.45,
-      power:'Diesel', swl:230, terrain:'outdoor rough',
-      bestFor:'26m RT articulating — high-reach outdoor construction, large commercial projects',
-      note:'Magni DAB 26 RT — 23.6m platform / 25.6m working height / 16.2m outreach. Diesel 4WD rough terrain articulating boom lift. Strong performer for high-rise construction, industrial maintenance, outdoor high-reach tasks.',
-      upOverNote:'Up-and-over height 10m with 16.2m horizontal reach. 4WD diesel RT for tough terrain.',
-      tags:['Articulating','23.6m Platform','16.2m Reach','RT 4WD','Magni DAB','High Reach'],
-      filters:['boom','articulating','outdoor','rough','ultraboom']
-    },
-    {
-      id:'magni-dtb34rt', brand:'Magni', emoji:'📡', brandColor:'#1A1F36',
-      name:'Magni DTB 34 RT', shortName:'Magni DTB 34', model:'Magni DTB 34 RT',
-      boomType:'telescopic',
-      platformHeight:30.60, workHeight:32.60, maxReach:26.00,
-      upOverHeight:null, upOverReach:null,
-      machineWeight:14800, machineWidth:2.44, machineLength:8.20, machineHeight:2.49,
-      power:'Diesel', swl:227, terrain:'outdoor rough',
-      bestFor:'34m RT telescopic boom — maximum outreach for high outdoor construction',
-      note:'Magni DTB 34 RT — 30.6m platform / 32.6m working height / 26m outreach. Diesel 4WD rough terrain telescopic boom. Exceptional outreach for high-rise construction and large outdoor projects. Italian engineering.',
-      upOverNote:null,
-      tags:['Telescopic','30.6m Platform','26m Reach','RT 4WD','Magni DTB','High Reach'],
-      filters:['boom','outdoor','rough','ultraboom']
-    },
+    // ── Magni Boom Lifts removed — not stocked by Australian rental companies.
+    //    (Magni rotational telehandlers remain — see MACHINES.telehandler above.)
     // ── ZOOMLION BOOM LIFTS ────────────────────────────────────────────────
 
     // --- Articulating Boom Lifts ---
@@ -45457,6 +45402,26 @@ function _isSpiderOrCrawler(m) {
   return false;
 }
 
+// Towable / trailer-mounted booms — only legitimate when deployed outdoors on
+// outriggers. For indoor and most firm-floor jobs, these are the wrong answer
+// (they need car/trailer towing, outrigger deployment, and open-air setup).
+// TrackDrive / Self-Drive / Self-Propelled models are excluded — they are
+// self-propelled machines that happen to be compact.
+function _isTowableOrTrailer(m) {
+  const nm = (m.name || m.shortName || '').toLowerCase();
+  // Self-propelled small booms carry the model family but are NOT towable
+  if (nm.includes('trackdrive') || nm.includes('track drive')) return false;
+  if (nm.includes('self drive') || nm.includes('self-drive')) return false;
+  if (nm.includes('self propelled') || nm.includes('self-propelled')) return false;
+  // Name signals
+  if (nm.includes('towable')) return true;
+  if (nm.includes('trailer mount') || nm.includes('trailer-mount') || nm.includes('trailer mounted')) return true;
+  // Tag signals (catches trailer-configurable models like Niftylift HR12L)
+  const tags = (m.tags || []).map(t => String(t).toLowerCase());
+  if (tags.some(t => t.includes('towable') || t.includes('trailer mount') || t.includes('trailer-mount') || t.includes('car towable'))) return true;
+  return false;
+}
+
 function matchMachines(ans, type) {
   // Normalize location from whichever path the user came through
   if (!ans.location) {
@@ -46469,6 +46434,14 @@ function matchMachines(ans, type) {
       });
     }
 
+    // ── Towable / trailer-mount exclusion ─────────────────────────────────
+    // Towable booms require outrigger deployment and open-air setup. They are
+    // not appropriate for indoor jobs. Exclude them when the customer selected
+    // "Indoors" as the work location.
+    if (terr === 'indoor_boom') {
+      pool = pool.filter(m => !_isTowableOrTrailer(m));
+    }
+
     // Score ALL machines
     const scoredAll = pool.map(m => {
       // Check if machine is undersized (platform height below requirement)
@@ -46565,7 +46538,13 @@ function matchMachines(ans, type) {
       if (terr === 'indoor_boom') {
         if (m.terrain.includes('indoor')) score += 3;
         if (m.machineWidth <= 2.0)        score += 2;
-        if (m.terrain.includes('rough') && !m.terrain.includes('indoor')) score -= 2;
+        // The rough-terrain penalty only applies when the customer wants clean
+        // electric-friendly indoor machines. If they've explicitly said "diesel fine",
+        // an RT diesel boom is a legitimate answer for ventilated indoor spaces and
+        // should not be penalised for having "rough" in its terrain string.
+        if (pwr !== 'diesel_boom'
+            && m.terrain.includes('rough')
+            && !m.terrain.includes('indoor')) score -= 2;
       }
       if (terr === 'firm_boom')  { if (m.terrain.includes('outdoor')||m.terrain.includes('indoor')) score += 2; }
       if (terr === 'rough_boom') { if (m.terrain.includes('rough')) score += 3; else score -= 1; }
@@ -46589,7 +46568,14 @@ function matchMachines(ans, type) {
     }).filter(Boolean).sort((a,b) => {
       if (a._underSpec && !b._underSpec) return 1;
       if (!a._underSpec && b._underSpec) return -1;
-      return b.score - a.score;
+      if (b.score !== a.score) return b.score - a.score;
+      // Tie-breaker: prefer tightest-fit envelope (least excess platform height
+      // + least excess maxReach above what the customer actually needs). This
+      // stops a bigger-reach machine from beating a well-matched smaller one
+      // when they happen to score identically.
+      const aEx = Math.max(0, (a.platformHeight||0) - minHt) + Math.max(0, (a.maxReach||0) - minReach);
+      const bEx = Math.max(0, (b.platformHeight||0) - minHt) + Math.max(0, (b.maxReach||0) - minReach);
+      return aEx - bEx;
     });
 
     // Separate qualified from undersized
@@ -46655,9 +46641,55 @@ function matchMachines(ans, type) {
         artPicks  = [];
         telePicks = diversePick(telescopic, 5, 1, _bPrefArg);
       } else {
-        // No preference or "either" — interleave 3 art + 2 tele
-        artPicks  = diversePick(articulating, 3, 1, _bPrefArg);
-        telePicks = diversePick(telescopic,   2, 1, _bPrefArg);
+        // No boom-type preference stated — pick strategy based on the job envelope.
+        // Small/indoor jobs are better served by articulating and vertical-mast lifts;
+        // only surface telescopic alternatives when the customer needs long horizontal
+        // outreach (>6m) or when there aren't enough articulating options to fill the slate.
+        const _smallIndoorJob = (terr === 'indoor_boom') || (minReach <= 4 && minHt <= 12);
+        if (_smallIndoorJob) {
+          if (pwr === 'diesel_boom') {
+            // Customer said "diesel fine" — deliberately surface both pure diesel AND hybrid
+            // from different brands. Hybrids are good for indoor + diesel range on the same
+            // machine; pure diesel answers the customer's direct preference with a wider brand
+            // selection. Target mix: 3 pure diesel + 2 hybrid, all different brands.
+            const _pureDiesel = articulating.filter(m => {
+              const p = (m.power||'').toLowerCase();
+              return p.includes('diesel') && !p.includes('hybrid') && !p.includes('electric');
+            });
+            const _hybridArt = articulating.filter(m => (m.power||'').toLowerCase().includes('hybrid'));
+            const _dieselPicks = diversePick(_pureDiesel, 3, 1, _bPrefArg);
+            const _usedBrands  = new Set(_dieselPicks.map(m => (m.brand||'').toLowerCase()));
+            const _hybridAvail = _hybridArt.filter(m => !_usedBrands.has((m.brand||'').toLowerCase()));
+            const _hybridPicks = diversePick(_hybridAvail, 2, 1, _bPrefArg);
+            // Combine, resort by score so the single best overall leads the slate
+            artPicks = [..._dieselPicks, ..._hybridPicks].sort((a,b) => b.score - a.score);
+            // If we couldn't fill 5, backfill with any articulating (diversePick dedupes)
+            if (artPicks.length < 5) {
+              const _haveIds = new Set(artPicks.map(m => m.id));
+              const _remaining = articulating.filter(m => !_haveIds.has(m.id));
+              const _backfill  = diversePick(_remaining, 5 - artPicks.length, 1, _bPrefArg);
+              artPicks = [...artPicks, ..._backfill];
+            }
+            telePicks = [];
+          } else {
+            artPicks  = diversePick(articulating, 5, 1, _bPrefArg);
+            telePicks = artPicks.length < 4
+              ? diversePick(telescopic, 4 - artPicks.length, 1, _bPrefArg)
+              : [];
+          }
+        } else {
+          artPicks  = diversePick(articulating, 3, 1, _bPrefArg);
+          telePicks = diversePick(telescopic,   2, 1, _bPrefArg);
+        }
+        // Hard cap: never include a telescopic more than 1.6x the best articulating's
+        // platform height. Prevents a 16m telescopic from appearing on a 7m job just
+        // because the telescopic slate had open slots.
+        if (artPicks.length > 0 && telePicks.length > 0) {
+          const _bestArtH = artPicks[0].platformHeight || 0;
+          if (_bestArtH > 0) {
+            telePicks = telePicks.filter(t => (t.platformHeight || 0) <= _bestArtH * 1.6);
+          }
+        }
       }
 
       const merged = [];
@@ -49505,6 +49537,9 @@ function _renderCards(matches, machineType, answers) {
 
   // Track which brands appear in sponsored slots (to limit organic deduplication)
   const _shownSponsoredBrands = new Set();
+  // Track exact machine IDs shown in sponsored slots so the same machine is not
+  // rendered a second time in organic results.
+  const _shownSponsoredMachineIds = new Set();
   let _spShownCount = 0; // Maximum 1 sponsored ad per results page
 
     _sponsoredForCat.forEach((ad, _spIdx) => { try {
@@ -49526,14 +49561,21 @@ function _renderCards(matches, machineType, answers) {
         machineType==='scissor'  ? (answers.ppl_ht_m||answers.scis_ht_m||0) :
         machineType==='boom'     ? (answers.boom_ht_m||answers.ppl_ht_m||0) : (answers.ppl_ht_m||0)
       )||0;
+      // Indoor boom job — sponsored slot must not surface a towable. Towables
+      // are outdoor-only and confuse the customer when the job is indoor.
+      const _spIsIndoorBoom = machineType === 'boom'
+        && (answers.boom_terrain === 'indoor_boom' || answers.people_location === 'indoor');
       const _brandMatches = matches.filter(m => {
         if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase()) return false;
         if (m._underSpec) return false;
         if (_isSpiderOrCrawler(m)) return false;
-        // Reject massively oversized — cap at 2.5x required height
+        if (_spIsIndoorBoom && _isTowableOrTrailer(m)) return false;
+        // Reject massively oversized — cap at 2.0x required height for booms
+        // (2.5x was too generous — 17.5m for a 7m job)
         if (_reqHt1 > 0) {
           const mH = m.platformHeight || m.liftHeight || 0;
-          if (mH > _reqHt1 * 2.5) return false;
+          const _cap = machineType === 'boom' ? 2.0 : 2.5;
+          if (mH > _reqHt1 * _cap) return false;
         }
         return true;
       });
@@ -49597,6 +49639,10 @@ function _renderCards(matches, machineType, answers) {
         if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase()) return false;
         // Exclude true spider/outrigger lifts for boom (not wheeled tracked booms like Genie TraX)
         if (machineType === 'boom' && _isSpiderOrCrawler(m)) return false;
+        // Indoor boom — no towables in sponsored slot
+        if (machineType === 'boom'
+            && (answers.boom_terrain === 'indoor_boom' || answers.people_location === 'indoor')
+            && _isTowableOrTrailer(m)) return false;
         // ── Power filter: sponsored machine must match customer's power preference ──
         if (_spWantsElectric || _spWantsDiesel || _spWantsHybrid) {
           const mPwr = (m.power || '').toLowerCase();
@@ -49616,11 +49662,13 @@ function _renderCards(matches, machineType, answers) {
         }
         return true;
       });
-      // Cap at 2.5x the required height — never show a massively oversized machine in sponsored slot
+      // Cap at 2.0x required height for booms (2.5x for other machine types).
+      // Prevents a 17m sponsored machine appearing on a 7m search.
       if (_reqHt > 0) {
+        const _spCap = machineType === 'boom' ? 2.0 : 2.5;
         _qualifying = _qualifying.filter(m => {
           const mH = m.platformHeight || m.liftHeight || 0;
-          return mH <= _reqHt * 2.5;
+          return mH <= _reqHt * _spCap;
         });
       }
       // Sort by closest platform height to requirement (tight fit preferred)
@@ -49713,6 +49761,9 @@ function _renderCards(matches, machineType, answers) {
 
     // Track this brand so organic results can be deduplicated
     if (spMachine.brand) _shownSponsoredBrands.add(spMachine.brand);
+    // Track the exact sponsored machine ID so it doesn't reappear as an organic
+    // "Best Match" card (it would be a visual duplicate of the sponsored slot).
+    if (spMachine.id) _shownSponsoredMachineIds.add(spMachine.id);
 
     // Always show the real model name — never the generic category label
     const _spDisplayName = spMachine.shortName || spMachine.name;
@@ -49830,6 +49881,11 @@ function _renderCards(matches, machineType, answers) {
 
   // ── Organic brand deduplication: if a brand appeared in sponsored slot,
   // limit that brand to at most 1 organic result so results show variety ──────
+  // Also: never show the EXACT sponsored machine again in the organic slate —
+  // a duplicate card is confusing for the customer.
+  if (_shownSponsoredMachineIds.size > 0) {
+    matches = matches.filter(m => !_shownSponsoredMachineIds.has(m.id));
+  }
   if (_shownSponsoredBrands.size > 0) {
     const _spBrandCounts = {};
     matches = matches.filter(m => {
