@@ -57328,6 +57328,16 @@ var KYM_CAT_SYNONYMS = {
   'pallet truck':          ['palletJack'],
   'walkie stacker':        ['palletJack'],
   'rider pallet':          ['palletJack'],
+
+  // ── Capacity-based searches — show forklifts + telehandlers (lifting machines) ─
+  'ton':                   ['forklift','telehandler','em_excavator'],
+  'tonne':                 ['forklift','telehandler','em_excavator'],
+  'tonnes':                ['forklift','telehandler','em_excavator'],
+  'tons':                  ['forklift','telehandler','em_excavator'],
+  'lifting':               ['forklift','telehandler','boom','scissor'],
+  'lift capacity':         ['forklift','telehandler'],
+  'capacity':              ['forklift','telehandler'],
+  'swl':                   ['forklift','telehandler','boom','scissor'],
 };
 
 // Given a query, return the set of catKeys it refers to (empty = all)
@@ -57358,12 +57368,145 @@ function kymSpecTokens(query) {
   return lq.split(/\s+/).filter(t => t.length > 1 && !stopWords.includes(t));
 }
 
+// ── Parse numeric intent from free-text query ─────────────────────────────
+function _kymParseNumerics(query) {
+  const lq = query.toLowerCase();
+  const result = { capacity: null, height: null, reach: null };
+
+  // Capacity: "2.5 ton", "2.5t", "2500kg", "2.5 tonne", "25 ton", "3T"
+  const capMatch = lq.match(/(\d+(?:\.\d+)?)\s*(?:t\b|ton(?:ne)?s?|tonne?s?)\b/) ||
+                   lq.match(/(\d+(?:\.\d+)?)\s*t\b(?!elehandler|rack|ype|errain)/);
+  if (capMatch) result.capacity = parseFloat(capMatch[1]);
+
+  const kgMatch = lq.match(/(\d+(?:\.\d+)?)\s*kg\b/);
+  if (kgMatch && !result.capacity) result.capacity = parseFloat(kgMatch[1]) / 1000;
+
+  // Height: "20m", "20 metre", "20m lift", "20m working height", "65ft"
+  const htMatch = lq.match(/(\d+(?:\.\d+)?)\s*(?:m\b|metre?s?|meter?s?)(?:\s*(?:lift|height|platform|working|high|tall))?/) ||
+                  lq.match(/(\d+(?:\.\d+)?)\s*(?:ft|foot|feet)/i);
+  if (htMatch) {
+    let v = parseFloat(htMatch[1]);
+    if (/ft|foot|feet/i.test(htMatch[0])) v = v * 0.3048;
+    result.height = v;
+  }
+
+  // Reach: "10m reach", "8m outreach"
+  const reachMatch = lq.match(/(\d+(?:\.\d+)?)\s*m\s*(?:reach|outreach)/);
+  if (reachMatch) result.reach = parseFloat(reachMatch[1]);
+
+  return result;
+}
+
 // Match a machine against remaining spec tokens only
 function kymMatchesQuery(m, catKey, query) {
   if (!query) return true;
 
   const isRotatingMachine = !!(m.isRotating);
   const queryLower = query.toLowerCase();
+
+  // ── Power-source intent ─────────────────────────────────────────────────
+  const ELECTRIC_TERMS = ['electric','battery','li-ion','lithium','zero emission','electric rotating','eth'];
+  const DIESEL_TERMS   = ['diesel'];
+  const LPG_TERMS      = ['lpg','gas','petrol'];
+
+  const queryWantsElectric = ELECTRIC_TERMS.some(t => queryLower.includes(t));
+  const queryWantsDiesel   = DIESEL_TERMS.some(t => queryLower.includes(t));
+  const queryWantsLPG      = LPG_TERMS.some(t => queryLower.includes(t));
+
+  if (queryWantsElectric || queryWantsDiesel || queryWantsLPG) {
+    const powerStr   = (m.power || '').toLowerCase();
+    const engineStr  = (m.engine || '').toLowerCase();
+    const filtersStr = (m.filters || []).join(' ').toLowerCase();
+    const powerBag   = powerStr + ' ' + engineStr + ' ' + filtersStr;
+    const isElectric = powerBag.includes('electric') || powerBag.includes('battery') || powerBag.includes('li-ion') || powerBag.includes('lithium');
+    const isDiesel   = powerBag.includes('diesel');
+    const isLPG      = powerBag.includes('lpg') || powerBag.includes('petrol') || powerBag.includes('gas');
+    if (queryWantsElectric && !isElectric) return false;
+    if (queryWantsDiesel   && isElectric)  return false;
+    if (queryWantsLPG      && !isLPG)      return false;
+  }
+
+  // ── Rotating intent ─────────────────────────────────────────────────────
+  const rotatingTerms = ['rotating','rotational','rotary','rotation','rotator','slewing','slew','360','mrt','mrtx','rth','crane replacement','roto'];
+  const queryHasRotatingIntent = rotatingTerms.some(t => queryLower.includes(t));
+  if (queryHasRotatingIntent && catKey === 'telehandler' && !isRotatingMachine) return false;
+
+  // ── Numeric spec matching ───────────────────────────────────────────────
+  const nums = _kymParseNumerics(queryLower);
+
+  if (nums.capacity !== null) {
+    // Check machine capacity — allow ±15% tolerance so "2.5t" matches a 2.5T or 3T machine
+    const cap = m.capacity || (m.capacityKg ? m.capacityKg/1000 : null) ||
+                m.capacityOnTyres || m.capacityOnOutriggers || m.ratedCapacity;
+    if (cap == null) return false; // no capacity data — exclude from capacity searches
+    const tolerance = nums.capacity * 0.15;
+    // Machine must be AT LEAST the required capacity (within 15% below), no upper limit
+    if (cap < nums.capacity - tolerance) return false;
+  }
+
+  if (nums.height !== null) {
+    // Match against platform height, working height, lift height
+    const ht = m.platformHeight || m.liftHeight || m.workingHeight || m.maxLift;
+    if (ht == null) return false;
+    const tolerance = Math.max(1, nums.height * 0.15);
+    if (ht < nums.height - tolerance) return false;
+  }
+
+  if (nums.reach !== null) {
+    const reach = m.maxReach || m.maxOutreach || m.forwardReach;
+    if (reach == null) return false;
+    const tolerance = Math.max(0.5, nums.reach * 0.15);
+    if (reach < nums.reach - tolerance) return false;
+  }
+
+  // ── Brand matching ──────────────────────────────────────────────────────
+  // If query contains a brand name, prioritise those machines
+  const brandNames = ['toyota','genie','jlg','manitou','dieci','caterpillar','cat','haulotte',
+    'magni','jcb','sinoboom','heli','skyjack','bobcat','lgmg','liulong','merlo','snorkel',
+    'niftylift','zoomlion','hyster','crown','linde','komatsu','volvo','hitachi','kubota',
+    'liebherr','bomag','yanmar','hyundai','doosan'];
+  const brandInQuery = brandNames.find(b => queryLower.includes(b));
+  if (brandInQuery) {
+    const machineBrand = (m.brand || '').toLowerCase();
+    // "cat" matches "caterpillar" and vice versa
+    const catAlias = brandInQuery === 'cat' ? machineBrand.includes('caterpillar') || machineBrand.includes('cat') :
+                     brandInQuery === 'caterpillar' ? machineBrand.includes('cat') : false;
+    if (!machineBrand.includes(brandInQuery) && !catAlias) return false;
+  }
+
+  // ── Text bag matching for remaining tokens ──────────────────────────────
+  // If query is purely numeric (e.g. "2.5 ton", "20m"), skip text matching
+  const purelyNumeric = nums.capacity !== null || nums.height !== null || nums.reach !== null;
+  const strippedQuery = queryLower
+    .replace(/\d+(?:\.\d+)?\s*(?:t\b|ton(?:ne)?s?|tonne?s?|kg|m\b|metre?s?|meter?s?|ft|foot|feet|reach|outreach|lift|height|platform|working)/gi, '')
+    .trim();
+
+  if (!purelyNumeric || strippedQuery.length > 1) {
+    const bag = [
+      m.name, m.shortName, m.brand, m.power, m.terrain,
+      catKey, KYM_CAT_META[catKey]?.label,
+      String(m.capacity||''), String(m.liftHeight||''),
+      String(m.platformHeight||''), String(m.workingHeight||''),
+      (m.tags||[]).join(' '), m.bestFor, m.note,
+      (m.filters||[]).join(' '),
+      isRotatingMachine ? 'rotating rotational rotary 360 slewing crane replacement mrt rth roto' : '',
+      m.isReachTruck    ? 'reach truck reachtruck reach stacker reachstacker high bay narrow aisle high reach high mast high lift warehouse racking' : '',
+      (!m.isReachTruck && m.liftHeight >= 6.5 && catKey === 'forklift') ? 'high mast high reach extended mast high lift' : '',
+      (m.name||'').toLowerCase().includes('order picker') ? 'order picker stockpicker pick truck high reach high lift' : '',
+    ].filter(Boolean).join(' ').toLowerCase();
+
+    // Feet→metre conversion
+    const ftMatch = query.match(/(\d+(?:\.\d+)?)\s*(?:ft|foot|feet)/i);
+    const altBag = ftMatch ? bag + ' ' + (parseFloat(ftMatch[1]) * 0.3048).toFixed(1) : bag;
+
+    const specTokens = kymSpecTokens(strippedQuery || query);
+    // Skip text check if only numeric tokens remain after stripping
+    const nonNumericTokens = specTokens.filter(t => isNaN(t));
+    if (nonNumericTokens.length > 0 && !nonNumericTokens.every(t => altBag.includes(t))) return false;
+  }
+
+  return true;
+}
 
   // ── Power-source intent — checked STRICTLY against machine's power/engine/filters ──
   // These terms must match the machine's actual power field, NOT free text in notes/tags
@@ -57412,15 +57555,6 @@ function kymMatchesQuery(m, catKey, query) {
     // Order pickers — surface for picking/high-lift queries
     (m.name||'').toLowerCase().includes('order picker') ? 'order picker stockpicker pick truck high reach high lift' : '',
   ].filter(Boolean).join(' ').toLowerCase();
-
-  // Feet→metre conversion
-  const ftMatch = query.match(/(\d+(?:\.\d+)?)\s*(?:ft|foot|feet)/i);
-  const altBag = ftMatch ? bag + ' ' + (parseFloat(ftMatch[1]) * 0.3048).toFixed(1) : bag;
-
-  const specTokens = kymSpecTokens(query);
-  // All spec tokens must appear in the bag
-  return specTokens.every(t => altBag.includes(t));
-}
 
 function kymRender() {
   const grid  = document.getElementById('kym-results-grid2') || document.getElementById('kym-results-grid');
