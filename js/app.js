@@ -57508,54 +57508,6 @@ function kymMatchesQuery(m, catKey, query) {
   return true;
 }
 
-  // ── Power-source intent — checked STRICTLY against machine's power/engine/filters ──
-  // These terms must match the machine's actual power field, NOT free text in notes/tags
-  const ELECTRIC_TERMS = ['electric','battery','li-ion','lithium','zero emission','electric rotating','eth'];
-  const DIESEL_TERMS   = ['diesel'];
-  const LPG_TERMS      = ['lpg','gas','petrol'];
-
-  const queryWantsElectric = ELECTRIC_TERMS.some(t => queryLower.includes(t));
-  const queryWantsDiesel   = DIESEL_TERMS.some(t => queryLower.includes(t));
-  const queryWantsLPG      = LPG_TERMS.some(t => queryLower.includes(t));
-
-  if (queryWantsElectric || queryWantsDiesel || queryWantsLPG) {
-    // Check ONLY the machine's power field, engine field, and filters array — NOT notes/bestFor/tags
-    const powerStr   = (m.power || '').toLowerCase();
-    const engineStr  = (m.engine || '').toLowerCase();
-    const filtersStr = (m.filters || []).join(' ').toLowerCase();
-    const powerBag   = powerStr + ' ' + engineStr + ' ' + filtersStr;
-
-    const isElectric = powerBag.includes('electric') || powerBag.includes('battery') ||
-                       powerBag.includes('li-ion') || powerBag.includes('lithium');
-    const isDiesel   = powerBag.includes('diesel');
-    const isLPG      = powerBag.includes('lpg') || powerBag.includes('petrol') || powerBag.includes('gas');
-
-    if (queryWantsElectric && !isElectric) return false;
-    if (queryWantsDiesel   && isElectric)  return false;  // diesel query → exclude electrics
-    if (queryWantsLPG      && !isLPG)      return false;
-  }
-
-  // ── Rotating intent — only show rotating machines ─────────────────────
-  const rotatingTerms = ['rotating','rotational','rotary','rotation','rotator','slewing','slew','360','mrt','mrtx','rth','crane replacement','roto'];
-  const queryHasRotatingIntent = rotatingTerms.some(t => queryLower.includes(t));
-  if (queryHasRotatingIntent && catKey === 'telehandler' && !isRotatingMachine) return false;
-
-  // ── Build search bag ─────────────────────────────────────────────────────
-  const bag = [
-    m.name, m.shortName, m.brand, m.power, m.terrain,
-    catKey, KYM_CAT_META[catKey]?.label,
-    String(m.capacity||''), String(m.liftHeight||''),
-    String(m.platformHeight||''), String(m.workingHeight||''),
-    (m.tags||[]).join(' '), m.bestFor, m.note,
-    (m.filters||[]).join(' '),
-    isRotatingMachine ? 'rotating rotational rotary 360 slewing crane replacement mrt rth roto' : '',
-    m.isReachTruck    ? 'reach truck reachtruck reach stacker reachstacker high bay narrow aisle high reach high mast high lift warehouse racking' : '',
-    // High-mast counterbalance forklifts (6.7m+) — surface for high-reach queries
-    (!m.isReachTruck && m.liftHeight >= 6.5 && catKey === 'forklift') ? 'high mast high reach extended mast high lift' : '',
-    // Order pickers — surface for picking/high-lift queries
-    (m.name||'').toLowerCase().includes('order picker') ? 'order picker stockpicker pick truck high reach high lift' : '',
-  ].filter(Boolean).join(' ').toLowerCase();
-
 function kymRender() {
   const grid  = document.getElementById('kym-results-grid2') || document.getElementById('kym-results-grid');
   const count = document.getElementById('kym-results-count2') || document.getElementById('kym-results-count');
