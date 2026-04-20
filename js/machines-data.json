@@ -1,0 +1,94 @@
+
+{
+  "$schema": "https://example.com/machine-schema.json",
+  "forklifts": [
+    {
+      "id": "toyota-8fbn15",
+      "name": "Toyota 8FBN 1.5T Electric",
+      "shortName": "Toyota 8FBN 1.5T",
+      "brand": "Toyota",
+      "emoji": "🍴",
+      "brandColor": "#E60012",
+      "capacity": 1.5,
+      "liftHeight": 6.7,
+      "power": "Electric (AC)", 
+      "terrain": "indoor",
+      "machineWeight": 3100,
+      "machineWidth": 1070,
+      "tyneOptions": ["1200mm"],
+      "slipperOptions": ["1800mm slipper", "2400mm slipper"],
+      "attachments": [
+        "Standard Forks",
+        "Slippers 1800mm",
+        "Slippers 2400mm",
+        "Jib Attachment" 
+      ],
+      "forkPocket": "ITA Class II",
+      "bestFor": "Indoor warehousing, smooth floors, cold storage, food manufacturing",
+      "note": "Toyota 8FBN AC electric forklift — zero emissions, quiet, and extremely energy efficient. Features Toyota SAS™ (System of Active Stability) for tip-over prevention. Available with Li-ion or lead-acid battery. 6.7m lift height standard mast. ⚠️ Rated 1,500kg at 500mm load centre — capacity reduces significantly at height. Check the Toyota load plate before committing.",
+      "liftChart": "1,500kg at 500mm load centre and ground level. Capacity reduces with height: verify Toyota 8FBN load plate for your specific mast and load height combination.",
+      "tags": [
+        "Electric", "1.5T", "SAS™ Stability", "Li-ion Ready", "Zero Emissions",
+        "High Mast", "Extended Mast", "6.7m Lift"
+      ],
+      "filters": ["forklift", "indoor"]
+    },
+    {
+      "id": "toyota-8fbn20",
+      "name": "Toyota 8FBN 2.0T Electric",
+      "shortName": "Toyota 8FBN 2.0T", 
+      "brand": "Toyota",
+      "emoji": "🍴",
+      "brandColor": "#E60012",
+      "capacity": 2,
+      "liftHeight": 6.7,
+      "power": "Electric (AC)",
+      "terrain": "indoor", 
+      "machineWeight": 3600,
+      "machineWidth": 1140,
+      "tyneOptions": ["1200mm"],
+      "slipperOptions": ["1800mm slipper","2400mm slipper"],
+      "attachments": [
+        "Standard Forks",
+        "Slippers 1800mm", 
+        "Slippers 2400mm",
+        "Jib Attachment"
+      ],
+      "forkPocket": "ITA Class II",
+      "bestFor": "Indoor warehousing, smooth concrete, manufacturing, cool rooms",
+      "note": "Toyota 8FBN 2.0T — Australia's most popular electric forklift class. SAS™ stability, ergonomic operator compartment. Li-ion option available. ⚠️ 2.0T rated at 500mm load centre at ground — confirm capacity on Toyota load plate before use at height or with extended load centres.",
+      "liftChart": "2,000kg at 500mm load centre at ground. Capacity reduces with height and extended load centres — refer to Toyota 8FBN 2T load plate.",
+      "tags": [
+        "Electric","2.0T","SAS™ Stability","Li-ion Ready","Popular",
+        "High Mast","Extended Mast","6.7m Lift" 
+      ],
+      "filters": ["forklift","indoor"]
+    }
+  ],
+  "telehandlers": [
+    {
+      "id": "jcb-531-70",
+      "name": "JCB 531-70 7m 3.1T Telehandler",
+      "brand": "JCB", 
+      "capacity": 3.1,
+      "liftHeight": 7,
+      "power": "Diesel",
+      "terrain": "outdoor",
+      "machineWeight": 7400,
+      "machineWidth": 2230,
+      "tyneOptions": ["1200mm","1500mm"],
+      "attachments": [
+        "Standard Forks","Bucket Attachment","Personnel Cage",
+        "Rotating Telehandler Forks","Rotating Carriage"
+      ],
+      "forkPocket": "JCB Q-Fit",
+      "bestFor": "Construction sites, agriculture, yard work, rough terrain",
+      "note": "JCB 531-70 telehandler — versatile 7m reach with 3.1T capacity at max height. Powerful JCB EcoMAX engine, all-wheel-steer for tight spots. Approved for use with personnel cage. Compatible with wide range of JCB attachments. ⚠️ Capacity reduces with forward reach. Always check JCB load chart before picking at full extension.",
+      "tags": [
+        "JCB Loadall","JCB 531","JCB","3.1T","7m Reach","Cage Approved",
+        "Q-Fit","Personnel Cage","Bucket Compatible" 
+      ],
+      "filters": ["telehandler"]
+    }
+  ]
+}
