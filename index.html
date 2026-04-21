@@ -2668,28 +2668,26 @@
   </div>
 </div>
 
-  <!-- ── CONTACT US FOOTER ─────────────────────────────────── -->
-  <footer id="noyo-contact-footer" style="background:#0F172A;color:#fff;padding:1.5rem 1.2rem;margin-top:2.5rem;font-family:'Nunito',sans-serif">
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center">
-      <div>
-        <div style="font-weight:900;font-size:1.05rem;color:#fff;margin-bottom:.35rem">Contact Noyo</div>
-        <div style="font-size:.82rem;color:rgba(255,255,255,.7)">Heavy equipment hire marketplace — Australia</div>
+  <!-- ── NOYO CONTACT BAR (visible on every page) ─────────────────────────────── -->
+  <div id="noyo-contact-bar" style="position:fixed;bottom:0;left:0;right:0;background:#0F172A;color:#fff;padding:.7rem 1rem;font-family:'Nunito',sans-serif;z-index:9000;box-shadow:0 -4px 20px rgba(0,0,0,.15);border-top:3px solid #0052CC">
+    <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;align-items:center">
+      <div style="font-weight:900;font-size:.88rem;color:#fff;letter-spacing:.3px">
+        <span style="color:#60A5FA">Need help?</span> Contact Noyo:
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center">
-        <a href="tel:+61450133133" style="display:flex;align-items:center;gap:.5rem;color:#fff;text-decoration:none;font-weight:700;font-size:.92rem;background:rgba(255,255,255,.08);padding:.6rem 1rem;border-radius:10px;transition:background .15s"
-           onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
-          📞 +61 450 133 133
-        </a>
-        <a href="mailto:sales@noyo.com.au" style="display:flex;align-items:center;gap:.5rem;color:#fff;text-decoration:none;font-weight:700;font-size:.92rem;background:rgba(255,255,255,.08);padding:.6rem 1rem;border-radius:10px;transition:background .15s"
-           onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
-          ✉️ sales@noyo.com.au
-        </a>
-      </div>
+      <a href="tel:+61450133133" style="display:inline-flex;align-items:center;gap:.4rem;color:#fff;text-decoration:none;font-weight:800;font-size:.88rem;background:rgba(255,255,255,.1);padding:.45rem .9rem;border-radius:8px;transition:background .15s"
+         onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+        📞 +61 450 133 133
+      </a>
+      <a href="mailto:sales@noyo.com.au" style="display:inline-flex;align-items:center;gap:.4rem;color:#fff;text-decoration:none;font-weight:800;font-size:.88rem;background:rgba(255,255,255,.1);padding:.45rem .9rem;border-radius:8px;transition:background .15s"
+         onmouseover="this.style.background='rgba(255,255,255,.22)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+        ✉️ sales@noyo.com.au
+      </a>
+      <button onclick="document.getElementById('noyo-contact-bar').style.display='none'"
+        style="background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);font-size:.75rem;padding:.3rem .6rem;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:700">
+        ✕ Hide
+      </button>
     </div>
-    <div style="max-width:1100px;margin:1rem auto 0;font-size:.72rem;color:rgba(255,255,255,.5);text-align:center;border-top:1px solid rgba(255,255,255,.1);padding-top:.9rem">
-      © Tradies Hire Pty Ltd trading as Noyo — ABN 97 674 029 184
-    </div>
-  </footer>
+  </div>
 
 </body>
 </html>
