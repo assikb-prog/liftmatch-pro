@@ -132383,12 +132383,23 @@ function matchPushAround(ans) {
   const maxLength = parseFloat(ans.ppl_length_mm) || 0;
   const maxHeight = parseFloat(ans.ppl_height_mm) || 0;
   const maxWeight = parseFloat(ans.ppl_weight_kg) || 0;
+  const crew = ans.people_crew; // "one" | "multi"
 
   // Apply dimension hard filters (not height — we'll tag undersized instead)
   if (maxWidth > 0) pool = pool.filter((m) => m.machineWidth <= maxWidth);
   if (maxLength > 0) pool = pool.filter((m) => m.machineLength <= maxLength);
   if (maxHeight > 0) pool = pool.filter((m) => m.stowedH * 1000 <= maxHeight);
   if (maxWeight > 0) pool = pool.filter((m) => m.machineWeight <= maxWeight);
+
+  // ── PLATFORM CAPACITY (SWL) HARD FILTER — 2+ persons require ≥200kg rated SWL ──
+  // Genie AWP & Genie GR Runabout models are 159kg SWL (rated for 1 person + tools only).
+  // Haulotte Quick Up & STAR models are 200kg (rated for 2 persons).
+  // AS 1418.10 / EN 280 guidance: 2-person platforms must be rated ≥200kg.
+  // Without this filter, a "2 people" request would still surface the 159kg Genie models —
+  // the user would see them as matches even though only 1 person could safely use them.
+  if (crew === "multi") {
+    pool = pool.filter((m) => (m.capacity || 0) >= 200);
+  }
 
   // Only show machines that meet or exceed height requirement — no undersized results
   if (minPlatHt > 0) pool = pool.filter((m) => m.platformHeight >= minPlatHt);
@@ -132402,14 +132413,18 @@ function matchPushAround(ans) {
         Math.abs(b.platformHeight - (minPlatHt || 6)),
     );
 
-  if (!pool.length)
+  // ── Fallback pools also respect crew SWL rule (never offer a 159kg machine for 2 people) ──
+  if (!pool.length) {
     pool = [...MACHINES.pushAround]
       .filter((m) => m.platformHeight >= minPlatHt)
+      .filter((m) => crew !== "multi" || (m.capacity || 0) >= 200)
       .sort((a, b) => a.platformHeight - b.platformHeight);
-  if (!pool.length)
-    pool = [...MACHINES.pushAround].sort(
-      (a, b) => a.platformHeight - b.platformHeight,
-    );
+  }
+  if (!pool.length) {
+    pool = [...MACHINES.pushAround]
+      .filter((m) => crew !== "multi" || (m.capacity || 0) >= 200)
+      .sort((a, b) => a.platformHeight - b.platformHeight);
+  }
   return pool.slice(0, 5);
 }
 
