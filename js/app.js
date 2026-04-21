@@ -88665,6 +88665,7 @@ const MACHINES = {
       stowedW: 0.78,
       power: "Electric",
       terrain: "indoor",
+      driveAtHeight: false,
       maxWorkers: 2,
       capacityKg: 230,
       capacityExtensionKg: 113,
@@ -88720,6 +88721,7 @@ const MACHINES = {
       stowedW: 0.78,
       power: "Electric",
       terrain: "indoor",
+      driveAtHeight: false,
       maxWorkers: 1,
       capacityKg: 200,
       capacityExtensionKg: 113,
@@ -88782,7 +88784,7 @@ const MACHINES = {
       stowedW: 0.69,
       platformSize: "0.64 × 0.69m",
       outriggerFootprint: null,
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "Ultra-portable indoor mast — lightest at 249kg, freight elevator safe",
@@ -88818,7 +88820,7 @@ const MACHINES = {
       stowedW: 0.76,
       platformSize: "0.71 × 0.61m",
       outriggerFootprint: null,
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "Compact indoor mast — 4.57m platform, lightweight, hospitality and retail",
@@ -88854,7 +88856,7 @@ const MACHINES = {
       stowedW: 0.76,
       platformSize: "0.71 × 0.61m",
       outriggerFootprint: null,
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "6m indoor mast — narrow body, high-bay retail and logistics maintenance",
@@ -88890,7 +88892,7 @@ const MACHINES = {
       stowedW: 0.76,
       platformSize: "0.71 × 0.61m",
       outriggerFootprint: null,
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "8m indoor mast with articulating jib — over-obstacle indoor access at height",
@@ -88928,7 +88930,7 @@ const MACHINES = {
       stowedW: 0.69,
       platformSize: "0.64 × 0.69m",
       outriggerFootprint: null,
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "Low-overhead compact mast — folded-mast design for very low ceiling clearance",
@@ -88964,7 +88966,7 @@ const MACHINES = {
       stowedW: 0.69,
       platformSize: "0.61 × 0.69m",
       outriggerFootprint: "0.91 × 1.22m",
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "Compact indoor mast — 3.66m platform, self-propelled, SKYCODED™ wiring",
@@ -89000,7 +89002,7 @@ const MACHINES = {
       stowedW: 0.69,
       platformSize: "0.61 × 0.69m",
       outriggerFootprint: "0.91 × 1.52m",
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "Mid-height indoor mast — 4.88m platform, compact and manoeuvrable",
@@ -89036,7 +89038,7 @@ const MACHINES = {
       stowedW: 0.69,
       platformSize: "0.61 × 0.69m",
       outriggerFootprint: "1.07 × 1.68m",
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "6m indoor mast — tallest Skyjack vertical mast, narrow 69cm body",
@@ -89119,7 +89121,7 @@ const MACHINES = {
       stowedW: 1.2,
       platformSize: "1.10 × 0.78m",
       outriggerFootprint: null,
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "High-bay warehousing and facility work — 11m platform, high-throughput logistics",
@@ -89312,7 +89314,7 @@ const MACHINES = {
       stowedW: 1.2,
       platformSize: "1.10 × 0.78m",
       outriggerFootprint: null,
-      driveAtHeight: false,
+      driveAtHeight: true,
       terrain: "indoor",
       bestFor:
         "Very high-bay picking — 11m platform with picking tray for tall distribution centres",
@@ -126474,7 +126476,17 @@ const MACHINES = {
   try {
     const byName = {};
     const byId = {};
-    const cats = ["forklift", "telehandler", "scissor", "boom", "material", "earthworks"];
+    const cats = [
+      "forklift",
+      "telehandler",
+      "scissor",
+      "boom",
+      "material",
+      "pushAround",
+      "verticalMast",
+      "palletJack",
+      "earthworks",
+    ];
     cats.forEach((cat) => {
       const arr = MACHINES[cat];
       if (!Array.isArray(arr)) return;
@@ -130939,10 +130951,31 @@ function matchMachines(ans, type) {
       // but tagged with a prominent red warning via _altSwlWarning.
       const _TWO_PERSON_MIN_SWL = 200;
 
-      // Sort: 2-person capable first (if customer asked for 2+); then closest platform height.
+      // ── Drive-at-height priority ─────────────────────────────────────────
+      // The scissor quiz asks `scissor_drive_at_height` with values yes/no/maybe.
+      // When the customer said "yes" they need to reposition at full height
+      // (e.g. long pipe runs, ceiling grid, cable tray), self-propelled drivable
+      // masts (Genie GR Runabout, Skyjack SJ, Haulotte STAR) are the correct
+      // answer. Push-around machines (Genie AWP, Quick Up, IWP) are NOT drivable
+      // at height — they must be lowered, stabilisers retracted, repositioned,
+      // stabilisers redeployed. So:
+      //   • wantsDrive === true  → sort drive-at-height capable FIRST
+      //   • machines still appear either way, but the sort order matches intent
+      //   • push-around machines will carry a clear red banner (see card render)
+      const _wantsDrive = (ans.scissor_drive_at_height === "yes");
+
+      // Sort priority when user wants drive-at-height capability OR 2+ people:
+      //   1. drive-at-height match (if user asked for it)
+      //   2. 2-person capable SWL ≥200 (if user asked for 2+ people)
+      //   3. closest platform height to requirement
       _alternatives.sort((a, b) => {
         const aH = a.platformHeight || a.liftHeight || 0;
         const bH = b.platformHeight || b.liftHeight || 0;
+        if (_wantsDrive) {
+          const aD = a.driveAtHeight ? 0 : 1;
+          const bD = b.driveAtHeight ? 0 : 1;
+          if (aD !== bD) return aD - bD;
+        }
         if (_wantsTwoPlus) {
           const a2 = _getCap(a) >= _TWO_PERSON_MIN_SWL ? 0 : 1;
           const b2 = _getCap(b) >= _TWO_PERSON_MIN_SWL ? 0 : 1;
@@ -130980,6 +131013,14 @@ function matchMachines(ans, type) {
         _altSwlWarning:
           _wantsTwoPlus && _getCap(m) < _TWO_PERSON_MIN_SWL
             ? `This machine has a <strong>${_getCap(m) || "n/a"} kg platform SWL</strong> — rated for <strong>ONE person + tools only</strong>. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a machine below with ≥200 kg SWL (e.g. Haulotte Quick Up, Haulotte STAR).`
+            : null,
+        // Amber warning: user said "yes, drive at height" but this machine is
+        // a push-around (must lower → retract stabilisers → reposition → raise).
+        // It's not an unsafe mismatch like 1-person-for-2 above, just a workflow
+        // difference — so amber, not red, and machine still shown as valid.
+        _altDriveWarning:
+          _wantsDrive && !m.driveAtHeight
+            ? `This is a <strong>push-around lift</strong> — to reposition you must lower the platform, retract the stabilisers, move the machine, re-deploy stabilisers, then raise again. You asked to <strong>drive at full height</strong>. For work like long pipe runs, ceiling grid or cable tray where you need to move along without lowering, consider a <strong>self-propelled mast lift</strong> (Genie GR Runabout, Skyjack SJ, Haulotte STAR) — these drive at full height with the operator on board.`
             : null,
       }));
     }
@@ -136300,6 +136341,7 @@ function _renderCards(matches, machineType, answers) {
       ${rotatingLabel}
       ${isOverSpec ? `<div class="overspec-banner"><div class="overspec-banner-icon">${m._sizeLabel === "one_up" ? "⬆️" : m._sizeLabel === "two_up" ? "⬆️⬆️" : m._sizeLabel === "much_larger" ? "⬆️⬆️⬆️" : "⚠️"}</div><div><div class="overspec-banner-title">${m._sizeLabel === "one_up" ? "One Size Up" : m._sizeLabel === "two_up" ? "Two Sizes Up" : m._sizeLabel === "much_larger" ? "Much Larger Machine" : "Also Fits Your Job"}</div><div class="overspec-banner-text">${m._overSpecMsg}</div><div style="margin-top:.5rem;padding:.4rem .6rem;background:rgba(0,0,0,0.06);border-radius:6px;font-size:.76rem;font-weight:600;color:#92400E;line-height:1.55">📋 <strong>Licensing note:</strong> Licensing requirements may change depending on machine size, state rules and current regulations. Larger or higher-capacity machines may require different tickets, certification or WorkSafe approvals. Always confirm operator licensing with your rental company and the relevant state authority before hiring.</div></div></div>` : ""}
       ${m._altSwlWarning ? `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">ONE-PERSON MACHINE — Cannot Lift Two People</div><div style="font-size:.82rem;color:#991B1B;line-height:1.6">${m._altSwlWarning}</div></div></div>` : ""}
+      ${m._altDriveWarning ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🚗</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">PUSH-AROUND — Not Drive-at-Height Capable</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">${m._altDriveWarning}</div></div></div>` : ""}
       ${reachTruckNote}
       ${!isOverSpec && m._tightFit && m._tightFitMsg ? `<div class="tightfit-banner"><div class="tightfit-banner-icon">📏</div><div><div class="tightfit-banner-title">Tight Fit — Please Check Suitability</div><div class="tightfit-banner-text">${m._tightFitMsg}</div></div></div>` : ""}
       ${m._underSpec && m._underSpecMsg ? `<div class="underspec-banner"><div class="underspec-banner-icon">📉</div><div><div class="underspec-banner-title">⚠️ Below Your Stated Requirements</div><div class="underspec-banner-text">${m._underSpecMsg}</div></div></div>` : ""}
