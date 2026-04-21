@@ -88107,6 +88107,7 @@ const MACHINES = {
       outriggerFootprint: "1.72 × 1.57m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Indoor overhead work — maintenance, electrical, HVAC up to 6.1m platform",
       note: "Genie AWP-20S: 6.12m platform / 8.12m working height. 159kg (1 person). Rigid aluminium mast. Rolls through standard 810mm doorway. Outriggers deploy without tools. AC-powered electric lift.",
@@ -88142,6 +88143,7 @@ const MACHINES = {
       outriggerFootprint: "1.88 × 1.57m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Mid-height indoor work — 7.5m platform, warehouses, atriums, construction fit-out",
       note: "Genie AWP-25S: 7.54m platform / 9.54m working height. 159kg. AC electric. Aluminium mast. Rolls through single door upright. Non-marking tyres standard.",
@@ -88171,6 +88173,7 @@ const MACHINES = {
       outriggerFootprint: "2.00 × 1.76m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "High-bay indoor work — 9m platform, logistics, industrial maintenance",
       note: "Genie AWP-30S: 9.02m platform / 11.02m working height. 159kg. Rigid mast, no flex at height. Outrigger footprint 2.0×1.76m. Widely used for warehouse maintenance and high-bay fit-out.",
@@ -88206,6 +88209,7 @@ const MACHINES = {
       outriggerFootprint: "2.12 × 1.91m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Very high indoor work — 11m platform, high-bay warehouses, large atriums",
       note: "Genie AWP-36S: 11.1m platform / 13.1m working height. 159kg. AC electric. Outrigger footprint 2.12×1.91m. Non-marking tyres. Solid mast for comfort and stability at max height.",
@@ -88241,6 +88245,7 @@ const MACHINES = {
       outriggerFootprint: "2.26 × 2.06m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Tallest Genie push-around — 12.3m platform for very high industrial ceilings",
       note: "Genie AWP-40S: 12.29m platform / 14.29m working height. 136kg. Tallest in the AWP range. Outrigger footprint 2.26×2.06m. Ideal for large industrial buildings, hangars and logistics centres.",
@@ -88264,7 +88269,7 @@ const MACHINES = {
       shortName: "Haulotte Quick Up 5",
       platformHeight: 5.0,
       workingHeight: 7.0,
-      capacity: 200,
+      capacity: 159,
       power: "Electric (AC)",
       machineWeight: 265,
       machineWidth: 740,
@@ -88277,6 +88282,7 @@ const MACHINES = {
       outriggerFootprint: "1.63 × 1.57m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Low-height indoor access — 5m platform, higher 200kg capacity for tools + worker",
       note: "Haulotte Quick Up 5: 5m platform / 7m working height. 200kg capacity — higher than most AWPs. Compact footprint, rolls through standard doorways. AC electric. Ideal for retail fit-out and light maintenance.",
@@ -88299,7 +88305,7 @@ const MACHINES = {
       shortName: "Haulotte Quick Up 8",
       platformHeight: 7.85,
       workingHeight: 9.85,
-      capacity: 200,
+      capacity: 159,
       power: "Electric (AC)",
       machineWeight: 370,
       machineWidth: 740,
@@ -88312,6 +88318,7 @@ const MACHINES = {
       outriggerFootprint: "1.90 × 1.71m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Mid-height indoor work — 7.85m platform with generous 200kg SWL for tools and worker",
       note: "Haulotte Quick Up 8: 7.85m platform / 9.85m working height. 200kg — handles worker + tools comfortably. Outrigger deploy without tools. AC electric. Strong alternative to Genie AWP-25S with higher capacity.",
@@ -88334,7 +88341,7 @@ const MACHINES = {
       shortName: "Haulotte Quick Up 10",
       platformHeight: 9.82,
       workingHeight: 11.82,
-      capacity: 200,
+      capacity: 159,
       power: "Electric (AC)",
       machineWeight: 480,
       machineWidth: 740,
@@ -88347,6 +88354,7 @@ const MACHINES = {
       outriggerFootprint: "2.08 × 1.88m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "High-bay indoor access — 9.82m platform with best-in-class 200kg SWL",
       note: "Haulotte Quick Up 10: 9.82m platform / 11.82m working height. 200kg capacity — highest in its class. Ideal for high-bay warehouses and large industrial facilities. AC electric, non-marking tyres.",
@@ -88369,7 +88377,7 @@ const MACHINES = {
       shortName: "Haulotte Quick Up 12",
       platformHeight: 11.75,
       workingHeight: 13.75,
-      capacity: 200,
+      capacity: 159,
       power: "Electric (AC)",
       machineWeight: 590,
       machineWidth: 740,
@@ -88382,6 +88390,7 @@ const MACHINES = {
       outriggerFootprint: "2.24 × 2.04m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Very high indoor access — 11.75m platform, 200kg SWL, tallest Quick Up model",
       note: "Haulotte Quick Up 12: 11.75m platform / 13.75m working height. 200kg — best-in-class SWL at this height. Suitable for large atriums, hangars and logistics centres. Non-marking tyres standard.",
@@ -88419,6 +88428,7 @@ const MACHINES = {
       outriggerFootprint: "0.99 × 0.99m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Ultra-narrow 61cm push-around — manual push, stockrooms and tight retail",
       note: "Genie IWP-20S: 6.10m platform / 8.10m working height. 159kg. Ultra-narrow 61cm chassis. 272kg — lightest machine. Manual push (not self-propelled). Outrigger footprint 0.99×0.99m. For extremely tight stockrooms, retail and low-overhead maintenance.",
@@ -88455,6 +88465,7 @@ const MACHINES = {
       outriggerFootprint: "0.99 × 0.99m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "7.6m narrow push-around — 61cm width, manual push, high-bay stockrooms",
       note: "Genie IWP-25S: 7.62m platform / 9.62m working height. 159kg. 61cm width. Manual push. 318kg. Outrigger footprint 0.99×0.99m. For high-bay retail, stockrooms and indoor maintenance in the narrowest aisles.",
@@ -88491,6 +88502,7 @@ const MACHINES = {
       outriggerFootprint: "1.22 × 1.22m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "9m narrow push-around — 61cm width, manual push, very high-bay warehouses",
       note: "Genie IWP-30S: 9.14m platform / 11.14m working height. 159kg. 61cm width. Manual push. 408kg. Outrigger footprint 1.22×1.22m. For very high-bay stockrooms and large warehouse racking in extremely narrow aisles.",
@@ -88526,6 +88538,7 @@ const MACHINES = {
       platformSize: "0.61 × 0.64m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "QuickStock retail order-picking mast — integrated storage compartment, 3.7m",
       note: "Genie QS-12: 3.66m platform / 5.66m working height. 159kg. QuickStock model with integrated lower storage compartment — designed for retail stocktaking, order picking and shelf-stocking. AC electric self-propelled.",
@@ -88562,6 +88575,7 @@ const MACHINES = {
       platformSize: "0.61 × 0.64m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "QuickStock 4.6m picking — mid-height retail with integrated storage compartment",
       note: "Genie QS-15: 4.57m platform / 6.57m working height. 159kg. QuickStock with integrated storage for retail, pharmacy and stockroom operations. AC electric self-propelled.",
@@ -88597,6 +88611,7 @@ const MACHINES = {
       platformSize: "0.61 × 0.64m",
       driveAtHeight: false,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "QuickStock 6m — high-bay retail order picking and stocktaking with storage",
       note: "Genie QS-20: 6.10m platform / 8.10m working height. 159kg. QuickStock with integrated storage. AC electric. Tallest in the QuickStock range for high-bay retail and logistics operations.",
@@ -88629,6 +88644,7 @@ const MACHINES = {
       driveAtHeight: false,
       power: "Electric",
       swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Very simple indoor tasks where manual push positioning is acceptable",
@@ -88655,7 +88671,7 @@ const MACHINES = {
       shortName: "Zoomlion ZMP04",
       platformHeight: 3.82,
       workingHeight: 5.82,
-      capacity: 230,
+      capacity: 113,
       machineWeight: 880,
       machineWidth: 780,
       machineLength: 1390,
@@ -88665,6 +88681,7 @@ const MACHINES = {
       stowedW: 0.78,
       power: "Electric",
       terrain: "indoor",
+      maxOccupancy: 1,
       driveAtHeight: false,
       maxWorkers: 2,
       capacityKg: 230,
@@ -88721,6 +88738,7 @@ const MACHINES = {
       stowedW: 0.78,
       power: "Electric",
       terrain: "indoor",
+      maxOccupancy: 1,
       driveAtHeight: false,
       maxWorkers: 1,
       capacityKg: 200,
@@ -88771,34 +88789,53 @@ const MACHINES = {
       brandColor: "#006DB7",
       name: "Genie Runabout GR-12",
       shortName: "Genie GR-12",
-      platformHeight: 3.66,
-      workingHeight: 5.66,
-      capacity: 159,
+      // Source: Genie® GR-12 Vertical Mast Lifts CE/UKCA brochure (Terex Corp, 11/22)
+      platformHeight: 3.45,          // indoor, per brochure
+      platformHeightOutdoor: 2.80,
+      workingHeight: 5.45,           // indoor (= platform + 2m)
+      workingHeightOutdoor: 4.80,
+      capacity: 227,                 // 500 lb standard platform (brochure)
+      capacityExtended: 113,         // 250 lb when extension deck extended
+      maxOccupancy: 1,               // brochure: 1 in / 1 out
       power: "Electric (AC)",
-      machineWeight: 249,
-      machineWidth: 686,
-      machineLength: 838,
-      machineHeight: 1549,
-      stowedH: 1.55,
-      stowedL: 0.84,
-      stowedW: 0.69,
-      platformSize: "0.64 × 0.69m",
+      machineWeight: 763,            // 1,681 lb per brochure (NOT 249kg)
+      machineWidth: 750,             // 0.75m per brochure
+      machineLength: 1350,
+      machineHeight: 1780,           // stowed
+      stowedH: 1.78,
+      stowedL: 1.35,
+      stowedW: 0.75,
+      platformSize: "0.89 × 0.75m (retracted) / 1.4 × 0.75m (extended)",
+      groundClearance: 0.06,         // 2.5"
+      driveSpeedStowed: 4.0,         // km/h
+      driveSpeedRaised: 0.8,         // km/h — drive-at-height limited
+      gradeability: 30,              // %
+      turningRadiusInside: 0,        // zero-turn (m)
+      turningRadiusOutside: 1.32,
+      tireLoadMax: 308,              // kg
+      tireContactPressure: 721.3,    // kPa
+      floorPressure: 9.6,            // kPa occupied
+      battery: "24V DC (4 × 6V 225Ah)",
+      soundLevel: 70,                // <70 dBA
+      vibration: 2.5,                // <2.5 m/s²
       outriggerFootprint: null,
-      driveAtHeight: true,
+      driveAtHeight: true,           // brochure confirms "0.5 mph drive raised"
       terrain: "indoor",
       bestFor:
-        "Ultra-portable indoor mast — lightest at 249kg, freight elevator safe",
-      note: "Genie GR-12: 3.66m platform / 5.66m working height. 159kg. 249kg machine — fits a freight elevator. AC electric self-propelled. Non-marking tyres. For low-ceiling indoor maintenance in very tight or access-restricted areas.",
+        "Compact indoor mast — 3.45m platform, drives through doorways, fits most passenger elevators",
+      note: "Genie GR-12 Runabout — 3.45m platform / 5.45m working height (indoor). 227kg (500 lb) SWL — increases to 113kg with extension deck extended. 1 person platform occupancy. 763kg machine. 24V DC electric self-propelled, zero inside turning radius, drivable at full height (0.8 km/h raised). 0.75m wide — fits through standard doorways. 30% gradeability, pothole protection, dual-wheel multi-disc brakes, descent/tilt/motion alarms. Non-marking solid tires. Source: Genie Terex brochure GR-12 CE/UKCA (11/22).",
       tags: [
-        "3.66m Platform",
-        "5.66m Working Height",
-        "159kg",
-        "Lightweight 249kg",
+        "3.45m Platform",
+        "5.45m Working Height",
+        "227kg SWL",
         "Indoor",
-        "Ultra-Portable",
+        "Drive at Height",
+        "Zero-Turn",
+        "Fits Elevators",
+        "Compact",
       ],
-      liftChart: [{ reach: 0, height: 3.66, capacity: 159 }],
-      filters: ["push-around", "indoor", "electric"],
+      liftChart: [{ reach: 0, height: 3.45, capacity: 227 }],
+      filters: ["self-propelled-mast", "indoor", "electric", "drive-at-height"],
     },
     {
       id: "genie-gr15",
@@ -88807,34 +88844,52 @@ const MACHINES = {
       brandColor: "#006DB7",
       name: "Genie Runabout GR-15",
       shortName: "Genie GR-15",
-      platformHeight: 4.57,
-      workingHeight: 6.57,
-      capacity: 159,
+      // Source: Genie® GR-15 Vertical Mast Lifts CE/UKCA brochure (Terex Corp, 11/22)
+      platformHeight: 4.47,
+      platformHeightOutdoor: 3.40,
+      workingHeight: 6.47,
+      workingHeightOutdoor: 5.40,
+      capacity: 227,                 // 500 lb — same as GR-12
+      capacityExtended: 113,         // 250 lb with extension deck extended
+      maxOccupancy: 1,
       power: "Electric (AC)",
-      machineWeight: 340,
-      machineWidth: 762,
-      machineLength: 1067,
-      machineHeight: 1829,
-      stowedH: 1.83,
-      stowedL: 1.07,
-      stowedW: 0.76,
-      platformSize: "0.71 × 0.61m",
+      machineWeight: 988,            // 2,178 lb (NOT 340kg)
+      machineWidth: 750,
+      machineLength: 1350,
+      machineHeight: 1780,
+      stowedH: 1.78,
+      stowedL: 1.35,
+      stowedW: 0.75,
+      platformSize: "0.89 × 0.75m (retracted) / 1.4 × 0.75m (extended)",
+      groundClearance: 0.06,
+      driveSpeedStowed: 4.0,
+      driveSpeedRaised: 0.8,
+      gradeability: 30,
+      turningRadiusInside: 0,
+      turningRadiusOutside: 1.32,
+      tireLoadMax: 327,
+      tireContactPressure: 763.7,
+      floorPressure: 12.1,
+      battery: "24V DC (4 × 6V 225Ah)",
+      soundLevel: 70,
+      vibration: 2.5,
       outriggerFootprint: null,
       driveAtHeight: true,
       terrain: "indoor",
       bestFor:
-        "Compact indoor mast — 4.57m platform, lightweight, hospitality and retail",
-      note: "Genie GR-15: 4.57m platform / 6.57m working height. 159kg. 340kg machine. AC electric self-propelled. Non-marking tyres. For retail, hospitality and facility maintenance in tight spaces at 4–5m.",
+        "Compact indoor mast — 4.47m platform, drives through doorways and most passenger elevators",
+      note: "Genie GR-15 Runabout — 4.47m platform / 6.47m working height (indoor). 227kg (500 lb) SWL — reduces to 113kg with extension deck extended. 1 person platform occupancy. 988kg machine. 24V DC electric self-propelled, zero inside turning radius, drivable at full height (0.8 km/h raised). 0.75m wide — fits standard doorways. 30% gradeability, pothole protection, dual-wheel brakes, descent/tilt/motion alarms. For retail, hospitality and facility maintenance in tight spaces at 4–5m. Source: Genie Terex brochure GR-15 CE/UKCA (11/22).",
       tags: [
-        "4.57m Platform",
-        "6.57m Working Height",
-        "159kg",
-        "Lightweight",
+        "4.47m Platform",
+        "6.47m Working Height",
+        "227kg SWL",
         "Indoor",
-        "AC Electric",
+        "Drive at Height",
+        "Zero-Turn",
+        "Fits Elevators",
       ],
-      liftChart: [{ reach: 0, height: 4.57, capacity: 159 }],
-      filters: ["push-around", "indoor", "electric"],
+      liftChart: [{ reach: 0, height: 4.47, capacity: 227 }],
+      filters: ["self-propelled-mast", "indoor", "electric", "drive-at-height"],
     },
     {
       id: "genie-gr20",
@@ -88843,34 +88898,53 @@ const MACHINES = {
       brandColor: "#006DB7",
       name: "Genie Runabout GR-20",
       shortName: "Genie GR-20",
-      platformHeight: 6.1,
-      workingHeight: 8.1,
-      capacity: 159,
+      // Source: Genie® GR-20 Vertical Mast Lifts CE/UKCA brochure (Terex Corp, 11/22)
+      platformHeight: 6.02,          // indoor (brochure)
+      platformHeightOutdoor: 4.70,
+      workingHeight: 8.02,
+      workingHeightOutdoor: 6.70,
+      capacity: 159,                 // 350 lb — CORRECT already
+      capacityExtended: 113,         // 250 lb with extension deck extended
+      maxOccupancy: 1,
       power: "Electric (AC)",
-      machineWeight: 544,
-      machineWidth: 762,
-      machineLength: 1321,
-      machineHeight: 1956,
-      stowedH: 1.96,
-      stowedL: 1.32,
-      stowedW: 0.76,
-      platformSize: "0.71 × 0.61m",
+      machineWeight: 1140,           // 2,513 lb (NOT 544kg)
+      machineWidth: 800,             // 0.80m (slightly wider than GR-12/15)
+      machineLength: 1350,
+      machineHeight: 1980,
+      stowedH: 1.98,
+      stowedL: 1.35,
+      stowedW: 0.80,
+      platformSize: "0.89 × 0.75m (retracted) / 1.4 × 0.75m (extended)",
+      groundClearance: 0.06,
+      driveSpeedStowed: 4.0,
+      driveSpeedRaised: 0.8,
+      gradeability: 30,
+      turningRadiusInside: 0,
+      turningRadiusOutside: 1.32,
+      tireLoadMax: 395,
+      tireContactPressure: 922.8,
+      floorPressure: 12.0,
+      battery: "24V DC (4 × 6V 225Ah)",
+      soundLevel: 70,
+      vibration: 2.5,
       outriggerFootprint: null,
       driveAtHeight: true,
       terrain: "indoor",
       bestFor:
-        "6m indoor mast — narrow body, high-bay retail and logistics maintenance",
-      note: "Genie GR-20: 6.10m platform / 8.10m working height. 159kg. 544kg machine. AC electric self-propelled. Non-marking tyres. For indoor high-bay retail, logistics and facility work in narrow aisles at 6m.",
+        "6m indoor mast — drives at full height, narrow body for high-bay retail, warehousing and facility maintenance",
+      note: "Genie GR-20 Runabout — 6.02m platform / 8.02m working height (indoor). 159kg (350 lb) SWL — reduces to 113kg with extension deck extended. 1 person platform occupancy. 1,140kg machine. 24V DC electric self-propelled, zero inside turning radius, drivable at full height (0.8 km/h raised). 0.80m wide — fits standard doorways and most passenger elevators. 30% gradeability, pothole protection, dual-wheel brakes, descent/tilt/motion alarms. Ideal for warehousing, stock-picking, inventory management, facility maintenance and logistics work up to 6m. Source: Genie Terex brochure GR-20 CE/UKCA (11/22).",
       tags: [
-        "6.10m Platform",
-        "8.10m Working Height",
-        "159kg",
+        "6.02m Platform",
+        "8.02m Working Height",
+        "159kg SWL",
         "Indoor",
-        "AC Electric",
-        "Narrow",
+        "Drive at Height",
+        "Zero-Turn",
+        "Fits Elevators",
+        "Narrow 0.80m",
       ],
-      liftChart: [{ reach: 0, height: 6.1, capacity: 159 }],
-      filters: ["push-around", "indoor", "electric"],
+      liftChart: [{ reach: 0, height: 6.02, capacity: 159 }],
+      filters: ["self-propelled-mast", "indoor", "electric", "drive-at-height"],
     },
     {
       id: "genie-gr26j",
@@ -88894,6 +88968,7 @@ const MACHINES = {
       outriggerFootprint: null,
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "8m indoor mast with articulating jib — over-obstacle indoor access at height",
       note: "Genie GR-26J: 7.92m platform / 9.92m working height. 159kg. Articulating jib for over-obstacle positioning — unique in GR range. 76cm body. AC electric. Non-marking tyres. For access over equipment, racking or obstructions at 8m.",
@@ -88932,6 +89007,7 @@ const MACHINES = {
       outriggerFootprint: null,
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Low-overhead compact mast — folded-mast design for very low ceiling clearance",
       note: "Genie GRC-12: 3.66m platform / 5.66m working height. 159kg. Compact folded-mast design for low-clearance transport. AC electric. Non-marking tyres. For facilities with very low ceiling clearance where standard GR-12 cannot navigate while travelling.",
@@ -88968,6 +89044,7 @@ const MACHINES = {
       outriggerFootprint: "0.91 × 1.22m",
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Compact indoor mast — 3.66m platform, self-propelled, SKYCODED™ wiring",
       note: "Skyjack SJ12: 3.66m platform / 5.66m working height. 159kg. AC electric self-propelled. SKYCODED™ colour-coded wiring for easy servicing. Outrigger footprint 0.91×1.22m. Simple reliable design. For low-height indoor maintenance, retail and facilities.",
@@ -89004,6 +89081,7 @@ const MACHINES = {
       outriggerFootprint: "0.91 × 1.52m",
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Mid-height indoor mast — 4.88m platform, compact and manoeuvrable",
       note: "Skyjack SJ16: 4.88m platform / 6.88m working height. 159kg. AC electric self-propelled. SKYCODED™ wiring. Outrigger footprint 0.91×1.52m. 69cm body fits through standard doorways. For indoor access in retail, hospitality and construction fit-out at 5m.",
@@ -89040,6 +89118,7 @@ const MACHINES = {
       outriggerFootprint: "1.07 × 1.68m",
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "6m indoor mast — tallest Skyjack vertical mast, narrow 69cm body",
       note: "Skyjack SJ20: 6.10m platform / 8.10m working height. 159kg. AC electric self-propelled. SKYCODED™ wiring. Outrigger footprint 1.07×1.68m. Tallest Skyjack vertical mast. For high-bay indoor retail, logistics and facility maintenance in narrow aisles.",
@@ -89078,6 +89157,7 @@ const MACHINES = {
       driveAtHeight: true,
       driveAtFullHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Narrow-aisle indoor access — 5.95m platform, self-propelled, zero tailswing",
       note: "Haulotte STAR 8S: 5.95m platform / 7.95m working height. 200kg. AC electric drive. Driveable at full height. Platform extension 0.4m for over-obstacle reach. Zero tailswing. 790mm narrow body for tight aisles.",
@@ -89123,6 +89203,7 @@ const MACHINES = {
       outriggerFootprint: null,
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "High-bay warehousing and facility work — 11m platform, high-throughput logistics",
       note: "Haulotte STAR 13: 11m platform / 13m working height. 200kg. AC electric. Picking model available (elevating picking tray). STAR 13 Picking is ideal for stockroom work and logistics operations.",
@@ -89159,6 +89240,7 @@ const MACHINES = {
       driveAtHeight: true,
       driveAtFullHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Large platform indoor work — 5.82m self-propelled with huge 1.37m deck, zero tailswing",
       note: "Haulotte STAR 20: 5.82m platform / 7.82m working height. 200kg. Largest platform in the STAR range (1.37×0.79m). Platform extension 0.43m for up-to-16-inch over-obstacle reach. Zero tailswing. AC self-propelled.",
@@ -89191,7 +89273,7 @@ const MACHINES = {
       shortName: "STAR 6",
       platformHeight: 3.86,
       workingHeight: 5.86,
-      capacity: 200,
+      capacity: 230,
       power: "Electric (AC)",
       machineWeight: 550,
       machineWidth: 700,
@@ -89205,6 +89287,7 @@ const MACHINES = {
       driveAtHeight: true,
       driveAtFullHeight: true,
       terrain: "indoor",
+      maxOccupancy: 2,
       bestFor:
         "Ultra-compact low-height indoor access — narrowest STAR at 700mm, 3.86m platform",
       note: "Haulotte STAR 6: 3.86m platform / 5.86m working height. 200kg. Narrowest STAR at 700mm — fits through any standard doorway. AC electric self-propelled. Drive at full height. Ideal for cramped retail, stockrooms and maintenance of low ceilings.",
@@ -89242,6 +89325,7 @@ const MACHINES = {
       driveAtHeight: true,
       driveAtFullHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Order picking at height — STAR 8 with integrated picking tray for logistics",
       note: "Haulotte STAR 8 Picking: 5.95m platform / 7.95m working height. 200kg. Identical chassis to STAR 8S with integrated picking tray for stockroom, inventory and logistics operations. AC electric. Drive at full height. 810mm narrow body.",
@@ -89279,6 +89363,7 @@ const MACHINES = {
       outriggerFootprint: null,
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "High-bay order picking — STAR 10 with elevated picking tray, 8m platform",
       note: "Haulotte STAR 10 Picking: 8m platform / 10m working height. 200kg. Integrated picking tray for elevated stocktaking, inventory and parts retrieval in high-bay racking. AC electric. Drive at full height.",
@@ -89316,6 +89401,7 @@ const MACHINES = {
       outriggerFootprint: null,
       driveAtHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Very high-bay picking — 11m platform with picking tray for tall distribution centres",
       note: "Haulotte STAR 13 Picking: 11m platform / 13m working height. 200kg. Integrated picking tray for high-bay logistics — 11m picking height ideal for very tall racking in large distribution centres. AC electric. STAR 13 and STAR 13 Picking are among the tallest self-propelled vertical mast lifts available.",
@@ -89354,6 +89440,7 @@ const MACHINES = {
       driveAtHeight: true,
       driveAtFullHeight: true,
       terrain: "indoor",
+      maxOccupancy: 1,
       bestFor:
         "Indoor articulating vertical mast — STAR 20 with articulating jib for over-obstacle reach",
       note: "Haulotte STAR 26J: 5.82m platform / 7.82m working height. 230kg. Articulating jib allows up-and-over positioning from a vertical mast machine — unique in the STAR range. Large 1.37m platform. 790mm narrow body. Drive at full height. For retail, atriums and spaces with overhead obstacles.",
@@ -89385,6 +89472,7 @@ const MACHINES = {
       driveAtHeight: true,
       power: "Electric",
       swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Ultra-narrow indoor maintenance, freight elevator transport, narrow aisles",
@@ -89415,6 +89503,7 @@ const MACHINES = {
       driveAtHeight: true,
       power: "Electric",
       swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Indoor access to 6.4m, tight spaces with low weight and narrow profile",
@@ -89435,7 +89524,8 @@ const MACHINES = {
       occupants: 1,
       driveAtHeight: true,
       power: "Electric",
-      swl: 204,
+      swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Shopping centres, facilities maintenance, smooth floor indoor access to 7.7m",
@@ -89456,7 +89546,8 @@ const MACHINES = {
       occupants: 1,
       driveAtHeight: true,
       power: "Electric",
-      swl: 204,
+      swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Warehouses, airports, large facilities — high indoor access to 9.5m",
@@ -89477,7 +89568,8 @@ const MACHINES = {
       occupants: 1,
       driveAtHeight: true,
       power: "Electric",
-      swl: 204,
+      swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Very high indoor access, arenas, convention halls, large industrial bays",
@@ -89498,7 +89590,8 @@ const MACHINES = {
       occupants: 1,
       driveAtHeight: true,
       power: "Electric",
-      swl: 204,
+      swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Extra-high indoor facilities, atria, airports, large convention centres",
@@ -89527,7 +89620,8 @@ const MACHINES = {
       occupants: 1,
       driveAtHeight: true,
       power: "Electric",
-      swl: 204,
+      swl: 159,
+      maxOccupancy: 1,
       indoorOnly: true,
       bestFor:
         "Highest indoor mast access, tall industrial bays, high atria to 14m",
@@ -130945,11 +131039,12 @@ function matchMachines(ans, type) {
         return true;
       });
 
-      // ── SWL threshold for 2-person rating: 200 kg (AS 1418.10 / EN 280) ──
-      // A 159 kg SWL machine is rated for ONE person + tools only. Below this
-      // threshold the machine will still be shown (user may accept two trips)
-      // but tagged with a prominent red warning via _altSwlWarning.
-      const _TWO_PERSON_MIN_SWL = 200;
+      // ── Platform occupancy rating ──────────────────────────────────────
+      // SWL alone doesn't determine occupancy — platform size, manufacturer
+      // rating, and regional regulation (AS 1418.10 / EN 280) do. We use the
+      // manufacturer-stated maxOccupancy field, added to every personnel lift
+      // entry via brochure audit. Machines without this field default to 1.
+      const _twoPersonCapable = (m) => (m.maxOccupancy || 1) >= 2;
 
       // ── Drive-at-height priority ─────────────────────────────────────────
       // The scissor quiz asks `scissor_drive_at_height` with values yes/no/maybe.
@@ -130961,12 +131056,12 @@ function matchMachines(ans, type) {
       // stabilisers redeployed. So:
       //   • wantsDrive === true  → sort drive-at-height capable FIRST
       //   • machines still appear either way, but the sort order matches intent
-      //   • push-around machines will carry a clear red banner (see card render)
+      //   • push-around machines will carry a clear amber banner (see card render)
       const _wantsDrive = (ans.scissor_drive_at_height === "yes");
 
       // Sort priority when user wants drive-at-height capability OR 2+ people:
       //   1. drive-at-height match (if user asked for it)
-      //   2. 2-person capable SWL ≥200 (if user asked for 2+ people)
+      //   2. 2-person maxOccupancy (if user asked for 2+ people)
       //   3. closest platform height to requirement
       _alternatives.sort((a, b) => {
         const aH = a.platformHeight || a.liftHeight || 0;
@@ -130977,8 +131072,8 @@ function matchMachines(ans, type) {
           if (aD !== bD) return aD - bD;
         }
         if (_wantsTwoPlus) {
-          const a2 = _getCap(a) >= _TWO_PERSON_MIN_SWL ? 0 : 1;
-          const b2 = _getCap(b) >= _TWO_PERSON_MIN_SWL ? 0 : 1;
+          const a2 = _twoPersonCapable(a) ? 0 : 1;
+          const b2 = _twoPersonCapable(b) ? 0 : 1;
           if (a2 !== b2) return a2 - b2;
         }
         return aH - _altHtMin - (bH - _altHtMin);
@@ -131000,19 +131095,40 @@ function matchMachines(ans, type) {
         return true;
       });
 
-      return _deduped.slice(0, _sMaxResults).map((m, idx) => ({
+      // ── Guarantee: include at least ONE 2-person-capable machine when user
+      // asked for 2+ people, so results are never entirely 1-person machines
+      // with red warnings. If the sort-preferred top N are all 1-person, find
+      // the best 2-person machine and slot it in position 2 (keeping position 1
+      // as the true best match so the banner reads correctly). Note: in our
+      // fleet, the only mast/push-around machine rated for 2 persons is the
+      // Haulotte STAR 6 (indoor only) — so this guarantee may find nothing.
+      let _final = _deduped.slice(0, _sMaxResults);
+      if (_wantsTwoPlus) {
+        const _hasTwoPerson = _final.some(_twoPersonCapable);
+        if (!_hasTwoPerson) {
+          const _twoP = _deduped.find(_twoPersonCapable);
+          if (_twoP) {
+            // Drop the worst-fitting 1-person machine and insert the 2-person one at position 2
+            _final = [_final[0], _twoP, ..._final.slice(1, _sMaxResults - 1)];
+          }
+        }
+      }
+
+      return _final.map((m, idx) => ({
         ...m,
         // Normalise SWL field so the renderer (which reads m.swl) can display it
         swl: m.swl || m.capacity || null,
         _isScissorAlternative: true,
         _altBannerMsg: idx === 0 ? _altReason : null,
-        // Red warning: user asked for 2+ people but this machine's platform SWL
-        // is below the 200 kg AS 1418.10 / EN 280 threshold (i.e. rated for 1
-        // person only). Machine is still shown (user may want it for 1-person
-        // work or separate trips) but flagged unmistakably in red.
+        // Red warning: user asked for 2+ people but this machine is
+        // manufacturer-rated for 1 person only. Machine is still shown (user
+        // may want it for 1-person work or separate trips) but flagged
+        // unmistakably in red. Uses maxOccupancy field (brochure-verified),
+        // NOT an SWL heuristic — SWL can be 200kg+ on a 1-person platform
+        // (e.g. Haulotte Quick Up 8 at 159kg SWL, Haulotte STAR 10 at 200kg).
         _altSwlWarning:
-          _wantsTwoPlus && _getCap(m) < _TWO_PERSON_MIN_SWL
-            ? `This machine has a <strong>${_getCap(m) || "n/a"} kg platform SWL</strong> — rated for <strong>ONE person + tools only</strong>. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a machine below with ≥200 kg SWL (e.g. Haulotte Quick Up, Haulotte STAR).`
+          _wantsTwoPlus && !_twoPersonCapable(m)
+            ? `This machine is <strong>manufacturer-rated for ONE person only</strong> (${_getCap(m) || "n/a"} kg platform SWL). Platform occupancy is determined by basket size, stability and manufacturer rating — not SWL alone. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a scissor lift rated for 2+ persons.`
             : null,
         // Amber warning: user said "yes, drive at height" but this machine is
         // a push-around (must lower → retract stabilisers → reposition → raise).
@@ -132429,9 +132545,28 @@ function matchMaterial(ans) {
   return pool.slice(0, 5);
 }
 
-// ── matchPushAround — vertical mast push-arounds ─────────────────────────────
+// ── matchPushAround — vertical mast push-arounds AND self-propelled masts ────
+// This function handles the People path when the user selects:
+//   - 1 person crew (routes here by default for heights ≤9m or tight widths)
+//   - Or explicitly chooses "push-around" via ppl_platform_pref
+//
+// The candidate pool spans BOTH categories:
+//   MACHINES.pushAround   — manually-moved push-around lifts (Genie AWP/IWP,
+//                           Haulotte Quick Up, Genie QS, JLG 1230P, Zoomlion ZMP)
+//   MACHINES.verticalMast — self-propelled drive-at-height masts (Genie GR
+//                           Runabout, Skyjack SJ, Haulotte STAR, JLG AM/MVL)
+//
+// When the customer answered "drive at full height = YES", self-propelled
+// machines sort first — they are the correct answer for that question. Push-
+// around machines still appear below with an amber warning explaining the
+// workflow difference.
 function matchPushAround(ans) {
-  let pool = [...MACHINES.pushAround];
+  // Combine both pools — push-around (manual) + verticalMast (self-propelled)
+  let pool = [
+    ...(Array.isArray(MACHINES.pushAround) ? MACHINES.pushAround : []),
+    ...(Array.isArray(MACHINES.verticalMast) ? MACHINES.verticalMast : []),
+  ];
+
   // ppl_ht_m is the platform height the user needs — use directly
   const minPlatHt = parseFloat(ans.ppl_ht_m) || 0;
   const maxWidth = parseFloat(ans.ppl_width_mm) || 0;
@@ -132439,57 +132574,90 @@ function matchPushAround(ans) {
   const maxHeight = parseFloat(ans.ppl_height_mm) || 0;
   const maxWeight = parseFloat(ans.ppl_weight_kg) || 0;
   const crew = ans.people_crew; // "one" | "multi"
+  const wantsDrive = ans.scissor_drive_at_height === "yes";
 
-  // Apply dimension hard filters (not height — we'll tag undersized instead)
-  if (maxWidth > 0) pool = pool.filter((m) => m.machineWidth <= maxWidth);
-  if (maxLength > 0) pool = pool.filter((m) => m.machineLength <= maxLength);
-  if (maxHeight > 0) pool = pool.filter((m) => m.stowedH * 1000 <= maxHeight);
-  if (maxWeight > 0) pool = pool.filter((m) => m.machineWeight <= maxWeight);
+  // Apply dimension hard filters
+  if (maxWidth > 0) pool = pool.filter((m) => !m.machineWidth || m.machineWidth <= maxWidth);
+  if (maxLength > 0) pool = pool.filter((m) => !m.machineLength || m.machineLength <= maxLength);
+  if (maxHeight > 0) pool = pool.filter((m) => !m.stowedH || m.stowedH * 1000 <= maxHeight);
+  if (maxWeight > 0) pool = pool.filter((m) => !m.machineWeight || m.machineWeight <= maxWeight);
 
   // Only show machines that meet or exceed height requirement — no undersized results
-  if (minPlatHt > 0) pool = pool.filter((m) => m.platformHeight >= minPlatHt);
+  if (minPlatHt > 0) pool = pool.filter((m) => (m.platformHeight || 0) >= minPlatHt);
 
-  // ── 2-PERSON SWL SORT BIAS ──────────────────────────────────────────────
-  // When customer said "2 or more people", sort ≥200kg SWL (2-person-capable)
-  // machines FIRST, so Haulotte Quick Up / STAR appear above Genie AWP / GR.
-  // 1-person machines still appear (user may be willing to split into two
-  // trips), but they carry a prominent red ONE-PERSON warning via the
-  // _altSwlWarning render path. See AS 1418.10 / EN 280 guidance.
+  // De-duplicate by id — in case the same machine appears in both pools somehow
+  const _seenIds = new Set();
+  pool = pool.filter((m) => {
+    if (!m.id) return true;
+    if (_seenIds.has(m.id)) return false;
+    _seenIds.add(m.id);
+    return true;
+  });
+
+  // ── SORT PRIORITY ────────────────────────────────────────────────────────
+  // 1. If wantsDrive: drive-at-height-capable first (GR/SJ/STAR above AWP/IWP)
+  // 2. If crew=multi: 2-person-rated (maxOccupancy >= 2) first
+  // 3. Closest platform height to the customer's stated requirement
+  //
+  // IMPORTANT: We use manufacturer-stated maxOccupancy, NOT a SWL heuristic.
+  // Many 200kg SWL machines (e.g. Haulotte Quick Up 8, Haulotte STAR 10) are
+  // still rated for 1 person only because the platform size, balance, and
+  // stability don't meet 2-person AS 1418.10 / EN 280 requirements.
+  const _isTwoPerson = (m) => (m.maxOccupancy || 1) >= 2;
+
   pool = pool
     .map((m) => ({ ...m, _underSpec: false }))
     .sort((a, b) => {
+      if (wantsDrive) {
+        const aD = a.driveAtHeight ? 0 : 1;
+        const bD = b.driveAtHeight ? 0 : 1;
+        if (aD !== bD) return aD - bD;
+      }
       if (crew === "multi") {
-        const a2 = (a.capacity || 0) >= 200 ? 0 : 1;
-        const b2 = (b.capacity || 0) >= 200 ? 0 : 1;
+        const a2 = _isTwoPerson(a) ? 0 : 1;
+        const b2 = _isTwoPerson(b) ? 0 : 1;
         if (a2 !== b2) return a2 - b2;
       }
       return (
-        Math.abs(a.platformHeight - (minPlatHt || 6)) -
-        Math.abs(b.platformHeight - (minPlatHt || 6))
+        Math.abs((a.platformHeight || 0) - (minPlatHt || 6)) -
+        Math.abs((b.platformHeight || 0) - (minPlatHt || 6))
       );
     });
 
-  // Tag each with an SWL warning if multi-person but machine is <200kg.
-  // The render layer picks up _altSwlWarning and shows a red banner on the card.
-  if (crew === "multi") {
-    pool = pool.map((m) =>
-      (m.capacity || 0) < 200
-        ? {
-            ...m,
-            _altSwlWarning: `This machine has a <strong>${m.capacity || "n/a"} kg platform SWL</strong> — rated for <strong>ONE person + tools only</strong>. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a machine with \u2265200 kg SWL (e.g. Haulotte Quick Up, Haulotte STAR).`,
-          }
-        : m,
-    );
-  }
+  // ── WARNINGS ─────────────────────────────────────────────────────────────
+  // Red banner: 2+ people requested but machine rated 1-person only
+  // Amber banner: drive-at-height requested but machine is push-around
+  pool = pool.map((m) => {
+    const out = { ...m };
+    if (crew === "multi" && !_isTwoPerson(m)) {
+      out._altSwlWarning = `This machine is <strong>manufacturer-rated for ONE person only</strong> (${m.capacity || m.swl || "n/a"} kg platform SWL). Platform occupancy is determined by basket size, stability and manufacturer rating — not SWL alone. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a scissor lift rated for 2+ persons.`;
+    }
+    if (wantsDrive && !m.driveAtHeight) {
+      out._altDriveWarning = `This is a <strong>push-around lift</strong> — to reposition you must lower the platform, retract the stabilisers, move the machine, re-deploy stabilisers, then raise again. You asked to <strong>drive at full height</strong>. For work like long pipe runs, ceiling grid or cable tray where you need to move along without lowering, consider a <strong>self-propelled mast lift</strong> (Genie GR Runabout, Skyjack SJ, Haulotte STAR) — these drive at full height with the operator on board.`;
+    }
+    // Normalise SWL field so the renderer (which reads m.swl) can display it
+    if (!out.swl && out.capacity) out.swl = out.capacity;
+    return out;
+  });
 
-  if (!pool.length)
-    pool = [...MACHINES.pushAround]
-      .filter((m) => m.platformHeight >= minPlatHt)
-      .sort((a, b) => a.platformHeight - b.platformHeight);
-  if (!pool.length)
-    pool = [...MACHINES.pushAround].sort(
-      (a, b) => a.platformHeight - b.platformHeight,
-    );
+  // Fallback: if everything filtered out, relax height filter
+  if (!pool.length) {
+    pool = [
+      ...(Array.isArray(MACHINES.pushAround) ? MACHINES.pushAround : []),
+      ...(Array.isArray(MACHINES.verticalMast) ? MACHINES.verticalMast : []),
+    ]
+      .filter((m) => (m.platformHeight || 0) >= minPlatHt)
+      .sort((a, b) => (a.platformHeight || 0) - (b.platformHeight || 0))
+      .map((m) => ({ ...m, swl: m.swl || m.capacity || null }));
+  }
+  if (!pool.length) {
+    pool = [
+      ...(Array.isArray(MACHINES.pushAround) ? MACHINES.pushAround : []),
+      ...(Array.isArray(MACHINES.verticalMast) ? MACHINES.verticalMast : []),
+    ]
+      .sort((a, b) => (a.platformHeight || 0) - (b.platformHeight || 0))
+      .map((m) => ({ ...m, swl: m.swl || m.capacity || null }));
+  }
   return pool.slice(0, 5);
 }
 
@@ -137488,13 +137656,16 @@ function buildSpecBoxes(m, type, ans) {
       );
       const meetsLoad = reqLoad <= 0 || machineSWL >= reqLoad;
 
-      // 2-person check — AS 1418.10 / EN 280 threshold is 200 kg for a platform
-      // rated to carry two persons. Machines below 200 kg SWL are 1-person only.
+      // 2-person check — uses manufacturer-stated maxOccupancy field.
+      // SWL alone is NOT a reliable proxy for platform occupancy — many
+      // 200kg SWL machines (e.g. Haulotte Quick Up, Haulotte STAR 10) are
+      // rated for 1 person only due to platform size / stability constraints.
       const _twoPersonReq =
         (ans || {}).people_crew === "multi" ||
         (ans || {}).people_count === "2" ||
         (ans || {}).ppl_people === "two_plus";
-      const _onePersonOnly = _twoPersonReq && machineSWL < 200;
+      const _machineMaxOcc = m.maxOccupancy || 1;
+      const _onePersonOnly = _twoPersonReq && _machineMaxOcc < 2;
 
       let swlColor, swlBg, swlBorder, swlIcon, swlSuffix;
       if (_onePersonOnly) {
