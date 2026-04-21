@@ -130902,8 +130902,12 @@ function matchMachines(ans, type) {
       const _altWtCap = scissorMaxWeight; // 0 when no limit set
       const _altSwlMin = scissorSwl; // 0 when no limit set
 
-      // For "2 or more people" answers (various quiz field conventions)
+      // For "2 or more people" answers. The actual quiz field is `people_crew`
+      // with value "multi" (see question id "people_crew" in QUIZ_QUESTIONS).
+      // Older field-name attempts kept as fallbacks for safety, but "multi" is
+      // the real value the current quiz produces.
       const _wantsTwoPlus =
+        ans.people_crew === "multi" ||
         ans.people_count === "2" ||
         ans.ppl_people === "two_plus" ||
         ans.ppl_people === "2" ||
@@ -130929,13 +130933,19 @@ function matchMachines(ans, type) {
         return true;
       });
 
+      // ── SWL threshold for 2-person rating: 200 kg (AS 1418.10 / EN 280) ──
+      // A 159 kg SWL machine is rated for ONE person + tools only. Below this
+      // threshold the machine will still be shown (user may accept two trips)
+      // but tagged with a prominent red warning via _altSwlWarning.
+      const _TWO_PERSON_MIN_SWL = 200;
+
       // Sort: 2-person capable first (if customer asked for 2+); then closest platform height.
       _alternatives.sort((a, b) => {
         const aH = a.platformHeight || a.liftHeight || 0;
         const bH = b.platformHeight || b.liftHeight || 0;
         if (_wantsTwoPlus) {
-          const a2 = _getCap(a) >= 160 ? 0 : 1;
-          const b2 = _getCap(b) >= 160 ? 0 : 1;
+          const a2 = _getCap(a) >= _TWO_PERSON_MIN_SWL ? 0 : 1;
+          const b2 = _getCap(b) >= _TWO_PERSON_MIN_SWL ? 0 : 1;
           if (a2 !== b2) return a2 - b2;
         }
         return aH - _altHtMin - (bH - _altHtMin);
@@ -130963,9 +130973,13 @@ function matchMachines(ans, type) {
         swl: m.swl || m.capacity || null,
         _isScissorAlternative: true,
         _altBannerMsg: idx === 0 ? _altReason : null,
+        // Red warning: user asked for 2+ people but this machine's platform SWL
+        // is below the 200 kg AS 1418.10 / EN 280 threshold (i.e. rated for 1
+        // person only). Machine is still shown (user may want it for 1-person
+        // work or separate trips) but flagged unmistakably in red.
         _altSwlWarning:
-          _wantsTwoPlus && _getCap(m) < 160
-            ? `⚠️ ${_getCap(m) || "Unknown"}kg SWL — typically rated for one person. Your quiz said two or more people; confirm suitability with the rental company or plan two separate trips.`
+          _wantsTwoPlus && _getCap(m) < _TWO_PERSON_MIN_SWL
+            ? `This machine has a <strong>${_getCap(m) || "n/a"} kg platform SWL</strong> — rated for <strong>ONE person + tools only</strong>. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a machine below with ≥200 kg SWL (e.g. Haulotte Quick Up, Haulotte STAR).`
             : null,
       }));
     }
@@ -132391,40 +132405,50 @@ function matchPushAround(ans) {
   if (maxHeight > 0) pool = pool.filter((m) => m.stowedH * 1000 <= maxHeight);
   if (maxWeight > 0) pool = pool.filter((m) => m.machineWeight <= maxWeight);
 
-  // ── PLATFORM CAPACITY (SWL) HARD FILTER — 2+ persons require ≥200kg rated SWL ──
-  // Genie AWP & Genie GR Runabout models are 159kg SWL (rated for 1 person + tools only).
-  // Haulotte Quick Up & STAR models are 200kg (rated for 2 persons).
-  // AS 1418.10 / EN 280 guidance: 2-person platforms must be rated ≥200kg.
-  // Without this filter, a "2 people" request would still surface the 159kg Genie models —
-  // the user would see them as matches even though only 1 person could safely use them.
-  if (crew === "multi") {
-    pool = pool.filter((m) => (m.capacity || 0) >= 200);
-  }
-
   // Only show machines that meet or exceed height requirement — no undersized results
   if (minPlatHt > 0) pool = pool.filter((m) => m.platformHeight >= minPlatHt);
 
-  // Sort by closest height above requirement
+  // ── 2-PERSON SWL SORT BIAS ──────────────────────────────────────────────
+  // When customer said "2 or more people", sort ≥200kg SWL (2-person-capable)
+  // machines FIRST, so Haulotte Quick Up / STAR appear above Genie AWP / GR.
+  // 1-person machines still appear (user may be willing to split into two
+  // trips), but they carry a prominent red ONE-PERSON warning via the
+  // _altSwlWarning render path. See AS 1418.10 / EN 280 guidance.
   pool = pool
     .map((m) => ({ ...m, _underSpec: false }))
-    .sort(
-      (a, b) =>
+    .sort((a, b) => {
+      if (crew === "multi") {
+        const a2 = (a.capacity || 0) >= 200 ? 0 : 1;
+        const b2 = (b.capacity || 0) >= 200 ? 0 : 1;
+        if (a2 !== b2) return a2 - b2;
+      }
+      return (
         Math.abs(a.platformHeight - (minPlatHt || 6)) -
-        Math.abs(b.platformHeight - (minPlatHt || 6)),
-    );
+        Math.abs(b.platformHeight - (minPlatHt || 6))
+      );
+    });
 
-  // ── Fallback pools also respect crew SWL rule (never offer a 159kg machine for 2 people) ──
-  if (!pool.length) {
+  // Tag each with an SWL warning if multi-person but machine is <200kg.
+  // The render layer picks up _altSwlWarning and shows a red banner on the card.
+  if (crew === "multi") {
+    pool = pool.map((m) =>
+      (m.capacity || 0) < 200
+        ? {
+            ...m,
+            _altSwlWarning: `This machine has a <strong>${m.capacity || "n/a"} kg platform SWL</strong> — rated for <strong>ONE person + tools only</strong>. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a machine with \u2265200 kg SWL (e.g. Haulotte Quick Up, Haulotte STAR).`,
+          }
+        : m,
+    );
+  }
+
+  if (!pool.length)
     pool = [...MACHINES.pushAround]
       .filter((m) => m.platformHeight >= minPlatHt)
-      .filter((m) => crew !== "multi" || (m.capacity || 0) >= 200)
       .sort((a, b) => a.platformHeight - b.platformHeight);
-  }
-  if (!pool.length) {
-    pool = [...MACHINES.pushAround]
-      .filter((m) => crew !== "multi" || (m.capacity || 0) >= 200)
-      .sort((a, b) => a.platformHeight - b.platformHeight);
-  }
+  if (!pool.length)
+    pool = [...MACHINES.pushAround].sort(
+      (a, b) => a.platformHeight - b.platformHeight,
+    );
   return pool.slice(0, 5);
 }
 
@@ -136275,6 +136299,7 @@ function _renderCards(matches, machineType, answers) {
       })()}
       ${rotatingLabel}
       ${isOverSpec ? `<div class="overspec-banner"><div class="overspec-banner-icon">${m._sizeLabel === "one_up" ? "⬆️" : m._sizeLabel === "two_up" ? "⬆️⬆️" : m._sizeLabel === "much_larger" ? "⬆️⬆️⬆️" : "⚠️"}</div><div><div class="overspec-banner-title">${m._sizeLabel === "one_up" ? "One Size Up" : m._sizeLabel === "two_up" ? "Two Sizes Up" : m._sizeLabel === "much_larger" ? "Much Larger Machine" : "Also Fits Your Job"}</div><div class="overspec-banner-text">${m._overSpecMsg}</div><div style="margin-top:.5rem;padding:.4rem .6rem;background:rgba(0,0,0,0.06);border-radius:6px;font-size:.76rem;font-weight:600;color:#92400E;line-height:1.55">📋 <strong>Licensing note:</strong> Licensing requirements may change depending on machine size, state rules and current regulations. Larger or higher-capacity machines may require different tickets, certification or WorkSafe approvals. Always confirm operator licensing with your rental company and the relevant state authority before hiring.</div></div></div>` : ""}
+      ${m._altSwlWarning ? `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">ONE-PERSON MACHINE — Cannot Lift Two People</div><div style="font-size:.82rem;color:#991B1B;line-height:1.6">${m._altSwlWarning}</div></div></div>` : ""}
       ${reachTruckNote}
       ${!isOverSpec && m._tightFit && m._tightFitMsg ? `<div class="tightfit-banner"><div class="tightfit-banner-icon">📏</div><div><div class="tightfit-banner-title">Tight Fit — Please Check Suitability</div><div class="tightfit-banner-text">${m._tightFitMsg}</div></div></div>` : ""}
       ${m._underSpec && m._underSpecMsg ? `<div class="underspec-banner"><div class="underspec-banner-icon">📉</div><div><div class="underspec-banner-title">⚠️ Below Your Stated Requirements</div><div class="underspec-banner-text">${m._underSpecMsg}</div></div></div>` : ""}
@@ -137413,20 +137438,43 @@ function buildSpecBoxes(m, type, ans) {
         <div class="spec-box-val" style="color:${extColor};font-weight:900">+${extM}m ${isDual ? "each end" : ""}</div>
       </div>`;
     }
-    // SWL / capacity — green if meets required load, normal otherwise
+    // SWL / capacity — green if meets required load, amber if meets tools/load but under 200kg with 2+ people, RED if rated for 1 person but user wants 2+.
     {
       const machineSWL = m.swl || 227;
       const reqLoad = parseFloat(
         (ans || {}).scis_load_kg || (ans || {}).ppl_basket_swl || 0,
       );
       const meetsLoad = reqLoad <= 0 || machineSWL >= reqLoad;
-      const swlColor = meetsLoad ? "#166534" : "#92400E";
-      const swlBg = meetsLoad
-        ? "linear-gradient(135deg,#F0FDF4,#DCFCE7)"
-        : "linear-gradient(135deg,#FFF7ED,#FEF3C7)";
-      const swlBorder = meetsLoad ? "#86EFAC" : "#FCD34D";
-      const swlIcon = meetsLoad ? "✅" : "⚠️";
-      const swlSuffix = reqLoad > 0 ? ` ${swlIcon} (req: ${reqLoad}kg)` : "";
+
+      // 2-person check — AS 1418.10 / EN 280 threshold is 200 kg for a platform
+      // rated to carry two persons. Machines below 200 kg SWL are 1-person only.
+      const _twoPersonReq =
+        (ans || {}).people_crew === "multi" ||
+        (ans || {}).people_count === "2" ||
+        (ans || {}).ppl_people === "two_plus";
+      const _onePersonOnly = _twoPersonReq && machineSWL < 200;
+
+      let swlColor, swlBg, swlBorder, swlIcon, swlSuffix;
+      if (_onePersonOnly) {
+        // RED — machine cannot carry two people
+        swlColor = "#991B1B";
+        swlBg = "linear-gradient(135deg,#FEF2F2,#FEE2E2)";
+        swlBorder = "#EF4444";
+        swlIcon = "❌";
+        swlSuffix = ` ${swlIcon} 1 person only`;
+      } else if (meetsLoad) {
+        swlColor = "#166534";
+        swlBg = "linear-gradient(135deg,#F0FDF4,#DCFCE7)";
+        swlBorder = "#86EFAC";
+        swlIcon = "✅";
+        swlSuffix = reqLoad > 0 ? ` ${swlIcon} (req: ${reqLoad}kg)` : "";
+      } else {
+        swlColor = "#92400E";
+        swlBg = "linear-gradient(135deg,#FFF7ED,#FEF3C7)";
+        swlBorder = "#FCD34D";
+        swlIcon = "⚠️";
+        swlSuffix = reqLoad > 0 ? ` ${swlIcon} (req: ${reqLoad}kg)` : "";
+      }
       boxes += `<div class="spec-box" style="background:${swlBg};border:1.5px solid ${swlBorder}">
         <div class="spec-box-lbl" style="color:${swlColor}">Platform SWL</div>
         <div class="spec-box-val" style="color:${swlColor};font-weight:900">${machineSWL}kg${swlSuffix}</div>
