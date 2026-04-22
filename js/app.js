@@ -130737,6 +130737,17 @@ function matchMachines(ans, type) {
         (m) => !m.machineWeight || m.machineWeight <= scissorMaxWeight,
       );
 
+    // Drive-at-height HARD filter — when customer said "yes" they need this
+    // capability, exclude machines that can't deliver it. This is a stated
+    // requirement, not a preference. Showing non-drive-at-height machines
+    // with a warning (as previously done) violates the rule "never show a
+    // machine that doesn't meet stated requirements". If the pool ends up
+    // empty after this filter, the alternative-fallback below surfaces masts
+    // instead — which is the correct behaviour.
+    if (ans.scissor_drive_at_height === "yes") {
+      pool = pool.filter((m) => m.driveAtHeight === true);
+    }
+
     // Power filter:
     // electric  = hard filter — only show electric/battery machines (indoor no-fumes)
     // diesel    = hard filter — only show diesel (and hybrid) machines; exclude electric-only
@@ -137641,10 +137652,10 @@ function buildSpecBoxes(m, type, ans) {
       // rated for 1 person only due to platform size / stability constraints.
       //
       // Defaults when maxOccupancy is not set on a machine:
-      //   - Scissor lifts (machineType === "scissor" OR m._isScissorAlternative
-      //     is undefined) default to 2-person (industry norm: ≥200kg scissors
-      //     are almost always 2-person rated)
-      //   - Mast/push-around machines (which are _isScissorAlternative when
+      //   - Scissor lifts (type === "scissor" AND not routed via
+      //     scissor-alternative fallback) default to 2-person (industry norm:
+      //     ≥200kg scissors are almost always 2-person rated)
+      //   - Mast/push-around machines (which carry _isScissorAlternative when
       //     surfaced via fallback, or routed to pushAround directly) default
       //     to 1-person when maxOccupancy is missing
       const _twoPersonReq =
@@ -137654,7 +137665,7 @@ function buildSpecBoxes(m, type, ans) {
       let _machineMaxOcc;
       if (typeof m.maxOccupancy === "number") {
         _machineMaxOcc = m.maxOccupancy;
-      } else if (machineType === "scissor" && !m._isScissorAlternative) {
+      } else if (type === "scissor" && !m._isScissorAlternative) {
         // Scissor lift with no explicit occupancy → default to 2 (industry norm)
         _machineMaxOcc = 2;
       } else {
