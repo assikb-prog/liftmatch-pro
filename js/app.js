@@ -135976,6 +135976,17 @@ function _renderCards(matches, machineType, answers) {
   try {
     const _catKey = _resultCatKey(machineType, _firstMachine);
     _sponsoredForCat = _getSponsoredForCategory(_catKey) || [];
+    // Diagnostic output — helps admin debug why a sponsored ad isn't showing
+    if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+      const _totalAds = Array.isArray(_sponsoredAds) ? _sponsoredAds.length : 0;
+      const _catAds = _sponsoredForCat.length;
+      console.log(
+        `[Noyo Sponsored] category="${_catKey}" — ${_catAds} active ad(s) for this category out of ${_totalAds} total ads loaded.` +
+          (_catAds === 0 && _totalAds > 0
+            ? ` No ads match category "${_catKey}". Check Admin → Sponsored Ads: ensure at least one ad has category="${_catKey}", active=true, and startDate/endDate include today.`
+            : ""),
+      );
+    }
   } catch (_spnErr) {
     // Never let a sponsored-ads error kill organic results
     console.warn("[Noyo] Sponsored ads lookup failed:", _spnErr.message);
@@ -136234,7 +136245,14 @@ function _renderCards(matches, machineType, answers) {
         }
         _spDynamicPick = false;
       }
-      if (!spMachine) return;
+      if (!spMachine) {
+        if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+          console.log(
+            `[Noyo Sponsored] Ad #${_spIdx} (brand="${_spBrand}", machineId="${ad.machineId || ""}"): no matching machine found in ${machineType} pool. Check the ad's brand matches one that exists in the ${machineType} database, or set an explicit machineId.`,
+          );
+        }
+        return;
+      }
 
       // ── Capability gate: skip sponsored slot if machine can't do the job ──────────
       // Check height requirement
@@ -136260,7 +136278,14 @@ function _renderCards(matches, machineType, answers) {
       const _spGateMaxR = spMachine.maxReach || 0;
 
       // Height check: machine must meet the required platform height
-      if (_spGateHt > 0 && _spGatePlatH < _spGateHt) return;
+      if (_spGateHt > 0 && _spGatePlatH < _spGateHt) {
+        if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+          console.log(
+            `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — machine height ${_spGatePlatH}m < required ${_spGateHt}m.`,
+          );
+        }
+        return;
+      }
 
       // Capacity check for telehandlers: machine must be able to lift required kg
       if (
