@@ -89462,32 +89462,53 @@ const MACHINES = {
       id: "jlg-1230es-mast",
       brand: "JLG",
       emoji: "🧍",
+      brandColor: "#F68B21",
       name: "JLG 1230ES Vertical Mast",
       shortName: "JLG 1230ES",
-      platformHeight: 3.66,
-      workHeight: 5.49,
-      machineWidth: 0.76,
-      machineWeight: 227,
-      occupants: 1,
-      driveAtHeight: true,
-      power: "Electric",
-      swl: 159,
-      maxOccupancy: 1,
-      indoorOnly: true,
+      // Source: JLG 1230ES Drivable Vertical Mast Lift brochure (Part 3131309, R0223_03)
+      platformHeight: 3.66,          // 12 ft
+      workingHeight: 5.66,           // platform + 2m (industry standard)
+      capacity: 227,                 // 500 lb — standard platform SWL
+      swl: 227,
+      maxOccupancy: 1,               // single platform, 1 person
+      power: "Electric (24V DC)",
+      machineWeight: 805,            // 1,775 lb per brochure — NOT 227kg
+      machineWidth: 760,             // 0.76 m (30 in)
+      machineLength: 1360,           // 1.36 m (4 ft 6 in)
+      machineHeight: 1660,           // 1.66 m (5 ft 5 in) stowed
+      stowedH: 1.66,
+      stowedL: 1.36,
+      stowedW: 0.76,
+      platformSize: "0.68 × 0.84m",  // 27 × 33 in
+      groundClearance: 0.066,        // 2.6 in
+      groundEntryHeight: 0.56,       // 22 in
+      wheelbase: 1.04,
+      driveSpeedStowed: 4.8,         // km/h (3 mph)
+      driveSpeedRaised: 0.8,         // km/h (0.5 mph) — drive at height
+      gradeability: 25,              // %
+      turningRadiusInside: 0.112,    // 11.2 cm (4.4 in)
+      turningRadiusOutside: 1.46,    // 1.46 m (4 ft 10 in)
+      battery: "24V DC (4 × 6V 220Ah)",
+      hydraulicCapacity: 7.1,        // litres
+      outriggerFootprint: null,
+      driveAtHeight: true,           // brochure: "Maximum Drive Height: Full Height"
+      terrain: "indoor",
+      indoorOnly: true,              // brochure: "Performance Indoor Only"
       bestFor:
-        "Ultra-narrow indoor maintenance, freight elevator transport, narrow aisles",
-      note: "12ft vertical mast. Only 0.76m wide — fits any doorway. 227kg — fits in freight elevators. 1 person.",
+        "Ultra-compact indoor mast — freight elevator safe, drives at full height, 227kg SWL",
+      note: "JLG 1230ES Drivable Vertical Mast — 3.66m platform / 5.66m working height (indoor only). 227kg (500 lb) SWL. 1 person platform occupancy. 805kg machine. 24V electric drive — 4×6V 220Ah batteries. Drivable at full height (0.8 km/h raised). Zero inside turning radius. 0.76m wide — fits standard doorways and freight elevators. 25% gradeability. Electric friction brakes. Non-marking solid tires. For indoor maintenance, warehousing and tight-access work at 3.66m. Source: JLG brochure 1230ES (Part 3131309, R0223_03).",
       tags: [
-        "Mast Lift",
-        "Electric",
-        "12ft",
-        "3.7m",
-        "Narrow",
-        "Ultra-light",
+        "3.66m Platform",
+        "5.66m Working Height",
+        "227kg SWL",
         "Indoor",
+        "Drive at Height",
+        "Narrow 0.76m",
+        "Freight Elevator",
         "JLG",
       ],
-      filters: ["pushAround", "indoor", "electric"],
+      liftChart: [{ reach: 0, height: 3.66, capacity: 227 }],
+      filters: ["self-propelled-mast", "indoor", "electric", "drive-at-height"],
     },
     {
       id: "jlg-1532r-mast",
@@ -89510,6 +89531,138 @@ const MACHINES = {
       note: "15ft driveable vertical mast. 0.76m wide. Rubber non-marking tyres. Drive at full height.",
       tags: ["Mast Lift", "Electric", "15ft", "4.6m", "Indoor", "JLG"],
       filters: ["pushAround", "indoor", "electric"],
+    },
+    {
+      id: "jlg-e18mml-mast",
+      brand: "JLG",
+      emoji: "🧍",
+      brandColor: "#F68B21",
+      name: "JLG E18MML Driveable Vertical Lift",
+      shortName: "JLG E18MML",
+      // Source: JLG E18MML Driveable Vertical Lift brochure (Part 3132147, R0724_13)
+      // Key feature: Point & Go steer — zero inside turning radius
+      platformHeight: 5.5,           // 18 ft indoor
+      workingHeight: 7.5,            // 24 ft indoor
+      capacity: 181,                 // 400 lb standard platform
+      capacityTray: 45,              // 100 lb fold-down tray
+      capacityExtended: 250,         // front-entry extension variant
+      swl: 181,
+      maxOccupancy: 1,
+      power: "Electric (24V DC)",
+      machineWeight: 885,            // 1,950 lb
+      machineWidth: 760,             // 30 in
+      machineLength: 1510,           // 59.5 in retracted tray
+      machineLengthExtended: 2060,   // 81 in extended tray
+      machineHeight: 1980,           // 78 in stowed
+      stowedH: 1.98,
+      stowedL: 1.51,
+      stowedW: 0.76,
+      platformSize: "0.71 × 0.75m (28 × 29.5 in fold-down work tray)",
+      platformEntryHeight: 0.47,     // 18.5 in
+      platformRailHeight: 1.11,      // 43.8 in
+      groundClearance: 0.064,        // 2.5 in
+      groundBearingPressure: 14.59,  // kg/cm² (207.5 psi)
+      wheelbase: 1.05,               // 41.4 in
+      driveSpeedStowed: 4.0,         // km/h (2.5 mph)
+      driveSpeedRaised: 0.8,         // km/h (0.5 mph) drive at height
+      gradeability: 30,              // %
+      turningRadiusInside: 0,        // zero-turn
+      turningRadiusOutside: 1.2,     // 48 in
+      battery: "24V DC (4 × 6V 220Ah) — 2x duty cycles vs competition",
+      charger: "27 amp multi-function universal",
+      driveSystem: "4-brush direct electric drive (planetary gear)",
+      steerSystem: "Point & Go",
+      tires: "8-in front casters / 10 × 3-in non-marking rear",
+      brakes: "Electric dynamic",
+      outriggerFootprint: null,
+      driveAtHeight: true,           // brochure: "Maximum Drive Height: Fully Elevated"
+      terrain: "indoor",
+      indoorOnly: true,              // brochure: "Performance Indoor ONLY"
+      bestFor:
+        "5.5m indoor driveable mast — Point & Go zero-turn, fits tight aisles and sensitive flooring",
+      note: "JLG E18MML Driveable Vertical Lift — 5.5m platform / 7.5m working height (indoor ONLY). 181kg (400 lb) SWL standard platform, 45kg fold-down tray. 1 person platform occupancy. 885kg machine. 24V electric Point & Go steer with zero inside turning radius (1.2m outside). Drivable at full height (0.8 km/h raised). 4×6V 220Ah batteries (2× duty cycles vs competition). 27A universal charger. 30% gradeability, active pothole protection, electric dynamic brakes. 0.76m wide — fits standard doorways. Alternate platforms: 30×26 (450-lb), narrow 22×26 (450-lb), 29.5×51 front-entry extension (400-lb + 250-lb extension). Source: JLG brochure E18MML (Part 3132147, R0724_13).",
+      tags: [
+        "5.5m Platform",
+        "7.5m Working Height",
+        "181kg SWL",
+        "Indoor ONLY",
+        "Drive at Height",
+        "Point & Go",
+        "Zero-Turn",
+        "JLG",
+      ],
+      liftChart: [{ reach: 0, height: 5.5, capacity: 181 }],
+      filters: ["self-propelled-mast", "indoor", "electric", "drive-at-height"],
+    },
+    {
+      id: "jlg-e18mcl-mast",
+      brand: "JLG",
+      emoji: "🧍",
+      brandColor: "#F68B21",
+      name: "JLG E18MCL Driveable Vertical Lift",
+      shortName: "JLG E18MCL",
+      // Source: JLG E18MCL Driveable Vertical Lift brochure (Part 3132146, R0724_14)
+      // Key feature: scissor steer, wind-rated — indoor AND outdoor capable
+      platformHeight: 5.5,           // 18 ft indoor
+      platformHeightOutdoor: 4.0,    // 13 ft outdoor
+      workingHeight: 7.5,            // 24 ft indoor
+      workingHeightOutdoor: 6.0,     // 19 ft outdoor
+      capacity: 181,                 // 400 lb indoor AND outdoor
+      capacityExtended: 113,         // 250 lb extension deck
+      swl: 181,
+      maxOccupancy: 1,               // 1 person indoor AND outdoor
+      power: "Electric (24V DC)",
+      machineWeight: 885,            // 1,950 lb
+      machineWidth: 760,             // 30 in
+      machineLength: 1460,           // 57.6 in retracted extension
+      machineLengthExtended: 1940,   // 76.5 in extended
+      machineHeight: 1980,           // 78 in stowed
+      stowedH: 1.98,
+      stowedL: 1.46,
+      stowedW: 0.76,
+      platformSize: "0.75 × 0.81m (29.5 × 32 in front-entry extension platform)",
+      platformExtension: 0.50,       // 19.5 in additional extension
+      platformEntryHeight: 0.47,     // 18.5 in
+      platformRailHeight: 1.11,      // 43.8 in
+      groundClearance: 0.064,        // 2.5 in
+      groundBearingPressure: 8.67,   // kg/cm² (123.3 psi) — lower than MML due to different weight distribution
+      wheelbase: 1.05,
+      driveSpeedStowed: 4.0,         // km/h (2.5 mph)
+      driveSpeedRaised: 0.8,         // km/h (0.5 mph) drive at height
+      gradeability: 30,              // %
+      turningRadiusInside: 0,        // zero-turn
+      turningRadiusOutside: 1.4,     // 55 in (wider than MML)
+      battery: "24V DC (4 × 6V 220Ah) — 2x duty cycles vs competition",
+      charger: "27 amp multi-function universal",
+      driveSystem: "4-brush direct electric drive (planetary gear)",
+      steerSystem: "Scissor steer",
+      tires: "8-in / 10 × 3-in non-marking",
+      brakes: "Electric dynamic",
+      windRated: true,               // brochure: "wind-rated machine"
+      outriggerFootprint: null,
+      driveAtHeight: true,           // indoor: fully elevated; outdoor: max drive height 4m
+      driveAtHeightMax: 5.5,         // indoor
+      driveAtHeightMaxOutdoor: 4.0,  // outdoor wind-rated cap
+      terrain: "indoor/outdoor firm",
+      indoorOnly: false,             // MCL is wind-rated, works outdoors at reduced height
+      bestFor:
+        "5.5m indoor / 4m outdoor driveable mast — scissor steer, wind-rated for outdoor use, extension platform",
+      note: "JLG E18MCL Driveable Vertical Lift — 5.5m platform / 7.5m working height (indoor); 4m platform / 6m working height (outdoor, wind-rated). 181kg (400 lb) SWL. 1 person platform occupancy. 885kg machine. 24V electric scissor-steer drive. Drivable at full height (0.8 km/h raised). 4×6V 220Ah batteries. 27A universal charger. 30% gradeability, active pothole protection, load sensing system, electric dynamic brakes. 0.76m wide — fits standard doorways. 0.50m extension deck (113kg capacity). Source: JLG brochure E18MCL (Part 3132146, R0724_14).",
+      tags: [
+        "5.5m Indoor / 4m Outdoor",
+        "7.5m Working Height",
+        "181kg SWL",
+        "Wind-Rated",
+        "Indoor + Outdoor",
+        "Drive at Height",
+        "Scissor Steer",
+        "JLG",
+      ],
+      liftChart: [
+        { reach: 0, height: 5.5, capacity: 181 },   // indoor
+        { reach: 0, height: 4.0, capacity: 181 },   // outdoor max drive
+      ],
+      filters: ["self-propelled-mast", "indoor", "outdoor-firm", "electric", "drive-at-height", "wind-rated"],
     },
     {
       id: "jlg-20mvl-mast",
@@ -136075,6 +136228,44 @@ function _renderCards(matches, machineType, answers) {
       // "Best Match" card (it would be a visual duplicate of the sponsored slot).
       if (spMachine.id) _shownSponsoredMachineIds.add(spMachine.id);
 
+      // ── Sponsored cards get the same safety warnings as organic cards ─────
+      // Otherwise a paid slot could show a machine with an undisclosed 1-person
+      // rating when the customer asked for 2+ people — a serious fairness and
+      // safety problem. Mirrors the logic in matchPushAround / scissor-alt
+      // fallback so sponsored and organic cards behave identically.
+      {
+        const _spTwoPersonReq =
+          (answers || {}).people_crew === "multi" ||
+          (answers || {}).people_count === "2" ||
+          (answers || {}).ppl_people === "two_plus";
+        const _spWantsDrive =
+          (answers || {}).scissor_drive_at_height === "yes";
+        // Occupancy default: personnel lifts without explicit maxOccupancy → 1;
+        // scissors without explicit maxOccupancy → 2 (industry norm).
+        let _spMaxOcc;
+        if (typeof spMachine.maxOccupancy === "number") {
+          _spMaxOcc = spMachine.maxOccupancy;
+        } else if (machineType === "scissor") {
+          _spMaxOcc = 2;
+        } else {
+          _spMaxOcc = 1;
+        }
+        // Red 1-person banner — only on personnel-lift categories, never on
+        // forklifts/telehandlers/earthmoving where "2 people on platform" is
+        // not meaningful
+        const _isPeopleCat =
+          machineType === "scissor" ||
+          machineType === "pushAround" ||
+          machineType === "boom";
+        if (_isPeopleCat && _spTwoPersonReq && _spMaxOcc < 2) {
+          spMachine._altSwlWarning = `This machine is <strong>manufacturer-rated for ONE person only</strong> (${spMachine.swl || spMachine.capacity || "n/a"} kg platform SWL). Platform occupancy is determined by basket size, stability and manufacturer rating — not SWL alone. You told the quiz you need <strong>two or more people</strong> on the platform. This machine cannot safely carry two people at once. Options: plan two separate lifts (one person per trip), or choose a scissor lift rated for 2+ persons.`;
+        }
+        // Amber push-around banner — only on people-path when drive-at-height=yes
+        if (_isPeopleCat && _spWantsDrive && !spMachine.driveAtHeight) {
+          spMachine._altDriveWarning = `This is a <strong>push-around lift</strong> — to reposition you must lower the platform, retract the stabilisers, move the machine, re-deploy stabilisers, then raise again. You asked to <strong>drive at full height</strong>. For work like long pipe runs, ceiling grid or cable tray where you need to move along without lowering, consider a <strong>self-propelled mast lift</strong> (Genie GR Runabout, Skyjack SJ, Haulotte STAR) — these drive at full height with the operator on board.`;
+        }
+      }
+
       // Always show the real model name — never the generic category label
       const _spDisplayName = spMachine.shortName || spMachine.name;
       const _spDisplayLabel = _spDisplayName; // ignore ad.label — it may be a generic brand/category label
@@ -136119,6 +136310,9 @@ function _renderCards(matches, machineType, answers) {
             </div>
           </div>
         </div>
+
+        ${spMachine._altSwlWarning ? `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin:.6rem 0 .8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">ONE-PERSON MACHINE — Cannot Lift Two People</div><div style="font-size:.82rem;color:#991B1B;line-height:1.6">${spMachine._altSwlWarning}</div></div></div>` : ""}
+        ${spMachine._altDriveWarning ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin:.6rem 0 .8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🚗</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">PUSH-AROUND — Not Drive-at-Height Capable</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">${spMachine._altDriveWarning}</div></div></div>` : ""}
 
         ${(() => {
           // Use the right height field per machine type: liftHeight for scissor/forklift, platformHeight for boom
@@ -136952,7 +137146,54 @@ function _renderCards(matches, machineType, answers) {
             </div>`;
           }
         }
-        return cmBadge + chartHtml;
+
+        // ── 3-LC CAPACITY PANEL (approximate, at full mast height) ─────────
+        // Shows estimated lifting capacity at 600mm, 900mm and 1200mm load
+        // centres at full mast height. Uses manufacturer residual data where
+        // available (74 of 158 forklifts have residual600/900/1200 fields);
+        // estimates from ground-rated capacity using industry-standard
+        // de-rate ratios for the rest. Clearly marked approximate — real
+        // values vary by mast configuration, tyres, battery, accessories.
+        let lcPanelHtml = "";
+        {
+          const _ratedKg = m.capacity ? m.capacity * 1000 : 0;
+          if (_ratedKg > 0) {
+            // Prefer manufacturer residuals, fall back to ratio-based estimates
+            // Ratios based on typical counterbalance forklift load plates:
+            //   600mm LC @ full height ≈ 70% of ground-rated capacity
+            //   900mm LC @ full height ≈ 51% of ground-rated capacity
+            //  1200mm LC @ full height ≈ 38% of ground-rated capacity
+            const _r600 = m.residual600 || Math.round(_ratedKg * 0.70);
+            const _r900 = m.residual900 || Math.round(_ratedKg * 0.51);
+            const _r1200 = m.residual1200 || Math.round(_ratedKg * 0.38);
+            const _isManuf = !!(m.residual600 && m.residual900 && m.residual1200);
+            const _srcLabel = _isManuf
+              ? "Based on manufacturer residual data — approximate values only."
+              : "Estimated from rated capacity using typical counterbalance de-rate ratios.";
+
+            lcPanelHtml = `<div class="lift-chart-note" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-left:4px solid #3B82F6;margin-top:.6rem">
+              <strong>📋 Estimated Capacity at Full Mast Height</strong>
+              <div style="font-size:.72rem;color:#475569;margin:.2rem 0 .5rem;line-height:1.4">Approximate figures — the load this machine can lift at different load centres when raised to full mast height.</div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.35rem 0">
+                <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
+                  <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">600mm LC</div>
+                  <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_r600.toLocaleString()} kg</div>
+                </div>
+                <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
+                  <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">900mm LC</div>
+                  <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_r900.toLocaleString()} kg</div>
+                </div>
+                <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
+                  <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">1200mm LC</div>
+                  <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_r1200.toLocaleString()} kg</div>
+                </div>
+              </div>
+              <small style="color:#475569;line-height:1.5;display:block;margin-top:.35rem">ℹ️ ${_srcLabel} Actual capacity varies by model, mast configuration, tyre type, battery pack and accessories fitted. <strong>Always verify on the machine's load plate before lifting.</strong></small>
+            </div>`;
+          }
+        }
+
+        return cmBadge + chartHtml + lcPanelHtml;
       })()}
       ${
         m._isEarthworks
@@ -137287,18 +137528,8 @@ function _renderCards(matches, machineType, answers) {
       }
       <div class="rec-tags">${(m.tags || []).map((t) => `<span class="rtag">${t}</span>`).join("")}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
-        ${
-          !currentUser ||
-          (currentUser.role !== "rental" && currentUser.role !== "lite")
-            ? `
         <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">🛒 Add to Hire Cart</button>
-        `
-            : currentUser && currentUser.role === "lite"
-              ? `
-        <div style="background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.55rem .8rem;font-size:.78rem;font-weight:700;color:#38BDF8;text-align:center;width:100%">ℹ️ For information only — contact a rental company to hire</div>
-        `
-              : ""
-        }
+        ${currentUser && currentUser.role === "lite" ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.72rem;font-weight:700;color:#38BDF8;text-align:center;margin-top:.3rem">ℹ️ Lite portal — contact a rental company directly to complete the hire</div>` : ""}
       </div>
       </div>
     `;
