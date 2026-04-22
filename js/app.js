@@ -126985,42 +126985,6 @@ const GENERAL_QS = [
     ],
   },
 
-  // ── Platform type preference — shown for ambiguous 1-person indoor 6–14m cases
-  {
-    id: "ppl_platform_pref",
-    icon: "🏗️",
-    text: "What type of platform suits your job?",
-    hint: "Both can reach your height. Scissor lifts have a larger platform and higher weight capacity. Push-around manlifts are more compact for tight spaces.",
-    showIf: { key: "people_location", vals: ["indoor", "outdoor_firm"] },
-    showIfAlso: [
-      { key: "lifting_for", val: "people" },
-      { key: "people_reach", val: "straight_up" },
-      { key: "people_crew", val: "one" },
-    ],
-    showIfHeightRange: { key: "ppl_ht_m", min: 6, max: 14 },
-    type: "options",
-    options: [
-      {
-        ico: "🏗️",
-        lbl: "Scissor lift",
-        sub: "Larger platform, higher SWL (200–450kg) — fits tools and equipment comfortably",
-        val: "scissor",
-      },
-      {
-        ico: "🧍",
-        lbl: "Push-around manlift",
-        sub: "Compact, easy to move in tight spaces — best for one person + light tools",
-        val: "push_around",
-      },
-      {
-        ico: "🤷",
-        lbl: "Show me both options",
-        sub: "Not sure — show scissor lifts and push-around manlifts side by side",
-        val: "both",
-      },
-    ],
-  },
-
   // ══ MATERIALS BRANCH ══════════════════════════════════════════════════════
 
   // Q2-materials: just off the ground or lifting to height?
@@ -132546,9 +132510,11 @@ function matchMaterial(ans) {
 }
 
 // ── matchPushAround — vertical mast push-arounds AND self-propelled masts ────
-// This function handles the People path when the user selects:
-//   - 1 person crew (routes here by default for heights ≤9m or tight widths)
-//   - Or explicitly chooses "push-around" via ppl_platform_pref
+// This function handles the People path when the user is routed here by
+// determineMachineType. Routing conditions (in priority order):
+//   - 1-person crew + drive-at-height = yes        → routed here (masts first)
+//   - 1-person crew + tight width OR height ≤ 9m   → routed here (compact)
+// Multi-person (crew=multi) always routes to scissor instead.
 //
 // The candidate pool spans BOTH categories:
 //   MACHINES.pushAround   — manually-moved push-around lifts (Genie AWP/IWP,
@@ -132687,28 +132653,41 @@ function determineMachineType(ans) {
     // Only escalate to boom if platform height exceeds what RT scissors cover
     if (rough && platHt > 16) return "boom";
 
-    // Platform type preference — customer explicitly chose in quiz
-    const platPref = ans.ppl_platform_pref; // 'scissor' | 'push_around' | 'both' | undefined
+    // ── Platform routing using drive-at-height + crew + height ─────────────
+    // The old ppl_platform_pref question (2-way: scissor vs push-around) has
+    // been removed because it forced a false binary and didn't cover self-
+    // propelled masts (Genie GR Runabout, Skyjack SJ, Haulotte STAR).
+    //
+    // Routing logic (in priority order):
+    //   1. crew = "multi" (2+ people)       → scissor
+    //      Only scissor lifts carry 2+ people. Masts are all 1-person rated.
+    //   2. drive-at-height = "yes"          → pushAround route
+    //      matchPushAround queries BOTH pushAround AND verticalMast pools,
+    //      and its sort puts drive-at-height-capable machines first — so
+    //      Genie GR-20, Skyjack SJ20, Haulotte STAR appear at the top.
+    //   3. tight width OR height ≤ 9m       → pushAround route
+    //      Compact indoor jobs — push-around + self-propelled mast range.
+    //   4. default                          → scissor
+    //      Larger-scale, taller, more capable work.
+    const driveAtHeight = ans.scissor_drive_at_height;
 
-    // Customer explicitly picked push-around
-    if (platPref === "push_around") return "pushAround";
+    // 1. Multi-person always goes scissor
+    if (crew === "multi") return "scissor";
 
-    // Customer explicitly picked scissor or both — go scissor
-    // (scissor results include push-around 'also fits' cards too)
-    if (platPref === "scissor" || platPref === "both") return "scissor";
+    // 2. 1-person + drive-at-height = yes → mast route (GR-20, SJ, STAR)
+    if (crew === "one" && driveAtHeight === "yes") return "pushAround";
 
-    // No preference stated — use smart defaults:
-    // Push-around ONLY when height is clearly in AWP range (≤9m) OR width is very tight
+    // 3. Compact 1-person jobs → mast route
     const isPushAround =
       crew === "one" &&
       reachType !== "over_out" &&
       !rough &&
-      ((widthMm > 0 && widthMm <= 900) || // explicitly tight width → push-around
-        (platHt > 0 && platHt <= 9)); // clearly small job ≤9m → push-around
+      ((widthMm > 0 && widthMm <= 900) || // explicitly tight width
+        (platHt > 0 && platHt <= 9));     // clearly small job ≤9m
 
     if (isPushAround) return "pushAround";
 
-    // Default: scissor lift — more capable, higher SWL, better for unknown requirements
+    // 4. Default — scissor lift
     return "scissor";
   }
 
@@ -137660,11 +137639,28 @@ function buildSpecBoxes(m, type, ans) {
       // SWL alone is NOT a reliable proxy for platform occupancy — many
       // 200kg SWL machines (e.g. Haulotte Quick Up, Haulotte STAR 10) are
       // rated for 1 person only due to platform size / stability constraints.
+      //
+      // Defaults when maxOccupancy is not set on a machine:
+      //   - Scissor lifts (machineType === "scissor" OR m._isScissorAlternative
+      //     is undefined) default to 2-person (industry norm: ≥200kg scissors
+      //     are almost always 2-person rated)
+      //   - Mast/push-around machines (which are _isScissorAlternative when
+      //     surfaced via fallback, or routed to pushAround directly) default
+      //     to 1-person when maxOccupancy is missing
       const _twoPersonReq =
         (ans || {}).people_crew === "multi" ||
         (ans || {}).people_count === "2" ||
         (ans || {}).ppl_people === "two_plus";
-      const _machineMaxOcc = m.maxOccupancy || 1;
+      let _machineMaxOcc;
+      if (typeof m.maxOccupancy === "number") {
+        _machineMaxOcc = m.maxOccupancy;
+      } else if (machineType === "scissor" && !m._isScissorAlternative) {
+        // Scissor lift with no explicit occupancy → default to 2 (industry norm)
+        _machineMaxOcc = 2;
+      } else {
+        // Mast / push-around without occupancy field → safest default: 1
+        _machineMaxOcc = 1;
+      }
       const _onePersonOnly = _twoPersonReq && _machineMaxOcc < 2;
 
       let swlColor, swlBg, swlBorder, swlIcon, swlSuffix;
