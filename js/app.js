@@ -135033,6 +135033,88 @@ function showResults() {
   } catch (e) {}
 }
 
+// ── Forklift 3-LC capacity panel ─────────────────────────────────────────────
+// Called from both organic cards and sponsored cards so both get identical detail.
+// Shows estimated lifting capacity at 600mm, 900mm and 1200mm load centres
+// at the customer's requested lift height. Uses manufacturer residual data
+// where available; otherwise estimates via typical counterbalance ratios.
+// Same 0.65 interpolation curve as the Load Chart panel — so the 600mm LC
+// figure in this panel matches the Load Chart panel's figure exactly.
+function _buildForkliftLCPanel(m, machineType, answers) {
+  if (machineType !== "forklift") return "";
+  const _ratedKg = m.capacity ? m.capacity * 1000 : 0;
+  if (_ratedKg <= 0) return "";
+
+  const _fullMastHt = m.liftHeight || 6.0;
+  // Resolve the height to display at — prefer explicit req height,
+  // then height bucket midpoint, then full mast height as last resort
+  const _htBucketMid = {
+    ht_2m: 1.5, ht_4m: 3.0, ht_6m: 5.0, ht_over6m: 7.0,
+  };
+  const _reqHtExact = parseFloat((answers || {}).mat_ht_m || 0);
+  const _displayHt =
+    _reqHtExact > 0
+      ? _reqHtExact
+      : _htBucketMid[(answers || {}).lift_height_fork] || _fullMastHt;
+  // Cap at full mast height (can't interpolate beyond that)
+  const _effHt = Math.min(_displayHt, _fullMastHt);
+  const _htFrac =
+    _effHt > 0 && _fullMastHt > 0
+      ? Math.min(_effHt / _fullMastHt, 1.0)
+      : 1.0;
+
+  // Same interpolation curve used by the Load Chart panel in the organic card.
+  const _interp = (rated, residual, frac) =>
+    Math.round(rated - (rated - residual) * Math.pow(frac, 0.65));
+
+  // ── 600mm column ──────────────────────────────────────────────────────
+  const _rated600 = _ratedKg;
+  const _resid600 = m.residual600 || Math.round(_ratedKg * 0.70);
+  // ── 900mm column ──────────────────────────────────────────────────────
+  // Derive ground-at-900 via moment balance (600/900 = 0.667).
+  const _rated900 = Math.round(_ratedKg * (600 / 900));
+  const _resid900 = m.residual900 || Math.round(_ratedKg * 0.51);
+  // ── 1200mm column ─────────────────────────────────────────────────────
+  const _rated1200 = Math.round(_ratedKg * (600 / 1200));
+  const _resid1200 = m.residual1200 || Math.round(_ratedKg * 0.38);
+
+  const _c600 = _interp(_rated600, _resid600, _htFrac);
+  const _c900 = _interp(_rated900, _resid900, _htFrac);
+  const _c1200 = _interp(_rated1200, _resid1200, _htFrac);
+
+  const _isManuf = !!(m.residual600 && m.residual900 && m.residual1200);
+  const _srcLabel = _isManuf
+    ? "Based on manufacturer residual data — approximate values only."
+    : "Estimated from rated capacity using typical counterbalance de-rate ratios.";
+
+  const _heightLabel =
+    _reqHtExact > 0
+      ? `${_reqHtExact}m lift`
+      : (answers || {}).lift_height_fork
+        ? `~${_htBucketMid[(answers || {}).lift_height_fork] || _fullMastHt}m lift (estimated from bucket)`
+        : `full mast height (${_fullMastHt}m)`;
+
+  return `<div class="lift-chart-note" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-left:4px solid #3B82F6;margin-top:.6rem">
+    <strong>📋 Estimated Capacity at ${_heightLabel} — by Load Centre</strong>
+    <div style="font-size:.72rem;color:#475569;margin:.2rem 0 .5rem;line-height:1.4">Approximate figures — how the load this machine can lift changes as the load moves further from the mast. Values drop as the load centre increases.</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.35rem 0">
+      <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
+        <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">600mm LC</div>
+        <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_c600.toLocaleString()} kg</div>
+      </div>
+      <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
+        <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">900mm LC</div>
+        <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_c900.toLocaleString()} kg</div>
+      </div>
+      <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
+        <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">1200mm LC</div>
+        <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_c1200.toLocaleString()} kg</div>
+      </div>
+    </div>
+    <small style="color:#475569;line-height:1.5;display:block;margin-top:.35rem">ℹ️ ${_srcLabel} Actual capacity varies by model, mast configuration, tyre type, battery pack and accessories fitted. <strong>Always verify on the machine's load plate before lifting.</strong></small>
+  </div>`;
+}
+
 // ── Telehandler working-point capacity panel ─────────────────────────────────
 // Called from both organic cards and sponsored cards so both get identical detail
 function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
@@ -136374,6 +136456,7 @@ function _renderCards(matches, machineType, answers) {
             tattArr,
           );
         })()}
+        ${_buildForkliftLCPanel(spMachine, machineType, answers)}
         ${spMachine.bestFor ? `<div style="font-size:.8rem;color:#475569;line-height:1.5;margin-bottom:.5rem;background:#FFFBEB;border-left:3px solid #F59E0B;padding:.3rem .55rem;border-radius:0 6px 6px 0">✅ ${spMachine.bestFor}</div>` : ""}
         ${(() => {
           // Show size context if machine is notably larger than requirement
@@ -136413,6 +136496,17 @@ function _renderCards(matches, machineType, answers) {
             ⚠️ Noyo takes no responsibility if this machine type does not suit your site conditions.
           </div>
         </div>`
+            : ""
+        }
+        ${
+          machineType === "forklift" || machineType === "telehandler"
+            ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.7rem 1rem;margin:.5rem 0;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 6px rgba(245,158,11,.12)">
+              <div style="font-size:1.4rem;flex-shrink:0;line-height:1">↗️</div>
+              <div style="flex:1">
+                <div style="font-weight:900;font-size:.9rem;color:#92400E;margin-bottom:.2rem;letter-spacing:.2px">Forward Tilt — Check with the Rental Company</div>
+                <div style="font-size:.78rem;color:#78350F;line-height:1.55">Mast/boom forward-tilt angle affects pallet set-down, container loading, overhead clearance and stacking precision at height — and it <strong>varies by model, attachment and configuration</strong>. Always confirm the forward-tilt capability with the rental company before hire, especially for container work or tight overhead sites.</div>
+              </div>
+            </div>`
             : ""
         }
         <div style="font-size:.68rem;color:#94A3B8;margin-bottom:.5rem">ℹ️ Paid brand sponsorship. ${ad.sponsorCompany ? ad.sponsorCompany + " is an official brand partner." : "Sponsored by the machine manufacturer."} Organic results appear below.</div>
@@ -137147,51 +137241,10 @@ function _renderCards(matches, machineType, answers) {
           }
         }
 
-        // ── 3-LC CAPACITY PANEL (approximate, at full mast height) ─────────
-        // Shows estimated lifting capacity at 600mm, 900mm and 1200mm load
-        // centres at full mast height. Uses manufacturer residual data where
-        // available (74 of 158 forklifts have residual600/900/1200 fields);
-        // estimates from ground-rated capacity using industry-standard
-        // de-rate ratios for the rest. Clearly marked approximate — real
-        // values vary by mast configuration, tyres, battery, accessories.
-        let lcPanelHtml = "";
-        {
-          const _ratedKg = m.capacity ? m.capacity * 1000 : 0;
-          if (_ratedKg > 0) {
-            // Prefer manufacturer residuals, fall back to ratio-based estimates
-            // Ratios based on typical counterbalance forklift load plates:
-            //   600mm LC @ full height ≈ 70% of ground-rated capacity
-            //   900mm LC @ full height ≈ 51% of ground-rated capacity
-            //  1200mm LC @ full height ≈ 38% of ground-rated capacity
-            const _r600 = m.residual600 || Math.round(_ratedKg * 0.70);
-            const _r900 = m.residual900 || Math.round(_ratedKg * 0.51);
-            const _r1200 = m.residual1200 || Math.round(_ratedKg * 0.38);
-            const _isManuf = !!(m.residual600 && m.residual900 && m.residual1200);
-            const _srcLabel = _isManuf
-              ? "Based on manufacturer residual data — approximate values only."
-              : "Estimated from rated capacity using typical counterbalance de-rate ratios.";
-
-            lcPanelHtml = `<div class="lift-chart-note" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-left:4px solid #3B82F6;margin-top:.6rem">
-              <strong>📋 Estimated Capacity at Full Mast Height</strong>
-              <div style="font-size:.72rem;color:#475569;margin:.2rem 0 .5rem;line-height:1.4">Approximate figures — the load this machine can lift at different load centres when raised to full mast height.</div>
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.35rem 0">
-                <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
-                  <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">600mm LC</div>
-                  <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_r600.toLocaleString()} kg</div>
-                </div>
-                <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
-                  <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">900mm LC</div>
-                  <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_r900.toLocaleString()} kg</div>
-                </div>
-                <div style="text-align:center;background:#fff;border:1.5px solid #93C5FD;border-radius:10px;padding:.5rem .3rem">
-                  <div style="font-size:.68rem;color:#1E40AF;font-weight:700;text-transform:uppercase;letter-spacing:.3px">1200mm LC</div>
-                  <div style="font-size:1.1rem;font-weight:900;color:#1E3A8A">~${_r1200.toLocaleString()} kg</div>
-                </div>
-              </div>
-              <small style="color:#475569;line-height:1.5;display:block;margin-top:.35rem">ℹ️ ${_srcLabel} Actual capacity varies by model, mast configuration, tyre type, battery pack and accessories fitted. <strong>Always verify on the machine's load plate before lifting.</strong></small>
-            </div>`;
-          }
-        }
+        // ── 3-LC CAPACITY PANEL (approximate, at customer's requested height) ─────
+        // Delegated to shared helper so organic and sponsored forklift cards
+        // produce identical output. Definition: _buildForkliftLCPanel above.
+        const lcPanelHtml = _buildForkliftLCPanel(m, machineType, answers);
 
         return cmBadge + chartHtml + lcPanelHtml;
       })()}
@@ -137526,6 +137579,17 @@ function _renderCards(matches, machineType, answers) {
             })()
           : ""
       }
+      ${
+        machineType === "forklift" || machineType === "telehandler"
+          ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.7rem 1rem;margin:.6rem 0 .2rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 6px rgba(245,158,11,.12)">
+            <div style="font-size:1.4rem;flex-shrink:0;line-height:1">↗️</div>
+            <div style="flex:1">
+              <div style="font-weight:900;font-size:.9rem;color:#92400E;margin-bottom:.2rem;letter-spacing:.2px">Forward Tilt — Check with the Rental Company</div>
+              <div style="font-size:.78rem;color:#78350F;line-height:1.55">Mast/boom forward-tilt angle affects pallet set-down, container loading, overhead clearance and stacking precision at height — and it <strong>varies by model, attachment and configuration</strong>. Always confirm the forward-tilt capability with the rental company before hire, especially for container work or tight overhead sites.</div>
+            </div>
+          </div>`
+          : ""
+      }
       <div class="rec-tags">${(m.tags || []).map((t) => `<span class="rtag">${t}</span>`).join("")}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
         <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">🛒 Add to Hire Cart</button>
@@ -137659,6 +137723,12 @@ function buildSpecBoxes(m, type, ans) {
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Lift Height</div><div class="spec-box-val">${m.liftHeight}m</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Power</div><div class="spec-box-val">${m.power}</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Fork Carriage</div><div class="spec-box-val" style="font-size:.78rem">${m.forkPocket}</div></div>`;
+    // Forward Tilt — always renders "Check with rental company" because
+    // forward tilt angle varies by mast type, carriage configuration,
+    // tyre option and any aftermarket attachments. Safer to direct the
+    // customer to confirm with the rental co than to publish a value
+    // that may not apply to the specific unit being hired.
+    boxes += `<div class="spec-box" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #FCD34D"><div class="spec-box-lbl" style="color:#92400E">Forward Tilt</div><div class="spec-box-val" style="color:#78350F;font-size:.72rem;line-height:1.25">Check with rental company</div></div>`;
     // Load centre residual capacity box — only show when load_centre answer exists
     const lc = ans.load_centre;
     if (lc) {
