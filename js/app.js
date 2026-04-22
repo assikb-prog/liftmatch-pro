@@ -137508,19 +137508,57 @@ function buildSpecBoxes(m, type, ans) {
         boxes += `<div class="spec-box" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1.5px solid #93C5FD"><div class="spec-box-lbl" style="color:#1D4ED8">Undercarriage</div><div class="spec-box-val" style="color:#1D4ED8;font-size:.72rem">${m.undercarriage}</div></div>`;
     }
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Platform Size</div><div class="spec-box-val">${m.platformSize || "—"}</div></div>`;
-    // Deck extension — with single vs dual label
-    if (m.deckExtension || m.platformExtension) {
-      const extM = m.deckExtension || m.platformExtension;
-      const extType = m.extensionType || "single";
-      const isDual = extType === "dual";
-      const extLabel = isDual ? "Dual End Extension" : "Single End Extension";
-      const extColor = isDual ? "#7C3AED" : "#0052CC";
-      const extBg = isDual ? "#F5F3FF" : "#EFF6FF";
-      const extBorder = isDual ? "#C4B5FD" : "#BFDBFE";
-      boxes += `<div class="spec-box" style="background:${extBg};border:1.5px solid ${extBorder}">
-        <div class="spec-box-lbl" style="color:${extColor}">${isDual ? "↔️" : "→"} ${extLabel}</div>
-        <div class="spec-box-val" style="color:${extColor};font-weight:900">+${extM}m ${isDual ? "each end" : ""}</div>
-      </div>`;
+    // ── Deck Extension ─────────────────────────────────────────
+    // Safety-critical: operators must know extendable reach + reduced SWL when extended.
+    // No-fabrication policy: show "Confirm with rental company" when data missing.
+    //   - m.deckExtension: false           → explicitly no extension (fixed deck)
+    //   - m.deckExtension: number + type   → single or dual end extension (same amount both ends)
+    //   - m.deckExtensionFront + Rear      → dual asymmetric (e.g. Genie GS-3390 RT)
+    //   - m.platformExtension              → legacy alias for deckExtension
+    //   - undefined                        → unknown — prompt to confirm
+    {
+      const hasFalse = m.deckExtension === false || m.platformExtension === false;
+      const extSingle = (typeof m.deckExtension === "number" ? m.deckExtension : null)
+        ?? (typeof m.platformExtension === "number" ? m.platformExtension : null);
+      const extFront = typeof m.deckExtensionFront === "number" ? m.deckExtensionFront : null;
+      const extRear = typeof m.deckExtensionRear === "number" ? m.deckExtensionRear : null;
+      const extCap = typeof m.extensionCapacity === "number" ? m.extensionCapacity : null;
+
+      if (hasFalse) {
+        // Explicitly no extension
+        boxes += `<div class="spec-box" style="background:#F8FAFC;border:1.5px solid #CBD5E1">
+          <div class="spec-box-lbl" style="color:#475569">Deck Extension</div>
+          <div class="spec-box-val" style="color:#475569;font-weight:800;font-size:.82rem">No Deck Extension</div>
+        </div>`;
+      } else if (extFront != null || extRear != null) {
+        // Dual asymmetric (front + rear separately specified)
+        const fStr = extFront != null ? `${extFront}m front` : "";
+        const rStr = extRear != null ? `${extRear}m rear` : "";
+        const both = [fStr, rStr].filter(Boolean).join(" + ");
+        boxes += `<div class="spec-box" style="background:#F5F3FF;border:1.5px solid #C4B5FD">
+          <div class="spec-box-lbl" style="color:#7C3AED">↔️ Dual End Extension</div>
+          <div class="spec-box-val" style="color:#7C3AED;font-weight:900;font-size:.82rem">${both}${extCap != null ? `<div style='font-size:.68rem;font-weight:700;color:#6D28D9;margin-top:.15rem'>SWL when extended: ${extCap}kg</div>` : ""}</div>
+        </div>`;
+      } else if (extSingle != null) {
+        // Single value — may be applied one end or both ends based on extensionType
+        const isDual = m.extensionType === "dual";
+        const label = isDual ? "Dual End Extension" : "Single End Extension";
+        const icon = isDual ? "↔️" : "→";
+        const color = isDual ? "#7C3AED" : "#0052CC";
+        const bg = isDual ? "#F5F3FF" : "#EFF6FF";
+        const border = isDual ? "#C4B5FD" : "#BFDBFE";
+        const valText = isDual ? `+${extSingle}m each end` : `+${extSingle}m one end`;
+        boxes += `<div class="spec-box" style="background:${bg};border:1.5px solid ${border}">
+          <div class="spec-box-lbl" style="color:${color}">${icon} ${label}</div>
+          <div class="spec-box-val" style="color:${color};font-weight:900;font-size:.82rem">${valText}${extCap != null ? `<div style='font-size:.68rem;font-weight:700;margin-top:.15rem'>SWL when extended: ${extCap}kg</div>` : ""}</div>
+        </div>`;
+      } else {
+        // Unknown — no-fabrication policy: prompt operator to confirm
+        boxes += `<div class="spec-box" style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1.5px dashed #FCD34D">
+          <div class="spec-box-lbl" style="color:#92400E">Deck Extension</div>
+          <div class="spec-box-val" style="font-size:.72rem;color:#B45309;font-weight:700">⚠️ Confirm with rental company</div>
+        </div>`;
+      }
     }
     // SWL / capacity — green if meets required load, amber if meets tools/load but under 200kg with 2+ people, RED if rated for 1 person but user wants 2+.
     {
