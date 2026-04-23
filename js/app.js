@@ -128881,6 +128881,19 @@ function diversePick(sortedPool, total, maxPer, preferredBrand) {
   const brandCount = {};
   const picked = [];
 
+  // ── Count distinct brands in the pool ────────────────────────────────
+  // When 4+ brands are available, enforce strict maxPer (no relaxation
+  // fallback). This guarantees brand diversity when it's actually
+  // achievable — previously the fallback at the bottom of this function
+  // would relax the cap and produce e.g. 3×Liftlux + 2×Haulotte even
+  // though Genie/JLG/Skyjack machines existed in the pool and should
+  // have been surfaced instead.
+  const distinctBrands = new Set();
+  sortedPool.forEach((m) => {
+    if (m && m.brand) distinctBrands.add(m.brand);
+  });
+  const strictDiversity = distinctBrands.size >= 4;
+
   // ── Position 0: always the highest-scored machine (= best match). ──────────
   // This anchors the rest of the result set.
   const anchor = sortedPool[0];
@@ -128910,6 +128923,7 @@ function diversePick(sortedPool, total, maxPer, preferredBrand) {
       })
       .sort((a, b) => b.combined - a.combined);
 
+    // ── Round 1: one machine per brand (strict cap) ────────────────────
     for (const entry of ranked) {
       if (picked.length >= total) break;
       const b = entry.m.brand;
@@ -128923,9 +128937,13 @@ function diversePick(sortedPool, total, maxPer, preferredBrand) {
       picked.push(entry.m);
     }
 
-    // If we still need more, relax the brand cap — still honouring the
-    // closeness-weighted order so fills are the next-closest machines.
-    if (picked.length < total) {
+    // ── Round 2+: allow repeats ONLY when pool lacks 4 distinct brands ──
+    // When 4+ brands exist and we've reached `total` picks already, we're
+    // done. When 4+ brands exist but we couldn't fill `total` without
+    // repeating a brand, we stop anyway — strict diversity wins over
+    // hitting the target count. When <4 brands exist, fall through to
+    // relax the cap so the result set still fills up.
+    if (picked.length < total && !strictDiversity) {
       for (const entry of ranked) {
         if (picked.includes(entry.m)) continue;
         if (picked.length >= total) break;
@@ -130386,7 +130404,16 @@ function matchMachines(ans, type) {
     // Exclude any machine that requires rough terrain capability (RT = needs rough ground)
     // 'indoor', 'indoor/outdoor', 'outdoor firm' all pass
     // 'outdoor rough', 'outdoor/rough', 'rough terrain' all excluded
-    if (surf === "smooth") {
+    //
+    // EXCEPTION: When the user picks "Diesel fine" on a smooth surface, we
+    // relax the RT exclusion. Rationale: most mid/large diesel scissors
+    // (Genie GS-4390 RT, JLG 4394RT, Skyjack SJ9243 RT) are RT-class but work
+    // perfectly well on smooth indoor concrete — RT just means they CAN
+    // handle rough, not that they REQUIRE it. Without this exception, an
+    // indoor job at 15m diesel shows only a narrow Liftlux/Haulotte pool
+    // and misses Genie/JLG/Skyjack entirely. Smooth-rated machines still
+    // score higher via the scoring pass below.
+    if (surf === "smooth" && pwr !== "diesel") {
       pool = pool.filter((m) => {
         const t = (m.terrain || "").toLowerCase();
         return !t.includes("rough");
@@ -130978,10 +131005,13 @@ function matchMachines(ans, type) {
       });
     }
     if (pwr === "diesel_boom") {
-      pool = pool.filter((m) => {
-        const p = (m.power || "").toLowerCase();
-        return p.includes("diesel") || p.includes("hybrid");
-      });
+      // "Diesel fine" is a SOFT preference, not a hard filter. Keep ALL
+      // machines in the pool (diesel, electric, hybrid) so the customer
+      // sees the full range of options. The scoring pass below adds +2 to
+      // diesel machines so they still rank first, but electric options
+      // remain visible. Previously this was a hard filter excluding all
+      // electric-only booms — too restrictive for "fine" / not-fussed
+      // preferences. Matches the equivalent scissor behaviour.
     }
     if (pwr === "hybrid_boom") {
       pool = pool.filter((m) => {
@@ -131052,6 +131082,13 @@ function matchMachines(ans, type) {
             // Use a small tolerance (0.3m) to avoid excluding borderline machines due to geometry rounding.
             if (m._reachAtReqHt !== null && m._reachAtReqHt < minReach - 0.3) {
               return null; // machine fails reach at required height — don't show it
+            }
+            // Within 0.3m tolerance but still short of minReach — tag as close match.
+            // These are kept in the pool but only surfaced when no fully-qualified
+            // machine exists (handled in the assembly step below). Sorts to the
+            // end of results when shown.
+            if (m._reachAtReqHt !== null && m._reachAtReqHt < minReach) {
+              m._reachClose = true;
             }
           }
         }
@@ -131214,16 +131251,28 @@ function matchMachines(ans, type) {
     const qualifiedAll = scoredAll.filter((m) => !m._underSpec);
     const underSpecAll = scoredAll.filter((m) => m._underSpec);
 
+    // ── Close-match gating (boom reach) ─────────────────────────────────
+    // Machines tagged `_reachClose` meet the height requirement but fall
+    // just short of the stated horizontal reach (within the 0.3m geometry
+    // tolerance). They are NOT shown when any fully-qualified machine
+    // exists in the pool. They are only surfaced as a last resort when
+    // the fully-qualified pool is empty, and when shown they sort to the
+    // end of the final result set.
+    const _fullyQualified = qualifiedAll.filter((m) => !m._reachClose);
+    const _closeMatches = qualifiedAll.filter((m) => m._reachClose);
+    const _poolForMain = _fullyQualified.length > 0 ? _fullyQualified : qualifiedAll;
+    const _appendCloseToEnd = _fullyQualified.length > 0 && _closeMatches.length > 0;
+
     const _isCrawlerTerrainUp = terr === "crawler_boom";
     if (mode === "up_over") {
       const _bPref = (ans.brand_pref || "any").toLowerCase();
       const main = diversePick(
-        qualifiedAll,
+        _poolForMain,
         4,
         1,
         _bPref !== "any" ? _bPref : null,
       );
-      const up = findNextUp(qualifiedAll, main, (m) => m.platformHeight || 0);
+      const up = findNextUp(_poolForMain, main, (m) => m.platformHeight || 0);
       const results = [...main];
       if (up)
         results.push({
@@ -131279,14 +131328,34 @@ function matchMachines(ans, type) {
           existingIds.add(tm.id);
         }
       }
+      // ── Append close-match machines at the end (if applicable) ───────
+      // Reach-short machines (`_reachClose`) were excluded from the main
+      // picks when fully-qualified machines existed. Add them back at the
+      // very end of the result slate so the customer can still see them —
+      // but only if they weren't already picked.
+      if (_appendCloseToEnd) {
+        const _existingIds = new Set(results.map((r) => r.id));
+        for (const cm of _closeMatches) {
+          if (results.length >= 5) break;
+          if (_existingIds.has(cm.id)) continue;
+          results.push(cm);
+          _existingIds.add(cm.id);
+        }
+      }
       return results.slice(0, 5);
     } else {
       const _bPref2 = (ans.brand_pref || "any").toLowerCase();
       const _bPrefArg = _bPref2 !== "any" ? _bPref2 : null;
-      const articulating = qualifiedAll.filter(
+
+      // Use fully-qualified pool when available, else fall back to the
+      // close-match pool. See up_over branch for rationale — reach-short
+      // machines should only surface when no fully-qualifying options exist.
+      const _qualSource = _fullyQualified.length > 0 ? _fullyQualified : qualifiedAll;
+
+      const articulating = _qualSource.filter(
         (m) => m.boomType === "articulating",
       );
-      const telescopic = qualifiedAll.filter(
+      const telescopic = _qualSource.filter(
         (m) => m.boomType === "telescopic",
       );
 
@@ -131465,6 +131534,22 @@ function matchMachines(ans, type) {
       // underSpec machines excluded — machine must meet stated height requirement
       // underSpec machines excluded — machines must meet stated height requirement
       const maxResults = _bPref2 !== "any" ? 6 : 5;
+
+      // ── Append close-match machines at the end (if applicable) ───────
+      // Reach-short machines were excluded from the main picks when
+      // fully-qualified machines existed. Add them at the very end so the
+      // customer can still see them — only if they weren't already picked
+      // and only when a fully-qualified pool drove the main selection.
+      if (_appendCloseToEnd) {
+        const _existingIds = new Set(merged.map((r) => r.id));
+        for (const cm of _closeMatches) {
+          if (merged.length >= maxResults) break;
+          if (_existingIds.has(cm.id)) continue;
+          merged.push(cm);
+          _existingIds.add(cm.id);
+        }
+      }
+
       return merged.slice(0, maxResults);
     }
   }
@@ -136368,7 +136453,7 @@ function _renderCards(matches, machineType, answers) {
         </div>`;
       })()}
       ${rotatingLabel}
-      ${isOverSpec ? `<div class="overspec-banner"><div class="overspec-banner-icon">${m._sizeLabel === "one_up" ? "⬆️" : m._sizeLabel === "two_up" ? "⬆️⬆️" : m._sizeLabel === "much_larger" ? "⬆️⬆️⬆️" : "⚠️"}</div><div><div class="overspec-banner-title">${m._sizeLabel === "one_up" ? "One Size Up" : m._sizeLabel === "two_up" ? "Two Sizes Up" : m._sizeLabel === "much_larger" ? "Much Larger Machine" : "Also Fits Your Job"}</div><div class="overspec-banner-text">${m._overSpecMsg}</div><div style="margin-top:.5rem;padding:.4rem .6rem;background:rgba(0,0,0,0.06);border-radius:6px;font-size:.76rem;font-weight:600;color:#92400E;line-height:1.55">📋 <strong>Licensing note:</strong> Licensing requirements may change depending on machine size, state rules and current regulations. Larger or higher-capacity machines may require different tickets, certification or WorkSafe approvals. Always confirm operator licensing with your rental company and the relevant state authority before hiring.</div></div></div>` : ""}
+      ${isOverSpec ? `<div class="overspec-banner"><div class="overspec-banner-icon">${m._sizeLabel === "one_up" ? "⬆️" : m._sizeLabel === "two_up" ? "⬆️⬆️" : m._sizeLabel === "much_larger" ? "⬆️⬆️⬆️" : "⚠️"}</div><div><div class="overspec-banner-title">${m._sizeLabel === "one_up" ? "One Size Up" : m._sizeLabel === "two_up" ? "Two Sizes Up" : m._sizeLabel === "much_larger" ? "Much Larger Machine" : "Also Fits Your Job"}</div><div class="overspec-banner-text">${m._overSpecMsg}</div><div style="margin-top:.4rem;font-size:.76rem;font-weight:600;color:#92400E">📋 Check licensing requirements.</div></div></div>` : ""}
       ${m._altSwlWarning ? `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">ONE-PERSON MACHINE — Cannot Lift Two People</div><div style="font-size:.82rem;color:#991B1B;line-height:1.6">${m._altSwlWarning}</div></div></div>` : ""}
       ${m._altDriveWarning ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🚗</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">PUSH-AROUND — Not Drive-at-Height Capable</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">${m._altDriveWarning}</div></div></div>` : ""}
       ${reachTruckNote}
@@ -136386,6 +136471,39 @@ function _renderCards(matches, machineType, answers) {
         </div>`
           : ""
       }
+      ${(() => {
+        // ── Boom licensing-class upgrade warning ──────────────────────────
+        // EWPA rule: boom platform height <11m requires DOC (Yellow Card).
+        // Boom platform height ≥11m requires WP High Risk Work Licence — a
+        // completely different qualification level.
+        //
+        // If the customer asked for under 11m but we're recommending a boom
+        // at or above 11m (e.g. as "one size up" or the next-available match),
+        // the licence requirement JUMPS from Yellow Card to WP HRW Licence.
+        // The customer must be told loudly because a DOC-qualified operator
+        // is not legally permitted to operate a WP machine.
+        //
+        // Note: this reads answers.* fields that are already in scope in this
+        // render path (confirmed via grep — same fields used by buildSpecBoxes).
+        if (machineType !== "boom") return "";
+        const _custHt = parseFloat(
+          (answers || {}).ppl_ht_m || (answers || {}).boom_ht_m || 0,
+        );
+        const _mHt = m.platformHeight || m.liftHeight || 0;
+        if (_custHt <= 0 || _custHt >= 11 || _mHt < 11) return "";
+
+        return `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)">
+          <div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div>
+          <div style="flex:1">
+            <div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">LICENCE CLASS CHANGES — HIGHER-CLASS LICENCE REQUIRED</div>
+            <div style="font-size:.82rem;color:#991B1B;line-height:1.6">
+              You told us you need a boom under <strong>11m</strong>. This machine has a platform height of <strong>${_mHt}m</strong>, which pushes it into a different licence class. The operator licence required for a boom ≥11m is <strong>different and higher</strong> than the licence required for a boom under 11m.
+              <br><br>
+              <strong>Before hiring, confirm your operator holds the correct licence class with your state regulator.</strong>
+            </div>
+          </div>
+        </div>`;
+      })()}
       <div class="rec-specs-grid">${specsHtml}</div>
       ${tyneInfo}
       ${(() => {
@@ -137173,6 +137291,31 @@ function _renderCards(matches, machineType, answers) {
           </div>`
           : ""
       }
+      ${(() => {
+        // ── Licence note (neutral) ────────────────────────────────────────
+        // Show a single non-specific licence prompt on every machine card.
+        // NOYO deliberately does NOT name specific licence classes (LF/WP/CN/C2
+        // etc.) or regulators (SafeWork NSW / WorkSafe / EWPA / TSHA) on the
+        // card itself — licence classes depend on machine capacity, attachment,
+        // state, and current regulation and change over time. Keeping this
+        // line generic means NOYO is not the source of licensing advice; the
+        // operator or hirer must check with the relevant regulator for the
+        // machine they hire.
+        //
+        // Blocklist approach: show the line on every machineType EXCEPT those
+        // that do not require an operator licence. This way any new machine
+        // type added later automatically gets the licence prompt.
+        //
+        // Pallet jacks (palletJack) are pedestrian walk-behind and don't
+        // require an HRW licence — skipped.
+        const _noLicenceTypes = ["palletJack"];
+        if (_noLicenceTypes.includes(machineType)) return "";
+
+        return `<div style="background:#F1F5F9;border:1px solid #CBD5E1;border-radius:8px;padding:.5rem .75rem;margin:.5rem 0 .3rem;font-size:.76rem;color:#334155;line-height:1.5">
+          <span style="font-weight:800">📋 Licence:</span>
+          <span style="color:#475569"> Please check licence requirements with your state regulator before operating this machine.</span>
+        </div>`;
+      })()}
       <div class="rec-tags">${(m.tags || []).map((t) => `<span class="rtag">${t}</span>`).join("")}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
         <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">🛒 Add to Hire Cart</button>
