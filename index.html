@@ -679,6 +679,135 @@
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════════════════════════
+       WHO WE ARE — brand story section (bottom of homepage)
+       Only visible when sec-hero is visible (hides during quiz/results)
+       — see inline observer script at bottom of this view.
+  ═══════════════════════════════════════════════════════════════ -->
+  <section id="noyo-about" style="background:linear-gradient(180deg,#F8FAFC 0%,#FFF 100%);padding:4rem 1.5rem 5rem;border-top:1px solid #E2E8F0">
+    <div style="max-width:1100px;margin:0 auto">
+
+      <!-- ── MANIFESTO ─────────────────────────────────────────────── -->
+      <div style="text-align:center;margin-bottom:4rem">
+        <div style="display:inline-block;padding:.35rem .9rem;background:#FFF7ED;border:1.5px solid #FDBA74;border-radius:100px;font-size:.72rem;font-weight:900;color:#C2410C;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:1.4rem">
+          The Australian Hire Marketplace
+        </div>
+        <h2 style="font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:900;color:#0F172A;line-height:1.05;margin:0 0 1.2rem;letter-spacing:-.02em">
+          Hiring heavy gear<br>
+          shouldn't feel like <span style="background:linear-gradient(120deg,#FF6B35 0%,#F97316 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic">a gamble.</span>
+        </h2>
+        <p style="font-size:1.1rem;color:#475569;line-height:1.65;max-width:680px;margin:0 auto 1.2rem;font-weight:500">
+          Every year, thousands of tradies, builders and site managers across Australia hire the wrong machine. They waste days. They waste money. They put people at risk.
+        </p>
+        <p style="font-size:1.15rem;color:#0F172A;line-height:1.55;max-width:680px;margin:0 auto;font-weight:800">
+          NOYO was built to end that.
+        </p>
+        <div style="margin-top:2rem;padding:1rem 1.4rem;background:rgba(255,107,53,.08);border-left:4px solid #FF6B35;border-radius:8px;max-width:580px;margin-left:auto;margin-right:auto;text-align:left">
+          <div style="font-size:.7rem;font-weight:900;color:#C2410C;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.35rem">What NOYO stands for</div>
+          <div style="font-size:.95rem;color:#334155;line-height:1.55;font-weight:600">
+            <strong style="color:#0F172A">Not On Your Own.</strong> Whether you're ordering your first scissor lift or your hundredth rotating telehandler — we've got your back.
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HOW IT WORKS — 3 STEPS ────────────────────────────────── -->
+      <div style="margin-bottom:4rem">
+        <h3 style="font-family:'Fraunces',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#0F172A;text-align:center;margin:0 0 .5rem;letter-spacing:-.01em">
+          How NOYO works
+        </h3>
+        <p style="text-align:center;color:#64748B;font-size:1rem;margin:0 0 3rem;font-weight:600">Three steps. Sixty seconds. Zero guesswork.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem">
+
+          <!-- Step 1 -->
+          <div style="background:#fff;border:2px solid #E2E8F0;border-radius:20px;padding:2rem 1.5rem;text-align:center;position:relative;transition:transform .25s,box-shadow .25s,border-color .25s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(15,23,42,.08)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B35,#F97316);color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;box-shadow:0 4px 12px rgba(249,115,22,.35)">1</div>
+            <div style="font-size:2.8rem;margin:1rem 0 .8rem;line-height:1">📝</div>
+            <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:#0F172A;margin-bottom:.6rem">Tell us the job</div>
+            <div style="font-size:.92rem;color:#475569;line-height:1.6">Height. Reach. Load. Terrain. Power. We ask the questions that actually matter — no jargon, no upsell.</div>
+          </div>
+
+          <!-- Step 2 -->
+          <div style="background:#fff;border:2px solid #E2E8F0;border-radius:20px;padding:2rem 1.5rem;text-align:center;position:relative;transition:transform .25s,box-shadow .25s,border-color .25s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(15,23,42,.08)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B35,#F97316);color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;box-shadow:0 4px 12px rgba(249,115,22,.35)">2</div>
+            <div style="font-size:2.8rem;margin:1rem 0 .8rem;line-height:1">🎯</div>
+            <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:#0F172A;margin-bottom:.6rem">See machines that fit</div>
+            <div style="font-size:.92rem;color:#475569;line-height:1.6">Load charts read from brochures — never fabricated. Compliance-aware. Machines that can't do the job never appear.</div>
+          </div>
+
+          <!-- Step 3 -->
+          <div style="background:#fff;border:2px solid #E2E8F0;border-radius:20px;padding:2rem 1.5rem;text-align:center;position:relative;transition:transform .25s,box-shadow .25s,border-color .25s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(15,23,42,.08)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B35,#F97316);color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;box-shadow:0 4px 12px rgba(249,115,22,.35)">3</div>
+            <div style="font-size:2.8rem;margin:1rem 0 .8rem;line-height:1">💬</div>
+            <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:#0F172A;margin-bottom:.6rem">One enquiry, multiple quotes</div>
+            <div style="font-size:.92rem;color:#475569;line-height:1.6">We send your enquiry to rental companies who stock what you need. You compare, you choose. No phone tag.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── RENTAL CO CTA ─────────────────────────────────────────── -->
+      <div style="background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);border-radius:24px;padding:3rem 2rem;text-align:center;position:relative;overflow:hidden">
+        <!-- Subtle decoration -->
+        <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,107,53,.15) 0%,transparent 70%);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-80px;left:-40px;width:240px;height:240px;background:radial-gradient(circle,rgba(59,130,246,.1) 0%,transparent 70%);pointer-events:none"></div>
+
+        <div style="position:relative;z-index:1">
+          <div style="display:inline-block;padding:.35rem .9rem;background:rgba(255,107,53,.15);border:1.5px solid rgba(255,107,53,.4);border-radius:100px;font-size:.72rem;font-weight:900;color:#FDBA74;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:1.2rem">
+            For Rental Companies
+          </div>
+          <h3 style="font-family:'Fraunces',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;margin:0 0 1rem;line-height:1.15;letter-spacing:-.01em">
+            Get in front of customers<br>who know what they need.
+          </h3>
+          <p style="font-size:1rem;color:#CBD5E1;line-height:1.65;max-width:600px;margin:0 auto 2rem">
+            List your fleet on NOYO. Receive qualified enquiries from customers who've already specified height, load, terrain and compliance. No tyre-kickers. No "what have you got?" calls.
+          </p>
+          <button onclick="document.getElementById('login-portal').classList.remove('hidden');document.getElementById('login-portal').style.display='flex'"
+            style="background:linear-gradient(135deg,#FF6B35,#F97316);color:#fff;border:none;border-radius:14px;padding:1rem 2rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;cursor:pointer;letter-spacing:.2px;box-shadow:0 8px 24px rgba(249,115,22,.35);transition:transform .2s,box-shadow .2s"
+            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 32px rgba(249,115,22,.45)'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(249,115,22,.35)'">
+            List your fleet →
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Footer credit ─────────────────────────────────────────── -->
+      <div style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid #E2E8F0">
+        <div style="font-size:.78rem;color:#94A3B8;font-weight:600;letter-spacing:.3px">
+          🇦🇺 Built on the Gold Coast · Made for Australian sites · Tradies Hire Pty Ltd ABN 97 674 029 184
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Sync Who-We-Are visibility with hero section ─────────────────
+       The rest of view-finder has three sub-views (sec-hero, sec-quiz,
+       sec-result) that various functions show/hide. The Who-We-Are block
+       below only makes sense on the hero/homepage state — so this
+       observer mirrors sec-hero's display state onto #noyo-about without
+       touching any of the existing toggle call sites.
+  ──────────────────────────────────────────────────────────────────── -->
+  <script>
+    (function() {
+      var hero = document.getElementById('sec-hero');
+      var about = document.getElementById('noyo-about');
+      if (!hero || !about) return;
+      var sync = function() {
+        var heroVisible = hero.style.display !== 'none' && hero.offsetParent !== null;
+        about.style.display = heroVisible ? 'block' : 'none';
+      };
+      sync();
+      new MutationObserver(sync).observe(hero, { attributes: true, attributeFilter: ['style', 'class'] });
+    })();
+  </script>
+
 </div>
 
 <!-- ===== KNOW YOUR MACHINES — full screen view ===== -->
