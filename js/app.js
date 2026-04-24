@@ -140236,14 +140236,41 @@ function _renderCards(matches, machineType, answers) {
     }
   });
 
-  // ── Organic brand deduplication: if a brand appeared in sponsored slot,
-  // limit that brand to at most 1 organic result so results show variety ──────
-  // Also: never show the EXACT sponsored machine again in the organic slate —
-  // a duplicate card is confusing for the customer.
+  // ── Organic brand deduplication ──────────────────────────────────────
+  //
+  // Policy:
+  //   A. User explicitly picked a brand via tele_brand_pref /
+  //      fork_brand_pref / brand_pref. Example: "manitou". In this case
+  //      show ONLY that brand in organic results — up to 4 slots. No
+  //      other-brand fillers. Sponsored slot stays as-is and can be any
+  //      brand. The EXACT sponsored machine is never duplicated in the
+  //      organic slate.
+  //
+  //   B. User did NOT pick a brand. brand_pref is "any" or unset. Keep
+  //      the original behaviour — if a brand appeared in the sponsored
+  //      slot, cap that brand at 1 organic result so variety shows.
+  //
+  // Never duplicate the exact sponsored machine id in organic results
+  // regardless of policy A or B — that's confusing to the customer.
   if (_shownSponsoredMachineIds.size > 0) {
     matches = matches.filter((m) => !_shownSponsoredMachineIds.has(m.id));
   }
-  if (_shownSponsoredBrands.size > 0) {
+
+  const _userBrandPref = (
+    (answers || {}).tele_brand_pref ||
+    (answers || {}).fork_brand_pref ||
+    (answers || {}).brand_pref ||
+    "any"
+  ).toLowerCase();
+
+  if (_userBrandPref && _userBrandPref !== "any") {
+    // Policy A — restrict organic slate to the user's chosen brand
+    matches = matches.filter((m) => {
+      const mb = (m.brand || "").toLowerCase();
+      return mb === _userBrandPref || mb.includes(_userBrandPref) || _userBrandPref.includes(mb);
+    });
+  } else if (_shownSponsoredBrands.size > 0) {
+    // Policy B — variety: cap any sponsored brand at 1 in the organic slate
     const _spBrandCounts = {};
     matches = matches.filter((m) => {
       const mb = (m.brand || "").toLowerCase();
