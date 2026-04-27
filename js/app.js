@@ -149260,17 +149260,44 @@ function matchMachines(ans, type) {
         const actualKg = getCapacityAtPoint(m, exactHt, exactReach);
         if (actualKg === null) {
           // No matrix data at this row (either no matrix at all, OR sparse matrix
-          // with only boom-vertical labeled points — common in JCB-style brochure-direct
+          // with only boom-vertical labeled points — common in arc-formula brochure-direct
           // matrices). Fall back to spec envelope check so machines with sparse data
-          // aren't hard-excluded when their physical envelope clearly covers the working
-          // point. The result card will display a "verify with rental company" note
-          // when the actual zone capacity isn't available.
+          // aren't hard-excluded when their physical envelope clearly covers the working point.
           const capT = m.liftCapacity || m.capacity || 0;
           const capKg = capT > 100 ? capT : capT * 1000;
           if (capKg < exactKg) return false; // rated capacity too low
           if (exactHt > 0 && (m.liftHeight || 0) < exactHt) return false;
-          if (exactReach > 0 && m.maxReach && m.maxReach < exactReach)
-            return false;
+          if (exactReach > 0 && m.maxReach && m.maxReach < exactReach) return false;
+
+          // ADDITIONAL CHECK FOR ARC-FORMULA SPARSE MATRICES:
+          // Find the nearest dense row(s) above and below the required height.
+          // If the capacity at exactReach from those rows is provably < exactKg, reject.
+          // This catches machines whose arc-geometry limits capacity at the working point
+          // even though the spec envelope appears to cover it.
+          if (m.loadMatrix && m.loadMatrix.length) {
+            const _mHeights = [...new Set(m.loadMatrix.map((p) => p.h))].sort((a, b) => a - b);
+            // Find dense rows (rows that have at least one r > 0 entry — not pure boom-vertical)
+            const _denseRows = _mHeights.filter((h) => {
+              const rowPts = m.loadMatrix.filter((p) => p.h === h);
+              return rowPts.some((p) => p.r > 0.5);
+            });
+            if (_denseRows.length > 0) {
+              // Find the nearest dense rows below and above exactHt
+              const _below = _denseRows.filter((h) => h <= exactHt);
+              const _above = _denseRows.filter((h) => h >= exactHt);
+              const _nearestBelow = _below.length ? _below[_below.length - 1] : null;
+              const _nearestAbove = _above.length ? _above[0] : null;
+              // Get capacity at exactReach from the nearest dense rows
+              const _capBelow = _nearestBelow !== null ? getCapacityAtPoint(m, _nearestBelow, exactReach) : null;
+              const _capAbove = _nearestAbove !== null ? getCapacityAtPoint(m, _nearestAbove, exactReach) : null;
+              // If BOTH nearest dense rows return a non-null capacity below requirement → reject
+              // (conservative: only reject if both bounding dense rows confirm under-capacity)
+              if (_capBelow !== null && _capAbove !== null && _capBelow < exactKg && _capAbove < exactKg) return false;
+              // If only one dense row is available and it's below → reject
+              if (_capBelow !== null && _capAbove === null && _capBelow < exactKg) return false;
+              if (_capAbove !== null && _capBelow === null && _capAbove < exactKg) return false;
+            }
+          }
           return true;
         }
         // Must be able to lift required kg at the required working point
