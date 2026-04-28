@@ -149452,21 +149452,29 @@ function matchMachines(ans, type) {
     const _isCrawlerTerrainUp = terr === "crawler_boom";
     if (mode === "up_over") {
       const _bPref = (ans.brand_pref || "any").toLowerCase();
+      // Try to fill the full 5-slot slate from same-size-class qualified machines
+      // first — only resort to a "next size up" warning machine when there
+      // genuinely aren't enough close-size options (Assik feedback 28-Apr-2026).
       const main = diversePick(
         _poolForMain,
-        4,
+        5,
         1,
         _bPref !== "any" ? _bPref : null,
       );
-      const up = findNextUp(_poolForMain, main, (m) => m.platformHeight || 0);
       const results = [...main];
-      if (up)
-        results.push({
-          ...up,
-          _overSpec: true,
-          _overSpecMsg:
-            "⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.",
-        });
+      // Only surface a "next size up" oversized machine when the qualified
+      // pool was thin and we couldn't fill the slate. With 4+ same-class
+      // options shown, an oversized warning machine is noise, not value.
+      if (main.length < 5) {
+        const up = findNextUp(_poolForMain, main, (m) => m.platformHeight || 0);
+        if (up)
+          results.push({
+            ...up,
+            _overSpec: true,
+            _overSpecMsg:
+              "⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.",
+          });
+      }
       // underSpec machines excluded — machine must meet stated height requirement
       // ── BUG FIX (Assik 28-Apr-2026): when the user explicitly picked
       // articulating, NEVER substitute telescopic. A telescopic at the same
@@ -149724,9 +149732,15 @@ function matchMachines(ans, type) {
         });
       });
 
-      const up = merged.length
-        ? findNextUp(qualifiedAll, merged, (m) => m.platformHeight || 0)
-        : null;
+      // Only surface a "next size up" oversized machine when the slate
+      // didn't fill from same-class qualified machines (Assik feedback
+      // 28-Apr-2026). With a healthy qualified pool there's no value in
+      // appending a bigger warning machine — same-size alternatives exist.
+      const _slateTarget = _bPref2 !== "any" ? 6 : 5;
+      const up =
+        merged.length > 0 && merged.length < _slateTarget
+          ? findNextUp(qualifiedAll, merged, (m) => m.platformHeight || 0)
+          : null;
       if (up)
         merged.push({
           ...up,
