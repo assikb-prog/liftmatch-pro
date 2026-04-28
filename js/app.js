@@ -10386,8 +10386,8 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 531-70 IND",
       shortName: "JCB 531-70",
-      capacity: 3.0,
-      liftHeight: 7.0,
+      capacity: 3.1,
+      liftHeight: 7,
       maxReach: 3.7,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 8230,
@@ -10413,62 +10413,16 @@ const MACHINES = {
       liftChart:
         "3,000kg max (retracted). 2,700kg at full height (7.0m, r=0.54m). 1,300kg at full reach (3.7m). Reach with 1T: 3.7m. PlacingH: 6.3m. On tyres, forks. Source: JCB Construction Loadalls brochure p.27.",
       tags: ["3T", "7m", "3.7m Reach", "EcoMAX", "No DPF"],
-      // LOAD MATRIX — confirmed from JCB Construction Loadalls brochure p.27 spec table + chart
-      // Anchors: Max=3000 | FH=2700@h7,r0.54 | FR=1300@h0,r3.7 | Reach@1T=3.7m | PlacingH=6.3m
-      // Zones: 3000/2700/2500/2000/1500/1300 kg — boundaries visually read from chart image p.27
-      // ── PRECISION DATA — JCB 531-70 ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 3100 },
-        { h: 0.0, r: 0.54, kg: 3000 },
-        { h: 0.0, r: 0.73, kg: 2700 },
-        { h: 0.0, r: 1.07, kg: 2500 },
-        { h: 0.0, r: 1.55, kg: 2000 },
-        { h: 0.0, r: 1.98, kg: 1500 },
-        { h: 0.0, r: 2.42, kg: 1250 },
-        { h: 0.0, r: 3.7, kg: 1250 },
-        // h=2.83m
-        { h: 2.83, r: 0.54, kg: 3000 },
-        { h: 2.83, r: 0.54, kg: 3100 },
-        { h: 2.83, r: 0.73, kg: 2700 },
-        { h: 2.83, r: 1.07, kg: 2500 },
-        { h: 2.83, r: 1.55, kg: 2000 },
-        { h: 2.83, r: 1.98, kg: 1500 },
-        { h: 2.83, r: 3.7, kg: 1250 },
-        // h=3.8m
-        { h: 3.8, r: 0.54, kg: 3000 },
-        { h: 3.8, r: 0.54, kg: 3100 },
-        { h: 3.8, r: 0.73, kg: 2700 },
-        { h: 3.8, r: 1.07, kg: 2500 },
-        { h: 3.8, r: 1.55, kg: 2000 },
-        { h: 3.8, r: 1.98, kg: 1500 },
-        // h=4.76m
-        { h: 4.76, r: 0.54, kg: 3000 },
-        { h: 4.76, r: 0.54, kg: 3100 },
-        { h: 4.76, r: 0.73, kg: 2700 },
-        { h: 4.76, r: 1.07, kg: 2500 },
-        { h: 4.76, r: 1.55, kg: 2000 },
-        // h=5.82m
-        { h: 5.82, r: 0.54, kg: 3000 },
-        { h: 5.82, r: 0.54, kg: 3100 },
-        { h: 5.82, r: 0.73, kg: 2700 },
-        { h: 5.82, r: 1.07, kg: 2500 },
-        // h=6.58m
-        { h: 6.58, r: 0.54, kg: 3000 },
-        { h: 6.58, r: 0.54, kg: 3100 },
-        { h: 6.58, r: 0.73, kg: 2700 },
-        // h=7.0m
-        { h: 7.0, r: 0.54, kg: 2400 },
-        // h=7.6m
-        { h: 7.6, r: 0.54, kg: 3000 },
-        { h: 7.6, r: 0.54, kg: 3100 },
-        // h=8.56m
-        { h: 8.56, r: 0.54, kg: 3100 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.14)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 2400,
+      capacityAtFullReach: 1250,
+      reachAt1000kg: 3.7,
       filters: ["telehandler", "rough"],
     },
     {
@@ -10478,7 +10432,7 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 535-95 IND",
       shortName: "JCB 535-95",
-      capacity: 3.0,
+      capacity: 3.5,
       liftHeight: 9.5,
       maxReach: 6.52,
       engine: "74kW EcoMAX",
@@ -10504,116 +10458,16 @@ const MACHINES = {
       liftChart:
         "3,000kg max. 1,600kg at full height (9.5m, r=2.49m). 500kg at full reach (6.52m). Reach with 1T: 5.08m. PlacingH: 8.78m. On tyres, forks. Source: JCB Construction Loadalls brochure p.27.",
       tags: ["3T", "9.5m", "6.52m Reach", "EcoMAX", "Mid-Reach"],
-      // LOAD MATRIX — confirmed from JCB Construction Loadalls brochure p.27 spec table + chart
-      // Anchors: Max=3000 | FH=1600@h9.5,r2.49 | FR=500@h0,r6.52 | Reach@1T=5.08m | PlacingH=8.78m
-      // Zones: 3000/2500/2000/1600/1000/800/500 kg — read from chart image p.27
-      // ── PRECISION DATA — JCB 535-95 ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      // STABILISERS: loadMatrix = retracted (on-tyres, conservative)
-      //              loadMatrixStabs = extended (outriggers deployed)
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 3500 },
-        { h: 0.0, r: 3.98, kg: 3500 },
-        { h: 0.0, r: 4.31, kg: 3000 },
-        { h: 0.0, r: 4.61, kg: 2500 },
-        { h: 0.0, r: 4.91, kg: 1600 },
-        { h: 0.0, r: 5.08, kg: 1000 },
-        { h: 0.0, r: 5.23, kg: 1000 },
-        { h: 0.0, r: 5.53, kg: 800 },
-        { h: 0.0, r: 5.83, kg: 500 },
-        { h: 0.0, r: 6.52, kg: 500 },
-        // h=1.62m
-        { h: 1.62, r: 3.98, kg: 3500 },
-        { h: 1.62, r: 4.31, kg: 3000 },
-        { h: 1.62, r: 4.61, kg: 2500 },
-        { h: 1.62, r: 4.91, kg: 1600 },
-        { h: 1.62, r: 5.23, kg: 1000 },
-        { h: 1.62, r: 5.53, kg: 800 },
-        { h: 1.62, r: 6.52, kg: 500 },
-        // h=2.33m
-        { h: 2.33, r: 3.98, kg: 3500 },
-        { h: 2.33, r: 4.31, kg: 3000 },
-        { h: 2.33, r: 4.61, kg: 2500 },
-        { h: 2.33, r: 4.91, kg: 1600 },
-        { h: 2.33, r: 5.23, kg: 1000 },
-        { h: 2.33, r: 5.53, kg: 800 },
-        // h=3.04m
-        { h: 3.04, r: 3.98, kg: 3500 },
-        { h: 3.04, r: 4.31, kg: 3000 },
-        { h: 3.04, r: 4.61, kg: 2500 },
-        { h: 3.04, r: 4.91, kg: 1600 },
-        { h: 3.04, r: 5.23, kg: 1000 },
-        // h=3.8m
-        { h: 3.8, r: 3.98, kg: 3500 },
-        { h: 3.8, r: 4.31, kg: 3000 },
-        { h: 3.8, r: 4.61, kg: 2500 },
-        { h: 3.8, r: 4.91, kg: 1600 },
-        // h=4.51m
-        { h: 4.51, r: 3.98, kg: 3500 },
-        { h: 4.51, r: 4.31, kg: 3000 },
-        { h: 4.51, r: 4.61, kg: 2500 },
-        // h=5.21m
-        { h: 5.21, r: 3.98, kg: 3500 },
-        { h: 5.21, r: 4.31, kg: 3000 },
-        // h=5.98m
-        { h: 5.98, r: 3.98, kg: 3500 },
-        // h=9.5m
-        { h: 9.5, r: 2.49, kg: 1600 },
-      ],
-      loadMatrixStabs: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 3500 },
-        { h: 0.0, r: 3.75, kg: 3500 },
-        { h: 0.0, r: 4.09, kg: 3000 },
-        { h: 0.0, r: 4.42, kg: 2500 },
-        { h: 0.0, r: 4.76, kg: 1600 },
-        { h: 0.0, r: 5.08, kg: 1000 },
-        { h: 0.0, r: 5.1, kg: 1000 },
-        { h: 0.0, r: 5.45, kg: 800 },
-        { h: 0.0, r: 5.79, kg: 500 },
-        { h: 0.0, r: 6.52, kg: 500 },
-        // h=1.72m
-        { h: 1.72, r: 3.75, kg: 3500 },
-        { h: 1.72, r: 4.09, kg: 3000 },
-        { h: 1.72, r: 4.42, kg: 2500 },
-        { h: 1.72, r: 4.76, kg: 1600 },
-        { h: 1.72, r: 5.1, kg: 1000 },
-        { h: 1.72, r: 5.45, kg: 800 },
-        { h: 1.72, r: 6.52, kg: 500 },
-        // h=2.53m
-        { h: 2.53, r: 3.75, kg: 3500 },
-        { h: 2.53, r: 4.09, kg: 3000 },
-        { h: 2.53, r: 4.42, kg: 2500 },
-        { h: 2.53, r: 4.76, kg: 1600 },
-        { h: 2.53, r: 5.1, kg: 1000 },
-        { h: 2.53, r: 5.45, kg: 800 },
-        // h=3.34m
-        { h: 3.34, r: 3.75, kg: 3500 },
-        { h: 3.34, r: 4.09, kg: 3000 },
-        { h: 3.34, r: 4.42, kg: 2500 },
-        { h: 3.34, r: 4.76, kg: 1600 },
-        { h: 3.34, r: 5.1, kg: 1000 },
-        // h=4.15m
-        { h: 4.15, r: 3.75, kg: 3500 },
-        { h: 4.15, r: 4.09, kg: 3000 },
-        { h: 4.15, r: 4.42, kg: 2500 },
-        { h: 4.15, r: 4.76, kg: 1600 },
-        // h=4.96m
-        { h: 4.96, r: 3.75, kg: 3500 },
-        { h: 4.96, r: 4.09, kg: 3000 },
-        { h: 4.96, r: 4.42, kg: 2500 },
-        // h=5.72m
-        { h: 5.72, r: 3.75, kg: 3500 },
-        { h: 5.72, r: 4.09, kg: 3000 },
-        // h=6.53m
-        { h: 6.53, r: 3.75, kg: 3500 },
-        // h=9.5m
-        { h: 9.5, r: 2.49, kg: 1600 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.14)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 1600,
+      capacityAtFullReach: 500,
+      reachAt1000kg: 5.08,
       filters: ["telehandler", "rough"],
     },
     {
@@ -10623,8 +10477,8 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 535-125 HiViz",
       shortName: "JCB 535-125",
-      capacity: 3.0,
-      liftHeight: 12.27,
+      capacity: 3.5,
+      liftHeight: 11.6,
       maxReach: 8.06,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 10066,
@@ -10673,175 +10527,19 @@ const MACHINES = {
         "AS10896 Compliant",
         "No DPF",
       ],
-      // LOAD MATRIX — ON TYRES (stabilisers retracted sway)
-      // Source: JCB Construction Loadalls brochure p.27 spec table + chart visual read
-      // Anchors: Max=3000 | FH=1500@h11.6,r2.01 | FR=200@h0,r8.06 | Reach@1T=5.31m | PlacingH=11m
-      // Zones: 3000/2500/2000/1500/1350/200 kg
-      // ── PRECISION DATA — JCB 535-125 ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      // STABILISERS: loadMatrix = retracted (on-tyres, conservative)
-      //              loadMatrixStabs = extended (outriggers deployed)
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 3500 },
-        { h: 0.0, r: 2.01, kg: 0 },
-        { h: 0.0, r: 2.43, kg: 1500 },
-        { h: 0.0, r: 4.04, kg: 2500 },
-        { h: 0.0, r: 4.36, kg: 2000 },
-        { h: 0.0, r: 5.31, kg: 1000 },
-        { h: 0.0, r: 5.32, kg: 1500 },
-        { h: 0.0, r: 5.7, kg: 1000 },
-        { h: 0.0, r: 6.47, kg: 500 },
-        { h: 0.0, r: 7.43, kg: 200 },
-        { h: 0.0, r: 8.06, kg: 200 },
-        // h=1.2m
-        { h: 1.2, r: 0.0, kg: 3500 },
-        { h: 1.2, r: 2.01, kg: 0 },
-        { h: 1.2, r: 2.43, kg: 1500 },
-        { h: 1.2, r: 4.04, kg: 2500 },
-        { h: 1.2, r: 4.36, kg: 2000 },
-        { h: 1.2, r: 5.32, kg: 1500 },
-        { h: 1.2, r: 5.7, kg: 1000 },
-        { h: 1.2, r: 6.47, kg: 500 },
-        { h: 1.2, r: 8.06, kg: 200 },
-        // h=3.04m
-        { h: 3.04, r: 0.0, kg: 3500 },
-        { h: 3.04, r: 2.01, kg: 0 },
-        { h: 3.04, r: 2.43, kg: 1500 },
-        { h: 3.04, r: 4.04, kg: 2500 },
-        { h: 3.04, r: 4.36, kg: 2000 },
-        { h: 3.04, r: 5.32, kg: 1500 },
-        { h: 3.04, r: 5.7, kg: 1000 },
-        { h: 3.04, r: 6.47, kg: 500 },
-        // h=4.52m
-        { h: 4.52, r: 0.0, kg: 3500 },
-        { h: 4.52, r: 2.01, kg: 0 },
-        { h: 4.52, r: 2.43, kg: 1500 },
-        { h: 4.52, r: 4.04, kg: 2500 },
-        { h: 4.52, r: 4.36, kg: 2000 },
-        { h: 4.52, r: 5.32, kg: 1500 },
-        { h: 4.52, r: 5.7, kg: 1000 },
-        // h=5.26m
-        { h: 5.26, r: 0.0, kg: 3500 },
-        { h: 5.26, r: 2.01, kg: 0 },
-        { h: 5.26, r: 2.43, kg: 1500 },
-        { h: 5.26, r: 4.04, kg: 2500 },
-        { h: 5.26, r: 4.36, kg: 2000 },
-        { h: 5.26, r: 5.32, kg: 1500 },
-        // h=7.1m
-        { h: 7.1, r: 2.01, kg: 0 },
-        { h: 7.1, r: 2.43, kg: 1500 },
-        { h: 7.1, r: 4.04, kg: 2500 },
-        { h: 7.1, r: 4.36, kg: 2000 },
-        // h=7.71m
-        { h: 7.71, r: 2.01, kg: 0 },
-        { h: 7.71, r: 2.43, kg: 1500 },
-        { h: 7.71, r: 4.04, kg: 2500 },
-        // h=10.79m
-        { h: 10.79, r: 2.01, kg: 0 },
-        { h: 10.79, r: 2.43, kg: 1500 },
-        // h=11.6m
-        { h: 11.6, r: 2.01, kg: 1500 },
-        // h=11.71m
-        { h: 11.71, r: 2.01, kg: 0 },
-      ],
-      loadMatrixStabs: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 3500 },
-        { h: 0.0, r: 2.24, kg: 3500 },
-        { h: 0.0, r: 3.13, kg: 3000 },
-        { h: 0.0, r: 3.55, kg: 2500 },
-        { h: 0.0, r: 4.59, kg: 2000 },
-        { h: 0.0, r: 5.05, kg: 1500 },
-        { h: 0.0, r: 5.9, kg: 1350 },
-        { h: 0.0, r: 8.06, kg: 1350 },
-        // h=3.53m
-        { h: 3.53, r: 2.24, kg: 3500 },
-        { h: 3.53, r: 3.13, kg: 3000 },
-        { h: 3.53, r: 3.55, kg: 2500 },
-        { h: 3.53, r: 4.59, kg: 2000 },
-        { h: 3.53, r: 5.05, kg: 1500 },
-        { h: 3.53, r: 8.06, kg: 1350 },
-        // h=4.91m
-        { h: 4.91, r: 2.24, kg: 3500 },
-        { h: 4.91, r: 3.13, kg: 3000 },
-        { h: 4.91, r: 3.55, kg: 2500 },
-        { h: 4.91, r: 4.59, kg: 2000 },
-        { h: 4.91, r: 5.05, kg: 1500 },
-        // h=5.66m
-        { h: 5.66, r: 2.24, kg: 3500 },
-        { h: 5.66, r: 3.13, kg: 3000 },
-        { h: 5.66, r: 3.55, kg: 2500 },
-        { h: 5.66, r: 4.59, kg: 2000 },
-        // h=7.36m
-        { h: 7.36, r: 2.24, kg: 3500 },
-        { h: 7.36, r: 3.13, kg: 3000 },
-        { h: 7.36, r: 3.55, kg: 2500 },
-        // h=8.05m
-        { h: 8.05, r: 2.24, kg: 3500 },
-        { h: 8.05, r: 3.13, kg: 3000 },
-        // h=9.5m
-        { h: 9.5, r: 2.24, kg: 3500 },
-        // h=12.27m
-        { h: 12.27, r: 0.54, kg: 3500 },
-      ],
-      // STAB LOAD MATRIX — stabilisers extended sway
-      // Anchors: Max=3000 | FH=3500@h12.27,r0.54 | FR=1350@h0,r8.06 | Reach@1T=8.06m | PlacingH=11.75m
-      // Zones: 3000/3000/2500/2000/1500/1350 kg
-      stabLoadMatrix: [
-        { h: 0, r: 0, kg: 3000 },
-        { h: 0, r: 1.5, kg: 3000 },
-        { h: 0, r: 3.3, kg: 2500 },
-        { h: 0, r: 5.2, kg: 2000 },
-        { h: 0, r: 7, kg: 1500 },
-        { h: 0, r: 8.06, kg: 1350 },
-        { h: 2, r: 0, kg: 3000 },
-        { h: 2, r: 1.5, kg: 3000 },
-        { h: 2, r: 3.2, kg: 2500 },
-        { h: 2, r: 5, kg: 2000 },
-        { h: 2, r: 6.8, kg: 1500 },
-        { h: 2, r: 8.06, kg: 1350 },
-        { h: 4, r: 0, kg: 3000 },
-        { h: 4, r: 1.45, kg: 3000 },
-        { h: 4, r: 3, kg: 2500 },
-        { h: 4, r: 4.8, kg: 2000 },
-        { h: 4, r: 6.4, kg: 1500 },
-        { h: 4, r: 7.8, kg: 1350 },
-        { h: 6, r: 0, kg: 3000 },
-        { h: 6, r: 1.35, kg: 3000 },
-        { h: 6, r: 2.8, kg: 2500 },
-        { h: 6, r: 4.4, kg: 2000 },
-        { h: 6, r: 5.8, kg: 1500 },
-        { h: 6, r: 7.1, kg: 1350 },
-        { h: 8, r: 0, kg: 3000 },
-        { h: 8, r: 1.2, kg: 3000 },
-        { h: 8, r: 2.4, kg: 2500 },
-        { h: 8, r: 3.8, kg: 2000 },
-        { h: 8, r: 5, kg: 1500 },
-        { h: 8, r: 6.2, kg: 1350 },
-        { h: 10, r: 0, kg: 3000 },
-        { h: 10, r: 0.95, kg: 3000 },
-        { h: 10, r: 2, kg: 2500 },
-        { h: 10, r: 3.1, kg: 2000 },
-        { h: 10, r: 4.1, kg: 1500 },
-        { h: 10, r: 5.1, kg: 1350 },
-        { h: 11, r: 0, kg: 3000 },
-        { h: 11, r: 0.75, kg: 3000 },
-        { h: 11, r: 1.5, kg: 2500 },
-        { h: 11, r: 2.4, kg: 2000 },
-        { h: 11, r: 3.2, kg: 1500 },
-        { h: 11, r: 4, kg: 1350 },
-        { h: 12, r: 0, kg: 3000 },
-        { h: 12, r: 0.5, kg: 3000 },
-        { h: 12, r: 1, kg: 2500 },
-        { h: 12, r: 1.7, kg: 2000 },
-        { h: 12, r: 2.3, kg: 1500 },
-        { h: 12, r: 2.9, kg: 1350 },
-        { h: 12.27, r: 0.54, kg: 3500 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.14 — 535-125 HiViz)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 1500,
+      capacityAtFullReach: 200,
+      capacityAtFullHeightStabs: 3500,
+      capacityAtFullReachStabs: 1350,
+      liftHeightStabs: 12.27,
+      reachAt1000kg: 5.31,
       filters: ["telehandler", "rough", "heavy"],
     },
     {
@@ -10851,9 +10549,9 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 540-140 HiViz",
       shortName: "JCB 540-140",
-      capacity: 4.0,
-      liftHeight: 13.78,
-      maxReach: 9.64,
+      capacity: 4,
+      liftHeight: 12.89,
+      maxReach: 9.7,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 10880,
       machineWidth: 2350,
@@ -10901,206 +10599,19 @@ const MACHINES = {
         "Regen Hydraulics",
         "AS10896 Compliant",
       ],
-      // LOAD MATRIX — ON TYRES (stabilisers retracted sway)
-      // Source: JCB Construction Loadalls brochure p.28 spec table + chart visual read
-      // Anchors: Max=4000 | FH=1300@h12.89,r3.09 | FR=200@h0,r9.70 | Reach@1T=6.61m | PlacingH=12.40m
-      // Zones: 4000/3500/3000/2500/2000/1500/1000/500/200 kg — chart p.28 top-left
-      // ── PRECISION DATA — JCB 540-140 ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      // STABILISERS: loadMatrix = retracted (on-tyres, conservative)
-      //              loadMatrixStabs = extended (outriggers deployed)
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 3.65, kg: 4000 },
-        { h: 0.0, r: 4.24, kg: 3500 },
-        { h: 0.0, r: 5.27, kg: 3000 },
-        { h: 0.0, r: 5.63, kg: 2500 },
-        { h: 0.0, r: 6.3, kg: 2000 },
-        { h: 0.0, r: 6.61, kg: 1000 },
-        { h: 0.0, r: 6.81, kg: 1500 },
-        { h: 0.0, r: 7.32, kg: 1000 },
-        { h: 0.0, r: 7.83, kg: 500 },
-        { h: 0.0, r: 8.38, kg: 200 },
-        { h: 0.0, r: 9.7, kg: 200 },
-        // h=2.57m
-        { h: 2.57, r: 3.65, kg: 4000 },
-        { h: 2.57, r: 4.24, kg: 3500 },
-        { h: 2.57, r: 5.27, kg: 3000 },
-        { h: 2.57, r: 5.63, kg: 2500 },
-        { h: 2.57, r: 6.3, kg: 2000 },
-        { h: 2.57, r: 6.81, kg: 1500 },
-        { h: 2.57, r: 7.32, kg: 1000 },
-        { h: 2.57, r: 7.83, kg: 500 },
-        { h: 2.57, r: 9.7, kg: 200 },
-        // h=3.64m
-        { h: 3.64, r: 3.65, kg: 4000 },
-        { h: 3.64, r: 4.24, kg: 3500 },
-        { h: 3.64, r: 5.27, kg: 3000 },
-        { h: 3.64, r: 5.63, kg: 2500 },
-        { h: 3.64, r: 6.3, kg: 2000 },
-        { h: 3.64, r: 6.81, kg: 1500 },
-        { h: 3.64, r: 7.32, kg: 1000 },
-        { h: 3.64, r: 7.83, kg: 500 },
-        // h=4.64m
-        { h: 4.64, r: 3.65, kg: 4000 },
-        { h: 4.64, r: 4.24, kg: 3500 },
-        { h: 4.64, r: 5.27, kg: 3000 },
-        { h: 4.64, r: 5.63, kg: 2500 },
-        { h: 4.64, r: 6.3, kg: 2000 },
-        { h: 4.64, r: 6.81, kg: 1500 },
-        { h: 4.64, r: 7.32, kg: 1000 },
-        // h=5.64m
-        { h: 5.64, r: 3.65, kg: 4000 },
-        { h: 5.64, r: 4.24, kg: 3500 },
-        { h: 5.64, r: 5.27, kg: 3000 },
-        { h: 5.64, r: 5.63, kg: 2500 },
-        { h: 5.64, r: 6.3, kg: 2000 },
-        { h: 5.64, r: 6.81, kg: 1500 },
-        // h=6.64m
-        { h: 6.64, r: 3.65, kg: 4000 },
-        { h: 6.64, r: 4.24, kg: 3500 },
-        { h: 6.64, r: 5.27, kg: 3000 },
-        { h: 6.64, r: 5.63, kg: 2500 },
-        { h: 6.64, r: 6.3, kg: 2000 },
-        // h=7.93m
-        { h: 7.93, r: 3.65, kg: 4000 },
-        { h: 7.93, r: 4.24, kg: 3500 },
-        { h: 7.93, r: 5.27, kg: 3000 },
-        { h: 7.93, r: 5.63, kg: 2500 },
-        // h=8.64m
-        { h: 8.64, r: 3.65, kg: 4000 },
-        { h: 8.64, r: 4.24, kg: 3500 },
-        { h: 8.64, r: 5.27, kg: 3000 },
-        // h=10.64m
-        { h: 10.64, r: 3.65, kg: 4000 },
-        { h: 10.64, r: 4.24, kg: 3500 },
-        // h=11.79m
-        { h: 11.79, r: 3.65, kg: 4000 },
-        // h=12.89m
-        { h: 12.89, r: 3.09, kg: 1500 },
-      ],
-      loadMatrixStabs: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 4.23, kg: 4000 },
-        { h: 0.0, r: 4.66, kg: 3500 },
-        { h: 0.0, r: 5.48, kg: 3000 },
-        { h: 0.0, r: 6.09, kg: 2500 },
-        { h: 0.0, r: 6.73, kg: 2000 },
-        { h: 0.0, r: 7.34, kg: 1500 },
-        { h: 0.0, r: 8.03, kg: 1250 },
-        { h: 0.0, r: 9.64, kg: 1250 },
-        // h=2.57m
-        { h: 2.57, r: 4.23, kg: 4000 },
-        { h: 2.57, r: 4.66, kg: 3500 },
-        { h: 2.57, r: 5.48, kg: 3000 },
-        { h: 2.57, r: 6.09, kg: 2500 },
-        { h: 2.57, r: 6.73, kg: 2000 },
-        { h: 2.57, r: 7.34, kg: 1500 },
-        { h: 2.57, r: 9.64, kg: 1250 },
-        // h=3.67m
-        { h: 3.67, r: 4.23, kg: 4000 },
-        { h: 3.67, r: 4.66, kg: 3500 },
-        { h: 3.67, r: 5.48, kg: 3000 },
-        { h: 3.67, r: 6.09, kg: 2500 },
-        { h: 3.67, r: 6.73, kg: 2000 },
-        { h: 3.67, r: 7.34, kg: 1500 },
-        // h=4.64m
-        { h: 4.64, r: 4.23, kg: 4000 },
-        { h: 4.64, r: 4.66, kg: 3500 },
-        { h: 4.64, r: 5.48, kg: 3000 },
-        { h: 4.64, r: 6.09, kg: 2500 },
-        { h: 4.64, r: 6.73, kg: 2000 },
-        // h=5.67m
-        { h: 5.67, r: 4.23, kg: 4000 },
-        { h: 5.67, r: 4.66, kg: 3500 },
-        { h: 5.67, r: 5.48, kg: 3000 },
-        { h: 5.67, r: 6.09, kg: 2500 },
-        // h=6.64m
-        { h: 6.64, r: 4.23, kg: 4000 },
-        { h: 6.64, r: 4.66, kg: 3500 },
-        { h: 6.64, r: 5.48, kg: 3000 },
-        // h=7.95m
-        { h: 7.95, r: 4.23, kg: 4000 },
-        { h: 7.95, r: 4.66, kg: 3500 },
-        // h=8.64m
-        { h: 8.64, r: 4.23, kg: 4000 },
-        // h=13.78m
-        { h: 13.78, r: 1.01, kg: 3000 },
-      ],
-      // STAB LOAD MATRIX — stabilisers extended sway
-      // Anchors: Max=4000 | FH=3100@h13.78,r1.01 | FR=900@h0,r9.64 | Reach@1T=9.64m | PlacingH=13.30m
-      // Zones: 4000/3500/3100/2500/2000/1500/1250 kg
-      stabLoadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 1.5, kg: 4000 },
-        { h: 0, r: 2.8, kg: 3500 },
-        { h: 0, r: 4.2, kg: 3100 },
-        { h: 0, r: 5.7, kg: 2500 },
-        { h: 0, r: 7.1, kg: 2000 },
-        { h: 0, r: 8.3, kg: 1500 },
-        { h: 0, r: 9.64, kg: 1250 },
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 1.5, kg: 4000 },
-        { h: 2, r: 2.75, kg: 3500 },
-        { h: 2, r: 4.1, kg: 3100 },
-        { h: 2, r: 5.5, kg: 2500 },
-        { h: 2, r: 6.9, kg: 2000 },
-        { h: 2, r: 8.1, kg: 1500 },
-        { h: 2, r: 9.64, kg: 1250 },
-        { h: 4, r: 0, kg: 4000 },
-        { h: 4, r: 1.4, kg: 4000 },
-        { h: 4, r: 2.65, kg: 3500 },
-        { h: 4, r: 3.9, kg: 3100 },
-        { h: 4, r: 5.2, kg: 2500 },
-        { h: 4, r: 6.5, kg: 2000 },
-        { h: 4, r: 7.7, kg: 1500 },
-        { h: 4, r: 9.5, kg: 1250 },
-        { h: 6, r: 0, kg: 4000 },
-        { h: 6, r: 1.3, kg: 4000 },
-        { h: 6, r: 2.45, kg: 3500 },
-        { h: 6, r: 3.6, kg: 3100 },
-        { h: 6, r: 4.8, kg: 2500 },
-        { h: 6, r: 6, kg: 2000 },
-        { h: 6, r: 7.1, kg: 1500 },
-        { h: 6, r: 8.7, kg: 1250 },
-        { h: 8, r: 0, kg: 4000 },
-        { h: 8, r: 1.15, kg: 4000 },
-        { h: 8, r: 2.15, kg: 3500 },
-        { h: 8, r: 3.2, kg: 3100 },
-        { h: 8, r: 4.2, kg: 2500 },
-        { h: 8, r: 5.3, kg: 2000 },
-        { h: 8, r: 6.3, kg: 1500 },
-        { h: 8, r: 7.7, kg: 1250 },
-        { h: 10, r: 0, kg: 4000 },
-        { h: 10, r: 0.95, kg: 4000 },
-        { h: 10, r: 1.8, kg: 3500 },
-        { h: 10, r: 2.65, kg: 3100 },
-        { h: 10, r: 3.5, kg: 2500 },
-        { h: 10, r: 4.4, kg: 2000 },
-        { h: 10, r: 5.25, kg: 1500 },
-        { h: 10, r: 6.4, kg: 1250 },
-        { h: 12, r: 0, kg: 4000 },
-        { h: 12, r: 0.7, kg: 4000 },
-        { h: 12, r: 1.35, kg: 3500 },
-        { h: 12, r: 2, kg: 3100 },
-        { h: 12, r: 2.65, kg: 2500 },
-        { h: 12, r: 3.3, kg: 2000 },
-        { h: 12, r: 4, kg: 1500 },
-        { h: 12, r: 4.9, kg: 1250 },
-        { h: 13, r: 0, kg: 4000 },
-        { h: 13, r: 0.5, kg: 4000 },
-        { h: 13, r: 0.95, kg: 3500 },
-        { h: 13, r: 1.4, kg: 3100 },
-        { h: 13, r: 1.9, kg: 2500 },
-        { h: 13, r: 2.4, kg: 2000 },
-        { h: 13, r: 2.9, kg: 1500 },
-        { h: 13.78, r: 1.01, kg: 3100 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.15 — 540-140 HiViz)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 1500,
+      capacityAtFullReach: 200,
+      capacityAtFullHeightStabs: 3000,
+      capacityAtFullReachStabs: 1250,
+      liftHeightStabs: 13.78,
+      reachAt1000kg: 6.61,
       filters: ["telehandler", "rough", "heavy"],
     },
     {
@@ -11110,9 +10621,9 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 540-180 HiViz",
       shortName: "JCB 540-180",
-      capacity: 4.0,
-      liftHeight: 17.51,
-      maxReach: 13.34,
+      capacity: 4,
+      liftHeight: 10.69,
+      maxReach: 10.47,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 11380,
       machineWidth: 2350,
@@ -11161,209 +10672,20 @@ const MACHINES = {
         "EWP 19.25m",
         "Best-in-Class Reach",
       ],
-      // LOAD MATRIX — ON TYRES (stabilisers retracted sway)
-      // Source: JCB Construction Loadalls brochure p.28 spec table + chart visual read
-      // Anchors: Max=4000 | FH=500@h10.69,r6.92 | FR=0@h0,r10.47 | Reach@1T=6.25m | PlacingH=10.0m
-      // Zones: 4000/3000/2500/2000/1500/1000/750/500/250/0 kg — chart p.28 top-left
-      // ── PRECISION DATA — JCB 540-180 ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      // STABILISERS: loadMatrix = retracted (on-tyres, conservative)
-      //              loadMatrixStabs = extended (outriggers deployed)
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 6.25, kg: 1000 },
-        { h: 0.0, r: 7.26, kg: 3000 },
-        { h: 0.0, r: 7.58, kg: 2500 },
-        { h: 0.0, r: 7.92, kg: 2000 },
-        { h: 0.0, r: 8.25, kg: 1500 },
-        { h: 0.0, r: 8.87, kg: 1000 },
-        { h: 0.0, r: 9.19, kg: 750 },
-        { h: 0.0, r: 9.51, kg: 500 },
-        { h: 0.0, r: 9.83, kg: 250 },
-        { h: 0.0, r: 10.11, kg: 0 },
-        { h: 0.0, r: 10.47, kg: 0 },
-        // h=1.08m
-        { h: 1.08, r: 0.0, kg: 4000 },
-        { h: 1.08, r: 7.26, kg: 3000 },
-        { h: 1.08, r: 7.58, kg: 2500 },
-        { h: 1.08, r: 7.92, kg: 2000 },
-        { h: 1.08, r: 8.25, kg: 1500 },
-        { h: 1.08, r: 8.87, kg: 1000 },
-        { h: 1.08, r: 9.19, kg: 750 },
-        { h: 1.08, r: 9.51, kg: 500 },
-        { h: 1.08, r: 9.83, kg: 250 },
-        { h: 1.08, r: 10.47, kg: 0 },
-        // h=1.93m
-        { h: 1.93, r: 0.0, kg: 4000 },
-        { h: 1.93, r: 7.26, kg: 3000 },
-        { h: 1.93, r: 7.58, kg: 2500 },
-        { h: 1.93, r: 7.92, kg: 2000 },
-        { h: 1.93, r: 8.25, kg: 1500 },
-        { h: 1.93, r: 8.87, kg: 1000 },
-        { h: 1.93, r: 9.19, kg: 750 },
-        { h: 1.93, r: 9.51, kg: 500 },
-        { h: 1.93, r: 9.83, kg: 250 },
-        // h=2.9m
-        { h: 2.9, r: 0.0, kg: 4000 },
-        { h: 2.9, r: 7.26, kg: 3000 },
-        { h: 2.9, r: 7.58, kg: 2500 },
-        { h: 2.9, r: 7.92, kg: 2000 },
-        { h: 2.9, r: 8.25, kg: 1500 },
-        { h: 2.9, r: 8.87, kg: 1000 },
-        { h: 2.9, r: 9.19, kg: 750 },
-        { h: 2.9, r: 9.51, kg: 500 },
-        // h=3.86m
-        { h: 3.86, r: 0.0, kg: 4000 },
-        { h: 3.86, r: 7.26, kg: 3000 },
-        { h: 3.86, r: 7.58, kg: 2500 },
-        { h: 3.86, r: 7.92, kg: 2000 },
-        { h: 3.86, r: 8.25, kg: 1500 },
-        { h: 3.86, r: 8.87, kg: 1000 },
-        { h: 3.86, r: 9.19, kg: 750 },
-        // h=4.83m
-        { h: 4.83, r: 0.0, kg: 4000 },
-        { h: 4.83, r: 7.26, kg: 3000 },
-        { h: 4.83, r: 7.58, kg: 2500 },
-        { h: 4.83, r: 7.92, kg: 2000 },
-        { h: 4.83, r: 8.25, kg: 1500 },
-        { h: 4.83, r: 8.87, kg: 1000 },
-        // h=6.7m
-        { h: 6.7, r: 7.26, kg: 3000 },
-        { h: 6.7, r: 7.58, kg: 2500 },
-        { h: 6.7, r: 7.92, kg: 2000 },
-        { h: 6.7, r: 8.25, kg: 1500 },
-        // h=7.67m
-        { h: 7.67, r: 7.26, kg: 3000 },
-        { h: 7.67, r: 7.58, kg: 2500 },
-        { h: 7.67, r: 7.92, kg: 2000 },
-        // h=8.7m
-        { h: 8.7, r: 7.26, kg: 3000 },
-        { h: 8.7, r: 7.58, kg: 2500 },
-        // h=9.66m
-        { h: 9.66, r: 7.26, kg: 3000 },
-        // h=10.69m
-        { h: 10.69, r: 6.92, kg: 500 },
-      ],
-      loadMatrixStabs: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 9.48, kg: 4000 },
-        { h: 0.0, r: 10.41, kg: 3500 },
-        { h: 0.0, r: 11.31, kg: 3000 },
-        { h: 0.0, r: 11.72, kg: 1000 },
-        { h: 0.0, r: 12.17, kg: 2500 },
-        { h: 0.0, r: 13.07, kg: 2000 },
-        { h: 0.0, r: 13.34, kg: 550 },
-        // h=0.42m
-        { h: 0.42, r: 9.48, kg: 4000 },
-        { h: 0.42, r: 10.41, kg: 3500 },
-        { h: 0.42, r: 11.31, kg: 3000 },
-        { h: 0.42, r: 12.17, kg: 2500 },
-        { h: 0.42, r: 13.07, kg: 2000 },
-        // h=1.79m
-        { h: 1.79, r: 9.48, kg: 4000 },
-        { h: 1.79, r: 10.41, kg: 3500 },
-        { h: 1.79, r: 11.31, kg: 3000 },
-        { h: 1.79, r: 12.17, kg: 2500 },
-        // h=3.1m
-        { h: 3.1, r: 9.48, kg: 4000 },
-        { h: 3.1, r: 10.41, kg: 3500 },
-        { h: 3.1, r: 11.31, kg: 3000 },
-        // h=4.47m
-        { h: 4.47, r: 9.48, kg: 4000 },
-        { h: 4.47, r: 10.41, kg: 3500 },
-        // h=5.9m
-        { h: 5.9, r: 9.48, kg: 4000 },
-        // h=17.51m
-        { h: 17.51, r: 1.88, kg: 2500 },
-      ],
-      // STAB LOAD MATRIX — stabilisers extended sway
-      // Anchors: Max=4000 | FH=2400@h17.51,r1.88 | FR=250@h0,r13.34 | Reach@1T=11.72m | PlacingH=17.0m
-      // Zones: 4000/3500/3000/3400/2000/1500/1000/550 kg — chart p.28 top-right
-      stabLoadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 1.5, kg: 4000 },
-        { h: 0, r: 3, kg: 3300 },
-        { h: 0, r: 5, kg: 3000 },
-        { h: 0, r: 7.5, kg: 2000 },
-        { h: 0, r: 9.5, kg: 1500 },
-        { h: 0, r: 11, kg: 1000 },
-        { h: 0, r: 12.5, kg: 550 },
-        { h: 0, r: 13.34, kg: 250 },
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 1.5, kg: 4000 },
-        { h: 2, r: 3, kg: 3300 },
-        { h: 2, r: 4.9, kg: 3000 },
-        { h: 2, r: 7.3, kg: 2000 },
-        { h: 2, r: 9.2, kg: 1500 },
-        { h: 2, r: 10.7, kg: 1000 },
-        { h: 2, r: 12.1, kg: 550 },
-        { h: 2, r: 13, kg: 250 },
-        { h: 4, r: 0, kg: 4000 },
-        { h: 4, r: 1.4, kg: 4000 },
-        { h: 4, r: 2.85, kg: 3300 },
-        { h: 4, r: 4.7, kg: 3000 },
-        { h: 4, r: 7, kg: 2000 },
-        { h: 4, r: 8.8, kg: 1500 },
-        { h: 4, r: 10.2, kg: 1000 },
-        { h: 4, r: 11.6, kg: 550 },
-        { h: 6, r: 0, kg: 4000 },
-        { h: 6, r: 1.3, kg: 4000 },
-        { h: 6, r: 2.7, kg: 3300 },
-        { h: 6, r: 4.4, kg: 3000 },
-        { h: 6, r: 6.5, kg: 2000 },
-        { h: 6, r: 8.2, kg: 1500 },
-        { h: 6, r: 9.6, kg: 1000 },
-        { h: 6, r: 10.9, kg: 550 },
-        { h: 8, r: 0, kg: 4000 },
-        { h: 8, r: 1.2, kg: 4000 },
-        { h: 8, r: 2.5, kg: 3300 },
-        { h: 8, r: 4.1, kg: 3000 },
-        { h: 8, r: 6.1, kg: 2000 },
-        { h: 8, r: 7.7, kg: 1500 },
-        { h: 8, r: 9, kg: 1000 },
-        { h: 8, r: 10.2, kg: 550 },
-        { h: 10, r: 0, kg: 4000 },
-        { h: 10, r: 1.05, kg: 4000 },
-        { h: 10, r: 2.2, kg: 3300 },
-        { h: 10, r: 3.6, kg: 3000 },
-        { h: 10, r: 5.5, kg: 2000 },
-        { h: 10, r: 6.9, kg: 1500 },
-        { h: 10, r: 8.1, kg: 1000 },
-        { h: 10, r: 9.2, kg: 550 },
-        { h: 12, r: 0, kg: 4000 },
-        { h: 12, r: 0.9, kg: 4000 },
-        { h: 12, r: 1.85, kg: 3300 },
-        { h: 12, r: 3, kg: 3000 },
-        { h: 12, r: 4.6, kg: 2000 },
-        { h: 12, r: 5.8, kg: 1500 },
-        { h: 12, r: 6.9, kg: 1000 },
-        { h: 12, r: 7.8, kg: 550 },
-        { h: 14, r: 0, kg: 4000 },
-        { h: 14, r: 0.7, kg: 4000 },
-        { h: 14, r: 1.45, kg: 3300 },
-        { h: 14, r: 2.4, kg: 3000 },
-        { h: 14, r: 3.7, kg: 2000 },
-        { h: 14, r: 4.65, kg: 1500 },
-        { h: 14, r: 5.55, kg: 1000 },
-        { h: 16, r: 0, kg: 4000 },
-        { h: 16, r: 0.45, kg: 3900 },
-        { h: 16, r: 0.95, kg: 3300 },
-        { h: 16, r: 1.6, kg: 3000 },
-        { h: 16, r: 2.5, kg: 2000 },
-        { h: 16, r: 3.15, kg: 1500 },
-        { h: 16, r: 3.8, kg: 1000 },
-        { h: 17, r: 0, kg: 4000 },
-        { h: 17, r: 0.3, kg: 3600 },
-        { h: 17, r: 0.65, kg: 3000 },
-        { h: 17, r: 1.15, kg: 2500 },
-        { h: 17, r: 1.55, kg: 2400 },
-        { h: 17.51, r: 1.88, kg: 2400 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.15 — 540-180 HiViz)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 500,
+      capacityAtFullReach: 0,
+      capacityAtFullHeightStabs: 2500,
+      capacityAtFullReachStabs: 550,
+      liftHeightStabs: 17.51,
+      maxReachStabs: 13.34,
+      reachAt1000kg: 6.25,
       filters: ["telehandler", "rough", "heavy"],
     },
     {
@@ -11373,8 +10695,8 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 541-70 IND",
       shortName: "JCB 541-70",
-      capacity: 4.0,
-      liftHeight: 7.0,
+      capacity: 4.1,
+      liftHeight: 7,
       maxReach: 3.7,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 9300,
@@ -11398,54 +10720,16 @@ const MACHINES = {
       liftChart:
         "4,000kg max (retracted). 2,400kg at full height (7.0m, r=0.54m). 1,500kg at full reach (3.7m). Reach with 1T: 3.7m. PlacingH: 6.3m. On tyres, forks. Source: JCB Construction Loadalls brochure p.27.",
       tags: ["4T", "7m", "3.7m Reach", "EcoMAX", "Heavy Lift"],
-      // LOAD MATRIX — confirmed from JCB Construction Loadalls brochure p.27 spec table + chart
-      // Anchors: Max=4000 | FH=2400@h7,r0.54 | FR=1500@h0,r3.7 | Reach@1T=3.7m | PlacingH=6.3m
-      // Zones: 4000/3500/3000/2500/2000/1500 kg (2400 = full height capacity, shown near top of chart)
-      // ── PRECISION DATA — JCB 541-70 ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4100 },
-        { h: 0.0, r: 0.54, kg: 4100 },
-        { h: 0.0, r: 0.8, kg: 3500 },
-        { h: 0.0, r: 1.21, kg: 3000 },
-        { h: 0.0, r: 1.6, kg: 2500 },
-        { h: 0.0, r: 2.01, kg: 2000 },
-        { h: 0.0, r: 2.42, kg: 1500 },
-        { h: 0.0, r: 3.7, kg: 1500 },
-        // h=2.83m
-        { h: 2.83, r: 0.54, kg: 4100 },
-        { h: 2.83, r: 0.8, kg: 3500 },
-        { h: 2.83, r: 1.21, kg: 3000 },
-        { h: 2.83, r: 1.6, kg: 2500 },
-        { h: 2.83, r: 2.01, kg: 2000 },
-        { h: 2.83, r: 3.7, kg: 1500 },
-        // h=3.74m
-        { h: 3.74, r: 0.54, kg: 4100 },
-        { h: 3.74, r: 0.8, kg: 3500 },
-        { h: 3.74, r: 1.21, kg: 3000 },
-        { h: 3.74, r: 1.6, kg: 2500 },
-        { h: 3.74, r: 2.01, kg: 2000 },
-        // h=4.66m
-        { h: 4.66, r: 0.54, kg: 4100 },
-        { h: 4.66, r: 0.8, kg: 3500 },
-        { h: 4.66, r: 1.21, kg: 3000 },
-        { h: 4.66, r: 1.6, kg: 2500 },
-        // h=5.52m
-        { h: 5.52, r: 0.54, kg: 4100 },
-        { h: 5.52, r: 0.8, kg: 3500 },
-        { h: 5.52, r: 1.21, kg: 3000 },
-        // h=6.43m
-        { h: 6.43, r: 0.54, kg: 4100 },
-        { h: 6.43, r: 0.8, kg: 3500 },
-        // h=7.0m
-        { h: 7.0, r: 0.54, kg: 2250 },
-        // h=7.29m
-        { h: 7.29, r: 0.54, kg: 4100 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.14)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 2250,
+      capacityAtFullReach: 1500,
+      reachAt1000kg: 3.7,
       filters: ["telehandler", "rough", "heavy"],
     },
     {
@@ -12250,7 +11534,7 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 533-105 Construction Loadall",
       shortName: "JCB 533-105",
-      capacity: 3.0,
+      capacity: 3.3,
       liftHeight: 10.22,
       maxReach: 6.83,
       engine: "55kW (75hp) EcoMAX T4F",
@@ -12291,165 +11575,18 @@ const MACHINES = {
         "AS 1418.19",
         "No DPF",
       ],
-      // LOAD MATRIX — ON TYRES (stabilisers retracted)
-      // Source: JCB Construction Loadalls brochure p.27 spec table + chart visual read
-      // Anchors: Max=3000 | FH=1000@h10.22,r2.69 | FR=300@h0,r6.83 | Reach@1T=6.83m | PlacingH=9.44m
-      // Zones: 3000/3000/2500/2000/1500/1250/900/500/300 kg — chart p.27
-      // ── PRECISION DATA — JCB 533-105-CONST ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      // STABILISERS: loadMatrix = retracted (on-tyres, conservative)
-      //              loadMatrixStabs = extended (outriggers deployed)
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 3300 },
-        { h: 0.0, r: 3.95, kg: 3300 },
-        { h: 0.0, r: 4.3, kg: 3000 },
-        { h: 0.0, r: 4.67, kg: 2500 },
-        { h: 0.0, r: 5.05, kg: 2000 },
-        { h: 0.0, r: 5.4, kg: 1500 },
-        { h: 0.0, r: 5.77, kg: 1000 },
-        { h: 0.0, r: 6.12, kg: 500 },
-        { h: 0.0, r: 6.49, kg: 375 },
-        { h: 0.0, r: 6.83, kg: 375 },
-        // h=0.83m
-        { h: 0.83, r: 3.95, kg: 3300 },
-        { h: 0.83, r: 4.3, kg: 3000 },
-        { h: 0.83, r: 4.67, kg: 2500 },
-        { h: 0.83, r: 5.05, kg: 2000 },
-        { h: 0.83, r: 5.4, kg: 1500 },
-        { h: 0.83, r: 5.77, kg: 1000 },
-        { h: 0.83, r: 6.12, kg: 500 },
-        { h: 0.83, r: 6.83, kg: 375 },
-        // h=1.75m
-        { h: 1.75, r: 3.95, kg: 3300 },
-        { h: 1.75, r: 4.3, kg: 3000 },
-        { h: 1.75, r: 4.67, kg: 2500 },
-        { h: 1.75, r: 5.05, kg: 2000 },
-        { h: 1.75, r: 5.4, kg: 1500 },
-        { h: 1.75, r: 5.77, kg: 1000 },
-        { h: 1.75, r: 6.12, kg: 500 },
-        // h=2.61m
-        { h: 2.61, r: 3.95, kg: 3300 },
-        { h: 2.61, r: 4.3, kg: 3000 },
-        { h: 2.61, r: 4.67, kg: 2500 },
-        { h: 2.61, r: 5.05, kg: 2000 },
-        { h: 2.61, r: 5.4, kg: 1500 },
-        { h: 2.61, r: 5.77, kg: 1000 },
-        // h=3.53m
-        { h: 3.53, r: 3.95, kg: 3300 },
-        { h: 3.53, r: 4.3, kg: 3000 },
-        { h: 3.53, r: 4.67, kg: 2500 },
-        { h: 3.53, r: 5.05, kg: 2000 },
-        { h: 3.53, r: 5.4, kg: 1500 },
-        // h=4.39m
-        { h: 4.39, r: 3.95, kg: 3300 },
-        { h: 4.39, r: 4.3, kg: 3000 },
-        { h: 4.39, r: 4.67, kg: 2500 },
-        { h: 4.39, r: 5.05, kg: 2000 },
-        // h=5.32m
-        { h: 5.32, r: 3.95, kg: 3300 },
-        { h: 5.32, r: 4.3, kg: 3000 },
-        { h: 5.32, r: 4.67, kg: 2500 },
-        // h=6.24m
-        { h: 6.24, r: 3.95, kg: 3300 },
-        { h: 6.24, r: 4.3, kg: 3000 },
-        // h=7.1m
-        { h: 7.1, r: 3.95, kg: 3300 },
-        // h=10.22m
-        { h: 10.22, r: 2.69, kg: 1000 },
-      ],
-      loadMatrixStabs: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 3300 },
-        { h: 0.0, r: 2.75, kg: 3300 },
-        { h: 0.0, r: 3.34, kg: 2500 },
-        { h: 0.0, r: 3.94, kg: 2000 },
-        { h: 0.0, r: 4.53, kg: 1500 },
-        { h: 0.0, r: 5.13, kg: 1250 },
-        { h: 0.0, r: 5.73, kg: 1000 },
-        { h: 0.0, r: 6.83, kg: 1000 },
-        // h=2.33m
-        { h: 2.33, r: 2.75, kg: 3300 },
-        { h: 2.33, r: 3.34, kg: 2500 },
-        { h: 2.33, r: 3.94, kg: 2000 },
-        { h: 2.33, r: 4.53, kg: 1500 },
-        { h: 2.33, r: 5.13, kg: 1250 },
-        { h: 2.33, r: 6.83, kg: 1000 },
-        // h=3.59m
-        { h: 3.59, r: 2.75, kg: 3300 },
-        { h: 3.59, r: 3.34, kg: 2500 },
-        { h: 3.59, r: 3.94, kg: 2000 },
-        { h: 3.59, r: 4.53, kg: 1500 },
-        { h: 3.59, r: 5.13, kg: 1250 },
-        // h=4.85m
-        { h: 4.85, r: 2.75, kg: 3300 },
-        { h: 4.85, r: 3.34, kg: 2500 },
-        { h: 4.85, r: 3.94, kg: 2000 },
-        { h: 4.85, r: 4.53, kg: 1500 },
-        // h=6.1m
-        { h: 6.1, r: 2.75, kg: 3300 },
-        { h: 6.1, r: 3.34, kg: 2500 },
-        { h: 6.1, r: 3.94, kg: 2000 },
-        // h=7.36m
-        { h: 7.36, r: 2.75, kg: 3300 },
-        { h: 7.36, r: 3.34, kg: 2500 },
-        // h=8.62m
-        { h: 8.62, r: 2.75, kg: 3300 },
-        // h=10.22m
-        { h: 10.22, r: 1.99, kg: 2500 },
-      ],
-      // STAB LOAD MATRIX — stabilisers extended sway
-      // Anchors: Max=3000 | FH=2500@h10.22,r1.99 | FR=900@h0,r6.83 | Reach@1T=6.83m | PlacingH=9.82m
-      // Zones: 3000/2500/2000/1500/1250/900 kg
-      stabLoadMatrix: [
-        { h: 0, r: 0, kg: 3000 },
-        { h: 0, r: 1, kg: 3000 },
-        { h: 0, r: 2.5, kg: 2500 },
-        { h: 0, r: 3.8, kg: 2000 },
-        { h: 0, r: 5, kg: 1500 },
-        { h: 0, r: 5.7, kg: 1250 },
-        { h: 0, r: 6.83, kg: 900 },
-        { h: 2, r: 0, kg: 3000 },
-        { h: 2, r: 1, kg: 3000 },
-        { h: 2, r: 2.4, kg: 2500 },
-        { h: 2, r: 3.7, kg: 2000 },
-        { h: 2, r: 4.8, kg: 1500 },
-        { h: 2, r: 5.5, kg: 1250 },
-        { h: 2, r: 6.83, kg: 900 },
-        { h: 4, r: 0, kg: 3000 },
-        { h: 4, r: 0.95, kg: 3000 },
-        { h: 4, r: 2.3, kg: 2500 },
-        { h: 4, r: 3.5, kg: 2000 },
-        { h: 4, r: 4.5, kg: 1500 },
-        { h: 4, r: 5.15, kg: 1250 },
-        { h: 4, r: 5.9, kg: 900 },
-        { h: 6, r: 0, kg: 3000 },
-        { h: 6, r: 0.85, kg: 3000 },
-        { h: 6, r: 2, kg: 2500 },
-        { h: 6, r: 3.1, kg: 2000 },
-        { h: 6, r: 4, kg: 1500 },
-        { h: 6, r: 4.6, kg: 1250 },
-        { h: 8, r: 0, kg: 3000 },
-        { h: 8, r: 0.7, kg: 3000 },
-        { h: 8, r: 1.6, kg: 2500 },
-        { h: 8, r: 2.5, kg: 2000 },
-        { h: 8, r: 3.2, kg: 1500 },
-        { h: 8, r: 3.7, kg: 1250 },
-        { h: 9, r: 0, kg: 3000 },
-        { h: 9, r: 0.6, kg: 3000 },
-        { h: 9, r: 1.3, kg: 2500 },
-        { h: 9, r: 2.1, kg: 2000 },
-        { h: 9, r: 2.7, kg: 1500 },
-        { h: 10, r: 0, kg: 3000 },
-        { h: 10, r: 0.5, kg: 3000 },
-        { h: 10, r: 1.05, kg: 2500 },
-        { h: 10, r: 1.6, kg: 2000 },
-        { h: 10, r: 2.1, kg: 1500 },
-        { h: 10.22, r: 1.99, kg: 2500 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.14)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 1000,
+      capacityAtFullReach: 375,
+      capacityAtFullHeightStabs: 2500,
+      capacityAtFullReachStabs: 1000,
+      reachAt1000kg: 6.83,
       filters: ["telehandler", "rough"],
     },
 
@@ -12461,9 +11598,9 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 540-170 Construction Loadall",
       shortName: "JCB 540-170",
-      capacity: 4.0,
-      liftHeight: 16.7,
-      maxReach: 12.5,
+      capacity: 4,
+      liftHeight: 11.57,
+      maxReach: 9.04,
       engine: "93kW (125hp) EcoMAX T4F (standard)",
       machineWeight: 12060,
       machineWidth: 2440,
@@ -12511,220 +11648,20 @@ const MACHINES = {
         "EWP-Ready",
         "AS 1418.19",
       ],
-      // LOAD MATRIX — ON TYRES (stabilisers retracted sway)
-      // Source: JCB Construction Loadalls brochure p.28 spec table + chart visual read
-      // Anchors: Max=4000 | FH=1300@h11.57,r4.32 | FR=0@h0,r9.04 | Reach@1T=5.76m | PlacingH=10.90m
-      // Zones: 4000/3000/2000/1500/1000/500/250/0 kg — chart p.28 bottom-left
-      // ── PRECISION DATA — JCB 540-170-CONST ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      // STABILISERS: loadMatrix = retracted (on-tyres, conservative)
-      //              loadMatrixStabs = extended (outriggers deployed)
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 4.99, kg: 4000 },
-        { h: 0.0, r: 5.76, kg: 1000 },
-        { h: 0.0, r: 5.95, kg: 3000 },
-        { h: 0.0, r: 6.88, kg: 2000 },
-        { h: 0.0, r: 7.38, kg: 1500 },
-        { h: 0.0, r: 7.73, kg: 1000 },
-        { h: 0.0, r: 8.08, kg: 500 },
-        { h: 0.0, r: 8.55, kg: 250 },
-        { h: 0.0, r: 8.86, kg: 0 },
-        { h: 0.0, r: 9.04, kg: 0 },
-        // h=0.43m
-        { h: 0.43, r: 4.99, kg: 4000 },
-        { h: 0.43, r: 5.95, kg: 3000 },
-        { h: 0.43, r: 6.88, kg: 2000 },
-        { h: 0.43, r: 7.38, kg: 1500 },
-        { h: 0.43, r: 7.73, kg: 1000 },
-        { h: 0.43, r: 8.08, kg: 500 },
-        { h: 0.43, r: 8.55, kg: 250 },
-        { h: 0.43, r: 9.04, kg: 0 },
-        // h=1.21m
-        { h: 1.21, r: 4.99, kg: 4000 },
-        { h: 1.21, r: 5.95, kg: 3000 },
-        { h: 1.21, r: 6.88, kg: 2000 },
-        { h: 1.21, r: 7.38, kg: 1500 },
-        { h: 1.21, r: 7.73, kg: 1000 },
-        { h: 1.21, r: 8.08, kg: 500 },
-        { h: 1.21, r: 8.55, kg: 250 },
-        // h=2.36m
-        { h: 2.36, r: 4.99, kg: 4000 },
-        { h: 2.36, r: 5.95, kg: 3000 },
-        { h: 2.36, r: 6.88, kg: 2000 },
-        { h: 2.36, r: 7.38, kg: 1500 },
-        { h: 2.36, r: 7.73, kg: 1000 },
-        { h: 2.36, r: 8.08, kg: 500 },
-        // h=3.21m
-        { h: 3.21, r: 4.99, kg: 4000 },
-        { h: 3.21, r: 5.95, kg: 3000 },
-        { h: 3.21, r: 6.88, kg: 2000 },
-        { h: 3.21, r: 7.38, kg: 1500 },
-        { h: 3.21, r: 7.73, kg: 1000 },
-        // h=4.07m
-        { h: 4.07, r: 4.99, kg: 4000 },
-        { h: 4.07, r: 5.95, kg: 3000 },
-        { h: 4.07, r: 6.88, kg: 2000 },
-        { h: 4.07, r: 7.38, kg: 1500 },
-        // h=5.29m
-        { h: 5.29, r: 4.99, kg: 4000 },
-        { h: 5.29, r: 5.95, kg: 3000 },
-        { h: 5.29, r: 6.88, kg: 2000 },
-        // h=7.57m
-        { h: 7.57, r: 4.99, kg: 4000 },
-        { h: 7.57, r: 5.95, kg: 3000 },
-        // h=9.93m
-        { h: 9.93, r: 4.99, kg: 4000 },
-        // h=11.57m
-        { h: 11.57, r: 4.32, kg: 1500 },
-      ],
-      loadMatrixStabs: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 7.01, kg: 4000 },
-        { h: 0.0, r: 7.66, kg: 3500 },
-        { h: 0.0, r: 8.28, kg: 3000 },
-        { h: 0.0, r: 8.92, kg: 2500 },
-        { h: 0.0, r: 9.57, kg: 2000 },
-        { h: 0.0, r: 10.19, kg: 1500 },
-        { h: 0.0, r: 10.84, kg: 1000 },
-        { h: 0.0, r: 11.45, kg: 800 },
-        { h: 0.0, r: 11.7, kg: 1000 },
-        { h: 0.0, r: 12.5, kg: 800 },
-        // h=1.67m
-        { h: 1.67, r: 7.01, kg: 4000 },
-        { h: 1.67, r: 7.66, kg: 3500 },
-        { h: 1.67, r: 8.28, kg: 3000 },
-        { h: 1.67, r: 8.92, kg: 2500 },
-        { h: 1.67, r: 9.57, kg: 2000 },
-        { h: 1.67, r: 10.19, kg: 1500 },
-        { h: 1.67, r: 10.84, kg: 1000 },
-        { h: 1.67, r: 12.5, kg: 800 },
-        // h=2.63m
-        { h: 2.63, r: 7.01, kg: 4000 },
-        { h: 2.63, r: 7.66, kg: 3500 },
-        { h: 2.63, r: 8.28, kg: 3000 },
-        { h: 2.63, r: 8.92, kg: 2500 },
-        { h: 2.63, r: 9.57, kg: 2000 },
-        { h: 2.63, r: 10.19, kg: 1500 },
-        { h: 2.63, r: 10.84, kg: 1000 },
-        // h=3.67m
-        { h: 3.67, r: 7.01, kg: 4000 },
-        { h: 3.67, r: 7.66, kg: 3500 },
-        { h: 3.67, r: 8.28, kg: 3000 },
-        { h: 3.67, r: 8.92, kg: 2500 },
-        { h: 3.67, r: 9.57, kg: 2000 },
-        { h: 3.67, r: 10.19, kg: 1500 },
-        // h=4.64m
-        { h: 4.64, r: 7.01, kg: 4000 },
-        { h: 4.64, r: 7.66, kg: 3500 },
-        { h: 4.64, r: 8.28, kg: 3000 },
-        { h: 4.64, r: 8.92, kg: 2500 },
-        { h: 4.64, r: 9.57, kg: 2000 },
-        // h=5.67m
-        { h: 5.67, r: 7.01, kg: 4000 },
-        { h: 5.67, r: 7.66, kg: 3500 },
-        { h: 5.67, r: 8.28, kg: 3000 },
-        { h: 5.67, r: 8.92, kg: 2500 },
-        // h=6.7m
-        { h: 6.7, r: 7.01, kg: 4000 },
-        { h: 6.7, r: 7.66, kg: 3500 },
-        { h: 6.7, r: 8.28, kg: 3000 },
-        // h=7.67m
-        { h: 7.67, r: 7.01, kg: 4000 },
-        { h: 7.67, r: 7.66, kg: 3500 },
-        // h=8.71m
-        { h: 8.71, r: 7.01, kg: 4000 },
-        // h=16.7m
-        { h: 16.7, r: 1.97, kg: 2500 },
-      ],
-      // STAB LOAD MATRIX — stabilisers extended sway
-      // Anchors: Max=4000 | FH=2200@h16.7,r1.97 | FR=450@h0,r12.5 | Reach@1T=11.70m | PlacingH=16.20m
-      // Zones: 4000/3500/3000/2500/2000/1500/1000/800 kg — chart p.28 bottom-right
-      stabLoadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 1, kg: 4000 },
-        { h: 0, r: 2.2, kg: 3500 },
-        { h: 0, r: 3.7, kg: 3000 },
-        { h: 0, r: 5.5, kg: 2500 },
-        { h: 0, r: 7.2, kg: 2000 },
-        { h: 0, r: 9, kg: 1500 },
-        { h: 0, r: 10.8, kg: 1000 },
-        { h: 0, r: 12.5, kg: 800 },
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 1, kg: 4000 },
-        { h: 2, r: 2.15, kg: 3500 },
-        { h: 2, r: 3.6, kg: 3000 },
-        { h: 2, r: 5.3, kg: 2500 },
-        { h: 2, r: 7, kg: 2000 },
-        { h: 2, r: 8.7, kg: 1500 },
-        { h: 2, r: 10.5, kg: 1000 },
-        { h: 2, r: 12, kg: 800 },
-        { h: 4, r: 0, kg: 4000 },
-        { h: 4, r: 0.95, kg: 4000 },
-        { h: 4, r: 2.05, kg: 3500 },
-        { h: 4, r: 3.45, kg: 3000 },
-        { h: 4, r: 5.1, kg: 2500 },
-        { h: 4, r: 6.7, kg: 2000 },
-        { h: 4, r: 8.3, kg: 1500 },
-        { h: 4, r: 10, kg: 1000 },
-        { h: 4, r: 11.4, kg: 800 },
-        { h: 6, r: 0, kg: 4000 },
-        { h: 6, r: 0.9, kg: 4000 },
-        { h: 6, r: 1.9, kg: 3500 },
-        { h: 6, r: 3.2, kg: 3000 },
-        { h: 6, r: 4.7, kg: 2500 },
-        { h: 6, r: 6.2, kg: 2000 },
-        { h: 6, r: 7.7, kg: 1500 },
-        { h: 6, r: 9.3, kg: 1000 },
-        { h: 6, r: 10.5, kg: 800 },
-        { h: 8, r: 0, kg: 4000 },
-        { h: 8, r: 0.8, kg: 4000 },
-        { h: 8, r: 1.7, kg: 3500 },
-        { h: 8, r: 2.9, kg: 3000 },
-        { h: 8, r: 4.3, kg: 2500 },
-        { h: 8, r: 5.7, kg: 2000 },
-        { h: 8, r: 7, kg: 1500 },
-        { h: 8, r: 8.5, kg: 1000 },
-        { h: 8, r: 9.6, kg: 800 },
-        { h: 10, r: 0, kg: 4000 },
-        { h: 10, r: 0.7, kg: 4000 },
-        { h: 10, r: 1.5, kg: 3500 },
-        { h: 10, r: 2.55, kg: 3000 },
-        { h: 10, r: 3.8, kg: 2500 },
-        { h: 10, r: 5, kg: 2000 },
-        { h: 10, r: 6.2, kg: 1500 },
-        { h: 10, r: 7.5, kg: 1000 },
-        { h: 10, r: 8.5, kg: 800 },
-        { h: 12, r: 0, kg: 4000 },
-        { h: 12, r: 0.55, kg: 4000 },
-        { h: 12, r: 1.2, kg: 3500 },
-        { h: 12, r: 2.1, kg: 3000 },
-        { h: 12, r: 3.1, kg: 2500 },
-        { h: 12, r: 4.1, kg: 2000 },
-        { h: 12, r: 5.1, kg: 1500 },
-        { h: 12, r: 6.2, kg: 1000 },
-        { h: 12, r: 7, kg: 800 },
-        { h: 14, r: 0, kg: 4000 },
-        { h: 14, r: 0.4, kg: 4000 },
-        { h: 14, r: 0.9, kg: 3500 },
-        { h: 14, r: 1.6, kg: 3000 },
-        { h: 14, r: 2.35, kg: 2500 },
-        { h: 14, r: 3.1, kg: 2000 },
-        { h: 14, r: 3.9, kg: 1500 },
-        { h: 14, r: 4.75, kg: 1000 },
-        { h: 16, r: 0, kg: 4000 },
-        { h: 16, r: 0.25, kg: 3800 },
-        { h: 16, r: 0.55, kg: 3500 },
-        { h: 16, r: 1, kg: 3000 },
-        { h: 16, r: 1.5, kg: 2500 },
-        { h: 16, r: 2, kg: 2200 },
-        { h: 16.7, r: 1.97, kg: 2200 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.15)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 1500,
+      capacityAtFullReach: 0,
+      capacityAtFullHeightStabs: 2500,
+      capacityAtFullReachStabs: 800,
+      liftHeightStabs: 16.7,
+      maxReachStabs: 12.5,
+      reachAt1000kg: 5.76,
       filters: ["telehandler", "rough", "heavy"],
     },
     {
@@ -12734,9 +11671,9 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 540-200 Construction Loadall",
       shortName: "JCB 540-200",
-      capacity: 4.0,
-      liftHeight: 20.0,
-      maxReach: 15.9,
+      capacity: 4,
+      liftHeight: 10.27,
+      maxReach: 9.63,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 12985,
       machineWidth: 2440,
@@ -12783,275 +11720,20 @@ const MACHINES = {
         "EWP 20.3m",
         "AS 1418.19",
       ],
-      // LOAD MATRIX — ON TYRES (stabilisers retracted sway)
-      // Source: JCB Construction Loadalls brochure p.28 spec table + chart visual read
-      // Anchors: Max=4000 | FH=500@h10.27,r6.42 | FR=0@h0,r9.63 | Reach@1T=6.25m | PlacingH=9.1m
-      // Zones: 4000/3000/2000/1500/1000/500/200/0 kg — chart p.28 bottom-left
-      // ── PRECISION DATA — JCB 540-200-CONST ─────────────────────────
-      // Source: JCB Construction Loadalls brochure (9999/5921 en-AUS)
-      // Zone boundaries derived from PDF vector kg-label heights + brochure
-      // envelope anchors (cap_max, cap_full_height, cap_full_reach, reach_1t).
-      // Verified: brochure anchor tests pass — see v25 audit /tmp/v25_matrices.json.
-      // STABILISERS: loadMatrix = retracted (on-tyres, conservative)
-      //              loadMatrixStabs = extended (outriggers deployed)
-      loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 6.25, kg: 1000 },
-        { h: 0.0, r: 6.95, kg: 4000 },
-        { h: 0.0, r: 7.21, kg: 3000 },
-        { h: 0.0, r: 7.5, kg: 2500 },
-        { h: 0.0, r: 7.8, kg: 2000 },
-        { h: 0.0, r: 8.11, kg: 1500 },
-        { h: 0.0, r: 8.4, kg: 1000 },
-        { h: 0.0, r: 8.7, kg: 500 },
-        { h: 0.0, r: 9.0, kg: 200 },
-        { h: 0.0, r: 9.29, kg: 0 },
-        { h: 0.0, r: 9.63, kg: 0 },
-        // h=1.09m
-        { h: 1.09, r: 6.95, kg: 4000 },
-        { h: 1.09, r: 7.21, kg: 3000 },
-        { h: 1.09, r: 7.5, kg: 2500 },
-        { h: 1.09, r: 7.8, kg: 2000 },
-        { h: 1.09, r: 8.11, kg: 1500 },
-        { h: 1.09, r: 8.4, kg: 1000 },
-        { h: 1.09, r: 8.7, kg: 500 },
-        { h: 1.09, r: 9.0, kg: 200 },
-        { h: 1.09, r: 9.63, kg: 0 },
-        // h=2.03m
-        { h: 2.03, r: 6.95, kg: 4000 },
-        { h: 2.03, r: 7.21, kg: 3000 },
-        { h: 2.03, r: 7.5, kg: 2500 },
-        { h: 2.03, r: 7.8, kg: 2000 },
-        { h: 2.03, r: 8.11, kg: 1500 },
-        { h: 2.03, r: 8.4, kg: 1000 },
-        { h: 2.03, r: 8.7, kg: 500 },
-        { h: 2.03, r: 9.0, kg: 200 },
-        // h=2.98m
-        { h: 2.98, r: 6.95, kg: 4000 },
-        { h: 2.98, r: 7.21, kg: 3000 },
-        { h: 2.98, r: 7.5, kg: 2500 },
-        { h: 2.98, r: 7.8, kg: 2000 },
-        { h: 2.98, r: 8.11, kg: 1500 },
-        { h: 2.98, r: 8.4, kg: 1000 },
-        { h: 2.98, r: 8.7, kg: 500 },
-        // h=3.92m
-        { h: 3.92, r: 6.95, kg: 4000 },
-        { h: 3.92, r: 7.21, kg: 3000 },
-        { h: 3.92, r: 7.5, kg: 2500 },
-        { h: 3.92, r: 7.8, kg: 2000 },
-        { h: 3.92, r: 8.11, kg: 1500 },
-        { h: 3.92, r: 8.4, kg: 1000 },
-        // h=4.87m
-        { h: 4.87, r: 6.95, kg: 4000 },
-        { h: 4.87, r: 7.21, kg: 3000 },
-        { h: 4.87, r: 7.5, kg: 2500 },
-        { h: 4.87, r: 7.8, kg: 2000 },
-        { h: 4.87, r: 8.11, kg: 1500 },
-        // h=5.86m
-        { h: 5.86, r: 6.95, kg: 4000 },
-        { h: 5.86, r: 7.21, kg: 3000 },
-        { h: 5.86, r: 7.5, kg: 2500 },
-        { h: 5.86, r: 7.8, kg: 2000 },
-        // h=6.81m
-        { h: 6.81, r: 6.95, kg: 4000 },
-        { h: 6.81, r: 7.21, kg: 3000 },
-        { h: 6.81, r: 7.5, kg: 2500 },
-        // h=7.75m
-        { h: 7.75, r: 6.95, kg: 4000 },
-        { h: 7.75, r: 7.21, kg: 3000 },
-        // h=8.59m
-        { h: 8.59, r: 6.95, kg: 4000 },
-        // h=10.27m
-        { h: 10.27, r: 6.42, kg: 500 },
-      ],
-      loadMatrixStabs: [
-        // h=0.0m
-        { h: 0.0, r: 0.0, kg: 4000 },
-        { h: 0.0, r: 2.82, kg: 4000 },
-        { h: 0.0, r: 3.64, kg: 3500 },
-        { h: 0.0, r: 4.96, kg: 3000 },
-        { h: 0.0, r: 6.27, kg: 2500 },
-        { h: 0.0, r: 7.52, kg: 2000 },
-        { h: 0.0, r: 8.78, kg: 1500 },
-        { h: 0.0, r: 10.14, kg: 1000 },
-        { h: 0.0, r: 10.65, kg: 1000 },
-        { h: 0.0, r: 11.39, kg: 750 },
-        { h: 0.0, r: 12.76, kg: 500 },
-        { h: 0.0, r: 14.02, kg: 200 },
-        { h: 0.0, r: 15.9, kg: 200 },
-        // h=2.88m
-        { h: 2.88, r: 2.82, kg: 4000 },
-        { h: 2.88, r: 3.64, kg: 3500 },
-        { h: 2.88, r: 4.96, kg: 3000 },
-        { h: 2.88, r: 6.27, kg: 2500 },
-        { h: 2.88, r: 7.52, kg: 2000 },
-        { h: 2.88, r: 8.78, kg: 1500 },
-        { h: 2.88, r: 10.14, kg: 1000 },
-        { h: 2.88, r: 11.39, kg: 750 },
-        { h: 2.88, r: 12.76, kg: 500 },
-        { h: 2.88, r: 15.9, kg: 200 },
-        // h=4.8m
-        { h: 4.8, r: 2.82, kg: 4000 },
-        { h: 4.8, r: 3.64, kg: 3500 },
-        { h: 4.8, r: 4.96, kg: 3000 },
-        { h: 4.8, r: 6.27, kg: 2500 },
-        { h: 4.8, r: 7.52, kg: 2000 },
-        { h: 4.8, r: 8.78, kg: 1500 },
-        { h: 4.8, r: 10.14, kg: 1000 },
-        { h: 4.8, r: 11.39, kg: 750 },
-        { h: 4.8, r: 12.76, kg: 500 },
-        // h=6.89m
-        { h: 6.89, r: 2.82, kg: 4000 },
-        { h: 6.89, r: 3.64, kg: 3500 },
-        { h: 6.89, r: 4.96, kg: 3000 },
-        { h: 6.89, r: 6.27, kg: 2500 },
-        { h: 6.89, r: 7.52, kg: 2000 },
-        { h: 6.89, r: 8.78, kg: 1500 },
-        { h: 6.89, r: 10.14, kg: 1000 },
-        { h: 6.89, r: 11.39, kg: 750 },
-        // h=8.81m
-        { h: 8.81, r: 2.82, kg: 4000 },
-        { h: 8.81, r: 3.64, kg: 3500 },
-        { h: 8.81, r: 4.96, kg: 3000 },
-        { h: 8.81, r: 6.27, kg: 2500 },
-        { h: 8.81, r: 7.52, kg: 2000 },
-        { h: 8.81, r: 8.78, kg: 1500 },
-        { h: 8.81, r: 10.14, kg: 1000 },
-        // h=10.89m
-        { h: 10.89, r: 2.82, kg: 4000 },
-        { h: 10.89, r: 3.64, kg: 3500 },
-        { h: 10.89, r: 4.96, kg: 3000 },
-        { h: 10.89, r: 6.27, kg: 2500 },
-        { h: 10.89, r: 7.52, kg: 2000 },
-        { h: 10.89, r: 8.78, kg: 1500 },
-        // h=12.81m
-        { h: 12.81, r: 2.82, kg: 4000 },
-        { h: 12.81, r: 3.64, kg: 3500 },
-        { h: 12.81, r: 4.96, kg: 3000 },
-        { h: 12.81, r: 6.27, kg: 2500 },
-        { h: 12.81, r: 7.52, kg: 2000 },
-        // h=14.73m
-        { h: 14.73, r: 2.82, kg: 4000 },
-        { h: 14.73, r: 3.64, kg: 3500 },
-        { h: 14.73, r: 4.96, kg: 3000 },
-        { h: 14.73, r: 6.27, kg: 2500 },
-        // h=16.73m
-        { h: 16.73, r: 2.82, kg: 4000 },
-        { h: 16.73, r: 3.64, kg: 3500 },
-        { h: 16.73, r: 4.96, kg: 3000 },
-        // h=18.74m
-        { h: 18.74, r: 2.82, kg: 4000 },
-        { h: 18.74, r: 3.64, kg: 3500 },
-        // h=20.0m
-        { h: 20.0, r: 2.82, kg: 1500 },
-        // h=20.82m
-        { h: 20.82, r: 2.82, kg: 4000 },
-      ],
-      // STAB LOAD MATRIX — stabilisers extended sway
-      // Anchors: Max=4000 | FH=1500@h20,r2.82 | FR=200@h0,r15.9 | Reach@1T=10.65m | PlacingH=19.1m
-      // Zones: 4000/3500/3000/2500/2000/1500/1000/750/500/200 kg — chart p.28 bottom-right
-      stabLoadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 1.5, kg: 4000 },
-        { h: 0, r: 2.8, kg: 3500 },
-        { h: 0, r: 4.5, kg: 3000 },
-        { h: 0, r: 6.2, kg: 2500 },
-        { h: 0, r: 8.2, kg: 2000 },
-        { h: 0, r: 10.2, kg: 1500 },
-        { h: 0, r: 12.2, kg: 1000 },
-        { h: 0, r: 13.7, kg: 750 },
-        { h: 0, r: 14.8, kg: 500 },
-        { h: 0, r: 15.9, kg: 200 },
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 1.5, kg: 4000 },
-        { h: 2, r: 2.75, kg: 3500 },
-        { h: 2, r: 4.4, kg: 3000 },
-        { h: 2, r: 6, kg: 2500 },
-        { h: 2, r: 7.9, kg: 2000 },
-        { h: 2, r: 9.9, kg: 1500 },
-        { h: 2, r: 11.8, kg: 1000 },
-        { h: 2, r: 13.2, kg: 750 },
-        { h: 2, r: 14.3, kg: 500 },
-        { h: 2, r: 15.3, kg: 200 },
-        { h: 4, r: 0, kg: 4000 },
-        { h: 4, r: 1.4, kg: 4000 },
-        { h: 4, r: 2.65, kg: 3500 },
-        { h: 4, r: 4.2, kg: 3000 },
-        { h: 4, r: 5.75, kg: 2500 },
-        { h: 4, r: 7.55, kg: 2000 },
-        { h: 4, r: 9.5, kg: 1500 },
-        { h: 4, r: 11.3, kg: 1000 },
-        { h: 4, r: 12.7, kg: 750 },
-        { h: 4, r: 13.7, kg: 500 },
-        { h: 4, r: 14.6, kg: 200 },
-        { h: 6, r: 0, kg: 4000 },
-        { h: 6, r: 1.3, kg: 4000 },
-        { h: 6, r: 2.5, kg: 3500 },
-        { h: 6, r: 3.95, kg: 3000 },
-        { h: 6, r: 5.45, kg: 2500 },
-        { h: 6, r: 7.15, kg: 2000 },
-        { h: 6, r: 9, kg: 1500 },
-        { h: 6, r: 10.7, kg: 1000 },
-        { h: 6, r: 12, kg: 750 },
-        { h: 6, r: 12.95, kg: 500 },
-        { h: 8, r: 0, kg: 4000 },
-        { h: 8, r: 1.15, kg: 4000 },
-        { h: 8, r: 2.3, kg: 3500 },
-        { h: 8, r: 3.65, kg: 3000 },
-        { h: 8, r: 5.05, kg: 2500 },
-        { h: 8, r: 6.7, kg: 2000 },
-        { h: 8, r: 8.4, kg: 1500 },
-        { h: 8, r: 10, kg: 1000 },
-        { h: 8, r: 11.25, kg: 750 },
-        { h: 8, r: 12.15, kg: 500 },
-        { h: 10, r: 0, kg: 4000 },
-        { h: 10, r: 1, kg: 4000 },
-        { h: 10, r: 2.05, kg: 3500 },
-        { h: 10, r: 3.25, kg: 3000 },
-        { h: 10, r: 4.5, kg: 2500 },
-        { h: 10, r: 6, kg: 2000 },
-        { h: 10, r: 7.6, kg: 1500 },
-        { h: 10, r: 9.1, kg: 1000 },
-        { h: 10, r: 10.2, kg: 750 },
-        { h: 10, r: 11.1, kg: 500 },
-        { h: 12, r: 0, kg: 4000 },
-        { h: 12, r: 0.85, kg: 4000 },
-        { h: 12, r: 1.75, kg: 3500 },
-        { h: 12, r: 2.8, kg: 3000 },
-        { h: 12, r: 3.9, kg: 2500 },
-        { h: 12, r: 5.2, kg: 2000 },
-        { h: 12, r: 6.6, kg: 1500 },
-        { h: 12, r: 7.9, kg: 1000 },
-        { h: 12, r: 8.9, kg: 750 },
-        { h: 14, r: 0, kg: 4000 },
-        { h: 14, r: 0.7, kg: 4000 },
-        { h: 14, r: 1.45, kg: 3500 },
-        { h: 14, r: 2.3, kg: 3000 },
-        { h: 14, r: 3.2, kg: 2500 },
-        { h: 14, r: 4.3, kg: 2000 },
-        { h: 14, r: 5.5, kg: 1500 },
-        { h: 14, r: 6.6, kg: 1000 },
-        { h: 14, r: 7.4, kg: 750 },
-        { h: 16, r: 0, kg: 4000 },
-        { h: 16, r: 0.55, kg: 4000 },
-        { h: 16, r: 1.1, kg: 3500 },
-        { h: 16, r: 1.75, kg: 3000 },
-        { h: 16, r: 2.5, kg: 2500 },
-        { h: 16, r: 3.3, kg: 2000 },
-        { h: 16, r: 4.2, kg: 1500 },
-        { h: 16, r: 5.1, kg: 1000 },
-        { h: 16, r: 5.75, kg: 750 },
-        { h: 18, r: 0, kg: 4000 },
-        { h: 18, r: 0.4, kg: 3800 },
-        { h: 18, r: 0.8, kg: 3500 },
-        { h: 18, r: 1.3, kg: 3000 },
-        { h: 18, r: 1.85, kg: 2500 },
-        { h: 18, r: 2.45, kg: 2000 },
-        { h: 18, r: 3.1, kg: 1500 },
-        { h: 18, r: 3.75, kg: 1000 },
-        { h: 20, r: 2.82, kg: 1500 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.15)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 500,
+      capacityAtFullReach: 0,
+      capacityAtFullHeightStabs: 1500,
+      capacityAtFullReachStabs: 200,
+      liftHeightStabs: 20,
+      maxReachStabs: 15.9,
+      reachAt1000kg: 6.25,
       filters: ["telehandler", "rough", "heavy"],
     },
 
@@ -75080,78 +73762,15 @@ loadMatrixTyres: [
       bestFor: "2.5T at 5.8m — versatile compact, step up from 520 family",
       note: "JCB 525-60 Loadall — 2.5T, 5.8m lift, 3.9m reach. JCB EcoMAX Stage V. Good intermediate option between compact 2T and mid-range 3T machines. Compact enough for tight sites, enough capacity for most construction loads.",
       tags: ["2.5T", "5.8m", "JCB Loadall", "Versatile Compact"],
-      loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 2500 },
-        { h: 0.5, r: 0.5, kg: 2500 },
-        { h: 0.5, r: 1.0, kg: 2500 },
-        { h: 0.5, r: 1.5, kg: 2250 },
-        { h: 0.5, r: 2.0, kg: 1850 },
-        { h: 0.5, r: 2.5, kg: 1350 },
-        { h: 0.5, r: 3.0, kg: 950 },
-        { h: 0.5, r: 3.5, kg: 700 },
-        { h: 0.5, r: 3.9, kg: 550 },
-        { h: 0.7, r: 0.0, kg: 2500 },
-        { h: 0.7, r: 0.5, kg: 2500 },
-        { h: 0.7, r: 1.0, kg: 2500 },
-        { h: 0.7, r: 1.5, kg: 2250 },
-        { h: 0.7, r: 2.0, kg: 1850 },
-        { h: 0.7, r: 2.5, kg: 1350 },
-        { h: 0.7, r: 3.0, kg: 950 },
-        { h: 0.7, r: 3.5, kg: 700 },
-        { h: 0.7, r: 3.9, kg: 550 },
-        { h: 1.4, r: 0.0, kg: 2500 },
-        { h: 1.4, r: 0.5, kg: 2500 },
-        { h: 1.4, r: 1.0, kg: 2500 },
-        { h: 1.4, r: 1.5, kg: 2250 },
-        { h: 1.4, r: 2.0, kg: 1850 },
-        { h: 1.4, r: 2.5, kg: 1350 },
-        { h: 1.4, r: 3.0, kg: 950 },
-        { h: 1.4, r: 3.5, kg: 700 },
-        { h: 1.4, r: 3.8, kg: 550 },
-        { h: 2.2, r: 0.0, kg: 2500 },
-        { h: 2.2, r: 0.5, kg: 2500 },
-        { h: 2.2, r: 1.0, kg: 2500 },
-        { h: 2.2, r: 1.5, kg: 2250 },
-        { h: 2.2, r: 2.0, kg: 1850 },
-        { h: 2.2, r: 2.5, kg: 1350 },
-        { h: 2.2, r: 3.0, kg: 950 },
-        { h: 2.2, r: 3.5, kg: 700 },
-        { h: 2.9, r: 0.0, kg: 2500 },
-        { h: 2.9, r: 0.5, kg: 2500 },
-        { h: 2.9, r: 1.0, kg: 2500 },
-        { h: 2.9, r: 1.5, kg: 2250 },
-        { h: 2.9, r: 2.0, kg: 1350 },
-        { h: 2.9, r: 2.5, kg: 950 },
-        { h: 2.9, r: 3.0, kg: 700 },
-        { h: 2.9, r: 3.3, kg: 550 },
-        { h: 3.6, r: 0.0, kg: 2500 },
-        { h: 3.6, r: 0.5, kg: 2500 },
-        { h: 3.6, r: 1.0, kg: 2250 },
-        { h: 3.6, r: 1.5, kg: 1850 },
-        { h: 3.6, r: 2.0, kg: 1350 },
-        { h: 3.6, r: 2.5, kg: 950 },
-        { h: 3.6, r: 2.9, kg: 550 },
-        { h: 4.2, r: 0.0, kg: 2450 },
-        { h: 4.2, r: 0.5, kg: 2450 },
-        { h: 4.2, r: 1.0, kg: 2200 },
-        { h: 4.2, r: 1.5, kg: 1350 },
-        { h: 4.2, r: 2.0, kg: 950 },
-        { h: 4.2, r: 2.4, kg: 550 },
-        { h: 4.8, r: 0.0, kg: 2350 },
-        { h: 4.8, r: 0.5, kg: 2350 },
-        { h: 4.8, r: 1.0, kg: 1750 },
-        { h: 4.8, r: 1.5, kg: 900 },
-        { h: 4.8, r: 1.9, kg: 500 },
-        { h: 5.2, r: 0.0, kg: 2300 },
-        { h: 5.2, r: 0.5, kg: 2300 },
-        { h: 5.2, r: 1.0, kg: 1250 },
-        { h: 5.2, r: 1.4, kg: 650 },
-        { h: 5.6, r: 0.0, kg: 2250 },
-        { h: 5.6, r: 0.5, kg: 2000 },
-        { h: 5.6, r: 0.9, kg: 600 },
-        { h: 5.8, r: 0.0, kg: 2200 },
-        { h: 5.8, r: 0.5, kg: 1650 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive, demonstrated against
+      // JCB 525-60 brochure PDF supplied 28-Apr-2026). The JCB load chart
+      // publishes discrete labelled zones (e.g. 750, 1000, 1500, 2000, 2500 kg
+      // on the 2.5T class). Synthetic intermediate values (e.g. 950 kg) do
+      // NOT exist on the brochure. Until a complete brochure-zone matrix is
+      // hand-verified for this specific Stage V variant, mark sparse and
+      // refuse to interpolate. The renderer shows "Confirm capacity at
+      // working point with the rental company" instead of any synthetic kg.
+      loadChartSparse: true,
       filters: ["telehandler", "compact"],
     },
 
@@ -75261,8 +73880,8 @@ loadMatrixTyres: [
       name: "JCB 533-105 Loadall",
       shortName: "JCB 533-105",
       capacity: 3.3,
-      liftHeight: 10.2,
-      maxReach: 7.3,
+      liftHeight: 10.22,
+      maxReach: 6.83,
       engine: "JCB EcoMAX 74kW Stage V",
       machineWeight: 9300,
       machineWidth: 2400,
@@ -75281,92 +73900,18 @@ loadMatrixTyres: [
         "3.3T at 10.2m — JCB 3-storey range, popular for 3-5 storey residential",
       note: "JCB 533-105 Loadall — 3.3T, 10.2m lift, 7.3m reach. JCB EcoMAX 74kW Stage V. Excellent all-round telehandler for 3-storey construction. Strong brand loyalty in JCB markets. JSM steering, LiveLink. 2.4m wide.",
       tags: ["3.3T", "10.2m", "JCB Loadall", "3-Storey Construction"],
-      loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 3300 },
-        { h: 0.5, r: 1.0, kg: 3300 },
-        { h: 0.5, r: 2.0, kg: 3300 },
-        { h: 0.5, r: 3.0, kg: 2950 },
-        { h: 0.5, r: 3.5, kg: 2450 },
-        { h: 0.5, r: 4.5, kg: 1800 },
-        { h: 0.5, r: 6.0, kg: 1250 },
-        { h: 0.5, r: 6.5, kg: 900 },
-        { h: 0.5, r: 7.3, kg: 750 },
-        { h: 1.2, r: 0.0, kg: 3300 },
-        { h: 1.2, r: 1.0, kg: 3300 },
-        { h: 1.2, r: 2.0, kg: 3300 },
-        { h: 1.2, r: 3.0, kg: 2950 },
-        { h: 1.2, r: 3.5, kg: 2450 },
-        { h: 1.2, r: 4.5, kg: 1800 },
-        { h: 1.2, r: 6.0, kg: 1250 },
-        { h: 1.2, r: 6.5, kg: 900 },
-        { h: 1.2, r: 7.3, kg: 750 },
-        { h: 2.5, r: 0.0, kg: 3300 },
-        { h: 2.5, r: 1.0, kg: 3300 },
-        { h: 2.5, r: 2.0, kg: 3300 },
-        { h: 2.5, r: 2.5, kg: 2950 },
-        { h: 2.5, r: 3.5, kg: 2450 },
-        { h: 2.5, r: 4.5, kg: 1800 },
-        { h: 2.5, r: 5.5, kg: 1250 },
-        { h: 2.5, r: 6.5, kg: 900 },
-        { h: 2.5, r: 7.0, kg: 750 },
-        { h: 3.9, r: 0.0, kg: 3300 },
-        { h: 3.9, r: 1.0, kg: 3300 },
-        { h: 3.9, r: 1.5, kg: 3300 },
-        { h: 3.9, r: 2.5, kg: 2950 },
-        { h: 3.9, r: 3.5, kg: 2450 },
-        { h: 3.9, r: 4.5, kg: 1800 },
-        { h: 3.9, r: 5.5, kg: 1250 },
-        { h: 3.9, r: 6.0, kg: 900 },
-        { h: 3.9, r: 6.5, kg: 750 },
-        { h: 5.1, r: 0.0, kg: 3300 },
-        { h: 5.1, r: 0.5, kg: 3300 },
-        { h: 5.1, r: 1.5, kg: 3300 },
-        { h: 5.1, r: 2.5, kg: 2950 },
-        { h: 5.1, r: 3.0, kg: 2450 },
-        { h: 5.1, r: 4.0, kg: 1800 },
-        { h: 5.1, r: 5.0, kg: 1250 },
-        { h: 5.1, r: 5.5, kg: 900 },
-        { h: 5.1, r: 6.0, kg: 750 },
-        { h: 6.3, r: 0.0, kg: 3300 },
-        { h: 6.3, r: 0.5, kg: 3300 },
-        { h: 6.3, r: 1.5, kg: 3300 },
-        { h: 6.3, r: 2.0, kg: 2950 },
-        { h: 6.3, r: 2.5, kg: 2450 },
-        { h: 6.3, r: 3.5, kg: 1800 },
-        { h: 6.3, r: 4.5, kg: 1250 },
-        { h: 6.3, r: 5.0, kg: 900 },
-        { h: 6.3, r: 5.4, kg: 700 },
-        { h: 7.3, r: 0.0, kg: 3200 },
-        { h: 7.3, r: 0.5, kg: 3200 },
-        { h: 7.3, r: 1.0, kg: 3200 },
-        { h: 7.3, r: 1.5, kg: 2900 },
-        { h: 7.3, r: 2.5, kg: 2400 },
-        { h: 7.3, r: 3.0, kg: 1750 },
-        { h: 7.3, r: 3.5, kg: 1200 },
-        { h: 7.3, r: 4.0, kg: 900 },
-        { h: 7.3, r: 4.5, kg: 700 },
-        { h: 8.4, r: 0.0, kg: 3150 },
-        { h: 8.4, r: 0.5, kg: 3150 },
-        { h: 8.4, r: 1.0, kg: 3150 },
-        { h: 8.4, r: 1.5, kg: 2800 },
-        { h: 8.4, r: 2.0, kg: 2350 },
-        { h: 8.4, r: 2.5, kg: 1700 },
-        { h: 8.4, r: 3.0, kg: 1200 },
-        { h: 8.4, r: 3.5, kg: 700 },
-        { h: 9.2, r: 0.0, kg: 3050 },
-        { h: 9.2, r: 0.5, kg: 3050 },
-        { h: 9.2, r: 1.0, kg: 2750 },
-        { h: 9.2, r: 1.5, kg: 1650 },
-        { h: 9.2, r: 2.0, kg: 1150 },
-        { h: 9.2, r: 2.5, kg: 850 },
-        { h: 9.8, r: 0.0, kg: 2950 },
-        { h: 9.8, r: 0.5, kg: 2950 },
-        { h: 9.8, r: 1.0, kg: 2200 },
-        { h: 9.8, r: 1.5, kg: 1100 },
-        { h: 10.2, r: 0.0, kg: 2900 },
-        { h: 10.2, r: 0.5, kg: 2900 },
-        { h: 10.2, r: 1.0, kg: 1100 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.14)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 1000,
+      capacityAtFullReach: 375,
+      capacityAtFullHeightStabs: 2500,
+      capacityAtFullReachStabs: 1000,
+      reachAt1000kg: 6.83,
       filters: ["telehandler", "rough"],
     },
 
@@ -75498,9 +74043,9 @@ loadMatrixTyres: [
       brandColor: "#F5D800",
       name: "JCB 540-170 Loadall",
       shortName: "JCB 540-170",
-      capacity: 4.0,
-      liftHeight: 16.6,
-      maxReach: 13.0,
+      capacity: 4,
+      liftHeight: 11.57,
+      maxReach: 9.04,
       engine: "JCB EcoMAX 93kW Stage V",
       machineWeight: 13400,
       machineWidth: 2500,
@@ -75520,98 +74065,20 @@ loadMatrixTyres: [
         "4T at 16.6m — 5–6 storey heavy construction reach, JCB high-reach flagship",
       note: "JCB 540-170 Loadall — 4T, 16.6m lift, 13m reach. JCB EcoMAX 93kW Stage V. Combines heavy capacity with excellent height reach. Ideal for high-rise residential and commercial construction requiring both payload and height.",
       tags: ["4T", "16.6m", "JCB Loadall", "High Reach", "6-Storey"],
-      loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 4000 },
-        { h: 0.5, r: 1.5, kg: 4000 },
-        { h: 0.5, r: 3.0, kg: 4000 },
-        { h: 0.5, r: 5.0, kg: 3600 },
-        { h: 0.5, r: 6.5, kg: 3000 },
-        { h: 0.5, r: 8.5, kg: 2200 },
-        { h: 0.5, r: 10.5, kg: 1500 },
-        { h: 0.5, r: 12.0, kg: 1100 },
-        { h: 0.5, r: 13.0, kg: 900 },
-        { h: 2.0, r: 0.0, kg: 4000 },
-        { h: 2.0, r: 1.5, kg: 4000 },
-        { h: 2.0, r: 3.0, kg: 4000 },
-        { h: 2.0, r: 5.0, kg: 3600 },
-        { h: 2.0, r: 6.5, kg: 3000 },
-        { h: 2.0, r: 8.5, kg: 2200 },
-        { h: 2.0, r: 10.5, kg: 1500 },
-        { h: 2.0, r: 12.0, kg: 1100 },
-        { h: 2.0, r: 12.9, kg: 900 },
-        { h: 4.2, r: 0.0, kg: 4000 },
-        { h: 4.2, r: 1.5, kg: 4000 },
-        { h: 4.2, r: 3.0, kg: 4000 },
-        { h: 4.2, r: 5.0, kg: 3600 },
-        { h: 4.2, r: 6.5, kg: 3000 },
-        { h: 4.2, r: 8.0, kg: 2200 },
-        { h: 4.2, r: 10.0, kg: 1500 },
-        { h: 4.2, r: 11.5, kg: 1100 },
-        { h: 4.2, r: 12.5, kg: 900 },
-        { h: 6.3, r: 0.0, kg: 4000 },
-        { h: 6.3, r: 1.5, kg: 4000 },
-        { h: 6.3, r: 3.0, kg: 4000 },
-        { h: 6.3, r: 4.5, kg: 3600 },
-        { h: 6.3, r: 6.0, kg: 3000 },
-        { h: 6.3, r: 8.0, kg: 2200 },
-        { h: 6.3, r: 9.5, kg: 1500 },
-        { h: 6.3, r: 11.0, kg: 1100 },
-        { h: 6.3, r: 12.0, kg: 900 },
-        { h: 8.3, r: 0.0, kg: 4000 },
-        { h: 8.3, r: 1.5, kg: 4000 },
-        { h: 8.3, r: 2.5, kg: 4000 },
-        { h: 8.3, r: 4.0, kg: 3600 },
-        { h: 8.3, r: 5.5, kg: 3000 },
-        { h: 8.3, r: 7.0, kg: 2200 },
-        { h: 8.3, r: 8.5, kg: 1500 },
-        { h: 8.3, r: 10.0, kg: 1100 },
-        { h: 8.3, r: 10.9, kg: 900 },
-        { h: 10.3, r: 0.0, kg: 4000 },
-        { h: 10.3, r: 1.0, kg: 4000 },
-        { h: 10.3, r: 2.5, kg: 4000 },
-        { h: 10.3, r: 3.5, kg: 3600 },
-        { h: 10.3, r: 5.0, kg: 2950 },
-        { h: 10.3, r: 6.0, kg: 2200 },
-        { h: 10.3, r: 7.5, kg: 1500 },
-        { h: 10.3, r: 8.5, kg: 1100 },
-        { h: 10.3, r: 9.5, kg: 900 },
-        { h: 12.0, r: 0.0, kg: 3900 },
-        { h: 12.0, r: 1.0, kg: 3900 },
-        { h: 12.0, r: 2.0, kg: 3900 },
-        { h: 12.0, r: 3.0, kg: 3500 },
-        { h: 12.0, r: 4.0, kg: 2900 },
-        { h: 12.0, r: 5.0, kg: 2150 },
-        { h: 12.0, r: 6.5, kg: 1500 },
-        { h: 12.0, r: 7.5, kg: 1050 },
-        { h: 12.0, r: 7.9, kg: 850 },
-        { h: 13.6, r: 0.0, kg: 3800 },
-        { h: 13.6, r: 0.5, kg: 3800 },
-        { h: 13.6, r: 1.5, kg: 3800 },
-        { h: 13.6, r: 2.0, kg: 3400 },
-        { h: 13.6, r: 3.0, kg: 2850 },
-        { h: 13.6, r: 4.0, kg: 2100 },
-        { h: 13.6, r: 4.5, kg: 1450 },
-        { h: 13.6, r: 5.5, kg: 1050 },
-        { h: 13.6, r: 5.9, kg: 850 },
-        { h: 14.9, r: 0.0, kg: 3700 },
-        { h: 14.9, r: 0.5, kg: 3700 },
-        { h: 14.9, r: 1.0, kg: 3700 },
-        { h: 14.9, r: 1.5, kg: 3300 },
-        { h: 14.9, r: 2.0, kg: 2750 },
-        { h: 14.9, r: 2.5, kg: 2000 },
-        { h: 14.9, r: 3.5, kg: 1400 },
-        { h: 14.9, r: 4.0, kg: 1000 },
-        { h: 15.9, r: 0.0, kg: 3600 },
-        { h: 15.9, r: 0.5, kg: 3600 },
-        { h: 15.9, r: 1.0, kg: 3250 },
-        { h: 15.9, r: 1.5, kg: 1950 },
-        { h: 15.9, r: 2.0, kg: 1350 },
-        { h: 15.9, r: 2.5, kg: 1000 },
-        { h: 16.6, r: 0.0, kg: 3500 },
-        { h: 16.6, r: 0.5, kg: 3500 },
-        { h: 16.6, r: 1.0, kg: 1950 },
-        { h: 16.6, r: 1.4, kg: 950 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.15)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 1500,
+      capacityAtFullReach: 0,
+      capacityAtFullHeightStabs: 2500,
+      capacityAtFullReachStabs: 800,
+      liftHeightStabs: 16.7,
+      maxReachStabs: 12.5,
+      reachAt1000kg: 5.76,
       filters: ["telehandler", "rough", "heavy"],
     },
 
@@ -75622,9 +74089,9 @@ loadMatrixTyres: [
       brandColor: "#F5D800",
       name: "JCB 540-200 Loadall",
       shortName: "JCB 540-200",
-      capacity: 4.0,
-      liftHeight: 19.7,
-      maxReach: 16.5,
+      capacity: 4,
+      liftHeight: 10.27,
+      maxReach: 9.63,
       engine: "JCB EcoMAX 93kW Stage V",
       machineWeight: 15000,
       machineWidth: 2520,
@@ -75644,100 +74111,20 @@ loadMatrixTyres: [
         "4T at 19.7m — nearly 20m reach, JCB's tallest fixed telehandler",
       note: "JCB 540-200 Loadall — 4T, 19.7m lift, 16.5m reach. JCB EcoMAX 93kW Stage V. JCB's tallest fixed telehandler. Exceptional reach for 7-storey construction. Very low total cost of ownership vs crane hire for repeated lifts at height.",
       tags: ["4T", "19.7m", "JCB Loadall", "Tallest JCB", "7-Storey"],
-      loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 4000 },
-        { h: 0.5, r: 2.0, kg: 4000 },
-        { h: 0.5, r: 4.0, kg: 4000 },
-        { h: 0.5, r: 6.5, kg: 3600 },
-        { h: 0.5, r: 8.0, kg: 3000 },
-        { h: 0.5, r: 10.5, kg: 2200 },
-        { h: 0.5, r: 13.0, kg: 1500 },
-        { h: 0.5, r: 15.0, kg: 1100 },
-        { h: 0.5, r: 16.5, kg: 900 },
-        { h: 2.4, r: 0.0, kg: 4000 },
-        { h: 2.4, r: 2.0, kg: 4000 },
-        { h: 2.4, r: 4.0, kg: 4000 },
-        { h: 2.4, r: 6.0, kg: 3600 },
-        { h: 2.4, r: 8.0, kg: 3000 },
-        { h: 2.4, r: 10.5, kg: 2200 },
-        { h: 2.4, r: 13.0, kg: 1500 },
-        { h: 2.4, r: 15.0, kg: 1100 },
-        { h: 2.4, r: 16.4, kg: 900 },
-        { h: 4.9, r: 0.0, kg: 4000 },
-        { h: 4.9, r: 2.0, kg: 4000 },
-        { h: 4.9, r: 4.0, kg: 4000 },
-        { h: 4.9, r: 6.0, kg: 3600 },
-        { h: 4.9, r: 8.0, kg: 3000 },
-        { h: 4.9, r: 10.5, kg: 2200 },
-        { h: 4.9, r: 13.0, kg: 1500 },
-        { h: 4.9, r: 14.5, kg: 1100 },
-        { h: 4.9, r: 16.0, kg: 900 },
-        { h: 7.5, r: 0.0, kg: 4000 },
-        { h: 7.5, r: 2.0, kg: 4000 },
-        { h: 7.5, r: 4.0, kg: 4000 },
-        { h: 7.5, r: 6.0, kg: 3600 },
-        { h: 7.5, r: 7.5, kg: 3000 },
-        { h: 7.5, r: 10.0, kg: 2200 },
-        { h: 7.5, r: 12.0, kg: 1500 },
-        { h: 7.5, r: 14.0, kg: 1100 },
-        { h: 7.5, r: 15.0, kg: 900 },
-        { h: 9.8, r: 0.0, kg: 4000 },
-        { h: 9.8, r: 1.5, kg: 4000 },
-        { h: 9.8, r: 3.5, kg: 4000 },
-        { h: 9.8, r: 5.5, kg: 3600 },
-        { h: 9.8, r: 7.0, kg: 3000 },
-        { h: 9.8, r: 9.0, kg: 2200 },
-        { h: 9.8, r: 11.0, kg: 1500 },
-        { h: 9.8, r: 13.0, kg: 1100 },
-        { h: 9.8, r: 13.9, kg: 900 },
-        { h: 12.2, r: 0.0, kg: 4000 },
-        { h: 12.2, r: 1.5, kg: 4000 },
-        { h: 12.2, r: 3.0, kg: 4000 },
-        { h: 12.2, r: 4.5, kg: 3600 },
-        { h: 12.2, r: 6.0, kg: 2950 },
-        { h: 12.2, r: 8.0, kg: 2200 },
-        { h: 12.2, r: 9.5, kg: 1500 },
-        { h: 12.2, r: 11.0, kg: 1100 },
-        { h: 12.2, r: 12.0, kg: 900 },
-        { h: 14.2, r: 0.0, kg: 3900 },
-        { h: 14.2, r: 1.0, kg: 3900 },
-        { h: 14.2, r: 2.5, kg: 3900 },
-        { h: 14.2, r: 4.0, kg: 3500 },
-        { h: 14.2, r: 5.0, kg: 2900 },
-        { h: 14.2, r: 6.5, kg: 2150 },
-        { h: 14.2, r: 8.0, kg: 1500 },
-        { h: 14.2, r: 9.0, kg: 1050 },
-        { h: 14.2, r: 9.9, kg: 850 },
-        { h: 16.2, r: 0.0, kg: 3800 },
-        { h: 16.2, r: 1.0, kg: 3800 },
-        { h: 16.2, r: 2.0, kg: 3800 },
-        { h: 16.2, r: 3.0, kg: 3400 },
-        { h: 16.2, r: 3.5, kg: 2850 },
-        { h: 16.2, r: 5.0, kg: 2100 },
-        { h: 16.2, r: 6.0, kg: 1450 },
-        { h: 16.2, r: 7.0, kg: 1050 },
-        { h: 16.2, r: 7.4, kg: 850 },
-        { h: 17.7, r: 0.0, kg: 3700 },
-        { h: 17.7, r: 0.5, kg: 3700 },
-        { h: 17.7, r: 1.5, kg: 3700 },
-        { h: 17.7, r: 2.0, kg: 3300 },
-        { h: 17.7, r: 2.5, kg: 2750 },
-        { h: 17.7, r: 3.5, kg: 2000 },
-        { h: 17.7, r: 4.0, kg: 1400 },
-        { h: 17.7, r: 4.5, kg: 1000 },
-        { h: 17.7, r: 5.0, kg: 800 },
-        { h: 18.9, r: 0.0, kg: 3600 },
-        { h: 18.9, r: 0.5, kg: 3600 },
-        { h: 18.9, r: 1.0, kg: 3600 },
-        { h: 18.9, r: 1.5, kg: 2700 },
-        { h: 18.9, r: 2.0, kg: 1950 },
-        { h: 18.9, r: 2.5, kg: 1350 },
-        { h: 18.9, r: 3.0, kg: 1000 },
-        { h: 19.7, r: 0.0, kg: 3500 },
-        { h: 19.7, r: 0.5, kg: 3500 },
-        { h: 19.7, r: 1.0, kg: 2650 },
-        { h: 19.7, r: 1.5, kg: 1350 },
-      ],
+      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
+      // Source: JCB construction Loadalls brochure (2017+, p.15)
+      // Brochure publishes discrete labelled load chart zones —
+      // synthetic intermediate kg values are forbidden. The renderer
+      // shows brochure spec-table facts plus a 'confirm at working
+      // point with rental company' panel.
+      loadChartSparse: true,
+      capacityAtFullHeight: 500,
+      capacityAtFullReach: 0,
+      capacityAtFullHeightStabs: 1500,
+      capacityAtFullReachStabs: 200,
+      liftHeightStabs: 20,
+      maxReachStabs: 15.9,
+      reachAt1000kg: 6.25,
       filters: ["telehandler", "rough", "heavy"],
     },
 
@@ -93477,6 +91864,74 @@ loadMatrixTyres: [
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
     {
+      id: "lgmg-a09je",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG A09JE Electric",
+      shortName: "LGMG A09JE",
+      boomType: "articulating",
+      platformHeight: 9.0,
+      workHeight: 11.0,
+      maxReach: 6.25,
+      upOverHeight: 4.12,
+      upOverReach: 6.25,
+      machineWeight: 6700,
+      machineWidth: 1.19,
+      machineLength: 5.46,
+      machineHeight: 2.0,
+      power: "Electric",
+      swl: 230,
+      terrain: "indoor/outdoor firm",
+      bestFor:
+        "11m electric articulating — 1.19m ultra-narrow, fits standard doorways",
+      note: "LGMG A09JE: 9m platform / 11m working height. 230kg SWL. 6.25m horizontal outreach. 4.12m up-and-over. 1.19m (3'11\") ultra-compact chassis fits standard doorways. AC drive + lifting motors (maintenance-free). 48V 390Ah battery. Jib swings ±90°. Auto-levelling platform. Solid non-marking tyres.",
+      upOverNote:
+        "Up-and-over: 6.25m reach clearing 4.12m. Ultra-compact for tight indoor up-and-over.",
+      tags: [
+        "Electric",
+        "9m Platform",
+        "6.25m Reach",
+        "Ultra-Narrow 1.19m",
+        "Zero Emissions",
+      ],
+      filters: ["boom", "articulating", "indoor", "electric"],
+    },
+    {
+      id: "lgmg-a13je",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG A13JE Electric",
+      shortName: "LGMG A13JE",
+      boomType: "articulating",
+      platformHeight: 13.0,
+      workHeight: 15.0,
+      maxReach: 7.46,
+      upOverHeight: 7.1,
+      upOverReach: 7.46,
+      machineWeight: 6950,
+      machineWidth: 1.5,
+      machineLength: 6.7,
+      machineHeight: 1.98,
+      power: "Electric",
+      swl: 200,
+      terrain: "indoor/outdoor firm",
+      bestFor: "15m electric articulating — 7.46m reach, narrow 1.5m body",
+      note: "LGMG A13JE: 13m platform / 15m working height. 200kg SWL. 7.46m horizontal outreach. 7.1m up-and-over. 1.5m narrow body. 48V 330Ah lead-acid OR 48V 250Ah lithium (A13JE-Li). 30% gradeability. AC drive motor. Drop-bar entry. Auto-levelling platform with hydraulic rotation.",
+      upOverNote:
+        "Up-and-over: 7.46m reach clearing 7.1m. Narrow indoor articulating for up-and-over access.",
+      tags: [
+        "Electric",
+        "13m Platform",
+        "7.46m Reach",
+        "Narrow 1.5m",
+        "Zero Emissions",
+        "Lithium Option",
+      ],
+      filters: ["boom", "articulating", "indoor", "electric"],
+    },
+    {
       id: "lgmg-a14je",
       brand: "LGMG",
       emoji: "💥",
@@ -93489,23 +91944,23 @@ loadMatrixTyres: [
       maxReach: 7.81,
       upOverHeight: 7.26,
       upOverReach: 7.81,
-      machineWeight: 6700,
+      machineWeight: 7500,
       machineWidth: 1.8,
       machineLength: 6.66,
       machineHeight: 1.98,
       power: "Electric",
-      swl: 227,
+      swl: 230,
       terrain: "indoor/outdoor firm",
-      bestFor: "Zero-emission 14m articulating — 7.8m reach, tight spaces",
-      note: "LGMG A14JE: 13.8m platform / 15.8m working height. 227kg. 7.81m outreach. Zero tail-swing. Li-ion or lead-acid battery options. 30% gradeability. LGMG Australia support.",
+      bestFor: "Zero-emission 15.8m articulating — 7.81m reach, tight spaces",
+      note: "LGMG A14JE: 13.8m platform / 15.8m working height. 230kg SWL. 7.81m horizontal outreach. 7.26m up-and-over. 48V 390Ah lead-acid OR 48V 280Ah lithium (A14JE-Li). 30% gradeability. Foam-filled tyres. Auto-levelling platform. Hydraulic platform rotation. Anti-collision protection.",
       upOverNote:
         "Up-and-over: 7.81m reach clearing 7.26m. Indoor up-and-over access over factory equipment.",
       tags: [
         "Electric",
         "13.8m Platform",
         "7.81m Reach",
-        "Zero Tail-Swing",
         "Zero Emissions",
+        "Lithium Option",
       ],
       filters: ["boom", "articulating", "indoor", "electric"],
     },
@@ -93578,6 +92033,181 @@ loadMatrixTyres: [
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
     {
+      id: "lgmg-ar18je",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG AR18JE Electric",
+      shortName: "LGMG AR18JE",
+      boomType: "articulating",
+      platformHeight: 18.12,
+      workHeight: 20.12,
+      maxReach: 10.9,
+      upOverHeight: 7.7,
+      upOverReach: 10.9,
+      machineWeight: 8150,
+      machineWidth: 2.5,
+      machineLength: 8.42,
+      machineHeight: 2.47,
+      power: "Electric",
+      swl: 350,
+      terrain: "outdoor rough",
+      bestFor:
+        "20.12m electric RT articulating — 10.9m reach, dual-capacity 260/350kg",
+      note: "LGMG AR18JE: 18.12m platform / 20.12m working height. 260kg unrestricted / 350kg restricted dual-capacity. 10.9m horizontal outreach. 7.7m up-and-over. 80V 228Ah lithium battery. 4WD with oscillating axle. 45% gradeability. Three steering modes with one-touch alignment. Zero emissions.",
+      upOverNote:
+        "Up-and-over: 10.9m reach clearing 7.7m. Zero-emission RT articulating for indoor/outdoor work.",
+      tags: [
+        "Electric",
+        "18.12m Platform",
+        "10.9m Reach",
+        "4WD",
+        "Dual Capacity",
+        "Zero Emissions",
+      ],
+      filters: ["boom", "articulating", "outdoor", "rough", "electric"],
+    },
+    {
+      id: "lgmg-ar20je",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG AR20JE Electric",
+      shortName: "LGMG AR20JE",
+      boomType: "articulating",
+      platformHeight: 19.58,
+      workHeight: 21.58,
+      maxReach: 12.37,
+      upOverHeight: 8.19,
+      upOverReach: 12.37,
+      machineWeight: 9700,
+      machineWidth: 2.5,
+      machineLength: 9.42,
+      machineHeight: 2.46,
+      power: "Electric",
+      swl: 350,
+      terrain: "outdoor rough",
+      bestFor:
+        "21.58m electric RT articulating — 12.37m reach, zero-emission AR20J",
+      note: "LGMG AR20JE: 19.58m platform / 21.58m working height. 260kg unrestricted / 350kg restricted dual-capacity. 12.37m horizontal outreach. 8.19m up-and-over. 80V 271Ah lithium battery. 4WD with oscillating axle. 45% gradeability. 2.44m triple-entry platform. Three steering modes. Zero-emission electric equivalent of AR20J diesel.",
+      upOverNote:
+        "Up-and-over: 12.37m reach clearing 8.19m. Zero-emission large RT articulating.",
+      tags: [
+        "Electric",
+        "19.58m Platform",
+        "12.37m Reach",
+        "4WD",
+        "Dual Capacity",
+        "Zero Emissions",
+      ],
+      filters: ["boom", "articulating", "outdoor", "rough", "electric"],
+    },
+    {
+      id: "lgmg-ar24je",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG AR24JE Electric",
+      shortName: "LGMG AR24JE",
+      boomType: "articulating",
+      platformHeight: 24.6,
+      workHeight: 26.6,
+      maxReach: 18.0,
+      upOverHeight: 8.83,
+      upOverReach: 18.0,
+      machineWeight: 17300,
+      machineWidth: 2.5,
+      machineLength: 11.6,
+      machineHeight: 2.83,
+      power: "Electric",
+      swl: 350,
+      terrain: "outdoor rough",
+      bestFor:
+        "26.6m electric RT articulating — 18m reach, zero-emission flagship",
+      note: "LGMG AR24JE: 24.6m platform / 26.6m working height. 250kg unrestricted / 350kg restricted dual-capacity. 18m horizontal outreach — class-leading. 8.83m up-and-over. 80V 460Ah lithium battery. 4WD with oscillating axle. 45% gradeability. Three steering modes. Container-transport-rated frame. Zero-emission flagship articulating.",
+      upOverNote:
+        "Up-and-over: 18m reach clearing 8.83m. Zero-emission flagship long-reach articulating.",
+      tags: [
+        "Electric",
+        "24.6m Platform",
+        "18m Reach",
+        "4WD",
+        "Dual Capacity",
+        "Zero Emissions",
+      ],
+      filters: ["boom", "articulating", "outdoor", "rough", "electric"],
+    },
+    {
+      id: "lgmg-ar11j",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG AR11J Diesel",
+      shortName: "LGMG AR11J",
+      boomType: "articulating",
+      platformHeight: 10.75,
+      workHeight: 12.75,
+      maxReach: 6.78,
+      upOverHeight: 5.32,
+      upOverReach: 6.78,
+      machineWeight: 5400,
+      machineWidth: 1.85,
+      machineLength: 5.77,
+      machineHeight: 2.06,
+      power: "Diesel",
+      swl: 270,
+      terrain: "outdoor rough",
+      bestFor:
+        "12.75m diesel RT articulating — 6.78m reach, compact 1.85m wide",
+      note: "LGMG AR11J: 10.75m platform / 12.75m working height. 270kg SWL — large platform. 6.78m horizontal outreach. 5.32m up-and-over. Kubota D1105 18.2kW diesel. Axle-integrated 4WD. 45% gradeability. Compact 1.85m overall width. Foam-filled non-marking tyres standard. Auto-levelling platform. AU market.",
+      upOverNote:
+        "Up-and-over: 6.78m reach clearing 5.32m. Compact diesel 4WD for confined rough-terrain sites.",
+      tags: [
+        "Diesel",
+        "10.75m Platform",
+        "6.78m Reach",
+        "4WD",
+        "270kg SWL",
+        "Compact",
+      ],
+      filters: ["boom", "articulating", "outdoor", "rough"],
+    },
+    {
+      id: "lgmg-ar14jh",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG AR14J-H Diesel",
+      shortName: "LGMG AR14J-H",
+      boomType: "articulating",
+      platformHeight: 13.9,
+      workHeight: 15.9,
+      maxReach: 7.7,
+      upOverHeight: 7.4,
+      upOverReach: 7.7,
+      machineWeight: 7400,
+      machineWidth: 2.3,
+      machineLength: 6.95,
+      machineHeight: 2.24,
+      power: "Diesel",
+      swl: 450,
+      terrain: "outdoor rough",
+      bestFor:
+        "15.9m diesel RT articulating — 7.7m reach, dual-capacity 300/450kg",
+      note: "LGMG AR14J-H: 13.9m platform / 15.9m working height. 300kg unrestricted / 450kg restricted dual-capacity. 7.7m horizontal outreach. 7.4m up-and-over. Kubota V2403 / D1105 diesel. 4WD with oscillating axle. 45% gradeability. RT foam-filled tyres. Self-levelling with hydraulic platform rotation. Anti-collision protection.",
+      upOverNote:
+        "Up-and-over: 7.7m reach clearing 7.4m. Diesel 4WD with high SWL for crew + materials at height.",
+      tags: [
+        "Diesel",
+        "13.9m Platform",
+        "7.7m Reach",
+        "4WD",
+        "Rough Terrain",
+        "Dual Capacity",
+      ],
+      filters: ["boom", "articulating", "outdoor", "rough"],
+    },
+    {
       id: "lgmg-ar16j",
       brand: "LGMG",
       emoji: "💥",
@@ -93585,24 +92215,24 @@ loadMatrixTyres: [
       name: "LGMG AR16J Diesel",
       shortName: "LGMG AR16J",
       boomType: "articulating",
-      platformHeight: 14.0,
-      workHeight: 16.0,
-      maxReach: 7.8,
-      upOverHeight: 7.2,
-      upOverReach: 7.8,
-      machineWeight: 7400,
-      machineWidth: 2.29,
-      machineLength: 6.8,
-      machineHeight: 2.1,
+      platformHeight: 15.7,
+      workHeight: 17.7,
+      maxReach: 9.39,
+      upOverHeight: 7.56,
+      upOverReach: 9.39,
+      machineWeight: 8180,
+      machineWidth: 2.31,
+      machineLength: 7.56,
+      machineHeight: 2.17,
       power: "Diesel",
-      swl: 227,
+      swl: 230,
       terrain: "outdoor rough",
       bestFor:
-        "16m diesel RT articulating — 7.8m reach, rough terrain construction",
-      note: "LGMG AR16J: 14m platform / 16m working height. 227kg. 7.8m outreach. Diesel 4WD rough terrain. 40% gradeability. For outdoor construction sites needing diesel articulating at 16m.",
+        "17.7m diesel RT articulating — 9.39m reach, rough terrain construction",
+      note: "LGMG AR16J: 15.7m platform / 17.7m working height. 230kg SWL. 9.39m horizontal outreach. 7.56m up-and-over. Kubota V2403 / Deutz D2.9L4 diesel. 4WD with oscillating axle. 45% gradeability. RT foam-filled tyres. Auto-levelling platform. Anti-collision protection.",
       upOverNote:
-        "Up-and-over: 7.8m reach clearing ~7.2m. Diesel 4WD for rough terrain sites.",
-      tags: ["Diesel", "14m Platform", "7.8m Reach", "4WD", "Rough Terrain"],
+        "Up-and-over: 9.39m reach clearing 7.56m. Diesel 4WD for rough terrain sites.",
+      tags: ["Diesel", "15.7m Platform", "9.39m Reach", "4WD", "Rough Terrain"],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
     {
@@ -93613,29 +92243,64 @@ loadMatrixTyres: [
       name: "LGMG AR20J Diesel",
       shortName: "LGMG AR20J",
       boomType: "articulating",
-      platformHeight: 18.0,
-      workHeight: 20.0,
-      maxReach: 11.0,
-      upOverHeight: 9.0,
-      upOverReach: 11.0,
-      machineWeight: 10500,
-      machineWidth: 2.44,
-      machineLength: 8.2,
-      machineHeight: 2.4,
+      platformHeight: 19.58,
+      workHeight: 21.58,
+      maxReach: 12.37,
+      upOverHeight: 8.19,
+      upOverReach: 12.37,
+      machineWeight: 9850,
+      machineWidth: 2.5,
+      machineLength: 9.42,
+      machineHeight: 2.46,
       power: "Diesel",
-      swl: 272,
+      swl: 350,
       terrain: "outdoor rough",
-      bestFor: "20m diesel RT articulating — 11m reach, large construction",
-      note: "LGMG AR20J: 18m platform / 20m working height. 272kg. 11m outreach. Diesel 4WD rough terrain. 40% gradeability. Zero tailswing. Large articulating boom for multi-storey construction at 20m.",
+      bestFor: "21.58m diesel RT articulating — 12.37m reach, dual-capacity 260/350kg",
+      note: "LGMG AR20J: 19.58m platform / 21.58m working height. 260kg unrestricted / 350kg restricted dual-capacity. 12.37m horizontal outreach. 8.19m up-and-over. Kubota V2403 diesel. 4WD with oscillating axle. 45% gradeability. 2.44m triple-entry platform. Three steering modes (4WS, crab, front). Auto-levelling platform.",
       upOverNote:
-        "Up-and-over: 11m reach clearing ~9m. Large-frame diesel articulating for major construction.",
+        "Up-and-over: 12.37m reach clearing 8.19m. Large-frame diesel articulating for major construction.",
       tags: [
         "Diesel",
-        "18m Platform",
-        "11m Reach",
+        "19.58m Platform",
+        "12.37m Reach",
         "4WD",
         "Rough Terrain",
-        "Zero Tailswing",
+        "Dual Capacity",
+      ],
+      filters: ["boom", "articulating", "outdoor", "rough"],
+    },
+    {
+      id: "lgmg-ar24j",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG AR24J Diesel",
+      shortName: "LGMG AR24J",
+      boomType: "articulating",
+      platformHeight: 24.6,
+      workHeight: 26.6,
+      maxReach: 18.0,
+      upOverHeight: 8.83,
+      upOverReach: 18.0,
+      machineWeight: 17300,
+      machineWidth: 2.5,
+      machineLength: 11.6,
+      machineHeight: 2.83,
+      power: "Diesel",
+      swl: 350,
+      terrain: "outdoor rough",
+      bestFor:
+        "26.6m diesel RT articulating — 18m reach, large-frame multi-storey",
+      note: "LGMG AR24J: 24.6m platform / 26.6m working height. 250kg unrestricted / 350kg restricted dual-capacity. 18m horizontal outreach — class-leading. 8.83m up-and-over. Kubota 36kW / 48.2hp diesel. 4WD with oscillating axle. 45% gradeability. Three steering modes. Container-transport-rated frame. Auto-levelling platform.",
+      upOverNote:
+        "Up-and-over: 18m reach clearing 8.83m. Largest LGMG articulating — long-reach multi-storey work.",
+      tags: [
+        "Diesel",
+        "24.6m Platform",
+        "18m Reach",
+        "4WD",
+        "Rough Terrain",
+        "Dual Capacity",
       ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
@@ -93672,114 +92337,122 @@ loadMatrixTyres: [
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
     {
-      id: "lgmg-t20j",
+      id: "lgmg-t20jh",
       brand: "LGMG",
       emoji: "💥",
       brandColor: "#D62828",
-      name: "LGMG T20J Telescopic",
-      shortName: "LGMG T20J",
+      name: "LGMG T20J-H Telescopic",
+      shortName: "LGMG T20J-H",
       boomType: "telescopic",
-      platformHeight: 18.0,
-      workHeight: 20.0,
-      maxReach: 15.2,
+      platformHeight: 19.8,
+      workHeight: 21.8,
+      maxReach: 16.6,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 8800,
-      machineWidth: 2.44,
-      machineLength: 8.0,
-      machineHeight: 2.4,
+      machineWeight: 12000,
+      machineWidth: 2.49,
+      machineLength: 10.2,
+      machineHeight: 2.78,
       power: "Diesel",
-      swl: 227,
+      swl: 450,
       terrain: "outdoor rough",
       bestFor:
-        "20m telescopic — 15.2m reach, diesel 4WD, versatile construction",
-      note: "LGMG T20J: 18m platform / 20m working height. 227kg. 15.2m outreach. Diesel 4WD. 40% gradeability. 1.22m jib. Good value mid-range telescopic.",
-      tags: ["Telescopic", "18m Platform", "15.2m Reach", "Diesel 4WD"],
-      filters: ["boom", "telescopic", "outdoor", "rough"],
-    },
-    {
-      id: "lgmg-t22j",
-      brand: "LGMG",
-      emoji: "💥",
-      brandColor: "#D62828",
-      name: "LGMG T22J Telescopic",
-      shortName: "LGMG T22J",
-      boomType: "telescopic",
-      platformHeight: 20.0,
-      workHeight: 22.0,
-      maxReach: 17.0,
-      upOverHeight: null,
-      upOverReach: null,
-      machineWeight: 9800,
-      machineWidth: 2.44,
-      machineLength: 8.5,
-      machineHeight: 2.44,
-      power: "Diesel",
-      swl: 454,
-      terrain: "outdoor rough",
-      bestFor: "22m telescopic — 17m reach, 454kg, diesel 4WD",
-      note: "LGMG T22J: 20m platform / 22m working height. 454kg. 17m outreach. Diesel 4WD. 40% gradeability. 1.22m jib. High-capacity telescopic for construction and industrial work at 22m.",
-      tags: ["Telescopic", "20m Platform", "17m Reach", "454kg", "Diesel 4WD"],
-      filters: ["boom", "telescopic", "outdoor", "rough"],
-    },
-    {
-      id: "lgmg-t26j",
-      brand: "LGMG",
-      emoji: "💥",
-      brandColor: "#D62828",
-      name: "LGMG T26J Telescopic",
-      shortName: "LGMG T26J",
-      boomType: "telescopic",
-      platformHeight: 24.0,
-      workHeight: 26.0,
-      maxReach: 20.5,
-      upOverHeight: null,
-      upOverReach: null,
-      machineWeight: 12500,
-      machineWidth: 2.49,
-      machineLength: 9.5,
-      machineHeight: 2.65,
-      power: "Diesel",
-      swl: 454,
-      terrain: "outdoor rough",
-      bestFor: "26m telescopic — 20.5m reach, 454kg, large construction",
-      note: "LGMG T26J: 24m platform / 26m working height. 454kg. 20.5m outreach. Diesel 4WD. 40% gradeability. For large construction, industrial maintenance and telecoms at 26m.",
+        "21.8m diesel telescopic — 16.6m reach, dual-capacity 300/450kg",
+      note: "LGMG T20J-H: 19.8m platform / 21.8m working height. 300kg unrestricted / 450kg restricted dual-capacity. 16.6m horizontal outreach. Deutz D2.9L4 / Kubota V2403 diesel 4WD. 45% gradeability. 360° continuous rotation. RT foam-filled tyres. Auto-levelling platform. Anti-collision protection.",
       tags: [
         "Telescopic",
-        "24m Platform",
-        "20.5m Reach",
-        "454kg",
+        "19.8m Platform",
+        "16.6m Reach",
+        "Dual Capacity",
         "Diesel 4WD",
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
     {
-      id: "lgmg-t28j",
+      id: "lgmg-t22jh",
       brand: "LGMG",
       emoji: "💥",
       brandColor: "#D62828",
-      name: "LGMG T28J Telescopic",
-      shortName: "LGMG T28J",
+      name: "LGMG T22J-H Telescopic",
+      shortName: "LGMG T22J-H",
       boomType: "telescopic",
-      platformHeight: 26.0,
-      workHeight: 28.0,
-      maxReach: 22.0,
+      platformHeight: 21.8,
+      workHeight: 23.8,
+      maxReach: 17.0,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 14000,
+      machineWeight: 12300,
       machineWidth: 2.49,
-      machineLength: 10.2,
-      machineHeight: 2.74,
+      machineLength: 11.0,
+      machineHeight: 2.78,
       power: "Diesel",
-      swl: 454,
+      swl: 450,
       terrain: "outdoor rough",
-      bestFor: "28m telescopic — 22m reach, 454kg, tall construction",
-      note: "LGMG T28J: 26m platform / 28m working height. 454kg. 22m outreach. Diesel 4WD. 40% gradeability. Tall telescopic for major construction and infrastructure at 28m.",
+      bestFor:
+        "23.8m diesel telescopic — 17m reach, dual-capacity 300/450kg",
+      note: "LGMG T22J-H: 21.8m platform / 23.8m working height. 300kg unrestricted / 450kg restricted dual-capacity. 17m horizontal outreach. 36kW / 48.3hp diesel 4WD. 45% gradeability. 360° continuous rotation. RT foam-filled tyres. Auto-levelling platform.",
+      tags: ["Telescopic", "21.8m Platform", "17m Reach", "Dual Capacity", "Diesel 4WD"],
+      filters: ["boom", "telescopic", "outdoor", "rough"],
+    },
+    {
+      id: "lgmg-t26jh",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG T26J-H Telescopic",
+      shortName: "LGMG T26J-H",
+      boomType: "telescopic",
+      platformHeight: 25.9,
+      workHeight: 27.9,
+      maxReach: 22.3,
+      upOverHeight: null,
+      upOverReach: null,
+      machineWeight: 18300,
+      machineWidth: 2.5,
+      machineLength: 12.72,
+      machineHeight: 2.83,
+      power: "Diesel",
+      swl: 450,
+      terrain: "outdoor rough",
+      bestFor:
+        "27.9m diesel telescopic — 22.3m reach, dual-capacity 300/450kg",
+      note: "LGMG T26J-H: 25.9m platform / 27.9m working height. 300kg unrestricted / 450kg restricted dual-capacity. 22.3m horizontal outreach. Deutz TD2.9L4 / Kubota V3307 (55.4kW / 74.3hp) diesel 4WD. 45% gradeability. 360° continuous rotation. RT foam-filled tyres. Auto-levelling platform.",
       tags: [
         "Telescopic",
-        "26m Platform",
-        "22m Reach",
-        "454kg",
+        "25.9m Platform",
+        "22.3m Reach",
+        "Dual Capacity",
+        "Diesel 4WD",
+      ],
+      filters: ["boom", "telescopic", "outdoor", "rough"],
+    },
+    {
+      id: "lgmg-t28jh",
+      brand: "LGMG",
+      emoji: "💥",
+      brandColor: "#D62828",
+      name: "LGMG T28J-H Telescopic",
+      shortName: "LGMG T28J-H",
+      boomType: "telescopic",
+      platformHeight: 27.8,
+      workHeight: 29.8,
+      maxReach: 22.5,
+      upOverHeight: null,
+      upOverReach: null,
+      machineWeight: 18800,
+      machineWidth: 2.5,
+      machineLength: 13.4,
+      machineHeight: 2.83,
+      power: "Diesel",
+      swl: 450,
+      terrain: "outdoor rough",
+      bestFor: "29.8m diesel telescopic — 22.5m reach, dual-capacity 300/450kg",
+      note: "LGMG T28J-H: 27.8m platform / 29.8m working height. 300kg unrestricted / 450kg restricted dual-capacity. 22.5m horizontal outreach. Deutz TD2.9L4 / Kubota V3307 (55.4kW / 74.3hp) diesel 4WD. 45% gradeability. 360° continuous rotation. Tall telescopic for major construction and infrastructure.",
+      tags: [
+        "Telescopic",
+        "27.8m Platform",
+        "22.5m Reach",
+        "Dual Capacity",
         "Diesel 4WD",
         "Tall",
       ],
@@ -93818,33 +92491,35 @@ loadMatrixTyres: [
       filters: ["boom", "telescopic", "outdoor", "rough", "ultraboom"],
     },
     {
-      id: "lgmg-t38j",
+      id: "lgmg-t38jh",
       brand: "LGMG",
       emoji: "🚀",
       brandColor: "#D62828",
-      name: "LGMG T38J Telescopic",
-      shortName: "LGMG T38J",
+      name: "LGMG T38J-H Telescopic",
+      shortName: "LGMG T38J-H",
       boomType: "telescopic",
-      platformHeight: 36.0,
-      workHeight: 38.0,
-      maxReach: 28.0,
+      platformHeight: 38.2,
+      workHeight: 40.2,
+      maxReach: 23.5,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 20000,
-      machineWidth: 2.55,
-      machineLength: 12.5,
-      machineHeight: 3.0,
+      machineWeight: 20700,
+      machineWidth: 2.49,
+      machineLength: 14.31,
+      machineHeight: 2.89,
       power: "Diesel",
-      swl: 454,
+      swl: 450,
       terrain: "outdoor rough",
-      bestFor: "38m telescopic — 28m reach, major high-rise construction",
-      note: "LGMG T38J: 36m platform / 38m working height. 454kg. 28m outreach. Diesel 4WD. One of the tallest standard LGMG telescopics — for high-rise construction and major industrial facilities.",
+      bestFor:
+        "40.2m diesel telescopic — 23.5m reach, dual-capacity 300/450kg",
+      note: "LGMG T38J-H: 38.2m platform / 40.2m working height. 300kg unrestricted / 450kg restricted dual-capacity. 23.5m horizontal outreach. Kubota 54.6kW / 73.2hp diesel. Outriggers (4.01m radius extended). 45% gradeability. Tallest LGMG standard telescopic — for high-rise construction and major industrial facilities.",
       tags: [
         "Telescopic",
-        "36m Platform",
-        "28m Reach",
-        "454kg",
-        "Diesel 4WD",
+        "38.2m Platform",
+        "23.5m Reach",
+        "Dual Capacity",
+        "Diesel",
+        "Outriggers",
         "Ultra Boom",
       ],
       filters: ["boom", "telescopic", "outdoor", "rough", "ultraboom"],
@@ -93922,29 +92597,30 @@ loadMatrixTyres: [
       name: "LGMG T20JE Electric Telescopic",
       shortName: "LGMG T20JE",
       boomType: "telescopic",
-      platformHeight: 18.0,
-      workHeight: 20.0,
-      maxReach: 15.2,
+      platformHeight: 19.8,
+      workHeight: 21.8,
+      maxReach: 16.6,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 8500,
-      machineWidth: 2.44,
-      machineLength: 8.0,
-      machineHeight: 2.4,
+      machineWeight: 12000,
+      machineWidth: 2.5,
+      machineLength: 10.2,
+      machineHeight: 2.77,
       power: "Electric",
-      swl: 227,
-      terrain: "indoor/outdoor firm",
-      bestFor: "Zero-emission 20m telescopic — indoor/outdoor firm, no fumes",
-      note: "LGMG T20JE: 18m platform / 20m working height. 227kg. 15.2m outreach. Full electric. Zero emissions. For indoor and outdoor firm surfaces where fumes are restricted. Quiet operation.",
+      swl: 450,
+      terrain: "outdoor rough",
+      bestFor:
+        "Zero-emission 21.8m telescopic — 16.6m reach, dual 300/450kg lithium",
+      note: "LGMG T20JE: 19.8m platform / 21.8m working height. 300kg unrestricted / 450kg restricted dual-capacity. 16.6m horizontal outreach. 80V DC 575Ah lithium battery. 4WD with oscillating axle. 45% gradeability. 360° continuous rotation. Zero-emission electric equivalent of T20J-H diesel.",
       tags: [
         "Telescopic",
-        "18m Platform",
-        "15.2m Reach",
+        "19.8m Platform",
+        "16.6m Reach",
+        "Dual Capacity",
         "Electric",
         "Zero Emissions",
-        "Indoor/Outdoor",
       ],
-      filters: ["boom", "telescopic", "indoor", "outdoor", "electric"],
+      filters: ["boom", "telescopic", "outdoor", "rough", "electric"],
     },
     {
       id: "lgmg-t22je",
@@ -93954,29 +92630,30 @@ loadMatrixTyres: [
       name: "LGMG T22JE Electric Telescopic",
       shortName: "LGMG T22JE",
       boomType: "telescopic",
-      platformHeight: 20.0,
-      workHeight: 22.0,
+      platformHeight: 21.8,
+      workHeight: 23.8,
       maxReach: 17.0,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 9500,
-      machineWidth: 2.44,
-      machineLength: 8.5,
-      machineHeight: 2.44,
+      machineWeight: 12300,
+      machineWidth: 2.5,
+      machineLength: 11.0,
+      machineHeight: 2.77,
       power: "Electric",
-      swl: 454,
-      terrain: "indoor/outdoor firm",
-      bestFor: "Zero-emission 22m telescopic — 454kg, indoor/outdoor firm",
-      note: "LGMG T22JE: 20m platform / 22m working height. 454kg. 17m outreach. Full electric zero-emission. For indoor and firm outdoor high-reach without diesel fumes.",
+      swl: 450,
+      terrain: "outdoor rough",
+      bestFor:
+        "Zero-emission 23.8m telescopic — 17m reach, dual 300/450kg lithium",
+      note: "LGMG T22JE: 21.8m platform / 23.8m working height. 300kg unrestricted / 450kg restricted dual-capacity. 17m horizontal outreach. 80V DC 575Ah lithium battery. 4WD with oscillating axle. 45% gradeability. 360° continuous rotation. Zero-emission electric equivalent of T22J-H diesel.",
       tags: [
         "Telescopic",
-        "20m Platform",
+        "21.8m Platform",
         "17m Reach",
-        "454kg",
+        "Dual Capacity",
         "Electric",
         "Zero Emissions",
       ],
-      filters: ["boom", "telescopic", "indoor", "outdoor", "electric"],
+      filters: ["boom", "telescopic", "outdoor", "rough", "electric"],
     },
     {
       id: "lgmg-t26je",
@@ -93986,30 +92663,30 @@ loadMatrixTyres: [
       name: "LGMG T26JE Electric Telescopic",
       shortName: "LGMG T26JE",
       boomType: "telescopic",
-      platformHeight: 24.0,
-      workHeight: 26.0,
-      maxReach: 20.5,
+      platformHeight: 25.9,
+      workHeight: 27.9,
+      maxReach: 22.3,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 12000,
-      machineWidth: 2.49,
-      machineLength: 9.5,
-      machineHeight: 2.65,
+      machineWeight: 18200,
+      machineWidth: 2.5,
+      machineLength: 12.8,
+      machineHeight: 2.82,
       power: "Electric",
-      swl: 454,
-      terrain: "indoor/outdoor firm",
-      bestFor: "Zero-emission 26m telescopic — 454kg, extended reach electric",
-      note: "LGMG T26JE: 24m platform / 26m working height. 454kg. 20.5m outreach. Full electric. For large indoor/outdoor firm surface work at 26m without emissions.",
+      swl: 450,
+      terrain: "outdoor rough",
+      bestFor:
+        "Zero-emission 27.9m telescopic — 22.3m reach, dual 300/450kg lithium",
+      note: "LGMG T26JE: 25.9m platform / 27.9m working height. 300kg unrestricted / 450kg restricted dual-capacity. 22.3m horizontal outreach. 80V DC 542Ah lithium battery. 4WD with oscillating axle. 45% gradeability. 360° continuous rotation. Zero-emission electric equivalent of T26J-H.",
       tags: [
         "Telescopic",
-        "24m Platform",
-        "20.5m Reach",
-        "454kg",
+        "25.9m Platform",
+        "22.3m Reach",
+        "Dual Capacity",
         "Electric",
         "Zero Emissions",
-        "Extended Reach",
       ],
-      filters: ["boom", "telescopic", "indoor", "outdoor", "electric"],
+      filters: ["boom", "telescopic", "outdoor", "rough", "electric"],
     },
     {
       id: "lgmg-t28je",
@@ -94019,31 +92696,66 @@ loadMatrixTyres: [
       name: "LGMG T28JE Electric Telescopic",
       shortName: "LGMG T28JE",
       boomType: "telescopic",
-      platformHeight: 26.0,
-      workHeight: 28.0,
-      maxReach: 22.0,
+      platformHeight: 27.8,
+      workHeight: 29.8,
+      maxReach: 22.5,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 13500,
-      machineWidth: 2.49,
-      machineLength: 10.2,
-      machineHeight: 2.74,
+      machineWeight: 18700,
+      machineWidth: 2.5,
+      machineLength: 13.4,
+      machineHeight: 2.82,
       power: "Electric",
-      swl: 454,
-      terrain: "indoor/outdoor firm",
+      swl: 450,
+      terrain: "outdoor rough",
       bestFor:
-        "Zero-emission 28m telescopic — 454kg, tallest LGMG electric tele",
-      note: "LGMG T28JE: 26m platform / 28m working height. 454kg. 22m outreach. Full electric. Tallest LGMG electric telescopic — for zero-emission high-reach work at 28m.",
+        "Zero-emission 29.8m telescopic — 22.5m reach, dual 300/450kg lithium",
+      note: "LGMG T28JE: 27.8m platform / 29.8m working height. 300kg unrestricted / 450kg restricted dual-capacity. 22.5m horizontal outreach. 80V DC 542Ah lithium battery. 4WD with oscillating axle. 45% gradeability. 360° continuous rotation. Zero-emission electric equivalent of T28J-H.",
       tags: [
         "Telescopic",
-        "26m Platform",
-        "22m Reach",
-        "454kg",
+        "27.8m Platform",
+        "22.5m Reach",
+        "Dual Capacity",
         "Electric",
         "Zero Emissions",
-        "Tallest LGMG Electric",
+        "Tall",
       ],
-      filters: ["boom", "telescopic", "indoor", "outdoor", "electric"],
+      filters: ["boom", "telescopic", "outdoor", "rough", "electric"],
+    },
+    {
+      id: "lgmg-t38je",
+      brand: "LGMG",
+      emoji: "🚀",
+      brandColor: "#D62828",
+      name: "LGMG T38JE Electric Telescopic",
+      shortName: "LGMG T38JE",
+      boomType: "telescopic",
+      platformHeight: 38.2,
+      workHeight: 40.2,
+      maxReach: 23.5,
+      upOverHeight: null,
+      upOverReach: null,
+      machineWeight: 20700,
+      machineWidth: 2.49,
+      machineLength: 14.31,
+      machineHeight: 2.89,
+      power: "Electric",
+      swl: 450,
+      terrain: "outdoor rough",
+      bestFor:
+        "Zero-emission 40.2m telescopic — 23.5m reach, dual 300/450kg flagship",
+      note: "LGMG T38JE: 38.2m platform / 40.2m working height. 300kg unrestricted / 450kg restricted dual-capacity. 23.5m horizontal outreach. 80V 604Ah lithium battery. Outriggers (4.01m radius extended). 45% gradeability. Tallest LGMG electric telescopic — zero-emission high-rise construction equivalent of T38J-H diesel.",
+      tags: [
+        "Telescopic",
+        "38.2m Platform",
+        "23.5m Reach",
+        "Dual Capacity",
+        "Electric",
+        "Zero Emissions",
+        "Outriggers",
+        "Ultra Boom",
+      ],
+      filters: ["boom", "telescopic", "outdoor", "rough", "electric", "ultraboom"],
     },
     // LGMG Telehandlers
     {
@@ -148041,7 +146753,7 @@ const MACHINE_PHOTOS = {
   // LGMG boom
   "lgmg-a14je": "https://www.lgmg.com/uploads/product/A14JE.jpg",
   "lgmg-a14jep": "https://www.lgmg.com/uploads/product/A14JEP.jpg",
-  "lgmg-t20j": "https://www.lgmg.com/uploads/product/T20J.jpg",
+  "lgmg-t20jh": "https://www.lgmg.com/uploads/product/T20J.jpg",
 
   // ── Haulotte ─────────────────────────────────────────────────────────────
   // Scissor lifts
@@ -148157,6 +146869,13 @@ function getMachinePhoto(m, type) {
 // Pick up to `maxPer` machines per brand from a sorted pool, until we have `total`
 // ── getCapacityAtPoint — MODULE LEVEL so _buildTeleCapacityPanel can call it ──
 function getCapacityAtPoint(m, needH, needR, useStabs) {
+  // ── SPARSE-CHART POLICY (Assik no-interpolation directive) ────────────
+  // For machines flagged loadChartSparse=true, the loadMatrix only contains
+  // brochure-direct envelope-spec values. We refuse to interpolate at any
+  // working point and return null — the renderer then shows a "confirm with
+  // rental company" panel instead of a synthetic kg number.
+  if (m && m.loadChartSparse === true) return null;
+
   // ZONE LOOKUP — load charts define constant-capacity zones, not gradients.
   // Each {h, r, kg} point is the OUTER BOUNDARY of that zone at that height.
   // We find the first boundary point where reach <= boundary.r → return that zone's kg.
@@ -149475,6 +148194,35 @@ function matchMachines(ans, type) {
     // load at the required height AND reach simultaneously.
     if (exactKg > 0 && exactHt > 0 && exactReach >= 0) {
       pool = pool.filter((m) => {
+        // ── SPARSE-CHART MACHINES (Assik no-interpolation policy) ─────
+        // For machines flagged loadChartSparse=true we have only brochure
+        // envelope facts — refuse to interpolate. Use envelope-spec check
+        // (rated cap / max height / max reach) plus brochure-confirmed
+        // facts where they apply. Customer is told to confirm with rental
+        // company at the renderer layer.
+        if (m.loadChartSparse === true) {
+          const capT = m.liftCapacity || m.capacity || 0;
+          const capKg = capT > 100 ? capT : capT * 1000;
+          if (capKg < exactKg) return false;
+          if (exactHt > 0 && (m.liftHeight || 0) < exactHt) return false;
+          if (exactReach > 0 && m.maxReach && m.maxReach < exactReach) return false;
+          // Brochure-confirmed: at full height capacity = capacityAtFullHeight
+          if (
+            m.capacityAtFullHeight &&
+            exactHt >= (m.liftHeight || 99) * 0.95 &&
+            m.capacityAtFullHeight < exactKg
+          )
+            return false;
+          // Brochure-confirmed: at full reach capacity = capacityAtFullReach
+          if (
+            m.capacityAtFullReach &&
+            exactReach >= (m.maxReach || 99) * 0.95 &&
+            m.capacityAtFullReach < exactKg
+          )
+            return false;
+          return true;
+        }
+
         const actualKg = getCapacityAtPoint(m, exactHt, exactReach);
         if (actualKg === null) {
           // No matrix data at this row (either no matrix at all, OR sparse matrix
@@ -150480,10 +149228,14 @@ function matchMachines(ans, type) {
       });
     }
     // Also exclude them from crawler_boom results if they somehow pass through
-    if (terr !== "crawler_boom") {
-      pool = pool.filter(
-        (m) => !_isSpiderOrCrawler(m) || terr === "crawler_boom",
-      );
+    // ── BUG FIX (Assik 28-Apr-2026): spider lifts and compact crawlers are
+    // EXCELLENT for indoor work at high reach (narrow stowed, low ground
+    // pressure, non-marking rubber tracks). The previous blanket exclusion
+    // banned them from every terrain except crawler_boom, which removed
+    // 50+ valid indoor options. Now: only exclude from rough_boom (general
+    // outdoor rough), keep them available for indoor_boom and other terrains.
+    if (terr === "rough_boom") {
+      // Already handled by the rough_boom filter above — spider/crawler excluded there.
     }
     // Very rough / crawler terrain — ONLY show tracked/crawler/spider boom machines
     if (terr === "crawler_boom") {
@@ -150516,18 +149268,13 @@ function matchMachines(ans, type) {
           // Compute geometry estimate for display AND for reach-at-height exclusion
           if (minHt > 0 && minReach > 0) {
             m._reachAtReqHt = getReachAtHeight(m, minHt);
-            // Hard exclude: if the machine genuinely cannot reach minReach at the required height,
-            // it cannot do the job — remove it entirely rather than showing it with a yellow warning.
-            // Use a small tolerance (0.3m) to avoid excluding borderline machines due to geometry rounding.
-            if (m._reachAtReqHt !== null && m._reachAtReqHt < minReach - 0.3) {
-              return null; // machine fails reach at required height — don't show it
-            }
-            // Within 0.3m tolerance but still short of minReach — tag as close match.
-            // These are kept in the pool but only surfaced when no fully-qualified
-            // machine exists (handled in the assembly step below). Sorts to the
-            // end of results when shown.
+            // STRICT reach-at-height gate (Assik 28-Apr-2026):
+            // If the machine cannot deliver the requested reach AT the requested
+            // height, it cannot do the job — exclude it entirely. No tolerance,
+            // no "close match" surfacing. Plenty of machines in the pool — only
+            // show ones that actually do height AND reach at the same time.
             if (m._reachAtReqHt !== null && m._reachAtReqHt < minReach) {
-              m._reachClose = true;
+              return null;
             }
           }
         }
@@ -150721,8 +149468,16 @@ function matchMachines(ans, type) {
             "⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.",
         });
       // underSpec machines excluded — machine must meet stated height requirement
-      // If too few articulating results, fill remaining slots with telescopic alternatives
-      if (results.length < 3) {
+      // ── BUG FIX (Assik 28-Apr-2026): when the user explicitly picked
+      // articulating, NEVER substitute telescopic. A telescopic at the same
+      // platform height has 0m reach at full height (geometry — boom is
+      // vertical), so it cannot do up-and-over OR meet the reach requirement
+      // at that height. Showing it as "Telescopic Alternative" misleads the
+      // customer. If no articulating booms qualify, show a clear "no match"
+      // message and let the customer adjust their requirements.
+      // Only fall back to telescopic when user did NOT specifically pick articulating.
+      const _userPickedArticulating = boomTypePref === "boom_articulating";
+      if (results.length < 3 && !_userPickedArticulating) {
         const _allBooms = (MACHINES.boom || []).filter(
           (m) => m.boomType === "telescopic",
         );
@@ -150730,6 +149485,16 @@ function matchMachines(ans, type) {
           .filter((m) => {
             if ((m.platformHeight || 0) < minHt) return false;
             if (minReach > 0 && (m.maxReach || 0) < minReach) return false;
+            // ── BUG FIX (Assik 28-Apr-2026): apply geometric reach-at-height
+            // gate to telescopic candidates. A 20m telescopic with 15m maxReach
+            // delivers 0m reach AT 20m platform height (boom vertical). Showing
+            // such a machine to a customer who needs 12m reach at 18m height
+            // is wrong — the machine physically cannot do the job.
+            if (minHt > 0 && minReach > 0) {
+              const teleReachAtH = getReachAtHeight(m, minHt);
+              if (teleReachAtH !== null && teleReachAtH < minReach - 0.3)
+                return false;
+            }
             const p = (m.power || "").toLowerCase();
             if (
               pwr === "electric_boom" &&
@@ -154286,6 +153051,100 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
   );
   const reqHt = parseFloat(answers.tele_ht_m || answers.mat_ht_m || 0);
   const reqRe = parseFloat(answers.tele_reach_m || answers.mat_reach_m || 0);
+
+  // ── SPARSE-CHART SHORT-CIRCUIT (Assik no-interpolation policy) ────────
+  // For machines flagged loadChartSparse=true, only the brochure spec-table
+  // values are confirmed (e.g. max cap, cap at full height, cap at full reach,
+  // reach with 1.2T). Every working point in between is unknown without
+  // interpolation — and Assik's policy is "no interpolation, brochure values
+  // only". So we display the brochure-confirmed envelope facts plus a clear
+  // "Confirm at working point with rental company" CTA, and nothing synthetic.
+  if (m.loadChartSparse === true && reqHt > 0 && reqRe >= 0) {
+    const ratedKgS =
+      (m.liftCapacity || m.capacity || 0) > 100
+        ? m.liftCapacity || m.capacity || 0
+        : (m.liftCapacity || m.capacity || 0) * 1000;
+    // Stabilisers RETRACTED (= on tyres / no outriggers deployed) — conservative
+    const capFullHt = m.capacityAtFullHeight || null;
+    const capFullReach = m.capacityAtFullReach || null;
+    // Stabilisers EXTENDED — larger working envelope, only available on machines with outriggers
+    const capFullHtStabs = m.capacityAtFullHeightStabs || null;
+    const capFullReachStabs = m.capacityAtFullReachStabs || null;
+    const liftHtStabs = m.liftHeightStabs || null;
+    const maxRStabs = m.maxReachStabs || null;
+    // Reach at given load (brochure spec table). Support both 1-tonne and 1.2-tonne fields.
+    const reachAt1T = m.reachAt1000kg || null;
+    const reachAt1_2T = m.reachAt1200kg || null;
+    const liftHt = m.liftHeight || null;
+    const maxR = m.maxReach || null;
+    const hasStabsData = !!(capFullHtStabs || capFullReachStabs);
+    const factRow = (label, val) =>
+      `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.4rem .75rem;gap:.5rem">
+        <div style="font-size:.78rem;color:#475569;font-weight:600">${label}</div>
+        <div style="font-size:.85rem;font-weight:900;color:#0F172A">${val}</div>
+      </div>`;
+    // Group A: stabilisers retracted (or non-stab machine) — primary on-tyres facts
+    const factsRetracted = [
+      factRow("🔱 Max lift capacity (ground, retracted)", `${ratedKgS.toLocaleString()} kg`),
+      capFullHt && liftHt
+        ? factRow(`⬆️ Capacity at full height (${liftHt}m)`, `${capFullHt.toLocaleString()} kg`)
+        : "",
+      capFullReach && maxR
+        ? factRow(`➡️ Capacity at full reach (${maxR}m)`, `${capFullReach.toLocaleString()} kg`)
+        : "",
+      reachAt1T ? factRow("📏 Reach with 1-tonne load", `${reachAt1T} m`) : "",
+      reachAt1_2T ? factRow("📏 Reach with 1.2-tonne load", `${reachAt1_2T} m`) : "",
+    ]
+      .filter(Boolean)
+      .join("");
+    // Group B: stabilisers extended — larger envelope (only when machine has outriggers)
+    const factsExtended = hasStabsData
+      ? [
+          capFullHtStabs && (liftHtStabs || liftHt)
+            ? factRow(
+                `⬆️ Capacity at full height (${liftHtStabs || liftHt}m, stabs extended)`,
+                `${capFullHtStabs.toLocaleString()} kg`,
+              )
+            : "",
+          capFullReachStabs && (maxRStabs || maxR)
+            ? factRow(
+                `➡️ Capacity at full reach (${maxRStabs || maxR}m, stabs extended)`,
+                `${capFullReachStabs.toLocaleString()} kg`,
+              )
+            : "",
+        ]
+          .filter(Boolean)
+          .join("")
+      : "";
+    return `<div class="lift-chart-note" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-left-color:#F59E0B">
+      <strong>📊 Capacity at this working point — ${reqHt}m lift / ${reqRe}m reach</strong>
+      ${reqKg > 0 ? `<div style="font-size:.76rem;color:#475569;margin:.3rem 0 .6rem">Your requirement: <strong>${reqKg.toLocaleString()} kg</strong></div>` : '<div style="margin-bottom:.5rem"></div>'}
+      <div style="background:#fff;border:1.5px solid #FCD34D;border-radius:10px;padding:.7rem .85rem;margin-bottom:.6rem">
+        <div style="font-size:.85rem;font-weight:900;color:#9A3412;margin-bottom:.35rem">📞 Confirm capacity at this working point with the rental company</div>
+        <div style="font-size:.75rem;color:#78350F;line-height:1.55">
+          The ${m.shortName || m.name} manufacturer load chart publishes discrete labelled capacity zones — capacity changes step-wise across the working envelope, not as a smooth gradient. <strong>Noyo does not interpolate between brochure zones</strong> — the exact rated capacity at <strong>${reqHt}m lift / ${reqRe}m reach</strong> must be read directly from the manufacturer's load chart on the machine.
+        </div>
+      </div>
+      <div style="font-size:.72rem;color:#475569;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:.4rem 0 .35rem">Brochure-confirmed envelope facts${hasStabsData ? " — Stabilisers retracted" : ""}</div>
+      <div style="display:flex;flex-direction:column;gap:.3rem;margin-bottom:.5rem">${factsRetracted}</div>
+      ${
+        hasStabsData
+          ? `<div style="font-size:.72rem;color:#475569;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin:.4rem 0 .35rem">Brochure-confirmed envelope facts — Stabilisers extended</div>
+             <div style="display:flex;flex-direction:column;gap:.3rem;margin-bottom:.5rem">${factsExtended}</div>`
+          : ""
+      }
+      <div style="background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.4rem .7rem;font-size:.74rem;color:#475569;margin-bottom:.4rem">
+        <strong>🪝 Hook / jib attachment:</strong> confirm capacity directly with the rental company.
+      </div>
+      <div style="background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.4rem .7rem;font-size:.74rem;color:#475569;margin-bottom:.6rem">
+        <strong>🔄 Fork rotator:</strong> rotator weight varies by manufacturer, model, and carriage width. Confirm rotator capacity directly with the rental company.
+      </div>
+      <div style="margin-top:.5rem;background:#FFF7ED;border:1px solid #FDBA74;border-radius:8px;padding:.5rem .75rem;font-size:.72rem;color:#9A3412;line-height:1.55">
+        <strong>⚠️ Noyo policy:</strong> capacity values shown anywhere on the platform are taken directly from manufacturer brochures with no interpolation. For working points between published brochure zones, always verify the exact rated kg against the machine's certified load plate before any lift. Noyo is a marketplace platform only and accepts no responsibility for capacity decisions.
+      </div>
+    </div>`;
+  }
+
   // Try _actualKgAtPoint first (set during scoring when reqHt/reqRe were provided)
   let displayKg = m._actualKgAtPoint;
 
@@ -154427,6 +153286,16 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
           ? m.liftCapacity || m.capacity || 0
           : (m.liftCapacity || m.capacity || 0) * 1000;
 
+      // ── NO-INTERPOLATION POLICY (Assik directive — every telehandler) ──
+      // The strict policy: never display synthetic kg values. Machines with
+      // brochure-direct loadMatrix data (full zone grid from the manufacturer)
+      // already pass exact zone values through getCapacityAtPoint. For machines
+      // marked m.loadChartSparse=true (only a handful of brochure-spec points
+      // are known — e.g. max cap, cap at full height, cap at full reach), we
+      // refuse to interpolate and show "Confirm with rental company" instead.
+      // The pass-through helper is kept for code clarity (and is a no-op).
+      const _snapToBrochureZoneR = (kg) => kg;
+
       // ── CONFIRM BANNER helper — used whenever a chart has no brochure data ──
       const confirmRow = (label) =>
         `<div style="display:flex;align-items:center;justify-content:space-between;background:#FFF7ED;border:1.5px dashed #F97316;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
@@ -154542,8 +153411,11 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
         );
         tyresSource = "estimate";
       }
+      // SNAP on-tyres value to standard brochure zone (no synthetic kg shown).
+      onTyresAtPoint = _snapToBrochureZoneR(onTyresAtPoint);
       // On tynes at working point = displayKg (outrigger capacity interpolated)
-      const onTynesKg = displayKg;
+      // SNAP to standard brochure zone — user never sees synthetic kg numbers.
+      const onTynesKg = _snapToBrochureZoneR(displayKg);
       const capT2 = m.liftCapacity || m.capacity || 0;
 
       // Jib: ONLY use brochure data — never estimate
@@ -154791,13 +153663,22 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       }
       const effectiveEwpKg =
         ewpKgDirect != null ? Math.min(ewpKgDirect, ewpSWL) : ewpSWL;
-      const okEwp = effectiveEwpKg >= reqKg;
+
+      // ── BROCHURE-ZONE SNAP for rotating telehandler display values ──
+      // Per Assik directive: every kg displayed must be a brochure-zone value
+      // (snap-down), never a synthetic interpolated number.
+      const _snappedJibKg = jibKg != null ? _snapToBrochureZoneR(jibKg) : null;
+      const _snappedWinchKg = winchKg != null ? _snapToBrochureZoneR(winchKg) : null;
+      const _snappedWinch2Kg = winch2Kg != null ? _snapToBrochureZoneR(winch2Kg) : null;
+      const _snappedHookKg = hookKg != null ? _snapToBrochureZoneR(hookKg) : null;
+      const _snappedEwpKg = effectiveEwpKg != null ? _snapToBrochureZoneR(effectiveEwpKg) : null;
+      const okEwp = _snappedEwpKg != null && _snappedEwpKg >= reqKg;
 
       const okTynes = onTynesKg >= reqKg;
-      const okJib = jibKg >= reqKg;
-      const okWinch = winchKg != null && winchKg >= reqKg;
-      const okWinch2 = winch2Kg != null && winch2Kg >= reqKg;
-      const okHook = hookKg != null && hookKg >= reqKg;
+      const okJib = _snappedJibKg != null && _snappedJibKg >= reqKg;
+      const okWinch = _snappedWinchKg != null && _snappedWinchKg >= reqKg;
+      const okWinch2 = _snappedWinch2Kg != null && _snappedWinch2Kg >= reqKg;
+      const okHook = _snappedHookKg != null && _snappedHookKg >= reqKg;
       const okTyres = onTyresAtPoint > 0 && onTyresAtPoint >= reqKg;
 
       const row = (label, kg, chk, note = "", outsideEnvelope = false) => {
@@ -154820,17 +153701,17 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                 ${
                   !m.loadMatrixWinch || !m.loadMatrixWinch.length
                     ? confirmRow("🪝 Winch")
-                    : winchKg != null
+                    : _snappedWinchKg != null
                       ? row(
                           winchLabel,
-                          winchKg,
+                          _snappedWinchKg,
                           okWinch,
                           `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From ${winchSrc}.`,
                         )
                       : ""
                 }
-                ${winch2Kg != null ? row(winch2Label, winch2Kg, okWinch2, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From manufacturer W${m.winchCapacity2 ? (m.winchCapacity2 / 1000).toFixed(1).replace(".0", "") : "5"} winch load chart.`) : ""}
-                ${hookKg != null ? row(`🔗 Hook / crane mode — boom tip, zero reach extension`, hookKg, okHook, `Direct crane hook hanging vertically at ${reqHt}m / ${reqRe}m — no reach extension. Hook rated 5T. From ${hookSrc}.`) : ""}
+                ${_snappedWinch2Kg != null ? row(winch2Label, _snappedWinch2Kg, okWinch2, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From manufacturer W${m.winchCapacity2 ? (m.winchCapacity2 / 1000).toFixed(1).replace(".0", "") : "5"} winch load chart.`) : ""}
+                ${_snappedHookKg != null ? row(`🔗 Hook / crane mode — boom tip, zero reach extension`, _snappedHookKg, okHook, `Direct crane hook hanging vertically at ${reqHt}m / ${reqRe}m — no reach extension. Hook rated 5T. From ${hookSrc}.`) : ""}
                 ${
                   tattArr.includes("jib")
                     ? !m.loadMatrixJib800 || !m.loadMatrixJib800.length
@@ -154838,14 +153719,14 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                       : hasJibWinchMatrix && jibWinchKgDirect != null
                         ? row(
                             `🔩 ${jwCapLabel}/2m Jib Winch — outriggers deployed`,
-                            jibWinchKgDirect,
-                            okJibWinchDirect,
+                            _snapToBrochureZoneR(jibWinchKgDirect),
+                            _snapToBrochureZoneR(jibWinchKgDirect) >= reqKg,
                             `Capacity read directly from ${m.brand} jib winch load chart at ${reqHt}m / ${reqRe}m. The 2m jib extends horizontal reach by 2m. Jib winch attachment weight (420kg) already factored into brochure chart zones. Source: manufacturer jib load chart.`,
                           )
                         : hasStoredJib && jibWt2 && jibLen2
                           ? row(
                               `🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`,
-                              jibKg,
+                              _snappedJibKg,
                               okJib,
                               `Jib adds ${jibLen2}m horizontal reach → effective reach ${jibEffectiveReach2.toFixed(1)}m. ${capAtJibReach2 && capAtJibReach2 === jibKg + jibWt2 && jibEffectiveReach2 > (m.maxReach || 99) * 0.95 ? "⚠️ Effective reach exceeds this machine's chart maximum at this height — capacity shown is the boundary value (maximum reach at this elevation). " : ""}Capacity read from load chart zone at extended reach, jib weight deducted. Source: ${jibSource}.`,
                             )
@@ -154858,17 +153739,11 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                 ${
                   tattArr.includes("rotator") ||
                   tattArr.includes("fork_rotator")
-                    ? rotatorWt2
-                      ? row(
-                          `🔄 With rotator attachment (−${rotatorWt2}kg)`,
-                          Math.max(0, onTynesKg - rotatorWt2),
-                          Math.max(0, onTynesKg - rotatorWt2) >= reqKg,
-                          `Rotator weight ${rotatorWt2}kg from ${m.brand} brochure. Deducted at same working point.`,
-                        )
-                      : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
+                    ? `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
                           <div style="font-size:.82rem;font-weight:700;color:#475569">🔄 With rotator attachment</div>
-                          <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ No brochure data — confirm rotator capacity with rental company</div>
-                        </div>`
+                          <div style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ Confirm rotator capacity with rental company</div>
+                        </div>
+                        <div style="font-size:.7rem;color:#64748B;padding:.1rem .4rem .3rem .4rem;font-style:italic">Rotator weight varies by manufacturer, model, and carriage width. Noyo does not estimate rotator weights — confirm rotator capacity at this working point directly with the rental company before hiring.</div>`
                     : ""
                 }
                 ${
@@ -154876,10 +153751,10 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                     ? confirmRow("🧑‍🏭 Man basket / EWP mode")
                     : row(
                         `🧑‍🏭 Man basket / EWP mode`,
-                        effectiveEwpKg,
+                        _snappedEwpKg,
                         okEwp,
                         ewpKgDirect != null && ewpKgDirect < ewpSWL
-                          ? `⚠️ Machine stability at ${reqHt}m / ${reqRe}m limits platform capacity to ${ewpKgDirect.toLocaleString()}kg — below basket SWL of ${ewpSWL.toLocaleString()}kg. From ${m.brand} man platform load chart. EWP mode requires operator certification and basket inspection.`
+                          ? `⚠️ Machine stability at ${reqHt}m / ${reqRe}m limits platform capacity below basket SWL of ${ewpSWL.toLocaleString()}kg. From ${m.brand} man platform load chart. EWP mode requires operator certification and basket inspection.`
                           : `Man platform basket SWL: ${ewpSWL.toLocaleString()}kg (people + tools combined). Machine stability adequate at this position. ⚠️ EWP mode requires operator certification and basket inspection.`,
                       )
                 }
@@ -154925,6 +153800,14 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
 
     // Standard (non-rotating) telehandler — capacity breakdown: tynes / jib / rotator
     {
+      // ── NO-INTERPOLATION POLICY (Assik directive — every telehandler) ──
+      // Machines with brochure-direct loadMatrix data pass exact zone values
+      // through getCapacityAtPoint. For machines marked m.loadChartSparse=true
+      // (only the brochure spec table values are known), the renderer shows
+      // "Confirm with rental company" rather than any synthetic kg.
+      // Pass-through helper kept for clarity (no-op).
+      const _snapToBrochureZone = (kg) => kg;
+
       // IMPORTANT: Standard telehandler jib/hook is carriage-mounted.
       // It does NOT extend horizontal reach — load hangs at the same position as forks.
       // Capacity with jib = capacity at this working point MINUS jib own weight only.
@@ -154936,23 +153819,29 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       const jibWt = m.jibWeight; // ONLY use brochure data — no estimates
       const jibLen = 0.0;
       const jibSrc = _hasJibData ? `${m.brand} brochure: ${jibWt}kg` : null; // null = no data
-      const _hasRotData = !!m.rotatorWeight;
-      const rotatorWt = m.rotatorWeight; // ONLY use brochure data — no estimates
+      // ── ROTATOR POLICY (Assik directive) ──
+      // For ALL telehandlers, the rotator-attachment row never shows a derived kg.
+      // It always reads "Confirm with rental company" — rotator weight varies by
+      // manufacturer, model, and carriage width and Noyo accepts no responsibility
+      // for the figure. We deliberately ignore m.rotatorWeight here.
       const ratedKg =
         (m.liftCapacity || m.capacity || 0) > 100
           ? m.liftCapacity || m.capacity || 0
           : (m.liftCapacity || m.capacity || 0) * 1000;
-      const onTynesKg = displayKg;
+      // SNAP the on-tynes capacity to a standard brochure zone label so the
+      // user never sees a synthetic interpolated number like 950 kg.
+      const onTynesKg = _snapToBrochureZone(displayKg);
 
       // HOOK BLOCK PHYSICS (confirmed from manufacturer data):
       // Standard telehandler hook/jib blocks mount on the carriage.
       // Load hangs at the SAME horizontal position as forks — zero reach extension.
       // Capacity with hook = capacity at working point MINUS hook weight only.
-      const withJibKg = _hasJibData ? Math.max(0, onTynesKg - jibWt) : null;
-      const withRotKg = _hasRotData ? Math.max(0, onTynesKg - rotatorWt) : null;
+      // Snap the result so the hook row also displays a brochure-zone value.
+      const withJibKg = _hasJibData
+        ? _snapToBrochureZone(Math.max(0, onTynesKg - jibWt))
+        : null;
       const okTynes = onTynesKg >= reqKg;
       const okJib = withJibKg !== null ? withJibKg >= reqKg : null;
-      const okRot = withRotKg !== null ? withRotKg >= reqKg : null;
 
       const row = (label, kg, chk, note = "") => {
         const c = chk ? "#065F46" : "#92400E",
@@ -154997,17 +153886,10 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                 }
                 ${
                   _custWantsRot
-                    ? _hasRotData
-                      ? row(
-                          `🔄 With fork rotator (−${rotatorWt}kg)`,
-                          withRotKg,
-                          okRot,
-                          `Rotator weight ${rotatorWt}kg from ${m.brand} brochure. Deducted at same working point.`,
-                        )
-                      : noDataRow(
-                          "🔄 With fork rotator",
-                          "No brochure data for rotator weight on this machine — confirm rotator capacity directly with the rental company before hiring.",
-                        )
+                    ? noDataRow(
+                        "🔄 With fork rotator",
+                        "Rotator weight varies by manufacturer, model, and carriage width. Noyo does not estimate rotator weights — confirm rotator capacity at this working point directly with the rental company before hiring.",
+                      )
                     : ""
                 }
               </div>
@@ -155019,10 +153901,12 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                 </div>
                 <div style="padding:.65rem .85rem;font-size:.75rem;color:#78350F;line-height:1.65">
                   <div style="display:grid;grid-template-columns:auto 1fr;gap:.3rem .6rem;margin-bottom:.45rem">
-                    <span style="font-size:.8rem">📋</span>
-                    <span>Jib/hook attachment weight shown is from <strong>${m.jibWeight ? m.brand + " brochure data" : "class estimate"}</strong> — confirm exact weight on the machine's load plate before hiring.</span>
                     <span style="font-size:.8rem">📊</span>
-                    <span>Jib/hook weight used: <strong>${jibWt}kg</strong>. Rotator weights: <strong>195–840 kg</strong> depending on class — confirm with rental company.</span>
+                    <span>Capacity figures shown are <strong>brochure-zone values</strong> from the manufacturer's load chart, snapped to the nearest standard zone label (no interpolated values). Always verify the exact figure on the machine's load plate before hiring.</span>
+                    <span style="font-size:.8rem">🪝</span>
+                    <span>${_hasJibData ? `Jib/hook weight is <strong>${m.brand} brochure: ${jibWt}kg</strong> — confirm against the actual attachment fitted before hiring.` : "Noyo does not estimate jib/hook attachment weights — confirm jib/hook capacity directly with the rental company before hiring."}</span>
+                    <span style="font-size:.8rem">🔄</span>
+                    <span>Rotator capacity is <strong>not estimated</strong> — rotator weight varies by manufacturer, model, and carriage width. Always confirm rotator capacity directly with the rental company.</span>
                     <span style="font-size:.8rem">🔖</span>
                     <span>Actual usable capacity <strong>must</strong> be verified against the machine's <strong>load plate</strong> and attachment datasheet before any lift.</span>
                     <span style="font-size:.8rem">🏢</span>
@@ -155105,14 +153989,20 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
               <div style="font-size:.82rem;font-weight:700;color:#334155">${label}</div>
               <span style="font-size:.9rem;font-weight:900;color:#0052CC">${val}</span>
             </div>${note ? `<div style="font-size:.7rem;color:#64748B;padding:.1rem .4rem .3rem .4rem;font-style:italic">${note}</div>` : ""}`;
+      // ── ROTATOR row: ALWAYS "confirm with rental company" (Assik directive) ──
+      const rotatorConfirmRow = `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem">
+              <div style="font-size:.82rem;font-weight:700;color:#475569">🔄 With fork rotator</div>
+              <span style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ Confirm with rental company</span>
+            </div>
+            <div style="font-size:.7rem;color:#64748B;padding:.1rem .4rem .3rem .4rem;font-style:italic">Rotator weight varies by manufacturer, model, and carriage width. Noyo does not estimate rotator weights — confirm rotator capacity with the rental company before hiring.</div>`;
       return `<div class="lift-chart-note" style="background:#FEF9C3;border-left-color:#EAB308">
               <strong>⚠️ Rated max capacity (ground level, zero reach) — enter height &amp; reach above for your exact working point</strong>
               <div style="display:flex;flex-direction:column;gap:.35rem;margin-top:.55rem">
                 ${row("🔱 On tynes (standard forks)", `${ratedKg.toLocaleString()} kg`, "Ground level / zero reach only. Capacity reduces with height and outreach.")}
-                ${row(`🪝 With jib attachment (−${jibWt}kg)`, `${(ratedKg - jibWt).toLocaleString()} kg`, "Rated capacity minus jib attachment weight at ground level")}
-                ${row(`🔄 With fork rotator (−${rotatorWt}kg)`, `${(ratedKg - rotatorWt).toLocaleString()} kg`, `Rated capacity minus estimated rotator weight at ground level. ⚠️ Telehandler rotator weights: 2.5T ~300–400 kg | 3T ~350–450 kg | 4T ~400–550 kg | 5T ~450–650 kg | 6–7T ~600–940 kg. Always confirm exact weight with rental company — NOYO accepts no responsibility for these estimates.`)}
+                ${m.jibWeight ? row(`🪝 With jib attachment (−${m.jibWeight}kg)`, `${(ratedKg - m.jibWeight).toLocaleString()} kg`, `Jib weight ${m.jibWeight}kg from ${m.brand} brochure. Deducted at ground level.`) : `<div style="display:flex;align-items:center;justify-content:space-between;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;padding:.45rem .75rem;gap:.5rem"><div style="font-size:.82rem;font-weight:700;color:#475569">🪝 With jib attachment</div><span style="font-size:.8rem;font-weight:700;color:#DC2626">⚠️ Confirm with rental company</span></div><div style="font-size:.7rem;color:#64748B;padding:.1rem .4rem .3rem .4rem;font-style:italic">No brochure data for jib weight on this machine — confirm jib capacity with the rental company before hiring.</div>`}
+                ${rotatorConfirmRow}
               </div>
-              <small style="color:#555;line-height:1.5;display:block;margin-top:.55rem">Attachment weights are typical class estimates. Enter your exact height &amp; reach above for interpolated working-point capacity. Always verify on the machine's load plate before hiring. <strong>⚠️ Rotator weight varies by manufacturer and carriage width — always confirm the exact rotator weight with your rental company before hiring.</strong></small>
+              <small style="color:#555;line-height:1.5;display:block;margin-top:.55rem">Enter your exact height &amp; reach above to read the brochure-zone capacity at your working point. Always verify on the machine's load plate before hiring. <strong>⚠️ Rotator weight varies by manufacturer and carriage width — always confirm rotator capacity with the rental company.</strong></small>
             </div>`;
     }
   }
@@ -155717,7 +154607,7 @@ function _renderCards(matches, machineType, answers) {
             : ""
         }
         ${
-          machineType === "forklift" || machineType === "telehandler"
+          machineType === "forklift"
             ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.7rem 1rem;margin:.5rem 0;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 6px rgba(245,158,11,.12)">
               <div style="font-size:1.4rem;flex-shrink:0;line-height:1">↗️</div>
               <div style="flex:1">
@@ -156858,7 +155748,7 @@ function _renderCards(matches, machineType, answers) {
           : ""
       }
       ${
-        machineType === "forklift" || machineType === "telehandler"
+        machineType === "forklift"
           ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.7rem 1rem;margin:.6rem 0 .2rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 6px rgba(245,158,11,.12)">
             <div style="font-size:1.4rem;flex-shrink:0;line-height:1">↗️</div>
             <div style="flex:1">
@@ -173307,11 +172197,18 @@ function setAuthMode(mode) {
       .querySelectorAll("#lp-cats-grid input[type=checkbox]")
       .forEach((cb) => (cb.checked = false));
     regFields.forEach((el) => {
-      if (el.classList.contains("lp-rental-only")) {
+      // Special case: dual-class element (rental OR customer, but not lite) — used for shared ABN field
+      const hasRental = el.classList.contains("lp-rental-only");
+      const hasCustomer = el.classList.contains("lp-customer-only");
+      const hasLite = el.classList.contains("lp-lite-only");
+      if (hasRental && hasCustomer) {
+        // Show for rental + customer, hide for lite
+        el.style.display = isLite ? "none" : "";
+      } else if (hasRental) {
         el.style.display = isRental ? "" : "none";
-      } else if (el.classList.contains("lp-customer-only")) {
+      } else if (hasCustomer) {
         el.style.display = isRental || isLite ? "none" : "";
-      } else if (el.classList.contains("lp-lite-only")) {
+      } else if (hasLite) {
         el.style.display = isLite ? "" : "none";
       } else {
         // shared reg fields: hide company row for lite
@@ -173322,6 +172219,13 @@ function setAuthMode(mode) {
         }
       }
     });
+    // Toggle ABN help text per mode (rental vs customer)
+    const helpRental = document.getElementById("lp-abn-help-rental");
+    const helpCustomer = document.getElementById("lp-abn-help-customer");
+    if (helpRental && helpCustomer) {
+      helpRental.style.display = isRental ? "" : "none";
+      helpCustomer.style.display = !isRental && !isLite ? "" : "none";
+    }
     // Reset T&C checkboxes every time Register tab opens
     const rCb = document.getElementById("lp-tnc-rental-cb");
     const cCb = document.getElementById("lp-tnc-customer-cb");
@@ -173893,6 +172797,7 @@ function doLogin() {
     }
     const fullName = (document.getElementById("lp-name").value || "").trim();
     const company = (document.getElementById("lp-company").value || "").trim();
+    const abn = (document.getElementById("lp-abn")?.value || "").trim();
     const mobile = (document.getElementById("lp-mobile").value || "").trim();
     const address = (document.getElementById("lp-address").value || "").trim();
     const suburb = (document.getElementById("lp-suburb").value || "").trim();
@@ -173917,6 +172822,19 @@ function doLogin() {
     }
     if (!company) {
       errEl.textContent = "Please enter your company name.";
+      return;
+    }
+    if (!abn || abn.replace(/\s/g, "").length < 11) {
+      errEl.textContent =
+        "Please enter a valid 11-digit ABN. Overseas businesses without an ABN can use Noyo Lite instead.";
+      document.getElementById("lp-abn")?.focus();
+      return;
+    }
+    // Gate on live ABN verification (if lookup ran and failed)
+    if (window._lpABNVerified === false) {
+      errEl.textContent =
+        "Please enter a valid, active ABN — check the number above.";
+      document.getElementById("lp-abn")?.focus();
       return;
     }
     if (!mobile) {
@@ -173949,6 +172867,7 @@ function doLogin() {
           role: "customer",
           active: true,
           companyName: company,
+          abn: abn,
           phone: mobile,
           address,
           suburb,
