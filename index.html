@@ -141,14 +141,20 @@
         <label class="lp-label">Company name</label>
         <input class="lp-input" id="lp-company" type="text" placeholder="Acme Construction Pty Ltd" autocomplete="organization">
       </div>
-      <!-- ABN — rental companies only -->
-      <div class="lp-field lp-reg-only lp-rental-only" style="display:none">
+      <!-- ABN — rental companies AND Australian customers (not Noyo Lite — overseas users) -->
+      <div class="lp-field lp-reg-only lp-rental-only lp-customer-only" id="lp-abn-wrap" style="display:none">
         <label class="lp-label">ABN <span style="color:#EF4444">*</span></label>
         <input class="lp-input" id="lp-abn" type="text" placeholder="XX XXX XXX XXX" maxlength="14"
           oninput="this.value=this.value.replace(/[^0-9]/g,'').replace(/(\d{2})(\d{3})(\d{3})(\d{3})/,'$1 $2 $3 $4').trim();lpABNInput(this.value)" autocomplete="off">
         <div id="lp-abn-status" style="margin-top:.4rem;display:none"></div>
-        <div style="margin-top:.3rem;font-size:.74rem;color:#94A3B8;line-height:1.4">
+        <div style="margin-top:.3rem;font-size:.74rem;color:#94A3B8;line-height:1.4" id="lp-abn-help-rental">
           For business verification only. Your ABN address (e.g. PO Box) is <strong>not</strong> used for location or routing — that's set by your depot suburb below.
+        </div>
+        <div style="margin-top:.3rem;font-size:.74rem;color:#94A3B8;line-height:1.4;display:none" id="lp-abn-help-customer">
+          We verify your business is a real, active Australian entity. Your ABN address is <strong>not</strong> used for delivery — your job site address is set per enquiry.
+          <div style="margin-top:.5rem;padding:.5rem .65rem;background:rgba(14,165,233,.08);border-left:3px solid #38BDF8;border-radius:6px">
+            🌏 <strong style="color:#38BDF8">Overseas or no ABN?</strong> Use <button type="button" onclick="openForm('lite')" style="background:none;border:none;color:#38BDF8;text-decoration:underline;cursor:pointer;font-weight:800;font-family:inherit;font-size:.74rem;padding:0">Noyo Lite</button> instead — free machine information, no ABN needed (no quoting or hire on Lite).
+          </div>
         </div>
       </div>
 
@@ -299,6 +305,9 @@
       <!-- ── LITE T&C — shown only during lite registration ──────────── -->
       <div id="lp-tnc-lite" class="lp-reg-only lp-lite-only" style="display:none;margin:.9rem 0">
         <div style="background:linear-gradient(135deg,#0c1f3a,#0a1628);border:1.5px solid rgba(14,165,233,.35);border-radius:12px;padding:.85rem 1rem">
+          <div style="background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.3);border-radius:8px;padding:.5rem .75rem;margin-bottom:.65rem;font-size:.76rem;color:#BAE6FD;line-height:1.5">
+            🌏 <strong style="color:#38BDF8">Welcome — overseas and non-Australian users are welcome on Noyo Lite.</strong> No ABN required. Lite is for information only — to enquire about hire from an Australian rental company, you'll need to register on the main customer side with an Australian ABN.
+          </div>
           <details style="cursor:pointer">
             <summary style="font-weight:800;color:#38BDF8;font-size:.82rem;list-style:none;display:flex;align-items:center;gap:.5rem">
               <span>📋</span> Noyo Lite — Terms of Use <span style="color:#94A3B8;font-size:.73rem;margin-left:auto">▼ read before ticking</span>
