@@ -12,6 +12,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-functions-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 <script src="js/firebase-bridge.js"></script>
 <link rel="stylesheet" href="assets/css/styles.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -332,6 +333,36 @@
         </div>
       </div>
 
+      <!-- ── RENTAL PLAN PICKER — last step of rental registration ─────────── -->
+      <div id="lp-rental-plan-picker" class="lp-reg-only lp-rental-only" style="display:none;margin:.9rem 0">
+        <div style="background:linear-gradient(135deg,#0d1630,#0a1326);border:1.5px solid rgba(99,102,241,.35);border-radius:12px;padding:.95rem 1rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem">
+            <div>
+              <div style="font-weight:900;color:#A5B4FC;font-size:.95rem">📦 Pick your starting plan</div>
+              <div style="font-size:.74rem;color:#94A3B8;margin-top:.15rem">You can switch or cancel anytime from your dashboard.</div>
+            </div>
+            <!-- Monthly/Annual toggle -->
+            <div id="lp-plan-cycle-toggle" style="display:inline-flex;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:.15rem;gap:.1rem">
+              <button type="button" data-cycle="monthly" onclick="_lpSelectPlanCycle('monthly')"
+                style="background:#fff;color:#0F172A;border:none;border-radius:99px;padding:.32rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;cursor:pointer">Monthly</button>
+              <button type="button" data-cycle="annual" onclick="_lpSelectPlanCycle('annual')"
+                style="background:transparent;color:#94A3B8;border:none;border-radius:99px;padding:.32rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;cursor:pointer;display:flex;align-items:center;gap:.3rem">Annual <span style="background:#16A34A;color:#fff;font-size:.6rem;font-weight:900;padding:.05rem .35rem;border-radius:20px">−20%</span></button>
+            </div>
+          </div>
+          <!-- Free-during-promo callout -->
+          <div id="lp-plan-promo-strip" style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:.5rem .75rem;margin-bottom:.6rem;font-size:.74rem;color:#86EFAC;line-height:1.5">
+            🎁 <strong>Free during launch promo</strong> — pick any plan now to lock in pricing. No charges until promo ends.
+          </div>
+          <!-- Plan cards (filled in by JS so prices stay in sync with NOYO_PLANS) -->
+          <div id="lp-plan-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-top:.4rem">
+            <!-- Will be hydrated by _lpHydratePlanPicker() -->
+          </div>
+          <!-- Hidden inputs holding the user's choice — read at submit time -->
+          <input type="hidden" id="lp-plan-key" value="payg">
+          <input type="hidden" id="lp-plan-cycle" value="monthly">
+        </div>
+      </div>
+
       <!-- ── RENTAL T&C — shown only during rental registration ─────────────── -->
       <div id="lp-tnc-rental" class="lp-reg-only lp-rental-only" style="display:none;margin:.9rem 0">
         <div style="background:linear-gradient(135deg,#1a2240,#0d1630);border:1.5px solid rgba(255,200,50,.35);border-radius:12px;padding:.85rem 1rem">
@@ -379,6 +410,14 @@
 
       <!-- ── CUSTOMER T&C — shown only during customer registration ──────────── -->
       <div id="lp-tnc-customer" class="lp-reg-only lp-customer-only" style="display:none;margin:.9rem 0">
+        <!-- Free-for-customers reassurance — sits above the T&C details -->
+        <div style="background:linear-gradient(135deg,#064E3B,#065F46);border:1.5px solid #10B981;border-radius:12px;padding:.7rem 1rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.7rem">
+          <span style="font-size:1.5rem">🎁</span>
+          <div>
+            <div style="font-weight:800;color:#A7F3D0;font-size:.92rem">Free for customers — always</div>
+            <div style="font-size:.74rem;color:#6EE7B7;line-height:1.5;margin-top:.15rem">Noyo is and always will be free for customers to use. There are no fees, no subscriptions, and no charges of any kind for finding equipment, getting quotes, or hiring through Noyo. Rental companies pay us — you don't.</div>
+          </div>
+        </div>
         <div style="background:linear-gradient(135deg,#1a2240,#0d1630);border:1.5px solid rgba(255,107,53,.35);border-radius:12px;padding:.85rem 1rem">
           <details style="cursor:pointer">
             <summary style="font-weight:800;color:#FF8C5A;font-size:.82rem;list-style:none;display:flex;align-items:center;gap:.5rem">
@@ -464,12 +503,152 @@
       <button onclick="switchViewFromMenu('my-details');closeUserMenu()" style="display:flex;align-items:center;gap:.6rem;width:100%;padding:.75rem 1rem;background:none;border:none;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;color:#334155;cursor:pointer;text-align:left;border-bottom:1px solid #F1F5F9" onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background='none'">
         👤 My Details
       </button>
+      <button id="nav-menu-my-plan" onclick="switchViewFromMenu('my-plan');closeUserMenu()" style="display:none;align-items:center;gap:.6rem;width:100%;padding:.75rem 1rem;background:none;border:none;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;color:#334155;cursor:pointer;text-align:left;border-bottom:1px solid #F1F5F9" onmouseover="this.style.background='#F8FAFC'" onmouseout="this.style.background='none'">
+        📦 My Plan
+      </button>
       <button onclick="logOut();closeUserMenu()" style="display:flex;align-items:center;gap:.6rem;width:100%;padding:.75rem 1rem;background:none;border:none;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;color:#DC2626;cursor:pointer;text-align:left" onmouseover="this.style.background='#FEF2F2'" onmouseout="this.style.background='none'">
         🚪 Sign Out
       </button>
     </div>
   </div>
 </nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     AD BANNER RAILS (v119) — left rail + right rail + mobile bottom
+     2 banners per rail (CB1+CB2 left, CB3+CB4 right; etc per role)
+     Rails are fixed-position so they survive view switches.
+     Hidden by default; JS shows when banner has imageUrl AND user role matches.
+═══════════════════════════════════════════════════════ -->
+<style>
+  /* Side rails — visible on wide screens only */
+  .noyo-ad-rail {
+    position: fixed;
+    top: 80px;
+    width: 160px;
+    z-index: 90; /* below modals (9999), above page content */
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none; /* rail itself doesn't intercept clicks; banners do */
+  }
+  .noyo-ad-rail.left { left: 12px; }
+  .noyo-ad-rail.right { right: 12px; }
+  .noyo-ad-slot {
+    width: 160px;
+    height: 160px;
+    background: #fff;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    display: none; /* shown when slot has an active image */
+    position: relative;
+    pointer-events: auto;
+  }
+  .noyo-ad-slot.clickable { cursor: pointer; }
+  .noyo-ad-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .noyo-ad-slot .ad-tag {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,.55);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 3px;
+    letter-spacing: .04em;
+    pointer-events: none;
+  }
+  /* Bottom strip — shown on narrow screens only */
+  .noyo-ad-bottom {
+    display: none;
+    width: 100%;
+    padding: 16px 12px;
+    background: #F8FAFC;
+    border-top: 1px solid #E2E8F0;
+  }
+  .noyo-ad-bottom-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .noyo-ad-bottom-grid .noyo-ad-slot {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%; /* maintain square aspect ratio */
+    position: relative;
+  }
+  .noyo-ad-bottom-grid .noyo-ad-slot img {
+    position: absolute;
+    inset: 0;
+  }
+  /* Wide screens (tablet + desktop): show side rails, hide bottom */
+  @media (min-width: 1280px) {
+    .noyo-ad-rail.has-active { display: flex; }
+  }
+  /* Narrow screens (mobile + small tablets): show bottom only */
+  @media (max-width: 1279px) {
+    .noyo-ad-bottom.has-active { display: block; }
+  }
+  /* Below 480px (very narrow phones): 2x2 grid instead of 4 in a row */
+  @media (max-width: 480px) {
+    .noyo-ad-bottom-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<!-- LEFT side rail — slots 1 + 2 of the user's role -->
+<aside class="noyo-ad-rail left" id="noyo-ad-rail-left">
+  <a class="noyo-ad-slot" id="noyo-ad-slot-1" target="_blank" rel="noopener noreferrer">
+    <img alt="" id="noyo-ad-img-1">
+    <div class="ad-tag">AD</div>
+  </a>
+  <a class="noyo-ad-slot" id="noyo-ad-slot-2" target="_blank" rel="noopener noreferrer">
+    <img alt="" id="noyo-ad-img-2">
+    <div class="ad-tag">AD</div>
+  </a>
+</aside>
+
+<!-- RIGHT side rail — slots 3 + 4 of the user's role -->
+<aside class="noyo-ad-rail right" id="noyo-ad-rail-right">
+  <a class="noyo-ad-slot" id="noyo-ad-slot-3" target="_blank" rel="noopener noreferrer">
+    <img alt="" id="noyo-ad-img-3">
+    <div class="ad-tag">AD</div>
+  </a>
+  <a class="noyo-ad-slot" id="noyo-ad-slot-4" target="_blank" rel="noopener noreferrer">
+    <img alt="" id="noyo-ad-img-4">
+    <div class="ad-tag">AD</div>
+  </a>
+</aside>
+
+<!-- MOBILE bottom strip — all 4 slots in one row -->
+<div class="noyo-ad-bottom" id="noyo-ad-bottom">
+  <div class="noyo-ad-bottom-grid">
+    <a class="noyo-ad-slot" id="noyo-ad-slot-mb-1" target="_blank" rel="noopener noreferrer">
+      <img alt="" id="noyo-ad-img-mb-1">
+      <div class="ad-tag">AD</div>
+    </a>
+    <a class="noyo-ad-slot" id="noyo-ad-slot-mb-2" target="_blank" rel="noopener noreferrer">
+      <img alt="" id="noyo-ad-img-mb-2">
+      <div class="ad-tag">AD</div>
+    </a>
+    <a class="noyo-ad-slot" id="noyo-ad-slot-mb-3" target="_blank" rel="noopener noreferrer">
+      <img alt="" id="noyo-ad-img-mb-3">
+      <div class="ad-tag">AD</div>
+    </a>
+    <a class="noyo-ad-slot" id="noyo-ad-slot-mb-4" target="_blank" rel="noopener noreferrer">
+      <img alt="" id="noyo-ad-img-mb-4">
+      <div class="ad-tag">AD</div>
+    </a>
+  </div>
+</div>
 
 <!-- ===== KNOW YOUR MACHINES VIEW ===== -->
 <!-- ===== PUBLIC FINDER ===== -->
@@ -1241,6 +1420,7 @@
       <button class="admin-tab" onclick="showAdminSection('liteanalytics',this)" id="admin-tab-liteanalytics">🔵 Lite Analytics</button>
       <button class="admin-tab" onclick="showAdminSection('billing',this)" id="admin-tab-billing">💳 Billing & Revenue</button>
       <button class="admin-tab" onclick="showAdminSection('sponsored',this)" id="admin-tab-sponsored">⭐ Brand Partner (Sponsored)</button>
+      <button class="admin-tab" onclick="showAdminSection('banners',this)" id="admin-tab-banners" style="background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;font-weight:900;border:none">🖼️ Banner Panel</button>
       <button class="admin-tab" onclick="showAdminSection('addmachine',this)" id="admin-tab-addmachine">➕ Add Machine</button>
       <button class="admin-tab" onclick="showAdminSection('usermgmt',this)" id="admin-tab-usermgmt">🔐 User Management</button>
       <button class="admin-tab" onclick="showAdminSection('routingtest',this)" id="admin-tab-routingtest">🧭 Routing Test</button>
@@ -1740,6 +1920,20 @@
     <div class="admin-section" id="admin-sec-sponsored">
       <!-- Content rendered dynamically by renderAdminSponsored() -->
       <div style="padding:2rem;text-align:center;color:#94A3B8;font-size:.9rem">Loading sponsored ads…</div>
+    </div>
+
+    <!-- BANNER PANEL TAB (v119) -->
+    <div class="admin-section" id="admin-sec-banners">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+        <div class="admin-section-title" style="margin:0">🖼️ Banner Panel</div>
+        <button onclick="renderAdminBanners()" style="font-size:.8rem;padding:.35rem .8rem;border:1px solid #E2E8F0;border-radius:8px;background:#fff;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700">↻ Refresh</button>
+      </div>
+      <div style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:10px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.82rem;color:#9A3412;line-height:1.5">
+        <strong>How this works:</strong> 12 banner slots — 4 each for Customer (CB1–CB4), Rental Co (RB1–RB4), and Lite (LB1–LB4) users. Slots <strong>1 &amp; 2</strong> appear on the left rail of every page, slots <strong>3 &amp; 4</strong> on the right rail. On mobile, all 4 stack at the bottom. Empty slots are hidden from users automatically. After the duration expires, the banner stays visible until you delete it (the panel will mark it as expired).
+      </div>
+      <div id="admin-banners-grid">
+        <div style="color:#94A3B8;text-align:center;padding:2rem">Click Refresh to load banners.</div>
+      </div>
     </div>
 
     <div class="admin-section" id="admin-sec-feedback">
@@ -2378,6 +2572,19 @@
       </div>
 
       <div id="rc-business-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MY PLAN VIEW (rental companies only) ──────────────────── -->
+<div id="view-my-plan" class="view">
+  <div class="internal-wrap">
+    <div class="int-header">
+      <h2>📦 My Plan</h2>
+      <p style="color:#64748B;font-size:.92rem;margin-top:.3rem">Manage your subscription, see usage, and renew or change plan.</p>
+    </div>
+    <div id="my-plan-content" style="padding:1rem 0">
+      <div style="color:#94A3B8;text-align:center;padding:3rem 1rem">Loading your plan…</div>
     </div>
   </div>
 </div>
