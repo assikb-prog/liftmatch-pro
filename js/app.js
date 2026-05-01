@@ -161685,37 +161685,111 @@ function _renderPlanBanner() {
     return;
   }
 
-  const { cfg, included, used, remaining } = p;
-  const pct = Math.round((used / included) * 100);
+  const { cfg, included, used, remaining, windowEnd, promoActive, billingCycle, daysLeft, expired, needsRenewal, planExpiresLabel } = p;
+  const isPayg = !!cfg.payg;
+  // For PAYG (included:0), pct/remaining math is meaningless — handled below.
+  const pct = included > 0 ? Math.round((used / included) * 100) : 0;
   const barFill = Math.min(100, pct);
-  const urgent = remaining <= 2;
+  const urgent = !isPayg && remaining <= 2;
   const barColor = urgent
     ? "#EF4444"
-    : remaining <= Math.ceil(included * 0.3)
+    : !isPayg && remaining <= Math.ceil(included * 0.3)
       ? "#F59E0B"
       : "#16A34A";
   const extraCost = cfg.extraPrice;
 
+  // Renewal strip — shown when subscription is within renew window or expired.
+  // Hybrid model per founder spec: monthly auto-renews, annual prompts for
+  // manual confirmation. Banner copy reflects which path applies.
+  const _renewStrip = needsRenewal && !isPayg
+    ? (() => {
+        const isAnnual = billingCycle === "annual";
+        const expiredCopy = expired
+          ? (isAnnual
+              ? `<strong>Your annual subscription expired ${Math.abs(daysLeft)} day${Math.abs(daysLeft) === 1 ? "" : "s"} ago.</strong> Renew to keep receiving enquiries.`
+              : `<strong>Your subscription expired ${Math.abs(daysLeft)} day${Math.abs(daysLeft) === 1 ? "" : "s"} ago.</strong> It will auto-renew when you next attempt an enquiry — or renew now to skip the wait.`)
+          : (isAnnual
+              ? `<strong>${daysLeft} day${daysLeft === 1 ? "" : "s"} left on your annual plan.</strong> Annual plans don't auto-renew — confirm renewal to keep your spot.`
+              : `<strong>${daysLeft} day${daysLeft === 1 ? "" : "s"} left in your billing cycle.</strong> Will auto-renew on ${planExpiresLabel}.`);
+        const bg = expired ? "#FEF2F2" : (isAnnual ? "#FFFBEB" : "#EFF6FF");
+        const border = expired ? "#FCA5A5" : (isAnnual ? "#FCD34D" : "#BFDBFE");
+        const fg = expired ? "#991B1B" : (isAnnual ? "#92400E" : "#1E40AF");
+        const showRenewBtn = expired || isAnnual;
+        return `<div style="background:${bg};border:1.5px solid ${border};border-radius:12px;padding:.55rem .9rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap">
+          <span style="font-size:1rem">${expired ? "⚠️" : isAnnual ? "📅" : "ℹ️"}</span>
+          <div style="flex:1;min-width:180px;font-size:.78rem;color:${fg}">${expiredCopy}</div>
+          ${showRenewBtn ? `<button onclick="switchView('my-plan')" style="background:${fg};color:#fff;border:none;border-radius:8px;padding:.32rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.76rem;cursor:pointer;white-space:nowrap">Renew now →</button>` : ""}
+        </div>`;
+      })()
+    : "";
+
+  // Promo strip — shown above the plan banner while launch promo is active
+  const _promoStrip = promoActive
+    ? `<div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:12px;padding:.5rem .9rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap">
+        <span style="font-size:1rem">🎁</span>
+        <div style="flex:1;min-width:180px">
+          <div style="font-weight:800;color:#15803D;font-size:.82rem">Launch promo — ${isPayg ? "all enquiries" : "extras"} are free</div>
+          <div style="font-size:.71rem;color:#16A34A">Free until ${_noyoPromoEndDateLabel()}. After that, ${isPayg ? "$" + extraCost + " per enquiry" : "extras cost $" + extraCost + " each"}.</div>
+        </div>
+      </div>`
+    : "";
+
   el.style.display = "block";
 
+  // PAYG branch — different layout: no quota bar, shows "$25 per enquiry" copy
+  if (isPayg) {
+    el.innerHTML = `
+      ${_promoStrip}
+      <div style="background:${cfg.badge};border:1.5px solid #E2E8F0;border-radius:12px;padding:.8rem 1.1rem;margin-bottom:.8rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+            <span style="font-weight:900;font-size:.9rem;color:${cfg.color}">📦 ${cfg.label}</span>
+            <span style="font-size:.75rem;color:#64748B">No monthly fee · $${cfg.extraPrice} per enquiry</span>
+          </div>
+          <button onclick="openSubscribeModal()" style="background:${cfg.color};color:#fff;border:none;border-radius:8px;padding:.32rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer">Upgrade for cheaper rates →</button>
+        </div>
+        <div style="margin-top:.45rem;font-size:.72rem;color:#94A3B8">Tip: at 5+ enquiries every 30 days, Standard ($99/mo, 5 free enquiries then $15 each) saves you money.</div>
+      </div>`;
+    return;
+  }
+
+  // Subscription branch (Standard / Pro)
+  // Format days-left chip for the header — colour escalates as expiry nears.
+  const _daysLeftChip = !isPayg && daysLeft !== null
+    ? (() => {
+        const chipBg = expired ? "#FEF2F2" : daysLeft <= 7 ? "#FFFBEB" : "#F1F5F9";
+        const chipFg = expired ? "#991B1B" : daysLeft <= 7 ? "#92400E" : "#475569";
+        const chipText = expired
+          ? `Expired ${Math.abs(daysLeft)}d ago`
+          : `${daysLeft}d left · expires ${planExpiresLabel}`;
+        return `<span style="background:${chipBg};color:${chipFg};font-size:.7rem;font-weight:800;padding:.1rem .5rem;border-radius:20px;white-space:nowrap">${chipText}</span>`;
+      })()
+    : "";
+  const cycleLabel = billingCycle === "annual" ? "annual" : "monthly";
+
   el.innerHTML = `
+    ${_renewStrip}
+    ${_promoStrip}
     <div style="background:${cfg.badge};border:1.5px solid ${urgent ? "#FCA5A5" : "#E2E8F0"};border-radius:12px;padding:.8rem 1.1rem;margin-bottom:.8rem">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">
-        <div style="display:flex;align-items:center;gap:.6rem">
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
           <span style="font-weight:900;font-size:.9rem;color:${cfg.color}">📦 ${cfg.label} Plan</span>
-          <span style="font-size:.75rem;color:#64748B">$${cfg.price}/mo</span>
+          <span style="font-size:.75rem;color:#64748B">$${billingCycle === "annual" ? cfg.annualPrice + "/yr" : cfg.price + "/mo"} · ${cycleLabel}</span>
+          ${_daysLeftChip}
+          ${cfg.popular ? '<span style="background:#EFF6FF;color:#1D4ED8;font-size:.68rem;font-weight:800;padding:.1rem .45rem;border-radius:20px;border:1px solid #BFDBFE">⭐ Most popular</span>' : ""}
           ${urgent ? '<span style="background:#FEF2F2;color:#DC2626;font-size:.72rem;font-weight:800;padding:.1rem .45rem;border-radius:20px;border:1px solid #FCA5A5">⚠️ Almost out</span>' : ""}
         </div>
-        <div style="display:flex;align-items:center;gap:.5rem">
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
           <span style="font-size:.82rem;font-weight:700;color:${remaining === 0 ? "#DC2626" : cfg.color}">${remaining} enquir${remaining === 1 ? "y" : "ies"} left</span>
-          <span style="font-size:.75rem;color:#94A3B8">of ${included} this month</span>
-          <button onclick="openSubscribeModal()" style="background:none;border:1.5px solid ${cfg.color};border-radius:8px;padding:.22rem .65rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.73rem;color:${cfg.color};cursor:pointer">Manage</button>
+          <span style="font-size:.75rem;color:#94A3B8">of ${included} (this 30-day cycle)</span>
+          <button onclick="switchView('my-plan')" style="background:none;border:1.5px solid ${cfg.color};border-radius:8px;padding:.22rem .65rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.73rem;color:${cfg.color};cursor:pointer">Manage</button>
         </div>
       </div>
       <div style="background:#E2E8F0;border-radius:99px;height:6px;overflow:hidden">
         <div style="background:${barColor};width:${barFill}%;height:100%;border-radius:99px;transition:width .4s"></div>
       </div>
-      ${remaining === 0 ? `<div style="margin-top:.45rem;font-size:.77rem;color:#DC2626;font-weight:700">All included enquiries used — extra enquiries $${extraCost} each. <button onclick="openExtraEnquiryModal()" style="background:none;border:none;color:#0052CC;font-weight:800;font-size:.77rem;cursor:pointer;text-decoration:underline">Top up now</button></div>` : ""}
+      ${windowEnd ? `<div style="margin-top:.45rem;font-size:.72rem;color:#94A3B8">Quota refreshes ${windowEnd}</div>` : ""}
+      ${remaining === 0 ? `<div style="margin-top:.45rem;font-size:.77rem;color:${promoActive ? "#15803D" : "#DC2626"};font-weight:700">All included enquiries used — ${promoActive ? `extras free during launch promo. <button onclick="openExtraEnquiryModal()" style="background:none;border:none;color:#0052CC;font-weight:800;font-size:.77rem;cursor:pointer;text-decoration:underline">Continue</button>` : `extra enquiries $${extraCost} each. <button onclick="openExtraEnquiryModal()" style="background:none;border:none;color:#0052CC;font-weight:800;font-size:.77rem;cursor:pointer;text-decoration:underline">Continue</button>`}</div>` : ""}
     </div>`;
 }
 
@@ -161794,11 +161868,13 @@ function renderQuoteInbox() {
     .map((req) => {
       const now = Date.now();
       const msLeft = req.expires - now;
-      // TEMPORARY — pending Stripe integration, all rental cos see customer
-      // contact details on every enquiry without needing to purchase a lead.
-      // Once Stripe is wired up, revert to the paid-reveal model:
-      //   const isLeadPurchased = isAdmin || (req.leadsPurchased || []).includes(currentUser?.email);
-      const isLeadPurchased = true;
+      // ── REAL paid-reveal model (v117+) ─────────────────────────────
+      // Customer's email/mobile/site address are gated behind the buy-lead
+      // modal — first time a rental co opens contact, they confirm + the
+      // request goes through their plan quota or a Stripe charge. Once they
+      // are in req.leadsPurchased[], subsequent views are free for them.
+      const isLeadPurchased =
+        isAdmin || (req.leadsPurchased || []).includes(currentUser?.email);
 
       // Urgency — used for both timer badge and card styling
       const isActive = !req.responded && msLeft > 0;
@@ -161904,33 +161980,70 @@ function renderQuoteInbox() {
         : "";
 
       // LOCKED contact details section
-      // TEMPORARY — pending Stripe integration. Currently `isLeadPurchased` is
-      // forced to true above, so every rental co sees customer contact details
-      // on every enquiry. Once Stripe is wired up, the "Lead Purchased" label
-      // will be accurate again (only purchased leads unlock).
-      const lockedHtml = isLeadPurchased
-        ? `<div class="lead-reveal-section" style="margin:.7rem 0">
-          <div style="font-size:.72rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">👤 Customer Contact Details</div>
+      // Customer name + company + ABN are shown always (non-sensitive identifiers).
+      // Customer email, mobile, and full site address are gated behind a tracked
+      // reveal button — every click is logged to Firestore via revealContactDetails()
+      // for NOYO analytics. The button only appears when this rental company has
+      // been ACCEPTED for the enquiry — i.e. the customer has chosen them.
+      const _isMyAcceptedRC =
+        req.acceptedBy && req.acceptedBy === currentUser?.name;
+      const _custRevealId = "cust-contact-" + req.id;
+      // Three states for the contact section:
+      //   1. Pre-acceptance      → identity (name/company/ABN) shown, contact details locked notice
+      //   2. Accepted, unpaid    → identity shown + "Contact this customer" button that opens buy-lead modal
+      //   3. Accepted, paid      → identity shown + contact panel visible inline (no button)
+      let _custIdentityHtml;
+      if (!_isMyAcceptedRC) {
+        // Pre-acceptance: name/company/ABN visible, but locked-state for contact
+        _custIdentityHtml = `<div class="lead-reveal-section" style="margin:.7rem 0">
+          <div style="font-size:.72rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">👤 Customer</div>
           <div class="lead-reveal-row"><span class="lead-reveal-icon">👤</span><span class="lead-reveal-label">Customer</span><span class="lead-reveal-value">${req.customer}</span></div>
           ${req.company && req.company !== "—" ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🏢</span><span class="lead-reveal-label">Company</span><span class="lead-reveal-value">${req.company}</span></div>` : ""}
-          <div class="lead-reveal-row"><span class="lead-reveal-icon">📧</span><span class="lead-reveal-label">Email</span><span class="lead-reveal-value" style="color:#0052cc">${req.email || "—"}</span></div>
-          <div class="lead-reveal-row"><span class="lead-reveal-icon">📱</span><span class="lead-reveal-label">Mobile</span><span class="lead-reveal-value">${req.mobile || "—"}</span></div>
-          ${req.siteAddress ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">📍</span><span class="lead-reveal-label">Site address</span><span class="lead-reveal-value">${req.siteAddress}</span></div>` : ""}
           ${req.abn ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🔢</span><span class="lead-reveal-label">ABN</span><span class="lead-reveal-value" style="font-family:monospace">${req.abn}</span></div>` : ""}
-        </div>`
-        : `<div class="blind-locked-row">
-          <div class="blind-locked-icon">🔒</div>
-          <div class="blind-locked-text">
-            <strong>Customer contact details are private</strong>
-            Purchase this lead to unlock the customer's name, email, mobile, company, and full site address.
+          <div style="margin-top:.5rem;padding:.5rem .75rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:9px;display:flex;align-items:center;gap:.5rem">
+            <span style="font-size:1rem">🔒</span>
+            <div>
+              <div style="font-weight:800;color:#475569;font-size:.78rem">Email, mobile &amp; site address unlock on acceptance</div>
+              <div style="font-size:.72rem;color:#94A3B8;margin-top:.1rem">Customer's full contact details become available once they accept your quote.</div>
+            </div>
           </div>
         </div>`;
+      } else if (!isLeadPurchased) {
+        // Accepted but not yet paid — button opens buy-lead modal for charge confirm
+        _custIdentityHtml = `<div class="lead-reveal-section" style="margin:.7rem 0">
+          <div style="font-size:.72rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">👤 Customer</div>
+          <div class="lead-reveal-row"><span class="lead-reveal-icon">👤</span><span class="lead-reveal-label">Customer</span><span class="lead-reveal-value">${req.customer}</span></div>
+          ${req.company && req.company !== "—" ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🏢</span><span class="lead-reveal-label">Company</span><span class="lead-reveal-value">${req.company}</span></div>` : ""}
+          ${req.abn ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🔢</span><span class="lead-reveal-label">ABN</span><span class="lead-reveal-value" style="font-family:monospace">${req.abn}</span></div>` : ""}
+          <div style="margin-top:.6rem">
+            <button onclick="openBuyLeadModal('${req.id}')"
+              style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:8px;padding:.45rem .9rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem">
+              📞 Contact this customer
+            </button>
+          </div>
+        </div>`;
+      } else {
+        // Accepted + paid (or admin): contact panel visible inline, no button
+        _custIdentityHtml = `<div class="lead-reveal-section" style="margin:.7rem 0">
+          <div style="font-size:.72rem;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">👤 Customer</div>
+          <div class="lead-reveal-row"><span class="lead-reveal-icon">👤</span><span class="lead-reveal-label">Customer</span><span class="lead-reveal-value">${req.customer}</span></div>
+          ${req.company && req.company !== "—" ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🏢</span><span class="lead-reveal-label">Company</span><span class="lead-reveal-value">${req.company}</span></div>` : ""}
+          ${req.abn ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🔢</span><span class="lead-reveal-label">ABN</span><span class="lead-reveal-value" style="font-family:monospace">${req.abn}</span></div>` : ""}
+          <div style="margin-top:.5rem;padding:.55rem .8rem;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1.5px solid #93C5FD;border-radius:9px">
+            <div style="font-size:.72rem;font-weight:800;color:#1E40AF;text-transform:uppercase;letter-spacing:.3px;margin-bottom:.4rem">📞 ${req.customer || "Customer"}</div>
+            ${req.email ? `<a href="mailto:${req.email}" style="display:flex;align-items:center;gap:.4rem;font-size:.84rem;font-weight:700;color:#0052CC;text-decoration:none;margin-bottom:.25rem">📧 ${req.email}</a>` : ""}
+            ${req.mobile ? `<a href="tel:${req.mobile}" style="display:flex;align-items:center;gap:.4rem;font-size:.84rem;font-weight:700;color:#0052CC;text-decoration:none;margin-bottom:.25rem">📱 ${req.mobile}</a>` : ""}
+            ${req.siteAddress ? `<div style="display:flex;align-items:center;gap:.4rem;font-size:.84rem;color:#1E293B;font-weight:600">📍 ${req.siteAddress}</div>` : ""}
+            ${!req.email && !req.mobile && !req.siteAddress ? `<div style="color:#64748B;font-style:italic;font-size:.78rem">No contact details on file for this enquiry.</div>` : ""}
+          </div>
+        </div>`;
+      }
+      const lockedHtml = _custIdentityHtml;
 
       // Actions
-      // TEMPORARY — contact details now always visible at the top of the enquiry
-      // card via the unlocked lockedHtml block. The gated reveal button is no
-      // longer needed. Once Stripe is wired up and paid-reveal gating returns,
-      // revert this to the previous `showContacts = !!myRespObj` flow.
+      // v117 — the contact-details button now lives inside the "Customer" section
+      // above (only when this rental co has been accepted). Bottom-of-card buy-
+      // lead button removed; the gating model is acceptance-first, then pay.
       const contactRevealHtml = "";
 
       const actionsHtml = req.responded
@@ -161962,14 +162075,9 @@ function renderQuoteInbox() {
             <button class="btn-decline" onclick="declineQuote('${req.id}')">✕ Decline</button>
            </div>`;
 
-      // Buy lead button (if not yet purchased and not admin)
-      const buyLeadHtml =
-        !isLeadPurchased && !isAdmin && msLeft > 0 && !req.responded
-          ? `<button class="btn-buy-lead" onclick="openBuyLeadModal('${req.id}')">
-           🔓 Unlock Contact Details &amp; Quote Directly
-           <span class="buy-lead-price">$29</span>
-         </button>`
-          : "";
+      // Buy lead button — REMOVED in v117. The "Contact this customer" button
+      // is now inside the Customer identity section above (post-acceptance only).
+      const buyLeadHtml = "";
 
       const isMyAccepted =
         req.acceptedBy && req.acceptedBy === currentUser?.name;
@@ -167276,6 +167384,67 @@ function mqClearFilters() {
 
 // ── Contact Details Reveal — with NOYO tracking ──────────────────────────────
 // viewerRole: 'customer' (seeing rental co) | 'rental' (seeing customer)
+// ── Tracking helper — write a contact_reveal event to Firestore + admin feed.
+// Pure tracking, no DOM. Called by both revealContactDetails (customer flow)
+// and confirmUnlockLead (rental paid/quota flow) so all reveals show up in
+// the admin live activity feed and persist across reloads.
+function _trackContactReveal(viewerRole, reqId, partyName) {
+  try {
+    const _trackPayload = {
+      type: "contact_reveal",
+      viewerRole, // 'customer' or 'rental'
+      reqId,
+      quoteId: reqId, // alias so admin event-feed dedup key (ts + quoteId) works
+      partyName, // name of person whose contact was revealed
+      viewerEmail: currentUser ? currentUser.email : "anon",
+      viewerName: currentUser ? currentUser.name : "anon",
+      // Friendly fields for the admin live activity feed renderer
+      company:
+        viewerRole === "customer" ? partyName : currentUser?.name || "anon",
+      customer:
+        viewerRole === "rental" ? partyName : currentUser?.name || "anon",
+      ts: Date.now(),
+      date: new Date().toLocaleDateString("en-AU", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }),
+    };
+    if (_fbDb) {
+      // 1) Top-level events collection — primary audit log for every reveal
+      _fbDb
+        .collection("events")
+        .add({
+          ..._trackPayload,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        .catch(() => {});
+      // 2) Admin analytics quote_events — same structure as other tracked events
+      try {
+        _fbDb
+          .collection("admin_analytics")
+          .doc("quote_events")
+          .collection("records")
+          .add({
+            ..._trackPayload,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+          .catch(() => {});
+      } catch (e) {}
+    }
+    // Push into in-memory event log so admin live feed updates immediately.
+    try {
+      if (adminData && Array.isArray(adminData.quoteEvents)) {
+        adminData.quoteEvents.push(_trackPayload);
+      }
+    } catch (e) {}
+    // Running session count for admin KPI tile.
+    try {
+      adminData.contactReveals = (adminData.contactReveals || 0) + 1;
+    } catch (e) {}
+  } catch (e) {}
+}
+
 function revealContactDetails(elementId, viewerRole, reqId, partyName) {
   // Show the hidden contact panel
   const panel = document.getElementById(elementId);
@@ -167290,40 +167459,12 @@ function revealContactDetails(elementId, viewerRole, reqId, partyName) {
     if (btn) {
       btn.style.background = "#94A3B8";
       btn.style.cursor = "default";
-      btn.textContent = "✅ Contact details revealed";
+      btn.textContent = "✅ Contact opened";
       btn.disabled = true;
     }
   }
-  // ── Track the reveal in Firestore for NOYO analytics ──────────────
-  try {
-    const _trackPayload = {
-      type: "contact_reveal",
-      viewerRole, // 'customer' or 'rental'
-      reqId,
-      partyName, // name of person whose contact was revealed
-      viewerEmail: currentUser ? currentUser.email : "anon",
-      viewerName: currentUser ? currentUser.name : "anon",
-      ts: Date.now(),
-      date: new Date().toLocaleDateString("en-AU", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      }),
-    };
-    if (_fbDb) {
-      _fbDb
-        .collection("events")
-        .add({
-          ..._trackPayload,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        })
-        .catch(() => {});
-    }
-    // Also count in admin analytics
-    try {
-      adminData.contactReveals = (adminData.contactReveals || 0) + 1;
-    } catch (e) {}
-  } catch (e) {}
+  // Track the reveal in Firestore for NOYO analytics
+  _trackContactReveal(viewerRole, reqId, partyName);
 }
 
 // ── Fix legacy expires that were stored as calendar hours ─────────────
@@ -168360,6 +168501,9 @@ function renderMyQuotes() {
             }
 
             // ── Rental company contact details — gated button (NOYO tracks every reveal) ──
+            // Suppressed on the ACCEPTED card — that card has its own bottom-of-card
+            // reveal button (rendered below). For non-accepted cards, this stays as
+            // a tracked option in case the customer wants to call before accepting.
             const _respRc = RENTAL_COMPANIES.find(
               (c) => c.name === (p.company || ""),
             );
@@ -168367,12 +168511,12 @@ function renderMyQuotes() {
             const _respRcPhone = _respRc ? _respRc.phone || "" : "";
             const _respContactId = "rc-contact-" + req.id + "-" + origIdx;
             const _respContactHtml =
-              _respRcEmail || _respRcPhone
+              !isAcc && (_respRcEmail || _respRcPhone)
                 ? `
             <div id="${_respContactId}-wrap" style="margin-top:.5rem">
               <button onclick="revealContactDetails('${_respContactId}','customer','${req.id}','${(p.company || "").replace(/'/g, "")}')"
                 style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:8px;padding:.38rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;display:flex;align-items:center;gap:.4rem">
-                📞 See Contact Details — ${p.company || "Rental Co."}
+                📞 Contact this rental company
               </button>
               <div id="${_respContactId}" style="display:none;margin-top:.4rem;padding:.5rem .75rem;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1.5px solid #93C5FD;border-radius:9px">
                 <div style="font-size:.72rem;font-weight:800;color:#1E40AF;text-transform:uppercase;letter-spacing:.3px;margin-bottom:.35rem">📞 ${p.company || "Rental Co."}</div>
@@ -168491,24 +168635,38 @@ function renderMyQuotes() {
             );
           })()}
           ${(() => {
-            // ── CONTACT DETAILS — TEMPORARY: always shown pending Stripe ─────
-            // For now (no payment gate wired in) the customer sees the rental
-            // co's phone + email as soon as a quote response is received, not
-            // only after accepting. Mirrors the rental co side, which also
-            // shows customer contacts without a paid-lead gate.
-            // When Stripe is integrated, move this back under `if (!isAcc)`.
+            // ── CONTACT DETAILS — gated reveal on accepted card only ─────────
+            // Only shown for the response the customer ACCEPTED. Each click is
+            // logged to Firestore via revealContactDetails() so NOYO can track
+            // who saw whose contact details and when.
+            // For non-accepted responses, the existing per-card reveal button
+            // (rendered above as `_respContactHtml`) handles tracked reveals
+            // for customers who want to call rental cos before accepting.
+            if (!isAcc) return "";
             const _rc = RENTAL_COMPANIES.find(
               (c) => c.name === (p.company || ""),
             );
             const _rcEmail = _rc ? _rc.email : p.companyEmail || "";
             const _rcPhone = _rc ? _rc.phone || "" : "";
             if (!_rcEmail && !_rcPhone && !p.company) return "";
-            return `<div style="margin-bottom:.5rem;padding:.7rem .9rem;background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:10px">
-              <div style="font-size:.8rem;font-weight:800;color:#166534;margin-bottom:.4rem">📞 Contact ${p.company || "your rental company"}</div>
-              <div style="font-size:.82rem;color:#1E293B;display:flex;flex-direction:column;gap:.25rem">
-                ${_rcEmail ? `<div style="display:flex;align-items:center;gap:.5rem"><span style="font-size:.9rem">📧</span><a href="mailto:${_rcEmail}" style="color:#0052CC;font-weight:700;text-decoration:none">${_rcEmail}</a></div>` : ""}
-                ${_rcPhone ? `<div style="display:flex;align-items:center;gap:.5rem"><span style="font-size:.9rem">📱</span><a href="tel:${_rcPhone}" style="color:#0052CC;font-weight:700;text-decoration:none">${_rcPhone}</a></div>` : ""}
-                ${!_rcEmail && !_rcPhone ? `<div style="color:#64748B;font-style:italic;font-size:.78rem">Contact the rental company directly to confirm hire details, delivery time and any paperwork.</div>` : ""}
+            const _accRevId =
+              "rc-acc-contact-" +
+              (req.id || "x").replace(/[^a-z0-9]/gi, "") +
+              "-" +
+              origIdx;
+            return `
+            <div id="${_accRevId}-wrap" style="margin-bottom:.5rem">
+              <button onclick="revealContactDetails('${_accRevId}','customer','${req.id}','${(p.company || "").replace(/'/g, "")}')"
+                style="background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff;border:none;border-radius:10px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;box-shadow:0 2px 6px rgba(22,163,74,.25)">
+                📞 Contact this rental company
+              </button>
+              <div id="${_accRevId}" style="display:none;margin-top:.5rem;padding:.7rem .9rem;background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:10px">
+                <div style="font-size:.8rem;font-weight:800;color:#166534;margin-bottom:.4rem">📞 Contact ${p.company || "your rental company"}</div>
+                <div style="font-size:.82rem;color:#1E293B;display:flex;flex-direction:column;gap:.25rem">
+                  ${_rcEmail ? `<div style="display:flex;align-items:center;gap:.5rem"><span style="font-size:.9rem">📧</span><a href="mailto:${_rcEmail}" style="color:#0052CC;font-weight:700;text-decoration:none">${_rcEmail}</a></div>` : ""}
+                  ${_rcPhone ? `<div style="display:flex;align-items:center;gap:.5rem"><span style="font-size:.9rem">📱</span><a href="tel:${_rcPhone}" style="color:#0052CC;font-weight:700;text-decoration:none">${_rcPhone}</a></div>` : ""}
+                  ${!_rcEmail && !_rcPhone ? `<div style="color:#64748B;font-style:italic;font-size:.78rem">Contact the rental company directly to confirm hire details, delivery time and any paperwork.</div>` : ""}
+                </div>
               </div>
             </div>`;
           })()}
@@ -168883,6 +169041,7 @@ function switchViewFromMenu(view) {
   const el = document.getElementById("view-" + view);
   if (el) el.classList.add("active");
   if (view === "my-details") setTimeout(renderMyDetails, 50);
+  if (view === "my-plan") setTimeout(renderMyPlanView, 50);
 }
 // Close user menu when clicking outside
 document.addEventListener("click", function (e) {
@@ -168919,6 +169078,7 @@ function switchView(view, btn) {
       renderMyQuotes();
     }, 50);
   if (view === "my-details") setTimeout(renderMyDetails, 50);
+  if (view === "my-plan") setTimeout(renderMyPlanView, 50);
   if (view === "quote-requests")
     setTimeout(async () => {
       await loadInboxFromFirebase();
@@ -170135,6 +170295,10 @@ function setAuthMode(mode) {
     regTab.classList.add("active");
     _initAddressAutocomplete();
     setTimeout(() => document.getElementById("lp-name").focus(), 50);
+    // Hydrate the plan picker if we just switched to rental mode
+    if (isRental) {
+      try { _lpHydratePlanPicker(); } catch (e) { /* DOM may not be ready */ }
+    }
   } else {
     regFields.forEach((el) => (el.style.display = "none"));
     form.classList.remove("register-mode");
@@ -170528,6 +170692,15 @@ function doLogin() {
       .createUserWithEmailAndPassword(email, pass)
       .then(async (cred) => {
         const uid = cred.user.uid;
+        // ── Read selected plan from the picker ─────────────────────────
+        // Defaults to PAYG monthly if hidden inputs are absent for any reason.
+        const _pickedPlan = document.getElementById("lp-plan-key")?.value || "payg";
+        const _pickedCycle = document.getElementById("lp-plan-cycle")?.value || "monthly";
+        const _planCfg = NOYO_PLANS[_pickedPlan];
+        const _registeredAtMs = Date.now();
+        const _planExpiresAt = (_planCfg && !_planCfg.payg)
+          ? _planExpiryFromActivation(_registeredAtMs, _pickedCycle)
+          : 0;
         const userDoc = {
           uid,
           email,
@@ -170557,6 +170730,13 @@ function doLogin() {
           approvalStatus: "pending",
           registeredAt: new Date().toISOString(),
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          // ── Plan fields, picked at registration ──────────────────────
+          plan: _pickedPlan,
+          billingCycle: _planCfg && _planCfg.payg ? "monthly" : _pickedCycle,
+          planActiveSince: _billingWindowKey(_registeredAtMs),
+          planActivatedAt: _registeredAtMs,
+          planExpiresAt: _planExpiresAt,
+          enquiriesUsed: 0,
         };
         await _fbDb.collection("users").doc(uid).set(userDoc);
         await _fbDb.collection("rental_profiles").doc(uid).set(rentalDoc);
@@ -170566,8 +170746,10 @@ function doLogin() {
           btn.textContent = "Register";
         }
         closeForm();
+        const _planLabel = _planCfg ? _planCfg.label : "Pay-as-you-go";
+        const _cycleSuffix = _planCfg && !_planCfg.payg && _pickedCycle === "annual" ? " (annual)" : "";
         showToast(
-          "✅ Registration received! Your account is pending admin approval — usually within 1 business day.",
+          `✅ Registration received! ${_planLabel}${_cycleSuffix} plan locked in. Pending admin approval — usually within 1 business day.`,
           "#16A34A",
         );
       })
@@ -170948,6 +171130,9 @@ function loginSuccess(user) {
     if (avatar) avatar.className = "nav-avatar rental-av";
     if (roleTag)
       roleTag.textContent = user.role === "admin" ? "⚙️ Admin" : "Rental Co.";
+    // Reveal "My Plan" in avatar dropdown for rental + admin
+    const _myPlanBtn = document.getElementById("nav-menu-my-plan");
+    if (_myPlanBtn) _myPlanBtn.style.display = "flex";
     const mainTabs = document.getElementById("main-nav-tabs");
     if (mainTabs) mainTabs.style.display = "flex";
     if (user.role === "admin") {
@@ -170978,6 +171163,55 @@ function loginSuccess(user) {
       // My Details is in the avatar dropdown — keep nav tab hidden
       const tabDet = document.getElementById("tab-my-details");
       if (tabDet) tabDet.style.display = "none";
+
+      // ── Grandfathering: rental users without a plan get auto-assigned ──
+      // to Starter, with their billing window starting today. This runs once
+      // per user — subsequent logins find a plan already set and skip.
+      try {
+        const _profile = _userProfileCache[user.uid] || {};
+        if (!_profile.plan) {
+          const _now = Date.now();
+          const _monthKey = _billingWindowKey(_now);
+          _fbSaveRentalProfile(user.uid, {
+            plan: "payg",
+            billingCycle: "monthly",
+            planActiveSince: _monthKey,
+            planActivatedAt: _now,
+            planExpiresAt: 0, // PAYG has no subscription expiry
+            enquiriesUsed: 0,
+            grandfathered: true,
+          }).catch(() => {});
+          _userProfileCache[user.uid] = {
+            ..._profile,
+            plan: "payg",
+            billingCycle: "monthly",
+            planActiveSince: _monthKey,
+            planActivatedAt: _now,
+            planExpiresAt: 0,
+            enquiriesUsed: 0,
+            grandfathered: true,
+          };
+          // Soft welcome — only shown to grandfathered users on their first
+          // post-update login. Promo state controls whether this mentions
+          // free or paid pricing.
+          setTimeout(() => {
+            if (_noyoPromoActive()) {
+              showToast(
+                `🎁 You're set up on Pay-as-you-go — free during launch (until ${_noyoPromoEndDateLabel()})`,
+                "#16A34A",
+              );
+            } else {
+              showToast(
+                "📦 You're on Pay-as-you-go — no monthly fee, $25 per enquiry. Upgrade anytime for cheaper rates.",
+                "#0052CC",
+              );
+            }
+          }, 1200);
+        }
+      } catch (e) {
+        console.warn("Grandfathering skipped:", e && e.message);
+      }
+
       _resetWizardToHome();
       showView("finder");
     }
@@ -171078,6 +171312,29 @@ function loginSuccess(user) {
     // My Details nav tab — hidden for customers (they use avatar menu)
     const tabMD2 = document.getElementById("tab-my-details");
     if (tabMD2) tabMD2.style.display = "none";
+    // Hide "My Plan" menu item — only relevant to rental + admin
+    const _myPlanBtnHide = document.getElementById("nav-menu-my-plan");
+    if (_myPlanBtnHide) _myPlanBtnHide.style.display = "none";
+    // ── First-login welcome for customers (one-time per device) ───────────
+    // Reassures them that Noyo is free for customers, always. Uses
+    // localStorage so we don't re-show on every login. Skipped for lite users
+    // (they have a different welcome flow and different message).
+    if (user.role === "customer") {
+      try {
+        const _seenKey = "noyo_welcome_seen_" + (user.email || "anon");
+        if (!localStorage.getItem(_seenKey)) {
+          setTimeout(() => {
+            showToast(
+              "🎁 Welcome to Noyo! Free for customers — always. No fees, no subscriptions, ever.",
+              "#16A34A",
+            );
+            localStorage.setItem(_seenKey, "1");
+          }, 1200);
+        }
+      } catch (e) {
+        /* localStorage unavailable — silent skip */
+      }
+    }
     // Route to pending view — finder with optional KYM open
     const wrap2 = document.getElementById("lp-form-wrap");
     const dest = (wrap2 && wrap2._pendingView) || "finder";
@@ -171123,6 +171380,10 @@ function loginSuccess(user) {
       document.body.setAttribute("data-portal", "lite");
     }
   }
+  // ── Boot ad banner system (v119) ───────────────────────────────────────
+  // Loads banner config from Firestore, renders rails/bottom strip for the
+  // user's role, and starts the 60s refresh poll. Skipped for admins.
+  try { _bootBanners(); } catch (e) { console.warn("_bootBanners failed:", e && e.message); }
 }
 
 function logOut() {
@@ -171150,6 +171411,11 @@ function logOut() {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
   });
+  // Hide rental-only menu items
+  const _myPlanBtnLogout = document.getElementById("nav-menu-my-plan");
+  if (_myPlanBtnLogout) _myPlanBtnLogout.style.display = "none";
+  // Shut down ad banner system (v119)
+  try { _shutdownBanners(); } catch (e) {}
 
   // Hide the user pill
   const _pill = document.getElementById("nav-user-pill");
@@ -171188,6 +171454,7 @@ var adminData = {
   quoteEvents: [], // {ts, type:'sent'|'responded'|'broadcast', quoteId, ref, user, company, machines}
   activityLog: [], // {ts, type, icon, title, meta, colorClass}
   contactReveals: 0, // count of contact detail reveals (customer sees RC contact or RC sees customer contact)
+  promoEndsAt: 0, // ms timestamp when launch promo ends; 0 = open-ended (still in promo). Loaded from admin_settings/billing.
 };
 
 // Registered users = RENTAL_CREDS + any customers who log in this session
@@ -171594,10 +171861,211 @@ async function _loadAdminAnalyticsFromFirestore() {
         .get();
       adminData.contactReveals = revSnap.size;
     } catch (e) {}
+
+    // Load launch-promo end date from admin_settings/billing. If unset, the
+    // promo is open-ended (everyone is still on the promo). Admin can set or
+    // clear this via setPromoEndDate() / clearPromoEndDate() below.
+    try {
+      const psnap = await _fbDb
+        .collection("admin_settings")
+        .doc("billing")
+        .get();
+      if (psnap.exists) {
+        const pdata = psnap.data() || {};
+        adminData.promoEndsAt = parseInt(pdata.promoEndsAt || 0, 10);
+        // Also mirror to localStorage so non-admin rental users can read it
+        // synchronously without a Firestore round-trip.
+        try {
+          localStorage.setItem(
+            "noyo_promo_ends_at",
+            String(adminData.promoEndsAt || 0),
+          );
+        } catch (e) {}
+      }
+    } catch (e) {}
   } catch (e) {
     console.warn("Admin analytics Firestore load failed:", e.message);
   }
 }
+
+// ── Promo period — also mirror Firestore value into localStorage on every
+// page load so rental users (who don't run the admin loader) see the right
+// promo banner without needing the admin to push it.
+async function _loadPromoEndDate() {
+  if (typeof _fbDb === "undefined" || !_fbDb) return;
+  try {
+    const snap = await _fbDb
+      .collection("admin_settings")
+      .doc("billing")
+      .get();
+    if (snap.exists) {
+      const ts = parseInt((snap.data() || {}).promoEndsAt || 0, 10);
+      adminData.promoEndsAt = ts;
+      try {
+        localStorage.setItem("noyo_promo_ends_at", String(ts || 0));
+      } catch (e) {}
+    }
+  } catch (e) {}
+}
+window.addEventListener("load", () => {
+  try {
+    setTimeout(_loadPromoEndDate, 1000);
+  } catch (e) {}
+});
+
+// ── Admin: set the launch-promo end date (anything before this date is free) ──
+// Call from admin console: setPromoEndDate('2026-06-30') or with a Date object.
+// Pass null/undefined to clear the date (re-opens the promo indefinitely).
+window.setPromoEndDate = async function (dateOrIso) {
+  if (!currentUser || currentUser.role !== "admin") {
+    showToast("Admin only.", "#EF4444");
+    return;
+  }
+  let ts = 0;
+  if (dateOrIso) {
+    const d = dateOrIso instanceof Date ? dateOrIso : new Date(dateOrIso);
+    if (isNaN(d.getTime())) {
+      showToast(
+        "Invalid date — try setPromoEndDate('2026-06-30')",
+        "#EF4444",
+      );
+      return;
+    }
+    // Anchor to end-of-day in user's timezone
+    d.setHours(23, 59, 59, 999);
+    ts = d.getTime();
+  }
+  adminData.promoEndsAt = ts;
+  try {
+    localStorage.setItem("noyo_promo_ends_at", String(ts || 0));
+  } catch (e) {}
+  if (typeof _fbDb !== "undefined" && _fbDb) {
+    try {
+      await _fbDb
+        .collection("admin_settings")
+        .doc("billing")
+        .set({ promoEndsAt: ts, updatedAt: Date.now() }, { merge: true });
+    } catch (e) {
+      console.warn("Promo save failed:", e.message);
+    }
+  }
+  showToast(
+    ts
+      ? `🎁 Promo ends ${_noyoPromoEndDateLabel()}`
+      : `🎁 Promo cleared — open-ended (free for everyone)`,
+    "#16A34A",
+  );
+};
+
+window.clearPromoEndDate = function () {
+  return window.setPromoEndDate(null);
+};
+
+// ── Admin one-shot migration ─────────────────────────────────────────────
+// Older builds had a "growth" plan tier between Starter and Pro. v112 dropped
+// it. Any rental_profile docs in Firestore that still have plan:'growth' would
+// be silently treated as "no plan" by _rcPlan(). This function rewrites them
+// to plan:'pro' (the closest equivalent — same $12 extra rate, more included).
+// Run from the admin console: noyoMigrateGrowthToPro()
+window.noyoMigrateGrowthToPro = async function () {
+  if (!currentUser || currentUser.role !== "admin") {
+    showToast("Admin only.", "#EF4444");
+    return;
+  }
+  if (typeof _fbDb === "undefined" || !_fbDb) {
+    showToast("Firestore unavailable.", "#EF4444");
+    return;
+  }
+  let migrated = 0;
+  try {
+    const snap = await _fbDb
+      .collection("rental_profiles")
+      .where("plan", "==", "growth")
+      .get();
+    if (snap.empty) {
+      showToast("✅ No legacy 'growth' plan profiles found.", "#16A34A");
+      return;
+    }
+    for (const doc of snap.docs) {
+      try {
+        await doc.ref.update({
+          plan: "pro",
+          _migratedFromGrowth: true,
+          _migratedAt: Date.now(),
+        });
+        migrated++;
+      } catch (e) {
+        console.warn("Migration failed for", doc.id, e.message);
+      }
+    }
+    // Patch any in-memory RENTAL_COMPANIES entries
+    RENTAL_COMPANIES.forEach((c) => {
+      if (c.plan === "growth") c.plan = "pro";
+    });
+    showToast(
+      `✅ Migrated ${migrated} 'growth' profile${migrated !== 1 ? "s" : ""} → 'pro'`,
+      "#16A34A",
+    );
+    try {
+      renderAdminRentalCos();
+    } catch (e) {}
+  } catch (e) {
+    showToast("Migration failed: " + e.message, "#EF4444");
+  }
+};
+
+// v113 introduced a 3-tier model (PAYG / Standard / Pro). The previous
+// 2-tier model had Starter at $49/mo. Anyone on v112's Starter is migrated
+// to PAYG here — that drops the $49/mo monthly fee (a downgrade in their
+// favour) and keeps them on the platform without a billing surprise. They
+// can upgrade back to Standard (now the closest equivalent at $99/mo) from
+// the plan picker if they want.
+// Run from the admin console: noyoMigrateStarterToPayg()
+window.noyoMigrateStarterToPayg = async function () {
+  if (!currentUser || currentUser.role !== "admin") {
+    showToast("Admin only.", "#EF4444");
+    return;
+  }
+  if (typeof _fbDb === "undefined" || !_fbDb) {
+    showToast("Firestore unavailable.", "#EF4444");
+    return;
+  }
+  let migrated = 0;
+  try {
+    const snap = await _fbDb
+      .collection("rental_profiles")
+      .where("plan", "==", "starter")
+      .get();
+    if (snap.empty) {
+      showToast("✅ No 'starter' plan profiles found.", "#16A34A");
+      return;
+    }
+    for (const doc of snap.docs) {
+      try {
+        await doc.ref.update({
+          plan: "payg",
+          _migratedFromStarter: true,
+          _migratedAt: Date.now(),
+        });
+        migrated++;
+      } catch (e) {
+        console.warn("Migration failed for", doc.id, e.message);
+      }
+    }
+    RENTAL_COMPANIES.forEach((c) => {
+      if (c.plan === "starter") c.plan = "payg";
+    });
+    showToast(
+      `✅ Migrated ${migrated} 'starter' profile${migrated !== 1 ? "s" : ""} → 'payg'`,
+      "#16A34A",
+    );
+    try {
+      renderAdminRentalCos();
+    } catch (e) {}
+  } catch (e) {
+    showToast("Migration failed: " + e.message, "#EF4444");
+  }
+};
 
 // ── Admin: Routing Test Panel (UI) ─────────────────────────────────────────
 var _rtDebounce = null;
@@ -172747,9 +173215,20 @@ function renderAdminDashboard() {
               rejected: "✗",
               contact_reveal: "📞",
             };
+            // Friendlier per-type text — for contact_reveal, show explicitly
+            // who clicked the reveal button and whose contact they saw.
+            let label;
+            if (e.type === "contact_reveal") {
+              const viewer = e.viewerName || "Someone";
+              const role = e.viewerRole === "rental" ? "rental co" : "customer";
+              const seen = e.partyName || "the other party";
+              label = `<span style="color:#0E7490;font-weight:800">📞 ${viewer}</span> <span style="color:#64748B">(${role})</span> revealed contact for <span style="color:#0F172A;font-weight:800">${seen}</span>`;
+            } else {
+              label = `${e.type} — ${e.company || e.customer || ""}`;
+            }
             return `<div style="display:flex;align-items:center;gap:.5rem;padding:.3rem 0;border-bottom:1px solid #F1F5F9;font-size:.78rem">
         <span>${icons[e.type] || "⚡"}</span>
-        <span style="font-weight:700;color:#334155;flex:1">${e.type} — ${e.company || e.customer || ""}</span>
+        <span style="font-weight:700;color:#334155;flex:1">${label}</span>
         <span style="color:#94A3B8;font-size:.7rem">${time}</span>
       </div>`;
           })
@@ -172775,6 +173254,101 @@ function renderAdminDashboard() {
     const btnWrap = hdr.querySelector(".admin-refresh-btn");
     if (btnWrap) btnWrap.parentNode.insertBefore(rb, btnWrap.nextSibling);
     else hdr.appendChild(rb);
+  }
+
+  // Add promo-period control to the admin header (one-shot)
+  if (hdr && !document.getElementById("admin-promo-btn")) {
+    const pb = document.createElement("button");
+    pb.id = "admin-promo-btn";
+    pb.title =
+      "Set or clear the launch promo end date — controls free-extra-enquiry behaviour for rental companies";
+    pb.style.cssText =
+      "background:#0E7490;color:#fff;border:none;border-radius:8px;padding:.4rem .9rem;font-family:Nunito,sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;margin-left:.5rem";
+    const _promoOn = _noyoPromoActive();
+    pb.innerHTML = _promoOn
+      ? `🎁 Promo: ${_noyoPromoEndDateLabel()}`
+      : `🎁 Promo: Off`;
+    pb.onclick = adminOpenPromoModal;
+    hdr.appendChild(pb);
+  }
+}
+
+// ── Admin: launch-promo control modal ───────────────────────────────────
+function adminOpenPromoModal() {
+  if (!currentUser || currentUser.role !== "admin") return;
+  let modal = document.getElementById("admin-promo-modal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "admin-promo-modal";
+    modal.style.cssText =
+      "display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:1rem";
+    modal.innerHTML = `<div class="modal" style="background:#fff;border-radius:18px;padding:1.6rem 1.4rem;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25)"></div>`;
+    document.body.appendChild(modal);
+  }
+  const _promoOn = _noyoPromoActive();
+  const _promoEnd = adminData.promoEndsAt
+    ? new Date(adminData.promoEndsAt).toISOString().slice(0, 10)
+    : "";
+  modal.querySelector(".modal").innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">
+      <h3 style="margin:0">🎁 Launch Promo Period</h3>
+      <button onclick="document.getElementById('admin-promo-modal').style.display='none'" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8">✕</button>
+    </div>
+    <p style="color:#64748B;font-size:.84rem;margin-bottom:1rem;line-height:1.5">
+      During the launch promo, all rental companies can unlock extra enquiries beyond their plan quota for <strong>free</strong> — no Stripe charge. Plan subscriptions are also activated locally without payment.
+    </p>
+    <div style="background:${_promoOn ? "#F0FDF4" : "#FEF2F2"};border:1.5px solid ${_promoOn ? "#86EFAC" : "#FECACA"};border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem">
+      <div style="font-weight:800;color:${_promoOn ? "#15803D" : "#991B1B"};font-size:.92rem">${_promoOn ? "✅ Promo is ACTIVE" : "🔒 Promo is OFF — Stripe charges live"}</div>
+      <div style="font-size:.78rem;color:${_promoOn ? "#16A34A" : "#7F1D1D"};margin-top:.2rem">
+        ${
+          adminData.promoEndsAt
+            ? "Ends " + _noyoPromoEndDateLabel()
+            : _promoOn
+              ? "Open-ended (no end date set)"
+              : ""
+        }
+      </div>
+    </div>
+    <div style="margin-bottom:1rem">
+      <label style="display:block;font-size:.82rem;font-weight:700;color:#334155;margin-bottom:.35rem">Set promo end date</label>
+      <input type="date" id="adm-promo-date" value="${_promoEnd}"
+        style="width:100%;padding:.55rem .8rem;border:1.5px solid #CBD5E1;border-radius:9px;font-size:.92rem;font-family:'Nunito',sans-serif;box-sizing:border-box">
+      <div style="font-size:.74rem;color:#94A3B8;margin-top:.3rem">After this date (end of day), all extra-enquiry unlocks will redirect to Stripe Checkout.</div>
+    </div>
+    <div class="modal-acts" style="display:flex;flex-wrap:wrap;gap:.45rem">
+      <button onclick="adminClearPromo()"
+        style="flex:1;background:#FEF2F2;color:#991B1B;border:1.5px solid #FCA5A5;border-radius:9px;padding:.55rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">🔓 Clear (open-ended)</button>
+      <button onclick="adminSavePromo()"
+        style="flex:1;background:#0E7490;color:#fff;border:none;border-radius:9px;padding:.55rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">💾 Save Date →</button>
+    </div>`;
+  modal.style.display = "flex";
+}
+
+async function adminSavePromo() {
+  const v = document.getElementById("adm-promo-date")?.value;
+  if (!v) {
+    showToast("Pick a date or use Clear.", "#EF4444");
+    return;
+  }
+  await window.setPromoEndDate(v);
+  document.getElementById("admin-promo-modal").style.display = "none";
+  // Refresh the header button label
+  const pb = document.getElementById("admin-promo-btn");
+  if (pb) {
+    pb.innerHTML = _noyoPromoActive()
+      ? `🎁 Promo: ${_noyoPromoEndDateLabel()}`
+      : `🎁 Promo: Off`;
+  }
+}
+
+async function adminClearPromo() {
+  await window.clearPromoEndDate();
+  document.getElementById("admin-promo-modal").style.display = "none";
+  const pb = document.getElementById("admin-promo-btn");
+  if (pb) {
+    pb.innerHTML = _noyoPromoActive()
+      ? `🎁 Promo: ${_noyoPromoEndDateLabel()}`
+      : `🎁 Promo: Off`;
   }
 }
 
@@ -173223,15 +173797,22 @@ function openAdminPlanModal(email, currentPlan, usedStr) {
   const modal = document.getElementById("admin-plan-modal");
   if (!modal) return;
   const used = parseInt(usedStr || 0, 10);
+  // Pull current billing cycle from RENTAL_COMPANIES (or default monthly)
+  const _rcRow = RENTAL_COMPANIES.find((c) => c.email === email);
+  const currentCycle = (_rcRow && _rcRow.billingCycle) || "monthly";
 
   const planOpt = (key) => {
     const cfg = NOYO_PLANS[key];
     const isCur = key === currentPlan;
+    const isPayg = !!cfg.payg;
+    const subline = isPayg
+      ? `No commitment · $${cfg.extraPrice} per enquiry`
+      : `${cfg.included} free enquiries every 30 days, then $${cfg.extraPrice} each`;
     return `<label style="display:flex;align-items:center;gap:.7rem;padding:.55rem .8rem;border:2px solid ${isCur ? cfg.color : "#E2E8F0"};border-radius:10px;cursor:pointer;background:${isCur ? cfg.badge : "#fff"}">
       <input type="radio" name="adm-plan" value="${key}" ${isCur ? "checked" : ""} style="accent-color:${cfg.color}">
       <div>
-        <div style="font-weight:800;color:${cfg.color};font-size:.9rem">${cfg.label} — $${cfg.price}/mo</div>
-        <div style="font-size:.75rem;color:#64748B">${cfg.included} enquiries included · $${cfg.extraPrice} extra</div>
+        <div style="font-weight:800;color:${cfg.color};font-size:.9rem">${cfg.label} — $${cfg.price}/mo${cfg.annualEligible ? " · $" + cfg.annualPrice + "/yr" : ""}</div>
+        <div style="font-size:.75rem;color:#64748B">${subline}</div>
       </div>
     </label>`;
   };
@@ -173249,15 +173830,29 @@ function openAdminPlanModal(email, currentPlan, usedStr) {
           <div style="font-size:.75rem;color:#94A3B8">RC will see upgrade prompt — cannot unlock enquiries</div>
         </div>
       </label>
-      ${planOpt("starter")}${planOpt("growth")}${planOpt("pro")}
+      ${planOpt("payg")}${planOpt("standard")}${planOpt("pro")}
+    </div>
+    <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.65rem .9rem;margin-bottom:.85rem">
+      <div style="font-size:.78rem;font-weight:800;color:#475569;margin-bottom:.4rem">Billing cycle</div>
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+        <label style="display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border:1.5px solid ${currentCycle === "monthly" ? "#0052CC" : "#E2E8F0"};border-radius:8px;cursor:pointer;background:${currentCycle === "monthly" ? "#EFF6FF" : "#fff"}">
+          <input type="radio" name="adm-cycle" value="monthly" ${currentCycle === "monthly" ? "checked" : ""}>
+          <span style="font-size:.82rem;font-weight:700;color:#0F172A">Monthly</span>
+        </label>
+        <label style="display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border:1.5px solid ${currentCycle === "annual" ? "#16A34A" : "#E2E8F0"};border-radius:8px;cursor:pointer;background:${currentCycle === "annual" ? "#F0FDF4" : "#fff"}">
+          <input type="radio" name="adm-cycle" value="annual" ${currentCycle === "annual" ? "checked" : ""}>
+          <span style="font-size:.82rem;font-weight:700;color:#0F172A">Annual <span style="background:#16A34A;color:#fff;font-size:.62rem;font-weight:900;padding:.05rem .35rem;border-radius:20px">−20%</span></span>
+        </label>
+      </div>
+      <div style="font-size:.7rem;color:#94A3B8;margin-top:.3rem">Annual is ignored for Pay-as-you-go (no monthly fee).</div>
     </div>
     <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.65rem .9rem;margin-bottom:1rem">
-      <div style="font-size:.78rem;font-weight:800;color:#475569;margin-bottom:.4rem">Adjust usage counter (current month)</div>
-      <div style="display:flex;align-items:center;gap:.6rem">
+      <div style="font-size:.78rem;font-weight:800;color:#475569;margin-bottom:.4rem">Adjust usage counter (current 30-day cycle)</div>
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
         <label style="font-size:.8rem;color:#64748B">Enquiries used:</label>
         <input type="number" id="adm-plan-used" value="${used}" min="0" max="999"
           style="width:70px;border:1.5px solid #CBD5E1;border-radius:7px;padding:.3rem .5rem;font-size:.88rem;font-family:inherit;text-align:center">
-        <span style="font-size:.75rem;color:#94A3B8">(0 = full quota available)</span>
+        <span style="font-size:.75rem;color:#94A3B8">(0 = full quota; saving with a plan resets the user's 30-day cycle to today)</span>
       </div>
     </div>
     <div class="modal-acts">
@@ -173271,13 +173866,25 @@ function openAdminPlanModal(email, currentPlan, usedStr) {
 async function adminSavePlan(email) {
   const planKey =
     document.querySelector('input[name="adm-plan"]:checked')?.value || "";
+  const cycleVal =
+    document.querySelector('input[name="adm-cycle"]:checked')?.value || "monthly";
   const usedInput = document.getElementById("adm-plan-used");
   const used = Math.max(0, parseInt(usedInput?.value || 0, 10));
-  const month = _billingMonth();
+  const now = Date.now();
+  const monthKey = planKey ? _billingWindowKey(now) : null;
+  const cfg = planKey ? NOYO_PLANS[planKey] : null;
+  // PAYG ignores cycle; Standard/Pro use the radio value
+  const billingCycle = cfg && cfg.payg ? "monthly" : cycleVal;
+  const planExpiresAt = cfg && !cfg.payg && planKey
+    ? _planExpiryFromActivation(now, billingCycle)
+    : 0;
 
   const update = {
     plan: planKey || null,
-    planActiveSince: planKey ? month : null,
+    billingCycle: planKey ? billingCycle : null,
+    planActiveSince: monthKey,
+    planActivatedAt: planKey ? now : null,
+    planExpiresAt,
     enquiriesUsed: planKey ? used : 0,
   };
 
@@ -177547,7 +178154,7 @@ async function renderAdminBilling() {
   const activeRcos = allRcos.filter(
     (c) => c.approvalStatus === "approved" && c.plan,
   );
-  const byPlan = { starter: [], growth: [], pro: [] };
+  const byPlan = { payg: [], standard: [], pro: [] };
   activeRcos.forEach((c) => {
     if (byPlan[c.plan]) byPlan[c.plan].push(c);
   });
@@ -177558,8 +178165,8 @@ async function renderAdminBilling() {
 
   const planMRR = (key) =>
     byPlan[key].reduce((s, c) => s + _billing(c).total, 0);
-  const starterMRR = planMRR("starter"),
-    growthMRR = planMRR("growth"),
+  const paygMRR = planMRR("payg"),
+    standardMRR = planMRR("standard"),
     proMRR = planMRR("pro");
 
   // ── Quote revenue: earned vs rejected per company ─────────────────────
@@ -177684,9 +178291,9 @@ async function renderAdminBilling() {
       avgTotal: Math.round(totalBilled / n),
     };
   }
-  const sAvg = _planAvg("starter"),
-    gAvg = _planAvg("growth"),
-    pAvg = _planAvg("pro");
+  const paygAvg = _planAvg("payg"),
+    standardAvg = _planAvg("standard"),
+    proAvg = _planAvg("pro");
 
   // ── AU dollar formatter ───────────────────────────────────────────────
   const $$ = (n) =>
@@ -177701,9 +178308,11 @@ async function renderAdminBilling() {
     if (!key)
       return '<span style="color:#94A3B8;font-size:.75rem">No Plan</span>';
     const c = NOYO_PLANS[key];
-    const colors = { starter: "#64748B", growth: "#0052CC", pro: "#7C3AED" };
-    const bgs = { starter: "#F1F5F9", growth: "#EFF6FF", pro: "#F5F3FF" };
-    return `<span style="background:${bgs[key] || "#F1F5F9"};color:${colors[key] || "#334155"};border-radius:20px;padding:.18rem .6rem;font-size:.74rem;font-weight:800">${c.label}${key === "growth" ? " ⭐" : ""}</span>`;
+    if (!c)
+      return `<span style="color:#94A3B8;font-size:.75rem">Unknown (${key})</span>`;
+    const colors = { payg: "#0F6E56", standard: "#1D4ED8", pro: "#1A1A1A" };
+    const bgs = { payg: "#E1F5EE", standard: "#EFF6FF", pro: "#FAEEDA" };
+    return `<span style="background:${bgs[key] || "#F1F5F9"};color:${colors[key] || "#334155"};border-radius:20px;padding:.18rem .6rem;font-size:.74rem;font-weight:800">${c.label}</span>`;
   }
 
   // ── RENDER ────────────────────────────────────────────────────────────
@@ -177757,9 +178366,9 @@ async function renderAdminBilling() {
       <!-- Plan tier MRR bars -->
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem">
         ${[
-          ["Starter", starterMRR, byPlan.starter.length, "#64748B", "#F1F5F9"],
-          ["Growth ⭐", growthMRR, byPlan.growth.length, "#0052CC", "#EFF6FF"],
-          ["Pro", proMRR, byPlan.pro.length, "#7C3AED", "#F5F3FF"],
+          ["PAYG", paygMRR, byPlan.payg.length, "#0F6E56", "#E1F5EE"],
+          ["Standard", standardMRR, byPlan.standard.length, "#1D4ED8", "#EFF6FF"],
+          ["Pro", proMRR, byPlan.pro.length, "#FFD27A", "#FAEEDA"],
         ]
           .map(([label, mrr, count, col, bg]) => {
             const pct = mrrTotal > 0 ? Math.round((mrr / mrrTotal) * 100) : 0;
@@ -177994,13 +178603,16 @@ async function renderAdminBilling() {
       </table>
     </div>
 
+    <!-- ═══ ALL SUBSCRIPTIONS — sortable + filterable ═══ -->
+    <div id="admin-subs-table-wrap"></div>
+
     <!-- ═══ PLAN COMPARISON ═══ -->
     <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">📦 Plan Performance Comparison</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.6rem">
       ${[
-        ["starter", "Starter", "#64748B", "rgba(100,116,139,.1)", sAvg],
-        ["growth", "Growth ⭐", "#0052CC", "rgba(0,82,204,.1)", gAvg],
-        ["pro", "Pro", "#7C3AED", "rgba(124,58,237,.1)", pAvg],
+        ["payg", "Pay-as-you-go", "#0F6E56", "rgba(15,110,86,.12)", paygAvg],
+        ["standard", "Standard", "#1D4ED8", "rgba(29,78,216,.1)", standardAvg],
+        ["pro", "Pro", "#FFD27A", "rgba(255,210,122,.12)", proAvg],
       ]
         .map(
           ([key, label, col, bg, avg]) => `
@@ -178128,6 +178740,223 @@ async function renderAdminBilling() {
           </button>
         </div>
       </div>
+    </div>
+  `;
+
+  // ── Hydrate the Subscriptions table that was rendered as a placeholder
+  // <div id="admin-subs-table-wrap"></div> in the innerHTML above. We store
+  // the data on window._subsTable so the sort/filter handlers can re-render
+  // without re-fetching.
+  window._subsTable = {
+    rows: allRcos
+      .filter((c) => c.approvalStatus !== "rejected") // hide rejected, show pending + approved
+      .map((c) => {
+        const planKey = c.plan || null;
+        const cfg = planKey ? NOYO_PLANS[planKey] : null;
+        const billingCycle = c.billingCycle || "monthly";
+        const planActivatedAt = parseInt(c.planActivatedAt || 0, 10);
+        const planExpiresAt = parseInt(c.planExpiresAt || 0, 10);
+        const daysLeft = (planExpiresAt && cfg && !cfg.payg) ? _daysUntil(planExpiresAt) : null;
+        const expired = daysLeft !== null && daysLeft < 0;
+        return {
+          email: c.email,
+          name: c.company || c.name || c.email,
+          plan: planKey,
+          planLabel: cfg ? cfg.label : "—",
+          billingCycle,
+          monthlyPrice: cfg ? cfg.price : 0,
+          included: cfg ? cfg.included : 0,
+          used: parseInt(c.enquiriesUsed || 0, 10),
+          extraPrice: cfg ? cfg.extraPrice : 0,
+          planActivatedAt,
+          planExpiresAt,
+          planExpiresLabel: planExpiresAt ? _planExpiryLabel(planExpiresAt) : "—",
+          daysLeft,
+          expired,
+          isPayg: !!(cfg && cfg.payg),
+          status: c.approvalStatus || "approved",
+        };
+      }),
+    sortKey: "daysLeft",
+    sortDir: "asc",
+    filterPlan: "all",
+    filterCycle: "all",
+    filterStatus: "all",
+  };
+  _renderSubscriptionsTable();
+}
+
+// ── Subscriptions table — rendered into #admin-subs-table-wrap. ──────────
+// State held on window._subsTable; click handlers below mutate state and
+// re-call this function. Independent from the parent renderAdminBilling so
+// resorting doesn't re-fetch all rental profiles from Firestore.
+function _renderSubscriptionsTable() {
+  const wrap = document.getElementById("admin-subs-table-wrap");
+  if (!wrap || !window._subsTable) return;
+  const st = window._subsTable;
+  const all = st.rows || [];
+
+  // Filter
+  let rows = all.filter((r) => {
+    if (st.filterPlan !== "all" && r.plan !== st.filterPlan) return false;
+    if (st.filterCycle !== "all" && r.billingCycle !== st.filterCycle) return false;
+    if (st.filterStatus === "expired" && !r.expired) return false;
+    if (st.filterStatus === "expiring7" && !(r.daysLeft !== null && r.daysLeft >= 0 && r.daysLeft <= 7)) return false;
+    if (st.filterStatus === "active" && (r.expired || !r.plan)) return false;
+    if (st.filterStatus === "pending" && r.status !== "pending") return false;
+    return true;
+  });
+
+  // Sort
+  const sortKey = st.sortKey || "daysLeft";
+  const sortDir = st.sortDir === "desc" ? -1 : 1;
+  rows.sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    // Stable handling for nulls — push them to the end regardless of direction
+    if (av === null && bv === null) return 0;
+    if (av === null) return 1;
+    if (bv === null) return -1;
+    if (typeof av === "string") {
+      av = av.toLowerCase();
+      bv = (bv || "").toLowerCase();
+    }
+    if (av < bv) return -1 * sortDir;
+    if (av > bv) return 1 * sortDir;
+    return 0;
+  });
+
+  const counts = {
+    total: all.length,
+    payg: all.filter((r) => r.plan === "payg").length,
+    standard: all.filter((r) => r.plan === "standard").length,
+    pro: all.filter((r) => r.plan === "pro").length,
+    expired: all.filter((r) => r.expired).length,
+    expiring7: all.filter((r) => r.daysLeft !== null && r.daysLeft >= 0 && r.daysLeft <= 7).length,
+  };
+
+  const sortIndicator = (key) =>
+    sortKey === key ? (sortDir === "desc" ? " ▼" : " ▲") : "";
+
+  const planBadgeFor = (key) => {
+    if (!key) return '<span style="color:#94A3B8;font-size:.72rem">—</span>';
+    const cfg = NOYO_PLANS[key];
+    if (!cfg) return `<span style="color:#94A3B8;font-size:.72rem">${key}</span>`;
+    const colors = { payg: "#0F6E56", standard: "#1D4ED8", pro: "#1A1A1A" };
+    const bgs = { payg: "#E1F5EE", standard: "#EFF6FF", pro: "#FAEEDA" };
+    return `<span style="background:${bgs[key] || "#F1F5F9"};color:${colors[key] || "#334155"};border-radius:20px;padding:.18rem .55rem;font-size:.72rem;font-weight:800">${cfg.label}</span>`;
+  };
+
+  const cycleBadge = (cycle, isPayg) => {
+    if (isPayg) return '<span style="color:#94A3B8;font-size:.7rem">n/a</span>';
+    return cycle === "annual"
+      ? '<span style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC;border-radius:20px;padding:.1rem .5rem;font-size:.7rem;font-weight:800">Annual</span>'
+      : '<span style="background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;border-radius:20px;padding:.1rem .5rem;font-size:.7rem;font-weight:700">Monthly</span>';
+  };
+
+  const daysLeftCell = (r) => {
+    if (r.isPayg) return '<span style="color:#94A3B8;font-size:.74rem">n/a</span>';
+    if (r.daysLeft === null) return '<span style="color:#94A3B8;font-size:.74rem">—</span>';
+    if (r.expired) return `<span style="background:#FEF2F2;color:#991B1B;border-radius:20px;padding:.1rem .55rem;font-size:.72rem;font-weight:800">Expired ${Math.abs(r.daysLeft)}d ago</span>`;
+    if (r.daysLeft <= 7) return `<span style="background:#FFFBEB;color:#92400E;border-radius:20px;padding:.1rem .55rem;font-size:.72rem;font-weight:800">${r.daysLeft}d left</span>`;
+    return `<span style="color:#475569;font-size:.78rem;font-weight:700">${r.daysLeft}d</span>`;
+  };
+
+  wrap.innerHTML = `
+    <div style="font-size:.78rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.7rem">👥 All Subscriptions <span style="color:#475569;font-weight:700;text-transform:none;letter-spacing:0">— ${rows.length} of ${counts.total}</span></div>
+
+    <!-- ── Filter chips ─────────────────────────────────────── -->
+    <div style="display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.7rem;align-items:center">
+      <span style="font-size:.72rem;color:#64748B;font-weight:700;margin-right:.2rem">Plan:</span>
+      ${["all", "payg", "standard", "pro"]
+        .map((k) => {
+          const labels = { all: "All", payg: "PAYG", standard: "Standard", pro: "Pro" };
+          const cnt = k === "all" ? counts.total : counts[k];
+          const active = st.filterPlan === k;
+          return `<button onclick="window._subsTable.filterPlan='${k}';_renderSubscriptionsTable()"
+            style="background:${active ? "#0F172A" : "#fff"};color:${active ? "#fff" : "#475569"};border:1.5px solid ${active ? "#0F172A" : "#E2E8F0"};border-radius:20px;padding:.22rem .65rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.74rem;cursor:pointer">${labels[k]} <span style="opacity:.7">(${cnt})</span></button>`;
+        })
+        .join("")}
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.7rem;align-items:center">
+      <span style="font-size:.72rem;color:#64748B;font-weight:700;margin-right:.2rem">Cycle:</span>
+      ${["all", "monthly", "annual"]
+        .map((k) => {
+          const labels = { all: "All", monthly: "Monthly", annual: "Annual" };
+          const active = st.filterCycle === k;
+          return `<button onclick="window._subsTable.filterCycle='${k}';_renderSubscriptionsTable()"
+            style="background:${active ? "#0F172A" : "#fff"};color:${active ? "#fff" : "#475569"};border:1.5px solid ${active ? "#0F172A" : "#E2E8F0"};border-radius:20px;padding:.22rem .65rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.74rem;cursor:pointer">${labels[k]}</button>`;
+        })
+        .join("")}
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1rem;align-items:center">
+      <span style="font-size:.72rem;color:#64748B;font-weight:700;margin-right:.2rem">Status:</span>
+      ${[
+        ["all", "All"],
+        ["active", "Active"],
+        ["expiring7", `Expiring ≤7d (${counts.expiring7})`],
+        ["expired", `Expired (${counts.expired})`],
+        ["pending", "Pending approval"],
+      ]
+        .map(([k, label]) => {
+          const active = st.filterStatus === k;
+          return `<button onclick="window._subsTable.filterStatus='${k}';_renderSubscriptionsTable()"
+            style="background:${active ? "#0F172A" : "#fff"};color:${active ? "#fff" : "#475569"};border:1.5px solid ${active ? "#0F172A" : "#E2E8F0"};border-radius:20px;padding:.22rem .65rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.74rem;cursor:pointer">${label}</button>`;
+        })
+        .join("")}
+    </div>
+
+    <!-- ── Table ─────────────────────────────────────────── -->
+    <div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.08);border-radius:14px;overflow-x:auto;margin-bottom:1.6rem">
+      <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:780px">
+        <thead>
+          <tr style="background:rgba(255,255,255,.04)">
+            ${[
+              ["name", "Company"],
+              ["plan", "Plan"],
+              ["billingCycle", "Cycle"],
+              ["used", "Used"],
+              ["daysLeft", "Days left"],
+              ["planExpiresLabel", "Expires"],
+              ["__actions", "Actions"],
+            ]
+              .map(([key, label]) => {
+                if (key === "__actions")
+                  return `<th style="text-align:left;padding:.55rem .7rem;color:#64748B;font-weight:700;font-size:.74rem;border-bottom:1.5px solid rgba(255,255,255,.06)">${label}</th>`;
+                const isSorted = sortKey === key;
+                return `<th style="text-align:left;padding:.55rem .7rem;color:${isSorted ? "#E2E8F0" : "#64748B"};font-weight:700;font-size:.74rem;border-bottom:1.5px solid rgba(255,255,255,.06);cursor:pointer;user-select:none" onclick="(function(){const s=window._subsTable;if(s.sortKey==='${key}'){s.sortDir=s.sortDir==='asc'?'desc':'asc';}else{s.sortKey='${key}';s.sortDir='asc';}_renderSubscriptionsTable();})()">${label}${sortIndicator(key)}</th>`;
+              })
+              .join("")}
+          </tr>
+        </thead>
+        <tbody>
+          ${
+            rows.length === 0
+              ? `<tr><td colspan="7" style="text-align:center;padding:1.5rem;color:#64748B;font-size:.85rem">No subscriptions match the current filters.</td></tr>`
+              : rows
+                  .map(
+                    (r) => `
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+              <td style="padding:.55rem .7rem">
+                <div style="font-weight:700;color:#E2E8F0;font-size:.83rem">${r.name}</div>
+                <div style="font-size:.7rem;color:#64748B">${r.email}</div>
+              </td>
+              <td style="padding:.55rem .7rem">${planBadgeFor(r.plan)}</td>
+              <td style="padding:.55rem .7rem">${cycleBadge(r.billingCycle, r.isPayg)}</td>
+              <td style="padding:.55rem .7rem;color:#CBD5E1">
+                ${r.isPayg ? '<span style="color:#94A3B8;font-size:.74rem">—</span>' : `<span style="font-size:.78rem">${r.used}/${r.included}</span>`}
+              </td>
+              <td style="padding:.55rem .7rem">${daysLeftCell(r)}</td>
+              <td style="padding:.55rem .7rem;font-size:.74rem;color:${r.expired ? "#FCA5A5" : "#94A3B8"}">${r.planExpiresLabel}</td>
+              <td style="padding:.55rem .7rem">
+                <button onclick="openAdminPlanModal('${r.email.replace(/'/g, "\\'")}','${r.plan || ""}','${r.used}')"
+                  style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:7px;padding:.25rem .6rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.72rem;cursor:pointer">📦 Edit Plan</button>
+              </td>
+            </tr>`,
+                  )
+                  .join("")
+          }
+        </tbody>
+      </table>
     </div>
   `;
 }
@@ -178657,6 +179486,7 @@ function showAdminSection(name, btn) {
   if (name === "billing") renderAdminBilling();
   if (name === "billing") _checkBillingReminders();
   if (name === "sponsored") renderAdminSponsored();
+  if (name === "banners") renderAdminBanners();
   if (name === "addmachine") renderAdminAddMachine();
   if (name === "addmachine") {
     /* panel is static HTML — nothing to render */
@@ -181616,64 +182446,1192 @@ function onSuburbBlur() {
 // =====================================================================
 
 // ── Subscription plans ────────────────────────────────────────────────
+// Three-tier structure (v113):
+//   PAYG     — $0/mo, 0 included, $25 per unlock (charged at click time)
+//   Standard — $99/mo or $950/yr (20% off), 5 included, $15 per extra
+//   Pro      — $249/mo or $2390/yr (20% off), 20 included, $8 per extra
+// Quota resets on a rolling 30-day window from each user's plan activation.
+// Subscription LIFE expires after 30 days (monthly) or 365 days (annual)
+// from activation — that's separate from the quota window.
+// Plan colours below are PLACEHOLDERS — founder will spec final colours.
 const NOYO_PLANS = {
-  starter: {
-    label: "Starter",
-    price: 79,
-    included: 8,
-    extraPrice: 18,
-    color: "#64748B",
-    badge: "#F1F5F9",
-    // Stripe Price IDs — fill in after creating products in Stripe dashboard
-    stripePriceId: "price_starter_monthly", // ← replace
-    stripeExtraPriceId: "price_starter_extra", // ← replace
+  payg: {
+    label: "Pay-as-you-go",
+    price: 0,
+    annualPrice: 0, // PAYG has no annual option
+    included: 0,
+    extraPrice: 25,
+    color: "#0F6E56",
+    badge: "#E1F5EE",
+    accentColor: "#0F6E56",
+    description: "Free to join — $25 per enquiry, pay only when you unlock one",
+    payg: true, // marker — drives PAYG-specific UX (no quota counter, charge-on-click)
+    annualEligible: false,
+    stripePriceId: null, // PAYG has no monthly subscription
+    stripeExtraPriceId: "price_payg_unlock", // ← replace
   },
-  growth: {
-    label: "Growth",
-    price: 149,
-    included: 20,
-    extraPrice: 12,
-    color: "#0052CC",
+  standard: {
+    label: "Standard",
+    price: 99,
+    annualPrice: 950, // $99 * 12 * 0.8 = $950.40 → rounded to $950 ($79.17/mo effective)
+    included: 5,
+    extraPrice: 15,
+    color: "#1D4ED8",
     badge: "#EFF6FF",
-    popular: true,
-    stripePriceId: "price_growth_monthly", // ← replace
-    stripeExtraPriceId: "price_growth_extra", // ← replace
+    accentColor: "#1D4ED8",
+    description: "For active hire desks — 5 enquiries included, then $15 each",
+    annualEligible: true,
+    stripePriceId: "price_standard_monthly", // ← replace
+    stripePriceIdAnnual: "price_standard_annual", // ← replace
+    stripeExtraPriceId: "price_standard_extra", // ← replace
   },
   pro: {
     label: "Pro",
-    price: 299,
-    included: 50,
+    price: 249,
+    annualPrice: 2390, // $249 * 12 * 0.8 = $2390.40 → rounded to $2390
+    included: 20,
     extraPrice: 8,
-    color: "#7C3AED",
-    badge: "#F5F3FF",
+    color: "#1A1A1A",
+    badge: "#FAEEDA",
+    accentColor: "#B8860B", // gold accent for borders + plan-name title (darker than button text for white-bg readability)
+    buttonTextColor: "#FFD27A", // amber-gold — readable on graphite button bg
+    description: "For high-volume suppliers — 20 enquiries included, then $8 each",
+    annualEligible: true,
     stripePriceId: "price_pro_monthly", // ← replace
+    stripePriceIdAnnual: "price_pro_annual", // ← replace
     stripeExtraPriceId: "price_pro_extra", // ← replace
   },
 };
 
+// ─────────────────────────────────────────────────────────────────────────
+// MY PLAN VIEW — self-service subscription management for rental users
+// ─────────────────────────────────────────────────────────────────────────
+// Renders into #my-plan-content. Five sections:
+//   1. Current plan card (tier, price, badge with new colours, days left)
+//   2. Quota usage progress bar
+//   3. Renewal section (auto-renew status / renew now button if needed)
+//   4. Recent enquiry usage (last 20 contact reveals from this user)
+//   5. Billing history (subscription + extras from admin_analytics)
+// Cancel button sets the user back to PAYG (safe downgrade — no monthly fee).
+// Change plan button opens the existing subscribe modal.
+
+async function renderMyPlanView() {
+  const el = document.getElementById("my-plan-content");
+  if (!el) return;
+  if (!currentUser || !currentUser.uid) {
+    el.innerHTML = `<div style="color:#94A3B8;text-align:center;padding:3rem 1rem">Please sign in to view your plan.</div>`;
+    return;
+  }
+  el.innerHTML = `<div style="color:#94A3B8;text-align:center;padding:3rem 1rem">Loading your plan…</div>`;
+
+  // Pull current plan state
+  const p = _rcPlan();
+  if (!p || !p.cfg) {
+    // No plan set yet (shouldn't happen post-grandfathering, but safety net)
+    el.innerHTML = `
+      <div style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:14px;padding:1.5rem;text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">📦</div>
+        <h3 style="margin:0 0 .5rem;color:#9A3412">No plan set</h3>
+        <p style="color:#92400E;font-size:.9rem;margin-bottom:1.2rem">Pick a plan to start receiving and unlocking enquiries.</p>
+        <button onclick="openSubscribeModal()" style="background:#0F6E56;color:#fff;border:none;border-radius:9px;padding:.6rem 1.4rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer">View Plans →</button>
+      </div>`;
+    return;
+  }
+
+  // Fetch recent reveals + billing events in parallel; degrade gracefully on failure.
+  const [reveals, billingEvents] = await Promise.all([
+    _myPlanFetchReveals().catch(() => []),
+    _myPlanFetchBillingEvents().catch(() => []),
+  ]);
+
+  el.innerHTML = `
+    ${_myPlanCurrentCard(p)}
+    ${p.cfg.payg ? "" : _myPlanQuotaSection(p)}
+    ${_myPlanRenewSection(p)}
+    ${_myPlanRecentRevealsSection(reveals, p)}
+    ${_myPlanBillingHistorySection(billingEvents, p)}
+    ${_myPlanActionsSection(p)}
+  `;
+}
+
+// ── Section: Current plan card ─────────────────────────────────────────
+function _myPlanCurrentCard(p) {
+  const c = p.cfg;
+  const isPayg = !!c.payg;
+  const isAnnual = p.billingCycle === "annual";
+  const priceLabel = isPayg
+    ? "Free to join · $25 per enquiry"
+    : isAnnual
+      ? `$${c.annualPrice}/year · ≈ $${(c.annualPrice / 12).toFixed(0)}/mo · annual`
+      : `$${c.price}/month · monthly`;
+  const benefitsCopy = isPayg
+    ? "No monthly fee. Pay $25 each time you unlock a customer's contact details."
+    : `${c.included} free enquiries every 30 days, then $${c.extraPrice} each. ${isAnnual ? "Save 20% with annual billing." : ""}`;
+  // Card uses plan colour as accent, with the new v116 colour scheme
+  const accent = c.accentColor || c.color;
+  return `
+    <div style="background:${c.badge};border:2px solid ${accent};border-radius:16px;padding:1.4rem 1.5rem;margin-bottom:1.2rem;position:relative">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+        <div>
+          <div style="font-size:.74rem;font-weight:800;color:${accent};text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Current Plan</div>
+          <div style="font-size:1.5rem;font-weight:900;color:${accent};margin-bottom:.2rem">${c.label}</div>
+          <div style="font-size:.88rem;color:#0F172A;font-weight:700;margin-bottom:.5rem">${priceLabel}</div>
+          <div style="font-size:.82rem;color:#475569;line-height:1.5;max-width:560px">${benefitsCopy}</div>
+        </div>
+        ${
+          isPayg
+            ? ""
+            : `<div style="text-align:right;min-width:140px">
+                <div style="font-size:.7rem;color:#64748B;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Renews</div>
+                <div style="font-size:1.4rem;font-weight:900;color:${p.expired ? "#DC2626" : p.daysLeft <= 7 ? "#B45309" : accent}">${p.expired ? "Expired" : p.daysLeft + "d left"}</div>
+                <div style="font-size:.74rem;color:#64748B">${p.planExpiresLabel || "—"}</div>
+              </div>`
+        }
+      </div>
+    </div>`;
+}
+
+// ── Section: Quota usage (paid plans only) ─────────────────────────────
+function _myPlanQuotaSection(p) {
+  const c = p.cfg;
+  const pct = c.included > 0 ? Math.round((p.used / c.included) * 100) : 0;
+  const barFill = Math.min(100, pct);
+  const urgent = p.remaining <= 2;
+  const barColor = urgent ? "#EF4444" : p.remaining <= Math.ceil(c.included * 0.3) ? "#F59E0B" : "#16A34A";
+  return `
+    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;flex-wrap:wrap;gap:.5rem">
+        <div>
+          <div style="font-size:.74rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.06em">This 30-day cycle</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#0F172A;margin-top:.2rem">${p.used} of ${c.included} enquir${c.included === 1 ? "y" : "ies"} used</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.74rem;color:#64748B;font-weight:700">Refreshes</div>
+          <div style="font-size:.88rem;font-weight:800;color:#0F172A">${p.windowEnd || "—"}</div>
+        </div>
+      </div>
+      <div style="background:#E2E8F0;border-radius:99px;height:10px;overflow:hidden">
+        <div style="background:${barColor};width:${barFill}%;height:100%;border-radius:99px;transition:width .4s"></div>
+      </div>
+      <div style="margin-top:.6rem;font-size:.78rem;color:#64748B">
+        ${p.remaining > 0
+          ? `<strong style="color:${barColor}">${p.remaining}</strong> remaining this cycle. After that, $${c.extraPrice} per extra enquiry.`
+          : `All included enquiries used. Extra enquiries cost $${c.extraPrice} each, or upgrade for cheaper rates.`}
+      </div>
+    </div>`;
+}
+
+// ── Section: Renewal status / Renew now button when needed ─────────────
+function _myPlanRenewSection(p) {
+  const c = p.cfg;
+  if (c.payg) {
+    // PAYG — no subscription life; just a tip about upgrading
+    return `
+      <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
+        <span style="font-size:1.4rem">💡</span>
+        <div style="flex:1;min-width:200px">
+          <div style="font-weight:800;color:#15803D;font-size:.9rem">No subscription to manage</div>
+          <div style="font-size:.78rem;color:#16A34A;margin-top:.15rem">You're on Pay-as-you-go — no monthly fee, no renewal needed. Upgrade to Standard or Pro for cheaper per-enquiry rates.</div>
+        </div>
+      </div>`;
+  }
+  const isAnnual = p.billingCycle === "annual";
+  const inRenewWindow = p.needsRenewal;
+  if (!inRenewWindow) {
+    // Healthy subscription — just show next renewal info
+    const renewCopy = isAnnual
+      ? `Annual subscription doesn't auto-renew — we'll prompt you to confirm renewal 14 days before your plan ends.`
+      : `Your monthly subscription will auto-renew on ${p.planExpiresLabel}. Cancel anytime from this page.`;
+    return `
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1rem 1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
+        <span style="font-size:1.4rem">${isAnnual ? "📅" : "🔄"}</span>
+        <div style="flex:1;min-width:200px">
+          <div style="font-weight:800;color:#0F172A;font-size:.9rem">${isAnnual ? "Annual subscription" : "Monthly subscription"}</div>
+          <div style="font-size:.78rem;color:#64748B;margin-top:.15rem">${renewCopy}</div>
+        </div>
+      </div>`;
+  }
+  // In renew window or expired
+  const expired = p.expired;
+  const bg = expired ? "#FEF2F2" : "#FFFBEB";
+  const border = expired ? "#FCA5A5" : "#FCD34D";
+  const fg = expired ? "#991B1B" : "#92400E";
+  const icon = expired ? "⚠️" : "📅";
+  const title = expired
+    ? `Your subscription expired ${Math.abs(p.daysLeft)} day${Math.abs(p.daysLeft) === 1 ? "" : "s"} ago`
+    : `${p.daysLeft} day${p.daysLeft === 1 ? "" : "s"} left on your ${isAnnual ? "annual" : "monthly"} plan`;
+  const body = expired
+    ? (isAnnual
+        ? "Renew to keep receiving and unlocking enquiries."
+        : "It will auto-renew when you next attempt an enquiry — or renew now to skip the wait.")
+    : (isAnnual
+        ? "Annual plans don't auto-renew — confirm renewal to keep your spot."
+        : `Will auto-renew on ${p.planExpiresLabel}.`);
+  const showBtn = expired || isAnnual;
+  return `
+    <div style="background:${bg};border:1.5px solid ${border};border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap">
+      <span style="font-size:1.6rem">${icon}</span>
+      <div style="flex:1;min-width:200px">
+        <div style="font-weight:800;color:${fg};font-size:.95rem">${title}</div>
+        <div style="font-size:.8rem;color:${fg};opacity:.85;margin-top:.2rem">${body}</div>
+      </div>
+      ${showBtn ? `<button onclick="openSubscribeModal()" style="background:${fg};color:#fff;border:none;border-radius:9px;padding:.55rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;white-space:nowrap">Renew now →</button>` : ""}
+    </div>`;
+}
+
+// ── Section: Recent enquiry usage (paid + quota unlocks) ────────────────
+function _myPlanRecentRevealsSection(reveals, p) {
+  if (!reveals || reveals.length === 0) {
+    return `
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem">
+        <div style="font-size:.74rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Recent enquiry usage</div>
+        <div style="color:#94A3B8;font-size:.85rem;text-align:center;padding:1rem">No contact reveals yet. When you contact a customer, it'll show up here.</div>
+      </div>`;
+  }
+  const rows = reveals.slice(0, 20).map((r) => {
+    const dateLabel = r.date || (r.ts ? new Date(r.ts).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "—");
+    const customer = r.customer || r.partyName || "—";
+    return `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid #F1F5F9;font-size:.83rem">
+        <div style="display:flex;align-items:center;gap:.6rem;flex:1;min-width:0">
+          <span style="font-size:1rem">📞</span>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;color:#0F172A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${customer}</div>
+            <div style="font-size:.72rem;color:#94A3B8">${dateLabel}</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.74rem;font-weight:700;color:#16A34A">Contact opened</div>
+        </div>
+      </div>`;
+  }).join("");
+  return `
+    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem">
+        <div style="font-size:.74rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.06em">Recent enquiry usage</div>
+        <div style="font-size:.74rem;color:#94A3B8">Last ${Math.min(20, reveals.length)} of ${reveals.length}</div>
+      </div>
+      ${rows}
+    </div>`;
+}
+
+// ── Section: Billing history (subscription + extra charges) ─────────────
+function _myPlanBillingHistorySection(events, p) {
+  if (!events || events.length === 0) {
+    return `
+      <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem">
+        <div style="font-size:.74rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Billing history</div>
+        <div style="color:#94A3B8;font-size:.85rem;text-align:center;padding:1rem">No billing events yet${_noyoPromoActive() ? " (free during launch promo)" : ""}.</div>
+      </div>`;
+  }
+  const rows = events.slice(0, 30).map((e) => {
+    const dateLabel = e.date || (e.ts ? new Date(e.ts).toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" }) : "—");
+    const isPromo = e.type === "promo_extra_unlock";
+    const desc = isPromo
+      ? "🎁 Promo unlock (free)"
+      : e.type === "subscription_charge"
+        ? `📦 ${e.planLabel || "Subscription"} renewal`
+        : e.type === "extra_charge"
+          ? "📞 Extra enquiry charge"
+          : e.type || "—";
+    const amount = isPromo ? "Free" : (e.amount != null ? `$${e.amount}` : "—");
+    const amountColor = isPromo ? "#16A34A" : "#0F172A";
+    return `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid #F1F5F9;font-size:.83rem">
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:700;color:#0F172A">${desc}</div>
+          <div style="font-size:.72rem;color:#94A3B8">${dateLabel}</div>
+        </div>
+        <div style="font-weight:800;color:${amountColor};font-size:.92rem">${amount}</div>
+      </div>`;
+  }).join("");
+  return `
+    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem">
+        <div style="font-size:.74rem;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:.06em">Billing history</div>
+        <div style="font-size:.74rem;color:#94A3B8">Last ${Math.min(30, events.length)} of ${events.length}</div>
+      </div>
+      ${rows}
+    </div>`;
+}
+
+// ── Section: Actions (Change plan, Cancel) ──────────────────────────────
+function _myPlanActionsSection(p) {
+  const isPayg = !!p.cfg.payg;
+  return `
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1rem">
+      <button onclick="openSubscribeModal()"
+        style="flex:1;min-width:160px;background:#0F6E56;color:#fff;border:none;border-radius:9px;padding:.7rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer">📦 ${isPayg ? "Upgrade Plan" : "Change Plan"}</button>
+      ${isPayg
+        ? ""
+        : `<button onclick="cancelMyPlan()"
+            style="flex:0 0 auto;background:#fff;color:#DC2626;border:1.5px solid #FECACA;border-radius:9px;padding:.7rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer">Cancel Subscription</button>`}
+    </div>`;
+}
+
+// ── Cancel subscription — downgrades user to PAYG with explicit confirm ─
+async function cancelMyPlan() {
+  const p = _rcPlan();
+  if (!p || !p.cfg || p.cfg.payg) return;
+  const isAnnual = p.billingCycle === "annual";
+  const refundCopy = isAnnual
+    ? " You'll receive a prorated refund for the remaining months on your annual subscription via Stripe."
+    : "";
+  const ok = confirm(
+    `Cancel your ${p.cfg.label} subscription and switch to Pay-as-you-go?\n\n` +
+      `• You'll keep using Noyo, just at $25 per enquiry.\n` +
+      `• No more monthly charges.\n` +
+      `• You can resubscribe anytime.${refundCopy}\n\n` +
+      `Confirm cancel?`,
+  );
+  if (!ok) return;
+  if (!currentUser || !currentUser.uid) return;
+  try {
+    const now = Date.now();
+    const monthKey = _billingWindowKey(now);
+    await _fbSaveRentalProfile(currentUser.uid, {
+      plan: "payg",
+      billingCycle: "monthly",
+      planActiveSince: monthKey,
+      planActivatedAt: now,
+      planExpiresAt: 0, // PAYG has no expiry
+      enquiriesUsed: 0,
+      _previousPlan: p.plan,
+      _previousCycle: p.billingCycle,
+      _cancelledAt: now,
+    });
+    _userProfileCache[currentUser.uid] = {
+      ..._userProfileCache[currentUser.uid],
+      plan: "payg",
+      billingCycle: "monthly",
+      planActiveSince: monthKey,
+      planActivatedAt: now,
+      planExpiresAt: 0,
+      enquiriesUsed: 0,
+    };
+    showToast("✅ Subscription cancelled — you're now on Pay-as-you-go.", "#16A34A");
+    renderMyPlanView();
+    try { renderQuoteInbox(); } catch (e) {}
+    // Track cancel event for admin analytics
+    try {
+      if (adminData && Array.isArray(adminData.quoteEvents)) {
+        adminData.quoteEvents.push({
+          type: "subscription_cancel",
+          ts: Date.now(),
+          company: currentUser.name || "anon",
+          viewerEmail: currentUser.email || "anon",
+          fromPlan: p.plan,
+          fromCycle: p.billingCycle,
+        });
+      }
+      if (_fbDb) {
+        _fbDb.collection("events").add({
+          type: "subscription_cancel",
+          ts: Date.now(),
+          uid: currentUser.uid,
+          email: currentUser.email,
+          fromPlan: p.plan,
+          fromCycle: p.billingCycle,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        }).catch(() => {});
+      }
+    } catch (e) {}
+  } catch (e) {
+    showToast("Cancel failed: " + (e.message || "unknown error"), "#EF4444");
+  }
+}
+
+// ── Firestore loaders for the My Plan view ─────────────────────────────
+// Load this user's recent contact_reveal events (most recent first).
+async function _myPlanFetchReveals() {
+  if (!_fbDb || !currentUser || !currentUser.email) return [];
+  try {
+    const snap = await _fbDb
+      .collection("events")
+      .where("type", "==", "contact_reveal")
+      .where("viewerEmail", "==", currentUser.email)
+      .orderBy("ts", "desc")
+      .limit(50)
+      .get();
+    const out = [];
+    snap.forEach((doc) => out.push(doc.data()));
+    return out;
+  } catch (e) {
+    console.warn("_myPlanFetchReveals failed:", e && e.message);
+    return [];
+  }
+}
+
+// Load this user's billing-relevant events (subscription charges, extra charges, promo unlocks)
+async function _myPlanFetchBillingEvents() {
+  if (!_fbDb || !currentUser || !currentUser.email) return [];
+  try {
+    // Pull up to 100 of this user's events; client-side filter by type.
+    const snap = await _fbDb
+      .collection("events")
+      .where("viewerEmail", "==", currentUser.email)
+      .orderBy("ts", "desc")
+      .limit(100)
+      .get();
+    const out = [];
+    const billingTypes = new Set([
+      "subscription_charge",
+      "extra_charge",
+      "promo_extra_unlock",
+      "subscription_cancel",
+    ]);
+    snap.forEach((doc) => {
+      const d = doc.data();
+      if (billingTypes.has(d.type)) out.push(d);
+    });
+    return out;
+  } catch (e) {
+    console.warn("_myPlanFetchBillingEvents failed:", e && e.message);
+    return [];
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// AD BANNER SYSTEM (v119)
+// ═══════════════════════════════════════════════════════════════════════
+// 12 banner slots stored in Firestore /banners. Each slot has a stable ID:
+//   CB1..CB4 (Customer), RB1..RB4 (Rental), LB1..LB4 (Lite)
+// Slots 1+2 render on the LEFT rail, 3+4 on the RIGHT rail. Mobile shows
+// all 4 in a bottom strip. Image files live in Firebase Storage under
+// /banners/{slotId}/{filename}. Empty slots auto-hide from end users.
+// Admin "Banner Panel" tab provides full CRUD: upload, edit, delete,
+// duration-pick, click toggle, click URL.
+
+// All 12 slot definitions — order matters for display position.
+const BANNER_SLOTS_BY_ROLE = {
+  customer: ["CB1", "CB2", "CB3", "CB4"],
+  rental: ["RB1", "RB2", "RB3", "RB4"],
+  lite: ["LB1", "LB2", "LB3", "LB4"],
+};
+// Flat list of every slot ID (for admin panel iteration)
+const ALL_BANNER_SLOTS = [
+  ...BANNER_SLOTS_BY_ROLE.customer,
+  ...BANNER_SLOTS_BY_ROLE.rental,
+  ...BANNER_SLOTS_BY_ROLE.lite,
+];
+// Duration presets (key → days). "custom" handled separately.
+const BANNER_DURATIONS = {
+  "1d": { days: 1, label: "1 day" },
+  "1w": { days: 7, label: "1 week" },
+  "4w": { days: 28, label: "4 weeks" },
+  "1m": { days: 30, label: "1 month" },
+  "3m": { days: 90, label: "3 months" },
+  "6m": { days: 180, label: "6 months" },
+  "1y": { days: 365, label: "1 year" },
+  custom: { days: null, label: "Custom" },
+};
+
+// In-memory cache of all 12 slots. Refreshed every 60s.
+let _bannerCache = {};
+let _bannerCacheLastFetch = 0;
+let _bannerRefreshTimer = null;
+
+// Map a slot ID to its role.
+function _bannerSlotRole(slotId) {
+  if (slotId.startsWith("CB")) return "customer";
+  if (slotId.startsWith("RB")) return "rental";
+  if (slotId.startsWith("LB")) return "lite";
+  return null;
+}
+
+// Load all 12 slots from Firestore. Safe to call repeatedly; no-op if no DB.
+async function _loadBanners() {
+  if (!_fbDb) return;
+  try {
+    const snap = await _fbDb.collection("banners").get();
+    const fresh = {};
+    snap.forEach((doc) => {
+      fresh[doc.id] = doc.data();
+    });
+    _bannerCache = fresh;
+    _bannerCacheLastFetch = Date.now();
+  } catch (e) {
+    console.warn("_loadBanners failed:", e && e.message);
+  }
+}
+
+// Compute whether a banner is currently "live" — has imageUrl, isActive set,
+// and (for status display) hasn't expired. Per founder decision in v119,
+// expiry is informational only — we still render expired banners until the
+// admin manually deletes them. So this function returns true whenever the
+// slot has a usable imageUrl + isActive flag.
+function _bannerIsLive(slot) {
+  if (!slot) return false;
+  if (!slot.imageUrl) return false;
+  if (slot.isActive === false) return false;
+  return true;
+}
+
+// True when the duration has elapsed since activatedAt. For admin display only.
+function _bannerIsExpired(slot) {
+  if (!slot || !slot.activatedAt || !slot.durationDays) return false;
+  const expiresAt = slot.activatedAt + slot.durationDays * 86400000;
+  return Date.now() > expiresAt;
+}
+
+// Format the expiry date for admin display.
+function _bannerExpiryLabel(slot) {
+  if (!slot || !slot.activatedAt || !slot.durationDays) return "—";
+  const expiresAt = slot.activatedAt + slot.durationDays * 86400000;
+  return new Date(expiresAt).toLocaleDateString("en-AU", {
+    day: "numeric", month: "short", year: "numeric",
+  });
+}
+
+// Apply the cached banner data to the DOM rails for the current user's role.
+// Called after every load + on login + on window resize.
+function _renderBanners() {
+  // Admins see no ads (they're not the audience).
+  const role = currentUser && currentUser.role;
+  // Map our internal roles to ad rail roles. Lite role is "lite" already.
+  let railRole = null;
+  if (role === "customer") railRole = "customer";
+  else if (role === "rental") railRole = "rental";
+  else if (role === "lite") railRole = "lite";
+  // No matching role → hide everything and bail.
+  if (!railRole) {
+    ["noyo-ad-rail-left", "noyo-ad-rail-right", "noyo-ad-bottom"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("has-active");
+    });
+    // Also hide all individual slots (left over from a previous user role)
+    [1, 2, 3, 4].forEach((i) => {
+      _bannerApplyToSlot(`noyo-ad-slot-${i}`, `noyo-ad-img-${i}`, null, false);
+      _bannerApplyToSlot(`noyo-ad-slot-mb-${i}`, `noyo-ad-img-mb-${i}`, null, false);
+    });
+    return;
+  }
+  const slotIds = BANNER_SLOTS_BY_ROLE[railRole];
+  let anyActive = false;
+  // Apply each of the 4 slots to the matching DOM positions
+  slotIds.forEach((slotId, idx) => {
+    const slot = _bannerCache[slotId];
+    const isLive = _bannerIsLive(slot);
+    if (isLive) anyActive = true;
+    // Position 1 (idx 0) → left rail top, 2 → left rail bottom, 3 → right top, 4 → right bottom
+    const desktopAnchor = idx + 1; // 1..4
+    _bannerApplyToSlot(`noyo-ad-slot-${desktopAnchor}`, `noyo-ad-img-${desktopAnchor}`, slot, isLive);
+    _bannerApplyToSlot(`noyo-ad-slot-mb-${desktopAnchor}`, `noyo-ad-img-mb-${desktopAnchor}`, slot, isLive);
+  });
+  // Reveal/hide the rails as a whole (CSS media queries handle which rail
+  // is visible at this viewport — we just mark it as has-active or not).
+  ["noyo-ad-rail-left", "noyo-ad-rail-right", "noyo-ad-bottom"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (anyActive) el.classList.add("has-active");
+    else el.classList.remove("has-active");
+  });
+}
+
+// Apply one slot's content to a single DOM anchor pair.
+function _bannerApplyToSlot(slotElId, imgElId, slot, isLive) {
+  const el = document.getElementById(slotElId);
+  const img = document.getElementById(imgElId);
+  if (!el || !img) return;
+  if (!isLive) {
+    el.style.display = "none";
+    el.removeAttribute("href");
+    el.classList.remove("clickable");
+    img.removeAttribute("src");
+    return;
+  }
+  el.style.display = "block";
+  img.src = slot.imageUrl;
+  img.alt = slot.label || "Advertisement";
+  // Click-through: only set href if clickEnabled + clickUrl present
+  if (slot.clickEnabled && slot.clickUrl) {
+    el.href = slot.clickUrl;
+    el.classList.add("clickable");
+  } else {
+    el.removeAttribute("href");
+    el.classList.remove("clickable");
+  }
+}
+
+// Boot the banner system: load once, render, then refresh every 60s.
+function _bootBanners() {
+  // Only meaningful for end-users (customer/rental/lite). Skip for admin.
+  if (!currentUser || currentUser.role === "admin") return;
+  _loadBanners().then(() => _renderBanners());
+  // Periodic refresh so newly published banners show within ~1 minute.
+  if (_bannerRefreshTimer) clearInterval(_bannerRefreshTimer);
+  _bannerRefreshTimer = setInterval(() => {
+    _loadBanners().then(() => _renderBanners());
+  }, 60000);
+}
+
+// Stop the periodic refresh on logout. Hide all rails AND clear visible slots.
+function _shutdownBanners() {
+  if (_bannerRefreshTimer) {
+    clearInterval(_bannerRefreshTimer);
+    _bannerRefreshTimer = null;
+  }
+  _bannerCache = {};
+  ["noyo-ad-rail-left", "noyo-ad-rail-right", "noyo-ad-bottom"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove("has-active");
+  });
+  // Clear individual slot DOM so they're truly hidden after logout
+  [1, 2, 3, 4].forEach((i) => {
+    _bannerApplyToSlot(`noyo-ad-slot-${i}`, `noyo-ad-img-${i}`, null, false);
+    _bannerApplyToSlot(`noyo-ad-slot-mb-${i}`, `noyo-ad-img-mb-${i}`, null, false);
+  });
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// ADMIN BANNER PANEL — renders the management UI for all 12 slots.
+// ═════════════════════════════════════════════════════════════════════════
+async function renderAdminBanners() {
+  const grid = document.getElementById("admin-banners-grid");
+  if (!grid) return;
+  grid.innerHTML = `<div style="color:#94A3B8;text-align:center;padding:2rem">Loading banners…</div>`;
+  await _loadBanners();
+  // Group by role for display
+  const sections = [
+    { title: "🧑 Customer Banners", desc: "Shown to Customer users on every page they visit.", role: "customer", slots: BANNER_SLOTS_BY_ROLE.customer, accent: "#0052CC", bg: "#EFF6FF" },
+    { title: "🏗️ Rental Co Banners", desc: "Shown to Rental Company users on every page they visit.", role: "rental", slots: BANNER_SLOTS_BY_ROLE.rental, accent: "#7C3AED", bg: "#F5F3FF" },
+    { title: "🔵 Lite Banners", desc: "Shown to Lite users on every page they visit.", role: "lite", slots: BANNER_SLOTS_BY_ROLE.lite, accent: "#0891B2", bg: "#ECFEFF" },
+  ];
+  grid.innerHTML = sections.map((sec) => `
+    <div style="background:${sec.bg};border:1.5px solid ${sec.accent};border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem">
+        <div>
+          <div style="font-weight:900;color:${sec.accent};font-size:1rem">${sec.title}</div>
+          <div style="font-size:.78rem;color:#475569;margin-top:.15rem">${sec.desc}</div>
+        </div>
+        <div style="font-size:.74rem;color:#64748B;font-weight:700">Slots 1 & 2 → left rail · Slots 3 & 4 → right rail</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem">
+        ${sec.slots.map((sid, idx) => _renderAdminBannerCard(sid, idx + 1, sec.accent)).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+function _renderAdminBannerCard(slotId, position, accent) {
+  const slot = _bannerCache[slotId] || {};
+  const live = _bannerIsLive(slot);
+  const expired = live && _bannerIsExpired(slot);
+  const hasImg = !!slot.imageUrl;
+  // Status pill
+  let statusPill;
+  if (!hasImg) {
+    statusPill = `<span style="background:#F1F5F9;color:#64748B;font-size:.68rem;font-weight:800;padding:.15rem .55rem;border-radius:20px;text-transform:uppercase;letter-spacing:.04em">Empty</span>`;
+  } else if (slot.isActive === false) {
+    statusPill = `<span style="background:#FEF3C7;color:#B45309;font-size:.68rem;font-weight:800;padding:.15rem .55rem;border-radius:20px;text-transform:uppercase;letter-spacing:.04em">Paused</span>`;
+  } else if (expired) {
+    statusPill = `<span style="background:#FEE2E2;color:#B91C1C;font-size:.68rem;font-weight:800;padding:.15rem .55rem;border-radius:20px;text-transform:uppercase;letter-spacing:.04em">Expired</span>`;
+  } else {
+    statusPill = `<span style="background:#D1FAE5;color:#065F46;font-size:.68rem;font-weight:800;padding:.15rem .55rem;border-radius:20px;text-transform:uppercase;letter-spacing:.04em">Live</span>`;
+  }
+  // Position label tells admin which rail
+  const positionLabel = position === 1 ? "Left rail · top"
+    : position === 2 ? "Left rail · bottom"
+    : position === 3 ? "Right rail · top"
+    : "Right rail · bottom";
+  // Preview area
+  const preview = hasImg
+    ? `<div style="width:100%;height:140px;background:#000 url('${slot.imageUrl}') center/cover no-repeat;border-radius:8px"></div>`
+    : `<div style="width:100%;height:140px;background:#F8FAFC;border:1.5px dashed #CBD5E1;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:.85rem">No image</div>`;
+  // Duration label
+  const durLabel = slot.durationKey
+    ? (slot.durationKey === "custom" ? `Custom: ${slot.durationDays}d` : (BANNER_DURATIONS[slot.durationKey] || {}).label)
+    : "—";
+  return `
+    <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.85rem;display:flex;flex-direction:column;gap:.6rem">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-weight:900;color:#0F172A;font-size:1rem">${slotId}</div>
+          <div style="font-size:.7rem;color:#64748B;font-weight:700">${positionLabel}</div>
+        </div>
+        ${statusPill}
+      </div>
+      ${preview}
+      ${hasImg ? `
+        <div style="font-size:.74rem;color:#475569;line-height:1.45">
+          ${slot.label ? `<div style="font-weight:700;color:#0F172A">${slot.label}</div>` : ""}
+          <div>Duration: <strong>${durLabel}</strong></div>
+          <div>Expires: <strong>${_bannerExpiryLabel(slot)}</strong></div>
+          <div>Click-through: <strong>${slot.clickEnabled ? (slot.clickUrl ? "✓ enabled" : "⚠ on but no URL") : "Decorative only"}</strong></div>
+        </div>
+      ` : ""}
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+        <button onclick="openBannerEditor('${slotId}')" style="flex:1;background:${accent};color:#fff;border:none;border-radius:7px;padding:.4rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">${hasImg ? "Edit" : "Upload"}</button>
+        ${hasImg ? `
+          <button onclick="toggleBannerActive('${slotId}')" style="flex:0 0 auto;background:#fff;color:#0F172A;border:1.5px solid #E2E8F0;border-radius:7px;padding:.4rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">${slot.isActive === false ? "Resume" : "Pause"}</button>
+          <button onclick="deleteBanner('${slotId}')" style="flex:0 0 auto;background:#fff;color:#DC2626;border:1.5px solid #FECACA;border-radius:7px;padding:.4rem .7rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">Delete</button>
+        ` : ""}
+      </div>
+    </div>`;
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// BANNER EDITOR MODAL — upload image, set click URL, pick duration
+// ═════════════════════════════════════════════════════════════════════════
+function openBannerEditor(slotId) {
+  const slot = _bannerCache[slotId] || {};
+  // Build the modal HTML — kept inline for proximity to logic
+  let overlay = document.getElementById("banner-editor-overlay");
+  if (overlay) overlay.remove();
+  overlay = document.createElement("div");
+  overlay.id = "banner-editor-overlay";
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1rem";
+  const durRows = Object.entries(BANNER_DURATIONS).map(([key, d]) => `
+    <label style="display:flex;align-items:center;gap:.5rem;padding:.45rem .65rem;border-radius:8px;cursor:pointer;background:#F8FAFC;border:1.5px solid ${slot.durationKey === key ? "#0052CC" : "transparent"}">
+      <input type="radio" name="banner-duration" value="${key}" ${slot.durationKey === key || (!slot.durationKey && key === "1m") ? "checked" : ""}>
+      <span style="font-weight:700;color:#0F172A;font-size:.85rem">${d.label}</span>
+    </label>`).join("");
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:14px;max-width:560px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.3)">
+      <div style="padding:1.1rem 1.4rem;border-bottom:1.5px solid #E2E8F0;display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-weight:900;color:#0F172A;font-size:1.15rem">Banner Slot · ${slotId}</div>
+          <div style="font-size:.78rem;color:#64748B">${_bannerSlotRole(slotId) === "customer" ? "Shown to Customer users" : _bannerSlotRole(slotId) === "rental" ? "Shown to Rental Co users" : "Shown to Lite users"}</div>
+        </div>
+        <button onclick="closeBannerEditor()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#64748B;line-height:1">×</button>
+      </div>
+      <div style="padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:1rem">
+        <div>
+          <label style="display:block;font-weight:800;color:#0F172A;font-size:.85rem;margin-bottom:.35rem">Banner Name (admin-only)</label>
+          <input type="text" id="banner-edit-label" value="${(slot.label || "").replace(/"/g, "&quot;")}" placeholder="e.g. Acme Crane Hire — Spring 2026"
+            style="width:100%;padding:.55rem .7rem;border:1.5px solid #E2E8F0;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.88rem">
+          <div style="font-size:.7rem;color:#94A3B8;margin-top:.2rem">Just for your records — not shown to users.</div>
+        </div>
+        <div>
+          <label style="display:block;font-weight:800;color:#0F172A;font-size:.85rem;margin-bottom:.35rem">Image (square, ideally 320×320 or larger)</label>
+          ${slot.imageUrl ? `
+            <div style="margin-bottom:.5rem">
+              <img src="${slot.imageUrl}" alt="" style="width:120px;height:120px;object-fit:cover;border-radius:8px;border:1.5px solid #E2E8F0">
+              <div style="font-size:.7rem;color:#64748B;margin-top:.25rem">Current image — choose a new file below to replace.</div>
+            </div>` : ""}
+          <input type="file" id="banner-edit-file" accept="image/png,image/jpeg,image/webp,image/gif"
+            style="width:100%;padding:.5rem;border:1.5px solid #E2E8F0;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.85rem;background:#F8FAFC">
+          <div style="font-size:.7rem;color:#94A3B8;margin-top:.2rem">Max 2 MB. PNG, JPEG, WebP or GIF.</div>
+        </div>
+        <div>
+          <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer">
+            <input type="checkbox" id="banner-edit-click-enabled" ${slot.clickEnabled ? "checked" : ""}>
+            <span style="font-weight:800;color:#0F172A;font-size:.85rem">Make banner clickable</span>
+          </label>
+          <input type="url" id="banner-edit-click-url" value="${(slot.clickUrl || "").replace(/"/g, "&quot;")}" placeholder="https://example.com/landing-page"
+            style="width:100%;padding:.55rem .7rem;border:1.5px solid #E2E8F0;border-radius:8px;font-family:'Nunito',sans-serif;font-size:.88rem;margin-top:.4rem">
+          <div style="font-size:.7rem;color:#94A3B8;margin-top:.2rem">Leave click off for decorative banners. Opens in new tab.</div>
+        </div>
+        <div>
+          <label style="display:block;font-weight:800;color:#0F172A;font-size:.85rem;margin-bottom:.35rem">Duration</label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.35rem">
+            ${durRows}
+          </div>
+          <div id="banner-custom-days-wrap" style="margin-top:.5rem;display:${slot.durationKey === "custom" ? "block" : "none"}">
+            <label style="font-size:.78rem;font-weight:700;color:#475569">Custom days:
+              <input type="number" id="banner-custom-days" value="${slot.durationKey === "custom" ? (slot.durationDays || 30) : 30}" min="1" max="3650"
+                style="width:80px;padding:.3rem .5rem;border:1.5px solid #E2E8F0;border-radius:6px;margin-left:.4rem">
+            </label>
+          </div>
+        </div>
+      </div>
+      <div style="padding:1rem 1.4rem;border-top:1.5px solid #E2E8F0;background:#F8FAFC;display:flex;justify-content:flex-end;gap:.5rem;border-radius:0 0 14px 14px">
+        <button onclick="closeBannerEditor()" style="background:#fff;color:#475569;border:1.5px solid #E2E8F0;border-radius:8px;padding:.55rem 1.1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Cancel</button>
+        <button onclick="saveBanner('${slotId}')" id="banner-save-btn" style="background:#0052CC;color:#fff;border:none;border-radius:8px;padding:.55rem 1.4rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">${slot.imageUrl ? "Save Changes" : "Upload &amp; Activate"}</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  // Wire the duration radios to show/hide the custom-days field
+  overlay.querySelectorAll('input[name="banner-duration"]').forEach((r) => {
+    r.addEventListener("change", (e) => {
+      const w = document.getElementById("banner-custom-days-wrap");
+      if (w) w.style.display = e.target.value === "custom" ? "block" : "none";
+    });
+  });
+}
+
+function closeBannerEditor() {
+  const overlay = document.getElementById("banner-editor-overlay");
+  if (overlay) overlay.remove();
+}
+
+// Save the banner — handles both new uploads and edits.
+async function saveBanner(slotId) {
+  const btn = document.getElementById("banner-save-btn");
+  if (btn) { btn.disabled = true; btn.textContent = "Saving…"; }
+  try {
+    const label = (document.getElementById("banner-edit-label").value || "").trim();
+    const fileInput = document.getElementById("banner-edit-file");
+    const file = fileInput && fileInput.files && fileInput.files[0];
+    const clickEnabled = document.getElementById("banner-edit-click-enabled").checked;
+    const clickUrl = (document.getElementById("banner-edit-click-url").value || "").trim();
+    const durRadio = document.querySelector('input[name="banner-duration"]:checked');
+    const durationKey = durRadio ? durRadio.value : "1m";
+    const customDaysEl = document.getElementById("banner-custom-days");
+    const customDays = customDaysEl ? parseInt(customDaysEl.value, 10) : 30;
+    const durationDays = durationKey === "custom"
+      ? Math.max(1, Math.min(3650, customDays || 30))
+      : BANNER_DURATIONS[durationKey].days;
+    const existing = _bannerCache[slotId] || {};
+    let imageUrl = existing.imageUrl || null;
+    let imageStoragePath = existing.imageStoragePath || null;
+    // If a new file was selected, upload to Firebase Storage and replace
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        showToast("Image too large — max 2 MB.", "#EF4444");
+        if (btn) { btn.disabled = false; btn.textContent = "Save"; }
+        return;
+      }
+      const uploaded = await _bannerUploadImage(slotId, file);
+      if (!uploaded) {
+        if (btn) { btn.disabled = false; btn.textContent = "Save"; }
+        return;
+      }
+      imageUrl = uploaded.url;
+      imageStoragePath = uploaded.path;
+      // If replacing an existing image, delete the old one (best-effort)
+      if (existing.imageStoragePath && existing.imageStoragePath !== imageStoragePath) {
+        _bannerDeleteStorageObject(existing.imageStoragePath).catch(() => {});
+      }
+    }
+    if (!imageUrl) {
+      showToast("Please choose an image file.", "#EF4444");
+      if (btn) { btn.disabled = false; btn.textContent = "Save"; }
+      return;
+    }
+    const now = Date.now();
+    const docData = {
+      slotId,
+      role: _bannerSlotRole(slotId),
+      label,
+      imageUrl,
+      imageStoragePath,
+      clickEnabled: !!clickEnabled,
+      clickUrl: clickEnabled ? clickUrl : "",
+      durationKey,
+      durationDays,
+      // Keep the original activatedAt unless this is the first activation
+      activatedAt: existing.activatedAt || now,
+      isActive: true,
+      updatedAt: now,
+    };
+    await _fbDb.collection("banners").doc(slotId).set(docData, { merge: true });
+    _bannerCache[slotId] = docData;
+    closeBannerEditor();
+    showToast(`✓ Banner ${slotId} saved.`, "#16A34A");
+    renderAdminBanners();
+  } catch (e) {
+    showToast("Save failed: " + (e.message || "unknown error"), "#EF4444");
+    if (btn) { btn.disabled = false; btn.textContent = "Save"; }
+  }
+}
+
+// Toggle isActive flag (Pause / Resume).
+async function toggleBannerActive(slotId) {
+  const slot = _bannerCache[slotId];
+  if (!slot) return;
+  const newActive = !(slot.isActive !== false); // default true → false; false → true
+  try {
+    await _fbDb.collection("banners").doc(slotId).update({
+      isActive: newActive,
+      updatedAt: Date.now(),
+    });
+    _bannerCache[slotId] = { ..._bannerCache[slotId], isActive: newActive };
+    showToast(`✓ Banner ${slotId} ${newActive ? "resumed" : "paused"}.`, "#16A34A");
+    renderAdminBanners();
+  } catch (e) {
+    showToast("Toggle failed: " + (e.message || ""), "#EF4444");
+  }
+}
+
+// Delete banner: remove Firestore doc + best-effort delete Storage object.
+async function deleteBanner(slotId) {
+  const slot = _bannerCache[slotId];
+  if (!slot) return;
+  if (!confirm(`Delete banner ${slotId}? This cannot be undone.`)) return;
+  try {
+    if (slot.imageStoragePath) {
+      _bannerDeleteStorageObject(slot.imageStoragePath).catch(() => {});
+    }
+    await _fbDb.collection("banners").doc(slotId).delete();
+    delete _bannerCache[slotId];
+    showToast(`✓ Banner ${slotId} deleted.`, "#16A34A");
+    renderAdminBanners();
+  } catch (e) {
+    showToast("Delete failed: " + (e.message || ""), "#EF4444");
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// FIREBASE STORAGE HELPERS — upload + delete
+// ═════════════════════════════════════════════════════════════════════════
+async function _bannerUploadImage(slotId, file) {
+  if (!firebase || !firebase.storage) {
+    showToast("Firebase Storage not available — please refresh.", "#EF4444");
+    return null;
+  }
+  try {
+    const ext = (file.name.split(".").pop() || "img").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const safeExt = ["png", "jpg", "jpeg", "webp", "gif"].includes(ext) ? ext : "img";
+    const path = `banners/${slotId}/${Date.now()}.${safeExt}`;
+    const ref = firebase.storage().ref(path);
+    const snap = await ref.put(file, { contentType: file.type });
+    const url = await snap.ref.getDownloadURL();
+    return { url, path };
+  } catch (e) {
+    showToast("Upload failed: " + (e.message || "unknown error"), "#EF4444");
+    return null;
+  }
+}
+
+async function _bannerDeleteStorageObject(path) {
+  if (!firebase || !firebase.storage || !path) return;
+  try {
+    await firebase.storage().ref(path).delete();
+  } catch (e) {
+    // Best-effort — non-fatal if the file doesn't exist (already gone)
+    console.warn("Storage delete soft-fail:", e && e.message);
+  }
+}
+
+// Re-render banners on window resize (in case the viewport crossed the
+// rail/bottom breakpoint). CSS handles the actual show/hide via media queries
+// but recalculating gives us a safety net.
+window.addEventListener("resize", () => {
+  try { _renderBanners(); } catch (e) {}
+});
+
+// ── Plan picker on rental registration form ─────────────────────────────
+// Three card UI defaulting to PAYG. Renders into #lp-plan-cards inside the
+// #lp-rental-plan-picker block. Selection writes to hidden inputs
+// (#lp-plan-key + #lp-plan-cycle) that registerRentalCo() reads at submit.
+function _lpHydratePlanPicker() {
+  const wrap = document.getElementById("lp-plan-cards");
+  if (!wrap) return;
+  const cycle = document.getElementById("lp-plan-cycle")?.value || "monthly";
+  const selected = document.getElementById("lp-plan-key")?.value || "payg";
+  const keys = cycle === "annual"
+    ? ["standard", "pro"]   // PAYG hidden when annual selected
+    : ["payg", "standard", "pro"];
+  // For annual view, default selection to standard if PAYG was previously picked
+  if (cycle === "annual" && selected === "payg") {
+    document.getElementById("lp-plan-key").value = "standard";
+  }
+  const sel = document.getElementById("lp-plan-key").value;
+  // Hide promo strip if no promo
+  const promoStrip = document.getElementById("lp-plan-promo-strip");
+  if (promoStrip) promoStrip.style.display = _noyoPromoActive() ? "" : "none";
+
+  wrap.style.gridTemplateColumns = `repeat(${keys.length},1fr)`;
+  wrap.innerHTML = keys.map((k) => {
+    const c = NOYO_PLANS[k];
+    const isSel = sel === k;
+    const isPayg = !!c.payg;
+    const showAnnual = cycle === "annual" && c.annualEligible;
+    // Price block — different copy for PAYG vs paid, monthly vs annual
+    let priceHtml;
+    if (isPayg) {
+      priceHtml = `<div style="font-size:1.4rem;font-weight:900;color:#fff;line-height:1.1">$${c.price}<span style="font-size:.7rem;font-weight:600;color:#94A3B8">/mo</span></div>
+        <div style="font-size:.65rem;color:#86EFAC;font-weight:700;margin-top:.1rem">free to join</div>`;
+    } else if (showAnnual) {
+      const monthlyEq = (c.annualPrice / 12).toFixed(0);
+      const savings = c.price * 12 - c.annualPrice;
+      priceHtml = `<div style="font-size:1.4rem;font-weight:900;color:#fff;line-height:1.1">$${c.annualPrice}<span style="font-size:.7rem;font-weight:600;color:#94A3B8">/yr</span></div>
+        <div style="font-size:.65rem;color:#86EFAC;font-weight:700;margin-top:.1rem">≈ $${monthlyEq}/mo · save $${savings}</div>`;
+    } else {
+      priceHtml = `<div style="font-size:1.4rem;font-weight:900;color:#fff;line-height:1.1">$${c.price}<span style="font-size:.7rem;font-weight:600;color:#94A3B8">/mo</span></div>`;
+    }
+    // Included copy
+    const includedHtml = isPayg
+      ? `<div style="font-size:.7rem;color:#CBD5E1;margin-top:.4rem"><strong>No commitment</strong></div>
+         <div style="font-size:.66rem;color:#94A3B8;margin-top:.1rem">$${c.extraPrice} per enquiry</div>`
+      : `<div style="font-size:.7rem;color:#CBD5E1;margin-top:.4rem"><strong>${c.included}</strong> free / 30 days</div>
+         <div style="font-size:.66rem;color:#94A3B8;margin-top:.1rem">then $${c.extraPrice} each</div>`;
+    // Card border + bg colour reflects selection
+    const borderColor = isSel ? c.accentColor || c.color : "rgba(255,255,255,.08)";
+    const bgColor = isSel ? "rgba(99,102,241,.08)" : "rgba(0,0,0,.2)";
+    const titleColor = isSel ? (c.accentColor || c.color) : "#CBD5E1";
+    return `<button type="button" onclick="_lpSelectPlan('${k}')"
+      style="background:${bgColor};border:2px solid ${borderColor};border-radius:10px;padding:.6rem .55rem;text-align:center;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s">
+      ${isSel ? '<div style="font-size:.6rem;font-weight:900;color:#86EFAC;margin-bottom:.15rem">✓ SELECTED</div>' : '<div style="height:.75rem"></div>'}
+      <div style="font-weight:900;font-size:.82rem;color:${titleColor};margin-bottom:.2rem">${c.label}</div>
+      ${priceHtml}
+      ${includedHtml}
+    </button>`;
+  }).join("");
+}
+
+function _lpSelectPlan(planKey) {
+  const input = document.getElementById("lp-plan-key");
+  if (input) input.value = planKey;
+  _lpHydratePlanPicker();
+}
+
+function _lpSelectPlanCycle(cycle) {
+  const input = document.getElementById("lp-plan-cycle");
+  if (input) input.value = cycle;
+  // Update toggle button styles
+  document.querySelectorAll('#lp-plan-cycle-toggle button[data-cycle]').forEach((btn) => {
+    const active = btn.getAttribute("data-cycle") === cycle;
+    btn.style.background = active ? "#fff" : "transparent";
+    btn.style.color = active ? "#0F172A" : "#94A3B8";
+  });
+  _lpHydratePlanPicker();
+}
+
+// ── Plan-life helpers ────────────────────────────────────────────────────
+// planExpiresAt = activation timestamp + (30 days for monthly | 365 days for annual)
+// This is separate from the quota window (which resets every 30 days).
+function _planExpiryFromActivation(planActivatedAt, billingCycle) {
+  if (!planActivatedAt) return 0;
+  const days = billingCycle === "annual" ? 365 : 30;
+  return planActivatedAt + days * 86400000;
+}
+
+function _daysUntil(ts) {
+  if (!ts) return null;
+  return Math.ceil((ts - Date.now()) / 86400000);
+}
+
+function _planExpiryLabel(ts) {
+  if (!ts) return "";
+  return new Date(ts).toLocaleDateString("en-AU", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+// ── Promo period control ────────────────────────────────────────────────
+// During the launch promo, the UI behaves as if everything is paid (plan
+// cards, quota counters, "$X extra" buttons all visible) but tapping "extra"
+// unlocks for free without a Stripe call. The promo end date is stored in
+// Firestore (admin_settings/billing.promoEndsAt — a JS-millis timestamp) so
+// you can flip the switch from the admin panel without redeploying.
+//
+// Returns true while the promo is active, false once it has ended (or once
+// it has been explicitly cleared from admin).
+function _noyoPromoActive() {
+  try {
+    const ts = parseInt(
+      (adminData && adminData.promoEndsAt) ||
+        localStorage.getItem("noyo_promo_ends_at") ||
+        "0",
+      10,
+    );
+    if (!ts) return true; // No end date set → promo is open-ended (default)
+    return Date.now() < ts;
+  } catch (e) {
+    return true;
+  }
+}
+
+function _noyoPromoEndDateLabel() {
+  try {
+    const ts = parseInt(
+      (adminData && adminData.promoEndsAt) ||
+        localStorage.getItem("noyo_promo_ends_at") ||
+        "0",
+      10,
+    );
+    if (!ts) return "TBA";
+    return new Date(ts).toLocaleDateString("en-AU", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  } catch (e) {
+    return "TBA";
+  }
+}
+
 // Stripe publishable key — replace with your live/test key
 const STRIPE_PK = "pk_test_REPLACE_WITH_YOUR_STRIPE_KEY";
 
-// Current billing month key e.g. '2026-03'
+// ── Billing window — rolling 30-day from user's plan activation date ─────
+// Each user's "month" runs for 30 days starting the day they activated their
+// plan (or were grandfathered onto Starter). Window N is days [30*N, 30*(N+1))
+// after activation. The window key is the activation timestamp + window index,
+// e.g. "1714521600000-2" — uniquely identifies which 30-day cycle the user is
+// currently in. When the cycle index changes, _rcPlan() resets the counter.
+function _billingWindowKey(planActivatedAt) {
+  if (!planActivatedAt) return "";
+  const elapsedDays = (Date.now() - planActivatedAt) / 86400000;
+  const cycleIndex = Math.floor(elapsedDays / 30);
+  return `${planActivatedAt}-${cycleIndex}`;
+}
+
+// Backwards-compat shim — many call sites still use _billingMonth() expecting
+// a string key for the user's current billing window. We now return the
+// rolling-window key when a planActivatedAt is on the profile, falling back
+// to the old calendar-month key for any legacy data.
 function _billingMonth() {
+  if (currentUser && currentUser.uid) {
+    const profile = _userProfileCache[currentUser.uid] || {};
+    if (profile.planActivatedAt) {
+      return _billingWindowKey(parseInt(profile.planActivatedAt, 10));
+    }
+  }
+  // Legacy fallback (calendar month) — only hit if no plan/activation yet
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
+// Window-end label for the user's current 30-day cycle, e.g. "8 May 2026".
+// Used by _rcPlan() to tell the user when their quota next refreshes.
+function _billingWindowEndLabel(planActivatedAt) {
+  if (!planActivatedAt) return "";
+  const elapsedDays = (Date.now() - planActivatedAt) / 86400000;
+  const cycleIndex = Math.floor(elapsedDays / 30);
+  const cycleEnd = planActivatedAt + (cycleIndex + 1) * 30 * 86400000;
+  return new Date(cycleEnd).toLocaleDateString("en-AU", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 // Read plan state from profile cache (synchronous — populated on login)
-// Returns { plan, cfg, included, extraPrice, used, remaining, month, hasSubscription }
+// Returns { plan, cfg, included, extraPrice, used, remaining, month,
+//           hasSubscription, planActivatedAt, windowEnd, promoActive,
+//           billingCycle, planExpiresAt, daysLeft, needsRenewal, expired }
 function _rcPlan() {
   if (!currentUser || !currentUser.uid) return null;
   const profile = _userProfileCache[currentUser.uid] || {};
   const planKey = profile.plan || null;
   const cfg = NOYO_PLANS[planKey] || null;
   if (!planKey || !cfg)
-    return { plan: null, cfg: null, hasSubscription: false };
+    return {
+      plan: null,
+      cfg: null,
+      hasSubscription: false,
+      promoActive: _noyoPromoActive(),
+    };
 
-  const month = _billingMonth();
+  // Activation timestamp — written when plan first set. If missing on a
+  // pre-existing profile, infer it from planActiveSince (calendar month
+  // string) by treating the 1st of that month as activation. This keeps
+  // legacy profiles working without breaking their counter.
+  let planActivatedAt = parseInt(profile.planActivatedAt || 0, 10);
+  if (!planActivatedAt) {
+    if (profile.planActiveSince && /^\d{4}-\d{2}$/.test(profile.planActiveSince)) {
+      const [y, m] = profile.planActiveSince.split("-").map(Number);
+      planActivatedAt = new Date(y, m - 1, 1).getTime();
+    } else {
+      planActivatedAt = Date.now();
+    }
+    // Fire-and-forget save so we don't recompute next time
+    _fbSaveRentalProfile(currentUser.uid, { planActivatedAt }).catch(() => {});
+    _userProfileCache[currentUser.uid] = {
+      ..._userProfileCache[currentUser.uid],
+      planActivatedAt,
+    };
+  }
+
+  const month = _billingWindowKey(planActivatedAt);
   const storedMonth = profile.planActiveSince || "";
 
-  // Month rolled over — reset counter in Firestore (fire-and-forget)
+  // Window rolled over — reset counter in Firestore (fire-and-forget)
   let used = parseInt(profile.enquiriesUsed || 0, 10);
   if (storedMonth !== month) {
     used = 0;
@@ -181688,6 +183646,33 @@ function _rcPlan() {
     };
   }
 
+  // ── Billing cycle + expiry tracking ───────────────────────────────────
+  // PAYG has no expiry (no subscription life — they pay per unlock).
+  // Standard/Pro have 30-day (monthly) or 365-day (annual) expiry from
+  // activation. After expiry, hybrid renewal applies: monthly auto-renews,
+  // annual prompts for manual confirmation. UI exposes daysLeft for both.
+  const billingCycle = profile.billingCycle || "monthly";
+  let planExpiresAt = parseInt(profile.planExpiresAt || 0, 10);
+  if (!planExpiresAt && !cfg.payg) {
+    // Backfill — happens once for v113 users with no expiry yet
+    planExpiresAt = _planExpiryFromActivation(planActivatedAt, billingCycle);
+    _fbSaveRentalProfile(currentUser.uid, {
+      planExpiresAt,
+      billingCycle,
+    }).catch(() => {});
+    _userProfileCache[currentUser.uid] = {
+      ..._userProfileCache[currentUser.uid],
+      planExpiresAt,
+      billingCycle,
+    };
+  }
+  const daysLeft = cfg.payg ? null : _daysUntil(planExpiresAt);
+  const expired = !cfg.payg && daysLeft !== null && daysLeft < 0;
+  // Show renewal CTA in last 7 days OR after expiry. Annual subs surface
+  // sooner because the renewal ask is a bigger commitment.
+  const renewWindowDays = billingCycle === "annual" ? 14 : 7;
+  const needsRenewal = !cfg.payg && (expired || (daysLeft !== null && daysLeft <= renewWindowDays));
+
   const included = cfg.included;
   const remaining = Math.max(0, included - used);
   return {
@@ -181699,6 +183684,15 @@ function _rcPlan() {
     remaining,
     month,
     hasSubscription: true,
+    planActivatedAt,
+    windowEnd: _billingWindowEndLabel(planActivatedAt),
+    promoActive: _noyoPromoActive(),
+    billingCycle,
+    planExpiresAt,
+    planExpiresLabel: _planExpiryLabel(planExpiresAt),
+    daysLeft,
+    expired,
+    needsRenewal,
   };
 }
 
@@ -181753,36 +183747,57 @@ function openBuyLeadModal(reqId) {
   } else if (p.remaining > 0) {
     // Has quota — free unlock from plan
     inner.innerHTML = `
-      <h3 style="margin-bottom:.3rem">🔓 Unlock Enquiry</h3>
-      <p style="color:#64748B;font-size:.85rem;margin-bottom:1rem">This will use <strong>1 of your ${p.remaining} remaining</strong> enquiries this month.</p>
+      <h3 style="margin-bottom:.3rem">📞 Contact this customer</h3>
+      <p style="color:#64748B;font-size:.85rem;margin-bottom:1rem">This will use <strong>1 of your ${p.remaining} remaining</strong> enquiries this cycle. The customer's contact details will then be visible to you.</p>
       <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;font-size:.88rem">${previewHtml}</div>
       <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.65rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem">
         <span style="font-size:1.3rem">📦</span>
         <div>
           <div style="font-weight:800;color:#15803D;font-size:.9rem">${p.cfg.label} Plan — ${p.remaining} enquir${p.remaining === 1 ? "y" : "ies"} remaining</div>
-          <div style="font-size:.76rem;color:#16A34A">No extra charge — included in your $${p.cfg.price}/month plan</div>
+          <div style="font-size:.76rem;color:#16A34A">No extra charge — included in your ${p.billingCycle === "annual" ? "annual" : "$" + p.cfg.price + "/mo"} plan</div>
         </div>
       </div>
       <div class="modal-acts">
         <button class="btn-cancel" onclick="closeBuyLeadModal()">Cancel</button>
-        <button class="btn-submit" onclick="confirmUnlockLead(false)">Use 1 Enquiry &amp; Reveal Contact →</button>
+        <button class="btn-submit" onclick="confirmUnlockLead(false)">Use 1 enquiry — Continue →</button>
       </div>`;
   } else {
-    // Quota exhausted — offer extra at per-enquiry rate
+    // Quota exhausted — offer extra at per-enquiry rate.
+    // During the launch promo, the same button silently unlocks (no Stripe).
+    // PAYG users land here on every unlock (since they have included: 0).
+    const _promo = _noyoPromoActive();
+    const _isPayg = !!(p.cfg && p.cfg.payg);
+    const _promoBanner = _promo
+      ? `<div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:10px;padding:.65rem 1rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.7rem">
+          <span style="font-size:1.3rem">🎁</span>
+          <div>
+            <div style="font-weight:800;color:#15803D;font-size:.92rem">Free during launch promo</div>
+            <div style="font-size:.76rem;color:#16A34A">${_isPayg ? "No charge" : "Extra enquiries are free"} until ${_noyoPromoEndDateLabel()}. After that, $${p.extraPrice} ${_isPayg ? "per enquiry" : "per extra"} applies.</div>
+          </div>
+        </div>`
+      : `<div style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:10px;padding:.75rem 1rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem">
+          <span style="font-size:1.4rem">💳</span>
+          <div>
+            <div style="font-weight:800;color:#92400E;font-size:.95rem">$${p.extraPrice} for this enquiry</div>
+            <div style="font-size:.76rem;color:#B45309">One-time charge via Stripe.${_isPayg ? " Upgrade to Standard for 5 free enquiries every 30 days at $99/mo." : " Or upgrade your plan for cheaper extras."}</div>
+          </div>
+        </div>`;
+    const _btnLabel = _promo
+      ? `🎁 Continue (Promo — Free) →`
+      : `Pay $${p.extraPrice} — Continue →`;
+    const _heading = "📞 Contact this customer";
+    const _subline = _isPayg
+      ? `You're on Pay-as-you-go — ${_promo ? "free during launch" : "$" + p.extraPrice + " per enquiry"}. The customer's contact details will become visible after you confirm.`
+      : `All ${p.included} included enquiries for this 30-day cycle have been used. Quota refreshes ${p.windowEnd ? "on " + p.windowEnd : "in your next billing window"}.`;
     inner.innerHTML = `
-      <h3 style="margin-bottom:.3rem">📭 Monthly Quota Used</h3>
-      <p style="color:#64748B;font-size:.85rem;margin-bottom:1rem">All ${p.included} included enquiries for ${p.month} have been used. Purchase an extra enquiry or upgrade your plan.</p>
+      <h3 style="margin-bottom:.3rem">${_heading}</h3>
+      <p style="color:#64748B;font-size:.85rem;margin-bottom:1rem">${_subline}</p>
       <div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;font-size:.88rem">${previewHtml}</div>
-      <div style="background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:10px;padding:.75rem 1rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem">
-        <span style="font-size:1.4rem">💳</span>
-        <div>
-          <div style="font-weight:800;color:#92400E;font-size:.95rem">Extra enquiry — $${p.extraPrice}</div>
-          <div style="font-size:.76rem;color:#B45309">One-time charge via Stripe. Or upgrade your plan for a lower per-enquiry rate.</div>
-        </div>
-      </div>
+      ${_promoBanner}
       <div class="modal-acts" style="flex-direction:column;gap:.45rem">
-        <button class="btn-submit" onclick="confirmUnlockLead(true)" style="width:100%">Pay $${p.extraPrice} &amp; Reveal Contact →</button>
-        <button onclick="closeBuyLeadModal();openSubscribeModal()" style="width:100%;background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:9px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Upgrade Plan</button>
+        <button class="btn-submit" onclick="confirmUnlockLead(true)" style="width:100%">${_btnLabel}</button>
+        ${_isPayg ? "" : `<button onclick="closeBuyLeadModal();openSubscribeModal()" style="width:100%;background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:9px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Upgrade Plan</button>`}
+        ${_isPayg ? `<button onclick="closeBuyLeadModal();openSubscribeModal()" style="width:100%;background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:9px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">Upgrade for cheaper rates →</button>` : ""}
         <button class="btn-cancel" onclick="closeBuyLeadModal()" style="width:100%">Cancel</button>
       </div>`;
   }
@@ -181808,6 +183823,41 @@ async function confirmUnlockLead(isExtra) {
   const p = _rcPlan();
 
   if (isExtra) {
+    // ── During launch promo, skip Stripe entirely and unlock for free ─────
+    if (_noyoPromoActive()) {
+      const userEmail = currentUser ? currentUser.email : "staff";
+      if (!req.leadsPurchased) req.leadsPurchased = [];
+      if (!req.leadsPurchased.includes(userEmail))
+        req.leadsPurchased.push(userEmail);
+      // Tag the request so admin can later see how many extras were
+      // unlocked during the promo (helps when forecasting post-promo revenue)
+      try {
+        req.promoUnlocks = (req.promoUnlocks || 0) + 1;
+      } catch (e) {}
+      saveInbox();
+      // Promo extras do NOT decrement the monthly quota — they're truly extra
+      _revealLeadInModal(req);
+      renderQuoteInbox();
+      // Track the reveal — same audit trail as direct revealContactDetails
+      _trackContactReveal("rental", req.id, req.customer || "");
+      try {
+        if (adminData && Array.isArray(adminData.quoteEvents)) {
+          adminData.quoteEvents.push({
+            type: "promo_extra_unlock",
+            ts: Date.now(),
+            quoteId: req.id,
+            company: currentUser ? currentUser.name : "anon",
+            viewerEmail: currentUser ? currentUser.email : "anon",
+          });
+        }
+      } catch (e) {}
+      showToast(
+        `🎁 Contact opened — free during launch promo (until ${_noyoPromoEndDateLabel()})`,
+        "#16A34A",
+      );
+      return;
+    }
+
     // ── Stripe Checkout for one extra enquiry ─────────────────────────
     if (!p || !p.cfg) {
       showToast("Plan not found — cannot charge.", "#EF4444");
@@ -181849,9 +183899,11 @@ async function confirmUnlockLead(isExtra) {
 
   _revealLeadInModal(req);
   renderQuoteInbox();
+  // Track the reveal — same audit trail as direct revealContactDetails
+  _trackContactReveal("rental", req.id, req.customer || "");
   const p2 = _rcPlan();
   showToast(
-    `🔓 Enquiry unlocked — ${p2 ? p2.remaining + " remaining this month" : ""}`,
+    `📞 Contact opened — ${p2 ? p2.remaining + " enquir" + (p2.remaining === 1 ? "y" : "ies") + " remaining this cycle" : ""}`,
     "#16A34A",
   );
 }
@@ -181868,8 +183920,10 @@ async function _stripeUnlockOnReturn(reqId) {
     // Extra enquiry does NOT decrement the monthly quota
   }
   renderQuoteInbox();
+  // Track the reveal — same audit trail as direct revealContactDetails
+  _trackContactReveal("rental", req.id, req.customer || "");
   showToast(
-    "🔓 Extra enquiry unlocked via Stripe — contact details now visible.",
+    "📞 Contact opened — payment confirmed.",
     "#16A34A",
   );
 }
@@ -181884,9 +183938,9 @@ function _revealLeadInModal(req) {
     ?.querySelector(".modal");
   if (!inner) return;
   inner.innerHTML = `
-    <h3 style="margin-bottom:.3rem">✅ Enquiry Unlocked</h3>
+    <h3 style="margin-bottom:.3rem">📞 Contact this customer</h3>
     <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem">
-      <div style="font-weight:800;color:#15803D;font-size:.9rem;margin-bottom:.5rem">Customer Contact Details</div>
+      <div style="font-weight:800;color:#15803D;font-size:.9rem;margin-bottom:.5rem">${req.customer || "Customer"}</div>
       <div class="lead-reveal-row"><span class="lead-reveal-icon">👤</span><span class="lead-reveal-label">Customer</span><span class="lead-reveal-value">${req.customer || "—"}</span></div>
       ${req.company && req.company !== "—" ? `<div class="lead-reveal-row"><span class="lead-reveal-icon">🏢</span><span class="lead-reveal-label">Company</span><span class="lead-reveal-value">${req.company}</span></div>` : ""}
       <div class="lead-reveal-row"><span class="lead-reveal-icon">📧</span><span class="lead-reveal-label">Email</span><span class="lead-reveal-value"><a href="mailto:${req.email || ""}" style="color:#0052CC;font-weight:700">${req.email || "—"}</a></span></div>
@@ -181905,65 +183959,198 @@ function _revealLeadInModal(req) {
 // SUBSCRIPTION — plan selection modal + Stripe portal
 // =====================================================================
 
+// Subscribe modal — three plans + monthly/annual toggle (annual = 20% off
+// for Standard/Pro). Toggle state lives on window._subModalCycle so re-renders
+// after toggle clicks pick up the new cycle without re-opening the modal.
+window._subModalCycle = "monthly";
+
 function openSubscribeModal() {
   const modal = document.getElementById("subscribe-modal");
   if (!modal) return;
   const p = _rcPlan();
   const currentPlan = p ? p.plan : null;
+  const currentCycle = p ? p.billingCycle : null;
+  // Initialise toggle state: if user is already on annual, default to annual view
+  if (currentCycle === "annual") window._subModalCycle = "annual";
 
-  const planCard = (key) => {
-    const c = NOYO_PLANS[key];
-    const isCurrent = key === currentPlan;
-    return `
-      <div style="flex:1;min-width:200px;background:${isCurrent ? c.badge : "#fff"};border:2px solid ${isCurrent ? c.color : "#E2E8F0"};border-radius:14px;padding:1.1rem 1rem;text-align:center;position:relative">
-        ${c.popular ? '<div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#0052CC;color:#fff;font-size:.68rem;font-weight:900;padding:.2rem .7rem;border-radius:20px;white-space:nowrap">⭐ MOST POPULAR</div>' : ""}
-        ${isCurrent ? '<div style="position:absolute;top:-11px;right:.8rem;background:#16A34A;color:#fff;font-size:.68rem;font-weight:900;padding:.2rem .7rem;border-radius:20px">✓ CURRENT</div>' : ""}
-        <div style="font-weight:900;font-size:1rem;color:${c.color};margin-bottom:.3rem">${c.label}</div>
-        <div style="font-size:1.8rem;font-weight:900;color:#0F172A">$${c.price}<span style="font-size:.8rem;font-weight:600;color:#64748B">/mo</span></div>
-        <div style="font-size:.8rem;color:#475569;margin:.5rem 0 .3rem"><strong>${c.included}</strong> enquiries included</div>
-        <div style="font-size:.75rem;color:#64748B;margin-bottom:.9rem">Extra: $${c.extraPrice} each</div>
-        ${
-          isCurrent
-            ? `<button onclick="openStripePortal()" style="width:100%;background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:9px;padding:.5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.83rem;cursor:pointer">Manage Subscription</button>`
-            : `<button onclick="redirectToStripeSubscribe('${key}')" style="width:100%;background:${c.color};color:#fff;border:none;border-radius:9px;padding:.5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.83rem;cursor:pointer">${currentPlan ? "Switch to " + c.label : "Subscribe"} →</button>`
-        }
+  const renderModalContent = () => {
+    const cycle = window._subModalCycle || "monthly";
+
+    const planCard = (key) => {
+      const c = NOYO_PLANS[key];
+      const isCurrent = key === currentPlan && (cycle === currentCycle || (currentCycle === undefined && cycle === "monthly"));
+      const isPayg = !!c.payg;
+      const showAnnual = cycle === "annual" && c.annualEligible;
+      // Hide PAYG card entirely when user is viewing annual cycle (PAYG has no annual option)
+      if (cycle === "annual" && !c.annualEligible) return "";
+
+      const includedLine = isPayg
+        ? `<div style="font-size:.8rem;color:#475569;margin:.5rem 0 .3rem"><strong>No commitment</strong></div>`
+        : `<div style="font-size:.8rem;color:#475569;margin:.5rem 0 .3rem"><strong>${c.included}</strong> free enquir${c.included === 1 ? "y" : "ies"}<span style="color:#94A3B8;font-weight:600"> every 30 days</span></div>`;
+      const extraLine = isPayg
+        ? `<div style="font-size:.75rem;color:#64748B;margin-bottom:.9rem">$${c.extraPrice} per enquiry</div>`
+        : `<div style="font-size:.75rem;color:#64748B;margin-bottom:.9rem">Then $${c.extraPrice} each after the first ${c.included}</div>`;
+
+      let priceMain;
+      if (isPayg) {
+        priceMain = `<div style="font-size:1.8rem;font-weight:900;color:#0F172A">$${c.price}<span style="font-size:.8rem;font-weight:600;color:#64748B">/mo</span></div>
+           <div style="font-size:.7rem;color:#94A3B8;font-weight:600;margin-top:-.2rem">free to join</div>`;
+      } else if (showAnnual) {
+        const monthlyEq = (c.annualPrice / 12).toFixed(2);
+        const savings = c.price * 12 - c.annualPrice;
+        priceMain = `<div style="font-size:1.8rem;font-weight:900;color:#0F172A">$${c.annualPrice}<span style="font-size:.8rem;font-weight:600;color:#64748B">/yr</span></div>
+           <div style="font-size:.72rem;color:#16A34A;font-weight:700;margin-top:-.1rem">≈ $${monthlyEq}/mo · save $${savings}/yr</div>`;
+      } else {
+        priceMain = `<div style="font-size:1.8rem;font-weight:900;color:#0F172A">$${c.price}<span style="font-size:.8rem;font-weight:600;color:#64748B">/mo</span></div>`;
+      }
+
+      // Button label depends on whether this is current plan/cycle, switching, or fresh subscribe
+      const isAnnualUpgrade = cycle === "annual" && !isPayg;
+      let btnLabel;
+      if (isCurrent) btnLabel = null; // Manage button rendered instead
+      else if (currentPlan) btnLabel = `Switch to ${c.label}${isAnnualUpgrade ? " (annual)" : ""}`;
+      else if (isPayg) btnLabel = "Start free";
+      else btnLabel = isAnnualUpgrade ? "Subscribe (annual)" : "Subscribe";
+
+      // Border colour: Pro shows its gold accent permanently for premium feel;
+      // others use neutral border when not current, plan colour when current.
+      const _defaultBorder = c.accentColor && c.accentColor !== c.color ? c.accentColor : "#E2E8F0";
+      const borderColor = isCurrent ? c.color : _defaultBorder;
+      return `
+        <div style="flex:1;min-width:170px;background:${isCurrent ? c.badge : "#fff"};border:2px solid ${borderColor};border-radius:14px;padding:1.1rem 1rem;text-align:center;position:relative">
+          ${c.popular ? '<div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#0052CC;color:#fff;font-size:.68rem;font-weight:900;padding:.2rem .7rem;border-radius:20px;white-space:nowrap">⭐ MOST POPULAR</div>' : ""}
+          ${isCurrent ? '<div style="position:absolute;top:-11px;right:.8rem;background:#16A34A;color:#fff;font-size:.68rem;font-weight:900;padding:.2rem .7rem;border-radius:20px">✓ CURRENT</div>' : ""}
+          <div style="font-weight:900;font-size:1rem;color:${c.accentColor || c.color};margin-bottom:.3rem">${c.label}</div>
+          ${priceMain}
+          ${includedLine}
+          ${extraLine}
+          ${
+            isCurrent
+              ? `<button onclick="openStripePortal()" style="width:100%;background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:9px;padding:.5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.83rem;cursor:pointer">Manage Subscription</button>`
+              : `<button onclick="redirectToStripeSubscribe('${key}','${isPayg ? "monthly" : cycle}')" style="width:100%;background:${c.color};color:${c.buttonTextColor || "#fff"};border:none;border-radius:9px;padding:.5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.83rem;cursor:pointer">${btnLabel} →</button>`
+          }
+        </div>`;
+    };
+
+    // Promo banner
+    const _promoBannerHtml = _noyoPromoActive()
+      ? `<div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid #86EFAC;border-radius:12px;padding:.85rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem">
+          <span style="font-size:1.4rem">🎁</span>
+          <div>
+            <div style="font-weight:800;color:#15803D;font-size:.95rem">Free during launch promo</div>
+            <div style="font-size:.78rem;color:#16A34A">Pick a plan now to lock in your prices. No charges until ${_noyoPromoEndDateLabel()} — included enquiries and extras are all free during the promo.</div>
+          </div>
+        </div>`
+      : "";
+
+    // Monthly/annual toggle pill
+    const cycleToggle = `
+      <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1rem">
+        <div style="display:inline-flex;background:#F1F5F9;border:1.5px solid #E2E8F0;border-radius:99px;padding:.18rem;gap:.1rem">
+          <button onclick="window._subModalCycle='monthly';openSubscribeModal()"
+            style="background:${cycle === "monthly" ? "#fff" : "transparent"};color:${cycle === "monthly" ? "#0F172A" : "#64748B"};border:none;border-radius:99px;padding:.4rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer;${cycle === "monthly" ? "box-shadow:0 1px 3px rgba(0,0,0,.08);" : ""}">Monthly</button>
+          <button onclick="window._subModalCycle='annual';openSubscribeModal()"
+            style="background:${cycle === "annual" ? "#fff" : "transparent"};color:${cycle === "annual" ? "#0F172A" : "#64748B"};border:none;border-radius:99px;padding:.4rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer;display:flex;align-items:center;gap:.35rem;${cycle === "annual" ? "box-shadow:0 1px 3px rgba(0,0,0,.08);" : ""}">Annual <span style="background:#16A34A;color:#fff;font-size:.65rem;font-weight:900;padding:.1rem .4rem;border-radius:20px">−20%</span></button>
+        </div>
+      </div>`;
+
+    const cycleHint = cycle === "annual"
+      ? `<p style="color:#64748B;font-size:.8rem;margin:0 0 1rem;text-align:center">Pay 12 months upfront and save 20% on Standard or Pro. Pay-as-you-go isn't available annually. Prorated refund on cancellation.</p>`
+      : `<p style="color:#64748B;font-size:.84rem;margin-bottom:1.2rem;text-align:center">Each plan's quota refreshes every 30 days from your activation date. Unused enquiries don't carry over. Cancel anytime.</p>`;
+
+    modal.querySelector(".modal").innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem">
+        <h3 style="margin:0">📦 Noyo Plans for Rental Companies</h3>
+        <button onclick="document.getElementById('subscribe-modal').classList.remove('open')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8">✕</button>
+      </div>
+      ${cycleToggle}
+      ${cycleHint}
+      ${_promoBannerHtml}
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.2rem;justify-content:center">
+        ${planCard("payg")}${planCard("standard")}${planCard("pro")}
+      </div>
+      <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:.7rem 1rem;font-size:.78rem;color:#64748B;line-height:1.6">
+        💳 Payments processed securely by Stripe. Your card is not stored on Noyo servers.<br>
+        ${cycle === "annual" ? "Annual subscriptions charged once per year. Prorated refund available on cancellation." : "Monthly subscriptions auto-renew on the same date each 30-day cycle. Cancel from your Stripe Customer Portal at any time."}
       </div>`;
   };
 
-  modal.querySelector(".modal").innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem">
-      <h3 style="margin:0">📦 Noyo Plans for Rental Companies</h3>
-      <button onclick="document.getElementById('subscribe-modal').classList.remove('open')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#94A3B8">✕</button>
-    </div>
-    <p style="color:#64748B;font-size:.84rem;margin-bottom:1.2rem">Enquiries roll monthly — unused enquiries don't carry over. Cancel anytime.</p>
-    <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1.2rem">
-      ${planCard("starter")}${planCard("growth")}${planCard("pro")}
-    </div>
-    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:.7rem 1rem;font-size:.78rem;color:#64748B;line-height:1.6">
-      💳 Payments processed securely by Stripe. Your card is not stored on Noyo servers.<br>
-      Subscriptions renew on the same date each month. Cancel from your Stripe Customer Portal at any time.
-    </div>`;
-
+  renderModalContent();
   modal.classList.add("open");
 }
 
-function redirectToStripeSubscribe(planKey) {
+function redirectToStripeSubscribe(planKey, cycle) {
   const cfg = NOYO_PLANS[planKey];
   if (!cfg) return;
+  // Default monthly; PAYG ignores cycle entirely (no subscription).
+  const billingCycle = cfg.payg ? "monthly" : (cycle === "annual" ? "annual" : "monthly");
+  if (billingCycle === "annual" && !cfg.annualEligible) {
+    showToast("Annual billing isn't available for this plan.", "#EF4444");
+    return;
+  }
+
+  // ── During launch promo, skip Stripe and activate the plan locally ────
+  // The user gets the plan straight away with no card on file. When the
+  // promo ends, they'll be prompted to add payment via the Manage button.
+  if (_noyoPromoActive()) {
+    if (!currentUser || !currentUser.uid) {
+      showToast("Please log in first.", "#EF4444");
+      return;
+    }
+    const now = Date.now();
+    const monthKey = _billingWindowKey(now);
+    const planExpiresAt = cfg.payg ? 0 : _planExpiryFromActivation(now, billingCycle);
+    _fbSaveRentalProfile(currentUser.uid, {
+      plan: planKey,
+      billingCycle,
+      planActiveSince: monthKey,
+      planActivatedAt: now,
+      planExpiresAt,
+      enquiriesUsed: 0,
+    });
+    _userProfileCache[currentUser.uid] = {
+      ..._userProfileCache[currentUser.uid],
+      plan: planKey,
+      billingCycle,
+      planActiveSince: monthKey,
+      planActivatedAt: now,
+      planExpiresAt,
+      enquiriesUsed: 0,
+    };
+    document.getElementById("subscribe-modal")?.classList.remove("open");
+    const cycleLabel = billingCycle === "annual" ? " (annual)" : "";
+    showToast(
+      `🎉 ${cfg.label}${cycleLabel} activated — ${cfg.payg ? "free to join" : cfg.included + " enquiries ready"}! Free until ${_noyoPromoEndDateLabel()}.`,
+      "#16A34A",
+    );
+    try {
+      renderQuoteInbox();
+    } catch (e) {}
+    return;
+  }
+
+  // ── Post-promo path: real Stripe Checkout subscription ─────────────────
   if (typeof Stripe === "undefined") {
     showToast("Stripe not loaded — check your connection.", "#EF4444");
+    return;
+  }
+  const priceId = billingCycle === "annual" ? cfg.stripePriceIdAnnual : cfg.stripePriceId;
+  if (!priceId) {
+    showToast("This plan can't be subscribed to right now.", "#EF4444");
     return;
   }
   const stripe = Stripe(STRIPE_PK);
   stripe
     .redirectToCheckout({
-      lineItems: [{ price: cfg.stripePriceId, quantity: 1 }],
+      lineItems: [{ price: priceId, quantity: 1 }],
       mode: "subscription",
       successUrl:
         window.location.origin +
         window.location.pathname +
         "?subscribed=" +
-        planKey,
+        planKey +
+        "&cycle=" +
+        billingCycle,
       cancelUrl: window.location.href,
       clientReferenceId: currentUser ? currentUser.uid : undefined,
     })
@@ -182018,24 +184205,36 @@ function openExtraEnquiryModal() {
 
   if (subscribedPlan && NOYO_PLANS[subscribedPlan]) {
     history.replaceState({}, "", window.location.pathname);
+    const cycleParam = params.get("cycle");
+    const billingCycle = cycleParam === "annual" ? "annual" : "monthly";
     // Wait for auth, then save plan to profile
     const _tryPlan = setInterval(() => {
       if (currentUser && currentUser.uid) {
         clearInterval(_tryPlan);
-        const month = _billingMonth();
+        const now = Date.now();
+        const monthKey = _billingWindowKey(now);
+        const cfg = NOYO_PLANS[subscribedPlan];
+        const planExpiresAt = cfg.payg ? 0 : _planExpiryFromActivation(now, billingCycle);
         _fbSaveRentalProfile(currentUser.uid, {
           plan: subscribedPlan,
-          planActiveSince: month,
+          billingCycle,
+          planActiveSince: monthKey,
+          planActivatedAt: now,
+          planExpiresAt,
           enquiriesUsed: 0,
         });
         _userProfileCache[currentUser.uid] = {
           ..._userProfileCache[currentUser.uid],
           plan: subscribedPlan,
-          planActiveSince: month,
+          billingCycle,
+          planActiveSince: monthKey,
+          planActivatedAt: now,
+          planExpiresAt,
           enquiriesUsed: 0,
         };
+        const cycleLabel = billingCycle === "annual" ? " (annual)" : "";
         showToast(
-          `🎉 ${NOYO_PLANS[subscribedPlan].label} plan activated — ${NOYO_PLANS[subscribedPlan].included} enquiries ready!`,
+          `🎉 ${cfg.label}${cycleLabel} activated — ${cfg.payg ? "free to join" : cfg.included + " enquiries ready"}!`,
           "#16A34A",
         );
         renderQuoteInbox();
@@ -182697,53 +184896,65 @@ function markQrResponded(reqId) {
 // ═══════════════════════════════════════════════════════════════
 
 // ── Auth persistence: restore session on page reload ─────────
-_fbAuth.onAuthStateChanged(async (fbUser) => {
-  if (fbUser && !currentUser) {
-    // User is signed in but app state was reset (page refresh)
-    try {
-      const profile = await _fbLoadUserProfile(fbUser.uid);
-      const role = profile.role || "customer";
-      const name = profile.fullName || fbUser.email.split("@")[0];
+// Wrapped in try/catch + typeof guard so a missing/failed firebase-bridge.js
+// (e.g. CDN blocked, network outage) cannot throw a top-level ReferenceError
+// that halts the rest of app.js — every line below this used to silently fail
+// to register, breaking buttons, modals, ratings, user management, etc.
+try {
+  if (typeof _fbAuth !== "undefined" && _fbAuth && typeof _fbAuth.onAuthStateChanged === "function") {
+    _fbAuth.onAuthStateChanged(async (fbUser) => {
+      if (fbUser && !currentUser) {
+        // User is signed in but app state was reset (page refresh)
+        try {
+          const profile = await _fbLoadUserProfile(fbUser.uid);
+          const role = profile.role || "customer";
+          const name = profile.fullName || fbUser.email.split("@")[0];
 
-      if (["rental", "staff", "manager", "admin"].includes(role)) {
-        const rp = await _fbLoadRentalProfile(fbUser.uid);
-        if (rp) {
-          _userProfileCache[fbUser.uid] = {
-            ..._userProfileCache[fbUser.uid],
-            ...rp,
-          };
-          const rcEntry = {
-            id: fbUser.uid,
-            name: rp.companyName || name,
-            email: fbUser.email,
-            phone: rp.phone || "",
-            address: rp.address || "",
-            baseCity: rp.city || "",
-            serviceRadiusKm: rp.serviceRadiusKm || 75,
-            cities: [rp.city || ""],
-            sectors: rp.sectors || [],
-            machines: (rp.sectors || []).join(", "),
-            active: rp.active !== false,
-            ruralOptIn: rp.ruralOptIn || false,
-            ruralRadiusKm: rp.ruralRadiusKm || 0,
-          };
-          const existIdx = RENTAL_COMPANIES.findIndex(
-            (c) => c.email === fbUser.email,
-          );
-          if (existIdx > -1)
-            RENTAL_COMPANIES[existIdx] = {
-              ...RENTAL_COMPANIES[existIdx],
-              ...rcEntry,
-            };
-          else RENTAL_COMPANIES.push(rcEntry);
+          if (["rental", "staff", "manager", "admin"].includes(role)) {
+            const rp = await _fbLoadRentalProfile(fbUser.uid);
+            if (rp) {
+              _userProfileCache[fbUser.uid] = {
+                ..._userProfileCache[fbUser.uid],
+                ...rp,
+              };
+              const rcEntry = {
+                id: fbUser.uid,
+                name: rp.companyName || name,
+                email: fbUser.email,
+                phone: rp.phone || "",
+                address: rp.address || "",
+                baseCity: rp.city || "",
+                serviceRadiusKm: rp.serviceRadiusKm || 75,
+                cities: [rp.city || ""],
+                sectors: rp.sectors || [],
+                machines: (rp.sectors || []).join(", "),
+                active: rp.active !== false,
+                ruralOptIn: rp.ruralOptIn || false,
+                ruralRadiusKm: rp.ruralRadiusKm || 0,
+              };
+              const existIdx = RENTAL_COMPANIES.findIndex(
+                (c) => c.email === fbUser.email,
+              );
+              if (existIdx > -1)
+                RENTAL_COMPANIES[existIdx] = {
+                  ...RENTAL_COMPANIES[existIdx],
+                  ...rcEntry,
+                };
+              else RENTAL_COMPANIES.push(rcEntry);
+            }
+          }
+          loginSuccess({ name, role, email: fbUser.email, uid: fbUser.uid });
+        } catch (e) {
+          console.warn("Auth state restore failed:", e.message);
         }
       }
-      loginSuccess({ name, role, email: fbUser.email, uid: fbUser.uid });
-    } catch (e) {
-      console.warn("Auth state restore failed:", e.message);
-    }
+    });
+  } else {
+    console.warn("Firebase auth bridge not available — auth persistence disabled, but UI should still function.");
   }
-});
+} catch (e) {
+  console.error("Firebase auth listener registration failed:", e && e.message ? e.message : e);
+}
 
 // Show Firebase status after page loads
 window.addEventListener("load", () => {
