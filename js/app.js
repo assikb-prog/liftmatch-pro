@@ -160719,8 +160719,16 @@ async function submitQuoteRequest() {
     console.log("[Noyo] ✅ shared_enquiries write OK for", req.id);
     // ─── Noyo email: notify customer their enquiry was received ───
     try {
-      if (window.NoyoEmail && req && req.email) {
-        window.NoyoEmail.emailQuoteRequestReceived(req);
+      if (window.NoyoEmail && req) {
+        // Fall back to currentUser.email if req.email is missing
+        const _toEmail = req.email || (currentUser && currentUser.email) || null;
+        if (_toEmail) {
+          // Make sure req has the email field for the template
+          if (!req.email) req.email = _toEmail;
+          window.NoyoEmail.emailQuoteRequestReceived(req);
+        } else {
+          console.warn("[Noyo email] No email available — skipping customer notify for", req.id);
+        }
       }
     } catch (_emailErr) {
       console.warn("[Noyo email] customer notify failed:", _emailErr);
