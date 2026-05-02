@@ -160717,6 +160717,14 @@ async function submitQuoteRequest() {
     await _fbDb.collection("shared_enquiries").doc(req.id).set(_cleanReq);
     _seWriteOk = true;
     console.log("[Noyo] ✅ shared_enquiries write OK for", req.id);
+    // ─── Noyo email: notify customer their enquiry was received ───
+    try {
+      if (window.NoyoEmail && req && req.email) {
+        window.NoyoEmail.emailQuoteRequestReceived(req);
+      }
+    } catch (_emailErr) {
+      console.warn("[Noyo email] customer notify failed:", _emailErr);
+    }
   } catch (e) {
     console.error("[Noyo] ❌ shared_enquiries write FAILED:", e.message);
     console.error(
@@ -161638,6 +161646,29 @@ function inboxAcceptQuote(reqId, responseIdx) {
   req.responded = true;
   saveInbox();
   saveQuoteToFirebase(req);
+  // ─── Noyo email: confirm to customer + notify winning supplier ───
+  try {
+    if (window.NoyoEmail) {
+      const _winningQuote = req.responses[responseIdx];
+      window.NoyoEmail.emailQuoteAcceptedCustomer(req, _winningQuote);
+      // Look up supplier email by their fullName == acceptedCompany
+      _fbDb.collection("users")
+        .where("fullName", "==", acceptedCompany).limit(1).get()
+        .then((_uSnap) => {
+          if (!_uSnap.empty) {
+            const _u = _uSnap.docs[0].data();
+            if (_u && _u.email) {
+              window.NoyoEmail.emailQuoteAcceptedSupplier(
+                req, _winningQuote, _u.email, _u.fullName || acceptedCompany
+              );
+            }
+          }
+        })
+        .catch((_e) => console.warn("[Noyo email] supplier lookup failed:", _e));
+    }
+  } catch (_emailErr) {
+    console.warn("[Noyo email] accept-quote notify failed:", _emailErr);
+  }
   renderQuoteInbox();
   renderMyQuotes();
   showToast(
@@ -166985,6 +167016,28 @@ function qdmConfirmAccept(reqId, responseIdx) {
   req.acceptedAt = Date.now();
   saveInbox();
   saveQuoteToFirebase(req);
+  // ─── Noyo email: confirm to customer + notify winning supplier ───
+  try {
+    if (window.NoyoEmail) {
+      const _winningQuote = req.responses[responseIdx];
+      window.NoyoEmail.emailQuoteAcceptedCustomer(req, _winningQuote);
+      _fbDb.collection("users")
+        .where("fullName", "==", acceptedCompany).limit(1).get()
+        .then((_uSnap) => {
+          if (!_uSnap.empty) {
+            const _u = _uSnap.docs[0].data();
+            if (_u && _u.email) {
+              window.NoyoEmail.emailQuoteAcceptedSupplier(
+                req, _winningQuote, _u.email, _u.fullName || acceptedCompany
+              );
+            }
+          }
+        })
+        .catch((_e) => console.warn("[Noyo email] supplier lookup failed:", _e));
+    }
+  } catch (_emailErr) {
+    console.warn("[Noyo email] accept-quote notify failed:", _emailErr);
+  }
   renderMyQuotes();
   renderQuoteInbox();
   openQuoteDetailModal(reqId);
