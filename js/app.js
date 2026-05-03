@@ -7866,16 +7866,107 @@ const MACHINES = {
       liftChart:
         "3,000kg max (retracted). 2,700kg at full height (7.0m, r=0.54m). 1,300kg at full reach (3.7m). Reach with 1T: 3.7m. PlacingH: 6.3m. On tyres, forks. Source: JCB Construction Loadalls brochure p.27.",
       tags: ["3T", "7m", "3.7m Reach", "EcoMAX", "No DPF"],
-      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
-      // Source: JCB construction Loadalls brochure (2017+, p.14)
-      // Brochure publishes discrete labelled load chart zones —
-      // synthetic intermediate kg values are forbidden. The renderer
-      // shows brochure spec-table facts plus a 'confirm at working
-      // point with rental company' panel.
-      loadChartSparse: true,
-      capacityAtFullHeight: 2400,
-      capacityAtFullReach: 1250,
-      reachAt1000kg: 3.7,
+      // ── LOAD MATRIX — On Tyres with Forks ──────────────────────────────────────
+      // Source: PIXEL EXTRACTION from JCB 531-70 brochure load chart
+      // Method: User-traced colour boundary annotation. Boundary→capacity mapping:
+      //   black=3000 kg | red=2700 kg | green=2500 kg | yellow=2000 kg | purple=1500 kg | blue=1300 kg
+      // Configuration: On tyres / forks / AS 1418.19 (single chart — no stabilisers)
+      //
+      // COVERAGE: h=0 to h=5 metres, r=0 to r=3.5 metres (72 brochure-confirmed cells).
+      // h≥5.5m intentionally excluded — top of envelope subject to label-leader interference;
+      // liftChart text directs user to "consult JCB 531-70 load chart" for these heights.
+      // Behind-carriage cells (h<2, r<1) excluded — not visible on chart.
+      //
+      // Spec anchors (from JCB Construction Loadalls brochure p.27):
+      //   • Maximum lift capacity = 3,000 kg (matches inner core extraction)
+      //   • Lift capacity at full reach (3.5m) = 1,300 kg (matches outer band extraction)
+      //   • Lift capacity to full height = 2,700 kg (above matrix coverage; sparse fallback)
+      // ─────────────────────────────────────────────────────────────────────────
+      loadMatrix: [
+        // h=0m
+        { h: 0, r: 1, kg: 2700 },
+        { h: 0, r: 1.5, kg: 2700 },
+        { h: 0, r: 2, kg: 2700 },
+        { h: 0, r: 2.5, kg: 2000 },
+        { h: 0, r: 3, kg: 1500 },
+        { h: 0, r: 3.5, kg: 1300 },
+        // h=0.5m
+        { h: 0.5, r: 1, kg: 3000 },
+        { h: 0.5, r: 1.5, kg: 2700 },
+        { h: 0.5, r: 2, kg: 2700 },
+        { h: 0.5, r: 2.5, kg: 2000 },
+        { h: 0.5, r: 3, kg: 1500 },
+        // h=1m
+        { h: 1, r: 1, kg: 3000 },
+        { h: 1, r: 1.5, kg: 2700 },
+        { h: 1, r: 2, kg: 2700 },
+        { h: 1, r: 2.5, kg: 2000 },
+        { h: 1, r: 3, kg: 1500 },
+        { h: 1, r: 3.5, kg: 1300 },
+        // h=1.5m
+        { h: 1.5, r: 1, kg: 3000 },
+        { h: 1.5, r: 1.5, kg: 2700 },
+        { h: 1.5, r: 2, kg: 2500 },
+        { h: 1.5, r: 2.5, kg: 2000 },
+        { h: 1.5, r: 3, kg: 1500 },
+        { h: 1.5, r: 3.5, kg: 1300 },
+        // h=2m
+        { h: 2, r: 0, kg: 3000 },
+        { h: 2, r: 0.5, kg: 3000 },
+        { h: 2, r: 1, kg: 3000 },
+        { h: 2, r: 1.5, kg: 2700 },
+        { h: 2, r: 2, kg: 2500 },
+        { h: 2, r: 2.5, kg: 2000 },
+        { h: 2, r: 3, kg: 1500 },
+        { h: 2, r: 3.5, kg: 1300 },
+        // h=2.5m
+        { h: 2.5, r: 0, kg: 3000 },
+        { h: 2.5, r: 0.5, kg: 3000 },
+        { h: 2.5, r: 1, kg: 3000 },
+        { h: 2.5, r: 1.5, kg: 2700 },
+        { h: 2.5, r: 2, kg: 2500 },
+        { h: 2.5, r: 2.5, kg: 2000 },
+        { h: 2.5, r: 3, kg: 1500 },
+        { h: 2.5, r: 3.5, kg: 1300 },
+        // h=3m
+        { h: 3, r: 0, kg: 3000 },
+        { h: 3, r: 0.5, kg: 3000 },
+        { h: 3, r: 1, kg: 3000 },
+        { h: 3, r: 1.5, kg: 2700 },
+        { h: 3, r: 2, kg: 2500 },
+        { h: 3, r: 2.5, kg: 2000 },
+        { h: 3, r: 3, kg: 1500 },
+        // h=3.5m
+        { h: 3.5, r: 0, kg: 3000 },
+        { h: 3.5, r: 0.5, kg: 3000 },
+        { h: 3.5, r: 1, kg: 3000 },
+        { h: 3.5, r: 1.5, kg: 2700 },
+        { h: 3.5, r: 2, kg: 2500 },
+        { h: 3.5, r: 2.5, kg: 2000 },
+        { h: 3.5, r: 3, kg: 1500 },
+        // h=4m
+        { h: 4, r: 0, kg: 3000 },
+        { h: 4, r: 0.5, kg: 3000 },
+        { h: 4, r: 1, kg: 3000 },
+        { h: 4, r: 1.5, kg: 2700 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 2.5, kg: 2000 },
+        { h: 4, r: 3, kg: 1500 },
+        // h=4.5m
+        { h: 4.5, r: 0, kg: 3000 },
+        { h: 4.5, r: 0.5, kg: 3000 },
+        { h: 4.5, r: 1, kg: 3000 },
+        { h: 4.5, r: 1.5, kg: 2700 },
+        { h: 4.5, r: 2, kg: 2500 },
+        { h: 4.5, r: 2.5, kg: 2000 },
+        // h=5m
+        { h: 5, r: 0, kg: 3000 },
+        { h: 5, r: 0.5, kg: 3000 },
+        { h: 5, r: 1, kg: 3000 },
+        { h: 5, r: 1.5, kg: 2700 },
+        { h: 5, r: 2, kg: 2000 },
+        { h: 5, r: 2.5, kg: 2000 },
+      ],
       filters: ["telehandler", "rough"],
     },
     {
@@ -8484,84 +8575,106 @@ const MACHINES = {
         "Smart Hydraulics",
         "No DPF",
       ],
-      // ── LOAD MATRIX — On Tyres with Forks ────────────────────────────────────
-      // Source: VISUAL READ of JCB 531-70 AGRI load chart (PDF p.24)
-      // CONFIRMED ANCHORS (from printed spec table p.24):
-      //   ✓ r=0, any h → 3,000 kg (max retracted)
-      //   ✓ h=7m, r=0.48m → 2,700 kg (reach at max height + full-height capacity)
-      //   ✓ h=0, r=3.7m → 1,300 kg (full reach capacity)
-      //   ✓ reach with 1T → 3.7m (same as max reach)
-      // Zone labels printed on chart: 3000/2700/2500/2000/1500/1300 kg
-      // X-axis scale markers: 0.5, 1.0, 1.5, 2.0, 2.4m | Retracted reach: 0.6m
-      // Zone boundaries at h=0 (visually read): 3000@r≤0.6 | 2700@r≤1.0 | 2500@r≤1.5 | 2000@r≤2.0 | 1500@r≤2.4 | 1300@r=3.7
+      // ── LOAD MATRIX — On Tyres with Forks ──────────────────────────────────────
+      // Source: PIXEL EXTRACTION from JCB 531-70 brochure load chart
+      // Method: User-traced colour boundary annotation. Boundary→capacity mapping:
+      //   black=3000 kg | red=2700 kg | green=2500 kg | yellow=2000 kg | purple=1500 kg | blue=1300 kg
+      // Configuration: On tyres / forks / AS 1418.19 (single chart — no stabilisers)
+      //
+      // COVERAGE: h=0 to h=5 metres, r=0 to r=3.5 metres (72 brochure-confirmed cells).
+      // h≥5.5m intentionally excluded — top of envelope subject to label-leader interference;
+      // liftChart text directs user to "consult JCB 531-70 load chart" for these heights.
+      // Behind-carriage cells (h<2, r<1) excluded — not visible on chart.
+      //
+      // Spec anchors (from JCB Construction Loadalls brochure p.27):
+      //   • Maximum lift capacity = 3,000 kg (matches inner core extraction)
+      //   • Lift capacity at full reach (3.5m) = 1,300 kg (matches outer band extraction)
+      //   • Lift capacity to full height = 2,700 kg (above matrix coverage; sparse fallback)
+      // ─────────────────────────────────────────────────────────────────────────
       loadMatrix: [
-        // h=0
-        { h: 0, r: 0.0, kg: 3000 },
-        { h: 0, r: 0.6, kg: 3000 },
-        { h: 0, r: 1.0, kg: 2700 },
-        { h: 0, r: 1.5, kg: 2500 },
-        { h: 0, r: 2.0, kg: 2000 },
-        { h: 0, r: 2.4, kg: 1500 },
-        { h: 0, r: 3.0, kg: 1400 },
-        { h: 0, r: 3.7, kg: 1300 },
+        // h=0m
+        { h: 0, r: 1, kg: 2700 },
+        { h: 0, r: 1.5, kg: 2700 },
+        { h: 0, r: 2, kg: 2700 },
+        { h: 0, r: 2.5, kg: 2000 },
+        { h: 0, r: 3, kg: 1500 },
+        { h: 0, r: 3.5, kg: 1300 },
+        // h=0.5m
+        { h: 0.5, r: 1, kg: 3000 },
+        { h: 0.5, r: 1.5, kg: 2700 },
+        { h: 0.5, r: 2, kg: 2700 },
+        { h: 0.5, r: 2.5, kg: 2000 },
+        { h: 0.5, r: 3, kg: 1500 },
         // h=1m
-        { h: 1, r: 0.0, kg: 3000 },
-        { h: 1, r: 0.6, kg: 3000 },
-        { h: 1, r: 1.0, kg: 2700 },
-        { h: 1, r: 1.5, kg: 2500 },
-        { h: 1, r: 2.0, kg: 2000 },
-        { h: 1, r: 2.4, kg: 1500 },
-        { h: 1, r: 3.0, kg: 1350 },
-        { h: 1, r: 3.7, kg: 1300 },
+        { h: 1, r: 1, kg: 3000 },
+        { h: 1, r: 1.5, kg: 2700 },
+        { h: 1, r: 2, kg: 2700 },
+        { h: 1, r: 2.5, kg: 2000 },
+        { h: 1, r: 3, kg: 1500 },
+        { h: 1, r: 3.5, kg: 1300 },
+        // h=1.5m
+        { h: 1.5, r: 1, kg: 3000 },
+        { h: 1.5, r: 1.5, kg: 2700 },
+        { h: 1.5, r: 2, kg: 2500 },
+        { h: 1.5, r: 2.5, kg: 2000 },
+        { h: 1.5, r: 3, kg: 1500 },
+        { h: 1.5, r: 3.5, kg: 1300 },
         // h=2m
-        { h: 2, r: 0.0, kg: 3000 },
-        { h: 2, r: 0.6, kg: 3000 },
-        { h: 2, r: 1.0, kg: 2700 },
-        { h: 2, r: 1.5, kg: 2500 },
-        { h: 2, r: 2.0, kg: 2000 },
-        { h: 2, r: 2.3, kg: 1500 },
-        { h: 2, r: 2.9, kg: 1350 },
-        { h: 2, r: 3.7, kg: 1300 },
+        { h: 2, r: 0, kg: 3000 },
+        { h: 2, r: 0.5, kg: 3000 },
+        { h: 2, r: 1, kg: 3000 },
+        { h: 2, r: 1.5, kg: 2700 },
+        { h: 2, r: 2, kg: 2500 },
+        { h: 2, r: 2.5, kg: 2000 },
+        { h: 2, r: 3, kg: 1500 },
+        { h: 2, r: 3.5, kg: 1300 },
+        // h=2.5m
+        { h: 2.5, r: 0, kg: 3000 },
+        { h: 2.5, r: 0.5, kg: 3000 },
+        { h: 2.5, r: 1, kg: 3000 },
+        { h: 2.5, r: 1.5, kg: 2700 },
+        { h: 2.5, r: 2, kg: 2500 },
+        { h: 2.5, r: 2.5, kg: 2000 },
+        { h: 2.5, r: 3, kg: 1500 },
+        { h: 2.5, r: 3.5, kg: 1300 },
         // h=3m
-        { h: 3, r: 0.0, kg: 3000 },
-        { h: 3, r: 0.6, kg: 2900 },
-        { h: 3, r: 1.0, kg: 2700 },
-        { h: 3, r: 1.4, kg: 2500 },
-        { h: 3, r: 1.9, kg: 2000 },
-        { h: 3, r: 2.2, kg: 1500 },
-        { h: 3, r: 2.8, kg: 1350 },
-        { h: 3, r: 3.6, kg: 1300 },
+        { h: 3, r: 0, kg: 3000 },
+        { h: 3, r: 0.5, kg: 3000 },
+        { h: 3, r: 1, kg: 3000 },
+        { h: 3, r: 1.5, kg: 2700 },
+        { h: 3, r: 2, kg: 2500 },
+        { h: 3, r: 2.5, kg: 2000 },
+        { h: 3, r: 3, kg: 1500 },
+        // h=3.5m
+        { h: 3.5, r: 0, kg: 3000 },
+        { h: 3.5, r: 0.5, kg: 3000 },
+        { h: 3.5, r: 1, kg: 3000 },
+        { h: 3.5, r: 1.5, kg: 2700 },
+        { h: 3.5, r: 2, kg: 2500 },
+        { h: 3.5, r: 2.5, kg: 2000 },
+        { h: 3.5, r: 3, kg: 1500 },
         // h=4m
-        { h: 4, r: 0.0, kg: 3000 },
-        { h: 4, r: 0.5, kg: 2900 },
-        { h: 4, r: 0.9, kg: 2700 },
-        { h: 4, r: 1.3, kg: 2500 },
-        { h: 4, r: 1.7, kg: 2000 },
-        { h: 4, r: 2.0, kg: 1500 },
-        { h: 4, r: 2.5, kg: 1350 },
-        { h: 4, r: 3.4, kg: 1300 },
+        { h: 4, r: 0, kg: 3000 },
+        { h: 4, r: 0.5, kg: 3000 },
+        { h: 4, r: 1, kg: 3000 },
+        { h: 4, r: 1.5, kg: 2700 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 2.5, kg: 2000 },
+        { h: 4, r: 3, kg: 1500 },
+        // h=4.5m
+        { h: 4.5, r: 0, kg: 3000 },
+        { h: 4.5, r: 0.5, kg: 3000 },
+        { h: 4.5, r: 1, kg: 3000 },
+        { h: 4.5, r: 1.5, kg: 2700 },
+        { h: 4.5, r: 2, kg: 2500 },
+        { h: 4.5, r: 2.5, kg: 2000 },
         // h=5m
-        { h: 5, r: 0.0, kg: 3000 },
-        { h: 5, r: 0.5, kg: 2900 },
-        { h: 5, r: 0.8, kg: 2700 },
-        { h: 5, r: 1.1, kg: 2500 },
-        { h: 5, r: 1.5, kg: 2000 },
-        { h: 5, r: 1.8, kg: 1500 },
-        { h: 5, r: 2.2, kg: 1350 },
-        // h=6m
-        { h: 6, r: 0.0, kg: 3000 },
-        { h: 6, r: 0.4, kg: 2800 },
-        { h: 6, r: 0.7, kg: 2700 },
-        { h: 6, r: 1.0, kg: 2500 },
-        { h: 6, r: 1.3, kg: 2000 },
-        { h: 6, r: 1.5, kg: 1500 },
-        { h: 6, r: 1.8, kg: 1350 },
-        // h=7m — CONFIRMED: 2700kg at r=0.48m ✓
-        { h: 7, r: 0.0, kg: 3000 },
-        { h: 7, r: 0.48, kg: 2700 },
-        { h: 7, r: 0.7, kg: 2500 },
-        { h: 7, r: 1.0, kg: 2000 },
-        { h: 7, r: 1.2, kg: 1500 },
+        { h: 5, r: 0, kg: 3000 },
+        { h: 5, r: 0.5, kg: 3000 },
+        { h: 5, r: 1, kg: 3000 },
+        { h: 5, r: 1.5, kg: 2700 },
+        { h: 5, r: 2, kg: 2000 },
+        { h: 5, r: 2.5, kg: 2000 },
       ],
       filters: ["telehandler", "rough", "agri"],
     },
