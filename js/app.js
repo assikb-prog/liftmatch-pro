@@ -5526,59 +5526,120 @@ const MACHINES = {
       // outer reach at 0° for that zone, dh = h - pivot_h (pivot ≈ 1.5m).
       // Each (h, r, kg) point is the OUTER edge of zone kg at height h.
       // ─────────────────────────────────────────────────────────────────────────────
+      // ── LOAD MATRIX — copied verbatim from Manitou MT-X 625 ──────────────────
+      // MT 625 H is mechanically identical to MT-X 625 (same boom geometry,
+      // same chassis, same EN1459 B chart). Only difference: engine emissions
+      // stage (Stage V vs Stage 3A) and unladen weight (4800 vs 4710 kg).
+      // Load chart and capacity zones are identical between the two machines.
+      // ─────────────────────────────────────────────────────────────────────
       loadMatrix: [
-        { h: 0, r: 3.06, kg: 800 },
-        { h: 0, r: 2.42, kg: 1000 },
-        { h: 0, r: 2.06, kg: 1200 },
-        { h: 0, r: 1.47, kg: 1500 },
-        { h: 0, r: 0.9, kg: 2000 },
-        { h: 0.5, r: 3.25, kg: 800 },
-        { h: 0.5, r: 2.65, kg: 1000 },
-        { h: 0.5, r: 2.32, kg: 1200 },
-        { h: 0.5, r: 1.79, kg: 1500 },
-        { h: 0.5, r: 1.34, kg: 2000 },
-        { h: 0.5, r: 0.79, kg: 2500 },
-        { h: 1.0, r: 3.36, kg: 800 },
-        { h: 1.0, r: 2.79, kg: 1000 },
-        { h: 1.0, r: 2.48, kg: 1200 },
-        { h: 1.0, r: 2.0, kg: 1500 },
-        { h: 1.0, r: 1.6, kg: 2000 },
-        { h: 1.0, r: 1.13, kg: 2500 },
-        { h: 1.5, r: 3.4, kg: 800 },
-        { h: 1.5, r: 2.85, kg: 1000 },
-        { h: 1.5, r: 2.55, kg: 1200 },
-        { h: 1.5, r: 2.1, kg: 1500 },
-        { h: 1.5, r: 1.75, kg: 2000 },
-        { h: 1.5, r: 1.3, kg: 2500 },
-        { h: 2.0, r: 3.36, kg: 800 },
-        { h: 2.0, r: 2.79, kg: 1000 },
-        { h: 2.0, r: 2.48, kg: 1200 },
-        { h: 2.0, r: 2.0, kg: 1500 },
-        { h: 2.0, r: 1.6, kg: 2000 },
-        { h: 2.0, r: 1.13, kg: 2500 },
-        { h: 2.5, r: 3.25, kg: 800 },
-        { h: 2.5, r: 2.65, kg: 1000 },
-        { h: 2.5, r: 2.32, kg: 1200 },
-        { h: 2.5, r: 1.79, kg: 1500 },
-        { h: 2.5, r: 1.34, kg: 2000 },
-        { h: 2.5, r: 0.79, kg: 2500 },
-        { h: 3.0, r: 3.06, kg: 800 },
-        { h: 3.0, r: 2.42, kg: 1000 },
-        { h: 3.0, r: 2.06, kg: 1200 },
-        { h: 3.0, r: 1.47, kg: 1500 },
-        { h: 3.0, r: 0.9, kg: 2000 },
-        { h: 3.5, r: 2.81, kg: 800 },
-        { h: 3.5, r: 2.11, kg: 1000 },
-        { h: 3.5, r: 1.7, kg: 1200 },
-        { h: 3.5, r: 0.95, kg: 1500 },
-        { h: 4.0, r: 2.5, kg: 800 },
-        { h: 4.0, r: 1.71, kg: 1000 },
-        { h: 4.0, r: 1.18, kg: 1200 },
-        { h: 4.5, r: 2.13, kg: 800 },
-        { h: 4.5, r: 1.16, kg: 1000 },
-        { h: 5.0, r: 1.66, kg: 800 },
-        { h: 5.5, r: 0.94, kg: 800 },
-        { h: 5.85, r: 0.5, kg: 800 },
+        { h: 0.0, r: 1.28, kg: 2500 },
+        { h: 0.0, r: 1.59, kg: 2000 },
+        { h: 0.0, r: 2.11, kg: 1500 },
+        { h: 0.0, r: 2.56, kg: 1200 },
+        { h: 0.0, r: 2.87, kg: 1000 },
+        { h: 0.0, r: 3.39, kg: 800 },
+        { h: 0.25, r: 1.28, kg: 2500 },
+        { h: 0.25, r: 1.59, kg: 2000 },
+        { h: 0.25, r: 2.11, kg: 1500 },
+        { h: 0.25, r: 2.56, kg: 1200 },
+        { h: 0.25, r: 2.87, kg: 1000 },
+        { h: 0.25, r: 3.38, kg: 800 },
+        { h: 0.5, r: 1.28, kg: 2500 },
+        { h: 0.5, r: 1.59, kg: 2000 },
+        { h: 0.5, r: 2.11, kg: 1500 },
+        { h: 0.5, r: 2.56, kg: 1200 },
+        { h: 0.5, r: 2.87, kg: 1000 },
+        { h: 0.5, r: 3.36, kg: 800 },
+        { h: 0.75, r: 1.28, kg: 2500 },
+        { h: 0.75, r: 1.59, kg: 2000 },
+        { h: 0.75, r: 2.11, kg: 1500 },
+        { h: 0.75, r: 2.56, kg: 1200 },
+        { h: 0.75, r: 2.87, kg: 1000 },
+        { h: 0.75, r: 3.34, kg: 800 },
+        { h: 1.0, r: 1.28, kg: 2500 },
+        { h: 1.0, r: 1.59, kg: 2000 },
+        { h: 1.0, r: 2.07, kg: 1500 },
+        { h: 1.0, r: 2.56, kg: 1200 },
+        { h: 1.0, r: 2.87, kg: 1000 },
+        { h: 1.0, r: 3.3, kg: 800 },
+        { h: 1.25, r: 1.28, kg: 2500 },
+        { h: 1.25, r: 1.59, kg: 2000 },
+        { h: 1.25, r: 2.11, kg: 1500 },
+        { h: 1.25, r: 2.56, kg: 1200 },
+        { h: 1.25, r: 2.87, kg: 1000 },
+        { h: 1.25, r: 3.27, kg: 800 },
+        { h: 1.5, r: 1.28, kg: 2500 },
+        { h: 1.5, r: 1.55, kg: 2000 },
+        { h: 1.5, r: 2.11, kg: 1500 },
+        { h: 1.5, r: 2.56, kg: 1200 },
+        { h: 1.5, r: 2.87, kg: 1000 },
+        { h: 1.5, r: 3.22, kg: 800 },
+        { h: 1.75, r: 1.28, kg: 2500 },
+        { h: 1.75, r: 1.59, kg: 2000 },
+        { h: 1.75, r: 2.11, kg: 1500 },
+        { h: 1.75, r: 2.56, kg: 1200 },
+        { h: 1.75, r: 2.87, kg: 1000 },
+        { h: 1.75, r: 3.16, kg: 800 },
+        { h: 2.0, r: 1.28, kg: 2500 },
+        { h: 2.0, r: 1.59, kg: 2000 },
+        { h: 2.0, r: 2.11, kg: 1500 },
+        { h: 2.0, r: 2.56, kg: 1200 },
+        { h: 2.0, r: 2.87, kg: 1000 },
+        { h: 2.0, r: 3.1, kg: 800 },
+        { h: 2.25, r: 1.28, kg: 2500 },
+        { h: 2.25, r: 1.59, kg: 2000 },
+        { h: 2.25, r: 2.11, kg: 1500 },
+        { h: 2.25, r: 2.56, kg: 1200 },
+        { h: 2.25, r: 2.87, kg: 1000 },
+        { h: 2.25, r: 3.03, kg: 800 },
+        { h: 2.5, r: 1.28, kg: 2500 },
+        { h: 2.5, r: 1.59, kg: 2000 },
+        { h: 2.5, r: 2.11, kg: 1500 },
+        { h: 2.5, r: 2.56, kg: 1200 },
+        { h: 2.5, r: 2.87, kg: 1000 },
+        { h: 2.5, r: 2.95, kg: 800 },
+        { h: 2.75, r: 1.28, kg: 2500 },
+        { h: 2.75, r: 1.59, kg: 2000 },
+        { h: 2.75, r: 2.11, kg: 1500 },
+        { h: 2.75, r: 2.56, kg: 1200 },
+        { h: 2.75, r: 2.86, kg: 1000 },
+        { h: 3.0, r: 1.28, kg: 2500 },
+        { h: 3.0, r: 1.59, kg: 2000 },
+        { h: 3.0, r: 2.11, kg: 1500 },
+        { h: 3.0, r: 2.56, kg: 1200 },
+        { h: 3.0, r: 2.77, kg: 1000 },
+        { h: 3.25, r: 1.28, kg: 2500 },
+        { h: 3.25, r: 1.59, kg: 2000 },
+        { h: 3.25, r: 2.11, kg: 1500 },
+        { h: 3.25, r: 2.56, kg: 1200 },
+        { h: 3.25, r: 2.66, kg: 1000 },
+        { h: 3.5, r: 1.28, kg: 2500 },
+        { h: 3.5, r: 1.59, kg: 2000 },
+        { h: 3.5, r: 2.11, kg: 1500 },
+        { h: 3.5, r: 2.55, kg: 1200 },
+        { h: 3.75, r: 1.28, kg: 2500 },
+        { h: 3.75, r: 1.59, kg: 2000 },
+        { h: 3.75, r: 2.11, kg: 1500 },
+        { h: 3.75, r: 2.41, kg: 1200 },
+        { h: 4.0, r: 1.14, kg: 2500 },
+        { h: 4.0, r: 1.59, kg: 2000 },
+        { h: 4.0, r: 2.11, kg: 1500 },
+        { h: 4.0, r: 2.28, kg: 1200 },
+        { h: 4.25, r: 0.93, kg: 2500 },
+        { h: 4.25, r: 1.59, kg: 2000 },
+        { h: 4.25, r: 2.11, kg: 1500 },
+        { h: 4.5, r: 0.69, kg: 2500 },
+        { h: 4.5, r: 1.57, kg: 2000 },
+        { h: 4.5, r: 1.96, kg: 1500 },
+        { h: 4.75, r: 0.42, kg: 2500 },
+        { h: 4.75, r: 1.59, kg: 2000 },
+        { h: 4.75, r: 1.77, kg: 1500 },
+        { h: 5.0, r: 1.58, kg: 2000 },
+        { h: 5.25, r: 1.35, kg: 2000 },
+        { h: 5.5, r: 1.1, kg: 2000 },
+        { h: 5.75, r: 0.82, kg: 2000 },
+        { h: 5.85, r: 0.7, kg: 2000 }
       ],
       filters: ["telehandler", "rough"],
     },
@@ -7181,68 +7242,73 @@ const MACHINES = {
         "2,500kg at ground. At 6m/3.5m reach: reduced — consult JCB 525-60 IND load chart.",
       tags: ["2.5T", "6m", "EcoMAX", "55kW", "No DPF"],
       loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 2500 },
+        // h=0m
+        { h: 0, r: 0, kg: 2500 },
+        { h: 0, r: 0.5, kg: 2500 },
+        { h: 0, r: 1, kg: 2500 },
+        { h: 0, r: 1.5, kg: 2000 },
+        { h: 0, r: 2, kg: 1500 },
+        { h: 0, r: 2.5, kg: 1000 },
+        // h=0.5m
+        { h: 0.5, r: 0, kg: 2500 },
         { h: 0.5, r: 0.5, kg: 2500 },
-        { h: 0.5, r: 1.0, kg: 2500 },
-        { h: 0.5, r: 1.5, kg: 2250 },
-        { h: 0.5, r: 2.0, kg: 1850 },
-        { h: 0.5, r: 2.5, kg: 1350 },
-        { h: 0.5, r: 3.0, kg: 950 },
-        { h: 0.5, r: 3.5, kg: 550 },
-        { h: 0.7, r: 0.0, kg: 2500 },
-        { h: 0.7, r: 0.5, kg: 2500 },
-        { h: 0.7, r: 1.0, kg: 2500 },
-        { h: 0.7, r: 1.5, kg: 2250 },
-        { h: 0.7, r: 2.0, kg: 1850 },
-        { h: 0.7, r: 2.5, kg: 1350 },
-        { h: 0.7, r: 3.0, kg: 950 },
-        { h: 0.7, r: 3.5, kg: 550 },
-        { h: 1.5, r: 0.0, kg: 2500 },
-        { h: 1.5, r: 0.5, kg: 2500 },
-        { h: 1.5, r: 1.0, kg: 2500 },
-        { h: 1.5, r: 1.5, kg: 2250 },
-        { h: 1.5, r: 2.0, kg: 1350 },
-        { h: 1.5, r: 2.5, kg: 950 },
-        { h: 1.5, r: 3.0, kg: 700 },
-        { h: 1.5, r: 3.4, kg: 550 },
-        { h: 2.3, r: 0.0, kg: 2500 },
-        { h: 2.3, r: 0.5, kg: 2500 },
-        { h: 2.3, r: 1.0, kg: 2500 },
-        { h: 2.3, r: 1.5, kg: 1850 },
-        { h: 2.3, r: 2.0, kg: 1350 },
-        { h: 2.3, r: 2.5, kg: 950 },
-        { h: 2.3, r: 3.0, kg: 700 },
-        { h: 3.0, r: 0.0, kg: 2500 },
-        { h: 3.0, r: 0.5, kg: 2500 },
-        { h: 3.0, r: 1.0, kg: 2500 },
-        { h: 3.0, r: 1.5, kg: 1850 },
-        { h: 3.0, r: 2.0, kg: 1350 },
-        { h: 3.0, r: 2.5, kg: 950 },
-        { h: 3.0, r: 3.0, kg: 700 },
-        { h: 3.7, r: 0.0, kg: 2500 },
-        { h: 3.7, r: 0.5, kg: 2500 },
-        { h: 3.7, r: 1.0, kg: 2250 },
-        { h: 3.7, r: 1.5, kg: 1850 },
-        { h: 3.7, r: 2.0, kg: 950 },
-        { h: 3.7, r: 2.5, kg: 700 },
-        { h: 4.3, r: 0.0, kg: 2450 },
-        { h: 4.3, r: 0.5, kg: 2450 },
-        { h: 4.3, r: 1.0, kg: 2200 },
-        { h: 4.3, r: 1.5, kg: 1350 },
-        { h: 4.3, r: 2.0, kg: 950 },
-        { h: 4.9, r: 0.0, kg: 2350 },
-        { h: 4.9, r: 0.5, kg: 2350 },
-        { h: 4.9, r: 1.0, kg: 1750 },
-        { h: 4.9, r: 1.5, kg: 900 },
-        { h: 5.4, r: 0.0, kg: 2300 },
-        { h: 5.4, r: 0.5, kg: 2300 },
-        { h: 5.4, r: 1.0, kg: 1250 },
-        { h: 5.4, r: 1.3, kg: 500 },
-        { h: 5.8, r: 0.0, kg: 2250 },
-        { h: 5.8, r: 0.5, kg: 2000 },
-        { h: 5.8, r: 0.9, kg: 600 },
-        { h: 6.0, r: 0.0, kg: 2200 },
-        { h: 6.0, r: 0.5, kg: 1650 },
+        { h: 0.5, r: 1, kg: 2500 },
+        { h: 0.5, r: 1.5, kg: 2000 },
+        { h: 0.5, r: 2, kg: 1500 },
+        { h: 0.5, r: 2.5, kg: 1000 },
+        { h: 0.5, r: 3, kg: 750 },
+        // h=1m
+        { h: 1, r: 1, kg: 2500 },
+        { h: 1, r: 1.5, kg: 2000 },
+        { h: 1, r: 2, kg: 1500 },
+        { h: 1, r: 2.5, kg: 1000 },
+        { h: 1, r: 3, kg: 750 },
+        // h=1.5m
+        { h: 1.5, r: 1, kg: 2500 },
+        { h: 1.5, r: 1.5, kg: 2000 },
+        { h: 1.5, r: 2, kg: 1500 },
+        { h: 1.5, r: 2.5, kg: 1000 },
+        { h: 1.5, r: 3, kg: 750 },
+        // h=2m
+        { h: 2, r: 1, kg: 2500 },
+        { h: 2, r: 1.5, kg: 2000 },
+        { h: 2, r: 2, kg: 1500 },
+        { h: 2, r: 2.5, kg: 1000 },
+        { h: 2, r: 3, kg: 750 },
+        // h=2.5m
+        { h: 2.5, r: 1, kg: 2500 },
+        { h: 2.5, r: 1.5, kg: 2000 },
+        { h: 2.5, r: 2, kg: 1500 },
+        { h: 2.5, r: 2.5, kg: 1000 },
+        { h: 2.5, r: 3, kg: 750 },
+        // h=3m
+        { h: 3, r: 0, kg: 2500 },
+        { h: 3, r: 0.5, kg: 2500 },
+        { h: 3, r: 1, kg: 2500 },
+        { h: 3, r: 1.5, kg: 2000 },
+        { h: 3, r: 2, kg: 1500 },
+        { h: 3, r: 2.5, kg: 1000 },
+        { h: 3, r: 3, kg: 750 },
+        // h=3.5m
+        { h: 3.5, r: 0, kg: 2500 },
+        { h: 3.5, r: 0.5, kg: 2500 },
+        { h: 3.5, r: 1, kg: 2500 },
+        { h: 3.5, r: 1.5, kg: 2000 },
+        { h: 3.5, r: 2, kg: 1500 },
+        { h: 3.5, r: 2.5, kg: 1000 },
+        // h=4m
+        { h: 4, r: 0, kg: 2500 },
+        { h: 4, r: 0.5, kg: 2500 },
+        { h: 4, r: 1, kg: 2500 },
+        { h: 4, r: 1.5, kg: 2000 },
+        { h: 4, r: 2, kg: 1500 },
+        { h: 4, r: 2.5, kg: 1000 },
+        // h=4.5m
+        { h: 4.5, r: 0, kg: 2500 },
+        { h: 4.5, r: 0.5, kg: 2500 },
+        { h: 4.5, r: 1, kg: 2500 },
+        { h: 4.5, r: 1.5, kg: 2000 },
+        { h: 4.5, r: 2, kg: 1500 },
       ],
       filters: ["telehandler", "rough"],
     },
@@ -7521,88 +7587,85 @@ const MACHINES = {
       ],
 
       // ── LOAD MATRIX — On Tyres with Forks ──────────────────────────────────────
-      // Source: VISUAL READ of JCB 525-60 Hi Viz load chart (PDF p.18)
+      // Source: PIXEL EXTRACTION from JCB 525-60 Hi Viz brochure load chart (PDF p.18)
+      // Method: User-traced colour boundary annotation. Boundary→capacity mapping:
+      //   black=2500 kg | red=2000 kg | green=1500 kg | yellow=1000 kg | purple=750 kg
       // Configuration: On tyres / forks / AS 1418.19 (single chart — no stabilisers)
       //
-      // HOW THIS WAS BUILT:
-      //   Zone boundary curves (750/1000/1500/2000/2500 kg) visually read from
-      //   the chart diagram image on p.18, then calibrated against all confirmed
-      //   printed anchor points. Not digitally extracted — visual interpretation.
+      // COVERAGE: h=0 to h=4.5 metres, r=0 to r=3 metres (57 brochure-confirmed cells).
+      // h≥5m intentionally excluded — top of envelope not pixel-extracted; liftChart
+      // directs user to "consult JCB 525-60 load chart" for these heights.
       //
-      // CONFIRMED ANCHOR POINTS (cross-checks used to calibrate visual read):
-      //   ✓ r=0, any h  → 2500 kg  (boom retracted = max, printed in spec table)
-      //   ✓ h=6, r≈0    → 2500 kg  (boom retracted at full height)
-      //   ✓ h=6, extended→ 1500 kg (full height rated capacity, spec table)
-      //   ✓ h=0, r=3.5  → 750 kg   (full reach, spec table + p.4 text)
-      //   ✓ h≈0, r=2.64 → 1200 kg  (spec table: "reach with 1.2T")
-      //     Cross-check: 1500kg@r=2.0 + 1000kg@r=3.0 → interp at 2.64m = 1180 kg ✓
-      //   ✓ 67° boom angle → 2.3m reach (chart annotation)
-      //
-      // Zone boundary positions read per height row (outer edge of each zone):
-      //   h=0:  2500@r=0.5 | 2000@r=1.0 | 1500@r=2.0 | 1000@r=3.0 | 750@r=3.5
-      //   h=2:  2500@r=0.4 | 2000@r=0.9 | 1500@r=1.7 | 1000@r=2.7 | 750@r=3.2
-      //   h=4:  2500@r=0.2 | 2000@r=0.6 | 1500@r=1.2 | 1000@r=2.0 | 750@r=2.5
-      //   h=6:  2500@r=0.0 | 2000@r=0.2 | 1500@r=0.4 | 1000@r=0.6 | 750@r=0.9
+      // Confirmed anchor (customer-facing): (h=3m, r=2.5m) = 1000 kg per brochure read.
       // ─────────────────────────────────────────────────────────────────────────
       loadMatrix: [
-        // h=0m — boom at 0° (horizontal), max ground-level reach
-        // Outer 2500kg zone edge ≈0.5m | 2000≈1.0m | 1500≈2.0m | 1000≈3.0m | 750=3.5m✓
-        { h: 0, r: 0.0, kg: 2500 },
+        // h=0m
+        { h: 0, r: 0, kg: 2500 },
         { h: 0, r: 0.5, kg: 2500 },
-        { h: 0, r: 1.0, kg: 2000 },
-        { h: 0, r: 2.0, kg: 1500 },
-        { h: 0, r: 3.0, kg: 1000 },
-        { h: 0, r: 3.5, kg: 750 },
-
+        { h: 0, r: 1, kg: 2500 },
+        { h: 0, r: 1.5, kg: 2000 },
+        { h: 0, r: 2, kg: 1500 },
+        { h: 0, r: 2.5, kg: 1000 },
+        // h=0.5m
+        { h: 0.5, r: 0, kg: 2500 },
+        { h: 0.5, r: 0.5, kg: 2500 },
+        { h: 0.5, r: 1, kg: 2500 },
+        { h: 0.5, r: 1.5, kg: 2000 },
+        { h: 0.5, r: 2, kg: 1500 },
+        { h: 0.5, r: 2.5, kg: 1000 },
+        { h: 0.5, r: 3, kg: 750 },
         // h=1m
-        // Zones contract slightly as boom raises
-        { h: 1, r: 0.0, kg: 2500 },
-        { h: 1, r: 0.5, kg: 2500 },
-        { h: 1, r: 1.0, kg: 2000 },
-        { h: 1, r: 1.9, kg: 1500 },
-        { h: 1, r: 2.9, kg: 1000 },
-        { h: 1, r: 3.4, kg: 750 },
-
+        { h: 1, r: 1, kg: 2500 },
+        { h: 1, r: 1.5, kg: 2000 },
+        { h: 1, r: 2, kg: 1500 },
+        { h: 1, r: 2.5, kg: 1000 },
+        { h: 1, r: 3, kg: 750 },
+        // h=1.5m
+        { h: 1.5, r: 1, kg: 2500 },
+        { h: 1.5, r: 1.5, kg: 2000 },
+        { h: 1.5, r: 2, kg: 1500 },
+        { h: 1.5, r: 2.5, kg: 1000 },
+        { h: 1.5, r: 3, kg: 750 },
         // h=2m
-        { h: 2, r: 0.0, kg: 2500 },
-        { h: 2, r: 0.4, kg: 2500 },
-        { h: 2, r: 0.9, kg: 2000 },
-        { h: 2, r: 1.7, kg: 1500 },
-        { h: 2, r: 2.7, kg: 1000 },
-        { h: 2, r: 3.2, kg: 750 },
-
+        { h: 2, r: 1, kg: 2500 },
+        { h: 2, r: 1.5, kg: 2000 },
+        { h: 2, r: 2, kg: 1500 },
+        { h: 2, r: 2.5, kg: 1000 },
+        { h: 2, r: 3, kg: 750 },
+        // h=2.5m
+        { h: 2.5, r: 1, kg: 2500 },
+        { h: 2.5, r: 1.5, kg: 2000 },
+        { h: 2.5, r: 2, kg: 1500 },
+        { h: 2.5, r: 2.5, kg: 1000 },
+        { h: 2.5, r: 3, kg: 750 },
         // h=3m
-        { h: 3, r: 0.0, kg: 2500 },
-        { h: 3, r: 0.3, kg: 2500 },
-        { h: 3, r: 0.8, kg: 2000 },
-        { h: 3, r: 1.5, kg: 1500 },
-        { h: 3, r: 2.4, kg: 1000 },
-        { h: 3, r: 2.9, kg: 750 },
-
+        { h: 3, r: 0, kg: 2500 },
+        { h: 3, r: 0.5, kg: 2500 },
+        { h: 3, r: 1, kg: 2500 },
+        { h: 3, r: 1.5, kg: 2000 },
+        { h: 3, r: 2, kg: 1500 },
+        { h: 3, r: 2.5, kg: 1000 },
+        { h: 3, r: 3, kg: 750 },
+        // h=3.5m
+        { h: 3.5, r: 0, kg: 2500 },
+        { h: 3.5, r: 0.5, kg: 2500 },
+        { h: 3.5, r: 1, kg: 2500 },
+        { h: 3.5, r: 1.5, kg: 2000 },
+        { h: 3.5, r: 2, kg: 1500 },
+        { h: 3.5, r: 2.5, kg: 1000 },
         // h=4m
-        { h: 4, r: 0.0, kg: 2500 },
-        { h: 4, r: 0.2, kg: 2500 },
-        { h: 4, r: 0.6, kg: 2000 },
-        { h: 4, r: 1.2, kg: 1500 },
-        { h: 4, r: 2.0, kg: 1000 },
-        { h: 4, r: 2.5, kg: 750 },
-
-        // h=5m — zones narrowing significantly
-        { h: 5, r: 0.0, kg: 2500 },
-        { h: 5, r: 0.1, kg: 2400 },
-        { h: 5, r: 0.4, kg: 2000 },
-        { h: 5, r: 0.8, kg: 1500 },
-        { h: 5, r: 1.4, kg: 1000 },
-        { h: 5, r: 1.8, kg: 750 },
-
-        // h=6m — CONFIRMED anchors:
-        //   retracted (r≈0) = 2500 kg ✓ | extended = 1500 kg at full height ✓
-        //   67° boom → r=2.3m annotation (chart): consistent with 750kg boundary ~0.9m
-        { h: 6, r: 0.0, kg: 2500 },
-        { h: 6, r: 0.2, kg: 2000 },
-        { h: 6, r: 0.4, kg: 1500 },
-        { h: 6, r: 0.6, kg: 1000 },
-        { h: 6, r: 0.9, kg: 750 },
+        { h: 4, r: 0, kg: 2500 },
+        { h: 4, r: 0.5, kg: 2500 },
+        { h: 4, r: 1, kg: 2500 },
+        { h: 4, r: 1.5, kg: 2000 },
+        { h: 4, r: 2, kg: 1500 },
+        { h: 4, r: 2.5, kg: 1000 },
+        // h=4.5m
+        { h: 4.5, r: 0, kg: 2500 },
+        { h: 4.5, r: 0.5, kg: 2500 },
+        { h: 4.5, r: 1, kg: 2500 },
+        { h: 4.5, r: 1.5, kg: 2000 },
+        { h: 4.5, r: 2, kg: 1500 },
       ],
       filters: ["telehandler", "rough"],
     },
@@ -160717,22 +160780,6 @@ async function submitQuoteRequest() {
     await _fbDb.collection("shared_enquiries").doc(req.id).set(_cleanReq);
     _seWriteOk = true;
     console.log("[Noyo] ✅ shared_enquiries write OK for", req.id);
-    // ─── Noyo email: notify customer their enquiry was received ───
-    try {
-      if (window.NoyoEmail && req) {
-        // Fall back to currentUser.email if req.email is missing
-        const _toEmail = req.email || (currentUser && currentUser.email) || null;
-        if (_toEmail) {
-          // Make sure req has the email field for the template
-          if (!req.email) req.email = _toEmail;
-          window.NoyoEmail.emailQuoteRequestReceived(req);
-        } else {
-          console.warn("[Noyo email] No email available — skipping customer notify for", req.id);
-        }
-      }
-    } catch (_emailErr) {
-      console.warn("[Noyo email] customer notify failed:", _emailErr);
-    }
   } catch (e) {
     console.error("[Noyo] ❌ shared_enquiries write FAILED:", e.message);
     console.error(
@@ -161654,29 +161701,6 @@ function inboxAcceptQuote(reqId, responseIdx) {
   req.responded = true;
   saveInbox();
   saveQuoteToFirebase(req);
-  // ─── Noyo email: confirm to customer + notify winning supplier ───
-  try {
-    if (window.NoyoEmail) {
-      const _winningQuote = req.responses[responseIdx];
-      window.NoyoEmail.emailQuoteAcceptedCustomer(req, _winningQuote);
-      // Look up supplier email by their fullName == acceptedCompany
-      _fbDb.collection("users")
-        .where("fullName", "==", acceptedCompany).limit(1).get()
-        .then((_uSnap) => {
-          if (!_uSnap.empty) {
-            const _u = _uSnap.docs[0].data();
-            if (_u && _u.email) {
-              window.NoyoEmail.emailQuoteAcceptedSupplier(
-                req, _winningQuote, _u.email, _u.fullName || acceptedCompany
-              );
-            }
-          }
-        })
-        .catch((_e) => console.warn("[Noyo email] supplier lookup failed:", _e));
-    }
-  } catch (_emailErr) {
-    console.warn("[Noyo email] accept-quote notify failed:", _emailErr);
-  }
   renderQuoteInbox();
   renderMyQuotes();
   showToast(
@@ -167024,28 +167048,6 @@ function qdmConfirmAccept(reqId, responseIdx) {
   req.acceptedAt = Date.now();
   saveInbox();
   saveQuoteToFirebase(req);
-  // ─── Noyo email: confirm to customer + notify winning supplier ───
-  try {
-    if (window.NoyoEmail) {
-      const _winningQuote = req.responses[responseIdx];
-      window.NoyoEmail.emailQuoteAcceptedCustomer(req, _winningQuote);
-      _fbDb.collection("users")
-        .where("fullName", "==", acceptedCompany).limit(1).get()
-        .then((_uSnap) => {
-          if (!_uSnap.empty) {
-            const _u = _uSnap.docs[0].data();
-            if (_u && _u.email) {
-              window.NoyoEmail.emailQuoteAcceptedSupplier(
-                req, _winningQuote, _u.email, _u.fullName || acceptedCompany
-              );
-            }
-          }
-        })
-        .catch((_e) => console.warn("[Noyo email] supplier lookup failed:", _e));
-    }
-  } catch (_emailErr) {
-    console.warn("[Noyo email] accept-quote notify failed:", _emailErr);
-  }
   renderMyQuotes();
   renderQuoteInbox();
   openQuoteDetailModal(reqId);
