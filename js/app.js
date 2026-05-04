@@ -146401,6 +146401,26 @@ function matchMachines(ans, type) {
           if (capKg < exactKg) return false;
           if (exactHt > 0 && (m.liftHeight || 0) < exactHt) return false;
           if (exactReach > 0 && m.maxReach && m.maxReach < exactReach) return false;
+          // ── HIGH-LOAD HONESTY GATE (Assik no-fabrication directive) ────
+          // For sparse-chart machines (zone labels only, no point matrix),
+          // we cannot prove capacity at any specific working point. But
+          // brochure load charts are universally shaped: the highest kg
+          // zone always lives in a small region near the boom-vertical
+          // axis (low reach, mid-height) — never at extended reach.
+          // Therefore if the customer's required kg is within ~20% of the
+          // machine's rated max AND they want non-trivial reach, the
+          // machine is almost certainly under-spec at that point even
+          // though the brochure-fact check above passes. Reject rather
+          // than mis-label a probably-undersized machine as "Best Match".
+          // 1.5 m reach threshold = chosen because most telehandlers'
+          // top kg zone is reachable to ~1.5 m before stepping down.
+          if (
+            capKg > 0 &&
+            exactKg / capKg >= 0.80 &&
+            exactReach > 1.5
+          ) {
+            return false;
+          }
           // Brochure-confirmed: at full height capacity = capacityAtFullHeight
           if (
             m.capacityAtFullHeight &&
@@ -152587,6 +152607,97 @@ function _renderCards(matches, machineType, answers) {
       const _spGatePlatH =
         spMachine.platformHeight || spMachine.liftHeight || 0;
       const _spGateMaxR = spMachine.maxReach || 0;
+
+      // ── Site restriction gate ─────────────────────────────────────────
+      // Hard filters set by the customer in the "Site & Machine Restrictions"
+      // step (max machine weight, width, length, height). A sponsored slot
+      // must respect these the same way an organic result does — otherwise
+      // a paid placement could violate an explicit site cap (e.g. an 1,900 kg
+      // scissor lift shown to a customer with an 800 kg floor-loading limit).
+      // We pull the relevant key per machine type since each quiz uses its
+      // own keyspace (scis_*, boom_*, tele_*, etc.).
+      const _spSiteMaxKg =
+        parseFloat(
+          // scissor
+          answers.scis_rweight ||
+          answers.scis_site_max_weight ||
+          // boom
+          answers.boom_rweight ||
+          answers.boom_site_max_weight ||
+          // telehandler / rotating
+          answers.tele_site_max_weight ||
+          answers.tele_rw ||
+          // push-around / personnel
+          answers.ppl_rweight ||
+          answers.ppl_site_max_weight ||
+          // material lift / forklift / generic
+          answers.mat_rweight ||
+          answers.rw ||
+          0,
+        ) || 0;
+      const _spSiteMaxW =
+        parseFloat(
+          answers.scis_rwidth ||
+          answers.boom_rwidth ||
+          answers.tele_site_max_width ||
+          answers.tele_rwidth ||
+          answers.ppl_rwidth ||
+          answers.mat_rwidth ||
+          answers.rwid ||
+          0,
+        ) || 0;
+      const _spSiteMaxL =
+        parseFloat(
+          answers.tele_site_max_length ||
+          answers.boom_rlength ||
+          answers.scis_rlength ||
+          answers.rl ||
+          0,
+        ) || 0;
+      const _spSiteMaxH =
+        parseFloat(
+          answers.tele_site_max_height ||
+          answers.boom_rheight ||
+          answers.scis_rheight ||
+          answers.rh ||
+          0,
+        ) || 0;
+
+      if (_spSiteMaxKg > 0 && spMachine.machineWeight && spMachine.machineWeight > _spSiteMaxKg) {
+        if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+          console.log(
+            `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — machine weight ${spMachine.machineWeight} kg > site cap ${_spSiteMaxKg} kg.`,
+          );
+        }
+        return;
+      }
+      if (_spSiteMaxW > 0 && spMachine.machineWidth) {
+        const _spWm = spMachine.machineWidth > 20 ? spMachine.machineWidth / 1000 : spMachine.machineWidth;
+        if (_spWm > _spSiteMaxW) {
+          if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+            console.log(`[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — width ${_spWm} m > site cap ${_spSiteMaxW} m.`);
+          }
+          return;
+        }
+      }
+      if (_spSiteMaxL > 0 && spMachine.machineLength) {
+        const _spLm = spMachine.machineLength > 20 ? spMachine.machineLength / 1000 : spMachine.machineLength;
+        if (_spLm > _spSiteMaxL) {
+          if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+            console.log(`[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — length ${_spLm} m > site cap ${_spSiteMaxL} m.`);
+          }
+          return;
+        }
+      }
+      if (_spSiteMaxH > 0 && spMachine.machineHeight) {
+        const _spMHm = spMachine.machineHeight > 100 ? spMachine.machineHeight / 1000 : spMachine.machineHeight;
+        if (_spMHm > _spSiteMaxH) {
+          if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+            console.log(`[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — stowed height ${_spMHm} m > site cap ${_spSiteMaxH} m.`);
+          }
+          return;
+        }
+      }
 
       // Height check: machine must meet the required platform height
       if (_spGateHt > 0 && _spGatePlatH < _spGateHt) {
