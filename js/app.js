@@ -71210,80 +71210,132 @@ loadMatrixTyres: [
       bestFor: "3.2T at 6.7m — step up from 531 with greater rated capacity",
       note: "JCB 532-70 Loadall — 3.2T, 6.7m lift, 4.8m reach. JCB EcoMAX 74kW Stage V. Enhanced capacity version of the 531-70. Better load charts through the envelope. JSM controls, LiveLink telematics.",
       tags: ["3.2T", "6.7m", "JCB Loadall", "Construction"],
+      // Source: BROCHURE CHART READ from JCB 532-70 Loadall load chart
+      // Method: pin-point zone labels (3000/2750/2500/2000/1600/1350 kg)
+      // mapped to coloured boom-angle envelopes. NO INTERPOLATION between zones.
+      // User-confirmed read: h=3m, r=3m -> 1,600 kg (red envelope, ~60deg boom).
+      // Spec anchors: max capacity 3,200 kg (low/inner). Max reach 4.8 m. Max lift 6.7 m.
+      // Configuration: on tyres / standard forks. Per AS 1418.19 / ISO 22915-14:2010.
+      // Behind-carriage cells (r<0.5 at low h) and r>envelope cells excluded.
       loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 3200 },
+        // h=0m
+        { h: 0, r: 0, kg: 3200 },
+        { h: 0, r: 0.5, kg: 3200 },
+        { h: 0, r: 1, kg: 3000 },
+        { h: 0, r: 1.5, kg: 3000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 2.5, kg: 2500 },
+        { h: 0, r: 3, kg: 2000 },
+        { h: 0, r: 3.5, kg: 1600 },
+        { h: 0, r: 3.7, kg: 1350 },
+        // h=0.5m
+        { h: 0.5, r: 0, kg: 3200 },
         { h: 0.5, r: 0.5, kg: 3200 },
-        { h: 0.5, r: 1.0, kg: 3200 },
-        { h: 0.5, r: 2.0, kg: 2900 },
-        { h: 0.5, r: 2.5, kg: 2400 },
-        { h: 0.5, r: 3.0, kg: 1750 },
-        { h: 0.5, r: 4.0, kg: 1200 },
-        { h: 0.5, r: 4.5, kg: 850 },
-        { h: 0.5, r: 4.8, kg: 700 },
-        { h: 0.8, r: 0.0, kg: 3200 },
-        { h: 0.8, r: 0.5, kg: 3200 },
-        { h: 0.8, r: 1.0, kg: 3200 },
-        { h: 0.8, r: 2.0, kg: 2900 },
-        { h: 0.8, r: 2.5, kg: 2400 },
-        { h: 0.8, r: 3.0, kg: 1750 },
-        { h: 0.8, r: 4.0, kg: 1200 },
-        { h: 0.8, r: 4.5, kg: 850 },
-        { h: 0.8, r: 4.8, kg: 700 },
-        { h: 1.7, r: 0.0, kg: 3200 },
-        { h: 1.7, r: 0.5, kg: 3200 },
-        { h: 1.7, r: 1.0, kg: 3200 },
-        { h: 1.7, r: 2.0, kg: 2900 },
-        { h: 1.7, r: 2.5, kg: 2400 },
-        { h: 1.7, r: 3.0, kg: 1750 },
-        { h: 1.7, r: 4.0, kg: 1200 },
-        { h: 1.7, r: 4.5, kg: 850 },
-        { h: 2.5, r: 0.0, kg: 3200 },
+        { h: 0.5, r: 1, kg: 3000 },
+        { h: 0.5, r: 1.5, kg: 3000 },
+        { h: 0.5, r: 2, kg: 3000 },
+        { h: 0.5, r: 2.5, kg: 2500 },
+        { h: 0.5, r: 3, kg: 2000 },
+        { h: 0.5, r: 3.5, kg: 1600 },
+        { h: 0.5, r: 3.8, kg: 1350 },
+        // h=1m
+        { h: 1, r: 0, kg: 3200 },
+        { h: 1, r: 0.5, kg: 3200 },
+        { h: 1, r: 1, kg: 3000 },
+        { h: 1, r: 1.5, kg: 3000 },
+        { h: 1, r: 2, kg: 3000 },
+        { h: 1, r: 2.5, kg: 2500 },
+        { h: 1, r: 3, kg: 2000 },
+        { h: 1, r: 3.5, kg: 1600 },
+        { h: 1, r: 3.8, kg: 1350 },
+        // h=1.5m
+        { h: 1.5, r: 0, kg: 3200 },
+        { h: 1.5, r: 0.5, kg: 3200 },
+        { h: 1.5, r: 1, kg: 3000 },
+        { h: 1.5, r: 1.5, kg: 3000 },
+        { h: 1.5, r: 2, kg: 2750 },
+        { h: 1.5, r: 2.5, kg: 2500 },
+        { h: 1.5, r: 3, kg: 2000 },
+        { h: 1.5, r: 3.5, kg: 1600 },
+        { h: 1.5, r: 3.8, kg: 1350 },
+        // h=2m
+        { h: 2, r: 0, kg: 3200 },
+        { h: 2, r: 0.5, kg: 3200 },
+        { h: 2, r: 1, kg: 3000 },
+        { h: 2, r: 1.5, kg: 3000 },
+        { h: 2, r: 2, kg: 2750 },
+        { h: 2, r: 2.5, kg: 2500 },
+        { h: 2, r: 3, kg: 2000 },
+        { h: 2, r: 3.5, kg: 1600 },
+        { h: 2, r: 3.7, kg: 1350 },
+        // h=2.5m
+        { h: 2.5, r: 0, kg: 3200 },
         { h: 2.5, r: 0.5, kg: 3200 },
-        { h: 2.5, r: 1.0, kg: 3200 },
-        { h: 2.5, r: 1.5, kg: 2900 },
-        { h: 2.5, r: 2.0, kg: 2400 },
-        { h: 2.5, r: 3.0, kg: 1750 },
-        { h: 2.5, r: 3.5, kg: 1200 },
-        { h: 2.5, r: 4.0, kg: 850 },
-        { h: 2.5, r: 4.4, kg: 700 },
-        { h: 3.4, r: 0.0, kg: 3200 },
-        { h: 3.4, r: 0.5, kg: 3200 },
-        { h: 3.4, r: 1.0, kg: 3200 },
-        { h: 3.4, r: 1.5, kg: 2900 },
-        { h: 3.4, r: 2.0, kg: 2400 },
-        { h: 3.4, r: 2.5, kg: 1750 },
-        { h: 3.4, r: 3.5, kg: 1200 },
-        { h: 3.4, r: 4.0, kg: 850 },
-        { h: 4.2, r: 0.0, kg: 3200 },
-        { h: 4.2, r: 0.5, kg: 3200 },
-        { h: 4.2, r: 1.0, kg: 3200 },
-        { h: 4.2, r: 1.5, kg: 2850 },
-        { h: 4.2, r: 2.0, kg: 2400 },
-        { h: 4.2, r: 2.5, kg: 1750 },
-        { h: 4.2, r: 3.0, kg: 1200 },
-        { h: 4.2, r: 3.5, kg: 850 },
-        { h: 4.8, r: 0.0, kg: 3100 },
-        { h: 4.8, r: 0.5, kg: 3100 },
-        { h: 4.8, r: 1.0, kg: 3100 },
-        { h: 4.8, r: 1.5, kg: 2350 },
-        { h: 4.8, r: 2.0, kg: 1700 },
-        { h: 4.8, r: 2.5, kg: 1200 },
-        { h: 4.8, r: 3.0, kg: 850 },
-        { h: 5.5, r: 0.0, kg: 3050 },
-        { h: 5.5, r: 0.5, kg: 3050 },
-        { h: 5.5, r: 1.0, kg: 2750 },
-        { h: 5.5, r: 1.5, kg: 1650 },
-        { h: 5.5, r: 2.0, kg: 1150 },
-        { h: 5.5, r: 2.3, kg: 650 },
-        { h: 6.0, r: 0.0, kg: 2950 },
-        { h: 6.0, r: 0.5, kg: 2950 },
-        { h: 6.0, r: 1.0, kg: 2200 },
-        { h: 6.0, r: 1.5, kg: 1100 },
-        { h: 6.4, r: 0.0, kg: 2850 },
-        { h: 6.4, r: 0.5, kg: 2850 },
-        { h: 6.4, r: 1.0, kg: 1100 },
-        { h: 6.7, r: 0.0, kg: 2800 },
-        { h: 6.7, r: 0.5, kg: 2550 },
+        { h: 2.5, r: 1, kg: 3000 },
+        { h: 2.5, r: 1.5, kg: 3000 },
+        { h: 2.5, r: 2, kg: 2750 },
+        { h: 2.5, r: 2.5, kg: 2000 },
+        { h: 2.5, r: 3, kg: 2000 },
+        { h: 2.5, r: 3.5, kg: 1600 },
+        { h: 2.5, r: 3.7, kg: 1350 },
+        // h=3m
+        { h: 3, r: 0, kg: 3200 },
+        { h: 3, r: 0.5, kg: 3200 },
+        { h: 3, r: 1, kg: 3000 },
+        { h: 3, r: 1.5, kg: 2750 },
+        { h: 3, r: 2, kg: 2500 },
+        { h: 3, r: 2.5, kg: 2000 },
+        { h: 3, r: 3, kg: 1600 },
+        { h: 3, r: 3.5, kg: 1350 },
+        // h=3.5m
+        { h: 3.5, r: 0, kg: 3200 },
+        { h: 3.5, r: 0.5, kg: 3200 },
+        { h: 3.5, r: 1, kg: 3000 },
+        { h: 3.5, r: 1.5, kg: 2750 },
+        { h: 3.5, r: 2, kg: 2500 },
+        { h: 3.5, r: 2.5, kg: 2000 },
+        { h: 3.5, r: 3, kg: 1600 },
+        { h: 3.5, r: 3.4, kg: 1350 },
+        // h=4m
+        { h: 4, r: 0, kg: 3000 },
+        { h: 4, r: 0.5, kg: 3000 },
+        { h: 4, r: 1, kg: 3000 },
+        { h: 4, r: 1.5, kg: 2750 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 2.5, kg: 2000 },
+        { h: 4, r: 2.8, kg: 1600 },
+        // h=4.5m
+        { h: 4.5, r: 0, kg: 3000 },
+        { h: 4.5, r: 0.5, kg: 3000 },
+        { h: 4.5, r: 1, kg: 3000 },
+        { h: 4.5, r: 1.5, kg: 2750 },
+        { h: 4.5, r: 2, kg: 2500 },
+        { h: 4.5, r: 2.5, kg: 2000 },
+        // h=5m
+        { h: 5, r: 0, kg: 2750 },
+        { h: 5, r: 0.5, kg: 2750 },
+        { h: 5, r: 1, kg: 2750 },
+        { h: 5, r: 1.5, kg: 2500 },
+        { h: 5, r: 2, kg: 2000 },
+        { h: 5, r: 2.3, kg: 1600 },
+        // h=5.5m
+        { h: 5.5, r: 0, kg: 2500 },
+        { h: 5.5, r: 0.5, kg: 2500 },
+        { h: 5.5, r: 1, kg: 2500 },
+        { h: 5.5, r: 1.5, kg: 2000 },
+        { h: 5.5, r: 1.8, kg: 1600 },
+        // h=6m
+        { h: 6, r: 0, kg: 2000 },
+        { h: 6, r: 0.5, kg: 2000 },
+        { h: 6, r: 1, kg: 2000 },
+        { h: 6, r: 1.3, kg: 1600 },
+        // h=6.5m
+        { h: 6.5, r: 0, kg: 1750 },
+        { h: 6.5, r: 0.5, kg: 1750 },
+        { h: 6.5, r: 0.8, kg: 1600 },
+        // h=6.7m
+        { h: 6.7, r: 0, kg: 1350 },
+        { h: 6.7, r: 0.3, kg: 1350 },
       ],
       filters: ["telehandler", "rough"],
     },
@@ -152795,10 +152847,14 @@ function _renderCards(matches, machineType, answers) {
         }
         <div style="font-size:.68rem;color:#94A3B8;margin-bottom:.5rem">ℹ️ Paid brand sponsorship. ${ad.sponsorCompany ? ad.sponsorCompany + " is an official brand partner." : "Sponsored by the machine manufacturer."} Organic results appear below.</div>
         <div style="padding-bottom:1rem">
-          <button id="sp-cart-btn-${_spIdx}"
+          ${
+            currentUser && (currentUser.role === "rental" || currentUser.role === "admin_rental")
+              ? `<div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
+              : `<button id="sp-cart-btn-${_spIdx}"
             style="width:100%;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
             🛒 Add to Hire Cart
-          </button>
+          </button>`
+          }
         </div>
       </div>`;
       container.appendChild(spCard);
@@ -154024,8 +154080,11 @@ function _renderCards(matches, machineType, answers) {
       })()}
       <div class="rec-tags">${(m.tags || []).map((t) => `<span class="rtag">${t}</span>`).join("")}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
-        <button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">🛒 Add to Hire Cart</button>
-        ${currentUser && currentUser.role === "lite" ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.72rem;font-weight:700;color:#38BDF8;text-align:center;margin-top:.3rem">ℹ️ Lite portal — contact a rental company directly to complete the hire</div>` : ""}
+        ${
+          currentUser && (currentUser.role === "rental" || currentUser.role === "admin_rental")
+            ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
+            : `<button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">🛒 Add to Hire Cart</button>${currentUser && currentUser.role === "lite" ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.72rem;font-weight:700;color:#38BDF8;text-align:center;margin-top:.3rem">ℹ️ Lite portal — contact a rental company directly to complete the hire</div>` : ""}`
+        }
       </div>
       </div>
     `;
@@ -171358,6 +171417,59 @@ function doLogin() {
     });
 }
 
+// ── Portal identity stripe ──────────────────────────────────────────────
+// Thin (5px) coloured bar pinned to the very top of the viewport so a
+// signed-in user can tell at a glance which portal they're in. The colour
+// map is intentionally distinct from the brand navy used in the nav bar
+// (which is shared across all portals):
+//   customer   → green   (#16A34A) — buyer/hirer side
+//   rental     → amber   (#F59E0B) — supplier/seller side
+//   lite       → cyan    (#0891B2) — overseas / quick-quote portal
+//   admin      → purple  (#7C3AED) — platform operator (matches the
+//                                    existing 'Management' admin tab tint)
+// Pass `null` (or call with no role) to remove the stripe entirely
+// (used on logout). Idempotent — safe to call repeatedly.
+function _applyPortalStripe(role) {
+  const STRIPE_ID = "noyo-portal-stripe";
+  let bar = document.getElementById(STRIPE_ID);
+  if (!role) {
+    if (bar) bar.remove();
+    return;
+  }
+  const map = {
+    customer: { color: "#16A34A", label: "Customer" },
+    rental:   { color: "#F59E0B", label: "Rental Co" },
+    admin_rental: { color: "#F59E0B", label: "Rental Co" },
+    lite:     { color: "#0891B2", label: "Lite" },
+    admin:    { color: "#7C3AED", label: "Admin" },
+  };
+  const cfg = map[role];
+  if (!cfg) {
+    if (bar) bar.remove();
+    return;
+  }
+  if (!bar) {
+    bar = document.createElement("div");
+    bar.id = STRIPE_ID;
+    // pointer-events:none so the stripe is purely visual and never
+    // intercepts a click that was meant for whatever sits beneath it.
+    // High z-index keeps it above the nav bar; the nav still functions
+    // because of pointer-events:none.
+    bar.style.cssText =
+      "position:fixed;top:0;left:0;right:0;height:5px;z-index:99999;" +
+      "pointer-events:none;transition:background .25s ease;" +
+      "box-shadow:0 1px 3px rgba(0,0,0,.08)";
+    document.body.appendChild(bar);
+  }
+  bar.style.background = cfg.color;
+  // Accessibility — surface the role as a tooltip for sighted users on
+  // hover and via ARIA for assistive tech, since the colour alone is
+  // information.
+  bar.title = `Signed in as: ${cfg.label}`;
+  bar.setAttribute("role", "status");
+  bar.setAttribute("aria-label", `Portal: ${cfg.label}`);
+}
+
 function loginSuccess(user) {
   currentUser = user;
   // Ensure uid is always on currentUser (from Firebase Auth or passed directly)
@@ -171369,6 +171481,10 @@ function loginSuccess(user) {
   try {
     _tagSessionRole(user.role || "customer");
   } catch (e) {}
+  // Show the role-coloured top stripe so the user can tell at a glance
+  // which portal they're in (green=customer / amber=rental / cyan=lite /
+  // purple=admin). Removed on logout.
+  try { _applyPortalStripe(user.role || "customer"); } catch (e) {}
 
   // For scustomer demo accounts: clear any stale company/ABN data from previous sessions
   // so they always see a clean registration form
@@ -171686,6 +171802,8 @@ function logOut() {
   currentUser = null;
   _userProfileCache = {};
   _sessionRegisteredOrg = null; // clear any previous rental registration
+  // Hide the role-coloured top stripe — they're no longer in any portal
+  try { _applyPortalStripe(null); } catch (e) {}
 
   // Reset wizard to clean home page
   _resetWizardToHome();
@@ -175596,6 +175714,7 @@ function adminStatClick(section, label) {
     usermgmt: "admin-tab-usermgmt",
     sponsored: "admin-tab-sponsored",
     addmachine: "admin-tab-addmachine",
+    unlockaudit: "admin-tab-unlockaudit",
   };
   // Try direct id lookup first
   const directId = `admin-tab-${section}`;
@@ -179785,6 +179904,7 @@ function showAdminSection(name, btn) {
   if (name === "management") renderManagementDashboard();
   if (name === "mapintel") renderMapIntelDashboard();
   if (name === "livemap") renderLiveMap();
+  if (name === "unlockaudit") renderAdminUnlockAudit();
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -184105,6 +184225,319 @@ function closeBuyLeadModal() {
 }
 
 // Called for both plan-included (isExtra=false) and paid extra (isExtra=true) unlocks
+// Dedicated Firestore audit log for unlock events. Distinct from the broader
+// `events` collection — gives the admin Unlock Audit dashboard a clean,
+// purpose-built table to query/sort/filter without sifting other event types.
+// Fields chosen to answer "who unlocked what, when, on which plan, and was
+// it complimentary?" in one row. Best-effort (catch+swallow) — never blocks
+// the unlock UX if Firestore is offline.
+function _logQuoteUnlock({ req, isPromo, isExtra, plan }) {
+  try {
+    if (!_fbDb || !req) return;
+    const _userObj = currentUser || {};
+    const _machines = (req.machines || [])
+      .map((m) => m.name || m.id || "Unknown")
+      .filter(Boolean);
+    const payload = {
+      ts: Date.now(),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      // Who unlocked
+      rentalCompanyUid: _userObj.uid || "",
+      rentalCompanyName: _userObj.name || _userObj.company || "",
+      viewerEmail: (_userObj.email || "").toLowerCase(),
+      // What was unlocked
+      quoteId: req.id || "",
+      customer: req.customer || "",
+      customerEmail: (req.email || "").toLowerCase(),
+      suburb: req.suburb || "",
+      stateCode: req.state || "",
+      machineCount: _machines.length,
+      machines: _machines,
+      hireStartDate: req.date || "",
+      // Commercial context
+      plan: plan && plan.plan ? plan.plan : null,
+      planLabel: plan && plan.cfg ? plan.cfg.label : "(no plan)",
+      isExtra: !!isExtra,
+      isPromoUnlock: !!isPromo,
+      chargedAmount: isPromo ? 0 : isExtra && plan && plan.cfg ? plan.cfg.extraPrice : 0,
+    };
+    _fbDb.collection("quote_unlocks").add(payload).catch(() => {});
+  } catch (e) {}
+}
+
+// ── Admin → Unlock Audit ──────────────────────────────────────────────────
+// Renders the live audit table of every quote unlock by every rental company.
+// Sourced from Firestore `quote_unlocks` collection — written by _logQuoteUnlock
+// on each successful unlock (promo, plan-included, or paid extra).
+//
+// Columns: when, rental co, viewer email, quote id, customer suburb, machines,
+// plan, type (promo / included / paid), amount charged. Sorted newest-first.
+// Footer summary tiles: total unlocks, promo unlocks, paid unlocks, revenue,
+// unique rental companies, unique enquiries unlocked.
+async function renderAdminUnlockAudit() {
+  const sec = document.getElementById("admin-sec-unlockaudit");
+  if (!sec) return;
+  // Skeleton + loading state
+  sec.innerHTML = `
+    <div class="admin-section-title">🔓 Unlock Audit — Quote Reveals</div>
+    <div style="background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:10px;padding:.7rem 1rem;margin-bottom:1rem;font-size:.82rem;color:#92400E">
+      Every time a rental company unlocks an enquiry on the Quote Requests page, a row is written here. Use this to see who unlocked what during the launch promo, and to forecast revenue once the promo ends.
+    </div>
+    <div id="admin-unlock-summary" style="display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem"></div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;align-items:center">
+      <input id="admin-unlock-search" placeholder="🔎 Search company, email, customer, suburb…" style="flex:1;min-width:240px;padding:.55rem .75rem;border:1.5px solid #E2E8F0;border-radius:9px;font-family:'Nunito',sans-serif;font-size:.85rem">
+      <select id="admin-unlock-filter" style="padding:.55rem .75rem;border:1.5px solid #E2E8F0;border-radius:9px;font-family:'Nunito',sans-serif;font-size:.85rem;background:#fff">
+        <option value="all">All unlocks</option>
+        <option value="promo">Promo unlocks</option>
+        <option value="included">Plan-included</option>
+        <option value="paid">Paid extras</option>
+      </select>
+      <button id="admin-unlock-refresh" style="background:#0052CC;color:#fff;border:none;border-radius:9px;padding:.55rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">🔄 Refresh</button>
+      <button id="admin-unlock-csv" style="background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:9px;padding:.55rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.82rem;cursor:pointer">📥 Export CSV</button>
+    </div>
+    <div id="admin-unlock-table" style="background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;overflow:hidden">
+      <div style="padding:2rem;text-align:center;color:#94A3B8">Loading unlock log…</div>
+    </div>`;
+
+  // Attach handlers (idempotent — re-attached on every render)
+  document.getElementById("admin-unlock-refresh").onclick = () =>
+    renderAdminUnlockAudit();
+  document.getElementById("admin-unlock-search").oninput = () =>
+    _renderAdminUnlockTable();
+  document.getElementById("admin-unlock-filter").onchange = () =>
+    _renderAdminUnlockTable();
+  document.getElementById("admin-unlock-csv").onclick = () =>
+    _exportUnlockAuditCsv();
+
+  // Pull from Firestore — newest first, capped at 500 rows for the dashboard
+  // (the full collection is preserved server-side; pagination can be added
+  // later if real volume grows past this).
+  let rows = [];
+  try {
+    if (_fbDb) {
+      const snap = await _fbDb
+        .collection("quote_unlocks")
+        .orderBy("ts", "desc")
+        .limit(500)
+        .get();
+      snap.forEach((doc) => {
+        rows.push({ _docId: doc.id, ...doc.data() });
+      });
+    }
+  } catch (e) {
+    console.warn("[Noyo] Unlock audit fetch failed:", e.message);
+  }
+
+  // Cache so search/filter can re-render without re-fetching
+  window._adminUnlockRows = rows;
+  _renderAdminUnlockSummary(rows);
+  _renderAdminUnlockTable();
+}
+
+function _renderAdminUnlockSummary(rows) {
+  const el = document.getElementById("admin-unlock-summary");
+  if (!el) return;
+  const total = rows.length;
+  const promoCount = rows.filter((r) => r.isPromoUnlock).length;
+  const paidCount = rows.filter((r) => r.isExtra && !r.isPromoUnlock).length;
+  const includedCount = rows.filter((r) => !r.isExtra).length;
+  const revenue = rows.reduce(
+    (s, r) => s + (r.isPromoUnlock ? 0 : r.chargedAmount || 0),
+    0,
+  );
+  const uniqueCos = new Set(rows.map((r) => r.viewerEmail).filter(Boolean)).size;
+  const uniqueEnquiries = new Set(rows.map((r) => r.quoteId).filter(Boolean)).size;
+  const tile = (label, value, color) =>
+    `<div style="flex:1;min-width:130px;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.7rem .9rem">
+      <div style="font-size:.7rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem">${label}</div>
+      <div style="font-size:1.4rem;font-weight:900;color:${color}">${value}</div>
+    </div>`;
+  el.innerHTML =
+    tile("Total unlocks", total, "#0F172A") +
+    tile("🎁 Promo (free)", promoCount, "#15803D") +
+    tile("📦 Plan-included", includedCount, "#1D4ED8") +
+    tile("💳 Paid extras", paidCount, "#B45309") +
+    tile("Revenue", "$" + revenue.toFixed(2), "#7C3AED") +
+    tile("Unique rental cos", uniqueCos, "#0F172A") +
+    tile("Unique enquiries", uniqueEnquiries, "#0F172A");
+}
+
+function _renderAdminUnlockTable() {
+  const el = document.getElementById("admin-unlock-table");
+  if (!el) return;
+  const rows = window._adminUnlockRows || [];
+  const search = (
+    document.getElementById("admin-unlock-search")?.value || ""
+  )
+    .trim()
+    .toLowerCase();
+  const filter =
+    document.getElementById("admin-unlock-filter")?.value || "all";
+
+  let filtered = rows.slice();
+  if (filter === "promo") filtered = filtered.filter((r) => r.isPromoUnlock);
+  else if (filter === "paid")
+    filtered = filtered.filter((r) => r.isExtra && !r.isPromoUnlock);
+  else if (filter === "included")
+    filtered = filtered.filter((r) => !r.isExtra);
+  if (search) {
+    filtered = filtered.filter((r) => {
+      const hay = [
+        r.rentalCompanyName,
+        r.viewerEmail,
+        r.quoteId,
+        r.customer,
+        r.suburb,
+        r.stateCode,
+        (r.machines || []).join(" "),
+        r.planLabel,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      return hay.indexOf(search) >= 0;
+    });
+  }
+
+  if (filtered.length === 0) {
+    el.innerHTML = `<div style="padding:2rem;text-align:center;color:#94A3B8;font-size:.9rem">${rows.length === 0 ? "No unlocks have been logged yet. Once a rental company unlocks an enquiry on the Quote Requests page, it will appear here." : "No unlocks match the current search/filter."}</div>`;
+    return;
+  }
+
+  const fmtTs = (ts) => {
+    if (!ts) return "—";
+    try {
+      return new Date(ts).toLocaleString("en-AU", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    } catch (e) {
+      return "—";
+    }
+  };
+  const typeBadge = (r) => {
+    if (r.isPromoUnlock)
+      return `<span style="background:#F0FDF4;color:#15803D;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:20px;border:1px solid #86EFAC">🎁 Promo</span>`;
+    if (r.isExtra)
+      return `<span style="background:#FFF7ED;color:#B45309;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:20px;border:1px solid #FED7AA">💳 Paid extra</span>`;
+    return `<span style="background:#EFF6FF;color:#1D4ED8;font-size:.7rem;font-weight:800;padding:.2rem .55rem;border-radius:20px;border:1px solid #BFDBFE">📦 Included</span>`;
+  };
+  const safe = (s) =>
+    String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+  el.innerHTML = `
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem">
+        <thead>
+          <tr style="background:#F8FAFC;border-bottom:2px solid #E2E8F0">
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">When</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Rental Co</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Email</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Quote ID</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Customer</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Area</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Machines</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Plan</th>
+            <th style="padding:.55rem .7rem;text-align:left;font-weight:800;color:#475569;white-space:nowrap">Type</th>
+            <th style="padding:.55rem .7rem;text-align:right;font-weight:800;color:#475569;white-space:nowrap">Charged</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filtered
+            .map(
+              (r, i) => `
+            <tr style="border-bottom:1px solid #F1F5F9;background:${i % 2 === 0 ? "#fff" : "#FAFBFC"}">
+              <td style="padding:.5rem .7rem;color:#475569;white-space:nowrap;font-family:monospace;font-size:.78rem">${safe(fmtTs(r.ts))}</td>
+              <td style="padding:.5rem .7rem;color:#0F172A;font-weight:700">${safe(r.rentalCompanyName || "—")}</td>
+              <td style="padding:.5rem .7rem;color:#475569;font-family:monospace;font-size:.78rem">${safe(r.viewerEmail || "—")}</td>
+              <td style="padding:.5rem .7rem;color:#0052CC;font-family:monospace;font-size:.78rem">${safe(r.quoteId || "—")}</td>
+              <td style="padding:.5rem .7rem;color:#475569">${safe(r.customer || "—")}</td>
+              <td style="padding:.5rem .7rem;color:#475569;font-size:.78rem">${safe(r.suburb || "—")}${r.stateCode ? ", " + safe(r.stateCode) : ""}</td>
+              <td style="padding:.5rem .7rem;color:#475569;font-size:.78rem">${safe((r.machines || []).join(" · ") || "—")}</td>
+              <td style="padding:.5rem .7rem;color:#475569;font-size:.78rem">${safe(r.planLabel || "—")}</td>
+              <td style="padding:.5rem .7rem">${typeBadge(r)}</td>
+              <td style="padding:.5rem .7rem;text-align:right;font-weight:800;color:${r.chargedAmount > 0 ? "#7C3AED" : "#94A3B8"};font-family:monospace">${r.chargedAmount > 0 ? "$" + Number(r.chargedAmount).toFixed(2) : "—"}</td>
+            </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>
+    <div style="padding:.6rem .8rem;background:#F8FAFC;border-top:1px solid #E2E8F0;font-size:.75rem;color:#64748B">Showing ${filtered.length} of ${rows.length} unlock${rows.length === 1 ? "" : "s"}${rows.length === 500 ? " (capped at most-recent 500)" : ""}.</div>`;
+}
+
+function _exportUnlockAuditCsv() {
+  const rows = window._adminUnlockRows || [];
+  if (!rows.length) {
+    showToast("No unlocks to export yet.", "#94A3B8");
+    return;
+  }
+  const headers = [
+    "ts_iso",
+    "rental_company",
+    "viewer_email",
+    "quote_id",
+    "customer",
+    "customer_email",
+    "suburb",
+    "state",
+    "machines",
+    "machine_count",
+    "hire_start",
+    "plan",
+    "plan_label",
+    "is_extra",
+    "is_promo",
+    "charged_amount",
+  ];
+  const esc = (v) => {
+    const s = String(v == null ? "" : v).replace(/"/g, '""');
+    return /[",\n]/.test(s) ? `"${s}"` : s;
+  };
+  const lines = [headers.join(",")];
+  rows.forEach((r) => {
+    lines.push(
+      [
+        r.ts ? new Date(r.ts).toISOString() : "",
+        r.rentalCompanyName || "",
+        r.viewerEmail || "",
+        r.quoteId || "",
+        r.customer || "",
+        r.customerEmail || "",
+        r.suburb || "",
+        r.stateCode || "",
+        (r.machines || []).join("; "),
+        r.machineCount || 0,
+        r.hireStartDate || "",
+        r.plan || "",
+        r.planLabel || "",
+        r.isExtra ? "1" : "0",
+        r.isPromoUnlock ? "1" : "0",
+        r.chargedAmount || 0,
+      ]
+        .map(esc)
+        .join(","),
+    );
+  });
+  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `noyo-unlock-audit-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  showToast(`📥 Exported ${rows.length} unlock${rows.length === 1 ? "" : "s"}.`, "#15803D");
+}
+
 async function confirmUnlockLead(isExtra) {
   const req = quoteInbox.find((r) => r.id === _buyLeadReqId);
   if (!req) return;
@@ -184128,6 +184561,10 @@ async function confirmUnlockLead(isExtra) {
       renderQuoteInbox();
       // Track the reveal — same audit trail as direct revealContactDetails
       _trackContactReveal("rental", req.id, req.customer || "");
+      // Dedicated quote_unlocks audit row (Firestore) — shows up in admin
+      // Unlock Audit dashboard so the operator can see exactly who unlocked
+      // what during the launch promo.
+      _logQuoteUnlock({ req, isPromo: true, isExtra: true, plan: p });
       try {
         if (adminData && Array.isArray(adminData.quoteEvents)) {
           adminData.quoteEvents.push({
@@ -184189,6 +184626,8 @@ async function confirmUnlockLead(isExtra) {
   renderQuoteInbox();
   // Track the reveal — same audit trail as direct revealContactDetails
   _trackContactReveal("rental", req.id, req.customer || "");
+  // Dedicated quote_unlocks audit row (Firestore) — plan-included unlock
+  _logQuoteUnlock({ req, isPromo: false, isExtra: false, plan: p });
   const p2 = _rcPlan();
   showToast(
     `📞 Contact opened — ${p2 ? p2.remaining + " enquir" + (p2.remaining === 1 ? "y" : "ies") + " remaining this cycle" : ""}`,
@@ -184210,6 +184649,11 @@ async function _stripeUnlockOnReturn(reqId) {
   renderQuoteInbox();
   // Track the reveal — same audit trail as direct revealContactDetails
   _trackContactReveal("rental", req.id, req.customer || "");
+  // Dedicated quote_unlocks audit row (Firestore) — Stripe-paid extra unlock
+  try {
+    const _pSR = typeof _rcPlan === "function" ? _rcPlan() : null;
+    _logQuoteUnlock({ req, isPromo: false, isExtra: true, plan: _pSR });
+  } catch (e) {}
   showToast(
     "📞 Contact opened — payment confirmed.",
     "#16A34A",
@@ -184893,6 +185337,29 @@ function renderQuoteRequests() {
 
   badges.innerHTML = `
     <span style="background:#EFF6FF;color:#1D4ED8;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:1px solid #BFDBFE">${total} Total</span>
+    ${(() => {
+      // Quota / promo badge — sourced from _rcPlan(). During launch promo,
+      // shows "🎁 Free during launch" so rental cos understand unlocks are
+      // currently complimentary. Outside promo, shows "X / Y this cycle".
+      try {
+        const _qrP = typeof _rcPlan === "function" ? _rcPlan() : null;
+        const _promoOn = typeof _noyoPromoActive === "function" ? _noyoPromoActive() : false;
+        if (_promoOn) {
+          return `<span style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);color:#15803D;font-size:.78rem;font-weight:800;padding:.3rem .8rem;border-radius:20px;border:1.5px solid #86EFAC" title="During the launch promo, unlocks are free">🎁 Free during launch · ${_qrP && _qrP.cfg ? _qrP.cfg.label : "no plan yet"}</span>`;
+        }
+        if (_qrP && _qrP.hasSubscription) {
+          const _qrUsed = _qrP.used || 0;
+          const _qrInc = _qrP.included || 0;
+          const _qrRem = Math.max(0, _qrInc - _qrUsed);
+          if (_qrP.cfg && _qrP.cfg.payg) {
+            return `<span style="background:#F0FDF4;color:#15803D;font-size:.78rem;font-weight:800;padding:.3rem .8rem;border-radius:20px;border:1.5px solid #86EFAC">💳 PAYG · $${_qrP.cfg.extraPrice}/unlock</span>`;
+          }
+          const _qrLowQuota = _qrInc > 0 && _qrRem <= Math.max(1, Math.floor(_qrInc * 0.2));
+          return `<span style="background:${_qrLowQuota ? "#FEF2F2" : "#EFF6FF"};color:${_qrLowQuota ? "#B91C1C" : "#1D4ED8"};font-size:.78rem;font-weight:800;padding:.3rem .8rem;border-radius:20px;border:1.5px solid ${_qrLowQuota ? "#FCA5A5" : "#BFDBFE"}" title="Quota refreshes ${_qrP.windowEnd || ""}">🔓 ${_qrRem} of ${_qrInc} unlocks left this cycle</span>`;
+        }
+        return `<span style="background:#FFFBEB;color:#B45309;font-size:.78rem;font-weight:800;padding:.3rem .8rem;border-radius:20px;border:1.5px solid #FCD34D;cursor:pointer" onclick="openSubscribeModal()">🔓 Choose a plan to unlock enquiries →</span>`;
+      } catch (e) { return ""; }
+    })()}
     ${unquotedOpen > 0 ? `<span style="background:#EFF6FF;color:#0052CC;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:2px solid #0052CC">🆕 ${unquotedOpen} New</span>` : ""}
     ${urgent > 0 ? `<span style="background:#FEF2F2;color:#DC2626;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:2px solid #EF4444">🚨 ${urgent} Urgent</span>` : ""}
     ${active > 0 ? `<span style="background:#FFFDF0;color:#B45309;font-size:.78rem;font-weight:700;padding:.3rem .75rem;border-radius:20px;border:1.5px solid #FCD34D">✓ ${myResponded} Quoted</span>` : ""}
@@ -184972,6 +185439,16 @@ function renderQuoteRequests() {
       const hireStart = req.date || "—";
       const durLbl =
         DUR_LABEL[req.machines?.[0]?.duration || "1-day"] || "1 day";
+      // ── Unlock paywall: has THIS rental co already unlocked this enquiry? ──
+      // After purchase via openBuyLeadModal/confirmUnlockLead, the user's email
+      // is added to req.leadsPurchased. If so, full details + Quote Now button
+      // are revealed. Until then, machine list and customer details are hidden
+      // behind a 🔓 Unlock Quote CTA which routes to the plans/promo modal.
+      const _qrUnlockEmail = (currentUser ? currentUser.email : "").toLowerCase();
+      const _qrIsUnlocked =
+        !!myResp ||
+        (Array.isArray(req.leadsPurchased) &&
+          req.leadsPurchased.some((e) => (e || "").toLowerCase() === _qrUnlockEmail));
 
       let statusBadge;
       if (myResp) {
@@ -185000,6 +185477,9 @@ function renderQuoteRequests() {
             `<span style="display:inline-flex;align-items:center;gap:.3rem;background:#F1F5F9;color:#334155;font-size:.78rem;font-weight:600;padding:.18rem .55rem;border-radius:7px">${m.emoji || "🏗️"} ${m.name}</span>`,
         )
         .join(" ");
+      // Locked variant — count only, names hidden, generic "🔒 Hidden until unlocked"
+      const _qrMachineCount = (req.machines || []).length;
+      const _machineListLocked = `<span style="display:inline-flex;align-items:center;gap:.35rem;background:#F1F5F9;color:#64748B;font-size:.78rem;font-weight:700;padding:.22rem .65rem;border-radius:7px;border:1px dashed #CBD5E1">🔒 ${_qrMachineCount} machine${_qrMachineCount === 1 ? "" : "s"} requested · names hidden</span>`;
 
       const windowLabel =
         req.responseWindowHours === 2
@@ -185009,7 +185489,11 @@ function renderQuoteRequests() {
             : "📋 8h";
 
       const quoteBtn =
-        !myResp && !expired
+        !_qrIsUnlocked && !expired
+          ? `<button onclick="openBuyLeadModal('${req.id}')" style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border:none;border-radius:10px;padding:.6rem 1.4rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem">🔓 Unlock Quote</button>`
+          : !_qrIsUnlocked && expired
+          ? `<span style="background:#F1F5F9;color:#94A3B8;border-radius:10px;padding:.55rem 1rem;font-size:.82rem;font-weight:700;cursor:not-allowed">🔒 Closed — unlock window passed</span>`
+          : !myResp && !expired
           ? `<button onclick="openRespondModal('${req.id}')" style="background:#0052CC;color:#fff;border:none;border-radius:10px;padding:.6rem 1.4rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer">📋 Quote Now</button>`
           : myResp && !expired
             ? `<div style="display:flex;gap:.5rem">
@@ -185090,8 +185574,8 @@ function renderQuoteRequests() {
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-bottom:.7rem">
         <div>
           <div style="font-size:.72rem;font-weight:800;color:#0052CC;font-family:monospace;margin-bottom:.2rem;letter-spacing:.03em">${req.id}</div>
-          <div style="font-weight:900;color:#0F172A;font-size:.95rem">👤 ${firstName}</div>
-          <div style="font-size:.8rem;color:#64748B;margin-top:.2rem">📍 ${suburb}${state ? ", " + state : ""} &nbsp;·&nbsp; 📅 Hire start: ${hireStart} &nbsp;·&nbsp; ⏳ ${durLbl} &nbsp;·&nbsp; ${windowLabel}${req.isRural ? ` &nbsp;·&nbsp; <span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:2px solid #F97316;font-size:.72rem;font-weight:800;padding:.15rem .55rem;border-radius:12px">🏗️ Rural/Remote</span>` : ""}</div>
+          <div style="font-weight:900;color:#0F172A;font-size:.95rem">👤 ${_qrIsUnlocked ? firstName : '<span style="color:#94A3B8;font-weight:700">🔒 Customer name hidden</span>'}</div>
+          <div style="font-size:.8rem;color:#64748B;margin-top:.2rem">📍 ${suburb}${state ? ", " + state : ""} &nbsp;·&nbsp; 📅 Hire start: ${_qrIsUnlocked ? hireStart : '<span style="color:#94A3B8">🔒 hidden</span>'} &nbsp;·&nbsp; ⏳ ${durLbl} &nbsp;·&nbsp; ${windowLabel}${req.isRural ? ` &nbsp;·&nbsp; <span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:2px solid #F97316;font-size:.72rem;font-weight:800;padding:.15rem .55rem;border-radius:12px">🏗️ Rural/Remote</span>` : ""}</div>
           <div style="font-size:.75rem;color:#94A3B8;margin-top:.1rem">Sent: ${sentStr}</div>
         </div>
         <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
@@ -185100,7 +185584,7 @@ function renderQuoteRequests() {
           ${!req.acceptedBy ? statusBadge : ""}
         </div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem">${machineList}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem">${_qrIsUnlocked ? machineList : _machineListLocked}</div>
       ${(() => {
         // Customer acceptance window for this rental company
         if (!myResp || req.acceptedBy) return "";
