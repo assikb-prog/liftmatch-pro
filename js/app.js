@@ -166100,30 +166100,32 @@ function detABNInput(val) {
 let _lpABNTimer = null;
 let _sqmABNTimer = null;
 
-// Shared: call ABR via Claude API, return parsed result or throw
+// Shared: call our Cloudflare Pages Function (server-side proxy) which in
+// turn hits the official Australian Business Register Web Services. The
+// proxy keeps the ABR GUID server-side (never in the browser) and avoids
+// CORS issues. Returns parsed result or throws on error.
+//
+// Endpoint: /api/abn-lookup?abn={11-digit ABN}
+// Source:   /functions/api/abn-lookup.js
+//
+// Until the ABR_GUID env var is set in Cloudflare Pages settings, the
+// proxy returns HTTP 503 and this function throws — the calling code
+// already has a graceful fallback ("Could not reach ABR right now —
+// you can continue, we'll verify manually") so the registration UX is
+// not blocked.
 async function _lookupABNLive(abn) {
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-6",
-      max_tokens: 500,
-      tools: [{ type: "web_search_20250305", name: "web_search" }],
-      messages: [
-        {
-          role: "user",
-          content: `Look up ABN ${abn} on the Australian Business Register at abr.business.gov.au. Return ONLY a JSON object — no markdown, no explanation — with exactly these fields: { "entityName": string, "tradingName": string or null, "status": "Active" or "Cancelled", "type": string, "state": string, "gst": boolean }. If not found return { "entityName": null }.`,
-        },
-      ],
-    }),
-  });
+  const response = await fetch(
+    "/api/abn-lookup?abn=" + encodeURIComponent(abn),
+    { method: "GET", headers: { Accept: "application/json" } },
+  );
+  if (!response.ok) {
+    throw new Error("ABR proxy returned HTTP " + response.status);
+  }
   const data = await response.json();
-  const text = (data.content || [])
-    .filter((c) => c.type === "text")
-    .map((c) => c.text)
-    .join("");
-  const clean = text.replace(/```json|```/g, "").trim();
-  return JSON.parse(clean);
+  // Proxy normalises ABR's XML/JSONP response to a stable schema:
+  //   { entityName, tradingName, status, type, state, gst }
+  // (or { entityName: null } if not found)
+  return data;
 }
 
 // ── Rental Company registration form ─────────────────────────────
@@ -166266,7 +166268,8 @@ async function detLookupABN() {
     return;
   }
 
-  // Use Claude API to look up the ABN via web search
+  // Use the Cloudflare proxy → ABR Web Services (server-side, GUID-protected).
+  // Same proxy as registration-time lookup. See _lookupABNLive() for full notes.
   btn.textContent = "⏳ Looking up…";
   btn.disabled = true;
   st.style.display = "block";
@@ -166274,28 +166277,14 @@ async function detLookupABN() {
   res.style.display = "none";
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 500,
-        tools: [{ type: "web_search_20250305", name: "web_search" }],
-        messages: [
-          {
-            role: "user",
-            content: `Look up ABN ${abn} on the Australian Business Register (abr.business.gov.au). Return ONLY a JSON object with these fields: { "entityName": string, "tradingName": string or null, "status": "Active" or "Cancelled", "type": string (e.g. "Company"), "state": string (e.g. "NSW"), "gst": boolean }. Return ONLY the JSON, nothing else.`,
-          },
-        ],
-      }),
-    });
-    const data = await response.json();
-    const text = (data.content || [])
-      .filter((c) => c.type === "text")
-      .map((c) => c.text)
-      .join("");
-    const clean = text.replace(/```json|```/g, "").trim();
-    const info = JSON.parse(clean);
+    const response = await fetch(
+      "/api/abn-lookup?abn=" + encodeURIComponent(abn),
+      { method: "GET", headers: { Accept: "application/json" } },
+    );
+    if (!response.ok) {
+      throw new Error("ABR proxy returned HTTP " + response.status);
+    }
+    const info = await response.json();
 
     if (info.entityName) {
       res.style.display = "block";
