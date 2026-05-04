@@ -1419,6 +1419,7 @@
       <button class="admin-tab" onclick="showAdminSection('analytics',this)" id="admin-tab-analytics">📈 Analytics</button>
       <button class="admin-tab" onclick="showAdminSection('liteanalytics',this)" id="admin-tab-liteanalytics">🔵 Lite Analytics</button>
       <button class="admin-tab" onclick="showAdminSection('billing',this)" id="admin-tab-billing">💳 Billing & Revenue</button>
+      <button class="admin-tab" onclick="showAdminSection('unlockaudit',this)" id="admin-tab-unlockaudit">🔓 Unlock Audit</button>
       <button class="admin-tab" onclick="showAdminSection('sponsored',this)" id="admin-tab-sponsored">⭐ Brand Partner (Sponsored)</button>
       <button class="admin-tab" onclick="showAdminSection('banners',this)" id="admin-tab-banners" style="background:linear-gradient(135deg,#F97316,#EA580C);color:#fff;font-weight:900;border:none">🖼️ Banner Panel</button>
       <button class="admin-tab" onclick="showAdminSection('addmachine',this)" id="admin-tab-addmachine">➕ Add Machine</button>
@@ -1688,6 +1689,10 @@
 
     <div class="admin-section" id="admin-sec-billing">
       <!-- Populated entirely by renderAdminBilling() -->
+    </div>
+
+    <div class="admin-section" id="admin-sec-unlockaudit">
+      <!-- Populated entirely by renderAdminUnlockAudit() -->
     </div>
 
     <div class="admin-section" id="admin-sec-analytics">
