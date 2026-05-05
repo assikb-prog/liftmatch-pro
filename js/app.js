@@ -143588,8 +143588,8 @@ function matchMachines(ans, type) {
     // The chosen mast is attached as `m._chosenMast` for use by the renderer
     // and the capacity calculator below. Machines without mastOptions fall
     // back to the legacy single-mast behaviour using `m.liftHeight`.
-    const REQ_HT_HEADROOM = 1.20; // Rule A: 20% mast headroom
-    const REQ_KG_HEADROOM = 1.20; // Rule B: 20% capacity headroom
+    const REQ_HT_HEADROOM = 1.20; // Rule A: 20% mast height headroom (keeps mast-picker safe — never put a 3.8m lift on a 4.3m mast)
+    const REQ_KG_HEADROOM = 1.08; // Rule B: 8% capacity headroom (v132.1 — was 1.20, reduced after operator feedback that 20% was too aggressive and excluded comfortably-suitable machines)
     function pickMastForRequest(m, reqHt, needContainer) {
       if (!Array.isArray(m.mastOptions) || m.mastOptions.length === 0) {
         return null; // legacy machine — no mast picker
@@ -148727,6 +148727,207 @@ function showResults() {
 // where available; otherwise estimates via typical counterbalance ratios.
 // Same 0.65 interpolation curve as the Load Chart panel — so the 600mm LC
 // figure in this panel matches the Load Chart panel's figure exactly.
+// ── v132.1: Forklift Load Chart panel (Ground level → @height → @full mast vs requirement)
+// Shared helper called by both organic and sponsored forklift cards. Mirrors
+// the inline logic in the organic card body so sponsored ads show identical
+// chart output. Returns "" when no load weight has been specified or the
+// machine isn't a forklift.
+function _buildForkliftLoadChartPanel(m, machineType, answers) {
+  if (machineType !== "forklift") return "";
+  const ans = answers || {};
+  const reqKg = parseFloat(ans.load_weight_kg || ans.mat_kg || 0);
+  if (!(reqKg > 0)) return "";
+
+  const lc = ans.load_centre || "lc_600";
+  const lcLabel =
+    { lc_600: "600mm", lc_900: "900mm", lc_1200: "1200mm" }[lc] || "600mm";
+  const ratedKg = m.capacity * 1000;
+  const residualMap = {
+    lc_600: "residual600",
+    lc_900: "residual900",
+    lc_1200: "residual1200",
+  };
+  let residualKg = m[residualMap[lc]];
+  // Parse from string liftChart fallback (same as inline)
+  if (!residualKg && m.liftChart && typeof m.liftChart === "string") {
+    const lcMmMap = { lc_600: "600mm", lc_900: "900mm", lc_1200: "1,200mm" };
+    const lcMm = lcMmMap[lc];
+    const re = new RegExp(
+      "([\\d,]+)kg\\s*@" + lcMm.replace(",", "[,]?").replace("mm", "\\s*mm"),
+      "i",
+    );
+    const match = m.liftChart.match(re);
+    if (match) residualKg = parseInt(match[1].replace(/,/g, ""));
+  }
+  // Chosen-mast capDerate override (same as inline)
+  if (m._chosenMast && typeof m._chosenMast.capDerate === "number") {
+    const lcFactor =
+      { lc_600: 1.0, lc_900: 1.18, lc_1200: 1.38 }[lc] || 1.0;
+    residualKg = Math.round((m.capacity * 1000 * m._chosenMast.capDerate) / lcFactor);
+  }
+
+  // Mast height — chosen-mast aware
+  const fullMastHt =
+    (m._chosenMast && m._chosenMast.liftHeight) || m.liftHeight || 6.0;
+  const htBucketMid = { ht_2m: 1.5, ht_4m: 3.0, ht_6m: 5.0, ht_over6m: 7.0 };
+  const reqHtExact = parseFloat(ans.mat_ht_m || 0);
+  const reqHt =
+    reqHtExact > 0 ? reqHtExact : htBucketMid[ans.lift_height_fork] || 0;
+  const htFrac =
+    reqHt > 0 && fullMastHt > 0 ? Math.min(reqHt / fullMastHt, 1.0) : null;
+
+  function interpCap(rated, residual, frac) {
+    return Math.round(rated - (rated - residual) * Math.pow(frac, 0.65));
+  }
+
+  let chartHtml = "";
+  if (residualKg) {
+    let capAtHt, capLabel, caveat;
+    if (htFrac !== null && htFrac > 0 && htFrac < 0.99) {
+      capAtHt = interpCap(ratedKg, residualKg, htFrac);
+      capLabel = `Est. at ${reqHt}m (${lcLabel} LC)`;
+      caveat = `Proportionately interpolated between ground-level rated (${ratedKg.toLocaleString()} kg) and full-height residual (${residualKg.toLocaleString()} kg at ${fullMastHt}m). Actual value depends on mast configuration — always verify on the machine's load plate.`;
+    } else if (htFrac !== null && htFrac >= 0.99) {
+      capAtHt = residualKg;
+      capLabel = `Residual at ${fullMastHt}m (${lcLabel} LC)`;
+      caveat = `Capacity at full mast height. Always verify on the machine's load plate before lifting.`;
+    } else {
+      capAtHt = ratedKg;
+      capLabel = `Rated — ground level (${lcLabel} LC)`;
+      caveat = `Capacity at ground level. Reduces as mast rises — check load plate.`;
+    }
+    const rotWtR = m._isRotator ? m._rotatorWeightKg || 0 : 0;
+    const finalCapR = Math.max(0, capAtHt - rotWtR);
+    const compareKg = finalCapR;
+    const _reqKgWithHeadroom = reqKg * 1.08;
+    const ok = compareKg >= _reqKgWithHeadroom;
+    const marginal = !ok && compareKg >= reqKg;
+    const bg = ok
+      ? "linear-gradient(135deg,#ECFDF5,#D1FAE5)"
+      : marginal
+        ? "linear-gradient(135deg,#FEF3C7,#FDE68A)"
+        : "linear-gradient(135deg,#FEE2E2,#FECACA)";
+    const bc = ok ? "#10B981" : marginal ? "#F59E0B" : "#DC2626";
+    const tc = ok ? "#065F46" : marginal ? "#92400E" : "#991B1B";
+    const verdict = ok
+      ? `✅ ${m._isRotator ? "Sufficient after rotator deduction" : "Sufficient capacity at your lift height"}`
+      : marginal
+        ? `⚠️ ${m._isRotator ? "Tight after rotator deduction — confirm with rental company" : "Tight margin — confirm on the load plate before lifting"}`
+        : `❌ ${m._isRotator ? "Insufficient after rotator deduction — must size up" : "Insufficient capacity at this height"}`;
+    const rotatorRowR = m._isRotator
+      ? `
+        <div style="padding-bottom:6px;color:#bbb">−</div>
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#EF4444;font-weight:700;text-transform:uppercase;letter-spacing:.4px">🔄 Rotator</div>
+          <div style="font-size:1.05rem;font-weight:900;color:#EF4444">${rotWtR.toLocaleString()} kg</div>
+        </div>
+        <div style="padding-bottom:6px;color:#bbb">=</div>
+        <div style="text-align:center;background:rgba(0,0,0,.08);border-radius:10px;padding:.35rem .75rem;border:2.5px solid ${bc}">
+          <div style="font-size:.68rem;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Usable w/ rotator</div>
+          <div style="font-size:1.35rem;font-weight:900;color:${tc}">${finalCapR.toLocaleString()} kg</div>
+        </div>`
+      : "";
+    const showFullHtCol =
+      !m._isRotator && htFrac !== null && htFrac > 0 && htFrac < 0.95;
+    const fullHtColHtml = showFullHtCol
+      ? `<div style="padding-bottom:6px;color:#bbb">→</div>
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.4px">At full mast (${fullMastHt}m)</div>
+          <div style="font-size:1.05rem;font-weight:900;color:#888">${residualKg.toLocaleString()} kg</div>
+        </div>`
+      : "";
+    chartHtml = `<div class="lift-chart-note" style="background:${bg};border-left-color:${bc}">
+      <strong>📊 Load Chart — ${lcLabel} LC${reqHt > 0 ? " / " + reqHt + "m lift" : ""}${m._isRotator ? " + 🔄 Rotator" : ""}</strong><br>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:flex-end;margin:.6rem 0">
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Ground level</div>
+          <div style="font-size:1.05rem;font-weight:900;color:var(--navy)">${ratedKg.toLocaleString()} kg</div>
+        </div>
+        <div style="padding-bottom:6px;color:#bbb">→</div>
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.4px">${capLabel}</div>
+          <div style="font-size:1.05rem;font-weight:900;color:var(--navy)">${capAtHt.toLocaleString()} kg</div>
+        </div>
+        ${fullHtColHtml}
+        ${rotatorRowR}
+        <div style="padding-bottom:6px;color:#bbb">vs</div>
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Your requirement</div>
+          <div style="font-size:1.05rem;font-weight:900;color:var(--navy)">${reqKg.toLocaleString()} kg</div>
+        </div>
+      </div>
+      <div style="font-weight:700;color:${tc};margin-bottom:.3rem">${verdict}</div>
+      <small style="color:#555;line-height:1.5">ℹ️ ${caveat}${m._isRotator ? ` 🔄 Rotator weight (~${rotWtR.toLocaleString()} kg) deducted from capacity at height. This is an estimated weight based on capacity class — actual rotator weights range from 195 kg (1.5T class) to 840 kg (8T class) and vary by manufacturer, model, and carriage width. <strong>Always confirm the exact rotator weight with your rental company before hiring.</strong>` : ""}</small>
+    </div>`;
+  } else {
+    const lcDerateFactor =
+      { lc_600: 1.0, lc_900: 1.18, lc_1200: 1.38 }[lc] || 1.0;
+    const estimatedResidual = Math.round((ratedKg * 0.72) / lcDerateFactor);
+    let capAtHt, capLabel;
+    if (htFrac !== null && htFrac > 0 && htFrac < 0.99) {
+      capAtHt = interpCap(ratedKg, estimatedResidual, htFrac);
+      capLabel = `Est. at ${reqHt}m`;
+    } else {
+      capAtHt = estimatedResidual;
+      capLabel = `Est. at full height`;
+    }
+    const rotWtE = m._isRotator ? m._rotatorWeightKg || 0 : 0;
+    const finalCapE = Math.max(0, capAtHt - rotWtE);
+    const ok = finalCapE >= reqKg;
+    const bg = ok ? "#FEF9C3" : "linear-gradient(135deg,#FEF3C7,#FDE68A)";
+    const bc = m._isRotator ? (ok ? "#10B981" : "#EF4444") : "#EAB308";
+    const tc = ok ? "#78350F" : "#92400E";
+    const verdict = ok
+      ? `✅ ${m._isRotator ? "Likely sufficient after rotator deduction" : "Likely sufficient at this height"}`
+      : `⚠️ ${m._isRotator ? "Insufficient after rotator deduction — consider sizing up" : "Marginal — verify on the machine's load plate"}`;
+    const rotatorRowE = m._isRotator
+      ? `
+        <div style="padding-bottom:6px;color:#bbb">−</div>
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#EF4444;font-weight:700;text-transform:uppercase;letter-spacing:.4px">🔄 Rotator</div>
+          <div style="font-size:1.05rem;font-weight:900;color:#EF4444">${rotWtE.toLocaleString()} kg</div>
+        </div>
+        <div style="padding-bottom:6px;color:#bbb">=</div>
+        <div style="text-align:center;background:rgba(0,0,0,.08);border-radius:10px;padding:.35rem .75rem;border:2.5px solid ${bc}">
+          <div style="font-size:.68rem;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Usable w/ rotator</div>
+          <div style="font-size:1.35rem;font-weight:900;color:${tc}">${finalCapE.toLocaleString()} kg</div>
+        </div>`
+      : "";
+    chartHtml = `<div class="lift-chart-note" style="background:${bg};border-left-color:${bc}">
+      <strong>📊 Load Chart (est.) — ${lcLabel} LC${reqHt > 0 ? " / " + reqHt + "m lift" : ""}${m._isRotator ? " + 🔄 Rotator" : ""}</strong><br>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:flex-end;margin:.6rem 0">
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Ground level</div>
+          <div style="font-size:1.05rem;font-weight:900;color:var(--navy)">${ratedKg.toLocaleString()} kg</div>
+        </div>
+        <div style="padding-bottom:6px;color:#bbb">→</div>
+        <div style="text-align:center${m._isRotator ? "" : ";background:rgba(0,0,0,.05);border-radius:10px;padding:.35rem .75rem;border:2.5px solid " + bc}">
+          <div style="font-size:.68rem;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.4px">${capLabel}</div>
+          <div style="font-size:1.05rem;font-weight:900;color:var(--navy)">~${capAtHt.toLocaleString()} kg</div>
+        </div>
+        ${rotatorRowE}
+        ${
+          !m._isRotator
+            ? `<div style="padding-bottom:6px;color:#bbb">→</div>
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Est. full height</div>
+          <div style="font-size:1.05rem;font-weight:900;color:#888">~${estimatedResidual.toLocaleString()} kg</div>
+        </div>`
+            : ""
+        }
+        <div style="padding-bottom:6px;color:#bbb">vs</div>
+        <div style="text-align:center">
+          <div style="font-size:.68rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Your requirement</div>
+          <div style="font-size:1.05rem;font-weight:900;color:var(--navy)">${reqKg.toLocaleString()} kg</div>
+        </div>
+      </div>
+      <div style="font-weight:700;color:${tc};margin-bottom:.3rem">${verdict}</div>
+      <small style="color:#92400E;line-height:1.5">⚠️ Estimates only — no manufacturer residual data for this model. Always verify on this machine's load plate before lifting.${m._isRotator ? ` 🔄 Rotator weight (~${rotWtE.toLocaleString()} kg) deducted from capacity at height. This is an estimated weight — actual rotator weights range from 195 kg (1.5T class) to 840 kg (8T class) and vary by manufacturer and carriage width. <strong>Always confirm the exact rotator weight with your rental company before hiring.</strong>` : ""}</small>
+    </div>`;
+  }
+  return chartHtml;
+}
+
 // ── v132: Forklift Mast Configuration panel ─────────────────────────────────
 // Shared helper called by both organic and sponsored forklift cards. Renders
 // a panel showing the mast that was picked (Rule A in the engine), how much
@@ -148751,8 +148952,14 @@ function _buildForkliftMastPanel(m, machineType, answers) {
   const alts = m.mastOptions
     .filter((o) => o.type !== chosen.type)
     .map((o) => {
-      const cap = o.containerCapable ? " 🚢" : "";
-      return `<span style="display:inline-block;background:#fff;border:1px solid #E5E7EB;border-radius:6px;padding:2px 8px;font-size:.74rem;color:#374151;margin:2px 4px 2px 0;font-weight:600">${o.liftHeight}m${cap} ${o.type.replace(/_/g, " ")}</span>`;
+      const cap = o.containerCapable ? "🚢" : "🏗️";
+      // Friendly name from type slug — strip numeric mast-height suffix like "_5_0"
+      const friendly = o.type
+        .replace(/^container_std$/, "Standard Container")
+        .replace(/^container_high$/, "High Container")
+        .replace(/^duplex_.*$/, "Duplex")
+        .replace(/^triplex_.*$/, "Triplex");
+      return `<span style="display:inline-block;background:#fff;border:1px solid #E5E7EB;border-radius:6px;padding:3px 9px;font-size:.74rem;color:#374151;margin:3px 5px 3px 0;font-weight:600;white-space:nowrap">${cap}&nbsp;${o.liftHeight}m ${friendly}</span>`;
     })
     .join("");
   const containerNote =
@@ -150555,6 +150762,7 @@ function _renderCards(matches, machineType, answers) {
           );
         })()}
         ${_buildForkliftMastPanel(spMachine, machineType, answers)}
+        ${_buildForkliftLoadChartPanel(spMachine, machineType, answers)}
         ${_buildForkliftLCPanel(spMachine, machineType, answers)}
         ${spMachine.bestFor ? `<div style="font-size:.8rem;color:#475569;line-height:1.5;margin-bottom:.5rem;background:#FFFBEB;border-left:3px solid #F59E0B;padding:.3rem .55rem;border-radius:0 6px 6px 0">✅ ${spMachine.bestFor}</div>` : ""}
         ${(() => {
@@ -151305,11 +151513,12 @@ function _renderCards(matches, machineType, answers) {
             const rotWtR = m._isRotator ? m._rotatorWeightKg || 0 : 0;
             const finalCapR = Math.max(0, capAtHt - rotWtR);
             const compareKg = finalCapR; // what we compare against reqKg
-            // v132 Rule B: require 20% capacity headroom (1500kg load on a
-            // 1600kg-at-height machine is unsafe in practice — mast / tyre /
-            // battery / attachment variation all chip away at residuals).
-            // Three-tier verdict: ✅ comfortable, ⚠️ marginal (within 20%), ❌ insufficient.
-            const _reqKgWithHeadroom = reqKg * 1.2;
+            // v132.1 Rule B: 8% capacity headroom (was 20% in v132 — operator
+            // feedback that 20% excluded comfortably-suitable machines, e.g.
+            // 1800kg requirement on a machine doing 1800kg at full height
+            // should pass at any lift below full height).
+            // Three-tier verdict: ✅ comfortable, ⚠️ marginal (within 8%), ❌ insufficient.
+            const _reqKgWithHeadroom = reqKg * 1.08;
             const ok = compareKg >= _reqKgWithHeadroom;
             const marginal = !ok && compareKg >= reqKg;
             const bg = ok
@@ -151320,9 +151529,9 @@ function _renderCards(matches, machineType, answers) {
             const bc = ok ? "#10B981" : marginal ? "#F59E0B" : "#DC2626";
             const tc = ok ? "#065F46" : marginal ? "#92400E" : "#991B1B";
             const verdict = ok
-              ? `✅ ${m._isRotator ? "Sufficient after rotator deduction (≥20% headroom)" : "Sufficient capacity at your lift height (≥20% headroom)"}`
+              ? `✅ ${m._isRotator ? "Sufficient after rotator deduction" : "Sufficient capacity at your lift height"}`
               : marginal
-                ? `⚠️ ${m._isRotator ? "Tight after rotator deduction — sizing up recommended" : "Tight margin — sizing up recommended for safety"}`
+                ? `⚠️ ${m._isRotator ? "Tight after rotator deduction — confirm with rental company" : "Tight margin — confirm on the load plate before lifting"}`
                 : `❌ ${m._isRotator ? "Insufficient after rotator deduction — must size up" : "Insufficient capacity at this height"}`;
 
             const rotatorRowR = m._isRotator
