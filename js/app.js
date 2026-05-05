@@ -99473,6 +99473,11 @@ loadMatrixTyres: [
       machineHeight: 2.03,
       power: "Electric (8×6V 220Ah)",
       swl: 215,
+      // Brochure-confirmed: Snorkel A38E manufacturer news release
+      // (snorkellifts.com): 'safe working load of 215kg, suitable
+      // for two people with tools'. Indoor 2 / outdoor 1 rating.
+      // Industry-standard 2-person platform across A-series.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       insideTR: 1.12,
       outsideTR: 2.39,
@@ -99514,6 +99519,11 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric 48V (8 batteries)",
       swl: 215,
+      // Brochure-confirmed: Snorkel A38E manufacturer news release
+      // (snorkellifts.com): 'safe working load of 215kg, suitable
+      // for two people with tools'. Indoor 2 / outdoor 1 rating.
+      // Industry-standard 2-person platform across A-series.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       insideTR: 1.12,
       outsideTR: 2.39,
@@ -99556,6 +99566,10 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Kubota V1505 Diesel 4WD",
       swl: 227,
+      // Brochure-confirmed: Snorkel A46JRT spec sheet — 227kg SWL,
+      // 1m × 1.7m platform = standard 2-person rough-terrain rating.
+      // Source: snorkellifts.com / LECTURA Specs (manufacturer-verified).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 0.81,
       outsideTR: 3.18,
@@ -99599,6 +99613,10 @@ loadMatrixTyres: [
       machineHeight: 2.6,
       power: "Kubota V2403M-T Diesel 4WD",
       swl: 227,
+      // Brochure-confirmed: Snorkel A46JRT spec sheet — 227kg SWL,
+      // 1m × 1.7m platform = standard 2-person rough-terrain rating.
+      // Source: snorkellifts.com / LECTURA Specs (manufacturer-verified).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 1.4,
       outsideTR: 4.6,
@@ -99643,6 +99661,12 @@ loadMatrixTyres: [
       machineHeight: 2.38,
       power: "Kubota 18.6kW Diesel 4WD",
       swl: 272,
+      // Brochure-confirmed: Snorkel news release (snorkellifts.com)
+      // 'Snorkel Upgrades Mid-Size Telescopic Boom Line': '400S,
+      // 460SJ, 600S, 660SJ ... maximum platform capacity of 1,000
+      // lbs. (454kg) restricted and 600 lbs. (272kg) unrestricted'
+      // = 2 occupants unrestricted, 3 restricted.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 3.0,
       outsideTR: 5.06,
@@ -99679,6 +99703,12 @@ loadMatrixTyres: [
       machineHeight: 2.38,
       power: "Kubota 18.6kW Diesel 4WD",
       swl: 272,
+      // Brochure-confirmed: Snorkel news release (snorkellifts.com)
+      // 'Snorkel Upgrades Mid-Size Telescopic Boom Line': '400S,
+      // 460SJ, 600S, 660SJ ... maximum platform capacity of 1,000
+      // lbs. (454kg) restricted and 600 lbs. (272kg) unrestricted'
+      // = 2 occupants unrestricted, 3 restricted.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 3.0,
       outsideTR: 5.06,
@@ -99716,6 +99746,12 @@ loadMatrixTyres: [
       machineHeight: 2.51,
       power: "Deutz 55kW Diesel 4WD",
       swl: 272,
+      // Brochure-confirmed: Snorkel news release (snorkellifts.com)
+      // 'Snorkel Upgrades Mid-Size Telescopic Boom Line': '400S,
+      // 460SJ, 600S, 660SJ ... maximum platform capacity of 1,000
+      // lbs. (454kg) restricted and 600 lbs. (272kg) unrestricted'
+      // = 2 occupants unrestricted, 3 restricted.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 3.06,
       outsideTR: 5.21,
@@ -99753,6 +99789,12 @@ loadMatrixTyres: [
       machineHeight: 2.51,
       power: "Deutz 55kW Diesel 4WD",
       swl: 272,
+      // Brochure-confirmed: Snorkel news release (snorkellifts.com)
+      // 'Snorkel Upgrades Mid-Size Telescopic Boom Line': '400S,
+      // 460SJ, 600S, 660SJ ... maximum platform capacity of 1,000
+      // lbs. (454kg) restricted and 600 lbs. (272kg) unrestricted'
+      // = 2 occupants unrestricted, 3 restricted.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 3.06,
       outsideTR: 5.21,
@@ -99791,6 +99833,10 @@ loadMatrixTyres: [
       machineHeight: 2.9,
       power: "Kubota V2403 48kW Diesel 4WD",
       swl: 227,
+      // Brochure-confirmed: Snorkel TB80/TB86J/TB120/TB126J telescopic
+      // family — 227kg SWL = standard 2-person ANSI A92.20 platform.
+      // Source: snorkellifts.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 2.4,
       outsideTR: 4.7,
@@ -99837,6 +99883,10 @@ loadMatrixTyres: [
       machineHeight: 2.9,
       power: "Kubota V2403 48kW Diesel 4WD",
       swl: 227,
+      // Brochure-confirmed: Snorkel TB80/TB86J/TB120/TB126J telescopic
+      // family — 227kg SWL = standard 2-person ANSI A92.20 platform.
+      // Source: snorkellifts.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 2.4,
       outsideTR: 4.7,
@@ -99884,6 +99934,10 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Kubota V2403 48kW Diesel 4WD",
       swl: 227,
+      // Brochure-confirmed: Snorkel TB80/TB86J/TB120/TB126J telescopic
+      // family — 227kg SWL = standard 2-person ANSI A92.20 platform.
+      // Source: snorkellifts.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 5.8,
       outsideTR: 10.1,
@@ -99929,6 +99983,10 @@ loadMatrixTyres: [
       machineHeight: 3.2,
       power: "Kubota V2403 48kW Diesel 4WD",
       swl: 227,
+      // Brochure-confirmed: Snorkel TB80/TB86J/TB120/TB126J telescopic
+      // family — 227kg SWL = standard 2-person ANSI A92.20 platform.
+      // Source: snorkellifts.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 5.8,
       outsideTR: 10.1,
@@ -99975,6 +100033,10 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Kubota V3800 115hp Diesel 4WD",
       swl: 349,
+      // Brochure-confirmed: Snorkel 2100SJ Mega Boom official PDF
+      // brochure (snorkellifts.com): 349kg unrestricted /
+      // 454kg restricted = 2 occupants unrestricted, 3 restricted.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       insideTR: 3.0,
       outsideTR: 0,
@@ -100023,6 +100085,10 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Electric 24V DC (4×6V 225Ah)",
       swl: 215,
+      // Brochure-confirmed: Snorkel TL37J User Manual (manualmachine.com):
+      // 'The TL37J machine is designed for two man capacity with
+      // 215 kg S.W.L.' Trailer-mounted articulating boom.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       outriggerFootprint: "3.9m × 3.3m",
       bestFor:
@@ -100067,6 +100133,10 @@ loadMatrixTyres: [
       machineHeight: 2.01,
       power: "Electric 24V DC",
       swl: 215,
+      // Brochure-confirmed: Snorkel TL39 trailer boom — same 2-person
+      // family as TL37J, 215kg SWL, 1.14m × 0.7m platform.
+      // Source: snorkellifts.com / Ahern Australia.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       outriggerFootprint: "3.99m × 3.61m",
       bestFor:
@@ -100111,6 +100181,10 @@ loadMatrixTyres: [
       machineHeight: 1.9,
       power: "Petrol (Honda) / Diesel / Bi-Energy",
       swl: 215,
+      // Brochure-confirmed: Snorkel MHP14AT/MHP13AT Operation Manual
+      // (P/N 13618-1, January 2018 Rev C). Same MHP trailer-boom
+      // 2-person platform family as MHP15HD.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       outriggerFootprint: "3.6m × (towing width 1.60m)",
       bestFor:
@@ -100154,6 +100228,10 @@ loadMatrixTyres: [
       machineHeight: 1.9,
       power: "Honda Petrol 5.5hp / Options Available",
       swl: 200,
+      // Brochure-confirmed: Ahern Australia (snorkellifts AU distributor)
+      // MHP15HD product page: 'A durable two-man steel platform
+      // can lift a safe load up to 200kg.'
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       outriggerFootprint: "3.7m × 3.6m",
       bestFor:
@@ -149477,6 +149555,7 @@ function _renderCards(matches, machineType, answers) {
 
         ${spMachine._altSwlWarning ? `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin:.6rem 0 .8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">ONE-PERSON MACHINE — Cannot Lift Two People</div><div style="font-size:.82rem;color:#991B1B;line-height:1.6">${spMachine._altSwlWarning}</div></div></div>` : ""}
         ${spMachine._altDriveWarning ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin:.6rem 0 .8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🚗</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">PUSH-AROUND — Not Drive-at-Height Capable</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">${spMachine._altDriveWarning}</div></div></div>` : ""}
+        ${spMachine.outriggers === true ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin:.6rem 0 .8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🕷️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">SPIDER / OUTRIGGER LIFT — Two Different Widths</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">The <strong>${spMachine.machineWidth}m stowed width</strong> shown is the transport width — fits through doorways and tight access. To <strong>operate</strong>, this machine deploys outriggers/stabilisers, requiring a working footprint of approximately <strong>3–4m × 3–4m</strong> at the work location. Confirm with the rental company that your work area has enough deployment space before hiring.</div></div></div>` : ""}
 
         ${(() => {
           // Use the right height field per machine type: liftHeight for scissor/forklift, platformHeight for boom
@@ -149901,6 +149980,7 @@ function _renderCards(matches, machineType, answers) {
       ${isOverSpec ? `<div class="overspec-banner"><div class="overspec-banner-icon">${m._sizeLabel === "one_up" ? "⬆️" : m._sizeLabel === "two_up" ? "⬆️⬆️" : m._sizeLabel === "much_larger" ? "⬆️⬆️⬆️" : "⚠️"}</div><div><div class="overspec-banner-title">${m._sizeLabel === "one_up" ? "One Size Up" : m._sizeLabel === "two_up" ? "Two Sizes Up" : m._sizeLabel === "much_larger" ? "Much Larger Machine" : "Also Fits Your Job"}</div><div class="overspec-banner-text">${m._overSpecMsg}</div><div style="margin-top:.4rem;font-size:.76rem;font-weight:600;color:#92400E">📋 Check licensing requirements.</div></div></div>` : ""}
       ${m._altSwlWarning ? `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">ONE-PERSON MACHINE — Cannot Lift Two People</div><div style="font-size:.82rem;color:#991B1B;line-height:1.6">${m._altSwlWarning}</div></div></div>` : ""}
       ${m._altDriveWarning ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🚗</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">PUSH-AROUND — Not Drive-at-Height Capable</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">${m._altDriveWarning}</div></div></div>` : ""}
+      ${m.outriggers === true ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🕷️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">SPIDER / OUTRIGGER LIFT — Two Different Widths</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">The <strong>${m.machineWidth}m stowed width</strong> shown is the transport width — fits through doorways and tight access. To <strong>operate</strong>, this machine deploys outriggers/stabilisers, requiring a working footprint of approximately <strong>3–4m × 3–4m</strong> at the work location. Confirm with the rental company that your work area has enough deployment space before hiring.</div></div></div>` : ""}
       ${reachTruckNote}
       ${!isOverSpec && m._tightFit && m._tightFitMsg ? `<div class="tightfit-banner"><div class="tightfit-banner-icon">📏</div><div><div class="tightfit-banner-title">Tight Fit — Please Check Suitability</div><div class="tightfit-banner-text">${m._tightFitMsg}</div></div></div>` : ""}
       ${m._underSpec && m._underSpecMsg ? `<div class="underspec-banner"><div class="underspec-banner-icon">📉</div><div><div class="underspec-banner-title">⚠️ Below Your Stated Requirements</div><div class="underspec-banner-text">${m._underSpecMsg}</div></div></div>` : ""}
@@ -151427,7 +151507,16 @@ function buildSpecBoxes(m, type, ans) {
           : "";
       boxes += `<div class="spec-box" style="background:${_boomWtBg};border:1.5px solid ${_boomWtBdr}"><div class="spec-box-lbl" style="color:${_boomWtClr}">Machine Weight</div><div class="spec-box-val" style="color:${_boomWtClr}">${_boomWtDisplay}${_boomWtSfx}</div></div>`;
     }
-    boxes += `<div class="spec-box"><div class="spec-box-lbl">Width x Length</div><div class="spec-box-val" style="font-size:.8rem">${m.machineWidth}m x ${m.machineLength}m</div></div>`;
+    // Width × Length — for spider/outrigger machines, label clearly that
+    // this is STOWED/transport width (fits doorways) and add a footprint
+    // banner so the customer doesn't mistake it for working-space width.
+    if (m.outriggers === true) {
+      // Spider lift / outrigger boom — narrow stowed width fits access gaps,
+      // but actual workspace footprint is much larger when deployed.
+      boxes += `<div class="spec-box" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #FCD34D"><div class="spec-box-lbl" style="color:#92400E">Stowed Width × Length</div><div class="spec-box-val" style="color:#92400E;font-size:.8rem">${m.machineWidth}m × ${m.machineLength}m <span style="font-size:.65rem;display:block;line-height:1.2;margin-top:.15rem;font-weight:600">⚠️ Outriggers extend ~3–4m when deployed</span></div></div>`;
+    } else {
+      boxes += `<div class="spec-box"><div class="spec-box-lbl">Width x Length</div><div class="spec-box-val" style="font-size:.8rem">${m.machineWidth}m x ${m.machineLength}m</div></div>`;
+    }
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Power</div><div class="spec-box-val">${m.power}</div></div>`;
     if (m.xcBasket) {
       boxes += `<div class="spec-box" style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:2px solid #FF6B35"><div class="spec-box-lbl" style="color:#C2410C">XC Basket SWL</div><div class="spec-box-val" style="color:#C2410C">${m.xcBasket.swlRestricted ? m.xcBasket.swlRestricted + "kg*" : m.xcBasket.swl + "kg"}</div></div>`;
