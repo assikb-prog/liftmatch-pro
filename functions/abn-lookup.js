@@ -2,17 +2,32 @@
 //  Noyo — ABR Web Services Proxy
 //  /functions/api/abn-lookup.js
 //
+//  ⚠️  IMPORTANT — DEPLOYED ROUTE NOTE
+//  Despite living at /functions/api/abn-lookup.js in the source tree,
+//  this function is deployed by Cloudflare Pages at the route:
+//        /abn-lookup
+//  (NOT /api/abn-lookup). This is because the v131 direct-upload to
+//  Cloudflare Pages was done with the contents of /functions/api/
+//  rather than /functions/, which collapsed the path one level. The
+//  front-end was updated in v131 to call /abn-lookup directly.
+//
+//  If you re-upload with the correct folder structure later (i.e.
+//  drag the /functions/ folder itself into Cloudflare), the route
+//  will become /api/abn-lookup — at which point you'd also need to
+//  update the front-end fetch URLs in js/app.js back to /api/abn-lookup.
+//  Until then, both halves agree on /abn-lookup and ABN verification works.
+//
 //  Browser side cannot call the Australian Business Register directly:
 //   1. ABR Web Services requires a GUID (which must stay server-side).
 //   2. ABR endpoints don't return CORS headers for browser fetches anyway.
 //
 //  This Cloudflare Pages Function runs on the same origin as the SPA,
-//  so the browser fetches /api/abn-lookup?abn=... with no CORS issue.
+//  so the browser fetches /abn-lookup?abn=... with no CORS issue.
 //  We then call ABR server-side using a stored GUID, parse the JSONP-
 //  style response, and return clean JSON to the browser.
 //
 //  Endpoint:
-//      GET /api/abn-lookup?abn=11_DIGIT_ABN
+//      GET /abn-lookup?abn=11_DIGIT_ABN
 //
 //  Response:
 //      { entityName, tradingName, status, type, state, gst }       — found
@@ -29,7 +44,7 @@
 //        Pages → noyo project → Settings → Environment Variables
 //        Add: ABR_GUID = <your guid>
 //        Set scope: Production (and Preview if you want)
-//   3. Redeploy. /api/abn-lookup will start working.
+//   3. Redeploy. /abn-lookup will start working.
 //
 //  Until step 2 is done, the function returns 503 and the front-end
 //  falls through to "verify manually" — the registration UX is not
