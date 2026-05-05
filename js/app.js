@@ -167798,7 +167798,12 @@ function doLogin() {
   }
 
   // ── CUSTOMER REGISTRATION ────────────────────────────────────────────
-  if (type !== "rental" && mode === "register") {
+  // Strict portal isolation: only the customer portal can register a customer
+  // account. Rental and Lite have their own branches above (each ending in
+  // `return`). Using an explicit `type === "customer"` gate (rather than the
+  // legacy `type !== "rental"`) prevents future portal types from
+  // accidentally falling through into customer registration.
+  if (type === "customer" && mode === "register") {
     const tncCbCust = document.getElementById("lp-tnc-customer-cb");
     if (!tncCbCust || !tncCbCust.checked) {
       errEl.textContent =
@@ -167929,6 +167934,65 @@ function doLogin() {
       const profile = await _fbLoadUserProfile(uid);
       const role = profile.role || "customer";
       const name = profile.fullName || email.split("@")[0];
+
+      // ── STRICT PORTAL ISOLATION (v131 Assik directive) ──────────────────
+      // A user can only sign in via the portal that matches their account
+      // role. A rental company user attempting sign-in via the customer
+      // portal is rejected, and vice versa.
+      //
+      // Mapping of portal type (form context) → allowed Firestore roles:
+      //   customer → role must be "customer"
+      //   rental   → role must be in { rental, admin_rental, staff, manager, admin }
+      //              (rental-side cluster; admins use this portal too — their
+      //               admin tab unlocks based on the role itself, not the portal)
+      //   lite     → role must be "lite"
+      //
+      // EXCEPTION (v131): admin@noyo.com.au is the platform operator and
+      // needs cross-portal access for support and testing. The exception is
+      // gated on BOTH the email matching AND the Firestore role being
+      // "admin" — so a non-admin user creating an account with that email
+      // (impossible in practice but defensive) cannot bypass the gate.
+      //
+      // Mismatch = sign the user out and surface a clear error.
+      const _isPlatformAdmin =
+        email === "admin@noyo.com.au" && role === "admin";
+      const _portalAllowedRoles = {
+        customer: ["customer"],
+        rental:   ["rental", "admin_rental", "staff", "manager", "admin"],
+        lite:     ["lite"],
+      };
+      const _allowedForPortal = _portalAllowedRoles[type] || [];
+      if (
+        !_isPlatformAdmin &&
+        _allowedForPortal.length &&
+        !_allowedForPortal.includes(role)
+      ) {
+        // Friendly portal labels for error message
+        const _portalLabels = {
+          customer: "Customer",
+          rental:   "Rental Company",
+          lite:     "Noyo Lite",
+        };
+        const _accountPortal =
+          role === "customer"
+            ? "Customer"
+            : ["rental", "admin_rental", "staff", "manager", "admin"].includes(role)
+              ? "Rental Company"
+              : role === "lite"
+                ? "Noyo Lite"
+                : "another";
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Sign In";
+        }
+        errEl.textContent =
+          `❌ This account is registered as a ${_accountPortal} user — please sign in from the ${_accountPortal} portal. The ${_portalLabels[type] || type} portal is for ${_portalLabels[type] || type} accounts only.`;
+        errEl.style.color = "#B91C1C";
+        errEl.style.display = "block";
+        _fbAuth.signOut();
+        shake();
+        return;
+      }
 
       // If rental, also load rental profile into RENTAL_COMPANIES
       if (
