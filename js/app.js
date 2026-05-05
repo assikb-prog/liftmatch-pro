@@ -151299,7 +151299,28 @@ function buildSpecBoxes(m, type, ans) {
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Max Lift Height</div><div class="spec-box-val">${m.maxLiftHeight}m</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Capacity</div><div class="spec-box-val">${m.capacity}kg</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Power</div><div class="spec-box-val">${m.power}</div></div>`;
-    boxes += `<div class="spec-box"><div class="spec-box-lbl">Machine Weight</div><div class="spec-box-val">${m.machineWeight}kg</div></div>`;
+    // Machine Weight — colour-coded against customer's weight restriction (if any)
+    {
+      const _mtWtLimit = parseFloat((ans || {}).ppl_weight_kg) || 0;
+      const _mtWtOk = _mtWtLimit <= 0 || (m.machineWeight || 0) <= _mtWtLimit;
+      const _mtWtBg =
+        _mtWtLimit > 0
+          ? _mtWtOk
+            ? "linear-gradient(135deg,#F0FDF4,#DCFCE7)"
+            : "linear-gradient(135deg,#FEF2F2,#FECACA)"
+          : "";
+      const _mtWtBdr =
+        _mtWtLimit > 0 ? (_mtWtOk ? "#86EFAC" : "#FCA5A5") : "var(--border)";
+      const _mtWtClr =
+        _mtWtLimit > 0 ? (_mtWtOk ? "#166534" : "#991B1B") : "var(--navy)";
+      const _mtWtIcon = _mtWtLimit > 0 ? (_mtWtOk ? "✅ " : "⚠️ ") : "";
+      const _mtWtSfx =
+        _mtWtLimit > 0 ? ` ${_mtWtIcon}(limit: ${_mtWtLimit}kg)` : "";
+      boxes += `<div class="spec-box" style="background:${_mtWtBg};border:1.5px solid ${_mtWtBdr}">
+        <div class="spec-box-lbl" style="color:${_mtWtClr}">Machine Weight</div>
+        <div class="spec-box-val" style="color:${_mtWtClr}">${m.machineWeight}kg${_mtWtSfx}</div>
+      </div>`;
+    }
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Stowed: W×L×H</div><div class="spec-box-val" style="font-size:.76rem">${m.stowedW}×${m.stowedL}×${m.stowedH}m</div></div>`;
     if (m.platformW)
       boxes += `<div class="spec-box"><div class="spec-box-lbl">Fork / Platform</div><div class="spec-box-val" style="font-size:.76rem">${m.platformW}×${m.platformL}mm</div></div>`;
@@ -151307,7 +151328,28 @@ function buildSpecBoxes(m, type, ans) {
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Platform Height</div><div class="spec-box-val">${m.platformHeight}m</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Capacity</div><div class="spec-box-val">${m.capacity}kg</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Width</div><div class="spec-box-val">${(m.machineWidth / 1000).toFixed(2)}m</div></div>`;
-    boxes += `<div class="spec-box"><div class="spec-box-lbl">Machine Weight</div><div class="spec-box-val">${m.machineWeight}kg</div></div>`;
+    // Machine Weight — colour-coded against the customer's weight restriction (if any)
+    {
+      const _paWtLimit = parseFloat((ans || {}).ppl_weight_kg) || 0;
+      const _paWtOk = _paWtLimit <= 0 || (m.machineWeight || 0) <= _paWtLimit;
+      const _paWtBg =
+        _paWtLimit > 0
+          ? _paWtOk
+            ? "linear-gradient(135deg,#F0FDF4,#DCFCE7)"
+            : "linear-gradient(135deg,#FEF2F2,#FECACA)"
+          : "";
+      const _paWtBdr =
+        _paWtLimit > 0 ? (_paWtOk ? "#86EFAC" : "#FCA5A5") : "var(--border)";
+      const _paWtClr =
+        _paWtLimit > 0 ? (_paWtOk ? "#166534" : "#991B1B") : "var(--navy)";
+      const _paWtIcon = _paWtLimit > 0 ? (_paWtOk ? "✅ " : "⚠️ ") : "";
+      const _paWtSfx =
+        _paWtLimit > 0 ? ` ${_paWtIcon}(limit: ${_paWtLimit}kg)` : "";
+      boxes += `<div class="spec-box" style="background:${_paWtBg};border:1.5px solid ${_paWtBdr}">
+        <div class="spec-box-lbl" style="color:${_paWtClr}">Machine Weight</div>
+        <div class="spec-box-val" style="color:${_paWtClr}">${m.machineWeight}kg${_paWtSfx}</div>
+      </div>`;
+    }
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Power</div><div class="spec-box-val">${m.power}</div></div>`;
     if (m.platformSize)
       boxes += `<div class="spec-box"><div class="spec-box-lbl">Platform Size</div><div class="spec-box-val" style="font-size:.76rem">${m.platformSize}</div></div>`;
