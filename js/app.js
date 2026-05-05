@@ -150870,6 +150870,27 @@ function _renderCards(matches, machineType, answers) {
                 </div>`
               : "";
 
+            // ── Full-mast residual column ─────────────────────────────────
+            // Show the at-full-height residual alongside the interpolated
+            // value at the customer's requested lift height — full transparency
+            // so the customer sees both "what you'll get at 3.5m" AND "what
+            // this machine drops to at the very top of its mast".
+            // Only meaningful when the customer's request is below full height.
+            // Skipped for rotator (already crowded) and at/near full height
+            // (would duplicate the displayed capAtHt column).
+            const showFullHtCol =
+              !m._isRotator &&
+              htFrac !== null &&
+              htFrac > 0 &&
+              htFrac < 0.95;
+            const fullHtColHtml = showFullHtCol
+              ? `<div style="padding-bottom:6px;color:#bbb">→</div>
+                <div style="text-align:center">
+                  <div style="font-size:.68rem;color:#666;font-weight:700;text-transform:uppercase;letter-spacing:.4px">At full mast (${fullMastHt}m)</div>
+                  <div style="font-size:1.05rem;font-weight:900;color:#888">${residualKg.toLocaleString()} kg</div>
+                </div>`
+              : "";
+
             chartHtml = `<div class="lift-chart-note" style="background:${bg};border-left-color:${bc}">
               <strong>📊 Load Chart — ${lcLabel} LC${reqHt > 0 ? " / " + reqHt + "m lift" : ""}${m._isRotator ? " + 🔄 Rotator" : ""}</strong><br>
               <div style="display:flex;gap:.8rem;flex-wrap:wrap;align-items:flex-end;margin:.6rem 0">
@@ -150882,6 +150903,7 @@ function _renderCards(matches, machineType, answers) {
                   <div style="font-size:.68rem;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:.4px">${capLabel}</div>
                   <div style="font-size:1.05rem;font-weight:900;color:var(--navy)">${capAtHt.toLocaleString()} kg</div>
                 </div>
+                ${fullHtColHtml}
                 ${rotatorRowR}
                 <div style="padding-bottom:6px;color:#bbb">vs</div>
                 <div style="text-align:center">
