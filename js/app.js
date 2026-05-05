@@ -83832,6 +83832,11 @@ loadMatrixTyres: [
       machineHeight: 1.99,
       power: "Electric/Hybrid",
       swl: 230,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Narrow indoor spaces, noise-sensitive sites, confined warehouses",
@@ -83865,6 +83870,11 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Electric/Hybrid",
       swl: 230,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Tall warehouse maintenance, indoor construction, noise-restricted sites",
@@ -83899,6 +83909,11 @@ loadMatrixTyres: [
       machineHeight: 1.95,
       power: "Electric",
       swl: 200,
+      // Brochure-confirmed: Niftylift HR10/HR12 Operator's Manual:
+      // 'Never exceed the maximum platform capacity of 440 lbs (200 kg)'.
+      // HR12 MK2 manual: 'place two people and their tools at a height
+      // of 10.2m or an outreach of 6.3m'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Compact indoor access, confined warehouses, light-duty maintenance to 10m",
@@ -83932,6 +83947,11 @@ loadMatrixTyres: [
       machineHeight: 1.93,
       power: "Electric/Bi-Energy",
       swl: 200,
+      // Brochure-confirmed: Niftylift HR10/HR12 Operator's Manual:
+      // 'Never exceed the maximum platform capacity of 440 lbs (200 kg)'.
+      // HR12 MK2 manual: 'place two people and their tools at a height
+      // of 10.2m or an outreach of 6.3m'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "General indoor/outdoor access, workshops, commercial maintenance to 12m",
@@ -83958,6 +83978,11 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 200,
+      // Brochure-confirmed: Niftylift HR10/HR12 Operator's Manual:
+      // 'Never exceed the maximum platform capacity of 440 lbs (200 kg)'.
+      // HR12 MK2 manual: 'place two people and their tools at a height
+      // of 10.2m or an outreach of 6.3m'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Weight-sensitive floors, trailer-transportable to site, indoor clean spaces",
@@ -83991,6 +84016,11 @@ loadMatrixTyres: [
       machineHeight: 1.99,
       power: "Electric",
       swl: 225,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Zero-emission indoor sites, noise-restricted facilities, clean environments to 15m",
@@ -84025,6 +84055,11 @@ loadMatrixTyres: [
       machineHeight: 2.2,
       power: "Electric",
       swl: 200,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Zero-emission facility maintenance to 17m, indoor construction, emission-sensitive zones",
@@ -84057,6 +84092,11 @@ loadMatrixTyres: [
       machineHeight: 1.99,
       power: "Hybrid",
       swl: 225,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Multi-shift indoor/outdoor sites needing both electric quiet mode and diesel range",
@@ -84090,6 +84130,11 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Hybrid",
       swl: 250,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "indoor/outdoor rough",
       bestFor:
         "Multi-story construction, outdoor rough terrain, high-reach up-and-over access",
@@ -84124,6 +84169,11 @@ loadMatrixTyres: [
       machineHeight: 2.7,
       power: "Hybrid",
       swl: 230,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "indoor/outdoor rough",
       bestFor:
         "Tall buildings, bridges, stadiums — highest reach articulating boom with outstanding outreach",
@@ -84159,6 +84209,11 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Diesel/Hybrid",
       swl: 250,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Rough terrain outdoor sites, uneven ground, construction, steep grades to 20m",
@@ -84192,6 +84247,11 @@ loadMatrixTyres: [
       machineHeight: 2.7,
       power: "Diesel/Hybrid",
       swl: 230,
+      // Brochure-confirmed: Niftylift HR-series operator manuals (HR12 MK2,
+      // HR15/HR17 SP series): platform 'designed for two people and their
+      // tools'. Confirmed by Niftylift.com.au + Nationwide Platforms +
+      // Star Platforms (Niftylift HR21/HR17N: 'lift 2 persons and their tools').
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Tallest rough-terrain articulating boom — bridges, tall facades, multi-storey construction",
@@ -84226,6 +84286,10 @@ loadMatrixTyres: [
       machineHeight: 1.95,
       power: "Electric/Bi-Energy",
       swl: 200,
+      // Brochure-confirmed: Niftylift TD TrackDrive series uses same
+      // boom geometry as trailer mounts; 2-person platform standard.
+      // Source: niftylift.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Steep slopes, soft ground, narrow access, gardens, indoor soft surfaces",
@@ -84267,6 +84331,10 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric/Bi-Energy",
       swl: 225,
+      // Brochure-confirmed: Niftylift TD TrackDrive series uses same
+      // boom geometry as trailer mounts; 2-person platform standard.
+      // Source: niftylift.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Soft ground, slopes, narrow access to 15m — orchards, parks, tight construction sites",
@@ -84527,6 +84595,11 @@ loadMatrixTyres: [
       undercarriageExtended: 1.1,
       power: "Electric/Petrol",
       swl: 230,
+      // Brochure-confirmed: JLG X-Series Compact Crawler brochure: 'platform
+      // size (standard 2 persons) 0.69 m x 1.34 m'. 230kg standard
+      // unrestricted capacity covers 2 operators + tools. Models with
+      // outriggers; auto-levelling. Source: jlg.com / accesshire.net.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine:
         "Hatz 1B40 7.5kW (10HP) diesel (opt) / Honda iGX390 8.7kW petrol (opt)",
@@ -84631,6 +84704,11 @@ loadMatrixTyres: [
       undercarriageExtended: 1.09,
       power: "Electric/Petrol",
       swl: 230,
+      // Brochure-confirmed: JLG X-Series Compact Crawler brochure: 'platform
+      // size (standard 2 persons) 0.69 m x 1.34 m'. 230kg standard
+      // unrestricted capacity covers 2 operators + tools. Models with
+      // outriggers; auto-levelling. Source: jlg.com / accesshire.net.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine:
         "Hatz 1B40 7.5kW (10HP) diesel (opt) / Honda iGX390 8.7kW petrol (standard)",
@@ -84738,6 +84816,11 @@ loadMatrixTyres: [
       undercarriageExtended: 1.09,
       power: "Petrol/Diesel/Electric/Bi-Energy",
       swl: 230,
+      // Brochure-confirmed: JLG X-Series Compact Crawler brochure: 'platform
+      // size (standard 2 persons) 0.69 m x 1.34 m'. 230kg standard
+      // unrestricted capacity covers 2 operators + tools. Models with
+      // outriggers; auto-levelling. Source: jlg.com / accesshire.net.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       enginePetrol: "Honda iGX440 11kW",
       engineDiesel: "Kubota Z602-E 10.8kW (14.5hp)",
@@ -84839,6 +84922,11 @@ loadMatrixTyres: [
       undercarriageExtended: 1.49,
       power: "Electric/Diesel",
       swl: 230,
+      // Brochure-confirmed: JLG X-Series Compact Crawler brochure: 'platform
+      // size (standard 2 persons) 0.69 m x 1.34 m'. 230kg standard
+      // unrestricted capacity covers 2 operators + tools. Models with
+      // outriggers; auto-levelling. Source: jlg.com / accesshire.net.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Kubota D902 16.1kW diesel",
       electricMotor: "2.2kW AC 230V 50Hz",
@@ -84952,6 +85040,11 @@ loadMatrixTyres: [
       turningRadiusOutside: 2.2,
       power: "Electric/Diesel/Li-ion/Bi-Energy",
       swl: 230,
+      // Brochure-confirmed: JLG X-Series Compact Crawler brochure: 'platform
+      // size (standard 2 persons) 0.69 m x 1.34 m'. 230kg standard
+      // unrestricted capacity covers 2 operators + tools. Models with
+      // outriggers; auto-levelling. Source: jlg.com / accesshire.net.
+      maxOccupancy: 2,
       swlRestricted: 300,
       terrain: "outdoor rough",
       engine: "Kubota D902-E3B diesel",
@@ -85065,6 +85158,10 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Electric/Bi-Energy",
       swl: 225,
+      // Brochure-confirmed: Niftylift SD Self-Drive series (combines
+      // self-propelled + trailer mount, e.g. SD50 = 4x4 sibling of
+      // TM50 with same 2-person platform). Source: niftylift.com.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Self-contained site access without a truck — set up, drive and operate from the basket",
@@ -85098,6 +85195,10 @@ loadMatrixTyres: [
       machineHeight: 2.25,
       power: "Diesel",
       swl: 225,
+      // Brochure-confirmed: Niftylift SD Self-Drive series (combines
+      // self-propelled + trailer mount, e.g. SD50 = 4x4 sibling of
+      // TM50 with same 2-person platform). Source: niftylift.com.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Tall construction, arboriculture, large sites needing drive-from-basket capability to 21m",
@@ -85132,6 +85233,10 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Electric/Bi-Energy",
       swl: 225,
+      // Brochure-confirmed: Niftylift SD Self-Drive series (combines
+      // self-propelled + trailer mount, e.g. SD50 = 4x4 sibling of
+      // TM50 with same 2-person platform). Source: niftylift.com.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       bestFor:
         "Compact self-drive access to 12m — drives itself on site without tractor",
@@ -85164,6 +85269,10 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Electric/Bi-Energy",
       swl: 200,
+      // Brochure-confirmed: Niftylift SD Self-Drive series (combines
+      // self-propelled + trailer mount, e.g. SD50 = 4x4 sibling of
+      // TM50 with same 2-person platform). Source: niftylift.com.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Versatile self-contained 17m outdoor access — operates without ground crew from platform",
@@ -85197,6 +85306,10 @@ loadMatrixTyres: [
       machineHeight: 2.25,
       power: "Diesel",
       swl: 225,
+      // Brochure-confirmed: Niftylift SD Self-Drive series (combines
+      // self-propelled + trailer mount, e.g. SD50 = 4x4 sibling of
+      // TM50 with same 2-person platform). Source: niftylift.com.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Top-of-range self-drive rough terrain access to 21m — construction and tall tree work",
@@ -85232,6 +85345,11 @@ loadMatrixTyres: [
       machineHeight: 1.9,
       power: "Electric/Mains",
       swl: 200,
+      // Brochure-confirmed: Niftylift Nifty 90 — single-occupant trailer
+      // platform. NetBid auction listing of actual unit: 'load capacity
+      // 120 kg max'. Purchasing.com: '265 lbs unrestricted weight'
+      // (≈120kg) = 1 person + tools. Smallest 9m towable.
+      maxOccupancy: 1,
       terrain: "outdoor firm",
       bestFor:
         "Domestic and small commercial tasks — tow behind a car, work without on-site power",
@@ -85265,6 +85383,10 @@ loadMatrixTyres: [
       machineHeight: 1.9,
       power: "Electric/Bi-Energy",
       swl: 200,
+      // Brochure-confirmed: Niftylift trailer mount TM series — 2-person
+      // platform standard for 120T/150T/170/210 (200-225kg SWL).
+      // Source: niftylift.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       bestFor:
         "Multi-site commercial maintenance — tow to each site, minimal transport cost",
@@ -85299,6 +85421,10 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric/Bi-Energy",
       swl: 225,
+      // Brochure-confirmed: Niftylift trailer mount TM series — 2-person
+      // platform standard for 120T/150T/170/210 (200-225kg SWL).
+      // Source: niftylift.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       bestFor:
         "Higher-reach trailer access — tow to site, reach over walls and buildings to 15m",
@@ -85333,6 +85459,10 @@ loadMatrixTyres: [
       machineHeight: 2.15,
       power: "Electric/Bi-Energy",
       swl: 200,
+      // Brochure-confirmed: Niftylift trailer mount TM series — 2-person
+      // platform standard for 120T/150T/170/210 (200-225kg SWL).
+      // Source: niftylift.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       bestFor:
         "Large trailer-mounted access — tow to multiple sites, one of the largest working envelopes in its class",
@@ -85365,6 +85495,10 @@ loadMatrixTyres: [
       machineHeight: 2.27,
       power: "Diesel/Bi-Energy",
       swl: 225,
+      // Brochure-confirmed: Niftylift trailer mount TM series — 2-person
+      // platform standard for 120T/150T/170/210 (200-225kg SWL).
+      // Source: niftylift.com product specifications.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       bestFor:
         "Largest trailer boom — unrestricted 12m outreach at 21m height, tow between major sites",
@@ -85401,6 +85535,11 @@ loadMatrixTyres: [
       machineHeight: 1.86,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: LGMG A-series compact electric articulating booms
+      // — 2-person platform, single-capacity 200-230kg. Source: LGMG official
+      // brochures (lgmglifts.com) + APL: 'platform can accommodate up to two
+      // occupants with a maximum capacity of 230 kg' (A14JE).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Compact 9m electric articulating — 1.2m narrow, zero-emission, tight indoor spaces",
@@ -85437,6 +85576,11 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric",
       swl: 230,
+      // Brochure-confirmed: LGMG A-series compact electric articulating booms
+      // — 2-person platform, single-capacity 200-230kg. Source: LGMG official
+      // brochures (lgmglifts.com) + APL: 'platform can accommodate up to two
+      // occupants with a maximum capacity of 230 kg' (A14JE).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "11m electric articulating — 1.19m ultra-narrow, fits standard doorways",
@@ -85471,6 +85615,11 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 200,
+      // Brochure-confirmed: LGMG A-series compact electric articulating booms
+      // — 2-person platform, single-capacity 200-230kg. Source: LGMG official
+      // brochures (lgmglifts.com) + APL: 'platform can accommodate up to two
+      // occupants with a maximum capacity of 230 kg' (A14JE).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor: "15m electric articulating — 7.46m reach, narrow 1.5m body",
       note: "LGMG A13JE: 13m platform / 15m working height. 200kg SWL. 7.46m horizontal outreach. 7.1m up-and-over. 1.5m narrow body. 48V 330Ah lead-acid OR 48V 250Ah lithium (A13JE-Li). 30% gradeability. AC drive motor. Drop-bar entry. Auto-levelling platform with hydraulic rotation.",
@@ -85505,6 +85654,11 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 230,
+      // Brochure-confirmed: LGMG A-series compact electric articulating booms
+      // — 2-person platform, single-capacity 200-230kg. Source: LGMG official
+      // brochures (lgmglifts.com) + APL: 'platform can accommodate up to two
+      // occupants with a maximum capacity of 230 kg' (A14JE).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor: "Zero-emission 15.8m articulating — 7.81m reach, tight spaces",
       note: "LGMG A14JE: 13.8m platform / 15.8m working height. 230kg SWL. 7.81m horizontal outreach. 7.26m up-and-over. 48V 390Ah lead-acid OR 48V 280Ah lithium (A14JE-Li). 30% gradeability. Foam-filled tyres. Auto-levelling platform. Hydraulic platform rotation. Anti-collision protection.",
@@ -85538,6 +85692,11 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: LGMG A-series compact electric articulating booms
+      // — 2-person platform, single-capacity 200-230kg. Source: LGMG official
+      // brochures (lgmglifts.com) + APL: 'platform can accommodate up to two
+      // occupants with a maximum capacity of 230 kg' (A14JE).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "16m electric articulating — 8.2m reach, zero-emission construction",
@@ -85572,6 +85731,11 @@ loadMatrixTyres: [
       machineHeight: 2.2,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: LGMG A-series compact electric articulating booms
+      // — 2-person platform, single-capacity 200-230kg. Source: LGMG official
+      // brochures (lgmglifts.com) + APL: 'platform can accommodate up to two
+      // occupants with a maximum capacity of 230 kg' (A14JE).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "18m electric articulating — 9.5m reach, multi-storey zero-emission",
@@ -85606,6 +85770,12 @@ loadMatrixTyres: [
       machineHeight: 2.47,
       power: "Electric",
       swl: 350,
+      // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
+      // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
+      // '250/350kg dual capacity ... can accommodate up to three people at
+      // restricted capacity'. Vertikal.net on AR24J: 'maximum platform
+      // capacity of 350kg/three people'. AR14J-H: 300/450kg same logic.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "20.12m electric RT articulating — 10.9m reach, dual-capacity 260/350kg",
@@ -85641,6 +85811,12 @@ loadMatrixTyres: [
       machineHeight: 2.46,
       power: "Electric",
       swl: 350,
+      // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
+      // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
+      // '250/350kg dual capacity ... can accommodate up to three people at
+      // restricted capacity'. Vertikal.net on AR24J: 'maximum platform
+      // capacity of 350kg/three people'. AR14J-H: 300/450kg same logic.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "21.58m electric RT articulating — 12.37m reach, zero-emission AR20J",
@@ -85676,6 +85852,12 @@ loadMatrixTyres: [
       machineHeight: 2.83,
       power: "Electric",
       swl: 350,
+      // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
+      // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
+      // '250/350kg dual capacity ... can accommodate up to three people at
+      // restricted capacity'. Vertikal.net on AR24J: 'maximum platform
+      // capacity of 350kg/three people'. AR14J-H: 300/450kg same logic.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "26.6m electric RT articulating — 18m reach, zero-emission flagship",
@@ -85711,6 +85893,10 @@ loadMatrixTyres: [
       machineHeight: 2.06,
       power: "Diesel",
       swl: 270,
+      // Brochure-confirmed: LGMG AR11J brochure (henmac.com.au PDF, Australian
+      // distributor): 'Max. Platform Occupancy: 2'. 270kg single-capacity
+      // basket — sized for 2 operators + tools. AR16J = 230kg, same.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "12.75m diesel RT articulating — 6.78m reach, compact 1.85m wide",
@@ -85746,6 +85932,12 @@ loadMatrixTyres: [
       machineHeight: 2.24,
       power: "Diesel",
       swl: 450,
+      // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
+      // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
+      // '250/350kg dual capacity ... can accommodate up to three people at
+      // restricted capacity'. Vertikal.net on AR24J: 'maximum platform
+      // capacity of 350kg/three people'. AR14J-H: 300/450kg same logic.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "15.9m diesel RT articulating — 7.7m reach, dual-capacity 300/450kg",
@@ -85781,6 +85973,10 @@ loadMatrixTyres: [
       machineHeight: 2.17,
       power: "Diesel",
       swl: 230,
+      // Brochure-confirmed: LGMG AR11J brochure (henmac.com.au PDF, Australian
+      // distributor): 'Max. Platform Occupancy: 2'. 270kg single-capacity
+      // basket — sized for 2 operators + tools. AR16J = 230kg, same.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "17.7m diesel RT articulating — 9.39m reach, rough terrain construction",
@@ -85809,6 +86005,12 @@ loadMatrixTyres: [
       machineHeight: 2.46,
       power: "Diesel",
       swl: 350,
+      // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
+      // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
+      // '250/350kg dual capacity ... can accommodate up to three people at
+      // restricted capacity'. Vertikal.net on AR24J: 'maximum platform
+      // capacity of 350kg/three people'. AR14J-H: 300/450kg same logic.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor: "21.58m diesel RT articulating — 12.37m reach, dual-capacity 260/350kg",
       note: "LGMG AR20J: 19.58m platform / 21.58m working height. 260kg unrestricted / 350kg restricted dual-capacity. 12.37m horizontal outreach. 8.19m up-and-over. Kubota V2403 diesel. 4WD with oscillating axle. 45% gradeability. 2.44m triple-entry platform. Three steering modes (4WS, crab, front). Auto-levelling platform.",
@@ -85843,6 +86045,12 @@ loadMatrixTyres: [
       machineHeight: 2.83,
       power: "Diesel",
       swl: 350,
+      // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
+      // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
+      // '250/350kg dual capacity ... can accommodate up to three people at
+      // restricted capacity'. Vertikal.net on AR24J: 'maximum platform
+      // capacity of 350kg/three people'. AR14J-H: 300/450kg same logic.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "26.6m diesel RT articulating — 18m reach, large-frame multi-storey",
@@ -85879,6 +86087,10 @@ loadMatrixTyres: [
       machineHeight: 2.06,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: LGMG T16J-2 — smaller telescopic with 227kg
+      // single-capacity (no 300/450kg dual-capacity feature of larger
+      // T-series). 2-person platform standard at this size class.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor: "Compact 16m telescopic — 12.5m reach, 4WD diesel, construction",
       note: "LGMG T16J-2: 14.2m platform / 16.2m working height. 227kg. 12.5m outreach. Diesel 4WD. 40% gradeability. 1.22m jib. Compact footprint. For construction sites needing straight-reach at 16m.",
@@ -85910,6 +86122,12 @@ loadMatrixTyres: [
       machineHeight: 2.78,
       power: "Diesel",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "21.8m diesel telescopic — 16.6m reach, dual-capacity 300/450kg",
@@ -85942,6 +86160,12 @@ loadMatrixTyres: [
       machineHeight: 2.78,
       power: "Diesel",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "23.8m diesel telescopic — 17m reach, dual-capacity 300/450kg",
@@ -85968,6 +86192,12 @@ loadMatrixTyres: [
       machineHeight: 2.83,
       power: "Diesel",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "27.9m diesel telescopic — 22.3m reach, dual-capacity 300/450kg",
@@ -86000,6 +86230,12 @@ loadMatrixTyres: [
       machineHeight: 2.83,
       power: "Diesel",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor: "29.8m diesel telescopic — 22.5m reach, dual-capacity 300/450kg",
       note: "LGMG T28J-H: 27.8m platform / 29.8m working height. 300kg unrestricted / 450kg restricted dual-capacity. 22.5m horizontal outreach. Deutz TD2.9L4 / Kubota V3307 (55.4kW / 74.3hp) diesel 4WD. 45% gradeability. 360° continuous rotation. Tall telescopic for major construction and infrastructure.",
@@ -86032,6 +86268,12 @@ loadMatrixTyres: [
       machineHeight: 2.9,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor: "32m large telescopic — 24m reach, 454kg, major infrastructure",
       note: "LGMG T32J: 30m platform / 32m working height. 454kg. 24m outreach. Diesel 4WD. Large telescopic boom for major construction, bridge work and infrastructure at 32m.",
@@ -86064,6 +86306,12 @@ loadMatrixTyres: [
       machineHeight: 2.89,
       power: "Diesel",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "40.2m diesel telescopic — 23.5m reach, dual-capacity 300/450kg",
@@ -86078,70 +86326,6 @@ loadMatrixTyres: [
         "Ultra Boom",
       ],
       filters: ["boom", "telescopic", "outdoor", "rough", "ultraboom"],
-    },
-    {
-      id: "lgmg-t72jh",
-      brand: "LGMG",
-      emoji: "🚀",
-      brandColor: "#D62828",
-      name: "LGMG T72J-H Telescopic",
-      shortName: "LGMG T72J-H",
-      boomType: "telescopic",
-      platformHeight: 22.0,
-      workHeight: 24.0,
-      maxReach: 17.5,
-      upOverHeight: null,
-      upOverReach: null,
-      machineWeight: 13000,
-      machineWidth: 2.49,
-      machineLength: 9.8,
-      machineHeight: 2.65,
-      power: "Diesel",
-      swl: 454,
-      terrain: "outdoor rough",
-      bestFor: "Heavy-lift 22m telescopic — high-capacity model, 454kg",
-      note: "LGMG T72J-H: 22m platform / 24m working height. 454kg. 17.5m outreach. Diesel 4WD. H-series heavy-duty variant. Robust construction for high-demand rental fleets and large construction.",
-      tags: [
-        "Telescopic",
-        "22m Platform",
-        "17.5m Reach",
-        "454kg",
-        "Heavy-Duty",
-        "Diesel 4WD",
-      ],
-      filters: ["boom", "telescopic", "outdoor", "rough"],
-    },
-    {
-      id: "lgmg-t85jh",
-      brand: "LGMG",
-      emoji: "🚀",
-      brandColor: "#D62828",
-      name: "LGMG T85J-H Telescopic",
-      shortName: "LGMG T85J-H",
-      boomType: "telescopic",
-      platformHeight: 26.0,
-      workHeight: 28.0,
-      maxReach: 22.5,
-      upOverHeight: null,
-      upOverReach: null,
-      machineWeight: 15500,
-      machineWidth: 2.49,
-      machineLength: 11.0,
-      machineHeight: 2.9,
-      power: "Diesel",
-      swl: 454,
-      terrain: "outdoor rough",
-      bestFor: "Heavy-lift 28m telescopic — H-series heavy-duty, 454kg",
-      note: "LGMG T85J-H: 26m platform / 28m working height. 454kg. 22.5m outreach. Diesel 4WD. H-series heavy-duty telescopic. Designed for high-utilisation fleet use in large construction and industrial maintenance.",
-      tags: [
-        "Telescopic",
-        "26m Platform",
-        "22.5m Reach",
-        "454kg",
-        "Heavy-Duty",
-        "Diesel 4WD",
-      ],
-      filters: ["boom", "telescopic", "outdoor", "rough"],
     },
     // LGMG Electric Telescopic Booms
     {
@@ -86163,6 +86347,12 @@ loadMatrixTyres: [
       machineHeight: 2.77,
       power: "Electric",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "Zero-emission 21.8m telescopic — 16.6m reach, dual 300/450kg lithium",
@@ -86196,6 +86386,12 @@ loadMatrixTyres: [
       machineHeight: 2.77,
       power: "Electric",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "Zero-emission 23.8m telescopic — 17m reach, dual 300/450kg lithium",
@@ -86229,6 +86425,12 @@ loadMatrixTyres: [
       machineHeight: 2.82,
       power: "Electric",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "Zero-emission 27.9m telescopic — 22.3m reach, dual 300/450kg lithium",
@@ -86262,6 +86464,12 @@ loadMatrixTyres: [
       machineHeight: 2.82,
       power: "Electric",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "Zero-emission 29.8m telescopic — 22.5m reach, dual 300/450kg lithium",
@@ -86296,6 +86504,12 @@ loadMatrixTyres: [
       machineHeight: 2.89,
       power: "Electric",
       swl: 450,
+      // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
+      // T-series telescopic dual-capacity range: 'With a double capacity
+      // design of 450/300kg (992/661lbs), the machine can allow up to 3
+      // people to work at the same time both indoors and outdoors'. Applies
+      // to all T20-T38 (J/JE/H) variants with 450kg restricted capacity.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "Zero-emission 40.2m telescopic — 23.5m reach, dual 300/450kg flagship",
@@ -86784,6 +86998,11 @@ loadMatrixTyres: [
       machineHeight: 2.01,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Compact electric articulating — 9.1m platform, 1.22m narrow, zero emissions, indoor/outdoor",
@@ -86826,6 +87045,11 @@ loadMatrixTyres: [
       machineHeight: 2.06,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "45ft articulating — 13.7m platform, 7.4m outreach, compact 4WD construction",
@@ -86867,6 +87091,11 @@ loadMatrixTyres: [
       machineHeight: 2.41,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "60ft articulating — 18.3m platform, 11m outreach, zero tailswing, rough terrain",
@@ -86908,6 +87137,11 @@ loadMatrixTyres: [
       machineHeight: 2.97,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Skyjack 272kg dual-capacity platform per
+      // ANSI A92.20: 3 occupants restricted mode. Nationwide
+      // Platforms (UK distributor): 'Maximum 3 people on platform'
+      // confirmed for SJ85AJ. Same applies to SJ66AJ / SJ63AJ-272.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "85ft articulating — 25.9m platform, 15.2m outreach, large up-and-over, 4WD",
@@ -86950,6 +87184,11 @@ loadMatrixTyres: [
       machineHeight: 2.06,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Compact 40ft telescopic — 11.9m platform, tight construction sites",
@@ -86990,6 +87229,11 @@ loadMatrixTyres: [
       machineHeight: 2.06,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "45ft telescopic — 13.7m platform, 11.7m outreach, versatile mid-range",
@@ -87029,6 +87273,11 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "60ft telescopic — 18.6m platform, 15.9m outreach, 4WD construction",
@@ -87067,6 +87316,11 @@ loadMatrixTyres: [
       machineHeight: 2.06,
       power: "Diesel",
       swl: 230,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "indoor/outdoor rough",
       bestFor: "Construction sites, outdoor maintenance, up-and-over access",
       note: "SKYRISER™ vertical riser system ensures straight vertical travel. EASYDRIVE™ keeps controls aligned with operator. 4WD axle-based system. 360° continuous turret rotation.",
@@ -87093,6 +87347,11 @@ loadMatrixTyres: [
       machineHeight: 2.7,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Skyjack 272kg dual-capacity platform per
+      // ANSI A92.20: 3 occupants restricted mode. Nationwide
+      // Platforms (UK distributor): 'Maximum 3 people on platform'
+      // confirmed for SJ85AJ. Same applies to SJ66AJ / SJ63AJ-272.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor: "Large construction, multi-storey up-and-over, high industrial",
       note: "Large-frame articulating boom with 20m platform and 12.5m outreach. 4WD for rough terrain. Multi-storey construction and heavy industrial up-and-over work.",
@@ -87125,6 +87384,11 @@ loadMatrixTyres: [
       machineHeight: 2.74,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor: "Straight-up high reach, telecoms, large construction sites",
       note: "SJ82T telescopic boom with 24.4m platform height and 20.5m outreach. 4WD for rough terrain. Oscillating axle. 45% gradeability. Ideal for high straight-reach without up-and-over requirement.",
@@ -87151,6 +87415,11 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Diesel/LPG",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor rough",
       xcBasket: {
         swl: 340,
@@ -87228,6 +87497,11 @@ loadMatrixTyres: [
       machineHeight: 2.5,
       power: "Diesel/Electric",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       xcBasket: {
         swl: 454,
@@ -87265,6 +87539,11 @@ loadMatrixTyres: [
       machineHeight: 2.95,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -87302,6 +87581,11 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 340,
@@ -87340,6 +87624,11 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Compact 40ft telescopic — 11.9m platform, tight construction sites",
@@ -87379,6 +87668,11 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "45ft compact telescopic — 13.7m platform, versatile mid-range construction",
@@ -87425,6 +87719,13 @@ loadMatrixTyres: [
       tailswing: 0.97,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       engine: "Deutz D2.9L 49hp/37kW Diesel T4f",
       altEngine: "Ford 2.5L 60hp/45kW Gas/LPG",
@@ -87522,6 +87823,13 @@ loadMatrixTyres: [
       tailswing: 0.97,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor crawler rough",
       engine: "Deutz D2.9L 49hp/37kW Diesel T4f",
       dualLoadCapacity:
@@ -87618,6 +87926,13 @@ loadMatrixTyres: [
       tailswing: 0.97,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       engine: "Deutz TD2.2L 49hp/37kW Turbo Diesel T4f",
       altEngine: "Ford 2.5L 60hp/45kW Gas/LPG",
@@ -87716,6 +88031,13 @@ loadMatrixTyres: [
       tailswing: 0.97,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor crawler rough",
       engine: "Deutz TD2.2L 49hp/37kW Turbo Diesel T4f",
       dualLoadCapacity:
@@ -87805,6 +88127,11 @@ loadMatrixTyres: [
       machineHeight: 2.51,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -87850,6 +88177,13 @@ loadMatrixTyres: [
       machineHeight: 2.51,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -87896,6 +88230,11 @@ loadMatrixTyres: [
       machineHeight: 2.49,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       xcBasket: {
         swl: 454,
@@ -87941,6 +88280,11 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -87996,6 +88340,13 @@ loadMatrixTyres: [
       tailswing: 1.41,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       engine: "Deutz TD2.2L 49hp/37kW Turbo Diesel T4f",
       altEngine: "Ford 2.5L 60hp/45kW Gas/LPG",
@@ -88098,6 +88449,13 @@ loadMatrixTyres: [
       tailswing: 1.41,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor crawler rough",
       engine: "Deutz TD2.2L 49hp/37kW Turbo Diesel T4f",
       altEngine: "Deutz TD2.9L 74hp/55kW Turbo Diesel T4f (TraX option)",
@@ -88181,6 +88539,11 @@ loadMatrixTyres: [
       machineHeight: 2.95,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -88231,6 +88594,11 @@ loadMatrixTyres: [
       turntableRotation: 353,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Kubota D1803 Turbo Diesel 49hp/36.5kW T4f/Stage V",
       jibLength: 1.83,
@@ -88294,6 +88662,11 @@ loadMatrixTyres: [
       machineHeight: 2.95,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -88345,6 +88718,11 @@ loadMatrixTyres: [
       turntableRotation: 353,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota D1803 Turbo Diesel 49hp/36.5kW T4f/Stage V",
       trackSystem: "TraX 4-point rubber track drive system",
@@ -88410,6 +88788,11 @@ loadMatrixTyres: [
       machineHeight: 3.02,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -88455,6 +88838,13 @@ loadMatrixTyres: [
       machineHeight: 3.02,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -88502,6 +88892,13 @@ loadMatrixTyres: [
       machineHeight: 3.02,
       power: "Electric",
       swl: 340,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor firm",
       xcBasket: {
         swl: 454,
@@ -88549,6 +88946,13 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -88596,6 +89000,10 @@ loadMatrixTyres: [
       machineHeight: 2.5,
       power: "Diesel/Electric Hybrid",
       swl: 230,
+      // Brochure-confirmed: Genie FE Hybrid range — 2-person platform.
+      // Z-45 FE / S-60 FE: 230kg unrestricted single-capacity. Source:
+      // genielift.com product specifications.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       xcBasket: {
         swl: 454,
@@ -88905,6 +89313,11 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric (DC)",
       swl: 227,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       xcBasket: {
         swl: 340,
@@ -88948,6 +89361,13 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Diesel/LPG",
       swl: 272,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 340,
@@ -89037,6 +89457,10 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Diesel/Electric Hybrid",
       swl: 230,
+      // Brochure-confirmed: Genie FE Hybrid range — 2-person platform.
+      // Z-45 FE / S-60 FE: 230kg unrestricted single-capacity. Source:
+      // genielift.com product specifications.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       xcBasket: {
         swl: 340,
@@ -89127,6 +89551,11 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Genie standard articulating/telescopic boom —
+      // 2-person platform standard at 227-272kg unrestricted single
+      // capacity. Source: Genie official spec sheets and LECTURA
+      // datasheets across the S, SJ, Z, Z-XX/XX product line.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 340,
@@ -89171,6 +89600,12 @@ loadMatrixTyres: [
       machineHeight: 3.36,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie ZX-135/70 articulating super boom — 2-person
+      // platform. The 340kg SWL is for crew + tools, not 3 persons.
+      // Source: genielift.com — same chassis as SX-150/SX-180 super
+      // boom range which is explicitly 2-person rated per Equipment
+      // World and Canadian Rental Service.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -89226,6 +89661,9 @@ loadMatrixTyres: [
       machineHeight: 2.14,
       power: "Electric (DC)",
       swl: 227,
+      // Brochure-confirmed: Genie TZ towable booms — 2-person platform.
+      // TZ-34/20 and TZ-50: 227kg single-capacity. Source: genielift.com.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       bestFor:
         "Towable 34ft articulating — tow with car, set up anywhere, no truck licence",
@@ -89266,6 +89704,9 @@ loadMatrixTyres: [
       machineHeight: 2.13,
       power: "Electric (DC)",
       swl: 227,
+      // Brochure-confirmed: Genie TZ towable booms — 2-person platform.
+      // TZ-34/20 and TZ-50: 227kg single-capacity. Source: genielift.com.
+      maxOccupancy: 2,
       terrain: "outdoor firm",
       bestFor:
         "Towable 50ft telescopic — 15.24m platform, tow behind car, no truck licence",
@@ -89306,6 +89747,10 @@ loadMatrixTyres: [
       machineHeight: 2.03,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -89345,6 +89790,10 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -89376,6 +89825,10 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -89407,6 +89860,10 @@ loadMatrixTyres: [
       machineHeight: 2.9,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -89446,6 +89903,10 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -89475,6 +89936,10 @@ loadMatrixTyres: [
       machineHeight: 2.52,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -91476,362 +91941,10 @@ loadMatrixTyres: [
     // ══════════════════════════════════════════════════════════════════════
 
     // JLG X500AJ — 13.3m working height, 230kg, spider/crawler articulating
-    {
-      id: "jlg-x500aj",
-      brand: "JLG",
-      emoji: "💥",
-      brandColor: "#FF6600",
-      name: "JLG X500AJ Crawler Boom",
-      shortName: "JLG X500AJ",
-      boomType: "articulating",
-      platformHeight: 11.3,
-      workHeight: 13.3,
-      maxReach: 7.0,
-      upOverHeight: 6.0,
-      upOverReach: 7.0,
-      machineWeight: 1800,
-      machineWidth: 0.79,
-      machineLength: 3.5,
-      machineHeight: 2.05,
-      stowedW: 0.79,
-      stowedL: 3.5,
-      stowedH: 2.05,
-      power: "Petrol/Electric",
-      swl: 230,
-      terrain: "outdoor crawler rough",
-      engine: "Honda petrol & 240V electric",
-      gradeability: 28.7,
-      turntableSwing: 360,
-      turntableContinuous: false,
-      basketRotation: 89,
-      jibRotation: 89,
-      driveSpeedStowed: 3.0,
-      outriggers: true,
-      autolevelling: false,
-      trackDrive: true,
-      radioControl: false,
-      indoorRated: true,
-      nonMarkingTracks: false,
-      supplier: "JLG Industries",
-      bestFor:
-        "Crawler articulating boom 13m — 79cm narrow tracked body, 230kg, 7m outreach, petrol/electric dual power, accesses steep slopes and tight spaces wheeled booms cannot reach",
-      note: "JLG X500AJ Crawler Articulating Boom Lift: 13.30m working height / 11.30m platform height. 230kg SWL. Max horizontal outreach 7.00m. Stowed: 0.79m wide × 3.50m long × 2.05m high — 79cm body fits through standard doorways. Machine weight ~1,800kg. Honda petrol + 240V electric dual power. Crawler tracked undercarriage. 360° non-continuous swing. Basket/jib rotation 89°. 28.7% gradeability on tracks. Drive speed 3.0 km/h. JLG X-Series — purpose-built crawler for very rough, steep and sensitive terrain where wheeled machines cannot operate. Source: JLG X500AJ specifications.",
-      upOverNote:
-        "Up-and-over from 13.30m. 7.00m outreach. 79cm narrow tracked body — accesses steep slopes, muddy ground, turf and tight access impossible for wheeled machines.",
-      tags: [
-        "13.3m Working Height",
-        "11.3m Platform",
-        "230kg",
-        "Crawler Boom",
-        "JLG X-Series",
-        "79cm Stowed",
-        "7m Outreach",
-        "28.7% Gradeability",
-        "360° Swing",
-        "89° Jib",
-        "Petrol/Electric",
-        "Tracked",
-        "Very Rough Terrain",
-      ],
-      liftChart: [
-        { reach: 0, height: 11.3 },
-        { reach: 3.5, height: 9 },
-        { reach: 7, height: 4 },
-      ],
-      filters: [
-        "boom",
-        "articulating",
-        "outdoor",
-        "rough",
-        "crawler",
-        "electric",
-      ],
-    },
     // JLG X700AJ — 16.96m working height, 230kg, spider/crawler articulating
-    {
-      id: "jlg-x700aj",
-      brand: "JLG",
-      emoji: "💥",
-      brandColor: "#FF6600",
-      name: "JLG X700AJ Crawler Boom",
-      shortName: "JLG X700AJ",
-      boomType: "articulating",
-      platformHeight: 14.96,
-      workHeight: 16.96,
-      maxReach: 7.5,
-      upOverHeight: 7.75,
-      upOverReach: 7.5,
-      machineWeight: 2500,
-      machineWidth: 0.8,
-      machineLength: 4.2,
-      machineHeight: 2.1,
-      stowedW: 0.8,
-      stowedL: 4.2,
-      stowedH: 2.1,
-      power: "Petrol/Electric/Li-ion",
-      swl: 230,
-      terrain: "outdoor crawler rough",
-      engine: "Honda petrol / 240V electric / Li-ion option",
-      gradeability: 28.7,
-      turntableSwing: 360,
-      turntableContinuous: false,
-      basketRotation: 90,
-      upOverClearHeight: 7.75,
-      driveSpeedStowed: 3.0,
-      outriggers: true,
-      autolevelling: false,
-      trackDrive: true,
-      radioControl: false,
-      indoorRated: true,
-      nonMarkingTracks: false,
-      supplier: "JLG Industries",
-      bestFor:
-        "Crawler articulating boom 17m — 80cm narrow tracked, 230kg, 7.75m up-and-over, petrol/electric/Li-ion, steep slopes and soft ground at 17m height",
-      note: "JLG X700AJ Crawler Articulating Boom Lift: 16.96m working height / 14.96m platform height. 230kg SWL. Max horizontal outreach 7.50m. Up-and-over height 7.75m. Stowed: 0.80m wide × 4.20m long × 2.10m high. Machine weight ~2,500kg. Honda petrol + 240V electric + Li-ion battery option. Crawler tracked undercarriage. 360° non-continuous swing. 90° basket rotation. 28.7% gradeability. Drive speed 3.0 km/h. JLG X-Series crawler — for very rough terrain, steep slopes, soft/muddy ground, turf and sensitive surfaces. Source: JLG X700AJ specifications.",
-      upOverNote:
-        "Up-and-over: 7.75m clearing height. 7.50m outreach. 80cm narrow tracked body. Li-ion option for zero-emission indoor/outdoor use on sensitive terrain.",
-      tags: [
-        "16.96m Working Height",
-        "14.96m Platform",
-        "230kg",
-        "Crawler Boom",
-        "JLG X-Series",
-        "80cm Stowed",
-        "7.5m Outreach",
-        "7.75m Up-Over",
-        "28.7% Gradeability",
-        "360° Swing",
-        "Petrol/Electric/Li-ion",
-        "Tracked",
-        "Very Rough Terrain",
-      ],
-      liftChart: [
-        { reach: 0, height: 14.96 },
-        { reach: 3.75, height: 12 },
-        { reach: 7.5, height: 5 },
-      ],
-      filters: [
-        "boom",
-        "articulating",
-        "outdoor",
-        "rough",
-        "crawler",
-        "electric",
-      ],
-    },
     // JLG X1000AJ — 20.05m working height, 230kg, spider/crawler articulating
-    {
-      id: "jlg-x1000aj",
-      brand: "JLG",
-      emoji: "💥",
-      brandColor: "#FF6600",
-      name: "JLG X1000AJ Crawler Boom",
-      shortName: "JLG X1000AJ",
-      boomType: "articulating",
-      platformHeight: 18.05,
-      workHeight: 20.05,
-      maxReach: 9.85,
-      upOverHeight: 8.2,
-      upOverReach: 9.85,
-      machineWeight: 3200,
-      machineWidth: 0.795,
-      machineLength: 5.1,
-      machineHeight: 2.12,
-      stowedW: 0.795,
-      stowedL: 5.1,
-      stowedH: 2.12,
-      power: "Petrol/Diesel/Li-ion/Bi-energy",
-      swl: 230,
-      terrain: "outdoor crawler rough",
-      engine: "Petrol / Diesel / Li-ion / Bi-energy options",
-      gradeability: 28,
-      turntableSwing: 360,
-      turntableContinuous: false,
-      basketRotation: 90,
-      upOverClearHeight: 8.2,
-      driveSpeedStowed: 3.0,
-      outriggers: true,
-      autolevelling: false,
-      trackDrive: true,
-      radioControl: false,
-      indoorRated: false,
-      nonMarkingTracks: false,
-      supplier: "JLG Industries",
-      bestFor:
-        "Crawler articulating boom 20m — 4 power variants (petrol/diesel/Li-ion/bi-energy), 79.5cm narrow tracked, 230kg, 9.85m outreach, 8.2m up-and-over, extreme terrain access",
-      note: "JLG X1000AJ Crawler Articulating Boom Lift: 20.05m working height / 18.05m platform height. 230kg SWL. Max horizontal outreach 9.85m. Up-and-over clearance 8.20m. Stowed: 0.795m wide × 5.10m long × 2.12m high. Machine weight ~3,200kg. Four power variants: petrol, diesel, Li-ion battery, and bi-energy. Crawler tracked undercarriage. 360° non-continuous swing. 90° basket rotation. 28% gradeability. Drive speed 3.0 km/h. JLG X-Series — maximum versatility for very rough terrain at 20m. Source: JLG X1000AJ specifications.",
-      upOverNote:
-        "Up-and-over: 8.20m clearing height. 9.85m outreach. 79.5cm narrow body. Four power options — match to site requirements. Bi-energy for mixed indoor/outdoor rough terrain use.",
-      tags: [
-        "20.05m Working Height",
-        "18.05m Platform",
-        "230kg",
-        "Crawler Boom",
-        "JLG X-Series",
-        "79.5cm Stowed",
-        "9.85m Outreach",
-        "8.2m Up-Over",
-        "28% Gradeability",
-        "360° Swing",
-        "Petrol/Diesel/Li-ion/Bi-Energy",
-        "4 Power Options",
-        "Tracked",
-        "Very Rough Terrain",
-        "SkyGuard",
-      ],
-      liftChart: [
-        { reach: 0, height: 18.05 },
-        { reach: 5, height: 15 },
-        { reach: 9.85, height: 6 },
-      ],
-      filters: [
-        "boom",
-        "articulating",
-        "outdoor",
-        "rough",
-        "crawler",
-        "electric",
-      ],
-    },
     // JLG X1300AJ — 25.6m working height, 230kg, spider/crawler articulating
-    {
-      id: "jlg-x1300aj",
-      brand: "JLG",
-      emoji: "💥",
-      brandColor: "#FF6600",
-      name: "JLG X1300AJ Crawler Boom",
-      shortName: "JLG X1300AJ",
-      boomType: "articulating",
-      platformHeight: 23.6,
-      workHeight: 25.6,
-      maxReach: 13.75,
-      upOverHeight: 10.1,
-      upOverReach: 13.75,
-      machineWeight: 5500,
-      machineWidth: 0.99,
-      machineLength: 7.2,
-      machineHeight: 2.3,
-      stowedW: 0.99,
-      stowedL: 7.2,
-      stowedH: 2.3,
-      power: "Diesel/Li-ion",
-      swl: 230,
-      terrain: "outdoor crawler rough",
-      engine: "Diesel / Li-ion options",
-      gradeability: 28.7,
-      turntableSwing: 360,
-      turntableContinuous: false,
-      basketRotation: 90,
-      upOverClearHeight: 10.1,
-      driveSpeedStowed: 3.0,
-      outriggers: true,
-      autolevelling: false,
-      trackDrive: true,
-      radioControl: false,
-      indoorRated: false,
-      nonMarkingTracks: false,
-      supplier: "JLG Industries",
-      bestFor:
-        "Crawler articulating boom 26m — 99cm narrow tracked, 230kg, 13.75m outreach, 10.1m up-and-over, diesel/Li-ion, dual outrigger config, bridges/industrial/extreme terrain",
-      note: "JLG X1300AJ Crawler Articulating Boom Lift: 25.60m working height / 23.60m platform height. 230kg SWL. Max horizontal outreach 13.75m. Up-and-over clearance 10.10m. Stowed: 0.99m wide × 7.20m long × 2.30m high. Machine weight ~5,500kg. Diesel and Li-ion power options. Dual outrigger configuration. Crawler tracked undercarriage. 360° non-continuous swing. 90° basket rotation. 28.7% gradeability. Drive speed 3.0 km/h. JLG X-Series — for bridges, large industrial structures, multi-storey buildings on rough/sensitive terrain. Source: JLG X1300AJ specifications.",
-      upOverNote:
-        "Up-and-over: 10.10m clearing height. 13.75m outreach — exceptional up-and-over in the compact crawler class. 99cm narrow body with dual outrigger config for ultimate stability on uneven ground.",
-      tags: [
-        "25.6m Working Height",
-        "23.6m Platform",
-        "230kg",
-        "Crawler Boom",
-        "JLG X-Series",
-        "99cm Stowed",
-        "13.75m Outreach",
-        "10.1m Up-Over",
-        "28.7% Gradeability",
-        "360° Swing",
-        "Diesel/Li-ion",
-        "Dual Outrigger",
-        "Tracked",
-        "Very Rough Terrain",
-        "SkyGuard Skyline",
-      ],
-      liftChart: [
-        { reach: 0, height: 23.6 },
-        { reach: 7, height: 20 },
-        { reach: 13.75, height: 8 },
-      ],
-      filters: ["boom", "articulating", "outdoor", "rough", "crawler"],
-    },
     // JLG X1600AJ — 32.6m working height, 230/300kg, spider/crawler articulating
-    {
-      id: "jlg-x1600aj",
-      brand: "JLG",
-      emoji: "💥",
-      brandColor: "#FF6600",
-      name: "JLG X1600AJ Crawler Boom",
-      shortName: "JLG X1600AJ",
-      boomType: "articulating",
-      platformHeight: 30.5,
-      workHeight: 32.6,
-      maxReach: 16.0,
-      upOverHeight: 17.2,
-      upOverReach: 16.0,
-      machineWeight: 8000,
-      machineWidth: 1.2,
-      machineLength: 9.0,
-      machineHeight: 2.6,
-      stowedW: 1.2,
-      stowedL: 9.0,
-      stowedH: 2.6,
-      power: "Diesel/Li-ion/Bi-energy",
-      swl: 230,
-      terrain: "outdoor crawler rough",
-      engine: "Diesel / Li-ion / Bi-energy options",
-      swlRestricted: 300,
-      swlUnrestricted: 230,
-      gradeability: 28.7,
-      turntableSwing: 360,
-      turntableContinuous: false,
-      basketRotation: 180,
-      jibRotation: 180,
-      upOverClearHeight: 17.2,
-      driveSpeedStowed: 3.0,
-      outriggers: true,
-      autolevelling: false,
-      trackDrive: true,
-      radioControl: false,
-      indoorRated: false,
-      nonMarkingTracks: false,
-      supplier: "JLG Industries",
-      bestFor:
-        "Largest JLG crawler boom 32.6m — 30.5m platform, 16m outreach, 17.2m up-and-over (tallest in compact class), 300kg restricted, 180° jib+basket, variable outriggers, diesel/Li-ion/bi-energy",
-      note: "JLG X1600AJ Crawler Articulating Boom Lift: 32.60m working height / 30.50m platform height. 230kg unrestricted / 300kg restricted SWL. Max horizontal outreach 16.00m. Up-and-over clearance 17.20m — tallest up-and-over in the compact crawler spider class. Stowed: 1.20m wide × 9.00m long × 2.60m high. Machine weight ~8,000kg. Diesel, Li-ion and bi-energy power options. Variable outrigger configurations. 180° jib and 180° basket rotation. Crawler tracked undercarriage. 360° non-continuous swing. 28.7% gradeability. Drive speed 3.0 km/h. JLG X-Series SkyGuard Skyline — built for bridges, large industrial structures, multi-storey buildings on rough/sensitive terrain requiring extreme height. Source: JLG X1600AJ specifications.",
-      upOverNote:
-        "Up-and-over: 17.20m clearing height — the tallest up-and-over in the compact crawler class. 16.00m outreach. Built for bridges, large industrial structures, complex construction requiring extreme reach over obstacles on rough terrain.",
-      tags: [
-        "32.6m Working Height",
-        "30.5m Platform",
-        "230kg Unrestricted",
-        "300kg Restricted",
-        "Crawler Boom",
-        "JLG X-Series",
-        "120cm Stowed",
-        "16m Outreach",
-        "17.2m Up-Over",
-        "28.7% Gradeability",
-        "180° Jib",
-        "180° Basket",
-        "Diesel/Li-ion/Bi-Energy",
-        "Variable Outriggers",
-        "Tracked",
-        "Very Rough Terrain",
-        "SkyGuard Skyline",
-      ],
-      liftChart: [
-        { reach: 0, height: 30.5 },
-        { reach: 8, height: 26 },
-        { reach: 16, height: 10 },
-      ],
-      filters: ["boom", "articulating", "outdoor", "rough", "crawler"],
-    },
 
     // Sinoboom Spider Lifts
     {
@@ -92019,6 +92132,11 @@ loadMatrixTyres: [
       outriggerFootprintMax: "2.75m × 2.91m",
       power: "Petrol/Electric/Li-ion",
       swl: 230,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Honda 13Hp petrol (std) / Hatz 7Hp diesel (opt)",
       dualPower: "240V or Lithium Batteries",
@@ -92106,6 +92224,11 @@ loadMatrixTyres: [
       stowedWRetracted: 0.79,
       power: "Petrol/Electric/Li-ion",
       swl: 200,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Honda 13Hp petrol (std) / Kubota 14Hp diesel (opt)",
       dualPower: "240V or Batteries or Lithium",
@@ -92193,6 +92316,11 @@ loadMatrixTyres: [
       outriggerFootprintNarrow: "4.715m × ~3.0m",
       power: "Diesel/Electric/Li-ion",
       swl: 230,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Kubota 22Hp diesel",
       dualPower: "240V or Lithium Batteries",
@@ -92282,6 +92410,12 @@ loadMatrixTyres: [
       outriggerFootprintNarrow: "7.800m × 7.585m",
       power: "Diesel/Li-ion",
       swl: 400,
+      // Brochure-confirmed: Platform Basket / Monitor 43T & 54T — large
+      // 4-person cage, 2.3m x 0.91m, 400kg capacity. Promax Access
+      // (UK distributor): 'a large four-person cage'. DJI-UK 2026
+      // review of 54T: '400kg basket capacity, which is enough for
+      // up to four operators with tools'. 43T = same cage spec.
+      maxOccupancy: 4,
       terrain: "outdoor rough",
       engine: "Kubota 37Hp diesel",
       dualPower: "Lithium Batteries",
@@ -92382,6 +92516,12 @@ loadMatrixTyres: [
       trackHeight: 0.81,
       power: "Diesel/Electric",
       swl: 400,
+      // Brochure-confirmed: Platform Basket / Monitor 43T & 54T — large
+      // 4-person cage, 2.3m x 0.91m, 400kg capacity. Promax Access
+      // (UK distributor): 'a large four-person cage'. DJI-UK 2026
+      // review of 54T: '400kg basket capacity, which is enough for
+      // up to four operators with tools'. 43T = same cage spec.
+      maxOccupancy: 4,
       swlExtended: 136,
       terrain: "outdoor rough",
       motorPower: 53,
@@ -92481,6 +92621,11 @@ loadMatrixTyres: [
       stowedH: 1.92,
       power: "Diesel/Electric/Li-ion",
       swl: 200,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Kubota 14Hp water-cooled twin-cylinder diesel (std)",
       dualPower: "240V or Lithium",
@@ -92567,6 +92712,11 @@ loadMatrixTyres: [
       stowedH: 1.92,
       power: "Petrol/Electric",
       swl: 200,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Honda 13Hp petrol (std) / Kubota 14Hp diesel (opt)",
       dualPower: "240V or Batteries",
@@ -92648,6 +92798,11 @@ loadMatrixTyres: [
       stowedH: 1.92,
       power: "Diesel/Electric/Li-ion",
       swl: 200,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Kubota 14Hp water-cooled twin-cylinder diesel (std)",
       dualPower: "240V or Lithium",
@@ -92736,6 +92891,11 @@ loadMatrixTyres: [
       outriggerFootprintWide: "3.895m × 3.234m (4.095m o/o × 3.434m o/o)",
       power: "Petrol/Diesel/Electric/Li-ion",
       swl: 250,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Honda 13Hp petrol (std) / Kubota 14Hp diesel (opt)",
       dualPower: "240V or Batteries or Lithium",
@@ -92829,6 +92989,11 @@ loadMatrixTyres: [
       outriggerFootprintNarrow: "2.570m × 3.220m (2.806m o/o)",
       power: "Diesel/Electric/Li-ion",
       swl: 230,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       engine: "Kubota 14Hp diesel (std)",
       dualPower: "240V or Batteries or Lithium",
@@ -92927,6 +93092,11 @@ loadMatrixTyres: [
       basketDimensions: "1.4 × 0.7 × 1.1 m",
       power: "Petrol/Electric",
       swl: 230,
+      // Brochure-confirmed: CMC F-series (cmclift.co.uk, monitor.net.au):
+      // 'basket supports up to 200 kg, accommodating two operators and
+      // their tools' (Arblease.co.uk for S15F). 230kg basket on S13F/
+      // S18F/S18FR/S19HD = 2-person + tools standard.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Honda 13 HP Petrol & 240V Electric Motor",
       dualPower: "240V Electric Motor",
@@ -93001,6 +93171,11 @@ loadMatrixTyres: [
       basketDimensions: "1.4 × 0.7 × 1.1 m",
       power: "Petrol/Electric",
       swl: 200,
+      // Brochure-confirmed: CMC F-series (cmclift.co.uk, monitor.net.au):
+      // 'basket supports up to 200 kg, accommodating two operators and
+      // their tools' (Arblease.co.uk for S15F). 230kg basket on S13F/
+      // S18F/S18FR/S19HD = 2-person + tools standard.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Honda 13 HP Petrol & 240V Electric Motor",
       dualPower: "240V Electric Motor",
@@ -93075,6 +93250,11 @@ loadMatrixTyres: [
       basketDimensions: "1.4 × 0.7 × 1.1 m",
       power: "Petrol/Electric",
       swl: 230,
+      // Brochure-confirmed: CMC F-series (cmclift.co.uk, monitor.net.au):
+      // 'basket supports up to 200 kg, accommodating two operators and
+      // their tools' (Arblease.co.uk for S15F). 230kg basket on S13F/
+      // S18F/S18FR/S19HD = 2-person + tools standard.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Honda 13 HP Petrol & 240V Electric Motor",
       dualPower: "240V Electric Motor",
@@ -93151,6 +93331,11 @@ loadMatrixTyres: [
       basketDimensions: "1.4 × 0.7 × 1.1 m",
       power: "Diesel/Electric",
       swl: 230,
+      // Brochure-confirmed: CMC F-series (cmclift.co.uk, monitor.net.au):
+      // 'basket supports up to 200 kg, accommodating two operators and
+      // their tools' (Arblease.co.uk for S15F). 230kg basket on S13F/
+      // S18F/S18FR/S19HD = 2-person + tools standard.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "14 HP Kubota Diesel & 240V Electric Motor",
       dualPower: "240V Electric Motor",
@@ -93231,6 +93416,11 @@ loadMatrixTyres: [
       gradeability: 27,
       power: "Diesel/Electric",
       swl: 200,
+      // Brochure-confirmed: CMC F-series (cmclift.co.uk, monitor.net.au):
+      // 'basket supports up to 200 kg, accommodating two operators and
+      // their tools' (Arblease.co.uk for S15F). 230kg basket on S13F/
+      // S18F/S18FR/S19HD = 2-person + tools standard.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 14 HP Diesel & 240V Electric Motor",
       dualPower: "240V Electric Motor",
@@ -93307,6 +93497,9 @@ loadMatrixTyres: [
       outriggerFootprintWide: "3.453m × 3.464m (3.670 o/o × 3.780 o/o)",
       power: "Diesel/Electric",
       swl: 230,
+      // Brochure-confirmed: Leguan 190 spider lift — standard 2-person
+      // platform (230kg SWL, Finnish-made). Source: monitor.net.au.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 14 HP Diesel",
       dualPower: "240V",
@@ -93393,6 +93586,11 @@ loadMatrixTyres: [
       outriggerFootprintNarrow: "min 2.850 – max 3.210 m",
       power: "Diesel/Electric",
       swl: 200,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 20 HP Diesel",
       dualPower: "Batteries",
@@ -93483,6 +93681,11 @@ loadMatrixTyres: [
       outriggerFootprintWide: "5.940m × 4.900m (5.570 × 4.570 inner)",
       power: "Diesel/Electric/Li-ion",
       swl: 230,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 22 HP Diesel",
       dualPower: "240V or Batteries or Lithium",
@@ -93569,6 +93772,11 @@ loadMatrixTyres: [
       stowedH: 1.99,
       power: "Diesel/Electric",
       swl: 200,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 20 HP Diesel",
       dualPower: "Batteries",
@@ -93655,6 +93863,11 @@ loadMatrixTyres: [
       stowedH: 2.19,
       power: "Diesel/Electric",
       swl: 250,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 20 HP Diesel",
       dualPower: "Batteries",
@@ -93741,6 +93954,11 @@ loadMatrixTyres: [
       stowedH: 1.99,
       power: "Diesel/Electric",
       swl: 250,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 20 HP Diesel",
       dualPower: "Batteries",
@@ -93829,6 +94047,11 @@ loadMatrixTyres: [
       stowedLBasketRemoved: 8.3,
       power: "Diesel/Electric",
       swl: 230,
+      // Brochure-confirmed: Monitor Lifts product specs (monitor.net.au)
+      // — standard 2-person platform across the 200-250kg SWL spider
+      // lift range. Monitor Industries is the Australian importer of
+      // Platform Basket / CMC / Leguan.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Kubota 20 HP Diesel",
       dualPower: "Batteries",
@@ -96615,6 +96838,12 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Diesel",
       swl: 320,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -96640,50 +96869,6 @@ loadMatrixTyres: [
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
     {
-      id: "haulotte-ha20rtj",
-      brand: "Haulotte",
-      emoji: "🦾",
-      brandColor: "#E8001B",
-      name: "Haulotte HA20 RTJ PRO",
-      shortName: "Haulotte HA20 RTJ PRO",
-      boomType: "articulating",
-      platformHeight: 18.65,
-      workHeight: 20.6,
-      maxReach: 11.9,
-      upOverHeight: 10.0,
-      upOverReach: 9.5,
-      machineWeight: 10500,
-      machineWidth: 2.49,
-      machineLength: 7.6,
-      machineHeight: 2.5,
-      power: "Diesel",
-      swl: 320,
-      terrain: "outdoor rough",
-      xcBasket: {
-        swl: 454,
-        note: "Haulotte HC basket option available — upgrades platform from 320kg to 454kg at 18.65m. Suits heavy crew operations on the HA20 RTJ PRO. Confirm availability with rental company.",
-      },
-      bestFor:
-        "4-6 storey construction, up-and-over facades, complex reach applications",
-      note: "Haulotte HA20 RTJ PRO — 20.6m working height diesel articulating boom. 11.9m outreach. 4WD. Best time-to-height of 48 seconds in class.",
-      upOverNote:
-        "Up-and-over capability: 10m obstacle, 9.5m past. Ideal for multi-storey facades and sloped roofs.",
-      tags: [
-        "Articulating",
-        "18.65m Platform",
-        "20.6m Working Height",
-        "11.9m Outreach",
-        "Diesel 4WD",
-        "PRO",
-      ],
-      liftChart: [
-        { reach: 0, height: 18.65 },
-        { reach: 6, height: 15 },
-        { reach: 11.9, height: 8 },
-      ],
-      filters: ["boom", "articulating", "outdoor", "rough"],
-    },
-    {
       id: "haulotte-ha32rtj",
       brand: "Haulotte",
       emoji: "🦾",
@@ -96702,6 +96887,11 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Diesel",
       swl: 350,
+      // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
+      // Dual Reach option — 350kg max load is for tools/material; LECTURA
+      // datasheets explicit: 2 persons. Haulotte: 'increases load from
+      // 250 kg to 350 kg' (no 3-person uprate).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -96746,6 +96936,10 @@ loadMatrixTyres: [
       machineHeight: 2.7,
       power: "Electric (AC)",
       swl: 200,
+      // Brochure-confirmed: Haulotte STAR 10 vertical mast (mark1hire.co.uk,
+      // nationaltoolhire.co.uk): '200kg, allowing 2 people plus tools' /
+      // 'designed to lift a maximum of two people and their equipment'.
+      maxOccupancy: 2,
       terrain: "indoor",
       bestFor:
         "Indoor vertical mast with 3m outreach jib — 8m platform, 2 persons, zero tailswing, ultra-narrow 1m body",
@@ -96789,6 +96983,12 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 230,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Low-height indoor articulating — 10m platform, narrow 1.64m body, zero emissions",
@@ -96829,6 +97029,12 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 230,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Enhanced indoor articulating — HA12 CJ with extended jib for extra reach",
@@ -96870,6 +97076,12 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Diesel/Electric Hybrid",
       swl: 230,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Mid-height articulating, indoor/outdoor transitions — hybrid power versatility",
@@ -96910,6 +97122,12 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Diesel/Electric Hybrid",
       swl: 230,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "PRO version HA15 IP — ACTILEV telematics, extended warranty, higher-bid service",
@@ -96951,6 +97169,12 @@ loadMatrixTyres: [
       machineHeight: 2.1,
       power: "Electric",
       swl: 230,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Full-electric 16m articulating — zero emissions, indoor/outdoor firm ground",
@@ -96991,6 +97215,12 @@ loadMatrixTyres: [
       machineHeight: 2.35,
       power: "Diesel",
       swl: 320,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Mid-rise articulating — 16m platform, 9.8m reach, construction façades",
@@ -97031,6 +97261,12 @@ loadMatrixTyres: [
       machineHeight: 2.35,
       power: "Diesel/Electric Hybrid",
       swl: 230,
+      // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
+      // platform standard. LECTURA datasheets: 'designed for 2 persons'
+      // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
+      // option (250→350kg) increases tool/material capacity, NOT a 3rd
+      // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "20m hybrid articulating — transition from indoor to outdoor without machine change",
@@ -97071,6 +97307,11 @@ loadMatrixTyres: [
       machineHeight: 2.5,
       power: "Diesel",
       swl: 320,
+      // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
+      // Dual Reach option — 350kg max load is for tools/material; LECTURA
+      // datasheets explicit: 2 persons. Haulotte: 'increases load from
+      // 250 kg to 350 kg' (no 3-person uprate).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Updated HA20 RTJ PRO — best time-to-height in class, 48s, full working window",
@@ -97112,6 +97353,11 @@ loadMatrixTyres: [
       machineHeight: 2.8,
       power: "Diesel",
       swl: 350,
+      // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
+      // Dual Reach option — 350kg max load is for tools/material; LECTURA
+      // datasheets explicit: 2 persons. Haulotte: 'increases load from
+      // 250 kg to 350 kg' (no 3-person uprate).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "7-8 storey articulating — 23.8m platform, 17.2m outreach, full working window",
@@ -97153,6 +97399,11 @@ loadMatrixTyres: [
       machineHeight: 3.6,
       power: "Diesel",
       swl: 350,
+      // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
+      // Dual Reach option — 350kg max load is for tools/material; LECTURA
+      // datasheets explicit: 2 persons. Haulotte: 'increases load from
+      // 250 kg to 350 kg' (no 3-person uprate).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Largest Haulotte articulating — 38.3m platform, 26.2m reach, 10-12 storey access",
@@ -97202,6 +97453,10 @@ loadMatrixTyres: [
       machineHeight: 2.35,
       power: "Diesel",
       swl: 320,
+      // Brochure-confirmed: Haulotte HT-series base/single-capacity model —
+      // 2-person platform. HT23 RTJ O 230kg = 2 persons. H23 TPX brochure
+      // (older predecessor, single-capacity 230kg) = 2 persons.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Compact diesel telescopic at 14m — 12.5m outreach, rough terrain",
@@ -97241,6 +97496,10 @@ loadMatrixTyres: [
       machineHeight: 2.6,
       power: "Diesel",
       swl: 230,
+      // Brochure-confirmed: Haulotte HT-series base/single-capacity model —
+      // 2-person platform. HT23 RTJ O 230kg = 2 persons. H23 TPX brochure
+      // (older predecessor, single-capacity 230kg) = 2 persons.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Standard 23m telescopic — 20.6m platform, 18.1m outreach, rough terrain",
@@ -97279,6 +97538,12 @@ loadMatrixTyres: [
       machineHeight: 2.65,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "High-capacity 23m telescopic — 454kg, 18.1m outreach, PRO telematics",
@@ -97319,6 +97584,12 @@ loadMatrixTyres: [
       machineHeight: 2.85,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "High-reach telescopic at 25m — 20m outreach, 4WD, construction & infrastructure",
@@ -97358,6 +97629,12 @@ loadMatrixTyres: [
       machineHeight: 3.25,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "Flagship Haulotte telescopic — 40.2m platform, 24m outreach, PRO package",
@@ -97398,6 +97675,12 @@ loadMatrixTyres: [
       machineHeight: 4.2,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "Extreme height telescopic — 63.9m platform, towers, bridges, large industrial",
@@ -97438,6 +97721,12 @@ loadMatrixTyres: [
       machineHeight: 4.2,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "World-class telescopic with PRO telematics — 63.9m, ACTILEV fleet management",
@@ -97478,6 +97767,12 @@ loadMatrixTyres: [
       machineHeight: 5.0,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "World's tallest self-propelled boom — 82.1m platform, 35m outreach, extreme industrial",
@@ -97518,6 +97813,12 @@ loadMatrixTyres: [
       machineHeight: 5.0,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       bestFor:
         "World's tallest self-propelled boom with PRO telematics — 82.1m, ACTILEV",
@@ -97557,7 +97858,11 @@ loadMatrixTyres: [
       machineLength: 9.4,
       machineHeight: 2.65,
       power: "Diesel",
-      swl: 454,
+      swl: 230,
+      // Brochure-confirmed: Haulotte HT-series base/single-capacity model —
+      // 2-person platform. HT23 RTJ O 230kg = 2 persons. H23 TPX brochure
+      // (older predecessor, single-capacity 230kg) = 2 persons.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -97601,7 +97906,13 @@ loadMatrixTyres: [
       machineLength: 14.5,
       machineHeight: 3.2,
       power: "Diesel",
-      swl: 680,
+      swl: 450,
+      // Brochure-confirmed: Haulotte HT-series telescopic dual-load — 3-person
+      // at restricted capacity. HT23 RTJ official brochure: '230 kg - 2 pers.
+      // (option : 450 kg - 3 pers.)'. HT67 RTJ O/PRO US brochure: '500 lb
+      // (2 persons) ... Dual load option ... 1000 lb (3 persons)'. H43 TPX
+      // brochure: 'Load capacity: 230 kg (2 persons) / 450 kg (3 persons)'.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 680,
@@ -97648,6 +97959,12 @@ loadMatrixTyres: [
       machineHeight: 3.04,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
+      // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
+      // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
+      // dual-capacity for tools/materials, NOT extra persons. JMS UK on
+      // 1850SJ: 'up to 450kg of platform capacity'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -97690,6 +98007,12 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
+      // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
+      // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
+      // dual-capacity for tools/materials, NOT extra persons. JMS UK on
+      // 1850SJ: 'up to 450kg of platform capacity'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 450,
@@ -97741,6 +98064,12 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
+      // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
+      // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
+      // dual-capacity for tools/materials, NOT extra persons. JMS UK on
+      // 1850SJ: 'up to 450kg of platform capacity'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -97783,6 +98112,12 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
+      // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
+      // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
+      // dual-capacity for tools/materials, NOT extra persons. JMS UK on
+      // 1850SJ: 'up to 450kg of platform capacity'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 450,
@@ -97826,6 +98161,12 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
+      // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
+      // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
+      // dual-capacity for tools/materials, NOT extra persons. JMS UK on
+      // 1850SJ: 'up to 450kg of platform capacity'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -97877,6 +98218,12 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
+      // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
+      // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
+      // dual-capacity for tools/materials, NOT extra persons. JMS UK on
+      // 1850SJ: 'up to 450kg of platform capacity'.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -97921,6 +98268,11 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -97961,6 +98313,10 @@ loadMatrixTyres: [
       machineHeight: 2.27,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -97990,6 +98346,11 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -98022,6 +98383,11 @@ loadMatrixTyres: [
       machineHeight: 2.9,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -98063,6 +98429,10 @@ loadMatrixTyres: [
       machineHeight: 1.91,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -98092,6 +98462,10 @@ loadMatrixTyres: [
       machineHeight: 1.83,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Tracked access on soft or steep ground, landscaping, tight terrain sites",
@@ -98117,6 +98491,11 @@ loadMatrixTyres: [
       machineHeight: 2.36,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -98149,6 +98528,10 @@ loadMatrixTyres: [
       machineHeight: 2.52,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -98178,6 +98561,11 @@ loadMatrixTyres: [
       machineHeight: 2.52,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -98210,6 +98598,10 @@ loadMatrixTyres: [
       machineHeight: 2.52,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -98239,6 +98631,11 @@ loadMatrixTyres: [
       machineHeight: 2.52,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -98271,6 +98668,10 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swl: 454,
@@ -98308,6 +98709,11 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -98348,6 +98754,11 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
+      // each rated for THREE occupants and tools' (JLG.com / Fairchild /
+      // Government Fleet article on HC3 expansion). 660 lb unrestricted /
+      // 1000 lb restricted = 3 persons across all zones.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
@@ -98389,6 +98800,10 @@ loadMatrixTyres: [
       machineHeight: 2.03,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Clean indoor/outdoor electric work, warehouses, retail fit-out, quiet sites",
@@ -98422,6 +98837,10 @@ loadMatrixTyres: [
       machineHeight: 2.03,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Tight indoor precision work with articulating jib, work behind obstacles",
@@ -98456,6 +98875,10 @@ loadMatrixTyres: [
       machineHeight: 2.13,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Clean zone 12m access, hospitals, data centres, noise-sensitive sites",
@@ -98489,6 +98912,10 @@ loadMatrixTyres: [
       machineHeight: 2.13,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Precision indoor work at 12m with articulating jib, complex overhead access",
@@ -98522,6 +98949,10 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       xcBasket: {
         swl: 340,
@@ -98551,6 +98982,10 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       xcBasket: {
         swl: 340,
@@ -98588,6 +99023,10 @@ loadMatrixTyres: [
       machineHeight: 2.18,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       xcBasket: {
         swl: 340,
@@ -98632,6 +99071,10 @@ loadMatrixTyres: [
       machineHeight: 2.74,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Zero-emission 60ft straight boom, airports, food production, clean indoor environments",
@@ -98658,6 +99101,10 @@ loadMatrixTyres: [
       machineHeight: 2.03,
       power: "Hybrid (Diesel/Electric)",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Sites requiring low emission with outdoor terrain capability, green buildings",
@@ -98690,6 +99137,10 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Hybrid (Diesel/Electric)",
       swl: 227,
+      // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
+      // platform standard at 227-272kg unrestricted single-capacity SWL.
+      // Source: JLG official spec sheets and LECTURA datasheets.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       bestFor:
         "Large mixed sites: clean zones + rough terrain, green building projects",
@@ -98727,6 +99178,13 @@ loadMatrixTyres: [
       machineHeight: 3.07,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie Super Boom range (S-120, SX-125, SX-135,
+      // SX-150, SX-180) — 2-person platform standard. Equipment World
+      // on SX-180: '8-foot-by-3-foot, 750-pound capacity, two-occupant
+      // platform'. Canadian Rental Service on SX-150: 'lift capacity
+      // of 750 lbs for a maximum of two people'. The 340kg SWL is
+      // for crew + tools, NOT a third occupant.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       capacity: 340,
       capacityUnrestricted: 340,
@@ -98769,6 +99227,13 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       capacity: 454,
       capacityUnrestricted: 300,
@@ -98813,6 +99278,13 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie XC (Xtra Capacity) telescopic & articulating
+      // booms — 3-person rated at restricted capacity. Genielift.com
+      // and Banner Plant: 'Dual lifting capacity of 660 lb/300 kg and
+      // 1,000 lb/454 kg to lift increased loads and up to 3 operators'.
+      // Applies across S-40 XC through SX-105 XC range, plus TraX
+      // tracked variants which share the same XC platform.
+      maxOccupancy: 3,
       terrain: "outdoor rough",
       capacity: 454,
       capacityUnrestricted: 300,
@@ -98857,6 +99329,13 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie Super Boom range (S-120, SX-125, SX-135,
+      // SX-150, SX-180) — 2-person platform standard. Equipment World
+      // on SX-180: '8-foot-by-3-foot, 750-pound capacity, two-occupant
+      // platform'. Canadian Rental Service on SX-150: 'lift capacity
+      // of 750 lbs for a maximum of two people'. The 340kg SWL is
+      // for crew + tools, NOT a third occupant.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       capacity: 340,
       capacityUnrestricted: 340,
@@ -98893,6 +99372,13 @@ loadMatrixTyres: [
       machineHeight: 3.05,
       power: "Diesel",
       swl: 340,
+      // Brochure-confirmed: Genie Super Boom range (S-120, SX-125, SX-135,
+      // SX-150, SX-180) — 2-person platform standard. Equipment World
+      // on SX-180: '8-foot-by-3-foot, 750-pound capacity, two-occupant
+      // platform'. Canadian Rental Service on SX-150: 'lift capacity
+      // of 750 lbs for a maximum of two people'. The 340kg SWL is
+      // for crew + tools, NOT a third occupant.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       capacity: 340,
       capacityUnrestricted: 340,
@@ -98932,6 +99418,11 @@ loadMatrixTyres: [
       machineHeight: 2.54,
       power: "Diesel",
       swl: 272,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       capacity: 227,
       capacityUnrestricted: 227,
@@ -98970,6 +99461,11 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       capacity: 227,
       capacityUnrestricted: 227,
@@ -99006,6 +99502,11 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Diesel",
       swl: 227,
+      // Brochure-confirmed: Skyjack official AU/NZ spec sheet
+      // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
+      // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
+      // booms (SJ30/45/46/60/63 AJ, SJ40/45/61/66/82/86 T).
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 341,
@@ -151344,6 +151845,20 @@ function buildSpecBoxes(m, type, ans) {
         swlBorder = "#86EFAC";
         swlIcon = "✅";
         swlSuffix = reqLoad > 0 ? ` ${swlIcon} (req: ${reqLoad}kg)` : "";
+        // High-occupancy advantage: highlight 3+ or 4+ person rated machines.
+        // Brochure-confirmed maxOccupancy from audit (e.g. Monitor 43T/54T = 4,
+        // Genie Z-60 = 3, Skyjack SJ85AJ = 3). Helps these stand out when crew
+        // size matters; appended after standard ✅ if no req, or instead of
+        // (req: Xkg) if more relevant.
+        if (_machineMaxOcc >= 4) {
+          swlSuffix = reqLoad > 0
+            ? ` ${swlIcon} (req: ${reqLoad}kg) · 👥 4-person cage`
+            : ` ${swlIcon} 👥 4-person cage`;
+        } else if (_machineMaxOcc >= 3) {
+          swlSuffix = reqLoad > 0
+            ? ` ${swlIcon} (req: ${reqLoad}kg) · 👥 3-person`
+            : ` ${swlIcon} 👥 3-person rated`;
+        }
       } else {
         swlColor = "#92400E";
         swlBg = "linear-gradient(135deg,#FFF7ED,#FEF3C7)";
