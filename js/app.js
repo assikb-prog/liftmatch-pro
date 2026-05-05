@@ -157693,6 +157693,15 @@ function openSendQuotesModal() {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
+    // Also reset the ABN verification banner — programmatic .value = ""
+    // doesn't trigger sqmABNInput(), so the green banner from the previous
+    // session would otherwise stay visible.
+    const _sqmAbnStatus = document.getElementById("sqm-abn-status");
+    if (_sqmAbnStatus) {
+      _sqmAbnStatus.style.display = "none";
+      _sqmAbnStatus.innerHTML = "";
+    }
+    window._sqmABNVerified = false;
     const hidden = document.getElementById("sqm-reg-address");
     if (hidden) hidden.value = "";
     const drop = document.getElementById("sqm-reg-suburb-drop");
@@ -161416,9 +161425,27 @@ function kymGoToFinder() {
 function kymSearch2() {
   const input = document.getElementById("kym-search-input2");
   const rawQuery = input ? input.value.trim().toLowerCase() : "";
-  const { corrected, changed, original } = _correctQuery(rawQuery);
-  _kymQuery = corrected;
-  _kymDidYouMeanQuery = changed ? { original, corrected } : null;
+  // Same logic as kymSearch() — try original first, only auto-correct if
+  // original returns 0 results AND the correction would actually help.
+  // Prevents misleading "did you mean iwp?" banner when AWP already has
+  // 18 perfect matches.
+  let useQuery = rawQuery;
+  let didYouMean = null;
+  if (rawQuery) {
+    const originalMatches = _kymCountMatches(rawQuery);
+    if (originalMatches === 0) {
+      const { corrected, changed, original } = _correctQuery(rawQuery);
+      if (changed) {
+        const correctedMatches = _kymCountMatches(corrected);
+        if (correctedMatches > 0) {
+          useQuery = corrected;
+          didYouMean = { original, corrected };
+        }
+      }
+    }
+  }
+  _kymQuery = useQuery;
+  _kymDidYouMeanQuery = didYouMean;
   if (_kymQuery) {
     _kymCat = "";
     document
@@ -161707,14 +161734,72 @@ function _correctQuery(query) {
 
 var _kymDidYouMeanQuery = null; // tracks what was auto-corrected
 
+// Helper: count matches a given raw query would produce. Used to decide
+// whether to apply auto-correct or keep the original spelling. The fuzzy
+// "did you mean?" UX should only fire when the original query has zero or
+// very few matches — never when it's already finding plenty of machines.
+function _kymCountMatches(query) {
+  if (!query) return 0;
+  let count = 0;
+  // Determine which categories to search, mirroring kymRender() logic
+  let cats;
+  const resolved = kymResolveCategories(query);
+  cats =
+    resolved.size > 0 ? [...resolved] : Object.keys(KYM_CAT_META || {});
+  const _getArr = (catKey) => {
+    if (catKey === "em_excavator")
+      return (MACHINES.earthworks || []).filter((m) => m.type === "excavator");
+    if (catKey === "em_bobcat")
+      return (MACHINES.earthworks || []).filter((m) => m.type === "bobcat");
+    if (catKey === "em_grader")
+      return (MACHINES.earthworks || []).filter((m) => m.type === "grader");
+    if (catKey === "em_compactor")
+      return (MACHINES.earthworks || []).filter((m) => m.type === "compactor");
+    if (catKey === "em_dumper")
+      return (MACHINES.earthworks || []).filter(
+        (m) => m.type === "dumper" || m.type === "mining_truck",
+      );
+    if (catKey === "em_water_cart")
+      return (MACHINES.earthworks || []).filter((m) => m.type === "water_cart");
+    if (catKey === "em_mulcher")
+      return (MACHINES.earthworks || []).filter((m) => m.type === "mulcher");
+    return MACHINES[catKey] || [];
+  };
+  for (const catKey of cats) {
+    for (const m of _getArr(catKey)) {
+      if (kymMatchesQuery(m, catKey, query)) count++;
+      if (count >= 3) return count; // 3 is enough — early exit
+    }
+  }
+  return count;
+}
+
 function kymSearch() {
   const input = document.getElementById("kym-search-input");
   const rawQuery = input ? input.value.trim().toLowerCase() : "";
 
-  // Run spell correction
-  const { corrected, changed, original } = _correctQuery(rawQuery);
-  _kymQuery = corrected;
-  _kymDidYouMeanQuery = changed ? { original, corrected } : null;
+  // Try the ORIGINAL query first. If it already has matches, do NOT
+  // auto-correct — the "did you mean?" banner would be misleading
+  // ("18 results for AWP, but did you mean iwp?" makes no sense). Only
+  // run spell correction when the original query produces 0 matches.
+  let useQuery = rawQuery;
+  let didYouMean = null;
+  if (rawQuery) {
+    const originalMatches = _kymCountMatches(rawQuery);
+    if (originalMatches === 0) {
+      const { corrected, changed, original } = _correctQuery(rawQuery);
+      if (changed) {
+        // Only apply correction if it actually finds something the original didn't
+        const correctedMatches = _kymCountMatches(corrected);
+        if (correctedMatches > 0) {
+          useQuery = corrected;
+          didYouMean = { original, corrected };
+        }
+      }
+    }
+  }
+  _kymQuery = useQuery;
+  _kymDidYouMeanQuery = didYouMean;
 
   // Reset cat to all if there's a text query so search crosses categories
   if (_kymQuery) {
@@ -167916,6 +168001,17 @@ function openForm(type, pendingView) {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
+  // Also reset the ABN verification banner — fixes a bug where the green
+  // "ABN Verified" panel from a previous session remained visible despite
+  // the input being blanked. lpABNInput() is only triggered by typing, so
+  // a programmatic .value = "" doesn't fire the clear path.
+  const _lpAbnStatus = document.getElementById("lp-abn-status");
+  if (_lpAbnStatus) {
+    _lpAbnStatus.style.display = "none";
+    _lpAbnStatus.innerHTML = "";
+  }
+  window._lpABNVerified = false;
+  window._lpABNEntityName = "";
   document
     .querySelectorAll("#lp-cats-grid input[type=checkbox]")
     .forEach((cb) => (cb.checked = false));
@@ -167990,6 +168086,16 @@ function setAuthMode(mode) {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
+    // Also reset the ABN verification banner — same fix as openForm():
+    // programmatic .value = "" doesn't trigger lpABNInput(), so the
+    // banner from a previous session would otherwise stay visible.
+    const _lpAbnStatus2 = document.getElementById("lp-abn-status");
+    if (_lpAbnStatus2) {
+      _lpAbnStatus2.style.display = "none";
+      _lpAbnStatus2.innerHTML = "";
+    }
+    window._lpABNVerified = false;
+    window._lpABNEntityName = "";
     const liteDepot = document.getElementById("lp-lite-depot");
     if (liteDepot) liteDepot.value = "";
     document
