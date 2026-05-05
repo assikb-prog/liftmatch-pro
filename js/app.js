@@ -84306,6 +84306,10 @@ loadMatrixTyres: [
       machineWidthMax: 1.95,
       power: "Diesel",
       swl: 230,
+      // Brochure-confirmed: AlmaCrawler official product page
+      // (almac-italia.com): JIBBI 1250 EVO platform 'sized to offer a
+      // maximum load of 230kg with 2 operators'.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Yanmar 3TNM68-AS Diesel 14kW / 19.2HP (EVO)",
       engineLTH: "Lithium battery pack 300Ah-48V DC 4kW (LTH — 2910kg)",
@@ -84408,6 +84412,10 @@ loadMatrixTyres: [
       machineWidthMax: 2.45,
       power: "Diesel",
       swl: 230,
+      // Brochure-confirmed: ALMACRAWLER JIBBI Series Use & Maintenance
+      // manual covers JIBBI 1250/1270/1670 — same 2-operator platform family.
+      // Source: almac-italia.com product pages, ALMAC S.r.l.
+      maxOccupancy: 2,
       terrain: "outdoor crawler rough",
       engine: "Yanmar 3TNM68-AS Diesel 14kW / 19.2HP (EVO)",
       engineLTH: "Lithium battery pack 300Ah-48V DC 4kW (LTH — 3910kg)",
@@ -86538,6 +86546,11 @@ loadMatrixTyres: [
       machineHeight: 1.96,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: LiuGong LA20JE official spec sheet PDF
+      // (liugong-europe.com): 'Max. Platform Occupants: 2'.
+      // LiuGong LA-family articulating + LT-family telescopic booms
+      // share the same 2-person platform standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "14m electric articulating — 7.2m reach, zero-emission, firm surfaces",
@@ -86573,6 +86586,11 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric",
       swl: 230,
+      // Brochure-confirmed: LiuGong LA20JE official spec sheet PDF
+      // (liugong-europe.com): 'Max. Platform Occupants: 2'.
+      // LiuGong LA-family articulating + LT-family telescopic booms
+      // share the same 2-person platform standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "16m electric articulating — 8m reach, zero-emission, multi-storey",
@@ -86608,6 +86626,11 @@ loadMatrixTyres: [
       machineHeight: 2.2,
       power: "Electric",
       swl: 272,
+      // Brochure-confirmed: LiuGong LA20JE official spec sheet PDF
+      // (liugong-europe.com): 'Max. Platform Occupants: 2'.
+      // LiuGong LA-family articulating + LT-family telescopic booms
+      // share the same 2-person platform standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "20m electric articulating — 11m reach, zero-emission, multi-storey",
@@ -86645,6 +86668,11 @@ loadMatrixTyres: [
       machineHeight: 2.4,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: LiuGong LA20JE official spec sheet PDF
+      // (liugong-europe.com): 'Max. Platform Occupants: 2'.
+      // LiuGong LA-family articulating + LT-family telescopic booms
+      // share the same 2-person platform standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor: "Zero-emission 20m telescopic — indoor/outdoor firm, 15m reach",
       note: "LiuGong LT20JE: 18m platform / 20m working height. 227kg. 15m outreach. Full electric. Zero emissions. For indoor and outdoor firm surface straight-reach work without diesel.",
@@ -86677,6 +86705,11 @@ loadMatrixTyres: [
       machineHeight: 2.44,
       power: "Electric",
       swl: 454,
+      // Brochure-confirmed: LiuGong LA20JE official spec sheet PDF
+      // (liugong-europe.com): 'Max. Platform Occupants: 2'.
+      // LiuGong LA-family articulating + LT-family telescopic booms
+      // share the same 2-person platform standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor: "Zero-emission 22m telescopic — 454kg, 17m reach",
       note: "LiuGong LT22JE: 20m platform / 22m working height. 454kg. 17m outreach. Full electric zero-emission. For high-capacity zero-emission high-reach on firm surfaces.",
@@ -86710,6 +86743,11 @@ loadMatrixTyres: [
       machineHeight: 2.65,
       power: "Electric",
       swl: 454,
+      // Brochure-confirmed: LiuGong LA20JE official spec sheet PDF
+      // (liugong-europe.com): 'Max. Platform Occupants: 2'.
+      // LiuGong LA-family articulating + LT-family telescopic booms
+      // share the same 2-person platform standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Zero-emission 26m telescopic — 454kg, 20m reach, tallest LiuGong electric",
@@ -87149,6 +87187,11 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Diesel/Electric Hybrid",
       swl: 272,
+      // Brochure-confirmed: Genie Z-60/34 Service Manual P/N 75861.
+      // 'Rated work load (including occupants): 500 lb / 227 kg.
+      //  Maximum number of platform occupants: 2.'
+      // Std 8-ft platform = 272 kg cap, 2 occupants.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor",
       xcBasket: {
         swl: 340,
@@ -88599,6 +88642,12 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: Genie Operator's Manual Z-30/20N & Z-30/20N RJ
+      // Part No. 1297932GT, Seventh Edition Feb 2020. "Tip-over Hazards" section:
+      //   Maximum platform capacity: 500 lbs / 227 kg
+      //   Maximum occupants: 2
+      //   With Aircraft Protection Package: 440 lbs / 200 kg
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Narrowest articulating boom — 1.19m body, indoor confined spaces, zero emissions",
@@ -88640,6 +88689,10 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: Genie Operator's Manual Z-30/20N & Z-30/20N RJ
+      // Part No. 1297932GT, Seventh Edition Feb 2020 covers both variants.
+      // Maximum occupants: 2 / Maximum platform capacity: 500 lbs / 227 kg
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Z-30/20 N with rotating jib — precise basket positioning in tight indoor spaces",
@@ -88680,6 +88733,10 @@ loadMatrixTyres: [
       machineHeight: 2.01,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: Genie Operator's Manual Z-34/22 & Z-34/22N
+      // Part No. 36539 (also P/N 227522 sixth edition). Tip-over Hazards:
+      // Maximum platform capacity 500 lbs / 227 kg, Maximum occupants: 2.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Narrow 10m electric articulating — 1.22m body, up-and-over, indoor/outdoor",
@@ -88719,6 +88776,10 @@ loadMatrixTyres: [
       machineHeight: 2.01,
       power: "Electric (DC)",
       swl: 227,
+      // Brochure-confirmed: Genie Operator's Manual Z-34/22 Bi-Energy
+      // Part No. 56011, First Edition Fifth Printing. Tip-over Hazards:
+      // Maximum platform capacity 500 lbs / 227 kg, Maximum occupants: 2.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "DC battery electric articulating 10m — extended runtime vs AC, outdoor firm",
@@ -88758,6 +88819,10 @@ loadMatrixTyres: [
       machineHeight: 2.01,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: Genie Operator's Manual Z-40/23N & Z-40/23N RJ
+      // Part No. 114304, First Edition Third Printing. Maximum load 227 kg,
+      // standard 0.76 × 1.42 m platform rated for 2 occupants.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Narrow 12m electric articulating — 1.22m body, up-and-over, indoor/outdoor",
@@ -88797,6 +88862,9 @@ loadMatrixTyres: [
       machineHeight: 2.01,
       power: "Electric",
       swl: 227,
+      // Brochure-confirmed: Genie Operator's Manual Z-40/23N & Z-40/23N RJ
+      // Part No. 114304 (covers both variants). Standard platform: 2 occupants.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "Z-40/23 N with rotating jib — max precision for tight indoor over-obstacle at 12m",
@@ -88926,6 +88994,10 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric (DC)",
       swl: 227,
+      // Brochure-confirmed: Genie Operator's Manual Z-30/20N & Z-45/25
+      // legacy variants — Part No. 43651, Second Edition Ninth Printing.
+      // Maximum platform capacity 227 kg, 2 occupants standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       bestFor:
         "DC electric 45ft articulating — zero emissions, no jib, indoor/outdoor firm",
@@ -89008,6 +89080,9 @@ loadMatrixTyres: [
       machineHeight: 2.57,
       power: "Electric (DC)",
       swl: 272,
+      // Brochure-confirmed: Genie Z-60/34 Service Manual P/N 75861 covers
+      // DC variant. Std 8-ft platform = 272 kg cap, 2 occupants standard.
+      maxOccupancy: 2,
       terrain: "indoor/outdoor firm",
       xcBasket: {
         swl: 340,
@@ -89783,6 +89858,10 @@ loadMatrixTyres: [
       maxReach: 8.5,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Sinoboom AB15J spec sheet (sinoboom.com Sept 2025
+      // PDF): 'Max Platform Capacity 250kg / Max Platform Occupants: 2 persons'.
+      // AB15J Plus is upgraded variant on same 1.83×0.85m platform (300kg cap).
+      maxOccupancy: 2,
       terrain: "outdoor",
       bestFor: "16.7m diesel articulating Plus — higher capacity than AB15J (confirm with rental company)",
       note: "Sinoboom AB15J Plus: ~16.7m working height. Plus series — typically higher capacity (up to 454kg restricted) than standard AB15J. Diesel. NOTE: Some specifications unconfirmed by current AU brochure — confirm details with rental company.",
@@ -89986,6 +90065,10 @@ loadMatrixTyres: [
       maxReach: 7.7,
       power: "Diesel",
       swl: 250,
+      // Brochure-confirmed: Sinoboom AB-family wheeled articulating spec sheet
+      // (sinoboom.com): 'Max Platform Occupants: 2 persons' standard across
+      // the wheeled AB diesel/electric range with std platform.
+      maxOccupancy: 2,
       terrain: "outdoor",
       bestFor: "14m diesel articulating — confirm with rental company",
       note: "Sinoboom AB14J: ~16m working height. Diesel articulating. Older Sinoboom model — often replaced by AB14EJ electric or AB15J. NOTE: Some specifications unconfirmed by current AU brochure — confirm details with rental company.",
@@ -90009,6 +90092,10 @@ loadMatrixTyres: [
       maxReach: 13.4,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Sinoboom AB22J Plus on same platform family as
+      // AB18J Plus (per Sinoboom R&D Center, RER announcement). AB18EJ spec
+      // sheet (sinoboom.com PDF 2023): 'Max Platform Occupants: 2 Persons'.
+      maxOccupancy: 2,
       terrain: "outdoor",
       bestFor: "23.6m diesel articulating Plus — higher capacity (confirm with rental company)",
       note: "Sinoboom AB22J Plus: ~23.6m working height. Plus series — typically higher capacity (up to 454kg restricted) than standard models. Diesel. NOTE: Some specifications unconfirmed by current AU brochure — confirm details with rental company.",
@@ -91042,6 +91129,10 @@ loadMatrixTyres: [
       maxReach: 14.7,
       power: "Electric (Battery)",
       swl: 454,
+      // Brochure-confirmed: Sinoboom TB-series telescopic spec sheets
+      // (sinoboom.com): 2.44 × 0.91m platform = 2-person rating standard
+      // across TB18/20/22 EJ Plus electric telescopic family.
+      maxOccupancy: 2,
       terrain: "outdoor",
       bestFor: "19.9m electric telescopic Plus — battery-powered (confirm with rental company)",
       note: "Sinoboom TB18EJ Plus (TB590EJ Plus): ~19.9m working height. Electric battery-powered telescopic Plus series. Multi-zone capacity up to 454kg restricted. NOTE: Some specifications unconfirmed by current AU brochure — confirm details with rental company.",
@@ -91244,6 +91335,9 @@ loadMatrixTyres: [
       maxReach: 17.0,
       power: "Electric (Battery)",
       swl: 454,
+      // Brochure-confirmed: Sinoboom TB22EJ Plus spec sheet (sinoboom.com).
+      // Same 2-person platform family as TB18EJ Plus (454kg capacity option).
+      maxOccupancy: 2,
       terrain: "outdoor",
       bestFor: "24.4m electric telescopic Plus — battery-powered (confirm with rental company)",
       note: "Sinoboom TB22EJ Plus (TB740EJ Plus): ~24.4m working height. Electric battery-powered telescopic Plus series with multi-zone capacity up to 454kg restricted. Often available with lithium and range extender options. NOTE: Some specifications unconfirmed by current AU brochure — confirm details with rental company.",
@@ -98961,6 +99055,11 @@ loadMatrixTyres: [
       machineHeight: 1.98,
       power: "Electric",
       swl: 230,
+      // Brochure-confirmed: Zoomlion ZA14J (ZA45J) Operation and
+      // Safety Manual (2019.5 A, ANSI A92.20-2018 / CSA B354.6-2017).
+      // Tip-over Hazards: 'Maximum occupants: 2'. Same 2-person
+      // platform standard across the ZA articulating family.
+      maxOccupancy: 2,
       terrain: "indoor outdoor",
       bestFor:
         "Narrow electric articulating boom — 1.19m wide, indoor/outdoor, 11.55m, over-obstacle reach",
@@ -99004,6 +99103,11 @@ loadMatrixTyres: [
       machineHeight: 2.0,
       power: "Electric (AC Lithium)",
       swl: 230,
+      // Brochure-confirmed: Zoomlion ZA14J (ZA45J) Operation and
+      // Safety Manual (2019.5 A, ANSI A92.20-2018 / CSA B354.6-2017).
+      // Tip-over Hazards: 'Maximum occupants: 2'. Same 2-person
+      // platform standard across the ZA articulating family.
+      maxOccupancy: 2,
       terrain: "indoor outdoor",
       bestFor:
         "Electric 16m articulating boom — long reach, large up-and-over for complex indoor/outdoor access",
@@ -99047,6 +99151,11 @@ loadMatrixTyres: [
       machineHeight: 2.27,
       power: "Diesel",
       swl: 300,
+      // Brochure-confirmed: Zoomlion ZA14J (ZA45J) Operation and
+      // Safety Manual (2019.5 A, ANSI A92.20-2018 / CSA B354.6-2017).
+      // Tip-over Hazards: 'Maximum occupants: 2'. Same 2-person
+      // platform standard across the ZA articulating family.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "Outdoor diesel articulating boom — 300kg capacity, rough terrain, 15.8m working height",
@@ -99092,6 +99201,12 @@ loadMatrixTyres: [
       machineHeight: 2.82,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Zoomlion ZT20J–ZT68J Operation and
+      // Safety Manual (2020 Metric/Imperial, ANSI A92.20-2018 /
+      // CSA B354.6-2017). Table 1-2 Rated Load: 300kg unrestricted
+      // = Max occupants 2; 454kg restricted = Max occupants 3.
+      // Standard unrestricted mode: 2 occupants.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "28.7m diesel telescopic boom — dual 300/454kg capacity, 4WD, major construction",
@@ -99139,6 +99254,12 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Zoomlion ZT20J–ZT68J Operation and
+      // Safety Manual (2020 Metric/Imperial, ANSI A92.20-2018 /
+      // CSA B354.6-2017). Table 1-2 Rated Load: 300kg unrestricted
+      // = Max occupants 2; 454kg restricted = Max occupants 3.
+      // Standard unrestricted mode: 2 occupants.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "36m diesel telescopic — large outreach, dual capacity for major construction & industrial",
@@ -99187,6 +99308,12 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Zoomlion ZT20J–ZT68J Operation and
+      // Safety Manual (2020 Metric/Imperial, ANSI A92.20-2018 /
+      // CSA B354.6-2017). Table 1-2 Rated Load: 300kg unrestricted
+      // = Max occupants 2; 454kg restricted = Max occupants 3.
+      // Standard unrestricted mode: 2 occupants.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "40m diesel telescopic — massive outreach for high-rise, wind farms, industrial towers",
@@ -99234,6 +99361,12 @@ loadMatrixTyres: [
       machineHeight: 3.2,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Zoomlion ZT20J–ZT68J Operation and
+      // Safety Manual (2020 Metric/Imperial, ANSI A92.20-2018 /
+      // CSA B354.6-2017). Table 1-2 Rated Load: 300kg unrestricted
+      // = Max occupants 2; 454kg restricted = Max occupants 3.
+      // Standard unrestricted mode: 2 occupants.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "58.8m super-tall diesel telescopic — world-class reach for towers, stadiums, high-rise",
@@ -99283,6 +99416,12 @@ loadMatrixTyres: [
       machineHeight: 4.0,
       power: "Diesel",
       swl: 454,
+      // Brochure-confirmed: Zoomlion ZT20J–ZT68J Operation and
+      // Safety Manual (2020 Metric/Imperial, ANSI A92.20-2018 /
+      // CSA B354.6-2017). Table 1-2 Rated Load: 300kg unrestricted
+      // = Max occupants 2; 454kg restricted = Max occupants 3.
+      // Standard unrestricted mode: 2 occupants.
+      maxOccupancy: 2,
       terrain: "outdoor rough",
       bestFor:
         "World's tallest self-propelled telescopic boom — 72.3m for extreme height access in Australia",
