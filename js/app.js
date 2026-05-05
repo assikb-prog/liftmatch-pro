@@ -289,6 +289,12 @@ const MACHINES = {
       shortName: "Toyota 7FBE15 1.5T",
       capacity: 1.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 2900,
@@ -315,6 +321,12 @@ const MACHINES = {
       shortName: "Toyota 7FB15 1.5T",
       capacity: 1.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 2950,
@@ -340,6 +352,12 @@ const MACHINES = {
       shortName: "Toyota 7FB18 1.8T",
       capacity: 1.8,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 3150,
@@ -365,6 +383,12 @@ const MACHINES = {
       shortName: "Toyota 7FB20 2.0T",
       capacity: 2.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 3350,
@@ -397,6 +421,12 @@ const MACHINES = {
       shortName: "Toyota 8FB20 2.0T",
       capacity: 2.0,
       liftHeight: 6.7,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6_7", label: "6.7m Triplex Mast (non-container)", liftHeight: 6.7, lowered: 2.55, freeLift: 1.55, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 3550,
@@ -435,6 +465,12 @@ const MACHINES = {
       shortName: "Toyota 8FB25 2.5T",
       capacity: 2.5,
       liftHeight: 6.7,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6_7", label: "6.7m Triplex Mast (non-container)", liftHeight: 6.7, lowered: 2.55, freeLift: 1.55, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 3900,
@@ -473,6 +509,12 @@ const MACHINES = {
       shortName: "Toyota 8FB30 3.0T",
       capacity: 3.0,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 4400,
@@ -506,6 +548,12 @@ const MACHINES = {
       shortName: "Toyota 8FBE10 1.0T",
       capacity: 1.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 2000,
@@ -538,6 +586,12 @@ const MACHINES = {
       shortName: "Toyota 8FBE13 1.3T",
       capacity: 1.3,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 2250,
@@ -572,6 +626,11 @@ const MACHINES = {
       shortName: "Toyota 8FBM35 3.5T",
       capacity: 3.5,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor/outdoor",
       machineWeight: 5900,
@@ -609,6 +668,11 @@ const MACHINES = {
       shortName: "Toyota 8FBM40 4.0T",
       capacity: 4.0,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor/outdoor",
       machineWeight: 6600,
@@ -641,6 +705,11 @@ const MACHINES = {
       shortName: "Toyota 8FBM45 4.5T",
       capacity: 4.5,
       liftHeight: 4.8,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.7, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor/outdoor",
       machineWeight: 7200,
@@ -673,6 +742,11 @@ const MACHINES = {
       shortName: "Toyota 8FBM50 5.0T",
       capacity: 5.0,
       liftHeight: 4.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.7, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor/outdoor",
       machineWeight: 7800,
@@ -707,6 +781,12 @@ const MACHINES = {
       shortName: "Toyota 8FD20 2.0T",
       capacity: 2.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "outdoor",
       machineWeight: 3500,
@@ -738,6 +818,12 @@ const MACHINES = {
       shortName: "Toyota 8FG20 2.0T",
       capacity: 2.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 3450,
@@ -769,6 +855,12 @@ const MACHINES = {
       shortName: "Toyota 8FD25 2.5T",
       capacity: 2.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "outdoor",
       machineWeight: 3800,
@@ -799,6 +891,12 @@ const MACHINES = {
       shortName: "Toyota 8FG25 2.5T",
       capacity: 2.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 3705,
@@ -830,6 +928,12 @@ const MACHINES = {
       shortName: "Toyota 8FD30 3.0T",
       capacity: 3.0,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Diesel",
       terrain: "outdoor",
       machineWeight: 4300,
@@ -861,6 +965,12 @@ const MACHINES = {
       shortName: "Toyota 8FG30 3.0T",
       capacity: 3.0,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 4015,
@@ -892,6 +1002,12 @@ const MACHINES = {
       shortName: "Toyota 8FD35 3.5T",
       capacity: 3.5,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Diesel",
       terrain: "outdoor",
       machineWeight: 4990,
@@ -923,6 +1039,12 @@ const MACHINES = {
       shortName: "Toyota 8FG35 3.5T",
       capacity: 3.5,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 4850,
@@ -954,6 +1076,11 @@ const MACHINES = {
       shortName: "Toyota 8FD40 4.0T",
       capacity: 4.0,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "outdoor",
       machineWeight: 5900,
@@ -980,6 +1107,11 @@ const MACHINES = {
       shortName: "Toyota 8FD45 4.5T",
       capacity: 4.5,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "outdoor",
       machineWeight: 6500,
@@ -1006,6 +1138,11 @@ const MACHINES = {
       shortName: "Toyota 8FD50 5.0T",
       capacity: 5.0,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "outdoor",
       machineWeight: 7050,
@@ -4087,6 +4224,12 @@ const MACHINES = {
       shortName: "Heli CPD15 1.5T",
       capacity: 1.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 2900,
@@ -4121,6 +4264,12 @@ const MACHINES = {
       shortName: "Heli CPD18 1.8T",
       capacity: 1.8,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 3300,
@@ -4155,6 +4304,12 @@ const MACHINES = {
       shortName: "Heli CPD20 2.0T",
       capacity: 2.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 3600,
@@ -4189,6 +4344,12 @@ const MACHINES = {
       shortName: "Heli CPD25 2.5T",
       capacity: 2.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 3900,
@@ -4223,6 +4384,12 @@ const MACHINES = {
       shortName: "Heli CPD30 3.0T",
       capacity: 3.0,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 4400,
@@ -4257,6 +4424,12 @@ const MACHINES = {
       shortName: "Heli CPD35 3.5T",
       capacity: 3.5,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 5100,
@@ -4291,6 +4464,11 @@ const MACHINES = {
       shortName: "Heli CPD38 3.8T",
       capacity: 3.8,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Electric (AC)",
       terrain: "indoor",
       machineWeight: 5500,
@@ -4325,6 +4503,12 @@ const MACHINES = {
       shortName: "Heli CPCD10 1.0T",
       capacity: 1.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 2200,
@@ -4359,6 +4543,12 @@ const MACHINES = {
       shortName: "Heli CPCD15 1.5T",
       capacity: 1.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 2900,
@@ -4393,6 +4583,12 @@ const MACHINES = {
       shortName: "Heli CPCD18 1.8T",
       capacity: 1.8,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 3300,
@@ -4427,6 +4623,12 @@ const MACHINES = {
       shortName: "Heli CPCD20 2.0T",
       capacity: 2.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 3600,
@@ -4461,6 +4663,12 @@ const MACHINES = {
       shortName: "Heli CPCD25 2.5T",
       capacity: 2.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 3900,
@@ -4495,6 +4703,12 @@ const MACHINES = {
       shortName: "Heli CPCD30 3.0T",
       capacity: 3.0,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 4400,
@@ -4529,6 +4743,12 @@ const MACHINES = {
       shortName: "Heli CPCD35 3.5T",
       capacity: 3.5,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 5100,
@@ -4563,6 +4783,11 @@ const MACHINES = {
       shortName: "Heli CPCD38 3.8T",
       capacity: 3.8,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 5500,
@@ -4597,6 +4822,12 @@ const MACHINES = {
       shortName: "Heli CPQYD20 2.0T",
       capacity: 2.0,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 3600,
@@ -4631,6 +4862,12 @@ const MACHINES = {
       shortName: "Heli CPQYD25 2.5T",
       capacity: 2.5,
       liftHeight: 6.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast", liftHeight: 4.3, lowered: 2.07, freeLift: 0.1, containerCapable: true, capDerate: 0.78 },
+        { type: "container_high", label: "4.7m High Container Mast", liftHeight: 4.7, lowered: 2.27, freeLift: 0.1, containerCapable: true, capDerate: 0.75 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.72 },
+        { type: "triplex_6", label: "6.0m Triplex Mast (non-container)", liftHeight: 6, lowered: 2.32, freeLift: 1.4, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 3900,
@@ -4665,6 +4902,12 @@ const MACHINES = {
       shortName: "Heli CPQYD30 3.0T",
       capacity: 3.0,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 4400,
@@ -4699,6 +4942,12 @@ const MACHINES = {
       shortName: "Heli CPQYD35 3.5T",
       capacity: 3.5,
       liftHeight: 5.5,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 },
+        { type: "duplex_5_5", label: "5.5m Duplex Mast (standard)", liftHeight: 5.5, lowered: 2.4, freeLift: 0.1, containerCapable: false, capDerate: 0.68 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 5100,
@@ -4733,6 +4982,11 @@ const MACHINES = {
       shortName: "Heli CPQYD38 3.8T",
       capacity: 3.8,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "LPG",
       terrain: "indoor/outdoor",
       machineWeight: 5500,
@@ -4767,6 +5021,11 @@ const MACHINES = {
       shortName: "Heli CPCD50 5.0T",
       capacity: 5.0,
       liftHeight: 5.0,
+      mastOptions: [
+        { type: "container_std", label: "4.3m Standard Container Mast (option)", liftHeight: 4.3, lowered: 2.1, freeLift: 0.1, containerCapable: true, capDerate: 0.75, containerOptional: true },
+        { type: "container_high", label: "4.7m High Container Mast (option)", liftHeight: 4.7, lowered: 2.3, freeLift: 0.1, containerCapable: true, capDerate: 0.72, containerOptional: true },
+        { type: "duplex_5_0", label: "5.0m Duplex Mast (standard)", liftHeight: 5, lowered: 2.35, freeLift: 0.1, containerCapable: false, capDerate: 0.7 }
+      ],
       power: "Diesel",
       terrain: "indoor/outdoor",
       machineWeight: 7200,
@@ -143309,22 +143568,85 @@ function matchMachines(ans, type) {
       return (m.capacity * 0.72) / lcFactor;
     }
 
-    // Container mast filter — if required, only show machines that have it (Yes or Optional)
+    // ── Container mast filter — if required, only show machines that have it (Yes or Optional)
     if (ans.need_container_mast === "yes") {
       pool = pool.filter(
         (m) => m.containerMast === "Yes" || m.containerMast === "Optional",
       );
     }
 
-    // Hard exclude: machine must have sufficient capacity at the requested height
+    // ── v132: MAST PICKER (Rule A) ────────────────────────────────────────────
+    // For each forklift with a mastOptions array, pick the smallest mast whose
+    // liftHeight ≥ reqHt × 1.20 (20% safety headroom — forklift mast configs
+    // are highly variable, and a 3.5m lift on a 4.3m mast is too close).
+    //
+    // If container mast is required, restrict to containerCapable masts.
+    // If no mast satisfies the headroom rule, pick the tallest available
+    // (within the constraint) and let the capacity filter / verdict downstream
+    // decide whether the machine still fits.
+    //
+    // The chosen mast is attached as `m._chosenMast` for use by the renderer
+    // and the capacity calculator below. Machines without mastOptions fall
+    // back to the legacy single-mast behaviour using `m.liftHeight`.
+    const REQ_HT_HEADROOM = 1.20; // Rule A: 20% mast headroom
+    const REQ_KG_HEADROOM = 1.20; // Rule B: 20% capacity headroom
+    function pickMastForRequest(m, reqHt, needContainer) {
+      if (!Array.isArray(m.mastOptions) || m.mastOptions.length === 0) {
+        return null; // legacy machine — no mast picker
+      }
+      // Filter to container-capable masts if container is required
+      let candidates = needContainer
+        ? m.mastOptions.filter((o) => o.containerCapable)
+        : m.mastOptions.slice();
+      if (candidates.length === 0) {
+        // Container required but this machine has no container-capable mast
+        // (shouldn't happen post-filter but defensive). Fall back to tallest.
+        candidates = m.mastOptions.slice();
+      }
+      // Sort ascending by liftHeight
+      candidates.sort((a, b) => a.liftHeight - b.liftHeight);
+      // Pick smallest mast that clears reqHt × 1.20
+      const target = reqHt > 0 ? reqHt * REQ_HT_HEADROOM : 0;
+      const picked = candidates.find((o) => o.liftHeight >= target);
+      return picked || candidates[candidates.length - 1]; // tallest if none clears
+    }
+    pool.forEach((m) => {
+      m._chosenMast = pickMastForRequest(
+        m,
+        reqHt,
+        ans.need_container_mast === "yes",
+      );
+    });
+
+    // ── Hard exclude: capacity at the chosen mast must clear request × 1.20 (Rule B)
+    // Capacity at height is interpolated using the chosen mast's max height.
+    // If `mastOptions` is absent, falls back to legacy m.liftHeight.
     pool = pool.filter((m) => {
       if (minCap <= 0) return true; // no weight specified — don't filter
-      const fullMastHt = m.liftHeight || 6.0;
+      const fullMastHt = m._chosenMast
+        ? m._chosenMast.liftHeight
+        : m.liftHeight || 6.0;
       const htFrac = reqHt > 0 ? Math.min(reqHt / fullMastHt, 1.0) : 0;
-      const residualT = getResidualFromChart(m, lc);
+      // For mast-option machines, derive residual from chosen mast's capDerate.
+      // For legacy machines, use the existing liftChart parser.
+      let residualT;
+      if (m._chosenMast && typeof m._chosenMast.capDerate === "number") {
+        // capDerate is the residual fraction at THIS mast's full height,
+        // applied to rated capacity at 600mm LC. Apply LC de-rate on top.
+        const lcFactor =
+          { lc_600: 1.0, lc_900: 1.18, lc_1200: 1.38 }[lc] || 1.0;
+        residualT = (m.capacity * m._chosenMast.capDerate) / lcFactor;
+      } else {
+        residualT = getResidualFromChart(m, lc);
+      }
       const capAtHt =
         htFrac > 0 ? interpCapMatch(m.capacity, residualT, htFrac) : m.capacity;
-      return capAtHt >= minCap;
+      // Rule B: require capAtHt ≥ minCap × 1.20 (20% capacity safety headroom)
+      // — mast variation, attachment weight variation, tyre/battery variation
+      // all chip away at real-world capacity. A 1500kg load on a "1600kg at
+      // height" machine is unsafe in practice.
+      m._capAtChosenHt = capAtHt; // stash for scorer / renderer
+      return capAtHt >= minCap * REQ_KG_HEADROOM;
     });
 
     // Score
@@ -143334,13 +143656,22 @@ function matchMachines(ans, type) {
         // Reach truck gets a strong boost when we're in a >6m indoor scenario
         if (m.isReachTruck && overHeightFork && isIndoor) score += 20;
         // Score based on capacity at the requested height (not just rated ground capacity)
-        const fullMastHt = m.liftHeight || 6.0;
-        const htFracScore = reqHt > 0 ? Math.min(reqHt / fullMastHt, 1.0) : 0;
-        const residualTScore = getResidualFromChart(m, lc);
-        const capAtHtScore =
-          htFracScore > 0
-            ? interpCapMatch(m.capacity, residualTScore, htFracScore)
-            : m.capacity;
+        // v132: use pre-computed capAtChosenHt when a mast was picked
+        let capAtHtScore;
+        if (typeof m._capAtChosenHt === "number") {
+          capAtHtScore = m._capAtChosenHt;
+        } else {
+          const fullMastHt = m._chosenMast
+            ? m._chosenMast.liftHeight
+            : m.liftHeight || 6.0;
+          const htFracScore =
+            reqHt > 0 ? Math.min(reqHt / fullMastHt, 1.0) : 0;
+          const residualTScore = getResidualFromChart(m, lc);
+          capAtHtScore =
+            htFracScore > 0
+              ? interpCapMatch(m.capacity, residualTScore, htFracScore)
+              : m.capacity;
+        }
         const gap = capAtHtScore - minCap;
         if (minCap > 0) {
           if (gap >= 0 && gap <= minCap * 0.3)
@@ -148396,12 +148727,63 @@ function showResults() {
 // where available; otherwise estimates via typical counterbalance ratios.
 // Same 0.65 interpolation curve as the Load Chart panel — so the 600mm LC
 // figure in this panel matches the Load Chart panel's figure exactly.
+// ── v132: Forklift Mast Configuration panel ─────────────────────────────────
+// Shared helper called by both organic and sponsored forklift cards. Renders
+// a panel showing the mast that was picked (Rule A in the engine), how much
+// headroom it gives, what other masts the same model offers, and (if relevant)
+// container-door compatibility / optional-extra warnings. Returns "" for
+// machines without a mastOptions array (legacy entries).
+function _buildForkliftMastPanel(m, machineType, answers) {
+  if (machineType !== "forklift") return "";
+  if (
+    !m._chosenMast ||
+    !Array.isArray(m.mastOptions) ||
+    m.mastOptions.length === 0
+  )
+    return "";
+  const chosen = m._chosenMast;
+  const ans = answers || {};
+  const reqHtNum = parseFloat(ans.mat_ht_m || 0);
+  const headroomPct =
+    reqHtNum > 0 && chosen.liftHeight > 0
+      ? Math.round((1 - reqHtNum / chosen.liftHeight) * 100)
+      : null;
+  const alts = m.mastOptions
+    .filter((o) => o.type !== chosen.type)
+    .map((o) => {
+      const cap = o.containerCapable ? " 🚢" : "";
+      return `<span style="display:inline-block;background:#fff;border:1px solid #E5E7EB;border-radius:6px;padding:2px 8px;font-size:.74rem;color:#374151;margin:2px 4px 2px 0;font-weight:600">${o.liftHeight}m${cap} ${o.type.replace(/_/g, " ")}</span>`;
+    })
+    .join("");
+  const containerNote =
+    ans.need_container_mast === "yes" && chosen.containerCapable
+      ? `<div style="margin-top:.35rem;font-size:.78rem;color:#065F46;font-weight:700">✅ Container-compatible — fits through standard 8'6&quot; container door (lowered height ${chosen.lowered}m).</div>`
+      : !chosen.containerCapable && ans.need_container_mast !== "yes"
+        ? `<div style="margin-top:.35rem;font-size:.78rem;color:#6B7280;font-weight:600">ℹ️ Triplex / duplex mast — taller stack height, lowered height ${chosen.lowered}m (does not fit container door).</div>`
+        : "";
+  const optionalWarn = chosen.containerOptional
+    ? `<div style="margin-top:.35rem;font-size:.78rem;color:#92400E;font-weight:700;background:#FEF9C3;border-left:3px solid #EAB308;padding:.3rem .55rem;border-radius:4px">⚠️ Container mast on this model is an OPTIONAL extra — confirm availability with the rental company before booking.</div>`
+    : "";
+  return `<div class="lift-chart-note" style="background:linear-gradient(135deg,#F0F9FF,#E0F2FE);border-left-color:#0EA5E9">
+    <strong>🏗️ Mast Configuration — ${chosen.label}</strong>
+    <div style="margin-top:.35rem;font-size:.85rem;color:#0C4A6E;line-height:1.5">
+      Selected for your <strong>${reqHtNum > 0 ? reqHtNum + "m" : "stated"}</strong> lift height${headroomPct !== null ? ` (${headroomPct}% headroom)` : ""}. Mast lowered height: <strong>${chosen.lowered}m</strong>. Free-lift: <strong>${chosen.freeLift}m</strong>.
+    </div>
+    ${containerNote}
+    ${optionalWarn}
+    ${alts ? `<div style="margin-top:.5rem;font-size:.74rem;color:#4B5563;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Other Mast Options on This Model:</div><div style="margin-top:.25rem">${alts}</div>` : ""}
+    <div style="margin-top:.4rem;font-size:.72rem;color:#475569;line-height:1.45">⚠️ Mast configuration affects machine height, lowered height, free-lift, and capacity at height. Always confirm the exact mast fitted to the unit being supplied with the rental company before hire — particularly for low-clearance entry, container loading, and lift heights close to mast maximum.</div>
+  </div>`;
+}
+
 function _buildForkliftLCPanel(m, machineType, answers) {
   if (machineType !== "forklift") return "";
   const _ratedKg = m.capacity ? m.capacity * 1000 : 0;
   if (_ratedKg <= 0) return "";
 
-  const _fullMastHt = m.liftHeight || 6.0;
+  // v132: prefer chosen mast height; fall back to legacy liftHeight
+  const _fullMastHt =
+    (m._chosenMast && m._chosenMast.liftHeight) || m.liftHeight || 6.0;
   // Resolve the height to display at — prefer explicit req height,
   // then height bucket midpoint, then full mast height as last resort
   const _htBucketMid = {
@@ -148423,25 +148805,41 @@ function _buildForkliftLCPanel(m, machineType, answers) {
   const _interp = (rated, residual, frac) =>
     Math.round(rated - (rated - residual) * Math.pow(frac, 0.65));
 
+  // v132: when a chosen mast is set, derive residuals from its capDerate
+  // (these are residuals at THIS mast's full height, not the brochure's
+  // worst-case 6m mast). Otherwise use stored residuals or fallbacks.
+  const _useDerate =
+    m._chosenMast && typeof m._chosenMast.capDerate === "number";
+  const _derateBase = _useDerate ? m._chosenMast.capDerate : null;
+
   // ── 600mm column ──────────────────────────────────────────────────────
   const _rated600 = _ratedKg;
-  const _resid600 = m.residual600 || Math.round(_ratedKg * 0.70);
+  const _resid600 = _useDerate
+    ? Math.round(_ratedKg * _derateBase)
+    : m.residual600 || Math.round(_ratedKg * 0.70);
   // ── 900mm column ──────────────────────────────────────────────────────
   // Derive ground-at-900 via moment balance (600/900 = 0.667).
   const _rated900 = Math.round(_ratedKg * (600 / 900));
-  const _resid900 = m.residual900 || Math.round(_ratedKg * 0.51);
+  const _resid900 = _useDerate
+    ? Math.round((_ratedKg * _derateBase) / 1.18)
+    : m.residual900 || Math.round(_ratedKg * 0.51);
   // ── 1200mm column ─────────────────────────────────────────────────────
   const _rated1200 = Math.round(_ratedKg * (600 / 1200));
-  const _resid1200 = m.residual1200 || Math.round(_ratedKg * 0.38);
+  const _resid1200 = _useDerate
+    ? Math.round((_ratedKg * _derateBase) / 1.38)
+    : m.residual1200 || Math.round(_ratedKg * 0.38);
 
   const _c600 = _interp(_rated600, _resid600, _htFrac);
   const _c900 = _interp(_rated900, _resid900, _htFrac);
   const _c1200 = _interp(_rated1200, _resid1200, _htFrac);
 
-  const _isManuf = !!(m.residual600 && m.residual900 && m.residual1200);
-  const _srcLabel = _isManuf
-    ? "Based on manufacturer residual data — approximate values only."
-    : "Estimated from rated capacity using typical counterbalance de-rate ratios.";
+  const _isManuf =
+    !_useDerate && !!(m.residual600 && m.residual900 && m.residual1200);
+  const _srcLabel = _useDerate
+    ? `Calculated from chosen mast (${m._chosenMast.label}) — actual residuals depend on the specific mast fitted.`
+    : _isManuf
+      ? "Based on manufacturer residual data — approximate values only."
+      : "Estimated from rated capacity using typical counterbalance de-rate ratios.";
 
   const _heightLabel =
     _reqHtExact > 0
@@ -149766,6 +150164,41 @@ function _renderCards(matches, machineType, answers) {
         return;
       }
 
+      // ── v132: run mast picker on sponsored forklift if not already done ──
+      // When spMachine came from Try 2/3 (direct DB fetch) it may not have
+      // _chosenMast attached. Apply the same Rule A logic here so the
+      // sponsored card displays consistent mast data with organic results.
+      if (
+        machineType === "forklift" &&
+        Array.isArray(spMachine.mastOptions) &&
+        spMachine.mastOptions.length > 0 &&
+        !spMachine._chosenMast
+      ) {
+        const _spReqHtForMast = parseFloat(
+          answers.mat_ht_m ||
+            answers.ppl_ht_m ||
+            (answers.lift_height_fork === "ht_2m"
+              ? 1.5
+              : answers.lift_height_fork === "ht_4m"
+                ? 3.0
+                : answers.lift_height_fork === "ht_6m"
+                  ? 5.0
+                  : answers.lift_height_fork === "ht_over6m"
+                    ? 7.0
+                    : 0),
+        ) || 0;
+        const _spNeedContainer = answers.need_container_mast === "yes";
+        let _spCands = _spNeedContainer
+          ? spMachine.mastOptions.filter((o) => o.containerCapable)
+          : spMachine.mastOptions.slice();
+        if (_spCands.length === 0) _spCands = spMachine.mastOptions.slice();
+        _spCands.sort((a, b) => a.liftHeight - b.liftHeight);
+        const _spTarget = _spReqHtForMast > 0 ? _spReqHtForMast * 1.2 : 0;
+        spMachine._chosenMast =
+          _spCands.find((o) => o.liftHeight >= _spTarget) ||
+          _spCands[_spCands.length - 1];
+      }
+
       // ── Capability gate: skip sponsored slot if machine can't do the job ──────────
       // Check height requirement
       const _spGateHt = parseFloat(
@@ -150075,7 +150508,10 @@ function _renderCards(matches, machineType, answers) {
               0,
           );
           const _spPlatH =
-            spMachine.platformHeight || spMachine.liftHeight || 0;
+            spMachine.platformHeight ||
+            (spMachine._chosenMast && spMachine._chosenMast.liftHeight) ||
+            spMachine.liftHeight ||
+            0;
           const _spMaxR = spMachine.maxReach || 0;
           const _spHtOk = !_spReqHt || _spPlatH >= _spReqHt;
           // Use reach at required height for accuracy if available
@@ -150118,6 +150554,7 @@ function _renderCards(matches, machineType, answers) {
             tattArr,
           );
         })()}
+        ${_buildForkliftMastPanel(spMachine, machineType, answers)}
         ${_buildForkliftLCPanel(spMachine, machineType, answers)}
         ${spMachine.bestFor ? `<div style="font-size:.8rem;color:#475569;line-height:1.5;margin-bottom:.5rem;background:#FFFBEB;border-left:3px solid #F59E0B;padding:.3rem .55rem;border-radius:0 6px 6px 0">✅ ${spMachine.bestFor}</div>` : ""}
         ${(() => {
@@ -150784,6 +151221,24 @@ function _renderCards(matches, machineType, answers) {
           if (match) residualKg = parseInt(match[1].replace(/,/g, ""));
         }
 
+        // v132: when a chosen mast is set with a capDerate, override the
+        // residual to reflect the SHORTER mast's residual at full height.
+        // Brochure residuals are typically anchored to the tallest mast
+        // (worst case) — for a 4.7m container mast on the same chassis,
+        // the residual at full height is closer to capDerate × rated.
+        if (m._chosenMast && typeof m._chosenMast.capDerate === "number") {
+          const lcFactor =
+            { lc_600: 1.0, lc_900: 1.18, lc_1200: 1.38 }[lc] || 1.0;
+          const _chosenResidual = Math.round(
+            (m.capacity * 1000 * m._chosenMast.capDerate) / lcFactor,
+          );
+          residualKg = _chosenResidual;
+        }
+
+        // v132: Mast Configuration panel — delegated to shared helper so both
+        // organic and sponsored forklift cards produce identical output.
+        const mastConfigHtml = _buildForkliftMastPanel(m, machineType, answers);
+
         // Container mast badge
         const cmBadge =
           answers.need_container_mast === "yes"
@@ -150799,7 +151254,11 @@ function _renderCards(matches, machineType, answers) {
         // Load chart comparison with height interpolation
         let chartHtml = "";
         if (reqKg > 0) {
-          const fullMastHt = m.liftHeight || 6.0;
+          // v132: prefer chosen mast height when set, fallback to legacy single-mast value
+          const fullMastHt =
+            (m._chosenMast && m._chosenMast.liftHeight) ||
+            m.liftHeight ||
+            6.0;
           // Get exact requested height — from typed input or bucket midpoint
           const htBucketMid = {
             ht_2m: 1.5,
@@ -150846,15 +151305,25 @@ function _renderCards(matches, machineType, answers) {
             const rotWtR = m._isRotator ? m._rotatorWeightKg || 0 : 0;
             const finalCapR = Math.max(0, capAtHt - rotWtR);
             const compareKg = finalCapR; // what we compare against reqKg
-            const ok = compareKg >= reqKg;
+            // v132 Rule B: require 20% capacity headroom (1500kg load on a
+            // 1600kg-at-height machine is unsafe in practice — mast / tyre /
+            // battery / attachment variation all chip away at residuals).
+            // Three-tier verdict: ✅ comfortable, ⚠️ marginal (within 20%), ❌ insufficient.
+            const _reqKgWithHeadroom = reqKg * 1.2;
+            const ok = compareKg >= _reqKgWithHeadroom;
+            const marginal = !ok && compareKg >= reqKg;
             const bg = ok
               ? "linear-gradient(135deg,#ECFDF5,#D1FAE5)"
-              : "linear-gradient(135deg,#FEF3C7,#FDE68A)";
-            const bc = ok ? "#10B981" : "#F59E0B";
-            const tc = ok ? "#065F46" : "#92400E";
+              : marginal
+                ? "linear-gradient(135deg,#FEF3C7,#FDE68A)"
+                : "linear-gradient(135deg,#FEE2E2,#FECACA)";
+            const bc = ok ? "#10B981" : marginal ? "#F59E0B" : "#DC2626";
+            const tc = ok ? "#065F46" : marginal ? "#92400E" : "#991B1B";
             const verdict = ok
-              ? `✅ ${m._isRotator ? "Sufficient after rotator deduction" : "Sufficient capacity at your lift height"}`
-              : `⚠️ ${m._isRotator ? "Insufficient after rotator deduction — consider sizing up" : "Marginal at this height — confirm on the machine's load plate"}`;
+              ? `✅ ${m._isRotator ? "Sufficient after rotator deduction (≥20% headroom)" : "Sufficient capacity at your lift height (≥20% headroom)"}`
+              : marginal
+                ? `⚠️ ${m._isRotator ? "Tight after rotator deduction — sizing up recommended" : "Tight margin — sizing up recommended for safety"}`
+                : `❌ ${m._isRotator ? "Insufficient after rotator deduction — must size up" : "Insufficient capacity at this height"}`;
 
             const rotatorRowR = m._isRotator
               ? `
@@ -150995,7 +151464,7 @@ function _renderCards(matches, machineType, answers) {
         // produce identical output. Definition: _buildForkliftLCPanel above.
         const lcPanelHtml = _buildForkliftLCPanel(m, machineType, answers);
 
-        return cmBadge + chartHtml + lcPanelHtml;
+        return mastConfigHtml + cmBadge + chartHtml + lcPanelHtml;
       })()}
       ${
         m._isEarthworks
@@ -151560,7 +152029,14 @@ function buildSpecBoxes(m, type, ans) {
   let boxes = "";
   if (type === "forklift") {
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Rated Capacity</div><div class="spec-box-val">${m.capacity}T</div></div>`;
-    boxes += `<div class="spec-box"><div class="spec-box-lbl">Lift Height</div><div class="spec-box-val">${m.liftHeight}m</div></div>`;
+    // v132: prefer chosen-mast height when a mast was picked by the engine.
+    // Falls back to legacy single-mast `m.liftHeight` for older entries.
+    const _fkLh = (m._chosenMast && m._chosenMast.liftHeight) || m.liftHeight;
+    const _fkLhSub =
+      m._chosenMast && m._chosenMast.label
+        ? `<div style="font-size:.62rem;color:#666;margin-top:2px;line-height:1.2">${m._chosenMast.label}</div>`
+        : "";
+    boxes += `<div class="spec-box"><div class="spec-box-lbl">Lift Height</div><div class="spec-box-val">${_fkLh}m</div>${_fkLhSub}</div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Power</div><div class="spec-box-val">${m.power}</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Fork Carriage</div><div class="spec-box-val" style="font-size:.78rem">${m.forkPocket}</div></div>`;
     // Forward Tilt — always renders "Check with rental company" because
