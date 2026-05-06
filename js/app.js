@@ -161951,6 +161951,27 @@ function kymGoToFinder() {
 function kymSearch2() {
   const input = document.getElementById("kym-search-input2");
   const rawQuery = input ? input.value.trim().toLowerCase() : "";
+
+  // v134: empty search box + Search clicked → full reset (same as kymSearch).
+  if (!rawQuery) {
+    _kymQuery = "";
+    _kymDidYouMeanQuery = null;
+    _kymCat = "";
+    _kymBrand = "";
+    document
+      .querySelectorAll(".kym-chip")
+      .forEach((c) => c.classList.remove("active"));
+    const allChip = document.querySelector(".kym-chip");
+    if (allChip) allChip.classList.add("active");
+    if (typeof kymResetFilters === "function") kymResetFilters();
+    ["kym-filters-panel", "kym-filters-panel2", "kym-sort-panel", "kym-sort-panel2"].forEach((id) => {
+      const p = document.getElementById(id);
+      if (p) p.style.display = "none";
+    });
+    kymRender();
+    return;
+  }
+
   // Same logic as kymSearch() — try original first, only auto-correct if
   // original returns 0 results AND the correction would actually help.
   // Prevents misleading "did you mean iwp?" banner when AWP already has
@@ -162303,6 +162324,32 @@ function _kymCountMatches(query) {
 function kymSearch() {
   const input = document.getElementById("kym-search-input");
   const rawQuery = input ? input.value.trim().toLowerCase() : "";
+
+  // v134: empty search box + Search clicked → full reset to default state.
+  // Clears all filters, resets sort, and collapses the Filters/Sort panels.
+  // Also clears any active category chip so user lands on "All Categories".
+  if (!rawQuery) {
+    _kymQuery = "";
+    _kymDidYouMeanQuery = null;
+    _kymCat = "";
+    _kymBrand = "";
+    // Reset chip visuals — All Categories active, every other chip inactive
+    document
+      .querySelectorAll(".kym-chip")
+      .forEach((c) => c.classList.remove("active"));
+    const allChip = document.querySelector(".kym-chip");
+    if (allChip) allChip.classList.add("active");
+    // Clear filter values, sort state, input fields, and chip visuals
+    if (typeof kymResetFilters === "function") kymResetFilters();
+    // Collapse the Filters & Sort panels (any open instance, both pages)
+    ["kym-filters-panel", "kym-filters-panel2", "kym-sort-panel", "kym-sort-panel2"].forEach((id) => {
+      const p = document.getElementById(id);
+      if (p) p.style.display = "none";
+    });
+    // kymResetFilters() already calls kymRender() — but call again to be safe
+    kymRender();
+    return;
+  }
 
   // Try the ORIGINAL query first. If it already has matches, do NOT
   // auto-correct — the "did you mean?" banner would be misleading
