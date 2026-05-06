@@ -534,58 +534,80 @@
 </nav>
 
 <!-- ═══════════════════════════════════════════════════════
-     AD BANNER RAILS (v119) — left rail + right rail + mobile bottom
-     2 banners per rail (CB1+CB2 left, CB3+CB4 right; etc per role)
-     Rails are fixed-position so they survive view switches.
-     Hidden by default; JS shows when banner has imageUrl AND user role matches.
+     AD BANNER RAILS (v131) — anchored to the FOUR CORNERS of the hero region
+     Position 1 = top-left, 2 = bottom-left, 3 = top-right, 4 = bottom-right.
+     Each ad auto-fits any uploaded image (object-fit:contain + light padding)
+     so no logo or graphic ever gets clipped, regardless of upload aspect ratio.
+     Each ad card is clearly labelled "Sponsored" so users understand Noyo
+     does not endorse the advertised company — it's paid placement.
+     Mobile: only the top 2 corners are shown (positions 1 + 3) to stay clean.
 ═══════════════════════════════════════════════════════ -->
 <style>
-  /* Side rails — visible on wide screens only */
+  /* The hero section needs to be a positioning anchor for the corner ads. */
+  #sec-hero {
+    position: relative;
+  }
+  /* Side rails live INSIDE the hero, pinned to its left/right edges. */
   .noyo-ad-rail {
-    position: fixed;
-    top: 80px;
-    width: 160px;
+    position: absolute;
+    width: 150px;
     z-index: 90; /* below modals (9999), above page content */
     display: none;
     flex-direction: column;
-    gap: 12px;
+    justify-content: space-between;
     pointer-events: none; /* rail itself doesn't intercept clicks; banners do */
+    top: 24px;
+    bottom: 24px;
   }
-  .noyo-ad-rail.left { left: 12px; }
-  .noyo-ad-rail.right { right: 12px; }
+  .noyo-ad-rail.left { left: 24px; }
+  .noyo-ad-rail.right { right: 24px; }
+  /* Each individual ad card */
   .noyo-ad-slot {
-    width: 160px;
-    height: 160px;
-    background: #fff;
-    border: 1.5px solid #E2E8F0;
-    border-radius: 12px;
+    width: 150px;
+    height: 150px;
+    background: #ffffff;
+    border: 1.5px solid rgba(255,255,255,.18);
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    box-shadow: 0 4px 16px rgba(0,0,0,.18), 0 1px 3px rgba(0,0,0,.12);
     display: none; /* shown when slot has an active image */
     position: relative;
     pointer-events: auto;
+    padding: 14px 12px 26px 12px; /* inner padding so image doesn't touch the edge; bottom room for label */
+    box-sizing: border-box;
+    transition: transform .15s ease, box-shadow .15s ease;
   }
   .noyo-ad-slot.clickable { cursor: pointer; }
+  .noyo-ad-slot.clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,.24), 0 2px 4px rgba(0,0,0,.14);
+  }
+  /* Image fills the inner padded area, fully visible (no cropping). */
   .noyo-ad-slot img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* whole image visible — fixes clipping bug */
+    object-position: center;
     display: block;
   }
+  /* Sponsored label — bottom strip inside each card. Clearly says "Sponsored"
+     so the user understands Noyo does not endorse the advertiser. */
   .noyo-ad-slot .ad-tag {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    background: rgba(0,0,0,.55);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,.65));
     color: #fff;
     font-size: 9px;
     font-weight: 700;
-    padding: 2px 5px;
-    border-radius: 3px;
-    letter-spacing: .04em;
+    padding: 3px 6px;
+    text-align: center;
+    letter-spacing: .06em;
+    text-transform: uppercase;
     pointer-events: none;
   }
-  /* Bottom strip — shown on narrow screens only */
+  /* Bottom strip — shown on narrow screens only (mobile + small tablets) */
   .noyo-ad-bottom {
     display: none;
     width: 100%;
@@ -595,77 +617,52 @@
   }
   .noyo-ad-bottom-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    max-width: 600px;
+    grid-template-columns: repeat(2, 1fr); /* mobile = 2 ads only, per founder direction */
+    gap: 12px;
+    max-width: 480px;
     margin: 0 auto;
   }
   .noyo-ad-bottom-grid .noyo-ad-slot {
     width: 100%;
     height: 0;
-    padding-bottom: 100%; /* maintain square aspect ratio */
+    padding-bottom: 100%; /* maintain square aspect ratio for the card */
     position: relative;
   }
+  /* Inside the bottom-grid card, the actual padded image area sits absolutely */
   .noyo-ad-bottom-grid .noyo-ad-slot img {
     position: absolute;
-    inset: 0;
+    top: 14px;
+    left: 12px;
+    right: 12px;
+    bottom: 26px;
+    width: auto;
+    height: auto;
   }
-  /* Wide screens (tablet + desktop): show side rails, hide bottom */
-  @media (min-width: 1280px) {
+  /* Wide screens (tablet + desktop): show corner rails, hide mobile strip.
+     Threshold lowered to 1024px (tablet) since rails are now inside the hero
+     and don't need a 1280px viewport to fit. */
+  @media (min-width: 1024px) {
     .noyo-ad-rail.has-active { display: flex; }
   }
-  /* Narrow screens (mobile + small tablets): show bottom only */
-  @media (max-width: 1279px) {
+  /* Narrow screens (mobile + small tablets): show bottom strip only */
+  @media (max-width: 1023px) {
     .noyo-ad-bottom.has-active { display: block; }
-  }
-  /* Below 480px (very narrow phones): 2x2 grid instead of 4 in a row */
-  @media (max-width: 480px) {
-    .noyo-ad-bottom-grid { grid-template-columns: repeat(2, 1fr); }
+    /* Hide the corner rails entirely on mobile (they'd overlap the hero text) */
+    .noyo-ad-rail { display: none !important; }
   }
 </style>
 
-<!-- LEFT side rail — slots 1 + 2 of the user's role -->
-<aside class="noyo-ad-rail left" id="noyo-ad-rail-left">
-  <a class="noyo-ad-slot" id="noyo-ad-slot-1" target="_blank" rel="noopener noreferrer">
-    <img alt="" id="noyo-ad-img-1">
-    <div class="ad-tag">AD</div>
-  </a>
-  <a class="noyo-ad-slot" id="noyo-ad-slot-2" target="_blank" rel="noopener noreferrer">
-    <img alt="" id="noyo-ad-img-2">
-    <div class="ad-tag">AD</div>
-  </a>
-</aside>
-
-<!-- RIGHT side rail — slots 3 + 4 of the user's role -->
-<aside class="noyo-ad-rail right" id="noyo-ad-rail-right">
-  <a class="noyo-ad-slot" id="noyo-ad-slot-3" target="_blank" rel="noopener noreferrer">
-    <img alt="" id="noyo-ad-img-3">
-    <div class="ad-tag">AD</div>
-  </a>
-  <a class="noyo-ad-slot" id="noyo-ad-slot-4" target="_blank" rel="noopener noreferrer">
-    <img alt="" id="noyo-ad-img-4">
-    <div class="ad-tag">AD</div>
-  </a>
-</aside>
-
-<!-- MOBILE bottom strip — all 4 slots in one row -->
+<!-- MOBILE bottom strip — TOP 2 corner positions only (slots 1 + 3), per founder direction
+     "on mobile you can make 2". Slots 2 + 4 hidden on mobile. -->
 <div class="noyo-ad-bottom" id="noyo-ad-bottom">
   <div class="noyo-ad-bottom-grid">
     <a class="noyo-ad-slot" id="noyo-ad-slot-mb-1" target="_blank" rel="noopener noreferrer">
       <img alt="" id="noyo-ad-img-mb-1">
-      <div class="ad-tag">AD</div>
-    </a>
-    <a class="noyo-ad-slot" id="noyo-ad-slot-mb-2" target="_blank" rel="noopener noreferrer">
-      <img alt="" id="noyo-ad-img-mb-2">
-      <div class="ad-tag">AD</div>
+      <div class="ad-tag">Sponsored</div>
     </a>
     <a class="noyo-ad-slot" id="noyo-ad-slot-mb-3" target="_blank" rel="noopener noreferrer">
       <img alt="" id="noyo-ad-img-mb-3">
-      <div class="ad-tag">AD</div>
-    </a>
-    <a class="noyo-ad-slot" id="noyo-ad-slot-mb-4" target="_blank" rel="noopener noreferrer">
-      <img alt="" id="noyo-ad-img-mb-4">
-      <div class="ad-tag">AD</div>
+      <div class="ad-tag">Sponsored</div>
     </a>
   </div>
 </div>
@@ -809,6 +806,28 @@
 </div>
 
   <div id="sec-hero">
+    <!-- LEFT side rail — slots 1 (top-left corner) + 2 (bottom-left corner) -->
+    <aside class="noyo-ad-rail left" id="noyo-ad-rail-left">
+      <a class="noyo-ad-slot" id="noyo-ad-slot-1" target="_blank" rel="noopener noreferrer">
+        <img alt="" id="noyo-ad-img-1">
+        <div class="ad-tag">Sponsored</div>
+      </a>
+      <a class="noyo-ad-slot" id="noyo-ad-slot-2" target="_blank" rel="noopener noreferrer">
+        <img alt="" id="noyo-ad-img-2">
+        <div class="ad-tag">Sponsored</div>
+      </a>
+    </aside>
+    <!-- RIGHT side rail — slots 3 (top-right corner) + 4 (bottom-right corner) -->
+    <aside class="noyo-ad-rail right" id="noyo-ad-rail-right">
+      <a class="noyo-ad-slot" id="noyo-ad-slot-3" target="_blank" rel="noopener noreferrer">
+        <img alt="" id="noyo-ad-img-3">
+        <div class="ad-tag">Sponsored</div>
+      </a>
+      <a class="noyo-ad-slot" id="noyo-ad-slot-4" target="_blank" rel="noopener noreferrer">
+        <img alt="" id="noyo-ad-img-4">
+        <div class="ad-tag">Sponsored</div>
+      </a>
+    </aside>
     <div class="hero">
       <h1>Not sure which machine<br><em>to hire?</em></h1>
       <p>Answer a few questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts.</p>
