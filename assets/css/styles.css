@@ -28,12 +28,6 @@ nav{background:var(--primary-dark);padding:0 2rem;display:flex;align-items:cente
 
 /* HERO */
 .hero{background:linear-gradient(135deg,var(--primary-dark) 0%,#0A2A5C 50%,#0D3070 100%);padding:4rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
-/* On screens that show the corner ad rails (≥1024px), reserve horizontal
-   space inside the hero so the centered headline + buttons don't overlap
-   the 150px corner ads. v131 */
-@media (min-width: 1024px) {
-  .hero { padding-left: 220px; padding-right: 220px; }
-}
 .hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,210,63,.15) 0%,transparent 70%);top:-100px;left:50%;transform:translateX(-50%);pointer-events:none}
 .hero-emoji{font-size:3.5rem;margin-bottom:1rem;display:block;animation:bounce 2.5s infinite}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
