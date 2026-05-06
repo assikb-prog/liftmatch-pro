@@ -161555,6 +161555,258 @@ function declineQuote(reqId) {
 var _kymCat = ""; // active category filter key
 var _kymQuery = ""; // active search query
 var _kymBrand = ""; // active brand filter (dozer subcategory)
+// ── KYM filter+sort state (v131) ─────────────────────────────────────────
+// All values are strings (read straight from input.value); empty = inactive.
+// kymRender() reads these on each render and applies them after the
+// category/text-query collection step.
+var _kymFilters = {
+  weight: "",   // max machine weight (kg)
+  width: "",    // max machine width (m)
+  length: "",   // max machine length (m)
+  mheight: "",  // max machine height (m, transport/stowed)
+  pheight: "",  // min platform/lift height (m)
+  capacity: "", // min capacity — units auto-detected per category
+  power: "",    // power preference: '', 'electric', 'diesel', 'lpg', 'hybrid'
+};
+var _kymSort = { by: "", dir: "asc" }; // by: '', 'capacity', 'pheight', 'weight', 'width', 'length'
+
+// Helpers: read filter inputs from any pending DOM state, store, re-render.
+function kymSetFilter(key, val) {
+  if (!_kymFilters || !(key in _kymFilters)) return;
+  _kymFilters[key] = String(val || "").trim();
+  _kymUpdateFilterBadge();
+  kymRender();
+}
+function kymSetPwr(pwr, btn) {
+  _kymFilters.power = pwr || "";
+  // Visual: highlight the selected chip, dim others
+  document.querySelectorAll(".kym-pwr-chip").forEach((c) => {
+    const isActive = c.getAttribute("data-pwr") === (pwr || "");
+    if (isActive) {
+      c.classList.add("active");
+      c.style.background = "#16A34A";
+      c.style.color = "#fff";
+      c.style.borderColor = "#16A34A";
+      c.style.fontWeight = "700";
+    } else {
+      c.classList.remove("active");
+      c.style.background = "#fff";
+      c.style.color = "#374151";
+      c.style.borderColor = "#D1D5DB";
+      c.style.fontWeight = "600";
+    }
+  });
+  _kymUpdateFilterBadge();
+  kymRender();
+}
+function kymSetSort(by, btn) {
+  _kymSort.by = by || "";
+  document.querySelectorAll(".kym-sort-chip").forEach((c) => {
+    const isActive = c.getAttribute("data-sort") === (by || "");
+    if (isActive) {
+      c.classList.add("active");
+      c.style.background = "#16A34A";
+      c.style.color = "#fff";
+      c.style.borderColor = "#16A34A";
+      c.style.fontWeight = "700";
+    } else {
+      c.classList.remove("active");
+      c.style.background = "#fff";
+      c.style.color = "#374151";
+      c.style.borderColor = "#D1D5DB";
+      c.style.fontWeight = "600";
+    }
+  });
+  kymRender();
+}
+function kymSetSortDir(dir, btn) {
+  _kymSort.dir = dir === "desc" ? "desc" : "asc";
+  const ascBtn = document.getElementById("kym-sort-asc");
+  const descBtn = document.getElementById("kym-sort-desc");
+  if (ascBtn && descBtn) {
+    if (_kymSort.dir === "asc") {
+      ascBtn.style.background = "#16A34A"; ascBtn.style.color = "#fff"; ascBtn.style.fontWeight = "800";
+      descBtn.style.background = "#fff"; descBtn.style.color = "#374151"; descBtn.style.fontWeight = "600";
+    } else {
+      descBtn.style.background = "#16A34A"; descBtn.style.color = "#fff"; descBtn.style.fontWeight = "800";
+      ascBtn.style.background = "#fff"; ascBtn.style.color = "#374151"; ascBtn.style.fontWeight = "600";
+    }
+  }
+  kymRender();
+}
+function kymToggleFilters() {
+  const p = document.getElementById("kym-filters-panel");
+  if (!p) return;
+  p.style.display = p.style.display === "none" ? "block" : "none";
+}
+function kymToggleSort() {
+  const p = document.getElementById("kym-sort-panel");
+  if (!p) return;
+  p.style.display = p.style.display === "none" ? "block" : "none";
+}
+function kymResetFilters() {
+  _kymFilters = { weight:"", width:"", length:"", mheight:"", pheight:"", capacity:"", power:"" };
+  _kymSort = { by: "", dir: "asc" };
+  ["kym-flt-weight","kym-flt-width","kym-flt-length","kym-flt-mheight","kym-flt-pheight","kym-flt-capacity"].forEach((id)=>{
+    const el = document.getElementById(id); if (el) el.value = "";
+  });
+  // Reset chip visuals
+  const anyPwr = document.querySelector('.kym-pwr-chip[data-pwr=""]');
+  if (anyPwr) kymSetPwr("", anyPwr);
+  const defaultSort = document.querySelector('.kym-sort-chip[data-sort=""]');
+  if (defaultSort) kymSetSort("", defaultSort);
+  kymSetSortDir("asc");
+  _kymUpdateFilterBadge();
+  kymRender();
+}
+function _kymUpdateFilterBadge() {
+  const badge = document.getElementById("kym-filters-count-badge");
+  const clearBtn = document.getElementById("kym-filters-clear");
+  if (!badge) return;
+  let n = 0;
+  Object.keys(_kymFilters).forEach((k) => { if (_kymFilters[k]) n++; });
+  if (n > 0) {
+    badge.textContent = String(n);
+    badge.style.display = "inline-block";
+    if (clearBtn) clearBtn.style.display = "inline-block";
+  } else {
+    badge.style.display = "none";
+    if (clearBtn) clearBtn.style.display = "none";
+  }
+}
+
+// Apply numeric/categorical filters to a results array (used by kymRender)
+function _kymApplyFilters(results) {
+  const f = _kymFilters || {};
+  const numW  = parseFloat(f.weight)   || 0;
+  const numWd = parseFloat(f.width)    || 0;
+  const numLn = parseFloat(f.length)   || 0;
+  const numMh = parseFloat(f.mheight)  || 0;
+  const numPh = parseFloat(f.pheight)  || 0;
+  const numCap= parseFloat(f.capacity) || 0;
+  const pwrPref = (f.power || "").toLowerCase();
+
+  // Categories where capacity is stored in tonnes vs kg (matches the v131
+  // unit-display fix). User can enter either — auto-detect by value: any
+  // input < 50 is treated as tonnes, ≥ 50 as kg.
+  const _kgCats = { boom:1, scissor:1, pushAround:1, verticalMast:1 };
+
+  return results.filter(({ m, catKey }) => {
+    // ── Machine weight (kg) — supports machineWeight (most cats) and
+    //    operatingWeightT (earthworks, in tonnes) ──
+    if (numW > 0) {
+      let mw = 0;
+      if (m.machineWeight) mw = parseFloat(m.machineWeight) || 0;
+      else if (m.operatingWeightT) mw = (parseFloat(m.operatingWeightT) || 0) * 1000;
+      else if (m.operatingWeightKg) mw = parseFloat(m.operatingWeightKg) || 0;
+      if (mw > 0 && mw > numW) return false;
+    }
+    // ── Machine width (m) — stored in mm for some, m for others ──
+    if (numWd > 0) {
+      let mw = parseFloat(m.machineWidth) || parseFloat(m.width) || 0;
+      // Heuristic: values > 10 are mm, otherwise meters
+      if (mw > 10) mw = mw / 1000;
+      if (mw > 0 && mw > numWd) return false;
+    }
+    // ── Machine length (m) ──
+    if (numLn > 0) {
+      let ml = parseFloat(m.machineLength) || parseFloat(m.length) || parseFloat(m.stowedL) || 0;
+      if (ml > 10) ml = ml / 1000;
+      if (ml > 0 && ml > numLn) return false;
+    }
+    // ── Machine (transport/stowed) height (m) ──
+    if (numMh > 0) {
+      let mh = parseFloat(m.machineHeight) || parseFloat(m.stowedH) || parseFloat(m.height) || 0;
+      if (mh > 10) mh = mh / 1000;
+      if (mh > 0 && mh > numMh) return false;
+    }
+    // ── Min platform / lift height (m) ──
+    if (numPh > 0) {
+      const ph = parseFloat(m.platformHeight) || parseFloat(m.liftHeight) || 0;
+      if (ph > 0 && ph < numPh) return false;
+      if (ph === 0) return false; // no height info → can't satisfy a min-height filter
+    }
+    // ── Min capacity ──
+    if (numCap > 0 && m.capacity != null) {
+      let cap = parseFloat(m.capacity);
+      // Normalise machine-side capacity to KG for comparison
+      if (_kgCats[catKey]) {
+        // kg-storage cats: but some legacy entries hold decimal tonnes (<50)
+        if (cap < 50) cap = cap * 1000;
+      } else {
+        // tonne-storage cats: convert to kg
+        cap = cap * 1000;
+      }
+      // Normalise user input to KG: if < 50, they meant tonnes
+      let userKg = numCap;
+      if (userKg < 50) userKg = userKg * 1000;
+      if (cap < userKg) return false;
+    }
+    // ── Power preference ──
+    if (pwrPref) {
+      const mp = String(m.power || "").toLowerCase();
+      if (pwrPref === "electric") {
+        if (!mp.includes("electric") && !mp.includes("battery") && !mp.includes("lithium")) return false;
+      } else if (pwrPref === "diesel") {
+        // Match diesel-only and diesel-hybrid; exclude pure-electric
+        if (!mp.includes("diesel")) return false;
+      } else if (pwrPref === "lpg") {
+        if (!mp.includes("lpg") && !mp.includes("gas")) return false;
+      } else if (pwrPref === "hybrid") {
+        if (!mp.includes("hybrid") && !mp.includes("bi-energy") && !mp.includes("dual")) return false;
+      }
+    }
+    return true;
+  });
+}
+
+// Sort a results array by the chosen field/direction
+function _kymApplySort(results) {
+  if (!_kymSort.by) return results;
+  const dir = _kymSort.dir === "desc" ? -1 : 1;
+  const _getVal = ({ m, catKey }) => {
+    switch (_kymSort.by) {
+      case "capacity": {
+        let c = parseFloat(m.capacity) || 0;
+        const _kgCats = { boom:1, scissor:1, pushAround:1, verticalMast:1 };
+        if (_kgCats[catKey]) { if (c < 50) c = c * 1000; }
+        else { c = c * 1000; }
+        return c;
+      }
+      case "pheight":
+        return parseFloat(m.platformHeight) || parseFloat(m.liftHeight) || 0;
+      case "weight": {
+        if (m.machineWeight) return parseFloat(m.machineWeight) || 0;
+        if (m.operatingWeightT) return (parseFloat(m.operatingWeightT) || 0) * 1000;
+        if (m.operatingWeightKg) return parseFloat(m.operatingWeightKg) || 0;
+        return 0;
+      }
+      case "width": {
+        let w = parseFloat(m.machineWidth) || parseFloat(m.width) || 0;
+        if (w > 10) w = w / 1000;
+        return w;
+      }
+      case "length": {
+        let l = parseFloat(m.machineLength) || parseFloat(m.length) || parseFloat(m.stowedL) || 0;
+        if (l > 10) l = l / 1000;
+        return l;
+      }
+      default: return 0;
+    }
+  };
+  // Stable sort — keep the original order for ties (rows with no value)
+  return results
+    .map((r, i) => ({ r, v: _getVal(r), i }))
+    .sort((a, b) => {
+      // Push zero-valued rows to the bottom regardless of direction
+      if (a.v === 0 && b.v === 0) return a.i - b.i;
+      if (a.v === 0) return 1;
+      if (b.v === 0) return -1;
+      const d = (a.v - b.v) * dir;
+      return d !== 0 ? d : a.i - b.i;
+    })
+    .map((x) => x.r);
+}
 
 var KYM_CAT_META = {
   forklift: { label: "Forklifts", emoji: "🍴" },
@@ -162681,6 +162933,18 @@ function kymRender() {
     });
   });
 
+  // ── Apply user-set filter+sort (v131) ─────────────────────────────────
+  // Filters narrow the result list; sort reorders it. Both operate on
+  // the same `results` array. Cross-category — a single "max width"
+  // value applies to every category.
+  let filteredResults = results;
+  try {
+    if (typeof _kymApplyFilters === "function") filteredResults = _kymApplyFilters(filteredResults);
+    if (typeof _kymApplySort === "function") filteredResults = _kymApplySort(filteredResults);
+  } catch (e) {
+    console.error("[KYM filter/sort] error:", e);
+  }
+
   // ── Brand filter pill row — shown when Dozers category is active ──────
   const brandRowId = "kym-brand-filter-row";
   let existingBrandRow = document.getElementById(brandRowId);
@@ -162720,9 +162984,13 @@ function kymRender() {
   // Update count label — show corrected query in count
   if (count) {
     const displayQuery = _kymQuery;
+    const _filteredCount = filteredResults.length;
+    const _totalCount = results.length;
+    const _filtersActive = _filteredCount !== _totalCount;
+    const _suffix = _filtersActive ? ` <span style="color:#9A3412;font-size:.78rem">(${_totalCount - _filteredCount} hidden by filters)</span>` : "";
     const label = displayQuery
-      ? `${results.length} machine${results.length !== 1 ? "s" : ""} matching "<strong>${displayQuery}</strong>"${_kymDidYouMeanQuery ? ' <span style="font-size:.8rem;color:#9A3412">(auto-corrected from "' + _kymDidYouMeanQuery.original + '")</span>' : ""}`
-      : `${results.length} machine${results.length !== 1 ? "s" : ""} ${_kymCat ? "in " + (KYM_CAT_META[_kymCat]?.label.split(" ").slice(0, 2).join(" ") || _kymCat) : "across all categories"}`;
+      ? `${_filteredCount} machine${_filteredCount !== 1 ? "s" : ""} matching "<strong>${displayQuery}</strong>"${_kymDidYouMeanQuery ? ' <span style="font-size:.8rem;color:#9A3412">(auto-corrected from "' + _kymDidYouMeanQuery.original + '")</span>' : ""}${_suffix}`
+      : `${_filteredCount} machine${_filteredCount !== 1 ? "s" : ""} ${_kymCat ? "in " + (KYM_CAT_META[_kymCat]?.label.split(" ").slice(0, 2).join(" ") || _kymCat) : "across all categories"}${_suffix}`;
     count.innerHTML = label;
   }
 
@@ -162752,18 +163020,22 @@ function kymRender() {
     grid.parentNode.insertBefore(dym, grid);
   }
 
-  if (results.length === 0) {
+  if (filteredResults.length === 0) {
+    const _origCount = results.length;
+    const _filtersHidden = _origCount > 0;
     grid.innerHTML = `<div style="grid-column:1/-1;padding:3rem;text-align:center;color:#94A3B8">
-      <div style="font-size:2.5rem;margin-bottom:.8rem">🤷</div>
-      <div style="font-weight:700;font-size:1.1rem;margin-bottom:.4rem;color:#64748B">No machines found</div>
-      <div style="font-size:.9rem;color:#94A3B8;line-height:1.6">
+      <div style="font-size:2.5rem;margin-bottom:.8rem">${_filtersHidden ? "🔧" : "🤷"}</div>
+      <div style="font-weight:700;font-size:1.1rem;margin-bottom:.4rem;color:#64748B">${_filtersHidden ? "All machines hidden by your filters" : "No machines found"}</div>
+      ${_filtersHidden
+        ? `<div style="font-size:.9rem;color:#94A3B8;line-height:1.6">Your search matched <strong>${_origCount}</strong> machine${_origCount !== 1 ? "s" : ""}, but every one of them is excluded by your active filters.<br><br><button onclick="kymResetFilters()" style="background:#16A34A;color:#fff;border:none;border-radius:8px;padding:.5rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer">✕ Clear all filters</button></div>`
+        : `<div style="font-size:.9rem;color:#94A3B8;line-height:1.6">
         Try refining your search — some tips:<br>
         • <strong>"reach stacker"</strong> or <strong>"high reach forklift"</strong> → shows reach trucks &amp; high-mast forklifts<br>
         • <strong>"order picker"</strong> or <strong>"picking truck"</strong> → shows high-bay pickers<br>
         • <strong>"rotating telehandler"</strong> or <strong>"360 tele"</strong> → rotating ROTO/MRT/RTH models<br>
         • <strong>"electric rotating"</strong> → zero-emission rotating telehandlers (Magni ETH)<br>
         • Try: "electric forklift", "3T telehandler", "19m boom lift", "rough terrain scissor"
-      </div>
+      </div>`}
     </div>`;
     return;
   }
@@ -162791,7 +163063,7 @@ function kymRender() {
     grid.parentNode.insertBefore(note, grid);
   }
 
-  grid.innerHTML = results
+  grid.innerHTML = filteredResults
     .map(({ m, catKey }) => {
       const meta = KYM_CAT_META[catKey] || { emoji: "🏗️", label: "Machine" };
       const inCart = quoteCart.some((c) => c.id === m.id);
@@ -162807,7 +163079,31 @@ function kymRender() {
         specs.push(
           `<span style="background:#EFF6FF;color:#1D4ED8;border:1px solid #93C5FD;border-radius:6px;padding:.15rem .5rem;font-weight:800">🏗️ Reach Truck</span>`,
         );
-      if (m.capacity) specs.push(`<span>⚖️ ${m.capacity}T capacity</span>`);
+      if (m.capacity) {
+        // v131 fix: capacity unit depends on machine category.
+        //   - Material lifters (forklift, telehandler, rotating, earthworks subcats):
+        //     stored in TONNES (e.g. 2.5, 4, 7) → display as "T capacity"
+        //   - Personnel lifts (boom, scissor, pushAround, verticalMast):
+        //     stored in KG (e.g. 159, 230, 454) → display as "kg capacity"
+        //     But some scissor entries historically store capacity as decimal
+        //     tonnes (e.g. 0.227 instead of 227). Detect & convert: any value
+        //     < 50 in a kg-category gets multiplied by 1000.
+        const _kgCats = ["boom", "scissor", "pushAround", "verticalMast"];
+        const _isKgCat = _kgCats.indexOf(catKey) >= 0;
+        let _capDisplay;
+        let _capUnit;
+        if (_isKgCat) {
+          let _kg = parseFloat(m.capacity);
+          // Convert any "decimal tonne" values (< 50) to kg
+          if (_kg > 0 && _kg < 50) _kg = Math.round(_kg * 1000);
+          _capDisplay = _kg;
+          _capUnit = "kg";
+        } else {
+          _capDisplay = m.capacity;
+          _capUnit = "T";
+        }
+        specs.push(`<span>⚖️ ${_capDisplay}${_capUnit} capacity</span>`);
+      }
       if (m.liftHeight) specs.push(`<span>📏 ${m.liftHeight}m lift</span>`);
       if (m.platformHeight)
         specs.push(`<span>📏 ${m.platformHeight}m platform</span>`);
