@@ -1247,6 +1247,93 @@
       <button class="kym-chip" onclick="kymSetCat2('dozer',this)">🏔️ Dozers</button>
     </div>
 
+    <!-- ────────────────────────────────────────────────────────────
+         FILTER + SORT BAR (v132) — same controls as page 1, suffixed
+         IDs for page 2. JS helpers treat both pages as a single state.
+         ──────────────────────────────────────────────────────────── -->
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem;flex-wrap:wrap">
+      <button id="kym-filters-toggle2" onclick="kymToggleFilters()" type="button"
+        style="background:#fff;border:2px solid #86EFAC;border-radius:12px;padding:.55rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.86rem;color:#14532D;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;transition:all .15s">
+        <span>🔧</span><span>Filters</span><span id="kym-filters-count-badge2" style="display:none;background:#16A34A;color:#fff;border-radius:10px;padding:.05rem .5rem;font-size:.72rem;font-weight:900">0</span>
+      </button>
+      <button id="kym-sort-toggle2" onclick="kymToggleSort()" type="button"
+        style="background:#fff;border:2px solid #86EFAC;border-radius:12px;padding:.55rem 1rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.86rem;color:#14532D;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;transition:all .15s">
+        <span>⚙️</span><span>Sort</span>
+      </button>
+      <button id="kym-filters-clear2" onclick="kymResetFilters()" type="button"
+        style="display:none;background:transparent;border:none;color:#DC2626;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;text-decoration:underline">
+        ✕ Clear all
+      </button>
+    </div>
+
+    <!-- Filter panel (collapsed by default) -->
+    <div id="kym-filters-panel2" style="display:none;background:#fff;border:1.5px solid #BBF7D0;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(20,83,45,.06)">
+      <div style="font-size:.78rem;font-weight:800;color:#14532D;margin-bottom:.7rem;letter-spacing:.3px;text-transform:uppercase">🔧 Site & machine filters <span style="color:#16A34A;font-weight:600;text-transform:none;letter-spacing:0">— optional, leave blank to ignore</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem 1.2rem">
+        <label style="display:flex;flex-direction:column;gap:.2rem">
+          <span style="font-size:.74rem;font-weight:700;color:#1F2937">⚖️ Max machine weight (kg)</span>
+          <input id="kym-flt-weight2" type="number" min="0" step="100" placeholder="e.g. 4000 — floor loading limit"
+            oninput="kymSetFilter('weight',this.value)"
+            style="border:1.5px solid #D1D5DB;border-radius:8px;padding:.45rem .7rem;font-family:'Nunito',sans-serif;font-size:.85rem;background:#fff;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:.2rem">
+          <span style="font-size:.74rem;font-weight:700;color:#1F2937">↔️ Max machine width (m)</span>
+          <input id="kym-flt-width2" type="number" min="0" step="0.1" placeholder="e.g. 1.8 — aisle / doorway"
+            oninput="kymSetFilter('width',this.value)"
+            style="border:1.5px solid #D1D5DB;border-radius:8px;padding:.45rem .7rem;font-family:'Nunito',sans-serif;font-size:.85rem;background:#fff;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:.2rem">
+          <span style="font-size:.74rem;font-weight:700;color:#1F2937">📐 Max machine length (m)</span>
+          <input id="kym-flt-length2" type="number" min="0" step="0.1" placeholder="e.g. 5 — truck / yard access"
+            oninput="kymSetFilter('length',this.value)"
+            style="border:1.5px solid #D1D5DB;border-radius:8px;padding:.45rem .7rem;font-family:'Nunito',sans-serif;font-size:.85rem;background:#fff;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:.2rem">
+          <span style="font-size:.74rem;font-weight:700;color:#1F2937">⬆️ Max stowed height (m)</span>
+          <input id="kym-flt-mheight2" type="number" min="0" step="0.1" placeholder="e.g. 2.4 — ceiling / roller door"
+            oninput="kymSetFilter('mheight',this.value)"
+            style="border:1.5px solid #D1D5DB;border-radius:8px;padding:.45rem .7rem;font-family:'Nunito',sans-serif;font-size:.85rem;background:#fff;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:.2rem">
+          <span style="font-size:.74rem;font-weight:700;color:#1F2937">📏 Min platform / lift height (m)</span>
+          <input id="kym-flt-pheight2" type="number" min="0" step="0.5" placeholder="e.g. 6 — minimum reach needed"
+            oninput="kymSetFilter('pheight',this.value)"
+            style="border:1.5px solid #D1D5DB;border-radius:8px;padding:.45rem .7rem;font-family:'Nunito',sans-serif;font-size:.85rem;background:#fff;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:.2rem">
+          <span style="font-size:.74rem;font-weight:700;color:#1F2937">🏋️ Min capacity (kg or T — auto-detected)</span>
+          <input id="kym-flt-capacity2" type="number" min="0" step="50" placeholder="e.g. 250kg or 2.5T"
+            oninput="kymSetFilter('capacity',this.value)"
+            style="border:1.5px solid #D1D5DB;border-radius:8px;padding:.45rem .7rem;font-family:'Nunito',sans-serif;font-size:.85rem;background:#fff;outline:none">
+        </label>
+      </div>
+      <div style="margin-top:.8rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem">
+        <span style="font-size:.74rem;font-weight:700;color:#1F2937">⚡ Power:</span>
+        <button class="kym-pwr-chip active" data-pwr="" onclick="kymSetPwr('',this)" type="button" style="background:#16A34A;color:#fff;border:1.5px solid #16A34A;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer">Any</button>
+        <button class="kym-pwr-chip" data-pwr="electric" onclick="kymSetPwr('electric',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">Electric</button>
+        <button class="kym-pwr-chip" data-pwr="diesel" onclick="kymSetPwr('diesel',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">Diesel</button>
+        <button class="kym-pwr-chip" data-pwr="lpg" onclick="kymSetPwr('lpg',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">LPG</button>
+        <button class="kym-pwr-chip" data-pwr="hybrid" onclick="kymSetPwr('hybrid',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">Hybrid</button>
+      </div>
+    </div>
+
+    <!-- Sort panel (collapsed by default) -->
+    <div id="kym-sort-panel2" style="display:none;background:#fff;border:1.5px solid #BBF7D0;border-radius:14px;padding:.85rem 1.2rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(20,83,45,.06)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.5rem">
+        <span style="font-size:.78rem;font-weight:800;color:#14532D;letter-spacing:.3px;text-transform:uppercase">⚙️ Sort by:</span>
+        <button class="kym-sort-chip active" data-sort="" onclick="kymSetSort('',this)" type="button" style="background:#16A34A;color:#fff;border:1.5px solid #16A34A;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer">Default</button>
+        <button class="kym-sort-chip" data-sort="capacity" onclick="kymSetSort('capacity',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">🏋️ Capacity</button>
+        <button class="kym-sort-chip" data-sort="pheight" onclick="kymSetSort('pheight',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">📏 Platform Height</button>
+        <button class="kym-sort-chip" data-sort="weight" onclick="kymSetSort('weight',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">⚖️ Machine Weight</button>
+        <button class="kym-sort-chip" data-sort="width" onclick="kymSetSort('width',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">↔️ Machine Width</button>
+        <button class="kym-sort-chip" data-sort="length" onclick="kymSetSort('length',this)" type="button" style="background:#fff;color:#374151;border:1.5px solid #D1D5DB;border-radius:50px;padding:.25rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">📐 Machine Length</button>
+        <span style="margin-left:.5rem;display:inline-flex;border:1.5px solid #D1D5DB;border-radius:8px;overflow:hidden">
+          <button id="kym-sort-asc2" onclick="kymSetSortDir('asc',this)" type="button" style="background:#16A34A;color:#fff;border:none;padding:.3rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.78rem;cursor:pointer">▲ Asc</button>
+          <button id="kym-sort-desc2" onclick="kymSetSortDir('desc',this)" type="button" style="background:#fff;color:#374151;border:none;padding:.3rem .8rem;font-family:'Nunito',sans-serif;font-weight:600;font-size:.78rem;cursor:pointer">▼ Desc</button>
+        </span>
+      </div>
+    </div>
+
     <!-- Result count -->
     <div id="kym-results-count2" style="font-size:.82rem;color:#15803D;font-weight:600;margin-bottom:.9rem"></div>
 
