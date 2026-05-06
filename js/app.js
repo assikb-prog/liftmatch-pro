@@ -73940,6 +73940,8 @@ loadMatrixTyres: [
       note: "Narrowest Genie scissor — 76cm wide, fits through standard doorways. 3.9m platform height. Zero emissions, non-marking tyres.",
       tags: ["Narrow 76cm", "3.9m", "Electric", "Ultra-Compact", "Indoor"],
       filters: ["scissor", "indoor"],
+      machineHeight: 1.92,
+      machineLength: 1.42,
     },
     {
       id: "genie-gs1930",
@@ -73959,6 +73961,8 @@ loadMatrixTyres: [
       note: "Compact 5.8m platform electric scissor. Zero emissions for indoor use. Fits through standard doorways. Best for smooth concrete or tiles.",
       tags: ["Indoor", "Electric", "5.8m", "Compact", "Zero Emissions"],
       filters: ["scissor", "indoor"],
+      machineHeight: 2.16,
+      machineLength: 1.83,
     },
     {
       id: "genie-gs2032",
@@ -73980,6 +73984,8 @@ loadMatrixTyres: [
       note: "6.1m platform height with wider deck for two workers. AC drive motor. Non-marking tyres. Popular for warehouse and commercial interior fitouts.",
       tags: ["Indoor", "Electric", "6.1m", "AC Drive", "Non-Marking"],
       filters: ["scissor", "indoor"],
+      machineHeight: 2.1,
+      machineLength: 2.43,
     },
     {
       id: "genie-gs2632",
@@ -74080,6 +74086,8 @@ loadMatrixTyres: [
       note: "Large-platform high-reach electric scissor. High-bay racking maintenance and large venue fitouts.",
       tags: ["Indoor", "Electric", "12.1m", "Large Platform", "High Bay"],
       filters: ["scissor", "indoor"],
+      machineHeight: 2.54,
+      machineLength: 2.44,
     },
     // ── GENIE SLAB SCISSORS (additional models) ──────────────────────────
     {
@@ -76065,6 +76073,8 @@ loadMatrixTyres: [
         "High Bay",
       ],
       filters: ["scissor", "indoor"],
+      machineHeight: 2.81,
+      machineLength: 3.1,
     },
     // ── JLG ELECTRIC SCISSOR LIFTS (NEW ADDITIONS) ───────────────────
     {
@@ -76488,6 +76498,7 @@ loadMatrixTyres: [
         "JLG",
       ],
       filters: ["scissor", "outdoor", "rough", "diesel"],
+      machineHeight: 1.47,
     },
     {
       id: "jlg-3394rt",
@@ -76755,6 +76766,7 @@ loadMatrixTyres: [
         "JLG",
       ],
       filters: ["scissor", "outdoor", "rough", "electric"],
+      machineHeight: 2.74,
     },
     {
       id: "jlg-430lrt",
@@ -76813,6 +76825,7 @@ loadMatrixTyres: [
         "JLG",
       ],
       filters: ["scissor", "outdoor", "rough", "diesel", "high"],
+      machineHeight: 3.07,
     },
 
     // ── SKYJACK SCISSOR ────────────────────────────────────────
@@ -76836,6 +76849,8 @@ loadMatrixTyres: [
       note: "Skyjack compact electric scissor with SKYCODED™ wiring for easy servicing. 5.8m platform, 76cm width. Simple and reliable design. Low maintenance costs.",
       tags: ["Indoor", "Electric", "5.8m", "SKYCODED™", "Simple/Reliable"],
       filters: ["scissor", "indoor"],
+      machineHeight: 2.03,
+      machineLength: 1.8,
     },
     {
       id: "skyjack-sj3226",
@@ -79508,6 +79523,8 @@ loadMatrixTyres: [
         "Confirm With Rental Co",
       ],
       filters: ["scissor", "outdoor", "rough"],
+      machineHeight: 2.84,
+      machineLength: 3.98,
     },
     {
       id: "sinoboom-1623rd",
@@ -79723,6 +79740,8 @@ loadMatrixTyres: [
         "Indoor",
       ],
       filters: ["scissor", "indoor"],
+      machineHeight: 1.57,
+      machineLength: 1.53,
     },
     {
       id: "lgmg-s0607e2",
@@ -79752,6 +79771,8 @@ loadMatrixTyres: [
         "Indoor",
       ],
       filters: ["scissor", "indoor"],
+      machineHeight: 1.81,
+      machineLength: 1.83,
     },
     {
       id: "lgmg-as0607e",
@@ -79780,6 +79801,8 @@ loadMatrixTyres: [
         "Indoor/Outdoor",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineHeight: 1.81,
+      machineLength: 1.83,
     },
     {
       id: "lgmg-as0808e",
@@ -79808,6 +79831,8 @@ loadMatrixTyres: [
         "Electric",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineHeight: 1.79,
+      machineLength: 2.44,
     },
     {
       id: "lgmg-as0812e",
@@ -79837,6 +79862,8 @@ loadMatrixTyres: [
         "Electric",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineHeight: 1.85,
+      machineLength: 2.49,
     },
     {
       id: "lgmg-as1012e",
@@ -79865,6 +79892,8 @@ loadMatrixTyres: [
         "Electric",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineHeight: 1.85,
+      machineLength: 2.49,
     },
     {
       id: "lgmg-as1212e",
@@ -79894,6 +79923,8 @@ loadMatrixTyres: [
         "High Capacity",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineHeight: 1.85,
+      machineLength: 2.49,
     },
     {
       id: "lgmg-as1413e",
@@ -79922,6 +79953,8 @@ loadMatrixTyres: [
         "Tallest LGMG Electric",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineHeight: 2.22,
+      machineLength: 2.8,
     },
     {
       id: "lgmg-sr0818e2",
@@ -79952,6 +79985,8 @@ loadMatrixTyres: [
         "Battery",
       ],
       filters: ["scissor", "outdoor", "rough", "electric"],
+      machineHeight: 2.58,
+      machineLength: 3.76,
     },
     // LGMG RT Diesel scissors
     {
@@ -79981,6 +80016,8 @@ loadMatrixTyres: [
         "4WD",
       ],
       filters: ["scissor", "outdoor", "rough"],
+      machineHeight: 2.55,
+      machineLength: 3.76,
     },
     {
       id: "lgmg-sr1218e",
@@ -80010,6 +80047,8 @@ loadMatrixTyres: [
         "High Capacity",
       ],
       filters: ["scissor", "outdoor", "rough", "heavy"],
+      machineHeight: 2.7,
+      machineLength: 3.76,
     },
     {
       id: "lgmg-sr1623e",
@@ -80069,6 +80108,8 @@ loadMatrixTyres: [
         "Outriggers",
       ],
       filters: ["scissor", "outdoor", "rough", "high", "heavy"],
+      machineHeight: 3.72,
+      machineLength: 4.98,
     },
     // ══════════════════════════════════════════════════════════════════════
     // ── ALMACRAWLER ATHENA — Crawler Self-Levelling Scissor Lifts ─────────
@@ -80727,6 +80768,8 @@ loadMatrixTyres: [
         "Low Ground Pressure",
       ],
       filters: ["scissor", "outdoor", "rough", "electric", "crawler"],
+      machineHeight: 1.99,
+      machineLength: 1.47,
     },
     {
       id: "lgmg-sc0607e",
@@ -80757,6 +80800,8 @@ loadMatrixTyres: [
         "Steep Slopes",
       ],
       filters: ["scissor", "outdoor", "rough", "electric", "crawler"],
+      machineHeight: 2.19,
+      machineLength: 2.05,
     },
     // ── LIUGONG SCISSOR ────────────────────────────────────────
     {
@@ -80786,6 +80831,7 @@ loadMatrixTyres: [
         "Indoor",
       ],
       filters: ["scissor", "indoor"],
+      machineLength: 1.49,
     },
     {
       id: "liugong-ls0607em",
@@ -80842,6 +80888,7 @@ loadMatrixTyres: [
         "Indoor/Outdoor",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineLength: 1.86,
     },
     {
       id: "liugong-ls0808e",
@@ -80871,6 +80918,7 @@ loadMatrixTyres: [
         "Value",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineLength: 2.48,
     },
     {
       id: "liugong-ls0812e",
@@ -80899,6 +80947,7 @@ loadMatrixTyres: [
         "Electric",
       ],
       filters: ["scissor", "indoor", "outdoor"],
+      machineLength: 2.49,
     },
     {
       id: "liugong-ls1012e",
@@ -81069,6 +81118,8 @@ loadMatrixTyres: [
         "Specialist",
       ],
       filters: ["scissor", "outdoor", "rough", "heavy"],
+      machineHeight: 3.2,
+      machineLength: 6.88,
     },
 
     // ── Haulotte Scissor Lifts ─────────────────────────────────────────────
@@ -82919,6 +82970,7 @@ loadMatrixTyres: [
         "Zoomlion",
       ],
       filters: ["scissor", "outdoor", "rough", "electric"],
+      machineHeight: 2.26,
     },
     {
       id: "zoomlion-zs0612c",
@@ -161621,33 +161673,41 @@ function kymSetSort(by, btn) {
 }
 function kymSetSortDir(dir, btn) {
   _kymSort.dir = dir === "desc" ? "desc" : "asc";
-  const ascBtn = document.getElementById("kym-sort-asc");
-  const descBtn = document.getElementById("kym-sort-desc");
-  if (ascBtn && descBtn) {
+  // v132: update both pages' asc/desc visuals
+  const _setVis = (asc, desc) => {
+    if (!asc || !desc) return;
     if (_kymSort.dir === "asc") {
-      ascBtn.style.background = "#16A34A"; ascBtn.style.color = "#fff"; ascBtn.style.fontWeight = "800";
-      descBtn.style.background = "#fff"; descBtn.style.color = "#374151"; descBtn.style.fontWeight = "600";
+      asc.style.background = "#16A34A"; asc.style.color = "#fff"; asc.style.fontWeight = "800";
+      desc.style.background = "#fff"; desc.style.color = "#374151"; desc.style.fontWeight = "600";
     } else {
-      descBtn.style.background = "#16A34A"; descBtn.style.color = "#fff"; descBtn.style.fontWeight = "800";
-      ascBtn.style.background = "#fff"; ascBtn.style.color = "#374151"; ascBtn.style.fontWeight = "600";
+      desc.style.background = "#16A34A"; desc.style.color = "#fff"; desc.style.fontWeight = "800";
+      asc.style.background = "#fff"; asc.style.color = "#374151"; asc.style.fontWeight = "600";
     }
-  }
+  };
+  _setVis(document.getElementById("kym-sort-asc"), document.getElementById("kym-sort-desc"));
+  _setVis(document.getElementById("kym-sort-asc2"), document.getElementById("kym-sort-desc2"));
   kymRender();
 }
 function kymToggleFilters() {
-  const p = document.getElementById("kym-filters-panel");
-  if (!p) return;
-  p.style.display = p.style.display === "none" ? "block" : "none";
+  // v132: target both pages — only the active view's panel is visible to user
+  const panels = [document.getElementById("kym-filters-panel"), document.getElementById("kym-filters-panel2")].filter(Boolean);
+  if (!panels.length) return;
+  const newDisplay = panels[0].style.display === "none" ? "block" : "none";
+  panels.forEach((p) => { p.style.display = newDisplay; });
 }
 function kymToggleSort() {
-  const p = document.getElementById("kym-sort-panel");
-  if (!p) return;
-  p.style.display = p.style.display === "none" ? "block" : "none";
+  // v132: target both pages
+  const panels = [document.getElementById("kym-sort-panel"), document.getElementById("kym-sort-panel2")].filter(Boolean);
+  if (!panels.length) return;
+  const newDisplay = panels[0].style.display === "none" ? "block" : "none";
+  panels.forEach((p) => { p.style.display = newDisplay; });
 }
 function kymResetFilters() {
   _kymFilters = { weight:"", width:"", length:"", mheight:"", pheight:"", capacity:"", power:"" };
   _kymSort = { by: "", dir: "asc" };
-  ["kym-flt-weight","kym-flt-width","kym-flt-length","kym-flt-mheight","kym-flt-pheight","kym-flt-capacity"].forEach((id)=>{
+  // v132: clear inputs on both pages
+  ["kym-flt-weight","kym-flt-width","kym-flt-length","kym-flt-mheight","kym-flt-pheight","kym-flt-capacity",
+   "kym-flt-weight2","kym-flt-width2","kym-flt-length2","kym-flt-mheight2","kym-flt-pheight2","kym-flt-capacity2"].forEach((id)=>{
     const el = document.getElementById(id); if (el) el.value = "";
   });
   // Reset chip visuals
@@ -161660,18 +161720,18 @@ function kymResetFilters() {
   kymRender();
 }
 function _kymUpdateFilterBadge() {
-  const badge = document.getElementById("kym-filters-count-badge");
-  const clearBtn = document.getElementById("kym-filters-clear");
-  if (!badge) return;
+  // v132: update badges/clear buttons on both pages
+  const badges = [document.getElementById("kym-filters-count-badge"), document.getElementById("kym-filters-count-badge2")].filter(Boolean);
+  const clearBtns = [document.getElementById("kym-filters-clear"), document.getElementById("kym-filters-clear2")].filter(Boolean);
+  if (!badges.length) return;
   let n = 0;
   Object.keys(_kymFilters).forEach((k) => { if (_kymFilters[k]) n++; });
   if (n > 0) {
-    badge.textContent = String(n);
-    badge.style.display = "inline-block";
-    if (clearBtn) clearBtn.style.display = "inline-block";
+    badges.forEach((b) => { b.textContent = String(n); b.style.display = "inline-block"; });
+    clearBtns.forEach((c) => { c.style.display = "inline-block"; });
   } else {
-    badge.style.display = "none";
-    if (clearBtn) clearBtn.style.display = "none";
+    badges.forEach((b) => { b.style.display = "none"; });
+    clearBtns.forEach((c) => { c.style.display = "none"; });
   }
 }
 
