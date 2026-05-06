@@ -180981,9 +180981,13 @@ function _renderBanners() {
       const el = document.getElementById(id);
       if (el) el.classList.remove("has-active");
     });
-    // Also hide all individual slots (left over from a previous user role)
+    // Also hide all individual slots (left over from a previous user role).
+    // Mobile shows only top 2 corners (slots 1 + 3) — mobile slots 2 + 4
+    // were removed in v131. Desktop still has all 4 corners.
     [1, 2, 3, 4].forEach((i) => {
       _bannerApplyToSlot(`noyo-ad-slot-${i}`, `noyo-ad-img-${i}`, null, false);
+    });
+    [1, 3].forEach((i) => {
       _bannerApplyToSlot(`noyo-ad-slot-mb-${i}`, `noyo-ad-img-mb-${i}`, null, false);
     });
     return;
@@ -180995,10 +180999,14 @@ function _renderBanners() {
     const slot = _bannerCache[slotId];
     const isLive = _bannerIsLive(slot);
     if (isLive) anyActive = true;
-    // Position 1 (idx 0) → left rail top, 2 → left rail bottom, 3 → right top, 4 → right bottom
+    // Position 1 (idx 0) → top-left corner, 2 → bottom-left, 3 → top-right, 4 → bottom-right
     const desktopAnchor = idx + 1; // 1..4
     _bannerApplyToSlot(`noyo-ad-slot-${desktopAnchor}`, `noyo-ad-img-${desktopAnchor}`, slot, isLive);
-    _bannerApplyToSlot(`noyo-ad-slot-mb-${desktopAnchor}`, `noyo-ad-img-mb-${desktopAnchor}`, slot, isLive);
+    // Mobile only shows top-left (1) and top-right (3) — the other slots
+    // are skipped on mobile to keep the layout clean on small screens.
+    if (desktopAnchor === 1 || desktopAnchor === 3) {
+      _bannerApplyToSlot(`noyo-ad-slot-mb-${desktopAnchor}`, `noyo-ad-img-mb-${desktopAnchor}`, slot, isLive);
+    }
   });
   // Reveal/hide the rails as a whole (CSS media queries handle which rail
   // is visible at this viewport — we just mark it as has-active or not).
