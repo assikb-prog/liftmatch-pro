@@ -181033,9 +181033,19 @@ function _bannerApplyToSlot(slotElId, imgElId, slot, isLive) {
   el.style.display = "block";
   img.src = slot.imageUrl;
   img.alt = slot.label || "Advertisement";
-  // Click-through: only set href if clickEnabled + clickUrl present
+  // Click-through: only set href if clickEnabled + clickUrl present.
+  // v131 fix: normalize the URL — if admin enters "www.tradieshire.com.au"
+  // (no scheme), the browser treats it as a RELATIVE path and tries to
+  // navigate to noyo.com.au/www.tradieshire.com.au/ which 404s. Always
+  // ensure the URL has a scheme prefix before assigning to href.
   if (slot.clickEnabled && slot.clickUrl) {
-    el.href = slot.clickUrl;
+    let _url = String(slot.clickUrl).trim();
+    if (_url && !/^https?:\/\//i.test(_url) && !/^mailto:/i.test(_url) && !/^tel:/i.test(_url)) {
+      // Strip any leading "//" the admin may have typed, then prepend https://
+      _url = _url.replace(/^\/+/, "");
+      _url = "https://" + _url;
+    }
+    el.href = _url;
     el.classList.add("clickable");
   } else {
     el.removeAttribute("href");
