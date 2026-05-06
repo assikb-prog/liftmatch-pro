@@ -149944,26 +149944,261 @@ function _renderCards(matches, machineType, answers) {
         }
       }
 
-      // Reach check: compute reach at required height if not already done
-      if (_spGateRe > 0 && _spGateMaxR >= _spGateRe) {
-        // maxReach passes brochure check — now verify reach at the required height
-        if (
-          spMachine._reachAtReqHt == null &&
-          _spGateHt > 0 &&
-          typeof getReachAtHeight === "function"
-        ) {
-          try {
-            spMachine._reachAtReqHt = getReachAtHeight(spMachine, _spGateHt);
-          } catch (e) {}
+      // Reach check: a machine must deliver the required reach AT THE REQUIRED
+      // HEIGHT, not just at brochure max (which is usually at ground or low
+      // height). v131 fix: previously this gate accepted any machine whose
+      // brochure maxReach >= requested reach, then attempted to compute reach
+      // at the actual requested height — but if getReachAtHeight() returned
+      // null (no envelope data, or height beyond chart), it silently fell
+      // through and the machine passed. That's how a Genie Z-40/23 N (max
+      // 7.04m reach at 0m) surfaced for a 11m + 5m request, when its actual
+      // reach at 11m is only ~4.7m. The boom envelope shrinks dramatically
+      // as height approaches the platform max — at >85% of platform height,
+      // articulating boom reach typically falls to 30-50% of brochure max.
+      //
+      // New rule: when a reach requirement is set, we MUST be able to prove
+      // the machine delivers it at the required height. If proof isn't
+      // available (no envelope data) AND the customer is operating at high
+      // platform-height utilization, skip the sponsored slot. Better an
+      // empty sponsored slot than a misleading paid placement.
+      if (_spGateRe > 0) {
+        // Stage 1: brochure max reach must at least cover the requirement.
+        if (_spGateMaxR < _spGateRe) {
+          if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+            console.log(
+              `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — brochure max reach ${_spGateMaxR}m < required ${_spGateRe}m.`,
+            );
+          }
+          return;
         }
-        const _spActualReach =
-          spMachine._reachAtReqHt != null
-            ? spMachine._reachAtReqHt
-            : _spGateMaxR;
-        if (_spActualReach < _spGateRe - 0.3) return; // can't reach at required height
-      } else if (_spGateRe > 0 && _spGateMaxR < _spGateRe) {
-        return; // brochure max reach itself is insufficient
+        // Stage 2: try to compute reach at the actual required height.
+        let _spProvenReach = null;
+        if (_spGateHt > 0 && typeof getReachAtHeight === "function") {
+          if (spMachine._reachAtReqHt == null) {
+            try {
+              spMachine._reachAtReqHt = getReachAtHeight(spMachine, _spGateHt);
+            } catch (e) {}
+          }
+          _spProvenReach = spMachine._reachAtReqHt;
+        }
+        // Stage 3: enforce.
+        if (_spProvenReach != null) {
+          // We have a definitive answer from the envelope. Enforce strictly
+          // (no 0.3m grace — sponsored slots must be unambiguously capable).
+          if (_spProvenReach < _spGateRe) {
+            if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+              console.log(
+                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — reach at ${_spGateHt}m height is only ${_spProvenReach.toFixed(2)}m, customer needs ${_spGateRe}m.`,
+              );
+            }
+            return;
+          }
+        } else {
+          // No envelope data. If the customer is operating at >75% of the
+          // machine's platform height, the boom is in its "tall and skinny"
+          // zone where reach falls off quickly. Skip rather than guess.
+          // Below 75% utilization, the brochure max reach is usually a
+          // reasonable proxy.
+          if (_spGatePlatH > 0 && _spGateHt / _spGatePlatH > 0.75) {
+            if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+              console.log(
+                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — no envelope data and customer needs ${_spGateRe}m reach at ${_spGateHt}m height (${Math.round((_spGateHt/_spGatePlatH)*100)}% of platform max), reach unprovable.`,
+              );
+            }
+            return;
+          }
+        }
       }
+
+      // ──────────────────────────────────────────────────────────────────
+      // STRICT MODE — comprehensive capability gate (v131)
+      // Founder rule: "do not show any under-rated machine — not in weight,
+      // width, length, or any other dimension". Every dimension below must
+      // be either irrelevant to this machineType or definitively passing.
+      // ANY ambiguity = skip. Better an empty sponsored slot than a paid
+      // placement that misleads the customer.
+      // ──────────────────────────────────────────────────────────────────
+      {
+        const _spStrictDbg = (reason) => {
+          if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+            console.log(`[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): STRICT skip — ${reason}`);
+          }
+        };
+
+        // ── 1. BASKET SWL (boom / scissor / push-around) ─────────────────
+        // The customer's required-on-platform weight (people + tools) must
+        // be ≤ the machine's manufacturer-rated platform SWL. Catalog filter
+        // already handled the telehandler/forklift case via _reqKg; this
+        // covers personnel-lift categories.
+        const _spBasketKgReq = parseFloat(
+          (answers || {}).boom_swl_kg ||
+          (answers || {}).ppl_swl_kg ||
+          (answers || {}).scis_swl_kg ||
+          0,
+        ) || 0;
+        if (_spBasketKgReq > 0 && (machineType === "boom" || machineType === "scissor" || machineType === "pushAround")) {
+          const _spBasketKg = spMachine.swl || spMachine.capacity || 0;
+          if (_spBasketKg > 0 && _spBasketKg < _spBasketKgReq) {
+            _spStrictDbg(`platform SWL ${_spBasketKg} kg < required ${_spBasketKgReq} kg`);
+            return;
+          }
+        }
+
+        // ── 2. OCCUPANCY (1-person rating not safe for 2+ requests) ──────
+        // Hard skip — was a soft warning before. If the customer asked for
+        // 2+ people, a 1-person-rated machine cannot ever be a sponsored
+        // slot. The warning still applies on organic cards (where the
+        // customer needs visibility), but a paid placement must never be
+        // a machine that fails this check.
+        const _spTwoPersonReq =
+          (answers || {}).people_crew === "multi" ||
+          (answers || {}).people_count === "2" ||
+          (answers || {}).ppl_people === "two_plus";
+        const _spIsPeopleCat =
+          machineType === "scissor" ||
+          machineType === "pushAround" ||
+          machineType === "boom";
+        let _spOccCount;
+        if (typeof spMachine.maxOccupancy === "number") {
+          _spOccCount = spMachine.maxOccupancy;
+        } else if (machineType === "scissor") {
+          _spOccCount = 2;
+        } else {
+          _spOccCount = 1;
+        }
+        if (_spIsPeopleCat && _spTwoPersonReq && _spOccCount < 2) {
+          _spStrictDbg(`maxOccupancy ${_spOccCount} < required 2+`);
+          return;
+        }
+
+        // ── 3. DRIVE-AT-HEIGHT capability ────────────────────────────────
+        // Hard skip — was a soft warning before. If the customer needs to
+        // drive at full height (long pipe runs, ceiling grid), a push-
+        // around lift physically cannot do it. Skip.
+        const _spWantsDrive =
+          (answers || {}).scissor_drive_at_height === "yes" ||
+          (answers || {}).boom_drive_at_height === "yes";
+        if (_spIsPeopleCat && _spWantsDrive && !spMachine.driveAtHeight) {
+          _spStrictDbg(`customer wants drive-at-height; machine does not support it`);
+          return;
+        }
+
+        // ── 4. INDOOR/EMISSIONS — diesel cannot serve indoor request ────
+        // Already filtered for boom + power-pref combo upstream. Cover the
+        // case where customer says indoor but didn't set explicit power
+        // preference — a diesel sponsored slot is wrong on an indoor job.
+        const _spIsIndoorReq =
+          (answers || {}).people_location === "indoor" ||
+          (answers || {}).boom_terrain === "indoor_boom" ||
+          (answers || {}).scis_terrain === "indoor_scis" ||
+          (answers || {}).fork_location === "indoor_fork";
+        if (_spIsIndoorReq && _spIsPeopleCat) {
+          const _spPwr = (spMachine.power || "").toLowerCase();
+          // Diesel-only machines (no electric/hybrid mode) banned on indoor jobs
+          if (_spPwr.includes("diesel") && !_spPwr.includes("electric") && !_spPwr.includes("hybrid") && !_spPwr.includes("bi-energy") && !_spPwr.includes("dual")) {
+            _spStrictDbg(`indoor job; machine power "${spMachine.power}" is diesel-only`);
+            return;
+          }
+        }
+
+        // ── 5. CONTAINER MAST (forklifts) ───────────────────────────────
+        if (machineType === "forklift" && (answers || {}).need_container_mast === "yes") {
+          if (!spMachine.containerMast && !spMachine.containerMastReady) {
+            _spStrictDbg(`customer requires container mast; machine doesn't have one`);
+            return;
+          }
+        }
+
+        // ── 6. FORKLIFT residual capacity at requested lift height ──────
+        const _spForkReqKg = parseFloat((answers || {}).load_weight_kg || 0) || 0;
+        const _spForkReqHt = parseFloat((answers || {}).fork_lift_ht_m || 0) || 0;
+        const _spForkLC = parseFloat((answers || {}).load_centre_mm || 600) || 600;
+        if (machineType === "forklift" && _spForkReqKg > 0) {
+          // Rated capacity check (always done at 600mm LC ground level)
+          const _spRatedKg = (spMachine.capacity || 0) > 100 ? (spMachine.capacity || 0) : (spMachine.capacity || 0) * 1000;
+          if (_spRatedKg > 0 && _spRatedKg < _spForkReqKg) {
+            _spStrictDbg(`rated capacity ${_spRatedKg} kg < required ${_spForkReqKg} kg`);
+            return;
+          }
+          // Residual at full mast height — if known on the machine and below
+          // requirement at the customer's load centre, skip.
+          // (Schema: spMachine.residualKg600 / residualKg900 / residualKg1200)
+          if (_spForkReqHt > 0) {
+            let _spResidualKg = null;
+            if (_spForkLC <= 700) _spResidualKg = spMachine.residualKg600 || null;
+            else if (_spForkLC <= 1000) _spResidualKg = spMachine.residualKg900 || null;
+            else _spResidualKg = spMachine.residualKg1200 || null;
+            const _spLiftMax = spMachine.liftHeight || spMachine.platformHeight || 0;
+            if (_spResidualKg !== null && _spLiftMax > 0) {
+              // Linear interpolation between rated@ground and residual@full
+              const _spFrac = Math.min(_spForkReqHt / _spLiftMax, 1.0);
+              const _spInterpKg = _spRatedKg - _spFrac * (_spRatedKg - _spResidualKg);
+              if (_spInterpKg < _spForkReqKg) {
+                _spStrictDbg(`forklift residual ~${Math.round(_spInterpKg)} kg at ${_spForkReqHt}m / ${_spForkLC}mm LC < required ${_spForkReqKg} kg`);
+                return;
+              }
+            }
+          }
+        }
+
+        // ── 7. TELEHANDLER attachment compatibility ──────────────────────
+        const _spTeleAttRaw = (answers || {}).tele_attachment || "";
+        const _spTeleAttArr = Array.isArray(_spTeleAttRaw)
+          ? _spTeleAttRaw
+          : String(_spTeleAttRaw).split(",").filter(Boolean);
+        if ((machineType === "telehandler" || machineType === "rotating") && _spTeleAttArr.length) {
+          const _spMachAtt = spMachine.attachments || [];
+          const _spMachAttKeys = _spMachAtt.map((a) =>
+            (typeof a === "string" ? a : a.key || a.name || "").toLowerCase(),
+          );
+          for (const _spReq of _spTeleAttArr) {
+            const _spReqKey = String(_spReq).toLowerCase();
+            // Map common quiz keys to machine attachment keys
+            const _spReqAlias = {
+              jib: ["jib", "fixed_jib", "extension_jib"],
+              fork_mounted_jib: ["fork_mounted_jib", "fork_jib", "jib_fork"],
+              winch: ["winch", "fly_jib_winch"],
+              man_basket: ["man_basket", "basket", "platform"],
+              hook: ["hook", "lifting_hook"],
+              bucket: ["bucket"],
+              rotator: ["rotator", "fork_rotator"],
+            };
+            const _spAliases = _spReqAlias[_spReqKey] || [_spReqKey];
+            const _spHasIt = _spAliases.some((al) =>
+              _spMachAttKeys.some((mk) => mk.includes(al)),
+            );
+            if (!_spHasIt) {
+              _spStrictDbg(`required attachment "${_spReqKey}" not available on machine`);
+              return;
+            }
+          }
+        }
+
+        // ── 8. ROTATING capability (telehandler "needs rotation") ────────
+        if (machineType === "telehandler" && (answers || {}).tele_rotation === "yes") {
+          if (!spMachine.isRotating) {
+            _spStrictDbg(`customer needs rotation; machine is not rotating`);
+            return;
+          }
+        }
+
+        // ── 9. ARTICULATING vs TELESCOPIC strict (when explicit) ─────────
+        if (machineType === "boom" && (answers || {}).boom_type_pref === "boom_articulating") {
+          if (spMachine.boomType && spMachine.boomType !== "articulating") {
+            _spStrictDbg(`customer wants articulating; machine is ${spMachine.boomType}`);
+            return;
+          }
+        }
+        if (machineType === "boom" && (answers || {}).boom_type_pref === "boom_telescopic") {
+          if (spMachine.boomType && spMachine.boomType !== "telescopic") {
+            _spStrictDbg(`customer wants telescopic; machine is ${spMachine.boomType}`);
+            return;
+          }
+        }
+      }
+      // ──────────────────────────────────────────────────────────────────
+      // END STRICT MODE GATE
+      // ──────────────────────────────────────────────────────────────────
 
       // Track this brand so organic results can be deduplicated
       if (spMachine.brand) _shownSponsoredBrands.add(spMachine.brand);
@@ -150085,6 +150320,14 @@ function _renderCards(matches, machineType, answers) {
               : _spMaxR;
           const _spReOk = !_spReqRe || _spReachAtHt >= _spReqRe;
           if (!_spReqHt && !_spReqRe) return "";
+          // v131 defense-in-depth: a sponsored slot that passed the capability
+          // gate above MUST be capable. If for any reason the match-status
+          // rendering computes a failure, hide the entire match panel rather
+          // than display scary red ⚠️ chips on a paid placement (which would
+          // both look bad and contradict the "this machine can do the job"
+          // promise the gate already enforced). The gate is the source of
+          // truth; this panel is just a green confidence signal.
+          if (!_spHtOk || !_spReOk) return "";
           return `<div style="display:grid;grid-template-columns:${_spReqRe > 0 ? "1fr 1fr" : "1fr"};gap:.4rem;margin:.55rem 0">
             ${
               _spReqHt > 0
