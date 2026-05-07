@@ -1700,15 +1700,8 @@
       </div>
       <div id="admin-rc-approval-queue" style="margin-bottom:1rem"></div>
       <div class="admin-table-wrap" style="overflow-x:auto">
-        <table class="admin-table" style="min-width:900px">
-          <thead><tr>
-            <th>Company</th><th>🟢 Live</th><th>Contact</th><th>Email</th><th>Mobile</th><th>ABN</th>
-            <th>Depot Suburb</th><th>City</th><th>State</th><th>Metro Radius</th>
-            <th>🏗️ Rural</th>
-            <th>Categories</th><th>Registered</th><th>Plan</th><th>Status</th><th>⏱️ Online (mo)</th><th>Actions</th>
-          </tr></thead>
-          <tbody id="admin-rentalcos-tbody"></tbody>
-        </table>
+        <!-- v140: card-style layout (replaces 17-col table) -->
+        <div id="admin-rentalcos-tbody" style="display:flex;flex-direction:column;gap:.55rem"></div>
       </div>
     </div>
 
