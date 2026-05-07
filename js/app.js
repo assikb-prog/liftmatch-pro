@@ -159558,6 +159558,18 @@ function enquiryVisibleToCompany(req, company) {
   // Withdrawn enquiries are never visible to rental companies
   if (req.withdrawn) return false;
 
+  // v135: Privacy cutoff — rental companies cannot see enquiries that were
+  // created before they registered. This applies even if the acceptance
+  // window is still open: the enquiry was routed to other companies; a
+  // newly-registered company isn't a real recipient. Hardcoded/seed/demo
+  // companies (no registeredAt) keep full visibility for testing.
+  if (company && !company.isHardcoded && company.registeredAt) {
+    const _coRegMs = new Date(company.registeredAt).getTime();
+    if (Number.isFinite(_coRegMs) && (req.ts || 0) < _coRegMs) {
+      return false;
+    }
+  }
+
   // Zero-radius sentinel — no depot configured, block all enquiries
   if (company.serviceRadiusKm === 0 && !company.baseCity) return false;
 
@@ -183463,9 +183475,29 @@ function renderQuoteRequests() {
   // Resolve this user's company for location-based filtering
   const _qrUserCompany = _resolveUserCompany();
 
+  // v135: Privacy filter — new rental companies must NOT see enquiries that
+  // predate their registration. Even if such enquiries are still "open"
+  // (acceptance window unexpired), they were sent to other companies; the
+  // newly-registered company isn't a real recipient. Once an enquiry's
+  // acceptance window closes, it is also hidden from the new company —
+  // historical enquiries are NOT visible to anyone who joined later.
+  // Hardcoded/seed/demo companies (no registeredAt) keep full visibility.
+  const _qrCompanyRegisteredAtMs = (() => {
+    if (!_qrUserCompany) return 0;
+    if (_qrUserCompany.isHardcoded) return 0; // seed companies see everything
+    const ra = _qrUserCompany.registeredAt;
+    if (!ra) return 0;
+    const t = new Date(ra).getTime();
+    return Number.isFinite(t) ? t : 0;
+  })();
+
   const rawLeads = [...quoteInbox].filter((req) => {
     // Never show own enquiries
     if ((req.email || "").toLowerCase() === userEmail) return false;
+    // v135: privacy cutoff — drop enquiries created before this company registered
+    if (_qrCompanyRegisteredAtMs && (req.ts || 0) < _qrCompanyRegisteredAtMs) {
+      return false;
+    }
     // Filter by service area if we have depot data
     if (_qrUserCompany) return enquiryVisibleToCompany(req, _qrUserCompany);
     return true;
