@@ -172275,40 +172275,126 @@ async function _getAllPendingRentalCos() {
   return results;
 }
 
+// v137: AU city → state map for hardcoded rental cos that lack a `state` field.
+// Used by the admin Rental Cos table so State filter and column display correctly.
+const _AU_CITY_STATE = {
+  // NSW
+  "Sydney":"NSW","Newcastle":"NSW","Wollongong":"NSW","Central Coast":"NSW","Albury":"NSW",
+  "Wagga Wagga":"NSW","Coffs Harbour":"NSW","Tamworth":"NSW","Orange":"NSW","Dubbo":"NSW",
+  // VIC
+  "Melbourne":"VIC","Geelong":"VIC","Ballarat":"VIC","Bendigo":"VIC","Shepparton":"VIC",
+  "Mildura":"VIC","Warrnambool":"VIC","Traralgon":"VIC",
+  // QLD
+  "Brisbane":"QLD","Gold Coast":"QLD","Sunshine Coast":"QLD","Townsville":"QLD","Cairns":"QLD",
+  "Toowoomba":"QLD","Mackay":"QLD","Rockhampton":"QLD","Bundaberg":"QLD","Hervey Bay":"QLD",
+  "Gladstone":"QLD","Ipswich":"QLD","Logan":"QLD",
+  // WA
+  "Perth":"WA","Bunbury":"WA","Geraldton":"WA","Kalgoorlie":"WA","Albany":"WA","Mandurah":"WA",
+  "Karratha":"WA","Port Hedland":"WA","Broome":"WA",
+  // SA
+  "Adelaide":"SA","Mount Gambier":"SA","Whyalla":"SA","Port Augusta":"SA","Port Lincoln":"SA",
+  // TAS
+  "Hobart":"TAS","Launceston":"TAS","Devonport":"TAS","Burnie":"TAS",
+  // ACT
+  "Canberra":"ACT",
+  // NT
+  "Darwin":"NT","Alice Springs":"NT","Palmerston":"NT","Katherine":"NT",
+};
+
+function _stateForCity(city) {
+  if (!city) return "";
+  return _AU_CITY_STATE[city.trim()] || "";
+}
+
 async function _getAllRegisteredRentalCos() {
   const results = [];
+
+  // ── 1) Hardcoded depots from RENTAL_COMPANIES (the seeded fleet, ~45 cos) ──
+  // These are pre-loaded depots: always shown so admin can filter/search them
+  // alongside any newly-registered Firestore-backed cos.
   try {
-    const snap = await _fbDb.collection("rental_profiles").get();
-    snap.forEach((doc) => {
-      const d = doc.data();
-      results.push({
-        email: d.email,
-        name: d.companyName || d.email,
-        company: d.companyName || "",
-        abn: d.abn || "",
-        mobile: d.phone || "",
-        address: d.address || "",
-        suburb: d.suburb || "",
-        city: d.city || "",
-        state: d.state || "",
-        serviceRadiusKm: d.serviceRadiusKm || 75,
-        baseCity: d.city || "",
-        ruralOptIn: d.ruralOptIn || false,
-        ruralRadiusKm: d.ruralRadiusKm || 0,
-        sectors: d.sectors || [],
-        approvalStatus: d.approvalStatus || "approved",
-        registeredAt: d.registeredAt || "",
-        active: d.active !== false,
-        isHardcoded: false,
-        id: doc.id,
-        plan: d.plan || null,
-        enquiriesUsed: parseInt(d.enquiriesUsed || 0, 10),
-        planActiveSince: d.planActiveSince || "",
+    if (Array.isArray(RENTAL_COMPANIES)) {
+      RENTAL_COMPANIES.forEach((c) => {
+        const city = c.baseCity || c.city || "";
+        results.push({
+          email: c.email || "",
+          name: c.name || c.email || "",
+          company: c.name || "",
+          abn: c.abn || "",
+          mobile: c.phone || "",
+          address: c.address || "",
+          suburb: c.suburb || city,
+          city,
+          state: c.state || _stateForCity(city),
+          serviceRadiusKm: c.serviceRadiusKm || 75,
+          baseCity: city,
+          ruralOptIn: c.ruralOptIn || false,
+          ruralRadiusKm: c.ruralRadiusKm || 0,
+          sectors:
+            c.sectors && c.sectors.length
+              ? c.sectors
+              : (c.machines || "")
+                  .split(/[,;]\s*/)
+                  .filter((s) => s),
+          approvalStatus: "approved", // pre-loaded depots are pre-approved
+          registeredAt: "",
+          active: c.active !== false,
+          isHardcoded: true,
+          id: c.id || c.email,
+          plan: c.plan || null,
+          enquiriesUsed: 0,
+          planActiveSince: "",
+        });
       });
-    });
+    }
   } catch (e) {
-    console.warn("Could not load rental cos:", e.message);
+    console.warn("Could not load hardcoded rental cos:", e.message);
   }
+
+  // ── 2) Firestore-backed registrations (real signups) ──
+  try {
+    if (typeof _fbDb !== "undefined" && _fbDb) {
+      const snap = await _fbDb.collection("rental_profiles").get();
+      snap.forEach((doc) => {
+        const d = doc.data();
+        const city = d.city || "";
+        // De-dup: if hardcoded already has this email, replace (Firestore wins)
+        const existIdx = results.findIndex(
+          (r) => r.email && r.email === d.email,
+        );
+        const merged = {
+          email: d.email,
+          name: d.companyName || d.email,
+          company: d.companyName || "",
+          abn: d.abn || "",
+          mobile: d.phone || "",
+          address: d.address || "",
+          suburb: d.suburb || "",
+          city,
+          state: d.state || _stateForCity(city),
+          serviceRadiusKm: d.serviceRadiusKm || 75,
+          baseCity: city,
+          ruralOptIn: d.ruralOptIn || false,
+          ruralRadiusKm: d.ruralRadiusKm || 0,
+          sectors: d.sectors || [],
+          approvalStatus: d.approvalStatus || "approved",
+          registeredAt: d.registeredAt || "",
+          active: d.active !== false,
+          isHardcoded: false,
+          id: doc.id,
+          plan: d.plan || null,
+          enquiriesUsed: parseInt(d.enquiriesUsed || 0, 10),
+          planActiveSince: d.planActiveSince || "",
+        };
+        if (existIdx > -1) results[existIdx] = merged;
+        else results.push(merged);
+      });
+    }
+  } catch (e) {
+    console.warn("Could not load Firestore rental profiles:", e.message);
+    // Don't return [] — keep the hardcoded depots visible even if Firestore fails
+  }
+
   return results;
 }
 
@@ -172545,13 +172631,52 @@ async function renderAdminRentalCos() {
   ).toLowerCase();
   const statusF =
     document.getElementById("admin-rc-status-filter")?.value || "";
+  // v137: state + city filters
+  const stateF = (
+    document.getElementById("admin-rc-state-filter")?.value || ""
+  ).trim();
+  const cityF = (
+    document.getElementById("admin-rc-city-filter")?.value || ""
+  ).trim();
   const tbody = document.getElementById("admin-rentalcos-tbody");
   const queueDiv = document.getElementById("admin-rc-approval-queue");
   if (!tbody) return;
 
   tbody.innerHTML =
-    '<tr><td colspan="10" style="text-align:center;color:#94a3b8;padding:2rem">Loading…</td></tr>';
+    '<tr><td colspan="15" style="text-align:center;color:#94a3b8;padding:2rem">Loading…</td></tr>';
   const all = await _getAllRegisteredRentalCos();
+
+  // v137: populate State + City dropdowns from the actual data, preserving
+  // the user's current selection across re-renders.
+  try {
+    const stateSel = document.getElementById("admin-rc-state-filter");
+    const citySel = document.getElementById("admin-rc-city-filter");
+    if (stateSel) {
+      const states = Array.from(
+        new Set(all.map((c) => c.state).filter(Boolean)),
+      ).sort();
+      const cur = stateSel.value;
+      stateSel.innerHTML =
+        '<option value="">All States</option>' +
+        states.map((s) => `<option value="${s}">${s}</option>`).join("");
+      stateSel.value = cur;
+    }
+    if (citySel) {
+      // Cities scoped to current state (if any) — else all cities
+      const pool = stateF ? all.filter((c) => c.state === stateF) : all;
+      const cities = Array.from(
+        new Set(pool.map((c) => c.city).filter(Boolean)),
+      ).sort();
+      const cur = citySel.value;
+      citySel.innerHTML =
+        '<option value="">All Cities</option>' +
+        cities.map((s) => `<option value="${s}">${s}</option>`).join("");
+      // Only retain previous city selection if still valid for the new state
+      citySel.value = cities.includes(cur) ? cur : "";
+    }
+  } catch (e) {
+    console.warn("Filter dropdown population failed:", e.message);
+  }
 
   // Pending approval alert queue
   const pending = all.filter((c) => c.approvalStatus === "pending");
@@ -172600,13 +172725,18 @@ async function renderAdminRentalCos() {
         return false;
       if (statusF === "rejected" && c.approvalStatus !== "rejected")
         return false;
+      // v137: state + city filters (exact match on canonical value)
+      if (stateF && c.state !== stateF) return false;
+      if (cityF && c.city !== cityF) return false;
       if (
         filter &&
-        !c.company.toLowerCase().includes(filter) &&
-        !c.email.toLowerCase().includes(filter) &&
-        !c.city.toLowerCase().includes(filter) &&
-        !c.abn.toLowerCase().includes(filter) &&
-        !c.name.toLowerCase().includes(filter)
+        !(c.company || "").toLowerCase().includes(filter) &&
+        !(c.email || "").toLowerCase().includes(filter) &&
+        !(c.city || "").toLowerCase().includes(filter) &&
+        !(c.state || "").toLowerCase().includes(filter) &&
+        !(c.suburb || "").toLowerCase().includes(filter) &&
+        !(c.abn || "").toLowerCase().includes(filter) &&
+        !(c.name || "").toLowerCase().includes(filter)
       )
         return false;
       return true;
@@ -183491,12 +183621,37 @@ function renderQuoteRequests() {
     return Number.isFinite(t) ? t : 0;
   })();
 
+  // v136: detect "brand-new" rental company — one that has never submitted
+  // a quote response on any enquiry. Brand-new cos see only OPEN enquiries
+  // (no closed/expired/awarded clutter on their first impression). Once
+  // they quote on something, history visibility unlocks automatically so
+  // they can track their own won/lost quotes going forward.
+  const _qrIsBrandNew = (() => {
+    if (!_qrUserCompany) return false;
+    if (_qrUserCompany.isHardcoded) return false; // seed cos see everything
+    const myCoName = currentUser?.name;
+    if (!myCoName) return false;
+    const hasAnyResponse = (quoteInbox || []).some((r) =>
+      (r.responses || []).some((rsp) => rsp.company === myCoName),
+    );
+    return !hasAnyResponse;
+  })();
+
   const rawLeads = [...quoteInbox].filter((req) => {
     // Never show own enquiries
     if ((req.email || "").toLowerCase() === userEmail) return false;
     // v135: privacy cutoff — drop enquiries created before this company registered
     if (_qrCompanyRegisteredAtMs && (req.ts || 0) < _qrCompanyRegisteredAtMs) {
       return false;
+    }
+    // v136: brand-new rental cos see only OPEN enquiries — no closed history.
+    // Closed = acceptance window expired OR awarded to another company.
+    if (_qrIsBrandNew) {
+      const _now = Date.now();
+      const _windowExpired = req.expires && req.expires <= _now;
+      const _awardedAway =
+        req.acceptedBy && req.acceptedBy !== currentUser?.name;
+      if (_windowExpired || _awardedAway) return false;
     }
     // Filter by service area if we have depot data
     if (_qrUserCompany) return enquiryVisibleToCompany(req, _qrUserCompany);
