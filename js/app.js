@@ -172503,6 +172503,101 @@ async function adminRejectRentalCo(email) {
   showToast("Application rejected.", "#EF4444");
 }
 
+// ── v140: Admin delete rental co (ghost cleanup + manual removal) ────
+// Argument format: 'email:foo@bar.com' or 'id:xyz123'.
+// Hardcoded depots (from RENTAL_COMPANIES) cannot be deleted via this UI
+// because they would re-appear on next page load.
+async function adminDeleteRentalCo(arg) {
+  if (!arg || typeof arg !== "string") return;
+  const isEmail = arg.startsWith("email:");
+  const isId = arg.startsWith("id:");
+  if (!isEmail && !isId) {
+    console.warn("[adminDeleteRentalCo] Invalid arg format:", arg);
+    return;
+  }
+  const value = arg.slice(arg.indexOf(":") + 1);
+  if (!value) {
+    if (isId) {
+      alert(
+        "Cannot delete: this record has no ID. It may be a hardcoded depot — those can't be deleted from the admin UI.",
+      );
+    }
+    return;
+  }
+  const label = isEmail ? value : `record ${value}`;
+  const ok = confirm(
+    `⚠️ Delete rental company "${label}"?\n\nThis permanently removes:\n  • The rental_profiles document\n  • The associated users record (if any)\n  • Their plan and billing history\n\nThis cannot be undone. The company will need to re-register from scratch.\n\nProceed?`,
+  );
+  if (!ok) return;
+
+  let deletedCount = 0;
+  let errors = [];
+
+  try {
+    if (typeof _fbDb === "undefined" || !_fbDb) {
+      alert("❌ Firestore not available. Cannot delete.");
+      return;
+    }
+    // 1) Delete rental_profiles doc
+    try {
+      let snap;
+      if (isEmail) {
+        snap = await _fbDb
+          .collection("rental_profiles")
+          .where("email", "==", value)
+          .get();
+      } else {
+        const docRef = _fbDb.collection("rental_profiles").doc(value);
+        const doc = await docRef.get();
+        snap = { empty: !doc.exists, docs: doc.exists ? [doc] : [] };
+      }
+      if (snap && !snap.empty) {
+        for (const d of snap.docs) {
+          await d.ref.delete();
+          deletedCount++;
+        }
+      }
+    } catch (e) {
+      errors.push(`rental_profiles: ${e.message}`);
+    }
+    // 2) Delete users doc (if email provided)
+    if (isEmail) {
+      try {
+        const uSnap = await _fbDb
+          .collection("users")
+          .where("email", "==", value)
+          .get();
+        if (!uSnap.empty) {
+          for (const d of uSnap.docs) {
+            await d.ref.delete();
+            deletedCount++;
+          }
+        }
+      } catch (e) {
+        errors.push(`users: ${e.message}`);
+      }
+    }
+  } catch (outerErr) {
+    errors.push(`outer: ${outerErr.message}`);
+  }
+
+  if (deletedCount > 0) {
+    showToast(
+      `🗑️ Deleted ${deletedCount} record${deletedCount > 1 ? "s" : ""}${errors.length ? " (with warnings — see console)" : ""}.`,
+      "#DC2626",
+    );
+  } else {
+    alert(
+      `Nothing was deleted. The record may not exist in Firestore.\n\nErrors:\n${errors.join("\n") || "(none)"}`,
+    );
+  }
+  if (errors.length) console.warn("[adminDeleteRentalCo] Errors:", errors);
+
+  // Refresh the table
+  renderAdminRentalCos();
+  _updateRcTabBadge();
+}
+
 // ── Admin plan management ────────────────────────────────────────────
 
 function openAdminPlanModal(email, currentPlan, usedStr) {
@@ -172660,7 +172755,7 @@ async function renderAdminRentalCos() {
   if (!tbody) return;
 
   tbody.innerHTML =
-    '<tr><td colspan="17" style="text-align:center;color:#94a3b8;padding:2rem">Loading…</td></tr>';
+    '<div style="text-align:center;color:#94a3b8;padding:2rem">Loading…</div>';
 
   // v138: outer try/catch guarantees the Loading… state never persists.
   // If anything throws — Firestore hang, undefined helper, malformed record —
@@ -172675,7 +172770,7 @@ async function renderAdminRentalCos() {
     );
   } catch (e) {
     console.error("[Noyo Admin] Failed to load rental cos:", e);
-    tbody.innerHTML = `<tr><td colspan="17" style="text-align:center;color:#DC2626;padding:2rem">Error loading rental companies: ${e.message}. Open DevTools console for details.</td></tr>`;
+    tbody.innerHTML = `<div style="text-align:center;color:#DC2626;padding:2rem">Error loading rental companies: ${e.message}. Open DevTools console for details.</div>`;
     return;
   }
   if (!Array.isArray(all)) all = [];
@@ -172811,89 +172906,135 @@ async function renderAdminRentalCos() {
             typeof getOnlineIndicator === "function" && c.email
               ? getOnlineIndicator(c.email)
               : { color: "#CBD5E1", label: "—", title: "Tracking unavailable" };
-          const liveCellHtml = `<span title="${liveInd.title}" style="display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;color:#475569;white-space:nowrap">
-            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${liveInd.color};box-shadow:0 0 0 2px ${liveInd.color}22"></span>
-            ${liveInd.label}
-          </span>`;
           const monthMins =
             typeof getMonthlyMinutes === "function" && c.email
               ? getMonthlyMinutes(c.email)
               : 0;
-          const monthCellHtml = monthMins
-            ? `<span style="font-size:.78rem;font-weight:700;color:#0F172A">${_formatMinutes(monthMins)}</span>`
-            : `<span style="color:#CBD5E1;font-size:.75rem">—</span>`;
-          const planBadge = planCfg
-            ? `<div style="font-weight:800;font-size:.78rem;color:${planCfg.color}">${planCfg.label}</div>
-         <div style="font-size:.7rem;color:#64748B">${rem}/${included} left</div>`
-            : `<span style="color:#CBD5E1;font-size:.75rem">—</span>`;
+          // v140: rural opt-in helper (used to be inline)
+          let optIn = c.ruralOptIn === true || c.ruralOptIn === "1";
+          let ruralKm = c.ruralRadiusKm || 0;
+          try {
+            if (
+              !optIn &&
+              c.email &&
+              typeof loadAccountField === "function" &&
+              loadAccountField(c.email, "ruralOptIn") === "1"
+            ) {
+              optIn = true;
+            }
+            if (!ruralKm && c.email && typeof loadAccountField === "function") {
+              ruralKm =
+                parseInt(
+                  loadAccountField(c.email, "ruralRadiusKm") || "0",
+                  10,
+                ) || 0;
+            }
+          } catch (_) {}
+          // Per-card border tint by approval status
+          const cardBorderColor =
+            c.approvalStatus === "pending"
+              ? "#F59E0B"
+              : c.approvalStatus === "rejected"
+                ? "#FCA5A5"
+                : "#E2E8F0";
+          const cardBg =
+            c.approvalStatus === "pending"
+              ? "#FFFBEB"
+              : c.approvalStatus === "rejected"
+                ? "#FEF2F2"
+                : "#FFFFFF";
+          // Status badge (existing helper)
+          const statusBadgeHtml = statusBadge(c.approvalStatus);
+          // Plan badge — small inline pill
+          const planBadgeHtml = planCfg
+            ? `<span style="display:inline-flex;align-items:center;gap:.25rem;background:${planCfg.color}22;color:${planCfg.color};border:1px solid ${planCfg.color}66;border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">📦 ${planCfg.label} · ${rem}/${included}</span>`
+            : "";
+          // Build identity line — handle missing fields gracefully
+          const isGhost = !c.company && !c.email && !c.name;
+          const headerName = c.company || c.name || (isGhost ? "⚠️ Ghost record (no name/email)" : "—");
+          // Categories (truncated to 4 for compact view)
+          const cats = (c.sectors || []).filter(Boolean);
+          const catsHtml = cats.length
+            ? `<div style="font-size:.73rem;color:#64748B;line-height:1.45;margin-top:.3rem">${cats.slice(0, 4).join(" · ")}${cats.length > 4 ? ` <span style="color:#94A3B8">+${cats.length - 4} more</span>` : ""}</div>`
+            : "";
+          // Action buttons
+          const actions = [];
+          if (c.approvalStatus === "pending" && c.email) {
+            actions.push(
+              `<button onclick="adminApproveRentalCo('${c.email}')" style="background:#16A34A;color:#fff;border:none;border-radius:6px;padding:.3rem .65rem;font-size:.74rem;font-weight:800;cursor:pointer">✅ Approve</button>`,
+            );
+            actions.push(
+              `<button onclick="adminRejectRentalCo('${c.email}')" style="background:#fff;color:#DC2626;border:1.5px solid #FCA5A5;border-radius:6px;padding:.3rem .65rem;font-size:.74rem;font-weight:800;cursor:pointer">❌ Reject</button>`,
+            );
+          }
+          if (c.approvalStatus === "approved" && !c.isHardcoded && c.email) {
+            actions.push(
+              `<button onclick="adminRejectRentalCo('${c.email}')" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:6px;padding:.3rem .65rem;font-size:.73rem;font-weight:700;cursor:pointer">Revoke</button>`,
+            );
+          }
+          if (!c.isHardcoded && c.email) {
+            actions.push(
+              `<button onclick="openAdminPlanModal('${c.email}','${c.plan || ""}','${c.enquiriesUsed || 0}')" style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.3rem .65rem;font-size:.73rem;font-weight:800;cursor:pointer">📦 Plan</button>`,
+            );
+          }
+          if (c.email) {
+            actions.push(
+              `<button onclick="adminShowRcBilling('${c.email}')" style="background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:6px;padding:.3rem .65rem;font-size:.73rem;font-weight:800;cursor:pointer">💳 Billing</button>`,
+            );
+          }
+          // v140: 🗑️ Delete button — admin removes Firestore docs.
+          // Hardcoded depots can't be deleted (they're seed data — would
+          // re-appear on next page load). Ghost records (no email) get a
+          // delete by docId. Real Firestore-backed cos delete by email.
+          if (!c.isHardcoded) {
+            const deleteArg = c.email
+              ? `'email:${c.email}'`
+              : `'id:${c.id || ""}'`;
+            actions.push(
+              `<button onclick="adminDeleteRentalCo(${deleteArg})" style="background:#FEF2F2;color:#991B1B;border:1.5px solid #FCA5A5;border-radius:6px;padding:.3rem .65rem;font-size:.73rem;font-weight:800;cursor:pointer">🗑️ Delete</button>`,
+            );
+          }
+          // Build the card
           return `
-    <tr style="background:${c.approvalStatus === "pending" ? "#FFFBEB" : c.approvalStatus === "rejected" ? "#FEF2F2" : ""}">
-      <td><strong>${c.company || "—"}</strong></td>
-      <td>${liveCellHtml}</td>
-      <td style="font-size:.82rem">${c.name || "—"}</td>
-      <td style="font-size:.77rem;color:#1D4ED8">${c.email || "—"}</td>
-      <td style="font-size:.82rem">${c.mobile || '<span style="color:#CBD5E1">—</span>'}</td>
-      <td style="font-size:.8rem;font-family:monospace">${c.abn || '<span style="color:#CBD5E1">—</span>'}</td>
-      <td style="font-size:.82rem">${c.suburb || '<span style="color:#CBD5E1">—</span>'}</td>
-      <td style="font-size:.82rem">${c.city || '<span style="color:#CBD5E1">—</span>'}</td>
-      <td style="font-size:.82rem">${c.state || '<span style="color:#CBD5E1">—</span>'}</td>
-      <td style="font-size:.82rem;text-align:center">${c.serviceRadiusKm || 75}km</td>
-      <td style="text-align:center">${(() => {
-        let optIn = c.ruralOptIn === true || c.ruralOptIn === "1";
-        let km = c.ruralRadiusKm || 0;
-        // Defensive: only call loadAccountField if it exists
-        try {
-          if (
-            !optIn &&
-            c.email &&
-            typeof loadAccountField === "function" &&
-            loadAccountField(c.email, "ruralOptIn") === "1"
-          ) {
-            optIn = true;
-          }
-          if (!km && c.email && typeof loadAccountField === "function") {
-            km =
-              parseInt(
-                loadAccountField(c.email, "ruralRadiusKm") || "0",
-                10,
-              ) || 0;
-          }
-        } catch (_) {}
-        return optIn
-          ? `<span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:1.5px solid #F97316;border-radius:20px;font-size:.7rem;font-weight:800;padding:.15rem .5rem;white-space:nowrap">🏗️ ${km || 500}km</span>`
-          : `<span style="color:#CBD5E1;font-size:.75rem">—</span>`;
-      })()}</td>
-      <td style="font-size:.74rem;max-width:220px;white-space:normal;line-height:1.4;color:#475569">${(c.sectors || []).slice(0, 3).join(", ")}${(c.sectors || []).length > 3 ? " …" : ""}</td>
-      <td style="font-size:.75rem;color:#64748B">${c.registeredAt ? new Date(c.registeredAt).toLocaleDateString("en-AU") : c.isHardcoded ? "Pre-loaded" : "—"}</td>
-      <td>${planBadge}</td>
-      <td>${statusBadge(c.approvalStatus)}</td>
-      <td>${monthCellHtml}</td>
-      <td style="white-space:nowrap">
-        ${
-          c.approvalStatus === "pending"
-            ? `
-          <button onclick="adminApproveRentalCo('${c.email}')" style="background:#16A34A;color:#fff;border:none;border-radius:6px;padding:.25rem .6rem;font-size:.75rem;font-weight:700;cursor:pointer;margin-right:.2rem">✅ Approve</button>
-          <button onclick="adminRejectRentalCo('${c.email}')" style="background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:6px;padding:.25rem .6rem;font-size:.75rem;font-weight:700;cursor:pointer">❌ Reject</button>
-        `
-            : c.approvalStatus === "approved" && !c.isHardcoded
-              ? `
-          <button onclick="adminRejectRentalCo('${c.email}')" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:6px;padding:.25rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer">Revoke</button>`
-              : ""
-        }
-        ${!c.isHardcoded ? `<button onclick="openAdminPlanModal('${c.email}','${c.plan || ""}','${c.enquiriesUsed || 0}')" style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">📦 Plan</button>` : ""}
-        ${c.email ? `<button onclick="adminShowRcBilling('${c.email}')" style="background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">💳 Billing</button>` : ""}
-      </td>
-    </tr>
+    <div style="background:${cardBg};border:1.5px solid ${cardBorderColor};border-radius:12px;padding:.85rem 1rem;display:grid;grid-template-columns:1fr auto;gap:.7rem 1rem;align-items:start">
+      <div>
+        <!-- Top line: live dot · company name · plan · status -->
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.15rem">
+          <span title="${liveInd.title}" style="display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;color:#475569;white-space:nowrap">
+            <span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${liveInd.color};box-shadow:0 0 0 2px ${liveInd.color}33"></span>
+            <span style="font-weight:600">${liveInd.label}</span>
+          </span>
+          <strong style="font-size:.95rem;color:#0F172A">${headerName}</strong>
+          ${planBadgeHtml}
+          ${statusBadgeHtml}
+          ${monthMins ? `<span style="font-size:.72rem;color:#475569;background:#F1F5F9;border-radius:6px;padding:.1rem .45rem;font-weight:700">⏱️ ${_formatMinutes(monthMins)}</span>` : ""}
+        </div>
+        <!-- Contact line -->
+        <div style="font-size:.78rem;color:#475569;margin-bottom:.2rem;line-height:1.5">
+          ${c.email ? `<span style="color:#1D4ED8">${c.email}</span>` : '<span style="color:#CBD5E1">no email</span>'}
+          ${c.mobile ? ` · ${c.mobile}` : ""}
+          ${c.abn ? ` · <span style="font-family:monospace;font-size:.74rem">ABN ${c.abn}</span>` : ""}
+        </div>
+        <!-- Location line -->
+        <div style="font-size:.78rem;color:#475569;line-height:1.5">
+          📍 ${c.suburb && c.suburb !== c.city ? c.suburb + ", " : ""}${c.city || "—"}${c.state ? ", " + c.state : ""}
+          · ${c.serviceRadiusKm || 75}km metro
+          ${optIn ? ` · <span style="color:#C2410C;font-weight:700">🏗️ ${ruralKm || 500}km rural</span>` : ""}
+          · <span style="color:#64748B;font-size:.74rem">${c.registeredAt ? "Joined " + new Date(c.registeredAt).toLocaleDateString("en-AU") : c.isHardcoded ? "Pre-loaded" : "Joined —"}</span>
+        </div>
+        ${catsHtml}
+      </div>
+      <!-- Actions column on the right -->
+      <div style="display:flex;flex-direction:column;gap:.3rem;align-items:flex-end;min-width:120px">
+        ${actions.join("")}
+      </div>
+    </div>
     ${
       c.email
-        ? `<tr id="rc-billing-row-${c.email.replace(/[@.]/g, "-")}" style="display:none;background:#F8FAFC">
-      <td colspan="17" style="padding:.6rem 1.2rem 1rem">
-        <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1.1rem">
-          <div style="font-weight:800;color:#0F172A;font-size:.88rem;margin-bottom:.6rem">💳 Billing — ${c.company || c.name}</div>
-          <div style="color:#64748B;font-size:.82rem">${c.isHardcoded ? "Pre-loaded depot — no billing data tracked." : "Click 📦 Plan to assign or update this company's subscription."}</div>
-        </div>
-      </td>
-    </tr>`
+        ? `<div id="rc-billing-row-${c.email.replace(/[@.]/g, "-")}" style="display:none;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.7rem 1rem;margin:-.3rem 0 .35rem 1.2rem">
+      <div style="font-weight:800;color:#0F172A;font-size:.85rem;margin-bottom:.4rem">💳 Billing — ${c.company || c.name}</div>
+      <div style="color:#64748B;font-size:.78rem">${c.isHardcoded ? "Pre-loaded depot — no billing data tracked." : "Click 📦 Plan to assign or update this company's subscription."}</div>
+    </div>`
         : ""
     }`;
         } catch (rowErr) {
@@ -172902,19 +173043,17 @@ async function renderAdminRentalCos() {
             c?.email || "(no email)",
             rowErr,
           );
-          return `<tr><td colspan="17" style="background:#FEF2F2;color:#991B1B;padding:.4rem .8rem;font-size:.78rem">⚠️ ${c?.company || c?.email || "Unknown"} — render failed: ${rowErr.message}</td></tr>`;
+          return `<div style="background:#FEF2F2;color:#991B1B;padding:.6rem 1rem;border-radius:10px;border:1.5px solid #FCA5A5;font-size:.78rem">⚠️ ${c?.company || c?.email || "Unknown"} — render failed: ${rowErr.message}</div>`;
         }
       })
       .join("");
   } catch (mapErr) {
     console.error("[Noyo Admin] Table map error:", mapErr);
-    tbody.innerHTML = `<tr><td colspan="17" style="text-align:center;color:#DC2626;padding:2rem">Error rendering table: ${mapErr.message}</td></tr>`;
+    tbody.innerHTML = `<div style="text-align:center;color:#DC2626;padding:2rem">Error rendering table: ${mapErr.message}</div>`;
     return;
   }
 
   // v139: optional Group by depot — group cards by city with header rows.
-  // The grouped view intersperses one header row per city above the rows
-  // for companies in that city. Filter/sort still apply within each group.
   const groupByDepot =
     !!document.getElementById("admin-rc-group-depot")?.checked;
   if (groupByDepot && filtered.length) {
@@ -172935,37 +173074,34 @@ async function renderAdminRentalCos() {
           cos.find((x) => x.state)?.state ||
           (typeof _stateForCity === "function" ? _stateForCity(city) : "");
         const stateLabel = state ? ` · ${state}` : "";
-        groupedHtml += `<tr style="background:#0F172A;color:#fff">
-          <td colspan="17" style="padding:.55rem 1rem;font-weight:800;font-size:.86rem;letter-spacing:.3px">
-            🏙️ ${city}${stateLabel} <span style="opacity:.7;font-weight:600;margin-left:.6rem">${cos.length} ${cos.length === 1 ? "depot" : "depots"}</span>
-          </td>
-        </tr>`;
-        // Pull each company's rendered row out of renderedRowsHtml. Easier
-        // approach: re-render group rows from `cos` directly using the same
-        // template logic. To avoid duplicating template code, we extract by
-        // matching the original row index — each filtered[i] corresponds to
-        // the i-th block in renderedRowsHtml split on '</tr>'. But the
-        // billing breakdown row makes splitting fragile. Cleaner: re-build
-        // the grouped HTML by mapping over cos and reusing the same per-row
-        // logic. Because the row template is large, we re-execute the same
-        // map() function used above.
+        groupedHtml += `<div style="background:#0F172A;color:#fff;padding:.6rem 1rem;border-radius:8px;font-weight:800;font-size:.86rem;letter-spacing:.3px;margin-top:.3rem">
+          🏙️ ${city}${stateLabel} <span style="opacity:.7;font-weight:600;margin-left:.6rem">${cos.length} ${cos.length === 1 ? "depot" : "depots"}</span>
+        </div>`;
+        // Re-extract just this group's cards from renderedRowsHtml using
+        // unique email/id markers in each card.
         groupedHtml += cos
           .map((c) => {
-            // Find this co in the filtered renderedRowsHtml by matching the
-            // company's email via a sentinel marker. Simplest: each row's
-            // first <td> contains '<strong>${c.company || "—"}</strong>'.
-            // Since company names can repeat, fall back to email-based
-            // matching using the Approve/Reject onclick attribute.
-            const safeEmail = (c.email || "").replace(
-              /[.@+-]/g,
-              (s) => `\\${s}`,
-            );
-            const re = new RegExp(
-              `<tr [^>]*>[\\s\\S]*?\\b${(c.email || "").replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}\\b[\\s\\S]*?</tr>(?:\\s*<tr id="rc-billing-row-[^"]*"[^>]*>[\\s\\S]*?</tr>)?`,
-              "m",
-            );
-            const m = renderedRowsHtml.match(re);
-            return m ? m[0] : "";
+            const marker = c.email
+              ? c.email
+              : `'id:${c.id || ""}'`;
+            // Each card has the email in onclick handlers OR (for ghosts)
+            // the id-based delete arg. Match the chunk between two adjacent
+            // top-level cards.
+            const idx = renderedRowsHtml.indexOf(marker);
+            if (idx === -1) return "";
+            // Find start of the card (preceding `<div style="background:`)
+            const startMarker = '<div style="background:';
+            const start = renderedRowsHtml.lastIndexOf(startMarker, idx);
+            if (start === -1) return "";
+            // Find end of the card (next top-level `<div style="background:` or end of html)
+            // Cards are separated by `\n    `. Use the next start marker after our match.
+            const next = renderedRowsHtml.indexOf(startMarker, idx);
+            // We want the card containing our marker, plus its optional
+            // billing-detail sibling. Use the start of the *next* card as
+            // end-of-this-card boundary.
+            const afterMarker = renderedRowsHtml.indexOf(startMarker, idx + marker.length);
+            const end = afterMarker === -1 ? renderedRowsHtml.length : afterMarker;
+            return renderedRowsHtml.slice(start, end);
           })
           .join("");
       });
@@ -172980,7 +173116,7 @@ async function renderAdminRentalCos() {
 
   tbody.innerHTML = filtered.length
     ? renderedRowsHtml
-    : '<tr><td colspan="17" style="text-align:center;color:#94a3b8;padding:2rem">No rental companies found.</td></tr>';
+    : '<div style="text-align:center;color:#94a3b8;padding:2rem">No rental companies found.</div>';
 
   _updateRcTabBadge();
 }
