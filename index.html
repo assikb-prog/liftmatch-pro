@@ -1681,6 +1681,14 @@
             <option value="approved">✅ Approved</option>
             <option value="rejected">❌ Rejected</option>
           </select>
+          <select id="admin-rc-state-filter" onchange="renderAdminRentalCos()"
+            style="border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .7rem;font-size:.85rem;font-family:inherit;background:#fff;min-width:120px">
+            <option value="">All States</option>
+          </select>
+          <select id="admin-rc-city-filter" onchange="renderAdminRentalCos()"
+            style="border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .7rem;font-size:.85rem;font-family:inherit;background:#fff;min-width:140px">
+            <option value="">All Cities</option>
+          </select>
           <input id="admin-rc-filter" type="text" placeholder="Filter by name, city or ABN…"
             oninput="renderAdminRentalCos()"
             style="border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .7rem;font-size:.85rem;width:220px;font-family:inherit">
