@@ -172333,6 +172333,24 @@ async function _getAllRegisteredRentalCos() {
         const seedKey = c.id || c.email;
         if (seedKey && _deletedHardcoded.has(seedKey)) return; // hidden by admin
         const city = c.baseCity || c.city || "";
+        // v142: classify origin so admin sees Yours / Test / Demo distinction
+        // and so bulk-delete can target only the demo seeds.
+        const seedId = c.id || "";
+        let origin;
+        if (
+          seedId === "rc_noyo" ||
+          seedId === "rc_staff" ||
+          (c.email || "").endsWith("@noyo.com.au") &&
+            !["rc_sarah", "rc_marcus", "rc_helen"].includes(seedId)
+        ) {
+          origin = "yours"; // Noyo's own platform accounts
+        } else if (["rc_sarah", "rc_marcus", "rc_helen"].includes(seedId)) {
+          origin = "test"; // multi-user login test accounts
+        } else if (/^rc\d{2}$/.test(seedId)) {
+          origin = "demo"; // rc01–rc40 generic city/region coverage seeds
+        } else {
+          origin = "demo"; // any other unclassified hardcoded record
+        }
         results.push({
           email: c.email || "",
           name: c.name || c.email || "",
@@ -172357,6 +172375,7 @@ async function _getAllRegisteredRentalCos() {
           registeredAt: "",
           active: c.active !== false,
           isHardcoded: true,
+          origin,
           id: c.id || c.email,
           plan: c.plan || null,
           enquiriesUsed: 0,
@@ -172405,6 +172424,7 @@ async function _getAllRegisteredRentalCos() {
           registeredAt: d.registeredAt || "",
           active: d.active !== false,
           isHardcoded: false,
+          origin: "firestore", // v142: real registration via signup wizard
           id: doc.id,
           plan: d.plan || null,
           enquiriesUsed: parseInt(d.enquiriesUsed || 0, 10),
@@ -172792,6 +172812,10 @@ async function renderAdminRentalCos() {
   const cityF = (
     document.getElementById("admin-rc-city-filter")?.value || ""
   ).trim();
+  // v142: origin filter (yours / test / demo / firestore)
+  const originF = (
+    document.getElementById("admin-rc-origin-filter")?.value || ""
+  ).trim();
   const tbody = document.getElementById("admin-rentalcos-tbody");
   const queueDiv = document.getElementById("admin-rc-approval-queue");
   if (!tbody) return;
@@ -172899,6 +172923,8 @@ async function renderAdminRentalCos() {
       // v137: state + city filters (exact match on canonical value)
       if (stateF && c.state !== stateF) return false;
       if (cityF && c.city !== cityF) return false;
+      // v142: origin filter
+      if (originF && c.origin !== originF) return false;
       if (
         filter &&
         !(c.company || "").toLowerCase().includes(filter) &&
@@ -172994,6 +173020,17 @@ async function renderAdminRentalCos() {
           // Build identity line — handle missing fields gracefully
           const isGhost = !c.company && !c.email && !c.name;
           const headerName = c.company || c.name || (isGhost ? "⚠️ Ghost record (no name/email)" : "—");
+          // v142: origin badge — Yours / Test / Demo / Firestore
+          let originBadgeHtml = "";
+          if (c.origin === "yours") {
+            originBadgeHtml = `<span title="Created by you (Noyo platform account)" style="display:inline-flex;align-items:center;gap:.2rem;background:#DBEAFE;color:#1E3A8A;border:1px solid #93C5FD;border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">🏢 Yours</span>`;
+          } else if (c.origin === "test") {
+            originBadgeHtml = `<span title="Multi-user login test account" style="display:inline-flex;align-items:center;gap:.2rem;background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">🧪 Test</span>`;
+          } else if (c.origin === "demo") {
+            originBadgeHtml = `<span title="Demo seed depot — added by previous Claude session for routing coverage. Safe to bulk-delete." style="display:inline-flex;align-items:center;gap:.2rem;background:#FEE2E2;color:#991B1B;border:1px solid #FCA5A5;border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">🔧 Demo seed</span>`;
+          } else if (c.origin === "firestore") {
+            originBadgeHtml = `<span title="Real registration via signup wizard (Firestore)" style="display:inline-flex;align-items:center;gap:.2rem;background:#D1FAE5;color:#065F46;border:1px solid #6EE7B7;border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:800">✓ Registered</span>`;
+          }
           // Categories (truncated to 4 for compact view)
           const cats = (c.sectors || []).filter(Boolean);
           const catsHtml = cats.length
@@ -173045,13 +173082,14 @@ async function renderAdminRentalCos() {
           return `
     <div style="background:${cardBg};border:1.5px solid ${cardBorderColor};border-radius:12px;padding:.85rem 1rem;display:grid;grid-template-columns:1fr auto;gap:.7rem 1rem;align-items:start">
       <div>
-        <!-- Top line: live dot · company name · plan · status -->
+        <!-- Top line: live dot · company name · origin · plan · status -->
         <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.15rem">
           <span title="${liveInd.title}" style="display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;color:#475569;white-space:nowrap">
             <span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${liveInd.color};box-shadow:0 0 0 2px ${liveInd.color}33"></span>
             <span style="font-weight:600">${liveInd.label}</span>
           </span>
           <strong style="font-size:.95rem;color:#0F172A">${headerName}</strong>
+          ${originBadgeHtml}
           ${planBadgeHtml}
           ${statusBadgeHtml}
           ${monthMins ? `<span style="font-size:.72rem;color:#475569;background:#F1F5F9;border-radius:6px;padding:.1rem .45rem;font-weight:700">⏱️ ${_formatMinutes(monthMins)}</span>` : ""}
