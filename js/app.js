@@ -172322,9 +172322,16 @@ async function _getAllRegisteredRentalCos() {
   // ── 1) Hardcoded depots from RENTAL_COMPANIES (the seeded fleet, ~45 cos) ──
   // These are pre-loaded depots: always shown so admin can filter/search them
   // alongside any newly-registered Firestore-backed cos.
+  // v141: respect admin-side deletions persisted in localStorage.
+  const _deletedHardcoded =
+    typeof _loadDeletedHardcodedSet === "function"
+      ? _loadDeletedHardcodedSet()
+      : new Set();
   try {
     if (Array.isArray(RENTAL_COMPANIES)) {
       RENTAL_COMPANIES.forEach((c) => {
+        const seedKey = c.id || c.email;
+        if (seedKey && _deletedHardcoded.has(seedKey)) return; // hidden by admin
         const city = c.baseCity || c.city || "";
         results.push({
           email: c.email || "",
@@ -172503,27 +172510,63 @@ async function adminRejectRentalCo(email) {
   showToast("Application rejected.", "#EF4444");
 }
 
-// ── v140: Admin delete rental co (ghost cleanup + manual removal) ────
-// Argument format: 'email:foo@bar.com' or 'id:xyz123'.
-// Hardcoded depots (from RENTAL_COMPANIES) cannot be deleted via this UI
-// because they would re-appear on next page load.
+// ── v141: Admin delete rental co — works on every record type ────────
+// Argument format:
+//   'hardcoded:<id>'   → seed depot from RENTAL_COMPANIES; ID stored in
+//                        localStorage so it stays deleted across reloads
+//   'email:<address>'  → real Firestore-backed registration
+//   'id:<docId>'       → ghost record with no email
+const _DELETED_HARDCODED_KEY = "noyo_deleted_hardcoded_v1";
+function _loadDeletedHardcodedSet() {
+  try {
+    const raw = localStorage.getItem(_DELETED_HARDCODED_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (_) {
+    return new Set();
+  }
+}
+function _saveDeletedHardcodedSet(set) {
+  try {
+    localStorage.setItem(_DELETED_HARDCODED_KEY, JSON.stringify([...set]));
+  } catch (_) {}
+}
 async function adminDeleteRentalCo(arg) {
   if (!arg || typeof arg !== "string") return;
+  const isHardcoded = arg.startsWith("hardcoded:");
   const isEmail = arg.startsWith("email:");
   const isId = arg.startsWith("id:");
-  if (!isEmail && !isId) {
+  if (!isHardcoded && !isEmail && !isId) {
     console.warn("[adminDeleteRentalCo] Invalid arg format:", arg);
     return;
   }
   const value = arg.slice(arg.indexOf(":") + 1);
   if (!value) {
-    if (isId) {
-      alert(
-        "Cannot delete: this record has no ID. It may be a hardcoded depot — those can't be deleted from the admin UI.",
-      );
-    }
+    alert("Cannot delete: this record has no identifier.");
     return;
   }
+
+  // ── Hardcoded depot deletion: persist ID in localStorage ─────────
+  if (isHardcoded) {
+    // Find the seed record for the confirmation message
+    const seedRow =
+      (typeof RENTAL_COMPANIES !== "undefined" &&
+        RENTAL_COMPANIES.find((c) => (c.id || c.email) === value)) ||
+      null;
+    const label = seedRow ? seedRow.name || seedRow.email : value;
+    const ok = confirm(
+      `⚠️ Delete pre-loaded depot "${label}"?\n\nThis depot will be hidden from the admin view permanently (stored in this browser's localStorage). It will no longer receive enquiries or appear in any list.\n\nNote: This is a seed/demo depot. To restore it, clear the "noyo_deleted_hardcoded_v1" key in localStorage.\n\nProceed?`,
+    );
+    if (!ok) return;
+    const set = _loadDeletedHardcodedSet();
+    set.add(value);
+    _saveDeletedHardcodedSet(set);
+    showToast(`🗑️ "${label}" hidden from view.`, "#DC2626");
+    renderAdminRentalCos();
+    if (typeof _updateRcTabBadge === "function") _updateRcTabBadge();
+    return;
+  }
+
+  // ── Firestore-backed deletion (email-keyed or docId-keyed) ───────
   const label = isEmail ? value : `record ${value}`;
   const ok = confirm(
     `⚠️ Delete rental company "${label}"?\n\nThis permanently removes:\n  • The rental_profiles document\n  • The associated users record (if any)\n  • Their plan and billing history\n\nThis cannot be undone. The company will need to re-register from scratch.\n\nProceed?`,
@@ -172593,9 +172636,8 @@ async function adminDeleteRentalCo(arg) {
   }
   if (errors.length) console.warn("[adminDeleteRentalCo] Errors:", errors);
 
-  // Refresh the table
   renderAdminRentalCos();
-  _updateRcTabBadge();
+  if (typeof _updateRcTabBadge === "function") _updateRcTabBadge();
 }
 
 // ── Admin plan management ────────────────────────────────────────────
@@ -172982,14 +173024,19 @@ async function renderAdminRentalCos() {
               `<button onclick="adminShowRcBilling('${c.email}')" style="background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:6px;padding:.3rem .65rem;font-size:.73rem;font-weight:800;cursor:pointer">💳 Billing</button>`,
             );
           }
-          // v140: 🗑️ Delete button — admin removes Firestore docs.
-          // Hardcoded depots can't be deleted (they're seed data — would
-          // re-appear on next page load). Ghost records (no email) get a
-          // delete by docId. Real Firestore-backed cos delete by email.
-          if (!c.isHardcoded) {
-            const deleteArg = c.email
-              ? `'email:${c.email}'`
-              : `'id:${c.id || ""}'`;
+          // v141: 🗑️ Delete button on EVERY card (no exceptions).
+          // Hardcoded depots persist their deletion in localStorage so
+          // they don't reappear on next page load. Real Firestore cos
+          // delete by email. Ghost records delete by docId.
+          {
+            let deleteArg;
+            if (c.isHardcoded) {
+              deleteArg = `'hardcoded:${c.id || c.email || ""}'`;
+            } else if (c.email) {
+              deleteArg = `'email:${c.email}'`;
+            } else {
+              deleteArg = `'id:${c.id || ""}'`;
+            }
             actions.push(
               `<button onclick="adminDeleteRentalCo(${deleteArg})" style="background:#FEF2F2;color:#991B1B;border:1.5px solid #FCA5A5;border-radius:6px;padding:.3rem .65rem;font-size:.73rem;font-weight:800;cursor:pointer">🗑️ Delete</button>`,
             );
