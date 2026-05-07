@@ -1692,16 +1692,20 @@
           <input id="admin-rc-filter" type="text" placeholder="Filter by name, city or ABN…"
             oninput="renderAdminRentalCos()"
             style="border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .7rem;font-size:.85rem;width:220px;font-family:inherit">
+          <label style="display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:#475569;cursor:pointer;user-select:none">
+            <input type="checkbox" id="admin-rc-group-depot" onchange="renderAdminRentalCos()" style="cursor:pointer">
+            Group by depot
+          </label>
         </div>
       </div>
       <div id="admin-rc-approval-queue" style="margin-bottom:1rem"></div>
       <div class="admin-table-wrap" style="overflow-x:auto">
         <table class="admin-table" style="min-width:900px">
           <thead><tr>
-            <th>Company</th><th>Contact</th><th>Email</th><th>Mobile</th><th>ABN</th>
+            <th>Company</th><th>🟢 Live</th><th>Contact</th><th>Email</th><th>Mobile</th><th>ABN</th>
             <th>Depot Suburb</th><th>City</th><th>State</th><th>Metro Radius</th>
             <th>🏗️ Rural</th>
-            <th>Categories</th><th>Registered</th><th>Plan</th><th>Status</th><th>Actions</th>
+            <th>Categories</th><th>Registered</th><th>Plan</th><th>Status</th><th>⏱️ Online (mo)</th><th>Actions</th>
           </tr></thead>
           <tbody id="admin-rentalcos-tbody"></tbody>
         </table>
