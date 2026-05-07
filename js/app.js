@@ -169679,6 +169679,12 @@ function loginSuccess(user) {
   if (!currentUser.uid && _fbAuth.currentUser) {
     currentUser.uid = _fbAuth.currentUser.uid;
   }
+  // v139: start presence heartbeat for rental cos (not customers, not admins)
+  if (user.role === "rental") {
+    try {
+      startPresenceHeartbeat();
+    } catch (_) {}
+  }
   _sessionRegisteredOrg = null; // always start fresh — no bleed from previous session
   // Tag analytics session with this user's role
   try {
@@ -169998,6 +170004,10 @@ function logOut() {
   try {
     adminTrackLogout(currentUser);
   } catch (e) {}
+  // v139: stop presence heartbeat
+  try {
+    stopPresenceHeartbeat();
+  } catch (_) {}
   // Sign out from Firebase Auth
   _fbAuth
     .signOut()
@@ -172352,9 +172362,16 @@ async function _getAllRegisteredRentalCos() {
   }
 
   // ── 2) Firestore-backed registrations (real signups) ──
+  // v138: hard 3s timeout — if Firestore isn't initialised or the network
+  // hangs, we still render the hardcoded depots instead of leaving the
+  // table on "Loading…" forever.
   try {
     if (typeof _fbDb !== "undefined" && _fbDb) {
-      const snap = await _fbDb.collection("rental_profiles").get();
+      const fsPromise = _fbDb.collection("rental_profiles").get();
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Firestore timeout (3s)")), 3000),
+      );
+      const snap = await Promise.race([fsPromise, timeout]);
       snap.forEach((doc) => {
         const d = doc.data();
         const city = d.city || "";
@@ -172643,8 +172660,25 @@ async function renderAdminRentalCos() {
   if (!tbody) return;
 
   tbody.innerHTML =
-    '<tr><td colspan="15" style="text-align:center;color:#94a3b8;padding:2rem">Loading…</td></tr>';
-  const all = await _getAllRegisteredRentalCos();
+    '<tr><td colspan="17" style="text-align:center;color:#94a3b8;padding:2rem">Loading…</td></tr>';
+
+  // v138: outer try/catch guarantees the Loading… state never persists.
+  // If anything throws — Firestore hang, undefined helper, malformed record —
+  // we render a clear error in the table instead of leaving the user stuck.
+  let all;
+  try {
+    all = await _getAllRegisteredRentalCos();
+    console.log(
+      "[Noyo Admin] _getAllRegisteredRentalCos() returned",
+      all?.length ?? 0,
+      "companies",
+    );
+  } catch (e) {
+    console.error("[Noyo Admin] Failed to load rental cos:", e);
+    tbody.innerHTML = `<tr><td colspan="17" style="text-align:center;color:#DC2626;padding:2rem">Error loading rental companies: ${e.message}. Open DevTools console for details.</td></tr>`;
+    return;
+  }
+  if (!Array.isArray(all)) all = [];
 
   // v137: populate State + City dropdowns from the actual data, preserving
   // the user's current selection across re-renders.
@@ -172757,14 +172791,37 @@ async function renderAdminRentalCos() {
     return '<span style="color:#94A3B8">—</span>';
   };
 
-  tbody.innerHTML = filtered.length
-    ? filtered
-        .map((c) => {
+  // v138: row rendering wrapped in try/catch so a single bad record doesn't
+  // wipe the whole table. Each row is also independently guarded.
+  let renderedRowsHtml = "";
+  try {
+    renderedRowsHtml = filtered
+      .map((c) => {
+        try {
           const planKey = c.plan || null;
-          const planCfg = planKey ? NOYO_PLANS[planKey] : null;
+          const planCfg =
+            planKey && typeof NOYO_PLANS !== "undefined"
+              ? NOYO_PLANS[planKey]
+              : null;
           const used = parseInt(c.enquiriesUsed || 0, 10);
           const included = planCfg ? planCfg.included : 0;
           const rem = planCfg ? Math.max(0, included - used) : 0;
+          // v139: live online indicator + monthly time online
+          const liveInd =
+            typeof getOnlineIndicator === "function" && c.email
+              ? getOnlineIndicator(c.email)
+              : { color: "#CBD5E1", label: "—", title: "Tracking unavailable" };
+          const liveCellHtml = `<span title="${liveInd.title}" style="display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;color:#475569;white-space:nowrap">
+            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${liveInd.color};box-shadow:0 0 0 2px ${liveInd.color}22"></span>
+            ${liveInd.label}
+          </span>`;
+          const monthMins =
+            typeof getMonthlyMinutes === "function" && c.email
+              ? getMonthlyMinutes(c.email)
+              : 0;
+          const monthCellHtml = monthMins
+            ? `<span style="font-size:.78rem;font-weight:700;color:#0F172A">${_formatMinutes(monthMins)}</span>`
+            : `<span style="color:#CBD5E1;font-size:.75rem">—</span>`;
           const planBadge = planCfg
             ? `<div style="font-weight:800;font-size:.78rem;color:${planCfg.color}">${planCfg.label}</div>
          <div style="font-size:.7rem;color:#64748B">${rem}/${included} left</div>`
@@ -172772,8 +172829,9 @@ async function renderAdminRentalCos() {
           return `
     <tr style="background:${c.approvalStatus === "pending" ? "#FFFBEB" : c.approvalStatus === "rejected" ? "#FEF2F2" : ""}">
       <td><strong>${c.company || "—"}</strong></td>
-      <td style="font-size:.82rem">${c.name}</td>
-      <td style="font-size:.77rem;color:#1D4ED8">${c.email}</td>
+      <td>${liveCellHtml}</td>
+      <td style="font-size:.82rem">${c.name || "—"}</td>
+      <td style="font-size:.77rem;color:#1D4ED8">${c.email || "—"}</td>
       <td style="font-size:.82rem">${c.mobile || '<span style="color:#CBD5E1">—</span>'}</td>
       <td style="font-size:.8rem;font-family:monospace">${c.abn || '<span style="color:#CBD5E1">—</span>'}</td>
       <td style="font-size:.82rem">${c.suburb || '<span style="color:#CBD5E1">—</span>'}</td>
@@ -172781,15 +172839,26 @@ async function renderAdminRentalCos() {
       <td style="font-size:.82rem">${c.state || '<span style="color:#CBD5E1">—</span>'}</td>
       <td style="font-size:.82rem;text-align:center">${c.serviceRadiusKm || 75}km</td>
       <td style="text-align:center">${(() => {
-        const optIn =
-          c.ruralOptIn === true ||
-          c.ruralOptIn === "1" ||
-          (c.email && loadAccountField(c.email, "ruralOptIn") === "1");
-        const km =
-          c.ruralRadiusKm ||
-          (c.email &&
-            parseInt(loadAccountField(c.email, "ruralRadiusKm") || "0", 10)) ||
-          0;
+        let optIn = c.ruralOptIn === true || c.ruralOptIn === "1";
+        let km = c.ruralRadiusKm || 0;
+        // Defensive: only call loadAccountField if it exists
+        try {
+          if (
+            !optIn &&
+            c.email &&
+            typeof loadAccountField === "function" &&
+            loadAccountField(c.email, "ruralOptIn") === "1"
+          ) {
+            optIn = true;
+          }
+          if (!km && c.email && typeof loadAccountField === "function") {
+            km =
+              parseInt(
+                loadAccountField(c.email, "ruralRadiusKm") || "0",
+                10,
+              ) || 0;
+          }
+        } catch (_) {}
         return optIn
           ? `<span style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);color:#C2410C;border:1.5px solid #F97316;border-radius:20px;font-size:.7rem;font-weight:800;padding:.15rem .5rem;white-space:nowrap">🏗️ ${km || 500}km</span>`
           : `<span style="color:#CBD5E1;font-size:.75rem">—</span>`;
@@ -172798,6 +172867,7 @@ async function renderAdminRentalCos() {
       <td style="font-size:.75rem;color:#64748B">${c.registeredAt ? new Date(c.registeredAt).toLocaleDateString("en-AU") : c.isHardcoded ? "Pre-loaded" : "—"}</td>
       <td>${planBadge}</td>
       <td>${statusBadge(c.approvalStatus)}</td>
+      <td>${monthCellHtml}</td>
       <td style="white-space:nowrap">
         ${
           c.approvalStatus === "pending"
@@ -172807,92 +172877,110 @@ async function renderAdminRentalCos() {
         `
             : c.approvalStatus === "approved" && !c.isHardcoded
               ? `
-          <button onclick="adminRejectRentalCo('${c.email}')" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:6px;padding:.25rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer">Revoke</button>
-        `
-              : '<span style="color:#CBD5E1;font-size:.75rem">—</span>'
+          <button onclick="adminRejectRentalCo('${c.email}')" style="background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0;border-radius:6px;padding:.25rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer">Revoke</button>`
+              : ""
         }
         ${!c.isHardcoded ? `<button onclick="openAdminPlanModal('${c.email}','${c.plan || ""}','${c.enquiriesUsed || 0}')" style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">📦 Plan</button>` : ""}
-        <button onclick="adminShowRcBilling('${c.email}')" style="background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">💳 Billing</button>
+        ${c.email ? `<button onclick="adminShowRcBilling('${c.email}')" style="background:#F0FDF4;color:#15803D;border:1.5px solid #86EFAC;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer;margin-left:.2rem">💳 Billing</button>` : ""}
       </td>
     </tr>
-    <tr id="rc-billing-row-${c.email.replace(/[@.]/g, "-")}" style="display:none;background:#F8FAFC">
-      <td colspan="15" style="padding:.6rem 1.2rem 1rem">
+    ${
+      c.email
+        ? `<tr id="rc-billing-row-${c.email.replace(/[@.]/g, "-")}" style="display:none;background:#F8FAFC">
+      <td colspan="17" style="padding:.6rem 1.2rem 1rem">
         <div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:10px;padding:.85rem 1.1rem">
           <div style="font-weight:800;color:#0F172A;font-size:.88rem;margin-bottom:.6rem">💳 Billing — ${c.company || c.name}</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:.6rem">
-            ${(() => {
-              const plan = c.plan ? NOYO_PLANS[c.plan] : null;
-              const b2 = _billing(c);
-              const subStart = c.subscriptionStart
-                ? new Date(c.subscriptionStart).toLocaleDateString("en-AU")
-                : c.registeredAt
-                  ? new Date(c.registeredAt).toLocaleDateString("en-AU")
-                  : "—";
-              const subEndD = c.subscriptionEnd
-                ? new Date(c.subscriptionEnd)
-                : null;
-              const subEnd = subEndD
-                ? subEndD.toLocaleDateString("en-AU")
-                : "—";
-              const daysLeft = subEndD
-                ? Math.ceil((subEndD - Date.now()) / (1000 * 60 * 60 * 24))
-                : null;
-              const payStatus =
-                c.paymentStatus === "overdue" ||
-                (daysLeft !== null && daysLeft < 0)
-                  ? "🔴 OVERDUE"
-                  : daysLeft !== null && daysLeft <= 7
-                    ? "⚠️ Expiring in " + daysLeft + " days"
-                    : plan
-                      ? "✅ Active"
-                      : "— No plan";
-              const payColor = payStatus.startsWith("🔴")
-                ? "#DC2626"
-                : payStatus.startsWith("⚠️")
-                  ? "#B45309"
-                  : plan
-                    ? "#16A34A"
-                    : "#94A3B8";
-              return `
-                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
-                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Plan</div>
-                  <div style="font-weight:900;color:${plan ? NOYO_PLANS[c.plan].color : "#94A3B8"};font-size:.95rem">${plan ? plan.label : "—"}</div>
-                  <div style="font-size:.72rem;color:#64748B">${plan ? "$" + plan.price + "/mo" : "Not subscribed"}</div>
-                </div>
-                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
-                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Subscribed From</div>
-                  <div style="font-weight:800;color:#0F172A;font-size:.88rem">${subStart}</div>
-                </div>
-                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
-                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Renews / Expires</div>
-                  <div style="font-weight:800;color:${daysLeft !== null && daysLeft < 0 ? "#DC2626" : daysLeft !== null && daysLeft <= 7 ? "#B45309" : "#0F172A"};font-size:.88rem">${subEnd}</div>
-                </div>
-                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
-                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Payment Status</div>
-                  <div style="font-weight:900;color:${payColor};font-size:.85rem">${payStatus}</div>
-                </div>
-                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
-                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">This Month</div>
-                  <div style="font-weight:900;color:#0F172A;font-size:.95rem">$\${(b2.total||0).toLocaleString('en-AU')}</div>
-                  <div style="font-size:.72rem;color:#64748B">Base $\${b2.base||0}${b2.overage > 0 ? " + $" + b2.overage + " overage" : ""}</div>
-                </div>
-                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:.55rem .75rem">
-                  <div style="font-size:.67rem;font-weight:700;color:#94A3B8;text-transform:uppercase;margin-bottom:.2rem">Enquiries</div>
-                  <div style="font-weight:900;color:#0F172A;font-size:.95rem">${b2.used || 0} / ${b2.included || "—"}</div>
-                  <div style="font-size:.72rem;color:${(b2.remaining || 0) <= 2 ? "#DC2626" : (b2.remaining || 0) <= 5 ? "#B45309" : "#16A34A"}">${b2.cfg ? b2.remaining + " remaining" : "—"}</div>
-                </div>`;
-            })()}
-          </div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-            <button onclick="openAdminPlanModal('${c.email}','${c.plan || ""}','${c.enquiriesUsed || 0}')" style="background:#EFF6FF;color:#0052CC;border:1.5px solid #BFDBFE;border-radius:8px;padding:.38rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">✏️ Change Plan</button>
-            <button onclick="adminSendBillingReminder('${c.email}','${(c.company || c.name || "").replace(/'/g, "")}')" style="background:#FEF3C7;color:#92400E;border:1.5px solid #FCD34D;border-radius:8px;padding:.38rem .85rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer">📧 Send Renewal Reminder</button>
-          </div>
+          <div style="color:#64748B;font-size:.82rem">${c.isHardcoded ? "Pre-loaded depot — no billing data tracked." : "Click 📦 Plan to assign or update this company's subscription."}</div>
         </div>
       </td>
-    </tr>`;
-        })
-        .join("")
-    : '<tr><td colspan="15" style="text-align:center;color:#94a3b8;padding:2rem">No rental companies found.</td></tr>';
+    </tr>`
+        : ""
+    }`;
+        } catch (rowErr) {
+          console.error(
+            "[Noyo Admin] Row render error for",
+            c?.email || "(no email)",
+            rowErr,
+          );
+          return `<tr><td colspan="17" style="background:#FEF2F2;color:#991B1B;padding:.4rem .8rem;font-size:.78rem">⚠️ ${c?.company || c?.email || "Unknown"} — render failed: ${rowErr.message}</td></tr>`;
+        }
+      })
+      .join("");
+  } catch (mapErr) {
+    console.error("[Noyo Admin] Table map error:", mapErr);
+    tbody.innerHTML = `<tr><td colspan="17" style="text-align:center;color:#DC2626;padding:2rem">Error rendering table: ${mapErr.message}</td></tr>`;
+    return;
+  }
+
+  // v139: optional Group by depot — group cards by city with header rows.
+  // The grouped view intersperses one header row per city above the rows
+  // for companies in that city. Filter/sort still apply within each group.
+  const groupByDepot =
+    !!document.getElementById("admin-rc-group-depot")?.checked;
+  if (groupByDepot && filtered.length) {
+    try {
+      const groups = {};
+      filtered.forEach((c) => {
+        const key = c.city || "Unassigned";
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(c);
+      });
+      const cityNames = Object.keys(groups).sort((a, b) =>
+        a.localeCompare(b),
+      );
+      let groupedHtml = "";
+      cityNames.forEach((city) => {
+        const cos = groups[city];
+        const state =
+          cos.find((x) => x.state)?.state ||
+          (typeof _stateForCity === "function" ? _stateForCity(city) : "");
+        const stateLabel = state ? ` · ${state}` : "";
+        groupedHtml += `<tr style="background:#0F172A;color:#fff">
+          <td colspan="17" style="padding:.55rem 1rem;font-weight:800;font-size:.86rem;letter-spacing:.3px">
+            🏙️ ${city}${stateLabel} <span style="opacity:.7;font-weight:600;margin-left:.6rem">${cos.length} ${cos.length === 1 ? "depot" : "depots"}</span>
+          </td>
+        </tr>`;
+        // Pull each company's rendered row out of renderedRowsHtml. Easier
+        // approach: re-render group rows from `cos` directly using the same
+        // template logic. To avoid duplicating template code, we extract by
+        // matching the original row index — each filtered[i] corresponds to
+        // the i-th block in renderedRowsHtml split on '</tr>'. But the
+        // billing breakdown row makes splitting fragile. Cleaner: re-build
+        // the grouped HTML by mapping over cos and reusing the same per-row
+        // logic. Because the row template is large, we re-execute the same
+        // map() function used above.
+        groupedHtml += cos
+          .map((c) => {
+            // Find this co in the filtered renderedRowsHtml by matching the
+            // company's email via a sentinel marker. Simplest: each row's
+            // first <td> contains '<strong>${c.company || "—"}</strong>'.
+            // Since company names can repeat, fall back to email-based
+            // matching using the Approve/Reject onclick attribute.
+            const safeEmail = (c.email || "").replace(
+              /[.@+-]/g,
+              (s) => `\\${s}`,
+            );
+            const re = new RegExp(
+              `<tr [^>]*>[\\s\\S]*?\\b${(c.email || "").replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}\\b[\\s\\S]*?</tr>(?:\\s*<tr id="rc-billing-row-[^"]*"[^>]*>[\\s\\S]*?</tr>)?`,
+              "m",
+            );
+            const m = renderedRowsHtml.match(re);
+            return m ? m[0] : "";
+          })
+          .join("");
+      });
+      tbody.innerHTML = groupedHtml;
+      _updateRcTabBadge();
+      return;
+    } catch (e) {
+      console.warn("[Noyo Admin] Group-by-depot render fell back:", e.message);
+      // Fall through to standard rendering
+    }
+  }
+
+  tbody.innerHTML = filtered.length
+    ? renderedRowsHtml
+    : '<tr><td colspan="17" style="text-align:center;color:#94a3b8;padding:2rem">No rental companies found.</td></tr>';
 
   _updateRcTabBadge();
 }
@@ -184062,6 +184150,132 @@ function markQrResponded(reqId) {
 // ═══════════════════════════════════════════════════════════════
 // FIREBASE AUTH STATE + POLLING
 // ═══════════════════════════════════════════════════════════════
+
+// ───────────────────────────────────────────────────────────────────────
+// v139: Online presence + monthly time tracking
+//
+// • Heartbeat fires every 60s while a rental co user is logged in and the
+//   tab is visible. Each heartbeat increments today's counter by 1 minute.
+// • Counts are stored in localStorage as `noyo_presence_v1` —
+//   { [email]: { lastSeenMs, dailyMinutes: { "YYYY-MM-DD": N } } }.
+// • Admin Rental Cos table reads this for live online-status dot and
+//   monthly online-time column.
+// • Customer-side users are NOT tracked (Firestore write volume + privacy).
+//
+// Trade-off: localStorage persists per-device. For a multi-device rental co
+// (e.g. owner on laptop + dispatcher on phone), each device's minutes are
+// counted separately. Good enough for v1; future versions can sync to
+// Firestore for cross-device consolidation.
+// ───────────────────────────────────────────────────────────────────────
+const _PRESENCE_KEY = "noyo_presence_v1";
+let _presenceHeartbeatTimer = null;
+
+function _loadPresence() {
+  try {
+    const raw = localStorage.getItem(_PRESENCE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (_) {
+    return {};
+  }
+}
+function _savePresence(state) {
+  try {
+    localStorage.setItem(_PRESENCE_KEY, JSON.stringify(state));
+  } catch (_) {}
+}
+function _todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+function _heartbeatTick() {
+  if (!currentUser || currentUser.role !== "rental") return;
+  if (typeof document !== "undefined" && document.hidden) return; // tab not visible — don't count
+  const email = currentUser.email;
+  if (!email) return;
+  const state = _loadPresence();
+  if (!state[email]) state[email] = { lastSeenMs: 0, dailyMinutes: {} };
+  state[email].lastSeenMs = Date.now();
+  const tk = _todayKey();
+  state[email].dailyMinutes[tk] = (state[email].dailyMinutes[tk] || 0) + 1;
+  _savePresence(state);
+}
+function startPresenceHeartbeat() {
+  if (_presenceHeartbeatTimer) return; // already running
+  _heartbeatTick(); // count the moment of login
+  _presenceHeartbeatTimer = setInterval(_heartbeatTick, 60 * 1000);
+}
+function stopPresenceHeartbeat() {
+  if (_presenceHeartbeatTimer) {
+    clearInterval(_presenceHeartbeatTimer);
+    _presenceHeartbeatTimer = null;
+  }
+}
+// Read helpers used by admin table
+function getPresenceForEmail(email) {
+  if (!email) return null;
+  const state = _loadPresence();
+  return state[email] || null;
+}
+function _formatMinutes(mins) {
+  if (!mins) return "0m";
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  if (h === 0) return `${m}m`;
+  return `${h}h ${m}m`;
+}
+function getMonthlyMinutes(email, monthYear /* e.g. "2026-05" */) {
+  const p = getPresenceForEmail(email);
+  if (!p || !p.dailyMinutes) return 0;
+  const targetMonth = monthYear || (() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+  })();
+  let total = 0;
+  Object.entries(p.dailyMinutes).forEach(([date, mins]) => {
+    if (date.startsWith(targetMonth)) total += mins;
+  });
+  return total;
+}
+// Online indicator: green ≤5m, amber ≤30m, grey otherwise. Returns {dot, label}
+function getOnlineIndicator(email) {
+  const p = getPresenceForEmail(email);
+  if (!p || !p.lastSeenMs) {
+    return { color: "#CBD5E1", label: "Never seen", title: "Never logged in" };
+  }
+  const ageMs = Date.now() - p.lastSeenMs;
+  const ageMin = Math.floor(ageMs / 60000);
+  if (ageMin <= 5) {
+    return { color: "#16A34A", label: "Online", title: "Active now" };
+  }
+  if (ageMin <= 30) {
+    return {
+      color: "#F59E0B",
+      label: `Idle ${ageMin}m`,
+      title: `Last active ${ageMin} min ago`,
+    };
+  }
+  if (ageMin < 60) {
+    return {
+      color: "#94A3B8",
+      label: `${ageMin}m ago`,
+      title: `Offline · last seen ${ageMin} min ago`,
+    };
+  }
+  if (ageMin < 60 * 24) {
+    const h = Math.floor(ageMin / 60);
+    return {
+      color: "#94A3B8",
+      label: `${h}h ago`,
+      title: `Offline · last seen ${h}h ago`,
+    };
+  }
+  const days = Math.floor(ageMin / (60 * 24));
+  return {
+    color: "#94A3B8",
+    label: `${days}d ago`,
+    title: `Offline · last seen ${days}d ago`,
+  };
+}
 
 // ── Auth persistence: restore session on page reload ─────────
 // Wrapped in try/catch + typeof guard so a missing/failed firebase-bridge.js
