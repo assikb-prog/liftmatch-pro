@@ -13,7 +13,7 @@
   --shadow:0 4px 24px rgba(0,82,204,.12); --shadow-lg:0 8px 40px rgba(0,82,204,.20);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;min-height:100dvh}
 
 /* NAV */
 nav{background:var(--primary-dark);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2)}
@@ -314,7 +314,7 @@ select.q-input{cursor:pointer}
 #cart-edit-modal{z-index:9500}
 
 /* ── CART SIDEBAR ─────────────────────────────────── */
-.cart-sidebar{position:fixed;top:0;right:-420px;width:420px;max-width:100vw;height:100vh;background:#fff;box-shadow:-8px 0 40px rgba(0,0,0,.18);z-index:9000;display:flex;flex-direction:column;transition:right .35s cubic-bezier(.4,0,.2,1)}
+.cart-sidebar{position:fixed;top:0;right:-420px;width:420px;max-width:100vw;height:100vh;height:100dvh;background:#fff;box-shadow:-8px 0 40px rgba(0,0,0,.18);z-index:9000;display:flex;flex-direction:column;transition:right .35s cubic-bezier(.4,0,.2,1)}
 .cart-sidebar.open{right:0}
 .cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:8999}
 .cart-overlay.open{display:block}
@@ -1447,7 +1447,33 @@ input[type="number"] { -moz-appearance: textfield; }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 
-html, body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overscroll-behavior-y: contain; }
+/* ── v143: Mobile scroll fixes (iOS + Android) ────────────────────────
+   The previous overscroll-behavior:contain on body caused iOS Safari to
+   intermittently freeze body scroll — especially after touching a child
+   scroll region (AI panel, table, dropdown). Removed.
+   Added: smooth touch-momentum scrolling on body itself. */
+html, body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+body {
+  /* Allow the page to scroll naturally; never lock vertical pan */
+  touch-action: pan-x pan-y;
+  /* Prevent rubber-band lock on iOS while still allowing momentum */
+  overscroll-behavior-y: auto;
+}
+/* Re-arm touch-momentum on commonly-scrolled content */
+.admin-table-wrap,
+.table-scroll,
+.modal,
+.cart-sidebar,
+.respond-modal-body,
+.ai-body,
+.rq-scroll-body,
+[data-scrollable] {
+  -webkit-overflow-scrolling: touch !important;
+}
 
 
 /* ══════════════════════════════════════════════════════════════
@@ -1458,6 +1484,8 @@ html, body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overscroll-
 /* Minimum touch target size — all interactive elements */
 button, .nav-tab, .admin-tab, select, input[type="file"], a.btn {
   min-height: 38px;
+  /* v143: eliminate the 300ms double-tap delay on iOS for snappier taps */
+  touch-action: manipulation;
 }
 
 /* Firefox: remove dotted outline on buttons */
