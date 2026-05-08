@@ -170530,6 +170530,12 @@ window.addEventListener("load", () => {
   try {
     setTimeout(_loadPromoEndDate, 1000);
   } catch (e) {}
+  // v143: iOS scroll safety net — guarantee body scroll is never left
+  // locked by any JS that might forget to release it.
+  try {
+    document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "auto";
+  } catch (_) {}
 });
 
 // ── Admin: set the launch-promo end date (anything before this date is free) ──
