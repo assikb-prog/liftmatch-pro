@@ -172185,7 +172185,7 @@ function renderAdminCustomers() {
   // Load customers from Firestore — async, renders when ready
   const customers = [];
   tbody.innerHTML =
-    '<tr><td colspan="10" style="text-align:center;color:#94a3b8;padding:2rem">Loading customers…</td></tr>';
+    '<tr><td colspan="11" style="text-align:center;color:#94a3b8;padding:2rem">Loading customers…</td></tr>';
 
   _fbDb
     .collection("users")
@@ -172264,14 +172264,15 @@ function renderAdminCustomers() {
       <td style="text-align:center;font-weight:700;color:#0052CC">${c.quoteCount}</td>
       <td style="font-size:.75rem;color:#64748B">${c.regAt ? new Date(c.regAt).toLocaleDateString("en-AU") : "—"}</td>
       <td style="font-size:.75rem;color:#64748B">${c.lastSeen ? adminFmt(c.lastSeen) : "—"}</td>
+      <td style="white-space:nowrap"><button onclick="adminDeleteCustomer('${c.email.replace(/'/g, "\\'")}')" style="background:#FEF2F2;color:#991B1B;border:1.5px solid #FCA5A5;border-radius:6px;padding:.25rem .55rem;font-size:.73rem;font-weight:800;cursor:pointer">🗑️ Delete</button></td>
     </tr>`,
             )
             .join("")
-        : '<tr><td colspan="10" style="text-align:center;color:#94a3b8;padding:2rem">No customers registered yet.</td></tr>';
+        : '<tr><td colspan="11" style="text-align:center;color:#94a3b8;padding:2rem">No customers registered yet.</td></tr>';
     })
     .catch((e) => {
       tbody.innerHTML =
-        '<tr><td colspan="10" style="text-align:center;color:#ef4444;padding:2rem">Error loading customers.</td></tr>';
+        '<tr><td colspan="11" style="text-align:center;color:#ef4444;padding:2rem">Error loading customers.</td></tr>';
       console.warn("renderAdminCustomers error:", e.message);
     });
 }
@@ -172664,6 +172665,102 @@ async function adminDeleteRentalCo(arg) {
 
   renderAdminRentalCos();
   if (typeof _updateRcTabBadge === "function") _updateRcTabBadge();
+}
+
+// ── v144: Admin delete customer (bad actors / spam / GDPR-style request) ──
+// Removes the customer's users record, scrubs them from customerRegistry,
+// and (optionally) wipes their submitted enquiries from quoteInbox so the
+// rental cos who received them stop seeing them too.
+async function adminDeleteCustomer(email) {
+  if (!email || typeof email !== "string") return;
+  email = email.trim().toLowerCase();
+  if (!email) return;
+
+  // Two-step confirmation: first the basic delete prompt, then a separate
+  // prompt asking whether to also remove the enquiries this customer sent.
+  const ok1 = confirm(
+    `⚠️ Delete customer "${email}"?\n\nThis removes:\n  • Their account from the users database\n  • Their session/activity history\n\nThey will no longer be able to log in. They can re-register from scratch with the same email if they choose to.\n\nProceed?`,
+  );
+  if (!ok1) return;
+
+  const alsoEnquiries = confirm(
+    `Also delete this customer's submitted enquiries?\n\nClick OK to ALSO remove all quote requests they've sent — these will disappear from every rental company's inbox too. Useful for spam/bad-actor cleanup.\n\nClick Cancel to keep their enquiries (their account is deleted but the enquiries stay in the system).`,
+  );
+
+  let deletedCount = 0;
+  let errors = [];
+
+  try {
+    if (typeof _fbDb === "undefined" || !_fbDb) {
+      alert("❌ Firestore not available. Cannot delete.");
+      return;
+    }
+    // 1) Delete users doc(s) matching this email
+    try {
+      const uSnap = await _fbDb
+        .collection("users")
+        .where("email", "==", email)
+        .get();
+      if (!uSnap.empty) {
+        for (const d of uSnap.docs) {
+          await d.ref.delete();
+          deletedCount++;
+        }
+      }
+    } catch (e) {
+      errors.push(`users: ${e.message}`);
+    }
+    // 2) Optionally delete this customer's quote requests
+    if (alsoEnquiries) {
+      try {
+        const qSnap = await _fbDb
+          .collection("quote_requests")
+          .where("email", "==", email)
+          .get();
+        if (!qSnap.empty) {
+          for (const d of qSnap.docs) {
+            await d.ref.delete();
+            deletedCount++;
+          }
+        }
+        // Also strip from in-memory quoteInbox so UI updates immediately
+        if (Array.isArray(quoteInbox)) {
+          for (let i = quoteInbox.length - 1; i >= 0; i--) {
+            if ((quoteInbox[i].email || "").toLowerCase() === email) {
+              quoteInbox.splice(i, 1);
+            }
+          }
+        }
+      } catch (e) {
+        errors.push(`quote_requests: ${e.message}`);
+      }
+    }
+  } catch (outerErr) {
+    errors.push(`outer: ${outerErr.message}`);
+  }
+
+  // 3) Scrub from in-memory customerRegistry regardless of Firestore result
+  try {
+    if (customerRegistry && customerRegistry[email]) {
+      delete customerRegistry[email];
+    }
+    // Also remove any keys that match case-insensitively
+    Object.keys(customerRegistry || {}).forEach((k) => {
+      if (k.toLowerCase() === email) delete customerRegistry[k];
+    });
+  } catch (_) {}
+
+  if (deletedCount > 0 || true) {
+    // Always show toast — local registry scrub is a meaningful action even
+    // if no Firestore docs existed (e.g. session-only customers)
+    showToast(
+      `🗑️ Customer "${email}" removed${alsoEnquiries ? " (with their enquiries)" : ""}${errors.length ? " — see console" : ""}.`,
+      "#DC2626",
+    );
+  }
+  if (errors.length) console.warn("[adminDeleteCustomer] Errors:", errors);
+
+  renderAdminCustomers();
 }
 
 // ── Admin plan management ────────────────────────────────────────────
