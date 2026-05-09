@@ -433,17 +433,19 @@ select.q-input{cursor:pointer}
 /* =====================================================================
    LOGIN PORTAL
    ===================================================================== */
+/* v145: scrollable full-screen overlay pattern.
+   The PORTAL is a position:fixed BLOCK (not flex) with overflow-y:auto.
+   The INNER does the centering with min-height:100% + flex.
+   This is the textbook iOS/Android compatible scrollable-overlay pattern.
+   The previous "display:flex; align-items:center; overflow:hidden" trapped
+   tall content above and below the visible area on phones and tablets,
+   making the page appear unscrollable. */
 #login-portal {
   position:fixed;top:0;right:0;bottom:0;left:0;inset:0;z-index:9999;
-  width:100%;height:100%;
   background:linear-gradient(135deg,#020D1F 0%,#0A1D42 45%,#001133 100%);
-  display:flex;align-items:flex-start;justify-content:center;
   font-family:'Nunito',sans-serif;
-  /* v145: allow scrolling when content exceeds viewport (tablets, landscape,
-     mobile keyboard open). flex-start + min-height on .lp-inner avoids the
-     classic align-items:center scroll trap where overflowing content can't
-     be reached. */
-  overflow-y:auto;overflow-x:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior:contain;
 }
@@ -476,11 +478,19 @@ select.q-input{cursor:pointer}
 }
 
 .lp-inner{
-  position:relative;z-index:2;width:100%;max-width:980px;padding:2rem 1.5rem;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  /* v145: fill viewport so cards remain visually centered when content fits,
-     and grow naturally (allowing portal scroll) when it doesn't. */
+  position:relative;z-index:2;
+  width:100%;max-width:980px;
+  /* v145: safe-area padding so cards aren't hidden behind iPhone notch
+     or home indicator. Falls back to plain values via max(). */
+  padding:max(2rem,env(safe-area-inset-top)) 1.5rem max(2rem,env(safe-area-inset-bottom));
+  /* handles the centering that used to live on #login-portal.
+     min-height:100% + flex centering means the cards stay vertically
+     centered when content fits, and grow naturally (allowing the
+     portal to scroll) when it doesn't. */
   min-height:100%;
+  margin:0 auto;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   box-sizing:border-box;
 }
 
@@ -559,20 +569,24 @@ select.q-input{cursor:pointer}
 .lp-enter-btn.customer:hover{box-shadow:0 6px 24px rgba(255,107,53,.4);transform:translateY(-1px)}
 
 /* LOGIN FORM OVERLAY */
+/* v145: simplest scroll-safe pattern — block container with overflow-y:auto.
+   No display:flex; no align-items:center (those create the iOS scroll trap
+   when content exceeds the viewport). The form sits near top via auto
+   horizontal margin and a small vertical margin. On a phone with the
+   keyboard up, the user can scroll the wrap to reach the form bottom.
+   position:fixed (not absolute) so it covers the visible viewport
+   regardless of how the portal underneath has been scrolled, and so
+   touch-scroll inside the wrap is fully decoupled from the portal. */
 .lp-form-wrap{
-  position:absolute;inset:0;z-index:3;
+  position:fixed;inset:0;z-index:10000;
   background:rgba(13,17,32,.7);
   opacity:0;pointer-events:none;visibility:hidden;
   transition:opacity .3s,visibility .3s;
-  /* v145: scroll-friendly centered modal pattern.
-     display:flex + margin:auto on the form gives true centering when the
-     form fits, and when it doesn't, the wrap scrolls and the form is
-     reachable from the top (no align-items:center scroll trap). */
-  display:flex;flex-direction:column;
-  overflow-y:auto;overflow-x:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior:contain;
-  padding:1rem;
+  padding:1.5rem 1rem;
 }
 .lp-form-wrap.visible{
   opacity:1;pointer-events:all;visibility:visible;
@@ -584,9 +598,9 @@ select.q-input{cursor:pointer}
   border-radius:24px;padding:2.5rem;width:100%;max-width:400px;
   box-shadow:0 30px 80px rgba(0,0,0,.5);
   animation:formSlide .35s ease;
-  /* v145: centers horizontally, and vertically when there's room.
-     When the form is taller than .lp-form-wrap, the wrap scrolls. */
-  margin:auto;
+  /* v145: horizontal center; vertical position handled by .lp-form-wrap
+     padding. No max-height constraint — wrap scrolls if needed. */
+  margin:0 auto;
 }
 @keyframes formSlide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 
@@ -643,7 +657,7 @@ select.lp-input option {
 .lp-toggle-btn:hover:not(.active){color:rgba(255,255,255,.85)}
 .lp-row-2{display:flex;gap:.75rem}
 .lp-auto{background:rgba(255,255,255,.04)!important;color:rgba(255,255,255,.45)!important;cursor:default}
-.lp-form.register-mode{max-height:85vh;max-height:85dvh;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;-webkit-overflow-scrolling:touch}
+.lp-form.register-mode{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
 .lp-cats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .5rem;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:.65rem .75rem;max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
 .lp-cat-item{display:flex;align-items:center;gap:.45rem;cursor:pointer;padding:.25rem .3rem;border-radius:6px;transition:background .15s;font-size:.83rem;color:rgba(255,255,255,.8);font-weight:500}
 .lp-cat-item:hover{background:rgba(255,255,255,.08)}
@@ -1010,14 +1024,6 @@ select.lp-input option {
 @media(max-width:520px){
   .lp-cards{grid-template-columns:1fr;max-width:380px}
 }
-/* v145: safe-area insets for iPhone notch/home-bar so portal content
-   isn't hidden behind system UI on phones and tablets. */
-@media(max-width:1024px){
-  #login-portal{
-    padding-top:max(1rem,env(safe-area-inset-top));
-    padding-bottom:max(1rem,env(safe-area-inset-bottom));
-  }
-}
 @media(max-width:380px){
   .lp-card{padding:1.2rem}
   .lp-card-emoji{font-size:2.2rem;margin-bottom:.6rem}
@@ -1026,16 +1032,12 @@ select.lp-input option {
 
 /* ── 11. LOGIN FORM ─────────────────────────────────────────────────── */
 @media(max-width:520px){
-  .lp-form-wrap{padding:.5rem}
-  .lp-form{padding:1.4rem 1.1rem;border-radius:16px;max-height:none}
+  .lp-form-wrap{padding:1rem .5rem}
+  .lp-form{padding:1.4rem 1.1rem;border-radius:16px}
   .lp-form-title{font-size:1.2rem}
   .lp-row-2{flex-direction:column;gap:0}
   .lp-input{font-size:.9rem;padding:.6rem .85rem}
   .lp-cats-grid{grid-template-columns:1fr}
-  /* v145: on phones, let the form size to its content and rely on
-     .lp-form-wrap scrolling around it. Removing max-height prevents
-     the form bottom from being hidden behind the on-screen keyboard. */
-  .lp-form.register-mode{max-height:none}
 }
 
 /* ── 12. ADMIN — TABS ───────────────────────────────────────────────── */
@@ -1124,9 +1126,9 @@ select.lp-input option {
 
 /* ── 24. GENERAL TOUCH TARGETS ──────────────────────────────────────── */
 @media(max-width:768px){
-  /* v145: Apple HIG / Material both call for 44px tap targets.
-     Old rule had min-height:14px (typo). Apply a sensible floor to
-     buttons and selects only — checkboxes/radios stay native-sized. */
+  /* v145: was min-height:14px (typo). Apple HIG / Material both call for
+     ~44px tap targets. Scoped to button + select only — checkboxes and
+     radios stay native-sized. */
   button,select{
     min-height:40px
   }
