@@ -158002,10 +158002,12 @@ function populateSqmMachineList() {
 
   container.innerHTML =
     `
-    <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.6rem 1rem;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem">
+    <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.6rem 1rem;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
       <span style="font-size:1.1rem">🛒</span>
       <span style="font-weight:800;color:#1D4ED8;font-size:.95rem">${curCount} machine${curCount !== 1 ? "s" : ""} in your hire enquiry</span>
-      <span style="color:#64748B;font-size:.8rem;margin-left:.3rem">— all will be quoted together</span>
+      <span style="color:#64748B;font-size:.8rem;margin-left:.3rem;flex:1;min-width:120px">— all will be quoted together</span>
+      ${curCount > 0 ? `<button type="button" onclick="sqmClearAllMachines()" title="Remove all machines and start over"
+        style="background:#FEF2F2;border:1.5px solid #FCA5A5;color:#DC2626;border-radius:8px;padding:.35rem .75rem;font-size:.78rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;display:inline-flex;align-items:center;gap:.3rem;white-space:nowrap">🗑️ Clear all</button>` : ""}
     </div>
   ` +
     quoteCart
@@ -158064,6 +158066,29 @@ function populateSqmMachineList() {
             (m.name || "").toLowerCase().includes("mrt") ||
             (m.name || "").toLowerCase().includes("rth") ||
             (m.filters || []).includes("rotating"));
+        const _mtLc = (m.type || "").toLowerCase();
+        const _isExcavator = _mtLc.includes("excavator");
+        const _isDozer = _mtLc === "dozer" || _mtLc.includes("dozer");
+        const _isBobcat =
+          _mtLc === "bobcat" ||
+          _mtLc.includes("skid") ||
+          _mtLc.includes("ctl") ||
+          _mtLc.includes("compact_loader") ||
+          _mtLc.includes("compact-loader");
+        const _isLoader =
+          !_isBobcat &&
+          (_mtLc === "loader" ||
+            _mtLc.includes("wheel_loader") ||
+            _mtLc.includes("wheel-loader"));
+        const _isCompactor =
+          _mtLc.includes("compactor") || _mtLc.includes("roller");
+        const _isTruck =
+          _mtLc === "truck" ||
+          _mtLc === "adt" ||
+          _mtLc === "dumper" ||
+          _mtLc === "rigid_dump_truck" ||
+          _mtLc.includes("hauler") ||
+          _mtLc.includes("dump");
         const _cartAccs = m.cartAccessories || {};
 
         const _accBox = (idx, key, label, checked) =>
@@ -158196,16 +158221,131 @@ function populateSqmMachineList() {
                 !!_cartAccs.fork_pos,
               ),
           );
+        } else if (_isExcavator) {
+          accHtml = _accWrap(
+            "🔧 Excavator Attachments — tick to add as separate quote line items",
+            _accBox(i, "gp_bucket", "🪣 GP Bucket", !!_cartAccs.gp_bucket) +
+              _accBox(
+                i,
+                "mud_bucket",
+                "🪣 Mud / Batter Bucket",
+                !!_cartAccs.mud_bucket,
+              ) +
+              _accBox(
+                i,
+                "trench_bucket",
+                "🪣 Trenching Bucket",
+                !!_cartAccs.trench_bucket,
+              ) +
+              _accBox(i, "ripper", "⛏️ Ripper", !!_cartAccs.ripper) +
+              _accBox(i, "auger", "🌀 Auger / Post Hole", !!_cartAccs.auger) +
+              _accBox(i, "hammer", "🔨 Rock Breaker / Hammer", !!_cartAccs.hammer) +
+              _accBox(
+                i,
+                "grab",
+                "🤏 Grab / Grapple",
+                !!_cartAccs.grab,
+              ) +
+              _accBox(
+                i,
+                "tilt_hitch",
+                "🔄 Tilt Hitch / Quick Hitch",
+                !!_cartAccs.tilt_hitch,
+              ),
+          );
+        } else if (_isLoader || _isDozer || _isBobcat) {
+          const _ttl = _isDozer
+            ? "🔧 Dozer Attachments — tick to add as separate quote line items"
+            : _isBobcat
+              ? "🔧 Skid-Steer / Bobcat Attachments — tick to add as separate quote line items"
+              : "🔧 Loader Attachments — tick to add as separate quote line items";
+          accHtml = _accWrap(
+            _ttl,
+            _accBox(i, "gp_bucket", "🪣 GP Bucket", !!_cartAccs.gp_bucket) +
+              _accBox(
+                i,
+                "four_in_one",
+                "🪣 4-in-1 Bucket",
+                !!_cartAccs.four_in_one,
+              ) +
+              _accBox(i, "forks", "🍴 Pallet Forks", !!_cartAccs.forks) +
+              _accBox(i, "broom", "🧹 Sweeper / Broom", !!_cartAccs.broom) +
+              _accBox(i, "auger", "🌀 Auger / Post Hole", !!_cartAccs.auger) +
+              _accBox(
+                i,
+                "trencher",
+                "⛏️ Trencher Attachment",
+                !!_cartAccs.trencher,
+              ) +
+              _accBox(i, "ripper", "⛏️ Ripper", !!_cartAccs.ripper) +
+              _accBox(
+                i,
+                "grab",
+                "🤏 Grab / Grapple",
+                !!_cartAccs.grab,
+              ),
+          );
+        } else if (_isCompactor) {
+          accHtml = _accWrap(
+            "🔧 Compactor Options — tick to add as separate quote line items",
+            _accBox(i, "padfoot", "🦶 Padfoot Drum / Shells", !!_cartAccs.padfoot) +
+              _accBox(i, "water_kit", "💧 Water Spray Kit", !!_cartAccs.water_kit) +
+              _accBox(i, "rops_canopy", "🛡️ ROPS Canopy", !!_cartAccs.rops_canopy),
+          );
+        } else if (_isTruck) {
+          accHtml = _accWrap(
+            "🔧 Truck / Hauler Options — tick to add as separate quote line items",
+            _accBox(i, "tarp", "🛡️ Load Tarp / Cover", !!_cartAccs.tarp) +
+              _accBox(i, "tailgate", "🚪 Tailgate Spreader", !!_cartAccs.tailgate) +
+              _accBox(i, "operator", "👷 Operator (Wet Hire)", !!_cartAccs.operator),
+          );
+        } else {
+          // ── Generic fallback — every machine gets an attachments box ──
+          accHtml = _accWrap(
+            "🔧 Attachments / Accessories — tick to add as separate quote line items",
+            _accBox(i, "operator", "👷 Operator (Wet Hire)", !!_cartAccs.operator) +
+              _accBox(
+                i,
+                "transport",
+                "🚚 Delivery / Pickup",
+                !!_cartAccs.transport,
+              ) +
+              _accBox(i, "fuel", "⛽ Fuel Supply", !!_cartAccs.fuel) +
+              _accBox(
+                i,
+                "extra_attach",
+                "🔩 Extra Attachment (specify in notes)",
+                !!_cartAccs.extra_attach,
+              ) +
+              _accBox(
+                i,
+                "after_hours",
+                "🌙 After-Hours / Weekend Use",
+                !!_cartAccs.after_hours,
+              ),
+          );
         }
 
-        return `<div class="sqm-machine-item-wrap">
-      <div class="sqm-machine-top">
-        <span style="font-size:1.4rem">${m.emoji}</span>
+        // ── Divider before each machine after the first — distinguishes machines clearly ──
+        const _divider =
+          i > 0
+            ? `<div style="display:flex;align-items:center;gap:.6rem;margin:.85rem 0 .55rem 0">
+                 <div style="flex:1;height:2px;background:linear-gradient(90deg,transparent,#CBD5E1,transparent)"></div>
+                 <div style="font-size:.7rem;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:1.5px;background:#F1F5F9;padding:.2rem .7rem;border-radius:20px;border:1px solid #E2E8F0">Machine ${i + 1}</div>
+                 <div style="flex:1;height:2px;background:linear-gradient(90deg,transparent,#CBD5E1,transparent)"></div>
+               </div>`
+            : `<div style="font-size:.7rem;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:1.5px;background:#F1F5F9;padding:.2rem .7rem;border-radius:20px;border:1px solid #E2E8F0;display:inline-block;margin-bottom:.5rem">Machine 1</div>`;
+
+        return `${_divider}<div class="sqm-machine-item-wrap">
+      <div class="sqm-machine-top" style="display:flex;align-items:flex-start;gap:.6rem">
+        <span style="font-size:1.4rem;flex-shrink:0">${m.emoji}</span>
         <div style="flex:1;min-width:0">
           <strong style="color:#1E40AF">${m.name || m.id || "Unknown machine"}</strong>${m.quantity && m.quantity > 1 ? `<span style="margin-left:.4rem;background:#DBEAFE;color:#1D4ED8;font-size:.72rem;font-weight:900;padding:.1rem .45rem;border-radius:20px">×${m.quantity}</span>` : ""}
           ${specs ? `<div style="font-size:.75rem;color:#475569;margin-top:.15rem">${specs}</div>` : ""}
           ${attHtml}${kymdTynes}${kymdAtt}
         </div>
+        <button type="button" onclick="sqmRemoveMachine(${i})" title="Remove this machine from your enquiry"
+          style="flex-shrink:0;background:#FEF2F2;border:1.5px solid #FCA5A5;color:#DC2626;border-radius:8px;width:32px;height:32px;font-size:.95rem;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;line-height:1">✕</button>
       </div>
       <div class="sqm-machine-dur" style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap">
         <div style="display:flex;align-items:center;gap:.4rem;flex:0 0 auto">
@@ -158261,10 +158401,89 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   if (acc.slipper_2400) chargeable.push("📦 2400mm Slippers");
   if (acc.side_shift) chargeable.push("↔️ Side Shift");
   if (acc.fork_pos) chargeable.push("🎛️ Fork Positioner");
+  // Excavator
+  if (acc.gp_bucket) chargeable.push("🪣 GP Bucket");
+  if (acc.mud_bucket) chargeable.push("🪣 Mud / Batter Bucket");
+  if (acc.trench_bucket) chargeable.push("🪣 Trenching Bucket");
+  if (acc.ripper) chargeable.push("⛏️ Ripper");
+  if (acc.auger) chargeable.push("🌀 Auger / Post Hole");
+  if (acc.hammer) chargeable.push("🔨 Rock Breaker / Hammer");
+  if (acc.grab) chargeable.push("🤏 Grab / Grapple");
+  if (acc.tilt_hitch) chargeable.push("🔄 Tilt Hitch / Quick Hitch");
+  // Loader / dozer / bobcat
+  if (acc.four_in_one) chargeable.push("🪣 4-in-1 Bucket");
+  if (acc.forks) chargeable.push("🍴 Pallet Forks");
+  if (acc.broom) chargeable.push("🧹 Sweeper / Broom");
+  if (acc.trencher) chargeable.push("⛏️ Trencher Attachment");
+  // Compactor
+  if (acc.padfoot) chargeable.push("🦶 Padfoot Drum / Shells");
+  if (acc.water_kit) chargeable.push("💧 Water Spray Kit");
+  if (acc.rops_canopy) chargeable.push("🛡️ ROPS Canopy");
+  // Truck / hauler
+  if (acc.tarp) chargeable.push("🛡️ Load Tarp / Cover");
+  if (acc.tailgate) chargeable.push("🚪 Tailgate Spreader");
+  // Generic fallback / universal
+  if (acc.operator) chargeable.push("👷 Operator (Wet Hire)");
+  if (acc.transport) chargeable.push("🚚 Delivery / Pickup");
+  if (acc.fuel) chargeable.push("⛽ Fuel Supply");
+  if (acc.extra_attach)
+    chargeable.push("🔩 Extra Attachment (specify in notes)");
+  if (acc.after_hours) chargeable.push("🌙 After-Hours / Weekend Use");
   jr.chargeableAttachments = chargeable.length ? chargeable : undefined;
   jr.oneTimeAttachments = oneTime.length ? oneTime : undefined;
   quoteCart[cartIdx].jobRequirements = jr;
   saveCartToStorage();
+}
+
+// ── Remove a single machine from the enquiry (Send Hire Enquiry screen) ───
+function sqmRemoveMachine(idx) {
+  if (!quoteCart[idx]) return;
+  const name = quoteCart[idx].name || quoteCart[idx].id || "this machine";
+  if (
+    !confirm(
+      `Remove "${name}" from your hire enquiry?\n\nYou can always add it back later.`,
+    )
+  )
+    return;
+  quoteCart.splice(idx, 1);
+  saveCartToStorage();
+  // Re-render enquiry list
+  populateSqmMachineList();
+  // Keep cart sidebar / header counters in sync
+  if (typeof updateCartUI === "function") updateCartUI();
+  // If now empty, close modal so customer can add machines again
+  if (quoteCart.length === 0) {
+    const modal = document.getElementById("send-quotes-modal");
+    if (modal) modal.classList.remove("open");
+    if (typeof showToast === "function")
+      showToast("Your hire enquiry is now empty", "#64748B");
+  } else {
+    if (typeof showToast === "function")
+      showToast("Removed " + name, "#15803D");
+  }
+}
+
+// ── Clear the entire enquiry / quote request ──────────────────────────────
+function sqmClearAllMachines() {
+  if (quoteCart.length === 0) return;
+  if (
+    !confirm(
+      "Delete your entire hire enquiry?\n\nThis will remove all " +
+        quoteCart.length +
+        " machine" +
+        (quoteCart.length !== 1 ? "s" : "") +
+        " from your enquiry. You can build a new enquiry afterwards.",
+    )
+  )
+    return;
+  quoteCart.length = 0;
+  saveCartToStorage();
+  populateSqmMachineList();
+  if (typeof updateCartUI === "function") updateCartUI();
+  const modal = document.getElementById("send-quotes-modal");
+  if (modal) modal.classList.remove("open");
+  if (typeof showToast === "function")
+    showToast("Hire enquiry cleared", "#64748B");
 }
 
 function buildMachineListHtml() {
@@ -161032,6 +161251,106 @@ function openRespondModal(reqId) {
       }),
     ].join("");
 
+    // ── Per-machine quiz-answer pills (every answer customer gave for THIS machine) ──
+    const _mqSeen = new Set();
+    function _mqPill(icon, label, val, tone) {
+      const key = label + "::" + val;
+      if (val === undefined || val === null || val === "" || _mqSeen.has(key))
+        return "";
+      _mqSeen.add(key);
+      const palette =
+        tone === "warn"
+          ? "background:#FEF3C7;border:1.5px solid #FCD34D;color:#92400E"
+          : tone === "red"
+            ? "background:#FEF2F2;border:1.5px solid #FCA5A5;color:#991B1B"
+            : tone === "green"
+              ? "background:#F0FDF4;border:1.5px solid #86EFAC;color:#15803D"
+              : "background:#EFF6FF;border:1.5px solid #BFDBFE;color:#1E40AF";
+      return `<div style="${palette};border-radius:8px;padding:.3rem .6rem;display:inline-flex;align-items:center;gap:.35rem;font-size:.76rem;font-weight:700;white-space:nowrap"><span>${icon}</span><span style="color:#64748B;font-weight:600">${label}:</span><span>${val}</span></div>`;
+    }
+    const _mqRows = [
+      _mqPill("🏗️", "Lifting for", jr.liftingFor),
+      _mqPill("👷", "Crew on platform", jr.crewSize),
+      _mqPill(
+        "⚖️",
+        "Load weight",
+        jr.loadWeightKg ? jr.loadWeightKg.toLocaleString() + " kg" : null,
+      ),
+      _mqPill("📦", "Load type", jr.loadType),
+      _mqPill("⚖️", "Basket SWL", jr.basketSWL),
+      _mqPill(
+        "📏",
+        "Platform height",
+        jr.liftHeightM ? jr.liftHeightM + " m" : null,
+      ),
+      _mqPill(
+        "↔️",
+        "Horizontal reach",
+        jr.forwardReachM ? jr.forwardReachM + " m" : null,
+      ),
+      _mqPill("↔️", "Boom reach", jr.boomHorizontalReach),
+      _mqPill(
+        "📐",
+        "Obstacle height",
+        jr.obstacleHeightM ? jr.obstacleHeightM + " m" : null,
+      ),
+      _mqPill("🎯", "Access type", jr.accessType),
+      _mqPill("⛰️", "Terrain", jr.terrain),
+      _mqPill("📍", "Location", jr.siteLocation || jr.indoorOutdoor),
+      _mqPill(
+        "⚡",
+        "Power source",
+        jr.scissorPower || jr.boomPower || jr.forkPowerPreference,
+      ),
+      _mqPill("🚗", "Drive at height", jr.driveAtHeight),
+      _mqPill("🔄", "Rotation required", jr.rotationRequired),
+      _mqPill("🔩", "Attachments", jr.attachmentsRequired),
+      jr.powerToBasketRequired
+        ? _mqPill("🔌", "Power to basket", "Yes — 240V outlet required", "green")
+        : "",
+      jr.maxMachineWeightKg
+        ? _mqPill("⚠️", "Max machine weight", jr.maxMachineWeightKg, "warn")
+        : "",
+      jr.maxMachineWidthMm
+        ? _mqPill("⚠️", "Max machine width", jr.maxMachineWidthMm, "warn")
+        : "",
+      jr.maxMachineHeightMm
+        ? _mqPill("⚠️", "Max machine height", jr.maxMachineHeightMm, "warn")
+        : "",
+      jr.maxMachineLengthMm
+        ? _mqPill("⚠️", "Max machine length", jr.maxMachineLengthMm, "warn")
+        : "",
+      _mqPill(
+        "🏷️",
+        "Brand preference",
+        jr.brandPreference || jr.forkBrandPreference,
+      ),
+      _mqPill("🌿", "Hire type", jr.hireType || jr.hireArrangement),
+      _mqPill("🔑", "3-phase charging", jr.threePhaseCharging),
+      jr.containerMastRequired
+        ? _mqPill("🏗️", "Container mast", "Required", "warn")
+        : "",
+      ...((jr.siteAccessRestrictions || []).map((r) =>
+        _mqPill("🚧", "Site restriction", r, "red"),
+      )),
+      _mqPill("🚜", "Task", jr.earthworksJob, "warn"),
+      _mqPill("⛏️", "Dig depth", jr.digDepth, "warn"),
+      _mqPill("📊", "Volume", jr.cartVolume, "warn"),
+      _mqPill("🌍", "Ground condition", jr.groundCondition, "warn"),
+      _mqPill("📐", "Work area", jr.areaSize, "warn"),
+    ].filter(Boolean);
+    const _mqNotesHtml = jr.siteNotes
+      ? `<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .65rem;font-size:.78rem;color:#334155;font-weight:600;margin-top:.4rem">📝 <span style="color:#64748B;font-weight:600">Customer notes:</span> ${jr.siteNotes}</div>`
+      : "";
+    const _mqPanelHtml =
+      _mqRows.length || _mqNotesHtml
+        ? `<div style="background:linear-gradient(135deg,#F0F9FF,#EFF6FF);border:1.5px solid #93C5FD;border-radius:10px;padding:.6rem .8rem;margin-bottom:.75rem">
+            <div style="font-size:.7rem;font-weight:900;color:#0052CC;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.45rem">📋 Customer's Answers For This Machine</div>
+            <div style="display:flex;flex-wrap:wrap;gap:.35rem .4rem">${_mqRows.join("")}</div>
+            ${_mqNotesHtml}
+          </div>`
+        : "";
+
     const sec = document.createElement("div");
     sec.style.cssText =
       "background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.85rem 1rem";
@@ -161044,6 +161363,8 @@ function openRespondModal(reqId) {
           ${specs ? `<div style="font-size:.75rem;color:#475569">${specs}</div>` : ""}
         </div>
       </div>
+
+      ${_mqPanelHtml}
 
       <!-- Hire rates — earthworks shows hourly + day + mob/demob; lifting shows day + week -->
       ${
