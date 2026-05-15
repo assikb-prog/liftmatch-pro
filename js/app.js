@@ -158096,6 +158096,20 @@ function populateSqmMachineList() {
           _mtLc === "rigid_dump_truck" ||
           _mtLc.includes("hauler") ||
           _mtLc.includes("dump");
+        const _isPushAround =
+          _mtLc === "pusharound" ||
+          _mtLc.includes("push-around") ||
+          _mtLc.includes("push_around") ||
+          (m.filters || []).includes("push-around");
+        const _isMaterialLift =
+          _mtLc === "material" ||
+          _mtLc.includes("material_lift") ||
+          _mtLc.includes("material-lift") ||
+          (m.filters || []).includes("material");
+        const _isPalletJack =
+          _mtLc === "palletjack" ||
+          _mtLc.includes("pallet_jack") ||
+          _mtLc.includes("pallet-jack");
         const _cartAccs = m.cartAccessories || {};
 
         const _accBox = (idx, key, label, checked) =>
@@ -158395,6 +158409,120 @@ function populateSqmMachineList() {
             _accBox(i, "tarp", "🛡️ Load Tarp / Cover", !!_cartAccs.tarp) +
               _accBox(i, "tailgate", "🚪 Tailgate Spreader", !!_cartAccs.tailgate),
           );
+        } else if (_isPushAround) {
+          accHtml = _accWrap(
+            "🔧 Push-Around / Mast Lift Accessories — tick to add as separate quote line items",
+            _accBox(
+              i,
+              "std_basket",
+              "🧺 Standard Platform / Basket",
+              !!_cartAccs.std_basket,
+            ) +
+              _accBox(
+                i,
+                "harness",
+                "🦺 Fall Arrest Harness + Lanyard",
+                !!_cartAccs.harness,
+              ) +
+              _accBox(
+                i,
+                "materials_tray",
+                "🧰 Materials Tray / Tool Tray",
+                !!_cartAccs.materials_tray,
+              ) +
+              _accBox(
+                i,
+                "outrigger_pads",
+                "📐 Outrigger / Levelling Pads",
+                !!_cartAccs.outrigger_pads,
+              ) +
+              _accBox(
+                i,
+                "counterweight_base",
+                "⚖️ Counterweight Base",
+                !!_cartAccs.counterweight_base,
+              ) +
+              _accBox(
+                i,
+                "spare_battery",
+                "🔋 Spare Battery Pack",
+                !!_cartAccs.spare_battery,
+              ) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
+              ),
+          );
+        } else if (_isMaterialLift) {
+          accHtml = _accWrap(
+            "🔧 Material Lift Accessories — tick to add as separate quote line items",
+            _accBox(
+              i,
+              "forks",
+              "🍴 Forks Attachment",
+              !!_cartAccs.forks,
+            ) +
+              _accBox(
+                i,
+                "boom_att",
+                "🏗️ Boom / Hook Attachment",
+                !!_cartAccs.boom_att,
+              ) +
+              _accBox(
+                i,
+                "load_platform",
+                "🟦 Load Platform / Tray",
+                !!_cartAccs.load_platform,
+              ) +
+              _accBox(
+                i,
+                "cradle",
+                "🪣 Cradle Attachment",
+                !!_cartAccs.cradle,
+              ) +
+              _accBox(
+                i,
+                "straddle_base",
+                "📐 Straddle Base",
+                !!_cartAccs.straddle_base,
+              ) +
+              _accBox(
+                i,
+                "counterweight_base",
+                "⚖️ Counterweight Base",
+                !!_cartAccs.counterweight_base,
+              ) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
+              ),
+          );
+        } else if (_isPalletJack) {
+          accHtml = _accWrap(
+            "🔧 Pallet Jack Options — tick to add as separate quote line items",
+            _accBox(
+              i,
+              "spare_battery",
+              "🔋 Spare Battery (Electric)",
+              !!_cartAccs.spare_battery,
+            ) +
+              _accBox(
+                i,
+                "charger",
+                "🔌 Charger / Lead",
+                !!_cartAccs.charger,
+              ) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
+              ),
+          );
         } else {
           // ── Generic fallback — every machine gets an attachments box ──
           accHtml = _accWrap(
@@ -158509,6 +158637,19 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   if (acc.operator) chargeable.push("👷 Operator (Wet Hire)");
   // Universal — fire extinguisher (every lift / handler)
   if (acc.fire_ext) chargeable.push("🧯 Fire Extinguisher");
+  // Push-around / mast lift
+  if (acc.harness) chargeable.push("🦺 Fall Arrest Harness + Lanyard");
+  if (acc.materials_tray) chargeable.push("🧰 Materials Tray / Tool Tray");
+  if (acc.outrigger_pads) chargeable.push("📐 Outrigger / Levelling Pads");
+  if (acc.counterweight_base) chargeable.push("⚖️ Counterweight Base");
+  if (acc.spare_battery) chargeable.push("🔋 Spare Battery Pack");
+  // Material lift
+  if (acc.boom_att) chargeable.push("🏗️ Boom / Hook Attachment");
+  if (acc.load_platform) chargeable.push("🟦 Load Platform / Tray");
+  if (acc.cradle) chargeable.push("🪣 Cradle Attachment");
+  if (acc.straddle_base) chargeable.push("📐 Straddle Base");
+  // Pallet jack
+  if (acc.charger) chargeable.push("🔌 Charger / Lead");
   // Forklift — extra gas bottles with quantity (RC quotes rate per bottle)
   if (acc.gas_bottles) {
     const _gq = Math.max(
