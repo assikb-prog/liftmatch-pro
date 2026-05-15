@@ -153260,6 +153260,13 @@ function updateCartUI() {
     navBadge.style.display = count > 0 ? "inline-block" : "none";
   }
   renderCartItems();
+  // Keep the home-page "X machines in cart — Send Hire Enquiry" / "cart is empty"
+  // button in sync with cart contents (it has its own state machine in _kymUpdateCartBtn).
+  if (typeof _kymUpdateCartBtn === "function") {
+    try {
+      _kymUpdateCartBtn();
+    } catch (e) {}
+  }
 }
 
 function renderCartItems() {
@@ -158094,15 +158101,56 @@ function populateSqmMachineList() {
         const _accBox = (idx, key, label, checked) =>
           `<label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.8rem;color:#334155;white-space:nowrap">
         <input type="checkbox" ${checked ? "checked" : ""} onchange="sqmCartAccChange(${idx},'${key}',this.checked)"
-          style="accent-color:#B45309;width:15px;height:15px;flex-shrink:0"> <strong>${label}</strong>
+          style="accent-color:#CA8A04;width:15px;height:15px;flex-shrink:0"> <strong>${label}</strong>
       </label>`;
 
+        // ── Attachments wrapper — YELLOW. Always appends Operator (Wet Hire) ──
         const _accWrap = (title, inner) =>
-          `<div style="margin-top:.6rem;padding:.55rem .8rem;background:#FFF7ED;border:1.5px solid #FED7AA;border-radius:10px">
-        <div style="font-size:.75rem;font-weight:800;color:#92400E;margin-bottom:.5rem">${title}</div>
+          `<div style="margin-top:.6rem;padding:.55rem .8rem;background:#FEFCE8;border:1.5px solid #FDE047;border-radius:10px">
+        <div style="font-size:.75rem;font-weight:800;color:#854D0E;margin-bottom:.5rem">${title}</div>
         <div style="display:flex;flex-wrap:wrap;gap:.4rem .8rem">${inner}</div>
-        <div style="font-size:.72rem;color:#92400E;margin-top:.45rem">Each ticked item will be quoted separately — rental company sets their own day &amp; week rates.</div>
+        ${_operatorHtml}
+        <div style="font-size:.72rem;color:#854D0E;margin-top:.45rem">Each ticked item will be quoted separately — rental company sets their own day &amp; week rates.</div>
       </div>`;
+
+        // ── Operator (Wet Hire) widget — shown on EVERY machine inside the attachments box ──
+        const _operatorChecked = !!_cartAccs.operator;
+        const _operatorHtml = `<div style="display:flex;align-items:center;gap:.4rem;width:100%;background:#fff;border:1.5px dashed #FDE047;border-radius:8px;padding:.4rem .55rem;margin-top:.2rem">
+          <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.8rem;color:#334155;flex:1">
+            <input type="checkbox" ${_operatorChecked ? "checked" : ""} onchange="sqmCartAccChange(${i},'operator',this.checked)"
+              style="accent-color:#CA8A04;width:15px;height:15px;flex-shrink:0">
+            <strong>👷 Operator (Wet Hire) — rental company quotes per hour &amp; per day (8 hr)</strong>
+          </label>
+        </div>`;
+
+        // ── Documents wrapper — ORANGE ───────────────────────────────────
+        const _docBox = (idx, key, label, checked) =>
+          `<label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.8rem;color:#334155;white-space:nowrap">
+        <input type="checkbox" ${checked ? "checked" : ""} onchange="sqmCartDocChange(${idx},'${key}',this.checked)"
+          style="accent-color:#EA580C;width:15px;height:15px;flex-shrink:0"> <strong>${label}</strong>
+      </label>`;
+
+        const _docs = m.documentsRequired || {};
+        const _docOther = m.documentsOther || "";
+
+        const docsHtml = `<div style="margin-top:.55rem;padding:.6rem .8rem;background:#FFF7ED;border:1.5px solid #FDBA74;border-radius:10px">
+          <div style="font-size:.75rem;font-weight:800;color:#9A3412;margin-bottom:.5rem">📄 Documents Required — tick the docs you want the rental company to supply with the hire</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem .8rem">
+            ${_docBox(i, "risk_assessment", "📋 Risk Assessment", !!_docs.risk_assessment)}
+            ${_docBox(i, "design_registration", "🏷️ Design Registration", !!_docs.design_registration)}
+            ${_docBox(i, "annual_inspection", "📅 Annual Inspection Cert", !!_docs.annual_inspection)}
+            ${_docBox(i, "quarterly_inspection", "🗓️ Quarterly Inspection Cert", !!_docs.quarterly_inspection)}
+            ${_docBox(i, "operators_manual", "📖 Operator's Manual", !!_docs.operators_manual)}
+          </div>
+          <div style="margin-top:.5rem">
+            <label style="font-size:.72rem;font-weight:700;color:#9A3412;display:block;margin-bottom:.2rem">✍️ Other documents (specify anything else you need supplied)</label>
+            <input type="text" placeholder="e.g. Forklift licence verification, SWMS template, asbestos clearance…"
+              value="${_docOther.replace(/"/g, "&quot;")}"
+              oninput="sqmCartDocOtherChange(${i}, this.value)"
+              style="width:100%;border:1.5px solid #FDBA74;border-radius:7px;padding:.32rem .5rem;font-size:.8rem;font-family:'Nunito',sans-serif;background:#fff;color:#1E293B;box-sizing:border-box">
+          </div>
+          <div style="font-size:.71rem;color:#9A3412;margin-top:.45rem">Documents are part of the hire — the rental company will supply ticked items at no extra cost.</div>
+        </div>`;
 
         let accHtml = "";
         if (_isScissor) {
@@ -158127,6 +158175,12 @@ function populateSqmMachineList() {
                 "spill_guard",
                 "💧 Spill Under Guard",
                 !!_cartAccs.spill_guard,
+              ) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
               ),
           );
         } else if (_isBoom) {
@@ -158151,7 +158205,13 @@ function populateSqmMachineList() {
                 !!_cartAccs.power_basket,
               ) +
               _accBox(i, "jib_ext", "🏗️ Jib Extension", !!_cartAccs.jib_ext) +
-              _accBox(i, "bi_fuel", "⛽ Bi-Fuel", !!_cartAccs.bi_fuel),
+              _accBox(i, "bi_fuel", "⛽ Bi-Fuel", !!_cartAccs.bi_fuel) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
+              ),
           );
         } else if (_isRotating) {
           accHtml = _accWrap(
@@ -158170,6 +158230,12 @@ function populateSqmMachineList() {
                 "pallet_forks",
                 "🍴 Pallet Forks",
                 !!_cartAccs.pallet_forks,
+              ) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
               ),
           );
         } else if (_isTele) {
@@ -158189,9 +158255,33 @@ function populateSqmMachineList() {
                 "🍴 Pallet Forks",
                 !!_cartAccs.pallet_forks,
               ) +
-              _accBox(i, "bucket", "🪣 Bucket", !!_cartAccs.bucket),
+              _accBox(i, "bucket", "🪣 Bucket", !!_cartAccs.bucket) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
+              ),
           );
         } else if (_isForklift) {
+          const _gasQty = _cartAccs.gas_bottle_qty || 1;
+          const _gasChecked = !!_cartAccs.gas_bottles;
+          const _gasQtyOpts = [1, 2, 3, 4, 5]
+            .map(
+              (q) =>
+                `<option value="${q}"${_gasQty == q ? " selected" : ""}>${q}</option>`,
+            )
+            .join("");
+          const _gasBottleHtml = `<div style="display:flex;flex-direction:column;gap:.3rem;width:100%;background:#fff;border:1.5px dashed #FCA572;border-radius:8px;padding:.45rem .6rem;margin-top:.2rem">
+            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.8rem;color:#334155">
+              <input type="checkbox" ${_gasChecked ? "checked" : ""} onchange="sqmCartAccChange(${i},'gas_bottles',this.checked);document.getElementById('sqm-gasqty-wrap-${i}').style.display=this.checked?'flex':'none'" style="accent-color:#B45309;width:15px;height:15px;flex-shrink:0">
+              <strong>⛽ Extra Gas Bottle(s) — rental company quotes rate per bottle</strong>
+            </label>
+            <div style="display:${_gasChecked ? "flex" : "none"};align-items:center;gap:.5rem;margin-left:1.55rem" id="sqm-gasqty-wrap-${i}">
+              <label style="font-size:.76rem;font-weight:700;color:#92400E">How many extra bottles?</label>
+              <select onchange="sqmCartGasQtyChange(${i}, this.value)" style="border:1.5px solid #FCA572;border-radius:7px;padding:.25rem .5rem;font-size:.85rem;font-weight:800;color:#0F172A;font-family:'Nunito',sans-serif;background:#fff;cursor:pointer">${_gasQtyOpts}</select>
+            </div>
+          </div>`;
           accHtml = _accWrap(
             "🔧 Forklift Attachments — tick to add as separate quote line items",
             _accBox(
@@ -158219,7 +158309,14 @@ function populateSqmMachineList() {
                 "fork_pos",
                 "🎛️ Fork Positioner",
                 !!_cartAccs.fork_pos,
-              ),
+              ) +
+              _accBox(
+                i,
+                "fire_ext",
+                "🧯 Fire Extinguisher",
+                !!_cartAccs.fire_ext,
+              ) +
+              _gasBottleHtml,
           );
         } else if (_isExcavator) {
           accHtml = _accWrap(
@@ -158296,33 +158393,18 @@ function populateSqmMachineList() {
           accHtml = _accWrap(
             "🔧 Truck / Hauler Options — tick to add as separate quote line items",
             _accBox(i, "tarp", "🛡️ Load Tarp / Cover", !!_cartAccs.tarp) +
-              _accBox(i, "tailgate", "🚪 Tailgate Spreader", !!_cartAccs.tailgate) +
-              _accBox(i, "operator", "👷 Operator (Wet Hire)", !!_cartAccs.operator),
+              _accBox(i, "tailgate", "🚪 Tailgate Spreader", !!_cartAccs.tailgate),
           );
         } else {
           // ── Generic fallback — every machine gets an attachments box ──
           accHtml = _accWrap(
             "🔧 Attachments / Accessories — tick to add as separate quote line items",
-            _accBox(i, "operator", "👷 Operator (Wet Hire)", !!_cartAccs.operator) +
-              _accBox(
-                i,
-                "transport",
-                "🚚 Delivery / Pickup",
-                !!_cartAccs.transport,
-              ) +
-              _accBox(i, "fuel", "⛽ Fuel Supply", !!_cartAccs.fuel) +
-              _accBox(
-                i,
-                "extra_attach",
-                "🔩 Extra Attachment (specify in notes)",
-                !!_cartAccs.extra_attach,
-              ) +
-              _accBox(
-                i,
-                "after_hours",
-                "🌙 After-Hours / Weekend Use",
-                !!_cartAccs.after_hours,
-              ),
+            _accBox(
+              i,
+              "fire_ext",
+              "🧯 Fire Extinguisher",
+              !!_cartAccs.fire_ext,
+            ),
           );
         }
 
@@ -158361,6 +158443,7 @@ function populateSqmMachineList() {
         </div>
       </div>
       ${accHtml}
+      ${docsHtml}
     </div>`;
       })
       .join("");
@@ -158422,16 +158505,57 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   // Truck / hauler
   if (acc.tarp) chargeable.push("🛡️ Load Tarp / Cover");
   if (acc.tailgate) chargeable.push("🚪 Tailgate Spreader");
-  // Generic fallback / universal
+  // Truck wet hire (kept for truck branch only)
   if (acc.operator) chargeable.push("👷 Operator (Wet Hire)");
-  if (acc.transport) chargeable.push("🚚 Delivery / Pickup");
-  if (acc.fuel) chargeable.push("⛽ Fuel Supply");
-  if (acc.extra_attach)
-    chargeable.push("🔩 Extra Attachment (specify in notes)");
-  if (acc.after_hours) chargeable.push("🌙 After-Hours / Weekend Use");
+  // Universal — fire extinguisher (every lift / handler)
+  if (acc.fire_ext) chargeable.push("🧯 Fire Extinguisher");
+  // Forklift — extra gas bottles with quantity (RC quotes rate per bottle)
+  if (acc.gas_bottles) {
+    const _gq = Math.max(
+      1,
+      Math.min(5, parseInt(acc.gas_bottle_qty) || 1),
+    );
+    chargeable.push(
+      "⛽ Extra Gas Bottle × " +
+        _gq +
+        " (rental co. to quote rate per bottle)",
+    );
+  }
   jr.chargeableAttachments = chargeable.length ? chargeable : undefined;
   jr.oneTimeAttachments = oneTime.length ? oneTime : undefined;
   quoteCart[cartIdx].jobRequirements = jr;
+  saveCartToStorage();
+}
+
+// ── Update gas-bottle quantity for a forklift in the enquiry cart ─────────
+function sqmCartGasQtyChange(cartIdx, qty) {
+  if (!quoteCart[cartIdx]) return;
+  if (!quoteCart[cartIdx].cartAccessories)
+    quoteCart[cartIdx].cartAccessories = {};
+  const n = Math.max(1, Math.min(5, parseInt(qty) || 1));
+  quoteCart[cartIdx].cartAccessories.gas_bottle_qty = n;
+  // Re-run the chargeable-list rebuild via sqmCartAccChange so the new label
+  // (with updated × N quantity) propagates to jobRequirements.chargeableAttachments
+  sqmCartAccChange(
+    cartIdx,
+    "gas_bottles",
+    !!quoteCart[cartIdx].cartAccessories.gas_bottles,
+  );
+}
+
+// ── Toggle a Document Required checkbox for a machine in the enquiry cart ──
+function sqmCartDocChange(cartIdx, docKey, checked) {
+  if (!quoteCart[cartIdx]) return;
+  if (!quoteCart[cartIdx].documentsRequired)
+    quoteCart[cartIdx].documentsRequired = {};
+  quoteCart[cartIdx].documentsRequired[docKey] = !!checked;
+  saveCartToStorage();
+}
+
+// ── Update the free-text "Other documents" field for a machine ─────────────
+function sqmCartDocOtherChange(cartIdx, text) {
+  if (!quoteCart[cartIdx]) return;
+  quoteCart[cartIdx].documentsOther = (text || "").trim().slice(0, 300);
   saveCartToStorage();
 }
 
@@ -160460,6 +160584,16 @@ function renderQuoteInbox() {
                       ${mb.insurance > 0 ? `<span style="color:#64748B">Insurance (${p.insurePct || 0}%)</span><span style="font-weight:700;text-align:right">$${(mb.insurance || 0).toFixed(2)}</span>` : ""}
                       ${(mb.transIn || 0) + (mb.transOut || 0) > 0 ? `<span style="color:#1E40AF">🚚 Transport</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${((mb.transIn || 0) + (mb.transOut || 0)).toFixed(2)}</span>` : ""}
                     </div>
+                    ${
+                      (mb.documents || []).length
+                        ? `<div style="margin-top:.35rem;padding-top:.35rem;border-top:1px dashed #FED7AA">
+                            <div style="font-size:.71rem;font-weight:800;color:#9A3412;margin-bottom:.2rem">📄 Documents</div>
+                            <div style="display:flex;flex-wrap:wrap;gap:.25rem">
+                              ${(mb.documents || []).map((d) => d.state === "uploaded" && d.fileUrl ? `<a href="${d.fileUrl}" target="_blank" download="${(d.fileName || d.label || "doc").replace(/"/g, "&quot;")}" style="background:#F0FDF4;border:1.5px solid #86EFAC;color:#15803D;border-radius:5px;padding:.15rem .45rem;font-size:.7rem;font-weight:800;text-decoration:none">📎 ${d.label || d.key} ↓</a>` : d.state === "submit_later" ? `<span style="background:#FFF7ED;border:1.5px solid #FDBA74;color:#9A3412;border-radius:5px;padding:.15rem .45rem;font-size:.7rem;font-weight:800">⏳ ${d.label || d.key} — later</span>` : `<span style="background:#F8FAFC;border:1.5px solid #E2E8F0;color:#94A3B8;border-radius:5px;padding:.15rem .45rem;font-size:.7rem;font-weight:700">${d.label || d.key} — pending</span>`).join("")}
+                            </div>
+                          </div>`
+                        : ""
+                    }
                   </div>`,
                   )
                   .join("")}
@@ -160591,12 +160725,22 @@ function rqCalcMachineTotal(idx) {
   // Accessories — use day rate or weekly rate prorated
   let accTotal = 0;
   document.querySelectorAll(`[data-acc-machine="${idx}"]`).forEach((row) => {
-    const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
-    const rWeek = parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+    const isOperator = row.dataset.rateMode === "hourly-daily";
     let amt = 0;
-    if (days >= 5 && rWeek > 0) amt = (days / 5) * rWeek;
-    else if (rDay > 0) amt = days * rDay;
-    else if (rWeek > 0) amt = (days / 5) * rWeek;
+    if (isOperator) {
+      const rHour =
+        parseFloat(row.querySelector(".acc-rate-hour")?.value) || 0;
+      const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+      if (rDay > 0) amt = days * rDay;
+      else if (rHour > 0) amt = days * 8 * rHour;
+    } else {
+      const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+      const rWeek =
+        parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+      if (days >= 5 && rWeek > 0) amt = (days / 5) * rWeek;
+      else if (rDay > 0) amt = days * rDay;
+      else if (rWeek > 0) amt = (days / 5) * rWeek;
+    }
     accTotal += amt;
   });
 
@@ -160623,19 +160767,34 @@ function rqCalcMachineTotal(idx) {
     let accLines = "";
     document.querySelectorAll(`[data-acc-machine="${idx}"]`).forEach((row) => {
       const name = row.querySelector(".acc-name")?.value?.trim() || "Accessory";
-      const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
-      const rWeek = parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+      const isOperator = row.dataset.rateMode === "hourly-daily";
       let amt = 0,
         rateStr = "";
-      if (days >= 5 && rWeek > 0) {
-        amt = (days / 5) * rWeek;
-        rateStr = `${(days / 5).toFixed(1)}wks×$${rWeek}`;
-      } else if (rDay > 0) {
-        amt = days * rDay;
-        rateStr = `${days}d×$${rDay}`;
-      } else if (rWeek > 0) {
-        amt = (days / 5) * rWeek;
-        rateStr = `${(days / 5).toFixed(1)}wks×$${rWeek}`;
+      if (isOperator) {
+        const rHour =
+          parseFloat(row.querySelector(".acc-rate-hour")?.value) || 0;
+        const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+        if (rDay > 0) {
+          amt = days * rDay;
+          rateStr = `${days}d×$${rDay}/d`;
+        } else if (rHour > 0) {
+          amt = days * 8 * rHour;
+          rateStr = `${days}d×8hr×$${rHour}/hr`;
+        }
+      } else {
+        const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+        const rWeek =
+          parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+        if (days >= 5 && rWeek > 0) {
+          amt = (days / 5) * rWeek;
+          rateStr = `${(days / 5).toFixed(1)}wks×$${rWeek}`;
+        } else if (rDay > 0) {
+          amt = days * rDay;
+          rateStr = `${days}d×$${rDay}`;
+        } else if (rWeek > 0) {
+          amt = (days / 5) * rWeek;
+          rateStr = `${(days / 5).toFixed(1)}wks×$${rWeek}`;
+        }
       }
       if (amt > 0)
         accLines += `<span style="color:#C2410C;padding-left:.6rem">↳ ${name} (${rateStr})</span><span style="font-weight:700;text-align:right;color:#C2410C">$${amt.toFixed(2)}</span>`;
@@ -160674,12 +160833,20 @@ function rqAccRowCalc(inputEl) {
   const m = window._rqReq?.machines[machineIdx];
   if (!m) return;
   const days = rqDays(m.duration || "1-day");
-  const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
-  const rWeek = parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+  const isOperator = row.dataset.rateMode === "hourly-daily";
   let total = 0;
-  if (days >= 5 && rWeek > 0) total = (days / 5) * rWeek;
-  else if (rDay > 0) total = days * rDay;
-  else if (rWeek > 0) total = (days / 5) * rWeek;
+  if (isOperator) {
+    const rHour = parseFloat(row.querySelector(".acc-rate-hour")?.value) || 0;
+    const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+    if (rDay > 0) total = days * rDay;
+    else if (rHour > 0) total = days * 8 * rHour;
+  } else {
+    const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+    const rWeek = parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+    if (days >= 5 && rWeek > 0) total = (days / 5) * rWeek;
+    else if (rDay > 0) total = days * rDay;
+    else if (rWeek > 0) total = (days / 5) * rWeek;
+  }
   const totalEl = row.querySelector(".acc-row-total");
   if (totalEl) totalEl.textContent = total > 0 ? `$${total.toFixed(2)}` : "$—";
 }
@@ -160689,12 +160856,22 @@ function rqRefreshAllAccRowTotals() {
   window._rqReq.machines.forEach((m, i) => {
     const days = rqDays(m.duration || "1-day");
     document.querySelectorAll(`[data-acc-machine="${i}"]`).forEach((row) => {
-      const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
-      const rWeek = parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+      const isOperator = row.dataset.rateMode === "hourly-daily";
       let total = 0;
-      if (days >= 5 && rWeek > 0) total = (days / 5) * rWeek;
-      else if (rDay > 0) total = days * rDay;
-      else if (rWeek > 0) total = (days / 5) * rWeek;
+      if (isOperator) {
+        const rHour =
+          parseFloat(row.querySelector(".acc-rate-hour")?.value) || 0;
+        const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+        if (rDay > 0) total = days * rDay;
+        else if (rHour > 0) total = days * 8 * rHour;
+      } else {
+        const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+        const rWeek =
+          parseFloat(row.querySelector(".acc-rate-week")?.value) || 0;
+        if (days >= 5 && rWeek > 0) total = (days / 5) * rWeek;
+        else if (rDay > 0) total = days * rDay;
+        else if (rWeek > 0) total = (days / 5) * rWeek;
+      }
       const totalEl = row.querySelector(".acc-row-total");
       if (totalEl)
         totalEl.textContent = total > 0 ? `$${total.toFixed(2)}` : "$—";
@@ -161174,6 +161351,44 @@ function openRespondModal(reqId) {
       (jr.oneTimeAttachments || []).length > 0;
     const accPreRows = [
       ...attachmentLineItems.map((a, ai) => {
+        // ── OPERATOR (Wet Hire) — dedicated dual-rate row ───────────────
+        const _aLower = (a || "").toLowerCase();
+        const _isOperatorRow =
+          _aLower.includes("operator") && _aLower.includes("wet");
+        if (_isOperatorRow) {
+          const _prevOp =
+            (prevMB.accs || [])[ai] && (prevMB.accs || [])[ai].isOperator
+              ? (prevMB.accs || [])[ai]
+              : (prevMB.accs || []).find((x) => x && x.isOperator) || {};
+          return `
+      <div data-acc-machine="${i}" data-rate-mode="hourly-daily" style="background:#fff;border:1.5px solid #FCA572;border-radius:9px;padding:.55rem .7rem;margin-top:.45rem">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+          <span style="font-size:.9rem">👷</span>
+          <span style="font-weight:800;color:#C2410C;font-size:.86rem;flex:1">👷 Operator (Wet Hire) — Hourly &amp; Daily (8 hr) Rate</span>
+          <button onclick="this.closest('[data-acc-machine]').remove();rqRecalcAll()" style="background:none;border:none;color:#EF4444;font-size:.9rem;cursor:pointer;padding:0;flex-shrink:0">✕</button>
+        </div>
+        <input class="acc-name" type="hidden" value="${a}">
+        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:.35rem;align-items:end">
+          <div>
+            <div style="font-size:.67rem;font-weight:800;color:#92400E;margin-bottom:.18rem">Rate / Hour ($)</div>
+            <input class="acc-rate-hour" type="number" min="0" step="1" placeholder="e.g. 95" oninput="rqRecalcAll();rqAccRowCalc(this)"
+              value="${_prevOp?.rateHour || ""}"
+              style="width:100%;border:1.5px solid #FCA572;border-radius:7px;padding:.32rem .45rem;font-size:.9rem;font-weight:700;font-family:inherit;box-sizing:border-box;text-align:center">
+          </div>
+          <div>
+            <div style="font-size:.67rem;font-weight:800;color:#92400E;margin-bottom:.18rem">Rate / Day (8 hr) ($)</div>
+            <input class="acc-rate-day" type="number" min="0" step="1" placeholder="e.g. 720" oninput="rqRecalcAll();rqAccRowCalc(this)"
+              value="${_prevOp?.rateDay || ""}"
+              style="width:100%;border:1.5px solid #FCA572;border-radius:7px;padding:.32rem .45rem;font-size:.9rem;font-weight:700;font-family:inherit;box-sizing:border-box;text-align:center">
+          </div>
+          <div style="text-align:right;min-width:80px">
+            <div style="font-size:.67rem;font-weight:800;color:#92400E;margin-bottom:.18rem">Operator Total</div>
+            <div class="acc-row-total" style="font-size:.95rem;font-weight:900;color:#C2410C;padding:.3rem .4rem;background:#FFF7ED;border-radius:7px;text-align:center">$—</div>
+          </div>
+        </div>
+        <div style="margin-top:.3rem;font-size:.71rem;color:#92400E;opacity:.75">${days} working day${days !== 1 ? "s" : ""} × 8 hr/day — system uses your day rate, or falls back to 8 × hourly if day rate is empty.</div>
+      </div>`;
+        }
         const label =
           a.includes("Jib") || a.includes("jib")
             ? "🏗️ Jib / Crane Hook — Day & Week Rate"
@@ -161351,6 +161566,100 @@ function openRespondModal(reqId) {
           </div>`
         : "";
 
+    // ── Documents Required — orange banner shown to the rental company ──
+    const _docsReq = m.documentsRequired || {};
+    const _docsOther = (m.documentsOther || "").trim();
+    const _docsLabels = {
+      risk_assessment: "📋 Risk Assessment",
+      design_registration: "🏷️ Design Registration",
+      annual_inspection: "📅 Annual Inspection Cert",
+      quarterly_inspection: "🗓️ Quarterly Inspection Cert",
+      operators_manual: "📖 Operator's Manual",
+    };
+    const _docsTicked = Object.keys(_docsLabels).filter((k) => _docsReq[k]);
+    const _docsPanelHtml =
+      _docsTicked.length || _docsOther
+        ? `<div style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:1.5px solid #FB923C;border-radius:10px;padding:.6rem .8rem;margin-bottom:.75rem">
+            <div style="font-size:.7rem;font-weight:900;color:#9A3412;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.45rem">📄 Documents Customer Wants Supplied</div>
+            <div style="display:flex;flex-wrap:wrap;gap:.35rem .4rem">
+              ${_docsTicked
+                .map(
+                  (k) =>
+                    `<div style="background:#fff;border:1.5px solid #FB923C;color:#9A3412;border-radius:8px;padding:.3rem .6rem;display:inline-flex;align-items:center;gap:.3rem;font-size:.76rem;font-weight:700">${_docsLabels[k]}</div>`,
+                )
+                .join("")}
+            </div>
+            ${
+              _docsOther
+                ? `<div style="margin-top:.45rem;padding:.4rem .65rem;background:#fff;border:1.5px solid #FB923C;border-radius:8px;font-size:.78rem;color:#9A3412"><strong>✍️ Other:</strong> ${_docsOther.replace(/</g, "&lt;")}</div>`
+                : ""
+            }
+            <div style="font-size:.71rem;color:#9A3412;margin-top:.45rem;font-style:italic">Please supply these documents with the hire — included in your quote at no extra charge.</div>
+          </div>`
+        : "";
+
+    // ── Document Upload — RC attaches file OR marks "submit later" per doc ──
+    const _docHints = {
+      risk_assessment: "Typically generic — provide template now",
+      design_registration: "Model-specific — usually available now",
+      annual_inspection: "Unit-specific — submit after unit allocated",
+      quarterly_inspection: "Unit-specific — submit after unit allocated",
+      operators_manual: "Model-specific — usually available now",
+      other: "Submit if available",
+    };
+    const _prevDocs = (prevMB.documents || []).reduce((acc, d) => {
+      if (d && d.key) acc[d.key] = d;
+      return acc;
+    }, {});
+    const _uploadKeys = [..._docsTicked, ..._docsOther ? ["other"] : []];
+    const _docsUploadPanelHtml = _uploadKeys.length
+      ? `<div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.65rem .8rem;margin-bottom:.75rem">
+          <div style="font-size:.72rem;font-weight:900;color:#15803D;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.5rem">📤 Upload Documents (or tick "Submit Later")</div>
+          <div style="display:flex;flex-direction:column;gap:.5rem">
+            ${_uploadKeys
+              .map((k) => {
+                const lbl =
+                  k === "other"
+                    ? "✍️ " +
+                      _docsOther.slice(0, 60) +
+                      (_docsOther.length > 60 ? "…" : "")
+                    : _docsLabels[k];
+                const hint = _docHints[k] || "";
+                const prev = _prevDocs[k] || {};
+                const isUploaded = prev.state === "uploaded" && prev.fileName;
+                const isLater = prev.state === "submit_later";
+                return `<div style="background:#fff;border:1.5px solid #86EFAC;border-radius:8px;padding:.5rem .65rem">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap">
+                    <div style="flex:1;min-width:140px">
+                      <div style="font-weight:800;color:#15803D;font-size:.84rem">${lbl}</div>
+                      <div style="font-size:.7rem;color:#15803D;opacity:.75;margin-top:.05rem">${hint}</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.4rem">
+                    <label style="flex:1;min-width:140px;display:flex;align-items:center;gap:.4rem;background:#fff;border:1.5px dashed #86EFAC;border-radius:7px;padding:.32rem .55rem;cursor:pointer;font-size:.78rem;font-weight:700;color:#15803D">
+                      <span>📂</span>
+                      <span id="rq-doc-lbl-${i}-${k}" style="flex:1">${isUploaded ? "📎 " + prev.fileName + " (saved)" : "Choose file…"}</span>
+                      <input id="rq-doc-file-${i}-${k}" type="file"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.heic"
+                        style="display:none"
+                        onchange="rqDocFileSelected(${i},'${k}',this)">
+                    </label>
+                    <label style="display:flex;align-items:center;gap:.35rem;background:#FFF7ED;border:1.5px solid #FDBA74;border-radius:7px;padding:.32rem .55rem;cursor:pointer;font-size:.78rem;font-weight:800;color:#9A3412;white-space:nowrap">
+                      <input id="rq-doc-later-${i}-${k}" type="checkbox" ${isLater ? "checked" : ""}
+                        onchange="rqDocLaterToggle(${i},'${k}',this.checked)"
+                        style="accent-color:#EA580C;width:14px;height:14px;flex-shrink:0">
+                      ⏳ Submit later
+                    </label>
+                  </div>
+                  <div id="rq-doc-status-${i}-${k}" style="font-size:.7rem;color:#64748B;margin-top:.25rem;display:${isUploaded || isLater ? "block" : "none"}">${isUploaded ? `<span style="color:#15803D;font-weight:700">✓ File saved — ${prev.fileName}</span>` : isLater ? `<span style="color:#9A3412;font-weight:700">⏳ Will be supplied after unit allocation</span>` : ""}</div>
+                </div>`;
+              })
+              .join("")}
+          </div>
+          <div style="font-size:.71rem;color:#15803D;margin-top:.5rem;font-style:italic">📌 Unit-specific docs (annual / quarterly inspection certs) can be submitted later once the exact unit is allocated. Generic docs (risk assessment template, operator's manual) are usually ready to upload now.</div>
+        </div>`
+      : "";
+
     const sec = document.createElement("div");
     sec.style.cssText =
       "background:#fff;border:1.5px solid #E2E8F0;border-radius:12px;padding:.85rem 1rem";
@@ -161365,6 +161674,8 @@ function openRespondModal(reqId) {
       </div>
 
       ${_mqPanelHtml}
+      ${_docsPanelHtml}
+      ${_docsUploadPanelHtml}
 
       <!-- Hire rates — earthworks shows hourly + day + mob/demob; lifting shows day + week -->
       ${
@@ -161633,6 +161944,71 @@ async function rqReadAllFileSlots() {
   return results;
 }
 
+// ── Read per-machine document uploads + submit-later flags ────────────────
+// Returns an array, one entry per machine (parallel to req.machines), each a
+// list of { key, label, state, fileName?, fileUrl? } for every doc the
+// customer requested. state is "uploaded" | "submit_later" | "pending".
+async function rqReadAllMachineDocs(req) {
+  const DOC_LABELS = {
+    risk_assessment: "📋 Risk Assessment",
+    design_registration: "🏷️ Design Registration",
+    annual_inspection: "📅 Annual Inspection Cert",
+    quarterly_inspection: "🗓️ Quarterly Inspection Cert",
+    operators_manual: "📖 Operator's Manual",
+    other: "✍️ Other Document",
+  };
+  const machines = req.machines || [];
+  const out = [];
+  for (let i = 0; i < machines.length; i++) {
+    const m = machines[i];
+    const docs = m.documentsRequired || {};
+    const otherText = (m.documentsOther || "").trim();
+    const requestedKeys = Object.keys(DOC_LABELS).filter(
+      (k) => (k === "other" && otherText) || (k !== "other" && docs[k]),
+    );
+    const rows = [];
+    for (const key of requestedKeys) {
+      const baseLabel =
+        key === "other" && otherText
+          ? "✍️ " + otherText.slice(0, 60) + (otherText.length > 60 ? "…" : "")
+          : DOC_LABELS[key];
+      const submitLater = document.getElementById(
+        `rq-doc-later-${i}-${key}`,
+      );
+      const fileInput = document.getElementById(`rq-doc-file-${i}-${key}`);
+      if (submitLater && submitLater.checked) {
+        rows.push({ key, label: baseLabel, state: "submit_later" });
+        continue;
+      }
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        const dataUrl = await new Promise((res) => {
+          const reader = new FileReader();
+          reader.onload = (e) => res(e.target.result);
+          reader.onerror = () => res(null);
+          reader.readAsDataURL(file);
+        });
+        if (dataUrl) {
+          rows.push({
+            key,
+            label: baseLabel,
+            state: "uploaded",
+            fileName: file.name,
+            fileSize: file.size,
+            fileUrl: dataUrl,
+          });
+          continue;
+        }
+      }
+      // Neither uploaded nor "submit later" — record as pending so customer
+      // can see something is outstanding.
+      rows.push({ key, label: baseLabel, state: "pending" });
+    }
+    out.push(rows);
+  }
+  return out;
+}
+
 function rqFileSelected(input, lblId, clearBtnId) {
   const lbl = document.getElementById(lblId);
   const clr = document.getElementById(clearBtnId);
@@ -161640,6 +162016,56 @@ function rqFileSelected(input, lblId, clearBtnId) {
     const f = input.files[0];
     if (lbl) lbl.textContent = f.name;
     if (clr) clr.style.display = "inline";
+  }
+}
+
+// ── Per-machine document handlers ─────────────────────────────────────────
+// When the RC picks a file for a specific doc, untick "submit later" if it
+// was set and show a confirmation under the row.
+function rqDocFileSelected(machineIdx, docKey, input) {
+  const lbl = document.getElementById(`rq-doc-lbl-${machineIdx}-${docKey}`);
+  const later = document.getElementById(`rq-doc-later-${machineIdx}-${docKey}`);
+  const status = document.getElementById(
+    `rq-doc-status-${machineIdx}-${docKey}`,
+  );
+  if (input.files && input.files[0]) {
+    const f = input.files[0];
+    if (lbl) lbl.textContent = "📎 " + f.name;
+    if (later) later.checked = false;
+    if (status) {
+      status.style.display = "block";
+      status.innerHTML = `<span style="color:#15803D;font-weight:700">✓ File ready — ${f.name} (${(f.size / 1024).toFixed(0)} KB)</span>`;
+    }
+  } else {
+    if (lbl) lbl.textContent = "Choose file…";
+    if (status) {
+      status.style.display = "none";
+      status.innerHTML = "";
+    }
+  }
+}
+
+// When "Submit later" is ticked, clear any previously picked file for this doc.
+function rqDocLaterToggle(machineIdx, docKey, checked) {
+  const fileInput = document.getElementById(
+    `rq-doc-file-${machineIdx}-${docKey}`,
+  );
+  const lbl = document.getElementById(`rq-doc-lbl-${machineIdx}-${docKey}`);
+  const status = document.getElementById(
+    `rq-doc-status-${machineIdx}-${docKey}`,
+  );
+  if (checked) {
+    if (fileInput) fileInput.value = "";
+    if (lbl) lbl.textContent = "Choose file…";
+    if (status) {
+      status.style.display = "block";
+      status.innerHTML = `<span style="color:#9A3412;font-weight:700">⏳ Will be supplied after unit allocation</span>`;
+    }
+  } else {
+    if (status) {
+      status.style.display = "none";
+      status.innerHTML = "";
+    }
   }
 }
 
@@ -161707,6 +162133,9 @@ async function submitResponse() {
   const transInTotal = tot.transInTotal || 0;
   const transOutTotal = tot.transOutTotal || 0;
 
+  // ── Read per-machine document upload state (file OR submit-later flag) ──
+  const docsByMachine = await rqReadAllMachineDocs(req);
+
   const machineBreakdowns = (req.machines || []).map((m, i) => {
     const days = rqDays(m.duration || "1-day");
     const rateDay =
@@ -161735,11 +162164,29 @@ async function submitResponse() {
       const isOneTime =
         row.querySelector(".acc-one-time")?.value === "1" ||
         row.dataset.oneTime === "1";
+      const isOperator = row.dataset.rateMode === "hourly-daily";
       if (isOneTime) {
         const total =
           parseFloat(row.querySelector(".acc-rate-onetime")?.value) || 0;
         if (name)
           accs.push({ name, rateDay: 0, rateWeek: 0, total, oneTime: true });
+      } else if (isOperator) {
+        // Operator (wet hire): hourly + daily (8hr) — total = days × dayRate,
+        // or days × 8 × hourly if dayRate is empty.
+        const rHour = parseFloat(row.querySelector(".acc-rate-hour")?.value) || 0;
+        const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
+        let total = 0;
+        if (rDay > 0) total = days * rDay;
+        else if (rHour > 0) total = days * 8 * rHour;
+        if (name)
+          accs.push({
+            name,
+            rateHour: rHour || undefined,
+            rateDay: rDay,
+            rateWeek: 0,
+            total,
+            isOperator: true,
+          });
       } else {
         const rDay = parseFloat(row.querySelector(".acc-rate-day")?.value) || 0;
         const rWeek =
@@ -161778,6 +162225,9 @@ async function submitResponse() {
       altMachine: mAltMachine || undefined,
       altType: mAltType || undefined,
       question: mQuestion || undefined,
+      documents: (docsByMachine[i] || []).length
+        ? docsByMachine[i]
+        : undefined,
     };
   });
 
@@ -164008,14 +164458,25 @@ function _kymUpdateCartBtn() {
         homeBtn.style.opacity = "1";
         homeBtn.style.cursor = "pointer";
         homeBtn.disabled = false;
+        // Active state — bright green gradient signals "ready to send"
+        homeBtn.style.background =
+          "linear-gradient(135deg,#16A34A,#22C55E)";
+        homeBtn.style.boxShadow = "0 4px 20px rgba(22,163,74,.45)";
+        homeBtn.style.color = "#fff";
         homeBtn.innerHTML =
           '🛒 <span id="home-cart-count">' +
           n +
-          "</span> machine(s) in cart &mdash; Send Hire Enquiry &rarr;";
+          "</span> machine" +
+          (n !== 1 ? "s" : "") +
+          " in cart &mdash; Send Hire Enquiry &rarr;";
       } else {
         homeBtn.style.opacity = "0.45";
         homeBtn.style.cursor = "default";
         homeBtn.disabled = true;
+        // Reset to the base orange empty-state style
+        homeBtn.style.background = "#FF6B35";
+        homeBtn.style.boxShadow = "0 4px 20px rgba(255,107,53,.2)";
+        homeBtn.style.color = "#fff";
         homeBtn.innerHTML =
           "🛒 Your cart is empty &mdash; add machines to get quotes";
       }
@@ -165971,6 +166432,22 @@ async function openQuoteDetailModal(reqId) {
         m.attachments && m.attachments.length
           ? `<div style="margin-top:.2rem"><div style="font-size:.72rem;font-weight:700;color:#15803D;margin-bottom:.2rem">🔧 Accessories (quoted separately):</div><div style="display:flex;flex-wrap:wrap;gap:.25rem">${m.attachments.map((a) => `<span style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:5px;padding:.1rem .4rem;font-size:.72rem;font-weight:700;color:#15803D">${a}</span>`).join("")}</div></div>`
           : "";
+      const _qdmDocs = m.documentsRequired || {};
+      const _qdmDocOther = (m.documentsOther || "").trim();
+      const _qdmDocLabels = {
+        risk_assessment: "📋 Risk Assessment",
+        design_registration: "🏷️ Design Registration",
+        annual_inspection: "📅 Annual Inspection",
+        quarterly_inspection: "🗓️ Quarterly Inspection",
+        operators_manual: "📖 Operator's Manual",
+      };
+      const _qdmDocTicked = Object.keys(_qdmDocLabels).filter(
+        (k) => _qdmDocs[k],
+      );
+      const docsHtmlQdm =
+        _qdmDocTicked.length || _qdmDocOther
+          ? `<div style="margin-top:.25rem"><div style="font-size:.72rem;font-weight:700;color:#9A3412;margin-bottom:.2rem">📄 Documents requested:</div><div style="display:flex;flex-wrap:wrap;gap:.25rem">${_qdmDocTicked.map((k) => `<span style="background:#FFF7ED;border:1px solid #FB923C;border-radius:5px;padding:.1rem .4rem;font-size:.72rem;font-weight:700;color:#9A3412">${_qdmDocLabels[k]}</span>`).join("")}${_qdmDocOther ? `<span style="background:#FFF7ED;border:1px solid #FB923C;border-radius:5px;padding:.1rem .4rem;font-size:.72rem;font-weight:700;color:#9A3412">✍️ ${_qdmDocOther.replace(/</g, "&lt;").slice(0, 60)}${_qdmDocOther.length > 60 ? "…" : ""}</span>` : ""}</div></div>`
+          : "";
       const notesHtml = m.notes
         ? `<div style="font-size:.76rem;color:#64748B;font-style:italic;margin-top:.2rem">📝 ${m.notes}</div>`
         : "";
@@ -165980,7 +166457,7 @@ async function openQuoteDetailModal(reqId) {
         <div style="font-weight:800;font-size:.93rem;color:#0F172A">${m.name}</div>
         <div style="font-size:.76rem;color:#64748B;margin-top:.1rem">⏳ ${dur}</div>
         ${specs ? `<div style="font-size:.76rem;color:#475569;margin-top:.2rem">${specs}</div>` : ""}
-        ${tynesHtml}${attHtml}${notesHtml}
+        ${tynesHtml}${attHtml}${docsHtmlQdm}${notesHtml}
       </div>
     </div>`;
     })
@@ -166034,6 +166511,16 @@ async function openQuoteDetailModal(reqId) {
                   ${mb.insurance > 0 ? `<span style="color:#64748B">Insurance levy (${p.insurePct || 0}%)</span><span style="font-weight:700;text-align:right">$${(mb.insurance || 0).toFixed(2)}</span>` : ""}
                   ${(mb.transIn || 0) + (mb.transOut || 0) > 0 ? `<span style="color:#1E40AF">🚚 Transport In</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${(mb.transIn || 0).toFixed(2)}</span><span style="color:#1E40AF">🚚 Transport Out</span><span style="font-weight:700;text-align:right;color:#1E40AF">$${(mb.transOut || 0).toFixed(2)}</span>` : ""}
                 </div>
+                ${
+                  (mb.documents || []).length
+                    ? `<div style="margin-top:.4rem;padding-top:.4rem;border-top:1px dashed #FED7AA">
+                        <div style="font-size:.72rem;font-weight:800;color:#9A3412;margin-bottom:.25rem">📄 Documents</div>
+                        <div style="display:flex;flex-wrap:wrap;gap:.3rem">
+                          ${(mb.documents || []).map((d) => d.state === "uploaded" && d.fileUrl ? `<a href="${d.fileUrl}" target="_blank" download="${(d.fileName || d.label || "doc").replace(/"/g, "&quot;")}" style="background:#F0FDF4;border:1.5px solid #86EFAC;color:#15803D;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:.25rem">📎 ${d.label || d.key} <span style="opacity:.75;font-weight:600">↓</span></a>` : d.state === "submit_later" ? `<span style="background:#FFF7ED;border:1.5px solid #FDBA74;color:#9A3412;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:800">⏳ ${d.label || d.key} — submit later</span>` : `<span style="background:#F8FAFC;border:1.5px solid #E2E8F0;color:#94A3B8;border-radius:6px;padding:.18rem .5rem;font-size:.72rem;font-weight:700">${d.label || d.key} — pending</span>`).join("")}
+                        </div>
+                      </div>`
+                    : ""
+                }
               </div>`,
               )
               .join("")}
