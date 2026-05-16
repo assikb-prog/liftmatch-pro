@@ -158665,6 +158665,80 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   jr.chargeableAttachments = chargeable.length ? chargeable : undefined;
   jr.oneTimeAttachments = oneTime.length ? oneTime : undefined;
   quoteCart[cartIdx].jobRequirements = jr;
+  // ── Keep m.attachments in lockstep with cartAccessories so unticking a
+  //    yellow checkbox actually removes the item from the RC's view (which
+  //    seeds attachmentLineItems from m.attachments).
+  const _accLabelMap = {
+    // Forklift
+    slipper_1800: "1800mm slipper",
+    slipper_2400: "2400mm slipper",
+    side_shift: "Side Shift",
+    fork_pos: "Fork Positioner",
+    // Boom
+    std_basket: "Standard Basket (230kg)",
+    xc_basket: "XC Capacity Basket (320kg+)",
+    power_basket: "Power to Basket (230V outlet)",
+    jib_ext: "Jib Extension",
+    bi_fuel: "Bi-Fuel",
+    // Telehandler / rotating
+    jib: "Jib Attachment",
+    rotator: "Rotator",
+    man_basket: "Man Basket",
+    pallet_forks: "Pallet Forks",
+    bucket: "Bucket",
+    winch: "Winch",
+    rotator_hook: "Rotator Hook",
+    // Scissor
+    pipe_racks: "Pipe & Tube Rack",
+    tool_tray: "Tool Tray",
+    safety_gate: "Safety Gate",
+    eqss: "EQSS (Quad Support)",
+    spill_guard: "Spill Under Guard",
+    // Excavator
+    gp_bucket: "GP Bucket",
+    mud_bucket: "Mud / Batter Bucket",
+    trench_bucket: "Trenching Bucket",
+    ripper: "Ripper",
+    auger: "Auger / Post Hole",
+    hammer: "Rock Breaker / Hammer",
+    grab: "Grab / Grapple",
+    tilt_hitch: "Tilt Hitch / Quick Hitch",
+    // Loader / dozer / bobcat
+    four_in_one: "4-in-1 Bucket",
+    forks: "Pallet Forks",
+    broom: "Sweeper / Broom",
+    trencher: "Trencher Attachment",
+    // Compactor
+    padfoot: "Padfoot Drum / Shells",
+    water_kit: "Water Spray Kit",
+    rops_canopy: "ROPS Canopy",
+    // Truck / hauler
+    tarp: "Load Tarp / Cover",
+    tailgate: "Tailgate Spreader",
+    // Push-around / mast
+    harness: "Fall Arrest Harness + Lanyard",
+    materials_tray: "Materials Tray / Tool Tray",
+    outrigger_pads: "Outrigger / Levelling Pads",
+    counterweight_base: "Counterweight Base",
+    spare_battery: "Spare Battery Pack",
+    // Material lift
+    boom_att: "Boom / Hook Attachment",
+    load_platform: "Load Platform / Tray",
+    cradle: "Cradle Attachment",
+    straddle_base: "Straddle Base",
+    // Pallet jack
+    charger: "Charger / Lead",
+    // Universal
+    fire_ext: "Fire Extinguisher",
+    operator: "Operator (Wet Hire)",
+  };
+  const _newAttachments = [];
+  Object.keys(acc).forEach((k) => {
+    if (acc[k] === true && _accLabelMap[k]) _newAttachments.push(_accLabelMap[k]);
+  });
+  quoteCart[cartIdx].attachments = _newAttachments.length
+    ? _newAttachments
+    : undefined;
   saveCartToStorage();
 }
 
@@ -164523,6 +164597,78 @@ function kymRender() {
   setTimeout(_kymUpdateCartBtn, 0);
 }
 
+// ── Map a KYM attachment label string to its enquiry-window cartAccessories
+//    key. Returns null if no mapping exists (caller silently skips it).
+//    The same label can map to the same key across multiple categories (e.g.
+//    "Jib Attachment" → "jib" for forklift and telehandler); catKey is
+//    accepted for future disambiguation but currently the mapping is uniform.
+function _kymBuildCartAccessoriesFromLabels(catKey, labels) {
+  if (!labels || !labels.length) return {};
+  // Normaliser: lowercase, strip non-alphanumerics → easy substring matches
+  const norm = (s) => (s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const out = {};
+  for (const lbl of labels) {
+    const n = norm(lbl);
+    let key = null;
+    // ── Forklift: slippers, fork attachments ──────────────────────────
+    if (n.includes("1800") && n.includes("slipper")) key = "slipper_1800";
+    else if (n.includes("2400") && n.includes("slipper")) key = "slipper_2400";
+    else if (n.includes("sideshift")) key = "side_shift";
+    else if (n.includes("forkpositioner")) key = "fork_pos";
+    // ── Boom lift options ─────────────────────────────────────────────
+    else if (n.includes("standardbasket")) key = "std_basket";
+    else if (n.includes("xccapacity") || n.includes("xccapacitybasket"))
+      key = "xc_basket";
+    else if (n.includes("powertobasket") || n.includes("240v") || n.includes("230v"))
+      key = "power_basket";
+    else if (n.includes("jibextension")) key = "jib_ext";
+    else if (n.includes("bifuel") || n.includes("bi-fuel")) key = "bi_fuel";
+    // ── Rotating telehandler specific ────────────────────────────────
+    else if (n.includes("rotatorhook")) key = "rotator_hook";
+    else if (n.includes("winch")) key = "winch";
+    // ── Generic "Jib" (telehandler, forklift) ─────────────────────────
+    else if (n.includes("jib")) key = "jib";
+    // ── Rotator (forklift, telehandler) — also covers "fork rotator" ─
+    else if (n.includes("rotator") || n.includes("rotat")) key = "rotator";
+    // ── Man basket / EWP ──────────────────────────────────────────────
+    else if (n.includes("manbasket")) key = "man_basket";
+    // ── Pallet forks ──────────────────────────────────────────────────
+    else if (n.includes("palletfork")) key = "pallet_forks";
+    // ── Excavator buckets / attachments ───────────────────────────────
+    else if (n.includes("rockbreaker") || n.includes("hammer")) key = "hammer";
+    else if (n.includes("auger") || n.includes("boringhead")) key = "auger";
+    else if (n.includes("grab") || n.includes("grapple")) key = "grab";
+    else if (n.includes("ripper")) key = "ripper";
+    else if (n.includes("tiltinghitch") || n.includes("quickhitch") || n.includes("tilting"))
+      key = "tilt_hitch";
+    else if (n.includes("mudbucket") || n.includes("batterbucket"))
+      key = "mud_bucket";
+    else if (n.includes("trenchbucket") || n.includes("trenchingbucket"))
+      key = "trench_bucket";
+    // ── Generic "Bucket" — must come AFTER specific bucket types above ─
+    else if (n.includes("bucket") && !n.includes("gpbucket")) {
+      // "Standard bucket (included)" → gp_bucket for excavator;
+      //  but excavator GP-bucket and tele bucket are different enquiry keys.
+      if (catKey === "telehandler") key = "bucket";
+      else key = "gp_bucket";
+    } else if (n === "gpbucket" || n.includes("gpbucket")) key = "gp_bucket";
+    // ── Loader / dozer attachments ────────────────────────────────────
+    else if (n.includes("4in1") || n.includes("fourinone")) key = "four_in_one";
+    else if (n.includes("broom") || n.includes("sweeper")) key = "broom";
+    else if (n.includes("trencher")) key = "trencher";
+    else if (n.includes("fork") && !n.includes("palletfork")) key = "forks";
+    // ── Scissor lift accessories (rare in KYM but supported) ─────────
+    else if (n.includes("piperack") || n.includes("piperacks")) key = "pipe_racks";
+    else if (n.includes("tooltray")) key = "tool_tray";
+    else if (n.includes("safetygate")) key = "safety_gate";
+    else if (n.includes("eqss") || n.includes("quadsupport")) key = "eqss";
+    else if (n.includes("spillunderguard") || n.includes("spillguard"))
+      key = "spill_guard";
+    if (key) out[key] = true;
+  }
+  return out;
+}
+
 function addToCartFromKYM(machineId, machineName, catKey, btn) {
   const meta = KYM_CAT_META[catKey] || {};
   const already = quoteCart.find((c) => c.id === machineId);
@@ -164545,6 +164691,16 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
       .forEach((cb) => attachments.push(cb.value));
   }
 
+  // ── Convert each KYM attachment label to its enquiry-window cartAccessories
+  //    key so the checkbox is pre-ticked and the chargeable list is synced.
+  //    Mapping is catKey-aware (same label can map to different keys in
+  //    different categories — though for the current label set, the same
+  //    key works across overlapping categories).
+  const cartAccessories = _kymBuildCartAccessoriesFromLabels(
+    catKey,
+    attachments,
+  );
+
   quoteCart.push({
     id: machineId,
     name: machineName,
@@ -164552,8 +164708,19 @@ function addToCartFromKYM(machineId, machineName, catKey, btn) {
     type: catKey,
     tynes: tynes.length ? tynes : undefined,
     attachments: attachments.length ? attachments : undefined,
+    cartAccessories:
+      Object.keys(cartAccessories).length ? cartAccessories : undefined,
     jobRequirements: getJobRequirements ? getJobRequirements() : {},
   });
+  // Trigger one sqmCartAccChange call so jobRequirements.chargeableAttachments
+  // is rebuilt to match — this is what reaches the rental company.
+  if (Object.keys(cartAccessories).length) {
+    const idx = quoteCart.length - 1;
+    const firstKey = Object.keys(cartAccessories)[0];
+    if (typeof sqmCartAccChange === "function") {
+      sqmCartAccChange(idx, firstKey, cartAccessories[firstKey]);
+    }
+  }
   saveCartToStorage();
   updateCartUI();
   const extras = [...tynes, ...attachments];
