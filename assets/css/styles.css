@@ -1495,11 +1495,30 @@ html, body {
   text-size-adjust: 100%;
   -webkit-overflow-scrolling: touch;
 }
+html {
+  /* v158: pinch-zoom must be allowed on <html> too — iOS Safari checks the
+     root element when the gesture starts, and a `body`-only rule was being
+     ignored when fingers landed on fixed/absolute children. */
+  touch-action: pan-x pan-y pinch-zoom;
+}
 body {
-  /* Allow the page to scroll naturally; never lock vertical pan */
-  touch-action: pan-x pan-y;
+  /* Allow the page to scroll naturally AND pinch-zoom on mobile.
+     v156: explicitly include `pinch-zoom` — previous `pan-x pan-y` value
+     silently disabled pinch-zoom because touch-action only enables what
+     is listed. */
+  touch-action: pan-x pan-y pinch-zoom;
   /* Prevent rubber-band lock on iOS while still allowing momentum */
   overscroll-behavior-y: auto;
+}
+/* v158: re-enable pinch-zoom on every common landing target. Browsers
+   default to `auto` but flex/grid containers, anchors, inputs, labels and
+   images frequently end up with computed touch-action that excludes
+   pinch-zoom — especially inside modals and the AI assistant panel. */
+a, label, input, textarea, select, img, svg,
+.card, .machine-card, .quote-card, .form-row, .form-group,
+.nav-tab, .admin-tab, .modal, .modal-body, .modal-content,
+#login-portal, #app, main, section, article, header, footer {
+  touch-action: pan-x pan-y pinch-zoom;
 }
 /* Re-arm touch-momentum on commonly-scrolled content */
 .admin-table-wrap,
@@ -1522,8 +1541,11 @@ body {
 /* Minimum touch target size — all interactive elements */
 button, .nav-tab, .admin-tab, select, input[type="file"], a.btn {
   min-height: 38px;
-  /* v143: eliminate the 300ms double-tap delay on iOS for snappier taps */
-  touch-action: manipulation;
+  /* v156: explicitly include pinch-zoom so pinching that lands on a
+     button still zooms the page. Previously this said `manipulation`
+     which is `pan-x pan-y double-tap-zoom` — pinch-zoom omitted, so
+     pinching over any button blocked the zoom gesture. */
+  touch-action: pan-x pan-y pinch-zoom;
 }
 
 /* Firefox: remove dotted outline on buttons */
