@@ -153646,7 +153646,7 @@ var CEM_ATTACH_OPTS = {
     tynes: ["1200mm", "1500mm", "1800mm"],
     att: [
       "1800mm slipper",
-      "2400mm slipper",
+      "1800 Tynes + 2400 Slippers",
       "Jib Attachment",
       "Rotator",
       "Side Shift",
@@ -158307,7 +158307,7 @@ function populateSqmMachineList() {
               _accBox(
                 i,
                 "slipper_2400",
-                "📦 2400mm Slippers",
+                "📦 1800 Tynes + 2400 Slippers",
                 !!_cartAccs.slipper_2400,
               ) +
               _accBox(i, "jib", "🏗️ Jib Attachment", !!_cartAccs.jib) +
@@ -158609,7 +158609,7 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   if (acc.rotator_hook) chargeable.push("🔄 Rotator Hook");
   // Forklift
   if (acc.slipper_1800) chargeable.push("📦 1800mm Slippers");
-  if (acc.slipper_2400) chargeable.push("📦 2400mm Slippers");
+  if (acc.slipper_2400) chargeable.push("📦 1800 Tynes + 2400 Slippers");
   if (acc.side_shift) chargeable.push("↔️ Side Shift");
   if (acc.fork_pos) chargeable.push("🎛️ Fork Positioner");
   // Excavator
@@ -158671,7 +158671,7 @@ function sqmCartAccChange(cartIdx, accKey, checked) {
   const _accLabelMap = {
     // Forklift
     slipper_1800: "1800mm slipper",
-    slipper_2400: "2400mm slipper",
+    slipper_2400: "1800 Tynes + 2400 Slippers",
     side_shift: "Side Shift",
     fork_pos: "Fork Positioner",
     // Boom
