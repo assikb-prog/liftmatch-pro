@@ -60304,229 +60304,20 @@ loadMatrixTyres: [
         { h: 12, r: 7.21, kg: 300 },
         { h: 14, r: 0.0, kg: 300 },
       ],
-      // ⚠️ loadMatrixWinch — ESTIMATED (loadMatrix × 0.93, cap 4500kg).
-      loadMatrixWinch: [
-        { h: 0.0, r: 0.0, kg: 4500 },
-        { h: 0.0, r: 4.5, kg: 4200 },
-        { h: 0.0, r: 6.5, kg: 3500 },
-        { h: 0.0, r: 8.0, kg: 3000 },
-        { h: 0.0, r: 9.5, kg: 2300 },
-        { h: 0.0, r: 11.0, kg: 2000 },
-        { h: 0.0, r: 12.0, kg: 1700 },
-        { h: 0.0, r: 13.5, kg: 1300 },
-        { h: 0.0, r: 14.5, kg: 1100 },
-        { h: 0.0, r: 15.5, kg: 900 },
-        { h: 0.0, r: 16.5, kg: 700 },
-        { h: 0.0, r: 18.0, kg: 700 },
-        { h: 2.0, r: 0.0, kg: 4500 },
-        { h: 2.0, r: 4.5, kg: 4200 },
-        { h: 2.0, r: 6.5, kg: 3500 },
-        { h: 2.0, r: 7.5, kg: 3000 },
-        { h: 2.0, r: 9.0, kg: 2300 },
-        { h: 2.0, r: 10.5, kg: 2000 },
-        { h: 2.0, r: 11.5, kg: 1700 },
-        { h: 2.0, r: 13.0, kg: 1300 },
-        { h: 2.0, r: 14.0, kg: 1100 },
-        { h: 2.0, r: 15.0, kg: 900 },
-        { h: 2.0, r: 16.0, kg: 700 },
-        { h: 2.0, r: 17.5, kg: 700 },
-        { h: 5.0, r: 0.0, kg: 4500 },
-        { h: 5.0, r: 4.0, kg: 4200 },
-        { h: 5.0, r: 6.0, kg: 3500 },
-        { h: 5.0, r: 7.5, kg: 3000 },
-        { h: 5.0, r: 9.0, kg: 2300 },
-        { h: 5.0, r: 10.5, kg: 2000 },
-        { h: 5.0, r: 11.5, kg: 1700 },
-        { h: 5.0, r: 13.0, kg: 1300 },
-        { h: 5.0, r: 14.0, kg: 1100 },
-        { h: 5.0, r: 15.0, kg: 900 },
-        { h: 5.0, r: 16.0, kg: 700 },
-        { h: 8.0, r: 0.0, kg: 4500 },
-        { h: 8.0, r: 3.5, kg: 4200 },
-        { h: 8.0, r: 5.5, kg: 3500 },
-        { h: 8.0, r: 7.0, kg: 3000 },
-        { h: 8.0, r: 8.5, kg: 2300 },
-        { h: 8.0, r: 10.0, kg: 2000 },
-        { h: 8.0, r: 11.0, kg: 1700 },
-        { h: 8.0, r: 12.5, kg: 1300 },
-        { h: 8.0, r: 13.5, kg: 1100 },
-        { h: 8.0, r: 14.5, kg: 900 },
-        { h: 8.0, r: 15.5, kg: 700 },
-        { h: 11.0, r: 0.0, kg: 4500 },
-        { h: 11.0, r: 3.5, kg: 4200 },
-        { h: 11.0, r: 5.5, kg: 3500 },
-        { h: 11.0, r: 7.0, kg: 3000 },
-        { h: 11.0, r: 8.5, kg: 2300 },
-        { h: 11.0, r: 10.0, kg: 2000 },
-        { h: 11.0, r: 11.0, kg: 1700 },
-        { h: 11.0, r: 12.5, kg: 1300 },
-        { h: 11.0, r: 13.5, kg: 1100 },
-        { h: 11.0, r: 14.5, kg: 900 },
-        { h: 11.0, r: 15.5, kg: 700 },
-        { h: 14.0, r: 0.0, kg: 4500 },
-        { h: 14.0, r: 3.0, kg: 4200 },
-        { h: 14.0, r: 5.0, kg: 3500 },
-        { h: 14.0, r: 6.5, kg: 3000 },
-        { h: 14.0, r: 8.0, kg: 2300 },
-        { h: 14.0, r: 9.5, kg: 2000 },
-        { h: 14.0, r: 10.5, kg: 1700 },
-        { h: 14.0, r: 12.0, kg: 1300 },
-        { h: 14.0, r: 13.0, kg: 1100 },
-        { h: 14.0, r: 14.0, kg: 900 },
-        { h: 17.0, r: 0.0, kg: 4500 },
-        { h: 17.0, r: 2.5, kg: 4200 },
-        { h: 17.0, r: 4.5, kg: 3500 },
-        { h: 17.0, r: 6.0, kg: 3000 },
-        { h: 17.0, r: 7.5, kg: 2300 },
-        { h: 17.0, r: 9.0, kg: 2000 },
-        { h: 17.0, r: 10.0, kg: 1700 },
-        { h: 17.0, r: 11.5, kg: 1300 },
-        { h: 19.0, r: 0.0, kg: 4500 },
-        { h: 19.0, r: 2.0, kg: 4200 },
-        { h: 19.0, r: 3.5, kg: 3500 },
-        { h: 19.0, r: 5.0, kg: 3000 },
-        { h: 19.0, r: 6.5, kg: 2300 },
-        { h: 19.0, r: 8.0, kg: 2000 },
-        { h: 19.0, r: 9.0, kg: 1700 },
-        { h: 20.5, r: 0.0, kg: 4500 },
-        { h: 20.5, r: 1.0, kg: 4200 },
-        { h: 20.5, r: 2.5, kg: 3500 },
-        { h: 20.5, r: 4.0, kg: 3000 },
-        { h: 20.5, r: 5.5, kg: 2300 },
-      ],
-      // ⚠️ loadMatrixJib800 — ESTIMATED jib winch (2000kg max). Zones proportional from jib capacity.
-      loadMatrixJib800: [
-        { h: 0.0, r: 0.0, kg: 2000 },
-        { h: 0.0, r: 5.0, kg: 1500 },
-        { h: 0.0, r: 10.0, kg: 1000 },
-        { h: 0.0, r: 15.0, kg: 600 },
-        { h: 2.0, r: 0.0, kg: 2000 },
-        { h: 2.0, r: 4.9, kg: 1500 },
-        { h: 2.0, r: 9.8, kg: 1000 },
-        { h: 2.0, r: 14.6, kg: 600 },
-        { h: 5.0, r: 0.0, kg: 2000 },
-        { h: 5.0, r: 4.5, kg: 1500 },
-        { h: 5.0, r: 9.0, kg: 1000 },
-        { h: 5.0, r: 13.5, kg: 600 },
-        { h: 8.0, r: 0.0, kg: 2000 },
-        { h: 8.0, r: 4.4, kg: 1500 },
-        { h: 8.0, r: 8.8, kg: 1000 },
-        { h: 8.0, r: 13.1, kg: 600 },
-        { h: 11.0, r: 0.0, kg: 2000 },
-        { h: 11.0, r: 4.4, kg: 1500 },
-        { h: 11.0, r: 8.8, kg: 1000 },
-        { h: 11.0, r: 13.1, kg: 600 },
-        { h: 14.0, r: 0.0, kg: 2000 },
-        { h: 14.0, r: 4.0, kg: 1500 },
-        { h: 14.0, r: 8.0, kg: 1000 },
-        { h: 14.0, r: 12.0, kg: 600 },
-        { h: 17.0, r: 0.0, kg: 2000 },
-        { h: 17.0, r: 3.4, kg: 1500 },
-        { h: 17.0, r: 6.8, kg: 1000 },
-        { h: 17.0, r: 10.1, kg: 600 },
-        { h: 19.0, r: 0.0, kg: 2000 },
-        { h: 19.0, r: 2.8, kg: 1500 },
-        { h: 19.0, r: 5.5, kg: 1000 },
-        { h: 19.0, r: 8.2, kg: 600 },
-        { h: 20.5, r: 0.0, kg: 2000 },
-        { h: 20.5, r: 1.9, kg: 1500 },
-        { h: 20.5, r: 3.8, kg: 1000 },
-        { h: 20.5, r: 5.6, kg: 600 },
-        { h: 22.5, r: 0.0, kg: 2000 },
-        { h: 22.5, r: 1.6, kg: 1500 },
-        { h: 22.5, r: 3.3, kg: 1000 },
-        { h: 22.5, r: 4.9, kg: 600 },
-      ],
-      // ⚠️ loadMatrixJib1500 — ESTIMATED man platform (1000kg constant throughout working envelope).
-      loadMatrixJib1500: [
-        { h: 0.0, r: 0.0, kg: 1000 },
-        { h: 0.0, r: 4.5, kg: 1000 },
-        { h: 0.0, r: 6.5, kg: 1000 },
-        { h: 0.0, r: 8.0, kg: 1000 },
-        { h: 0.0, r: 9.5, kg: 1000 },
-        { h: 0.0, r: 11.0, kg: 1000 },
-        { h: 0.0, r: 12.0, kg: 1000 },
-        { h: 0.0, r: 13.5, kg: 1000 },
-        { h: 0.0, r: 14.5, kg: 1000 },
-        { h: 0.0, r: 15.5, kg: 1000 },
-        { h: 0.0, r: 16.5, kg: 1000 },
-        { h: 0.0, r: 18.0, kg: 1000 },
-        { h: 2.0, r: 0.0, kg: 1000 },
-        { h: 2.0, r: 4.5, kg: 1000 },
-        { h: 2.0, r: 6.5, kg: 1000 },
-        { h: 2.0, r: 7.5, kg: 1000 },
-        { h: 2.0, r: 9.0, kg: 1000 },
-        { h: 2.0, r: 10.5, kg: 1000 },
-        { h: 2.0, r: 11.5, kg: 1000 },
-        { h: 2.0, r: 13.0, kg: 1000 },
-        { h: 2.0, r: 14.0, kg: 1000 },
-        { h: 2.0, r: 15.0, kg: 1000 },
-        { h: 2.0, r: 16.0, kg: 1000 },
-        { h: 2.0, r: 17.5, kg: 1000 },
-        { h: 5.0, r: 0.0, kg: 1000 },
-        { h: 5.0, r: 4.0, kg: 1000 },
-        { h: 5.0, r: 6.0, kg: 1000 },
-        { h: 5.0, r: 7.5, kg: 1000 },
-        { h: 5.0, r: 9.0, kg: 1000 },
-        { h: 5.0, r: 10.5, kg: 1000 },
-        { h: 5.0, r: 11.5, kg: 1000 },
-        { h: 5.0, r: 13.0, kg: 1000 },
-        { h: 5.0, r: 14.0, kg: 1000 },
-        { h: 5.0, r: 15.0, kg: 1000 },
-        { h: 5.0, r: 16.0, kg: 1000 },
-        { h: 8.0, r: 0.0, kg: 1000 },
-        { h: 8.0, r: 3.5, kg: 1000 },
-        { h: 8.0, r: 5.5, kg: 1000 },
-        { h: 8.0, r: 7.0, kg: 1000 },
-        { h: 8.0, r: 8.5, kg: 1000 },
-        { h: 8.0, r: 10.0, kg: 1000 },
-        { h: 8.0, r: 11.0, kg: 1000 },
-        { h: 8.0, r: 12.5, kg: 1000 },
-        { h: 8.0, r: 13.5, kg: 1000 },
-        { h: 8.0, r: 14.5, kg: 1000 },
-        { h: 8.0, r: 15.5, kg: 1000 },
-        { h: 11.0, r: 0.0, kg: 1000 },
-        { h: 11.0, r: 3.5, kg: 1000 },
-        { h: 11.0, r: 5.5, kg: 1000 },
-        { h: 11.0, r: 7.0, kg: 1000 },
-        { h: 11.0, r: 8.5, kg: 1000 },
-        { h: 11.0, r: 10.0, kg: 1000 },
-        { h: 11.0, r: 11.0, kg: 1000 },
-        { h: 11.0, r: 12.5, kg: 1000 },
-        { h: 11.0, r: 13.5, kg: 1000 },
-        { h: 11.0, r: 14.5, kg: 1000 },
-        { h: 11.0, r: 15.5, kg: 1000 },
-        { h: 14.0, r: 0.0, kg: 1000 },
-        { h: 14.0, r: 3.0, kg: 1000 },
-        { h: 14.0, r: 5.0, kg: 1000 },
-        { h: 14.0, r: 6.5, kg: 1000 },
-        { h: 14.0, r: 8.0, kg: 1000 },
-        { h: 14.0, r: 9.5, kg: 1000 },
-        { h: 14.0, r: 10.5, kg: 1000 },
-        { h: 14.0, r: 12.0, kg: 1000 },
-        { h: 14.0, r: 13.0, kg: 1000 },
-        { h: 14.0, r: 14.0, kg: 1000 },
-        { h: 17.0, r: 0.0, kg: 1000 },
-        { h: 17.0, r: 2.5, kg: 1000 },
-        { h: 17.0, r: 4.5, kg: 1000 },
-        { h: 17.0, r: 6.0, kg: 1000 },
-        { h: 17.0, r: 7.5, kg: 1000 },
-        { h: 17.0, r: 9.0, kg: 1000 },
-        { h: 17.0, r: 10.0, kg: 1000 },
-        { h: 17.0, r: 11.5, kg: 1000 },
-        { h: 19.0, r: 0.0, kg: 1000 },
-        { h: 19.0, r: 2.0, kg: 1000 },
-        { h: 19.0, r: 3.5, kg: 1000 },
-        { h: 19.0, r: 5.0, kg: 1000 },
-        { h: 19.0, r: 6.5, kg: 1000 },
-        { h: 19.0, r: 8.0, kg: 1000 },
-        { h: 19.0, r: 9.0, kg: 1000 },
-        { h: 20.5, r: 0.0, kg: 1000 },
-        { h: 20.5, r: 1.0, kg: 1000 },
-        { h: 20.5, r: 2.5, kg: 1000 },
-        { h: 20.5, r: 4.0, kg: 1000 },
-        { h: 20.5, r: 5.5, kg: 1000 },
-      ],
+      // ⚠️ loadMatrixWinch — REMOVED. Previous matrix was fabricated
+      // (loadMatrix × 0.93, cap 4500kg) which directly violates the no-
+      // fabrication policy. With no brochure data, the winch row now renders
+      // "Confirm with rental company". Upload Dieci 50.21 winch chart to
+      // restore.
+      loadMatrixWinch: [],
+      // ⚠️ loadMatrixJib800 — REMOVED. Previous matrix was fabricated
+      // (jib winch 2000kg max, proportional from jib capacity) which violates
+      // the no-fabrication policy. Renders "Confirm with rental company".
+      loadMatrixJib800: [],
+      // ⚠️ loadMatrixJib1500 — REMOVED. Previous matrix was fabricated
+      // (man platform 1000kg constant) which violates the no-fabrication
+      // policy. EWP row falls back to brochure-confirmed ewpBasketSWL.
+      loadMatrixJib1500: [],
       loadMatrixTyres360: [
         { h: 0.0, r: 0.0, kg: 2100 },
         { h: 0.0, r: 5.5, kg: 1450 },
@@ -142363,6 +142154,13 @@ function getCapacityAtPoint(m, needH, needR, useStabs) {
     (a, b) => a - b,
   );
   if (needH > heights[heights.length - 1]) return 0;
+  // ── SAFETY GUARD: below-chart-range ─────────────────────────────────────
+  // If the chart starts above needH (e.g. winch chart begins at h=7, query at
+  // h=3), clamping up to heights[0] would read a row whose r-values describe
+  // the boom arc AT THAT higher elevation — meaningless at the requested
+  // elevation. Refuse the lookup; renderer shows "Confirm with rental
+  // company". 0.5m margin tolerates charts that start labelling from h=1.
+  if (needH < heights[0] - 0.5) return null;
   const clampH = Math.max(
     heights[0],
     Math.min(needH, heights[heights.length - 1]),
@@ -142385,6 +142183,16 @@ function getCapacityAtPoint(m, needH, needR, useStabs) {
     if (maxRowR === 0) return null;
     // Outside envelope (beyond max reach at this height)
     if (r > maxRowR * 1.02) return 0;
+    // ── SAFETY GUARD: undocumented-inner-zone ──────────────────────────
+    // Labelled {r,kg} points mark OUTER boundaries of zones. If the row has
+    // no inner anchor (no point near r=0) and the query reach is well inside
+    // the smallest labelled boundary, the actual inner zone capacity is
+    // undocumented. Returning the smallest labelled kg would understate
+    // capacity by a huge factor (e.g. 850 kg instead of ~5500 kg at JCB
+    // 555-210R h=3/r=2.5). Fail safe — renderer shows "Confirm with rental
+    // company".
+    const minRowR = row[0].r;
+    if (minRowR > 0.5 && r < minRowR - 0.3) return null;
     // Walk zone boundaries: first boundary where r <= boundary.r is the zone we're in
     for (const pt of row) {
       if (r <= pt.r) return pt.kg;
@@ -148693,7 +148501,22 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       maxRatReqH < _specMaxR * 0.3 &&
       reqRe <= _specMaxR &&
       reqHt <= _specMaxH;
-    if (_isSparse) {
+
+    // For rotating telehandlers inside the physical envelope, fall through to
+    // the per-attachment breakdown panel below. The forks/tynes row will render
+    // "Confirm with rental company"; winch/hook/jib/EWP each get their own
+    // verdict from their own load matrices. This is the right UX when the
+    // safety guard fires on the forks matrix but other attachment matrices
+    // may still have valid data at the working point.
+    const _inEnvelope =
+      reqRe <= _specMaxR &&
+      reqHt <= _specMaxH &&
+      _specMaxR > 0 &&
+      _specMaxH > 0;
+    if (m.isRotating && _inEnvelope) {
+      // displayKg stays null → onTynesKg null → tynes row renders confirmRow.
+      // Don't return; fall through to the breakdown panel renderer below.
+    } else if (_isSparse) {
       return `<div class="lift-chart-note" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-left-color:#F59E0B">
               <strong>📊 Capacity at this working point — ${reqHt}m lift / ${reqRe}m reach</strong>
               <div style="font-size:.76rem;color:#475569;margin:.3rem 0 .6rem">Your requirement: <strong>${reqKg.toLocaleString()} kg</strong></div>
@@ -148703,24 +148526,24 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                 <div style="margin-top:.5rem;font-size:.78rem;color:#92400E">Rated max at ground/zero reach: <strong>${ratedKg2.toLocaleString()} kg</strong></div>
               </div>
             </div>`;
+    } else {
+      const maxRStr =
+        maxRatReqH != null ? `~${maxRatReqH.toFixed(1)}m` : "limited";
+      return `<div class="lift-chart-note" style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border-left-color:#EF4444">
+              <strong>⚠️ Working point outside this machine's physical envelope</strong>
+              <div style="font-size:.83rem;color:#991B1B;margin-top:.5rem;line-height:1.65">
+                At <strong>${reqHt}m</strong> height, this machine's boom can only reach <strong>${maxRStr}</strong> — not the <strong>${reqRe}m</strong> you need.<br>
+                This is a physical boom geometry limit, not a capacity limit. The mast must be more vertical at this height.<br>
+                <strong>Options:</strong> ① Use a machine with greater lift height (so ${reqHt}m is a lower fraction of its maximum) ② Reduce your required reach ③ Consider a rotating telehandler which can reach around obstacles
+              </div>
+              <div style="margin-top:.6rem;padding:.4rem .7rem;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;font-size:.78rem;color:#7F1D1D">
+                💡 Rated max at ground/zero reach: <strong>${ratedKg2.toLocaleString()} kg</strong>. Capacity at your required working point cannot be determined — the boom cannot physically reach ${reqRe}m at ${reqHt}m height on this machine.
+              </div>
+            </div>`;
     }
-
-    const maxRStr =
-      maxRatReqH != null ? `~${maxRatReqH.toFixed(1)}m` : "limited";
-    return `<div class="lift-chart-note" style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border-left-color:#EF4444">
-            <strong>⚠️ Working point outside this machine's physical envelope</strong>
-            <div style="font-size:.83rem;color:#991B1B;margin-top:.5rem;line-height:1.65">
-              At <strong>${reqHt}m</strong> height, this machine's boom can only reach <strong>${maxRStr}</strong> — not the <strong>${reqRe}m</strong> you need.<br>
-              This is a physical boom geometry limit, not a capacity limit. The mast must be more vertical at this height.<br>
-              <strong>Options:</strong> ① Use a machine with greater lift height (so ${reqHt}m is a lower fraction of its maximum) ② Reduce your required reach ③ Consider a rotating telehandler which can reach around obstacles
-            </div>
-            <div style="margin-top:.6rem;padding:.4rem .7rem;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;font-size:.78rem;color:#7F1D1D">
-              💡 Rated max at ground/zero reach: <strong>${ratedKg2.toLocaleString()} kg</strong>. Capacity at your required working point cannot be determined — the boom cannot physically reach ${reqRe}m at ${reqHt}m height on this machine.
-            </div>
-          </div>`;
   }
-  if (displayKg != null && reqKg > 0 && reqHt > 0) {
-    const ok = displayKg >= reqKg;
+  if ((displayKg != null || m.isRotating) && reqKg > 0 && reqHt > 0) {
+    const ok = displayKg != null && displayKg >= reqKg;
     const bg = ok
       ? "linear-gradient(135deg,#ECFDF5,#D1FAE5)"
       : "linear-gradient(135deg,#FEF3C7,#FDE68A)";
@@ -148788,6 +148611,9 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
         if (!lmt || lmt.length === 0) return null;
         const heights = [...new Set(lmt.map((p) => p.h))].sort((a, b) => a - b);
         if (needH > heights[heights.length - 1]) return 0;
+        // ── SAFETY GUARD: below-chart-range ─────────────────────────────────
+        // See _interpMatrix for rationale.
+        if (needH < heights[0] - 0.5) return null;
         const clampH = Math.max(
           heights[0],
           Math.min(needH, heights[heights.length - 1]),
@@ -148799,6 +148625,10 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
           const row = lmt.filter((p) => p.h === th).sort((a, b) => a.r - b.r);
           if (!row.length) return null;
           if (needR > row[row.length - 1].r * 1.02) return 0;
+          // ── SAFETY GUARD: undocumented-inner-zone ───────────────────────
+          // See _interpMatrix for rationale.
+          const minRowR = row[0].r;
+          if (minRowR > 0.5 && needR < minRowR - 0.3) return null;
           for (const pt of row) {
             if (needR <= pt.r) return pt.kg;
           }
@@ -148836,8 +148666,9 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
           onTyresAtPoint = _tyresInterp;
           tyresPermitted = true;
           tyresSource = "manufacturer load chart";
-        } else {
-          // Outside envelope — find best nearby value: scan same height, closest reach within data
+        } else if (_tyresInterp === 0) {
+          // True outside-envelope (needR > maxRowR) — show nearest-boundary
+          // value as a warning, the renderer flags it.
           const lmt = m.loadMatrixTyres;
           const heights = [...new Set(lmt.map((p) => p.h))].sort(
             (a, b) => a - b,
@@ -148854,6 +148685,14 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
           onTyresAtPoint = lastInRow ? lastInRow.kg : tyresCapKg;
           tyresPermitted = false; // flag as outside envelope so note explains
           tyresSource = "manufacturer load chart (nearest boundary)";
+        } else {
+          // _tyresInterp === null → safety guard fired (below-chart-range OR
+          // undocumented-inner-zone). Do NOT fall back to nearest boundary —
+          // that would re-introduce the bug. Surface null so the renderer
+          // shows "Confirm with rental company".
+          onTyresAtPoint = null;
+          tyresPermitted = false;
+          tyresSource = null;
         }
       } else {
         tyresPermitted = reqHt <= tyresMaxHt && reqRe <= tyresMaxRe;
@@ -148888,6 +148727,14 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
         if (!matrix || !matrix.length) return null;
         const hs = [...new Set(matrix.map((p) => p.h))].sort((a, b) => a - b);
         if (needH > hs[hs.length - 1]) return 0;
+        // ── SAFETY GUARD: below-chart-range ─────────────────────────────────
+        // If the chart starts above needH (e.g. winch chart begins at h=7,
+        // query at h=3), clamping up to hs[0] would read a row whose r-values
+        // describe the boom arc AT THAT higher elevation — meaningless at the
+        // requested elevation. Refuse the lookup. Allow a 0.5m margin because
+        // brochure charts often start labelling from h=1 even though h=0..1
+        // physics is sound.
+        if (needH < hs[0] - 0.5) return null;
         const clampH = Math.max(hs[0], Math.min(needH, hs[hs.length - 1]));
         const h0 = hs.filter((h) => h <= clampH).pop() ?? hs[0];
         const h1 = hs.filter((h) => h >= clampH)[0] ?? hs[hs.length - 1];
@@ -148897,6 +148744,14 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
             .sort((a, b) => a.r - b.r);
           if (!row.length) return null;
           if (needR > row[row.length - 1].r * 1.02) return 0;
+          // ── SAFETY GUARD: undocumented-inner-zone ──────────────────────
+          // Labelled {r,kg} points mark OUTER boundaries of zones. If the row
+          // has no inner anchor (no point near r=0) and the query reach is
+          // well inside the smallest labelled boundary, the actual inner
+          // zone capacity is undocumented. Returning the smallest labelled
+          // kg would understate capacity by a huge factor. Fail safe.
+          const minRowR = row[0].r;
+          if (minRowR > 0.5 && needR < minRowR - 0.3) return null;
           for (const pt of row) {
             if (needR <= pt.r) return pt.kg;
           }
@@ -148979,9 +148834,9 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
           }
         }
         if (!capAtJibReach2 || capAtJibReach2 <= 0)
-          capAtJibReach2 = Math.round(onTynesKg * 0.8);
+          capAtJibReach2 = onTynesKg != null ? Math.round(onTynesKg * 0.8) : 0;
       }
-      const jibKg = Math.max(0, capAtJibReach2 - jibWt2);
+      const jibKg = onTynesKg == null ? null : Math.max(0, capAtJibReach2 - jibWt2);
 
       // WINCH: hook hangs directly below boom tip — ZERO reach extension.
       // Read from loadMatrixWinch at exact working point (reqHt, reqRe).
@@ -148990,19 +148845,10 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       let winchKg = null;
       if (hasWinchMatrix) {
         winchKg = _interpMatrix(m.loadMatrixWinch, reqHt, reqRe);
-        // If outside envelope, find boundary value at nearest height row
-        if (winchKg == null) {
-          const lmw = m.loadMatrixWinch;
-          const wHts = [...new Set(lmw.map((p) => p.h))].sort((a, b) => a - b);
-          const nearWH = wHts.reduce(
-            (p, h) => (Math.abs(h - reqHt) < Math.abs(p - reqHt) ? h : p),
-            wHts[0],
-          );
-          const nearRow = lmw
-            .filter((p) => p.h === nearWH)
-            .sort((a, b) => a.r - b.r);
-          winchKg = nearRow[nearRow.length - 1]?.kg || null;
-        }
+        // NO nearest-boundary fallback — that path returns the outermost-reach
+        // label of the nearest row (smallest kg), which misrepresents capacity
+        // at the queried reach. If _interpMatrix returns null, leave winchKg
+        // null and the row renders "Confirm with rental company".
       } else {
         // No winch matrix — estimate from forks at same point minus ~12% for winch attachment
         winchKg = _capAt2(reqHt, reqRe);
@@ -149023,20 +148869,7 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       let winch2Kg = null;
       if (hasWinch2Matrix) {
         winch2Kg = _interpMatrix(m.loadMatrixWinch2, reqHt, reqRe);
-        if (winch2Kg == null) {
-          const lmw2 = m.loadMatrixWinch2;
-          const w2Hts = [...new Set(lmw2.map((p) => p.h))].sort(
-            (a, b) => a - b,
-          );
-          const nearW2H = w2Hts.reduce(
-            (p, h) => (Math.abs(h - reqHt) < Math.abs(p - reqHt) ? h : p),
-            w2Hts[0],
-          );
-          const nearRow2 = lmw2
-            .filter((p) => p.h === nearW2H)
-            .sort((a, b) => a.r - b.r);
-          winch2Kg = nearRow2[nearRow2.length - 1]?.kg || null;
-        }
+        // NO nearest-boundary fallback — see comment on EWP fallback below.
       }
       const winch2Label = m.winchCapacity2
         ? `🪝 Winch W${(m.winchCapacity2 / 1000).toFixed(1).replace(".0", "")} — boom tip, zero reach extension`
@@ -149047,18 +148880,7 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       let hookKg = null;
       if (hasHookMatrix) {
         hookKg = _interpMatrix(m.loadMatrixHook, reqHt, reqRe);
-        if (hookKg == null) {
-          const lmh = m.loadMatrixHook;
-          const hkHts = [...new Set(lmh.map((p) => p.h))].sort((a, b) => a - b);
-          const nearHkH = hkHts.reduce(
-            (p, h) => (Math.abs(h - reqHt) < Math.abs(p - reqHt) ? h : p),
-            hkHts[0],
-          );
-          const nearHkRow = lmh
-            .filter((p) => p.h === nearHkH)
-            .sort((a, b) => a.r - b.r);
-          hookKg = nearHkRow[nearHkRow.length - 1]?.kg || null;
-        }
+        // NO nearest-boundary fallback — see comment on EWP fallback below.
       }
       const hookSrc = hasHookMatrix ? "manufacturer hook load chart" : null;
 
@@ -149072,18 +148894,7 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       let jibWinchKgDirect = null;
       if (hasJibWinchMatrix) {
         jibWinchKgDirect = _interpMatrix(m.loadMatrixJib800, reqHt, reqRe);
-        if (jibWinchKgDirect == null) {
-          const lmj = m.loadMatrixJib800;
-          const jHts = [...new Set(lmj.map((p) => p.h))].sort((a, b) => a - b);
-          const nearJH = jHts.reduce(
-            (p, h) => (Math.abs(h - reqHt) < Math.abs(p - reqHt) ? h : p),
-            jHts[0],
-          );
-          const nearJRow = lmj
-            .filter((p) => p.h === nearJH)
-            .sort((a, b) => a.r - b.r);
-          jibWinchKgDirect = nearJRow[nearJRow.length - 1]?.kg ?? null;
-        }
+        // NO nearest-boundary fallback — see comment on EWP fallback above.
       }
       const okJibWinchDirect =
         jibWinchKgDirect != null && jibWinchKgDirect >= reqKg;
@@ -149100,18 +148911,11 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
       let ewpKgDirect = null;
       if (hasEwpMatrix) {
         ewpKgDirect = _interpMatrix(m.loadMatrixJib1500, reqHt, reqRe);
-        if (ewpKgDirect == null) {
-          const lme = m.loadMatrixJib1500;
-          const eHts = [...new Set(lme.map((p) => p.h))].sort((a, b) => a - b);
-          const nearEH = eHts.reduce(
-            (p, h) => (Math.abs(h - reqHt) < Math.abs(p - reqHt) ? h : p),
-            eHts[0],
-          );
-          const nearERow = lme
-            .filter((p) => p.h === nearEH)
-            .sort((a, b) => a.r - b.r);
-          ewpKgDirect = nearERow[nearERow.length - 1]?.kg ?? null;
-        }
+        // NO nearest-boundary fallback — that path returns the outermost-reach
+        // label of the nearest row (smallest kg), which misrepresents capacity
+        // at the queried reach. If _interpMatrix returns null (outside envelope
+        // or safety-guarded), leave ewpKgDirect null; effectiveEwpKg falls back
+        // to ewpSWL (a brochure-confirmed constant).
       }
       const effectiveEwpKg =
         ewpKgDirect != null ? Math.min(ewpKgDirect, ewpSWL) : ewpSWL;
@@ -149149,7 +148953,9 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
               <strong>📊 Capacity at this working point — ${reqHt}m lift / ${reqRe}m reach</strong>
               <div style="font-size:.76rem;color:#475569;margin:.3rem 0 .6rem">Your requirement: <strong>${reqKg.toLocaleString()} kg</strong></div>
               <div style="display:flex;flex-direction:column;gap:.35rem">
-                ${row("🔱 On tynes / forks — outriggers deployed", onTynesKg, okTynes, "Full rated capacity with stabilisers on firm, load-rated ground. Capacity read directly from manufacturer 360° load chart zone.")}
+                ${onTynesKg == null
+                  ? confirmRow("🔱 On tynes / forks — outriggers deployed")
+                  : row("🔱 On tynes / forks — outriggers deployed", onTynesKg, okTynes, "Full rated capacity with stabilisers on firm, load-rated ground. Capacity read directly from manufacturer 360° load chart zone.")}
                 ${
                   !m.loadMatrixWinch || !m.loadMatrixWinch.length
                     ? confirmRow("🪝 Winch")
@@ -149160,10 +148966,18 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                           okWinch,
                           `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From ${winchSrc}.`,
                         )
-                      : ""
+                      : confirmRow(winchLabel)
                 }
-                ${_snappedWinch2Kg != null ? row(winch2Label, _snappedWinch2Kg, okWinch2, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From manufacturer W${m.winchCapacity2 ? (m.winchCapacity2 / 1000).toFixed(1).replace(".0", "") : "5"} winch load chart.`) : ""}
-                ${_snappedHookKg != null ? row(`🔗 Hook / crane mode — boom tip, zero reach extension`, _snappedHookKg, okHook, `Direct crane hook hanging vertically at ${reqHt}m / ${reqRe}m — no reach extension. Hook rated 5T. From ${hookSrc}.`) : ""}
+                ${m.loadMatrixWinch2 && m.loadMatrixWinch2.length
+                  ? (_snappedWinch2Kg != null
+                      ? row(winch2Label, _snappedWinch2Kg, okWinch2, `Load hangs vertically below boom tip at ${reqHt}m / ${reqRe}m — no additional reach vs forks. From manufacturer W${m.winchCapacity2 ? (m.winchCapacity2 / 1000).toFixed(1).replace(".0", "") : "5"} winch load chart.`)
+                      : confirmRow(winch2Label))
+                  : ""}
+                ${m.loadMatrixHook && m.loadMatrixHook.length
+                  ? (_snappedHookKg != null
+                      ? row(`🔗 Hook / crane mode — boom tip, zero reach extension`, _snappedHookKg, okHook, `Direct crane hook hanging vertically at ${reqHt}m / ${reqRe}m — no reach extension. Hook rated 5T. From ${hookSrc}.`)
+                      : confirmRow(`🔗 Hook / crane mode — boom tip, zero reach extension`))
+                  : ""}
                 ${
                   tattArr.includes("jib")
                     ? !m.loadMatrixJib800 || !m.loadMatrixJib800.length
@@ -149176,7 +148990,9 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                             `Capacity read directly from ${m.brand} jib winch load chart at ${reqHt}m / ${reqRe}m. The 2m jib extends horizontal reach by 2m. Jib winch attachment weight (420kg) already factored into brochure chart zones. Source: manufacturer jib load chart.`,
                           )
                         : hasStoredJib && jibWt2 && jibLen2
-                          ? row(
+                          ? _snappedJibKg == null
+                            ? confirmRow(`🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`)
+                            : row(
                               `🔩 With jib (+${jibLen2}m reach extension, −${jibWt2}kg)`,
                               _snappedJibKg,
                               okJib,
@@ -149213,15 +149029,17 @@ function _buildTeleCapacityPanel(m, machineType, answers, tattArr) {
                 ${
                   !m.loadMatrixTyres || !m.loadMatrixTyres.length
                     ? confirmRow("🚜 On tyres / rubber (no outriggers)")
-                    : row(
-                        "🚜 On tyres / rubber (no outriggers)",
-                        onTyresAtPoint,
-                        okTyres,
-                        tyresPermitted
-                          ? `On-tyres capacity at ${reqHt}m / ${reqRe}m — from ${tyresSource}.`
-                          : `⚠️ ${reqRe}m outreach exceeds on-tyres boundary at ${reqHt}m height. Value shown is chart maximum at this height — actual at ${reqRe}m will be lower. Deploy outriggers. Source: ${tyresSource}.`,
-                        !tyresPermitted,
-                      )
+                    : onTyresAtPoint == null
+                      ? confirmRow("🚜 On tyres / rubber (no outriggers)")
+                      : row(
+                          "🚜 On tyres / rubber (no outriggers)",
+                          onTyresAtPoint,
+                          okTyres,
+                          tyresPermitted
+                            ? `On-tyres capacity at ${reqHt}m / ${reqRe}m — from ${tyresSource}.`
+                            : `⚠️ ${reqRe}m outreach exceeds on-tyres boundary at ${reqHt}m height. Value shown is chart maximum at this height — actual at ${reqRe}m will be lower. Deploy outriggers. Source: ${tyresSource}.`,
+                          !tyresPermitted,
+                        )
                 }
               </div>
               <div style="margin-top:.75rem;background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1.5px solid #FCD34D;border-radius:12px;overflow:hidden">
