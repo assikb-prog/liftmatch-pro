@@ -184681,23 +184681,21 @@ window.noyoForceSubmit = async function () {
 };
 
 // ═══════════════════════════════════════════════════════════════════════
-//  v159 — BROWSE-FREE / LOGIN-AT-CART
+//  v159 — BROWSE-FREE / LOGIN-INSIDE-CART
 //  ─────────────────────────────────────────────────────────────────────
 //  Visitors land on the app, not on a login wall. They can search, run
-//  the Find My Machine quiz, and view results without an account.
-//  Login is only required when they try one of these gated actions:
-//      • addCurrentToCartFromModal()   — add from recommendation modal
-//      • addToCartFromKYM(...)         — add from KYM search
-//      • addToCartDirect(...)          — direct add from rec card
-//      • toggleCart()                  — open the cart sidebar
-//      • openSendQuotesModal()         — go to checkout / send enquiry
-//  When triggered while signed out, the pending action is stashed,
-//  the 3-card portal is opened, and the action is replayed after a
-//  successful login.
+//  the Find My Machine quiz, view results, AND add machines to cart
+//  without signing in. The cart sidebar opens automatically after the
+//  first add-to-cart so they can see what they've got, and a sign-in
+//  banner with the 3 portal options is rendered inside the cart.
 //
-//  Guest cart: while signed out, quoteCart is mirrored to localStorage
-//  under '_noyo_guest_cart' so a refresh keeps the items. On login,
-//  guest items are merged into the user's cart (dedup by machine id).
+//  Login is only required to actually send the hire enquiry
+//  (openSendQuotesModal). After a successful sign-in, the guest cart
+//  is merged into the user's account cart (dedup by machine id) and
+//  any pending action (e.g. the Send Hire Enquiry click) is replayed.
+//
+//  Guest cart persistence: while signed out, quoteCart is mirrored to
+//  localStorage under '_noyo_guest_cart' so a refresh keeps the items.
 // ═══════════════════════════════════════════════════════════════════════
 
 var _pendingGatedAction = null;          // function to replay after login
@@ -184723,7 +184721,6 @@ function _openLoginChooser() {
   p.classList.remove('hidden');
   p.style.display = '';
   p.removeAttribute('aria-hidden');
-  // Make sure the form pane is collapsed so user sees the 3 cards first
   const wrap = document.getElementById('lp-form-wrap');
   if (wrap) wrap.classList.remove('visible');
 }
@@ -184733,12 +184730,10 @@ function _requireAuthForCart(action) {
   if (currentUser) { action(); return; }
   _pendingGatedAction = action;
   _openLoginChooser();
-  try {
-    showToast('Sign in to continue with your cart', '#0052CC');
-  } catch (e) {}
+  try { showToast('Sign in to send your hire enquiry', '#0052CC'); } catch (e) {}
 }
 
-// ── Guest cart persistence (mirrors quoteCart to localStorage when signed out) ──
+// ── Guest cart persistence ──
 function _saveGuestCart() {
   try { localStorage.setItem(_GUEST_CART_KEY, JSON.stringify(quoteCart || [])); }
   catch (e) {}
@@ -184756,14 +184751,65 @@ function _clearGuestCart() {
   try { localStorage.removeItem(_GUEST_CART_KEY); } catch (e) {}
 }
 
-// ── Patch saveCartToStorage so guests also persist (originals untouched) ──
+// ── Render the guest sign-in banner inside the cart sidebar ──
+function _renderGuestCartBanner() {
+  const banner = document.getElementById('cart-guest-banner');
+  if (!banner) return;
+  if (currentUser) {
+    banner.style.display = 'none';
+    banner.innerHTML = '';
+    return;
+  }
+  if (!quoteCart || quoteCart.length === 0) {
+    banner.style.display = 'none';
+    banner.innerHTML = '';
+    return;
+  }
+  banner.style.display = 'block';
+  banner.innerHTML = `
+    <div style="margin:0 1rem 1rem;padding:1rem 1.1rem;background:linear-gradient(135deg,#0A1628,#0F2847);border:1.5px solid rgba(56,189,248,.3);border-radius:12px;color:#fff">
+      <div style="font-weight:900;font-size:.95rem;margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem">
+        🔒 Sign in to send your hire enquiry
+      </div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.45;margin-bottom:.85rem">
+        Your cart is saved. Pick how you'd like to sign in:
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.5rem">
+        <button onclick="openForm('customer','finder')"
+          style="background:#0052CC;border:none;color:#fff;padding:.65rem .9rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;text-align:left">
+          👷 Customer — I want to hire equipment →
+        </button>
+        <button onclick="openForm('rental','finder')"
+          style="background:#FF8C5A;border:none;color:#fff;padding:.65rem .9rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;text-align:left">
+          🏗️ Rental Company — I supply equipment →
+        </button>
+        <button onclick="openForm('lite','finder')"
+          style="background:rgba(56,189,248,.18);border:1.5px solid rgba(56,189,248,.4);color:#38BDF8;padding:.65rem .9rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;text-align:left">
+          🌏 Noyo Lite — Overseas or no ABN →
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// ── Patch updateCartUI: always show FAB when guest has items + render banner ──
+var _origUpdateCartUI = updateCartUI;
+updateCartUI = function () {
+  _origUpdateCartUI.apply(this, arguments);
+  // For guests, make sure the FAB is visible whenever there are items
+  // (the original only shows it via the .visible class — keep that working)
+  // Also keep the guest banner in sync with current state
+  try { _renderGuestCartBanner(); } catch (e) {}
+};
+
+// ── Patch saveCartToStorage so guests also persist ──
 var _origSaveCartToStorage = saveCartToStorage;
 saveCartToStorage = function () {
   if (!currentUser) { _saveGuestCart(); return; }
   _origSaveCartToStorage.apply(this, arguments);
 };
 
-// ── Patch loginSuccess to merge guest cart on sign-in ──
+// ── Patch loginSuccess to merge guest cart + replay pending action ──
 var _origLoginSuccess = loginSuccess;
 loginSuccess = function (user) {
   // Snapshot guest cart BEFORE original runs (it overwrites quoteCart from storage)
@@ -184792,64 +184838,75 @@ loginSuccess = function (user) {
     _clearGuestCart();
     if (added > 0) {
       try { saveCartToStorage(); updateCartUI(); } catch (e) {}
-      try { showToast(`Added ${added} item${added === 1 ? '' : 's'} from your previous browsing to cart`, '#16A34A'); } catch (e) {}
+      try {
+        showToast(
+          `${added} item${added === 1 ? '' : 's'} from your previous browsing added to cart`,
+          '#16A34A'
+        );
+      } catch (e) {}
     }
   }
 
-  // Replay any pending gated action (add-to-cart / open-cart / send-quotes)
+  // Replay any pending gated action (e.g. Send Hire Enquiry)
   if (_pendingGatedAction) {
     const fn = _pendingGatedAction;
     _pendingGatedAction = null;
-    // Defer slightly so UI finishes settling after login transition
-    setTimeout(() => { try { fn(); } catch (e) { console.warn('Pending action failed:', e); } }, 350);
+    setTimeout(() => { try { fn(); } catch (e) { console.warn('Pending action failed:', e); } }, 400);
   }
 };
 
-// ── Gate the five cart-related entry points ──
+// ── Auto-open cart sidebar after a guest adds an item ──
+// Wraps each add-to-cart so guests see their cart + the login banner immediately
+function _openCartSidebarIfGuest() {
+  if (currentUser) return;
+  const sb = document.getElementById('cart-sidebar');
+  const ov = document.getElementById('cart-overlay');
+  if (sb && !sb.classList.contains('open')) {
+    sb.classList.add('open');
+    if (ov) ov.classList.add('open');
+  }
+}
+
 var _origAddCurrentToCartFromModal = addCurrentToCartFromModal;
 addCurrentToCartFromModal = function () {
-  const args = arguments;
-  _requireAuthForCart(() => _origAddCurrentToCartFromModal.apply(this, args));
+  const before = (quoteCart || []).length;
+  _origAddCurrentToCartFromModal.apply(this, arguments);
+  if ((quoteCart || []).length > before) _openCartSidebarIfGuest();
 };
 
 var _origAddToCartFromKYM = addToCartFromKYM;
 addToCartFromKYM = function () {
-  const args = arguments;
-  _requireAuthForCart(() => _origAddToCartFromKYM.apply(this, args));
+  const before = (quoteCart || []).length;
+  _origAddToCartFromKYM.apply(this, arguments);
+  if ((quoteCart || []).length > before) _openCartSidebarIfGuest();
 };
 
 var _origAddToCartDirect = addToCartDirect;
 addToCartDirect = function () {
-  const args = arguments;
-  _requireAuthForCart(() => _origAddToCartDirect.apply(this, args));
+  const before = (quoteCart || []).length;
+  _origAddToCartDirect.apply(this, arguments);
+  if ((quoteCart || []).length > before) _openCartSidebarIfGuest();
 };
 
-var _origToggleCart = toggleCart;
-toggleCart = function () {
-  // If cart is already open, allow closing without auth (UX nicety)
-  const sb = document.getElementById('cart-sidebar');
-  if (sb && sb.classList.contains('open')) {
-    _origToggleCart.apply(this, arguments);
-    return;
-  }
-  const args = arguments;
-  _requireAuthForCart(() => _origToggleCart.apply(this, args));
-};
-
+// ── Gate ONLY openSendQuotesModal (the actual conversion / send-enquiry step) ──
 var _origOpenSendQuotesModal = openSendQuotesModal;
 openSendQuotesModal = function () {
   const args = arguments;
   _requireAuthForCart(() => _origOpenSendQuotesModal.apply(this, args));
 };
 
-// ── Boot: restore guest cart if no user is signed in ──
+// ── Boot: restore guest cart on page load if no user is signed in ──
 window.addEventListener('load', () => {
-  // Tiny delay so the Firebase auth state listener has a chance to fire first;
-  // if a user is signed in, loginSuccess() will run and we skip guest-load.
   setTimeout(() => {
     if (!currentUser) {
       _loadGuestCart();
       try { updateCartUI(); } catch (e) {}
+      // Force the cart FAB visible if guest has items (in case the .visible
+      // class was reset before our guest cart restored)
+      if (quoteCart && quoteCart.length > 0) {
+        const fab = document.getElementById('cart-fab');
+        if (fab) fab.classList.add('visible');
+      }
     }
   }, 800);
 });
