@@ -37,9 +37,10 @@
 
 <!-- ===================== LOGIN PORTAL =====================
      v159: portal now hidden by default. Visitors can browse, search and
-     run the Find My Machine quiz without signing in. Login is only
-     prompted when they try a gated action (add-to-cart, view cart,
-     send hire enquiry). See _requireAuthForCart() in app.js.
+     run the Find My Machine quiz, AND add to cart, without signing in.
+     Login is only prompted when they try to send the hire enquiry
+     (or via the banner shown inside the cart sidebar to guests).
+     See _requireAuthForCart() / _renderGuestCartBanner() in app.js.
 =========================================================== -->
 <div id="login-portal" class="hidden" style="display:none" aria-hidden="true">
   <!-- Close button — lets a visitor who triggered the chooser back out -->
@@ -1644,6 +1645,8 @@
     <div class="cart-title">🛒 Hire Cart <span id="cart-count-badge" class="cart-badge">0</span></div>
     <button class="cart-close-btn" onclick="toggleCart()">✕</button>
   </div>
+  <!-- v159: Guest sign-in banner — populated by _renderGuestCartBanner() in app.js -->
+  <div id="cart-guest-banner" style="display:none"></div>
   <div id="cart-items-list" class="cart-items-list">
     <div class="cart-empty-msg">No machines added yet.<br>Click "Add to Hire Cart" on any recommendation.</div>
   </div>
