@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><!-- v:20260516-v157 -->
+<head><!-- v:20260526-v159 -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQGLKPNKWL"></script>
 <script>
@@ -35,8 +35,19 @@
 <body>
 
 
-<!-- ===================== LOGIN PORTAL ===================== -->
-<div id="login-portal">
+<!-- ===================== LOGIN PORTAL =====================
+     v159: portal now hidden by default. Visitors can browse, search and
+     run the Find My Machine quiz without signing in. Login is only
+     prompted when they try a gated action (add-to-cart, view cart,
+     send hire enquiry). See _requireAuthForCart() in app.js.
+=========================================================== -->
+<div id="login-portal" class="hidden" style="display:none" aria-hidden="true">
+  <!-- Close button — lets a visitor who triggered the chooser back out -->
+  <button id="lp-close-btn" type="button" aria-label="Close"
+    onclick="closeLoginPortal()"
+    style="position:absolute;top:1rem;right:1.2rem;z-index:10;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18);color:#fff;width:38px;height:38px;border-radius:50%;font-size:1.2rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit"
+    onmouseover="this.style.background='rgba(255,255,255,.16)'"
+    onmouseout="this.style.background='rgba(255,255,255,.08)'">✕</button>
   <div class="lp-grid"></div>
   <div class="lp-glow"></div>
   <div class="lp-glow2"></div>
