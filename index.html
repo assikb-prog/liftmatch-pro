@@ -33,6 +33,89 @@
 <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
+<div id="noyo-topbar" style="
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:70px;
+background:#ffffff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 24px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+z-index:9999;
+">
+  <div style="display:flex;align-items:center;gap:18px;">
+    <div style="font-size:28px;font-weight:800;color:#111;">NOYO</div>
+    <a href="#home" style="
+      text-decoration:none;
+      color:#111;
+      font-weight:600;
+      font-size:16px;
+    ">Home</a>
+  </div>
+
+  <div class="hero-login-wrap" style="position:relative;">
+    <button id="hero-login-btn"
+      onclick="toggleHeroLoginMenu(event)"
+      aria-expanded="false"
+      style="
+      background:#111;
+      color:white;
+      border:none;
+      padding:12px 20px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+      ">
+      Login
+    </button>
+
+    <div id="hero-login-menu" style="
+      position:absolute;
+      right:0;
+      top:55px;
+      background:white;
+      border-radius:12px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.12);
+      min-width:180px;
+      padding:10px;
+      display:none;
+      ">
+      <button onclick="heroLoginPick('customer')" style="
+        width:100%;
+        padding:10px;
+        border:none;
+        background:#f5f5f5;
+        border-radius:8px;
+        margin-bottom:8px;
+        cursor:pointer;
+      ">Customer Login</button>
+
+      <button onclick="heroLoginPick('supplier')" style="
+        width:100%;
+        padding:10px;
+        border:none;
+        background:#f5f5f5;
+        border-radius:8px;
+        cursor:pointer;
+      ">Supplier Login</button>
+    </div>
+  </div>
+</div>
+
+<style>
+body{
+  padding-top:80px !important;
+}
+
+#hero-login-menu.open{
+  display:block !important;
+}
+</style>
+
 
 
 <!-- ===================== LOGIN PORTAL =====================
@@ -1462,16 +1545,6 @@
 
       window.heroLoginPick = function(type) {
         close();
-        // Show the portal container first — openForm() only toggles the
-        // inner form-wrap, not the portal itself. Without this, clicks from
-        // the hero dropdown ran openForm() successfully but the portal
-        // remained display:none and the user saw nothing happen.
-        var portal = document.getElementById('login-portal');
-        if (portal) {
-          portal.classList.remove('hidden');
-          portal.style.display = 'flex';
-          portal.setAttribute('aria-hidden', 'false');
-        }
         // Delegate to the existing portal flow used elsewhere in the app
         if (typeof openForm === 'function') {
           openForm(type, 'finder');
@@ -3632,6 +3705,63 @@
       </a>
     </div>
   </div>
+
+
+<script>
+/* ===== Login Button Fix ===== */
+function toggleHeroLoginMenu(event){
+  if(event){ event.stopPropagation(); }
+
+  const btn = document.getElementById('hero-login-btn');
+  const menu = document.getElementById('hero-login-menu');
+
+  if(!btn || !menu) return;
+
+  const isOpen = menu.classList.contains('open');
+
+  if(isOpen){
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    menu.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+function closeHeroLoginMenu(){
+  const btn = document.getElementById('hero-login-btn');
+  const menu = document.getElementById('hero-login-menu');
+
+  if(menu){
+    menu.classList.remove('open');
+  }
+
+  if(btn){
+    btn.setAttribute('aria-expanded', 'false');
+  }
+}
+
+function heroLoginPick(type){
+  closeHeroLoginMenu();
+
+  // Existing portal support
+  if(typeof openLoginPortal === 'function'){
+    openLoginPortal(type);
+    return;
+  }
+
+  // Fallback behaviour
+  alert('Login selected: ' + type);
+}
+
+document.addEventListener('click', function(event){
+  const wrap = document.querySelector('.hero-login-wrap');
+
+  if(wrap && !wrap.contains(event.target)){
+    closeHeroLoginMenu();
+  }
+});
+</script>
 
 </body>
 </html>
