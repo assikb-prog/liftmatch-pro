@@ -36,22 +36,21 @@
 
 
 
-<!-- ═══ MAIN NAVBAR — clean single-line: NOYO logo + Home + Login ═══ -->
-<div class="main-navbar" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#0A1F44 0%,#0052CC 100%);padding:.65rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.15);position:sticky;top:0;z-index:1000">
+<!-- ═══ MAIN NAVBAR — clean single-line: NOYO logo + Home (orange) + Login (green) ═══ -->
+<div class="main-navbar" style="display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#0A1F44 0%,#0052CC 100%);padding:.4rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.15);position:sticky;top:0;z-index:1000;min-height:56px">
 
-  <!-- Logo (left) -->
-  <a href="/" style="display:flex;align-items:center;text-decoration:none">
-    <img src="assets/img/noyo-logo.png" alt="NOYO" style="height:38px;width:auto;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-    <span style="display:none;font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;color:#fff;letter-spacing:1px">NOYO</span>
+  <!-- Logo (left) — pushed up, larger, no fallback text -->
+  <a href="/" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
+    <img src="assets/img/noyo-logo.png" alt="NOYO" style="height:52px;width:auto;display:block" onerror="this.style.visibility='hidden'">
   </a>
 
   <!-- Nav links (right) -->
-  <div style="display:flex;align-items:center;gap:.5rem;position:relative">
-    <a href="/" style="display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1.1rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">🏠 Home</a>
+  <div style="display:flex;align-items:center;gap:.5rem;position:relative;flex-shrink:0">
+    <a href="/" style="display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1.1rem;background:#FF6B35;border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;text-decoration:none;box-shadow:0 2px 8px rgba(255,107,53,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(255,107,53,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(255,107,53,.35)'">🏠 Home</a>
 
     <!-- Login picker — opens a small dropdown with 3 options -->
     <div style="position:relative" id="navbar-login-wrap">
-      <button id="navbar-login-btn" type="button" aria-expanded="false" aria-haspopup="true" onclick="toggleNavbarLoginMenu(event)" style="display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;background:#FF6B35;border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 2px 8px rgba(255,107,53,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(255,107,53,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(255,107,53,.35)'">
+      <button id="navbar-login-btn" type="button" aria-expanded="false" aria-haspopup="true" onclick="toggleNavbarLoginMenu(event)" style="display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 2px 8px rgba(22,163,74,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(22,163,74,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(22,163,74,.35)'">
         🔒 Login <span id="navbar-login-chevron" style="display:inline-block;transition:transform .2s;font-size:.75rem">▼</span>
       </button>
 
