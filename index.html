@@ -703,6 +703,159 @@
     /* Hide the corner rails entirely on mobile (they'd overlap the hero text) */
     .noyo-ad-rail { display: none !important; }
   }
+
+  /* ═══════════════════════════════════════════════════════════════
+     HERO TWO-COLUMN LAYOUT + LOGIN DROPDOWN
+     Left column keeps the existing pitch/CTAs.
+     Right column hosts a Login button that opens a dropdown menu
+     with 3 options: Customer / Rental Company / Noyo Lite.
+     Each option calls the existing openForm(type, 'finder') flow.
+  ═══════════════════════════════════════════════════════════════ */
+  .hero-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1; /* sits above .hero::before glow */
+  }
+  /* Left column keeps original centered styling on desktop, just constrained */
+  .hero-left {
+    text-align: center;
+    max-width: 620px;
+  }
+  /* p inside .hero already has max-width:520px; margin:0 auto — we keep it */
+  .hero-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-top: .5rem;
+  }
+  .hero-login-wrap {
+    position: relative;
+  }
+  /* Login button — white pill on the dark hero */
+  #hero-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    background: #fff;
+    color: #0A1628;
+    border: none;
+    border-radius: 50px;
+    padding: .7rem 1.4rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: .95rem;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .25);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  #hero-login-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, .32);
+  }
+  /* Chevron rotates when open */
+  #hero-login-btn[aria-expanded="true"] #hero-login-chevron {
+    transform: rotate(180deg);
+  }
+  /* Dropdown menu */
+  #hero-login-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + .55rem);
+    right: 0;
+    min-width: 280px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, .35), 0 4px 12px rgba(0, 0, 0, .15);
+    padding: .55rem;
+    z-index: 50;
+    animation: heroLoginMenuIn .16s ease-out;
+  }
+  #hero-login-menu.open { display: block; }
+  @keyframes heroLoginMenuIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-login-menu-title {
+    font-size: .7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    color: #94A3B8;
+    padding: .45rem .7rem .35rem;
+  }
+  .hero-login-opt {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    width: 100%;
+    background: none;
+    border: none;
+    border-radius: 10px;
+    padding: .65rem .7rem;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    transition: background .12s ease;
+  }
+  .hero-login-opt:hover { background: #F1F5F9; }
+  .hero-login-opt.customer:hover { background: #FFF7ED; }   /* warm orange tint */
+  .hero-login-opt.rental:hover   { background: #EFF6FF; }   /* brand blue tint  */
+  .hero-login-opt.lite:hover     { background: #F0F9FF; }   /* sky tint         */
+  .hero-login-opt-ico {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #F1F5F9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+  }
+  .hero-login-opt.customer .hero-login-opt-ico { background: #FFEDD5; }
+  .hero-login-opt.rental   .hero-login-opt-ico { background: #DBEAFE; }
+  .hero-login-opt.lite     .hero-login-opt-ico { background: #E0F2FE; }
+  .hero-login-opt-text {
+    display: flex;
+    flex-direction: column;
+    gap: .12rem;
+    min-width: 0;
+  }
+  .hero-login-opt-title {
+    font-size: .92rem;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.15;
+  }
+  .hero-login-opt-sub {
+    font-size: .75rem;
+    color: #64748B;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  /* Mobile: stack columns — login above pitch, right-aligned so it stays compact */
+  @media (max-width: 767px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .hero-right {
+      justify-content: flex-end;
+      padding-top: 0;
+    }
+    .hero-left { max-width: none; }
+    #hero-login-menu {
+      right: 0;
+      left: auto;
+      min-width: 260px;
+    }
+  }
 </style>
 
 <!-- MOBILE bottom strip — TOP 2 corner positions only (slots 1 + 3), per founder direction
@@ -860,16 +1013,67 @@
 
   <div id="sec-hero">
     <div class="hero">
-      <h1>Not sure which machine<br><em>to hire?</em></h1>
-      <p>Answer a few questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts.</p>
-      <button class="start-btn" onclick="openPhotoModal()">Find My Machine →</button>
-      <button onclick="kymOpen()" style="margin-top:.8rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(22,163,74,.35)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">🔎 Know Your Machines →</button>
-      <div id="home-cart-btn-wrap" style="display:block;margin-top:1.2rem">
-        <button onclick="if(window.quoteCart&&quoteCart.length>0)openSendQuotesModal()" id="home-cart-btn"
-          style="background:#FF6B35;border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:default;box-shadow:0 4px 20px rgba(255,107,53,.2);transition:all .2s;opacity:.45"
-          onmouseover="if(window.quoteCart&&quoteCart.length>0)this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-          🛒 Your cart is empty — add machines to get quotes
-        </button>
+      <!-- Two-column grid: left = pitch/CTAs, right = login dropdown -->
+      <div class="hero-grid">
+
+        <!-- ═══ LEFT COLUMN — pitch + primary CTAs ═══ -->
+        <div class="hero-left">
+          <h1>Not sure which machine<br><em>to hire?</em></h1>
+          <p>Answer a few questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts.</p>
+          <button class="start-btn" onclick="openPhotoModal()">Find My Machine →</button>
+          <button onclick="kymOpen()" style="margin-top:.8rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(22,163,74,.35)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">🔎 Know Your Machines →</button>
+          <div id="home-cart-btn-wrap" style="display:block;margin-top:1.2rem">
+            <button onclick="if(window.quoteCart&&quoteCart.length>0)openSendQuotesModal()" id="home-cart-btn"
+              style="background:#FF6B35;border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:default;box-shadow:0 4px 20px rgba(255,107,53,.2);transition:all .2s;opacity:.45"
+              onmouseover="if(window.quoteCart&&quoteCart.length>0)this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+              🛒 Your cart is empty — add machines to get quotes
+            </button>
+          </div>
+        </div>
+
+        <!-- ═══ RIGHT COLUMN — Login dropdown ═══ -->
+        <div class="hero-right">
+          <div class="hero-login-wrap">
+            <button type="button" id="hero-login-btn" onclick="toggleHeroLoginMenu(event)" aria-haspopup="menu" aria-expanded="false">
+              <span style="font-size:1.1rem">🔐</span>
+              <span>Login</span>
+              <span id="hero-login-chevron" style="transition:transform .2s">▾</span>
+            </button>
+
+            <!-- Dropdown menu (hidden by default) -->
+            <div id="hero-login-menu" role="menu" aria-labelledby="hero-login-btn">
+              <div class="hero-login-menu-title">Sign in as…</div>
+
+              <button type="button" role="menuitem" class="hero-login-opt customer"
+                onclick="heroLoginPick('customer')">
+                <span class="hero-login-opt-ico">👷</span>
+                <span class="hero-login-opt-text">
+                  <span class="hero-login-opt-title">Customer</span>
+                  <span class="hero-login-opt-sub">Find &amp; hire machines</span>
+                </span>
+              </button>
+
+              <button type="button" role="menuitem" class="hero-login-opt rental"
+                onclick="heroLoginPick('rental')">
+                <span class="hero-login-opt-ico">🏗️</span>
+                <span class="hero-login-opt-text">
+                  <span class="hero-login-opt-title">Rental Company</span>
+                  <span class="hero-login-opt-sub">Quote on enquiries</span>
+                </span>
+              </button>
+
+              <button type="button" role="menuitem" class="hero-login-opt lite"
+                onclick="heroLoginPick('lite')">
+                <span class="hero-login-opt-ico">🌏</span>
+                <span class="hero-login-opt-text">
+                  <span class="hero-login-opt-title">Noyo Lite</span>
+                  <span class="hero-login-opt-sub">Browse machines (no ABN)</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1228,6 +1432,54 @@
       };
       sync();
       new MutationObserver(sync).observe(hero, { attributes: true, attributeFilter: ['style', 'class'] });
+    })();
+
+    /* ──────────────────────────────────────────────────────────────────
+       HERO LOGIN DROPDOWN — opens a menu with 3 options that delegate
+       to the existing openForm(type, 'finder') flow.
+       - toggleHeroLoginMenu(e): open/close on button click
+       - heroLoginPick(type): close menu, then call openForm
+       - Click-outside / Escape closes the menu
+    ────────────────────────────────────────────────────────────────── */
+    (function() {
+      var btn  = document.getElementById('hero-login-btn');
+      var menu = document.getElementById('hero-login-menu');
+      if (!btn || !menu) return;
+
+      function close() {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+      function open() {
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      window.toggleHeroLoginMenu = function(e) {
+        if (e) e.stopPropagation();
+        if (menu.classList.contains('open')) close(); else open();
+      };
+
+      window.heroLoginPick = function(type) {
+        close();
+        // Delegate to the existing portal flow used elsewhere in the app
+        if (typeof openForm === 'function') {
+          openForm(type, 'finder');
+        } else {
+          console.warn('openForm() not available yet');
+        }
+      };
+
+      // Click outside closes the menu
+      document.addEventListener('click', function(ev) {
+        if (!menu.classList.contains('open')) return;
+        if (menu.contains(ev.target) || btn.contains(ev.target)) return;
+        close();
+      });
+      // Escape key closes
+      document.addEventListener('keydown', function(ev) {
+        if (ev.key === 'Escape' && menu.classList.contains('open')) close();
+      });
     })();
   </script>
 
