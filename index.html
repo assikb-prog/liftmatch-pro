@@ -1462,6 +1462,16 @@
 
       window.heroLoginPick = function(type) {
         close();
+        // Show the portal container first — openForm() only toggles the
+        // inner form-wrap, not the portal itself. Without this, clicks from
+        // the hero dropdown ran openForm() successfully but the portal
+        // remained display:none and the user saw nothing happen.
+        var portal = document.getElementById('login-portal');
+        if (portal) {
+          portal.classList.remove('hidden');
+          portal.style.display = 'flex';
+          portal.setAttribute('aria-hidden', 'false');
+        }
         // Delegate to the existing portal flow used elsewhere in the app
         if (typeof openForm === 'function') {
           openForm(type, 'finder');
