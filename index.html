@@ -34,31 +34,39 @@
 </head>
 <body>
 
+
 <div class="main-navbar">
+
   <div class="nav-left">
     <img src="assets/img/noyo-logo.png" class="nav-logo" />
   </div>
 
   <div class="nav-right">
-    <a href="#home" class="home-btn">🏠 Home</a>
+    
     <button class="login-btn">🔒 Login</button>
   </div>
+
 </div>
 
 <style>
+
+body{
+  margin:0;
+  padding-top:0 !important;
+  overflow-x:hidden;
+}
+
 .main-navbar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  height:72px;
-  background:#003b9b;
+  width:100%;
+  height:82px;
+  background:linear-gradient(90deg,#003aa8,#00308f);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 20px;
-  z-index:9999;
-  box-shadow:0 2px 12px rgba(0,0,0,0.18);
+  padding:0 40px;
+  box-sizing:border-box;
+  position:relative;
+  z-index:999;
 }
 
 .nav-left{
@@ -66,46 +74,88 @@
   align-items:center;
 }
 
+.nav-logo{
+  height:56px;
+  width:auto;
+  border-radius:10px;
+}
+
 .nav-right{
   display:flex;
   align-items:center;
-  gap:14px;
-}
-
-.nav-logo{
-  height:48px;
-  width:auto;
-  object-fit:contain;
+  gap:18px;
 }
 
 .home-btn{
   background:#ff9b63;
   color:#111;
   text-decoration:none;
-  padding:12px 22px;
-  border-radius:14px;
+  padding:14px 24px;
+  border-radius:16px;
   font-weight:700;
-  font-size:16px;
-  transition:0.2s ease;
+  font-size:18px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.16);
 }
 
 .login-btn{
-  background:#1cc95b;
-  color:white;
+  background:#1ecb59;
+  color:#fff;
   border:none;
-  padding:12px 22px;
-  border-radius:14px;
+  padding:14px 24px;
+  border-radius:16px;
   font-weight:700;
-  font-size:16px;
+  font-size:18px;
   cursor:pointer;
-  transition:0.2s ease;
+  box-shadow:0 6px 16px rgba(0,0,0,0.16);
 }
 
-.home-btn:hover,
-.login-btn:hover{
-  transform:translateY(-1px);
+/* HERO SECTION PERFECT CENTERING */
+.hero,
+.hero-section,
+.banner-section{
+  min-height:620px;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+}
+
+.hero-content,
+.banner-content,
+.hero-inner{
+  width:100%;
+  max-width:950px;
+  margin:0 auto !important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero h1,
+.banner-section h1{
+  text-align:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+.hero p,
+.banner-section p{
+  text-align:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
 }
 </style>
+
 
 
 <style>
