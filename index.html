@@ -33,88 +33,91 @@
 <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-<div id="noyo-topbar" style="
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:70px;
-background:#ffffff;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 24px;
-box-shadow:0 2px 10px rgba(0,0,0,0.08);
-z-index:9999;
-">
-  <div style="display:flex;align-items:center;gap:18px;">
-    <div style="font-size:28px;font-weight:800;color:#111;">NOYO</div>
-    <a href="#home" style="
-      text-decoration:none;
-      color:#111;
-      font-weight:600;
-      font-size:16px;
-    ">Home</a>
+
+<div class="main-navbar">
+  <div class="nav-left">
+    <img src="assets/img/noyo-logo.png" class="nav-logo" />
   </div>
 
-  <div class="hero-login-wrap" style="position:relative;">
-    <button id="hero-login-btn"
-      onclick="toggleHeroLoginMenu(event)"
-      aria-expanded="false"
-      style="
-      background:#111;
-      color:white;
-      border:none;
-      padding:12px 20px;
-      border-radius:12px;
-      cursor:pointer;
-      font-weight:700;
-      ">
-      Login
-    </button>
-
-    <div id="hero-login-menu" style="
-      position:absolute;
-      right:0;
-      top:55px;
-      background:white;
-      border-radius:12px;
-      box-shadow:0 10px 25px rgba(0,0,0,0.12);
-      min-width:180px;
-      padding:10px;
-      display:none;
-      ">
-      <button onclick="heroLoginPick('customer')" style="
-        width:100%;
-        padding:10px;
-        border:none;
-        background:#f5f5f5;
-        border-radius:8px;
-        margin-bottom:8px;
-        cursor:pointer;
-      ">Customer Login</button>
-
-      <button onclick="heroLoginPick('supplier')" style="
-        width:100%;
-        padding:10px;
-        border:none;
-        background:#f5f5f5;
-        border-radius:8px;
-        cursor:pointer;
-      ">Supplier Login</button>
-    </div>
+  <div class="nav-right">
+    <a href="#home" class="home-btn">🏠 Home</a>
+    <button class="login-btn">🔒 Login</button>
   </div>
 </div>
 
 <style>
+.main-navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:72px;
+  background:#003b9b;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  z-index:9999;
+  box-shadow:0 2px 12px rgba(0,0,0,0.18);
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.nav-logo{
+  height:48px;
+  width:auto;
+  object-fit:contain;
+}
+
+.home-btn{
+  background:#ff9b63;
+  color:#111;
+  text-decoration:none;
+  padding:12px 22px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:16px;
+  transition:0.2s ease;
+}
+
+.login-btn{
+  background:#1cc95b;
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.2s ease;
+}
+
+.home-btn:hover,
+.login-btn:hover{
+  transform:translateY(-1px);
+}
+</style>
+
+
+<style>
 body{
-  padding-top:80px !important;
+  padding-top:72px !important;
 }
 
 #hero-login-menu.open{
   display:block !important;
 }
 </style>
+
 
 
 
@@ -1116,45 +1119,7 @@ body{
 
         <!-- ═══ RIGHT COLUMN — Login dropdown ═══ -->
         <div class="hero-right">
-          <div class="hero-login-wrap">
-            <button type="button" id="hero-login-btn" onclick="toggleHeroLoginMenu(event)" aria-haspopup="menu" aria-expanded="false">
-              <span style="font-size:1.1rem">🔐</span>
-              <span>Login</span>
-              <span id="hero-login-chevron" style="transition:transform .2s">▾</span>
-            </button>
-
-            <!-- Dropdown menu (hidden by default) -->
-            <div id="hero-login-menu" role="menu" aria-labelledby="hero-login-btn">
-              <div class="hero-login-menu-title">Sign in as…</div>
-
-              <button type="button" role="menuitem" class="hero-login-opt customer"
-                onclick="heroLoginPick('customer')">
-                <span class="hero-login-opt-ico">👷</span>
-                <span class="hero-login-opt-text">
-                  <span class="hero-login-opt-title">Customer</span>
-                  <span class="hero-login-opt-sub">Find &amp; hire machines</span>
-                </span>
-              </button>
-
-              <button type="button" role="menuitem" class="hero-login-opt rental"
-                onclick="heroLoginPick('rental')">
-                <span class="hero-login-opt-ico">🏗️</span>
-                <span class="hero-login-opt-text">
-                  <span class="hero-login-opt-title">Rental Company</span>
-                  <span class="hero-login-opt-sub">Quote on enquiries</span>
-                </span>
-              </button>
-
-              <button type="button" role="menuitem" class="hero-login-opt lite"
-                onclick="heroLoginPick('lite')">
-                <span class="hero-login-opt-ico">🌏</span>
-                <span class="hero-login-opt-text">
-                  <span class="hero-login-opt-title">Noyo Lite</span>
-                  <span class="hero-login-opt-sub">Browse machines (no ABN)</span>
-                </span>
-              </button>
-            </div>
-          </div>
+          
         </div>
 
       </div>
