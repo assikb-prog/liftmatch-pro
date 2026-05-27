@@ -36,41 +36,113 @@
 
 
 
-<div class="main-navbar">
+<!-- ═══ MAIN NAVBAR — clean single-line: NOYO logo + Home + Login ═══ -->
+<div class="main-navbar" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#0A1F44 0%,#0052CC 100%);padding:.65rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.15);position:sticky;top:0;z-index:1000">
 
-  <div class="nav-left">
-    <a href="/" class="home-btn">🏠 Home</a>
-  </div>
+  <!-- Logo (left) -->
+  <a href="/" style="display:flex;align-items:center;text-decoration:none">
+    <img src="assets/img/noyo-logo.png" alt="NOYO" style="height:38px;width:auto;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+    <span style="display:none;font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;color:#fff;letter-spacing:1px">NOYO</span>
+  </a>
 
-  <div class="nav-center">
-    <img src="assets/img/noyo-logo.png" class="nav-logo" />
-  </div>
+  <!-- Nav links (right) -->
+  <div style="display:flex;align-items:center;gap:.5rem;position:relative">
+    <a href="/" style="display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1.1rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">🏠 Home</a>
 
-  <div class="nav-right">
-    <button class="login-btn">🔒 Login</button>
+    <!-- Login picker — opens a small dropdown with 3 options -->
+    <div style="position:relative" id="navbar-login-wrap">
+      <button id="navbar-login-btn" type="button" aria-expanded="false" aria-haspopup="true" onclick="toggleNavbarLoginMenu(event)" style="display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;background:#FF6B35;border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 2px 8px rgba(255,107,53,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(255,107,53,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(255,107,53,.35)'">
+        🔒 Login <span id="navbar-login-chevron" style="display:inline-block;transition:transform .2s;font-size:.75rem">▼</span>
+      </button>
+
+      <div id="navbar-login-menu" style="display:none;position:absolute;top:calc(100% + .55rem);right:0;min-width:280px;background:#fff;border-radius:14px;box-shadow:0 18px 48px rgba(0,0,0,.35),0 4px 12px rgba(0,0,0,.15);padding:.55rem;z-index:1100">
+        <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#94A3B8;padding:.45rem .7rem .35rem;font-family:'Nunito',sans-serif">I'm a…</div>
+
+        <button type="button" onclick="navbarLoginPick('customer')" style="display:flex;align-items:center;gap:.75rem;width:100%;background:none;border:none;border-radius:10px;padding:.65rem .7rem;cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:background .12s" onmouseover="this.style.background='#FFF7ED'" onmouseout="this.style.background='none'">
+          <span style="flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#FF6B35,#F97316);display:flex;align-items:center;justify-content:center;font-size:1.2rem">👷</span>
+          <span style="display:flex;flex-direction:column;line-height:1.2">
+            <span style="font-weight:800;color:#0F172A;font-size:.95rem">Customer</span>
+            <span style="font-size:.78rem;color:#64748B;font-weight:500">Hire a machine for a job</span>
+          </span>
+        </button>
+
+        <button type="button" onclick="navbarLoginPick('rental')" style="display:flex;align-items:center;gap:.75rem;width:100%;background:none;border:none;border-radius:10px;padding:.65rem .7rem;cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:background .12s" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">
+          <span style="flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0052CC,#0A1F44);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🏗️</span>
+          <span style="display:flex;flex-direction:column;line-height:1.2">
+            <span style="font-weight:800;color:#0F172A;font-size:.95rem">Rental Company</span>
+            <span style="font-size:.78rem;color:#64748B;font-weight:500">Receive qualified enquiries</span>
+          </span>
+        </button>
+
+        <button type="button" onclick="navbarLoginPick('lite')" style="display:flex;align-items:center;gap:.75rem;width:100%;background:none;border:none;border-radius:10px;padding:.65rem .7rem;cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:background .12s" onmouseover="this.style.background='#F0F9FF'" onmouseout="this.style.background='none'">
+          <span style="flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0EA5E9,#38BDF8);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🌏</span>
+          <span style="display:flex;flex-direction:column;line-height:1.2">
+            <span style="font-weight:800;color:#0F172A;font-size:.95rem">Noyo Lite</span>
+            <span style="font-size:.78rem;color:#64748B;font-weight:500">Free info — no ABN needed</span>
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
 
 </div>
 
+<script>
+/* ──────────────────────────────────────────────────────────────────
+   NAVBAR LOGIN DROPDOWN — open/close + delegate to openForm(type,'finder')
+   Mirrors the existing hero-login-btn pattern used elsewhere in the app.
+────────────────────────────────────────────────────────────────── */
+(function(){
+  function closeNavbarLoginMenu(){
+    var menu = document.getElementById('navbar-login-menu');
+    var btn  = document.getElementById('navbar-login-btn');
+    var chev = document.getElementById('navbar-login-chevron');
+    if(menu) menu.style.display = 'none';
+    if(btn)  btn.setAttribute('aria-expanded','false');
+    if(chev) chev.style.transform = '';
+  }
+  function openNavbarLoginMenu(){
+    var menu = document.getElementById('navbar-login-menu');
+    var btn  = document.getElementById('navbar-login-btn');
+    var chev = document.getElementById('navbar-login-chevron');
+    if(menu) menu.style.display = 'block';
+    if(btn)  btn.setAttribute('aria-expanded','true');
+    if(chev) chev.style.transform = 'rotate(180deg)';
+  }
 
-      <!-- What NOYO does — positive close -->
-      <div style="max-width:620px;margin:0 auto 2rem;padding:1.3rem 1.5rem;background:linear-gradient(135deg,rgba(255,107,53,.08) 0%,rgba(249,115,22,.12) 100%);border:1.5px solid rgba(255,107,53,.3);border-radius:16px;text-align:center">
-        <div style="font-size:.7rem;font-weight:900;color:#FDBA74;text-transform:uppercase;letter-spacing:1px;margin-bottom:.55rem">What NOYO does</div>
-        <p style="font-size:.98rem;color:#F1F5F9;line-height:1.55;margin:0 0 .65rem;font-weight:700">
-          Tell us the job once. See machines that actually fit. Get quotes from rental companies who stock what you need.
-        </p>
-        <p style="font-size:.85rem;color:rgba(203,213,225,.8);line-height:1.5;margin:0;font-weight:500">
-          <strong style="color:#F1F5F9">NOYO</strong> — <em>Not On Your Own.</em> Made for Australian hire.
-        </p>
-      </div>
+  window.toggleNavbarLoginMenu = function(e){
+    if(e) e.stopPropagation();
+    var menu = document.getElementById('navbar-login-menu');
+    if(!menu) return;
+    if(menu.style.display === 'block') closeNavbarLoginMenu();
+    else openNavbarLoginMenu();
+  };
 
-    </div>
-    <!-- ═══════════════════════════════════════════════════════════════ -->
+  window.navbarLoginPick = function(type){
+    closeNavbarLoginMenu();
+    // Delegate to the same flow used by the hero login picker
+    if(typeof openForm === 'function'){
+      openForm(type, 'finder');
+    } else if(typeof openLoginPortal === 'function'){
+      openLoginPortal(type);
+    } else {
+      // Last-resort fallback — open the raw form overlay
+      var w = document.getElementById('lp-form-wrap');
+      if(w) w.style.display = 'flex';
+      console.warn('openForm() / openLoginPortal() unavailable — opened raw form overlay');
+    }
+  };
 
-    <div class="lp-demo-note">
-      <strong>Demo credentials:</strong> Rental: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9be8effafdfddbf5f4e2f4b5f8f4f6b5faee">[email&#160;protected]</a> / Noyo2026! &nbsp;|&nbsp; Customer: any email / any password
-    </div>
-  </div>
+  // Click-outside + Escape close
+  document.addEventListener('click', function(ev){
+    var wrap = document.getElementById('navbar-login-wrap');
+    if(wrap && !wrap.contains(ev.target)) closeNavbarLoginMenu();
+  });
+  document.addEventListener('keydown', function(ev){
+    if(ev.key === 'Escape') closeNavbarLoginMenu();
+  });
+})();
+</script>
 
   <!-- FORM OVERLAY -->
   <div class="lp-form-wrap" id="lp-form-wrap">
