@@ -167798,6 +167798,10 @@ function loginSuccess(user) {
     tabs.forEach((t) => {
       if (t.dataset.view === "staff") t.style.display = "none";
     });
+    // Reveal the main nav tab bar (Home + My Quotes) for customers/lite —
+    // without this the whole tab bar stays hidden and only the avatar shows.
+    const mainTabsCust = document.getElementById("main-nav-tabs");
+    if (mainTabsCust) mainTabsCust.style.display = "flex";
     const tabAdm2 = document.getElementById("tab-admin");
     if (tabAdm2) tabAdm2.style.display = "none";
     // Show My Quotes for customer
