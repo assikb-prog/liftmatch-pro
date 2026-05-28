@@ -166564,6 +166564,11 @@ function openForm(type, pendingView) {
       btn.textContent = "Sign In";
     }
   }
+  // Clear any force-hide inline styles applied on a previous successful login
+  // so the form can be shown again (e.g. after logout).
+  wrap.style.display = "";
+  wrap.style.opacity = "";
+  wrap.style.pointerEvents = "";
   wrap.classList.add("visible");
   setTimeout(() => document.getElementById("lp-email").focus(), 200);
 }
@@ -167613,9 +167618,15 @@ function loginSuccess(user) {
   }
   // Also close the sign-in / register form overlay itself (it sits on top of
   // the portal and is shown via the `visible` class — without this it stays
-  // on screen after a successful login).
+  // on screen after a successful login). Belt-and-suspenders: drop the class
+  // AND force-hide inline in case the stylesheet keeps it visible.
   const _formWrap = document.getElementById("lp-form-wrap");
-  if (_formWrap) _formWrap.classList.remove("visible");
+  if (_formWrap) {
+    _formWrap.classList.remove("visible");
+    _formWrap.style.display = "none";
+    _formWrap.style.opacity = "0";
+    _formWrap.style.pointerEvents = "none";
+  }
 
   // Update nav pill
   const pill = document.getElementById("nav-user-pill");
