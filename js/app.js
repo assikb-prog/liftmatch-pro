@@ -162639,6 +162639,13 @@ function detRenderHireHistory() {
 
 function renderMyDetails() {
   if (!currentUser) return;
+  try {
+    console.log(
+      "[NOYO v27-cats] renderMyDetails — role:",
+      currentUser.role,
+      "— categories section should now show",
+    );
+  } catch (e) {}
   const avatarEl = document.getElementById("det-avatar");
   const nameEl = document.getElementById("det-name");
   const emailEl = document.getElementById("det-email-display");
@@ -162745,17 +162752,22 @@ function renderMyDetails() {
       // Role-aware heading + subtitle
       const _heading = document.getElementById("det-cats-heading");
       const _subtitle = document.getElementById("det-cats-subtitle");
+      const _verStamp =
+        ' <span style="font-size:.62rem;font-weight:700;color:#16A34A;background:#DCFCE7;padding:.1rem .4rem;border-radius:5px;vertical-align:middle">v27-cats</span>';
       if (currentUser.role === "customer") {
-        if (_heading) _heading.textContent = "🏷️ Equipment I'm Interested In";
+        if (_heading)
+          _heading.innerHTML = "🏷️ Equipment I'm Interested In" + _verStamp;
         if (_subtitle)
           _subtitle.textContent =
             "Equipment types you're interested in hiring";
       } else if (currentUser.role === "admin") {
-        if (_heading) _heading.textContent = "🏷️ My Equipment Categories";
+        if (_heading)
+          _heading.innerHTML = "🏷️ My Equipment Categories" + _verStamp;
         if (_subtitle)
           _subtitle.textContent = "Equipment categories you've selected";
       } else {
-        if (_heading) _heading.textContent = "🏷️ My Equipment Categories";
+        if (_heading)
+          _heading.innerHTML = "🏷️ My Equipment Categories" + _verStamp;
         if (_subtitle)
           _subtitle.textContent = "Your registered equipment types";
       }
