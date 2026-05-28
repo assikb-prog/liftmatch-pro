@@ -301,7 +301,8 @@
         </div>
       </div>
 
-      <!-- RENTAL-ONLY: Service radius -->\n      <div class="lp-field lp-reg-only lp-rental-only" style="display:none">
+      <!-- RENTAL-ONLY: Service radius -->
+      <div class="lp-field lp-reg-only lp-rental-only" style="display:none">
         <label class="lp-label">Metro service radius <span style="color:#EF4444">*</span></label>
         <select class="lp-input" id="lp-radius" style="cursor:pointer;background:#1a2240;color:#e8eaf0">
           <option value="25">25 km — Inner metro only (e.g. within your city centre)</option>
@@ -3640,6 +3641,58 @@ document.addEventListener('click', function(event){
     closeHeroLoginMenu();
   }
 });
+</script>
+
+<!-- AUTO-CLOSE LOGIN WINDOW AFTER SUCCESSFUL LOGIN -->
+<script>
+(function(){
+  function closeLoginWindow(){
+    var w = document.getElementById('lp-form-wrap');
+    if(w && w.style.display !== 'none'){
+      w.style.display = 'none';
+    }
+  }
+
+  // 1) Primary: close the moment Firebase Auth confirms a signed-in user.
+  function attachAuthWatcher(){
+    try {
+      if(typeof firebase !== 'undefined' && firebase.auth){
+        firebase.auth().onAuthStateChanged(function(user){
+          if(user){
+            // small delay so any success message/redirect logic in app.js runs first
+            setTimeout(closeLoginWindow, 150);
+          }
+        });
+        return true;
+      }
+    } catch(e){ /* ignore — fall back below */ }
+    return false;
+  }
+
+  // Firebase may load slightly after this script; retry briefly until available.
+  if(!attachAuthWatcher()){
+    var tries = 0;
+    var t = setInterval(function(){
+      tries++;
+      if(attachAuthWatcher() || tries > 40){ clearInterval(t); }
+    }, 250); // up to ~10s
+  }
+
+  // 2) Safety net: if the email field empties out / form gets reset after a submit,
+  //    and a user session exists, close it. Covers non-Firebase success paths.
+  document.addEventListener('click', function(ev){
+    var btn = ev.target.closest && ev.target.closest('#lp-submit-btn');
+    if(!btn) return;
+    // After the click handler (doLogin) has had time to authenticate, check session.
+    setTimeout(function(){
+      try {
+        if(typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser){
+          closeLoginWindow();
+        }
+      } catch(e){}
+    }, 1200);
+  });
+})();
 </script>
 
 </body>
