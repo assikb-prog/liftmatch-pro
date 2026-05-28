@@ -167611,6 +167611,11 @@ function loginSuccess(user) {
     _portal.style.display = "none";
     _portal.setAttribute("aria-hidden", "true");
   }
+  // Also close the sign-in / register form overlay itself (it sits on top of
+  // the portal and is shown via the `visible` class — without this it stays
+  // on screen after a successful login).
+  const _formWrap = document.getElementById("lp-form-wrap");
+  if (_formWrap) _formWrap.classList.remove("visible");
 
   // Update nav pill
   const pill = document.getElementById("nav-user-pill");
@@ -170057,6 +170062,31 @@ function renderAdminOverview() {
 }
 
 // ── Admin: Customers view ─────────────────────────────────────────────────
+// ── New-customer "seen" tracking (admin, per device) ──────────────────────
+// Records which customer emails the admin has already viewed in the All
+// Customers table, so brand-new customers can be pinned to the top and
+// highlighted yellow until they're seen for the first time.
+var _ADMIN_SEEN_CUSTOMERS_KEY = "noyo_admin_seen_customers_v1";
+function _adminGetSeenCustomers() {
+  try {
+    return JSON.parse(localStorage.getItem(_ADMIN_SEEN_CUSTOMERS_KEY) || "{}");
+  } catch (e) {
+    return {};
+  }
+}
+function _adminMarkCustomersSeen(emails) {
+  if (!emails || !emails.length) return;
+  try {
+    const seen = _adminGetSeenCustomers();
+    emails.forEach((e) => {
+      if (e) seen[e] = Date.now();
+    });
+    localStorage.setItem(_ADMIN_SEEN_CUSTOMERS_KEY, JSON.stringify(seen));
+  } catch (e) {
+    /* localStorage unavailable — highlight will simply persist */
+  }
+}
+
 function renderAdminCustomers() {
   const filter = (
     document.getElementById("admin-customer-filter")?.value || ""
@@ -170119,6 +170149,16 @@ function renderAdminCustomers() {
         }
       });
 
+      // ── New-customer highlighting ──────────────────────────────────────
+      // A customer the admin hasn't viewed yet is flagged "new": pinned to the
+      // top of the list and highlighted yellow. The seen-list is stored per
+      // device in localStorage. After this render we record everyone currently
+      // shown as seen, so next time they appear in normal order/colour.
+      const _seenSet = _adminGetSeenCustomers();
+      customers.forEach((c) => {
+        c.isNew = !_seenSet[(c.email || "").toLowerCase()];
+      });
+
       const filtered = customers
         .filter(
           (c) =>
@@ -170129,14 +170169,25 @@ function renderAdminCustomers() {
             c.suburb.toLowerCase().includes(filter) ||
             c.company.toLowerCase().includes(filter),
         )
-        .sort((a, b) => (b.lastSeen || 0) - (a.lastSeen || 0));
+        .sort((a, b) => {
+          // New (unseen) customers always sort above seen ones.
+          if (a.isNew !== b.isNew) return a.isNew ? -1 : 1;
+          // Within new customers, newest registration first.
+          if (a.isNew && b.isNew) {
+            const ra = a.regAt ? new Date(a.regAt).getTime() : 0;
+            const rb = b.regAt ? new Date(b.regAt).getTime() : 0;
+            if (rb !== ra) return rb - ra;
+          }
+          // Otherwise keep existing order: most recently seen first.
+          return (b.lastSeen || 0) - (a.lastSeen || 0);
+        });
 
       tbody.innerHTML = filtered.length
         ? filtered
             .map(
               (c) => `
-    <tr>
-      <td><strong>${c.name}</strong></td>
+    <tr style="${c.isNew ? "background:#FEF9C3" : ""}">
+      <td><strong>${c.name}</strong>${c.isNew ? ' <span style="display:inline-block;background:#F59E0B;color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.5px;padding:.1rem .4rem;border-radius:6px;vertical-align:middle;margin-left:.35rem">NEW</span>' : ""}</td>
       <td style="font-size:.77rem;color:#1D4ED8">${c.email}</td>
       <td style="font-size:.82rem">${c.mobile || '<span style="color:#CBD5E1">—</span>'}</td>
       <td style="font-size:.82rem">${c.suburb || '<span style="color:#CBD5E1">—</span>'}</td>
@@ -170151,6 +170202,13 @@ function renderAdminCustomers() {
             )
             .join("")
         : '<tr><td colspan="11" style="text-align:center;color:#94a3b8;padding:2rem">No customers registered yet.</td></tr>';
+
+      // Record everyone currently shown as "seen" so the yellow highlight only
+      // appears until the admin first views them. We persist after a short
+      // delay so the admin actually sees the highlight on this visit; the next
+      // time the table renders they'll appear in normal colour and order.
+      const _toMark = customers.map((c) => (c.email || "").toLowerCase()).filter(Boolean);
+      setTimeout(() => _adminMarkCustomersSeen(_toMark), 2500);
     })
     .catch((e) => {
       tbody.innerHTML =
