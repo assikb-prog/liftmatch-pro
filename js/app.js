@@ -162726,12 +162726,26 @@ function renderMyDetails() {
   if (companyRow)
     companyRow.style.display =
       currentUser.role === "customer" ? "grid" : "none";
-  // Show categories section for rental users only
+  // Show categories section for rental AND customer users.
   const catsSection = document.getElementById("det-cats-section");
   if (catsSection) {
-    if (currentUser.role === "rental") {
-      if (catsSection) catsSection.style.display = "block";
-      const saved = loadSectors(currentUser.email, "rental");
+    if (currentUser.role === "rental" || currentUser.role === "customer") {
+      catsSection.style.display = "block";
+      const _catsRole = currentUser.role === "rental" ? "rental" : "customer";
+      const saved = loadSectors(currentUser.email, _catsRole);
+      // Role-aware heading + subtitle
+      const _heading = document.getElementById("det-cats-heading");
+      const _subtitle = document.getElementById("det-cats-subtitle");
+      if (currentUser.role === "customer") {
+        if (_heading) _heading.textContent = "🏷️ Equipment I'm Interested In";
+        if (_subtitle)
+          _subtitle.textContent =
+            "Equipment types you're interested in hiring";
+      } else {
+        if (_heading) _heading.textContent = "🏷️ My Equipment Categories";
+        if (_subtitle)
+          _subtitle.textContent = "Your registered equipment types";
+      }
       _renderSectorView(saved);
     } else {
       catsSection.style.display = "none";
@@ -162890,6 +162904,13 @@ function loadSectors(email, role) {
     return co && co.sectors ? [...co.sectors] : [];
   }
   if (role === "customer") {
+    // Registration-time sectors saved on the user profile (Firestore-backed).
+    try {
+      if (currentUser && currentUser.uid) {
+        const prof = _userProfileCache[currentUser.uid];
+        if (prof && prof.sectors && prof.sectors.length) return [...prof.sectors];
+      }
+    } catch (e) {}
     const org = getEffectiveOrg();
     return org && org.sectors && org.sectors.length ? [...org.sectors] : [];
   }
@@ -163122,7 +163143,8 @@ function catEnterEditMode() {
     subtitle.textContent =
       "Tick and untick your equipment types, then click Submit Changes";
   // Populate the edit grid with current selection
-  const saved = loadSectors(currentUser.email, "rental");
+  const _catsRole = currentUser && currentUser.role === "customer" ? "customer" : "rental";
+  const saved = loadSectors(currentUser.email, _catsRole);
   _renderSectorGrid("det-sector-grid", saved);
 }
 
@@ -163144,7 +163166,16 @@ function catSubmitEdit() {
       "#det-sector-grid input[type=checkbox]:checked",
     ),
   ].map((cb) => cb.value);
-  saveSectors(currentUser.email, "rental", sectors);
+  const _catsRole = currentUser.role === "customer" ? "customer" : "rental";
+  saveSectors(currentUser.email, _catsRole, sectors);
+  // Persist to Firestore so it follows the user across devices.
+  if (currentUser.uid) {
+    try {
+      _fbSaveUserProfile(currentUser.uid, { sectors });
+      if (currentUser.role === "rental")
+        _fbSaveRentalProfile(currentUser.uid, { sectors });
+    } catch (e) {}
+  }
   // Return to view mode
   const viewEl = document.getElementById("det-sector-view");
   const editEl = document.getElementById("det-sector-edit");
@@ -166573,6 +166604,31 @@ function openForm(type, pendingView) {
   setTimeout(() => document.getElementById("lp-email").focus(), 200);
 }
 
+// Populate the registration category grid from the master EQUIPMENT_SECTORS
+// list so it can never drift from the routing list. Label adapts to role:
+// customers pick what they want to hire; rental cos pick what they rent out.
+function _populateRegCats(loginType) {
+  const grid = document.getElementById("lp-cats-grid");
+  const label = document.getElementById("lp-cats-label");
+  if (!grid) return;
+  const isRental = loginType === "rental";
+  if (label) {
+    label.textContent = isRental
+      ? "Equipment categories you rent out"
+      : "Equipment categories you're interested in hiring";
+  }
+  grid.innerHTML = (EQUIPMENT_SECTORS || [])
+    .map((cat) => {
+      const safe = String(cat).replace(/"/g, "&quot;");
+      const esc = String(cat)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+      return `<label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="${safe}"><span>${esc}</span></label>`;
+    })
+    .join("");
+}
+
 function setAuthMode(mode) {
   const wrap = document.getElementById("lp-form-wrap");
   const form = document.getElementById("lp-form");
@@ -166646,6 +166702,17 @@ function setAuthMode(mode) {
     if (helpRental && helpCustomer) {
       helpRental.style.display = isRental ? "" : "none";
       helpCustomer.style.display = !isRental && !isLite ? "" : "none";
+    }
+    // Equipment categories: show for customer + rental (not lite), populated
+    // from the master list with a role-appropriate label.
+    const _catsWrap = document.getElementById("lp-cats-wrap");
+    if (_catsWrap) {
+      if (isLite) {
+        _catsWrap.style.display = "none";
+      } else {
+        _populateRegCats(wrap._loginType);
+        _catsWrap.style.display = "";
+      }
     }
     // Reset T&C checkboxes every time Register tab opens
     const rCb = document.getElementById("lp-tnc-rental-cb");
@@ -167298,6 +167365,13 @@ function doLogin() {
       return;
     }
 
+    // Equipment categories the customer is interested in hiring (optional).
+    const custCats = [
+      ...document.querySelectorAll(
+        "#lp-cats-grid input[type=checkbox]:checked",
+      ),
+    ].map((cb) => cb.value);
+
     const btn = document.getElementById("lp-submit-btn");
     if (btn) {
       btn.disabled = true;
@@ -167321,10 +167395,15 @@ function doLogin() {
           suburb,
           city,
           state,
+          sectors: custCats,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         };
         await _fbDb.collection("users").doc(uid).set(userDoc);
         _userProfileCache[uid] = userDoc;
+        // Persist locally so My Details shows them straight away.
+        try {
+          saveSectors(email, "customer", custCats);
+        } catch (e) {}
         if (btn) {
           btn.disabled = false;
           btn.textContent = "Register";
