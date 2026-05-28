@@ -385,7 +385,8 @@
         </div>
       </div>
 
-      <!-- RENTAL-ONLY: Service radius -->\n      <div class="lp-field lp-reg-only lp-rental-only" style="display:none">
+      <!-- RENTAL-ONLY: Service radius -->
+      <div class="lp-field lp-reg-only lp-rental-only" style="display:none">
         <label class="lp-label">Metro service radius <span style="color:#EF4444">*</span></label>
         <select class="lp-input" id="lp-radius" style="cursor:pointer;background:#1a2240;color:#e8eaf0">
           <option value="25">25 km — Inner metro only (e.g. within your city centre)</option>
@@ -427,27 +428,13 @@
 
       </div>
 
-      <!-- RENTAL-ONLY: category checkboxes -->
-      <div class="lp-field lp-reg-only lp-rental-only" id="lp-cats-wrap" style="display:none">
-        <label class="lp-label">Equipment categories you rent out</label>
-        <div class="lp-cats-grid" id="lp-cats-grid">
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Boom Lifts (Articulated &amp; Telescopic)"><span>Boom Lifts (Articulated &amp; Telescopic)</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Scissor Lifts, Vertical Lifts, Personnel Lifts"><span>Scissor Lifts, Vertical Lifts, Personnel Lifts</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Telehandlers and Rotating Telehandlers"><span>Telehandlers and Rotating Telehandlers</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Forklifts, Reach Trucks, Pallet Jacks"><span>Forklifts, Reach Trucks, Pallet Jacks</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Material Hoists"><span>Material Hoists</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Excavators"><span>Excavators</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Dozers"><span>Dozers</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Skid Steers / Bobcats"><span>Skid Steers / Bobcats</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Wheel Loaders"><span>Wheel Loaders</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Rollers"><span>Rollers</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Compactors"><span>Compactors</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Motor Graders"><span>Motor Graders</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Articulated Dump Trucks (ADTs)"><span>Articulated Dump Trucks (ADTs)</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Rigid Dump Trucks / Mining Trucks"><span>Rigid Dump Trucks / Mining Trucks</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Water Carts"><span>Water Carts</span></label>
-          <label class="lp-cat-item"><input type="checkbox" name="lp-cat" value="Tip Trucks"><span>Tip Trucks</span></label>
-        </div>
+      <!-- Equipment categories — shown to BOTH customer and rental during
+           registration. Populated dynamically from EQUIPMENT_SECTORS by
+           _populateRegCats() so it always matches the master routing list.
+           Label text is set per-role by that function. -->
+      <div class="lp-field lp-reg-only" id="lp-cats-wrap" style="display:none">
+        <label class="lp-label" id="lp-cats-label">Equipment categories</label>
+        <div class="lp-cats-grid" id="lp-cats-grid"></div>
       </div>
 
       <div class="lp-error" id="lp-error"></div>
@@ -2985,7 +2972,7 @@
     <div id="det-cats-section" style="display:none;background:#fff;border:1.5px solid #E2E8F0;border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:1.4rem">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem">
         <div>
-          <div style="font-weight:800;color:#1E293B;font-size:.95rem">🏷️ My Equipment Categories</div>
+          <div style="font-weight:800;color:#1E293B;font-size:.95rem" id="det-cats-heading">🏷️ My Equipment Categories</div>
           <div style="font-size:.78rem;color:#94A3B8;margin-top:.15rem" id="det-cats-subtitle">Your registered equipment types</div>
         </div>
         <button id="det-cats-amend-btn" onclick="catEnterEditMode()"
