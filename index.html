@@ -36,19 +36,19 @@
 
 
 
-<!-- ═══ MAIN NAVBAR — clean single-line: NOYO logo + Home (orange) + Login (green) ═══ -->
-<div class="main-navbar" style="display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#0A1F44 0%,#0052CC 100%);padding:.4rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.15);position:sticky;top:0;z-index:1000;min-height:56px">
 
-  <!-- Logo (left) — pushed up, larger, no fallback text -->
+<!-- ═══ MAIN NAVBAR — verified fixed single-line header ═══ -->
+<div class="main-navbar" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#0A1F44 0%,#0052CC 100%);padding:.25rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.15);position:sticky;top:0;z-index:1000;min-height:64px">
+
+  <!-- Logo left, lifted upward -->
   <a href="/" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0">
-    <img src="assets/img/noyo-logo.png" alt="NOYO" style="height:52px;width:auto;display:block" onerror="this.style.visibility='hidden'">
+    <img src="assets/img/noyo-logo.png" alt="NOYO" style="height:64px;width:auto;display:block;margin-top:-10px" onerror="this.style.visibility='hidden'">
   </a>
 
-  <!-- Nav links (right) -->
+  <!-- Buttons right: ONE Home button + Login -->
   <div style="display:flex;align-items:center;gap:.5rem;position:relative;flex-shrink:0">
-    <a href="/" style="display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1.1rem;background:#FF6B35;border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;text-decoration:none;box-shadow:0 2px 8px rgba(255,107,53,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(255,107,53,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(255,107,53,.35)'">🏠 Home</a>
+    <a href="/" class="noyo-top-home-btn" style="display:inline-flex;align-items:center;gap:.35rem;padding:.5rem 1.1rem;background:#FF6B35;border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;text-decoration:none;box-shadow:0 2px 8px rgba(255,107,53,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(255,107,53,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(255,107,53,.35)'">🏠 Home</a>
 
-    <!-- Login picker — opens a small dropdown with 3 options -->
     <div style="position:relative" id="navbar-login-wrap">
       <button id="navbar-login-btn" type="button" aria-expanded="false" aria-haspopup="true" onclick="toggleNavbarLoginMenu(event)" style="display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;box-shadow:0 2px 8px rgba(22,163,74,.35);transition:all .2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(22,163,74,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(22,163,74,.35)'">
         🔒 Login <span id="navbar-login-chevron" style="display:inline-block;transition:transform .2s;font-size:.75rem">▼</span>
@@ -83,14 +83,9 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <script>
-/* ──────────────────────────────────────────────────────────────────
-   NAVBAR LOGIN DROPDOWN — open/close + delegate to openForm(type,'finder')
-   Mirrors the existing hero-login-btn pattern used elsewhere in the app.
-────────────────────────────────────────────────────────────────── */
 (function(){
   function closeNavbarLoginMenu(){
     var menu = document.getElementById('navbar-login-menu');
@@ -108,7 +103,6 @@
     if(btn)  btn.setAttribute('aria-expanded','true');
     if(chev) chev.style.transform = 'rotate(180deg)';
   }
-
   window.toggleNavbarLoginMenu = function(e){
     if(e) e.stopPropagation();
     var menu = document.getElementById('navbar-login-menu');
@@ -116,23 +110,11 @@
     if(menu.style.display === 'block') closeNavbarLoginMenu();
     else openNavbarLoginMenu();
   };
-
   window.navbarLoginPick = function(type){
     closeNavbarLoginMenu();
-    // Delegate to the same flow used by the hero login picker
-    if(typeof openForm === 'function'){
-      openForm(type, 'finder');
-    } else if(typeof openLoginPortal === 'function'){
-      openLoginPortal(type);
-    } else {
-      // Last-resort fallback — open the raw form overlay
-      var w = document.getElementById('lp-form-wrap');
-      if(w) w.style.display = 'flex';
-      console.warn('openForm() / openLoginPortal() unavailable — opened raw form overlay');
-    }
+    if(typeof openForm === 'function') openForm(type, 'finder');
+    else if(typeof openLoginPortal === 'function') openLoginPortal(type);
   };
-
-  // Click-outside + Escape close
   document.addEventListener('click', function(ev){
     var wrap = document.getElementById('navbar-login-wrap');
     if(wrap && !wrap.contains(ev.target)) closeNavbarLoginMenu();
@@ -142,6 +124,7 @@
   });
 })();
 </script>
+
 
   <!-- FORM OVERLAY -->
   <div class="lp-form-wrap" id="lp-form-wrap">
