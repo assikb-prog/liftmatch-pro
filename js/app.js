@@ -162729,9 +162729,18 @@ function renderMyDetails() {
   // Show categories section for rental AND customer users.
   const catsSection = document.getElementById("det-cats-section");
   if (catsSection) {
-    if (currentUser.role === "rental" || currentUser.role === "customer") {
+    if (
+      currentUser.role === "rental" ||
+      currentUser.role === "customer" ||
+      currentUser.role === "admin"
+    ) {
       catsSection.style.display = "block";
-      const _catsRole = currentUser.role === "rental" ? "rental" : "customer";
+      const _catsRole =
+        currentUser.role === "rental"
+          ? "rental"
+          : currentUser.role === "admin"
+            ? "admin"
+            : "customer";
       const saved = loadSectors(currentUser.email, _catsRole);
       // Role-aware heading + subtitle
       const _heading = document.getElementById("det-cats-heading");
@@ -162741,6 +162750,10 @@ function renderMyDetails() {
         if (_subtitle)
           _subtitle.textContent =
             "Equipment types you're interested in hiring";
+      } else if (currentUser.role === "admin") {
+        if (_heading) _heading.textContent = "🏷️ My Equipment Categories";
+        if (_subtitle)
+          _subtitle.textContent = "Equipment categories you've selected";
       } else {
         if (_heading) _heading.textContent = "🏷️ My Equipment Categories";
         if (_subtitle)
@@ -162914,6 +162927,17 @@ function loadSectors(email, role) {
     const org = getEffectiveOrg();
     return org && org.sectors && org.sectors.length ? [...org.sectors] : [];
   }
+  if (role === "admin") {
+    // Admin's own selected categories — Firestore profile fallback.
+    try {
+      if (currentUser && currentUser.uid) {
+        const prof = _userProfileCache[currentUser.uid];
+        if (prof && prof.sectors && prof.sectors.length)
+          return [...prof.sectors];
+      }
+    } catch (e) {}
+    return [];
+  }
   return [];
 }
 
@@ -162938,7 +162962,7 @@ function _renderSectorView(selectedSectors) {
       label: "🏗️ Elevated Access",
       items: [
         "Boom Lifts (Articulated & Telescopic)",
-        "SL Scissor Lifts, Vertical Lifts, Personnel Lifts",
+        "Scissor Lifts, Vertical Lifts, Personnel Lifts",
         "Telehandlers and Rotating Telehandlers",
         "Material Hoists",
       ],
@@ -163039,7 +163063,7 @@ function _renderSectorGrid(gridId, selectedSectors) {
       label: "🏗️ Elevated Access",
       items: [
         "Boom Lifts (Articulated & Telescopic)",
-        "SL Scissor Lifts, Vertical Lifts, Personnel Lifts",
+        "Scissor Lifts, Vertical Lifts, Personnel Lifts",
         "Telehandlers and Rotating Telehandlers",
         "Material Hoists",
       ],
@@ -163143,7 +163167,12 @@ function catEnterEditMode() {
     subtitle.textContent =
       "Tick and untick your equipment types, then click Submit Changes";
   // Populate the edit grid with current selection
-  const _catsRole = currentUser && currentUser.role === "customer" ? "customer" : "rental";
+  const _catsRole =
+    currentUser && currentUser.role === "customer"
+      ? "customer"
+      : currentUser && currentUser.role === "admin"
+        ? "admin"
+        : "rental";
   const saved = loadSectors(currentUser.email, _catsRole);
   _renderSectorGrid("det-sector-grid", saved);
 }
@@ -163166,7 +163195,12 @@ function catSubmitEdit() {
       "#det-sector-grid input[type=checkbox]:checked",
     ),
   ].map((cb) => cb.value);
-  const _catsRole = currentUser.role === "customer" ? "customer" : "rental";
+  const _catsRole =
+    currentUser.role === "customer"
+      ? "customer"
+      : currentUser.role === "admin"
+        ? "admin"
+        : "rental";
   saveSectors(currentUser.email, _catsRole, sectors);
   // Persist to Firestore so it follows the user across devices.
   if (currentUser.uid) {
