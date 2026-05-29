@@ -85122,9 +85122,30 @@ loadMatrixTyres: [
       machineWeight: 5400,
       machineWidth: 1.85,
       machineLength: 5.77,
+      wheelbase: 1.88,
+      platformSize: "1.42 × 0.76m",
       machineHeight: 2.06,
       power: "Diesel",
       swl: 270,
+      engine: "Diesel Kubota D1105 18.2kW",
+      fuelTank: 40,
+      hydraulicCapacity: 58,
+      gradeability: 45,
+      driveSpeed: 5,
+      turningRadiusInside: 2.6,
+      turningRadiusOutside: 4.7,
+      tyres: "10-16.5 foam-filled non-marking",
+      // liftChart pixel-read from LGMG AR11J working-range chart (AU-market).
+      // Articulating: apex at min reach, max outreach mid-low. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 10.75 },
+        { reach: 2.0, height: 9.5 },
+        { reach: 4.0, height: 7.5 },
+        { reach: 6.0, height: 5.0 },
+        { reach: 6.78, height: 3.0 },
+        { reach: 6.0, height: 1.0 },
+        { reach: 4.5, height: 0 },
+      ],
       // Brochure-confirmed: LGMG AR11J brochure (henmac.com.au PDF, Australian
       // distributor): 'Max. Platform Occupancy: 2'. 270kg single-capacity
       // basket — sized for 2 operators + tools. AR16J = 230kg, same.
@@ -85161,9 +85182,47 @@ loadMatrixTyres: [
       machineWeight: 7400,
       machineWidth: 2.3,
       machineLength: 6.95,
+      wheelbase: 2.25,
+      platformSize: "1.83 × 0.76m",
       machineHeight: 2.24,
       power: "Diesel",
       swl: 450,
+      engine: "Diesel Kubota V2403 (or Kubota D1105)",
+      fuelTank: 65,
+      hydraulicCapacity: 75,
+      gradeability: 45,
+      driveSpeed: 5,
+      turningRadiusInside: 1.67,
+      turningRadiusOutside: 3.66,
+      tyres: "315/55D20 RT foam-filled",
+      capacity: 450,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 450,
+        swlUnrestricted: 300,
+        swl: 450,
+        isBuiltIn: true,
+        note: "AR14J-H ships dual-rated as standard — 450kg (992lb) restricted (inner envelope, 3 occupants) / 300kg (661lb) unrestricted (full reach, 2 occupants).",
+      },
+      // liftChart pixel-read from LGMG AR14J-H working-range chart.
+      // Outer 300kg envelope; inner 450kg restricted. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 13.9 },
+        { reach: 2.5, height: 12.5 },
+        { reach: 4.5, height: 10.5 },
+        { reach: 6.5, height: 8.0 },
+        { reach: 7.7, height: 5.5 },
+        { reach: 7.5, height: 3.0 },
+        { reach: 6.0, height: 0.5 },
+        { reach: 4.0, height: 0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 13.9 },
+        { reach: 3.0, height: 11.0 },
+        { reach: 5.0, height: 8.0 },
+        { reach: 6.0, height: 4.5 },
+        { reach: 5.5, height: 1.0 },
+      ],
       // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
       // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
       // '250/350kg dual capacity ... can accommodate up to three people at
@@ -85202,9 +85261,31 @@ loadMatrixTyres: [
       machineWeight: 8180,
       machineWidth: 2.31,
       machineLength: 7.56,
+      wheelbase: 2.06,
+      platformSize: "1.83 × 0.76m",
       machineHeight: 2.17,
       power: "Diesel",
       swl: 230,
+      engine: "Diesel Deutz D2.9L4 (or Kubota V2403)",
+      fuelTank: 65,
+      hydraulicCapacity: 130,
+      gradeability: 45,
+      driveSpeed: 6.1,
+      turningRadiusInside: 1.94,
+      turningRadiusOutside: 4.41,
+      tyres: "315/55D20 RT foam-filled",
+      // liftChart pixel-read from LGMG AR16J working-range chart.
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 15.7 },
+        { reach: 3.0, height: 14.0 },
+        { reach: 5.5, height: 11.5 },
+        { reach: 8.0, height: 8.5 },
+        { reach: 9.39, height: 5.5 },
+        { reach: 9.0, height: 2.5 },
+        { reach: 7.0, height: 0 },
+        { reach: 4.0, height: -1.0 },
+      ],
       // Brochure-confirmed: LGMG AR11J brochure (henmac.com.au PDF, Australian
       // distributor): 'Max. Platform Occupancy: 2'. 270kg single-capacity
       // basket — sized for 2 operators + tools. AR16J = 230kg, same.
@@ -85234,9 +85315,47 @@ loadMatrixTyres: [
       machineWeight: 9850,
       machineWidth: 2.5,
       machineLength: 9.42,
+      wheelbase: 2.51,
+      platformSize: "2.44 × 0.90m",
       machineHeight: 2.46,
       power: "Diesel",
       swl: 350,
+      engine: "Diesel Kubota V2403",
+      fuelTank: 65,
+      hydraulicCapacity: 100,
+      gradeability: 45,
+      driveSpeed: 5,
+      turningRadiusInside: 1.9,
+      turningRadiusOutside: 3.9,
+      tyres: "355/55D625 RT foam-filled",
+      capacity: 350,
+      capacityUnrestricted: 260,
+      xcBasket: {
+        swlRestricted: 350,
+        swlUnrestricted: 260,
+        swl: 350,
+        isBuiltIn: true,
+        note: "AR20J ships dual-rated as standard — 350kg (772lb) restricted (inner envelope, 3 occupants) / 260kg (573lb) unrestricted (full reach, 2 occupants). 2.44m triple-entry platform.",
+      },
+      // liftChart pixel-read from LGMG AR20J working-range chart.
+      // Outer 260kg envelope; inner 350kg restricted. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 19.58 },
+        { reach: 4.0, height: 18.0 },
+        { reach: 7.0, height: 15.5 },
+        { reach: 10.0, height: 11.5 },
+        { reach: 12.37, height: 7.5 },
+        { reach: 12.0, height: 4.0 },
+        { reach: 10.0, height: 1.0 },
+        { reach: 6.0, height: -0.5 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 19.58 },
+        { reach: 5.0, height: 15.0 },
+        { reach: 8.0, height: 10.0 },
+        { reach: 9.5, height: 5.0 },
+        { reach: 9.0, height: 1.0 },
+      ],
       // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
       // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
       // '250/350kg dual capacity ... can accommodate up to three people at
@@ -85274,9 +85393,50 @@ loadMatrixTyres: [
       machineWeight: 17300,
       machineWidth: 2.5,
       machineLength: 11.6,
+      wheelbase: 2.85,
+      platformSize: "2.44 × 0.90m",
       machineHeight: 2.83,
       power: "Diesel",
       swl: 350,
+      engine: "Diesel Kubota 36kW (48.2hp)",
+      fuelTank: 100,
+      hydraulicCapacity: 162,
+      gradeability: 45,
+      driveSpeed: 5,
+      turningRadiusInside: 2.04,
+      turningRadiusOutside: 4.13,
+      groundBearingPressure: 8.74,
+      tyres: "15-625 foam-filled",
+      capacity: 350,
+      capacityUnrestricted: 250,
+      xcBasket: {
+        swlRestricted: 350,
+        swlUnrestricted: 250,
+        swl: 350,
+        isBuiltIn: true,
+        note: "AR24J ships dual-rated as standard — 350kg (772lb) restricted (inner envelope, 3 occupants) / 250kg (551lb) unrestricted (full reach, 2 occupants). 2.44m platform.",
+      },
+      // liftChart pixel-read from LGMG AR24J working-range chart.
+      // Largest LGMG articulating: outer 250kg / inner 350kg restricted.
+      // Max outreach 18m mid-high; slight below-grade reach. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 24.6 },
+        { reach: 5.0, height: 23.0 },
+        { reach: 9.0, height: 20.0 },
+        { reach: 13.0, height: 15.5 },
+        { reach: 16.0, height: 11.0 },
+        { reach: 18.0, height: 7.0 },
+        { reach: 17.5, height: 3.0 },
+        { reach: 15.0, height: 0 },
+        { reach: 10.0, height: -2.0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 24.6 },
+        { reach: 6.0, height: 19.0 },
+        { reach: 10.0, height: 13.0 },
+        { reach: 13.0, height: 7.0 },
+        { reach: 12.5, height: 1.0 },
+      ],
       // Brochure-confirmed: LGMG AR-series H/E dual-capacity booms — 3-person
       // rated at restricted capacity. KHL/Access Briefing on AR24J/AR24JE:
       // '250/350kg dual capacity ... can accommodate up to three people at
@@ -85351,9 +85511,47 @@ loadMatrixTyres: [
       machineWeight: 12000,
       machineWidth: 2.49,
       machineLength: 10.2,
+      wheelbase: 2.51,
+      platformSize: "2.44 × 0.90m",
       machineHeight: 2.78,
       power: "Diesel",
       swl: 450,
+      engine: "Diesel Deutz D2.9L4 (or Kubota V2403), 36kW (48.3hp)",
+      fuelTank: 100,
+      hydraulicCapacity: 180,
+      gradeability: 45,
+      driveSpeed: 4.8,
+      turningRadiusInside: 2.5,
+      turningRadiusOutside: 5.5,
+      tyres: "355/55D625 RT foam-filled",
+      capacity: 450,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 450,
+        swlUnrestricted: 300,
+        swl: 450,
+        isBuiltIn: true,
+        note: "T20J-H ships dual-rated as standard — 450kg (992lb) restricted (inner envelope, 3 occupants) / 300kg (661lb) unrestricted (full reach, 2 occupants).",
+      },
+      // liftChart pixel-read from LGMG T20J-H working-range chart.
+      // Telescopic: outer 300kg envelope; inner 450kg restricted. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 19.8 },
+        { reach: 4, height: 18 },
+        { reach: 7, height: 15.5 },
+        { reach: 10, height: 12 },
+        { reach: 13, height: 8 },
+        { reach: 16.6, height: 4 },
+        { reach: 16, height: 1 },
+        { reach: 13, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 19.8 },
+        { reach: 5, height: 15 },
+        { reach: 9, height: 10 },
+        { reach: 11.5, height: 5 },
+        { reach: 11, height: 0 },
+      ],
       // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
       // T-series telescopic dual-capacity range: 'With a double capacity
       // design of 450/300kg (992/661lbs), the machine can allow up to 3
@@ -85389,9 +85587,48 @@ loadMatrixTyres: [
       machineWeight: 12300,
       machineWidth: 2.49,
       machineLength: 11.0,
+      wheelbase: 2.51,
+      platformSize: "2.44 × 0.90m",
       machineHeight: 2.78,
       power: "Diesel",
       swl: 450,
+      engine: "Diesel 36kW (48.3hp) — Deutz D2.9L4 / Kubota class",
+      fuelTank: 100,
+      hydraulicCapacity: 180,
+      gradeability: 45,
+      driveSpeed: 4.8,
+      turningRadiusInside: 2.5,
+      turningRadiusOutside: 5.5,
+      tyres: "355/55D625 RT foam-filled",
+      capacity: 450,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 450,
+        swlUnrestricted: 300,
+        swl: 450,
+        isBuiltIn: true,
+        note: "T22J-H ships dual-rated as standard — 450kg (992lb) restricted (inner envelope, 3 occupants) / 300kg (661lb) unrestricted (full reach, 2 occupants).",
+      },
+      // liftChart scaled from LGMG T20J-H envelope to T22J-H anchors
+      // (21.8m platform / 17.0m reach; combined-sheet source has no separate
+      // T22 chart). Outer 300kg; inner 450kg restricted. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 21.8 },
+        { reach: 4, height: 20 },
+        { reach: 7, height: 17 },
+        { reach: 11, height: 13 },
+        { reach: 14, height: 8.5 },
+        { reach: 17.0, height: 4 },
+        { reach: 16, height: 1 },
+        { reach: 13, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 21.8 },
+        { reach: 5, height: 16 },
+        { reach: 9, height: 11 },
+        { reach: 12, height: 5 },
+        { reach: 11.5, height: 0 },
+      ],
       // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
       // T-series telescopic dual-capacity range: 'With a double capacity
       // design of 450/300kg (992/661lbs), the machine can allow up to 3
@@ -85421,9 +85658,47 @@ loadMatrixTyres: [
       machineWeight: 18300,
       machineWidth: 2.5,
       machineLength: 12.72,
+      wheelbase: 2.85,
+      platformSize: "2.44 × 0.90m",
       machineHeight: 2.83,
       power: "Diesel",
       swl: 450,
+      engine: "Diesel Deutz TD2.9L4 (or Kubota V3307), 55.4kW (74.3hp)",
+      fuelTank: 100,
+      hydraulicCapacity: 180,
+      gradeability: 45,
+      driveSpeed: 4.8,
+      turningRadiusInside: 3.66,
+      turningRadiusOutside: 6.55,
+      tyres: "18-625 RT foam-filled",
+      capacity: 450,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 450,
+        swlUnrestricted: 300,
+        swl: 450,
+        isBuiltIn: true,
+        note: "T26J-H ships dual-rated as standard — 450kg (992lb) restricted (inner envelope, 3 occupants) / 300kg (661lb) unrestricted (full reach, 2 occupants).",
+      },
+      // liftChart pixel-read from LGMG T26J-H working-range chart.
+      // Outer 300kg; inner 450kg restricted. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 25.9 },
+        { reach: 5, height: 24 },
+        { reach: 9, height: 20.5 },
+        { reach: 14, height: 15 },
+        { reach: 18, height: 10 },
+        { reach: 22.3, height: 5 },
+        { reach: 21, height: 1 },
+        { reach: 16, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 25.9 },
+        { reach: 6, height: 20 },
+        { reach: 11, height: 13 },
+        { reach: 15, height: 6 },
+        { reach: 14.5, height: 0 },
+      ],
       // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
       // T-series telescopic dual-capacity range: 'With a double capacity
       // design of 450/300kg (992/661lbs), the machine can allow up to 3
@@ -85459,9 +85734,47 @@ loadMatrixTyres: [
       machineWeight: 18800,
       machineWidth: 2.5,
       machineLength: 13.4,
+      wheelbase: 2.85,
+      platformSize: "2.44 × 0.90m",
       machineHeight: 2.83,
       power: "Diesel",
       swl: 450,
+      engine: "Diesel Deutz TD2.9L4 (or Kubota V3307), 55.4kW (74.3hp)",
+      fuelTank: 100,
+      hydraulicCapacity: 180,
+      gradeability: 45,
+      driveSpeed: 4.8,
+      turningRadiusInside: 3.66,
+      turningRadiusOutside: 6.55,
+      tyres: "18-625 RT foam-filled",
+      capacity: 450,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 450,
+        swlUnrestricted: 300,
+        swl: 450,
+        isBuiltIn: true,
+        note: "T28J-H ships dual-rated as standard — 450kg (992lb) restricted (inner envelope, 3 occupants) / 300kg (661lb) unrestricted (full reach, 2 occupants).",
+      },
+      // liftChart pixel-read from LGMG T28J-H working-range chart.
+      // Outer 300kg; inner 450kg restricted. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 27.8 },
+        { reach: 5, height: 26 },
+        { reach: 10, height: 22 },
+        { reach: 15, height: 16 },
+        { reach: 19, height: 10 },
+        { reach: 22.5, height: 5 },
+        { reach: 21, height: 1 },
+        { reach: 16, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 27.8 },
+        { reach: 6, height: 21 },
+        { reach: 11, height: 14 },
+        { reach: 15, height: 6 },
+        { reach: 14.5, height: 0 },
+      ],
       // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
       // T-series telescopic dual-capacity range: 'With a double capacity
       // design of 450/300kg (992/661lbs), the machine can allow up to 3
@@ -85535,9 +85848,48 @@ loadMatrixTyres: [
       machineWeight: 20700,
       machineWidth: 2.49,
       machineLength: 14.31,
+      wheelbase: 4.12,
+      platformSize: "2.44 × 0.90m",
       machineHeight: 2.89,
       power: "Diesel",
       swl: 450,
+      engine: "Diesel Kubota 54.6kW (73.2hp)",
+      fuelTank: 220,
+      hydraulicCapacity: 150,
+      gradeability: 45,
+      driveSpeed: 5,
+      machineWidthOutriggers: 4.01,
+      extendableAxles: true,
+      tyres: "445/50D710 foam-filled",
+      capacity: 450,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 450,
+        swlUnrestricted: 300,
+        swl: 450,
+        isBuiltIn: true,
+        note: "T38J-H ships dual-rated as standard — 450kg (992lb) restricted (inner envelope, 3 occupants) / 300kg (661lb) unrestricted (full reach, 2 occupants). Outriggers/extendable axles widen the base from 2.49m to 4.01m for stability.",
+      },
+      // liftChart pixel-read from LGMG T38J-H working-range chart.
+      // Tallest LGMG telescopic, outrigger-stabilised. Outer 300kg; inner 450kg.
+      // Max outreach 23.5m reached mid-high; below-grade to ~-3m. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 38.2 },
+        { reach: 6, height: 36 },
+        { reach: 11, height: 32 },
+        { reach: 16, height: 25 },
+        { reach: 20, height: 17 },
+        { reach: 23.5, height: 9 },
+        { reach: 22, height: 3 },
+        { reach: 17, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 38.2 },
+        { reach: 7, height: 30 },
+        { reach: 12, height: 21 },
+        { reach: 16, height: 11 },
+        { reach: 15.5, height: 3 },
+      ],
       // Brochure-confirmed: LGMG official manufacturer site (lgmglifts.com) for
       // T-series telescopic dual-capacity range: 'With a double capacity
       // design of 450/300kg (992/661lbs), the machine can allow up to 3
@@ -86251,11 +86603,6 @@ loadMatrixTyres: [
         "Zero Emissions",
         "SKYRISER™",
       ],
-      liftChart: [
-        { reach: 0, height: 9.14 },
-        { reach: 3, height: 7 },
-        { reach: 5.64, height: 3 },
-      ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
     {
@@ -86263,20 +86610,45 @@ loadMatrixTyres: [
       brand: "Skyjack",
       emoji: "💥",
       brandColor: "#FFD700",
-      name: "Skyjack SJ45AJ Articulating",
+      name: "Skyjack SJ45 AJ+ Articulating",
       shortName: "Skyjack SJ45AJ",
       boomType: "articulating",
       platformHeight: 13.72,
-      workHeight: 15.72,
-      maxReach: 7.39,
-      upOverHeight: 6.86,
-      upOverReach: 7.39,
-      machineWeight: 6350,
+      workHeight: 15.54,
+      maxReach: 6.93,
+      upOverHeight: 7.45,
+      upOverReach: 6.93,
+      machineWeight: 5075,
       machineWidth: 2.29,
-      machineLength: 6.2,
+      machineLength: 6.0,
       machineHeight: 2.06,
       power: "Diesel",
-      swl: 227,
+      swl: 300,
+      wheelbase: 2.03,
+      groundClearance: 0.39,
+      tailswing: 0.61,
+      platformSize: "0.76 × 1.83m",
+      platformRotation: 170,
+      jibLength: 1.4,
+      swing: "355° non-continuous",
+      engine: "Diesel Kubota D1305 Tier 4F 18.5kW (24.8hp); dual-fuel Kubota WG972 optional",
+      fuelTank: 64,
+      hydraulicCapacity: 91,
+      gradeability: 40,
+      driveSpeed: 4.0,
+      turningRadiusInside: 1.5,
+      turningRadiusOutside: 4.34,
+      tyres: "10×31 grip-lug solid",
+      // liftChart pixel-read from Skyjack working envelope. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 13.72 },
+        { reach: 2, height: 12 },
+        { reach: 4, height: 9.5 },
+        { reach: 5.5, height: 6 },
+        { reach: 6.93, height: 3 },
+        { reach: 6.5, height: 0.5 },
+        { reach: 4.5, height: -1 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -86297,11 +86669,6 @@ loadMatrixTyres: [
         "SKYRISER™",
         "45ft",
       ],
-      liftChart: [
-        { reach: 0, height: 13.72 },
-        { reach: 4, height: 11 },
-        { reach: 7.39, height: 4 },
-      ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
     {
@@ -86309,20 +86676,65 @@ loadMatrixTyres: [
       brand: "Skyjack",
       emoji: "💥",
       brandColor: "#FFD700",
-      name: "Skyjack SJ60AJ Articulating",
-      shortName: "Skyjack SJ60AJ",
+      name: "Skyjack SJ60 AJ+ Articulating",
+      shortName: "Skyjack SJ60 AJ+",
       boomType: "articulating",
       platformHeight: 18.29,
-      workHeight: 20.29,
-      maxReach: 10.97,
-      upOverHeight: 8.84,
-      upOverReach: 10.97,
-      machineWeight: 9526,
+      workHeight: 20.11,
+      maxReach: 11.56,
+      upOverHeight: 8.31,
+      upOverReach: 11.56,
+      machineWeight: 8557,
       machineWidth: 2.44,
-      machineLength: 8.53,
-      machineHeight: 2.41,
+      machineLength: 8.59,
+      machineHeight: 2.54,
+      wheelbase: 2.44,
+      groundClearance: 0.33,
+      tailswing: 0.61,
+      platformSize: "0.91 × 2.44m",
+      platformRotation: 170,
+      jibLength: 1.52,
+      jibArticulation: "+65° / -60°",
+      swing: "360° continuous",
+      engine: "Diesel Kubota D1305 Tier 4F 18.5kW (24.8hp); dual-fuel Kubota WG972 optional",
+      fuelTank: 115,
+      hydraulicCapacity: 115,
+      gradeability: 40,
+      driveSpeed: 4.0,
+      turningRadiusInside: 2.21,
+      turningRadiusOutside: 5.31,
+      tyres: "14×610 grip-lug foam-filled",
       power: "Diesel",
-      swl: 227,
+      swl: 454,
+      capacity: 454,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 454,
+        swlUnrestricted: 300,
+        swl: 454,
+        isBuiltIn: true,
+        note: "SJ60 AJ+ ships dual-rated: 300kg (660lb) unrestricted (2 persons) / 454kg (1000lb) restricted (3 persons). 0.91×2.44m platform standard.",
+      },
+      // liftChart pixel-read from Skyjack SJ60 AJ+ working envelope. SpeedyReach
+      // negative boom angle gives below-grade reach. Outer = 300kg, inner = 454kg.
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 18.29 },
+        { reach: 3, height: 16.5 },
+        { reach: 6, height: 13.5 },
+        { reach: 9, height: 9.5 },
+        { reach: 11, height: 5.5 },
+        { reach: 11.56, height: 2.5 },
+        { reach: 11, height: 0 },
+        { reach: 8, height: -1.5 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 18.29 },
+        { reach: 4, height: 13 },
+        { reach: 7, height: 8 },
+        { reach: 9, height: 3 },
+        { reach: 8.5, height: 0 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -86331,7 +86743,7 @@ loadMatrixTyres: [
       terrain: "outdoor rough",
       bestFor:
         "60ft articulating — 18.3m platform, 11m outreach, zero tailswing, rough terrain",
-      note: "Skyjack SJ60AJ: 18.29m platform / 20.29m working height. 227kg. 10.97m outreach. Diesel 4WD. Zero tailswing. SKYRISER™. EASYDRIVE™. 45% gradeability. Deutz TD2.2L4 or Kubota dual-fuel. For multi-storey construction and industrial up-and-over work.",
+      note: "Skyjack SJ60 AJ+: 18.29m platform / 20.11m working height. Dual capacity 300kg unrestricted (2 persons) / 454kg restricted (3 persons). 11.56m horizontal outreach, 8.31m up-and-over, 0.61m tailswing. Eco model — ~16% lighter (8,557kg) and up to 68% less fuel vs previous SJ60AJ; HVO-compatible, Tier 4F. Kubota D1305 18.5kW (Kubota WG972 dual-fuel option). 0.91×2.44m platform, 170° rotator, 1.52m jib (+65/-60). SpeedyReach negative boom angle, SkyRiser true vertical rise, EasyDrive, 4WD, 40% gradeability. Source: Skyjack SJ60 AJ+ tear sheet (NA/ENG 07/2022).",
       upOverNote:
         "Up-and-over: 10.97m reach clearing ~8.84m. Zero tailswing for tight sites.",
       tags: [
@@ -86342,11 +86754,6 @@ loadMatrixTyres: [
         "Zero Tailswing",
         "Diesel 4WD",
         "SKYRISER™",
-      ],
-      liftChart: [
-        { reach: 0, height: 18.29 },
-        { reach: 5.5, height: 15 },
-        { reach: 10.97, height: 6 },
       ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
@@ -86359,16 +86766,61 @@ loadMatrixTyres: [
       shortName: "Skyjack SJ85AJ",
       boomType: "articulating",
       platformHeight: 25.91,
-      workHeight: 27.91,
-      maxReach: 15.24,
-      upOverHeight: 11.89,
-      upOverReach: 15.24,
-      machineWeight: 16329,
+      workHeight: 27.74,
+      maxReach: 17.07,
+      upOverHeight: 10.36,
+      upOverReach: 17.07,
+      machineWeight: 16465,
       machineWidth: 2.49,
-      machineLength: 11.28,
-      machineHeight: 2.97,
+      machineLength: 11.63,
+      machineHeight: 2.67,
+      wheelbase: 2.84,
+      groundClearance: 0.34,
+      tailswing: 0.86,
+      platformSize: "0.91 × 2.44m",
+      platformRotation: 170,
+      jibLength: 1.68,
+      jibArticulation: "+65° / -60°",
+      swing: "360° continuous",
+      engine: "Diesel Deutz TD2.9L4 55kW (74hp); dual-fuel Kubota WG3800 65kW (87hp) optional",
+      fuelTank: 115,
+      hydraulicCapacity: 170,
+      gradeability: 45,
+      driveSpeed: 4.8,
+      turningRadiusInside: 3.05,
+      turningRadiusOutside: 6.22,
+      tyres: "18-625 grip-lug foam-filled",
       power: "Diesel",
-      swl: 272,
+      swl: 340,
+      capacity: 340,
+      capacityUnrestricted: 227,
+      xcBasket: {
+        swlRestricted: 340,
+        swlUnrestricted: 227,
+        swl: 340,
+        isBuiltIn: true,
+        note: "SJ85 AJ ships dual-rated: 227kg (500lb) unrestricted (2 persons) / 340kg (750lb) restricted (3 persons).",
+      },
+      // liftChart pixel-read from Skyjack SJ85 AJ working envelope. Largest
+      // Skyjack articulating; below-grade reach via negative boom angle.
+      // Outer = 227kg, inner = 340kg. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 25.91 },
+        { reach: 4, height: 24 },
+        { reach: 8, height: 20.5 },
+        { reach: 12, height: 15.5 },
+        { reach: 15, height: 10 },
+        { reach: 17.07, height: 5 },
+        { reach: 16.5, height: 1 },
+        { reach: 13, height: -1.5 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 25.91 },
+        { reach: 5, height: 19 },
+        { reach: 9, height: 12 },
+        { reach: 12, height: 6 },
+        { reach: 13, height: 1 },
+      ],
       // Brochure-confirmed: Skyjack 272kg dual-capacity platform per
       // ANSI A92.20: 3 occupants restricted mode. Nationwide
       // Platforms (UK distributor): 'Maximum 3 people on platform'
@@ -86377,7 +86829,7 @@ loadMatrixTyres: [
       terrain: "outdoor rough",
       bestFor:
         "85ft articulating — 25.9m platform, 15.2m outreach, large up-and-over, 4WD",
-      note: "Skyjack SJ85AJ: 25.91m platform / 27.91m working height. 272kg. 15.24m outreach. 11.89m up-and-over height. Diesel 4WD. Zero tailswing. SKYRISER™. 4WD/4WS. 40% gradeability. For high-rise construction, industrial facilities and large infrastructure requiring articulating access at 85ft.",
+      note: "Skyjack SJ85AJ: 25.91m platform / 27.74m working height. Dual capacity 227kg unrestricted (2 persons) / 340kg restricted (3 persons). 17.07m horizontal outreach, 10.36m up-and-over, 0.86m tailswing. Largest Skyjack articulating boom. Deutz TD2.9L4 55kW (Kubota WG3800 65kW dual-fuel option), 115L fuel, 170L hydraulic. 0.91×2.44m platform, 170° rotator, 1.68m jib (+65/-60). SpeedyReach negative boom angle, SkyRiser true vertical rise, 4WD, 45% gradeability. Source: Skyjack SJ85 AJ tear sheet (NA/ENG 03/2025).",
       upOverNote:
         "Up-and-over: 15.24m reach clearing ~11.89m. Largest Skyjack articulating boom.",
       tags: [
@@ -86390,11 +86842,6 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "85ft",
       ],
-      liftChart: [
-        { reach: 0, height: 25.91 },
-        { reach: 7, height: 22 },
-        { reach: 15.24, height: 10 },
-      ],
       filters: ["boom", "articulating", "outdoor", "rough", "high"],
     },
     {
@@ -86405,17 +86852,41 @@ loadMatrixTyres: [
       name: "Skyjack SJ40T Telescopic",
       shortName: "Skyjack SJ40T",
       boomType: "telescopic",
-      platformHeight: 11.89,
-      workHeight: 13.89,
-      maxReach: 9.75,
+      platformHeight: 12.37,
+      workHeight: 14.20,
+      maxReach: 10.36,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 5670,
+      machineWeight: 6332,
       machineWidth: 2.29,
-      machineLength: 6.1,
-      machineHeight: 2.06,
+      machineLength: 7.74,
+      machineHeight: 2.39,
       power: "Diesel",
-      swl: 227,
+      swl: 295,
+      wheelbase: 2.44,
+      groundClearance: 0.28,
+      tailswing: 0.94,
+      platformSize: "0.91 × 2.44m",
+      platformRotation: 170,
+      swing: "360° continuous",
+      engine: "Diesel Deutz D2.9L4 35.8kW (48hp); dual-fuel Kubota WG2503 45.5kW (61hp)",
+      fuelTank: 170,
+      hydraulicCapacity: 223,
+      gradeability: 50,
+      driveSpeed: 7.2,
+      turningRadiusInside: 2.13,
+      turningRadiusOutside: 5.03,
+      tyres: "12×16.5 air-filled",
+      // liftChart pixel-read from Skyjack working envelope. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 12.37 },
+        { reach: 3, height: 11 },
+        { reach: 6, height: 8.5 },
+        { reach: 8, height: 5.5 },
+        { reach: 9.5, height: 3 },
+        { reach: 10.36, height: 0.5 },
+        { reach: 9.5, height: -1.5 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -86435,11 +86906,6 @@ loadMatrixTyres: [
         "40ft",
         "Compact",
       ],
-      liftChart: [
-        { reach: 0, height: 11.89 },
-        { reach: 5, height: 10 },
-        { reach: 9.75, height: 4 },
-      ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
     {
@@ -86450,17 +86916,42 @@ loadMatrixTyres: [
       name: "Skyjack SJ45T Telescopic",
       shortName: "Skyjack SJ45T",
       boomType: "telescopic",
-      platformHeight: 13.72,
-      workHeight: 15.72,
-      maxReach: 11.73,
+      platformHeight: 13.77,
+      workHeight: 15.60,
+      maxReach: 12.12,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 6350,
+      machineWeight: 6727,
       machineWidth: 2.29,
-      machineLength: 6.7,
-      machineHeight: 2.06,
+      machineLength: 8.79,
+      machineHeight: 2.39,
       power: "Diesel",
       swl: 227,
+      wheelbase: 2.44,
+      groundClearance: 0.28,
+      tailswing: 0.94,
+      platformSize: "0.91 × 2.44m",
+      platformRotation: 170,
+      jibLength: 1.5,
+      swing: "360° continuous",
+      engine: "Diesel Deutz D2.9L4 35.8kW (48hp); dual-fuel Kubota WG2503 45.5kW (61hp)",
+      fuelTank: 170,
+      hydraulicCapacity: 223,
+      gradeability: 50,
+      driveSpeed: 7.2,
+      turningRadiusInside: 2.13,
+      turningRadiusOutside: 5.03,
+      tyres: "12×16.5 air-filled",
+      // liftChart pixel-read from Skyjack working envelope. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 13.77 },
+        { reach: 3, height: 12.5 },
+        { reach: 6, height: 10 },
+        { reach: 9, height: 6.5 },
+        { reach: 11, height: 3 },
+        { reach: 12.12, height: 0.5 },
+        { reach: 11, height: -1.5 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -86479,11 +86970,6 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "45ft",
       ],
-      liftChart: [
-        { reach: 0, height: 13.72 },
-        { reach: 6, height: 12 },
-        { reach: 11.73, height: 5 },
-      ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
     {
@@ -86494,17 +86980,41 @@ loadMatrixTyres: [
       name: "Skyjack SJ61T Telescopic",
       shortName: "Skyjack SJ61T",
       boomType: "telescopic",
-      platformHeight: 18.59,
-      workHeight: 20.59,
-      maxReach: 15.85,
+      platformHeight: 18.67,
+      workHeight: 20.50,
+      maxReach: 15.62,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 8165,
+      machineWeight: 10614,
       machineWidth: 2.44,
-      machineLength: 8.64,
+      machineLength: 9.25,
       machineHeight: 2.57,
       power: "Diesel",
       swl: 227,
+      wheelbase: 2.44,
+      groundClearance: 0.41,
+      tailswing: 1.19,
+      platformSize: "0.91 × 2.44m",
+      platformRotation: 170,
+      swing: "360° continuous",
+      engine: "Diesel 55kW (74hp); dual-fuel 61kW (82hp)",
+      fuelTank: 170,
+      hydraulicCapacity: 227,
+      gradeability: 50,
+      driveSpeed: 7.2,
+      turningRadiusInside: 2.82,
+      turningRadiusOutside: 5.05,
+      tyres: "15×19.5 air-filled",
+      // liftChart pixel-read from Skyjack working envelope. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 18.67 },
+        { reach: 4, height: 17 },
+        { reach: 8, height: 13.5 },
+        { reach: 11, height: 9.5 },
+        { reach: 14, height: 5 },
+        { reach: 15.62, height: 1.5 },
+        { reach: 14.5, height: -1.5 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -86523,11 +87033,6 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "60ft",
       ],
-      liftChart: [
-        { reach: 0, height: 18.59 },
-        { reach: 8, height: 16 },
-        { reach: 15.85, height: 7 },
-      ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
     {
@@ -86540,14 +87045,41 @@ loadMatrixTyres: [
       platformHeight: 14.1,
       workHeight: 16.1,
       maxReach: 7.54,
-      upOverHeight: 6.8,
+      upOverHeight: 7.45,
       upOverReach: 7.54,
       machineWeight: 6500,
       machineWidth: 2.29,
-      machineLength: 6.35,
-      machineHeight: 2.06,
+      machineLength: 6.5,
+      machineHeight: 2.07,
+      wheelbase: 2.03,
+      groundClearance: 0.4,
+      tailswing: 0,
+      platformSize: "1.83 × 0.76m",
+      platformRotation: 170,
+      jibLength: 1.52,
+      jibArticulation: "+70° / -75°",
+      swing: "360° continuous",
+      engine: "Diesel 35.8kW (48hp)",
+      fuelTank: 64,
+      hydraulicCapacity: 91,
+      gradeability: 45,
+      driveSpeed: 7.7,
+      turningRadiusInside: 2.48,
+      turningRadiusOutside: 5.15,
+      tyres: "12×16.5 grip-lug foam-filled",
       power: "Diesel",
-      swl: 230,
+      swl: 227,
+      // liftChart pixel-read from Skyjack SJ46/51 AJ working envelope.
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 14.1 },
+        { reach: 2, height: 12.5 },
+        { reach: 4, height: 10 },
+        { reach: 6, height: 6.5 },
+        { reach: 7.54, height: 3.5 },
+        { reach: 7, height: 1 },
+        { reach: 5, height: -1 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -86560,6 +87092,63 @@ loadMatrixTyres: [
         "Up-and-over: 7.54m reach clearing ~6.8m. SKYRISER™ ensures vertical travel for working close to façades.",
       tags: ["SKYRISER™", "14.1m Platform", "7.54m Reach", "4WD", "Diesel"],
       filters: ["boom", "indoor", "rough"],
+    },
+    {
+      id: "skyjack-sj51aj",
+      brand: "Skyjack",
+      emoji: "💥",
+      name: "Skyjack SJ51AJ",
+      shortName: "Skyjack SJ51AJ",
+      boomType: "articulating",
+      platformHeight: 15.55,
+      workHeight: 17.55,
+      maxReach: 9.03,
+      upOverHeight: 7.45,
+      upOverReach: 9.03,
+      machineWeight: 7300,
+      machineWidth: 2.29,
+      machineLength: 7.25,
+      machineHeight: 2.07,
+      wheelbase: 2.03,
+      groundClearance: 0.4,
+      tailswing: 0,
+      platformSize: "1.83 × 0.76m",
+      platformRotation: 170,
+      jibLength: 1.52,
+      jibArticulation: "+70° / -75°",
+      swing: "360° continuous",
+      engine: "Diesel 35.8kW (48hp)",
+      fuelTank: 64,
+      hydraulicCapacity: 91,
+      gradeability: 45,
+      driveSpeed: 7.7,
+      turningRadiusInside: 2.48,
+      turningRadiusOutside: 5.15,
+      tyres: "12×16.5 grip-lug foam-filled",
+      power: "Diesel",
+      swl: 227,
+      // Brochure-confirmed: Skyjack SJ46/51 AJ spec sheet — 'Maximum # of
+      // Persons: 2'. 227kg single-capacity. Source: Skyjack SJ46/51 AJ
+      // tear sheet (EU/ENG 03/2015).
+      maxOccupancy: 2,
+      terrain: "indoor/outdoor rough",
+      // liftChart pixel-read from Skyjack SJ46/51 AJ working envelope.
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 15.55 },
+        { reach: 2.5, height: 14 },
+        { reach: 5, height: 11 },
+        { reach: 7, height: 7.5 },
+        { reach: 9.03, height: 4 },
+        { reach: 8.5, height: 1 },
+        { reach: 6, height: -1 },
+      ],
+      bestFor: "Construction sites, outdoor maintenance, up-and-over access",
+      note: "Skyjack SJ51AJ: 15.55m platform / 17.55m working height. 227kg, 2-person. 9.03m horizontal outreach, 7.45m up-and-over, zero tailswing. 1.83×0.76m platform, 170° rotator, 1.52m jib (+70/-75). 35.8kW (48hp) diesel, 64L fuel, 91L hydraulic. Axle-based 4WD, 360° continuous turret, drivable at full height, 45% gradeability. SKYRISER vertical rise, EASYDRIVE. Source: Skyjack SJ46/51 AJ tear sheet (EU/ENG 03/2015).",
+      upOverNote:
+        "Up-and-over: 9.03m reach clearing 7.45m. Zero tailswing for tight sites.",
+      tags: ["Articulating", "15.55m Platform", "9.03m Reach", "Zero Tailswing", "4WD", "Diesel"],
+      filters: ["boom", "indoor", "outdoor", "rough"],
     },
     {
       id: "skyjack-sj66aj",
@@ -86834,6 +87423,22 @@ loadMatrixTyres: [
         "4WD Rough",
         "Heavy Duty",
       ],
+      // Envelope digitised from official Genie Z-80/60 brochure. Spec: platH
+      // 23.77m, maxR 18.29m, up-and-over 8.83m, below-ground reach 4.83m.
+      // Source: Genie Z-80/60 product specifications.
+      liftChart: [
+        { reach: 0, height: 23.77 },
+        { reach: 4, height: 23 },
+        { reach: 8, height: 21.5 },
+        { reach: 12, height: 19 },
+        { reach: 15, height: 16 },
+        { reach: 17, height: 12 },
+        { reach: 18.29, height: 8 },
+        { reach: 17.5, height: 4 },
+        { reach: 16, height: 0 },
+        { reach: 12, height: -3 },
+        { reach: 6, height: -4.83 },
+      ],
       filters: ["boom", "rough"],
     },
     // ── GENIE TELESCOPIC BOOMS (complete range) ───────────────────────────
@@ -86874,10 +87479,21 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "40ft",
       ],
+      // Envelope digitised from official Genie S-40 brochure. Spec: platH
+      // 12.20m, maxR 9.65m, below-ground 0.97m. Telescopic stick — holds near-
+      // max reach across the lower zone, tapers as stick tilts to vertical.
+      // Source: Genie S-40 product specifications.
       liftChart: [
-        { reach: 0, height: 11.89 },
-        { reach: 5, height: 10 },
-        { reach: 10.41, height: 4 },
+        { reach: 0, height: 12.20 },
+        { reach: 2, height: 12 },
+        { reach: 4, height: 11.5 },
+        { reach: 6, height: 10.5 },
+        { reach: 8, height: 8.5 },
+        { reach: 9, height: 6 },
+        { reach: 9.65, height: 3 },
+        { reach: 9.5, height: 1 },
+        { reach: 8.5, height: 0 },
+        { reach: 5, height: -0.97 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -86918,10 +87534,20 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "45ft",
       ],
+      // Envelope digitised from official Genie S-45 brochure. Spec: platH
+      // 13.72m, maxR 11.18m, below-ground 1.5m. Telescopic with 5ft jib.
+      // Source: Genie S-45 product specifications.
       liftChart: [
         { reach: 0, height: 13.72 },
-        { reach: 6, height: 12 },
-        { reach: 12.19, height: 5 },
+        { reach: 3, height: 13.5 },
+        { reach: 5, height: 13 },
+        { reach: 7, height: 12 },
+        { reach: 9, height: 10 },
+        { reach: 10.5, height: 7 },
+        { reach: 11.18, height: 4 },
+        { reach: 11, height: 2 },
+        { reach: 10, height: 0 },
+        { reach: 6, height: -1.5 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -87022,10 +87648,21 @@ loadMatrixTyres: [
         "Lift Connect Telematics",
         "2026 Spec",
       ],
+      // Envelope digitised from official Genie S-40 brochure. Spec: platH
+      // 12.20m, maxR 9.65m, below-ground 0.97m. Telescopic stick — holds near-
+      // max reach across the lower zone, tapers as stick tilts to vertical.
+      // Source: Genie S-40 product specifications.
       liftChart: [
-        { reach: 0, height: 12.04 },
-        { reach: 5, height: 10 },
-        { reach: 9.47, height: 3 },
+        { reach: 0, height: 12.20 },
+        { reach: 2, height: 12 },
+        { reach: 4, height: 11.5 },
+        { reach: 6, height: 10.5 },
+        { reach: 8, height: 8.5 },
+        { reach: 9, height: 6 },
+        { reach: 9.65, height: 3 },
+        { reach: 9.5, height: 1 },
+        { reach: 8.5, height: 0 },
+        { reach: 5, height: -0.97 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -87123,10 +87760,21 @@ loadMatrixTyres: [
         "7765kg",
         "2026 Spec",
       ],
+      // Envelope digitised from official Genie S-40 brochure. Spec: platH
+      // 12.20m, maxR 9.65m, below-ground 0.97m. Telescopic stick — holds near-
+      // max reach across the lower zone, tapers as stick tilts to vertical.
+      // Source: Genie S-40 product specifications.
       liftChart: [
-        { reach: 0, height: 12.09 },
-        { reach: 5, height: 10 },
-        { reach: 9.47, height: 3 },
+        { reach: 0, height: 12.20 },
+        { reach: 2, height: 12 },
+        { reach: 4, height: 11.5 },
+        { reach: 6, height: 10.5 },
+        { reach: 8, height: 8.5 },
+        { reach: 9, height: 6 },
+        { reach: 9.65, height: 3 },
+        { reach: 9.5, height: 1 },
+        { reach: 8.5, height: 0 },
+        { reach: 5, height: -0.97 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough", "crawler"],
     },
@@ -87228,10 +87876,20 @@ loadMatrixTyres: [
         "7167kg",
         "2026 Spec",
       ],
+      // Envelope digitised from official Genie S-45 brochure. Spec: platH
+      // 13.72m, maxR 11.18m, below-ground 1.5m. Telescopic with 5ft jib.
+      // Source: Genie S-45 product specifications.
       liftChart: [
-        { reach: 0, height: 13.56 },
-        { reach: 6, height: 11 },
-        { reach: 11.02, height: 4 },
+        { reach: 0, height: 13.72 },
+        { reach: 3, height: 13.5 },
+        { reach: 5, height: 13 },
+        { reach: 7, height: 12 },
+        { reach: 9, height: 10 },
+        { reach: 10.5, height: 7 },
+        { reach: 11.18, height: 4 },
+        { reach: 11, height: 2 },
+        { reach: 10, height: 0 },
+        { reach: 6, height: -1.5 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -87333,10 +87991,20 @@ loadMatrixTyres: [
         "Steep Slopes",
         "2026 Spec",
       ],
+      // Envelope digitised from official Genie S-45 brochure. Spec: platH
+      // 13.72m, maxR 11.18m, below-ground 1.5m. Telescopic with 5ft jib.
+      // Source: Genie S-45 product specifications.
       liftChart: [
-        { reach: 0, height: 13.61 },
-        { reach: 6, height: 11 },
-        { reach: 11.02, height: 4 },
+        { reach: 0, height: 13.72 },
+        { reach: 3, height: 13.5 },
+        { reach: 5, height: 13 },
+        { reach: 7, height: 12 },
+        { reach: 9, height: 10 },
+        { reach: 10.5, height: 7 },
+        { reach: 11.18, height: 4 },
+        { reach: 11, height: 2 },
+        { reach: 10, height: 0 },
+        { reach: 6, height: -1.5 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough", "crawler"],
     },
@@ -87536,10 +88204,20 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "65ft",
       ],
+      // Envelope digitised from official Genie S-65 brochure (STM-65). Spec:
+      // platH 19.80m, maxR 17.10m, below-ground 2.72m.
+      // Source: Genie S-65 product specifications.
       liftChart: [
-        { reach: 0, height: 19.81 },
-        { reach: 8, height: 17 },
-        { reach: 16.46, height: 7 },
+        { reach: 0, height: 19.80 },
+        { reach: 4, height: 19.5 },
+        { reach: 7, height: 18.5 },
+        { reach: 10, height: 17 },
+        { reach: 13, height: 14 },
+        { reach: 15.5, height: 10 },
+        { reach: 17, height: 6 },
+        { reach: 17.10, height: 3 },
+        { reach: 16, height: 0 },
+        { reach: 8, height: -2.72 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -87645,10 +88323,21 @@ loadMatrixTyres: [
         "Positive Traction Drive",
         "2026 Spec",
       ],
+      // Envelope digitised from official Genie S-65 XC brochure. Spec: platH
+      // 19.81m, maxR 16.51m, below-ground 2.65m. Dual-load envelope: 300kg
+      // full envelope, 454kg restricted inner capacity zone.
+      // Source: Genie S-65 XC & S-65 TraX product specifications.
       liftChart: [
         { reach: 0, height: 19.81 },
-        { reach: 8, height: 17 },
-        { reach: 16.51, height: 7 },
+        { reach: 4, height: 19.5 },
+        { reach: 7, height: 18.5 },
+        { reach: 10, height: 17 },
+        { reach: 12.5, height: 14 },
+        { reach: 14.5, height: 10 },
+        { reach: 16, height: 6 },
+        { reach: 16.51, height: 3 },
+        { reach: 15.5, height: 0 },
+        { reach: 8, height: -2.65 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -87745,10 +88434,21 @@ loadMatrixTyres: [
         "Sensitive Surfaces",
         "2026 Spec",
       ],
+      // Envelope digitised from official Genie S-65 XC brochure. Spec: platH
+      // 19.81m, maxR 16.51m, below-ground 2.65m. Dual-load envelope: 300kg
+      // full envelope, 454kg restricted inner capacity zone.
+      // Source: Genie S-65 XC & S-65 TraX product specifications.
       liftChart: [
-        { reach: 0, height: 19.86 },
-        { reach: 8, height: 17 },
-        { reach: 16.51, height: 7 },
+        { reach: 0, height: 19.81 },
+        { reach: 4, height: 19.5 },
+        { reach: 7, height: 18.5 },
+        { reach: 10, height: 17 },
+        { reach: 12.5, height: 14 },
+        { reach: 14.5, height: 10 },
+        { reach: 16, height: 6 },
+        { reach: 16.51, height: 3 },
+        { reach: 15.5, height: 0 },
+        { reach: 8, height: -2.65 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough", "crawler"],
     },
@@ -88044,10 +88744,20 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "85ft",
       ],
+      // Envelope digitised from official Genie S-85 brochure (STM-85). Spec:
+      // platH 25.91m, maxR 23.32m, below-ground 2.90m.
+      // Source: Genie S-85 product specifications.
       liftChart: [
         { reach: 0, height: 25.91 },
-        { reach: 11, height: 23 },
-        { reach: 23.47, height: 10 },
+        { reach: 5, height: 25.5 },
+        { reach: 10, height: 24 },
+        { reach: 14, height: 22 },
+        { reach: 17, height: 18 },
+        { reach: 20, height: 13 },
+        { reach: 22, height: 8 },
+        { reach: 23.32, height: 4 },
+        { reach: 22, height: 0 },
+        { reach: 10, height: -2.90 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -88098,10 +88808,21 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "85ft",
       ],
+      // Envelope digitised from official Genie S-85 XC brochure. Spec: platH
+      // 25.91m, maxR 22.71m, below-ground 2.64m. Dual-load envelope: 300kg
+      // full envelope, 454kg restricted inner zone.
+      // Source: Genie S-85 XC product specifications.
       liftChart: [
         { reach: 0, height: 25.91 },
-        { reach: 11, height: 23 },
-        { reach: 23.47, height: 10 },
+        { reach: 5, height: 25.5 },
+        { reach: 10, height: 24 },
+        { reach: 14, height: 21.5 },
+        { reach: 17, height: 17.5 },
+        { reach: 19.5, height: 13 },
+        { reach: 21.5, height: 8 },
+        { reach: 22.71, height: 4 },
+        { reach: 21.5, height: 0 },
+        { reach: 10, height: -2.64 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -88152,10 +88873,21 @@ loadMatrixTyres: [
         "Zero Emissions",
         "454kg",
       ],
+      // Envelope digitised from official Genie S-85 XC brochure. Spec: platH
+      // 25.91m, maxR 22.71m, below-ground 2.64m. Dual-load envelope: 300kg
+      // full envelope, 454kg restricted inner zone.
+      // Source: Genie S-85 XC product specifications.
       liftChart: [
         { reach: 0, height: 25.91 },
-        { reach: 11, height: 23 },
-        { reach: 23.47, height: 10 },
+        { reach: 5, height: 25.5 },
+        { reach: 10, height: 24 },
+        { reach: 14, height: 21.5 },
+        { reach: 17, height: 17.5 },
+        { reach: 19.5, height: 13 },
+        { reach: 21.5, height: 8 },
+        { reach: 22.71, height: 4 },
+        { reach: 21.5, height: 0 },
+        { reach: 10, height: -2.64 },
       ],
       filters: ["boom", "telescopic", "outdoor", "electric"],
     },
@@ -88303,11 +89035,6 @@ loadMatrixTyres: [
         "Electric",
         "Indoor",
       ],
-      liftChart: [
-        { reach: 0, height: 9.14 },
-        { reach: 3, height: 7 },
-        { reach: 6.1, height: 3 },
-      ],
       filters: ["boom", "articulating", "indoor", "electric"],
     },
     {
@@ -88347,11 +89074,6 @@ loadMatrixTyres: [
         "Narrow 1.19m",
         "Electric",
       ],
-      liftChart: [
-        { reach: 0, height: 9.14 },
-        { reach: 3, height: 7 },
-        { reach: 6.1, height: 3 },
-      ],
       filters: ["boom", "articulating", "indoor", "electric"],
     },
     {
@@ -88390,10 +89112,19 @@ loadMatrixTyres: [
         "Narrow 1.22m",
         "Electric",
       ],
+      // Envelope digitised from official Genie Z-34/22 IC brochure (same boom
+      // geometry as electric variants). Spec: platH 10.54m, maxR 6.78m,
+      // up-and-over 4.6m. Source: Genie Z-34/22 IC product specifications.
       liftChart: [
-        { reach: 0, height: 10.36 },
-        { reach: 3.5, height: 8 },
-        { reach: 6.71, height: 4 },
+        { reach: 0, height: 10.54 },
+        { reach: 2, height: 9.5 },
+        { reach: 4, height: 8.5 },
+        { reach: 5.5, height: 7 },
+        { reach: 6.4, height: 5.5 },
+        { reach: 6.78, height: 4 },
+        { reach: 6.6, height: 2.5 },
+        { reach: 6, height: 1 },
+        { reach: 5, height: 0 },
       ],
       filters: ["boom", "articulating", "indoor", "electric"],
     },
@@ -88433,10 +89164,19 @@ loadMatrixTyres: [
         "Narrow 1.22m",
         "DC Electric",
       ],
+      // Envelope digitised from official Genie Z-34/22 IC brochure (same boom
+      // geometry as electric variants). Spec: platH 10.54m, maxR 6.78m,
+      // up-and-over 4.6m. Source: Genie Z-34/22 IC product specifications.
       liftChart: [
-        { reach: 0, height: 10.36 },
-        { reach: 3.5, height: 8 },
-        { reach: 6.71, height: 4 },
+        { reach: 0, height: 10.54 },
+        { reach: 2, height: 9.5 },
+        { reach: 4, height: 8.5 },
+        { reach: 5.5, height: 7 },
+        { reach: 6.4, height: 5.5 },
+        { reach: 6.78, height: 4 },
+        { reach: 6.6, height: 2.5 },
+        { reach: 6, height: 1 },
+        { reach: 5, height: 0 },
       ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
@@ -88476,11 +89216,6 @@ loadMatrixTyres: [
         "Narrow 1.22m",
         "Electric",
       ],
-      liftChart: [
-        { reach: 0, height: 12.19 },
-        { reach: 4, height: 9.5 },
-        { reach: 7.04, height: 4 },
-      ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
     {
@@ -88518,11 +89253,6 @@ loadMatrixTyres: [
         "Rotating Jib",
         "Narrow 1.22m",
         "Electric",
-      ],
-      liftChart: [
-        { reach: 0, height: 12.19 },
-        { reach: 4, height: 9.5 },
-        { reach: 7.04, height: 4 },
       ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
@@ -88566,11 +89296,6 @@ loadMatrixTyres: [
         "DC Electric",
         "7.62m Reach",
         "Jib",
-      ],
-      liftChart: [
-        { reach: 0, height: 13.9 },
-        { reach: 4, height: 11 },
-        { reach: 7.62, height: 4 },
       ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
@@ -88620,10 +89345,21 @@ loadMatrixTyres: [
         "340kg Restricted",
         "Diesel/LPG",
       ],
+      // Envelope digitised from official Genie Z-45 XC brochure. Spec: platH
+      // 13.86m, maxR 7.55m, up-and-over 7.44m. Dual-load: 300kg unrestricted
+      // (full envelope shown), 454kg restricted to inner capacity zone.
+      // Source: Genie Z-45 XC product specifications.
       liftChart: [
-        { reach: 0, height: 13.9 },
-        { reach: 4, height: 11 },
-        { reach: 7.62, height: 4 },
+        { reach: 0, height: 13.86 },
+        { reach: 2.5, height: 13 },
+        { reach: 4.5, height: 12 },
+        { reach: 6, height: 10 },
+        { reach: 7, height: 8.5 },
+        { reach: 7.55, height: 7 },
+        { reach: 7.5, height: 5 },
+        { reach: 7, height: 3 },
+        { reach: 6, height: 1 },
+        { reach: 4.5, height: 0 },
       ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
@@ -88662,11 +89398,6 @@ loadMatrixTyres: [
         "DC Electric",
         "7.62m Reach",
         "Zero Emissions",
-      ],
-      liftChart: [
-        { reach: 0, height: 13.26 },
-        { reach: 4, height: 10 },
-        { reach: 7.62, height: 4 },
       ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
@@ -88710,11 +89441,6 @@ loadMatrixTyres: [
         "Hybrid FE",
         "Indoor/Outdoor",
       ],
-      liftChart: [
-        { reach: 0, height: 13.26 },
-        { reach: 4, height: 10 },
-        { reach: 7.62, height: 4 },
-      ],
       filters: ["boom", "articulating", "indoor", "outdoor"],
     },
     {
@@ -88756,11 +89482,6 @@ loadMatrixTyres: [
         "DC Electric",
         "11m Reach",
         "Zero Emissions",
-      ],
-      liftChart: [
-        { reach: 0, height: 18.4 },
-        { reach: 6, height: 14 },
-        { reach: 11, height: 6 },
       ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
@@ -88806,10 +89527,23 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "Telescoping Jib",
       ],
+      // Envelope digitised from official Genie Z-62/40 "Range of motion"
+      // brochure chart. Points trace the outer boundary of the work envelope
+      // (worst-case — single point per elevation, no jib-articulation upside).
+      // Negative heights = down-reach below ground level (slope work).
+      // Source: Genie Z-62/40 Articulating Boom Lift brochure, range-of-motion diagram.
       liftChart: [
         { reach: 0, height: 18.88 },
-        { reach: 6, height: 15 },
-        { reach: 12.19, height: 7 },
+        { reach: 3, height: 18 },
+        { reach: 6, height: 17 },
+        { reach: 9.5, height: 15 },
+        { reach: 11, height: 12 },
+        { reach: 12, height: 9 },
+        { reach: 12.19, height: 6 },
+        { reach: 11.5, height: 3 },
+        { reach: 10, height: 0 },
+        { reach: 8, height: -2 },
+        { reach: 5, height: -3 },
       ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
@@ -88859,10 +89593,24 @@ loadMatrixTyres: [
         "Telescoping Jib",
         "Super MEWP",
       ],
+      // Envelope digitised from official Genie ZX-135/70 brochure (riser
+      // retracted configuration — standard hire setup). Spec: platH 41.15m,
+      // maxR 21.26m, up-and-over 9.91m, below-ground 5.87m. With riser
+      // extended: reach 18.03m / up-over 23.01m available.
+      // Source: Genie ZX-135/70 product specifications.
       liftChart: [
         { reach: 0, height: 41.15 },
-        { reach: 10, height: 35 },
-        { reach: 21.34, height: 18 },
+        { reach: 5, height: 40 },
+        { reach: 10, height: 37 },
+        { reach: 14, height: 33 },
+        { reach: 17, height: 28 },
+        { reach: 19, height: 22 },
+        { reach: 20.5, height: 15 },
+        { reach: 21.26, height: 9.91 },
+        { reach: 20, height: 5 },
+        { reach: 17, height: 0 },
+        { reach: 10, height: -3 },
+        { reach: 4, height: -5.87 },
       ],
       filters: [
         "boom",
@@ -88909,11 +89657,6 @@ loadMatrixTyres: [
         "No Truck Licence",
         "Self-Propelled",
         "DC Electric",
-      ],
-      liftChart: [
-        { reach: 0, height: 10.36 },
-        { reach: 3, height: 8 },
-        { reach: 6.1, height: 3 },
       ],
       filters: ["boom", "articulating", "outdoor"],
     },
@@ -88970,15 +89713,44 @@ loadMatrixTyres: [
       boomType: "articulating",
       platformHeight: 10.31,
       workHeight: 12.31,
-      maxReach: 6.07,
+      maxReach: 6.06,
       upOverHeight: 5.17,
-      upOverReach: 6.07,
-      machineWeight: 4399,
-      machineWidth: 1.83,
-      machineLength: 5.54,
-      machineHeight: 2.03,
+      upOverReach: 6.06,
+      machineWeight: 4400,
+      machineWidth: 1.93,
+      machineLength: 5.52,
+      machineHeight: 2.0,
+      wheelbase: 1.87,
+      groundClearance: 0.237,
+      tailswing: 0.05,
+      engine: "Diesel Kubota D1105 18.5kW (24.8hp); dual-fuel PSI/GM L4-EFI 21.4kW (28.7hp) optional",
+      jibLength: 1.22,
+      jibArticulation: "144° (+79 / -60)",
+      swing: "355° non-continuous",
+      platformSize: "0.76 × 1.52m (30×60in) side entry",
+      fuelTank: 49.21,
+      hydraulicCapacity: 77.9,
+      gradeability: 45,
+      driveSpeed: 4.98,
+      turningRadiusInside: 1.52,
+      turningRadiusOutside: 3.96,
+      groundBearingPressure: 4.1,
+      tyres: "265/50D20 lug tread (foam-filled / non-marking optional)",
       power: "Diesel",
       swl: 227,
+      // liftChart pixel-read from JLG 340AJ reach diagram (Part 3131121).
+      // Articulating boom: max height at min reach (apex), max horizontal
+      // outreach achieved low (~up-and-over band). { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 10.31 },
+        { reach: 2.0, height: 9.5 },
+        { reach: 4.0, height: 8.0 },
+        { reach: 5.5, height: 6.0 },
+        { reach: 6.06, height: 4.0 },
+        { reach: 5.8, height: 2.0 },
+        { reach: 5.0, height: 0 },
+        { reach: 3.5, height: -1.2 },
+      ],
       // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
       // platform standard at 227-272kg unrestricted single-capacity SWL.
       // Source: JLG official spec sheets and LECTURA datasheets.
@@ -88990,9 +89762,9 @@ loadMatrixTyres: [
       },
       bestFor:
         "Compact outdoor articulating, construction sites, painting, steel erection",
-      note: "34ft diesel articulating. 10.3m platform, 6.1m outreach. 45% gradeability, pneumatic tyres. Steel hoods. Tier 4 engine.",
+      note: "JLG 340AJ — 34ft (10.31m platform / 12.31m working height) diesel articulating boom. 6.06m horizontal outreach, 5.17m up-and-over. 227kg (500lb) single platform rating across the whole envelope, 0.76×1.52m side-entry platform, 180° hydraulic rotator, 1.22m articulating jib (144° articulation, +79/-60). 355° non-continuous swing, near-zero tailswing. Machine 4,400kg, 2.00m high × 1.93m wide × 5.52m stowed, 1.87m wheelbase. Diesel Kubota D1105 18.5kW (dual-fuel PSI/GM 21.4kW option). 4WD oscillating axle, hydrostatic drive, 45% gradeability, 4.98km/h. Source: JLG 340AJ brochure (Part 3131121).",
       upOverNote:
-        "Up-and-over: 6.07m reach clearing 5.17m. Good for construction obstacles.",
+        "Up-and-over: clears 5.17m at 6.06m reach. Good for single-storey construction obstacles.",
       tags: [
         "Articulating",
         "Diesel",
@@ -89016,12 +89788,42 @@ loadMatrixTyres: [
       maxReach: 7.62,
       upOverHeight: 7.3,
       upOverReach: 7.62,
-      machineWeight: 5670,
-      machineWidth: 2.29,
-      machineLength: 6.91,
-      machineHeight: 2.18,
+      machineWeight: 6418,
+      machineWidth: 2.35,
+      machineLength: 6.57,
+      machineHeight: 2.27,
+      wheelbase: 2.36,
+      groundClearance: 0.417,
+      tailswing: 0.0,
+      engine: "Diesel Deutz D 2.3 L3 36.5kW (49hp); dual-fuel Kubota WG2503 45.5kW (61hp) optional",
+      jibLength: 1.24,
+      jibArticulation: "145° (+76 / -69)",
+      swing: "355° non-continuous",
+      platformSize: "0.76 × 1.83m (30×72in) side entry",
+      fuelTank: 60.6,
+      hydraulicCapacity: 143.8,
+      gradeability: 45,
+      driveSpeed: 6.84,
+      turningRadiusInside: 2.06,
+      turningRadiusOutside: 4.78,
+      groundBearingPressure: 4.57,
+      tyres: "33/1550 × 16.5 foam-filled lug tread (non-marking optional)",
       power: "Diesel",
-      swl: 227,
+      swl: 250,
+      // liftChart pixel-read from JLG 450 Series reach diagram (450AJ, Part 3131117).
+      // { reach (m), height (m) } — apex at min reach, max outreach low.
+      liftChart: [
+        { reach: 0, height: 13.72 },
+        { reach: 2.5, height: 12.8 },
+        { reach: 4.5, height: 11.5 },
+        { reach: 6.0, height: 9.5 },
+        { reach: 7.0, height: 8.0 },
+        { reach: 7.62, height: 6.5 },
+        { reach: 7.5, height: 4.5 },
+        { reach: 7.0, height: 2.5 },
+        { reach: 5.5, height: 0.5 },
+        { reach: 4.5, height: 0 },
+      ],
       // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
       // platform standard at 227-272kg unrestricted single-capacity SWL.
       // Source: JLG official spec sheets and LECTURA datasheets.
@@ -89033,7 +89835,7 @@ loadMatrixTyres: [
       },
       bestFor:
         "Mid-rise construction, industrial maintenance, bridge inspection work",
-      note: "45ft diesel articulating. 13.7m platform, 7.6m outreach, 7.3m up-and-over. Industry workhorse. ClearSky telematics.",
+      note: "JLG 450AJ — 45ft (13.72m platform / 15.72m working height) diesel articulating boom. 7.62m horizontal outreach, 7.30m up-and-over. 250kg (550lb) single platform rating across the whole envelope, 0.76×1.83m side-entry platform, 180° hydraulic rotator, 1.24m articulating jib (145° articulation, +76/-69). 355° non-continuous swing, zero tailswing. Machine 6,418kg, 2.27m high × 2.35m wide × 6.57m stowed, 2.36m wheelbase. Diesel Deutz D2.3L3 36.5kW (dual-fuel Kubota WG2503 45.5kW option). 4WD hydrostatic, 45% gradeability, 6.84km/h, load sensing, SkyGuard SkyLine. Source: JLG 450 Series brochure (Part 3131117).",
       upOverNote:
         "Up-and-over: 7.62m reach clearing 7.3m. Clears most single-storey obstacles on construction sites.",
       tags: ["Articulating", "Diesel", "45ft", "14m", "Rough terrain", "JLG"],
@@ -89046,17 +89848,46 @@ loadMatrixTyres: [
       name: "JLG 600AJ Articulating",
       shortName: "JLG 600AJ",
       boomType: "articulating",
-      platformHeight: 18.47,
-      workHeight: 20.47,
-      maxReach: 12.07,
-      upOverHeight: 8.1,
-      upOverReach: 12.07,
+      platformHeight: 18.46,
+      workHeight: 20.46,
+      maxReach: 12.1,
+      upOverHeight: 8.09,
+      upOverReach: 12.1,
       machineWeight: 10660,
       machineWidth: 2.49,
       machineLength: 8.82,
       machineHeight: 2.57,
+      wheelbase: 2.48,
+      groundClearance: 0.3,
+      tailswing: 0.0,
+      engine: "Diesel Deutz D2011L04 36.4kW",
+      jibLength: 1.83,
+      jibArticulation: "130° (+70 / -60)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 1.83m low-mount side entry (0.91 × 2.44m optional)",
+      fuelTank: 114,
+      hydraulicCapacity: 151,
+      gradeability: 45,
+      driveSpeed: 6.8,
+      groundBearingPressure: 5.3,
+      tyres: "355/55 D625 foam-filled",
       power: "Diesel",
-      swl: 227,
+      swl: 230,
+      // liftChart pixel-read from JLG 600AJ reach diagram (EMEA sheet — diagram
+      // annotates 18.46m platform / 12.10m outreach / 8.09m up-and-over).
+      // { reach (m), height (m) } — apex at min reach, max outreach mid-low.
+      liftChart: [
+        { reach: 0, height: 18.46 },
+        { reach: 4.0, height: 17.0 },
+        { reach: 7.0, height: 15.0 },
+        { reach: 10.0, height: 11.5 },
+        { reach: 11.5, height: 9.0 },
+        { reach: 12.1, height: 6.5 },
+        { reach: 11.8, height: 4.0 },
+        { reach: 11.0, height: 1.5 },
+        { reach: 9.0, height: -1.0 },
+        { reach: 5.0, height: -2.0 },
+      ],
       // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
       // platform standard at 227-272kg unrestricted single-capacity SWL.
       // Source: JLG official spec sheets and LECTURA datasheets.
@@ -89068,9 +89899,9 @@ loadMatrixTyres: [
       },
       bestFor:
         "High-rise facades, stadium work, industrial plants, bridge maintenance",
-      note: "60ft diesel articulating. Best reach in class. 18.5m platform, 12.07m outreach. Articulating jib standard. 10,660kg.",
+      note: "JLG 600AJ — 60ft (18.46m platform / 20.46m working height) diesel articulating boom. 12.10m horizontal outreach, 8.09m up-and-over. 230kg unrestricted platform rating across the whole envelope, 0.91×1.83m low-mount side-entry platform (0.91×2.44m optional), 180° powered rotator, 1.83m articulating jib (130° articulation, +70/-60). 360° continuous swing, zero tailswing. Machine 10,660kg, 2.57m high × 2.49m wide × 8.82m stowed, 2.48m wheelbase. Diesel Deutz D2011L04 36.4kW, 114L tank, 151L hydraulic. 4WD hydrostatic, 45% gradeability, 6.8km/h, oscillating axle, load sensing, SkyGuard. Source: JLG 600AJ EMEA brochure.",
       upOverNote:
-        "Up-and-over: 12.07m reach clearing 8.1m. Articulating jib for deep placement into upper-floor openings.",
+        "Up-and-over: clears 8.09m at full 12.10m reach. Articulating jib for deep placement into upper-floor openings.",
       tags: ["Articulating", "Diesel", "60ft", "18m", "Large", "JLG"],
       filters: ["boom", "outdoor", "rough", "diesel", "articulating", "high"],
     },
@@ -89084,14 +89915,46 @@ loadMatrixTyres: [
       platformHeight: 24.38,
       workHeight: 26.38,
       maxReach: 15.8,
-      upOverHeight: 12.2,
+      upOverHeight: 9.78,
       upOverReach: 15.8,
-      machineWeight: 15558,
-      machineWidth: 2.49,
-      machineLength: 10.5,
-      machineHeight: 2.9,
+      machineWeight: 16450,
+      machineWidth: 2.48,
+      machineLength: 11.13,
+      machineHeight: 3.0,
+      wheelbase: 3.05,
+      groundClearance: 0.28,
+      tailswing: 0.76,
+      engine: "Diesel Deutz D2011L04 (36.4kW engine family)",
+      jibLength: 1.83,
+      jibArticulation: "130° (+70 / -60)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m (0.91 × 1.83m optional)",
+      fuelTank: 147.6,
+      fuelConsumption: 3.33,
+      hydraulicCapacity: 151.4,
+      gradeability: 45,
+      driveSpeed: 4.8,
+      turningRadiusInside: 1.83,
+      turningRadiusOutside: 3.53,
+      tyres: "18-625 foam-filled",
       power: "Diesel",
-      swl: 227,
+      swl: 230,
+      // liftChart pixel-read from JLG 800AJ reach diagram (AU sheet R1224).
+      // Apex 24.38m near vertical; max outreach 15.8m at ~10m height
+      // (≈ up-and-over band). { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 24.38 },
+        { reach: 4.0, height: 23.5 },
+        { reach: 8.0, height: 21.0 },
+        { reach: 11.0, height: 17.5 },
+        { reach: 13.5, height: 14.0 },
+        { reach: 15.0, height: 11.0 },
+        { reach: 15.8, height: 8.0 },
+        { reach: 15.3, height: 4.0 },
+        { reach: 14.0, height: 0 },
+        { reach: 11.0, height: -3.0 },
+        { reach: 6.0, height: -4.5 },
+      ],
       // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
       // platform standard at 227-272kg unrestricted single-capacity SWL.
       // Source: JLG official spec sheets and LECTURA datasheets.
@@ -89103,9 +89966,9 @@ loadMatrixTyres: [
       },
       bestFor:
         "High-rise, large industrial plants, shipyards, multi-storey construction",
-      note: "80ft diesel articulating. 24.4m platform, 15.8m outreach, 12.2m up-and-over. 4WD. 15,558kg.",
+      note: "JLG 800AJ — 80ft (24.38m platform / 26.38m working height) diesel articulating boom. 15.80m horizontal outreach, 9.78m up-and-over. 230kg platform rating across the whole envelope, 0.91×2.44m platform (0.91×1.83m optional), 180° hydraulic rotator, 1.83m articulating jib (130° articulation, +70/-60). 360° continuous swing, 0.76m tailswing. Machine 16,450kg, 3.00m high × 2.48m wide × 11.13m stowed, 3.05m wheelbase. Diesel Deutz D2011L04, 147.6L tank (3.33L/hr), 151.4L hydraulic. 4WD & 4WS, four-wheel hydrostatic drive, 45% gradeability, 4.8km/h, oscillating axle. Source: JLG 800AJ AU brochure (R1224).",
       upOverNote:
-        "Up-and-over: 15.8m reach clearing 12.2m. Reaches over 4-storey obstacles with full horizontal outreach.",
+        "Up-and-over: clears 9.78m at full 15.80m horizontal reach.",
       tags: ["Articulating", "Diesel", "80ft", "24m", "Large", "JLG"],
       filters: [
         "boom",
@@ -89124,17 +89987,47 @@ loadMatrixTyres: [
       name: "JLG 460SJ Telescopic",
       shortName: "JLG 460SJ",
       boomType: "telescopic",
-      platformHeight: 14.02,
-      workHeight: 16.02,
-      maxReach: 11.89,
+      platformHeight: 14.05,
+      workHeight: 16.05,
+      maxReach: 12.0,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 7193,
-      machineWidth: 2.29,
-      machineLength: 7.04,
-      machineHeight: 2.18,
+      machineWeight: 7530,
+      machineWidth: 2.31,
+      machineLength: 7.6,
+      machineHeight: 2.47,
+      wheelbase: 2.37,
+      groundClearance: 0.31,
+      tailswing: 0.86,
+      engine: "Diesel Deutz D2.9L4 Tier 4 Final 36.4kW (49hp); dual-fuel Kubota WG2503 45.5kW (61hp) optional",
+      jibLength: 1.83,
+      jibArticulation: "130° (+70 / -60)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 83.3,
+      hydraulicCapacity: 136.27,
+      gradeability: 45,
+      driveSpeed: 6.8,
+      turningRadiusInside: 2.0,
+      turningRadiusOutside: 4.8,
+      groundBearingPressure: 4.76,
+      tyres: "12×16.5 foam-filled (non-marking / 14×17.5 / turf optional)",
       power: "Diesel",
       swl: 272,
+      // liftChart pixel-read from JLG 460SJ reach diagram (Part 3131046).
+      // Telescopic stick boom: apex at min reach, max outreach mid-low, slight
+      // jib articulation gives small below-grade reach. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 14.05 },
+        { reach: 4.0, height: 13.0 },
+        { reach: 7.0, height: 11.5 },
+        { reach: 10.0, height: 9.0 },
+        { reach: 11.5, height: 6.5 },
+        { reach: 12.0, height: 4.0 },
+        { reach: 11.5, height: 1.5 },
+        { reach: 10.0, height: -0.5 },
+        { reach: 7.0, height: -1.0 },
+      ],
       // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
       // platform standard at 227-272kg unrestricted single-capacity SWL.
       // Source: JLG official spec sheets and LECTURA datasheets.
@@ -89146,7 +90039,7 @@ loadMatrixTyres: [
       },
       bestFor:
         "Straight-up outdoor access at 14m, construction sites, powerlines, maintenance",
-      note: "46ft telescopic. 14m platform, 11.9m outreach. 600lb/272kg unrestricted. New hood design for easier service.",
+      note: "JLG 460SJ — 46ft (14.05m platform / 16.05m working) telescopic boom. 12.0m horizontal outreach, 272kg (600lb) single unrestricted platform rating, 0.91×2.44m platform, 180° hydraulic rotator, 1.83m articulating jib (130°, +70/-60). 360° continuous swing, 0.86m tailswing. Machine 7,530kg, 2.47m high × 2.31m wide × 7.6m stowed, 2.37m wheelbase. Diesel Deutz D2.9L4 Tier 4 Final 36.4kW (dual-fuel Kubota WG2503 45.5kW option), 83.3L tank, 136.27L hydraulic. 4WD hydrostatic, 45% gradeability, 6.8km/h, oscillating axle, SkyGuard SkyLine. Source: JLG 460SJ brochure (Part 3131046).",
       tags: ["Telescopic", "Diesel", "46ft", "14m", "JLG"],
       filters: ["boom", "outdoor", "rough", "diesel", "telescopic"],
     },
@@ -89218,6 +90111,16 @@ loadMatrixTyres: [
       auxiliaryPower: "12V DC",
       hydraulicTank: 65,
       swl: 250,
+      // liftChart pixel-read from Sinoboom working-range diagram. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 10.39 },
+        { reach: 2, height: 9.5 },
+        { reach: 3.5, height: 7.5 },
+        { reach: 5, height: 5.5 },
+        { reach: 5.75, height: 3.5 },
+        { reach: 5.5, height: 1.5 },
+        { reach: 4, height: 0 },
+      ],
       maxOccupancy: 2,
       driveSpeedLowered: 5.5,
       driveSpeedRaised: 1.1,
@@ -89482,6 +90385,17 @@ loadMatrixTyres: [
       fuelTank: 55,
       hydraulicTank: 90,
       swl: 250,
+      // liftChart pixel-read from Sinoboom working-range diagram. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 14.7 },
+        { reach: 2, height: 13.5 },
+        { reach: 4, height: 11.5 },
+        { reach: 6, height: 9 },
+        { reach: 7.5, height: 6 },
+        { reach: 8.5, height: 3.5 },
+        { reach: 8, height: 1 },
+        { reach: 6, height: 0 },
+      ],
       maxOccupancy: 2,
       driveSpeedLowered: 5.0,
       driveSpeedLowered2WD: 7.0,
@@ -89689,6 +90603,17 @@ loadMatrixTyres: [
       fuelTank: 110,
       hydraulicTank: 120,
       swl: 250,
+      // liftChart pixel-read from Sinoboom working-range diagram. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 18.3 },
+        { reach: 3, height: 17 },
+        { reach: 6, height: 14 },
+        { reach: 9, height: 10 },
+        { reach: 11.5, height: 6 },
+        { reach: 12.2, height: 3 },
+        { reach: 11, height: 0.5 },
+        { reach: 8, height: -2 },
+      ],
       maxOccupancy: 2,
       driveSpeedLowered: 5.0,
       driveSpeedRaised: 1.1,
@@ -89924,6 +90849,17 @@ loadMatrixTyres: [
       fuelTank: 140,
       hydraulicTank: 180,
       swl: 230,
+      // liftChart pixel-read from Sinoboom working-range diagram. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 24.6 },
+        { reach: 4, height: 23 },
+        { reach: 8, height: 19.5 },
+        { reach: 12, height: 14.5 },
+        { reach: 15, height: 9 },
+        { reach: 16.1, height: 5 },
+        { reach: 15, height: 1.5 },
+        { reach: 11, height: -1 },
+      ],
       maxOccupancy: 2,
       driveSpeedLowered: 4.4,
       driveSpeedRaised: 1.1,
@@ -90021,6 +90957,34 @@ loadMatrixTyres: [
       fuelTank: 150,
       hydraulicTank: 180,
       swl: 230,
+      capacity: 340,
+      capacityUnrestricted: 230,
+      xcBasket: {
+        swlRestricted: 340,
+        swlUnrestricted: 230,
+        swl: 340,
+        isBuiltIn: true,
+        note: "AB26J Plus ships dual-rated: 230kg (507lb) unrestricted to 19.1m reach / 340kg (749lb) restricted to 17.0m reach. 4WD×4WS, 360° continuous, AS 1418.10.",
+      },
+      // liftChart pixel-read from Sinoboom working-range diagram. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 25.65 },
+        { reach: 4, height: 24 },
+        { reach: 8, height: 21 },
+        { reach: 12, height: 16.5 },
+        { reach: 16, height: 11 },
+        { reach: 19.1, height: 6 },
+        { reach: 18, height: 1 },
+        { reach: 14, height: -3 },
+        { reach: 9, height: -6 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 25.65 },
+        { reach: 6, height: 19 },
+        { reach: 11, height: 12 },
+        { reach: 15, height: 6 },
+        { reach: 17, height: 1 },
+      ],
       swlRestricted: 340,
       maxOccupancy: 2,
       driveSpeedLowered: 4.8,
@@ -90114,6 +91078,36 @@ loadMatrixTyres: [
       fuelTank: 200,
       hydraulicTank: 410,
       swl: 275,
+      capacity: 455,
+      capacityUnrestricted: 275,
+      xcBasket: {
+        swlRestricted: 455,
+        swlUnrestricted: 275,
+        swl: 455,
+        isBuiltIn: true,
+        note: "AB46RJ riser-jib boom: 275kg (606lb) unrestricted to 25.5m reach / 455kg (1001lb) restricted (inner zone). 150° jib rotation, deep below-grade reach, 4WD×4WS.",
+      },
+      belowGroundReach: 12.0,
+      // liftChart pixel-read from Sinoboom working-range diagram. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 46.6 },
+        { reach: 6, height: 44 },
+        { reach: 12, height: 39 },
+        { reach: 18, height: 31 },
+        { reach: 23, height: 22 },
+        { reach: 25.5, height: 13 },
+        { reach: 24, height: 4 },
+        { reach: 20, height: -4 },
+        { reach: 14, height: -10 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 46.6 },
+        { reach: 8, height: 37 },
+        { reach: 14, height: 27 },
+        { reach: 19, height: 16 },
+        { reach: 21, height: 6 },
+        { reach: 20, height: -2 },
+      ],
       swlRestricted: 455,
       maxOccupancy: 2,
       driveSpeedLowered: 4.5,
@@ -90210,6 +91204,33 @@ loadMatrixTyres: [
       fuelTank: 140,
       hydraulicTank: 180,
       swl: 250,
+      capacity: 454,
+      capacityUnrestricted: 250,
+      xcBasket: {
+        swlRestricted: 454,
+        swlUnrestricted: 250,
+        swl: 454,
+        isBuiltIn: true,
+        note: "TB14J Plus tri-rated: 250kg (551lb) unrestricted to 10.9m / 340kg (749lb) restricted to 10.0m / 454kg (1000lb) restricted to 9.1m. AS 1418.10.",
+      },
+      // liftChart pixel-read from Sinoboom working-range diagram. Outer = unrestricted; inner = top restricted zone. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 14.1 },
+        { reach: 3, height: 12.5 },
+        { reach: 5.5, height: 10 },
+        { reach: 8, height: 6.5 },
+        { reach: 10, height: 3.5 },
+        { reach: 10.9, height: 1 },
+        { reach: 10, height: -1.5 },
+        { reach: 7, height: -3 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 14.1 },
+        { reach: 4, height: 10 },
+        { reach: 7, height: 6 },
+        { reach: 9.1, height: 2 },
+        { reach: 8.5, height: -1 },
+      ],
       swlRestricted: 340,
       swlMaxRestricted: 454,
       maxOccupancy: 3,
@@ -90299,6 +91320,33 @@ loadMatrixTyres: [
       fuelTank: 150,
       hydraulicTank: 180,
       swl: 250,
+      capacity: 454,
+      capacityUnrestricted: 250,
+      xcBasket: {
+        swlRestricted: 454,
+        swlUnrestricted: 250,
+        swl: 454,
+        isBuiltIn: true,
+        note: "TB20J Plus tri-rated: 250kg unrestricted to 17.2m / 300kg restricted to 16.1m / 454kg restricted to 14.6m. AS 1418.10.",
+      },
+      // liftChart pixel-read from Sinoboom working-range diagram. Outer = unrestricted; inner = top restricted zone. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 20 },
+        { reach: 4, height: 18.5 },
+        { reach: 8, height: 15 },
+        { reach: 12, height: 10.5 },
+        { reach: 15, height: 6 },
+        { reach: 17.2, height: 2.5 },
+        { reach: 16, height: -0.5 },
+        { reach: 12, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 20 },
+        { reach: 5, height: 14.5 },
+        { reach: 9, height: 9 },
+        { reach: 12, height: 4 },
+        { reach: 14.6, height: 0.5 },
+      ],
       swlRestricted: 300,
       swlMaxRestricted: 454,
       maxOccupancy: 3,
@@ -90468,6 +91516,33 @@ loadMatrixTyres: [
       fuelTank: 140,
       hydraulicTank: 180,
       swl: 300,
+      capacity: 454,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 454,
+        swlUnrestricted: 300,
+        swl: 454,
+        isBuiltIn: true,
+        note: "TB28J Plus dual-rated: 300kg unrestricted to 19.9m / 454kg restricted to 18.0m.",
+      },
+      // liftChart pixel-read from Sinoboom working-range diagram. Outer = unrestricted; inner = top restricted zone. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 27.6 },
+        { reach: 5, height: 26 },
+        { reach: 9, height: 22 },
+        { reach: 13, height: 16.5 },
+        { reach: 17, height: 10 },
+        { reach: 19.9, height: 5 },
+        { reach: 18.5, height: 1 },
+        { reach: 14, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 27.6 },
+        { reach: 6, height: 21 },
+        { reach: 11, height: 14 },
+        { reach: 15, height: 7 },
+        { reach: 18, height: 2 },
+      ],
       swlRestricted: 454,
       maxOccupancy: 3,
       driveSpeedLowered: 4.8,
@@ -90554,6 +91629,33 @@ loadMatrixTyres: [
       fuelTank: 140,
       hydraulicTank: 180,
       swl: 300,
+      capacity: 454,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 454,
+        swlUnrestricted: 300,
+        swl: 454,
+        isBuiltIn: true,
+        note: "TB32JN Plus dual-rated: 300kg unrestricted to 20.0m / 454kg restricted to 17.9m.",
+      },
+      // liftChart pixel-read from Sinoboom working-range diagram. Outer = unrestricted; inner = top restricted zone. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 32.3 },
+        { reach: 5, height: 30.5 },
+        { reach: 9, height: 27 },
+        { reach: 13, height: 21 },
+        { reach: 17, height: 14 },
+        { reach: 20, height: 7 },
+        { reach: 19, height: 2 },
+        { reach: 15, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 32.3 },
+        { reach: 6, height: 25 },
+        { reach: 11, height: 17 },
+        { reach: 15, height: 9 },
+        { reach: 17.9, height: 3 },
+      ],
       swlRestricted: 454,
       maxOccupancy: 3,
       driveSpeedLowered: 4.8,
@@ -90645,6 +91747,33 @@ loadMatrixTyres: [
       fuelTank: 200,
       hydraulicTank: 280,
       swl: 250,
+      capacity: 480,
+      capacityUnrestricted: 250,
+      xcBasket: {
+        swlRestricted: 480,
+        swlUnrestricted: 250,
+        swl: 480,
+        isBuiltIn: true,
+        note: "TB42RJ Plus tri-rated: 250kg unrestricted to 24.1m / 340kg restricted to 23.0m / 480kg restricted to 22.1m. Riser-jib, 235° jib rotation. AS 1418.10.",
+      },
+      // liftChart pixel-read from Sinoboom working-range diagram. Outer = unrestricted; inner = top restricted zone. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 41.6 },
+        { reach: 6, height: 39.5 },
+        { reach: 11, height: 35 },
+        { reach: 16, height: 28 },
+        { reach: 21, height: 19 },
+        { reach: 24.1, height: 10 },
+        { reach: 23, height: 3 },
+        { reach: 18, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 41.6 },
+        { reach: 8, height: 33 },
+        { reach: 14, height: 23 },
+        { reach: 19, height: 13 },
+        { reach: 22.1, height: 5 },
+      ],
       swlRestricted: 340,
       swlMaxRestricted: 480,
       maxOccupancy: 3,
@@ -90754,6 +91883,34 @@ loadMatrixTyres: [
       fuelTank: 200,
       hydraulicTank: 405,
       swl: 300,
+      capacity: 454,
+      capacityUnrestricted: 300,
+      xcBasket: {
+        swlRestricted: 454,
+        swlUnrestricted: 300,
+        swl: 454,
+        isBuiltIn: true,
+        note: "TB58RJ Plus dual-rated: 300kg unrestricted to 24.4m / 454kg restricted to 21.01m. Riser-jib, 170° jib rotation. AS 1418.10.",
+      },
+      // liftChart pixel-read from Sinoboom working-range diagram. Outer = unrestricted; inner = top restricted zone. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 57.9 },
+        { reach: 7, height: 55 },
+        { reach: 13, height: 50 },
+        { reach: 19, height: 42 },
+        { reach: 23, height: 32 },
+        { reach: 24.4, height: 22 },
+        { reach: 23, height: 12 },
+        { reach: 19, height: 4 },
+        { reach: 13, height: -2 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 57.9 },
+        { reach: 8, height: 46 },
+        { reach: 14, height: 34 },
+        { reach: 19, height: 20 },
+        { reach: 21.01, height: 9 },
+      ],
       swlRestricted: 454,
       maxOccupancy: 3,
       driveSpeedLowered: 4.5,
@@ -93589,14 +94746,14 @@ loadMatrixTyres: [
       name: "Haulotte HA16 RTJ",
       shortName: "Haulotte HA16 RTJ",
       boomType: "articulating",
-      platformHeight: 14.5,
+      platformHeight: 14.0,
       workHeight: 16.0,
-      maxReach: 8.0,
-      upOverHeight: 7.5,
+      maxReach: 8.3,
+      upOverHeight: 7.65,
       upOverReach: 6.0,
-      machineWeight: 7800,
-      machineWidth: 2.24,
-      machineLength: 6.5,
+      machineWeight: 6540,
+      machineWidth: 2.3,
+      machineLength: 6.75,
       machineHeight: 2.1,
       power: "Diesel",
       swl: 320,
@@ -93623,10 +94780,21 @@ loadMatrixTyres: [
         "8m Outreach",
         "Diesel 4WD",
       ],
+      // Envelope digitised from official Haulotte HA16 RTJ PRO brochure. Spec:
+      // platH 14.0m, maxR 8.3m, up-and-over 7.65m. 230kg capacity (2 pers).
+      // Note: brochure shows envelope extending to ~2m below ground level.
+      // Source: Haulotte HA16 RTJ PRO datasheet (04/2024).
       liftChart: [
-        { reach: 0, height: 14.5 },
-        { reach: 4, height: 12 },
-        { reach: 8, height: 6 },
+        { reach: 0, height: 14.0 },
+        { reach: 2, height: 13.5 },
+        { reach: 4, height: 12.5 },
+        { reach: 6, height: 11 },
+        { reach: 7.5, height: 9 },
+        { reach: 8.3, height: 7 },
+        { reach: 8.2, height: 5 },
+        { reach: 7.5, height: 2 },
+        { reach: 6, height: 0 },
+        { reach: 3, height: -2 },
       ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
@@ -93641,11 +94809,11 @@ loadMatrixTyres: [
       platformHeight: 29.8,
       workHeight: 31.8,
       maxReach: 21.6,
-      upOverHeight: 18.0,
+      upOverHeight: 11.35,
       upOverReach: 18.0,
-      machineWeight: 18500,
-      machineWidth: 2.6,
-      machineLength: 10.2,
+      machineWeight: 20100,
+      machineWidth: 2.53,
+      machineLength: 11.7,
       machineHeight: 3.0,
       power: "Diesel",
       swl: 350,
@@ -93671,10 +94839,22 @@ loadMatrixTyres: [
         "21.6m Outreach",
         "Super MEWP",
       ],
+      // Envelope digitised from official Haulotte HA32 RTJ PRO brochure. Spec:
+      // platH 29.8m, maxR 21.6m, up-and-over 11.35m, below-ground 5.5m.
+      // 250kg capacity. 4WD/4WS with extendable axles.
+      // Source: Haulotte HA32 RTJ PRO datasheet (05/2019).
       liftChart: [
         { reach: 0, height: 29.8 },
-        { reach: 10, height: 25 },
-        { reach: 21.6, height: 10 },
+        { reach: 5, height: 29 },
+        { reach: 9, height: 27 },
+        { reach: 13, height: 23 },
+        { reach: 16, height: 18 },
+        { reach: 19, height: 13 },
+        { reach: 21, height: 8 },
+        { reach: 21.6, height: 4 },
+        { reach: 20, height: 0 },
+        { reach: 15, height: -3 },
+        { reach: 6, height: -5.5 },
       ],
       filters: ["boom", "articulating", "outdoor", "rough", "high"],
     },
@@ -93765,11 +94945,6 @@ loadMatrixTyres: [
         "Electric",
         "Narrow 1.64m",
       ],
-      liftChart: [
-        { reach: 0, height: 10.1 },
-        { reach: 3, height: 8 },
-        { reach: 5.8, height: 4 },
-      ],
       filters: ["boom", "articulating", "indoor", "electric"],
     },
     {
@@ -93812,11 +94987,6 @@ loadMatrixTyres: [
         "Narrow",
         "CJ+",
       ],
-      liftChart: [
-        { reach: 0, height: 10.1 },
-        { reach: 3.5, height: 8 },
-        { reach: 6.2, height: 4 },
-      ],
       filters: ["boom", "articulating", "indoor", "electric"],
     },
     {
@@ -93857,11 +95027,6 @@ loadMatrixTyres: [
         "7.5m Reach",
         "Hybrid",
         "Indoor/Outdoor",
-      ],
-      liftChart: [
-        { reach: 0, height: 13.1 },
-        { reach: 4, height: 10 },
-        { reach: 7.5, height: 5 },
       ],
       filters: ["boom", "articulating", "indoor", "outdoor"],
     },
@@ -93905,11 +95070,6 @@ loadMatrixTyres: [
         "PRO",
         "ACTILEV",
       ],
-      liftChart: [
-        { reach: 0, height: 13.1 },
-        { reach: 4, height: 10 },
-        { reach: 7.5, height: 5 },
-      ],
       filters: ["boom", "articulating", "indoor", "outdoor"],
     },
     {
@@ -93950,11 +95110,6 @@ loadMatrixTyres: [
         "8.5m Reach",
         "Full Electric",
         "Indoor/Outdoor Firm",
-      ],
-      liftChart: [
-        { reach: 0, height: 14.1 },
-        { reach: 4, height: 11 },
-        { reach: 8.5, height: 5 },
       ],
       filters: ["boom", "articulating", "indoor", "outdoor", "electric"],
     },
@@ -93997,11 +95152,6 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "Rough Terrain",
       ],
-      liftChart: [
-        { reach: 0, height: 16.1 },
-        { reach: 5, height: 13 },
-        { reach: 9.8, height: 6 },
-      ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
     {
@@ -94043,11 +95193,6 @@ loadMatrixTyres: [
         "Hybrid",
         "Indoor/Outdoor",
       ],
-      liftChart: [
-        { reach: 0, height: 18.1 },
-        { reach: 6, height: 14 },
-        { reach: 11.5, height: 7 },
-      ],
       filters: ["boom", "articulating", "indoor", "outdoor"],
     },
     {
@@ -94058,14 +95203,14 @@ loadMatrixTyres: [
       name: "Haulotte HA20 RTJ PRO (2024)",
       shortName: "HA20 RTJ PRO",
       boomType: "articulating",
-      platformHeight: 18.65,
+      platformHeight: 18.5,
       workHeight: 20.65,
       maxReach: 11.9,
-      upOverHeight: 10.0,
+      upOverHeight: 8.5,
       upOverReach: 9.5,
-      machineWeight: 10800,
-      machineWidth: 2.49,
-      machineLength: 7.6,
+      machineWeight: 9430,
+      machineWidth: 2.43,
+      machineLength: 8.6,
       machineHeight: 2.5,
       power: "Diesel",
       swl: 320,
@@ -94089,10 +95234,22 @@ loadMatrixTyres: [
         "PRO",
         "48s",
       ],
+      // Envelope digitised from official Haulotte HA20 RTJ PRO brochure. Spec:
+      // platH 18.5m, maxR 11.9m, up-and-over 8.5m. 250kg capacity / 350kg
+      // optional restricted. Dual envelope on diagram: 250kg full / 350kg
+      // restricted zone.
+      // Source: Haulotte HA20 RTJ PRO datasheet (12/2024).
       liftChart: [
-        { reach: 0, height: 18.65 },
-        { reach: 6, height: 15 },
-        { reach: 11.9, height: 8 },
+        { reach: 0, height: 18.5 },
+        { reach: 3, height: 18 },
+        { reach: 5, height: 17 },
+        { reach: 8, height: 15 },
+        { reach: 10, height: 12 },
+        { reach: 11.5, height: 9 },
+        { reach: 11.9, height: 6 },
+        { reach: 11.5, height: 3 },
+        { reach: 10, height: 1 },
+        { reach: 7, height: 0 },
       ],
       filters: ["boom", "articulating", "outdoor", "rough"],
     },
@@ -94104,14 +95261,14 @@ loadMatrixTyres: [
       name: "Haulotte HA26 RTJ PRO",
       shortName: "HA26 RTJ PRO",
       boomType: "articulating",
-      platformHeight: 23.8,
+      platformHeight: 24.4,
       workHeight: 25.8,
-      maxReach: 17.2,
-      upOverHeight: 14.5,
+      maxReach: 17.5,
+      upOverHeight: 9.3,
       upOverReach: 17.2,
-      machineWeight: 14500,
-      machineWidth: 2.55,
-      machineLength: 9.2,
+      machineWeight: 15500,
+      machineWidth: 2.48,
+      machineLength: 11.8,
       machineHeight: 2.8,
       power: "Diesel",
       swl: 350,
@@ -94135,10 +95292,21 @@ loadMatrixTyres: [
         "PRO",
         "Full Window",
       ],
+      // Envelope digitised from official Haulotte HA26 RTJ PRO brochure. Spec:
+      // platH 24.4m, maxR 17.5m, up-and-over 9.3m. Dual load 250kg/350kg
+      // (restricted). 4WD/4WS, vertical arm rise feature.
+      // Source: Haulotte HA26 RTJ PRO datasheet (05/2024).
       liftChart: [
-        { reach: 0, height: 23.8 },
-        { reach: 8, height: 20 },
-        { reach: 17.2, height: 10 },
+        { reach: 0, height: 24.4 },
+        { reach: 4, height: 24 },
+        { reach: 7, height: 22.5 },
+        { reach: 10, height: 20 },
+        { reach: 13, height: 16 },
+        { reach: 15.5, height: 11 },
+        { reach: 17, height: 7 },
+        { reach: 17.5, height: 4 },
+        { reach: 16, height: 1 },
+        { reach: 12, height: 0 },
       ],
       filters: ["boom", "articulating", "outdoor", "rough", "high"],
     },
@@ -94150,14 +95318,14 @@ loadMatrixTyres: [
       name: "Haulotte HA41 RTJ PRO",
       shortName: "HA41 RTJ PRO",
       boomType: "articulating",
-      platformHeight: 38.3,
+      platformHeight: 39.5,
       workHeight: 40.3,
-      maxReach: 26.2,
-      upOverHeight: 22.0,
+      maxReach: 20.1,
+      upOverHeight: 17.5,
       upOverReach: 26.2,
-      machineWeight: 28000,
-      machineWidth: 2.9,
-      machineLength: 14.5,
+      machineWeight: 23900,
+      machineWidth: 2.53,
+      machineLength: 13.1,
       machineHeight: 3.6,
       power: "Diesel",
       swl: 350,
@@ -94181,10 +95349,23 @@ loadMatrixTyres: [
         "PRO",
         "Super MEWP",
       ],
+      // Envelope digitised from official Haulotte HA41 RTJ PRO brochure. Spec:
+      // platH 39.5m, maxR 20.1m, up-and-over 17.5m, below-ground 1.5m.
+      // 230kg capacity. NOTE: previous database had maxReach=26.2m which
+      // contradicted the brochure (20.1m) — corrected to match official spec.
+      // Source: Haulotte HA41 RTJ PRO datasheet (06/2019).
       liftChart: [
-        { reach: 0, height: 38.3 },
-        { reach: 12, height: 32 },
-        { reach: 26.2, height: 16 },
+        { reach: 0, height: 39.5 },
+        { reach: 5, height: 38.5 },
+        { reach: 10, height: 35 },
+        { reach: 14, height: 30 },
+        { reach: 17, height: 24 },
+        { reach: 19, height: 18 },
+        { reach: 20, height: 12 },
+        { reach: 20.1, height: 7 },
+        { reach: 19, height: 2 },
+        { reach: 15, height: 0 },
+        { reach: 5, height: -1.5 },
       ],
       filters: [
         "boom",
@@ -94206,12 +95387,12 @@ loadMatrixTyres: [
       boomType: "telescopic",
       platformHeight: 14.1,
       workHeight: 16.1,
-      maxReach: 12.5,
+      maxReach: 13.0,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 8500,
-      machineWidth: 2.35,
-      machineLength: 7.0,
+      machineWeight: 7930,
+      machineWidth: 2.29,
+      machineLength: 6.68,
       machineHeight: 2.35,
       power: "Diesel",
       swl: 320,
@@ -94232,10 +95413,20 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "PRO",
       ],
+      // Envelope digitised from official Haulotte HT16 RTJ PRO brochure. Spec:
+      // platH 14.1m, maxR 13.0m. Telescopic stick with 1.8m jib. Dual load
+      // 250kg/350kg (restricted inner zone).
+      // Source: Haulotte HT16 RTJ PRO datasheet (01/2020).
       liftChart: [
         { reach: 0, height: 14.1 },
-        { reach: 6, height: 12 },
-        { reach: 12.5, height: 5 },
+        { reach: 3, height: 13.5 },
+        { reach: 6, height: 12.5 },
+        { reach: 9, height: 11 },
+        { reach: 11, height: 9 },
+        { reach: 12.5, height: 6 },
+        { reach: 13, height: 3 },
+        { reach: 12.5, height: 1 },
+        { reach: 11, height: 0 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -94247,14 +95438,14 @@ loadMatrixTyres: [
       name: "Haulotte HT23 RTJ O",
       shortName: "HT23 RTJ O",
       boomType: "telescopic",
-      platformHeight: 20.6,
+      platformHeight: 20.5,
       workHeight: 22.6,
-      maxReach: 18.1,
+      maxReach: 18.3,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 12500,
-      machineWidth: 2.49,
-      machineLength: 9.2,
+      machineWeight: 13320,
+      machineWidth: 2.47,
+      machineLength: 10.4,
       machineHeight: 2.6,
       power: "Diesel",
       swl: 230,
@@ -94274,10 +95465,21 @@ loadMatrixTyres: [
         "18.1m Reach",
         "Diesel 4WD",
       ],
+      // Envelope digitised from official Haulotte HT23 RTJ O brochure. Spec:
+      // platH 20.5m, maxR 18.3m, below-ground 4.0m. Telescopic with jib
+      // (133deg). Dual load 230kg/450kg (restricted). O variant: 4WD/2WS.
+      // Source: Haulotte HT23 RTJ O / PRO datasheet (01/2023).
       liftChart: [
-        { reach: 0, height: 20.6 },
-        { reach: 9, height: 18 },
-        { reach: 18.1, height: 8 },
+        { reach: 0, height: 20.5 },
+        { reach: 4, height: 20 },
+        { reach: 8, height: 18.5 },
+        { reach: 12, height: 16 },
+        { reach: 15, height: 13 },
+        { reach: 17, height: 9 },
+        { reach: 18, height: 6 },
+        { reach: 18.3, height: 3 },
+        { reach: 17.5, height: 0 },
+        { reach: 10, height: -4 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -94289,14 +95491,14 @@ loadMatrixTyres: [
       name: "Haulotte HT23 RTJ PRO",
       shortName: "HT23 RTJ PRO",
       boomType: "telescopic",
-      platformHeight: 20.6,
+      platformHeight: 20.5,
       workHeight: 22.6,
-      maxReach: 18.1,
+      maxReach: 18.3,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 12800,
-      machineWidth: 2.49,
-      machineLength: 9.4,
+      machineWeight: 13400,
+      machineWidth: 2.47,
+      machineLength: 10.4,
       machineHeight: 2.65,
       power: "Diesel",
       swl: 454,
@@ -94320,10 +95522,21 @@ loadMatrixTyres: [
         "454kg",
         "PRO",
       ],
+      // Envelope digitised from official Haulotte HT23 RTJ PRO brochure. Spec:
+      // platH 20.5m, maxR 18.3m, below-ground 4.0m. Telescopic with jib
+      // (133deg). Dual load 230kg/450kg (restricted). PRO variant: 4WD/4WS.
+      // Source: Haulotte HT23 RTJ O / PRO datasheet (01/2023).
       liftChart: [
-        { reach: 0, height: 20.6 },
-        { reach: 9, height: 18 },
-        { reach: 18.1, height: 8 },
+        { reach: 0, height: 20.5 },
+        { reach: 4, height: 20 },
+        { reach: 8, height: 18.5 },
+        { reach: 12, height: 16 },
+        { reach: 15, height: 13 },
+        { reach: 17, height: 9 },
+        { reach: 18, height: 6 },
+        { reach: 18.3, height: 3 },
+        { reach: 17.5, height: 0 },
+        { reach: 10, height: -4 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough"],
     },
@@ -94335,14 +95548,14 @@ loadMatrixTyres: [
       name: "Haulotte HT28 RTJ PRO",
       shortName: "HT28 RTJ PRO",
       boomType: "telescopic",
-      platformHeight: 25.6,
+      platformHeight: 25.9,
       workHeight: 27.6,
-      maxReach: 20.0,
+      maxReach: 23.85,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 15200,
-      machineWidth: 2.49,
-      machineLength: 11.0,
+      machineWeight: 18100,
+      machineWidth: 2.48,
+      machineLength: 13.05,
       machineHeight: 2.85,
       power: "Diesel",
       swl: 340,
@@ -94365,10 +95578,22 @@ loadMatrixTyres: [
         "Diesel 4WD",
         "PRO",
       ],
+      // Envelope digitised from official Haulotte HT28 RTJ PRO brochure. Spec:
+      // platH 25.9m, maxR 23.85m, below-ground 3.0m. Telescopic with 1.83m
+      // jib (133deg). Dual load 230kg/350kg (restricted). NOTE: previous
+      // database had maxReach=20.0m — corrected to brochure value 23.85m.
+      // Source: Haulotte HT28 RTJ PRO datasheet (01/2023).
       liftChart: [
-        { reach: 0, height: 25.6 },
-        { reach: 10, height: 22 },
-        { reach: 20, height: 10 },
+        { reach: 0, height: 25.9 },
+        { reach: 5, height: 25.5 },
+        { reach: 10, height: 24 },
+        { reach: 14, height: 21 },
+        { reach: 18, height: 17 },
+        { reach: 21, height: 12 },
+        { reach: 23, height: 7 },
+        { reach: 23.85, height: 3 },
+        { reach: 22, height: 0 },
+        { reach: 10, height: -3 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough", "high"],
     },
@@ -94382,12 +95607,12 @@ loadMatrixTyres: [
       boomType: "telescopic",
       platformHeight: 40.2,
       workHeight: 42.2,
-      maxReach: 24.0,
+      maxReach: 20.2,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 22800,
-      machineWidth: 2.7,
-      machineLength: 14.5,
+      machineWeight: 21400,
+      machineWidth: 2.5,
+      machineLength: 14.8,
       machineHeight: 3.25,
       power: "Diesel",
       swl: 340,
@@ -94411,10 +95636,23 @@ loadMatrixTyres: [
         "PRO",
         "Flagship",
       ],
+      // Envelope digitised from official Haulotte HT43 RTJ PRO brochure. Spec:
+      // platH 40.2m, maxR 20.2m. Tall telescopic with 3D jib for placement
+      // accuracy at height. Dual load 230kg/450kg (restricted inner zone).
+      // NOTE: previous database had maxReach=24.0m which exceeded the
+      // brochure value (20.2m) — corrected to official spec.
+      // Source: Haulotte HT43 RTJ PRO datasheet (01/2025).
       liftChart: [
         { reach: 0, height: 40.2 },
-        { reach: 12, height: 35 },
-        { reach: 24, height: 18 },
+        { reach: 5, height: 39.5 },
+        { reach: 9, height: 37 },
+        { reach: 12, height: 33 },
+        { reach: 15, height: 27 },
+        { reach: 17, height: 21 },
+        { reach: 19, height: 14 },
+        { reach: 20, height: 8 },
+        { reach: 20.2, height: 4 },
+        { reach: 18, height: 0 },
       ],
       filters: ["boom", "telescopic", "outdoor", "rough", "high", "ultraboom"],
     },
@@ -94715,12 +95953,51 @@ loadMatrixTyres: [
       maxReach: 22.86,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 18650,
+      machineWeight: 18500,
       machineWidth: 2.49,
+      machineWidthExtended: 3.81,
       machineLength: 10.64,
-      machineHeight: 3.04,
+      machineLengthOverall: 13.69,
+      machineHeight: 3.05,
+      wheelbase: 3.81,
+      tailswing: 1.67,
+      groundClearance: 0.3,
+      engine: "Diesel Deutz TD2011L04 Tier 4i 56kW (75hp)",
+      jibLength: 2.44,
+      jibArticulation: "JibPLUS 130° (+75 / -55); 180° horizontal motion",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 117,
+      hydraulicCapacity: 208.2,
+      gradeability: 45,
+      driveSpeed: 5.2,
+      tyres: "445/50D710 urethane-filled",
+      extendableAxles: true,
       power: "Diesel",
       swl: 340,
+      // liftChart pixel-read from JLG 1200SJP load chart (AU sheet, jlg.com.au).
+      // Ultra telescopic: outer envelope 230kg, inner 450kg. Max outreach 22.86m
+      // sustained across a tall mid band. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 36.58 },
+        { reach: 6.0, height: 35.5 },
+        { reach: 12.0, height: 33.0 },
+        { reach: 18.0, height: 28.0 },
+        { reach: 22.0, height: 22.0 },
+        { reach: 22.86, height: 16.0 },
+        { reach: 22.0, height: 9.0 },
+        { reach: 19.0, height: 3.0 },
+        { reach: 14.0, height: 0.5 },
+        { reach: 9.0, height: 0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 36.58 },
+        { reach: 8.0, height: 32.0 },
+        { reach: 14.0, height: 26.0 },
+        { reach: 18.0, height: 18.0 },
+        { reach: 18.5, height: 10.0 },
+        { reach: 16.0, height: 3.0 },
+      ],
       // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
       // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
       // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
@@ -94729,17 +96006,17 @@ loadMatrixTyres: [
       maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
-        swlRestricted: 454,
-        swlUnrestricted: 227,
-        swl: 454,
+        swlRestricted: 450,
+        swlUnrestricted: 230,
+        swl: 450,
         isBuiltIn: true,
-        note: "JLG 1200SJP ships with dual-zone capacity as standard — 454kg restricted / 227kg unrestricted built into the platform. No separate basket upgrade needed.",
+        note: "JLG 1200SJP ships with dual-zone capacity as standard — 450kg restricted (inner envelope) / 230kg unrestricted (full reach). Selectable Capacity Envelope built in.",
       },
-      capacity: 454,
-      capacityUnrestricted: 227,
+      capacity: 450,
+      capacityUnrestricted: 230,
       bestFor:
         "Heavy industrial and construction at extreme heights — steel mills, shipyards, airports, chemical plants",
-      note: "JLG 1200SJP Ultra Series telescopic boom. 36.58m platform / 22.86m outreach. 454kg restricted / 227kg unrestricted. Deutz TCD2.9L4 Tier 4. Oscillating axle, drive-out extendable axles. 45% gradeability. ClearSky telematics standard.",
+      note: "JLG 1200SJP Ultra Series telescopic boom. 36.58m platform / 38.58m working / 22.86m horizontal outreach. Dual platform rating — 450kg restricted (inner envelope), 230kg unrestricted (full reach). 2.44m JibPLUS (130° vertical +75/-55, 180° horizontal), 180° rotator. 360° continuous swing. Machine 18,500kg, 3.05m high × 2.49m wide retracted (3.81m axles extended) × 10.64m stowed (13.69m jib deployed), 3.81m wheelbase, 1.67m tailswing. Diesel Deutz TD2011L04 Tier 4i 56kW (75hp), 117L tank, 208.2L hydraulic, 5.5kVA generator. Drive-out extendable axles, full-time 4WD, 3 steering modes, 45% gradeability, 5.2km/h. AS/NZS 1418.10. Source: JLG 1200SJP AU brochure.",
       upOverNote: null,
       tags: [
         "Telescopic",
@@ -94763,12 +96040,51 @@ loadMatrixTyres: [
       maxReach: 19.25,
       upOverHeight: 18.44,
       upOverReach: 19.25,
-      machineWeight: 21000,
+      machineWeight: 19958,
       machineWidth: 2.49,
-      machineLength: 11.46,
-      machineHeight: 3.05,
+      machineWidthExtended: 3.81,
+      machineLength: 11.45,
+      machineLengthOverall: 14.48,
+      machineHeight: 3.02,
+      wheelbase: 3.81,
+      tailswing: 2.84,
+      groundClearance: 0.3,
+      engine: "Diesel Deutz TCD2.9L4 Tier 4, 55.4kW (74.2hp)",
+      jibLength: 2.44,
+      jibArticulation: "130° (+75 / -55); horizontal jib rotation 125° (55R/70L)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      hydraulicCapacity: 201,
+      gradeability: 45,
+      driveSpeed: 5.2,
+      groundBearingPressure: 7.03,
+      tyres: "445/50D710 foam-filled (445/65 solid optional)",
+      extendableAxles: true,
       power: "Diesel",
       swl: 340,
+      // liftChart pixel-read from JLG 1250AJP reach diagram (Part 3131137).
+      // ULTRA BOOM: max horizontal outreach achieved HIGH (~24m), unlike the
+      // smaller AJ booms. Geometric/unrestricted (227kg) envelope upper boundary.
+      // Restricted 454kg zone reaches ~12m out to ~30m height (inner band).
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 38.3 },
+        { reach: 6.0, height: 37.0 },
+        { reach: 12.0, height: 34.0 },
+        { reach: 17.0, height: 30.0 },
+        { reach: 19.25, height: 24.0 },
+        { reach: 19.0, height: 18.0 },
+        { reach: 18.0, height: 12.0 },
+        { reach: 15.5, height: 6.0 },
+        { reach: 12.0, height: 1.0 },
+        { reach: 8.0, height: -2.0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 38.3 },
+        { reach: 8.0, height: 33.0 },
+        { reach: 12.0, height: 30.0 },
+        { reach: 13.5, height: 24.0 },
+      ],
       // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
       // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
       // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
@@ -94777,17 +96093,17 @@ loadMatrixTyres: [
       maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
-        swlRestricted: 450,
-        swlUnrestricted: 230,
-        swl: 450,
+        swlRestricted: 454,
+        swlUnrestricted: 227,
+        swl: 454,
         isBuiltIn: true,
-        note: "JLG 1250AJP Ultra Series ships with dual-zone capacity as standard — 450kg restricted / 230kg unrestricted. JibPLUS 2.44m standard. High-capacity platform built in.",
+        note: "JLG 1250AJP ships with dual-zone capacity as standard — 454kg (1000lb) restricted (inner envelope, ~12m reach) / 227kg (500lb) unrestricted (full 19.25m reach). JibPLUS 2.44m standard.",
       },
-      capacity: 450,
-      capacityUnrestricted: 230,
+      capacity: 454,
+      capacityUnrestricted: 227,
       bestFor:
-        "Extreme height articulating work — up-and-over access at 18.4m with 125ft platform height",
-      note: "JLG 1250AJP Ultra Series articulating boom. 38.3m platform / 19.25m outreach / 18.44m up-and-over. 450kg restricted / 230kg unrestricted. JibPLUS 2.44m. Oscillating axle. QuikStik boom design, 115s ground to elevation. ClearSky telematics.",
+        "Extreme height articulating work — up-and-over access at 18.4m with 125ft (38.3m) platform height",
+      note: "JLG 1250AJP Ultra Series articulating boom. 38.3m platform / 40.3m working / 19.25m horizontal outreach / 18.44m up-and-over. DUAL platform rating — 454kg (1000lb) restricted on the inner envelope, 227kg (500lb) unrestricted to full reach. 180° rotator, 2.44m articulating JibPLUS (130° articulation +75/-55, plus 125° horizontal jib rotation). 360° continuous swing. Machine 19,958kg, 3.02m high × 2.49m wide retracted (3.81m axles extended) × 11.45m stowed (14.48m overall), 3.81m wheelbase, 2.84m tailswing. Diesel Deutz TCD2.9L4 Tier 4 55.4kW (74.2hp), 201L hydraulic. Fuel tank ~117L (31 gal) — note: brochure prints 170L, likely a typo carried from the 1500AJP; verify against current datasheet. Drive-out extendable axles, QuikStik boom, single-sensor load sensing, SkyGuard SkyLine, hydrostatic drive, 45% gradeability, 5.2km/h. Source: JLG 1250AJP spec sheet (Part 3131137, R0825).",
       upOverNote:
         "Up-and-over height 18.44m with 19.25m horizontal reach. JibPLUS 2.44m jib.",
       tags: [
@@ -94815,17 +96131,55 @@ loadMatrixTyres: [
       name: "JLG 1350SJP Ultra Telescopic",
       shortName: "JLG 1350SJP",
       boomType: "telescopic",
-      platformHeight: 41.15,
-      workHeight: 43.15,
+      platformHeight: 41.3,
+      workHeight: 43.3,
       maxReach: 24.38,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 20412,
+      machineWeight: 20400,
       machineWidth: 2.49,
+      machineWidthExtended: 3.81,
       machineLength: 11.86,
+      machineLengthOverall: 14.89,
       machineHeight: 3.05,
+      wheelbase: 3.81,
+      tailswing: 1.68,
+      groundClearance: 0.3,
+      engine: "Diesel Deutz TD2011L04 Tier 4i 55kW",
+      jibLength: 2.44,
+      jibArticulation: "JibPLUS 130° (+75 / -55); 180° horizontal motion",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 117,
+      hydraulicCapacity: 208.2,
+      gradeability: 45,
+      driveSpeed: 5.2,
+      tyres: "445/50D710 urethane-filled",
+      extendableAxles: true,
       power: "Diesel",
       swl: 340,
+      // liftChart pixel-read from JLG 1350SJP range chart (AU sheet).
+      // Ultra telescopic: outer 230kg / inner 450kg. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 41.3 },
+        { reach: 7.0, height: 40.0 },
+        { reach: 14.0, height: 37.0 },
+        { reach: 20.0, height: 31.0 },
+        { reach: 24.0, height: 24.0 },
+        { reach: 24.38, height: 18.0 },
+        { reach: 23.0, height: 10.0 },
+        { reach: 19.0, height: 3.0 },
+        { reach: 13.0, height: 0.5 },
+        { reach: 8.0, height: 0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 41.3 },
+        { reach: 9.0, height: 35.0 },
+        { reach: 15.0, height: 28.0 },
+        { reach: 19.0, height: 19.0 },
+        { reach: 19.5, height: 10.0 },
+        { reach: 17.0, height: 3.0 },
+      ],
       // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
       // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
       // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
@@ -94834,17 +96188,17 @@ loadMatrixTyres: [
       maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
-        swlRestricted: 454,
-        swlUnrestricted: 227,
-        swl: 454,
+        swlRestricted: 450,
+        swlUnrestricted: 230,
+        swl: 450,
         isBuiltIn: true,
-        note: "JLG 1350SJP Ultra Series ships with dual-zone capacity as standard — 454kg restricted / 227kg unrestricted. High-capacity platform built in.",
+        note: "JLG 1350SJP ships with dual-zone capacity as standard — 450kg restricted (inner envelope) / 230kg unrestricted (full reach). Selectable Capacity Envelope built in.",
       },
-      capacity: 454,
-      capacityUnrestricted: 227,
+      capacity: 450,
+      capacityUnrestricted: 230,
       bestFor:
         "Super-tall straight reach — 135ft platform height for towers, bridges, large industrial structures",
-      note: "JLG 1350SJP Ultra Series telescopic boom. 41.15m platform / 24.38m outreach. 454kg restricted / 227kg unrestricted. Deutz TCD2.9L4. Drive-out extendable axles, oscillating axle. ClearSky telematics standard.",
+      note: "JLG 1350SJP Ultra Series telescopic boom. 41.30m platform / 43.30m working / 24.38m horizontal outreach. Dual platform rating — 450kg restricted (inner envelope), 230kg unrestricted (full reach). 2.44m JibPLUS (130° vertical +75/-55, 180° horizontal), 180° rotator. 360° continuous swing. Machine 20,400kg, 3.05m high × 2.49m wide retracted (3.81m axles extended) × 11.86m stowed (14.89m jib deployed), 3.81m wheelbase, 1.68m tailswing. Diesel Deutz TD2011L04 Tier 4i 55kW, 117L tank, 208.2L hydraulic, 5.5kVA generator. Drive-out extendable axles, oscillating axle, full-time 4WD, 3 steering modes, gull-wing hoods, 45% gradeability, 5.2km/h. AS/NZS 1418.10. Source: JLG 1350SJP AU brochure.",
       upOverNote: null,
       tags: [
         "Telescopic",
@@ -94863,17 +96217,56 @@ loadMatrixTyres: [
       name: "JLG 1500SJ Ultra Telescopic",
       shortName: "JLG 1500SJ",
       boomType: "telescopic",
-      platformHeight: 45.72,
-      workHeight: 47.72,
-      maxReach: 25.03,
+      platformHeight: 45.75,
+      workHeight: 47.75,
+      maxReach: 24.38,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 22000,
+      machineWeight: 21772,
       machineWidth: 2.49,
+      machineWidthExtended: 3.81,
       machineLength: 13.11,
+      machineLengthOverall: 18.82,
       machineHeight: 3.05,
+      wheelbase: 3.81,
+      tailswing: 1.67,
+      groundClearance: 0.3,
+      engine: "Diesel Deutz TD2011L04 56kW (75hp)",
+      jibLength: 7.62,
+      jibArticulation: "Telescoping jib 4.62–7.62m; 120° articulation (+75 / -45)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 200,
+      hydraulicCapacity: 208,
+      gradeability: 40,
+      driveSpeed: 4.5,
+      tyres: "445/50D710 urethane-filled",
+      extendableAxles: true,
       power: "Diesel",
       swl: 340,
+      // liftChart pixel-read from JLG 1500SJ load chart (AU sheet).
+      // Ultra telescopic + telescoping jib: outer 230kg / inner 450kg. Lower-left
+      // boom dead-zone notch present. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 45.75 },
+        { reach: 7.0, height: 44.5 },
+        { reach: 14.0, height: 41.0 },
+        { reach: 20.0, height: 34.0 },
+        { reach: 24.0, height: 26.0 },
+        { reach: 24.38, height: 19.0 },
+        { reach: 23.0, height: 11.0 },
+        { reach: 19.0, height: 4.0 },
+        { reach: 13.0, height: 0.5 },
+        { reach: 8.0, height: 0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 45.75 },
+        { reach: 9.0, height: 39.0 },
+        { reach: 15.0, height: 31.0 },
+        { reach: 19.0, height: 21.0 },
+        { reach: 19.5, height: 11.0 },
+        { reach: 17.0, height: 4.0 },
+      ],
       // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
       // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
       // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
@@ -94892,7 +96285,7 @@ loadMatrixTyres: [
       capacityUnrestricted: 230,
       bestFor:
         "150ft platform height — glazing, construction, industrial, extreme height access",
-      note: "JLG 1500SJ Ultra Series telescopic boom. 45.72m platform / 25.03m outreach. Telescoping jib 4.62m–7.62m. 450kg restricted / 230kg unrestricted. Deutz TCD2.9L4. 40% gradeability. No oversized transport permit required.",
+      note: "JLG 1500SJ Ultra Series telescopic boom. 45.75m platform / 47.75m working / 24.38m horizontal outreach. Dual platform rating — 450kg restricted (inner envelope), 230kg unrestricted (full reach). Telescoping jib 4.62–7.62m (120° articulation, +75/-45), 180° rotator. 360° continuous swing. Machine 21,772kg, 3.05m high × 2.49m wide retracted (3.81m axles extended) × 13.11m stowed (18.82m jib deployed), 3.81m wheelbase, 1.67m tailswing. Diesel Deutz TD2011L04 56kW (75hp), 200L tank, 208L hydraulic, 5.5kVA generator. Drive-out extendable axles, full-time 4WD, 3 steering modes, gull-wing steel hoods, LCD platform console, 40% gradeability, 4.5km/h. No oversized-load transport permit needed. AS/NZS 1418.10. Source: JLG 1500SJ AU brochure.",
       upOverNote: null,
       tags: [
         "Telescopic",
@@ -94915,14 +96308,54 @@ loadMatrixTyres: [
       platformHeight: 45.72,
       workHeight: 47.72,
       maxReach: 22.86,
-      upOverHeight: 20.0,
+      upOverHeight: 18.4,
       upOverReach: 22.86,
-      machineWeight: 26000,
+      machineWeight: 26027,
       machineWidth: 2.49,
-      machineLength: 14.48,
-      machineHeight: 3.05,
+      machineWidthExtended: 5.0,
+      machineLength: 12.09,
+      machineLengthOverall: 15.1,
+      machineHeight: 3.1,
+      wheelbase: 5.22,
+      tailswing: 0.7,
+      groundClearance: 0.38,
+      engine: "Diesel Deutz TCD 3.6L Tier IV F, 74.4kW (99.8hp)",
+      jibLength: 2.4,
+      jibArticulation: "131° (+75 / -55); horizontal jib rotation 125° (55R/70L)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 170,
+      hydraulicCapacity: 352,
+      gradeability: 40,
+      driveSpeed: 4.5,
+      groundBearingPressure: 8.4,
+      tyres: "445/50D710 foam-filled",
+      extendableAxles: true,
       power: "Diesel",
       swl: 340,
+      // liftChart pixel-read from JLG 1500AJP reach diagram (Part 3131031).
+      // ULTRA BOOM: max horizontal outreach 22.86m achieved HIGH (~27m).
+      // Geometric/unrestricted (272kg) envelope upper boundary.
+      // Restricted 454kg zone reaches ~12m out to ~40m height (inner band).
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 45.72 },
+        { reach: 7.0, height: 44.5 },
+        { reach: 14.0, height: 41.0 },
+        { reach: 19.0, height: 35.0 },
+        { reach: 22.86, height: 27.0 },
+        { reach: 22.5, height: 20.0 },
+        { reach: 21.0, height: 13.0 },
+        { reach: 18.0, height: 6.0 },
+        { reach: 14.0, height: 1.0 },
+        { reach: 9.0, height: -2.0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 45.72 },
+        { reach: 8.0, height: 42.0 },
+        { reach: 12.0, height: 40.0 },
+        { reach: 15.0, height: 33.0 },
+      ],
       // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
       // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
       // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
@@ -94932,18 +96365,18 @@ loadMatrixTyres: [
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
-        swlUnrestricted: 227,
+        swlUnrestricted: 272,
         swl: 454,
         isBuiltIn: true,
-        note: "JLG 1500AJP Ultra Series ships with dual-zone capacity as standard — 454kg restricted / 227kg unrestricted. JibPLUS 2.44m standard. Built in.",
+        note: "JLG 1500AJP ships with dual-zone capacity as standard — 454kg (1000lb) restricted (inner envelope) / 272kg (600lb) unrestricted (full 22.86m reach). JibPLUS 2.44m standard.",
       },
       capacity: 454,
-      capacityUnrestricted: 227,
+      capacityUnrestricted: 272,
       bestFor:
-        "Maximum articulating reach at 150ft — up-and-over work at extreme heights",
-      note: "JLG 1500AJP Ultra Series articulating boom. 45.72m platform / 22.86m outreach / up-and-over capability. 454kg restricted / 227kg unrestricted. JibPLUS 2.44m. Oscillating axle. QuikStik boom, ClearSky telematics.",
+        "Maximum articulating reach at 150ft (45.72m) — up-and-over work at extreme heights",
+      note: "JLG 1500AJP Ultra Series articulating boom — 150ft, tallest articulating boom in class. 45.72m platform / 47.72m working / 22.86m horizontal outreach / 18.40m up-and-over. DUAL platform rating — 454kg (1000lb) restricted on the inner envelope, 272kg (600lb) unrestricted to full reach. 180° hydraulic rotator, 2.40m articulating JibPLUS (131° articulation +75/-55, plus 125° horizontal jib rotation). 360° continuous swing. Machine 26,027kg, 3.10m high × 2.49m wide retracted (5.00m axles extended) × 12.09m stowed (15.10m overall), 0.70m tailswing. Diesel Deutz TCD3.6L Tier IV F 74.4kW (99.8hp), 170L tank, 352L hydraulic. Drive-out extendable axles, QuikStik boom, single-sensor load sensing, SkyGuard SkyLine, platform LCD panel, hydrostatic drive, 40% gradeability, 4.5km/h. No oversized-load transport permit needed (over-weight permit required for highway). Source: JLG 1500AJP spec sheet (Part 3131031, R0825).",
       upOverNote:
-        "Up-and-over height approx 20m with JibPLUS jib for working over obstacles at extreme height.",
+        "Up-and-over height 18.40m at full 22.86m horizontal reach. JibPLUS jib for working over obstacles at extreme height.",
       tags: [
         "Articulating",
         "45.7m Platform",
@@ -94974,12 +96407,53 @@ loadMatrixTyres: [
       maxReach: 24.38,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 27350,
-      machineWidth: 2.49,
+      machineWeight: 27352,
+      machineWidth: 2.48,
+      machineWidthExtended: 5.04,
       machineLength: 14.57,
+      machineLengthOverall: 19.45,
       machineHeight: 3.05,
+      wheelbase: 5.36,
+      tailswing: 2.32,
+      belowGroundReach: 1.47,
+      engine: "Diesel Deutz TD 3.6L 74.4kW (99.8hp)",
+      jibLength: 6.1,
+      jibArticulation: "Telescoping jib 3.96–6.10m; 120° articulation (+75 / -45)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      platformRotator: 173,
+      fuelTank: 200,
+      hydraulicCapacity: 284.2,
+      gradeability: 40,
+      driveSpeed: 4.5,
+      groundBearingPressure: 8.41,
+      tyres: "445/50D710 foam-filled",
+      pivotingAxles: true,
       power: "Diesel",
       swl: 340,
+      // liftChart pixel-read from JLG 1850SJ load chart (AU sheet). World's
+      // tallest self-propelled boom. Outer 230kg / inner 450kg. 5-section boom +
+      // telescoping jib; 1.47m below-grade reach. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 56.56 },
+        { reach: 7.0, height: 55.0 },
+        { reach: 14.0, height: 51.0 },
+        { reach: 20.0, height: 43.0 },
+        { reach: 24.0, height: 33.0 },
+        { reach: 24.38, height: 24.0 },
+        { reach: 23.0, height: 14.0 },
+        { reach: 19.0, height: 5.0 },
+        { reach: 13.0, height: 0 },
+        { reach: 8.0, height: -1.47 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 56.56 },
+        { reach: 9.0, height: 48.0 },
+        { reach: 15.0, height: 38.0 },
+        { reach: 19.0, height: 26.0 },
+        { reach: 19.5, height: 13.0 },
+        { reach: 17.0, height: 4.0 },
+      ],
       // Brochure-confirmed: JLG Ultra Boom (1200SJP, 1250AJP, 1350SJP, 1500SJ,
       // 1500AJP, 1850SJ) — LECTURA on 1500AJP explicit: 'can lift 2
       // people on its 0.91m long and 2.44m wide platform'. 600/1000 lb
@@ -94988,17 +96462,17 @@ loadMatrixTyres: [
       maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
-        swlRestricted: 454,
-        swlUnrestricted: 227,
-        swl: 454,
+        swlRestricted: 450,
+        swlUnrestricted: 230,
+        swl: 450,
         isBuiltIn: true,
-        note: "JLG 1850SJ ships with dual-zone capacity as standard — 454kg restricted / 227kg unrestricted. World's tallest self-propelled boom. High-capacity built in.",
+        note: "JLG 1850SJ ships with dual-zone capacity as standard — 450kg restricted (inner envelope) / 230kg unrestricted (full reach). World's tallest self-propelled boom. Selectable Capacity Envelope built in.",
       },
-      capacity: 454,
-      capacityUnrestricted: 227,
+      capacity: 450,
+      capacityUnrestricted: 230,
       bestFor:
         "World-class extreme height — 185ft platform, the tallest production boom lift available",
-      note: "JLG 1850SJ Ultra Series telescopic boom. 56.56m platform / 24.38m outreach. 454kg restricted / 227kg unrestricted. Telescoping 5-section boom + jib. Pivoting axles (not telescoping). Drive enabled at full height. No oversized width permit needed. ClearSky telematics.",
+      note: "JLG 1850SJ Ultra Series telescopic boom — 185ft, the tallest self-propelled boom in the industry. 56.56m platform / 58.56m working / 24.38m horizontal outreach / 1.47m below-grade reach. Dual platform rating — 450kg restricted (inner envelope), 230kg unrestricted (full reach). 5-section boom + telescoping jib 3.96–6.10m (120° articulation, +75/-45), 173° rotator. 360° continuous swing. Machine 27,352kg, 3.05m high × 2.48m wide retracted (5.04m axles extended) × 14.57m stowed (19.45m jib deployed), 5.36m wheelbase, 2.32m tailswing. Diesel Deutz TD 3.6L 74.4kW (99.8hp), 200L tank, 284.2L hydraulic, 5.5kVA generator. Pivoting axles (pivot in/out, ~1 min, not telescoping), full-time 4WD, 3 steering modes, LCD platform console, 40% gradeability, 4.5km/h. AS/NZS 1418.10. Source: JLG 1850SJ AU brochure.",
       upOverNote: null,
       tags: [
         "Telescopic",
@@ -95242,17 +96716,54 @@ loadMatrixTyres: [
       name: "JLG 460SJ HC3 Hi-Cap Telescopic",
       shortName: "JLG 460SJ HC3",
       boomType: "telescopic",
-      platformHeight: 14.02,
-      workHeight: 16.02,
-      maxReach: 11.89,
+      platformHeight: 14.05,
+      workHeight: 16.05,
+      maxReach: 12.0,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 8620,
-      machineWidth: 2.49,
-      machineLength: 7.34,
-      machineHeight: 2.36,
+      machineWeight: 9306,
+      machineWidth: 2.31,
+      machineLength: 9.1,
+      machineHeight: 2.47,
+      wheelbase: 2.37,
+      groundClearance: 0.3,
+      tailswing: 0.93,
+      engine: "Diesel Deutz D2.9L4 Tier 4 Final 36.4kW (49hp)",
+      jibLength: 1.83,
+      jibArticulation: "130° (+71 / -61)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 83.3,
+      hydraulicCapacity: 136.27,
+      gradeability: 45,
+      driveSpeed: 6.8,
+      turningRadiusInside: 2.0,
+      turningRadiusOutside: 4.8,
+      groundBearingPressure: 6.8,
+      tyres: "14×17.5 foam-filled (non-marking / 33×12 D610 optional)",
       power: "Diesel",
       swl: 454,
+      // liftChart pixel-read from JLG 460SJ HC3 reach diagram (Part 3131047).
+      // Same geometry as 460SJ. Outer envelope = 300kg unrestricted; inner
+      // tri-zone restricted to 340/454kg. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 14.05 },
+        { reach: 4.0, height: 13.0 },
+        { reach: 7.0, height: 11.5 },
+        { reach: 10.0, height: 9.0 },
+        { reach: 11.5, height: 6.5 },
+        { reach: 12.0, height: 4.0 },
+        { reach: 11.5, height: 1.5 },
+        { reach: 10.0, height: -0.5 },
+        { reach: 7.0, height: -1.0 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 14.05 },
+        { reach: 5.0, height: 12.0 },
+        { reach: 8.0, height: 9.0 },
+        { reach: 9.5, height: 5.0 },
+        { reach: 9.0, height: 1.0 },
+      ],
       // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
       // each rated for THREE occupants and tools' (JLG.com / Fairchild /
       // Government Fleet article on HC3 expansion). 660 lb unrestricted /
@@ -95261,14 +96772,14 @@ loadMatrixTyres: [
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
-        swlUnrestricted: 272,
+        swlUnrestricted: 300,
         swl: 454,
         isBuiltIn: true,
-        note: "HC3 tri-zone capacity built in — 272/340/454kg at 14m platform. 6ft articulating jib option. No upgrade needed.",
+        note: "HC3 tri-zone capacity built in — 300kg unrestricted / 340/454kg restricted at 14.05m platform. No upgrade needed.",
       },
       bestFor:
         "Multi-person outdoor work at 14m, heavy equipment around construction sites",
-      note: "HC3 46ft telescopic. Tri-zone: 272/340/454kg. 6ft articulating jib option.",
+      note: "JLG 460SJ HC3 — 46ft (14.05m platform) hi-capacity telescopic boom. 12.0m horizontal outreach. Three working zones: 300kg unrestricted / 340kg & 454kg (750/1000lb) restricted — each zone rated for 3 occupants + tools. Zero-calibration auto load sensing. 0.91×2.44m platform, 180° rotator, 1.83m jib (130°, +71/-61). 360° continuous swing, 0.93m tailswing. Machine 9,306kg, 2.47m high × 2.31m wide × 9.10m stowed, 2.37m wheelbase. Diesel Deutz D2.9L4 Tier 4 Final 36.4kW, 83.3L tank, 136.27L hydraulic. 4WD hydrostatic, 45% gradeability. A92.20 ANSI compliant. Source: JLG 460SJ HC3 brochure (Part 3131047).",
       tags: ["Telescopic", "Diesel", "HC3", "High Capacity", "46ft", "JLG"],
       filters: ["boom", "outdoor", "rough", "diesel", "telescopic"],
     },
@@ -95349,29 +96860,66 @@ loadMatrixTyres: [
       name: "JLG 660SJ Telescopic",
       shortName: "JLG 660SJ",
       boomType: "telescopic",
-      platformHeight: 19.81,
-      workHeight: 21.81,
-      maxReach: 18.29,
+      platformHeight: 20.02,
+      workHeight: 22.02,
+      maxReach: 17.4,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 11520,
-      machineWidth: 2.49,
-      machineLength: 9.12,
-      machineHeight: 2.52,
+      machineWeight: 11494,
+      machineWidth: 2.48,
+      machineLength: 10.79,
+      machineHeight: 2.5,
+      wheelbase: 2.5,
+      groundClearance: 0.29,
+      tailswing: 1.22,
+      engine: "Diesel Deutz D2.9L4 Tier 4 Final 36.4kW (48.8hp); dual-fuel Ford MSG425-DF 62.6kW (84hp) optional",
+      jibLength: 1.83,
+      jibArticulation: "132° (+71 / -61)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 117,
+      hydraulicCapacity: 129,
+      gradeability: 45,
+      driveSpeed: 6.1,
+      groundBearingPressure: 6.0,
+      tyres: "14×17.5 (355×55D625) foam-filled",
       power: "Diesel",
-      swl: 227,
+      swl: 249,
+      // liftChart pixel-read from JLG 660SJ reach diagram (Part 3131052).
+      // Dual-rated: outer envelope 249kg (550lb) unrestricted to full reach;
+      // inner restricted 340kg (750lb). { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 20.02 },
+        { reach: 5.0, height: 19.0 },
+        { reach: 9.0, height: 16.5 },
+        { reach: 13.0, height: 13.0 },
+        { reach: 16.0, height: 9.0 },
+        { reach: 17.4, height: 5.5 },
+        { reach: 17.0, height: 2.0 },
+        { reach: 14.0, height: -0.5 },
+        { reach: 9.0, height: -1.5 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 20.02 },
+        { reach: 7.0, height: 16.0 },
+        { reach: 11.0, height: 11.0 },
+        { reach: 13.5, height: 6.0 },
+        { reach: 13.0, height: 1.0 },
+      ],
       // Brochure-confirmed: JLG standard articulating/telescopic boom — 2-person
       // platform standard at 227-272kg unrestricted single-capacity SWL.
       // Source: JLG official spec sheets and LECTURA datasheets.
       maxOccupancy: 2,
       terrain: "outdoor rough",
       xcBasket: {
-        swl: 454,
-        note: "JLG HC3 variant available — the 660SJ HC3 upgrades to tri-zone 454kg at 19.8m platform height. Request HC3 for heavy multi-person operations at 20m.",
+        swlRestricted: 340,
+        swlUnrestricted: 249,
+        swl: 340,
+        note: "660SJ standard is dual-rated: 249kg (550lb) unrestricted across full reach, 340kg (750lb) restricted on the inner zone. The 660SJ HC3 variant goes further — tri-zone to 454kg. Request HC3 for heavy multi-person work at 20m.",
       },
       bestFor:
         "High-reach construction, power infrastructure, 20m+ outdoor structures",
-      note: "66ft telescopic with 6ft articulating jib. 19.8m platform, 18.3m outreach.",
+      note: "JLG 660SJ — 66ft (20.02m platform / 22.02m working) telescopic boom. 17.40m horizontal outreach. Dual-rated platform: 249kg (550lb) unrestricted to full reach, 340kg (750lb) restricted inner zone. Zero-calibration auto load sensing. 0.91×2.44m platform, 180° rotator, 1.83m jib (132°, +71/-61). 360° continuous swing, 1.22m tailswing. Machine 11,494kg, 2.50m high × 2.48m wide × 10.79m stowed, 2.50m wheelbase. Diesel Deutz D2.9L4 Tier 4 Final 36.4kW (dual-fuel Ford MSG425-DF 62.6kW option), 117L tank, 129L hydraulic. 4WD hydrostatic, 45% gradeability, 6.1km/h, oscillating axle. Source: JLG 660SJ brochure (Part 3131052).",
       tags: ["Telescopic", "Diesel", "66ft", "20m", "JLG"],
       filters: ["boom", "outdoor", "rough", "diesel", "telescopic", "high"],
     },
@@ -95382,17 +96930,52 @@ loadMatrixTyres: [
       name: "JLG 660SJ HC3 Hi-Cap Telescopic",
       shortName: "JLG 660SJ HC3",
       boomType: "telescopic",
-      platformHeight: 19.81,
-      workHeight: 21.81,
-      maxReach: 18.29,
+      platformHeight: 20.02,
+      workHeight: 22.02,
+      maxReach: 17.4,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 12100,
-      machineWidth: 2.49,
-      machineLength: 9.12,
-      machineHeight: 2.52,
+      machineWeight: 13281,
+      machineWidth: 2.48,
+      machineLength: 10.01,
+      machineHeight: 2.58,
+      wheelbase: 2.51,
+      groundClearance: 0.29,
+      tailswing: 1.22,
+      engine: "Diesel Deutz TD2.9L4 Tier 4 Final 50kW (67hp); dual-fuel Ford MSG425-DF 62.6kW (84hp) optional",
+      jibLength: 1.83,
+      jibArticulation: "131° (+71 / -61)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 117,
+      hydraulicCapacity: 129,
+      gradeability: 45,
+      driveSpeed: 6.1,
+      groundBearingPressure: 7.9,
+      tyres: "14×17.5 (355×55D625) foam-filled",
       power: "Diesel",
       swl: 454,
+      // liftChart pixel-read from JLG 660SJ HC3 reach diagram (Part 3131053).
+      // Same geometry as 660SJ. Outer 300kg unrestricted; inner tri-zone 340/454kg.
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 20.02 },
+        { reach: 5.0, height: 19.0 },
+        { reach: 9.0, height: 16.5 },
+        { reach: 13.0, height: 13.0 },
+        { reach: 16.0, height: 9.0 },
+        { reach: 17.4, height: 5.5 },
+        { reach: 17.0, height: 2.0 },
+        { reach: 14.0, height: -0.5 },
+        { reach: 9.0, height: -1.5 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 20.02 },
+        { reach: 7.0, height: 16.0 },
+        { reach: 11.0, height: 11.0 },
+        { reach: 13.5, height: 6.0 },
+        { reach: 13.0, height: 1.0 },
+      ],
       // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
       // each rated for THREE occupants and tools' (JLG.com / Fairchild /
       // Government Fleet article on HC3 expansion). 660 lb unrestricted /
@@ -95401,14 +96984,14 @@ loadMatrixTyres: [
       terrain: "outdoor rough",
       xcBasket: {
         swlRestricted: 454,
-        swlUnrestricted: 227,
+        swlUnrestricted: 300,
         swl: 454,
         isBuiltIn: true,
-        note: "HC3 tri-zone capacity built in — to 454kg at 19.8m. One of very few high-capacity 20m telescopics. No upgrade needed.",
+        note: "HC3 tri-zone capacity built in — 300kg unrestricted / 340/454kg restricted at 20.02m. Each zone rated for 3 occupants + tools. No upgrade needed.",
       },
       bestFor:
         "Heavy multi-person ops at 20m, large crew + equipment industrial maintenance",
-      note: "HC3 66ft + jib: tri-zone to 454kg. One of very few high-capacity 20m telescopics.",
+      note: "JLG 660SJ HC3 — 66ft (20.02m platform / 22.02m working) hi-capacity telescopic boom. 17.40m horizontal outreach. Three working zones: 300kg unrestricted / 340kg & 454kg (750/1000lb) restricted — each rated for 3 occupants + tools. Zero-calibration auto load sensing. 0.91×2.44m platform, 180° rotator, 1.83m jib (131°, +71/-61). 360° continuous swing, 1.22m tailswing. Machine 13,281kg, 2.58m high × 2.48m wide × 10.01m stowed, 2.51m wheelbase. Diesel Deutz TD2.9L4 Tier 4 Final 50kW (dual-fuel Ford MSG425-DF 62.6kW option), 117L tank, 129L hydraulic. 4WD hydrostatic, 45% gradeability, 6.1km/h, oscillating axle. Source: JLG 660SJ HC3 brochure (Part 3131053).",
       tags: ["Telescopic", "Diesel", "HC3", "High Capacity", "66ft", "JLG"],
       filters: ["boom", "outdoor", "rough", "diesel", "telescopic", "high"],
     },
@@ -95513,9 +97096,27 @@ loadMatrixTyres: [
       machineWeight: 17200,
       machineWidth: 2.49,
       machineLength: 12.19,
+      wheelbase: 3.05,
+      platformSize: "0.91 × 2.44m",
+      engine: "Diesel Deutz D2.9L4 Tier 4 Final 50kW (67hp); dual-fuel Ford MSG425-DF 62.6kW (84hp) optional (shared chassis with std 860SJ; confirm against 860SJ HC3 sheet)",
       machineHeight: 3.05,
       power: "Diesel",
       swl: 454,
+      // liftChart mirrors the standard 860SJ (identical boom geometry —
+      // same 26.21m platform / 22.86m outreach; HC3 differs only in capacity
+      // zones). Geometric envelope; confirm 454kg restricted zone against the
+      // 860SJ HC3 reach diagram if needed. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 26.21 },
+        { reach: 6.0, height: 25.0 },
+        { reach: 11.0, height: 22.0 },
+        { reach: 16.0, height: 17.5 },
+        { reach: 20.0, height: 12.0 },
+        { reach: 22.86, height: 7.0 },
+        { reach: 22.0, height: 2.5 },
+        { reach: 18.0, height: -0.5 },
+        { reach: 11.0, height: -1.5 },
+      ],
       // Brochure-confirmed: JLG HC3 Hi-Capacity boom lift — '3 capacity zones,
       // each rated for THREE occupants and tools' (JLG.com / Fairchild /
       // Government Fleet article on HC3 expansion). 660 lb unrestricted /
@@ -95533,6 +97134,94 @@ loadMatrixTyres: [
         "Ultra-high heavy-duty construction, tallest sites with maximum loads",
       note: "HC3 86ft telescopic: tri-zone to 454kg. 86ft platform, 75ft outreach.",
       tags: ["Telescopic", "Diesel", "HC3", "High Capacity", "86ft", "JLG"],
+      filters: [
+        "boom",
+        "outdoor",
+        "rough",
+        "diesel",
+        "telescopic",
+        "high",
+        "super",
+      ],
+    },
+    {
+      id: "jlg-860sj",
+      brand: "JLG",
+      emoji: "📡",
+      name: "JLG 860SJ Telescopic",
+      shortName: "JLG 860SJ",
+      boomType: "telescopic",
+      platformHeight: 26.21,
+      workHeight: 28.21,
+      maxReach: 22.86,
+      upOverHeight: null,
+      upOverReach: null,
+      machineWeight: 16710,
+      machineWidth: 2.49,
+      machineLength: 12.19,
+      machineHeight: 2.95,
+      wheelbase: 3.05,
+      groundClearance: 0.28,
+      tailswing: 1.42,
+      engine: "Diesel Deutz D2.9L4 Tier 4 Final 50kW (67hp); dual-fuel Ford MSG425-DF 62.6kW (84hp) optional",
+      jibLength: 1.83,
+      jibArticulation: "131° (+70 / -60)",
+      swing: "360° continuous",
+      platformSize: "0.91 × 2.44m",
+      fuelTank: 117.35,
+      hydraulicCapacity: 181.7,
+      gradeability: 45,
+      driveSpeed: 5.6,
+      turningRadiusInside: 3.8,
+      turningRadiusOutside: 6.02,
+      groundBearingPressure: 5.69,
+      tyres: "15-625(24.5) foam-filled (18-625 / non-marking / turf optional)",
+      power: "Diesel",
+      swl: 227,
+      // Brochure-confirmed: JLG 860SJ standard telescopic boom. Dual-rated
+      // 340kg restricted / 227kg unrestricted. Source: JLG 860SJ spec sheet
+      // (Part 3131057, R1023). Distinct from the older 800SJ and the 860SJ HC3.
+      maxOccupancy: 2,
+      terrain: "outdoor rough",
+      // liftChart pixel-read from JLG 860SJ reach diagram (Part 3131057).
+      // Dual-rated: outer 227kg unrestricted to full reach; inner 340kg restricted.
+      // { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 26.21 },
+        { reach: 6.0, height: 25.0 },
+        { reach: 11.0, height: 22.0 },
+        { reach: 16.0, height: 17.5 },
+        { reach: 20.0, height: 12.0 },
+        { reach: 22.86, height: 7.0 },
+        { reach: 22.0, height: 2.5 },
+        { reach: 18.0, height: -0.5 },
+        { reach: 11.0, height: -1.5 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 26.21 },
+        { reach: 8.0, height: 21.0 },
+        { reach: 14.0, height: 14.0 },
+        { reach: 17.5, height: 7.0 },
+        { reach: 17.0, height: 1.0 },
+      ],
+      xcBasket: {
+        swlRestricted: 340,
+        swlUnrestricted: 227,
+        swl: 340,
+        note: "860SJ standard is dual-rated: 227kg (500lb) unrestricted across full reach, 340kg (750lb) restricted inner zone. The 860SJ HC3 variant upgrades to 454kg tri-zone. Request HC3 for heavy multi-person work at 26m.",
+      },
+      bestFor:
+        "High-rise construction, stadium roofs, large industrial structures, 6-storey access",
+      note: "JLG 860SJ — 86ft (26.21m platform / 28.21m working) telescopic boom. 22.86m horizontal outreach. Dual-rated platform: 227kg (500lb) unrestricted to full reach, 340kg (750lb) restricted inner zone. Reaches full elevation in under 70s. Zero-calibration auto load sensing. 0.91×2.44m platform, 180° rotator, 1.83m jib (131°, +70/-60). 360° continuous swing, 1.42m tailswing. Machine 16,710kg, 2.95m high × 2.49m wide × 12.19m stowed, 3.05m wheelbase. Diesel Deutz D2.9L4 Tier 4 Final 50kW (dual-fuel Ford MSG425-DF 62.6kW option), 117.35L tank, 181.7L hydraulic. 4WD hydrostatic, 45% gradeability (25% 2WD), 5.6km/h, oscillating axle, SkyGuard SkyLine. Source: JLG 860SJ brochure (Part 3131057).",
+      upOverNote: null,
+      tags: [
+        "Telescopic",
+        "86ft",
+        "26m Platform",
+        "22.9m Reach",
+        "Dual Capacity",
+        "JLG",
+      ],
       filters: [
         "boom",
         "outdoor",
@@ -95967,6 +97656,24 @@ loadMatrixTyres: [
         "Super Boom",
         "Genie",
       ],
+      // Envelope digitised from official Genie S-125 brochure (STM-125). Spec:
+      // platH 38.15m, maxR 24.38m, below-ground 3.27m. Telescopic with 5ft
+      // jib (135 deg working range). Note: brochure is for S-125; this entry
+      // is the closest model in the database (S-120).
+      // Source: Genie S-125 product specifications.
+      liftChart: [
+        { reach: 0, height: 38.15 },
+        { reach: 5, height: 37.5 },
+        { reach: 10, height: 35.5 },
+        { reach: 14, height: 32 },
+        { reach: 17, height: 27 },
+        { reach: 20, height: 21 },
+        { reach: 22.5, height: 14 },
+        { reach: 24, height: 8 },
+        { reach: 24.38, height: 4 },
+        { reach: 22, height: 0 },
+        { reach: 10, height: -3.27 },
+      ],
       filters: ["boom", "rough", "ultraboom"],
     },
     {
@@ -96017,6 +97724,23 @@ loadMatrixTyres: [
         "XC Dual Capacity",
         "Super Boom",
         "Genie",
+      ],
+      // Envelope digitised from official Genie SX-125 XC brochure. Spec: platH
+      // 38.10m, maxR 24.38m, below-ground 2.69m. Dual-load envelope: 300kg
+      // full / 454kg restricted. Mini XChassis extendable axles.
+      // Source: Genie SX-125 XC product specifications.
+      liftChart: [
+        { reach: 0, height: 38.10 },
+        { reach: 5, height: 37.5 },
+        { reach: 10, height: 35.5 },
+        { reach: 14, height: 32 },
+        { reach: 17, height: 27 },
+        { reach: 20, height: 21 },
+        { reach: 22.5, height: 14 },
+        { reach: 24, height: 8 },
+        { reach: 24.38, height: 4 },
+        { reach: 22, height: 0 },
+        { reach: 10, height: -2.69 },
       ],
       filters: ["boom", "rough", "ultraboom"],
     },
@@ -96069,6 +97793,23 @@ loadMatrixTyres: [
         "90ft Outreach",
         "Genie",
       ],
+      // Envelope digitised from official Genie SX-135 XC brochure. Spec: platH
+      // 41.15m, maxR 27.43m, below-ground 6.00m. Massive reach via jib-extend
+      // 18-30ft (5.48-9.14m). Dual-load 300kg/454kg.
+      // Source: Genie SX-135 XC product specifications.
+      liftChart: [
+        { reach: 0, height: 41.15 },
+        { reach: 6, height: 40 },
+        { reach: 12, height: 37 },
+        { reach: 16, height: 33 },
+        { reach: 20, height: 27 },
+        { reach: 23, height: 20 },
+        { reach: 25.5, height: 13 },
+        { reach: 27, height: 7 },
+        { reach: 27.43, height: 3 },
+        { reach: 24, height: 0 },
+        { reach: 12, height: -6 },
+      ],
       filters: ["boom", "rough", "ultraboom"],
     },
     {
@@ -96111,6 +97852,23 @@ loadMatrixTyres: [
         "24.4m Reach",
         "Super Boom",
         "Genie",
+      ],
+      // Envelope digitised from official Genie SX-150 brochure. Spec: platH
+      // 46.33m, maxR 24.38m, below-ground 0.61m. 10ft rotating jib (60deg
+      // horizontal, 135deg vertical). 340kg capacity.
+      // Source: Genie SX-150 product specifications.
+      liftChart: [
+        { reach: 0, height: 46.33 },
+        { reach: 5, height: 45.5 },
+        { reach: 10, height: 43.5 },
+        { reach: 14, height: 40 },
+        { reach: 17, height: 35 },
+        { reach: 20, height: 28 },
+        { reach: 22.5, height: 20 },
+        { reach: 24, height: 12 },
+        { reach: 24.38, height: 6 },
+        { reach: 22, height: 2 },
+        { reach: 15, height: -0.61 },
       ],
       filters: ["boom", "rough", "ultraboom"],
     },
@@ -96155,6 +97913,23 @@ loadMatrixTyres: [
         "180ft",
         "World's Tallest Self-Propelled",
         "Genie",
+      ],
+      // Envelope digitised from official Genie SX-180 brochure. Spec: platH
+      // 54.86m, maxR 24.38m, below-ground 0.61m. 10ft rotating jib. World's
+      // tallest self-propelled telescopic boom at time of release.
+      // Source: Genie SX-180 product specifications.
+      liftChart: [
+        { reach: 0, height: 54.86 },
+        { reach: 5, height: 54 },
+        { reach: 10, height: 52 },
+        { reach: 14, height: 48 },
+        { reach: 17, height: 42 },
+        { reach: 20, height: 33 },
+        { reach: 22.5, height: 22 },
+        { reach: 24, height: 12 },
+        { reach: 24.38, height: 6 },
+        { reach: 22, height: 2 },
+        { reach: 15, height: -0.61 },
       ],
       filters: ["boom", "rough", "ultraboom"],
     },
@@ -96217,12 +97992,37 @@ loadMatrixTyres: [
       maxReach: 17.37,
       upOverHeight: null,
       upOverReach: null,
-      machineWeight: 12800,
+      machineWeight: 12111,
       machineWidth: 2.44,
       machineLength: 10.34,
       machineHeight: 2.57,
       power: "Diesel",
       swl: 227,
+      wheelbase: 2.44,
+      groundClearance: 0.41,
+      tailswing: 1.19,
+      platformSize: "0.91 × 2.44m",
+      platformRotation: 170,
+      jibLength: 1.5,
+      swing: "360° continuous",
+      engine: "Diesel 55kW (74hp); dual-fuel 61kW (82hp)",
+      fuelTank: 170,
+      hydraulicCapacity: 227,
+      gradeability: 50,
+      driveSpeed: 7.2,
+      turningRadiusInside: 2.82,
+      turningRadiusOutside: 5.05,
+      tyres: "15×19.5 air-filled",
+      // liftChart pixel-read from Skyjack working envelope. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 20.12 },
+        { reach: 4, height: 18.5 },
+        { reach: 8, height: 15 },
+        { reach: 12, height: 10.5 },
+        { reach: 15, height: 5.5 },
+        { reach: 17.37, height: 2 },
+        { reach: 16, height: -1.5 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -96264,6 +98064,48 @@ loadMatrixTyres: [
       machineHeight: 3.0,
       power: "Diesel",
       swl: 227,
+      wheelbase: 3.35,
+      groundClearance: 0.41,
+      tailswing: 1.42,
+      workingReach: 24.07,
+      platformSize: "0.91 × 1.83m",
+      platformRotation: 170,
+      jibLength: 1.68,
+      swing: "360° continuous",
+      engine: "Diesel Deutz TCD2.2L Stage V 55.2kW (74hp)",
+      fuelTank: 170,
+      hydraulicCapacity: 227,
+      gradeability: 45,
+      driveSpeed: 4.8,
+      turningRadiusInside: 3.51,
+      turningRadiusOutside: 6.4,
+      tyres: "18-625 grip-lug foam-filled",
+      xcBasket: {
+        swlRestricted: 341,
+        swlUnrestricted: 227,
+        swl: 341,
+        isBuiltIn: true,
+        note: "SJ86T dual-rated: 227kg (500lb) unrestricted (2 persons) / 341kg (750lb) restricted (3 persons).",
+      },
+      // liftChart pixel-read from Skyjack working envelope. { reach (m), height (m) }.
+      liftChart: [
+        { reach: 0, height: 26.21 },
+        { reach: 5, height: 24.5 },
+        { reach: 9, height: 21 },
+        { reach: 14, height: 16 },
+        { reach: 18, height: 10.5 },
+        { reach: 21, height: 6 },
+        { reach: 23.42, height: 2 },
+        { reach: 22, height: -1 },
+        { reach: 17, height: -3 },
+      ],
+      liftChartRestricted: [
+        { reach: 0, height: 26.21 },
+        { reach: 6, height: 20 },
+        { reach: 11, height: 13 },
+        { reach: 15, height: 6 },
+        { reach: 16, height: 0 },
+      ],
       // Brochure-confirmed: Skyjack official AU/NZ spec sheet
       // (skyjack.com): 'Maximum # of Persons: 2'. Standard 2-person
       // ANSI A92.20 unrestricted rating across 227kg-platform Skyjack
@@ -146555,6 +148397,57 @@ function _renderCards(matches, machineType, answers) {
         return;
       }
 
+      // ── Build the full ordered candidate list for this brand ──────────────
+      // The single picked spMachine above may fail a later capability gate
+      // (e.g. reach at high platform-height utilization). Instead of skipping
+      // the ad entirely, walk through every brand machine that meets the
+      // basic size criteria and use the first one that passes ALL gates.
+      // Ordered: the originally-picked spMachine first, then the rest of
+      // _qualifying (already sorted best-fit first), then any other brand
+      // machines as a fallback, then the admin-pinned machineId.
+      const _spCandidates = [];
+      const _spSeenIds = new Set();
+      const _addCand = (m) => {
+        if (!m || !m.id || _spSeenIds.has(m.id)) return;
+        _spSeenIds.add(m.id);
+        _spCandidates.push(m);
+      };
+      _addCand(spMachine);
+      if (Array.isArray(_brandMatches)) _brandMatches.forEach(_addCand);
+      if (Array.isArray(_qualifying)) _qualifying.forEach(_addCand);
+      // Final fallback: any machine of this brand+type, in case earlier
+      // size filters were too tight.
+      try {
+        const _spBrandLc = (ad.brand || "").toLowerCase().trim();
+        if (_spBrandLc && Array.isArray(ALL_MACHINES)) {
+          ALL_MACHINES.filter(
+            (m) =>
+              (m.brand || "").toLowerCase().trim() === _spBrandLc &&
+              (machineType === "rotating"
+                ? m.machineType === "telehandler" && m.isRotating
+                : machineType === "telehandler"
+                  ? m.machineType === "telehandler" && !m.isRotating
+                  : m.machineType === machineType),
+          ).forEach(_addCand);
+        }
+      } catch (e) {}
+      if (ad.machineId) {
+        const _adminPinned = ALL_MACHINES.find((m) => m.id === ad.machineId);
+        if (_adminPinned) _addCand(_adminPinned);
+      }
+
+      // Try each candidate in turn. Each gate-failure inside the block below
+      // throws _SPN_NEXT, which we catch to advance to the next candidate.
+      // First candidate that passes ALL gates wins the slot.
+      const _SPN_NEXT = "__SPN_TRY_NEXT__";
+      let _spAccepted = false;
+      let _spLastReason = "";
+      for (let _spCi = 0; _spCi < _spCandidates.length && !_spAccepted; _spCi++) {
+        spMachine = _spCandidates[_spCi];
+        // Reset any cached per-machine values from prior candidate
+        spMachine._reachAtReqHt = null;
+        try {
+
       // ── Capability gate: skip sponsored slot if machine can't do the job ──────────
       // Check height requirement
       const _spGateHt = parseFloat(
@@ -146672,7 +148565,7 @@ function _renderCards(matches, machineType, answers) {
             `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — machine weight ${spMachine.machineWeight} kg > site cap ${_spSiteMaxKg} kg.`,
           );
         }
-        return;
+        throw _SPN_NEXT;
       }
       if (_spSiteMaxW_final > 0 && spMachine.machineWidth) {
         const _spWm = spMachine.machineWidth > 20 ? spMachine.machineWidth / 1000 : spMachine.machineWidth;
@@ -146680,7 +148573,7 @@ function _renderCards(matches, machineType, answers) {
           if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
             console.log(`[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — width ${_spWm} m > site cap ${_spSiteMaxW_final} m.`);
           }
-          return;
+          throw _SPN_NEXT;
         }
       }
       if (_spSiteMaxL_final > 0 && spMachine.machineLength) {
@@ -146689,7 +148582,7 @@ function _renderCards(matches, machineType, answers) {
           if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
             console.log(`[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — length ${_spLm} m > site cap ${_spSiteMaxL_final} m.`);
           }
-          return;
+          throw _SPN_NEXT;
         }
       }
       if (_spSiteMaxH > 0 && spMachine.machineHeight) {
@@ -146698,7 +148591,7 @@ function _renderCards(matches, machineType, answers) {
           if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
             console.log(`[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — stowed height ${_spMHm} m > site cap ${_spSiteMaxH} m.`);
           }
-          return;
+          throw _SPN_NEXT;
         }
       }
 
@@ -146709,7 +148602,7 @@ function _renderCards(matches, machineType, answers) {
             `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — machine height ${_spGatePlatH}m < required ${_spGateHt}m.`,
           );
         }
-        return;
+        throw _SPN_NEXT;
       }
 
       // Capacity check for telehandlers: machine must be able to lift required kg
@@ -146758,17 +148651,22 @@ function _renderCards(matches, machineType, answers) {
               `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — brochure max reach ${_spGateMaxR}m < required ${_spGateRe}m.`,
             );
           }
-          return;
+          throw _SPN_NEXT;
         }
         // Stage 2: try to compute reach at the actual required height.
         let _spProvenReach = null;
-        if (_spGateHt > 0 && typeof getReachAtHeight === "function") {
+        let _spReachSource = null; // "liftChart" | "estimate" | null
+        if (_spGateHt > 0) {
           if (spMachine._reachAtReqHt == null) {
             try {
-              spMachine._reachAtReqHt = getReachAtHeight(spMachine, _spGateHt);
+              spMachine._reachAtReqHt = _spnReachAtHeight(spMachine, _spGateHt);
             } catch (e) {}
           }
           _spProvenReach = spMachine._reachAtReqHt;
+          _spReachSource =
+            Array.isArray(spMachine.liftChart) && spMachine.liftChart.length >= 2
+              ? "liftChart"
+              : "estimate";
         }
         // Stage 3: enforce.
         if (_spProvenReach != null) {
@@ -146777,24 +148675,20 @@ function _renderCards(matches, machineType, answers) {
           if (_spProvenReach < _spGateRe) {
             if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
               console.log(
-                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — reach at ${_spGateHt}m height is only ${_spProvenReach.toFixed(2)}m, customer needs ${_spGateRe}m.`,
+                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — reach at ${_spGateHt}m height is only ${_spProvenReach.toFixed(2)}m (${_spReachSource}), customer needs ${_spGateRe}m. Trying next brand machine if available.`,
               );
             }
-            return;
+            throw _SPN_NEXT;
           }
         } else {
-          // No envelope data. If the customer is operating at >75% of the
-          // machine's platform height, the boom is in its "tall and skinny"
-          // zone where reach falls off quickly. Skip rather than guess.
-          // Below 75% utilization, the brochure max reach is usually a
-          // reasonable proxy.
+          // Truly no way to determine reach at this height. Skip rather than guess.
           if (_spGatePlatH > 0 && _spGateHt / _spGatePlatH > 0.75) {
             if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
               console.log(
-                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — no envelope data and customer needs ${_spGateRe}m reach at ${_spGateHt}m height (${Math.round((_spGateHt/_spGatePlatH)*100)}% of platform max), reach unprovable.`,
+                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — cannot determine reach at ${_spGateHt}m height (${Math.round((_spGateHt/_spGatePlatH)*100)}% of platform max) — machine has no liftChart and missing boomType/platformHeight for estimation. Trying next brand machine if available.`,
               );
             }
-            return;
+            throw _SPN_NEXT;
           }
         }
       }
@@ -146829,7 +148723,7 @@ function _renderCards(matches, machineType, answers) {
           const _spBasketKg = spMachine.swl || spMachine.capacity || 0;
           if (_spBasketKg > 0 && _spBasketKg < _spBasketKgReq) {
             _spStrictDbg(`platform SWL ${_spBasketKg} kg < required ${_spBasketKgReq} kg`);
-            return;
+            throw _SPN_NEXT;
           }
         }
 
@@ -146857,7 +148751,7 @@ function _renderCards(matches, machineType, answers) {
         }
         if (_spIsPeopleCat && _spTwoPersonReq && _spOccCount < 2) {
           _spStrictDbg(`maxOccupancy ${_spOccCount} < required 2+`);
-          return;
+          throw _SPN_NEXT;
         }
 
         // ── 3. DRIVE-AT-HEIGHT capability ────────────────────────────────
@@ -146869,7 +148763,7 @@ function _renderCards(matches, machineType, answers) {
           (answers || {}).boom_drive_at_height === "yes";
         if (_spIsPeopleCat && _spWantsDrive && !spMachine.driveAtHeight) {
           _spStrictDbg(`customer wants drive-at-height; machine does not support it`);
-          return;
+          throw _SPN_NEXT;
         }
 
         // ── 4. INDOOR/EMISSIONS — diesel cannot serve indoor request ────
@@ -146886,7 +148780,7 @@ function _renderCards(matches, machineType, answers) {
           // Diesel-only machines (no electric/hybrid mode) banned on indoor jobs
           if (_spPwr.includes("diesel") && !_spPwr.includes("electric") && !_spPwr.includes("hybrid") && !_spPwr.includes("bi-energy") && !_spPwr.includes("dual")) {
             _spStrictDbg(`indoor job; machine power "${spMachine.power}" is diesel-only`);
-            return;
+            throw _SPN_NEXT;
           }
         }
 
@@ -146894,7 +148788,7 @@ function _renderCards(matches, machineType, answers) {
         if (machineType === "forklift" && (answers || {}).need_container_mast === "yes") {
           if (!spMachine.containerMast && !spMachine.containerMastReady) {
             _spStrictDbg(`customer requires container mast; machine doesn't have one`);
-            return;
+            throw _SPN_NEXT;
           }
         }
 
@@ -146907,7 +148801,7 @@ function _renderCards(matches, machineType, answers) {
           const _spRatedKg = (spMachine.capacity || 0) > 100 ? (spMachine.capacity || 0) : (spMachine.capacity || 0) * 1000;
           if (_spRatedKg > 0 && _spRatedKg < _spForkReqKg) {
             _spStrictDbg(`rated capacity ${_spRatedKg} kg < required ${_spForkReqKg} kg`);
-            return;
+            throw _SPN_NEXT;
           }
           // Residual at full mast height — if known on the machine and below
           // requirement at the customer's load centre, skip.
@@ -146924,7 +148818,7 @@ function _renderCards(matches, machineType, answers) {
               const _spInterpKg = _spRatedKg - _spFrac * (_spRatedKg - _spResidualKg);
               if (_spInterpKg < _spForkReqKg) {
                 _spStrictDbg(`forklift residual ~${Math.round(_spInterpKg)} kg at ${_spForkReqHt}m / ${_spForkLC}mm LC < required ${_spForkReqKg} kg`);
-                return;
+                throw _SPN_NEXT;
               }
             }
           }
@@ -146958,7 +148852,7 @@ function _renderCards(matches, machineType, answers) {
             );
             if (!_spHasIt) {
               _spStrictDbg(`required attachment "${_spReqKey}" not available on machine`);
-              return;
+              throw _SPN_NEXT;
             }
           }
         }
@@ -146967,7 +148861,7 @@ function _renderCards(matches, machineType, answers) {
         if (machineType === "telehandler" && (answers || {}).tele_rotation === "yes") {
           if (!spMachine.isRotating) {
             _spStrictDbg(`customer needs rotation; machine is not rotating`);
-            return;
+            throw _SPN_NEXT;
           }
         }
 
@@ -146975,13 +148869,13 @@ function _renderCards(matches, machineType, answers) {
         if (machineType === "boom" && (answers || {}).boom_type_pref === "boom_articulating") {
           if (spMachine.boomType && spMachine.boomType !== "articulating") {
             _spStrictDbg(`customer wants articulating; machine is ${spMachine.boomType}`);
-            return;
+            throw _SPN_NEXT;
           }
         }
         if (machineType === "boom" && (answers || {}).boom_type_pref === "boom_telescopic") {
           if (spMachine.boomType && spMachine.boomType !== "telescopic") {
             _spStrictDbg(`customer wants telescopic; machine is ${spMachine.boomType}`);
-            return;
+            throw _SPN_NEXT;
           }
         }
       }
@@ -147216,6 +149110,25 @@ function _renderCards(matches, machineType, answers) {
         </div>
       </div>`;
       container.appendChild(spCard);
+      _spAccepted = true;
+        } catch (_spErr) {
+          if (_spErr === _SPN_NEXT) {
+            // Try next candidate. Reason already logged inside the gate.
+            continue;
+          }
+          // Unexpected error — log and stop trying for this ad.
+          console.error("[Noyo] Sponsored candidate error:", _spErr && _spErr.message ? _spErr.message : _spErr);
+          break;
+        }
+      } // end candidate for-loop
+      if (!_spAccepted) {
+        if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+          console.log(
+            `[Noyo Sponsored] Ad #${_spIdx} (brand="${ad.brand}"): no brand machine passed all gates after trying ${_spCandidates.length} candidate(s). Ad not shown this search.`,
+          );
+        }
+        return;
+      }
       _spShownCount++;
       _shownSponsoredBrands.add((ad.brand || "").toLowerCase());
 
@@ -173364,6 +175277,86 @@ const SPONSORED_CATEGORIES = [
 
 // In-memory sponsored ads store — loaded from Firestore on boot
 var _sponsoredAds = [];
+
+// Global reach-at-height helper for boom envelope checks. The boom matcher
+// has its own nested copy (estimation-only) that isn't callable from the
+// sponsored-ad code path. This global version:
+//  1. Uses the machine's explicit liftChart data when present (most accurate).
+//  2. Otherwise falls back to the same physics estimate used by the matcher.
+// Returns reach in metres at the requested height, or null if it genuinely
+// can't be determined.
+function _spnReachAtHeight(m, needH) {
+  if (!m) return null;
+  const platH = m.platformHeight || 0;
+  const maxR = m.maxReach || 0;
+  if (needH <= 0) return maxR;
+  if (platH > 0 && needH > platH) return 0;
+
+  // Stage 1: explicit liftChart (linear-interpolate between charted points).
+  if (Array.isArray(m.liftChart) && m.liftChart.length >= 2) {
+    // Sort by height descending: highest height (smallest reach) → lowest height (largest reach)
+    const pts = m.liftChart
+      .filter((p) => typeof p.reach === "number" && typeof p.height === "number")
+      .slice()
+      .sort((a, b) => b.height - a.height);
+    if (pts.length >= 2) {
+      // Exact match
+      const exact = pts.find((p) => Math.abs(p.height - needH) < 0.01);
+      if (exact) return exact.reach;
+      // needH above the highest charted height → cannot reach
+      if (needH > pts[0].height) return 0;
+      // needH below the lowest charted height → use max reach
+      if (needH < pts[pts.length - 1].height) return maxR || pts[pts.length - 1].reach;
+      // Interpolate between the two bracketing points
+      for (let i = 0; i < pts.length - 1; i++) {
+        const hi = pts[i],
+          lo = pts[i + 1];
+        if (needH <= hi.height && needH >= lo.height) {
+          const span = hi.height - lo.height;
+          if (span <= 0) return hi.reach;
+          const t = (hi.height - needH) / span; // 0 at hi.height, 1 at lo.height
+          const r = hi.reach + (lo.reach - hi.reach) * t;
+          return Math.round(r * 10) / 10;
+        }
+      }
+    }
+  }
+
+  // Stage 2: physics estimate (same model the boom matcher uses).
+  if (m.boomType === "telescopic" && platH > 0) {
+    // Real telescopic booms hold most of their max reach across the lower
+    // 70% of platform height (the boom is mostly horizontal at low elevation),
+    // then reach falls off sharply as the boom tilts toward vertical to gain
+    // the last bit of height. The old `maxR * (1 - h/platH)` linear model
+    // under-reported reach badly mid-range (e.g. a 12m boom at 7m elevation
+    // shows ~5m instead of the real ~9m). New model: linearly hold ~95% of
+    // maxR up to 70% of platH, then drop steeply to 0 at platH.
+    const heightFrac = needH / platH;
+    if (heightFrac <= 0.7) {
+      // Lower zone: reach drops gently from maxR at 0 to 95% maxR at 70% height
+      const reachFrac = 1 - 0.05 * (heightFrac / 0.7);
+      return Math.round(maxR * reachFrac * 10) / 10;
+    } else {
+      // Upper zone: reach drops from 95% maxR at 70% height to 0 at 100% height
+      const upperFrac = (heightFrac - 0.7) / 0.3; // 0..1 in upper third
+      const reachFrac = 0.95 * (1 - Math.pow(upperFrac, 1.3));
+      return Math.round(maxR * reachFrac * 10) / 10;
+    }
+  }
+  if (m.boomType === "articulating" && platH > 0) {
+    const upH = m.upOverHeight && m.upOverHeight > 0 ? m.upOverHeight : platH * 0.55;
+    if (needH <= upH) {
+      return Math.round(maxR * (needH / upH) * 10) / 10;
+    }
+    const remaining = platH - upH;
+    if (remaining <= 0) return maxR;
+    const frac = (needH - upH) / remaining;
+    const minReachFrac = 0.35;
+    const reachFrac = 1 - (1 - minReachFrac) * Math.pow(frac, 2.5);
+    return Math.round(maxR * reachFrac * 10) / 10;
+  }
+  return null;
+}
 var _sponsoredLoaded = false;
 
 async function _loadSponsoredAds() {
