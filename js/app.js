@@ -148153,6 +148153,13 @@ function _renderCards(matches, machineType, answers) {
       let spMachine = null;
       let _spDynamicPick = false; // true when we picked dynamically (not from ad.machineId)
       const _spBrand = ad.brand || ad.sponsorCompany || "";
+      // Hoisted to this scope: both are populated inside the Try-1 / Try-2 blocks
+      // below but are also read later when assembling _spCandidates. Declaring
+      // them here (rather than with const/let inside those if-blocks) prevents a
+      // ReferenceError at the candidate-list step that was silently skipping
+      // EVERY sponsored slot (caught by the surrounding try → 0 impressions).
+      let _brandMatches = null;
+      let _qualifying = null;
 
       // Try 1: from organic results, pick the CLOSEST-FIT machine from this brand
       // (not highest-scored — a 41m machine for a 10m search is wrong)
@@ -148173,7 +148180,7 @@ function _renderCards(matches, machineType, answers) {
           machineType === "boom" &&
           (answers.boom_terrain === "indoor_boom" ||
             answers.people_location === "indoor");
-        const _brandMatches = matches.filter((m) => {
+        _brandMatches = matches.filter((m) => {
           if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase())
             return false;
           if (m._underSpec) return false;
@@ -148266,7 +148273,7 @@ function _renderCards(matches, machineType, answers) {
         const _spWantsDiesel = _spPwr === "diesel_boom" || _spPwr === "diesel";
         const _spWantsHybrid = _spPwr === "hybrid_boom";
 
-        let _qualifying = _catPool2.filter((m) => {
+        _qualifying = _catPool2.filter((m) => {
           if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase())
             return false;
           // Exclude true spider/outrigger lifts for boom (not wheeled tracked booms like Genie TraX)
