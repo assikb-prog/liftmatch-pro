@@ -148660,42 +148660,54 @@ function _renderCards(matches, machineType, answers) {
           }
           throw _SPN_NEXT;
         }
-        // Stage 2: try to compute reach at the actual required height.
-        let _spProvenReach = null;
-        let _spReachSource = null; // "liftChart" | "estimate" | null
-        if (_spGateHt > 0) {
-          if (spMachine._reachAtReqHt == null) {
-            try {
-              spMachine._reachAtReqHt = _spnReachAtHeight(spMachine, _spGateHt);
-            } catch (e) {}
-          }
-          _spProvenReach = spMachine._reachAtReqHt;
-          _spReachSource =
-            Array.isArray(spMachine.liftChart) && spMachine.liftChart.length >= 2
-              ? "liftChart"
-              : "estimate";
-        }
-        // Stage 3: enforce.
-        if (_spProvenReach != null) {
-          // We have a definitive answer from the envelope. Enforce strictly
-          // (no 0.3m grace — sponsored slots must be unambiguously capable).
-          if (_spProvenReach < _spGateRe) {
-            if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
-              console.log(
-                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — reach at ${_spGateHt}m height is only ${_spProvenReach.toFixed(2)}m (${_spReachSource}), customer needs ${_spGateRe}m. Trying next brand machine if available.`,
-              );
+        // Stage 2/3: the boom-envelope reach-at-height proof below only makes
+        // sense for BOOM lifts, whose horizontal reach collapses as the
+        // platform nears full height (a liftChart/physics envelope describes
+        // that). Telehandlers are a different geometry entirely — their reach
+        // is governed by the load chart, already validated above via maxReach
+        // (Stage 1) and the getCapacityAtPoint capacity check. Forcing the
+        // boom liftChart rule on a telehandler made _spnReachAtHeight return
+        // null (no boomType/liftChart) and then STRICT-skipped any telehandler
+        // requested above 75% of its lift height — which is why JCB Loadalls
+        // never filled the sponsored slot on normal telehandler searches.
+        if (machineType === "boom") {
+          // Stage 2: try to compute reach at the actual required height.
+          let _spProvenReach = null;
+          let _spReachSource = null; // "liftChart" | "estimate" | null
+          if (_spGateHt > 0) {
+            if (spMachine._reachAtReqHt == null) {
+              try {
+                spMachine._reachAtReqHt = _spnReachAtHeight(spMachine, _spGateHt);
+              } catch (e) {}
             }
-            throw _SPN_NEXT;
+            _spProvenReach = spMachine._reachAtReqHt;
+            _spReachSource =
+              Array.isArray(spMachine.liftChart) && spMachine.liftChart.length >= 2
+                ? "liftChart"
+                : "estimate";
           }
-        } else {
-          // Truly no way to determine reach at this height. Skip rather than guess.
-          if (_spGatePlatH > 0 && _spGateHt / _spGatePlatH > 0.75) {
-            if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
-              console.log(
-                `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — cannot determine reach at ${_spGateHt}m height (${Math.round((_spGateHt/_spGatePlatH)*100)}% of platform max) — machine has no liftChart and missing boomType/platformHeight for estimation. Trying next brand machine if available.`,
-              );
+          // Stage 3: enforce.
+          if (_spProvenReach != null) {
+            // We have a definitive answer from the envelope. Enforce strictly
+            // (no 0.3m grace — sponsored slots must be unambiguously capable).
+            if (_spProvenReach < _spGateRe) {
+              if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+                console.log(
+                  `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — reach at ${_spGateHt}m height is only ${_spProvenReach.toFixed(2)}m (${_spReachSource}), customer needs ${_spGateRe}m. Trying next brand machine if available.`,
+                );
+              }
+              throw _SPN_NEXT;
             }
-            throw _SPN_NEXT;
+          } else {
+            // Truly no way to determine reach at this height. Skip rather than guess.
+            if (_spGatePlatH > 0 && _spGateHt / _spGatePlatH > 0.75) {
+              if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
+                console.log(
+                  `[Noyo Sponsored] Ad #${_spIdx} (${spMachine.name}): skipped — cannot determine reach at ${_spGateHt}m height (${Math.round((_spGateHt/_spGatePlatH)*100)}% of platform max) — machine has no liftChart and missing boomType/platformHeight for estimation. Trying next brand machine if available.`,
+                );
+              }
+              throw _SPN_NEXT;
+            }
           }
         }
       }
@@ -175382,18 +175394,66 @@ async function _loadSponsoredAds() {
 
 // Return live sponsored ads for a given result category key
 // Checks: active flag + date range (startDate <= today <= endDate)
+// Normalize any sponsored-ad category string to a canonical key, so the same
+// machine class written different ways all match. Sponsors/admins may have
+// saved a category as a tidy key ("telehandler"), a power-split key
+// ("boom_diesel"), or a human label ("Telehandlers (Standard)"). All standard
+// telehandler spellings collapse to "telehandler"; ONLY genuine rotating /
+// 360° telehandlers map to the separate "rotating" key. Booms and scissors
+// keep their power-split buckets but tolerate label spellings too.
+function _normalizeAdCategory(raw) {
+  if (!raw) return "";
+  const s = String(raw).toLowerCase().trim();
+  // collapse separators/punctuation to single spaces for label matching
+  const t = s.replace(/[_\-—–]/g, " ").replace(/[()]/g, " ").replace(/\s+/g, " ").trim();
+
+  // Rotating telehandler is the ONLY telehandler variant kept separate.
+  if (
+    t.includes("rotat") || // rotating, rotational, rotate
+    /\b360\b/.test(t) ||
+    t.includes("roto")
+  ) {
+    // ...but only when it's actually a telehandler context (avoid matching,
+    // say, a "360° camera" gimmick label). Telehandler rotators always say
+    // telehandler/telehandler/loadall or are the bare rotating category.
+    if (t.includes("tele") || t.includes("loadall") || t.includes("handler") || t === "rotating")
+      return "rotating";
+  }
+  // Standard telehandler — every non-rotating spelling.
+  if (t.includes("telehandler") || t.includes("loadall") || t === "tele")
+    return "telehandler";
+
+  // Booms (keep power split; tolerate label spellings)
+  if (t.includes("boom")) {
+    if (t.includes("electric")) return "boom_electric";
+    if (t.includes("diesel")) return "boom_diesel";
+    return "boom";
+  }
+  // Scissors (keep power split; tolerate label spellings)
+  if (t.includes("scissor")) {
+    if (t.includes("electric")) return "scissor_electric";
+    if (t.includes("diesel")) return "scissor_diesel";
+    return "scissor";
+  }
+  // Forklift family
+  if (t.includes("forklift") || t.includes("fork lift")) return "forklift";
+  // Fall back to the cleaned single-token form (covers any other category
+  // such as "material", "pusharound", earthmoving keys, etc.)
+  return s;
+}
+
 function _getSponsoredForCategory(catKey) {
   const now = Date.now();
   if (!Array.isArray(_sponsoredAds)) return []; // defensive guard — never crash card rendering
-  // Rotating telehandlers should also pick up 'telehandler' category sponsors
-  // since most sponsors will have set category:'telehandler' not category:'rotating'
+  // Which canonical category keys does THIS results page accept?
   //
-  // Boom and scissor have been split by power source (electric vs diesel) for
-  // separate ad inventory. The customer-side enquiry flow doesn't currently ask
-  // power preference, so a boom results page accepts ads from ALL three buckets
-  // (legacy 'boom', new 'boom_electric', new 'boom_diesel') — Option B: same
-  // audience, more ad revenue. Switch to power-aware targeting later by reading
-  // the recommended machine's power field and narrowing this list.
+  // Rotating telehandler pages also accept plain 'telehandler' sponsors, since
+  // most sponsors set category:'telehandler' not 'rotating'. Standard
+  // telehandler pages do NOT accept rotating ads (rotating is a real, separate
+  // class — a customer who said "no rotation" must not be shown a roto).
+  //
+  // Boom/scissor results accept all power buckets because the enquiry flow
+  // doesn't ask power preference yet (Option B: same audience, more revenue).
   let catKeys;
   if (catKey === "rotating") catKeys = ["rotating", "telehandler"];
   else if (catKey === "boom") catKeys = ["boom", "boom_electric", "boom_diesel"];
@@ -175401,7 +175461,9 @@ function _getSponsoredForCategory(catKey) {
   else catKeys = [catKey];
   return _sponsoredAds.filter((a) => {
     if (!a.active) return false;
-    if (!catKeys.includes(a.category)) return false;
+    // Compare on the NORMALIZED ad category, so "Telehandlers (Standard)",
+    // "telehandler_standard" and "telehandler" all match the telehandler page.
+    if (!catKeys.includes(_normalizeAdCategory(a.category))) return false;
     // Date range check
     if (a.startDate && new Date(a.startDate).getTime() > now) return false; // not started yet
     if (a.endDate && new Date(a.endDate).getTime() < now) return false; // expired
@@ -175452,17 +175514,30 @@ window.addEventListener("load", () => {
 function _spnTrackImpression(adId) {
   if (!adId || !_fbDb) return;
   try {
+    // Local date key (YYYY-MM-DD) so dailyStats lines up with the dashboard's
+    // date-range filter, which reads ad.dailyStats[day]. Without this dated
+    // bucket the "this period" columns can never populate (only lifetime
+    // totals were being written before).
+    const _day = _spnLocalDay();
     _fbDb
       .collection("sponsored_ads")
       .doc(adId)
       .update({
         impressions: firebase.firestore.FieldValue.increment(1),
+        [`dailyStats.${_day}.impressions`]:
+          firebase.firestore.FieldValue.increment(1),
         lastImpressionAt: new Date().toISOString(),
       })
       .catch(() => {});
     // Update in-memory too
     const ad = _sponsoredAds.find((a) => a.id === adId);
-    if (ad) ad.impressions = (ad.impressions || 0) + 1;
+    if (ad) {
+      ad.impressions = (ad.impressions || 0) + 1;
+      if (!ad.dailyStats) ad.dailyStats = {};
+      if (!ad.dailyStats[_day]) ad.dailyStats[_day] = {};
+      ad.dailyStats[_day].impressions =
+        (ad.dailyStats[_day].impressions || 0) + 1;
+    }
   } catch (e) {}
 }
 
@@ -175470,8 +175545,10 @@ function _spnTrackClick(adId, eventType) {
   // eventType: 'cart_add' | 'view_more' | 'card_click'
   if (!adId || !_fbDb) return;
   try {
+    const _day = _spnLocalDay();
     const update = {
       clicks: firebase.firestore.FieldValue.increment(1),
+      [`dailyStats.${_day}.clicks`]: firebase.firestore.FieldValue.increment(1),
       lastClickAt: new Date().toISOString(),
     };
     if (eventType === "cart_add")
@@ -175485,8 +175562,22 @@ function _spnTrackClick(adId, eventType) {
     if (ad) {
       ad.clicks = (ad.clicks || 0) + 1;
       if (eventType === "cart_add") ad.cartAdds = (ad.cartAdds || 0) + 1;
+      if (!ad.dailyStats) ad.dailyStats = {};
+      if (!ad.dailyStats[_day]) ad.dailyStats[_day] = {};
+      ad.dailyStats[_day].clicks = (ad.dailyStats[_day].clicks || 0) + 1;
     }
   } catch (e) {}
+}
+
+// Local-timezone date key (YYYY-MM-DD) for dailyStats buckets. Uses local
+// time (not UTC) so a sponsor's "today" matches the operator's calendar day
+// and the dashboard date-range presets line up with what was actually served.
+function _spnLocalDay(d) {
+  const x = d ? new Date(d) : new Date();
+  const y = x.getFullYear();
+  const m = String(x.getMonth() + 1).padStart(2, "0");
+  const day = String(x.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
 }
 
 // ── BP ID generator ───────────────────────────────────────────────
@@ -179838,7 +179929,10 @@ async function renderAnalytics() {
     deviceAgg = {},
     browserAgg = {},
     countryAgg = {},
-    cityDetailAgg = {};
+    cityDetailAgg = {},
+    continentAgg = {},
+    regionAgg = {},
+    cityGeoAgg = {};
   const roleAgg = {}; // role → sessions
   const roleDevices = {}; // role → { device → count }
   const roleCountries = {}; // role → { country → count }
@@ -179876,6 +179970,26 @@ async function renderAnalytics() {
       Object.entries(doc.cities).forEach(([k, v]) => {
         const k2 = k.replace(/_/g, " ");
         cityDetailAgg[k2] = (cityDetailAgg[k2] || 0) + parseInt(v || 0);
+      });
+    if (doc.continents)
+      Object.entries(doc.continents).forEach(([k, v]) => {
+        const k2 = k.replace(/_/g, " ");
+        continentAgg[k2] = (continentAgg[k2] || 0) + parseInt(v || 0);
+      });
+    if (doc.regions)
+      Object.entries(doc.regions).forEach(([k, v]) => {
+        const k2 = k.replace(/_/g, " ");
+        regionAgg[k2] = (regionAgg[k2] || 0) + parseInt(v || 0);
+      });
+    if (doc.cityGeo)
+      Object.entries(doc.cityGeo).forEach(([k, v]) => {
+        // stored as "Country|City" — show as "City, Country"
+        const parts = k.split("|");
+        const label =
+          parts.length === 2
+            ? `${parts[1].replace(/_/g, " ")}, ${parts[0].replace(/_/g, " ")}`
+            : k.replace(/_/g, " ");
+        cityGeoAgg[label] = (cityGeoAgg[label] || 0) + parseInt(v || 0);
       });
     if (doc.hours)
       Object.entries(doc.hours).forEach(([k, v]) => {
@@ -180103,24 +180217,45 @@ async function renderAnalytics() {
   // Countries
   const ctrEl = document.getElementById("analytics-countries");
   if (ctrEl)
-    ctrEl.innerHTML = _barList(
-      "Countries",
-      "🗺️",
-      countryAgg,
-      "#D97706",
-      "Visitor country — detected from IP address",
-    );
+    ctrEl.innerHTML =
+      _barList(
+        "Continents",
+        "🌐",
+        continentAgg,
+        "#0EA5E9",
+        "Visitor continent — rolled up from country (full-globe view)",
+      ) +
+      `<div style="margin-top:.8rem;border-top:1px solid #F1F5F9;padding-top:.6rem"></div>` +
+      _barList(
+        "Countries",
+        "🗺️",
+        countryAgg,
+        "#D97706",
+        "Visitor country — detected from IP address",
+      );
 
-  // Cities detail
+  // Cities detail — prefer the country-disambiguated cityGeo buckets when
+  // present (newer data), else fall back to the legacy flat city list.
   const citEl = document.getElementById("analytics-cities-detail");
   if (citEl)
-    citEl.innerHTML = _barList(
-      "Cities",
-      "📍",
-      cityDetailAgg,
-      "#DC2626",
-      "City-level breakdown across all visitors",
-    );
+    citEl.innerHTML =
+      _barList(
+        "Cities",
+        "📍",
+        Object.keys(cityGeoAgg).length ? cityGeoAgg : cityDetailAgg,
+        "#DC2626",
+        "City-level breakdown (City, Country) across all visitors",
+      ) +
+      (Object.keys(regionAgg).length
+        ? `<div style="margin-top:.8rem;border-top:1px solid #F1F5F9;padding-top:.6rem"></div>` +
+          _barList(
+            "Regions / States",
+            "📌",
+            regionAgg,
+            "#9333EA",
+            "State or region within country",
+          )
+        : "");
 
   // ── 12. Revenue & GMV Intelligence ────────────────────────────────────
   const revEl = document.getElementById("analytics-revenue");
@@ -181302,7 +181437,14 @@ function exportBrandReport() {
     "Total Impressions (All Time)",
     "Total Clicks (All Time)",
   ];
+  // Human-readable period stamp inside the file (sponsors open the CSV, not
+  // just the filename). _lastBrandReportPeriod is "YYYY-MM-DD_to_YYYY-MM-DD".
+  const _periodPretty = period.replace("_to_", " to ");
   const csv = [
+    `"NOYO Brand Partner Impression Report"`,
+    `"Reporting period:","${_periodPretty}"`,
+    `"Generated:","${_spnLocalDay()}"`,
+    "",
     headers.join(","),
     ...rows.map((r) =>
       [
@@ -184869,14 +185011,25 @@ window.addEventListener("load", () => {
     };
     window._noyoSession = sessionData;
 
-    // Fetch country + city via ip-api (free, no key needed, ~100ms)
-    fetch("https://ip-api.com/json/?fields=country,city,regionName,query")
-      .then((r) => r.json())
+    // ── Geolocation ────────────────────────────────────────────────────────
+    // The previous build called http-only ip-api.com, which a browser blocks
+    // as mixed content on an HTTPS site — so country/city silently fell back
+    // to "Unknown" for every visitor and the geo dashboard stayed empty.
+    // These providers are all HTTPS and keyless on their free tiers; we try
+    // them in order and use the first that returns a country, capturing
+    // region + continent + lat/lng so a real world map is possible later.
+    _noyoGeoLookup()
       .then((geo) => {
-        sessionData.country = geo.country || "—";
-        sessionData.city = sessionData.city || geo.city || "—";
-        sessionData.region = geo.regionName || "—";
-        sessionData.ip = geo.query || "—";
+        if (geo) {
+          sessionData.country = geo.country || "—";
+          sessionData.countryCode = geo.countryCode || "";
+          sessionData.city = geo.city || sessionData.city || "—";
+          sessionData.region = geo.region || "—";
+          sessionData.continent = geo.continent || "";
+          sessionData.lat = geo.lat;
+          sessionData.lng = geo.lng;
+          sessionData.ip = geo.ip || "—";
+        }
         _flushSessionToFirestore(sessionData);
       })
       .catch(() => {
@@ -184886,6 +185039,81 @@ window.addEventListener("load", () => {
     /* non-critical */
   }
 })();
+
+// Continent lookup from ISO country code — lets the dashboard roll cities and
+// countries up into a "full globe" continent view without another API call.
+const _NOYO_CONTINENT = {
+  AF: "Africa", AN: "Antarctica", AS: "Asia", EU: "Europe",
+  NA: "North America", OC: "Oceania", SA: "South America",
+};
+// Minimal ISO-3166 alpha-2 → continent code map (covers the providers' output).
+const _NOYO_CC_CONTINENT = (() => {
+  const m = {};
+  const put = (cc, cont) => cc.split(" ").forEach((c) => (m[c] = cont));
+  put("AU NZ FJ PG NC SB VU WS TO KI FM MH NR PW TV CK NU", "OC");
+  put("US CA MX GT BZ SV HN NI CR PA CU DO HT JM BS BB TT PR", "NA");
+  put("BR AR CL PE CO VE EC BO PY UY GY SR", "SA");
+  put("GB IE FR DE ES PT IT NL BE LU CH AT DK SE NO FI IS PL CZ SK HU RO BG GR HR SI RS BA ME MK AL EE LV LT UA BY MD RU MT CY", "EU");
+  put("CN JP KR IN ID PK BD TH VN PH MY SG MM KH LA NP LK TW HK MO MN KZ UZ TM KG TJ AF IR IQ SA AE QA KW BH OM YE JO LB SY IL PS TR GE AM AZ", "AS");
+  put("ZA NG EG KE ET GH TZ UG DZ MA TN LY SD MZ AO ZM ZW BW NA RW SN CI CM CD CG GA ML BF NE MW", "AF");
+  return m;
+})();
+
+// Try a chain of keyless HTTPS geo-IP providers; resolve to a normalized
+// shape or null. First success wins; total budget ~2.5s so it never blocks UX.
+function _noyoGeoLookup() {
+  const _withTimeout = (p, ms) =>
+    Promise.race([
+      p,
+      new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms)),
+    ]);
+  const _contOf = (cc) =>
+    cc && _NOYO_CC_CONTINENT[cc]
+      ? _NOYO_CONTINENT[_NOYO_CC_CONTINENT[cc]] || ""
+      : "";
+
+  // Provider 1: ipapi.co (HTTPS, ~1k/day free)
+  const p1 = _withTimeout(
+    fetch("https://ipapi.co/json/").then((r) => r.json()),
+    2200,
+  ).then((d) => {
+    if (!d || d.error || !d.country_name) throw new Error("no data");
+    return {
+      country: d.country_name,
+      countryCode: d.country_code || "",
+      city: d.city || "",
+      region: d.region || "",
+      continent: d.continent_code
+        ? _NOYO_CONTINENT[d.continent_code] || ""
+        : _contOf(d.country_code),
+      lat: typeof d.latitude === "number" ? d.latitude : undefined,
+      lng: typeof d.longitude === "number" ? d.longitude : undefined,
+      ip: d.ip || "",
+    };
+  });
+
+  // Provider 2: geojs.io (HTTPS, unlimited free, no key)
+  const p2 = () =>
+    _withTimeout(
+      fetch("https://get.geojs.io/v1/ip/geo.json").then((r) => r.json()),
+      2200,
+    ).then((d) => {
+      if (!d || !d.country) throw new Error("no data");
+      const cc = (d.country_code || "").toUpperCase();
+      return {
+        country: d.country,
+        countryCode: cc,
+        city: d.city || "",
+        region: d.region || "",
+        continent: _contOf(cc),
+        lat: d.latitude ? parseFloat(d.latitude) : undefined,
+        lng: d.longitude ? parseFloat(d.longitude) : undefined,
+        ip: d.ip || "",
+      };
+    });
+
+  return p1.catch(p2).catch(() => null);
+}
 
 function _flushSessionToFirestore(data) {
   if (!_fbDb) {
@@ -184898,6 +185126,11 @@ function _flushSessionToFirestore(data) {
     const devKey = data.device || "Desktop";
     const cntKey = (data.country || "Unknown").replace(/[.\\/\[\]]/g, "_");
     const citKey = (data.city || "Unknown").replace(/[.\\/\[\]]/g, "_");
+    const regKey = (data.region || "Unknown").replace(/[.\\/\[\]]/g, "_");
+    const contKey = (data.continent || "Unknown").replace(/[.\\/\[\]]/g, "_");
+    // City scoped under its country so identical city names in different
+    // countries don't collide (e.g. "Newcastle" AU vs UK) — powers drill-down.
+    const cityGeoKey = `${cntKey}|${citKey}`.replace(/[.\\/\[\]]/g, "_");
     const role = data.role || "anonymous"; // customer | rental | lite | admin | anonymous
 
     const inc = {
@@ -184910,6 +185143,10 @@ function _flushSessionToFirestore(data) {
         firebase.firestore.FieldValue.increment(1),
       [`countries.${cntKey}`]: firebase.firestore.FieldValue.increment(1),
       [`cities.${citKey}`]: firebase.firestore.FieldValue.increment(1),
+      // ── Geo rollups for the globe view ───────────────────────────────────
+      [`continents.${contKey}`]: firebase.firestore.FieldValue.increment(1),
+      [`regions.${regKey}`]: firebase.firestore.FieldValue.increment(1),
+      [`cityGeo.${cityGeoKey}`]: firebase.firestore.FieldValue.increment(1),
       // ── Role-segmented counters ──────────────────────────────────────────
       [`roles.${role}`]: firebase.firestore.FieldValue.increment(1),
       [`role_devices.${role}.${devKey}`]:
@@ -184938,9 +185175,17 @@ function _flushSessionToFirestore(data) {
 function _tagSessionRole(role) {
   try {
     if (!window._noyoSession) return;
-    window._noyoSession.role = role;
-    // Re-flush with role now known
     const data = window._noyoSession;
+    // Only attribute a role once per session, and skip if the session was
+    // already flushed under this same role (otherwise role_* buckets
+    // double-count and exceed total sessions).
+    if (data._roleTagged) return;
+    if (data.role && data.role === role) {
+      data._roleTagged = true;
+      return;
+    }
+    data.role = role;
+    data._roleTagged = true;
     const dayKey = new Date().toISOString().slice(0, 10);
     const devKey = data.device || "Desktop";
     const cntKey = (data.country || "Unknown").replace(/[.\\/\[\]]/g, "_");
