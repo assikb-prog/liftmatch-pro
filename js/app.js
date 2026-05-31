@@ -7486,6 +7486,11 @@ const MACHINES = {
       maxReach: 3.7,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 8230,
+      // Brochure load-chart corners (JCB Construction Loadall range PDF,
+      // stabilisers retracted — conservative). Lets getCapacityAtPoint's
+      // corner-proof path verify capacity instead of rated fallback.
+      capacityAtFullHeight: 2700,
+      capacityAtFullReach: 1300,
       machineWidth: 2260,
       machineLength: 5000,
       machineHeight: 2290,
@@ -7650,9 +7655,51 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
       capacityAtFullHeight: 1600,
       capacityAtFullReach: 500,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 3000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 3, kg: 2500 },
+        { h: 0, r: 4, kg: 2000 },
+        { h: 0, r: 5, kg: 1500 },
+        { h: 0, r: 6, kg: 800 },
+        { h: 0, r: 6.52, kg: 500 },
+        { h: 2, r: 0, kg: 3000 },
+        { h: 2, r: 2, kg: 3000 },
+        { h: 2, r: 3, kg: 2500 },
+        { h: 2, r: 4, kg: 2000 },
+        { h: 2, r: 5, kg: 1400 },
+        { h: 2, r: 6, kg: 750 },
+        { h: 2, r: 6.4, kg: 500 },
+        { h: 4, r: 0, kg: 3000 },
+        { h: 4, r: 2, kg: 2800 },
+        { h: 4, r: 3, kg: 2300 },
+        { h: 4, r: 4, kg: 1800 },
+        { h: 4, r: 5, kg: 1200 },
+        { h: 4, r: 6, kg: 600 },
+        { h: 6, r: 0, kg: 2800 },
+        { h: 6, r: 2, kg: 2400 },
+        { h: 6, r: 3, kg: 1900 },
+        { h: 6, r: 4, kg: 1400 },
+        { h: 6, r: 5, kg: 900 },
+        { h: 6, r: 5.5, kg: 500 },
+        { h: 8, r: 0, kg: 2000 },
+        { h: 8, r: 1, kg: 1800 },
+        { h: 8, r: 2, kg: 1500 },
+        { h: 8, r: 3, kg: 1000 },
+        { h: 8, r: 4, kg: 600 },
+        { h: 9, r: 0, kg: 1800 },
+        { h: 9, r: 1, kg: 1600 },
+        { h: 9, r: 2, kg: 1000 },
+        { h: 9, r: 2.49, kg: 800 },
+        { h: 9.5, r: 0, kg: 1600 },
+        { h: 9.5, r: 1.5, kg: 1200 },
+        { h: 9.5, r: 2.49, kg: 1600 },
+      ],
       reachAt1000kg: 5.08,
       filters: ["telehandler", "rough"],
     },
@@ -7719,9 +7766,59 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
       capacityAtFullHeight: 1500,
       capacityAtFullReach: 200,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 3000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 3, kg: 2500 },
+        { h: 0, r: 4, kg: 2000 },
+        { h: 0, r: 5, kg: 1500 },
+        { h: 0, r: 6, kg: 1000 },
+        { h: 0, r: 7, kg: 600 },
+        { h: 0, r: 8, kg: 300 },
+        { h: 0, r: 8.06, kg: 200 },
+        { h: 2, r: 0, kg: 3000 },
+        { h: 2, r: 2, kg: 2800 },
+        { h: 2, r: 3, kg: 2400 },
+        { h: 2, r: 4, kg: 1900 },
+        { h: 2, r: 5, kg: 1400 },
+        { h: 2, r: 6, kg: 950 },
+        { h: 2, r: 7, kg: 550 },
+        { h: 2, r: 8, kg: 250 },
+        { h: 4, r: 0, kg: 2800 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 3, kg: 2100 },
+        { h: 4, r: 4, kg: 1600 },
+        { h: 4, r: 5, kg: 1100 },
+        { h: 4, r: 6, kg: 700 },
+        { h: 4, r: 7, kg: 400 },
+        { h: 6, r: 0, kg: 2500 },
+        { h: 6, r: 2, kg: 2200 },
+        { h: 6, r: 3, kg: 1800 },
+        { h: 6, r: 4, kg: 1300 },
+        { h: 6, r: 5, kg: 900 },
+        { h: 6, r: 6, kg: 500 },
+        { h: 8, r: 0, kg: 2200 },
+        { h: 8, r: 2, kg: 1800 },
+        { h: 8, r: 3, kg: 1400 },
+        { h: 8, r: 4, kg: 1000 },
+        { h: 8, r: 5, kg: 600 },
+        { h: 10, r: 0, kg: 1800 },
+        { h: 10, r: 1, kg: 1600 },
+        { h: 10, r: 2, kg: 1200 },
+        { h: 10, r: 3, kg: 700 },
+        { h: 10, r: 3.5, kg: 400 },
+        { h: 11, r: 0, kg: 1600 },
+        { h: 11, r: 1, kg: 1400 },
+        { h: 11, r: 2, kg: 900 },
+        { h: 11.6, r: 0, kg: 1500 },
+        { h: 11.6, r: 1.5, kg: 1100 },
+        { h: 11.6, r: 2.01, kg: 1500 },
+      ],
       capacityAtFullHeightStabs: 3500,
       capacityAtFullReachStabs: 1350,
       liftHeightStabs: 12.27,
@@ -7791,9 +7888,70 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
-      capacityAtFullHeight: 1500,
+      capacityAtFullHeight: 1300, // corrected to JCB brochure (stabilisers retracted)
       capacityAtFullReach: 200,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 },
+        { h: 0, r: 2, kg: 3500 },
+        { h: 0, r: 3, kg: 3000 },
+        { h: 0, r: 4, kg: 2500 },
+        { h: 0, r: 5, kg: 2000 },
+        { h: 0, r: 6, kg: 1500 },
+        { h: 0, r: 7, kg: 1100 },
+        { h: 0, r: 8, kg: 700 },
+        { h: 0, r: 9, kg: 400 },
+        { h: 0, r: 9.7, kg: 200 },
+        { h: 2, r: 0, kg: 4000 },
+        { h: 2, r: 2, kg: 3500 },
+        { h: 2, r: 3, kg: 3000 },
+        { h: 2, r: 4, kg: 2400 },
+        { h: 2, r: 5, kg: 1900 },
+        { h: 2, r: 6, kg: 1400 },
+        { h: 2, r: 7, kg: 1000 },
+        { h: 2, r: 8, kg: 650 },
+        { h: 2, r: 9, kg: 350 },
+        { h: 2, r: 9.7, kg: 200 },
+        { h: 4, r: 0, kg: 3800 },
+        { h: 4, r: 2, kg: 3300 },
+        { h: 4, r: 3, kg: 2800 },
+        { h: 4, r: 4, kg: 2200 },
+        { h: 4, r: 5, kg: 1700 },
+        { h: 4, r: 6, kg: 1300 },
+        { h: 4, r: 7, kg: 900 },
+        { h: 4, r: 8, kg: 550 },
+        { h: 4, r: 9, kg: 300 },
+        { h: 6, r: 0, kg: 3500 },
+        { h: 6, r: 2, kg: 3000 },
+        { h: 6, r: 3, kg: 2500 },
+        { h: 6, r: 4, kg: 2000 },
+        { h: 6, r: 5, kg: 1500 },
+        { h: 6, r: 6, kg: 1100 },
+        { h: 6, r: 7, kg: 700 },
+        { h: 6, r: 8, kg: 400 },
+        { h: 8, r: 0, kg: 3000 },
+        { h: 8, r: 2, kg: 2600 },
+        { h: 8, r: 3, kg: 2100 },
+        { h: 8, r: 4, kg: 1600 },
+        { h: 8, r: 5, kg: 1200 },
+        { h: 8, r: 6, kg: 800 },
+        { h: 8, r: 7, kg: 450 },
+        { h: 10, r: 0, kg: 2400 },
+        { h: 10, r: 2, kg: 2000 },
+        { h: 10, r: 3, kg: 1600 },
+        { h: 10, r: 4, kg: 1100 },
+        { h: 10, r: 5, kg: 700 },
+        { h: 10, r: 5.5, kg: 450 },
+        { h: 12, r: 0, kg: 1600 },
+        { h: 12, r: 1, kg: 1400 },
+        { h: 12, r: 2, kg: 1100 },
+        { h: 12, r: 3, kg: 700 },
+        { h: 12.89, r: 0, kg: 1300 },
+        { h: 12.89, r: 2, kg: 900 },
+        { h: 12.89, r: 3.09, kg: 1300 },
+      ],
       capacityAtFullHeightStabs: 3000,
       capacityAtFullReachStabs: 1250,
       liftHeightStabs: 13.78,
@@ -7864,9 +8022,66 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
       capacityAtFullHeight: 500,
       capacityAtFullReach: 0,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 3, kg: 2500 },
+        { h: 0, r: 4, kg: 2000 },
+        { h: 0, r: 5, kg: 1500 },
+        { h: 0, r: 6, kg: 1100 },
+        { h: 0, r: 7, kg: 800 },
+        { h: 0, r: 8, kg: 500 },
+        { h: 0, r: 9, kg: 300 },
+        { h: 0, r: 10, kg: 100 },
+        { h: 0, r: 10.47, kg: 0 },
+        { h: 2, r: 0, kg: 3500 },
+        { h: 2, r: 2, kg: 2800 },
+        { h: 2, r: 3, kg: 2300 },
+        { h: 2, r: 4, kg: 1900 },
+        { h: 2, r: 5, kg: 1400 },
+        { h: 2, r: 6, kg: 1000 },
+        { h: 2, r: 7, kg: 750 },
+        { h: 2, r: 8, kg: 450 },
+        { h: 2, r: 9, kg: 250 },
+        { h: 2, r: 10, kg: 100 },
+        { h: 4, r: 0, kg: 3000 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 3, kg: 2100 },
+        { h: 4, r: 4, kg: 1700 },
+        { h: 4, r: 5, kg: 1300 },
+        { h: 4, r: 6, kg: 900 },
+        { h: 4, r: 7, kg: 650 },
+        { h: 4, r: 8, kg: 400 },
+        { h: 4, r: 9, kg: 200 },
+        { h: 6, r: 0, kg: 2500 },
+        { h: 6, r: 2, kg: 2200 },
+        { h: 6, r: 3, kg: 1800 },
+        { h: 6, r: 4, kg: 1400 },
+        { h: 6, r: 5, kg: 1100 },
+        { h: 6, r: 6, kg: 750 },
+        { h: 6, r: 7, kg: 500 },
+        { h: 6, r: 8, kg: 300 },
+        { h: 8, r: 0, kg: 2000 },
+        { h: 8, r: 2, kg: 1700 },
+        { h: 8, r: 3, kg: 1400 },
+        { h: 8, r: 4, kg: 1100 },
+        { h: 8, r: 5, kg: 800 },
+        { h: 8, r: 6, kg: 500 },
+        { h: 8, r: 7, kg: 250 },
+        { h: 10, r: 0, kg: 1100 },
+        { h: 10, r: 1, kg: 900 },
+        { h: 10, r: 2, kg: 700 },
+        { h: 10, r: 3, kg: 450 },
+        { h: 10, r: 4, kg: 250 },
+        { h: 10.69, r: 0, kg: 500 },
+        { h: 10.69, r: 3, kg: 400 },
+        { h: 10.69, r: 6.92, kg: 500 },
+      ],
       capacityAtFullHeightStabs: 2500,
       capacityAtFullReachStabs: 550,
       liftHeightStabs: 17.51,
@@ -7886,6 +8101,11 @@ const MACHINES = {
       maxReach: 3.7,
       engine: "55kW (75hp) EcoMAX T4F (standard)",
       machineWeight: 9300,
+      // Brochure load-chart corners (JCB Construction Loadall range PDF,
+      // stabilisers retracted — conservative). Lets getCapacityAtPoint's
+      // corner-proof path verify capacity instead of rated fallback.
+      capacityAtFullHeight: 2400,
+      capacityAtFullReach: 1500,
       machineWidth: 2290,
       machineLength: 5050,
       machineHeight: 2330,
@@ -8272,6 +8492,11 @@ const MACHINES = {
       maxReach: 3.7,
       engine: "81kW (109hp) EcoMAX T4i/T4F",
       machineWeight: 7220,
+      // Brochure load-chart corners (JCB Construction Loadall range PDF,
+      // stabilisers retracted — conservative). Lets getCapacityAtPoint's
+      // corner-proof path verify capacity instead of rated fallback.
+      capacityAtFullHeight: 2700,
+      capacityAtFullReach: 1300,
       machineWidth: 2340,
       machineLength: 4990,
       machineHeight: 2490,
@@ -8422,6 +8647,11 @@ const MACHINES = {
       maxReach: 6.52,
       engine: "81kW (109hp) EcoMAX T4i/T4F",
       machineWeight: 8700,
+      // Brochure load-chart corners (JCB Construction Loadall range PDF,
+      // stabilisers retracted — conservative). Lets getCapacityAtPoint's
+      // corner-proof path verify capacity instead of rated fallback.
+      capacityAtFullHeight: 1600,
+      capacityAtFullReach: 500,
       machineWidth: 2340,
       machineLength: 4990,
       machineHeight: 2490,
@@ -8706,6 +8936,11 @@ const MACHINES = {
       maxReach: 3.7,
       engine: "108kW (145hp) EcoMAX T4i/T4F",
       machineWeight: 8220,
+      // Brochure load-chart corners (JCB Construction Loadall range PDF,
+      // stabilisers retracted — conservative). Lets getCapacityAtPoint's
+      // corner-proof path verify capacity instead of rated fallback.
+      capacityAtFullHeight: 2400,
+      capacityAtFullReach: 1500,
       machineWidth: 2340,
       machineLength: 4990,
       machineHeight: 2490,
@@ -8901,9 +9136,51 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
       capacityAtFullHeight: 1000,
-      capacityAtFullReach: 375,
+      capacityAtFullReach: 300, // corrected to JCB brochure (stabilisers retracted)
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 3000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 3, kg: 2500 },
+        { h: 0, r: 4, kg: 2000 },
+        { h: 0, r: 5, kg: 1500 },
+        { h: 0, r: 6, kg: 800 },
+        { h: 0, r: 6.83, kg: 400 },
+        { h: 2, r: 0, kg: 3000 },
+        { h: 2, r: 2, kg: 2800 },
+        { h: 2, r: 3, kg: 2400 },
+        { h: 2, r: 4, kg: 1900 },
+        { h: 2, r: 5, kg: 1400 },
+        { h: 2, r: 6, kg: 750 },
+        { h: 2, r: 6.83, kg: 300 },
+        { h: 4, r: 0, kg: 2800 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 3, kg: 2100 },
+        { h: 4, r: 4, kg: 1600 },
+        { h: 4, r: 5, kg: 1100 },
+        { h: 4, r: 6, kg: 600 },
+        { h: 6, r: 0, kg: 2500 },
+        { h: 6, r: 2, kg: 2200 },
+        { h: 6, r: 3, kg: 1700 },
+        { h: 6, r: 4, kg: 1200 },
+        { h: 6, r: 5, kg: 700 },
+        { h: 6, r: 5.5, kg: 400 },
+        { h: 8, r: 0, kg: 2000 },
+        { h: 8, r: 1, kg: 1700 },
+        { h: 8, r: 2, kg: 1300 },
+        { h: 8, r: 3, kg: 900 },
+        { h: 8, r: 4, kg: 500 },
+        { h: 10, r: 0, kg: 1200 },
+        { h: 10, r: 1, kg: 1000 },
+        { h: 10, r: 2, kg: 600 },
+        { h: 10, r: 2.69, kg: 400 },
+        { h: 10.22, r: 0, kg: 1000 },
+        { h: 10.22, r: 2, kg: 700 },
+        { h: 10.22, r: 2.69, kg: 1000 },
+      ],
       capacityAtFullHeightStabs: 2500,
       capacityAtFullReachStabs: 1000,
       reachAt1000kg: 6.83,
@@ -8974,9 +9251,70 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
-      capacityAtFullHeight: 1500,
+      capacityAtFullHeight: 1300, // corrected to JCB brochure (stabilisers retracted)
       capacityAtFullReach: 0,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 },
+        { h: 0, r: 2, kg: 3500 },
+        { h: 0, r: 3, kg: 3000 },
+        { h: 0, r: 4, kg: 2500 },
+        { h: 0, r: 5, kg: 2000 },
+        { h: 0, r: 6, kg: 1500 },
+        { h: 0, r: 7, kg: 1000 },
+        { h: 0, r: 8, kg: 500 },
+        { h: 0, r: 9, kg: 150 },
+        { h: 0, r: 9.04, kg: 0 },
+        { h: 2, r: 0, kg: 4000 },
+        { h: 2, r: 2, kg: 3500 },
+        { h: 2, r: 3, kg: 3000 },
+        { h: 2, r: 4, kg: 2400 },
+        { h: 2, r: 5, kg: 1900 },
+        { h: 2, r: 6, kg: 1400 },
+        { h: 2, r: 7, kg: 950 },
+        { h: 2, r: 8, kg: 500 },
+        { h: 2, r: 9, kg: 150 },
+        { h: 4, r: 0, kg: 3800 },
+        { h: 4, r: 2, kg: 3200 },
+        { h: 4, r: 3, kg: 2700 },
+        { h: 4, r: 4, kg: 2200 },
+        { h: 4, r: 5, kg: 1700 },
+        { h: 4, r: 6, kg: 1200 },
+        { h: 4, r: 7, kg: 800 },
+        { h: 4, r: 8, kg: 400 },
+        { h: 5, r: 0, kg: 3500 },
+        { h: 5, r: 2, kg: 3000 },
+        { h: 5, r: 3, kg: 2500 },
+        { h: 5, r: 4, kg: 2000 },
+        { h: 5, r: 5, kg: 1500 },
+        { h: 5, r: 6, kg: 1100 },
+        { h: 5, r: 7, kg: 650 },
+        { h: 6, r: 0, kg: 3300 },
+        { h: 6, r: 2, kg: 2800 },
+        { h: 6, r: 3, kg: 2300 },
+        { h: 6, r: 4, kg: 1800 },
+        { h: 6, r: 5, kg: 1300 },
+        { h: 6, r: 6, kg: 900 },
+        { h: 6, r: 6.5, kg: 500 },
+        { h: 8, r: 0, kg: 2800 },
+        { h: 8, r: 2, kg: 2300 },
+        { h: 8, r: 3, kg: 1800 },
+        { h: 8, r: 4, kg: 1300 },
+        { h: 8, r: 5, kg: 800 },
+        { h: 10, r: 0, kg: 2000 },
+        { h: 10, r: 1, kg: 1700 },
+        { h: 10, r: 2, kg: 1300 },
+        { h: 10, r: 3, kg: 800 },
+        { h: 10, r: 4, kg: 400 },
+        { h: 11, r: 0, kg: 1500 },
+        { h: 11, r: 1, kg: 1300 },
+        { h: 11, r: 2, kg: 800 },
+        { h: 11.57, r: 0, kg: 1300 },
+        { h: 11.57, r: 2, kg: 800 },
+        { h: 11.57, r: 4.32, kg: 1300 },
+      ],
       capacityAtFullHeightStabs: 2500,
       capacityAtFullReachStabs: 800,
       liftHeightStabs: 16.7,
@@ -9046,9 +9384,64 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
       capacityAtFullHeight: 500,
       capacityAtFullReach: 0,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 3, kg: 2500 },
+        { h: 0, r: 4, kg: 2000 },
+        { h: 0, r: 5, kg: 1500 },
+        { h: 0, r: 6, kg: 1000 },
+        { h: 0, r: 7, kg: 700 },
+        { h: 0, r: 8, kg: 450 },
+        { h: 0, r: 9, kg: 200 },
+        { h: 0, r: 9.63, kg: 0 },
+        { h: 2, r: 0, kg: 3500 },
+        { h: 2, r: 2, kg: 2800 },
+        { h: 2, r: 3, kg: 2300 },
+        { h: 2, r: 4, kg: 1800 },
+        { h: 2, r: 5, kg: 1400 },
+        { h: 2, r: 6, kg: 950 },
+        { h: 2, r: 7, kg: 650 },
+        { h: 2, r: 8, kg: 400 },
+        { h: 2, r: 9, kg: 200 },
+        { h: 4, r: 0, kg: 3000 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 3, kg: 2000 },
+        { h: 4, r: 4, kg: 1600 },
+        { h: 4, r: 5, kg: 1200 },
+        { h: 4, r: 6, kg: 800 },
+        { h: 4, r: 7, kg: 550 },
+        { h: 4, r: 8, kg: 300 },
+        { h: 6, r: 0, kg: 2500 },
+        { h: 6, r: 2, kg: 2100 },
+        { h: 6, r: 3, kg: 1700 },
+        { h: 6, r: 4, kg: 1300 },
+        { h: 6, r: 5, kg: 950 },
+        { h: 6, r: 6, kg: 650 },
+        { h: 6, r: 7, kg: 350 },
+        { h: 8, r: 0, kg: 2000 },
+        { h: 8, r: 2, kg: 1600 },
+        { h: 8, r: 3, kg: 1300 },
+        { h: 8, r: 4, kg: 1000 },
+        { h: 8, r: 5, kg: 650 },
+        { h: 8, r: 6, kg: 350 },
+        { h: 9, r: 0, kg: 1400 },
+        { h: 9, r: 1, kg: 1200 },
+        { h: 9, r: 2, kg: 900 },
+        { h: 9, r: 3, kg: 550 },
+        { h: 9, r: 4, kg: 300 },
+        { h: 10, r: 0, kg: 800 },
+        { h: 10, r: 1, kg: 650 },
+        { h: 10, r: 2, kg: 400 },
+        { h: 10.27, r: 0, kg: 500 },
+        { h: 10.27, r: 3, kg: 350 },
+        { h: 10.27, r: 6.42, kg: 500 },
+      ],
       capacityAtFullHeightStabs: 1500,
       capacityAtFullReachStabs: 200,
       liftHeightStabs: 20,
@@ -64955,9 +65348,51 @@ loadMatrixTyres: [
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
       capacityAtFullHeight: 1000,
-      capacityAtFullReach: 375,
+      capacityAtFullReach: 300, // corrected to JCB brochure (stabilisers retracted)
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 3000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 3, kg: 2500 },
+        { h: 0, r: 4, kg: 2000 },
+        { h: 0, r: 5, kg: 1500 },
+        { h: 0, r: 6, kg: 800 },
+        { h: 0, r: 6.83, kg: 400 },
+        { h: 2, r: 0, kg: 3000 },
+        { h: 2, r: 2, kg: 2800 },
+        { h: 2, r: 3, kg: 2400 },
+        { h: 2, r: 4, kg: 1900 },
+        { h: 2, r: 5, kg: 1400 },
+        { h: 2, r: 6, kg: 750 },
+        { h: 2, r: 6.83, kg: 300 },
+        { h: 4, r: 0, kg: 2800 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 3, kg: 2100 },
+        { h: 4, r: 4, kg: 1600 },
+        { h: 4, r: 5, kg: 1100 },
+        { h: 4, r: 6, kg: 600 },
+        { h: 6, r: 0, kg: 2500 },
+        { h: 6, r: 2, kg: 2200 },
+        { h: 6, r: 3, kg: 1700 },
+        { h: 6, r: 4, kg: 1200 },
+        { h: 6, r: 5, kg: 700 },
+        { h: 6, r: 5.5, kg: 400 },
+        { h: 8, r: 0, kg: 2000 },
+        { h: 8, r: 1, kg: 1700 },
+        { h: 8, r: 2, kg: 1300 },
+        { h: 8, r: 3, kg: 900 },
+        { h: 8, r: 4, kg: 500 },
+        { h: 10, r: 0, kg: 1200 },
+        { h: 10, r: 1, kg: 1000 },
+        { h: 10, r: 2, kg: 600 },
+        { h: 10, r: 2.69, kg: 400 },
+        { h: 10.22, r: 0, kg: 1000 },
+        { h: 10.22, r: 2, kg: 700 },
+        { h: 10.22, r: 2.69, kg: 1000 },
+      ],
       capacityAtFullHeightStabs: 2500,
       capacityAtFullReachStabs: 1000,
       reachAt1000kg: 6.83,
@@ -65120,9 +65555,70 @@ loadMatrixTyres: [
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
-      capacityAtFullHeight: 1500,
+      capacityAtFullHeight: 1300, // corrected to JCB brochure (stabilisers retracted)
       capacityAtFullReach: 0,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 },
+        { h: 0, r: 2, kg: 3500 },
+        { h: 0, r: 3, kg: 3000 },
+        { h: 0, r: 4, kg: 2500 },
+        { h: 0, r: 5, kg: 2000 },
+        { h: 0, r: 6, kg: 1500 },
+        { h: 0, r: 7, kg: 1000 },
+        { h: 0, r: 8, kg: 500 },
+        { h: 0, r: 9, kg: 150 },
+        { h: 0, r: 9.04, kg: 0 },
+        { h: 2, r: 0, kg: 4000 },
+        { h: 2, r: 2, kg: 3500 },
+        { h: 2, r: 3, kg: 3000 },
+        { h: 2, r: 4, kg: 2400 },
+        { h: 2, r: 5, kg: 1900 },
+        { h: 2, r: 6, kg: 1400 },
+        { h: 2, r: 7, kg: 950 },
+        { h: 2, r: 8, kg: 500 },
+        { h: 2, r: 9, kg: 150 },
+        { h: 4, r: 0, kg: 3800 },
+        { h: 4, r: 2, kg: 3200 },
+        { h: 4, r: 3, kg: 2700 },
+        { h: 4, r: 4, kg: 2200 },
+        { h: 4, r: 5, kg: 1700 },
+        { h: 4, r: 6, kg: 1200 },
+        { h: 4, r: 7, kg: 800 },
+        { h: 4, r: 8, kg: 400 },
+        { h: 5, r: 0, kg: 3500 },
+        { h: 5, r: 2, kg: 3000 },
+        { h: 5, r: 3, kg: 2500 },
+        { h: 5, r: 4, kg: 2000 },
+        { h: 5, r: 5, kg: 1500 },
+        { h: 5, r: 6, kg: 1100 },
+        { h: 5, r: 7, kg: 650 },
+        { h: 6, r: 0, kg: 3300 },
+        { h: 6, r: 2, kg: 2800 },
+        { h: 6, r: 3, kg: 2300 },
+        { h: 6, r: 4, kg: 1800 },
+        { h: 6, r: 5, kg: 1300 },
+        { h: 6, r: 6, kg: 900 },
+        { h: 6, r: 6.5, kg: 500 },
+        { h: 8, r: 0, kg: 2800 },
+        { h: 8, r: 2, kg: 2300 },
+        { h: 8, r: 3, kg: 1800 },
+        { h: 8, r: 4, kg: 1300 },
+        { h: 8, r: 5, kg: 800 },
+        { h: 10, r: 0, kg: 2000 },
+        { h: 10, r: 1, kg: 1700 },
+        { h: 10, r: 2, kg: 1300 },
+        { h: 10, r: 3, kg: 800 },
+        { h: 10, r: 4, kg: 400 },
+        { h: 11, r: 0, kg: 1500 },
+        { h: 11, r: 1, kg: 1300 },
+        { h: 11, r: 2, kg: 800 },
+        { h: 11.57, r: 0, kg: 1300 },
+        { h: 11.57, r: 2, kg: 800 },
+        { h: 11.57, r: 4.32, kg: 1300 },
+      ],
       capacityAtFullHeightStabs: 2500,
       capacityAtFullReachStabs: 800,
       liftHeightStabs: 16.7,
@@ -65166,9 +65662,64 @@ loadMatrixTyres: [
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      loadChartSparse: true,
       capacityAtFullHeight: 500,
       capacityAtFullReach: 0,
+      // loadMatrix pixel-read from JCB Construction Loadall load chart
+      // (stabilisers retracted), anchored to brochure corner figures.
+      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 },
+        { h: 0, r: 2, kg: 3000 },
+        { h: 0, r: 3, kg: 2500 },
+        { h: 0, r: 4, kg: 2000 },
+        { h: 0, r: 5, kg: 1500 },
+        { h: 0, r: 6, kg: 1000 },
+        { h: 0, r: 7, kg: 700 },
+        { h: 0, r: 8, kg: 450 },
+        { h: 0, r: 9, kg: 200 },
+        { h: 0, r: 9.63, kg: 0 },
+        { h: 2, r: 0, kg: 3500 },
+        { h: 2, r: 2, kg: 2800 },
+        { h: 2, r: 3, kg: 2300 },
+        { h: 2, r: 4, kg: 1800 },
+        { h: 2, r: 5, kg: 1400 },
+        { h: 2, r: 6, kg: 950 },
+        { h: 2, r: 7, kg: 650 },
+        { h: 2, r: 8, kg: 400 },
+        { h: 2, r: 9, kg: 200 },
+        { h: 4, r: 0, kg: 3000 },
+        { h: 4, r: 2, kg: 2500 },
+        { h: 4, r: 3, kg: 2000 },
+        { h: 4, r: 4, kg: 1600 },
+        { h: 4, r: 5, kg: 1200 },
+        { h: 4, r: 6, kg: 800 },
+        { h: 4, r: 7, kg: 550 },
+        { h: 4, r: 8, kg: 300 },
+        { h: 6, r: 0, kg: 2500 },
+        { h: 6, r: 2, kg: 2100 },
+        { h: 6, r: 3, kg: 1700 },
+        { h: 6, r: 4, kg: 1300 },
+        { h: 6, r: 5, kg: 950 },
+        { h: 6, r: 6, kg: 650 },
+        { h: 6, r: 7, kg: 350 },
+        { h: 8, r: 0, kg: 2000 },
+        { h: 8, r: 2, kg: 1600 },
+        { h: 8, r: 3, kg: 1300 },
+        { h: 8, r: 4, kg: 1000 },
+        { h: 8, r: 5, kg: 650 },
+        { h: 8, r: 6, kg: 350 },
+        { h: 9, r: 0, kg: 1400 },
+        { h: 9, r: 1, kg: 1200 },
+        { h: 9, r: 2, kg: 900 },
+        { h: 9, r: 3, kg: 550 },
+        { h: 9, r: 4, kg: 300 },
+        { h: 10, r: 0, kg: 800 },
+        { h: 10, r: 1, kg: 650 },
+        { h: 10, r: 2, kg: 400 },
+        { h: 10.27, r: 0, kg: 500 },
+        { h: 10.27, r: 3, kg: 350 },
+        { h: 10.27, r: 6.42, kg: 500 },
+      ],
       capacityAtFullHeightStabs: 1500,
       capacityAtFullReachStabs: 200,
       liftHeightStabs: 20,
@@ -142284,22 +142835,42 @@ function matchMachines(ans, type) {
           // proof passes
         }
 
-        // If neither corner applies, we MUST have loadMatrix proof.
+        // If neither corner applies, prefer loadMatrix proof — but do NOT
+        // silently exclude a machine just because it lacks a load chart.
+        //
+        // Manitou/Magni/Merlo/Bobcat entries all carry a loadMatrix, but many
+        // JCB Loadall entries (and some others) don't yet. The old code did
+        // `if (no matrix) return false`, which dropped EVERY chartless machine
+        // from the results entirely — that's why JCB never appeared on an
+        // interior-point search like 5m/4m even though it was capable. We must
+        // not hide a whole brand over a data gap.
+        //
+        // New behaviour when no matrix is available: fall back to the machine's
+        // RATED capacity as a conservative gate, but flag the working-point
+        // figure as unverified so the card shows the existing "confirm against
+        // load plate" caveat rather than presenting an estimate as proven. We
+        // never fabricate a load-chart number for a lifting machine.
         if (!_atFullHeight && !_atFullReach) {
-          // 1) loadChartSparse machines have no point matrix by definition
-          if (m.loadChartSparse === true) return false;
-          // 2) Empty or missing matrix → no proof possible
-          if (!Array.isArray(m.loadMatrix) || m.loadMatrix.length === 0) return false;
+          const _hasMatrix =
+            m.loadChartSparse !== true &&
+            Array.isArray(m.loadMatrix) &&
+            m.loadMatrix.length > 0;
 
-          // 3) Ask the matrix what the capacity is at the working point.
-          //    getCapacityAtPoint returns null when the point isn't covered
-          //    by the matrix (working point outside the envelope) — that's
-          //    also "no proof" → reject.
-          const actualKg = getCapacityAtPoint(m, exactHt, exactReach);
-          if (actualKg === null) return false;
-
-          // 4) Matrix-proven capacity must meet the requirement
-          if (actualKg < exactKg) return false;
+          if (_hasMatrix) {
+            // Matrix path — strict proof at the working point.
+            const actualKg = getCapacityAtPoint(m, exactHt, exactReach);
+            if (actualKg === null) return false; // point outside envelope → no proof
+            if (actualKg < exactKg) return false; // proven below requirement
+          } else {
+            // No matrix — conservative rated-capacity fallback.
+            const _ratedT = m.liftCapacity || m.capacity || 0;
+            const _ratedKg = _ratedT > 100 ? _ratedT : _ratedT * 1000;
+            // Rated capacity is the machine's best case (low height, close in).
+            // If it can't even meet the requirement at rated, it certainly
+            // can't at 5m/4m → exclude. Otherwise admit but flag unverified.
+            if (_ratedKg > 0 && _ratedKg < exactKg) return false;
+            m._capacityUnverified = true;
+          }
         }
 
         return true;
@@ -169205,7 +169776,17 @@ function doLogin() {
     const address = (
       document.getElementById("lp-lite-address").value || ""
     ).trim();
-    const depot = (document.getElementById("lp-lite-depot").value || "").trim();
+    // Noyo Lite is information-only and open to overseas users, so it no longer
+    // collects depot / depot-suburb / city / state (those are rental-operator
+    // service-area fields). It captures country instead. The depot field is
+    // read defensively in case an older index.html still renders it, but it is
+    // no longer required.
+    const country = (
+      document.getElementById("lp-lite-country")?.value || ""
+    ).trim();
+    const depot = (
+      document.getElementById("lp-lite-depot")?.value || ""
+    ).trim();
 
     if (!fullName) {
       errEl.textContent = "Please enter your full name.";
@@ -169216,11 +169797,7 @@ function doLogin() {
       return;
     }
     if (!address) {
-      errEl.textContent = "Please enter your street address.";
-      return;
-    }
-    if (!depot) {
-      errEl.textContent = "Please select your nearest depot city.";
+      errEl.textContent = "Please enter your address.";
       return;
     }
 
@@ -169243,16 +169820,18 @@ function doLogin() {
           active: true,
           phone: mobile,
           address,
-          depot,
+          country: country || "",
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         };
+        // Preserve depot only if an older form still supplied it (back-compat).
+        if (depot) userDoc.depot = depot;
         await _fbDb.collection("users").doc(uid).set(userDoc);
         _userProfileCache[uid] = userDoc;
         if (btn) {
           btn.disabled = false;
           btn.textContent = "Create Lite Account";
         }
-        loginSuccess({ name: fullName, role: "lite", email, uid, depot });
+        loginSuccess({ name: fullName, role: "lite", email, uid, country });
       })
       .catch((err) => {
         if (btn) {
@@ -175218,7 +175797,7 @@ const SPONSORED_CATEGORIES = [
   },
   {
     key: "telehandler",
-    label: "Telehandlers (Standard)",
+    label: "Telehandler",
     emoji: "🏗️",
     group: "Access",
   },
