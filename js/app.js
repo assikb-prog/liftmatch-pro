@@ -1,3 +1,12 @@
+// ═══════════════════════════════════════════════════════════════════════
+//  NOYO BUILD STAMP — verify which app.js is actually live.
+//  Open the deployed site, press F12 → Console, type:  window.NOYO_BUILD
+//  It must print:  "2026-06-build-JCB-telehandler-fix"
+//  If it prints undefined or an older value, the deploy didn't pick up this
+//  file (wrong file pushed, cache, or Cloudflare not finished).
+// ═══════════════════════════════════════════════════════════════════════
+window.NOYO_BUILD = "2026-06-build-JCB-telehandler-fix";
+
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
   //  FORKLIFTS
