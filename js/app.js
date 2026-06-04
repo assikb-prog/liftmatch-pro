@@ -88692,6 +88692,67 @@ loadMatrixTyres: [
       filters: ["boom", "articulating", "indoor", "electric"],
     },
     {
+      id: "genie-z34-22ic",
+      brand: "Genie",
+      emoji: "💥",
+      brandColor: "#FF6600",
+      name: "Genie Z-34/22 IC Diesel",
+      shortName: "Genie Z-34/22 IC",
+      boomType: "articulating",
+      platformHeight: 10.54,
+      workHeight: 12.54,
+      maxReach: 6.78,
+      upOverHeight: 4.6,
+      upOverReach: 6.78,
+      machineWeight: 4994,
+      machineWidth: 1.85,
+      machineLength: 5.66,
+      machineHeight: 2.06,
+      power: "Diesel",
+      swl: 227,
+      // Diesel/4WD rough-terrain version of the Z-34/22 (the electric N/DC are
+      // the indoor/firm-ground siblings — same boom geometry). All figures
+      // confirmed from the official Genie Z-34/22 IC spec sheet (12/22,
+      // AS 1418.10): working 12.54m, platform 10.54m, reach 6.78m, up-and-over
+      // 4.6m, 227kg, Kubota D1105 18.5kW diesel, 4WD, 45% gradeability, 4,994kg,
+      // 5.66m stowed, 1.85m wide.
+      maxOccupancy: 2,
+      terrain: "outdoor rough",
+      bestFor:
+        "Compact 10m diesel 4WD articulating — outdoor rough-terrain up-and-over access",
+      note: "Genie Z-34/22 IC: 10.54m platform / 12.54m working height. 227kg (2 persons). 6.78m max horizontal reach, 4.6m up-and-over clearance. Diesel 4WD (Kubota D1105 18.5kW), up to 45% gradeability — the rough-terrain version of the Z-34/22 (electric N/DC are the indoor/firm-ground siblings, same boom). 1.22m articulating jib (139° vertical), 180° platform rotation, zero tailswing, 355° turntable. 4,994kg. Source: Genie Z-34/22 IC spec sheet (12/22, AS 1418.10).",
+      upOverNote:
+        "Up-and-over: clears ~4.6m at full reach. Diesel 4WD for outdoor rough-terrain over-obstacle work.",
+      tags: [
+        "Articulating",
+        "10.54m Platform",
+        "12.54m Working Height",
+        "6.78m Reach",
+        "4WD Rough",
+        "Diesel",
+      ],
+      // Envelope PIXEL-TRACED from the official Genie Z-34/22 IC "Range of
+      // motion" chart (axis-calibrated to the chart gridlines, 52.7 px/m on
+      // both axes). The boom HOLDS its full 6.78m reach from ground up to ~7m
+      // height, then tapers: ~6.6m @8m, ~6.05m @9m, ~5.45m @10m, ~5.0m near the
+      // 10.54m platform max. (Replaces the earlier modelled curve, which
+      // under-reported reach badly above mid-height.) Source: Genie Z-34/22 IC
+      // Range-of-motion diagram (spec sheet 12/22).
+      liftChart: [
+        { reach: 5.0, height: 10.54 },
+        { reach: 5.45, height: 10 },
+        { reach: 6.05, height: 9 },
+        { reach: 6.6, height: 8 },
+        { reach: 6.78, height: 7 },
+        { reach: 6.78, height: 5 },
+        { reach: 6.78, height: 3 },
+        { reach: 6.78, height: 1.5 },
+        { reach: 6.0, height: 0.5 },
+        { reach: 5.0, height: 0 },
+      ],
+      filters: ["boom", "articulating", "rough", "outdoor"],
+    },
+    {
       id: "genie-z34-22dc",
       brand: "Genie",
       emoji: "🦾",
@@ -140645,8 +140706,27 @@ function diversePick(sortedPool, total, maxPer, preferredBrand) {
       })
       .sort((a, b) => b.combined - a.combined);
 
+    // ── SIZE-CLASS PRIORITY (Assik, Jun-2026) ──────────────────────────
+    // Applies to EVERY category that fills a slate through diversePick —
+    // booms, scissors, telehandlers, etc. Fill the slate from machines in
+    // the SAME size class as the best match first, and only pull in a
+    // larger ("one size up") machine when there aren't enough same-class
+    // brands to fill the slate. "Same class" = within ~15% of the anchor on
+    // the averaged size signature (capacity / height / reach). This makes
+    // the function's stated intent ("3rd/4th/5th lean toward same-size-class
+    // other-brand machines") a hard rule rather than a soft 45% nudge.
+    const _SAME_CLASS = 0.85;
+    const _rankedSameClass = ranked.filter(
+      (e) => _sizeClosenessToAnchor(e.m, anchor) >= _SAME_CLASS,
+    );
+    const _rankedUpClass = ranked.filter(
+      (e) => _sizeClosenessToAnchor(e.m, anchor) < _SAME_CLASS,
+    );
+    // Same-class brands fill first; larger machines only backfill empty slots.
+    const rankedByClass = [..._rankedSameClass, ..._rankedUpClass];
+
     // ── Round 1: one machine per brand (strict cap) ────────────────────
-    for (const entry of ranked) {
+    for (const entry of rankedByClass) {
       if (picked.length >= total) break;
       const b = entry.m.brand;
       // Preferred brand gets a much higher cap so multiple can appear
@@ -140666,7 +140746,7 @@ function diversePick(sortedPool, total, maxPer, preferredBrand) {
     // hitting the target count. When <4 brands exist, fall through to
     // relax the cap so the result set still fills up.
     if (picked.length < total && !strictDiversity) {
-      for (const entry of ranked) {
+      for (const entry of rankedByClass) {
         if (picked.includes(entry.m)) continue;
         if (picked.length >= total) break;
         picked.push(entry.m);
