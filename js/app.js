@@ -10372,13 +10372,13 @@ const MACHINES = {
       // ── Source: Dieci Icarus 40.17 Brochure — Dieci Australia (Icarus-Brochure-2025) ──
       // Engine: FPT 4-cyl 4,485cc | 125hp/93kW @ 2,200rpm | Stage IIIA/Tier 3 | liquid cooled turbo after-cooler
       // TWO LOAD CHARTS (p.4): LEFT = on tyres forks | RIGHT = on stabilisers forks
-      // On stabilisers: max 4,000 kg | 16.6m height | 12.6m reach | 7 zones: 590/810/1310/1810/2610/3610/4000 kg
-      // On tyres:       max 3,810 kg | ~15.0m height |  ~9.0m reach | 6 zones: 710/1010/1610/2010/2710/3810 kg
+      // On stabilisers: max 4,000 kg | 16.6m | 12.6m | zones (t): 0.6/0.8/1.0/1.3/1.5/1.8/2.0/2.5/3.0/3.6/4.0
+      // On tyres:       max 3,800 kg | 16.6m | 12.6m | zones (t): 0.3/0.5/0.7/1.0/1.5/2.0/2.7/3.8
       // JIB (optional attachment): separate load chart required — contact Dieci Australia ph 1300 888 479
       // WINCH/HOOK (optional attachment): separate load chart required — contact Dieci Australia
       // EWP MAN BASKET: pre-arrangement std. — AS1418.10 compliant — separate EWP chart from Dieci AU
       capacity: 4.0, // max 4,000 kg on stabilisers — confirmed spec
-      capacityOnTyres: 3.81, // max ~3,810 kg on tyres — from left chart zone label "3.81"
+      capacityOnTyres: 3.8, // max 3,800 kg on tyres — chart inner zone 3.8t
       liftHeight: 16.6, // max height (m) on stabilisers — confirmed spec
       liftHeightOnTyres: 15.0, // estimated max height on tyres (~15m, chart-read)
       maxReach: 12.6, // max horizontal extension (m) — confirmed spec
@@ -10436,7 +10436,7 @@ const MACHINES = {
         "Crab Steer",
       ],
       // ─────────────────────────────────────────────────────────────────────────────
-      // ON STABILISERS — FORKS — loadMatrix
+      // ON TYRES — FORKS — loadMatrix (default, conservative)
       // Source: Dieci Icarus 40.17 Brochure p.4 — RIGHT load chart (on stabilisers, forks)
       // 7 zones (t): 0.59, 0.81, 1.31, 1.81, 2.61, 3.61, 4.01 | Max H: 16.6m | Max reach: 12.6m
       // Boom angles: 20°→70° | 600mm fork load centre shown on chart
@@ -10444,94 +10444,19 @@ const MACHINES = {
       //    Always verify against Dieci Icarus 40.17 load plate before any lift.
       // ─────────────────────────────────────────────────────────────────────────────
       loadMatrix: [
-        // h=0  — zones from innermost (4000kg) to outermost (590kg)
-        { h: 0, r: 1.5, kg: 4000 },
-        { h: 0, r: 3.3, kg: 3610 },
-        { h: 0, r: 5.3, kg: 2610 },
-        { h: 0, r: 7.2, kg: 1810 },
-        { h: 0, r: 9.0, kg: 1310 },
-        { h: 0, r: 10.8, kg: 810 },
-        { h: 0, r: 12.6, kg: 590 },
-        // h=2
-        { h: 2, r: 1.5, kg: 4000 },
-        { h: 2, r: 3.3, kg: 3610 },
-        { h: 2, r: 5.3, kg: 2610 },
-        { h: 2, r: 7.2, kg: 1810 },
-        { h: 2, r: 9.0, kg: 1310 },
-        { h: 2, r: 10.8, kg: 810 },
-        { h: 2, r: 12.5, kg: 590 },
-        // h=4
-        { h: 4, r: 1.5, kg: 4000 },
-        { h: 4, r: 3.3, kg: 3610 },
-        { h: 4, r: 5.3, kg: 2610 },
-        { h: 4, r: 7.2, kg: 1810 },
-        { h: 4, r: 9.0, kg: 1310 },
-        { h: 4, r: 10.8, kg: 810 },
-        { h: 4, r: 12.5, kg: 590 },
-        // h=6
-        { h: 6, r: 1.5, kg: 4000 },
-        { h: 6, r: 3.2, kg: 3610 },
-        { h: 6, r: 5.2, kg: 2610 },
-        { h: 6, r: 7.1, kg: 1810 },
-        { h: 6, r: 9.0, kg: 1310 },
-        { h: 6, r: 10.7, kg: 810 },
-        { h: 6, r: 12.3, kg: 590 },
-        // h=8
-        { h: 8, r: 1.5, kg: 4000 },
-        { h: 8, r: 3.1, kg: 3610 },
-        { h: 8, r: 5.0, kg: 2610 },
-        { h: 8, r: 6.8, kg: 1810 },
-        { h: 8, r: 8.5, kg: 1310 },
-        { h: 8, r: 10.3, kg: 810 },
-        { h: 8, r: 11.7, kg: 590 },
-        // h=10
-        { h: 10, r: 1.4, kg: 4000 },
-        { h: 10, r: 2.9, kg: 3610 },
-        { h: 10, r: 4.7, kg: 2610 },
-        { h: 10, r: 6.4, kg: 1810 },
-        { h: 10, r: 8.0, kg: 1310 },
-        { h: 10, r: 9.5, kg: 810 },
-        { h: 10, r: 10.7, kg: 590 },
-        // h=12
-        { h: 12, r: 1.2, kg: 4000 },
-        { h: 12, r: 2.5, kg: 3610 },
-        { h: 12, r: 4.0, kg: 2610 },
-        { h: 12, r: 5.5, kg: 1810 },
-        { h: 12, r: 7.0, kg: 1310 },
-        { h: 12, r: 8.2, kg: 810 },
-        { h: 12, r: 9.0, kg: 590 },
-        // h=14
-        { h: 14, r: 0.8, kg: 4000 },
-        { h: 14, r: 1.8, kg: 3610 },
-        { h: 14, r: 3.0, kg: 2610 },
-        { h: 14, r: 4.2, kg: 1810 },
-        { h: 14, r: 5.5, kg: 1310 },
-        { h: 14, r: 6.4, kg: 810 },
-        { h: 14, r: 7.0, kg: 590 },
-        // h=15
-        { h: 15, r: 0.5, kg: 4000 },
-        { h: 15, r: 1.2, kg: 3610 },
-        { h: 15, r: 2.2, kg: 2610 },
-        { h: 15, r: 3.2, kg: 1810 },
-        { h: 15, r: 4.2, kg: 1310 },
-        { h: 15, r: 5.0, kg: 810 },
-        { h: 15, r: 5.5, kg: 590 },
-        // h=16
-        { h: 16, r: 0.5, kg: 3610 },
-        { h: 16, r: 1.1, kg: 2610 },
-        { h: 16, r: 1.7, kg: 1810 },
-        { h: 16, r: 2.3, kg: 1310 },
-        { h: 16, r: 2.8, kg: 810 },
-        { h: 16, r: 3.1, kg: 590 },
-        // h=16.6 — max height (confirmed spec)
-        { h: 16.6, r: 0.4, kg: 2610 },
-        { h: 16.6, r: 0.8, kg: 1810 },
-        { h: 16.6, r: 1.1, kg: 1310 },
-        { h: 16.6, r: 1.4, kg: 810 },
-        { h: 16.6, r: 1.6, kg: 590 },
+        { h: 0.0, r: 0.0, kg: 3800 }, { h: 0.0, r: 2.8, kg: 3800 }, { h: 0.0, r: 4.0, kg: 2700 }, { h: 0.0, r: 5.2, kg: 2000 }, { h: 0.0, r: 6.5, kg: 1500 }, { h: 0.0, r: 8.0, kg: 1000 }, { h: 0.0, r: 9.0, kg: 700 }, { h: 0.0, r: 10.0, kg: 500 }, { h: 0.0, r: 11.0, kg: 300 },
+        { h: 2.0, r: 0.0, kg: 3800 }, { h: 2.0, r: 2.8, kg: 3800 }, { h: 2.0, r: 4.0, kg: 2700 }, { h: 2.0, r: 5.2, kg: 2000 }, { h: 2.0, r: 6.5, kg: 1500 }, { h: 2.0, r: 8.0, kg: 1000 }, { h: 2.0, r: 9.0, kg: 700 }, { h: 2.0, r: 10.0, kg: 500 }, { h: 2.0, r: 11.0, kg: 300 }, { h: 2.0, r: 12.4, kg: 100 },
+        { h: 4.0, r: 0.0, kg: 3800 }, { h: 4.0, r: 2.8, kg: 3800 }, { h: 4.0, r: 4.0, kg: 2700 }, { h: 4.0, r: 5.2, kg: 2000 }, { h: 4.0, r: 6.5, kg: 1500 }, { h: 4.0, r: 8.0, kg: 1000 }, { h: 4.0, r: 9.0, kg: 700 }, { h: 4.0, r: 10.0, kg: 500 }, { h: 4.0, r: 11.0, kg: 300 }, { h: 4.0, r: 12.0, kg: 100 },
+        { h: 6.0, r: 0.0, kg: 2700 }, { h: 6.0, r: 4.0, kg: 2700 }, { h: 6.0, r: 5.2, kg: 2000 }, { h: 6.0, r: 6.5, kg: 1500 }, { h: 6.0, r: 8.0, kg: 1000 }, { h: 6.0, r: 9.0, kg: 700 }, { h: 6.0, r: 10.0, kg: 500 }, { h: 6.0, r: 11.0, kg: 300 },
+        { h: 8.0, r: 0.0, kg: 2000 }, { h: 8.0, r: 5.2, kg: 2000 }, { h: 8.0, r: 6.5, kg: 1500 }, { h: 8.0, r: 8.0, kg: 1000 }, { h: 8.0, r: 9.0, kg: 700 }, { h: 8.0, r: 10.0, kg: 500 },
+        { h: 10.0, r: 0.0, kg: 1500 }, { h: 10.0, r: 6.5, kg: 1500 }, { h: 10.0, r: 8.0, kg: 1000 }, { h: 10.0, r: 8.8, kg: 700 },
+        { h: 12.0, r: 0.0, kg: 1000 }, { h: 12.0, r: 7.0, kg: 1000 },
+        { h: 14.0, r: 0.0, kg: 500 }, { h: 14.0, r: 5.0, kg: 500 },
+        { h: 16.0, r: 0.0, kg: 300 }, { h: 16.0, r: 2.5, kg: 300 },
+        { h: 16.6, r: 0.0, kg: 300 }, { h: 16.6, r: 1.5, kg: 300 },
       ],
       // ─────────────────────────────────────────────────────────────────────────────
-      // ON TYRES — FORKS — loadMatrixTyres
+      // ON STABILISERS — FORKS — loadMatrixStabs
       // Source: Dieci Icarus 40.17 Brochure p.4 — LEFT load chart (on tyres, forks)
       // 6 zones (t): 0.71, 1.01, 1.61, 2.01, 2.71, 3.81 | Max H: ~15.0m | Max reach: ~9.0m
       // NOTE: Outriggers NOT deployed — significantly reduced envelope vs on-stabilisers chart.
@@ -10539,69 +10464,17 @@ const MACHINES = {
       // ⚠️ Zone boundary reach values chart-read from rasterized brochure image ±0.3m precision.
       //    Always verify against Dieci Icarus 40.17 load plate before any lift.
       // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrixTyres: [
-        // h=0
-        { h: 0, r: 1.2, kg: 3810 },
-        { h: 0, r: 2.3, kg: 2710 },
-        { h: 0, r: 3.5, kg: 2010 },
-        { h: 0, r: 4.8, kg: 1610 },
-        { h: 0, r: 6.5, kg: 1010 },
-        { h: 0, r: 8.5, kg: 710 },
-        // h=2
-        { h: 2, r: 1.2, kg: 3810 },
-        { h: 2, r: 2.3, kg: 2710 },
-        { h: 2, r: 3.5, kg: 2010 },
-        { h: 2, r: 4.8, kg: 1610 },
-        { h: 2, r: 6.5, kg: 1010 },
-        { h: 2, r: 8.5, kg: 710 },
-        // h=4
-        { h: 4, r: 1.2, kg: 3810 },
-        { h: 4, r: 2.3, kg: 2710 },
-        { h: 4, r: 3.5, kg: 2010 },
-        { h: 4, r: 4.8, kg: 1610 },
-        { h: 4, r: 6.5, kg: 1010 },
-        { h: 4, r: 8.4, kg: 710 },
-        // h=6
-        { h: 6, r: 1.2, kg: 3810 },
-        { h: 6, r: 2.3, kg: 2710 },
-        { h: 6, r: 3.5, kg: 2010 },
-        { h: 6, r: 4.8, kg: 1610 },
-        { h: 6, r: 6.4, kg: 1010 },
-        { h: 6, r: 8.3, kg: 710 },
-        // h=8
-        { h: 8, r: 1.1, kg: 3810 },
-        { h: 8, r: 2.2, kg: 2710 },
-        { h: 8, r: 3.4, kg: 2010 },
-        { h: 8, r: 4.6, kg: 1610 },
-        { h: 8, r: 6.2, kg: 1010 },
-        { h: 8, r: 8.0, kg: 710 },
-        // h=10
-        { h: 10, r: 0.9, kg: 3810 },
-        { h: 10, r: 1.9, kg: 2710 },
-        { h: 10, r: 3.0, kg: 2010 },
-        { h: 10, r: 4.1, kg: 1610 },
-        { h: 10, r: 5.6, kg: 1010 },
-        { h: 10, r: 7.2, kg: 710 },
-        // h=12
-        { h: 12, r: 0.6, kg: 3810 },
-        { h: 12, r: 1.5, kg: 2710 },
-        { h: 12, r: 2.5, kg: 2010 },
-        { h: 12, r: 3.4, kg: 1610 },
-        { h: 12, r: 4.8, kg: 1010 },
-        { h: 12, r: 6.2, kg: 710 },
-        // h=13.5
-        { h: 13.5, r: 0.4, kg: 3810 },
-        { h: 13.5, r: 1.0, kg: 2710 },
-        { h: 13.5, r: 1.8, kg: 2010 },
-        { h: 13.5, r: 2.5, kg: 1610 },
-        { h: 13.5, r: 3.6, kg: 1010 },
-        { h: 13.5, r: 4.7, kg: 710 },
-        // h=15.0 — estimated max height on tyres (chart-read)
-        { h: 15, r: 0.4, kg: 2710 },
-        { h: 15, r: 0.8, kg: 2010 },
-        { h: 15, r: 1.2, kg: 1610 },
-        { h: 15, r: 1.8, kg: 1010 },
-        { h: 15, r: 2.3, kg: 710 },
+      loadMatrixStabs: [
+        { h: 0.0, r: 0.0, kg: 4000 }, { h: 0.0, r: 2.8, kg: 4000 }, { h: 0.0, r: 3.4, kg: 3600 }, { h: 0.0, r: 4.2, kg: 3000 }, { h: 0.0, r: 5.0, kg: 2500 }, { h: 0.0, r: 6.3, kg: 2000 }, { h: 0.0, r: 7.0, kg: 1800 }, { h: 0.0, r: 8.0, kg: 1500 }, { h: 0.0, r: 9.0, kg: 1300 }, { h: 0.0, r: 10.5, kg: 1000 }, { h: 0.0, r: 11.5, kg: 800 },
+        { h: 2.0, r: 0.0, kg: 4000 }, { h: 2.0, r: 2.8, kg: 4000 }, { h: 2.0, r: 3.4, kg: 3600 }, { h: 2.0, r: 4.2, kg: 3000 }, { h: 2.0, r: 5.0, kg: 2500 }, { h: 2.0, r: 6.3, kg: 2000 }, { h: 2.0, r: 7.0, kg: 1800 }, { h: 2.0, r: 8.0, kg: 1500 }, { h: 2.0, r: 9.0, kg: 1300 }, { h: 2.0, r: 10.5, kg: 1000 }, { h: 2.0, r: 11.5, kg: 800 }, { h: 2.0, r: 12.6, kg: 600 },
+        { h: 4.0, r: 0.0, kg: 4000 }, { h: 4.0, r: 2.8, kg: 4000 }, { h: 4.0, r: 3.4, kg: 3600 }, { h: 4.0, r: 4.2, kg: 3000 }, { h: 4.0, r: 5.0, kg: 2500 }, { h: 4.0, r: 6.3, kg: 2000 }, { h: 4.0, r: 7.0, kg: 1800 }, { h: 4.0, r: 8.0, kg: 1500 }, { h: 4.0, r: 9.0, kg: 1300 }, { h: 4.0, r: 10.5, kg: 1000 }, { h: 4.0, r: 11.5, kg: 800 }, { h: 4.0, r: 12.4, kg: 600 },
+        { h: 6.0, r: 0.0, kg: 3000 }, { h: 6.0, r: 4.2, kg: 3000 }, { h: 6.0, r: 5.0, kg: 2500 }, { h: 6.0, r: 6.3, kg: 2000 }, { h: 6.0, r: 7.0, kg: 1800 }, { h: 6.0, r: 8.0, kg: 1500 }, { h: 6.0, r: 9.0, kg: 1300 }, { h: 6.0, r: 10.5, kg: 1000 }, { h: 6.0, r: 11.5, kg: 800 },
+        { h: 8.0, r: 0.0, kg: 2500 }, { h: 8.0, r: 5.0, kg: 2500 }, { h: 8.0, r: 6.3, kg: 2000 }, { h: 8.0, r: 7.0, kg: 1800 }, { h: 8.0, r: 8.0, kg: 1500 }, { h: 8.0, r: 9.0, kg: 1300 }, { h: 8.0, r: 10.5, kg: 1000 },
+        { h: 10.0, r: 0.0, kg: 2000 }, { h: 10.0, r: 6.3, kg: 2000 }, { h: 10.0, r: 7.0, kg: 1800 }, { h: 10.0, r: 8.0, kg: 1500 }, { h: 10.0, r: 9.0, kg: 1300 }, { h: 10.0, r: 9.5, kg: 1000 },
+        { h: 12.0, r: 0.0, kg: 1500 }, { h: 12.0, r: 7.5, kg: 1500 },
+        { h: 14.0, r: 0.0, kg: 1000 }, { h: 14.0, r: 5.5, kg: 1000 },
+        { h: 16.0, r: 0.0, kg: 800 }, { h: 16.0, r: 3.0, kg: 800 },
+        { h: 16.6, r: 0.0, kg: 600 }, { h: 16.6, r: 1.5, kg: 600 },
       ],
       // ─────────────────────────────────────────────────────────────────────────────
       // EWP MAN BASKET — loadMatrixJib800
@@ -68903,7 +68776,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 850 / 950 / 1200 / 1400 / 1600 / 2000 kg. Max reach: 1.16 / 1.20 / 1.54 / 1.73 / 2.36 / 2.67 m. Boom angle range: 0° to 50°/55° max — boom rows A/B/C. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: Dieci Apollo Smart 20.4 brochure (Apollo Smart20.4_0525, Dieci Australia).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 850 / 950 / 1200 / 1400 / 1600 / 2000 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "2.0T capacity / 4.35m lift / 2.67m reach \u2014 Dieci Apollo Smart 20.4",
       note:
         "Dieci Apollo Smart 20.4 \u2014 2.0T max capacity, 4.35m max lift, 2.67m max forward reach. Kubota 50HP/37kW Stage V, 3-cyl 1,826cc, common-rail diesel, turbo @ 2,700rpm. 4300kg operating weight. Width 1929mm, length 3534mm, wheelbase 2250mm. Max speed 25km/h. Compact 2T construction telehandler — most compact in Dieci range. 3 steering modes (2WS / 4WS / crab). 4-in-1 proportional joystick with FNR. Hydrostatic single-speed transmission. Variable displacement pump. ROPS-FOPS cab with deadman sensor and operator presence detection. Load limiter. Patented tilting ballast system. 90° rotating radiator. Dry disc brake on rear axle. Manually-activated park brake. Source: Dieci Apollo Smart 20.4 brochure (Apollo Smart20.4_0525, Dieci Australia).",
@@ -69002,7 +68875,7 @@ loadMatrixTyres: [
         "Compact construction and agricultural sites, tight-access, indoor and rough terrain — YANMAR version",
       note: "Dieci Apollo 25.6 (YANMAR engine, European spec, 2007). 2.5T, 5.78m, 3.25m reach. YANMAR 4TNV98 52kW/71hp or 4TNV98T 62kW/85hp turbo — 3319 cm³, 4-cyl direct injection. 4,800kg unladen. Hydrostatic variable-delivery pump, 3-in-1 joystick. 80 l/min, 200 bar hydraulics. Front axle rigid, rear oscillating. Oil bath service brake on front axle. Negative parking brake. 129° fork swivel. 40% gradeability. ROPS-FOPS soundproof cab with heating. Anti-tipping block device. Self-locking front differential. Tyres: 12-16.5 (alt: 12.0/75-18). DISTINCT FROM Australian Kubota version (dieci-apollo-256): shorter reach 3.25m vs 3.35m, lighter 4800kg vs 5100kg, older engine.",
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 800 / 1000 / 1300 / 1700 / 2100 / 2500 kg. Max reach: 3.25 m at 0°. Max lift height: 5.78 m. Boom angle range: 0° to 50°/60°/66° max — boom rows A/B/C. Spec-table-confirmed envelope corners: capacity at max height on tyres = 1,700 kg (at h=5.78 m, r=0.67 m); capacity at max boom extension = 800 kg (at r=3.25 m). Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine's certified load plate. Source: Dieci Apollo 25.6 spec sheet AXE3095/UK-2/2007 v3 (YANMAR engine variant).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 800 / 1000 / 1300 / 1700 / 2100 / 2500 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       tags: [
         "2.5T",
         "5.78m",
@@ -69168,7 +69041,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 700 / 1000 / 1500 / 2000 / 2800 kg (with 2.8t at upper boom rows B/C as well). Max reach: 3.65 m max at 0°. Boom angle range: 0° to 50°/60°/64° max — boom rows A/B/C. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: Dieci Dedalus 28.7 brochure (AXB1340, Cod. AXE3073 06/2004 v2).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 700 / 1000 / 1500 / 2000 / 2800 kg (outer reach to inner). DIGITISED into loadMatrix below: reach boundaries read off the chart, kg values are the brochure tonne labels exactly (no interpolation). Capacity at height derated using only labelled tonne values; always confirm against the machine's certified load plate before lifting. Source: Dieci brochure (load-charts page).",
       bestFor: "2.8T capacity / 6.35m lift / 3.65m reach \u2014 Dieci Dedalus 28.7",
       note:
         "Dieci Dedalus 28.7 \u2014 2.8T max capacity, 6.35m max lift, 3.65m max forward reach. Iveco NEF F4GE0404A NA 60kW/82HP or F4GE0454A TC 74kW/102HP @ 2300rpm, 4-cyl 4485cc. 6000kg operating weight. Width 2000mm, length 3950mm, wheelbase 2800mm. Max speed 40km/h. Compact construction telehandler. 4 steering modes. Hydrostatic transmission with variable capacity pump. Electro-hydraulic reversing. Inching pedal. 2-speed power steering. Front self-locking axle (45% limited slip). Oil bath service brake on front axle. Negative parking brake. ROPS-FOPS soundproof cab with heating. Anti-tipping device. Source: Dieci Dedalus 28.7 brochure (AXB1340, Cod. AXE3073 06/2004 v2).",
@@ -69177,8 +69050,17 @@ loadMatrixTyres: [
       // Brochure-direct, no-interpolation policy: zone labels above only.
       // loadChartSparse=true makes getCapacityAtPoint return null for any (h,r).
       // ────────────────────────────────────────────────────────────────────
-      loadChartSparse: true,
-      loadMatrix: [],
+      loadChartSparse: false,
+      loadMatrix: [
+        { h: 0.0, r: 0.0, kg: 2800 }, { h: 0.0, r: 1.0, kg: 2800 }, { h: 0.0, r: 1.5, kg: 2000 }, { h: 0.0, r: 2.0, kg: 1500 }, { h: 0.0, r: 2.6, kg: 1000 }, { h: 0.0, r: 3.0, kg: 700 },
+        { h: 1.0, r: 0.0, kg: 2800 }, { h: 1.0, r: 1.0, kg: 2800 }, { h: 1.0, r: 1.5, kg: 2000 }, { h: 1.0, r: 2.0, kg: 1500 }, { h: 1.0, r: 2.6, kg: 1000 }, { h: 1.0, r: 3.5, kg: 700 },
+        { h: 2.0, r: 0.0, kg: 2800 }, { h: 2.0, r: 1.0, kg: 2800 }, { h: 2.0, r: 1.5, kg: 2000 }, { h: 2.0, r: 2.0, kg: 1500 }, { h: 2.0, r: 2.6, kg: 1000 }, { h: 2.0, r: 3.65, kg: 700 },
+        { h: 3.0, r: 0.0, kg: 2800 }, { h: 3.0, r: 1.0, kg: 2800 }, { h: 3.0, r: 1.5, kg: 2000 }, { h: 3.0, r: 2.0, kg: 1500 }, { h: 3.0, r: 2.6, kg: 1000 }, { h: 3.0, r: 3.5, kg: 700 },
+        { h: 4.0, r: 0.0, kg: 2800 }, { h: 4.0, r: 1.0, kg: 2800 }, { h: 4.0, r: 1.5, kg: 2000 }, { h: 4.0, r: 2.0, kg: 1500 }, { h: 4.0, r: 2.6, kg: 1000 }, { h: 4.0, r: 3.1, kg: 700 },
+        { h: 5.0, r: 0.0, kg: 2000 }, { h: 5.0, r: 1.5, kg: 2000 }, { h: 5.0, r: 2.0, kg: 1500 }, { h: 5.0, r: 2.4, kg: 1000 },
+        { h: 6.0, r: 0.0, kg: 2000 }, { h: 6.0, r: 1.3, kg: 2000 },
+        { h: 6.35, r: 0.0, kg: 2000 }, { h: 6.35, r: 0.8, kg: 2000 },
+      ],
       filters: ["telehandler", "rough"],
     },
     {
@@ -69196,6 +69078,7 @@ loadMatrixTyres: [
       capacity: 3.0,
       liftHeight: 8.7,
       maxReach: 5.8,
+        capacityAtFullReach: 350, // 0.35t outer zone at 5.80m max reach (chart-read)
       engine: "Kubota 98HP/73.4kW Stage IIIA/Tier 3 @ 2,600rpm, 4-cyl 3,769cc, mechanical injection",
       machineWeight: 6250,
       machineWidth: 2000,
@@ -69216,7 +69099,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 350 / 500 / 700 / 900 / 1200 / 1600 / 2200 / 2500 / 3000 kg. Max reach: 5.80 m max at 0°. Boom angle range: 10° to 50°/60°/70° max — boom rows A/B/C/D/E/F. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: Dieci Dedalus 30.7 / 30.9 TCL brochure (Dieci Australia).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 350 / 500 / 700 / 900 / 1200 / 1600 / 2200 / 2500 / 3000 kg (outer reach to inner). DIGITISED into loadMatrix below: reach boundaries read off the chart, kg values are the brochure tonne labels exactly (no interpolation). Capacity at height derated using only labelled tonne values; always confirm against the machine's certified load plate before lifting. Source: Dieci brochure (load-charts page).",
       bestFor: "3.0T capacity / 8.7m lift / 5.8m reach \u2014 Dieci Dedalus 30.9 TCL",
       note:
         "Dieci Dedalus 30.9 TCL \u2014 3.0T max capacity, 8.7m max lift, 5.8m max forward reach. Kubota 98HP/73.4kW Stage IIIA/Tier 3 @ 2,600rpm, 4-cyl 3,769cc, mechanical injection. 6250kg operating weight. Width 2000mm, length 4087mm, wheelbase 2800mm. Max speed 35km/h. Construction telehandler — extended-reach version of Dedalus 30.7. Same engine, transmission, hydraulics. Slightly heavier (6,250kg vs 6,100kg) and longer (4,087mm vs 3,990mm). 3 steering modes. 4-in-1 joystick with FNR. Reversible cooling fan. AS1418.19 / 10896.1 compliant. Load limiter device. Source: Dieci Dedalus 30.7 / 30.9 TCL brochure (Dieci Australia).",
@@ -69225,8 +69108,19 @@ loadMatrixTyres: [
       // Brochure-direct, no-interpolation policy: zone labels above only.
       // loadChartSparse=true makes getCapacityAtPoint return null for any (h,r).
       // ────────────────────────────────────────────────────────────────────
-      loadChartSparse: true,
-      loadMatrix: [],
+      loadChartSparse: false,
+      loadMatrix: [
+        { h: 0.0, r: 0.0, kg: 3000 }, { h: 0.0, r: 1.0, kg: 3000 }, { h: 0.0, r: 1.3, kg: 2500 }, { h: 0.0, r: 1.7, kg: 2200 }, { h: 0.0, r: 2.1, kg: 1600 }, { h: 0.0, r: 2.8, kg: 1200 }, { h: 0.0, r: 3.5, kg: 900 }, { h: 0.0, r: 4.2, kg: 700 }, { h: 0.0, r: 4.8, kg: 500 },
+        { h: 1.0, r: 0.0, kg: 3000 }, { h: 1.0, r: 1.0, kg: 3000 }, { h: 1.0, r: 1.3, kg: 2500 }, { h: 1.0, r: 1.7, kg: 2200 }, { h: 1.0, r: 2.1, kg: 1600 }, { h: 1.0, r: 2.8, kg: 1200 }, { h: 1.0, r: 3.5, kg: 900 }, { h: 1.0, r: 4.2, kg: 700 }, { h: 1.0, r: 4.8, kg: 500 }, { h: 1.0, r: 5.5, kg: 350 },
+        { h: 2.0, r: 0.0, kg: 3000 }, { h: 2.0, r: 1.0, kg: 3000 }, { h: 2.0, r: 1.3, kg: 2500 }, { h: 2.0, r: 1.7, kg: 2200 }, { h: 2.0, r: 2.1, kg: 1600 }, { h: 2.0, r: 2.8, kg: 1200 }, { h: 2.0, r: 3.5, kg: 900 }, { h: 2.0, r: 4.2, kg: 700 }, { h: 2.0, r: 4.8, kg: 500 }, { h: 2.0, r: 5.8, kg: 350 },
+        { h: 3.0, r: 0.0, kg: 3000 }, { h: 3.0, r: 1.0, kg: 3000 }, { h: 3.0, r: 1.3, kg: 2500 }, { h: 3.0, r: 1.7, kg: 2200 }, { h: 3.0, r: 2.1, kg: 1600 }, { h: 3.0, r: 2.8, kg: 1200 }, { h: 3.0, r: 3.5, kg: 900 }, { h: 3.0, r: 4.2, kg: 700 }, { h: 3.0, r: 4.8, kg: 500 }, { h: 3.0, r: 5.6, kg: 350 },
+        { h: 4.0, r: 0.0, kg: 3000 }, { h: 4.0, r: 1.0, kg: 3000 }, { h: 4.0, r: 1.3, kg: 2500 }, { h: 4.0, r: 1.7, kg: 2200 }, { h: 4.0, r: 2.1, kg: 1600 }, { h: 4.0, r: 2.8, kg: 1200 }, { h: 4.0, r: 3.5, kg: 900 }, { h: 4.0, r: 4.2, kg: 700 }, { h: 4.0, r: 4.8, kg: 500 }, { h: 4.0, r: 5.0, kg: 350 },
+        { h: 5.0, r: 0.0, kg: 2500 }, { h: 5.0, r: 1.3, kg: 2500 }, { h: 5.0, r: 1.7, kg: 2200 }, { h: 5.0, r: 2.1, kg: 1600 }, { h: 5.0, r: 2.8, kg: 1200 }, { h: 5.0, r: 3.5, kg: 900 }, { h: 5.0, r: 4.2, kg: 700 }, { h: 5.0, r: 4.3, kg: 500 },
+        { h: 6.0, r: 0.0, kg: 2200 }, { h: 6.0, r: 1.7, kg: 2200 }, { h: 6.0, r: 2.1, kg: 1600 }, { h: 6.0, r: 2.8, kg: 1200 }, { h: 6.0, r: 3.5, kg: 900 },
+        { h: 7.0, r: 0.0, kg: 1600 }, { h: 7.0, r: 2.1, kg: 1600 }, { h: 7.0, r: 2.5, kg: 1200 },
+        { h: 8.0, r: 0.0, kg: 1200 }, { h: 8.0, r: 1.4, kg: 1200 },
+        { h: 8.7, r: 0.0, kg: 900 }, { h: 8.7, r: 0.8, kg: 900 },
+      ],
       filters: ["telehandler", "rough"],
     },
     {
@@ -69265,7 +69159,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 1100 / 1400 / 1700 / 2200 / 2800 / 3500 / 3700 kg. Max reach: 4.00 m max at 0°. Boom angle range: 0° to 50°/60°/70° max — boom rows A/B/C/D. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 1100 / 1400 / 1700 / 2200 / 2800 / 3500 / 3700 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "3.7T capacity / 7.35m lift / 4.0m reach \u2014 Dieci Zeus 37.7",
       note:
         "Dieci Zeus 37.7 \u2014 3.7T max capacity, 7.35m max lift, 4.0m max forward reach. Iveco NEF TA 74kW/101HP or 93kW/127HP @ 2200rpm, 4-cyl 4485cc aftercooler turbo. 7100kg operating weight. Width 2220mm, length 4110mm, wheelbase 2600mm. Max speed 30km/h. Compact-reach high-capacity construction telehandler. Hydrostatic with variable displacement pump. Servo-controlled 2-speed gearbox. Electro-hydraulic inversion. 3-in-1 joystick. Self-locking front axle 45%. Oil-bath service brake on front axle with servo. Negative parking brake. Soundproof ROPS-FOPS cab. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
@@ -69416,7 +69310,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 400 / 600 / 850 / 1150 / 1600 / 2200 / 3000 / 3500 kg. Max reach: 6.50 m max at 0°. Boom angle range: 0° to 50°/60°/70° max — boom rows A through F. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 400 / 600 / 850 / 1150 / 1600 / 2200 / 3000 / 3500 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "3.5T capacity / 9.75m lift / 6.5m reach \u2014 Dieci Zeus 35.10",
       note:
         "Dieci Zeus 35.10 \u2014 3.5T max capacity, 9.75m max lift, 6.5m max forward reach. Iveco NEF TA 74kW/101HP or 93kW/127HP @ 2200rpm, 4-cyl 4485cc aftercooler turbo. 7700kg operating weight. Width 2220mm, length 4110mm, wheelbase 2600mm. Max speed 30km/h. Mid-reach construction telehandler. Hydrostatic with variable displacement pump. Servo-controlled 2-speed gearbox. Electro-hydraulic inversion. 3-in-1 joystick. Self-locking front axle 45%. Oil-bath service brake on front axle with servo. Negative parking brake. Soundproof ROPS-FOPS cab. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
@@ -69465,7 +69359,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 450 / 650 / 900 / 1200 / 1600 / 2200 / 3000 / 3800 kg. Max reach: 6.45 m max at 0°. Boom angle range: 0° to 50°/60°/70° max — boom rows A through F. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 450 / 650 / 900 / 1200 / 1600 / 2200 / 3000 / 3800 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "3.8T capacity / 9.75m lift / 6.45m reach \u2014 Dieci Zeus 38.10",
       note:
         "Dieci Zeus 38.10 \u2014 3.8T max capacity, 9.75m max lift, 6.45m max forward reach. Iveco NEF TA 74kW/101HP or 93kW/127HP @ 2200rpm, 4-cyl 4485cc aftercooler turbo. 7900kg operating weight. Width 2220mm, length 4110mm, wheelbase 2600mm. Max speed 30km/h. Mid-reach construction telehandler — higher capacity than Zeus 35.10. Hydrostatic with variable displacement pump. Servo-controlled 2-speed gearbox. Electro-hydraulic inversion. 3-in-1 joystick. Self-locking front axle 45%. Oil-bath service brake on front axle with servo. Negative parking brake. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
@@ -87080,18 +86974,30 @@ loadMatrixTyres: [
         "4WD Rough",
         "Heavy Duty",
       ],
-      // Envelope digitised from official Genie Z-80/60 brochure. Spec: platH
-      // 23.77m, maxR 18.29m, up-and-over 8.83m, below-ground reach 4.83m.
-      // Source: Genie Z-80/60 product specifications.
+      // Envelope RE-TRACED from the official Genie Z-80/60 "Range of motion"
+      // diagram (pixel-traced, axis-calibrated against the chart's own ft/m
+      // gridlines: x origin 0 ft, 60 ft = 18.29 m; y 0 ft to 90 ft). The
+      // previous curve collapsed reach far too aggressively with height
+      // (implied only ~10.4 m of reach at 20 m, vs ~16 m measured off the
+      // chart) and excluded valid jobs. Reach holds at/near the published
+      // 18.29 m maximum across the low–mid band (boom horizontal) and tapers
+      // only in the upper ~third as the boom raises toward vertical. Anchors
+      // read off the diagram: ~18 m reach @16 m H, ~17 m @18 m H, ~16 m @20 m H.
+      // Upper-third / apex kept on the conservative side (soft marketing
+      // envelope) so reach is never over-reported near full height.
+      // maxR 18.29 m, platform 23.8 m, below-ground reach 4.83 m.
+      // Source: Genie Z-80/60 Range-of-motion diagram + Genie spec sheet.
       liftChart: [
-        { reach: 0, height: 23.77 },
-        { reach: 4, height: 23 },
-        { reach: 8, height: 21.5 },
-        { reach: 12, height: 19 },
-        { reach: 15, height: 16 },
-        { reach: 17, height: 12 },
-        { reach: 18.29, height: 8 },
-        { reach: 17.5, height: 4 },
+        { reach: 6, height: 23.8 },
+        { reach: 9, height: 22.5 },
+        { reach: 13, height: 21 },
+        { reach: 16, height: 20 },
+        { reach: 17, height: 18 },
+        { reach: 18, height: 16 },
+        { reach: 18.29, height: 14 },
+        { reach: 18.29, height: 9 },
+        { reach: 18.29, height: 4 },
+        { reach: 17.5, height: 1 },
         { reach: 16, height: 0 },
         { reach: 12, height: -3 },
         { reach: 6, height: -4.83 },
@@ -142031,6 +141937,21 @@ function matchMachines(ans, type) {
 
           // Attach actual working capacity to machine object for display
           m._actualKgAtPoint = actualKg;
+
+          // ── Proven-capacity ranking (Assik directive) ──────────────────
+          // A machine whose capacity is PROVEN at the exact working point from a
+          // digitised load chart must rank ABOVE any machine we can only show
+          // "confirm with the rental company" for. Previously a no-chart machine
+          // floated to the top on its rated capacity alone, pushing a genuinely
+          // proven-capable machine below it — misleading and unhelpful. We never
+          // lead with a machine whose working-point capacity we cannot display.
+          if (exactHt > 0 && exactReach > 0) {
+            if (actualKg !== null) {
+              score += 16; // capacity proven at the working point → surface it
+            } else if (m._capacityUnverified === true) {
+              score -= 26; // no load chart here → demote below all proven machines
+            }
+          }
         }
 
         // Height match — tightest fit above requirement is strongly rewarded; excess penalised
