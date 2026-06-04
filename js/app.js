@@ -142858,6 +142858,10 @@ function matchMachines(ans, type) {
           return false;
         // ALWAYS exclude tracked/crawler/spider lifts from standard rough terrain
         if (_isSpiderOrCrawler(m)) return false;
+        // Exclude towable / trailer-mounted booms from the standard (self-propelled)
+        // boom lift results — they are a separate hire class, not "plain" boom lifts.
+        // (Already excluded from indoor_boom below; this covers outdoor/rough.)
+        if (_isTowableOrTrailer(m)) return false;
         return true;
       });
     }
