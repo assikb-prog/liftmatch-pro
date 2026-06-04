@@ -148152,6 +148152,39 @@ function _renderCards(matches, machineType, answers) {
         if (_adminPinned) _addCand(_adminPinned);
       }
 
+      // ── OWNER DIRECTIVE (Assik, Jun-2026): never feature a machine that is
+      // oversized or that pushes the operator into a HIGHER licence class than
+      // the job needs — not even in the sponsored slot. For booms the licence
+      // boundary is 11 m platform height (<11 m = EWP/Yellow Card; ≥11 m = WP
+      // Class HRW). If the job needs under 11 m, drop any ≥11 m brand machine,
+      // and drop anything more than ~one size class above the requirement.
+      // If nothing size-appropriate remains, leave the candidate list empty so
+      // the slot is suppressed rather than recommending a bigger machine.
+      const _spReqHtGuard = parseFloat(
+        machineType === "telehandler" || machineType === "rotating"
+          ? answers.tele_ht_m || answers.mat_ht_m || 0
+          : machineType === "scissor"
+            ? answers.ppl_ht_m || answers.scis_ht_m || 0
+            : machineType === "boom"
+              ? answers.boom_ht_m || answers.ppl_ht_m || 0
+              : answers.ppl_ht_m || 0,
+      ) || 0;
+      if (_spReqHtGuard > 0 && _spCandidates.length) {
+        const _spSizeOK = (m) => {
+          const mH = m.platformHeight || m.liftHeight || 0;
+          if (mH <= 0) return true;
+          // Licence-class boundary (booms): don't cross 11 m when the job is under it.
+          if (machineType === "boom" && _spReqHtGuard < 11 && mH >= 11)
+            return false;
+          // Not more than ~one size class above the requirement.
+          if (mH > _spReqHtGuard * 1.5) return false;
+          return true;
+        };
+        const _spKept = _spCandidates.filter(_spSizeOK);
+        _spCandidates.length = 0;
+        Array.prototype.push.apply(_spCandidates, _spKept);
+      }
+
       // Try each candidate in turn. Each gate-failure inside the block below
       // throws _SPN_NEXT, which we catch to advance to the next candidate.
       // First candidate that passes ALL gates wins the slot.
