@@ -143216,8 +143216,35 @@ function matchMachines(ans, type) {
 
       let artPicks, telePicks;
       if (_wantsArticulating) {
-        // Customer chose articulating — give them up to 5 articulating machines, max 1 per brand
-        artPicks = diversePick(articulating, 5, 1, _bPrefArg);
+        // Customer chose articulating — give them up to 5 articulating machines, max 1 per brand.
+        // SIZE-CLASS PRIORITY (Assik, Jun-2026): with many brands of right-sized
+        // booms available, don't let an oversized "one size up" machine take a
+        // visible slot ahead of correctly-sized options. Fill the slate from
+        // same-size-class machines first (platform height within ~15% of the
+        // smallest qualifying boom for this job), and only add a larger machine
+        // if the 5 slots can't otherwise be filled. Extends the existing
+        // "only surface next-size-up when the slate didn't fill" rule.
+        const _refH = articulating.reduce(
+          (min, m) => Math.min(min, m.platformHeight || Infinity),
+          Infinity,
+        );
+        const _sameClass = articulating.filter(
+          (m) => (m.platformHeight || 0) <= _refH * 1.15,
+        );
+        const _upClass = articulating.filter(
+          (m) => (m.platformHeight || 0) > _refH * 1.15,
+        );
+        artPicks = diversePick(_sameClass, 5, 1, _bPrefArg);
+        if (artPicks.length < 5 && _upClass.length) {
+          const _have = new Set(artPicks.map((m) => m.id));
+          const _fill = diversePick(
+            _upClass,
+            5 - artPicks.length,
+            1,
+            _bPrefArg,
+          ).filter((m) => !_have.has(m.id));
+          artPicks = [...artPicks, ..._fill];
+        }
         // Show telescopic only if we can't fill 5 articulating results
         telePicks =
           artPicks.length < 4
