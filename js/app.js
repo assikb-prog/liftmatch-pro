@@ -143294,6 +143294,36 @@ function matchMachines(ans, type) {
         }
       }
 
+      // ── Licence-class guard (Assik 07-Jun-2026) ──────────────────────────
+      // A boom with platform height ≥11m needs a WP High Risk Work licence —
+      // a different, HIGHER operator licence than the Yellow Card a <11m boom
+      // needs. So a ≥11m machine is not just "one size up" on a sub-11m job:
+      // it changes the licence class. Never pad the slate with a licence-class
+      // crossing machine when same-class (<11m) options exist. Fill from <11m
+      // first (relaxing to 2 per brand to complete the slate); only keep ≥11m
+      // machines if the <11m pool genuinely can't fill — and then show FEWER
+      // results rather than cross the licence boundary just to reach 5.
+      const _LIC_BOUNDARY = 11;
+      if (minHt < _LIC_BOUNDARY) {
+        const _sameClassPool = articulating.filter(
+          (m) => (m.platformHeight || 0) < _LIC_BOUNDARY,
+        );
+        if (_sameClassPool.length > 0) {
+          const _origSameClass = artPicks.filter(
+            (m) => (m.platformHeight || 0) < _LIC_BOUNDARY,
+          );
+          const _refill = diversePick(
+            _sameClassPool,
+            Math.max(artPicks.length, 5),
+            2,
+            _bPrefArg,
+          );
+          // Use the same-class slate when it can cover at least as many slots
+          // as we already had from <11m machines (drops the ≥11m filler).
+          if (_refill.length >= _origSameClass.length) artPicks = _refill;
+        }
+      }
+
       const merged = [];
       // Articulating machines — size labels relative to BEST MATCH (machine #1),
       // NOT relative to raw requirement. Same logic as telehandlers.
@@ -143368,10 +143398,15 @@ function matchMachines(ans, type) {
       // 28-Apr-2026). With a healthy qualified pool there's no value in
       // appending a bigger warning machine — same-size alternatives exist.
       const _slateTarget = _bPref2 !== "any" ? 6 : 5;
-      const up =
+      let up =
         merged.length > 0 && merged.length < _slateTarget
           ? findNextUp(qualifiedAll, merged, (m) => m.platformHeight || 0)
           : null;
+      // Never let the "next size up" cross the licence-class boundary on a
+      // sub-11m job — that's a different operator licence, not just a bigger
+      // machine. Better to show fewer results than push a higher licence class.
+      if (up && minHt < _LIC_BOUNDARY && (up.platformHeight || 0) >= _LIC_BOUNDARY)
+        up = null;
       if (up)
         merged.push({
           ...up,
