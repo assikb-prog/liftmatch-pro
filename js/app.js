@@ -86975,29 +86975,26 @@ loadMatrixTyres: [
         "Heavy Duty",
       ],
       // Envelope RE-TRACED from the official Genie Z-80/60 "Range of motion"
-      // diagram (pixel-traced, axis-calibrated against the chart's own ft/m
-      // gridlines: x origin 0 ft, 60 ft = 18.29 m; y 0 ft to 90 ft). The
-      // previous curve collapsed reach far too aggressively with height
-      // (implied only ~10.4 m of reach at 20 m, vs ~16 m measured off the
-      // chart) and excluded valid jobs. Reach holds at/near the published
-      // 18.29 m maximum across the low–mid band (boom horizontal) and tapers
-      // only in the upper ~third as the boom raises toward vertical. Anchors
-      // read off the diagram: ~18 m reach @16 m H, ~17 m @18 m H, ~16 m @20 m H.
-      // Upper-third / apex kept on the conservative side (soft marketing
-      // envelope) so reach is never over-reported near full height.
-      // maxR 18.29 m, platform 23.8 m, below-ground reach 4.83 m.
+      // diagram (axis-calibrated against the chart's own ft/m gridlines).
+      // The previous curve collapsed reach far too aggressively with height
+      // (implied only ~10.4 m reach at 20 m, vs ~16 m measured off the chart)
+      // and excluded valid jobs. Reach holds at/near the published 18.29 m
+      // maximum across the low-mid band, tapering only in the upper third as
+      // the boom raises toward vertical. Anchors: ~18 m @16 m H, ~17 m @18 m H,
+      // ~16 m @20 m H. Apex kept conservative so reach is never over-reported
+      // near full height. maxR 18.29 m, platform 23.8 m, below-ground 4.83 m.
       // Source: Genie Z-80/60 Range-of-motion diagram + Genie spec sheet.
       liftChart: [
-        { reach: 6, height: 23.8 },
-        { reach: 9, height: 22.5 },
-        { reach: 13, height: 21 },
+        { reach: 0, height: 23.8 },
+        { reach: 6, height: 23 },
+        { reach: 10, height: 22 },
+        { reach: 14, height: 21 },
         { reach: 16, height: 20 },
         { reach: 17, height: 18 },
         { reach: 18, height: 16 },
-        { reach: 18.29, height: 14 },
-        { reach: 18.29, height: 9 },
-        { reach: 18.29, height: 4 },
-        { reach: 17.5, height: 1 },
+        { reach: 18.29, height: 13 },
+        { reach: 18.29, height: 8 },
+        { reach: 17.5, height: 4 },
         { reach: 16, height: 0 },
         { reach: 12, height: -3 },
         { reach: 6, height: -4.83 },
@@ -88690,67 +88687,6 @@ loadMatrixTyres: [
         { reach: 5, height: 0 },
       ],
       filters: ["boom", "articulating", "indoor", "electric"],
-    },
-    {
-      id: "genie-z34-22ic",
-      brand: "Genie",
-      emoji: "💥",
-      brandColor: "#FF6600",
-      name: "Genie Z-34/22 IC Diesel",
-      shortName: "Genie Z-34/22 IC",
-      boomType: "articulating",
-      platformHeight: 10.54,
-      workHeight: 12.54,
-      maxReach: 6.78,
-      upOverHeight: 4.6,
-      upOverReach: 6.78,
-      machineWeight: 4994,
-      machineWidth: 1.85,
-      machineLength: 5.66,
-      machineHeight: 2.06,
-      power: "Diesel",
-      swl: 227,
-      // Diesel/4WD rough-terrain version of the Z-34/22 (the electric N/DC are
-      // the indoor/firm-ground siblings — same boom geometry). All figures
-      // confirmed from the official Genie Z-34/22 IC spec sheet (12/22,
-      // AS 1418.10): working 12.54m, platform 10.54m, reach 6.78m, up-and-over
-      // 4.6m, 227kg, Kubota D1105 18.5kW diesel, 4WD, 45% gradeability, 4,994kg,
-      // 5.66m stowed, 1.85m wide.
-      maxOccupancy: 2,
-      terrain: "outdoor rough",
-      bestFor:
-        "Compact 10m diesel 4WD articulating — outdoor rough-terrain up-and-over access",
-      note: "Genie Z-34/22 IC: 10.54m platform / 12.54m working height. 227kg (2 persons). 6.78m max horizontal reach, 4.6m up-and-over clearance. Diesel 4WD (Kubota D1105 18.5kW), up to 45% gradeability — the rough-terrain version of the Z-34/22 (electric N/DC are the indoor/firm-ground siblings, same boom). 1.22m articulating jib (139° vertical), 180° platform rotation, zero tailswing, 355° turntable. 4,994kg. Source: Genie Z-34/22 IC spec sheet (12/22, AS 1418.10).",
-      upOverNote:
-        "Up-and-over: clears ~4.6m at full reach. Diesel 4WD for outdoor rough-terrain over-obstacle work.",
-      tags: [
-        "Articulating",
-        "10.54m Platform",
-        "12.54m Working Height",
-        "6.78m Reach",
-        "4WD Rough",
-        "Diesel",
-      ],
-      // Envelope PIXEL-TRACED from the official Genie Z-34/22 IC "Range of
-      // motion" chart (axis-calibrated to the chart gridlines, 52.7 px/m on
-      // both axes). The boom HOLDS its full 6.78m reach from ground up to ~7m
-      // height, then tapers: ~6.6m @8m, ~6.05m @9m, ~5.45m @10m, ~5.0m near the
-      // 10.54m platform max. (Replaces the earlier modelled curve, which
-      // under-reported reach badly above mid-height.) Source: Genie Z-34/22 IC
-      // Range-of-motion diagram (spec sheet 12/22).
-      liftChart: [
-        { reach: 5.0, height: 10.54 },
-        { reach: 5.45, height: 10 },
-        { reach: 6.05, height: 9 },
-        { reach: 6.6, height: 8 },
-        { reach: 6.78, height: 7 },
-        { reach: 6.78, height: 5 },
-        { reach: 6.78, height: 3 },
-        { reach: 6.78, height: 1.5 },
-        { reach: 6.0, height: 0.5 },
-        { reach: 5.0, height: 0 },
-      ],
-      filters: ["boom", "articulating", "rough", "outdoor"],
     },
     {
       id: "genie-z34-22dc",
@@ -140706,27 +140642,8 @@ function diversePick(sortedPool, total, maxPer, preferredBrand) {
       })
       .sort((a, b) => b.combined - a.combined);
 
-    // ── SIZE-CLASS PRIORITY (Assik, Jun-2026) ──────────────────────────
-    // Applies to EVERY category that fills a slate through diversePick —
-    // booms, scissors, telehandlers, etc. Fill the slate from machines in
-    // the SAME size class as the best match first, and only pull in a
-    // larger ("one size up") machine when there aren't enough same-class
-    // brands to fill the slate. "Same class" = within ~15% of the anchor on
-    // the averaged size signature (capacity / height / reach). This makes
-    // the function's stated intent ("3rd/4th/5th lean toward same-size-class
-    // other-brand machines") a hard rule rather than a soft 45% nudge.
-    const _SAME_CLASS = 0.85;
-    const _rankedSameClass = ranked.filter(
-      (e) => _sizeClosenessToAnchor(e.m, anchor) >= _SAME_CLASS,
-    );
-    const _rankedUpClass = ranked.filter(
-      (e) => _sizeClosenessToAnchor(e.m, anchor) < _SAME_CLASS,
-    );
-    // Same-class brands fill first; larger machines only backfill empty slots.
-    const rankedByClass = [..._rankedSameClass, ..._rankedUpClass];
-
     // ── Round 1: one machine per brand (strict cap) ────────────────────
-    for (const entry of rankedByClass) {
+    for (const entry of ranked) {
       if (picked.length >= total) break;
       const b = entry.m.brand;
       // Preferred brand gets a much higher cap so multiple can appear
@@ -140746,7 +140663,7 @@ function diversePick(sortedPool, total, maxPer, preferredBrand) {
     // hitting the target count. When <4 brands exist, fall through to
     // relax the cap so the result set still fills up.
     if (picked.length < total && !strictDiversity) {
-      for (const entry of rankedByClass) {
+      for (const entry of ranked) {
         if (picked.includes(entry.m)) continue;
         if (picked.length >= total) break;
         picked.push(entry.m);
@@ -142938,10 +142855,6 @@ function matchMachines(ans, type) {
           return false;
         // ALWAYS exclude tracked/crawler/spider lifts from standard rough terrain
         if (_isSpiderOrCrawler(m)) return false;
-        // Exclude towable / trailer-mounted booms from the standard (self-propelled)
-        // boom lift results — they are a separate hire class, not "plain" boom lifts.
-        // (Already excluded from indoor_boom below; this covers outdoor/rough.)
-        if (_isTowableOrTrailer(m)) return false;
         return true;
       });
     }
@@ -143296,35 +143209,8 @@ function matchMachines(ans, type) {
 
       let artPicks, telePicks;
       if (_wantsArticulating) {
-        // Customer chose articulating — give them up to 5 articulating machines, max 1 per brand.
-        // SIZE-CLASS PRIORITY (Assik, Jun-2026): with many brands of right-sized
-        // booms available, don't let an oversized "one size up" machine take a
-        // visible slot ahead of correctly-sized options. Fill the slate from
-        // same-size-class machines first (platform height within ~15% of the
-        // smallest qualifying boom for this job), and only add a larger machine
-        // if the 5 slots can't otherwise be filled. Extends the existing
-        // "only surface next-size-up when the slate didn't fill" rule.
-        const _refH = articulating.reduce(
-          (min, m) => Math.min(min, m.platformHeight || Infinity),
-          Infinity,
-        );
-        const _sameClass = articulating.filter(
-          (m) => (m.platformHeight || 0) <= _refH * 1.15,
-        );
-        const _upClass = articulating.filter(
-          (m) => (m.platformHeight || 0) > _refH * 1.15,
-        );
-        artPicks = diversePick(_sameClass, 5, 1, _bPrefArg);
-        if (artPicks.length < 5 && _upClass.length) {
-          const _have = new Set(artPicks.map((m) => m.id));
-          const _fill = diversePick(
-            _upClass,
-            5 - artPicks.length,
-            1,
-            _bPrefArg,
-          ).filter((m) => !_have.has(m.id));
-          artPicks = [...artPicks, ..._fill];
-        }
+        // Customer chose articulating — give them up to 5 articulating machines, max 1 per brand
+        artPicks = diversePick(articulating, 5, 1, _bPrefArg);
         // Show telescopic only if we can't fill 5 articulating results
         telePicks =
           artPicks.length < 4
@@ -148150,39 +148036,6 @@ function _renderCards(matches, machineType, answers) {
       if (ad.machineId) {
         const _adminPinned = ALL_MACHINES.find((m) => m.id === ad.machineId);
         if (_adminPinned) _addCand(_adminPinned);
-      }
-
-      // ── OWNER DIRECTIVE (Assik, Jun-2026): never feature a machine that is
-      // oversized or that pushes the operator into a HIGHER licence class than
-      // the job needs — not even in the sponsored slot. For booms the licence
-      // boundary is 11 m platform height (<11 m = EWP/Yellow Card; ≥11 m = WP
-      // Class HRW). If the job needs under 11 m, drop any ≥11 m brand machine,
-      // and drop anything more than ~one size class above the requirement.
-      // If nothing size-appropriate remains, leave the candidate list empty so
-      // the slot is suppressed rather than recommending a bigger machine.
-      const _spReqHtGuard = parseFloat(
-        machineType === "telehandler" || machineType === "rotating"
-          ? answers.tele_ht_m || answers.mat_ht_m || 0
-          : machineType === "scissor"
-            ? answers.ppl_ht_m || answers.scis_ht_m || 0
-            : machineType === "boom"
-              ? answers.boom_ht_m || answers.ppl_ht_m || 0
-              : answers.ppl_ht_m || 0,
-      ) || 0;
-      if (_spReqHtGuard > 0 && _spCandidates.length) {
-        const _spSizeOK = (m) => {
-          const mH = m.platformHeight || m.liftHeight || 0;
-          if (mH <= 0) return true;
-          // Licence-class boundary (booms): don't cross 11 m when the job is under it.
-          if (machineType === "boom" && _spReqHtGuard < 11 && mH >= 11)
-            return false;
-          // Not more than ~one size class above the requirement.
-          if (mH > _spReqHtGuard * 1.5) return false;
-          return true;
-        };
-        const _spKept = _spCandidates.filter(_spSizeOK);
-        _spCandidates.length = 0;
-        Array.prototype.push.apply(_spCandidates, _spKept);
       }
 
       // Try each candidate in turn. Each gate-failure inside the block below
