@@ -148136,6 +148136,43 @@ function _renderCards(matches, machineType, answers) {
         if (_adminPinned) _addCand(_adminPinned);
       }
 
+      // ── Sponsored oversize / licence-class guard on the candidate list ───────
+      // The walk below accepts the first candidate that passes a strict reach
+      // gate. The small same-class booms are reach-marginal at the working
+      // height, so without this the walk escalates all the way to a flagship
+      // (e.g. an 18m machine on an 8m job) just because it has reach to spare.
+      // On a sub-11m job — or when every organic result is sub-11m — drop any
+      // ≥11m (licence-class jump) or grossly oversized (>2x requirement)
+      // candidate so the sponsored slot can never out-size the organic slate.
+      if (machineType === "boom" || machineType === "scissor") {
+        const _spOrganicH = (matches || [])
+          .map((m) => m.platformHeight || m.liftHeight || 0)
+          .filter((h) => h > 0);
+        const _spRefH =
+          (parseFloat(
+            answers.boom_ht_m ||
+              answers.ppl_ht_m ||
+              answers.scis_ht_m ||
+              0,
+          ) || 0) || (_spOrganicH.length ? Math.min(..._spOrganicH) : 0);
+        const _spAllSub11 =
+          _spOrganicH.length > 0 && _spOrganicH.every((h) => h < 11);
+        if ((_spRefH > 0 && _spRefH < 11) || _spAllSub11) {
+          const _spSafe = _spCandidates.filter((m) => {
+            const h = m.platformHeight || m.liftHeight || 0;
+            if (h >= 11) return false; // licence-class jump
+            if (_spRefH > 0 && h > _spRefH * 2.0) return false; // gross oversize
+            return true;
+          });
+          _spCandidates.length = 0;
+          _spSafe.forEach((m) => _spCandidates.push(m));
+        }
+      }
+      // Organic-vetted IDs: machines already shown organically have passed the
+      // organic gating, so the stricter sponsored reach gate below is skipped
+      // for them (keeps the sponsored pick consistent with the organic slate).
+      const _spOrganicIds = new Set((matches || []).map((m) => m.id));
+
       // Try each candidate in turn. Each gate-failure inside the block below
       // throws _SPN_NEXT, which we catch to advance to the next candidate.
       // First candidate that passes ALL gates wins the slot.
@@ -148343,8 +148380,11 @@ function _renderCards(matches, machineType, answers) {
       // available (no envelope data) AND the customer is operating at high
       // platform-height utilization, skip the sponsored slot. Better an
       // empty sponsored slot than a misleading paid placement.
-      if (_spGateRe > 0) {
-        // Stage 1: brochure max reach must at least cover the requirement.
+      // Skip the strict sponsored reach gate for a machine already shown in the
+      // organic slate — organic has already vetted it for display, so re-judging
+      // it here (with a stricter calc) only causes the walk to escalate to an
+      // oversized machine. Pool-only candidates still face the full gate.
+      if (_spGateRe > 0 && !_spOrganicIds.has(spMachine.id)) {
         if (_spGateMaxR < _spGateRe) {
           if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
             console.log(
