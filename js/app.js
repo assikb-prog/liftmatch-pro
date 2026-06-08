@@ -140594,6 +140594,41 @@ function _sizeClosenessToAnchor(m, anchor) {
   return ratios.reduce((s, x) => s + x, 0) / ratios.length;
 }
 
+// ── Shared licence-class guard (Assik 08-Jun-2026) ───────────────────────────
+// Booms AND scissor lifts with platform height ≥11m require a WP High Risk Work
+// licence — a different, HIGHER operator licence than the Yellow Card a <11m
+// unit needs. So a ≥11m machine on a sub-11m job is not merely "one size up":
+// it changes the licence class. This helper enforces, in ONE place used by every
+// boom and scissor result path, the rule: on a sub-11m job, fill the slate from
+// same-class (<11m) machines first; only keep a ≥11m machine when the <11m pool
+// genuinely can't fill — and then show FEWER rather than cross the licence
+// boundary as filler. Centralising it stops the rule being missed in a parallel
+// branch — which is exactly how the up-and-over path slipped through before.
+function applySameLicenceClass(picks, qualifiedPool, reqHt, brandArg) {
+  const BOUNDARY = 11;
+  if (!Array.isArray(picks) || !(reqHt > 0) || reqHt >= BOUNDARY) return picks;
+  const ph = (m) => m.platformHeight || m.liftHeight || 0;
+  const sameClassPool = (qualifiedPool || []).filter((m) => ph(m) < BOUNDARY);
+  if (sameClassPool.length === 0) return picks; // nothing smaller exists — keep as-is
+  const origSameClass = picks.filter((m) => ph(m) < BOUNDARY);
+  const refill = diversePick(
+    sameClassPool,
+    Math.max(picks.length, 5),
+    2,
+    brandArg || null,
+  );
+  return refill.length >= origSameClass.length ? refill : picks;
+}
+
+// Is this machine a licence-class jump for the given sub-11m requirement?
+function crossesLicenceClass(machine, reqHt) {
+  return (
+    reqHt > 0 &&
+    reqHt < 11 &&
+    (machine.platformHeight || machine.liftHeight || 0) >= 11
+  );
+}
+
 function diversePick(sortedPool, total, maxPer, preferredBrand) {
   if (!sortedPool || !sortedPool.length) return [];
 
@@ -142453,13 +142488,25 @@ function matchMachines(ans, type) {
     const scissorUnder = scoredScissor.filter((m) => m._underSpec);
 
     const _sBPref = (ans.brand_pref || "any").toLowerCase();
-    const main = diversePick(
+    let main = diversePick(
       scissorQualified,
       5,
       1,
       _sBPref !== "any" ? _sBPref : null,
     );
-    const up = findNextUp(scissorQualified, main, (m) => m.liftHeight || 0);
+    // Licence-class guard (shared rule — see applySameLicenceClass). A scissor
+    // lift ≥11m platform needs the WP HRW licence, same boundary as booms — so
+    // on a sub-11m job, fill from same-class (<11m) scissors first and only
+    // cross the boundary if nothing smaller fits.
+    main = applySameLicenceClass(
+      main,
+      scissorQualified,
+      minHt,
+      _sBPref !== "any" ? _sBPref : null,
+    );
+    let up = findNextUp(scissorQualified, main, (m) => m.liftHeight || 0);
+    // Never append a licence-class-crossing scissor as the "next size up".
+    if (up && crossesLicenceClass(up, minHt)) up = null;
 
     // Size labels relative to BEST MATCH (main[0]), not raw requirement.
     // Machine #1 = best fit, no label. Each subsequent machine vs machine #1.
@@ -143092,13 +143139,23 @@ function matchMachines(ans, type) {
         1,
         _bPref !== "any" ? _bPref : null,
       );
-      const results = [...main];
+      // Licence-class guard: drop ≥11m machines for a sub-11m job when same-
+      // class options exist (shared rule — see applySameLicenceClass).
+      const _mainSameClass = applySameLicenceClass(
+        main,
+        _poolForMain,
+        minHt,
+        _bPref !== "any" ? _bPref : null,
+      );
+      const results = [..._mainSameClass];
       // Only surface a "next size up" oversized machine when the qualified
       // pool was thin and we couldn't fill the slate. With 4+ same-class
       // options shown, an oversized warning machine is noise, not value.
-      if (main.length < 5) {
-        const up = findNextUp(_poolForMain, main, (m) => m.platformHeight || 0);
-        if (up)
+      if (results.length < 5) {
+        const up = findNextUp(_poolForMain, results, (m) => m.platformHeight || 0);
+        // Never let the "next size up" cross the licence-class boundary on a
+        // sub-11m job — that's a different operator licence, not a bigger machine.
+        if (up && !crossesLicenceClass(up, minHt))
           results.push({
             ...up,
             _overSpec: true,
@@ -143294,35 +143351,10 @@ function matchMachines(ans, type) {
         }
       }
 
-      // ── Licence-class guard (Assik 07-Jun-2026) ──────────────────────────
-      // A boom with platform height ≥11m needs a WP High Risk Work licence —
-      // a different, HIGHER operator licence than the Yellow Card a <11m boom
-      // needs. So a ≥11m machine is not just "one size up" on a sub-11m job:
-      // it changes the licence class. Never pad the slate with a licence-class
-      // crossing machine when same-class (<11m) options exist. Fill from <11m
-      // first (relaxing to 2 per brand to complete the slate); only keep ≥11m
-      // machines if the <11m pool genuinely can't fill — and then show FEWER
-      // results rather than cross the licence boundary just to reach 5.
-      const _LIC_BOUNDARY = 11;
-      if (minHt < _LIC_BOUNDARY) {
-        const _sameClassPool = articulating.filter(
-          (m) => (m.platformHeight || 0) < _LIC_BOUNDARY,
-        );
-        if (_sameClassPool.length > 0) {
-          const _origSameClass = artPicks.filter(
-            (m) => (m.platformHeight || 0) < _LIC_BOUNDARY,
-          );
-          const _refill = diversePick(
-            _sameClassPool,
-            Math.max(artPicks.length, 5),
-            2,
-            _bPrefArg,
-          );
-          // Use the same-class slate when it can cover at least as many slots
-          // as we already had from <11m machines (drops the ≥11m filler).
-          if (_refill.length >= _origSameClass.length) artPicks = _refill;
-        }
-      }
+      // ── Licence-class guard (shared rule — see applySameLicenceClass) ────
+      // On a sub-11m job, fill from same-class (<11m) machines first; only
+      // cross the ≥11m WP HRW licence boundary if nothing smaller fits.
+      artPicks = applySameLicenceClass(artPicks, articulating, minHt, _bPrefArg);
 
       const merged = [];
       // Articulating machines — size labels relative to BEST MATCH (machine #1),
@@ -143405,8 +143437,7 @@ function matchMachines(ans, type) {
       // Never let the "next size up" cross the licence-class boundary on a
       // sub-11m job — that's a different operator licence, not just a bigger
       // machine. Better to show fewer results than push a higher licence class.
-      if (up && minHt < _LIC_BOUNDARY && (up.platformHeight || 0) >= _LIC_BOUNDARY)
-        up = null;
+      if (up && crossesLicenceClass(up, minHt)) up = null;
       if (up)
         merged.push({
           ...up,
@@ -147826,6 +147857,19 @@ function _renderCards(matches, machineType, answers) {
           return true;
         });
         if (_brandMatches.length) {
+          // ── Licence-class preference (boom): for a sub-11m job, the sponsored
+          // machine must not cross into the ≥11m WP HRW licence class when a
+          // same-class option exists. Restrict to <11m brand machines; if the
+          // organic slate has none, leave _brandMatches empty so Try 2 searches
+          // the full brand pool for a sub-11m machine instead of surfacing an
+          // oversized one here.
+          if ((machineType === "boom" || machineType === "scissor") && _reqHt1 > 0 && _reqHt1 < 11) {
+            _brandMatches = _brandMatches.filter(
+              (m) => (m.platformHeight || m.liftHeight || 0) < 11,
+            );
+          }
+        }
+        if (_brandMatches.length) {
           // Sort by smallest excess over requirement (tight fit first)
           if (_reqHt1 > 0) {
             _brandMatches.sort((a, b) => {
@@ -147958,6 +148002,17 @@ function _renderCards(matches, machineType, answers) {
             const mH = m.platformHeight || m.liftHeight || 0;
             return mH <= _reqHt * _spCap;
           });
+        }
+        // ── Licence-class preference (boom): on a sub-11m job, restrict to
+        // same-class (<11m) machines when the brand has any — so the sponsored
+        // slot never recommends a higher operator-licence machine while a
+        // right-sized one exists. Only keep ≥11m machines if there are no
+        // sub-11m options for this brand+power.
+        if ((machineType === "boom" || machineType === "scissor") && _reqHt > 0 && _reqHt < 11) {
+          const _sub11 = _qualifying.filter(
+            (m) => (m.platformHeight || m.liftHeight || 0) < 11,
+          );
+          if (_sub11.length) _qualifying = _sub11;
         }
         // Sort by closest platform height to requirement (tight fit preferred)
         if (_reqHt > 0) {
