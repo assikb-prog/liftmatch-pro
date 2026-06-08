@@ -148183,6 +148183,12 @@ function _renderCards(matches, machineType, answers) {
         spMachine = _spCandidates[_spCi];
         // Reset any cached per-machine values from prior candidate
         spMachine._reachAtReqHt = null;
+        // A machine already shown organically has passed the organic gating for
+        // THIS job (same people count, SWL, reach). The sponsored gates below use
+        // stricter/defaulted checks (e.g. booms default to 1-person occupancy when
+        // maxOccupancy is unset) that wrongly reject valid same-brand machines —
+        // so an organic-vetted machine bypasses those job-fit gates.
+        const _spIsOrganicVetted = _spOrganicIds.has(spMachine.id);
         try {
 
       // ── Capability gate: skip sponsored slot if machine can't do the job ──────────
@@ -148471,7 +148477,7 @@ function _renderCards(matches, machineType, answers) {
           (answers || {}).scis_swl_kg ||
           0,
         ) || 0;
-        if (_spBasketKgReq > 0 && (machineType === "boom" || machineType === "scissor" || machineType === "pushAround")) {
+        if (_spBasketKgReq > 0 && !_spIsOrganicVetted && (machineType === "boom" || machineType === "scissor" || machineType === "pushAround")) {
           const _spBasketKg = spMachine.swl || spMachine.capacity || 0;
           if (_spBasketKg > 0 && _spBasketKg < _spBasketKgReq) {
             _spStrictDbg(`platform SWL ${_spBasketKg} kg < required ${_spBasketKgReq} kg`);
@@ -148501,7 +148507,7 @@ function _renderCards(matches, machineType, answers) {
         } else {
           _spOccCount = 1;
         }
-        if (_spIsPeopleCat && _spTwoPersonReq && _spOccCount < 2) {
+        if (_spIsPeopleCat && _spTwoPersonReq && _spOccCount < 2 && !_spIsOrganicVetted) {
           _spStrictDbg(`maxOccupancy ${_spOccCount} < required 2+`);
           throw _SPN_NEXT;
         }
@@ -148935,16 +148941,16 @@ function _renderCards(matches, machineType, answers) {
       return mb === _userBrandPref || mb.includes(_userBrandPref) || _userBrandPref.includes(mb);
     });
   } else if (_shownSponsoredBrands.size > 0) {
-    // Policy B — variety: cap any sponsored brand at 1 in the organic slate
-    const _spBrandCounts = {};
+    // Policy B — a brand shown in the sponsored slot is NOT repeated in organic
+    // results at all (Assik: same brand shouldn't appear twice, even a sibling
+    // model like the Z-34/22 N vs DC). Remove every machine of a sponsored brand
+    // from the organic slate; the slate backfills from other brands.
     matches = matches.filter((m) => {
       const mb = (m.brand || "").toLowerCase();
       const isSpBrand = [..._shownSponsoredBrands].some(
         (sb) => mb.includes(sb.toLowerCase()) || sb.toLowerCase().includes(mb),
       );
-      if (!isSpBrand) return true; // non-sponsored brand: always show
-      _spBrandCounts[mb] = (_spBrandCounts[mb] || 0) + 1;
-      return _spBrandCounts[mb] <= 1; // sponsored brand: max 1 organic result
+      return !isSpBrand; // drop all machines of any sponsored brand
     });
   }
 
