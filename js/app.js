@@ -142888,18 +142888,22 @@ function matchMachines(ans, type) {
       });
     }
 
-    // Rough terrain: exclude pure electric AND all crawler/tracked/spider machines
-    // Spider lifts and compact crawlers are specialty machines — ONLY shown for "Very rough / crawler terrain"
+    // Rough terrain: exclude INDOOR-ONLY electric and all crawler/tracked/
+    // spider machines. Pure-electric booms ARE allowed when the catalogue rates
+    // them for outdoor use (e.g. terrain "indoor/outdoor firm") — excluding every
+    // electric machine was too strict and hid the outdoor electric knuckle booms
+    // brands actually offer for outdoor work (Assik 08-Jun-2026). Only indoor-only
+    // electric and spider/crawler specialty lifts stay excluded here.
     if (terr === "rough_boom") {
       pool = pool.filter((m) => {
         const p = (m.power || "").toLowerCase();
-        if (p === "electric") return false;
-        if (
+        const t = (m.terrain || "").toLowerCase();
+        const pureElectric =
           p.includes("electric") &&
           !p.includes("diesel") &&
-          !p.includes("hybrid")
-        )
-          return false;
+          !p.includes("hybrid");
+        // Pure-electric only allowed when it is outdoor-rated.
+        if (pureElectric && !t.includes("outdoor")) return false;
         // ALWAYS exclude tracked/crawler/spider lifts from standard rough terrain
         if (_isSpiderOrCrawler(m)) return false;
         return true;
@@ -142925,10 +142929,10 @@ function matchMachines(ans, type) {
     }
 
     // ── Towable / trailer-mount exclusion ─────────────────────────────────
-    // Towable booms require outrigger deployment and open-air setup. They are
-    // not appropriate for indoor jobs. Exclude them when the customer selected
-    // "Indoors" as the work location.
-    if (terr === "indoor_boom") {
+    // Towable booms require towing to site and outrigger setup on stable
+    // ground. They are not appropriate indoors, and for a self-propelled
+    // "rough terrain" access job they're the wrong tool — exclude from both.
+    if (terr === "indoor_boom" || terr === "rough_boom") {
       pool = pool.filter((m) => !_isTowableOrTrailer(m));
     }
 
@@ -147837,16 +147841,19 @@ function _renderCards(matches, machineType, answers) {
           ) || 0;
         // Indoor boom job — sponsored slot must not surface a towable. Towables
         // are outdoor-only and confuse the customer when the job is indoor.
-        const _spIsIndoorBoom =
+        // Towables are also wrong for a self-propelled rough-terrain access job,
+        // so exclude them from the sponsored slot on indoor AND rough terrain.
+        const _spNoTowableBoom =
           machineType === "boom" &&
           (answers.boom_terrain === "indoor_boom" ||
+            answers.boom_terrain === "rough_boom" ||
             answers.people_location === "indoor");
         _brandMatches = matches.filter((m) => {
           if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase())
             return false;
           if (m._underSpec) return false;
           if (_isSpiderOrCrawler(m)) return false;
-          if (_spIsIndoorBoom && _isTowableOrTrailer(m)) return false;
+          if (_spNoTowableBoom && _isTowableOrTrailer(m)) return false;
           // Reject massively oversized — cap at 2.0x required height for booms
           // (2.5x was too generous — 17.5m for a 7m job)
           if (_reqHt1 > 0) {
@@ -147952,10 +147959,11 @@ function _renderCards(matches, machineType, answers) {
             return false;
           // Exclude true spider/outrigger lifts for boom (not wheeled tracked booms like Genie TraX)
           if (machineType === "boom" && _isSpiderOrCrawler(m)) return false;
-          // Indoor boom — no towables in sponsored slot
+          // Indoor or rough-terrain boom — no towables in sponsored slot
           if (
             machineType === "boom" &&
             (answers.boom_terrain === "indoor_boom" ||
+              answers.boom_terrain === "rough_boom" ||
               answers.people_location === "indoor") &&
             _isTowableOrTrailer(m)
           )
