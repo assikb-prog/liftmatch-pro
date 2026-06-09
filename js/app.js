@@ -92537,6 +92537,31 @@ loadMatrixTyres: [
         "AU Brand",
         "Tallest Spider",
       ],
+      // Working envelope digitised from the Monitor Access 54T brochure
+      // (V1.0 250731, Config A full stabilisation), tracing the OUTER 136kg
+      // curve = max-reach boundary. Rounded DOWN for conservatism. Anchored
+      // to printed values: max outreach 21m @136kg (peak set to 20m), 18.5m
+      // reach at 45m height @400kg (so 136kg ≥ that), max platform 52.2m,
+      // below-ground reach. NOTE: this is the light-load (136kg / 1-person)
+      // envelope; at the full 400kg rated load reach is reduced (≈18.5m at
+      // 45m) — capacity is enforced separately by the SWL/occupancy gates.
+      // reach/height in metres.
+      liftChart: [
+        { reach: 5, height: 52.2 },
+        { reach: 11, height: 50 },
+        { reach: 18.5, height: 45 },
+        { reach: 19.5, height: 40 },
+        { reach: 20, height: 35 },
+        { reach: 20, height: 30 },
+        { reach: 20, height: 25 },
+        { reach: 20, height: 20 },
+        { reach: 20, height: 15 },
+        { reach: 20, height: 10 },
+        { reach: 19, height: 5 },
+        { reach: 17, height: 0 },
+        { reach: 12, height: -3 },
+        { reach: 4, height: -6 },
+      ],
       filters: [
         "boom",
         "articulating",
@@ -94318,7 +94343,7 @@ loadMatrixTyres: [
       machineLength: 6.75,
       machineHeight: 2.1,
       power: "Diesel",
-      swl: 320,
+      swl: 230, // corrected from 320 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
       // platform standard. LECTURA datasheets: 'designed for 2 persons'
       // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
@@ -94326,10 +94351,6 @@ loadMatrixTyres: [
       // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
       maxOccupancy: 2,
       terrain: "outdoor rough",
-      xcBasket: {
-        swl: 454,
-        note: "Haulotte HC basket option available — upgrades platform from 320kg to 454kg. Ideal for 2 workers with heavy tools on the HA16 RTJ. Confirm HC basket availability with rental company.",
-      },
       bestFor:
         "Mid-height articulating access, multi-storey facades, up-and-over obstacles",
       note: "16m working height diesel articulating boom. 8m outreach. 4WD rough terrain. Ideal for 2-4 storey construction.",
@@ -94378,17 +94399,13 @@ loadMatrixTyres: [
       machineLength: 11.7,
       machineHeight: 3.0,
       power: "Diesel",
-      swl: 350,
+      swl: 250, // corrected from 350 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
       // 250 kg to 350 kg' (no 3-person uprate).
       maxOccupancy: 2,
       terrain: "outdoor rough",
-      xcBasket: {
-        swl: 454,
-        note: "Haulotte HC basket option available — upgrades platform from 350kg to 454kg at 29.8m. For heavy multi-person work on the HA32 RTJ PRO. Confirm availability with rental company.",
-      },
       bestFor:
         "High-rise construction, deep reach over large structures, 8-10 storey facades",
       note: "Haulotte HA32 RTJ PRO — industry-leading 21.6m outreach at 31.8m working height. Full working window. 4WD rough terrain.",
@@ -94766,7 +94783,7 @@ loadMatrixTyres: [
       shortName: "HA20 RTJ PRO",
       boomType: "articulating",
       platformHeight: 18.5,
-      workHeight: 20.65,
+      workHeight: 20.5,
       maxReach: 11.9,
       upOverHeight: 8.5,
       upOverReach: 9.5,
@@ -94775,7 +94792,7 @@ loadMatrixTyres: [
       machineLength: 8.6,
       machineHeight: 2.5,
       power: "Diesel",
-      swl: 320,
+      swl: 250, // corrected from 320 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
@@ -94824,7 +94841,7 @@ loadMatrixTyres: [
       shortName: "HA26 RTJ PRO",
       boomType: "articulating",
       platformHeight: 24.4,
-      workHeight: 25.8,
+      workHeight: 26.4,
       maxReach: 17.5,
       upOverHeight: 9.3,
       upOverReach: 17.2,
@@ -94833,7 +94850,7 @@ loadMatrixTyres: [
       machineLength: 11.8,
       machineHeight: 2.8,
       power: "Diesel",
-      swl: 350,
+      swl: 250, // corrected from 350 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
@@ -94881,7 +94898,7 @@ loadMatrixTyres: [
       shortName: "HA41 RTJ PRO",
       boomType: "articulating",
       platformHeight: 39.5,
-      workHeight: 40.3,
+      workHeight: 41.5,
       maxReach: 20.1,
       upOverHeight: 17.5,
       upOverReach: 26.2,
@@ -94890,7 +94907,7 @@ loadMatrixTyres: [
       machineLength: 13.1,
       machineHeight: 3.6,
       power: "Diesel",
-      swl: 350,
+      swl: 230, // corrected from 350 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
@@ -95220,6 +95237,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht67rtj-o",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -95266,6 +95289,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht67rtj-pro",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -95312,6 +95341,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht85rtj-o",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -95358,6 +95393,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht85rtj-pro",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -97466,7 +97507,7 @@ loadMatrixTyres: [
       capacityUnrestricted: 340,
       bestFor:
         "World's tallest self-propelled boom — 180ft platform height. Oil & gas, shipyards, extreme industrial",
-      note: "Genie SX-180 Super Boom. 54.86m platform / 24.38m outreach. 340kg unrestricted capacity. Drive-enabled at full 180ft height. XChassis pivoting axles, 1-min extend/retract. 10ft rotating jib 60° horizontal / 135° vertical. 35% gradeability. Deutz TD2.9L4 Tier 4 74hp.",
+      note: "Genie SX-180 Super Boom. 54.86m platform / 24.38m outreach. 340kg unrestricted capacity. Drive-enabled at full 180ft height. XChassis pivoting axles, 1-min extend/retract. 10ft rotating jib 60° horizontal / 135° vertical. 35% gradeability. Deutz BF4L2011 turbo diesel 78hp/58kW (AU spec, AS 1418.10). Below-ground reach 0.61m. Transport length 13m (jib tucked).",
       upOverNote: null,
       tags: [
         "Telescopic",
@@ -98692,37 +98733,58 @@ loadMatrixTyres: [
       shortName: "2100SJ",
       boomType: "telescopic",
       platformHeight: 64.0,
-      workHeight: 66.0,
-      maxReach: 35.1,
-      machineWeight: 41730,
-      machineWidth: 2.5,
-      machineLength: 23.0,
-      machineHeight: 3.0,
+      workHeight: 65.83,
+      maxReach: 35.05,
+      machineWeight: 43545,
+      machineWidth: 2.49,
+      machineLength: 21.94,
+      machineHeight: 3.05,
       power: "Kubota V3800 115hp Diesel 4WD",
       swl: 349,
       // Brochure-confirmed: Snorkel 2100SJ Mega Boom official PDF
-      // brochure (snorkellifts.com): 349kg unrestricted /
-      // 454kg restricted = 2 occupants unrestricted, 3 restricted.
+      // brochure (Spec_2100SJ_2025, 07/2025 ANSI): 349kg (770lb)
+      // unrestricted / 454kg (1000lb) restricted. 2 occupants.
       maxOccupancy: 2,
       terrain: "outdoor rough",
-      insideTR: 3.0,
+      insideTR: 3.04,
       outsideTR: 0,
       gradeability: 35,
       bestFor:
-        "World's tallest boom lift — 66m working height and 35.1m outreach for extraordinary-height access tasks",
-      note: "2100SJ: 66.0m working height, 64.0m platform height. 35.1m outreach. 349kg unrestrained / 454kg restricted SWL. Kubota V3800 115hp diesel 4WD. 2.50m wide. 41,730kg. Jib 9.1m, 128° arc. 5 steering modes including crab steer. 35% gradeability. Tailswing 2.05m (retracted) / 0.7m (extended). Tyres 445/50-710 foam filled 24-ply. Inside TR 3.0m (axles retracted). Platform 2.4m×0.9m. Industry first — world's highest working boom lift.",
+        "World's tallest boom lift — 65.83m working height and 35.05m outreach for extraordinary-height access tasks",
+      note: "2100SJ: 65.83m (216ft) working height, 64.00m (210ft) platform height. 35.05m (115ft) max horizontal reach. 349kg (770lb) unrestricted / 454kg (1000lb) restricted SWL. Kubota V3800 115hp diesel 4WD. Overall 2.49m wide, 21.94m long; transport length 15.54m; stowed height 3.05m; ground clearance 0.355m. 43,545kg (96,000lb). Jib 1.98m (6'6\"), 128° arc (+73°/-55°). 5 steering modes including crab and lateral drive. 35% gradeability. Tailswing 2.05m (retracted) / 1.38m (extended). Tyres 445/50-710 foam-filled 24-ply. Inside TR 3.04m (axles retracted). Platform 2.44m×0.91m. Reach-at-height envelope digitised (conservative trace) from the official 2100SJ working-envelope graphic (Spec_2100SJ_2025, 07/2025 ANSI); values rounded down so they never over-claim — confirm exact lift envelope at load plate / operator manual. Industry first — world's highest working boom lift.",
       tags: [
         "Telescopic",
         "Diesel",
         "4WD",
         "66m Working Height",
         "64m Platform",
-        "35.1m Reach",
+        "35.05m Reach",
         "Mega Boom",
         "World Record",
         "Snorkel",
         "Kubota",
         "5 Steering Modes",
+      ],
+      // Working envelope digitised from the official Snorkel 2100SJ brochure
+      // working-envelope graphic (Spec_2100SJ_2025, 07/2025 ANSI). Outer
+      // (unrestricted) boundary traced against the diagram's ft gridlines,
+      // rounded DOWN for conservatism so reach-at-height never over-claims.
+      // Anchors: max horizontal reach 35.05m (115ft), max platform 64.0m
+      // (210ft), below-ground 0.61m. reach/height in metres.
+      liftChart: [
+        { reach: 20, height: 64.0 },
+        { reach: 23, height: 57.91 },
+        { reach: 24, height: 54.86 },
+        { reach: 26, height: 48.77 },
+        { reach: 27.5, height: 42.67 },
+        { reach: 29.5, height: 36.58 },
+        { reach: 31, height: 30.48 },
+        { reach: 32.5, height: 24.38 },
+        { reach: 33, height: 18.29 },
+        { reach: 34, height: 12.19 },
+        { reach: 35, height: 6.1 },
+        { reach: 35, height: 0 },
+        { reach: 33, height: -0.61 },
       ],
       filters: [
         "boom",
@@ -138020,7 +138082,7 @@ const ALL_MACHINES = [
   ...MACHINES.verticalMast,
   ...MACHINES.telehandler,
   ...MACHINES.scissor,
-  ...MACHINES.boom,
+  ...MACHINES.boom.filter((m) => !m.disabled),
   ...MACHINES.earthworks,
 ];
 
@@ -140596,6 +140658,18 @@ function _sizeClosenessToAnchor(m, anchor) {
   return ratios.reduce((s, x) => s + x, 0) / ratios.length;
 }
 
+// Model-family key: brand + numeric model signature, ignoring power-variant
+// suffixes (N, DC, FE, IC, AC…). Treats sibling models that differ only by power
+// source — e.g. Genie Z-34/22 N and Z-34/22 DC — as ONE machine for dedup, so
+// they never appear twice (one sponsored + one organic, or two in organic).
+function modelFamilyKey(m) {
+  if (!m) return "";
+  const brand = (m.brand || "").toLowerCase().trim();
+  const src = (m.name || m.id || "").toString();
+  const nums = (src.match(/\d+/g) || []).join("-");
+  return brand + "|" + nums;
+}
+
 // ── Shared licence-class guard (Assik 08-Jun-2026) ───────────────────────────
 // Booms AND scissor lifts with platform height ≥11m require a WP High Risk Work
 // licence — a different, HIGHER operator licence than the Yellow Card a <11m
@@ -142814,6 +142888,38 @@ function matchMachines(ans, type) {
       const maxR = m.maxReach || 0;
       if (needH <= 0) return maxR; // at ground level, reach = maxReach
       if (needH > platH) return 0; // can't reach that high
+
+      // ── Digitised working-envelope chart (most accurate) ─────────────────
+      // When an entry has a liftChart (an array of {reach,height} points
+      // tracing the OUTER / max-reach boundary from the manufacturer envelope),
+      // interpolate the real max reach at needH instead of the crude geometric
+      // estimate below. The geometric telescopic formula (reach falls linearly
+      // to 0 at platform height) badly UNDER-reads tall booms with long jibs —
+      // e.g. it gives a 64m boom ~13m reach at 40m when the real envelope is
+      // ~28m — wrongly excluding them. Charted booms use their real envelope.
+      const lc = m.liftChart;
+      if (Array.isArray(lc) && lc.length >= 2) {
+        const pts = lc
+          .filter(
+            (p) => p && typeof p.height === "number" && typeof p.reach === "number",
+          )
+          .slice()
+          .sort((a, b) => a.height - b.height);
+        if (pts.length >= 2) {
+          const lo = pts[0],
+            hi = pts[pts.length - 1];
+          if (needH <= lo.height) return lo.reach;
+          if (needH >= hi.height) return hi.reach;
+          for (let k = 0; k < pts.length - 1; k++) {
+            const a = pts[k],
+              b = pts[k + 1];
+            if (needH >= a.height && needH <= b.height && b.height !== a.height) {
+              const t = (needH - a.height) / (b.height - a.height);
+              return Math.round((a.reach + t * (b.reach - a.reach)) * 10) / 10;
+            }
+          }
+        }
+      }
 
       if (m.boomType === "telescopic") {
         // Linear: reach drops from maxR at 0 to 0 at platH
@@ -145373,6 +145479,7 @@ function confirmPhotoAnswers() {
   step = 0;
   answers = { ...preAnswers };
   renderStep();
+  _noyoPushScreen("quiz"); // history entry so swipe-back returns to home, not Google
 }
 
 // ── Full wizard reset — called on every login to return to clean home page ──
@@ -145451,6 +145558,7 @@ function startFinder() {
   _pmConfirmedFields = {};
   _pmLiftType = null;
   renderStep();
+  _noyoPushScreen("quiz"); // history entry so swipe-back returns to home, not Google
 }
 
 function renderStep() {
@@ -145627,6 +145735,61 @@ function renderStep() {
   </div>`;
 
   card.innerHTML = html;
+  // iOS Safari fix: tall question cards (e.g. the People branch with image
+  // options) can be clipped by a flex vertical-centering ancestor with no way
+  // to scroll to them. Re-assert scrollability after layout (and again after
+  // option images load, which change height). Harmless on desktop / short cards.
+  _ensureQuizScrollable();
+  if (window.requestAnimationFrame) requestAnimationFrame(_ensureQuizScrollable);
+  setTimeout(_ensureQuizScrollable, 300);
+}
+
+// Self-correcting scroll guard for the finder quiz. Walks up from the question
+// card and neutralises the two iOS-Safari scroll traps without needing to know
+// index.html's exact CSS: (1) a column flex ancestor centring content that
+// overflows the viewport (switch to top-aligned so nothing is clipped), and
+// (2) an ancestor whose hidden overflow traps clipped content (allow scroll).
+// Only acts when content actually overflows, so short cards stay centred.
+function _ensureQuizScrollable() {
+  try {
+    const card = document.getElementById("q-card");
+    if (!card) return;
+    const vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    let el = card;
+    while (el && el !== document.body && el !== document.documentElement) {
+      const cs = window.getComputedStyle(el);
+      const overflows = el.scrollHeight > el.clientHeight + 1;
+      if (
+        cs.display.indexOf("flex") !== -1 &&
+        cs.flexDirection.indexOf("column") !== -1 &&
+        cs.justifyContent === "center" &&
+        (overflows || el.clientHeight >= vh - 1)
+      ) {
+        el.style.justifyContent = "flex-start";
+      }
+      if (
+        (cs.alignItems === "center") &&
+        cs.display.indexOf("flex") !== -1 &&
+        cs.flexDirection.indexOf("column") === -1 &&
+        overflows
+      ) {
+        // row flex centring a too-tall child — let it align to start
+        el.style.alignItems = "flex-start";
+      }
+      if (cs.overflowY === "hidden" && overflows) {
+        el.style.overflowY = "auto";
+        el.style.webkitOverflowScrolling = "touch";
+      }
+      el = el.parentElement;
+    }
+    // Guarantee the document itself can scroll on touch devices.
+    document.documentElement.style.webkitOverflowScrolling = "touch";
+    if (window.getComputedStyle(document.body).overflowY === "hidden") {
+      document.body.style.overflowY = "auto";
+    }
+  } catch (e) {
+    /* never let a layout guard break the quiz */
+  }
 }
 
 function saveInput(id, val) {
@@ -147807,6 +147970,9 @@ function _renderCards(matches, machineType, answers) {
   // Track exact machine IDs shown in sponsored slots so the same machine is not
   // rendered a second time in organic results.
   const _shownSponsoredMachineIds = new Set();
+  // Track model-FAMILIES shown in sponsored slots (e.g. Genie Z-34/22) so a
+  // sibling power-variant (the DC vs the N) doesn't reappear in organic.
+  const _shownSponsoredFamilies = new Set();
   let _spShownCount = 0; // Maximum 1 sponsored ad per results page
 
   _sponsoredForCat.forEach((ad, _spIdx) => {
@@ -148644,10 +148810,14 @@ function _renderCards(matches, machineType, answers) {
       // ──────────────────────────────────────────────────────────────────
 
       // Track this brand so organic results can be deduplicated
-      if (spMachine.brand) _shownSponsoredBrands.add(spMachine.brand);
+      if (spMachine.brand)
+        _shownSponsoredBrands.add(spMachine.brand.toLowerCase());
       // Track the exact sponsored machine ID so it doesn't reappear as an organic
       // "Best Match" card (it would be a visual duplicate of the sponsored slot).
       if (spMachine.id) _shownSponsoredMachineIds.add(spMachine.id);
+      // Track the model FAMILY so a sibling power-variant (e.g. the DC when the N
+      // is sponsored) is also removed from organic — they are the same machine.
+      _shownSponsoredFamilies.add(modelFamilyKey(spMachine));
 
       // ── Sponsored cards get the same safety warnings as organic cards ─────
       // Otherwise a paid slot could show a machine with an undisclosed 1-person
@@ -148927,6 +149097,24 @@ function _renderCards(matches, machineType, answers) {
   // regardless of policy A or B — that's confusing to the customer.
   if (_shownSponsoredMachineIds.size > 0) {
     matches = matches.filter((m) => !_shownSponsoredMachineIds.has(m.id));
+  }
+  // Remove any sibling power-variant of a sponsored machine (same model family,
+  // e.g. the Z-34/22 DC when the Z-34/22 N is in the sponsored slot).
+  if (_shownSponsoredFamilies.size > 0) {
+    matches = matches.filter(
+      (m) => !_shownSponsoredFamilies.has(modelFamilyKey(m)),
+    );
+  }
+  // Collapse sibling power-variants within the organic slate itself so the
+  // N and DC of the same model never both appear — keep the first (best-ranked).
+  {
+    const _seenFamily = new Set();
+    matches = matches.filter((m) => {
+      const k = modelFamilyKey(m);
+      if (_seenFamily.has(k)) return false;
+      _seenFamily.add(k);
+      return true;
+    });
   }
 
   const _userBrandPref = (
@@ -168028,7 +168216,77 @@ function showView(view) {
       _kymUpdateCartBtn();
     }, 80);
   if (view === "home" || view === "finder") setTimeout(_kymUpdateCartBtn, 80);
+
+  // ── Browser history integration (iOS swipe-back / Android back) ──────────
+  // The app switches views in-place without navigating, so without a history
+  // entry the browser's back gesture leaves the site (e.g. back to Google).
+  // Push an entry per view change so back/swipe-back returns to the previous
+  // in-app view (and from home, leaves the site as expected). _noyoSuppressHistory
+  // guards against re-pushing while we're handling a popstate.
+  try {
+    if (!_noyoSuppressHistory) {
+      const _curView = history.state && history.state.noyoView;
+      if (_curView !== view) {
+        if (_curView) {
+          history.pushState({ noyoView: view }, "");
+        } else {
+          // First in-app navigation: replace the entry so back from home exits.
+          history.replaceState({ noyoView: view }, "");
+        }
+      }
+    }
+  } catch (e) {
+    /* history API unavailable — navigation still works, just no back support */
+  }
 }
+
+// Flag set while restoring a view from a popstate event, so showView doesn't
+// push a new history entry for a navigation the browser already performed.
+var _noyoSuppressHistory = false;
+// Push a logical screen onto history (used for finder sub-screens like the quiz
+// that don't go through showView). First navigation replaces the entry so that
+// back from the home screen still leaves the site.
+function _noyoPushScreen(name) {
+  try {
+    if (_noyoSuppressHistory) return;
+    const cur = history.state && history.state.noyoView;
+    if (cur === name) return;
+    if (cur) history.pushState({ noyoView: name }, "");
+    else history.replaceState({ noyoView: name }, "");
+  } catch (e) {
+    /* history unavailable */
+  }
+}
+function _noyoShowFinderHome() {
+  showView("finder");
+  const sh = document.getElementById("sec-hero");
+  const sq = document.getElementById("sec-quiz");
+  const sr = document.getElementById("sec-result");
+  if (sh) sh.style.display = "block";
+  if (sq) sq.style.display = "none";
+  if (sr) sr.style.display = "none";
+}
+window.addEventListener("popstate", function (e) {
+  const view = (e && e.state && e.state.noyoView) || "home";
+  _noyoSuppressHistory = true;
+  try {
+    if (view === "home" || view === "finder") {
+      _noyoShowFinderHome();
+    } else if (view === "quiz") {
+      // Coming forward into the quiz again — show the quiz sub-section.
+      showView("finder");
+      const sh = document.getElementById("sec-hero");
+      const sq = document.getElementById("sec-quiz");
+      if (sh) sh.style.display = "none";
+      if (sq) sq.style.display = "block";
+    } else {
+      showView(view);
+    }
+  } catch (err) {
+    /* ignore */
+  }
+  _noyoSuppressHistory = false;
+});
 
 // =====================================================================
 // LOGIN SYSTEM
@@ -175360,7 +175618,7 @@ function _spnMachinesForCat(catKey) {
     return (MACHINES.telehandler || []).filter((m) => !m.isRotating);
   if (k === "rotating")
     return (MACHINES.telehandler || []).filter((m) => m.isRotating);
-  if (k === "boom") return MACHINES.boom || [];
+  if (k === "boom") return (MACHINES.boom || []).filter((m) => !m.disabled);
   if (k === "scissor") return MACHINES.scissor || [];
   if (k === "forklift") return MACHINES.forklift || [];
   if (k === "material") return MACHINES.material || [];
@@ -175725,7 +175983,7 @@ function spnGetMachinePool(catKey) {
     return (MACHINES.telehandler || []).filter((m) => !m.isRotating);
   if (k === "rotating")
     return (MACHINES.telehandler || []).filter((m) => m.isRotating);
-  if (k === "boom") return MACHINES.boom || [];
+  if (k === "boom") return (MACHINES.boom || []).filter((m) => !m.disabled);
   if (k === "scissor") return MACHINES.scissor || [];
   // Power-split sub-categories. Classification of the messy `power` string:
   //   electric bucket → contains "electric" or bare "hybrid" (hybrids run an
