@@ -17,7 +17,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Noyo — Machine Finder</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<!-- Typography unified on the native system font (see #final-noyo-fix). No web-font download needed. -->
+
 <!-- ═══ FIREBASE SDK (compat mode — works with global function pattern) ═══ -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -72,6 +73,43 @@
   justify-content:space-between !important;
   padding:8px 18px !important;
 }
+
+/* ── Finder quiz scroll fix (iOS Safari) ──────────────────────────────────
+   The quiz wrapper was vertically centred with a fixed min-height. When a
+   question card is taller than the screen (e.g. the People branch with image
+   options), iOS Safari centres it and clips the overflow with no way to scroll
+   to the top/bottom. Top-align the content and let the page scroll naturally so
+   nothing is ever clipped. Short cards still look fine (they just sit at top).*/
+#sec-quiz,
+#sec-quiz .quiz-wrap{
+  min-height:0 !important;
+  height:auto !important;
+  justify-content:flex-start !important;
+  align-items:stretch !important;
+  overflow:visible !important;
+}
+#sec-quiz .q-card{
+  max-height:none !important;
+  overflow:visible !important;
+}
+html,body{
+  -webkit-overflow-scrolling:touch;
+}
+
+/* ── Unified typography (Issue 3): ONE timeless font family everywhere ──────
+   Apple's own UI approach — the San Francisco system font on Apple devices,
+   and a clean neutral sans on everything else. This replaces the mixed
+   Nunito + Fraunces usage so the whole site reads as one consistent, evergreen
+   typeface (not a trendy display font). !important is required to override the
+   many inline font-family:'Nunito'/'Fraunces' declarations across the app. */
+body, body *, input, select, textarea, button,
+h1, h2, h3, h4, h5, h6, p, span, div, a, label, li, td, th{
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+/* Apple-style optical refinements: crisp rendering and tighter heading tracking. */
+body{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+h1,h2,h3{ letter-spacing:-0.021em; }
 </style>
 
 </head>
@@ -3558,7 +3596,7 @@
   </div>
 </div>
 
-<script src="js/app.js?v=20260601-001"></script>
+<script src="js/app.js?v=20260608-002-sponsored-scroll"></script>
 
   <!-- ── RATING MODAL ─────────────────────────────────── -->
   <div id="rating-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:1rem">
