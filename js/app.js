@@ -7,7 +7,7 @@
 //  serving a cached old app.js. Bump the cache-buster version in index.html
 //  (the ?v=... on the app.js <script> tag) and redeploy, then hard-refresh.
 // ═══════════════════════════════════════════════════════════════════════
-window.NOYO_BUILD = "2026-06-08-sponsored-licence-class-fix";
+window.NOYO_BUILD = "2026-06-09-photo-modal-scroll-fix";
 
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
@@ -140000,6 +140000,33 @@ const SPEC_QS = {
       ],
     },
     {
+      id: "tele_power",
+      icon: "⚡",
+      text: "Any power source requirement?",
+      hint: "Diesel telehandlers are the norm for outdoor and rough-terrain sites. Electric (battery) models suit indoor, low-emission or noise-sensitive work. Pick 'No preference' to see every option.",
+      type: "options",
+      options: [
+        {
+          ico: "⚡",
+          lbl: "Electric",
+          sub: "Indoor, no fumes, quiet — battery / electric only",
+          val: "electric",
+        },
+        {
+          ico: "⛽",
+          lbl: "Diesel",
+          sub: "Outdoor / rough terrain — diesel (and hybrid)",
+          val: "diesel",
+        },
+        {
+          ico: "🔄",
+          lbl: "No preference",
+          sub: "Show me all power types",
+          val: "any_power",
+        },
+      ],
+    },
+    {
       id: "tele_rotation",
       icon: "🔄",
       text: "Do you need the machine to rotate at the lift point?",
@@ -142001,6 +142028,31 @@ function matchMachines(ans, type) {
         const capT = m.liftCapacity || m.capacity || 0;
         const capKg = capT > 100 ? capT : capT * 1000;
         return capKg >= exactKg;
+      });
+    }
+
+    // ── Power-source filter (tele_power) ─────────────────────────────────
+    // Telehandlers store power source in the free-text `engine` field.
+    // Owner directive: when the customer picks Electric or Diesel, HARD-filter
+    // to that source (electric→electric, diesel→diesel). Hybrid / bi-energy
+    // machines satisfy EITHER. "No preference" (any_power / unset) applies no
+    // filter. Telehandlers with NO engine info are shown only under
+    // "No preference" (we can't confirm their power source).
+    const telePwr = ans.tele_power;
+    if (telePwr === "electric" || telePwr === "diesel") {
+      pool = pool.filter((m) => {
+        const eng = (m.engine || m.power || "").toLowerCase();
+        if (!eng) return false; // unknown power — only surfaced via "No preference"
+        const elec = /electric|battery|li-?ion|lithium|pulseo|mains/.test(eng);
+        const combustion =
+          /diesel|petrol|lpg|dual.?fuel|kubota|perkins|deutz|yanmar|cummins|bobcat d\d|stage\s/.test(
+            eng,
+          );
+        const hybrid = /hybrid|bi.?energy/.test(eng) || (elec && combustion);
+        if (telePwr === "electric") return elec || hybrid;
+        // diesel: combustion + hybrid, plus engine-present-but-unclassified
+        // (telehandler default is diesel); exclude electric-only
+        return combustion || hybrid || !elec;
       });
     }
 
