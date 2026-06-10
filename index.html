@@ -96,6 +96,30 @@ html,body{
   -webkit-overflow-scrolling:touch;
 }
 
+/* ── Photo modal scroll fix (lift-people path, no photo) ──────────────────
+   The Option A / Option B photo modal is tall: quiz CTA + "OR" divider +
+   photo-upload section with two stacked cards. On a phone it exceeds the
+   viewport, and when the overlay centres it vertically the top and bottom sit
+   off-screen with no obvious way to scroll — which is the reported "glitchy,
+   feels like it should scroll, bit out of screen". Fix: top-align the modal
+   and make the OVERLAY itself scroll, so the whole card is always reachable.
+   (Replaces the modal's internal 92vh scroll with a single overlay scroll.) */
+#photo-modal-overlay.visible{
+  position:fixed !important;
+  inset:0 !important;
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+  padding:16px 12px !important;
+  box-sizing:border-box !important;
+  z-index:9600 !important;
+}
+#photo-modal{
+  max-height:none !important;
+}
+
 /* ── Unified typography (Issue 3): ONE timeless font family everywhere ──────
    Apple's own UI approach — the San Francisco system font on Apple devices,
    and a clean neutral sans on everything else. This replaces the mixed
@@ -3596,7 +3620,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
   </div>
 </div>
 
-<script src="js/app.js?v=20260608-002-sponsored-scroll"></script>
+<script src="js/app.js?v=20260609-002-photo-modal-scroll"></script>
 
   <!-- ── RATING MODAL ─────────────────────────────────── -->
   <div id="rating-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:1rem">
