@@ -149086,7 +149086,7 @@ function _renderCards(matches, machineType, answers) {
               ? `<div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
               : `<button id="sp-cart-btn-${_spIdx}"
             style="width:100%;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
-            🛒 Add to Hire Cart
+            💬 Interested? Hire or buy — enquire
           </button>`
           }
         </div>
@@ -150377,7 +150377,7 @@ function _renderCards(matches, machineType, answers) {
         ${
           currentUser && (currentUser.role === "rental" || currentUser.role === "admin_rental")
             ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
-            : `<button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">🛒 Add to Hire Cart</button>${currentUser && currentUser.role === "lite" ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.72rem;font-weight:700;color:#38BDF8;text-align:center;margin-top:.3rem">ℹ️ Lite portal — contact a rental company directly to complete the hire</div>` : ""}`
+            : `<button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">💬 Interested? Hire or buy — enquire</button>${currentUser && currentUser.role === "lite" ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.72rem;font-weight:700;color:#38BDF8;text-align:center;margin-top:.3rem">ℹ️ Lite portal — contact a rental company directly to complete the hire</div>` : ""}`
         }
       </div>
       </div>
@@ -163267,7 +163267,7 @@ function kymRender() {
           ? `<div style="margin-top:.7rem;background:#F1F5F9;border:1.5px solid #E2E8F0;border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#94A3B8;font-weight:700;text-align:center">🔒 Log in as a customer to add to hire enquiry</div>`
           : currentUser && currentUser.role === "lite"
             ? `<div style="margin-top:.7rem;background:rgba(14,165,233,.07);border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#38BDF8;font-weight:700;text-align:center">ℹ️ For information only — contact a rental company to hire</div>`
-            : `<button class="kym-add-btn" id="kym-cart-btn-${(m.id || "").replace(/[^a-z0-9]/gi, "-")}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name || "").replace(/'/g, "\\\\'")}','${catKey}',this)">🛒 Add to Quote</button>`
+            : `<button class="kym-add-btn" id="kym-cart-btn-${(m.id || "").replace(/[^a-z0-9]/gi, "-")}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name || "").replace(/'/g, "\\\\'")}','${catKey}',this)">💬 Interested? Hire or buy — enquire</button>`
       }
     </div>`;
     })
@@ -187412,3 +187412,360 @@ window.addEventListener('load', () => {
     }
   }, 800);
 });
+
+// ════════════════════════════════════════════════════════════════════════
+//  NOYO ENQUIRY MODE  —  demand-capture patch (traffic-first phase)
+//  ----------------------------------------------------------------------
+//  Cart / checkout / quote-send is switched off. Every "add" action opens a
+//  soft two-path enquiry form:
+//    • HIRE → site address, when needed, how long, PER-MACHINE attachment
+//             checkboxes (mirrors the catalogue cards), delivery, contact
+//    • BUY  → new/used, when buying, budget, finance, delivery, contact
+//  Attachment options are resolved per machine from ALL_MACHINES using the
+//  same per-category logic the result cards use (forklift tynes/slippers,
+//  telehandler rotating vs standard, boom options, excavator/dozer, etc.).
+//  The full job spec from the search quiz is auto-attached via
+//  getJobRequirements(). Leads write to Firestore `enquiries` with a
+//  localStorage backup so nothing is ever lost. Original cart code is left
+//  intact but unreachable — to re-enable, delete this whole block and
+//  relabel the buttons.
+// ════════════════════════════════════════════════════════════════════════
+(function () {
+  "use strict";
+
+  function _el(id) { return document.getElementById(id); }
+  function _esc(s) { return String(s == null ? "" : s).replace(/"/g, "&quot;"); }
+
+  // ── Resolve the machine's category key ────────────────────────────────
+  function _knownCats() {
+    return {
+      forklift: 1, telehandler: 1, scissor: 1, boom: 1, material: 1,
+      dozer: 1, em_excavator: 1, em_bobcat: 1, em_grader: 1, em_compactor: 1,
+      em_dumper: 1, em_water_cart: 1, em_mulcher: 1, em_loader: 1,
+    };
+  }
+  function _resolveCat(catHint, machine) {
+    var known = _knownCats();
+    if (catHint && known[catHint]) return catHint;
+    var m = machine || {};
+    if (m.catKey && known[m.catKey]) return m.catKey;
+    if (m.category && known[m.category]) return m.category;
+    var fl = m.filters || [];
+    for (var i = 0; i < fl.length; i++) if (known[fl[i]]) return fl[i];
+    // soft mappings from common filter words
+    if (fl.indexOf("forklift") >= 0) return "forklift";
+    if (fl.indexOf("telehandler") >= 0) return "telehandler";
+    if (fl.indexOf("boom") >= 0) return "boom";
+    if (fl.indexOf("scissor") >= 0) return "scissor";
+    if (fl.indexOf("excavator") >= 0) return "em_excavator";
+    return catHint || null;
+  }
+
+  // ── Per-machine attachment options (mirrors the result-card logic) ────
+  function _attachOptionsFor(machine, catKey) {
+    var m = machine || {};
+    if (catKey === "forklift") {
+      var tynes = (m.tyneOptions || ["1200mm"]).map(function (t) { return "Tyne " + t; });
+      var slips = m.slipperOptions || ["1800mm slipper", "2400mm slipper"];
+      return tynes.concat(slips).concat(["Jib Attachment", "Rotator", "Side Shift", "Fork Positioner"]);
+    }
+    if (catKey === "telehandler") {
+      var rot = m.isRotating || /rotat/i.test(m.name || "") || (m.filters || []).indexOf("rotating") >= 0;
+      return rot
+        ? ["Man Basket", "Winch", "Jib Attachment", "Rotator Hook", "Pallet Forks"]
+        : ["Jib Attachment", "Rotator", "Man Basket", "Pallet Forks", "Bucket", "Bale Grab"];
+    }
+    if (catKey === "boom") {
+      return ["Standard Basket (230kg)", "XC Capacity Basket (320kg+)", "Power to Basket (230V outlet)", "Jib Extension", "Bi-Fuel"];
+    }
+    if (catKey === "em_excavator") {
+      return ["Standard bucket (included)", "Rock breaker / hammer", "Auger / boring head", "Grab / grapple bucket", "Ripper", "Tilting bucket", "Quick hitch"];
+    }
+    if (catKey === "dozer" || (catKey || "").indexOf("em_") === 0) {
+      if (m.attachmentsAvailable && m.attachmentsAvailable.length)
+        return m.attachmentsAvailable.slice(0, 6).map(function (a) { return String(a).split("(")[0].trim(); });
+    }
+    // Fallback: the machine's own curated attachment list (covers scissor etc.)
+    if (m.attachments && m.attachments.length) return m.attachments.slice(0, 8);
+    return [];
+  }
+
+  function _renderAttachBox(options, preChecked) {
+    var box = _el("noyo-enq-attach-box");
+    var wrap = _el("noyo-enq-attach-wrap");
+    if (!box || !wrap) return;
+    if (!options.length) { wrap.style.display = "none"; box.innerHTML = ""; return; }
+    wrap.style.display = "block";
+    var pre = {};
+    (preChecked || []).forEach(function (v) { pre[String(v).toLowerCase()] = 1; });
+    box.innerHTML = options.map(function (o) {
+      var checked = pre[String(o).toLowerCase()] ? " checked" : "";
+      return '<label style="display:flex;align-items:center;gap:.35rem;cursor:pointer;font-size:.83rem;color:#334155">' +
+        '<input type="checkbox" class="noyo-attach-cb" value="' + _esc(o) + '"' + checked +
+        ' style="accent-color:#0052CC"> ' + _esc(o) + "</label>";
+    }).join("");
+  }
+
+  // ── One-time modal + styles injection ─────────────────────────────────
+  function _ensureEnquiryModal() {
+    if (_el("noyo-enq-overlay")) return;
+
+    var css =
+      "#noyo-enq-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);z-index:99999;display:none;align-items:center;justify-content:center;padding:1rem;font-family:'Nunito',sans-serif}" +
+      "#noyo-enq-overlay.open{display:flex}" +
+      "#noyo-enq-card{background:#fff;border-radius:18px;max-width:480px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(15,23,42,.3);padding:1.4rem 1.4rem 1.2rem}" +
+      "#noyo-enq-card h3{margin:0 0 .2rem;color:#0F172A;font-size:1.15rem;font-weight:900}" +
+      "#noyo-enq-card .noyo-enq-sub{color:#64748B;font-size:.82rem;margin-bottom:1rem;line-height:1.45}" +
+      "#noyo-enq-card label.lbl{display:block;font-size:.78rem;font-weight:800;color:#334155;margin:.7rem 0 .25rem}" +
+      "#noyo-enq-card input.fld,#noyo-enq-card textarea,#noyo-enq-card select{width:100%;box-sizing:border-box;border:1.5px solid #E2E8F0;border-radius:10px;padding:.6rem .7rem;font-size:.9rem;font-family:inherit;color:#0F172A;background:#F8FAFC}" +
+      "#noyo-enq-card input.fld:focus,#noyo-enq-card textarea:focus,#noyo-enq-card select:focus{outline:none;border-color:#0052CC;background:#fff}" +
+      "#noyo-enq-card .noyo-enq-row{display:flex;gap:.6rem}#noyo-enq-card .noyo-enq-row>div{flex:1}" +
+      "#noyo-enq-card .noyo-enq-machine{background:linear-gradient(135deg,rgba(0,82,204,.07),rgba(0,82,204,.03));border:1.5px solid rgba(0,82,204,.18);border-radius:10px;padding:.55rem .75rem;font-size:.85rem;font-weight:800;color:#0052CC}" +
+      "#noyo-enq-card .noyo-enq-choose{display:flex;gap:.6rem;margin:.9rem 0 .2rem}" +
+      "#noyo-enq-card .noyo-enq-choose button{flex:1;border:1.5px solid #E2E8F0;background:#F8FAFC;border-radius:13px;padding:.85rem .5rem;font-size:.95rem;font-weight:900;color:#334155;cursor:pointer;font-family:inherit;line-height:1.2}" +
+      "#noyo-enq-card .noyo-enq-choose button small{display:block;font-size:.68rem;font-weight:700;color:#94A3B8;margin-top:.15rem}" +
+      "#noyo-enq-card .noyo-enq-choose button.sel{border-color:#0052CC;background:#0052CC;color:#fff}" +
+      "#noyo-enq-card .noyo-enq-choose button.sel small{color:rgba(255,255,255,.85)}" +
+      "#noyo-enq-attach-box{display:flex;flex-wrap:wrap;gap:.4rem .9rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.6rem .7rem}" +
+      "#noyo-enq-send{width:100%;margin-top:1.1rem;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:11px;padding:.8rem;font-size:.95rem;font-weight:900;cursor:pointer;font-family:inherit}" +
+      "#noyo-enq-send:disabled{opacity:.55;cursor:default}" +
+      "#noyo-enq-close{position:absolute;top:.6rem;right:.8rem;background:none;border:none;font-size:1.4rem;color:#94A3B8;cursor:pointer;line-height:1}" +
+      "#noyo-enq-err{color:#DC2626;font-size:.78rem;font-weight:700;margin-top:.5rem;min-height:1em}" +
+      ".noyo-enq-hidden{display:none}";
+    var style = document.createElement("style");
+    style.textContent = css;
+    document.head.appendChild(style);
+
+    var ov = document.createElement("div");
+    ov.id = "noyo-enq-overlay";
+    ov.innerHTML =
+      '<div id="noyo-enq-card" style="position:relative">' +
+      '<button id="noyo-enq-close" aria-label="Close">&times;</button>' +
+      "<h3>💬 Interested? We can help</h3>" +
+      '<div class="noyo-enq-sub">Tell us about the job and we\'ll help you sort the right machine. No obligation.</div>' +
+      '<div class="noyo-enq-machine" id="noyo-enq-machine">—</div>' +
+
+      '<div class="noyo-enq-choose" id="noyo-enq-choose">' +
+      '<button type="button" data-intent="hire">🔧 Hire<small>Rent for a job</small></button>' +
+      '<button type="button" data-intent="buy">🏷️ Buy<small>Purchase a machine</small></button>' +
+      "</div>" +
+
+      // HIRE
+      '<div id="noyo-enq-hire" class="noyo-enq-hidden">' +
+      "<label class='lbl'>Site address (where the machine is needed) <span style='color:#EF4444'>*</span></label>" +
+      '<input id="noyo-enq-site" class="fld" type="text" placeholder="e.g. 12 George St, Parramatta NSW 2150">' +
+      '<div class="noyo-enq-row">' +
+      "<div><label class='lbl'>When do you need it? <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-date\" class=\"fld\" type=\"date\"></div>" +
+      '<div><label class="lbl">For how long?</label><input id="noyo-enq-duration" class="fld" type="text" placeholder="e.g. 3 days, 2 weeks"></div>' +
+      "</div>" +
+      '<div id="noyo-enq-attach-wrap" style="display:none">' +
+      '<label class="lbl">Attachments / accessories needed</label>' +
+      '<div id="noyo-enq-attach-box"></div>' +
+      '<input id="noyo-enq-attach-other" class="fld" type="text" placeholder="Other attachment? Type it here" style="margin-top:.4rem">' +
+      "</div>" +
+      "<label class='lbl'>Delivery or pickup?</label>" +
+      '<select id="noyo-enq-delivery"><option value="">Select…</option><option>Delivery to site</option><option>I\'ll pick up</option><option>Not sure</option></select>' +
+      "</div>" +
+
+      // BUY
+      '<div id="noyo-enq-buy" class="noyo-enq-hidden">' +
+      '<div class="noyo-enq-row">' +
+      '<div><label class="lbl">New or used?</label><select id="noyo-enq-condition"><option value="">Select…</option><option>New</option><option>Used</option><option>Either</option></select></div>' +
+      "<div><label class='lbl'>When would you like to buy? <span style='color:#EF4444'>*</span></label>" +
+      '<select id="noyo-enq-buywhen"><option value="">Select…</option><option>ASAP / ready now</option><option>Within 1–3 months</option><option>3–6 months</option><option>Just researching</option></select></div>' +
+      "</div>" +
+      '<div class="noyo-enq-row">' +
+      '<div><label class="lbl">Budget (optional)</label><input id="noyo-enq-budget" class="fld" type="text" placeholder="e.g. $40k–60k"></div>' +
+      '<div><label class="lbl">Finance needed?</label><select id="noyo-enq-finance"><option value="">Select…</option><option>Yes</option><option>No</option><option>Not sure</option></select></div>' +
+      "</div>" +
+      "<label class='lbl'>Delivery location (suburb / state)</label>" +
+      '<input id="noyo-enq-buyloc" class="fld" type="text" placeholder="e.g. Parramatta NSW">' +
+      "</div>" +
+
+      // SHARED contact
+      '<div id="noyo-enq-contact" class="noyo-enq-hidden">' +
+      '<div class="noyo-enq-row">' +
+      "<div><label class='lbl'>Your name <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-name\" class=\"fld\" type=\"text\" autocomplete=\"name\" placeholder=\"Jane Smith\"></div>" +
+      '<div><label class="lbl">Phone (optional)</label><input id="noyo-enq-phone" class="fld" type="tel" autocomplete="tel" placeholder="04xx xxx xxx"></div>' +
+      "</div>" +
+      "<label class='lbl'>Company (optional)</label><input id=\"noyo-enq-company\" class=\"fld\" type=\"text\" autocomplete=\"organization\" placeholder=\"Company / business name\">" +
+      "<label class='lbl'>Email <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-email\" class=\"fld\" type=\"email\" autocomplete=\"email\" placeholder=\"you@company.com.au\">" +
+      "<label class='lbl'>Anything else? (optional)</label><textarea id=\"noyo-enq-msg\" rows=\"2\" placeholder=\"Site access, job details, anything we should know…\"></textarea>" +
+      '<div id="noyo-enq-err"></div>' +
+      '<button id="noyo-enq-send">Send enquiry</button>' +
+      "</div>" +
+
+      "</div>";
+    document.body.appendChild(ov);
+
+    ov.querySelector("#noyo-enq-choose").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-intent]");
+      if (!b) return;
+      ov._intent = b.getAttribute("data-intent");
+      ov.querySelectorAll("#noyo-enq-choose button").forEach(function (x) { x.classList.toggle("sel", x === b); });
+      _el("noyo-enq-hire").classList.toggle("noyo-enq-hidden", ov._intent !== "hire");
+      _el("noyo-enq-buy").classList.toggle("noyo-enq-hidden", ov._intent !== "buy");
+      _el("noyo-enq-contact").classList.remove("noyo-enq-hidden");
+      _el("noyo-enq-err").textContent = "";
+    });
+
+    ov.querySelector("#noyo-enq-close").addEventListener("click", _closeEnquiry);
+    ov.addEventListener("click", function (e) { if (e.target === ov) _closeEnquiry(); });
+    ov.querySelector("#noyo-enq-send").addEventListener("click", _submitEnquiry);
+  }
+
+  function _closeEnquiry() { var ov = _el("noyo-enq-overlay"); if (ov) ov.classList.remove("open"); }
+
+  // Best-effort: attachment checkboxes the user already ticked on the card.
+  function _grabCardAttachments(machineId) {
+    var out = [];
+    try {
+      document.querySelectorAll('input[type=checkbox][data-mid="' + machineId + '"][data-opt="tyne"]:checked,input[type=checkbox][data-mid="' + machineId + '"][data-opt="attachment"]:checked')
+        .forEach(function (cb) { if (cb.value) out.push(cb.value); });
+    } catch (e) {}
+    return out;
+  }
+
+  // ── Public entry point ────────────────────────────────────────────────
+  function noyoEnquire(machineId, machineName, intentHint, catHint) {
+    _ensureEnquiryModal();
+    var ov = _el("noyo-enq-overlay");
+    ov._machineId = machineId || "";
+    ov._machineName = machineName || "";
+
+    var machine = null;
+    try { if (typeof ALL_MACHINES !== "undefined") machine = ALL_MACHINES.find(function (x) { return x.id === machineId; }) || null; } catch (e) {}
+    ov._catKey = _resolveCat(catHint, machine);
+    ov._cardAttach = _grabCardAttachments(machineId);
+
+    _el("noyo-enq-machine").textContent = "🏗️ " + (machineName || machineId || "Selected machine");
+    _el("noyo-enq-err").textContent = "";
+
+    ov._intent = null;
+    ov.querySelectorAll("#noyo-enq-choose button").forEach(function (x) { x.classList.remove("sel"); });
+    _el("noyo-enq-hire").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-buy").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-contact").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-attach-other").value = "";
+
+    // Build per-machine attachment checkboxes (hire branch)
+    _renderAttachBox(_attachOptionsFor(machine, ov._catKey), ov._cardAttach);
+
+    if (intentHint === "hire" || intentHint === "buy") {
+      var btn = ov.querySelector('#noyo-enq-choose button[data-intent="' + intentHint + '"]');
+      if (btn) btn.click();
+    }
+
+    try {
+      if (typeof currentUser !== "undefined" && currentUser) {
+        if (currentUser.email) _el("noyo-enq-email").value = currentUser.email;
+        if (currentUser.name) _el("noyo-enq-name").value = currentUser.name;
+      }
+    } catch (e) {}
+
+    ov.classList.add("open");
+  }
+
+  // ── Submit ────────────────────────────────────────────────────────────
+  async function _submitEnquiry() {
+    var ov = _el("noyo-enq-overlay");
+    var err = _el("noyo-enq-err");
+    var v = function (id) { var e = _el(id); return e ? (e.value || "").trim() : ""; };
+    var intent = ov._intent;
+    if (!intent) { err.textContent = "Please choose Hire or Buy."; return; }
+
+    var name = v("noyo-enq-name"), email = v("noyo-enq-email");
+    if (!name) { err.textContent = "Please add your name."; return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Please add a valid email."; return; }
+
+    var record = {
+      intent: intent,
+      machineId: ov._machineId || "",
+      machineName: ov._machineName || "",
+      machineCategory: ov._catKey || "",
+      name: name, email: email, phone: v("noyo-enq-phone"), company: v("noyo-enq-company"), message: v("noyo-enq-msg"),
+      searchId: (typeof window !== "undefined" && window._lastSearchId) || null,
+      jobRequirements: safeJobReq(),
+      userAgent: (navigator && navigator.userAgent) || "",
+      page: location && location.pathname,
+      status: "new",
+      createdAtClient: new Date().toISOString(),
+    };
+
+    if (intent === "hire") {
+      var site = v("noyo-enq-site"), date = v("noyo-enq-date");
+      if (!site) { err.textContent = "Please add the site address."; return; }
+      if (!date) { err.textContent = "Please tell us when you need it."; return; }
+      var attach = [];
+      ov.querySelectorAll(".noyo-attach-cb:checked").forEach(function (cb) { attach.push(cb.value); });
+      var other = v("noyo-enq-attach-other");
+      if (other) attach.push(other);
+      record.siteAddress = site;
+      record.neededDate = date;
+      record.duration = v("noyo-enq-duration");
+      record.attachmentsNeeded = attach;
+      record.deliveryPickup = v("noyo-enq-delivery");
+    } else {
+      var when = v("noyo-enq-buywhen");
+      if (!when) { err.textContent = "Please tell us when you'd like to buy."; return; }
+      record.buyWhen = when;
+      record.condition = v("noyo-enq-condition");
+      record.budget = v("noyo-enq-budget");
+      record.financeNeeded = v("noyo-enq-finance");
+      record.deliveryLocation = v("noyo-enq-buyloc");
+    }
+    err.textContent = "";
+
+    var sendBtn = _el("noyo-enq-send");
+    sendBtn.disabled = true; sendBtn.textContent = "Sending…";
+
+    try {
+      var stash = JSON.parse(localStorage.getItem("noyo_enquiries") || "[]");
+      stash.push(record); localStorage.setItem("noyo_enquiries", JSON.stringify(stash));
+    } catch (e) {}
+
+    var saved = false;
+    try {
+      if (typeof _fbDb !== "undefined" && _fbDb) {
+        var toSave = Object.assign({}, record);
+        if (typeof firebase !== "undefined" && firebase.firestore) {
+          toSave.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+        }
+        await _fbDb.collection("enquiries").add(toSave);
+        saved = true;
+      }
+    } catch (e) { console.warn("[Noyo] Enquiry Firestore write failed:", e && e.message); }
+
+    try { if (typeof _noyoTrack === "function") _noyoTrack({ enquiries: 1 }); } catch (e) {}
+
+    sendBtn.disabled = false; sendBtn.textContent = "Send enquiry";
+    _closeEnquiry();
+    try {
+      if (typeof showToast === "function") {
+        showToast((saved ? "✅ Enquiry sent" : "✅ Enquiry saved") + " — we'll be in touch shortly.", "#0052CC", 4000);
+      } else {
+        alert("Thanks — your enquiry has been received. We'll be in touch shortly.");
+      }
+    } catch (e) {}
+  }
+
+  function safeJobReq() {
+    try { return typeof getJobRequirements === "function" ? getJobRequirements() || {} : {}; } catch (e) { return {}; }
+  }
+
+  window.noyoEnquire = noyoEnquire;
+
+  // ── Override every add-to-cart entry point → open enquiry instead ─────
+  try { addToCartDirect = function (id, nm, machineType) { noyoEnquire(id, nm, null, machineType); }; } catch (e) {}
+  try { addToCartFromKYM = function (id, nm, catKey) { noyoEnquire(id, nm, null, catKey); }; } catch (e) {}
+  try {
+    addCurrentToCartFromModal = function () {
+      var m = (typeof currentModalMachine !== "undefined" && currentModalMachine) || {};
+      noyoEnquire(m.id, m.name, null, m.catKey || null);
+      if (typeof closeModal === "function") { try { closeModal(); } catch (e) {} }
+    };
+  } catch (e) {}
+  try { openSendQuotesModal = function () { noyoEnquire("", "", null, null); }; } catch (e) {}
+
+  console.log("[Noyo] Enquiry mode active — cart off, per-machine hire/buy capture on.");
+})();
