@@ -182676,9 +182676,7 @@ async function renderAdminBanners() {
   await _loadBanners();
   // Group by role for display
   const sections = [
-    { title: "🧑 Customer Banners", desc: "Shown to Customer users on every page they visit.", role: "customer", slots: BANNER_SLOTS_BY_ROLE.customer, accent: "#0052CC", bg: "#EFF6FF" },
-    { title: "🏗️ Rental Co Banners", desc: "Shown to Rental Company users on every page they visit.", role: "rental", slots: BANNER_SLOTS_BY_ROLE.rental, accent: "#7C3AED", bg: "#F5F3FF" },
-    { title: "🔵 Lite Banners", desc: "Shown to Lite users on every page they visit.", role: "lite", slots: BANNER_SLOTS_BY_ROLE.lite, accent: "#0891B2", bg: "#ECFEFF" },
+    { title: "🧑 Customer Banners", desc: "Shown to every customer on every page they visit.", role: "customer", slots: BANNER_SLOTS_BY_ROLE.customer, accent: "#0052CC", bg: "#EFF6FF" },
   ];
   grid.innerHTML = sections.map((sec) => `
     <div style="background:${sec.bg};border:1.5px solid ${sec.accent};border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.2rem">
