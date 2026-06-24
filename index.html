@@ -165,6 +165,12 @@ h1,h2,h3{ letter-spacing:-0.021em; }
         style="display:inline-flex;align-items:center;gap:.3rem;padding:.5rem 1rem;background:rgba(255,255,255,.14);border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;transition:all .2s">📋 My Quotes</button>
     </span>
 
+    <!-- Customer: My Searches -->
+    <span id="tab-my-searches-wrap" style="display:none">
+      <button class="nav-tab" id="tab-my-searches" data-view="my-searches" onclick="switchView('my-searches', this)"
+        style="display:inline-flex;align-items:center;gap:.3rem;padding:.5rem 1rem;background:rgba(255,255,255,.14);border:none;border-radius:50px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;transition:all .2s">🔍 My Searches</button>
+    </span>
+
     <!-- Rental / admin: Quote Requests -->
     <span id="tab-quote-requests-wrap" style="display:none">
       <button class="nav-tab" id="tab-quote-requests" data-view="quote-requests" onclick="switchView('quote-requests', this)"
@@ -239,7 +245,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
           </span>
         </button>
 
-        <button type="button" onclick="navbarLoginPick('rental')" style="display:flex;align-items:center;gap:.75rem;width:100%;background:none;border:none;border-radius:10px;padding:.65rem .7rem;cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:background .12s" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">
+        <button type="button" onclick="navbarLoginPick('rental')" style="display:none;align-items:center;gap:.75rem;width:100%;background:none;border:none;border-radius:10px;padding:.65rem .7rem;cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:background .12s" onmouseover="this.style.background='#EFF6FF'" onmouseout="this.style.background='none'">
           <span style="flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0052CC,#0A1F44);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🏗️</span>
           <span style="display:flex;flex-direction:column;line-height:1.2">
             <span style="font-weight:800;color:#0F172A;font-size:.95rem">Rental Company</span>
@@ -247,7 +253,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
           </span>
         </button>
 
-        <button type="button" onclick="navbarLoginPick('lite')" style="display:flex;align-items:center;gap:.75rem;width:100%;background:none;border:none;border-radius:10px;padding:.65rem .7rem;cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:background .12s" onmouseover="this.style.background='#F0F9FF'" onmouseout="this.style.background='none'">
+        <button type="button" onclick="navbarLoginPick('lite')" style="display:none;align-items:center;gap:.75rem;width:100%;background:none;border:none;border-radius:10px;padding:.65rem .7rem;cursor:pointer;text-align:left;font-family:'Nunito',sans-serif;transition:background .12s" onmouseover="this.style.background='#F0F9FF'" onmouseout="this.style.background='none'">
           <span style="flex-shrink:0;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#0EA5E9,#38BDF8);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🌏</span>
           <span style="display:flex;flex-direction:column;line-height:1.2">
             <span style="font-weight:800;color:#0F172A;font-size:.95rem">Noyo Lite</span>
@@ -2023,6 +2029,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
 
     <!-- Section tabs -->
     <div class="admin-tabs" style="flex-wrap:wrap">
+      <button class="admin-tab" onclick="showAdminSection('enquiries',this)" id="admin-tab-enquiries" style="background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;font-weight:900;border:none">📥 Enquiries</button>
       <button class="admin-tab active" onclick="showAdminSection('overview',this)">🏠 Overview</button>
       <button class="admin-tab" onclick="showAdminSection('users',this)">👥 Users</button>
       <button class="admin-tab" onclick="showAdminSection('customers',this)" id="admin-tab-customers">🧑 Customers</button>
@@ -2044,6 +2051,22 @@ h1,h2,h3{ letter-spacing:-0.021em; }
       <button class="admin-tab" onclick="showAdminSection('investor',this)" id="admin-tab-investor" style="background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;font-weight:900;border:none">📊 Management</button>
       <button class="admin-tab" onclick="showAdminSection('mapintel',this)" id="admin-tab-mapintel" style="background:linear-gradient(135deg,#0891B2,#0E7490);color:#fff;font-weight:900;border:none">🗺️ Map & Intelligence</button>
       <button class="admin-tab" onclick="showAdminSection('livemap',this)" id="admin-tab-livemap" style="background:linear-gradient(135deg,#16A34A,#15803D);color:#fff;font-weight:900;border:none">📡 Live Map</button>
+    </div>
+
+    <!-- ENQUIRIES TAB -->
+    <div class="admin-section" id="admin-sec-enquiries">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem">
+        <div class="admin-section-title" style="margin:0">📥 Customer Enquiries <span id="admin-enq-count" style="font-size:.8rem;color:#64748B;font-weight:600;margin-left:.4rem"></span></div>
+        <button class="admin-refresh-btn" onclick="renderAdminEnquiries()">↻ Refresh</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
+        <button class="admin-enq-chip active" onclick="adminEnqSetIntent('all',this)" style="border:1.5px solid #E2E8F0;background:#fff;border-radius:8px;padding:.35rem .8rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:inherit">All</button>
+        <button class="admin-enq-chip" onclick="adminEnqSetIntent('hire',this)" style="border:1.5px solid #E2E8F0;background:#fff;border-radius:8px;padding:.35rem .8rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:inherit">🔧 Hire</button>
+        <button class="admin-enq-chip" onclick="adminEnqSetIntent('buy',this)" style="border:1.5px solid #E2E8F0;background:#fff;border-radius:8px;padding:.35rem .8rem;font-size:.82rem;font-weight:800;cursor:pointer;font-family:inherit">🏷️ Buy</button>
+        <select id="admin-enq-city" onchange="adminEnqFilterChange()" style="border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .7rem;font-size:.83rem;font-family:inherit;font-weight:700"><option value="">All cities</option></select>
+        <input id="admin-enq-search" type="text" placeholder="Search name, email, machine…" oninput="adminEnqFilterChange()" style="border:1.5px solid #E2E8F0;border-radius:8px;padding:.35rem .7rem;font-size:.85rem;width:240px;font-family:inherit">
+      </div>
+      <div id="admin-enq-table"></div>
     </div>
 
     <!-- CUSTOMERS TAB -->
@@ -3224,6 +3247,15 @@ h1,h2,h3{ letter-spacing:-0.021em; }
 </div>
 
 <!-- ── QUOTE REQUESTS VIEW (rental companies only) ──────────── -->
+<div id="view-my-searches" class="view">
+  <div class="internal-wrap">
+    <div class="int-header">
+      <h2>🔍 My Searches</h2>
+      <p>Your recent machine searches on this device. Pick up where you left off.</p>
+    </div>
+    <div id="my-searches-list" style="display:flex;flex-direction:column;gap:.75rem"></div>
+  </div>
+</div>
 <div id="view-quote-requests" class="view">
   <div class="internal-wrap">
     <div class="int-header">
