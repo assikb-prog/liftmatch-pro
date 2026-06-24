@@ -167415,6 +167415,7 @@ function switchView(view, btn) {
       renderMyQuotes();
     }, 50);
   if (view === "my-details") setTimeout(renderMyDetails, 50);
+  if (view === "my-searches") setTimeout(renderMySearches, 50);
   if (view === "my-plan") setTimeout(renderMyPlanView, 50);
   if (view === "quote-requests")
     setTimeout(async () => {
@@ -169934,6 +169935,9 @@ function loginSuccess(user) {
     // Show My Quotes for customer
     const tabMQ = document.getElementById("tab-my-quotes-wrap");
     if (tabMQ) tabMQ.style.display = "inline-flex";
+    // Show My Searches for customer
+    const tabMS = document.getElementById("tab-my-searches-wrap");
+    if (tabMS) tabMS.style.display = "inline-flex";
     // Show navbar cart button for customers
     const navCartWrap = document.getElementById("nav-cart-btn-wrap");
     if (navCartWrap) navCartWrap.style.display = "block";
@@ -170268,6 +170272,21 @@ function adminTrackSearch(result) {
     hour: result.hour != null ? result.hour : new Date().getHours(),
   };
   adminData.searches.push(rec);
+  // ── Customer-facing search history (device-level, for the My Searches tab) ──
+  try {
+    var _mh = JSON.parse(localStorage.getItem("noyo_my_searches") || "[]");
+    _mh.unshift({
+      ts: rec.ts, machineType: rec.machineType, machineName: rec.machineName,
+      jobType: rec.jobType, height: rec.height, load: rec.load,
+      terrain: rec.terrain, power: rec.power, city: rec.city,
+      resultCount: rec.resultCount,
+    });
+    if (_mh.length > 60) _mh = _mh.slice(0, 60);
+    localStorage.setItem("noyo_my_searches", JSON.stringify(_mh));
+    if (typeof renderMySearches === "function" && document.getElementById("view-my-searches") && document.getElementById("view-my-searches").classList.contains("active")) {
+      try { renderMySearches(); } catch (e) {}
+    }
+  } catch (e) {}
   if (customerRegistry[user.email]) {
     customerRegistry[user.email].searchCount++;
     customerRegistry[user.email].lastSeen = now;
@@ -175235,6 +175254,7 @@ function amwReset() {
 const _LEGACY_CATEGORY_LABELS = {
   boom: "Boom Lifts (legacy — all power sources)",
   scissor: "Scissor Lifts (legacy — all power sources)",
+  forklift: "Forklifts (legacy — all power sources)",
 };
 function _spnCategoryLabel(catKey) {
   if (!catKey) return "All";
@@ -175287,7 +175307,22 @@ const SPONSORED_CATEGORIES = [
     emoji: "🔄",
     group: "Access",
   },
-  { key: "forklift", label: "Forklifts", emoji: "🍴", group: "Access" },
+  // ── Forklifts — split by power source for separate ad inventory ──
+  // Legacy `forklift` key is no longer offered in the dropdown but is still
+  // matched at render time (see _getSponsoredForCategory) so existing forklift
+  // ads keep running until their end date.
+  {
+    key: "forklift_electric",
+    label: "Forklifts — Electric",
+    emoji: "🔌",
+    group: "Access",
+  },
+  {
+    key: "forklift_engine",
+    label: "Forklifts — Diesel / Petrol / Gas",
+    emoji: "⛽",
+    group: "Access",
+  },
   {
     key: "material",
     label: "Material Lifts / Duct Lifters",
@@ -175494,8 +175529,16 @@ function _normalizeAdCategory(raw) {
     if (t.includes("diesel")) return "scissor_diesel";
     return "scissor";
   }
-  // Forklift family
-  if (t.includes("forklift") || t.includes("fork lift")) return "forklift";
+  // Forklift family (keep power split; tolerate label spellings)
+  if (t.includes("forklift") || t.includes("fork lift")) {
+    if (t.includes("electric")) return "forklift_electric";
+    if (
+      t.includes("diesel") || t.includes("petrol") ||
+      t.includes("gas") || t.includes("lpg") || t.includes("engine")
+    )
+      return "forklift_engine";
+    return "forklift";
+  }
   // Fall back to the cleaned single-token form (covers any other category
   // such as "material", "pusharound", earthmoving keys, etc.)
   return s;
@@ -175517,6 +175560,7 @@ function _getSponsoredForCategory(catKey) {
   if (catKey === "rotating") catKeys = ["rotating", "telehandler"];
   else if (catKey === "boom") catKeys = ["boom", "boom_electric", "boom_diesel"];
   else if (catKey === "scissor") catKeys = ["scissor", "scissor_electric", "scissor_diesel"];
+  else if (catKey === "forklift") catKeys = ["forklift", "forklift_electric", "forklift_engine"];
   else catKeys = [catKey];
   return _sponsoredAds.filter((a) => {
     if (!a.active) return false;
@@ -176050,6 +176094,8 @@ function spnGetMachinePool(catKey) {
   if (k === "boom_diesel") return (MACHINES.boom || []).filter(isDiesel);
   if (k === "scissor_electric") return (MACHINES.scissor || []).filter(isElectric);
   if (k === "scissor_diesel") return (MACHINES.scissor || []).filter(isDiesel);
+  if (k === "forklift_electric") return (MACHINES.forklift || []).filter(isElectric);
+  if (k === "forklift_engine") return (MACHINES.forklift || []).filter((m) => !isElectric(m));
   if (k === "forklift") return MACHINES.forklift || [];
   if (k === "material") return MACHINES.material || [];
   if (k === "pushAround") return MACHINES.pushAround || [];
@@ -176601,8 +176647,8 @@ function adminViewSpnReport(adId) {
           </div>
           <div style="background:#F5F3FF;border:1.5px solid #DDD6FE;border-radius:10px;padding:.6rem .7rem;text-align:center">
             <div style="font-size:1.4rem;font-weight:900;color:#7C3AED">${clicks.toLocaleString()}</div>
-            <div style="font-size:.7rem;color:#6D28D9;font-weight:700;margin-top:.1rem">🖱️ Clicks</div>
-            <div style="font-size:.68rem;color:#64748B">add-to-cart / engage</div>
+            <div style="font-size:.7rem;color:#6D28D9;font-weight:700;margin-top:.1rem">🖱️ Enquiry Clicks</div>
+            <div style="font-size:.68rem;color:#64748B">opened the enquiry</div>
           </div>
           <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.6rem .7rem;text-align:center">
             <div style="font-size:1.4rem;font-weight:900;color:#15803D">${ctr}%</div>
@@ -176623,6 +176669,11 @@ function adminViewSpnReport(adId) {
             <div style="font-size:1.4rem;font-weight:900;color:#15803D">${daysElapsed > 0 && impr > 0 ? Math.round(impr / daysElapsed).toLocaleString() : "—"}</div>
             <div style="font-size:.7rem;color:#166534;font-weight:700;margin-top:.1rem">📈 Impr/Day</div>
             <div style="font-size:.68rem;color:#64748B">daily average</div>
+          </div>
+          <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#0052CC" id="spn-enq-${adId}">…</div>
+            <div style="font-size:.7rem;color:#1E40AF;font-weight:700;margin-top:.1rem">📥 Enquiries</div>
+            <div style="font-size:.68rem;color:#64748B">leads from this ad</div>
           </div>
         </div>
 
@@ -176651,9 +176702,29 @@ function adminViewSpnReport(adId) {
       </div>
     </div>`;
   document.body.appendChild(modal);
+  try { _spnFillEnqCount(adId, ad.machineId); } catch (e) {}
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.remove();
   });
+}
+
+// Count enquiries whose machineId matches this ad's promoted machine, fill the
+// modal cell, and cache the number so the copyable report can reuse it.
+window._spnEnqCountByMachine = window._spnEnqCountByMachine || {};
+function _spnFillEnqCount(adId, machineId) {
+  const cell = document.getElementById("spn-enq-" + adId);
+  if (!machineId) { if (cell) cell.textContent = "—"; return; }
+  if (typeof _fbDb === "undefined" || !_fbDb) { if (cell) cell.textContent = "—"; return; }
+  _fbDb
+    .collection("enquiries")
+    .where("machineId", "==", machineId)
+    .get()
+    .then((snap) => {
+      const n = snap.size;
+      window._spnEnqCountByMachine[machineId] = n;
+      if (cell) cell.textContent = n.toLocaleString();
+    })
+    .catch(() => { if (cell) cell.textContent = "—"; });
 }
 
 function spnCopyReport(adId) {
@@ -176681,10 +176752,11 @@ Fee:           $${parseFloat(ad.fee || 0).toLocaleString("en-AU")}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PERFORMANCE SUMMARY
 👁  Impressions:  ${impr.toLocaleString()}
-🖱️  Clicks:       ${clicks.toLocaleString()}
+🖱️  Enquiry clicks: ${clicks.toLocaleString()}
 📊  CTR:          ${ctr}%
 💰  CPM:          ${impr > 0 && ad.fee > 0 ? "$" + ((ad.fee / impr) * 1000).toFixed(2) : "—"}
 🎯  CPC:          ${clicks > 0 && ad.fee > 0 ? "$" + (ad.fee / clicks).toFixed(2) : "—"}
+📥  Enquiries:    ${window._spnEnqCountByMachine && window._spnEnqCountByMachine[ad.machineId] != null ? window._spnEnqCountByMachine[ad.machineId].toLocaleString() : "—"}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Report generated by Noyo | noyo.com.au`;
 
@@ -178935,6 +179007,7 @@ function showAdminSection(name, btn) {
   if (name === "mapintel") renderMapIntelDashboard();
   if (name === "livemap") renderLiveMap();
   if (name === "unlockaudit") renderAdminUnlockAudit();
+  if (name === "enquiries") renderAdminEnquiries();
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -187413,36 +187486,43 @@ window.addEventListener('load', () => {
   }, 800);
 });
 
+
 // ════════════════════════════════════════════════════════════════════════
 //  NOYO ENQUIRY MODE  —  demand-capture patch (traffic-first phase)
 //  ----------------------------------------------------------------------
 //  Cart / checkout / quote-send is switched off. Every "add" action opens a
-//  soft two-path enquiry form:
-//    • HIRE → site address, when needed, how long, PER-MACHINE attachment
-//             checkboxes (mirrors the catalogue cards), delivery, contact
-//    • BUY  → new/used, when buying, budget, finance, delivery, contact
-//  Attachment options are resolved per machine from ALL_MACHINES using the
-//  same per-category logic the result cards use (forklift tynes/slippers,
-//  telehandler rotating vs standard, boom options, excavator/dozer, etc.).
-//  The full job spec from the search quiz is auto-attached via
-//  getJobRequirements(). Leads write to Firestore `enquiries` with a
-//  localStorage backup so nothing is ever lost. Original cart code is left
-//  intact but unreachable — to re-enable, delete this whole block and
-//  relabel the buttons.
+//  soft two-path enquiry form (Hire / Buy) with per-machine attachment
+//  checkboxes. Before an enquiry can be SUBMITTED the customer must register
+//  or sign in (full name, email, password, physical address, city — no ABN).
+//  Auth uses the app's real Firebase Auth; the existing onAuthStateChanged
+//  listener sets up the session. Leads (with the customer's city attached)
+//  write to Firestore `enquiries` + a localStorage backup. An admin
+//  "Enquiries" section lists them with filters.
+//  To re-enable the cart later: delete this whole block + relabel buttons.
 // ════════════════════════════════════════════════════════════════════════
 (function () {
   "use strict";
 
   function _el(id) { return document.getElementById(id); }
   function _esc(s) { return String(s == null ? "" : s).replace(/"/g, "&quot;"); }
+  function _isLoggedIn() {
+    if (typeof currentUser !== "undefined" && currentUser) return true;
+    if (typeof _fbAuth !== "undefined" && _fbAuth && _fbAuth.currentUser) return true;
+    return false;
+  }
+
+  var _pendingEnquiryRecord = null;
+
+  var NOYO_CITIES = [
+    "Sydney", "Newcastle", "Wollongong", "Central Coast", "Melbourne",
+    "Brisbane", "Gold Coast", "Perth", "Adelaide", "Canberra", "Other",
+  ];
 
   // ── Resolve the machine's category key ────────────────────────────────
   function _knownCats() {
-    return {
-      forklift: 1, telehandler: 1, scissor: 1, boom: 1, material: 1,
+    return { forklift: 1, telehandler: 1, scissor: 1, boom: 1, material: 1,
       dozer: 1, em_excavator: 1, em_bobcat: 1, em_grader: 1, em_compactor: 1,
-      em_dumper: 1, em_water_cart: 1, em_mulcher: 1, em_loader: 1,
-    };
+      em_dumper: 1, em_water_cart: 1, em_mulcher: 1, em_loader: 1 };
   }
   function _resolveCat(catHint, machine) {
     var known = _knownCats();
@@ -187452,7 +187532,6 @@ window.addEventListener('load', () => {
     if (m.category && known[m.category]) return m.category;
     var fl = m.filters || [];
     for (var i = 0; i < fl.length; i++) if (known[fl[i]]) return fl[i];
-    // soft mappings from common filter words
     if (fl.indexOf("forklift") >= 0) return "forklift";
     if (fl.indexOf("telehandler") >= 0) return "telehandler";
     if (fl.indexOf("boom") >= 0) return "boom";
@@ -187475,24 +187554,20 @@ window.addEventListener('load', () => {
         ? ["Man Basket", "Winch", "Jib Attachment", "Rotator Hook", "Pallet Forks"]
         : ["Jib Attachment", "Rotator", "Man Basket", "Pallet Forks", "Bucket", "Bale Grab"];
     }
-    if (catKey === "boom") {
+    if (catKey === "boom")
       return ["Standard Basket (230kg)", "XC Capacity Basket (320kg+)", "Power to Basket (230V outlet)", "Jib Extension", "Bi-Fuel"];
-    }
-    if (catKey === "em_excavator") {
+    if (catKey === "em_excavator")
       return ["Standard bucket (included)", "Rock breaker / hammer", "Auger / boring head", "Grab / grapple bucket", "Ripper", "Tilting bucket", "Quick hitch"];
-    }
     if (catKey === "dozer" || (catKey || "").indexOf("em_") === 0) {
       if (m.attachmentsAvailable && m.attachmentsAvailable.length)
         return m.attachmentsAvailable.slice(0, 6).map(function (a) { return String(a).split("(")[0].trim(); });
     }
-    // Fallback: the machine's own curated attachment list (covers scissor etc.)
     if (m.attachments && m.attachments.length) return m.attachments.slice(0, 8);
     return [];
   }
 
   function _renderAttachBox(options, preChecked) {
-    var box = _el("noyo-enq-attach-box");
-    var wrap = _el("noyo-enq-attach-wrap");
+    var box = _el("noyo-enq-attach-box"), wrap = _el("noyo-enq-attach-wrap");
     if (!box || !wrap) return;
     if (!options.length) { wrap.style.display = "none"; box.innerHTML = ""; return; }
     wrap.style.display = "block";
@@ -187527,14 +187602,19 @@ window.addEventListener('load', () => {
       "#noyo-enq-card .noyo-enq-choose button.sel{border-color:#0052CC;background:#0052CC;color:#fff}" +
       "#noyo-enq-card .noyo-enq-choose button.sel small{color:rgba(255,255,255,.85)}" +
       "#noyo-enq-attach-box{display:flex;flex-wrap:wrap;gap:.4rem .9rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.6rem .7rem}" +
-      "#noyo-enq-send{width:100%;margin-top:1.1rem;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:11px;padding:.8rem;font-size:.95rem;font-weight:900;cursor:pointer;font-family:inherit}" +
-      "#noyo-enq-send:disabled{opacity:.55;cursor:default}" +
+      "#noyo-enq-send,#noyo-enq-auth-submit{width:100%;margin-top:1.1rem;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:11px;padding:.8rem;font-size:.95rem;font-weight:900;cursor:pointer;font-family:inherit}" +
+      "#noyo-enq-send:disabled,#noyo-enq-auth-submit:disabled{opacity:.55;cursor:default}" +
       "#noyo-enq-close{position:absolute;top:.6rem;right:.8rem;background:none;border:none;font-size:1.4rem;color:#94A3B8;cursor:pointer;line-height:1}" +
-      "#noyo-enq-err{color:#DC2626;font-size:.78rem;font-weight:700;margin-top:.5rem;min-height:1em}" +
-      ".noyo-enq-hidden{display:none}";
+      "#noyo-enq-err,#noyo-enq-auth-err{color:#DC2626;font-size:.78rem;font-weight:700;margin-top:.5rem;min-height:1em}" +
+      ".noyo-enq-hidden{display:none}" +
+      "#noyo-enq-auth .noyo-auth-toggle{display:flex;gap:.4rem;margin-bottom:.3rem}" +
+      "#noyo-enq-auth .noyo-auth-toggle button{flex:1;border:1.5px solid #E2E8F0;background:#F8FAFC;border-radius:10px;padding:.5rem;font-size:.83rem;font-weight:800;color:#475569;cursor:pointer;font-family:inherit}" +
+      "#noyo-enq-auth .noyo-auth-toggle button.sel{border-color:#0052CC;background:#0052CC;color:#fff}";
     var style = document.createElement("style");
     style.textContent = css;
     document.head.appendChild(style);
+
+    var cityOpts = NOYO_CITIES.map(function (c) { return '<option>' + c + "</option>"; }).join("");
 
     var ov = document.createElement("div");
     ov.id = "noyo-enq-overlay";
@@ -187545,12 +187625,12 @@ window.addEventListener('load', () => {
       '<div class="noyo-enq-sub">Tell us about the job and we\'ll help you sort the right machine. No obligation.</div>' +
       '<div class="noyo-enq-machine" id="noyo-enq-machine">—</div>' +
 
+      // ── Enquiry form (intent + branches + contact) ──
+      '<div id="noyo-enq-form">' +
       '<div class="noyo-enq-choose" id="noyo-enq-choose">' +
       '<button type="button" data-intent="hire">🔧 Hire<small>Rent for a job</small></button>' +
       '<button type="button" data-intent="buy">🏷️ Buy<small>Purchase a machine</small></button>' +
       "</div>" +
-
-      // HIRE
       '<div id="noyo-enq-hire" class="noyo-enq-hidden">' +
       "<label class='lbl'>Site address (where the machine is needed) <span style='color:#EF4444'>*</span></label>" +
       '<input id="noyo-enq-site" class="fld" type="text" placeholder="e.g. 12 George St, Parramatta NSW 2150">' +
@@ -187559,15 +187639,12 @@ window.addEventListener('load', () => {
       '<div><label class="lbl">For how long?</label><input id="noyo-enq-duration" class="fld" type="text" placeholder="e.g. 3 days, 2 weeks"></div>' +
       "</div>" +
       '<div id="noyo-enq-attach-wrap" style="display:none">' +
-      '<label class="lbl">Attachments / accessories needed</label>' +
-      '<div id="noyo-enq-attach-box"></div>' +
+      '<label class="lbl">Attachments / accessories needed</label><div id="noyo-enq-attach-box"></div>' +
       '<input id="noyo-enq-attach-other" class="fld" type="text" placeholder="Other attachment? Type it here" style="margin-top:.4rem">' +
       "</div>" +
       "<label class='lbl'>Delivery or pickup?</label>" +
       '<select id="noyo-enq-delivery"><option value="">Select…</option><option>Delivery to site</option><option>I\'ll pick up</option><option>Not sure</option></select>' +
       "</div>" +
-
-      // BUY
       '<div id="noyo-enq-buy" class="noyo-enq-hidden">' +
       '<div class="noyo-enq-row">' +
       '<div><label class="lbl">New or used?</label><select id="noyo-enq-condition"><option value="">Select…</option><option>New</option><option>Used</option><option>Either</option></select></div>' +
@@ -187578,11 +187655,8 @@ window.addEventListener('load', () => {
       '<div><label class="lbl">Budget (optional)</label><input id="noyo-enq-budget" class="fld" type="text" placeholder="e.g. $40k–60k"></div>' +
       '<div><label class="lbl">Finance needed?</label><select id="noyo-enq-finance"><option value="">Select…</option><option>Yes</option><option>No</option><option>Not sure</option></select></div>' +
       "</div>" +
-      "<label class='lbl'>Delivery location (suburb / state)</label>" +
-      '<input id="noyo-enq-buyloc" class="fld" type="text" placeholder="e.g. Parramatta NSW">' +
+      "<label class='lbl'>Delivery location (suburb / state)</label><input id=\"noyo-enq-buyloc\" class=\"fld\" type=\"text\" placeholder=\"e.g. Parramatta NSW\">" +
       "</div>" +
-
-      // SHARED contact
       '<div id="noyo-enq-contact" class="noyo-enq-hidden">' +
       '<div class="noyo-enq-row">' +
       "<div><label class='lbl'>Your name <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-name\" class=\"fld\" type=\"text\" autocomplete=\"name\" placeholder=\"Jane Smith\"></div>" +
@@ -187594,10 +187668,36 @@ window.addEventListener('load', () => {
       '<div id="noyo-enq-err"></div>' +
       '<button id="noyo-enq-send">Send enquiry</button>' +
       "</div>" +
+      "</div>" + // end form
+
+      // ── Auth gate (register / sign in) ──
+      '<div id="noyo-enq-auth" class="noyo-enq-hidden">' +
+      '<div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.6rem .8rem;font-size:.82rem;color:#1D4ED8;font-weight:700;margin-bottom:.8rem">🔒 One quick step — register or sign in to send your enquiry.</div>' +
+      '<div class="noyo-auth-toggle" id="noyo-auth-toggle">' +
+      '<button type="button" data-mode="register" class="sel">Register</button>' +
+      '<button type="button" data-mode="signin">Sign in</button>' +
+      "</div>" +
+      '<div id="noyo-auth-register">' +
+      "<label class='lbl'>Full name <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-name\" class=\"fld\" type=\"text\" autocomplete=\"name\">" +
+      "<label class='lbl'>Email <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-email\" class=\"fld\" type=\"email\" autocomplete=\"email\">" +
+      "<label class='lbl'>Choose a password <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-pass\" class=\"fld\" type=\"password\" autocomplete=\"new-password\" placeholder=\"At least 6 characters\">" +
+      "<label class='lbl'>Physical address <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-address\" class=\"fld\" type=\"text\" placeholder=\"Street, suburb\">" +
+      "<label class='lbl'>City <span style='color:#EF4444'>*</span></label><select id=\"noyo-auth-city\" class=\"fld\"><option value=\"\">Select your city…</option>" + cityOpts + "</select>" +
+      '<input id="noyo-auth-city-other" class="fld noyo-enq-hidden" type="text" placeholder="Type your city" style="margin-top:.4rem">' +
+      "</div>" +
+      '<div id="noyo-auth-signin" class="noyo-enq-hidden">' +
+      "<label class='lbl'>Email <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-si-email\" class=\"fld\" type=\"email\" autocomplete=\"email\">" +
+      "<label class='lbl'>Password <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-si-pass\" class=\"fld\" type=\"password\" autocomplete=\"current-password\">" +
+      "</div>" +
+      '<div id="noyo-enq-auth-err"></div>' +
+      '<button id="noyo-enq-auth-submit">Create account & send enquiry</button>' +
+      '<div style="text-align:center;margin-top:.6rem"><button id="noyo-enq-auth-back" style="background:none;border:none;color:#94A3B8;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit">← Back to enquiry</button></div>' +
+      "</div>" +
 
       "</div>";
     document.body.appendChild(ov);
 
+    // Intent choice
     ov.querySelector("#noyo-enq-choose").addEventListener("click", function (e) {
       var b = e.target.closest("button[data-intent]");
       if (!b) return;
@@ -187609,14 +187709,38 @@ window.addEventListener('load', () => {
       _el("noyo-enq-err").textContent = "";
     });
 
+    // Auth mode toggle
+    ov.querySelector("#noyo-auth-toggle").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-mode]");
+      if (!b) return;
+      var mode = b.getAttribute("data-mode");
+      ov.querySelectorAll("#noyo-auth-toggle button").forEach(function (x) { x.classList.toggle("sel", x === b); });
+      _el("noyo-auth-register").classList.toggle("noyo-enq-hidden", mode !== "register");
+      _el("noyo-auth-signin").classList.toggle("noyo-enq-hidden", mode !== "signin");
+      _el("noyo-enq-auth-submit").textContent = mode === "register" ? "Create account & send enquiry" : "Sign in & send enquiry";
+      ov._authMode = mode;
+      _el("noyo-enq-auth-err").textContent = "";
+    });
+    ov._authMode = "register";
+
+    // City "Other" reveal
+    ov.querySelector("#noyo-auth-city").addEventListener("change", function () {
+      _el("noyo-auth-city-other").classList.toggle("noyo-enq-hidden", this.value !== "Other");
+    });
+
+    _el("noyo-enq-auth-back").addEventListener("click", function () {
+      _el("noyo-enq-auth").classList.add("noyo-enq-hidden");
+      _el("noyo-enq-form").classList.remove("noyo-enq-hidden");
+    });
+
     ov.querySelector("#noyo-enq-close").addEventListener("click", _closeEnquiry);
     ov.addEventListener("click", function (e) { if (e.target === ov) _closeEnquiry(); });
     ov.querySelector("#noyo-enq-send").addEventListener("click", _submitEnquiry);
+    ov.querySelector("#noyo-enq-auth-submit").addEventListener("click", _submitAuth);
   }
 
   function _closeEnquiry() { var ov = _el("noyo-enq-overlay"); if (ov) ov.classList.remove("open"); }
 
-  // Best-effort: attachment checkboxes the user already ticked on the card.
   function _grabCardAttachments(machineId) {
     var out = [];
     try {
@@ -187641,6 +187765,10 @@ window.addEventListener('load', () => {
     _el("noyo-enq-machine").textContent = "🏗️ " + (machineName || machineId || "Selected machine");
     _el("noyo-enq-err").textContent = "";
 
+    // reset to form view
+    _el("noyo-enq-auth").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-form").classList.remove("noyo-enq-hidden");
+
     ov._intent = null;
     ov.querySelectorAll("#noyo-enq-choose button").forEach(function (x) { x.classList.remove("sel"); });
     _el("noyo-enq-hire").classList.add("noyo-enq-hidden");
@@ -187648,7 +187776,6 @@ window.addEventListener('load', () => {
     _el("noyo-enq-contact").classList.add("noyo-enq-hidden");
     _el("noyo-enq-attach-other").value = "";
 
-    // Build per-machine attachment checkboxes (hire branch)
     _renderAttachBox(_attachOptionsFor(machine, ov._catKey), ov._cardAttach);
 
     if (intentHint === "hire" || intentHint === "buy") {
@@ -187666,90 +187793,182 @@ window.addEventListener('load', () => {
     ov.classList.add("open");
   }
 
-  // ── Submit ────────────────────────────────────────────────────────────
-  async function _submitEnquiry() {
+  // ── Build the record from the form (after validation) ─────────────────
+  function _buildRecord() {
     var ov = _el("noyo-enq-overlay");
     var err = _el("noyo-enq-err");
     var v = function (id) { var e = _el(id); return e ? (e.value || "").trim() : ""; };
     var intent = ov._intent;
-    if (!intent) { err.textContent = "Please choose Hire or Buy."; return; }
-
+    if (!intent) { err.textContent = "Please choose Hire or Buy."; return null; }
     var name = v("noyo-enq-name"), email = v("noyo-enq-email");
-    if (!name) { err.textContent = "Please add your name."; return; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Please add a valid email."; return; }
+    if (!name) { err.textContent = "Please add your name."; return null; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Please add a valid email."; return null; }
 
     var record = {
-      intent: intent,
-      machineId: ov._machineId || "",
-      machineName: ov._machineName || "",
-      machineCategory: ov._catKey || "",
-      name: name, email: email, phone: v("noyo-enq-phone"), company: v("noyo-enq-company"), message: v("noyo-enq-msg"),
+      intent: intent, machineId: ov._machineId || "", machineName: ov._machineName || "",
+      machineCategory: ov._catKey || "", name: name, email: email,
+      phone: v("noyo-enq-phone"), company: v("noyo-enq-company"), message: v("noyo-enq-msg"),
       searchId: (typeof window !== "undefined" && window._lastSearchId) || null,
-      jobRequirements: safeJobReq(),
-      userAgent: (navigator && navigator.userAgent) || "",
-      page: location && location.pathname,
-      status: "new",
-      createdAtClient: new Date().toISOString(),
+      jobRequirements: _safeJobReq(),
+      userAgent: (navigator && navigator.userAgent) || "", page: location && location.pathname,
+      status: "new", createdAtClient: new Date().toISOString(),
     };
-
     if (intent === "hire") {
       var site = v("noyo-enq-site"), date = v("noyo-enq-date");
-      if (!site) { err.textContent = "Please add the site address."; return; }
-      if (!date) { err.textContent = "Please tell us when you need it."; return; }
+      if (!site) { err.textContent = "Please add the site address."; return null; }
+      if (!date) { err.textContent = "Please tell us when you need it."; return null; }
       var attach = [];
       ov.querySelectorAll(".noyo-attach-cb:checked").forEach(function (cb) { attach.push(cb.value); });
-      var other = v("noyo-enq-attach-other");
-      if (other) attach.push(other);
-      record.siteAddress = site;
-      record.neededDate = date;
-      record.duration = v("noyo-enq-duration");
-      record.attachmentsNeeded = attach;
-      record.deliveryPickup = v("noyo-enq-delivery");
+      var other = v("noyo-enq-attach-other"); if (other) attach.push(other);
+      record.siteAddress = site; record.neededDate = date; record.duration = v("noyo-enq-duration");
+      record.attachmentsNeeded = attach; record.deliveryPickup = v("noyo-enq-delivery");
     } else {
       var when = v("noyo-enq-buywhen");
-      if (!when) { err.textContent = "Please tell us when you'd like to buy."; return; }
-      record.buyWhen = when;
-      record.condition = v("noyo-enq-condition");
-      record.budget = v("noyo-enq-budget");
-      record.financeNeeded = v("noyo-enq-finance");
+      if (!when) { err.textContent = "Please tell us when you'd like to buy."; return null; }
+      record.buyWhen = when; record.condition = v("noyo-enq-condition");
+      record.budget = v("noyo-enq-budget"); record.financeNeeded = v("noyo-enq-finance");
       record.deliveryLocation = v("noyo-enq-buyloc");
     }
     err.textContent = "";
+    return record;
+  }
 
-    var sendBtn = _el("noyo-enq-send");
-    sendBtn.disabled = true; sendBtn.textContent = "Sending…";
+  // ── Submit: validate, then gate on auth ───────────────────────────────
+  async function _submitEnquiry() {
+    var record = _buildRecord();
+    if (!record) return;
+    _localBackup(record); // pre-auth backup so the lead isn't lost if they bail
 
+    if (_isLoggedIn()) {
+      await _enrichAndWrite(record);
+    } else {
+      _pendingEnquiryRecord = record;
+      _el("noyo-enq-form").classList.add("noyo-enq-hidden");
+      _el("noyo-enq-auth").classList.remove("noyo-enq-hidden");
+      _el("noyo-auth-name").value = record.name || "";
+      _el("noyo-auth-email").value = record.email || "";
+    }
+  }
+
+  // ── Auth submit (register or sign in) then write enquiry ──────────────
+  async function _submitAuth() {
+    var ov = _el("noyo-enq-overlay");
+    var err = _el("noyo-enq-auth-err");
+    var v = function (id) { var e = _el(id); return e ? (e.value || "").trim() : ""; };
+    var btn = _el("noyo-enq-auth-submit");
+
+    if (typeof _fbAuth === "undefined" || !_fbAuth) {
+      err.textContent = "Sign-in is unavailable right now. Please try again shortly.";
+      return;
+    }
+    var mode = ov._authMode || "register";
+
+    if (mode === "register") {
+      var name = v("noyo-auth-name"), email = v("noyo-auth-email"), pass = v("noyo-auth-pass");
+      var address = v("noyo-auth-address");
+      var city = v("noyo-auth-city");
+      if (city === "Other") city = v("noyo-auth-city-other");
+      if (!name) { err.textContent = "Please enter your full name."; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Please enter a valid email."; return; }
+      if (pass.length < 6) { err.textContent = "Password must be at least 6 characters."; return; }
+      if (!address) { err.textContent = "Please enter your physical address."; return; }
+      if (!city) { err.textContent = "Please select your city."; return; }
+      err.textContent = ""; btn.disabled = true; btn.textContent = "Creating account…";
+      try {
+        var cred = await _fbAuth.createUserWithEmailAndPassword(email, pass);
+        var uid = cred.user.uid;
+        var userDoc = {
+          uid: uid, email: email, fullName: name, role: "customer", active: true,
+          address: address, city: city, source: "enquiry",
+          createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString(),
+        };
+        try { if (typeof _fbDb !== "undefined" && _fbDb) await _fbDb.collection("users").doc(uid).set(userDoc); } catch (e) {}
+        var rec = _pendingEnquiryRecord || {};
+        rec.uid = uid; rec.registeredEmail = email; rec.customerCity = city; rec.customerAddress = address;
+        if (!rec.name) rec.name = name;
+        await _writeEnquiry(rec);
+      } catch (e) {
+        btn.disabled = false; btn.textContent = "Create account & send enquiry";
+        err.textContent = _authErr(e, "register");
+      }
+    } else {
+      var em = v("noyo-auth-si-email"), pw = v("noyo-auth-si-pass");
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { err.textContent = "Please enter a valid email."; return; }
+      if (!pw) { err.textContent = "Please enter your password."; return; }
+      err.textContent = ""; btn.disabled = true; btn.textContent = "Signing in…";
+      try {
+        var cred2 = await _fbAuth.signInWithEmailAndPassword(em, pw);
+        var uid2 = cred2.user.uid, prof = {};
+        try { if (typeof _fbDb !== "undefined" && _fbDb) { var s = await _fbDb.collection("users").doc(uid2).get(); if (s.exists) prof = s.data() || {}; } } catch (e) {}
+        var rec2 = _pendingEnquiryRecord || {};
+        rec2.uid = uid2; rec2.registeredEmail = em;
+        rec2.customerCity = prof.city || ""; rec2.customerAddress = prof.address || "";
+        if (!rec2.name && prof.fullName) rec2.name = prof.fullName;
+        await _writeEnquiry(rec2);
+      } catch (e) {
+        btn.disabled = false; btn.textContent = "Sign in & send enquiry";
+        err.textContent = _authErr(e, "signin");
+      }
+    }
+  }
+
+  function _authErr(e, mode) {
+    var c = (e && e.code) || "";
+    if (c === "auth/email-already-in-use") return "That email is already registered — switch to Sign in.";
+    if (c === "auth/weak-password") return "Password must be at least 6 characters.";
+    if (c === "auth/wrong-password" || c === "auth/invalid-credential") return "Incorrect email or password.";
+    if (c === "auth/user-not-found") return "No account with that email — switch to Register.";
+    if (c === "auth/invalid-email") return "Please enter a valid email.";
+    return (mode === "register" ? "Registration failed: " : "Sign-in failed: ") + ((e && e.message) || "please try again.");
+  }
+
+  // ── Enrich (logged-in path) then write ────────────────────────────────
+  async function _enrichAndWrite(record) {
     try {
-      var stash = JSON.parse(localStorage.getItem("noyo_enquiries") || "[]");
-      stash.push(record); localStorage.setItem("noyo_enquiries", JSON.stringify(stash));
+      var uid = (typeof currentUser !== "undefined" && currentUser && currentUser.uid) ||
+        (_fbAuth && _fbAuth.currentUser && _fbAuth.currentUser.uid) || null;
+      record.uid = uid;
+      var prof = {};
+      if (uid && typeof _fbDb !== "undefined" && _fbDb) {
+        try { var s = await _fbDb.collection("users").doc(uid).get(); if (s.exists) prof = s.data() || {}; } catch (e) {}
+      }
+      record.registeredEmail = (typeof currentUser !== "undefined" && currentUser && currentUser.email) || prof.email || record.email;
+      record.customerCity = prof.city || (typeof currentUser !== "undefined" && currentUser && currentUser.city) || "";
+      record.customerAddress = prof.address || "";
     } catch (e) {}
+    await _writeEnquiry(record);
+  }
 
+  // ── The actual Firestore write + finish ───────────────────────────────
+  async function _writeEnquiry(record) {
+    _localBackup(record);
     var saved = false;
     try {
       if (typeof _fbDb !== "undefined" && _fbDb) {
         var toSave = Object.assign({}, record);
-        if (typeof firebase !== "undefined" && firebase.firestore) {
-          toSave.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-        }
+        if (typeof firebase !== "undefined" && firebase.firestore) toSave.createdAt = firebase.firestore.FieldValue.serverTimestamp();
         await _fbDb.collection("enquiries").add(toSave);
         saved = true;
       }
     } catch (e) { console.warn("[Noyo] Enquiry Firestore write failed:", e && e.message); }
-
     try { if (typeof _noyoTrack === "function") _noyoTrack({ enquiries: 1 }); } catch (e) {}
-
-    sendBtn.disabled = false; sendBtn.textContent = "Send enquiry";
+    _pendingEnquiryRecord = null;
     _closeEnquiry();
     try {
-      if (typeof showToast === "function") {
+      if (typeof showToast === "function")
         showToast((saved ? "✅ Enquiry sent" : "✅ Enquiry saved") + " — we'll be in touch shortly.", "#0052CC", 4000);
-      } else {
-        alert("Thanks — your enquiry has been received. We'll be in touch shortly.");
-      }
+      else alert("Thanks — your enquiry has been received. We'll be in touch shortly.");
     } catch (e) {}
   }
 
-  function safeJobReq() {
+  function _localBackup(record) {
+    try {
+      var stash = JSON.parse(localStorage.getItem("noyo_enquiries") || "[]");
+      stash.push(Object.assign({ _ts: Date.now() }, record));
+      localStorage.setItem("noyo_enquiries", JSON.stringify(stash));
+    } catch (e) {}
+  }
+  function _safeJobReq() {
     try { return typeof getJobRequirements === "function" ? getJobRequirements() || {} : {}; } catch (e) { return {}; }
   }
 
@@ -187767,5 +187986,163 @@ window.addEventListener('load', () => {
   } catch (e) {}
   try { openSendQuotesModal = function () { noyoEnquire("", "", null, null); }; } catch (e) {}
 
-  console.log("[Noyo] Enquiry mode active — cart off, per-machine hire/buy capture on.");
+  console.log("[Noyo] Enquiry mode active — cart off, register-gated hire/buy capture on.");
 })();
+
+// ════════════════════════════════════════════════════════════════════════
+//  ADMIN — Enquiries section (lists Firestore `enquiries` with filters)
+// ════════════════════════════════════════════════════════════════════════
+var _adminEnquiriesCache = [];
+var _adminEnqFilter = { intent: "all", city: "", q: "" };
+
+window.renderAdminEnquiries = async function () {
+  var host = document.getElementById("admin-enq-table");
+  if (!host) return;
+  host.innerHTML = '<div style="color:#64748B;font-size:.85rem;padding:1rem">Loading enquiries…</div>';
+  try {
+    if (typeof _fbDb === "undefined" || !_fbDb) { host.innerHTML = '<div style="color:#DC2626;padding:1rem">Database unavailable.</div>'; return; }
+    var snap;
+    try {
+      snap = await _fbDb.collection("enquiries").orderBy("createdAt", "desc").limit(500).get();
+    } catch (e) {
+      snap = await _fbDb.collection("enquiries").limit(500).get(); // fallback if no index
+    }
+    _adminEnquiriesCache = [];
+    snap.forEach(function (doc) { _adminEnquiriesCache.push(Object.assign({ _id: doc.id }, doc.data())); });
+    _adminEnqPopulateCityFilter();
+    _adminEnqRenderTable();
+  } catch (e) {
+    host.innerHTML = '<div style="color:#DC2626;padding:1rem">Could not load enquiries: ' + ((e && e.message) || "error") + "</div>";
+  }
+};
+
+function _adminEnqPopulateCityFilter() {
+  var sel = document.getElementById("admin-enq-city");
+  if (!sel) return;
+  var cities = {};
+  _adminEnquiriesCache.forEach(function (e) { var c = e.customerCity || ""; if (c) cities[c] = 1; });
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">All cities</option>' +
+    Object.keys(cities).sort().map(function (c) { return '<option>' + c + "</option>"; }).join("");
+  sel.value = cur;
+}
+
+window.adminEnqSetIntent = function (intent, btn) {
+  _adminEnqFilter.intent = intent;
+  document.querySelectorAll(".admin-enq-chip").forEach(function (b) { b.classList.remove("active"); });
+  if (btn) btn.classList.add("active");
+  _adminEnqRenderTable();
+};
+window.adminEnqFilterChange = function () {
+  var c = document.getElementById("admin-enq-city"), q = document.getElementById("admin-enq-search");
+  _adminEnqFilter.city = c ? c.value : "";
+  _adminEnqFilter.q = q ? (q.value || "").toLowerCase().trim() : "";
+  _adminEnqRenderTable();
+};
+
+function _adminEnqFmtDate(e) {
+  try {
+    var d = e.createdAt && e.createdAt.toDate ? e.createdAt.toDate() : (e.createdAtClient ? new Date(e.createdAtClient) : null);
+    if (!d) return "—";
+    return d.toLocaleDateString("en-AU", { day: "2-digit", month: "short" }) + " " +
+      d.toLocaleTimeString("en-AU", { hour: "2-digit", minute: "2-digit" });
+  } catch (x) { return "—"; }
+}
+
+function _adminEnqRenderTable() {
+  var host = document.getElementById("admin-enq-table");
+  if (!host) return;
+  var f = _adminEnqFilter;
+  var rows = _adminEnquiriesCache.filter(function (e) {
+    if (f.intent !== "all" && (e.intent || "") !== f.intent) return false;
+    if (f.city && (e.customerCity || "") !== f.city) return false;
+    if (f.q) {
+      var hay = [e.name, e.company, e.email, e.machineName, e.customerCity, e.siteAddress].join(" ").toLowerCase();
+      if (hay.indexOf(f.q) < 0) return false;
+    }
+    return true;
+  });
+
+  var cnt = document.getElementById("admin-enq-count");
+  if (cnt) cnt.textContent = rows.length + " enquir" + (rows.length === 1 ? "y" : "ies");
+
+  if (!rows.length) { host.innerHTML = '<div style="color:#64748B;padding:1.2rem;text-align:center">No enquiries match these filters.</div>'; return; }
+
+  var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+  var body = rows.map(function (e) {
+    var isHire = e.intent === "hire";
+    var badge = isHire
+      ? '<span style="background:#EFF6FF;color:#1D4ED8;border-radius:6px;padding:.1rem .45rem;font-size:.72rem;font-weight:800">🔧 Hire</span>'
+      : '<span style="background:#FEF3C7;color:#92400E;border-radius:6px;padding:.1rem .45rem;font-size:.72rem;font-weight:800">🏷️ Buy</span>';
+    var details = isHire
+      ? [e.siteAddress, e.neededDate, e.duration, (e.attachmentsNeeded || []).join(", "), e.deliveryPickup].filter(Boolean).join(" · ")
+      : [e.condition, e.buyWhen, e.budget, e.financeNeeded ? "Finance: " + e.financeNeeded : "", e.deliveryLocation].filter(Boolean).join(" · ");
+    var contact = (e.email || "") + (e.phone ? " · " + e.phone : "");
+    return "<tr>" +
+      '<td style="white-space:nowrap;color:#64748B;font-size:.78rem">' + _adminEnqFmtDate(e) + "</td>" +
+      "<td>" + badge + "</td>" +
+      '<td style="font-weight:700">' + esc(e.machineName || "—") + (e.machineCategory ? '<div style="font-size:.72rem;color:#94A3B8">' + esc(e.machineCategory) + "</div>" : "") + "</td>" +
+      "<td>" + esc(e.name || "—") + (e.company ? '<div style="font-size:.72rem;color:#94A3B8">' + esc(e.company) + "</div>" : "") + "</td>" +
+      '<td style="font-size:.8rem">' + esc(contact) + "</td>" +
+      '<td style="font-weight:700;color:#0052CC">' + esc(e.customerCity || "—") + "</td>" +
+      '<td style="font-size:.79rem;color:#475569;max-width:280px">' + esc(details || "—") + (e.message ? '<div style="font-size:.74rem;color:#94A3B8;margin-top:.15rem">💬 ' + esc(e.message) + "</div>" : "") + "</td>" +
+      "</tr>";
+  }).join("");
+
+  host.innerHTML =
+    '<div class="admin-table-wrap"><table class="admin-table">' +
+    "<thead><tr><th>Date</th><th>Type</th><th>Machine</th><th>Customer</th><th>Contact</th><th>City</th><th>Details</th></tr></thead>" +
+    "<tbody>" + body + "</tbody></table></div>";
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  CUSTOMER — My Searches (device-level search history)
+// ════════════════════════════════════════════════════════════════════════
+window.renderMySearches = function () {
+  var host = document.getElementById("my-searches-list");
+  if (!host) return;
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem("noyo_my_searches") || "[]"); } catch (e) { list = []; }
+
+  if (!list.length) {
+    host.innerHTML =
+      '<div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:2rem 1.2rem;text-align:center;color:#64748B">' +
+      '<div style="font-size:2rem;margin-bottom:.5rem">🔍</div>' +
+      '<div style="font-weight:800;color:#0F172A;margin-bottom:.3rem">No searches yet</div>' +
+      '<div style="font-size:.88rem;margin-bottom:1rem">Find a machine and your searches will show up here.</div>' +
+      '<button onclick="switchView(\'finder\', document.querySelector(\'.nav-tab[data-view=finder]\'))" style="background:linear-gradient(135deg,#16A34A,#22C55E);border:none;color:#fff;border-radius:10px;padding:.6rem 1.2rem;font-family:\'Nunito\',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer">Start a search →</button>' +
+      "</div>";
+    return;
+  }
+
+  var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+  var fmtDate = function (ts) {
+    try {
+      var d = new Date(ts);
+      return d.toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" }) + " · " +
+        d.toLocaleTimeString("en-AU", { hour: "2-digit", minute: "2-digit" });
+    } catch (e) { return ""; }
+  };
+  var clean = function (x) { return x && x !== "—" ? x : ""; };
+
+  var rows = list.map(function (s) {
+    var specs = [
+      clean(s.machineType), clean(s.load) ? "⚖️ " + s.load : "", clean(s.height) ? "📏 " + s.height : "",
+      clean(s.terrain) ? "⛰️ " + s.terrain : "", clean(s.power) ? "🔌 " + s.power : "",
+      clean(s.city) ? "📍 " + s.city : "",
+    ].filter(Boolean).map(esc).join(" · ");
+    var count = (s.resultCount != null ? s.resultCount : 0);
+    return '<div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:.9rem 1.1rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">' +
+      '<div style="flex:1;min-width:200px">' +
+      '<div style="font-weight:800;color:#0F172A;font-size:.96rem">' + esc(clean(s.machineName) || clean(s.machineType) || "Machine search") + "</div>" +
+      (specs ? '<div style="font-size:.8rem;color:#64748B;margin-top:.3rem;line-height:1.5">' + specs + "</div>" : "") +
+      '<div style="font-size:.74rem;color:#94A3B8;margin-top:.35rem">' + fmtDate(s.ts) + " · " + count + " result" + (count === 1 ? "" : "s") + "</div>" +
+      "</div>" +
+      '<button onclick="switchView(\'finder\', document.querySelector(\'.nav-tab[data-view=finder]\'))" style="background:rgba(0,82,204,.08);border:1.5px solid rgba(0,82,204,.2);color:#0052CC;border-radius:9px;padding:.5rem .85rem;font-family:\'Nunito\',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;white-space:nowrap">New search</button>' +
+      "</div>";
+  }).join("");
+
+  host.innerHTML =
+    '<div style="display:flex;justify-content:flex-end;margin-bottom:.2rem"><button onclick="if(confirm(\'Clear your search history on this device?\')){localStorage.removeItem(\'noyo_my_searches\');renderMySearches();}" style="background:none;border:none;color:#94A3B8;font-size:.78rem;font-weight:700;cursor:pointer;font-family:\'Nunito\',sans-serif;text-decoration:underline">Clear history</button></div>' +
+    rows;
+};
