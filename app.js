@@ -1,11 +1,13 @@
 // ═══════════════════════════════════════════════════════════════════════
 //  NOYO BUILD STAMP — verify which app.js is actually live.
 //  Open the deployed site, press F12 → Console, type:  window.NOYO_BUILD
-//  It must print:  "2026-06-build-JCB-telehandler-fix"
-//  If it prints undefined or an older value, the deploy didn't pick up this
-//  file (wrong file pushed, cache, or Cloudflare not finished).
+//  It must print:  "2026-06-08-sponsored-licence-class-fix"
+//  If it prints undefined or an OLDER value (e.g. the JCB-telehandler-fix
+//  stamp), the deploy did NOT pick up this file — the browser/Cloudflare is
+//  serving a cached old app.js. Bump the cache-buster version in index.html
+//  (the ?v=... on the app.js <script> tag) and redeploy, then hard-refresh.
 // ═══════════════════════════════════════════════════════════════════════
-window.NOYO_BUILD = "2026-06-build-JCB-telehandler-fix";
+window.NOYO_BUILD = "2026-06-09-photo-modal-scroll-fix";
 
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
@@ -7060,7 +7062,7 @@ const MACHINES = {
         "Compact sites, fits 1.8m doorways, events, small farms, tight renovation, turf/landscaping",
       note: "Smallest JCB Loadall — world's most compact telehandler. 1.56m wide, fits through a standard doorway. 1.4T at 4m. 2,915kg — towable without a truck. Perkins 18.4kW Perkins. Permanent 4WD. 15kph. Tipping at max height: 1,300kg. At full reach: 525kg.",
       liftChart:
-        "1,400kg at ground. 1,300kg at full height. 525kg at full reach (2.51m). Reach with 1T load: 1.51m. Consult JCB 514-40 load chart.",
+        "514-40, JCB Compact Loadall chart (on tyres, single chart). Max 1400kg; full height 1300kg @4.04m; full reach 525kg @2.51m; EN1459 Annex B. loadMatrix = published zone labels ONLY (1400/1300/1000/750/525kg); reach traced off chart; NO capacity interpolation; full per-height reach coverage; envelope-clipped. Verify the machine load plate before any lift. Source: JCB Compact Loadall spec sheet + 514-40 load chart.",
       tags: [
         "Compact 1.56m",
         "1.4T",
@@ -7070,48 +7072,15 @@ const MACHINES = {
         "Fits Doorway",
       ],
       loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 1400 },
-        { h: 0.5, r: 0.5, kg: 1400 },
-        { h: 0.5, r: 1.0, kg: 1250 },
-        { h: 0.5, r: 1.5, kg: 750 },
-        { h: 0.5, r: 2.0, kg: 550 },
-        { h: 0.5, r: 2.5, kg: 400 },
-        { h: 1.0, r: 0.0, kg: 1400 },
-        { h: 1.0, r: 0.5, kg: 1400 },
-        { h: 1.0, r: 1.0, kg: 1250 },
-        { h: 1.0, r: 1.5, kg: 750 },
-        { h: 1.0, r: 2.0, kg: 550 },
-        { h: 1.0, r: 2.4, kg: 300 },
-        { h: 1.5, r: 0.0, kg: 1400 },
-        { h: 1.5, r: 0.5, kg: 1400 },
-        { h: 1.5, r: 1.0, kg: 1250 },
-        { h: 1.5, r: 1.5, kg: 750 },
-        { h: 1.5, r: 2.0, kg: 550 },
-        { h: 1.5, r: 2.3, kg: 300 },
-        { h: 2.0, r: 0.0, kg: 1400 },
-        { h: 2.0, r: 0.5, kg: 1400 },
-        { h: 2.0, r: 1.0, kg: 1250 },
-        { h: 2.0, r: 1.5, kg: 750 },
-        { h: 2.0, r: 2.0, kg: 400 },
-        { h: 2.5, r: 0.0, kg: 1400 },
-        { h: 2.5, r: 0.5, kg: 1400 },
-        { h: 2.5, r: 1.0, kg: 1050 },
-        { h: 2.5, r: 1.5, kg: 550 },
-        { h: 2.5, r: 1.9, kg: 300 },
-        { h: 2.9, r: 0.0, kg: 1350 },
-        { h: 2.9, r: 0.5, kg: 1350 },
-        { h: 2.9, r: 1.0, kg: 1000 },
-        { h: 2.9, r: 1.5, kg: 500 },
-        { h: 3.3, r: 0.0, kg: 1350 },
-        { h: 3.3, r: 0.5, kg: 1350 },
-        { h: 3.3, r: 1.0, kg: 750 },
-        { h: 3.6, r: 0.0, kg: 1300 },
-        { h: 3.6, r: 0.5, kg: 1150 },
-        { h: 3.6, r: 0.9, kg: 350 },
-        { h: 3.9, r: 0.0, kg: 1250 },
-        { h: 3.9, r: 0.5, kg: 950 },
-        { h: 4.0, r: 0.0, kg: 1250 },
-        { h: 4.0, r: 0.4, kg: 700 },
+        { h: 0.0, r: 0.0, kg: 1400 }, { h: 0.0, r: 0.9, kg: 1400 }, { h: 0.0, r: 1.3, kg: 1300 }, { h: 0.0, r: 1.7, kg: 1000 }, { h: 0.0, r: 2.0, kg: 750 },
+        { h: 0.5, r: 0.0, kg: 1400 }, { h: 0.5, r: 0.9, kg: 1400 }, { h: 0.5, r: 1.3, kg: 1300 }, { h: 0.5, r: 1.7, kg: 1000 }, { h: 0.5, r: 2.1, kg: 750 }, { h: 0.5, r: 2.3, kg: 525 },
+        { h: 1.0, r: 0.0, kg: 1400 }, { h: 1.0, r: 0.9, kg: 1400 }, { h: 1.0, r: 1.3, kg: 1300 }, { h: 1.0, r: 1.7, kg: 1000 }, { h: 1.0, r: 2.1, kg: 750 }, { h: 1.0, r: 2.5, kg: 525 },
+        { h: 1.5, r: 0.0, kg: 1400 }, { h: 1.5, r: 0.9, kg: 1400 }, { h: 1.5, r: 1.3, kg: 1300 }, { h: 1.5, r: 1.7, kg: 1000 }, { h: 1.5, r: 2.1, kg: 750 }, { h: 1.5, r: 2.51, kg: 525 },
+        { h: 2.0, r: 0.0, kg: 1400 }, { h: 2.0, r: 0.9, kg: 1400 }, { h: 2.0, r: 1.3, kg: 1300 }, { h: 2.0, r: 1.7, kg: 1000 }, { h: 2.0, r: 2.1, kg: 750 }, { h: 2.0, r: 2.4, kg: 525 },
+        { h: 2.5, r: 0.0, kg: 1400 }, { h: 2.5, r: 0.9, kg: 1400 }, { h: 2.5, r: 1.3, kg: 1300 }, { h: 2.5, r: 1.7, kg: 1000 }, { h: 2.5, r: 2.1, kg: 750 },
+        { h: 3.0, r: 0.0, kg: 1400 }, { h: 3.0, r: 0.9, kg: 1400 }, { h: 3.0, r: 1.3, kg: 1300 }, { h: 3.0, r: 1.7, kg: 1000 },
+        { h: 3.5, r: 0.0, kg: 1300 }, { h: 3.5, r: 1.1, kg: 1300 },
+        { h: 4.0, r: 0.0, kg: 1300 }, { h: 4.0, r: 0.5, kg: 1300 },
       ],
       filters: ["telehandler", "rough", "indoor"],
     },
@@ -7142,7 +7111,7 @@ const MACHINES = {
         "Zero-emission sites, noise-sensitive areas, indoor construction, hospitals, schools",
       note: "JCB's first fully electric compact telehandler. 96V 24kWh lithium-ion battery (Jungheinrich). Full day run time on single charge. 2.5T at 6m. 15kph. 3 charge rates: 8hr standard (3kW), 110min rapid (18kW), 60min supercharge (27kW). Load at full height: 2,000kg. Load at full reach: 720kg. 5,200kg machine weight. Zero emissions, LpA 75dB. JCB Q-Fit compatible.",
       liftChart:
-        "2,500kg at ground. 2,000kg at full height (6m). 720kg at full reach (3.5m). Reach with 1.2T: 2.35m. Consult JCB 525-60E load chart.",
+        "525-60E, JCB chart + spec table (on tyres, single chart). Max 2500kg; full height 2000kg @6m; full reach 720kg @3.5m; reach@maxH -0.15m (load returns over machine); EN1459-1. loadMatrix = published zone labels ONLY (2500/2000/1750/1500/1250/1000/720kg); reach traced off chart; NO capacity interpolation; full per-height reach coverage; envelope-clipped. Verify the machine load plate before any lift. Source: JCB 525-60E Electric load chart.",
       tags: [
         "100% Electric",
         "2.5T",
@@ -7152,68 +7121,16 @@ const MACHINES = {
         "Indoor Safe",
       ],
       loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 2500 },
-        { h: 0.5, r: 0.5, kg: 2500 },
-        { h: 0.5, r: 1.0, kg: 2500 },
-        { h: 0.5, r: 1.5, kg: 2250 },
-        { h: 0.5, r: 2.0, kg: 1850 },
-        { h: 0.5, r: 2.5, kg: 1350 },
-        { h: 0.5, r: 3.0, kg: 950 },
-        { h: 0.5, r: 3.5, kg: 550 },
-        { h: 0.7, r: 0.0, kg: 2500 },
-        { h: 0.7, r: 0.5, kg: 2500 },
-        { h: 0.7, r: 1.0, kg: 2500 },
-        { h: 0.7, r: 1.5, kg: 2250 },
-        { h: 0.7, r: 2.0, kg: 1850 },
-        { h: 0.7, r: 2.5, kg: 1350 },
-        { h: 0.7, r: 3.0, kg: 950 },
-        { h: 0.7, r: 3.5, kg: 550 },
-        { h: 1.5, r: 0.0, kg: 2500 },
-        { h: 1.5, r: 0.5, kg: 2500 },
-        { h: 1.5, r: 1.0, kg: 2500 },
-        { h: 1.5, r: 1.5, kg: 2250 },
-        { h: 1.5, r: 2.0, kg: 1350 },
-        { h: 1.5, r: 2.5, kg: 950 },
-        { h: 1.5, r: 3.0, kg: 700 },
-        { h: 1.5, r: 3.4, kg: 550 },
-        { h: 2.3, r: 0.0, kg: 2500 },
-        { h: 2.3, r: 0.5, kg: 2500 },
-        { h: 2.3, r: 1.0, kg: 2500 },
-        { h: 2.3, r: 1.5, kg: 1850 },
-        { h: 2.3, r: 2.0, kg: 1350 },
-        { h: 2.3, r: 2.5, kg: 950 },
-        { h: 2.3, r: 3.0, kg: 700 },
-        { h: 3.0, r: 0.0, kg: 2500 },
-        { h: 3.0, r: 0.5, kg: 2500 },
-        { h: 3.0, r: 1.0, kg: 2500 },
-        { h: 3.0, r: 1.5, kg: 1850 },
-        { h: 3.0, r: 2.0, kg: 1350 },
-        { h: 3.0, r: 2.5, kg: 950 },
-        { h: 3.0, r: 3.0, kg: 700 },
-        { h: 3.7, r: 0.0, kg: 2500 },
-        { h: 3.7, r: 0.5, kg: 2500 },
-        { h: 3.7, r: 1.0, kg: 2250 },
-        { h: 3.7, r: 1.5, kg: 1850 },
-        { h: 3.7, r: 2.0, kg: 950 },
-        { h: 3.7, r: 2.5, kg: 700 },
-        { h: 4.3, r: 0.0, kg: 2450 },
-        { h: 4.3, r: 0.5, kg: 2450 },
-        { h: 4.3, r: 1.0, kg: 2200 },
-        { h: 4.3, r: 1.5, kg: 1350 },
-        { h: 4.3, r: 2.0, kg: 950 },
-        { h: 4.9, r: 0.0, kg: 2350 },
-        { h: 4.9, r: 0.5, kg: 2350 },
-        { h: 4.9, r: 1.0, kg: 1750 },
-        { h: 4.9, r: 1.5, kg: 900 },
-        { h: 5.4, r: 0.0, kg: 2300 },
-        { h: 5.4, r: 0.5, kg: 2300 },
-        { h: 5.4, r: 1.0, kg: 1250 },
-        { h: 5.4, r: 1.3, kg: 500 },
-        { h: 5.8, r: 0.0, kg: 2250 },
-        { h: 5.8, r: 0.5, kg: 2000 },
-        { h: 5.8, r: 0.9, kg: 600 },
-        { h: 6.0, r: 0.0, kg: 2200 },
-        { h: 6.0, r: 0.5, kg: 1650 },
+        { h: 0.0, r: 0.0, kg: 2500 }, { h: 0.0, r: 1.2, kg: 2500 }, { h: 0.0, r: 1.6, kg: 2000 }, { h: 0.0, r: 1.9, kg: 1750 }, { h: 0.0, r: 2.2, kg: 1500 }, { h: 0.0, r: 2.6, kg: 1250 }, { h: 0.0, r: 3.0, kg: 1000 }, { h: 0.0, r: 3.2, kg: 720 },
+        { h: 0.5, r: 0.0, kg: 2500 }, { h: 0.5, r: 1.2, kg: 2500 }, { h: 0.5, r: 1.6, kg: 2000 }, { h: 0.5, r: 1.9, kg: 1750 }, { h: 0.5, r: 2.2, kg: 1500 }, { h: 0.5, r: 2.6, kg: 1250 }, { h: 0.5, r: 3.0, kg: 1000 }, { h: 0.5, r: 3.3, kg: 720 },
+        { h: 1.0, r: 0.0, kg: 2500 }, { h: 1.0, r: 1.2, kg: 2500 }, { h: 1.0, r: 1.6, kg: 2000 }, { h: 1.0, r: 1.9, kg: 1750 }, { h: 1.0, r: 2.2, kg: 1500 }, { h: 1.0, r: 2.6, kg: 1250 }, { h: 1.0, r: 3.0, kg: 1000 }, { h: 1.0, r: 3.5, kg: 720 },
+        { h: 2.0, r: 0.0, kg: 2500 }, { h: 2.0, r: 1.2, kg: 2500 }, { h: 2.0, r: 1.6, kg: 2000 }, { h: 2.0, r: 1.9, kg: 1750 }, { h: 2.0, r: 2.2, kg: 1500 }, { h: 2.0, r: 2.6, kg: 1250 }, { h: 2.0, r: 3.0, kg: 1000 }, { h: 2.0, r: 3.5, kg: 720 },
+        { h: 3.0, r: 0.0, kg: 2500 }, { h: 3.0, r: 1.2, kg: 2500 }, { h: 3.0, r: 1.6, kg: 2000 }, { h: 3.0, r: 1.9, kg: 1750 }, { h: 3.0, r: 2.2, kg: 1500 }, { h: 3.0, r: 2.6, kg: 1250 }, { h: 3.0, r: 3.0, kg: 1000 }, { h: 3.0, r: 3.3, kg: 720 },
+        { h: 4.0, r: 0.0, kg: 2500 }, { h: 4.0, r: 1.2, kg: 2500 }, { h: 4.0, r: 1.6, kg: 2000 }, { h: 4.0, r: 1.9, kg: 1750 }, { h: 4.0, r: 2.2, kg: 1500 }, { h: 4.0, r: 2.6, kg: 1250 }, { h: 4.0, r: 2.8, kg: 1000 },
+        { h: 4.7, r: 0.0, kg: 2000 }, { h: 4.7, r: 1.6, kg: 2000 }, { h: 4.7, r: 1.9, kg: 1750 }, { h: 4.7, r: 2.2, kg: 1500 }, { h: 4.7, r: 2.3, kg: 1250 },
+        { h: 5.0, r: 0.0, kg: 2000 }, { h: 5.0, r: 1.6, kg: 2000 }, { h: 5.0, r: 1.9, kg: 1750 },
+        { h: 5.5, r: 0.0, kg: 2000 }, { h: 5.5, r: 1.1, kg: 2000 },
+        { h: 6.0, r: 0.0, kg: 2000 }, { h: 6.0, r: 0.3, kg: 2000 },
       ],
       filters: ["telehandler", "indoor"],
     },
@@ -7227,17 +7144,17 @@ const MACHINES = {
       capacity: 2.5,
       liftHeight: 6.0,
       maxReach: 3.5,
-      engine: "55kW (74hp) EcoMAX",
-      machineWeight: 5850,
-      machineWidth: 1940,
-      machineLength: 4360,
-      machineHeight: 2130,
+      engine: "55kW (74hp) JCB Diesel by Kohler 2.5L, 300Nm",
+      machineWeight: 5490,
+      machineWidth: 1840,
+      machineLength: 4000,
+      machineHeight: 1890,
       jibWeight: 25,
       jibLength: 0.0,
       rotatorWeight: 350,
       ewpBasketSWL: 230,
       terrain: "rough",
-      maxSpeed: 30,
+      maxSpeed: 25,
       attachments: [
         "Standard Forks",
         "Jib",
@@ -7246,80 +7163,25 @@ const MACHINES = {
       ],
       bestFor:
         "Light construction, single-storey work, events, landscaping, rental fleet",
-      note: "JCB 525-60 IND — 2.5T at 6m with proven EcoMAX engine. 3-steering modes, LiveLink telematics. No DPF maintenance. Popular rental fleet machine across Australia.",
-      liftChart:
-        "2,500kg at ground. At 6m/3.5m reach: reduced — consult JCB 525-60 IND load chart.",
-      tags: ["2.5T", "6m", "EcoMAX", "55kW", "No DPF"],
-      loadMatrix: [
-        // h=0m
-        { h: 0, r: 0, kg: 2500 },
-        { h: 0, r: 0.5, kg: 2500 },
-        { h: 0, r: 1, kg: 2500 },
-        { h: 0, r: 1.5, kg: 2000 },
-        { h: 0, r: 2, kg: 1500 },
-        { h: 0, r: 2.5, kg: 1000 },
-        // h=0.5m
-        { h: 0.5, r: 0, kg: 2500 },
-        { h: 0.5, r: 0.5, kg: 2500 },
-        { h: 0.5, r: 1, kg: 2500 },
-        { h: 0.5, r: 1.5, kg: 2000 },
-        { h: 0.5, r: 2, kg: 1500 },
-        { h: 0.5, r: 2.5, kg: 1000 },
-        { h: 0.5, r: 3, kg: 750 },
-        // h=1m
-        { h: 1, r: 1, kg: 2500 },
-        { h: 1, r: 1.5, kg: 2000 },
-        { h: 1, r: 2, kg: 1500 },
-        { h: 1, r: 2.5, kg: 1000 },
-        { h: 1, r: 3, kg: 750 },
-        // h=1.5m
-        { h: 1.5, r: 1, kg: 2500 },
-        { h: 1.5, r: 1.5, kg: 2000 },
-        { h: 1.5, r: 2, kg: 1500 },
-        { h: 1.5, r: 2.5, kg: 1000 },
-        { h: 1.5, r: 3, kg: 750 },
-        // h=2m
-        { h: 2, r: 1, kg: 2500 },
-        { h: 2, r: 1.5, kg: 2000 },
-        { h: 2, r: 2, kg: 1500 },
-        { h: 2, r: 2.5, kg: 1000 },
-        { h: 2, r: 3, kg: 750 },
-        // h=2.5m
-        { h: 2.5, r: 1, kg: 2500 },
-        { h: 2.5, r: 1.5, kg: 2000 },
-        { h: 2.5, r: 2, kg: 1500 },
-        { h: 2.5, r: 2.5, kg: 1000 },
-        { h: 2.5, r: 3, kg: 750 },
-        // h=3m
-        { h: 3, r: 0, kg: 2500 },
-        { h: 3, r: 0.5, kg: 2500 },
-        { h: 3, r: 1, kg: 2500 },
-        { h: 3, r: 1.5, kg: 2000 },
-        { h: 3, r: 2, kg: 1500 },
-        { h: 3, r: 2.5, kg: 1000 },
-        { h: 3, r: 3, kg: 750 },
-        // h=3.5m
-        { h: 3.5, r: 0, kg: 2500 },
-        { h: 3.5, r: 0.5, kg: 2500 },
-        { h: 3.5, r: 1, kg: 2500 },
-        { h: 3.5, r: 1.5, kg: 2000 },
-        { h: 3.5, r: 2, kg: 1500 },
-        { h: 3.5, r: 2.5, kg: 1000 },
-        // h=4m
-        { h: 4, r: 0, kg: 2500 },
-        { h: 4, r: 0.5, kg: 2500 },
-        { h: 4, r: 1, kg: 2500 },
-        { h: 4, r: 1.5, kg: 2000 },
-        { h: 4, r: 2, kg: 1500 },
-        { h: 4, r: 2.5, kg: 1000 },
-        // h=4.5m
-        { h: 4.5, r: 0, kg: 2500 },
-        { h: 4.5, r: 0.5, kg: 2500 },
-        { h: 4.5, r: 1, kg: 2500 },
-        { h: 4.5, r: 1.5, kg: 2000 },
-        { h: 4.5, r: 2, kg: 1500 },
-      ],
+      note: "JCB 525-60 Hi Viz (IND) - 2.5T at 6m. JCB Diesel by Kohler 2.5L 55kW, no DPF. Compact (1.84m wide, 1.89m high), 3 steer modes, LiveLink. Popular compact rental machine.",
+      tags: ["2.5T", "6m", "Compact", "55kW", "Hi Viz"],
       filters: ["telehandler", "rough"],
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 525-60 Hi Viz, on tyres) ----
+      liftChart:
+        "525-60 Hi Viz, JCB 2.5t Telehandler brochure (on tyres; single chart, no stabilisers). Max 2,500kg; full height 1,500kg @6.0m; full reach 750kg @3.5m; reach@maxH -0.15m (load over machine); reach@1.2t 2.64m. Published zones 2500/2000/1500/1000/750kg; boom -2.5 to 67deg. AS1418.19. loadMatrix is B1-anchored (exact brochure corners + published zone labels, anchored on JCB 1.2t/2.64m point; capacity=min(reach-curve,height-derate); rated-zone plateau ~1.2m/4.8m read off chart; envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: JCB 2.5 ton Telehandler brochure p.18.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 525-60 Hi Viz, on tyres) ----
+      capacityAtFullHeight: 1500,
+      capacityAtFullReach: 750,
+      reachAt1000kg: 3.0,
+      loadMatrix: [
+        { h: 0, r: 0, kg: 2500 }, { h: 0, r: 1.2, kg: 2500 }, { h: 0, r: 1.75, kg: 2000 }, { h: 0, r: 2.31, kg: 1500 }, { h: 0, r: 3.02, kg: 1000 }, { h: 0, r: 3.5, kg: 750 },
+        { h: 1, r: 0, kg: 2500 }, { h: 1, r: 1.2, kg: 2500 }, { h: 1, r: 1.75, kg: 2000 }, { h: 1, r: 2.31, kg: 1500 }, { h: 1, r: 3.02, kg: 1000 }, { h: 1, r: 3.5, kg: 750 },
+        { h: 2, r: 0, kg: 2500 }, { h: 2, r: 1.2, kg: 2500 }, { h: 2, r: 1.75, kg: 2000 }, { h: 2, r: 2.31, kg: 1500 }, { h: 2, r: 3.02, kg: 1000 }, { h: 2, r: 3.4, kg: 750 },
+        { h: 3, r: 0, kg: 2500 }, { h: 3, r: 1.2, kg: 2500 }, { h: 3, r: 1.75, kg: 2000 }, { h: 3, r: 2.31, kg: 1500 }, { h: 3, r: 3, kg: 1000 },
+        { h: 4, r: 0, kg: 2500 }, { h: 4, r: 1.2, kg: 2500 }, { h: 4, r: 1.75, kg: 2000 }, { h: 4, r: 2.31, kg: 1500 }, { h: 4, r: 2.4, kg: 1000 },
+        { h: 5, r: 0, kg: 2000 }, { h: 5, r: 1.6, kg: 2000 },
+        { h: 6, r: 0.3, kg: 1500 },
+      ],
     },
     // ── JCB 516-40 & 520-40 COMPACT ── (source: JCB Compact Loadall Range Spec Sheet Issue 2, Jul 2022)
     {
@@ -7490,25 +7352,23 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 531-70 IND",
       shortName: "JCB 531-70",
-      capacity: 3.1,
+      capacity: 3,
       liftHeight: 7,
       maxReach: 3.7,
-      engine: "55kW (75hp) EcoMAX T4F (standard)",
-      machineWeight: 8230,
+      engine: "55kW (75hp) EcoMAX T4F (81/93kW opt)",
+      machineWeight: 7060,
       // Brochure load-chart corners (JCB Construction Loadall range PDF,
       // stabilisers retracted — conservative). Lets getCapacityAtPoint's
       // corner-proof path verify capacity instead of rated fallback.
-      capacityAtFullHeight: 2700,
-      capacityAtFullReach: 1300,
-      machineWidth: 2260,
-      machineLength: 5000,
-      machineHeight: 2290,
+      machineWidth: 2230,
+      machineLength: 4990,
+      machineHeight: 2490,
       jibWeight: 25,
       jibLength: 0.0,
       rotatorWeight: 400,
       ewpBasketSWL: 230,
       terrain: "rough",
-      maxSpeed: 30,
+      maxSpeed: 29,
       attachments: [
         "Standard Forks",
         "Jib",
@@ -7519,8 +7379,6 @@ const MACHINES = {
       bestFor:
         "Construction and agri workhorse — 2-storey sites, versatile applications",
       note: "JCB's most popular construction telehandler globally. 3T at 7m. 74.2kW EcoMAX, no DPF, LiveLink telematics. Best SAE serviceability rating. Single-lever servo controls. Strong residuals.",
-      liftChart:
-        "3,000kg max (retracted). 2,700kg at full height (7.0m, r=0.54m). 1,300kg at full reach (3.7m). Reach with 1T: 3.7m. PlacingH: 6.3m. On tyres, forks. Source: JCB Construction Loadalls brochure p.27.",
       tags: ["3T", "7m", "3.7m Reach", "EcoMAX", "No DPF"],
       // ── LOAD MATRIX — On Tyres with Forks ──────────────────────────────────────
       // Source: PIXEL EXTRACTION from JCB 531-70 brochure load chart
@@ -7538,92 +7396,23 @@ const MACHINES = {
       //   • Lift capacity at full reach (3.5m) = 1,300 kg (matches outer band extraction)
       //   • Lift capacity to full height = 2,700 kg (above matrix coverage; sparse fallback)
       // ─────────────────────────────────────────────────────────────────────────
-      loadMatrix: [
-        // h=0m
-        { h: 0, r: 1, kg: 2700 },
-        { h: 0, r: 1.5, kg: 2700 },
-        { h: 0, r: 2, kg: 2700 },
-        { h: 0, r: 2.5, kg: 2000 },
-        { h: 0, r: 3, kg: 1500 },
-        { h: 0, r: 3.5, kg: 1300 },
-        // h=0.5m
-        { h: 0.5, r: 1, kg: 3000 },
-        { h: 0.5, r: 1.5, kg: 2700 },
-        { h: 0.5, r: 2, kg: 2700 },
-        { h: 0.5, r: 2.5, kg: 2000 },
-        { h: 0.5, r: 3, kg: 1500 },
-        // h=1m
-        { h: 1, r: 1, kg: 3000 },
-        { h: 1, r: 1.5, kg: 2700 },
-        { h: 1, r: 2, kg: 2700 },
-        { h: 1, r: 2.5, kg: 2000 },
-        { h: 1, r: 3, kg: 1500 },
-        { h: 1, r: 3.5, kg: 1300 },
-        // h=1.5m
-        { h: 1.5, r: 1, kg: 3000 },
-        { h: 1.5, r: 1.5, kg: 2700 },
-        { h: 1.5, r: 2, kg: 2500 },
-        { h: 1.5, r: 2.5, kg: 2000 },
-        { h: 1.5, r: 3, kg: 1500 },
-        { h: 1.5, r: 3.5, kg: 1300 },
-        // h=2m
-        { h: 2, r: 0, kg: 3000 },
-        { h: 2, r: 0.5, kg: 3000 },
-        { h: 2, r: 1, kg: 3000 },
-        { h: 2, r: 1.5, kg: 2700 },
-        { h: 2, r: 2, kg: 2500 },
-        { h: 2, r: 2.5, kg: 2000 },
-        { h: 2, r: 3, kg: 1500 },
-        { h: 2, r: 3.5, kg: 1300 },
-        // h=2.5m
-        { h: 2.5, r: 0, kg: 3000 },
-        { h: 2.5, r: 0.5, kg: 3000 },
-        { h: 2.5, r: 1, kg: 3000 },
-        { h: 2.5, r: 1.5, kg: 2700 },
-        { h: 2.5, r: 2, kg: 2500 },
-        { h: 2.5, r: 2.5, kg: 2000 },
-        { h: 2.5, r: 3, kg: 1500 },
-        { h: 2.5, r: 3.5, kg: 1300 },
-        // h=3m
-        { h: 3, r: 0, kg: 3000 },
-        { h: 3, r: 0.5, kg: 3000 },
-        { h: 3, r: 1, kg: 3000 },
-        { h: 3, r: 1.5, kg: 2700 },
-        { h: 3, r: 2, kg: 2500 },
-        { h: 3, r: 2.5, kg: 2000 },
-        { h: 3, r: 3, kg: 1500 },
-        // h=3.5m
-        { h: 3.5, r: 0, kg: 3000 },
-        { h: 3.5, r: 0.5, kg: 3000 },
-        { h: 3.5, r: 1, kg: 3000 },
-        { h: 3.5, r: 1.5, kg: 2700 },
-        { h: 3.5, r: 2, kg: 2500 },
-        { h: 3.5, r: 2.5, kg: 2000 },
-        { h: 3.5, r: 3, kg: 1500 },
-        // h=4m
-        { h: 4, r: 0, kg: 3000 },
-        { h: 4, r: 0.5, kg: 3000 },
-        { h: 4, r: 1, kg: 3000 },
-        { h: 4, r: 1.5, kg: 2700 },
-        { h: 4, r: 2, kg: 2500 },
-        { h: 4, r: 2.5, kg: 2000 },
-        { h: 4, r: 3, kg: 1500 },
-        // h=4.5m
-        { h: 4.5, r: 0, kg: 3000 },
-        { h: 4.5, r: 0.5, kg: 3000 },
-        { h: 4.5, r: 1, kg: 3000 },
-        { h: 4.5, r: 1.5, kg: 2700 },
-        { h: 4.5, r: 2, kg: 2500 },
-        { h: 4.5, r: 2.5, kg: 2000 },
-        // h=5m
-        { h: 5, r: 0, kg: 3000 },
-        { h: 5, r: 0.5, kg: 3000 },
-        { h: 5, r: 1, kg: 3000 },
-        { h: 5, r: 1.5, kg: 2700 },
-        { h: 5, r: 2, kg: 2000 },
-        { h: 5, r: 2.5, kg: 2000 },
-      ],
       filters: ["telehandler", "rough"],
+      liftChart:
+        "531-70, JCB CEA AU brochure p.27 (on tyres). Max 3000kg; full height 2700kg @7m; full reach 1300kg @3.7m; reach@maxH 0.54m; reach@1t 3.7m. B1-anchored loadMatrix (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); outer envelope pixel-traced from single-chart image; rated-zone plateau scaled from 540-170 reads; envelope-clipped; intermediates modelled). Verify load plate before lift. Source: jcbcea.com.au brochure p.27.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 531-70, on tyres) ----
+      capacityAtFullHeight: 2700,
+      capacityAtFullReach: 1300,
+      reachAt1000kg: 3.7,
+      loadMatrix: [
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 0.93, kg: 3000 }, { h: 0, r: 1.41, kg: 2700 }, { h: 0, r: 1.74, kg: 2500 }, { h: 0, r: 2.56, kg: 2000 }, { h: 0, r: 3.37, kg: 1500 }, { h: 0, r: 3.7, kg: 1300 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 0.93, kg: 3000 }, { h: 1, r: 1.41, kg: 2700 }, { h: 1, r: 1.74, kg: 2500 }, { h: 1, r: 2.56, kg: 2000 }, { h: 1, r: 3.37, kg: 1500 }, { h: 1, r: 3.69, kg: 1300 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 0.93, kg: 3000 }, { h: 2, r: 1.41, kg: 2700 }, { h: 2, r: 1.74, kg: 2500 }, { h: 2, r: 2.56, kg: 2000 }, { h: 2, r: 3.37, kg: 1500 }, { h: 2, r: 3.65, kg: 1300 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 0.93, kg: 3000 }, { h: 3, r: 1.41, kg: 2700 }, { h: 3, r: 1.74, kg: 2500 }, { h: 3, r: 2.56, kg: 2000 }, { h: 3, r: 3.37, kg: 1500 }, { h: 3, r: 3.45, kg: 1300 },
+        { h: 4, r: 0, kg: 2700 }, { h: 4, r: 1.41, kg: 2700 }, { h: 4, r: 1.74, kg: 2500 }, { h: 4, r: 2.56, kg: 2000 }, { h: 4, r: 3.08, kg: 1500 },
+        { h: 5, r: 0, kg: 2700 }, { h: 5, r: 1.41, kg: 2700 }, { h: 5, r: 1.74, kg: 2500 }, { h: 5, r: 2.55, kg: 2000 },
+        { h: 6, r: 0, kg: 2700 }, { h: 6, r: 1.41, kg: 2700 }, { h: 6, r: 1.73, kg: 2500 },
+        { h: 7, r: 0.54, kg: 2700 },
+      ],
     },
     {
       id: "jcb-535-95",
@@ -7632,12 +7421,12 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 535-95 IND",
       shortName: "JCB 535-95",
-      capacity: 3.5,
+      capacity: 3,
       liftHeight: 9.5,
       maxReach: 6.52,
-      engine: "74kW EcoMAX",
-      machineWeight: 8080,
-      machineWidth: 2290,
+      engine: "55kW (75hp) EcoMAX T4F (81/93kW opt)",
+      machineWeight: 8215,
+      machineWidth: 2360,
       machineLength: 4990,
       machineHeight: 2490,
       jibWeight: 30,
@@ -7645,7 +7434,7 @@ const MACHINES = {
       rotatorWeight: 400,
       ewpBasketSWL: 230,
       terrain: "rough",
-      maxSpeed: 30,
+      maxSpeed: 29,
       attachments: [
         "Standard Forks",
         "Jib",
@@ -7655,8 +7444,6 @@ const MACHINES = {
       bestFor:
         "2–3 storey construction, mid-height placements, versatile site work",
       note: "JCB 535-95 — 3T at 9.5m with 6.52m outreach. Dimensions 4.99m × 2.29m × 2.49m. EcoMAX 74kW engine. Great option bridging the gap between 7m and 12m machines.",
-      liftChart:
-        "3,000kg max. 1,600kg at full height (9.5m, r=2.49m). 500kg at full reach (6.52m). Reach with 1T: 5.08m. PlacingH: 8.78m. On tyres, forks. Source: JCB Construction Loadalls brochure p.27.",
       tags: ["3T", "9.5m", "6.52m Reach", "EcoMAX", "Mid-Reach"],
       // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
       // Source: JCB construction Loadalls brochure (2017+, p.14)
@@ -7664,53 +7451,29 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      capacityAtFullHeight: 1600,
-      capacityAtFullReach: 500,
       // loadMatrix pixel-read from JCB Construction Loadall load chart
       // (stabilisers retracted), anchored to brochure corner figures.
       // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      filters: ["telehandler", "rough"],
+      liftChart:
+        "535-95, JCB CEA AU brochure p.27 (on tyres). Max 3000kg; full height 1600kg @9.5m; full reach 500kg @6.52m; reach@maxH 2.49m; reach@1t 5.08m. loadMatrix = published brochure zone labels ONLY (3000/2500/1600/1000/800/500kg — this chart has NO 2,000kg band); reach positions traced off the chart; NO capacity interpolation; step zone-lookup; envelope-clipped; inner cells above the top labelled zone return 'confirm at load plate' rather than an invented value). Verify load plate before lift. Source: jcbcea.com.au brochure p.27.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 535-95, on tyres) ----
+      capacityAtFullHeight: 1600,
+      capacityAtFullReach: 500,
+      reachAt1000kg: 5.08,
       loadMatrix: [
-        { h: 0, r: 0, kg: 3000 },
-        { h: 0, r: 2, kg: 3000 },
-        { h: 0, r: 3, kg: 2500 },
-        { h: 0, r: 4, kg: 2000 },
-        { h: 0, r: 5, kg: 1500 },
-        { h: 0, r: 6, kg: 800 },
-        { h: 0, r: 6.52, kg: 500 },
-        { h: 2, r: 0, kg: 3000 },
-        { h: 2, r: 2, kg: 3000 },
-        { h: 2, r: 3, kg: 2500 },
-        { h: 2, r: 4, kg: 2000 },
-        { h: 2, r: 5, kg: 1400 },
-        { h: 2, r: 6, kg: 750 },
-        { h: 2, r: 6.4, kg: 500 },
-        { h: 4, r: 0, kg: 3000 },
-        { h: 4, r: 2, kg: 2800 },
-        { h: 4, r: 3, kg: 2300 },
-        { h: 4, r: 4, kg: 1800 },
-        { h: 4, r: 5, kg: 1200 },
-        { h: 4, r: 6, kg: 600 },
-        { h: 6, r: 0, kg: 2800 },
-        { h: 6, r: 2, kg: 2400 },
-        { h: 6, r: 3, kg: 1900 },
-        { h: 6, r: 4, kg: 1400 },
-        { h: 6, r: 5, kg: 900 },
-        { h: 6, r: 5.5, kg: 500 },
-        { h: 8, r: 0, kg: 2000 },
-        { h: 8, r: 1, kg: 1800 },
-        { h: 8, r: 2, kg: 1500 },
-        { h: 8, r: 3, kg: 1000 },
-        { h: 8, r: 4, kg: 600 },
-        { h: 9, r: 0, kg: 1800 },
-        { h: 9, r: 1, kg: 1600 },
-        { h: 9, r: 2, kg: 1000 },
-        { h: 9, r: 2.49, kg: 800 },
-        { h: 9.5, r: 0, kg: 1600 },
-        { h: 9.5, r: 1.5, kg: 1200 },
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 1.63, kg: 3000 }, { h: 0, r: 2.49, kg: 2500 }, { h: 0, r: 4.04, kg: 1600 }, { h: 0, r: 5.08, kg: 1000 }, { h: 0, r: 5.66, kg: 800 }, { h: 0, r: 6.52, kg: 500 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 1.63, kg: 3000 }, { h: 1, r: 2.49, kg: 2500 }, { h: 1, r: 4.04, kg: 1600 }, { h: 1, r: 5.08, kg: 1000 }, { h: 1, r: 5.66, kg: 800 }, { h: 1, r: 6.45, kg: 500 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 1.63, kg: 3000 }, { h: 2, r: 2.49, kg: 2500 }, { h: 2, r: 4.04, kg: 1600 }, { h: 2, r: 5.08, kg: 1000 }, { h: 2, r: 5.66, kg: 800 }, { h: 2, r: 6.52, kg: 500 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 1.63, kg: 3000 }, { h: 3, r: 2.49, kg: 2500 }, { h: 3, r: 4.04, kg: 1600 }, { h: 3, r: 5.08, kg: 1000 }, { h: 3, r: 5.66, kg: 800 }, { h: 3, r: 6.4, kg: 500 },
+        { h: 4, r: 0, kg: 3000 }, { h: 4, r: 1.63, kg: 3000 }, { h: 4, r: 2.49, kg: 2500 }, { h: 4, r: 4.04, kg: 1600 }, { h: 4, r: 5.08, kg: 1000 }, { h: 4, r: 5.66, kg: 800 }, { h: 4, r: 6.15, kg: 500 },
+        { h: 5, r: 0, kg: 2500 }, { h: 5, r: 2.49, kg: 2500 }, { h: 5, r: 4.04, kg: 1600 }, { h: 5, r: 5.08, kg: 1000 }, { h: 5, r: 5.66, kg: 800 }, { h: 5, r: 5.8, kg: 500 },
+        { h: 6, r: 0, kg: 2500 }, { h: 6, r: 2.49, kg: 2500 }, { h: 6, r: 4.04, kg: 1600 }, { h: 6, r: 5.08, kg: 1000 }, { h: 6, r: 5.35, kg: 800 },
+        { h: 7, r: 4.04, kg: 1600 }, { h: 7, r: 4.75, kg: 1000 },
+        { h: 8, r: 4, kg: 1600 },
+        { h: 9, r: 0, kg: 1600 }, { h: 9, r: 3.05, kg: 1600 },
         { h: 9.5, r: 2.49, kg: 1600 },
       ],
-      reachAt1000kg: 5.08,
-      filters: ["telehandler", "rough"],
     },
     {
       id: "jcb-535-125",
@@ -7719,10 +7482,10 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 535-125 HiViz",
       shortName: "JCB 535-125",
-      capacity: 3.5,
+      capacity: 3,
       liftHeight: 11.6,
       maxReach: 8.06,
-      engine: "55kW (75hp) EcoMAX T4F (standard)",
+      engine: "55kW (75hp) EcoMAX T4F (81/93kW opt)",
       machineWeight: 10066,
       machineWidth: 2350,
       machineLength: 5800,
@@ -7758,8 +7521,6 @@ const MACHINES = {
       bestFor:
         "3–4 storey construction, cladding, HiViz safety requirement sites",
       note: "JCB 535-125 HiViz — 3T at 12.27m (stabs extended) and 8.06m outreach. ON RUBBER (retracted): 3,000kg at base, 1,500kg at full height 11.6m, 200kg at full reach 8.06m. STABS EXTENDED: 3,000kg at base, 3,500kg at full height 12.27m, 1,350kg at full reach 8.06m — major envelope increase. 55kW EcoMAX, no DPF. HiViz low boom pivot — best-in-class site visibility. Adaptive Load Control (AS10896.1:2019). LiveLink. Sway frame ±9°. Man platform option to 15.6m working height.",
-      liftChart:
-        "ON RUBBER: 3,000kg → 1,500kg at 11.6m → 200kg at 8.06m reach. STABS EXTENDED: 3,000kg → 3,500kg at 12.27m → 1,350kg at 8.06m. Sway ±9°. Source: JCB Construction Loadalls brochure p.27.",
       tags: [
         "3T",
         "12.27m",
@@ -7775,64 +7536,51 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      capacityAtFullHeight: 1500,
-      capacityAtFullReach: 200,
       // loadMatrix pixel-read from JCB Construction Loadall load chart
       // (stabilisers retracted), anchored to brochure corner figures.
       // {h,r}->kg. Conservative zone reads; verify load plate before lift.
-      loadMatrix: [
-        { h: 0, r: 0, kg: 3000 },
-        { h: 0, r: 2, kg: 3000 },
-        { h: 0, r: 3, kg: 2500 },
-        { h: 0, r: 4, kg: 2000 },
-        { h: 0, r: 5, kg: 1500 },
-        { h: 0, r: 6, kg: 1000 },
-        { h: 0, r: 7, kg: 600 },
-        { h: 0, r: 8, kg: 300 },
-        { h: 0, r: 8.06, kg: 200 },
-        { h: 2, r: 0, kg: 3000 },
-        { h: 2, r: 2, kg: 2800 },
-        { h: 2, r: 3, kg: 2400 },
-        { h: 2, r: 4, kg: 1900 },
-        { h: 2, r: 5, kg: 1400 },
-        { h: 2, r: 6, kg: 950 },
-        { h: 2, r: 7, kg: 550 },
-        { h: 2, r: 8, kg: 250 },
-        { h: 4, r: 0, kg: 2800 },
-        { h: 4, r: 2, kg: 2500 },
-        { h: 4, r: 3, kg: 2100 },
-        { h: 4, r: 4, kg: 1600 },
-        { h: 4, r: 5, kg: 1100 },
-        { h: 4, r: 6, kg: 700 },
-        { h: 4, r: 7, kg: 400 },
-        { h: 6, r: 0, kg: 2500 },
-        { h: 6, r: 2, kg: 2200 },
-        { h: 6, r: 3, kg: 1800 },
-        { h: 6, r: 4, kg: 1300 },
-        { h: 6, r: 5, kg: 900 },
-        { h: 6, r: 6, kg: 500 },
-        { h: 8, r: 0, kg: 2200 },
-        { h: 8, r: 2, kg: 1800 },
-        { h: 8, r: 3, kg: 1400 },
-        { h: 8, r: 4, kg: 1000 },
-        { h: 8, r: 5, kg: 600 },
-        { h: 10, r: 0, kg: 1800 },
-        { h: 10, r: 1, kg: 1600 },
-        { h: 10, r: 2, kg: 1200 },
-        { h: 10, r: 3, kg: 700 },
-        { h: 10, r: 3.5, kg: 400 },
-        { h: 11, r: 0, kg: 1600 },
-        { h: 11, r: 1, kg: 1400 },
-        { h: 11, r: 2, kg: 900 },
-        { h: 11.6, r: 0, kg: 1500 },
-        { h: 11.6, r: 1.5, kg: 1100 },
-        { h: 11.6, r: 2.01, kg: 1500 },
-      ],
+      filters: ["telehandler", "rough", "heavy"],
+      liftChart:
+        "535-125 HiViz Sway, JCB CEA AU brochure pp.27-28. RETRACTED: max 3000kg; full height 1500kg @11.6m; full reach 200kg @8.06m; reach@1t 5.31m. EXTENDED: max 3000kg; full height 3500kg @12.27m; full reach 1350kg @8.06m; reach@1t 8.06m. Sway +/-9deg (EN1459 Annex B). loadMatrix=retracted, loadMatrixStabs=extended: B1-anchored (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); rated-zone plateau scaled from 540-170 chart reads; envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: jcbcea.com.au brochure pp.27-28.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 535-125 HiViz) ----
+      capacityAtFullHeight: 1500,
+      capacityAtFullReach: 200,
       capacityAtFullHeightStabs: 3500,
       capacityAtFullReachStabs: 1350,
       liftHeightStabs: 12.27,
+      maxReachStabs: 8.06,
       reachAt1000kg: 5.31,
-      filters: ["telehandler", "rough", "heavy"],
+      loadMatrix: [
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 2.02, kg: 3000 }, { h: 0, r: 2.84, kg: 2500 }, { h: 0, r: 3.66, kg: 2000 }, { h: 0, r: 4.49, kg: 1500 }, { h: 0, r: 5.31, kg: 1000 }, { h: 0, r: 7.03, kg: 500 }, { h: 0, r: 8.06, kg: 200 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 2.02, kg: 3000 }, { h: 1, r: 2.84, kg: 2500 }, { h: 1, r: 3.66, kg: 2000 }, { h: 1, r: 4.49, kg: 1500 }, { h: 1, r: 5.31, kg: 1000 }, { h: 1, r: 7.03, kg: 500 }, { h: 1, r: 7.8, kg: 200 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 2.02, kg: 3000 }, { h: 2, r: 2.84, kg: 2500 }, { h: 2, r: 3.66, kg: 2000 }, { h: 2, r: 4.49, kg: 1500 }, { h: 2, r: 5.31, kg: 1000 }, { h: 2, r: 7.03, kg: 500 }, { h: 2, r: 7.6, kg: 200 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 2.02, kg: 3000 }, { h: 3, r: 2.84, kg: 2500 }, { h: 3, r: 3.66, kg: 2000 }, { h: 3, r: 4.49, kg: 1500 }, { h: 3, r: 5.31, kg: 1000 }, { h: 3, r: 7.03, kg: 500 }, { h: 3, r: 7.48, kg: 200 },
+        { h: 4, r: 0, kg: 3000 }, { h: 4, r: 2.02, kg: 3000 }, { h: 4, r: 2.84, kg: 2500 }, { h: 4, r: 3.66, kg: 2000 }, { h: 4, r: 4.49, kg: 1500 }, { h: 4, r: 5.31, kg: 1000 }, { h: 4, r: 7.03, kg: 500 }, { h: 4, r: 7.28, kg: 200 },
+        { h: 5, r: 0, kg: 3000 }, { h: 5, r: 2.02, kg: 3000 }, { h: 5, r: 2.84, kg: 2500 }, { h: 5, r: 3.66, kg: 2000 }, { h: 5, r: 4.49, kg: 1500 }, { h: 5, r: 5.31, kg: 1000 }, { h: 5, r: 7.03, kg: 500 }, { h: 5, r: 7.05, kg: 200 },
+        { h: 6, r: 0, kg: 3000 }, { h: 6, r: 2.02, kg: 3000 }, { h: 6, r: 2.84, kg: 2500 }, { h: 6, r: 3.66, kg: 2000 }, { h: 6, r: 4.49, kg: 1500 }, { h: 6, r: 5.31, kg: 1000 }, { h: 6, r: 6.86, kg: 500 },
+        { h: 7, r: 0, kg: 2500 }, { h: 7, r: 2.84, kg: 2500 }, { h: 7, r: 3.66, kg: 2000 }, { h: 7, r: 4.49, kg: 1500 }, { h: 7, r: 5.31, kg: 1000 }, { h: 7, r: 6.68, kg: 500 },
+        { h: 8, r: 0, kg: 2000 }, { h: 8, r: 3.66, kg: 2000 }, { h: 8, r: 4.49, kg: 1500 }, { h: 8, r: 5.31, kg: 1000 }, { h: 8, r: 6.04, kg: 500 },
+        { h: 9, r: 0, kg: 2000 }, { h: 9, r: 3.66, kg: 2000 }, { h: 9, r: 4.49, kg: 1500 }, { h: 9, r: 5.28, kg: 1000 },
+        { h: 10, r: 0, kg: 1500 }, { h: 10, r: 4.28, kg: 1500 },
+        { h: 11, r: 0, kg: 1500 }, { h: 11, r: 3.04, kg: 1500 },
+        { h: 11.6, r: 2.01, kg: 1500 },
+      ],
+      loadMatrixStabs: [
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 2.26, kg: 3000 }, { h: 0, r: 4.02, kg: 2500 }, { h: 0, r: 5.77, kg: 2000 }, { h: 0, r: 7.53, kg: 1500 }, { h: 0, r: 8.06, kg: 1350 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 2.26, kg: 3000 }, { h: 1, r: 4.02, kg: 2500 }, { h: 1, r: 5.77, kg: 2000 }, { h: 1, r: 7.53, kg: 1500 }, { h: 1, r: 7.56, kg: 1350 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 2.26, kg: 3000 }, { h: 2, r: 4.02, kg: 2500 }, { h: 2, r: 5.77, kg: 2000 }, { h: 2, r: 7.53, kg: 1500 }, { h: 2, r: 7.56, kg: 1350 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 2.26, kg: 3000 }, { h: 3, r: 4.02, kg: 2500 }, { h: 3, r: 5.77, kg: 2000 }, { h: 3, r: 7.36, kg: 1500 },
+        { h: 4, r: 0, kg: 3000 }, { h: 4, r: 2.26, kg: 3000 }, { h: 4, r: 4.02, kg: 2500 }, { h: 4, r: 5.77, kg: 2000 }, { h: 4, r: 7.3, kg: 1500 },
+        { h: 5, r: 0, kg: 3000 }, { h: 5, r: 2.26, kg: 3000 }, { h: 5, r: 4.02, kg: 2500 }, { h: 5, r: 5.77, kg: 2000 }, { h: 5, r: 7.05, kg: 1500 },
+        { h: 6, r: 0, kg: 3000 }, { h: 6, r: 2.26, kg: 3000 }, { h: 6, r: 4.02, kg: 2500 }, { h: 6, r: 5.77, kg: 2000 }, { h: 6, r: 6.6, kg: 1500 },
+        { h: 7, r: 0, kg: 3000 }, { h: 7, r: 2.26, kg: 3000 }, { h: 7, r: 4.02, kg: 2500 }, { h: 7, r: 5.77, kg: 2000 }, { h: 7, r: 6.5, kg: 1500 },
+        { h: 8, r: 0, kg: 3000 }, { h: 8, r: 2.26, kg: 3000 }, { h: 8, r: 4.02, kg: 2500 }, { h: 8, r: 5.77, kg: 2000 }, { h: 8, r: 5.92, kg: 1500 },
+        { h: 9, r: 0, kg: 3000 }, { h: 9, r: 2.26, kg: 3000 }, { h: 9, r: 4.02, kg: 2500 }, { h: 9, r: 5.15, kg: 2000 },
+        { h: 10, r: 0, kg: 3000 }, { h: 10, r: 2.26, kg: 3000 }, { h: 10, r: 4.02, kg: 2500 }, { h: 10, r: 4.16, kg: 2000 },
+        { h: 11, r: 0, kg: 3000 }, { h: 11, r: 2.26, kg: 3000 }, { h: 11, r: 2.88, kg: 2500 },
+        { h: 12, r: 0, kg: 3000 }, { h: 12, r: 1.11, kg: 3000 },
+        { h: 12.27, r: 0.54, kg: 3500 },
+      ],
     },
     {
       id: "jcb-540-140",
@@ -7844,7 +7592,7 @@ const MACHINES = {
       capacity: 4,
       liftHeight: 12.89,
       maxReach: 9.7,
-      engine: "55kW (75hp) EcoMAX T4F (standard)",
+      engine: "55kW (75hp) EcoMAX T4F (81/93kW opt)",
       machineWeight: 10880,
       machineWidth: 2350,
       machineLength: 6230,
@@ -7852,7 +7600,8 @@ const MACHINES = {
       jibWeight: 110,
       jibLength: 1.8,
       rotatorWeight: 260,
-      ewpBasketSWL: 500,
+            ewpBasketSWL: 500,
+      manPlatform: { swlKg: 500, swlZones: "500kg inner / 365kg mid / 250kg outer reach", workingHeightM: 17.5, maxReachM: 11.0, config: "Stabilisers extended", standard: "AS1418.10", source: "JCB 540-140 HiViz Man platform load chart (stabilisers extended). Verify platform load plate before use." },
       terrain: "rough",
       maxSpeed: 29,
       tyres: "15.5/80-24 standard",
@@ -7880,8 +7629,6 @@ const MACHINES = {
       bestFor:
         "4-storey construction, cladding, heavy high-reach placements, EWP to 15.6m/19.09m",
       note: "JCB 540-140 HiViz — 4T at 13.78m (stabs extended) and 9.64m outreach. ON RUBBER (retracted): 4T at base, 1,300kg at 12.89m full height, 200kg at full reach 9.70m. STABS EXTENDED: 4T at base, 3,100kg at 13.78m, 900kg at 9.64m — dramatically expanded working envelope. 55kW EcoMAX, no DPF. HiViz low boom pivot. Regen hydraulics cut cycle time by 20%, fuel by 4.4%. Adaptive Load Control (AS10896.1:2019). Man platform: 500kg to 15.6m (140) or 19.09m (with 170 platform). LiveLink telematics.",
-      liftChart:
-        "ON RUBBER: 4,000kg → 1,300kg at 12.89m → 200kg at 9.70m reach. STABS EXTENDED: 4,000kg → 3,100kg at 13.78m → 900kg at 9.64m. Sway ±9°. Source: JCB Construction Loadalls brochure p.28.",
       tags: [
         "4T",
         "13.78m",
@@ -7897,75 +7644,53 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      capacityAtFullHeight: 1300, // corrected to JCB brochure (stabilisers retracted)
-      capacityAtFullReach: 200,
       // loadMatrix pixel-read from JCB Construction Loadall load chart
       // (stabilisers retracted), anchored to brochure corner figures.
       // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      filters: ["telehandler", "rough", "heavy"],
+      liftChart:
+        "540-140 HiViz Sway, JCB CEA AU brochure pp.27-28. RETRACTED: max 4000kg; full height 1300kg @12.89m; full reach 200kg @9.7m; reach@1t 6.61m. EXTENDED: max 4000kg; full height 3100kg @13.78m; full reach 900kg @9.64m; reach@1t 9.64m. Sway +/-9deg (EN1459 Annex B). loadMatrix=retracted, loadMatrixStabs=extended: B1-anchored (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); outer envelopes pixel-traced from single-chart images (both modes); rated-zone plateau scaled from 540-170; envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: jcbcea.com.au brochure pp.27-28.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 540-140 HiViz) ----
+      capacityAtFullHeight: 1300,
+      capacityAtFullReach: 200,
+      capacityAtFullHeightStabs: 3100,
+      capacityAtFullReachStabs: 900,
+      liftHeightStabs: 13.78,
+      maxReachStabs: 9.64,
+      reachAt1000kg: 6.61,
       loadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 2, kg: 3500 },
-        { h: 0, r: 3, kg: 3000 },
-        { h: 0, r: 4, kg: 2500 },
-        { h: 0, r: 5, kg: 2000 },
-        { h: 0, r: 6, kg: 1500 },
-        { h: 0, r: 7, kg: 1100 },
-        { h: 0, r: 8, kg: 700 },
-        { h: 0, r: 9, kg: 400 },
-        { h: 0, r: 9.7, kg: 200 },
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 2, kg: 3500 },
-        { h: 2, r: 3, kg: 3000 },
-        { h: 2, r: 4, kg: 2400 },
-        { h: 2, r: 5, kg: 1900 },
-        { h: 2, r: 6, kg: 1400 },
-        { h: 2, r: 7, kg: 1000 },
-        { h: 2, r: 8, kg: 650 },
-        { h: 2, r: 9, kg: 350 },
-        { h: 2, r: 9.7, kg: 200 },
-        { h: 4, r: 0, kg: 3800 },
-        { h: 4, r: 2, kg: 3300 },
-        { h: 4, r: 3, kg: 2800 },
-        { h: 4, r: 4, kg: 2200 },
-        { h: 4, r: 5, kg: 1700 },
-        { h: 4, r: 6, kg: 1300 },
-        { h: 4, r: 7, kg: 900 },
-        { h: 4, r: 8, kg: 550 },
-        { h: 4, r: 9, kg: 300 },
-        { h: 6, r: 0, kg: 3500 },
-        { h: 6, r: 2, kg: 3000 },
-        { h: 6, r: 3, kg: 2500 },
-        { h: 6, r: 4, kg: 2000 },
-        { h: 6, r: 5, kg: 1500 },
-        { h: 6, r: 6, kg: 1100 },
-        { h: 6, r: 7, kg: 700 },
-        { h: 6, r: 8, kg: 400 },
-        { h: 8, r: 0, kg: 3000 },
-        { h: 8, r: 2, kg: 2600 },
-        { h: 8, r: 3, kg: 2100 },
-        { h: 8, r: 4, kg: 1600 },
-        { h: 8, r: 5, kg: 1200 },
-        { h: 8, r: 6, kg: 800 },
-        { h: 8, r: 7, kg: 450 },
-        { h: 10, r: 0, kg: 2400 },
-        { h: 10, r: 2, kg: 2000 },
-        { h: 10, r: 3, kg: 1600 },
-        { h: 10, r: 4, kg: 1100 },
-        { h: 10, r: 5, kg: 700 },
-        { h: 10, r: 5.5, kg: 450 },
-        { h: 12, r: 0, kg: 1600 },
-        { h: 12, r: 1, kg: 1400 },
-        { h: 12, r: 2, kg: 1100 },
-        { h: 12, r: 3, kg: 700 },
-        { h: 12.89, r: 0, kg: 1300 },
-        { h: 12.89, r: 2, kg: 900 },
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 2.42, kg: 4000 }, { h: 0, r: 3.12, kg: 3500 }, { h: 0, r: 3.82, kg: 3000 }, { h: 0, r: 4.52, kg: 2500 }, { h: 0, r: 5.21, kg: 2000 }, { h: 0, r: 5.91, kg: 1500 }, { h: 0, r: 6.61, kg: 1000 }, { h: 0, r: 8.54, kg: 500 }, { h: 0, r: 9.7, kg: 200 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 2.42, kg: 4000 }, { h: 1, r: 3.12, kg: 3500 }, { h: 1, r: 3.82, kg: 3000 }, { h: 1, r: 4.52, kg: 2500 }, { h: 1, r: 5.21, kg: 2000 }, { h: 1, r: 5.91, kg: 1500 }, { h: 1, r: 6.61, kg: 1000 }, { h: 1, r: 8.54, kg: 500 }, { h: 1, r: 9.6, kg: 200 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 2.42, kg: 4000 }, { h: 2, r: 3.12, kg: 3500 }, { h: 2, r: 3.82, kg: 3000 }, { h: 2, r: 4.52, kg: 2500 }, { h: 2, r: 5.21, kg: 2000 }, { h: 2, r: 5.91, kg: 1500 }, { h: 2, r: 6.61, kg: 1000 }, { h: 2, r: 8.54, kg: 500 }, { h: 2, r: 9.7, kg: 200 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 2.42, kg: 4000 }, { h: 3, r: 3.12, kg: 3500 }, { h: 3, r: 3.82, kg: 3000 }, { h: 3, r: 4.52, kg: 2500 }, { h: 3, r: 5.21, kg: 2000 }, { h: 3, r: 5.91, kg: 1500 }, { h: 3, r: 6.61, kg: 1000 }, { h: 3, r: 8.54, kg: 500 }, { h: 3, r: 9.6, kg: 200 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 2.42, kg: 4000 }, { h: 4, r: 3.12, kg: 3500 }, { h: 4, r: 3.82, kg: 3000 }, { h: 4, r: 4.52, kg: 2500 }, { h: 4, r: 5.21, kg: 2000 }, { h: 4, r: 5.91, kg: 1500 }, { h: 4, r: 6.61, kg: 1000 }, { h: 4, r: 8.54, kg: 500 }, { h: 4, r: 9.35, kg: 200 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 2.42, kg: 4000 }, { h: 5, r: 3.12, kg: 3500 }, { h: 5, r: 3.82, kg: 3000 }, { h: 5, r: 4.52, kg: 2500 }, { h: 5, r: 5.21, kg: 2000 }, { h: 5, r: 5.91, kg: 1500 }, { h: 5, r: 6.61, kg: 1000 }, { h: 5, r: 8.54, kg: 500 }, { h: 5, r: 9, kg: 200 },
+        { h: 6, r: 0, kg: 4000 }, { h: 6, r: 2.42, kg: 4000 }, { h: 6, r: 3.12, kg: 3500 }, { h: 6, r: 3.82, kg: 3000 }, { h: 6, r: 4.52, kg: 2500 }, { h: 6, r: 5.21, kg: 2000 }, { h: 6, r: 5.91, kg: 1500 }, { h: 6, r: 6.61, kg: 1000 }, { h: 6, r: 8.54, kg: 500 }, { h: 6, r: 8.55, kg: 200 },
+        { h: 7, r: 0, kg: 3500 }, { h: 7, r: 3.12, kg: 3500 }, { h: 7, r: 3.82, kg: 3000 }, { h: 7, r: 4.52, kg: 2500 }, { h: 7, r: 5.21, kg: 2000 }, { h: 7, r: 5.91, kg: 1500 }, { h: 7, r: 6.61, kg: 1000 }, { h: 7, r: 8, kg: 500 },
+        { h: 8, r: 0, kg: 3000 }, { h: 8, r: 3.82, kg: 3000 }, { h: 8, r: 4.52, kg: 2500 }, { h: 8, r: 5.21, kg: 2000 }, { h: 8, r: 5.91, kg: 1500 }, { h: 8, r: 6.61, kg: 1000 }, { h: 8, r: 7.32, kg: 500 },
+        { h: 9, r: 0, kg: 2500 }, { h: 9, r: 4.52, kg: 2500 }, { h: 9, r: 5.21, kg: 2000 }, { h: 9, r: 5.91, kg: 1500 }, { h: 9, r: 6.61, kg: 1000 }, { h: 9, r: 6.88, kg: 500 },
+        { h: 10, r: 0, kg: 2500 }, { h: 10, r: 4.52, kg: 2500 }, { h: 10, r: 5.21, kg: 2000 }, { h: 10, r: 5.91, kg: 1500 }, { h: 10, r: 6.24, kg: 1000 },
+        { h: 11, r: 0, kg: 2000 }, { h: 11, r: 5.21, kg: 2000 }, { h: 11, r: 5.4, kg: 1500 },
+        { h: 12, r: 0, kg: 1500 }, { h: 12, r: 4.48, kg: 1500 },
         { h: 12.89, r: 3.09, kg: 1300 },
       ],
-      capacityAtFullHeightStabs: 3000,
-      capacityAtFullReachStabs: 1250,
-      liftHeightStabs: 13.78,
-      reachAt1000kg: 6.61,
-      filters: ["telehandler", "rough", "heavy"],
+      loadMatrixStabs: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 2.7, kg: 4000 }, { h: 0, r: 3.82, kg: 3500 }, { h: 0, r: 4.71, kg: 3100 }, { h: 0, r: 6.06, kg: 2500 }, { h: 0, r: 7.18, kg: 2000 }, { h: 0, r: 8.3, kg: 1500 }, { h: 0, r: 8.86, kg: 1250 }, { h: 0, r: 9.64, kg: 900 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 2.7, kg: 4000 }, { h: 1, r: 3.82, kg: 3500 }, { h: 1, r: 4.71, kg: 3100 }, { h: 1, r: 6.06, kg: 2500 }, { h: 1, r: 7.18, kg: 2000 }, { h: 1, r: 8.3, kg: 1500 }, { h: 1, r: 8.86, kg: 1250 }, { h: 1, r: 9.55, kg: 0 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 2.7, kg: 4000 }, { h: 2, r: 3.82, kg: 3500 }, { h: 2, r: 4.71, kg: 3100 }, { h: 2, r: 6.06, kg: 2500 }, { h: 2, r: 7.18, kg: 2000 }, { h: 2, r: 8.3, kg: 1500 }, { h: 2, r: 8.86, kg: 1250 }, { h: 2, r: 9.64, kg: 0 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 2.7, kg: 4000 }, { h: 3, r: 3.82, kg: 3500 }, { h: 3, r: 4.71, kg: 3100 }, { h: 3, r: 6.06, kg: 2500 }, { h: 3, r: 7.18, kg: 2000 }, { h: 3, r: 8.3, kg: 1500 }, { h: 3, r: 8.86, kg: 1250 }, { h: 3, r: 9.5, kg: 0 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 2.7, kg: 4000 }, { h: 4, r: 3.82, kg: 3500 }, { h: 4, r: 4.71, kg: 3100 }, { h: 4, r: 6.06, kg: 2500 }, { h: 4, r: 7.18, kg: 2000 }, { h: 4, r: 8.3, kg: 1500 }, { h: 4, r: 8.86, kg: 1250 }, { h: 4, r: 9.25, kg: 0 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 2.7, kg: 4000 }, { h: 5, r: 3.82, kg: 3500 }, { h: 5, r: 4.71, kg: 3100 }, { h: 5, r: 6.06, kg: 2500 }, { h: 5, r: 7.18, kg: 2000 }, { h: 5, r: 8.3, kg: 1500 }, { h: 5, r: 8.86, kg: 1250 }, { h: 5, r: 8.95, kg: 0 },
+        { h: 6, r: 0, kg: 4000 }, { h: 6, r: 2.7, kg: 4000 }, { h: 6, r: 3.82, kg: 3500 }, { h: 6, r: 4.71, kg: 3100 }, { h: 6, r: 6.06, kg: 2500 }, { h: 6, r: 7.18, kg: 2000 }, { h: 6, r: 8.3, kg: 1500 }, { h: 6, r: 8.55, kg: 1250 },
+        { h: 7, r: 0, kg: 4000 }, { h: 7, r: 2.7, kg: 4000 }, { h: 7, r: 3.82, kg: 3500 }, { h: 7, r: 4.71, kg: 3100 }, { h: 7, r: 6.06, kg: 2500 }, { h: 7, r: 7.18, kg: 2000 }, { h: 7, r: 8.05, kg: 1500 },
+        { h: 8, r: 0, kg: 4000 }, { h: 8, r: 2.7, kg: 4000 }, { h: 8, r: 3.82, kg: 3500 }, { h: 8, r: 4.71, kg: 3100 }, { h: 8, r: 6.06, kg: 2500 }, { h: 8, r: 7.18, kg: 2000 }, { h: 8, r: 7.5, kg: 1500 },
+        { h: 9, r: 0, kg: 3500 }, { h: 9, r: 3.82, kg: 3500 }, { h: 9, r: 4.71, kg: 3100 }, { h: 9, r: 6.06, kg: 2500 }, { h: 9, r: 7.18, kg: 2000 }, { h: 9, r: 7.2, kg: 1500 },
+        { h: 10, r: 0, kg: 3500 }, { h: 10, r: 3.82, kg: 3500 }, { h: 10, r: 4.71, kg: 3100 }, { h: 10, r: 6.06, kg: 2500 }, { h: 10, r: 6.4, kg: 2000 },
+        { h: 11, r: 0, kg: 3500 }, { h: 11, r: 3.82, kg: 3500 }, { h: 11, r: 4.71, kg: 3100 }, { h: 11, r: 5.4, kg: 2500 },
+        { h: 12, r: 0, kg: 3100 }, { h: 12, r: 4.15, kg: 3100 },
+        { h: 13, r: 0, kg: 3100 }, { h: 13, r: 2.6, kg: 3100 },
+        { h: 13.78, r: 1.01, kg: 3100 },
+      ],
     },
     {
       id: "jcb-540-180",
@@ -7977,7 +7702,7 @@ const MACHINES = {
       capacity: 4,
       liftHeight: 10.69,
       maxReach: 10.47,
-      engine: "55kW (75hp) EcoMAX T4F (standard)",
+      engine: "55kW (75hp) EcoMAX T4F (only 55kW)",
       machineWeight: 11380,
       machineWidth: 2350,
       machineLength: 6270,
@@ -7985,7 +7710,8 @@ const MACHINES = {
       jibWeight: 120,
       jibLength: 1.8,
       rotatorWeight: 260,
-      ewpBasketSWL: 500,
+            ewpBasketSWL: 1000,
+      manPlatform: { swlKg: 1000, swlZones: "1,000kg", workingHeightM: 19.25, maxReachM: 11.0, config: "Stabilisers extended", standard: "AS1418.10", source: "JCB 540-180 HiViz Man platform load chart (stabilisers extended). Verify platform load plate before use." },
       terrain: "rough",
       maxSpeed: 29,
       tyres: "15.5-25",
@@ -8014,8 +7740,6 @@ const MACHINES = {
       bestFor:
         "5–6 storey construction, cladding, roofing, tall residential towers, EWP to 19.25m",
       note: "JCB 540-180 HiViz — 4T at 17.51m (stabs extended), 13.34m outreach. ON RUBBER: 4T at base, 500kg at 10.69m, 0kg at 10.47m reach. STABS EXTENDED: 4T at base, 2,400kg at 17.51m, 250kg at 13.34m. 55kW EcoMAX, no DPF. 10% smaller turning circle than 540-170, 1,000kg lighter. 4-piece boom — fast simultaneous extension. Regen hydraulics: 20% faster cycles, 4.4% less fuel. 2 machines fit one curtain-sided trailer. Man platform: 500kg or 1000kg to 19.25m. Adaptive Load Control (AS 1418.19). LiveLink telematics.",
-      liftChart:
-        "ON RUBBER: 4,000kg → 500kg at 10.69m → 0kg at 10.47m reach. STABS EXTENDED: 4,000kg → 2,400kg at 17.51m → 250kg at 13.34m. Sway ±9°. Source: JCB Construction Loadalls brochure p.28.",
       tags: [
         "4T",
         "17.51m",
@@ -8031,72 +7755,55 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      capacityAtFullHeight: 500,
-      capacityAtFullReach: 0,
       // loadMatrix pixel-read from JCB Construction Loadall load chart
       // (stabilisers retracted), anchored to brochure corner figures.
       // {h,r}->kg. Conservative zone reads; verify load plate before lift.
-      loadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 2, kg: 3000 },
-        { h: 0, r: 3, kg: 2500 },
-        { h: 0, r: 4, kg: 2000 },
-        { h: 0, r: 5, kg: 1500 },
-        { h: 0, r: 6, kg: 1100 },
-        { h: 0, r: 7, kg: 800 },
-        { h: 0, r: 8, kg: 500 },
-        { h: 0, r: 9, kg: 300 },
-        { h: 0, r: 10, kg: 100 },
-        { h: 0, r: 10.47, kg: 0 },
-        { h: 2, r: 0, kg: 3500 },
-        { h: 2, r: 2, kg: 2800 },
-        { h: 2, r: 3, kg: 2300 },
-        { h: 2, r: 4, kg: 1900 },
-        { h: 2, r: 5, kg: 1400 },
-        { h: 2, r: 6, kg: 1000 },
-        { h: 2, r: 7, kg: 750 },
-        { h: 2, r: 8, kg: 450 },
-        { h: 2, r: 9, kg: 250 },
-        { h: 2, r: 10, kg: 100 },
-        { h: 4, r: 0, kg: 3000 },
-        { h: 4, r: 2, kg: 2500 },
-        { h: 4, r: 3, kg: 2100 },
-        { h: 4, r: 4, kg: 1700 },
-        { h: 4, r: 5, kg: 1300 },
-        { h: 4, r: 6, kg: 900 },
-        { h: 4, r: 7, kg: 650 },
-        { h: 4, r: 8, kg: 400 },
-        { h: 4, r: 9, kg: 200 },
-        { h: 6, r: 0, kg: 2500 },
-        { h: 6, r: 2, kg: 2200 },
-        { h: 6, r: 3, kg: 1800 },
-        { h: 6, r: 4, kg: 1400 },
-        { h: 6, r: 5, kg: 1100 },
-        { h: 6, r: 6, kg: 750 },
-        { h: 6, r: 7, kg: 500 },
-        { h: 6, r: 8, kg: 300 },
-        { h: 8, r: 0, kg: 2000 },
-        { h: 8, r: 2, kg: 1700 },
-        { h: 8, r: 3, kg: 1400 },
-        { h: 8, r: 4, kg: 1100 },
-        { h: 8, r: 5, kg: 800 },
-        { h: 8, r: 6, kg: 500 },
-        { h: 8, r: 7, kg: 250 },
-        { h: 10, r: 0, kg: 1100 },
-        { h: 10, r: 1, kg: 900 },
-        { h: 10, r: 2, kg: 700 },
-        { h: 10, r: 3, kg: 450 },
-        { h: 10, r: 4, kg: 250 },
-        { h: 10.69, r: 0, kg: 500 },
-        { h: 10.69, r: 3, kg: 400 },
-        { h: 10.69, r: 6.92, kg: 500 },
-      ],
-      capacityAtFullHeightStabs: 2500,
-      capacityAtFullReachStabs: 550,
+      filters: ["telehandler", "rough", "heavy"],
+      liftChart:
+        "540-180 HiViz Sway, JCB CEA AU brochure pp.27-28. RETRACTED: max 4000kg; full height 500kg @10.69m; full reach 0kg @10.47m; reach@1t 6.25m. EXTENDED: max 4000kg; full height 2400kg @17.51m; full reach 250kg @13.34m; reach@1t 11.72m. Sway +/-9deg (EN1459 Annex B). loadMatrix=retracted, loadMatrixStabs=extended: B1-anchored (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); rated-zone plateau scaled from 540-170 chart reads; envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: jcbcea.com.au brochure pp.27-28.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 540-180 HiViz) ----
+      capacityAtFullHeight: 500,
+      capacityAtFullReach: 0,
+      capacityAtFullHeightStabs: 2400,
+      capacityAtFullReachStabs: 250,
       liftHeightStabs: 17.51,
       maxReachStabs: 13.34,
       reachAt1000kg: 6.25,
-      filters: ["telehandler", "rough", "heavy"],
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 2.62, kg: 4000 }, { h: 0, r: 3.22, kg: 3500 }, { h: 0, r: 3.83, kg: 3000 }, { h: 0, r: 4.43, kg: 2500 }, { h: 0, r: 5.04, kg: 2000 }, { h: 0, r: 5.64, kg: 1500 }, { h: 0, r: 6.25, kg: 1000 }, { h: 0, r: 7.3, kg: 750 }, { h: 0, r: 8.36, kg: 500 }, { h: 0, r: 9.42, kg: 250 }, { h: 0, r: 10.47, kg: 0 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 2.62, kg: 4000 }, { h: 1, r: 3.22, kg: 3500 }, { h: 1, r: 3.83, kg: 3000 }, { h: 1, r: 4.43, kg: 2500 }, { h: 1, r: 5.04, kg: 2000 }, { h: 1, r: 5.64, kg: 1500 }, { h: 1, r: 6.25, kg: 1000 }, { h: 1, r: 7.3, kg: 750 }, { h: 1, r: 8.36, kg: 500 }, { h: 1, r: 9.42, kg: 250 }, { h: 1, r: 10.45, kg: 0 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 2.62, kg: 4000 }, { h: 2, r: 3.22, kg: 3500 }, { h: 2, r: 3.83, kg: 3000 }, { h: 2, r: 4.43, kg: 2500 }, { h: 2, r: 5.04, kg: 2000 }, { h: 2, r: 5.64, kg: 1500 }, { h: 2, r: 6.25, kg: 1000 }, { h: 2, r: 7.3, kg: 750 }, { h: 2, r: 8.36, kg: 500 }, { h: 2, r: 9.42, kg: 250 }, { h: 2, r: 10.47, kg: 0 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 2.62, kg: 4000 }, { h: 3, r: 3.22, kg: 3500 }, { h: 3, r: 3.83, kg: 3000 }, { h: 3, r: 4.43, kg: 2500 }, { h: 3, r: 5.04, kg: 2000 }, { h: 3, r: 5.64, kg: 1500 }, { h: 3, r: 6.25, kg: 1000 }, { h: 3, r: 7.3, kg: 750 }, { h: 3, r: 8.36, kg: 500 }, { h: 3, r: 9.42, kg: 250 }, { h: 3, r: 10.35, kg: 0 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 2.62, kg: 4000 }, { h: 4, r: 3.22, kg: 3500 }, { h: 4, r: 3.83, kg: 3000 }, { h: 4, r: 4.43, kg: 2500 }, { h: 4, r: 5.04, kg: 2000 }, { h: 4, r: 5.64, kg: 1500 }, { h: 4, r: 6.25, kg: 1000 }, { h: 4, r: 7.3, kg: 750 }, { h: 4, r: 8.36, kg: 500 }, { h: 4, r: 9.42, kg: 250 }, { h: 4, r: 10.15, kg: 0 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 2.62, kg: 4000 }, { h: 5, r: 3.22, kg: 3500 }, { h: 5, r: 3.83, kg: 3000 }, { h: 5, r: 4.43, kg: 2500 }, { h: 5, r: 5.04, kg: 2000 }, { h: 5, r: 5.64, kg: 1500 }, { h: 5, r: 6.25, kg: 1000 }, { h: 5, r: 7.3, kg: 750 }, { h: 5, r: 8.36, kg: 500 }, { h: 5, r: 9.42, kg: 250 }, { h: 5, r: 9.85, kg: 0 },
+        { h: 6, r: 0, kg: 3500 }, { h: 6, r: 3.22, kg: 3500 }, { h: 6, r: 3.83, kg: 3000 }, { h: 6, r: 4.43, kg: 2500 }, { h: 6, r: 5.04, kg: 2000 }, { h: 6, r: 5.64, kg: 1500 }, { h: 6, r: 6.25, kg: 1000 }, { h: 6, r: 7.3, kg: 750 }, { h: 6, r: 8.36, kg: 500 }, { h: 6, r: 9.42, kg: 250 }, { h: 6, r: 9.5, kg: 0 },
+        { h: 7, r: 0, kg: 3000 }, { h: 7, r: 3.83, kg: 3000 }, { h: 7, r: 4.43, kg: 2500 }, { h: 7, r: 5.04, kg: 2000 }, { h: 7, r: 5.64, kg: 1500 }, { h: 7, r: 6.25, kg: 1000 }, { h: 7, r: 7.3, kg: 750 }, { h: 7, r: 8.36, kg: 500 }, { h: 7, r: 9.15, kg: 250 },
+        { h: 8, r: 0, kg: 2000 }, { h: 8, r: 5.04, kg: 2000 }, { h: 8, r: 5.64, kg: 1500 }, { h: 8, r: 6.25, kg: 1000 }, { h: 8, r: 7.3, kg: 750 }, { h: 8, r: 8.36, kg: 500 }, { h: 8, r: 8.75, kg: 250 },
+        { h: 9, r: 0, kg: 1500 }, { h: 9, r: 5.64, kg: 1500 }, { h: 9, r: 6.25, kg: 1000 }, { h: 9, r: 7.3, kg: 750 }, { h: 9, r: 8.25, kg: 500 },
+        { h: 10, r: 0, kg: 750 }, { h: 10, r: 7.3, kg: 750 }, { h: 10, r: 7.5, kg: 500 },
+        { h: 10.69, r: 6.92, kg: 500 },
+      ],
+      loadMatrixStabs: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 3.74, kg: 4000 }, { h: 0, r: 5.07, kg: 3500 }, { h: 0, r: 6.4, kg: 3000 }, { h: 0, r: 7.73, kg: 2500 }, { h: 0, r: 9.06, kg: 2000 }, { h: 0, r: 10.39, kg: 1500 }, { h: 0, r: 11.72, kg: 1000 }, { h: 0, r: 12.69, kg: 550 }, { h: 0, r: 13.34, kg: 250 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 3.74, kg: 4000 }, { h: 1, r: 5.07, kg: 3500 }, { h: 1, r: 6.4, kg: 3000 }, { h: 1, r: 7.73, kg: 2500 }, { h: 1, r: 9.06, kg: 2000 }, { h: 1, r: 10.39, kg: 1500 }, { h: 1, r: 11.72, kg: 1000 }, { h: 1, r: 12.69, kg: 550 }, { h: 1, r: 13.25, kg: 250 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 3.74, kg: 4000 }, { h: 2, r: 5.07, kg: 3500 }, { h: 2, r: 6.4, kg: 3000 }, { h: 2, r: 7.73, kg: 2500 }, { h: 2, r: 9.06, kg: 2000 }, { h: 2, r: 10.39, kg: 1500 }, { h: 2, r: 11.72, kg: 1000 }, { h: 2, r: 12.69, kg: 550 }, { h: 2, r: 13.34, kg: 250 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 3.74, kg: 4000 }, { h: 3, r: 5.07, kg: 3500 }, { h: 3, r: 6.4, kg: 3000 }, { h: 3, r: 7.73, kg: 2500 }, { h: 3, r: 9.06, kg: 2000 }, { h: 3, r: 10.39, kg: 1500 }, { h: 3, r: 11.72, kg: 1000 }, { h: 3, r: 12.69, kg: 550 }, { h: 3, r: 13.25, kg: 250 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 3.74, kg: 4000 }, { h: 4, r: 5.07, kg: 3500 }, { h: 4, r: 6.4, kg: 3000 }, { h: 4, r: 7.73, kg: 2500 }, { h: 4, r: 9.06, kg: 2000 }, { h: 4, r: 10.39, kg: 1500 }, { h: 4, r: 11.72, kg: 1000 }, { h: 4, r: 12.69, kg: 550 }, { h: 4, r: 13.05, kg: 250 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 3.74, kg: 4000 }, { h: 5, r: 5.07, kg: 3500 }, { h: 5, r: 6.4, kg: 3000 }, { h: 5, r: 7.73, kg: 2500 }, { h: 5, r: 9.06, kg: 2000 }, { h: 5, r: 10.39, kg: 1500 }, { h: 5, r: 11.72, kg: 1000 }, { h: 5, r: 12.69, kg: 550 }, { h: 5, r: 12.8, kg: 250 },
+        { h: 6, r: 0, kg: 4000 }, { h: 6, r: 3.74, kg: 4000 }, { h: 6, r: 5.07, kg: 3500 }, { h: 6, r: 6.4, kg: 3000 }, { h: 6, r: 7.73, kg: 2500 }, { h: 6, r: 9.06, kg: 2000 }, { h: 6, r: 10.39, kg: 1500 }, { h: 6, r: 11.72, kg: 1000 }, { h: 6, r: 12.5, kg: 550 },
+        { h: 7, r: 0, kg: 4000 }, { h: 7, r: 3.74, kg: 4000 }, { h: 7, r: 5.07, kg: 3500 }, { h: 7, r: 6.4, kg: 3000 }, { h: 7, r: 7.73, kg: 2500 }, { h: 7, r: 9.06, kg: 2000 }, { h: 7, r: 10.39, kg: 1500 }, { h: 7, r: 11.72, kg: 1000 }, { h: 7, r: 12.15, kg: 550 },
+        { h: 8, r: 0, kg: 4000 }, { h: 8, r: 3.74, kg: 4000 }, { h: 8, r: 5.07, kg: 3500 }, { h: 8, r: 6.4, kg: 3000 }, { h: 8, r: 7.73, kg: 2500 }, { h: 8, r: 9.06, kg: 2000 }, { h: 8, r: 10.39, kg: 1500 }, { h: 8, r: 11.72, kg: 1000 }, { h: 8, r: 12.42, kg: 550 },
+        { h: 9, r: 0, kg: 4000 }, { h: 9, r: 3.74, kg: 4000 }, { h: 9, r: 5.07, kg: 3500 }, { h: 9, r: 6.4, kg: 3000 }, { h: 9, r: 7.73, kg: 2500 }, { h: 9, r: 9.06, kg: 2000 }, { h: 9, r: 10.39, kg: 1500 }, { h: 9, r: 11.72, kg: 1000 }, { h: 9, r: 12.06, kg: 550 },
+        { h: 10, r: 0, kg: 4000 }, { h: 10, r: 3.74, kg: 4000 }, { h: 10, r: 5.07, kg: 3500 }, { h: 10, r: 6.4, kg: 3000 }, { h: 10, r: 7.73, kg: 2500 }, { h: 10, r: 9.06, kg: 2000 }, { h: 10, r: 10.39, kg: 1500 }, { h: 10, r: 11.54, kg: 1000 },
+        { h: 11, r: 0, kg: 3500 }, { h: 11, r: 5.07, kg: 3500 }, { h: 11, r: 6.4, kg: 3000 }, { h: 11, r: 7.73, kg: 2500 }, { h: 11, r: 9.06, kg: 2000 }, { h: 11, r: 10.39, kg: 1500 }, { h: 11, r: 10.54, kg: 1000 },
+        { h: 12, r: 0, kg: 3500 }, { h: 12, r: 5.07, kg: 3500 }, { h: 12, r: 6.4, kg: 3000 }, { h: 12, r: 7.73, kg: 2500 }, { h: 12, r: 9.06, kg: 2000 }, { h: 12, r: 10.38, kg: 1500 },
+        { h: 13, r: 0, kg: 3000 }, { h: 13, r: 6.4, kg: 3000 }, { h: 13, r: 7.73, kg: 2500 }, { h: 13, r: 9.06, kg: 2000 }, { h: 13, r: 9.66, kg: 1500 },
+        { h: 14, r: 0, kg: 3000 }, { h: 14, r: 6.4, kg: 3000 }, { h: 14, r: 7.73, kg: 2500 }, { h: 14, r: 8.6, kg: 2000 },
+        { h: 15, r: 0, kg: 2500 }, { h: 15, r: 7.73, kg: 2500 }, { h: 15, r: 7.82, kg: 2000 },
+        { h: 16, r: 0, kg: 2500 }, { h: 16, r: 6.7, kg: 2500 },
+        { h: 17, r: 0, kg: 2500 }, { h: 17, r: 5.2, kg: 2500 },
+        { h: 17.51, r: 1.88, kg: 2400 },
+      ],
     },
     {
       id: "jcb-541-70",
@@ -8105,25 +7812,23 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 541-70 IND",
       shortName: "JCB 541-70",
-      capacity: 4.1,
+      capacity: 4,
       liftHeight: 7,
       maxReach: 3.7,
-      engine: "55kW (75hp) EcoMAX T4F (standard)",
-      machineWeight: 9300,
+      engine: "55kW (75hp) EcoMAX T4F (81/93kW opt)",
+      machineWeight: 7850,
       // Brochure load-chart corners (JCB Construction Loadall range PDF,
       // stabilisers retracted — conservative). Lets getCapacityAtPoint's
       // corner-proof path verify capacity instead of rated fallback.
-      capacityAtFullHeight: 2400,
-      capacityAtFullReach: 1500,
-      machineWidth: 2290,
-      machineLength: 5050,
-      machineHeight: 2330,
+      machineWidth: 2230,
+      machineLength: 4990,
+      machineHeight: 2490,
       jibWeight: 38,
       jibLength: 0.0,
       rotatorWeight: 400,
       ewpBasketSWL: 230,
       terrain: "rough",
-      maxSpeed: 30,
+      maxSpeed: 29,
       attachments: [
         "Standard Forks",
         "Jib",
@@ -8132,8 +7837,6 @@ const MACHINES = {
       ],
       bestFor:
         "Heavy 2-storey construction, 4T lifting at lower heights, industrial sites",
-      liftChart:
-        "4,000kg max (retracted). 2,400kg at full height (7.0m, r=0.54m). 1,500kg at full reach (3.7m). Reach with 1T: 3.7m. PlacingH: 6.3m. On tyres, forks. Source: JCB Construction Loadalls brochure p.27.",
       tags: ["4T", "7m", "3.7m Reach", "EcoMAX", "Heavy Lift"],
       // ── LOAD MATRIX — On Tyres with Forks ──────────────────────────────────────
       // Source: PIXEL EXTRACTION from JCB 541-70 brochure load chart
@@ -8151,91 +7854,23 @@ const MACHINES = {
       //   • Lift capacity at full reach (3.5m) = 1,500 kg (matches outer band extraction)
       //   • Lift capacity at full height = 2,400 kg (above matrix coverage; sparse fallback)
       // ─────────────────────────────────────────────────────────────────────────
-      loadMatrix: [
-        // h=0m
-        { h: 0, r: 1, kg: 4000 },
-        { h: 0, r: 1.5, kg: 4000 },
-        { h: 0, r: 2, kg: 3000 },
-        { h: 0, r: 2.5, kg: 2500 },
-        { h: 0, r: 3, kg: 2000 },
-        { h: 0, r: 3.5, kg: 1500 },
-        // h=0.5m
-        { h: 0.5, r: 1, kg: 4000 },
-        { h: 0.5, r: 1.5, kg: 3500 },
-        { h: 0.5, r: 2, kg: 3000 },
-        { h: 0.5, r: 2.5, kg: 2500 },
-        { h: 0.5, r: 3, kg: 2500 },
-        { h: 0.5, r: 3.5, kg: 1500 },
-        // h=1m
-        { h: 1, r: 1, kg: 4000 },
-        { h: 1, r: 1.5, kg: 3500 },
-        { h: 1, r: 2, kg: 3000 },
-        { h: 1, r: 2.5, kg: 2500 },
-        { h: 1, r: 3, kg: 2000 },
-        { h: 1, r: 3.5, kg: 2000 },
-        // h=1.5m
-        { h: 1.5, r: 1, kg: 4000 },
-        { h: 1.5, r: 1.5, kg: 3500 },
-        { h: 1.5, r: 2, kg: 3000 },
-        { h: 1.5, r: 2.5, kg: 2500 },
-        { h: 1.5, r: 3, kg: 2000 },
-        { h: 1.5, r: 3.5, kg: 1500 },
-        // h=2m
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 0.5, kg: 4000 },
-        { h: 2, r: 1, kg: 4000 },
-        { h: 2, r: 1.5, kg: 4000 },
-        { h: 2, r: 2, kg: 3000 },
-        { h: 2, r: 2.5, kg: 2500 },
-        { h: 2, r: 3, kg: 2000 },
-        { h: 2, r: 3.5, kg: 1500 },
-        // h=2.5m
-        { h: 2.5, r: 0, kg: 4000 },
-        { h: 2.5, r: 0.5, kg: 4000 },
-        { h: 2.5, r: 1, kg: 4000 },
-        { h: 2.5, r: 1.5, kg: 3500 },
-        { h: 2.5, r: 2, kg: 3000 },
-        { h: 2.5, r: 2.5, kg: 2000 },
-        { h: 2.5, r: 3, kg: 1500 },
-        // h=3m
-        { h: 3, r: 0.5, kg: 4000 },
-        { h: 3, r: 1, kg: 4000 },
-        { h: 3, r: 1.5, kg: 3500 },
-        { h: 3, r: 2, kg: 3000 },
-        { h: 3, r: 2.5, kg: 2000 },
-        { h: 3, r: 3, kg: 1500 },
-        // h=3.5m
-        { h: 3.5, r: 0, kg: 4000 },
-        { h: 3.5, r: 0.5, kg: 4000 },
-        { h: 3.5, r: 1, kg: 4000 },
-        { h: 3.5, r: 1.5, kg: 3000 },
-        { h: 3.5, r: 2, kg: 2500 },
-        { h: 3.5, r: 2.5, kg: 2000 },
-        { h: 3.5, r: 3, kg: 1500 },
-        // h=4m
-        { h: 4, r: 0, kg: 4000 },
-        { h: 4, r: 0.5, kg: 4000 },
-        { h: 4, r: 1, kg: 4000 },
-        { h: 4, r: 1.5, kg: 3000 },
-        { h: 4, r: 2, kg: 2500 },
-        { h: 4, r: 2.5, kg: 2000 },
-        { h: 4, r: 3, kg: 1500 },
-        // h=4.5m
-        { h: 4.5, r: 0, kg: 4000 },
-        { h: 4.5, r: 0.5, kg: 4000 },
-        { h: 4.5, r: 1, kg: 4000 },
-        { h: 4.5, r: 1.5, kg: 3500 },
-        { h: 4.5, r: 2, kg: 2500 },
-        { h: 4.5, r: 2.5, kg: 2000 },
-        // h=5m
-        { h: 5, r: 0, kg: 4000 },
-        { h: 5, r: 0.5, kg: 4000 },
-        { h: 5, r: 1, kg: 4000 },
-        { h: 5, r: 1.5, kg: 3500 },
-        { h: 5, r: 2, kg: 2500 },
-        { h: 5, r: 2.5, kg: 2000 },
-      ],
       filters: ["telehandler", "rough", "heavy"],
+      liftChart:
+        "541-70, JCB CEA AU brochure p.27 (on tyres). Max 4000kg; full height 2400kg @7m; full reach 1500kg @3.7m; reach@maxH 0.54m; reach@1t 3.7m. B1-anchored loadMatrix (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); outer envelope pixel-traced from single-chart image; rated-zone plateau scaled from 540-170 reads; envelope-clipped; intermediates modelled). Verify load plate before lift. Source: jcbcea.com.au brochure p.27.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 541-70, on tyres) ----
+      capacityAtFullHeight: 2400,
+      capacityAtFullReach: 1500,
+      reachAt1000kg: 3.7,
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 0.93, kg: 4000 }, { h: 0, r: 1.48, kg: 3500 }, { h: 0, r: 2.04, kg: 3000 }, { h: 0, r: 2.59, kg: 2500 }, { h: 0, r: 3.15, kg: 2000 }, { h: 0, r: 3.7, kg: 1500 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 0.93, kg: 4000 }, { h: 1, r: 1.48, kg: 3500 }, { h: 1, r: 2.04, kg: 3000 }, { h: 1, r: 2.59, kg: 2500 }, { h: 1, r: 3.15, kg: 2000 }, { h: 1, r: 3.67, kg: 1500 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 0.93, kg: 4000 }, { h: 2, r: 1.48, kg: 3500 }, { h: 2, r: 2.04, kg: 3000 }, { h: 2, r: 2.59, kg: 2500 }, { h: 2, r: 3.15, kg: 2000 }, { h: 2, r: 3.63, kg: 1500 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 0.93, kg: 4000 }, { h: 3, r: 1.48, kg: 3500 }, { h: 3, r: 2.04, kg: 3000 }, { h: 3, r: 2.59, kg: 2500 }, { h: 3, r: 3.15, kg: 2000 }, { h: 3, r: 3.45, kg: 1500 },
+        { h: 4, r: 0, kg: 3500 }, { h: 4, r: 1.48, kg: 3500 }, { h: 4, r: 2.04, kg: 3000 }, { h: 4, r: 2.59, kg: 2500 }, { h: 4, r: 3.09, kg: 2000 },
+        { h: 5, r: 0, kg: 3000 }, { h: 5, r: 2.04, kg: 3000 }, { h: 5, r: 2.53, kg: 2500 },
+        { h: 6, r: 0, kg: 2500 }, { h: 6, r: 1.71, kg: 2500 },
+        { h: 7, r: 0.54, kg: 2400 },
+      ],
     },
     {
       id: "jcb-560-80",
@@ -8266,78 +7901,18 @@ const MACHINES = {
         "5,500kg at ground. At 7.9m/4.3m reach: significantly reduced — consult JCB 560-80 IND load chart.",
       tags: ["5.5T", "7.9m", "4.3m Reach", "108kW", "Heavy Precast"],
       loadMatrix: [
-        { h: 0.5, r: 0.0, kg: 5500 },
-        { h: 0.5, r: 0.5, kg: 5500 },
-        { h: 0.5, r: 1.0, kg: 5500 },
-        { h: 0.5, r: 1.5, kg: 4950 },
-        { h: 0.5, r: 2.0, kg: 4100 },
-        { h: 0.5, r: 3.0, kg: 3000 },
-        { h: 0.5, r: 3.5, kg: 2100 },
-        { h: 0.5, r: 4.0, kg: 1500 },
-        { h: 0.5, r: 4.3, kg: 1200 },
-        { h: 0.9, r: 0.0, kg: 5500 },
-        { h: 0.9, r: 0.5, kg: 5500 },
-        { h: 0.9, r: 1.0, kg: 5500 },
-        { h: 0.9, r: 1.5, kg: 4950 },
-        { h: 0.9, r: 2.0, kg: 4100 },
-        { h: 0.9, r: 3.0, kg: 3000 },
-        { h: 0.9, r: 3.5, kg: 2100 },
-        { h: 0.9, r: 4.0, kg: 1500 },
-        { h: 0.9, r: 4.3, kg: 1200 },
-        { h: 2.0, r: 0.0, kg: 5500 },
-        { h: 2.0, r: 0.5, kg: 5500 },
-        { h: 2.0, r: 1.0, kg: 5500 },
-        { h: 2.0, r: 1.5, kg: 4950 },
-        { h: 2.0, r: 2.0, kg: 4100 },
-        { h: 2.0, r: 2.5, kg: 3000 },
-        { h: 2.0, r: 3.5, kg: 2100 },
-        { h: 2.0, r: 4.0, kg: 1500 },
-        { h: 3.0, r: 0.0, kg: 5500 },
-        { h: 3.0, r: 0.5, kg: 5500 },
-        { h: 3.0, r: 1.0, kg: 5500 },
-        { h: 3.0, r: 1.5, kg: 4950 },
-        { h: 3.0, r: 2.0, kg: 4100 },
-        { h: 3.0, r: 2.5, kg: 3000 },
-        { h: 3.0, r: 3.0, kg: 2100 },
-        { h: 3.0, r: 3.5, kg: 1500 },
-        { h: 3.0, r: 4.0, kg: 1200 },
-        { h: 4.0, r: 0.0, kg: 5500 },
-        { h: 4.0, r: 0.5, kg: 5500 },
-        { h: 4.0, r: 1.0, kg: 5500 },
-        { h: 4.0, r: 1.5, kg: 4950 },
-        { h: 4.0, r: 2.0, kg: 4100 },
-        { h: 4.0, r: 2.5, kg: 3000 },
-        { h: 4.0, r: 3.0, kg: 2100 },
-        { h: 4.0, r: 3.5, kg: 1500 },
-        { h: 4.9, r: 0.0, kg: 5500 },
-        { h: 4.9, r: 0.5, kg: 5500 },
-        { h: 4.9, r: 1.0, kg: 5500 },
-        { h: 4.9, r: 1.5, kg: 4100 },
-        { h: 4.9, r: 2.0, kg: 3000 },
-        { h: 4.9, r: 2.5, kg: 2100 },
-        { h: 4.9, r: 3.0, kg: 1500 },
-        { h: 5.7, r: 0.0, kg: 5350 },
-        { h: 5.7, r: 0.5, kg: 5350 },
-        { h: 5.7, r: 1.0, kg: 4850 },
-        { h: 5.7, r: 1.5, kg: 4000 },
-        { h: 5.7, r: 2.0, kg: 2950 },
-        { h: 5.7, r: 2.5, kg: 1450 },
-        { h: 5.7, r: 2.8, kg: 1200 },
-        { h: 6.5, r: 0.0, kg: 5200 },
-        { h: 6.5, r: 0.5, kg: 5200 },
-        { h: 6.5, r: 1.0, kg: 4700 },
-        { h: 6.5, r: 1.5, kg: 2850 },
-        { h: 6.5, r: 2.0, kg: 2000 },
-        { h: 7.1, r: 0.0, kg: 5050 },
-        { h: 7.1, r: 0.5, kg: 5050 },
-        { h: 7.1, r: 1.0, kg: 3800 },
-        { h: 7.1, r: 1.5, kg: 1950 },
-        { h: 7.6, r: 0.0, kg: 4950 },
-        { h: 7.6, r: 0.5, kg: 4950 },
-        { h: 7.6, r: 1.0, kg: 1850 },
-        { h: 7.9, r: 0.0, kg: 4850 },
-        { h: 7.9, r: 0.5, kg: 4350 },
-        { h: 7.9, r: 0.8, kg: 1050 },
+        { h: 0.0, r: 0.57, kg: 5500 }, { h: 0.0, r: 1.49, kg: 5000 }, { h: 0.0, r: 1.67, kg: 4500 }, { h: 0.0, r: 1.98, kg: 4000 }, { h: 0.0, r: 2.35, kg: 3500 }, { h: 0.0, r: 2.67, kg: 3000 }, { h: 0.0, r: 3.07, kg: 2500 }, { h: 0.0, r: 3.5, kg: 2000 },
+        { h: 1.0, r: 0.57, kg: 5500 }, { h: 1.0, r: 1.49, kg: 5000 }, { h: 1.0, r: 1.67, kg: 4500 }, { h: 1.0, r: 1.98, kg: 4000 }, { h: 1.0, r: 2.35, kg: 3500 }, { h: 1.0, r: 2.67, kg: 3000 }, { h: 1.0, r: 3.07, kg: 2500 }, { h: 1.0, r: 3.56, kg: 2000 }, { h: 1.0, r: 4.2, kg: 1700 },
+        { h: 2.0, r: 0.57, kg: 5500 }, { h: 2.0, r: 1.49, kg: 5000 }, { h: 2.0, r: 1.67, kg: 4500 }, { h: 2.0, r: 1.98, kg: 4000 }, { h: 2.0, r: 2.35, kg: 3500 }, { h: 2.0, r: 2.67, kg: 3000 }, { h: 2.0, r: 3.07, kg: 2500 }, { h: 2.0, r: 3.56, kg: 2000 }, { h: 2.0, r: 4.3, kg: 1700 },
+        { h: 3.0, r: 0.57, kg: 5500 }, { h: 3.0, r: 1.49, kg: 5000 }, { h: 3.0, r: 1.67, kg: 4500 }, { h: 3.0, r: 1.98, kg: 4000 }, { h: 3.0, r: 2.35, kg: 3500 }, { h: 3.0, r: 2.67, kg: 3000 }, { h: 3.0, r: 3.07, kg: 2500 }, { h: 3.0, r: 3.56, kg: 2000 }, { h: 3.0, r: 4.3, kg: 1700 },
+        { h: 4.0, r: 0.57, kg: 5500 }, { h: 4.0, r: 1.49, kg: 5000 }, { h: 4.0, r: 1.67, kg: 4500 }, { h: 4.0, r: 1.98, kg: 4000 }, { h: 4.0, r: 2.35, kg: 3500 }, { h: 4.0, r: 2.67, kg: 3000 }, { h: 4.0, r: 3.07, kg: 2500 }, { h: 4.0, r: 3.56, kg: 2000 }, { h: 4.0, r: 4.0, kg: 1700 },
+        { h: 5.0, r: 0.57, kg: 5500 }, { h: 5.0, r: 1.49, kg: 5000 }, { h: 5.0, r: 1.67, kg: 4500 }, { h: 5.0, r: 1.98, kg: 4000 }, { h: 5.0, r: 2.35, kg: 3500 }, { h: 5.0, r: 2.67, kg: 3000 }, { h: 5.0, r: 3.07, kg: 2500 }, { h: 5.0, r: 3.4, kg: 2000 },
+        { h: 5.5, r: 1.49, kg: 5000 }, { h: 5.5, r: 1.67, kg: 4500 }, { h: 5.5, r: 1.98, kg: 4000 }, { h: 5.5, r: 2.35, kg: 3500 }, { h: 5.5, r: 2.67, kg: 3000 }, { h: 5.5, r: 3.0, kg: 2500 },
+        { h: 6.0, r: 1.98, kg: 4000 }, { h: 6.0, r: 2.35, kg: 3500 }, { h: 6.0, r: 2.5, kg: 3000 },
+        { h: 6.5, r: 2.1, kg: 3500 },
+        { h: 7.0, r: 1.7, kg: 3000 },
+        { h: 7.5, r: 1.2, kg: 3000 },
+        { h: 8.0, r: 0.8, kg: 2750 },
       ],
       filters: ["telehandler", "rough", "heavy"],
     },
@@ -8842,7 +8417,7 @@ const MACHINES = {
         "Low-clearance farm environments — barns, sheds, doorways, livestock buildings with restricted headroom",
       note: "JCB 536-70LP AGRI — Low Profile agricultural telehandler. 3.6T at 7m. Narrower at 2.24m wide and only 2.33m tall (standard is 2.49m) — purpose-designed to enter low-clearance farm buildings, livestock sheds and barns. Highest capacity in the 531/536 series at 3,600kg. 460/70 R24 agri tyres. Smart Hydraulics. EcoMAX 81kW no DPF. 5.97 L/hr real-world fuel. 125L fuel tank. DualTech VT on AGRI Pro. Fold-up rear lights for livestock area safety. Complies with Australian Standard AS 1418.19.",
       liftChart:
-        "3,600kg max (retracted). At 7m height: 2,300kg (confirmed spec). At 3.7m reach: 1,350kg (confirmed spec). Reach with 1T: 3.7m. On tyres, forks. Consult 536-70LP AGRI load chart.",
+        "536-70/536-70LP on tyres. Max 3,600kg; full height 2,300kg @7.0m; full reach 1,350kg @3.7m; reach@maxH 0.48m. Published zones 3600/3000/2500/2300/2000/1500/1350kg; boom -4 to 65deg. loadMatrix is B1-anchored (exact chart corners + published zone labels, anchored on 1,350kg/3.7m tip; outer envelope pixel-traced from single-chart image; capacity=min(reach-curve,height-derate); envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: JCB 536-70 load chart image.",
       tags: [
         "3.6T",
         "7m",
@@ -8863,73 +8438,14 @@ const MACHINES = {
       // Zone labels printed on chart: 3600/3000/2500/2300/2000/1500/1350 kg
       // X-axis scale: 0.5, 1.0, 1.5, 2.0, 2.4m | Retracted: 0.6m
       loadMatrix: [
-        // h=0
-        { h: 0, r: 0.0, kg: 3600 },
-        { h: 0, r: 0.6, kg: 3600 },
-        { h: 0, r: 1.0, kg: 3000 },
-        { h: 0, r: 1.5, kg: 2500 },
-        { h: 0, r: 2.0, kg: 2000 },
-        { h: 0, r: 2.4, kg: 1500 },
-        { h: 0, r: 3.0, kg: 1400 },
-        { h: 0, r: 3.7, kg: 1350 },
-        // h=1m
-        { h: 1, r: 0.0, kg: 3600 },
-        { h: 1, r: 0.6, kg: 3600 },
-        { h: 1, r: 1.0, kg: 3000 },
-        { h: 1, r: 1.5, kg: 2500 },
-        { h: 1, r: 2.0, kg: 2000 },
-        { h: 1, r: 2.4, kg: 1500 },
-        { h: 1, r: 3.0, kg: 1400 },
-        { h: 1, r: 3.7, kg: 1350 },
-        // h=2m
-        { h: 2, r: 0.0, kg: 3600 },
-        { h: 2, r: 0.6, kg: 3600 },
-        { h: 2, r: 1.0, kg: 3000 },
-        { h: 2, r: 1.5, kg: 2500 },
-        { h: 2, r: 2.0, kg: 2000 },
-        { h: 2, r: 2.3, kg: 1500 },
-        { h: 2, r: 2.9, kg: 1380 },
-        { h: 2, r: 3.7, kg: 1350 },
-        // h=3m
-        { h: 3, r: 0.0, kg: 3600 },
-        { h: 3, r: 0.6, kg: 3500 },
-        { h: 3, r: 1.0, kg: 3000 },
-        { h: 3, r: 1.4, kg: 2500 },
-        { h: 3, r: 1.9, kg: 2000 },
-        { h: 3, r: 2.2, kg: 1500 },
-        { h: 3, r: 2.8, kg: 1380 },
-        { h: 3, r: 3.6, kg: 1350 },
-        // h=4m
-        { h: 4, r: 0.0, kg: 3600 },
-        { h: 4, r: 0.5, kg: 3500 },
-        { h: 4, r: 0.9, kg: 3000 },
-        { h: 4, r: 1.3, kg: 2500 },
-        { h: 4, r: 1.7, kg: 2000 },
-        { h: 4, r: 2.0, kg: 1500 },
-        { h: 4, r: 2.5, kg: 1370 },
-        { h: 4, r: 3.4, kg: 1350 },
-        // h=5m
-        { h: 5, r: 0.0, kg: 3600 },
-        { h: 5, r: 0.5, kg: 3400 },
-        { h: 5, r: 0.8, kg: 3000 },
-        { h: 5, r: 1.1, kg: 2500 },
-        { h: 5, r: 1.5, kg: 2000 },
-        { h: 5, r: 1.8, kg: 1500 },
-        { h: 5, r: 2.2, kg: 1370 },
-        // h=6m
-        { h: 6, r: 0.0, kg: 3600 },
-        { h: 6, r: 0.4, kg: 3200 },
-        { h: 6, r: 0.7, kg: 3000 },
-        { h: 6, r: 1.0, kg: 2500 },
-        { h: 6, r: 1.3, kg: 2000 },
-        { h: 6, r: 1.5, kg: 1500 },
-        { h: 6, r: 1.8, kg: 1370 },
-        // h=7m — CONFIRMED: 2300kg at r=0.48m ✓
-        { h: 7, r: 0.0, kg: 3600 },
+        { h: 0, r: 0, kg: 3600 }, { h: 0, r: 0.93, kg: 3600 }, { h: 0, r: 1.67, kg: 3000 }, { h: 0, r: 2.28, kg: 2500 }, { h: 0, r: 2.53, kg: 2300 }, { h: 0, r: 2.9, kg: 2000 }, { h: 0, r: 3.52, kg: 1500 }, { h: 0, r: 3.7, kg: 1350 },
+        { h: 1, r: 0, kg: 3600 }, { h: 1, r: 0.93, kg: 3600 }, { h: 1, r: 1.67, kg: 3000 }, { h: 1, r: 2.28, kg: 2500 }, { h: 1, r: 2.53, kg: 2300 }, { h: 1, r: 2.9, kg: 2000 }, { h: 1, r: 3.52, kg: 1500 }, { h: 1, r: 3.65, kg: 1350 },
+        { h: 2, r: 0, kg: 3600 }, { h: 2, r: 0.93, kg: 3600 }, { h: 2, r: 1.67, kg: 3000 }, { h: 2, r: 2.28, kg: 2500 }, { h: 2, r: 2.53, kg: 2300 }, { h: 2, r: 2.9, kg: 2000 }, { h: 2, r: 3.52, kg: 1500 }, { h: 2, r: 3.68, kg: 1350 },
+        { h: 3, r: 0, kg: 3600 }, { h: 3, r: 0.93, kg: 3600 }, { h: 3, r: 1.67, kg: 3000 }, { h: 3, r: 2.28, kg: 2500 }, { h: 3, r: 2.53, kg: 2300 }, { h: 3, r: 2.9, kg: 2000 }, { h: 3, r: 3.52, kg: 1500 }, { h: 3, r: 3.68, kg: 1350 },
+        { h: 4, r: 0, kg: 3000 }, { h: 4, r: 1.67, kg: 3000 }, { h: 4, r: 2.28, kg: 2500 }, { h: 4, r: 2.53, kg: 2300 }, { h: 4, r: 2.9, kg: 2000 }, { h: 4, r: 3.5, kg: 1500 },
+        { h: 5, r: 0, kg: 3000 }, { h: 5, r: 1.67, kg: 3000 }, { h: 5, r: 2.28, kg: 2500 }, { h: 5, r: 2.53, kg: 2300 }, { h: 5, r: 2.9, kg: 2000 }, { h: 5, r: 3.2, kg: 1500 },
+        { h: 6, r: 0, kg: 2500 }, { h: 6, r: 2.28, kg: 2500 }, { h: 6, r: 2.53, kg: 2300 }, { h: 6, r: 2.7, kg: 2000 },
         { h: 7, r: 0.48, kg: 2300 },
-        { h: 7, r: 0.7, kg: 2000 },
-        { h: 7, r: 1.0, kg: 1800 },
-        { h: 7, r: 1.2, kg: 1500 },
       ],
       filters: ["telehandler", "rough", "agri", "compact"],
     },
@@ -9098,10 +8614,10 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 533-105 Construction Loadall",
       shortName: "JCB 533-105",
-      capacity: 3.3,
+      capacity: 3,
       liftHeight: 10.22,
       maxReach: 6.83,
-      engine: "55kW (75hp) EcoMAX T4F",
+      engine: "55kW (75hp) EcoMAX T4F (81/93kW opt)",
       machineWeight: 8850,
       machineWidth: 2360,
       machineLength: 5380,
@@ -9128,8 +8644,6 @@ const MACHINES = {
       bestFor:
         "3-storey construction with stabilisers, demolition, residential and commercial sites at 10m",
       note: "JCB 533-105 Construction Loadall — 3T at 10.22m, 6.83m reach. ON TYRES: 3,000kg max at base, 1,000kg at full height, 300kg at full reach. WITH STABILISERS: 3,000kg max at base, 2,500kg at full height 10.22m, 900kg at full reach 6.83m — massively increased envelope. 55kW EcoMAX, no DPF. Sway frames ±9° for level operations. ROPS/FOPS cab. Adaptive Load Control (AS 1418.19). LiveLink telematics. JCB Quickhitch for fast attachment changes. Reversing camera and pulse radar options.",
-      liftChart:
-        "ON TYRES: 3,000kg → 1,000kg at 10.22m → 300kg at 6.83m. WITH STABS EXTENDED: 3,000kg → 2,500kg at 10.22m → 900kg at 6.83m. Sway ±9°. Source: JCB Construction Loadalls brochure p.27.",
       tags: [
         "3T",
         "10.22m",
@@ -9145,55 +8659,48 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      capacityAtFullHeight: 1000,
-      capacityAtFullReach: 300, // corrected to JCB brochure (stabilisers retracted)
       // loadMatrix pixel-read from JCB Construction Loadall load chart
       // (stabilisers retracted), anchored to brochure corner figures.
       // {h,r}->kg. Conservative zone reads; verify load plate before lift.
+      filters: ["telehandler", "rough"],
+      liftChart:
+        "533-105 Sway, JCB CEA AU brochure pp.27-28. RETRACTED: max 3000kg; full height 1000kg @10.22m; full reach 300kg @6.83m; reach@1t 6.83m. EXTENDED: max 3000kg; full height 2500kg @10.22m; full reach 900kg @6.83m; reach@1t 6.83m. Sway +/-9deg (EN1459 Annex B). loadMatrix=retracted, loadMatrixStabs=extended: B1-anchored (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); rated-zone plateau scaled from 540-170 chart reads; envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: jcbcea.com.au brochure pp.27-28.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 533-105) ----
+      capacityAtFullHeight: 1000,
+      capacityAtFullReach: 300,
+      capacityAtFullHeightStabs: 2500,
+      capacityAtFullReachStabs: 900,
+      liftHeightStabs: 10.22,
+      maxReachStabs: 6.83,
+      reachAt1000kg: 6.83,
       loadMatrix: [
-        { h: 0, r: 0, kg: 3000 },
-        { h: 0, r: 2, kg: 3000 },
-        { h: 0, r: 3, kg: 2500 },
-        { h: 0, r: 4, kg: 2000 },
-        { h: 0, r: 5, kg: 1500 },
-        { h: 0, r: 6, kg: 800 },
-        { h: 0, r: 6.83, kg: 400 },
-        { h: 2, r: 0, kg: 3000 },
-        { h: 2, r: 2, kg: 2800 },
-        { h: 2, r: 3, kg: 2400 },
-        { h: 2, r: 4, kg: 1900 },
-        { h: 2, r: 5, kg: 1400 },
-        { h: 2, r: 6, kg: 750 },
-        { h: 2, r: 6.83, kg: 300 },
-        { h: 4, r: 0, kg: 2800 },
-        { h: 4, r: 2, kg: 2500 },
-        { h: 4, r: 3, kg: 2100 },
-        { h: 4, r: 4, kg: 1600 },
-        { h: 4, r: 5, kg: 1100 },
-        { h: 4, r: 6, kg: 600 },
-        { h: 6, r: 0, kg: 2500 },
-        { h: 6, r: 2, kg: 2200 },
-        { h: 6, r: 3, kg: 1700 },
-        { h: 6, r: 4, kg: 1200 },
-        { h: 6, r: 5, kg: 700 },
-        { h: 6, r: 5.5, kg: 400 },
-        { h: 8, r: 0, kg: 2000 },
-        { h: 8, r: 1, kg: 1700 },
-        { h: 8, r: 2, kg: 1300 },
-        { h: 8, r: 3, kg: 900 },
-        { h: 8, r: 4, kg: 500 },
-        { h: 10, r: 0, kg: 1200 },
-        { h: 10, r: 1, kg: 1000 },
-        { h: 10, r: 2, kg: 600 },
-        { h: 10, r: 2.69, kg: 400 },
-        { h: 10.22, r: 0, kg: 1000 },
-        { h: 10.22, r: 2, kg: 700 },
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 1.71, kg: 3000 }, { h: 0, r: 2.66, kg: 2500 }, { h: 0, r: 3.6, kg: 2000 }, { h: 0, r: 4.55, kg: 1500 }, { h: 0, r: 5.5, kg: 1000 }, { h: 0, r: 6.45, kg: 500 }, { h: 0, r: 6.83, kg: 300 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 1.71, kg: 3000 }, { h: 1, r: 2.66, kg: 2500 }, { h: 1, r: 3.6, kg: 2000 }, { h: 1, r: 4.55, kg: 1500 }, { h: 1, r: 5.5, kg: 1000 }, { h: 1, r: 6.45, kg: 500 }, { h: 1, r: 6.75, kg: 300 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 1.71, kg: 3000 }, { h: 2, r: 2.66, kg: 2500 }, { h: 2, r: 3.6, kg: 2000 }, { h: 2, r: 4.55, kg: 1500 }, { h: 2, r: 5.5, kg: 1000 }, { h: 2, r: 6.45, kg: 500 }, { h: 2, r: 6.83, kg: 300 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 1.71, kg: 3000 }, { h: 3, r: 2.66, kg: 2500 }, { h: 3, r: 3.6, kg: 2000 }, { h: 3, r: 4.55, kg: 1500 }, { h: 3, r: 5.5, kg: 1000 }, { h: 3, r: 6.45, kg: 500 }, { h: 3, r: 6.7, kg: 300 },
+        { h: 4, r: 0, kg: 3000 }, { h: 4, r: 1.71, kg: 3000 }, { h: 4, r: 2.66, kg: 2500 }, { h: 4, r: 3.6, kg: 2000 }, { h: 4, r: 4.55, kg: 1500 }, { h: 4, r: 5.5, kg: 1000 }, { h: 4, r: 6.45, kg: 500 }, { h: 4, r: 6.5, kg: 300 },
+        { h: 5, r: 0, kg: 3000 }, { h: 5, r: 1.71, kg: 3000 }, { h: 5, r: 2.66, kg: 2500 }, { h: 5, r: 3.6, kg: 2000 }, { h: 5, r: 4.55, kg: 1500 }, { h: 5, r: 5.5, kg: 1000 }, { h: 5, r: 6.15, kg: 500 },
+        { h: 6, r: 0, kg: 2500 }, { h: 6, r: 2.66, kg: 2500 }, { h: 6, r: 3.6, kg: 2000 }, { h: 6, r: 4.55, kg: 1500 }, { h: 6, r: 5.5, kg: 1000 }, { h: 6, r: 5.7, kg: 500 },
+        { h: 7, r: 0, kg: 2000 }, { h: 7, r: 3.6, kg: 2000 }, { h: 7, r: 4.55, kg: 1500 }, { h: 7, r: 5.15, kg: 1000 },
+        { h: 8, r: 0, kg: 1500 }, { h: 8, r: 4.45, kg: 1500 },
+        { h: 9, r: 0, kg: 1000 }, { h: 9, r: 3.6, kg: 1000 },
+        { h: 10, r: 0, kg: 1000 }, { h: 10, r: 2.82, kg: 1000 },
         { h: 10.22, r: 2.69, kg: 1000 },
       ],
-      capacityAtFullHeightStabs: 2500,
-      capacityAtFullReachStabs: 1000,
-      reachAt1000kg: 6.83,
-      filters: ["telehandler", "rough"],
+      loadMatrixStabs: [
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 1.91, kg: 3000 }, { h: 0, r: 3.08, kg: 2500 }, { h: 0, r: 4.25, kg: 2000 }, { h: 0, r: 5.42, kg: 1500 }, { h: 0, r: 6.01, kg: 1250 }, { h: 0, r: 6.83, kg: 900 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 1.91, kg: 3000 }, { h: 1, r: 3.08, kg: 2500 }, { h: 1, r: 4.25, kg: 2000 }, { h: 1, r: 5.42, kg: 1500 }, { h: 1, r: 6.01, kg: 1250 }, { h: 1, r: 6.8, kg: 900 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 1.91, kg: 3000 }, { h: 2, r: 3.08, kg: 2500 }, { h: 2, r: 4.25, kg: 2000 }, { h: 2, r: 5.42, kg: 1500 }, { h: 2, r: 6.01, kg: 1250 }, { h: 2, r: 6.83, kg: 900 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 1.91, kg: 3000 }, { h: 3, r: 3.08, kg: 2500 }, { h: 3, r: 4.25, kg: 2000 }, { h: 3, r: 5.42, kg: 1500 }, { h: 3, r: 6.01, kg: 1250 }, { h: 3, r: 6.72, kg: 900 },
+        { h: 4, r: 0, kg: 3000 }, { h: 4, r: 1.91, kg: 3000 }, { h: 4, r: 3.08, kg: 2500 }, { h: 4, r: 4.25, kg: 2000 }, { h: 4, r: 5.42, kg: 1500 }, { h: 4, r: 6.01, kg: 1250 }, { h: 4, r: 6.5, kg: 900 },
+        { h: 5, r: 0, kg: 3000 }, { h: 5, r: 1.91, kg: 3000 }, { h: 5, r: 3.08, kg: 2500 }, { h: 5, r: 4.25, kg: 2000 }, { h: 5, r: 5.42, kg: 1500 }, { h: 5, r: 6.01, kg: 1250 }, { h: 5, r: 6.2, kg: 900 },
+        { h: 6, r: 0, kg: 3000 }, { h: 6, r: 1.91, kg: 3000 }, { h: 6, r: 3.08, kg: 2500 }, { h: 6, r: 4.25, kg: 2000 }, { h: 6, r: 5.42, kg: 1500 }, { h: 6, r: 5.8, kg: 1250 },
+        { h: 7, r: 0, kg: 2500 }, { h: 7, r: 3.08, kg: 2500 }, { h: 7, r: 4.25, kg: 2000 }, { h: 7, r: 5.3, kg: 1500 },
+        { h: 8, r: 0, kg: 2500 }, { h: 8, r: 3.08, kg: 2500 }, { h: 8, r: 4.25, kg: 2000 }, { h: 8, r: 4.65, kg: 1500 },
+        { h: 9, r: 0, kg: 2500 }, { h: 9, r: 3.08, kg: 2500 }, { h: 9, r: 3.7, kg: 2000 },
+        { h: 10, r: 0, kg: 2500 }, { h: 10, r: 2.24, kg: 2500 },
+        { h: 10.22, r: 1.99, kg: 2500 },
+      ],
     },
 
     // ── JCB Construction Loadalls — 540-170 & 540-200 (source: JCB Construction Loadalls brochure, jcbcea.com.au)
@@ -9207,7 +8714,7 @@ const MACHINES = {
       capacity: 4,
       liftHeight: 11.57,
       maxReach: 9.04,
-      engine: "93kW (125hp) EcoMAX T4F (standard)",
+      engine: "81kW (109hp) EcoMAX T4F (55/93kW opt)",
       machineWeight: 12060,
       machineWidth: 2440,
       machineLength: 6360,
@@ -9215,7 +8722,8 @@ const MACHINES = {
       jibWeight: 120,
       jibLength: 1.8,
       rotatorWeight: 260,
-      ewpBasketSWL: 500,
+            ewpBasketSWL: 500,
+      manPlatform: { swlKg: 500, swlZones: "500kg (3-person)", workingHeightM: 19.09, maxReachM: 10.64, config: "Stabilisers extended", standard: "AS1418.10", source: "JCB 540-170 HiViz Man platform load chart (stabilisers extended). Verify platform load plate before use." },
       terrain: "rough",
       maxSpeed: 29,
       tyres: "15.5/80-24 standard",
@@ -9243,8 +8751,6 @@ const MACHINES = {
       bestFor:
         "5–6 storey construction, cladding, heavy high-reach placements, EWP to 19m",
       note: "JCB 540-170 Construction Loadall — 4T at 16.7m with stabs, 12.5m outreach. On rubber: 4T max but only 1,300kg at full height (11.57m), 0kg at full reach (9.04m). STABS EXTENDED: dramatically opens envelope — 4T at base, 2,200kg at 16.7m, 450kg at 12.5m. 93kW EcoMAX standard (no DPF). Regen hydraulics cut cycle time 20% & fuel 4.4%. ROPS/FOPS cab. Adaptive Load Control (AS 1418.19). LiveLink telematics. Man platform option: 500kg basket, 19.09m working height, 11.75m reach.",
-      liftChart:
-        "ON RUBBER: 4,000kg → 1,300kg at 11.57m → 0kg at 9.04m reach. STABS EXTENDED: 4,000kg → 2,200kg at 16.7m → 450kg at 12.5m. Sway ±9°. Source: JCB Construction Loadalls brochure p.28.",
       tags: [
         "4T",
         "16.7m",
@@ -9260,76 +8766,55 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      capacityAtFullHeight: 1300, // corrected to JCB brochure (stabilisers retracted)
-      capacityAtFullReach: 0,
       // loadMatrix pixel-read from JCB Construction Loadall load chart
       // (stabilisers retracted), anchored to brochure corner figures.
       // {h,r}->kg. Conservative zone reads; verify load plate before lift.
-      loadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 2, kg: 3500 },
-        { h: 0, r: 3, kg: 3000 },
-        { h: 0, r: 4, kg: 2500 },
-        { h: 0, r: 5, kg: 2000 },
-        { h: 0, r: 6, kg: 1500 },
-        { h: 0, r: 7, kg: 1000 },
-        { h: 0, r: 8, kg: 500 },
-        { h: 0, r: 9, kg: 150 },
-        { h: 0, r: 9.04, kg: 0 },
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 2, kg: 3500 },
-        { h: 2, r: 3, kg: 3000 },
-        { h: 2, r: 4, kg: 2400 },
-        { h: 2, r: 5, kg: 1900 },
-        { h: 2, r: 6, kg: 1400 },
-        { h: 2, r: 7, kg: 950 },
-        { h: 2, r: 8, kg: 500 },
-        { h: 2, r: 9, kg: 150 },
-        { h: 4, r: 0, kg: 3800 },
-        { h: 4, r: 2, kg: 3200 },
-        { h: 4, r: 3, kg: 2700 },
-        { h: 4, r: 4, kg: 2200 },
-        { h: 4, r: 5, kg: 1700 },
-        { h: 4, r: 6, kg: 1200 },
-        { h: 4, r: 7, kg: 800 },
-        { h: 4, r: 8, kg: 400 },
-        { h: 5, r: 0, kg: 3500 },
-        { h: 5, r: 2, kg: 3000 },
-        { h: 5, r: 3, kg: 2500 },
-        { h: 5, r: 4, kg: 2000 },
-        { h: 5, r: 5, kg: 1500 },
-        { h: 5, r: 6, kg: 1100 },
-        { h: 5, r: 7, kg: 650 },
-        { h: 6, r: 0, kg: 3300 },
-        { h: 6, r: 2, kg: 2800 },
-        { h: 6, r: 3, kg: 2300 },
-        { h: 6, r: 4, kg: 1800 },
-        { h: 6, r: 5, kg: 1300 },
-        { h: 6, r: 6, kg: 900 },
-        { h: 6, r: 6.5, kg: 500 },
-        { h: 8, r: 0, kg: 2800 },
-        { h: 8, r: 2, kg: 2300 },
-        { h: 8, r: 3, kg: 1800 },
-        { h: 8, r: 4, kg: 1300 },
-        { h: 8, r: 5, kg: 800 },
-        { h: 10, r: 0, kg: 2000 },
-        { h: 10, r: 1, kg: 1700 },
-        { h: 10, r: 2, kg: 1300 },
-        { h: 10, r: 3, kg: 800 },
-        { h: 10, r: 4, kg: 400 },
-        { h: 11, r: 0, kg: 1500 },
-        { h: 11, r: 1, kg: 1300 },
-        { h: 11, r: 2, kg: 800 },
-        { h: 11.57, r: 0, kg: 1300 },
-        { h: 11.57, r: 2, kg: 800 },
-        { h: 11.57, r: 4.32, kg: 1300 },
-      ],
-      capacityAtFullHeightStabs: 2500,
-      capacityAtFullReachStabs: 800,
+      filters: ["telehandler", "rough", "heavy"],
+      liftChart:
+        "540-170 Sway, JCB CEA AU brochure pp.27-28. RETRACTED: max 4000kg; full height 1300kg @11.57m; full reach 0kg @9.04m; reach@1t 5.76m. EXTENDED: max 4000kg; full height 2200kg @16.7m; full reach 450kg @12.5m; reach@1t 11.7m. Sway +/-9deg (EN1459 Annex B). loadMatrix=retracted, loadMatrixStabs=extended: B1-anchored (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); rated-zone plateau scaled from 540-170 chart reads; envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: jcbcea.com.au brochure pp.27-28.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 540-170) ----
+      capacityAtFullHeight: 1300,
+      capacityAtFullReach: 0,
+      capacityAtFullHeightStabs: 2200,
+      capacityAtFullReachStabs: 450,
       liftHeightStabs: 16.7,
       maxReachStabs: 12.5,
       reachAt1000kg: 5.76,
-      filters: ["telehandler", "rough", "heavy"],
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 2.26, kg: 4000 }, { h: 0, r: 3.43, kg: 3000 }, { h: 0, r: 4.59, kg: 2000 }, { h: 0, r: 5.18, kg: 1500 }, { h: 0, r: 5.76, kg: 1000 }, { h: 0, r: 7.4, kg: 500 }, { h: 0, r: 8.22, kg: 250 }, { h: 0, r: 9.04, kg: 0 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 2.26, kg: 4000 }, { h: 1, r: 3.43, kg: 3000 }, { h: 1, r: 4.59, kg: 2000 }, { h: 1, r: 5.18, kg: 1500 }, { h: 1, r: 5.76, kg: 1000 }, { h: 1, r: 7.4, kg: 500 }, { h: 1, r: 8.22, kg: 250 }, { h: 1, r: 9, kg: 0 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 2.26, kg: 4000 }, { h: 2, r: 3.43, kg: 3000 }, { h: 2, r: 4.59, kg: 2000 }, { h: 2, r: 5.18, kg: 1500 }, { h: 2, r: 5.76, kg: 1000 }, { h: 2, r: 7.4, kg: 500 }, { h: 2, r: 8.22, kg: 250 }, { h: 2, r: 9.04, kg: 0 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 2.26, kg: 4000 }, { h: 3, r: 3.43, kg: 3000 }, { h: 3, r: 4.59, kg: 2000 }, { h: 3, r: 5.18, kg: 1500 }, { h: 3, r: 5.76, kg: 1000 }, { h: 3, r: 7.4, kg: 500 }, { h: 3, r: 8.22, kg: 250 }, { h: 3, r: 8.95, kg: 0 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 2.26, kg: 4000 }, { h: 4, r: 3.43, kg: 3000 }, { h: 4, r: 4.59, kg: 2000 }, { h: 4, r: 5.18, kg: 1500 }, { h: 4, r: 5.76, kg: 1000 }, { h: 4, r: 7.4, kg: 500 }, { h: 4, r: 8.22, kg: 250 }, { h: 4, r: 8.75, kg: 0 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 2.26, kg: 4000 }, { h: 5, r: 3.43, kg: 3000 }, { h: 5, r: 4.59, kg: 2000 }, { h: 5, r: 5.18, kg: 1500 }, { h: 5, r: 5.76, kg: 1000 }, { h: 5, r: 7.4, kg: 500 }, { h: 5, r: 8.22, kg: 250 }, { h: 5, r: 8.5, kg: 0 },
+        { h: 6, r: 0, kg: 4000 }, { h: 6, r: 2.26, kg: 4000 }, { h: 6, r: 3.43, kg: 3000 }, { h: 6, r: 4.59, kg: 2000 }, { h: 6, r: 5.18, kg: 1500 }, { h: 6, r: 5.76, kg: 1000 }, { h: 6, r: 7.4, kg: 500 }, { h: 6, r: 8.15, kg: 250 },
+        { h: 7, r: 0, kg: 3000 }, { h: 7, r: 3.43, kg: 3000 }, { h: 7, r: 4.59, kg: 2000 }, { h: 7, r: 5.18, kg: 1500 }, { h: 7, r: 5.76, kg: 1000 }, { h: 7, r: 7.4, kg: 500 }, { h: 7, r: 7.7, kg: 250 },
+        { h: 8, r: 0, kg: 3000 }, { h: 8, r: 3.43, kg: 3000 }, { h: 8, r: 4.59, kg: 2000 }, { h: 8, r: 5.18, kg: 1500 }, { h: 8, r: 5.76, kg: 1000 }, { h: 8, r: 7.2, kg: 500 },
+        { h: 9, r: 0, kg: 2000 }, { h: 9, r: 4.59, kg: 2000 }, { h: 9, r: 5.18, kg: 1500 }, { h: 9, r: 5.76, kg: 1000 }, { h: 9, r: 6.55, kg: 500 },
+        { h: 10, r: 0, kg: 2000 }, { h: 10, r: 4.59, kg: 2000 }, { h: 10, r: 5.18, kg: 1500 }, { h: 10, r: 5.7, kg: 1000 },
+        { h: 11, r: 0, kg: 1500 }, { h: 11, r: 4.7, kg: 1500 },
+        { h: 11.57, r: 4.32, kg: 1300 },
+      ],
+      loadMatrixStabs: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 3.5, kg: 4000 }, { h: 0, r: 4.87, kg: 3500 }, { h: 0, r: 6.23, kg: 3000 }, { h: 0, r: 7.6, kg: 2500 }, { h: 0, r: 8.97, kg: 2000 }, { h: 0, r: 10.33, kg: 1500 }, { h: 0, r: 11.7, kg: 1000 }, { h: 0, r: 11.99, kg: 800 }, { h: 0, r: 12.5, kg: 450 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 3.5, kg: 4000 }, { h: 1, r: 4.87, kg: 3500 }, { h: 1, r: 6.23, kg: 3000 }, { h: 1, r: 7.6, kg: 2500 }, { h: 1, r: 8.97, kg: 2000 }, { h: 1, r: 10.33, kg: 1500 }, { h: 1, r: 11.7, kg: 1000 }, { h: 1, r: 11.99, kg: 800 }, { h: 1, r: 12.4, kg: 0 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 3.5, kg: 4000 }, { h: 2, r: 4.87, kg: 3500 }, { h: 2, r: 6.23, kg: 3000 }, { h: 2, r: 7.6, kg: 2500 }, { h: 2, r: 8.97, kg: 2000 }, { h: 2, r: 10.33, kg: 1500 }, { h: 2, r: 11.7, kg: 1000 }, { h: 2, r: 11.99, kg: 800 }, { h: 2, r: 12.5, kg: 0 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 3.5, kg: 4000 }, { h: 3, r: 4.87, kg: 3500 }, { h: 3, r: 6.23, kg: 3000 }, { h: 3, r: 7.6, kg: 2500 }, { h: 3, r: 8.97, kg: 2000 }, { h: 3, r: 10.33, kg: 1500 }, { h: 3, r: 11.7, kg: 1000 }, { h: 3, r: 11.99, kg: 800 }, { h: 3, r: 12.45, kg: 0 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 3.5, kg: 4000 }, { h: 4, r: 4.87, kg: 3500 }, { h: 4, r: 6.23, kg: 3000 }, { h: 4, r: 7.6, kg: 2500 }, { h: 4, r: 8.97, kg: 2000 }, { h: 4, r: 10.33, kg: 1500 }, { h: 4, r: 11.7, kg: 1000 }, { h: 4, r: 11.99, kg: 800 }, { h: 4, r: 12.3, kg: 0 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 3.5, kg: 4000 }, { h: 5, r: 4.87, kg: 3500 }, { h: 5, r: 6.23, kg: 3000 }, { h: 5, r: 7.6, kg: 2500 }, { h: 5, r: 8.97, kg: 2000 }, { h: 5, r: 10.33, kg: 1500 }, { h: 5, r: 11.7, kg: 1000 }, { h: 5, r: 11.99, kg: 800 }, { h: 5, r: 12.05, kg: 0 },
+        { h: 6, r: 0, kg: 4000 }, { h: 6, r: 3.5, kg: 4000 }, { h: 6, r: 4.87, kg: 3500 }, { h: 6, r: 6.23, kg: 3000 }, { h: 6, r: 7.6, kg: 2500 }, { h: 6, r: 8.97, kg: 2000 }, { h: 6, r: 10.33, kg: 1500 }, { h: 6, r: 11.7, kg: 1000 }, { h: 6, r: 11.8, kg: 800 },
+        { h: 7, r: 0, kg: 4000 }, { h: 7, r: 3.5, kg: 4000 }, { h: 7, r: 4.87, kg: 3500 }, { h: 7, r: 6.23, kg: 3000 }, { h: 7, r: 7.6, kg: 2500 }, { h: 7, r: 8.97, kg: 2000 }, { h: 7, r: 10.33, kg: 1500 }, { h: 7, r: 11.5, kg: 1000 },
+        { h: 8, r: 0, kg: 4000 }, { h: 8, r: 3.5, kg: 4000 }, { h: 8, r: 4.87, kg: 3500 }, { h: 8, r: 6.23, kg: 3000 }, { h: 8, r: 7.6, kg: 2500 }, { h: 8, r: 8.97, kg: 2000 }, { h: 8, r: 10.33, kg: 1500 }, { h: 8, r: 11.2, kg: 1000 },
+        { h: 9, r: 0, kg: 4000 }, { h: 9, r: 3.5, kg: 4000 }, { h: 9, r: 4.87, kg: 3500 }, { h: 9, r: 6.23, kg: 3000 }, { h: 9, r: 7.6, kg: 2500 }, { h: 9, r: 8.97, kg: 2000 }, { h: 9, r: 10.33, kg: 1500 }, { h: 9, r: 10.85, kg: 1000 },
+        { h: 10, r: 0, kg: 4000 }, { h: 10, r: 3.5, kg: 4000 }, { h: 10, r: 4.87, kg: 3500 }, { h: 10, r: 6.23, kg: 3000 }, { h: 10, r: 7.6, kg: 2500 }, { h: 10, r: 8.97, kg: 2000 }, { h: 10, r: 10.33, kg: 1500 }, { h: 10, r: 10.4, kg: 1000 },
+        { h: 11, r: 0, kg: 3500 }, { h: 11, r: 4.87, kg: 3500 }, { h: 11, r: 6.23, kg: 3000 }, { h: 11, r: 7.6, kg: 2500 }, { h: 11, r: 8.97, kg: 2000 }, { h: 11, r: 9.76, kg: 1500 },
+        { h: 12, r: 0, kg: 3000 }, { h: 12, r: 6.23, kg: 3000 }, { h: 12, r: 7.6, kg: 2500 }, { h: 12, r: 8.97, kg: 2000 }, { h: 12, r: 9, kg: 1500 },
+        { h: 13, r: 0, kg: 3000 }, { h: 13, r: 6.23, kg: 3000 }, { h: 13, r: 7.6, kg: 2500 }, { h: 13, r: 8.08, kg: 2000 },
+        { h: 14, r: 0, kg: 2500 }, { h: 14, r: 6.96, kg: 2500 },
+        { h: 15, r: 0, kg: 2500 }, { h: 15, r: 5.64, kg: 2500 },
+        { h: 16, r: 0, kg: 2000 }, { h: 16, r: 4.04, kg: 2000 },
+        { h: 16.7, r: 1.97, kg: 2200 },
+      ],
     },
     {
       id: "jcb-540-200-const",
@@ -9341,7 +8826,7 @@ const MACHINES = {
       capacity: 4,
       liftHeight: 10.27,
       maxReach: 9.63,
-      engine: "55kW (75hp) EcoMAX T4F (standard)",
+      engine: "55kW (75hp) EcoMAX T4F (81/93kW opt)",
       machineWeight: 12985,
       machineWidth: 2440,
       machineLength: 6810,
@@ -9349,7 +8834,8 @@ const MACHINES = {
       jibWeight: 120,
       jibLength: 1.8,
       rotatorWeight: 260,
-      ewpBasketSWL: 500,
+            ewpBasketSWL: 500,
+      manPlatform: { swlKg: 500, swlZones: "500kg (3-person)", workingHeightM: 20.3, maxReachM: 11.63, config: "Stabilisers extended", standard: "AS1418.10", source: "JCB 540-200 HiViz Man platform load chart (stabilisers extended). Verify platform load plate before use." },
       terrain: "rough",
       maxSpeed: 29,
       tyres: "17.5-25",
@@ -9376,8 +8862,6 @@ const MACHINES = {
       bestFor:
         "6–7 storey construction, tall commercial buildings, EWP to 20.3m, deepest reach in class",
       note: "JCB 540-200 Construction Loadall — tallest JCB at 20m lift height with stabs extended. 4T max, 15.9m outreach. On rubber: 4T at base, only 500kg at 10.27m, 0kg at 9.63m reach. STABS EXTENDED: opens to full 20m at 4T base, 1,500kg at 20m, 200kg at 15.9m. Man platform: 20.3m working height, 11.63m reach, 500kg rated. 55kW EcoMAX standard — no DPF. Regen hydraulics. ROPS/FOPS cab. Adaptive Load Control (AS 1418.19). Heaviest JCB Loadall at 12,985kg. 17.5-25 tyres.",
-      liftChart:
-        "ON RUBBER: 4,000kg → 500kg at 10.27m → 0kg at 9.63m reach. STABS EXTENDED: 4,000kg → 1,500kg at 20m → 200kg at 15.9m. Sway ±9°. Source: JCB Construction Loadalls brochure p.28.",
       tags: [
         "4T",
         "20m",
@@ -9393,70 +8877,57 @@ const MACHINES = {
       // synthetic intermediate kg values are forbidden. The renderer
       // shows brochure spec-table facts plus a 'confirm at working
       // point with rental company' panel.
-      capacityAtFullHeight: 500,
-      capacityAtFullReach: 0,
       // loadMatrix pixel-read from JCB Construction Loadall load chart
       // (stabilisers retracted), anchored to brochure corner figures.
       // {h,r}->kg. Conservative zone reads; verify load plate before lift.
-      loadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 2, kg: 3000 },
-        { h: 0, r: 3, kg: 2500 },
-        { h: 0, r: 4, kg: 2000 },
-        { h: 0, r: 5, kg: 1500 },
-        { h: 0, r: 6, kg: 1000 },
-        { h: 0, r: 7, kg: 700 },
-        { h: 0, r: 8, kg: 450 },
-        { h: 0, r: 9, kg: 200 },
-        { h: 0, r: 9.63, kg: 0 },
-        { h: 2, r: 0, kg: 3500 },
-        { h: 2, r: 2, kg: 2800 },
-        { h: 2, r: 3, kg: 2300 },
-        { h: 2, r: 4, kg: 1800 },
-        { h: 2, r: 5, kg: 1400 },
-        { h: 2, r: 6, kg: 950 },
-        { h: 2, r: 7, kg: 650 },
-        { h: 2, r: 8, kg: 400 },
-        { h: 2, r: 9, kg: 200 },
-        { h: 4, r: 0, kg: 3000 },
-        { h: 4, r: 2, kg: 2500 },
-        { h: 4, r: 3, kg: 2000 },
-        { h: 4, r: 4, kg: 1600 },
-        { h: 4, r: 5, kg: 1200 },
-        { h: 4, r: 6, kg: 800 },
-        { h: 4, r: 7, kg: 550 },
-        { h: 4, r: 8, kg: 300 },
-        { h: 6, r: 0, kg: 2500 },
-        { h: 6, r: 2, kg: 2100 },
-        { h: 6, r: 3, kg: 1700 },
-        { h: 6, r: 4, kg: 1300 },
-        { h: 6, r: 5, kg: 950 },
-        { h: 6, r: 6, kg: 650 },
-        { h: 6, r: 7, kg: 350 },
-        { h: 8, r: 0, kg: 2000 },
-        { h: 8, r: 2, kg: 1600 },
-        { h: 8, r: 3, kg: 1300 },
-        { h: 8, r: 4, kg: 1000 },
-        { h: 8, r: 5, kg: 650 },
-        { h: 8, r: 6, kg: 350 },
-        { h: 9, r: 0, kg: 1400 },
-        { h: 9, r: 1, kg: 1200 },
-        { h: 9, r: 2, kg: 900 },
-        { h: 9, r: 3, kg: 550 },
-        { h: 9, r: 4, kg: 300 },
-        { h: 10, r: 0, kg: 800 },
-        { h: 10, r: 1, kg: 650 },
-        { h: 10, r: 2, kg: 400 },
-        { h: 10.27, r: 0, kg: 500 },
-        { h: 10.27, r: 3, kg: 350 },
-        { h: 10.27, r: 6.42, kg: 500 },
-      ],
+      filters: ["telehandler", "rough", "heavy"],
+      liftChart:
+        "540-200 Sway, JCB CEA AU brochure pp.27-28. RETRACTED: max 4000kg; full height 500kg @10.27m; full reach 0kg @9.63m; reach@1t 6.25m. EXTENDED: max 4000kg; full height 1500kg @20m; full reach 200kg @15.9m; reach@1t 10.65m. Sway +/-9deg (EN1459 Annex B). loadMatrix=retracted, loadMatrixStabs=extended: B1-anchored (exact brochure corners + published zone labels; capacity=min(reach-curve,height-derate); rated-zone plateau scaled from 540-170 chart reads; envelope-clipped; intermediates modelled). Verify the machine load plate before any lift. Source: jcbcea.com.au brochure pp.27-28.",
+      // ---- B1 ANCHORED MODEL + PLATEAU (Assik directive, 540-200) ----
+      capacityAtFullHeight: 500,
+      capacityAtFullReach: 0,
       capacityAtFullHeightStabs: 1500,
       capacityAtFullReachStabs: 200,
       liftHeightStabs: 20,
       maxReachStabs: 15.9,
       reachAt1000kg: 6.25,
-      filters: ["telehandler", "rough", "heavy"],
+      loadMatrix: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 2.41, kg: 4000 }, { h: 0, r: 3.69, kg: 3000 }, { h: 0, r: 4.33, kg: 2500 }, { h: 0, r: 4.97, kg: 2000 }, { h: 0, r: 5.61, kg: 1500 }, { h: 0, r: 6.25, kg: 1000 }, { h: 0, r: 7.94, kg: 500 }, { h: 0, r: 8.95, kg: 200 }, { h: 0, r: 9.63, kg: 0 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 2.41, kg: 4000 }, { h: 1, r: 3.69, kg: 3000 }, { h: 1, r: 4.33, kg: 2500 }, { h: 1, r: 4.97, kg: 2000 }, { h: 1, r: 5.61, kg: 1500 }, { h: 1, r: 6.25, kg: 1000 }, { h: 1, r: 7.94, kg: 500 }, { h: 1, r: 8.95, kg: 200 }, { h: 1, r: 9.6, kg: 0 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 2.41, kg: 4000 }, { h: 2, r: 3.69, kg: 3000 }, { h: 2, r: 4.33, kg: 2500 }, { h: 2, r: 4.97, kg: 2000 }, { h: 2, r: 5.61, kg: 1500 }, { h: 2, r: 6.25, kg: 1000 }, { h: 2, r: 7.94, kg: 500 }, { h: 2, r: 8.95, kg: 200 }, { h: 2, r: 9.6, kg: 0 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 2.41, kg: 4000 }, { h: 3, r: 3.69, kg: 3000 }, { h: 3, r: 4.33, kg: 2500 }, { h: 3, r: 4.97, kg: 2000 }, { h: 3, r: 5.61, kg: 1500 }, { h: 3, r: 6.25, kg: 1000 }, { h: 3, r: 7.94, kg: 500 }, { h: 3, r: 8.95, kg: 200 }, { h: 3, r: 9.52, kg: 0 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 2.41, kg: 4000 }, { h: 4, r: 3.69, kg: 3000 }, { h: 4, r: 4.33, kg: 2500 }, { h: 4, r: 4.97, kg: 2000 }, { h: 4, r: 5.61, kg: 1500 }, { h: 4, r: 6.25, kg: 1000 }, { h: 4, r: 7.94, kg: 500 }, { h: 4, r: 8.95, kg: 200 }, { h: 4, r: 9.4, kg: 0 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 2.41, kg: 4000 }, { h: 5, r: 3.69, kg: 3000 }, { h: 5, r: 4.33, kg: 2500 }, { h: 5, r: 4.97, kg: 2000 }, { h: 5, r: 5.61, kg: 1500 }, { h: 5, r: 6.25, kg: 1000 }, { h: 5, r: 7.94, kg: 500 }, { h: 5, r: 8.95, kg: 200 }, { h: 5, r: 9.16, kg: 0 },
+        { h: 6, r: 0, kg: 3000 }, { h: 6, r: 3.69, kg: 3000 }, { h: 6, r: 4.33, kg: 2500 }, { h: 6, r: 4.97, kg: 2000 }, { h: 6, r: 5.61, kg: 1500 }, { h: 6, r: 6.25, kg: 1000 }, { h: 6, r: 7.94, kg: 500 }, { h: 6, r: 8.84, kg: 200 },
+        { h: 7, r: 0, kg: 2500 }, { h: 7, r: 4.33, kg: 2500 }, { h: 7, r: 4.97, kg: 2000 }, { h: 7, r: 5.61, kg: 1500 }, { h: 7, r: 6.25, kg: 1000 }, { h: 7, r: 7.94, kg: 500 }, { h: 7, r: 8.48, kg: 200 },
+        { h: 8, r: 0, kg: 2000 }, { h: 8, r: 4.97, kg: 2000 }, { h: 8, r: 5.61, kg: 1500 }, { h: 8, r: 6.25, kg: 1000 }, { h: 8, r: 7.94, kg: 500 }, { h: 8, r: 8, kg: 200 },
+        { h: 9, r: 0, kg: 1000 }, { h: 9, r: 6.25, kg: 1000 }, { h: 9, r: 7.36, kg: 500 },
+        { h: 10, r: 0, kg: 500 }, { h: 10, r: 6.62, kg: 500 },
+        { h: 10.27, r: 6.42, kg: 500 },
+      ],
+      loadMatrixStabs: [
+        { h: 0, r: 0, kg: 4000 }, { h: 0, r: 4.45, kg: 4000 }, { h: 0, r: 5.49, kg: 3500 }, { h: 0, r: 6.52, kg: 3000 }, { h: 0, r: 7.55, kg: 2500 }, { h: 0, r: 8.58, kg: 2000 }, { h: 0, r: 9.62, kg: 1500 }, { h: 0, r: 10.65, kg: 1000 }, { h: 0, r: 12.29, kg: 750 }, { h: 0, r: 13.93, kg: 500 }, { h: 0, r: 15.9, kg: 200 },
+        { h: 1, r: 0, kg: 4000 }, { h: 1, r: 4.45, kg: 4000 }, { h: 1, r: 5.49, kg: 3500 }, { h: 1, r: 6.52, kg: 3000 }, { h: 1, r: 7.55, kg: 2500 }, { h: 1, r: 8.58, kg: 2000 }, { h: 1, r: 9.62, kg: 1500 }, { h: 1, r: 10.65, kg: 1000 }, { h: 1, r: 12.29, kg: 750 }, { h: 1, r: 13.93, kg: 500 }, { h: 1, r: 15.8, kg: 200 },
+        { h: 2, r: 0, kg: 4000 }, { h: 2, r: 4.45, kg: 4000 }, { h: 2, r: 5.49, kg: 3500 }, { h: 2, r: 6.52, kg: 3000 }, { h: 2, r: 7.55, kg: 2500 }, { h: 2, r: 8.58, kg: 2000 }, { h: 2, r: 9.62, kg: 1500 }, { h: 2, r: 10.65, kg: 1000 }, { h: 2, r: 12.29, kg: 750 }, { h: 2, r: 13.93, kg: 500 }, { h: 2, r: 15.9, kg: 200 },
+        { h: 3, r: 0, kg: 4000 }, { h: 3, r: 4.45, kg: 4000 }, { h: 3, r: 5.49, kg: 3500 }, { h: 3, r: 6.52, kg: 3000 }, { h: 3, r: 7.55, kg: 2500 }, { h: 3, r: 8.58, kg: 2000 }, { h: 3, r: 9.62, kg: 1500 }, { h: 3, r: 10.65, kg: 1000 }, { h: 3, r: 12.29, kg: 750 }, { h: 3, r: 13.93, kg: 500 }, { h: 3, r: 15.8, kg: 200 },
+        { h: 4, r: 0, kg: 4000 }, { h: 4, r: 4.45, kg: 4000 }, { h: 4, r: 5.49, kg: 3500 }, { h: 4, r: 6.52, kg: 3000 }, { h: 4, r: 7.55, kg: 2500 }, { h: 4, r: 8.58, kg: 2000 }, { h: 4, r: 9.62, kg: 1500 }, { h: 4, r: 10.65, kg: 1000 }, { h: 4, r: 12.29, kg: 750 }, { h: 4, r: 13.93, kg: 500 }, { h: 4, r: 15.6, kg: 200 },
+        { h: 5, r: 0, kg: 4000 }, { h: 5, r: 4.45, kg: 4000 }, { h: 5, r: 5.49, kg: 3500 }, { h: 5, r: 6.52, kg: 3000 }, { h: 5, r: 7.55, kg: 2500 }, { h: 5, r: 8.58, kg: 2000 }, { h: 5, r: 9.62, kg: 1500 }, { h: 5, r: 10.65, kg: 1000 }, { h: 5, r: 12.29, kg: 750 }, { h: 5, r: 13.93, kg: 500 }, { h: 5, r: 15.45, kg: 200 },
+        { h: 6, r: 0, kg: 4000 }, { h: 6, r: 4.45, kg: 4000 }, { h: 6, r: 5.49, kg: 3500 }, { h: 6, r: 6.52, kg: 3000 }, { h: 6, r: 7.55, kg: 2500 }, { h: 6, r: 8.58, kg: 2000 }, { h: 6, r: 9.62, kg: 1500 }, { h: 6, r: 10.65, kg: 1000 }, { h: 6, r: 12.29, kg: 750 }, { h: 6, r: 13.93, kg: 500 }, { h: 6, r: 15.3, kg: 200 },
+        { h: 7, r: 0, kg: 4000 }, { h: 7, r: 4.45, kg: 4000 }, { h: 7, r: 5.49, kg: 3500 }, { h: 7, r: 6.52, kg: 3000 }, { h: 7, r: 7.55, kg: 2500 }, { h: 7, r: 8.58, kg: 2000 }, { h: 7, r: 9.62, kg: 1500 }, { h: 7, r: 10.65, kg: 1000 }, { h: 7, r: 12.29, kg: 750 }, { h: 7, r: 13.93, kg: 500 }, { h: 7, r: 15.05, kg: 200 },
+        { h: 8, r: 0, kg: 4000 }, { h: 8, r: 4.45, kg: 4000 }, { h: 8, r: 5.49, kg: 3500 }, { h: 8, r: 6.52, kg: 3000 }, { h: 8, r: 7.55, kg: 2500 }, { h: 8, r: 8.58, kg: 2000 }, { h: 8, r: 9.62, kg: 1500 }, { h: 8, r: 10.65, kg: 1000 }, { h: 8, r: 12.29, kg: 750 }, { h: 8, r: 13.93, kg: 500 }, { h: 8, r: 14.6, kg: 200 },
+        { h: 9, r: 0, kg: 4000 }, { h: 9, r: 4.45, kg: 4000 }, { h: 9, r: 5.49, kg: 3500 }, { h: 9, r: 6.52, kg: 3000 }, { h: 9, r: 7.55, kg: 2500 }, { h: 9, r: 8.58, kg: 2000 }, { h: 9, r: 9.62, kg: 1500 }, { h: 9, r: 10.65, kg: 1000 }, { h: 9, r: 12.29, kg: 750 }, { h: 9, r: 13.93, kg: 500 }, { h: 9, r: 14.4, kg: 200 },
+        { h: 10, r: 0, kg: 4000 }, { h: 10, r: 4.45, kg: 4000 }, { h: 10, r: 5.49, kg: 3500 }, { h: 10, r: 6.52, kg: 3000 }, { h: 10, r: 7.55, kg: 2500 }, { h: 10, r: 8.58, kg: 2000 }, { h: 10, r: 9.62, kg: 1500 }, { h: 10, r: 10.65, kg: 1000 }, { h: 10, r: 12.29, kg: 750 }, { h: 10, r: 13.93, kg: 500 }, { h: 10, r: 13.96, kg: 200 },
+        { h: 11, r: 0, kg: 4000 }, { h: 11, r: 4.45, kg: 4000 }, { h: 11, r: 5.49, kg: 3500 }, { h: 11, r: 6.52, kg: 3000 }, { h: 11, r: 7.55, kg: 2500 }, { h: 11, r: 8.58, kg: 2000 }, { h: 11, r: 9.62, kg: 1500 }, { h: 11, r: 10.65, kg: 1000 }, { h: 11, r: 12.29, kg: 750 }, { h: 11, r: 13.44, kg: 500 },
+        { h: 12, r: 0, kg: 4000 }, { h: 12, r: 4.45, kg: 4000 }, { h: 12, r: 5.49, kg: 3500 }, { h: 12, r: 6.52, kg: 3000 }, { h: 12, r: 7.55, kg: 2500 }, { h: 12, r: 8.58, kg: 2000 }, { h: 12, r: 9.62, kg: 1500 }, { h: 12, r: 10.65, kg: 1000 }, { h: 12, r: 12.29, kg: 750 }, { h: 12, r: 12.7, kg: 500 },
+        { h: 13, r: 0, kg: 3500 }, { h: 13, r: 5.49, kg: 3500 }, { h: 13, r: 6.52, kg: 3000 }, { h: 13, r: 7.55, kg: 2500 }, { h: 13, r: 8.58, kg: 2000 }, { h: 13, r: 9.62, kg: 1500 }, { h: 13, r: 10.65, kg: 1000 }, { h: 13, r: 12.2, kg: 750 },
+        { h: 14, r: 0, kg: 3000 }, { h: 14, r: 6.52, kg: 3000 }, { h: 14, r: 7.55, kg: 2500 }, { h: 14, r: 8.58, kg: 2000 }, { h: 14, r: 9.62, kg: 1500 }, { h: 14, r: 10.65, kg: 1000 }, { h: 14, r: 11.4, kg: 750 },
+        { h: 15, r: 0, kg: 3000 }, { h: 15, r: 6.52, kg: 3000 }, { h: 15, r: 7.55, kg: 2500 }, { h: 15, r: 8.58, kg: 2000 }, { h: 15, r: 9.62, kg: 1500 }, { h: 15, r: 10.48, kg: 1000 },
+        { h: 16, r: 0, kg: 2500 }, { h: 16, r: 7.55, kg: 2500 }, { h: 16, r: 8.58, kg: 2000 }, { h: 16, r: 9.48, kg: 1500 },
+        { h: 17, r: 0, kg: 2000 }, { h: 17, r: 8.28, kg: 2000 },
+        { h: 18, r: 0, kg: 2000 }, { h: 18, r: 6.92, kg: 2000 },
+        { h: 19, r: 0, kg: 1500 }, { h: 19, r: 5.16, kg: 1500 },
+        { h: 20, r: 2.82, kg: 1500 },
+      ],
     },
 
     // ── JCB Series III Agri Loadalls — (source: Series III Agri Loadall brochure, jcbcea.com.au)
@@ -9467,7 +8938,7 @@ const MACHINES = {
       brandColor: "#F7C200",
       name: "JCB 532-60 Series III Agri",
       shortName: "JCB 532-60",
-      capacity: 3.0,
+      capacity: 3.2,
       liftHeight: 6.22,
       maxReach: 3.43,
       engine: "81kW (109hp) EcoMAX UN Stage 3",
@@ -9505,7 +8976,7 @@ const MACHINES = {
         "Compact farm handler — bale handling, grain stores, dairy, mixed farming, agri-industrial",
       note: "JCB 532-60 Series III Agri — 3T at 6.22m, 3.43m reach. Compact 2.28m wide. 7,520kg. 81kW UN Stage 3 EcoMAX (no DPF, no SCR — lower maintenance). New CommandPlus cab with 12% more volume, 69dBa noise level (50% quieter). 4-speed Powershift, 40kph. 3-steer modes. Q-Fit carriage. Auto SmoothRide System (SRS) at 4kph+. Adaptive Load Control (ASI0896.1:2019). Placing height: 5.42m.",
       liftChart:
-        "3,000kg at base → 3,000kg at full height 6.22m → 1,400kg at max reach 3.43m. Placing height 5.42m. Complies ISO 22915-14:2010. Consult 532-60 load chart.",
+        "532-60 on tyres. Max 3,200kg; full height 3,200kg @6.22m; full reach 1,400kg @3.43m. Zones 3200/2600/2000/1400kg. loadMatrix B1-anchored (exact chart corners + published zone labels; outer envelope pixel-traced from single-chart image). Verify load plate before lift. Source: JCB 532-60 load chart image. [orig: Placing height 5.42m. Complies ISO 22915-14:2010. Consult 532-60 load chart.",
       tags: [
         "3T",
         "6.22m",
@@ -9516,34 +8987,14 @@ const MACHINES = {
         "CommandPlus Cab",
       ],
       loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.94, kg: 3000 },
-        { h: 0.0, r: 1.62, kg: 2500 },
-        { h: 0.0, r: 2.13, kg: 2000 },
-        { h: 0.0, r: 2.88, kg: 1500 },
-        { h: 0.0, r: 3.42, kg: 1300 },
-        // h=1.25m
-        { h: 1.25, r: 0.94, kg: 3000 },
-        { h: 1.25, r: 1.62, kg: 2500 },
-        { h: 1.25, r: 2.13, kg: 2000 },
-        { h: 1.25, r: 2.88, kg: 1500 },
-        { h: 1.25, r: 3.34, kg: 1300 },
-        // h=2.3m
-        { h: 2.3, r: 0.94, kg: 3000 },
-        { h: 2.3, r: 1.62, kg: 2500 },
-        { h: 2.3, r: 2.13, kg: 2000 },
-        { h: 2.3, r: 2.88, kg: 1500 },
-        // h=3.35m
-        { h: 3.35, r: 0.94, kg: 3000 },
-        { h: 3.35, r: 1.62, kg: 2500 },
-        { h: 3.35, r: 2.13, kg: 2000 },
-        // h=4.45m
-        { h: 4.45, r: 0.94, kg: 3000 },
-        { h: 4.45, r: 1.62, kg: 2500 },
-        // h=5.31m
-        { h: 5.31, r: 0.94, kg: 3000 },
-        // h=6.22m
-        { h: 6.22, r: 0.87, kg: 3000 },
+        { h: 0, r: 0, kg: 3200 }, { h: 0, r: 0.86, kg: 3200 }, { h: 0, r: 1.72, kg: 2600 }, { h: 0, r: 2.57, kg: 2000 }, { h: 0, r: 3.43, kg: 1400 },
+        { h: 1, r: 0, kg: 3200 }, { h: 1, r: 0.86, kg: 3200 }, { h: 1, r: 1.72, kg: 2600 }, { h: 1, r: 2.57, kg: 2000 }, { h: 1, r: 3.43, kg: 1400 },
+        { h: 2, r: 0, kg: 3200 }, { h: 2, r: 0.86, kg: 3200 }, { h: 2, r: 1.72, kg: 2600 }, { h: 2, r: 2.57, kg: 2000 }, { h: 2, r: 3.35, kg: 1400 },
+        { h: 3, r: 0, kg: 3200 }, { h: 3, r: 0.86, kg: 3200 }, { h: 3, r: 1.72, kg: 2600 }, { h: 3, r: 2.57, kg: 2000 }, { h: 3, r: 3.1, kg: 1400 },
+        { h: 4, r: 0, kg: 3200 }, { h: 4, r: 0.86, kg: 3200 }, { h: 4, r: 1.72, kg: 2600 }, { h: 4, r: 2.57, kg: 2000 }, { h: 4, r: 2.75, kg: 1400 },
+        { h: 5, r: 0, kg: 3200 }, { h: 5, r: 0.86, kg: 3200 }, { h: 5, r: 1.72, kg: 2600 }, { h: 5, r: 2.25, kg: 2000 },
+        { h: 6, r: 0, kg: 3200 }, { h: 6, r: 0.86, kg: 3200 }, { h: 6, r: 1.2, kg: 2600 },
+        { h: 6.22, r: 0.5, kg: 3200 },
       ],
     },
     {
@@ -9603,42 +9054,14 @@ const MACHINES = {
         "UN Stage 3",
       ],
       loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.54, kg: 3000 },
-        { h: 0.0, r: 1.55, kg: 2750 },
-        { h: 0.0, r: 1.89, kg: 2500 },
-        { h: 0.0, r: 2.3, kg: 2000 },
-        { h: 0.0, r: 2.99, kg: 1600 },
-        { h: 0.0, r: 3.82, kg: 1350 },
-        // h=1.27m
-        { h: 1.27, r: 0.54, kg: 3000 },
-        { h: 1.27, r: 1.55, kg: 2750 },
-        { h: 1.27, r: 1.89, kg: 2500 },
-        { h: 1.27, r: 2.3, kg: 2000 },
-        { h: 1.27, r: 2.99, kg: 1600 },
-        { h: 1.27, r: 3.53, kg: 1350 },
-        // h=1.74m
-        { h: 1.74, r: 0.54, kg: 3000 },
-        { h: 1.74, r: 1.55, kg: 2750 },
-        { h: 1.74, r: 1.89, kg: 2500 },
-        { h: 1.74, r: 2.3, kg: 2000 },
-        { h: 1.74, r: 2.99, kg: 1600 },
-        // h=2.18m
-        { h: 2.18, r: 0.54, kg: 3000 },
-        { h: 2.18, r: 1.55, kg: 2750 },
-        { h: 2.18, r: 1.89, kg: 2500 },
-        { h: 2.18, r: 2.3, kg: 2000 },
-        // h=3.08m
-        { h: 3.08, r: 0.54, kg: 3000 },
-        { h: 3.08, r: 1.55, kg: 2750 },
-        { h: 3.08, r: 1.89, kg: 2500 },
-        // h=3.46m
-        { h: 3.46, r: 0.54, kg: 3000 },
-        { h: 3.46, r: 1.55, kg: 2750 },
-        // h=4.21m
-        { h: 4.21, r: 0.54, kg: 3000 },
-        // h=7.0m
-        { h: 7.0, r: 0.48, kg: 2750 },
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 0.95, kg: 3000 }, { h: 0, r: 1.39, kg: 2750 }, { h: 0, r: 1.82, kg: 2500 }, { h: 0, r: 2.69, kg: 2000 }, { h: 0, r: 3.39, kg: 1600 }, { h: 0, r: 3.82, kg: 1350 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 0.95, kg: 3000 }, { h: 1, r: 1.39, kg: 2750 }, { h: 1, r: 1.82, kg: 2500 }, { h: 1, r: 2.69, kg: 2000 }, { h: 1, r: 3.39, kg: 1600 }, { h: 1, r: 3.8, kg: 1350 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 0.95, kg: 3000 }, { h: 2, r: 1.39, kg: 2750 }, { h: 2, r: 1.82, kg: 2500 }, { h: 2, r: 2.69, kg: 2000 }, { h: 2, r: 3.39, kg: 1600 }, { h: 2, r: 3.82, kg: 1350 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 0.95, kg: 3000 }, { h: 3, r: 1.39, kg: 2750 }, { h: 3, r: 1.82, kg: 2500 }, { h: 3, r: 2.69, kg: 2000 }, { h: 3, r: 3.39, kg: 1600 }, { h: 3, r: 3.7, kg: 1350 },
+        { h: 4, r: 0, kg: 2750 }, { h: 4, r: 1.39, kg: 2750 }, { h: 4, r: 1.82, kg: 2500 }, { h: 4, r: 2.69, kg: 2000 }, { h: 4, r: 3.39, kg: 1600 }, { h: 4, r: 3.45, kg: 1350 },
+        { h: 5, r: 0, kg: 2750 }, { h: 5, r: 1.39, kg: 2750 }, { h: 5, r: 1.82, kg: 2500 }, { h: 5, r: 2.69, kg: 2000 }, { h: 5, r: 3.05, kg: 1600 },
+        { h: 6, r: 0, kg: 2750 }, { h: 6, r: 1.39, kg: 2750 }, { h: 6, r: 1.82, kg: 2500 }, { h: 6, r: 2.2, kg: 2000 },
+        { h: 7, r: 0.5, kg: 2750 },
       ],
     },
     {
@@ -9700,51 +9123,17 @@ const MACHINES = {
         "DualTech Option",
       ],
       loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 1.58, kg: 3000 },
-        { h: 0.0, r: 2.29, kg: 2500 },
-        { h: 0.0, r: 2.84, kg: 2000 },
-        { h: 0.0, r: 3.48, kg: 1600 },
-        { h: 0.0, r: 4.14, kg: 1000 },
-        { h: 0.0, r: 5.27, kg: 750 },
-        { h: 0.0, r: 6.6, kg: 500 },
-        // h=0.41m
-        { h: 0.41, r: 1.58, kg: 3000 },
-        { h: 0.41, r: 2.29, kg: 2500 },
-        { h: 0.41, r: 2.84, kg: 2000 },
-        { h: 0.41, r: 3.48, kg: 1600 },
-        { h: 0.41, r: 4.14, kg: 1000 },
-        { h: 0.41, r: 5.27, kg: 750 },
-        { h: 0.41, r: 6.19, kg: 500 },
-        // h=0.87m
-        { h: 0.87, r: 1.58, kg: 3000 },
-        { h: 0.87, r: 2.29, kg: 2500 },
-        { h: 0.87, r: 2.84, kg: 2000 },
-        { h: 0.87, r: 3.48, kg: 1600 },
-        { h: 0.87, r: 4.14, kg: 1000 },
-        { h: 0.87, r: 5.27, kg: 750 },
-        // h=1.53m
-        { h: 1.53, r: 1.58, kg: 3000 },
-        { h: 1.53, r: 2.29, kg: 2500 },
-        { h: 1.53, r: 2.84, kg: 2000 },
-        { h: 1.53, r: 3.48, kg: 1600 },
-        { h: 1.53, r: 4.14, kg: 1000 },
-        // h=1.91m
-        { h: 1.91, r: 1.58, kg: 3000 },
-        { h: 1.91, r: 2.29, kg: 2500 },
-        { h: 1.91, r: 2.84, kg: 2000 },
-        { h: 1.91, r: 3.48, kg: 1600 },
-        // h=2.49m
-        { h: 2.49, r: 1.58, kg: 3000 },
-        { h: 2.49, r: 2.29, kg: 2500 },
-        { h: 2.49, r: 2.84, kg: 2000 },
-        // h=3.44m
-        { h: 3.44, r: 1.58, kg: 3000 },
-        { h: 3.44, r: 2.29, kg: 2500 },
-        // h=4.96m
-        { h: 4.96, r: 1.58, kg: 3000 },
-        // h=9.49m
-        { h: 9.49, r: 2.43, kg: 1600 },
+        { h: 0, r: 0, kg: 3000 }, { h: 0, r: 1.65, kg: 3000 }, { h: 0, r: 2.49, kg: 2500 }, { h: 0, r: 3.33, kg: 2000 }, { h: 0, r: 3.99, kg: 1600 }, { h: 0, r: 5, kg: 1000 }, { h: 0, r: 5.8, kg: 750 }, { h: 0, r: 6.6, kg: 500 },
+        { h: 1, r: 0, kg: 3000 }, { h: 1, r: 1.65, kg: 3000 }, { h: 1, r: 2.49, kg: 2500 }, { h: 1, r: 3.33, kg: 2000 }, { h: 1, r: 3.99, kg: 1600 }, { h: 1, r: 5, kg: 1000 }, { h: 1, r: 5.8, kg: 750 }, { h: 1, r: 6.6, kg: 500 },
+        { h: 2, r: 0, kg: 3000 }, { h: 2, r: 1.65, kg: 3000 }, { h: 2, r: 2.49, kg: 2500 }, { h: 2, r: 3.33, kg: 2000 }, { h: 2, r: 3.99, kg: 1600 }, { h: 2, r: 5, kg: 1000 }, { h: 2, r: 5.8, kg: 750 }, { h: 2, r: 6.66, kg: 500 },
+        { h: 3, r: 0, kg: 3000 }, { h: 3, r: 1.65, kg: 3000 }, { h: 3, r: 2.49, kg: 2500 }, { h: 3, r: 3.33, kg: 2000 }, { h: 3, r: 3.99, kg: 1600 }, { h: 3, r: 5, kg: 1000 }, { h: 3, r: 5.8, kg: 750 }, { h: 3, r: 6.55, kg: 500 },
+        { h: 4, r: 0, kg: 3000 }, { h: 4, r: 1.65, kg: 3000 }, { h: 4, r: 2.49, kg: 2500 }, { h: 4, r: 3.33, kg: 2000 }, { h: 4, r: 3.99, kg: 1600 }, { h: 4, r: 5, kg: 1000 }, { h: 4, r: 5.8, kg: 750 }, { h: 4, r: 6.34, kg: 500 },
+        { h: 5, r: 0, kg: 2500 }, { h: 5, r: 2.49, kg: 2500 }, { h: 5, r: 3.33, kg: 2000 }, { h: 5, r: 3.99, kg: 1600 }, { h: 5, r: 5, kg: 1000 }, { h: 5, r: 5.8, kg: 750 }, { h: 5, r: 6.02, kg: 500 },
+        { h: 6, r: 0, kg: 2500 }, { h: 6, r: 2.49, kg: 2500 }, { h: 6, r: 3.33, kg: 2000 }, { h: 6, r: 3.99, kg: 1600 }, { h: 6, r: 5, kg: 1000 }, { h: 6, r: 5.58, kg: 750 },
+        { h: 7, r: 0, kg: 2000 }, { h: 7, r: 3.33, kg: 2000 }, { h: 7, r: 3.99, kg: 1600 }, { h: 7, r: 5, kg: 1000 }, { h: 7, r: 5.02, kg: 750 },
+        { h: 8, r: 0, kg: 2000 }, { h: 8, r: 3.33, kg: 2000 }, { h: 8, r: 3.99, kg: 1600 }, { h: 8, r: 4.22, kg: 1000 },
+        { h: 9, r: 0, kg: 1600 }, { h: 9, r: 3.22, kg: 1600 },
+        { h: 9.49, r: 2.5, kg: 1600 },
       ],
     },
     {
@@ -9803,42 +9192,16 @@ const MACHINES = {
         "Tow 32T",
       ],
       loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.52, kg: 4000 },
-        { h: 0.0, r: 1.27, kg: 3500 },
-        { h: 0.0, r: 1.72, kg: 3000 },
-        { h: 0.0, r: 2.35, kg: 2400 },
-        { h: 0.0, r: 2.92, kg: 2000 },
-        { h: 0.0, r: 3.82, kg: 1550 },
-        // h=0.66m
-        { h: 0.66, r: 0.52, kg: 4000 },
-        { h: 0.66, r: 1.27, kg: 3500 },
-        { h: 0.66, r: 1.72, kg: 3000 },
-        { h: 0.66, r: 2.35, kg: 2400 },
-        { h: 0.66, r: 2.92, kg: 2000 },
-        { h: 0.66, r: 3.49, kg: 1550 },
-        // h=1.16m
-        { h: 1.16, r: 0.52, kg: 4000 },
-        { h: 1.16, r: 1.27, kg: 3500 },
-        { h: 1.16, r: 1.72, kg: 3000 },
-        { h: 1.16, r: 2.35, kg: 2400 },
-        { h: 1.16, r: 2.92, kg: 2000 },
-        // h=2.18m
-        { h: 2.18, r: 0.52, kg: 4000 },
-        { h: 2.18, r: 1.27, kg: 3500 },
-        { h: 2.18, r: 1.72, kg: 3000 },
-        { h: 2.18, r: 2.35, kg: 2400 },
-        // h=3.24m
-        { h: 3.24, r: 0.52, kg: 4000 },
-        { h: 3.24, r: 1.27, kg: 3500 },
-        { h: 3.24, r: 1.72, kg: 3000 },
-        // h=4.08m
-        { h: 4.08, r: 0.52, kg: 4000 },
-        { h: 4.08, r: 1.27, kg: 3500 },
-        // h=4.49m
-        { h: 4.49, r: 0.52, kg: 4000 },
-        // h=7.01m
-        { h: 7.01, r: 0.48, kg: 2400 },
+        { h: 0.0, r: 0.52, kg: 4000 }, { h: 0.0, r: 1.27, kg: 3500 }, { h: 0.0, r: 1.72, kg: 3000 }, { h: 0.0, r: 2.35, kg: 2400 }, { h: 0.0, r: 2.92, kg: 2000 }, { h: 0.0, r: 3.2, kg: 1550 },
+        { h: 1.0, r: 0.52, kg: 4000 }, { h: 1.0, r: 1.27, kg: 3500 }, { h: 1.0, r: 1.72, kg: 3000 }, { h: 1.0, r: 2.35, kg: 2400 }, { h: 1.0, r: 2.92, kg: 2000 }, { h: 1.0, r: 3.6, kg: 1550 },
+        { h: 2.0, r: 0.52, kg: 4000 }, { h: 2.0, r: 1.27, kg: 3500 }, { h: 2.0, r: 1.72, kg: 3000 }, { h: 2.0, r: 2.35, kg: 2400 }, { h: 2.0, r: 2.92, kg: 2000 }, { h: 2.0, r: 3.82, kg: 1550 },
+        { h: 3.0, r: 0.52, kg: 4000 }, { h: 3.0, r: 1.27, kg: 3500 }, { h: 3.0, r: 1.72, kg: 3000 }, { h: 3.0, r: 2.35, kg: 2400 }, { h: 3.0, r: 2.92, kg: 2000 }, { h: 3.0, r: 3.6, kg: 1550 },
+        { h: 4.0, r: 0.52, kg: 4000 }, { h: 4.0, r: 1.27, kg: 3500 }, { h: 4.0, r: 1.72, kg: 3000 }, { h: 4.0, r: 2.35, kg: 2400 }, { h: 4.0, r: 2.92, kg: 2000 }, { h: 4.0, r: 3.0, kg: 1550 },
+        { h: 5.0, r: 1.27, kg: 3500 }, { h: 5.0, r: 1.72, kg: 3000 }, { h: 5.0, r: 2.3, kg: 2400 },
+        { h: 5.5, r: 1.72, kg: 3000 }, { h: 5.5, r: 1.9, kg: 2400 },
+        { h: 6.0, r: 1.5, kg: 3000 },
+        { h: 6.5, r: 1.1, kg: 2400 },
+        { h: 7.0, r: 0.8, kg: 2400 },
       ],
     },
     {
@@ -9897,72 +9260,18 @@ const MACHINES = {
         "UN Stage 3",
       ],
       loadMatrix: [
-        // h=0.0m
-        { h: 0.0, r: 0.57, kg: 5500 },
-        { h: 0.0, r: 1.49, kg: 5000 },
-        { h: 0.0, r: 1.67, kg: 4500 },
-        { h: 0.0, r: 1.98, kg: 4000 },
-        { h: 0.0, r: 2.35, kg: 3500 },
-        { h: 0.0, r: 2.67, kg: 3000 },
-        { h: 0.0, r: 3.07, kg: 2500 },
-        { h: 0.0, r: 3.56, kg: 2000 },
-        { h: 0.0, r: 4.51, kg: 1700 },
-        // h=0.83m
-        { h: 0.83, r: 0.57, kg: 5500 },
-        { h: 0.83, r: 1.49, kg: 5000 },
-        { h: 0.83, r: 1.67, kg: 4500 },
-        { h: 0.83, r: 1.98, kg: 4000 },
-        { h: 0.83, r: 2.35, kg: 3500 },
-        { h: 0.83, r: 2.67, kg: 3000 },
-        { h: 0.83, r: 3.07, kg: 2500 },
-        { h: 0.83, r: 3.56, kg: 2000 },
-        { h: 0.83, r: 4.13, kg: 1700 },
-        // h=1.23m
-        { h: 1.23, r: 0.57, kg: 5500 },
-        { h: 1.23, r: 1.49, kg: 5000 },
-        { h: 1.23, r: 1.67, kg: 4500 },
-        { h: 1.23, r: 1.98, kg: 4000 },
-        { h: 1.23, r: 2.35, kg: 3500 },
-        { h: 1.23, r: 2.67, kg: 3000 },
-        { h: 1.23, r: 3.07, kg: 2500 },
-        { h: 1.23, r: 3.56, kg: 2000 },
-        // h=1.63m
-        { h: 1.63, r: 0.57, kg: 5500 },
-        { h: 1.63, r: 1.49, kg: 5000 },
-        { h: 1.63, r: 1.67, kg: 4500 },
-        { h: 1.63, r: 1.98, kg: 4000 },
-        { h: 1.63, r: 2.35, kg: 3500 },
-        { h: 1.63, r: 2.67, kg: 3000 },
-        { h: 1.63, r: 3.07, kg: 2500 },
-        // h=1.98m
-        { h: 1.98, r: 0.57, kg: 5500 },
-        { h: 1.98, r: 1.49, kg: 5000 },
-        { h: 1.98, r: 1.67, kg: 4500 },
-        { h: 1.98, r: 1.98, kg: 4000 },
-        { h: 1.98, r: 2.35, kg: 3500 },
-        { h: 1.98, r: 2.67, kg: 3000 },
-        // h=2.48m
-        { h: 2.48, r: 0.57, kg: 5500 },
-        { h: 2.48, r: 1.49, kg: 5000 },
-        { h: 2.48, r: 1.67, kg: 4500 },
-        { h: 2.48, r: 1.98, kg: 4000 },
-        { h: 2.48, r: 2.35, kg: 3500 },
-        // h=2.84m
-        { h: 2.84, r: 0.57, kg: 5500 },
-        { h: 2.84, r: 1.49, kg: 5000 },
-        { h: 2.84, r: 1.67, kg: 4500 },
-        { h: 2.84, r: 1.98, kg: 4000 },
-        // h=3.26m
-        { h: 3.26, r: 0.57, kg: 5500 },
-        { h: 3.26, r: 1.49, kg: 5000 },
-        { h: 3.26, r: 1.67, kg: 4500 },
-        // h=3.61m
-        { h: 3.61, r: 0.57, kg: 5500 },
-        { h: 3.61, r: 1.49, kg: 5000 },
-        // h=4.02m
-        { h: 4.02, r: 0.57, kg: 5500 },
-        // h=7.9m
-        { h: 7.9, r: 0.92, kg: 2750 },
+        { h: 0.0, r: 0.57, kg: 5500 }, { h: 0.0, r: 1.49, kg: 5000 }, { h: 0.0, r: 1.67, kg: 4500 }, { h: 0.0, r: 1.98, kg: 4000 }, { h: 0.0, r: 2.35, kg: 3500 }, { h: 0.0, r: 2.67, kg: 3000 }, { h: 0.0, r: 3.07, kg: 2500 }, { h: 0.0, r: 3.6, kg: 2000 },
+        { h: 1.0, r: 0.57, kg: 5500 }, { h: 1.0, r: 1.49, kg: 5000 }, { h: 1.0, r: 1.67, kg: 4500 }, { h: 1.0, r: 1.98, kg: 4000 }, { h: 1.0, r: 2.35, kg: 3500 }, { h: 1.0, r: 2.67, kg: 3000 }, { h: 1.0, r: 3.07, kg: 2500 }, { h: 1.0, r: 3.56, kg: 2000 }, { h: 1.0, r: 4.3, kg: 1700 },
+        { h: 2.0, r: 0.57, kg: 5500 }, { h: 2.0, r: 1.49, kg: 5000 }, { h: 2.0, r: 1.67, kg: 4500 }, { h: 2.0, r: 1.98, kg: 4000 }, { h: 2.0, r: 2.35, kg: 3500 }, { h: 2.0, r: 2.67, kg: 3000 }, { h: 2.0, r: 3.07, kg: 2500 }, { h: 2.0, r: 3.56, kg: 2000 }, { h: 2.0, r: 4.5, kg: 1700 },
+        { h: 3.0, r: 0.57, kg: 5500 }, { h: 3.0, r: 1.49, kg: 5000 }, { h: 3.0, r: 1.67, kg: 4500 }, { h: 3.0, r: 1.98, kg: 4000 }, { h: 3.0, r: 2.35, kg: 3500 }, { h: 3.0, r: 2.67, kg: 3000 }, { h: 3.0, r: 3.07, kg: 2500 }, { h: 3.0, r: 3.56, kg: 2000 }, { h: 3.0, r: 4.5, kg: 1700 },
+        { h: 4.0, r: 0.57, kg: 5500 }, { h: 4.0, r: 1.49, kg: 5000 }, { h: 4.0, r: 1.67, kg: 4500 }, { h: 4.0, r: 1.98, kg: 4000 }, { h: 4.0, r: 2.35, kg: 3500 }, { h: 4.0, r: 2.67, kg: 3000 }, { h: 4.0, r: 3.07, kg: 2500 }, { h: 4.0, r: 3.56, kg: 2000 }, { h: 4.0, r: 4.1, kg: 1700 },
+        { h: 5.0, r: 0.57, kg: 5500 }, { h: 5.0, r: 1.49, kg: 5000 }, { h: 5.0, r: 1.67, kg: 4500 }, { h: 5.0, r: 1.98, kg: 4000 }, { h: 5.0, r: 2.35, kg: 3500 }, { h: 5.0, r: 2.67, kg: 3000 }, { h: 5.0, r: 3.07, kg: 2500 }, { h: 5.0, r: 3.5, kg: 2000 },
+        { h: 5.5, r: 1.49, kg: 5000 }, { h: 5.5, r: 1.67, kg: 4500 }, { h: 5.5, r: 1.98, kg: 4000 }, { h: 5.5, r: 2.35, kg: 3500 }, { h: 5.5, r: 2.67, kg: 3000 }, { h: 5.5, r: 3.1, kg: 2500 },
+        { h: 6.0, r: 1.98, kg: 4000 }, { h: 6.0, r: 2.35, kg: 3500 }, { h: 6.0, r: 2.6, kg: 3000 },
+        { h: 6.5, r: 2.2, kg: 3500 },
+        { h: 7.0, r: 1.8, kg: 3000 },
+        { h: 7.5, r: 1.3, kg: 3000 },
+        { h: 7.9, r: 0.9, kg: 2750 },
       ],
     },
 
@@ -11065,13 +10374,13 @@ const MACHINES = {
       // ── Source: Dieci Icarus 40.17 Brochure — Dieci Australia (Icarus-Brochure-2025) ──
       // Engine: FPT 4-cyl 4,485cc | 125hp/93kW @ 2,200rpm | Stage IIIA/Tier 3 | liquid cooled turbo after-cooler
       // TWO LOAD CHARTS (p.4): LEFT = on tyres forks | RIGHT = on stabilisers forks
-      // On stabilisers: max 4,000 kg | 16.6m height | 12.6m reach | 7 zones: 590/810/1310/1810/2610/3610/4000 kg
-      // On tyres:       max 3,810 kg | ~15.0m height |  ~9.0m reach | 6 zones: 710/1010/1610/2010/2710/3810 kg
+      // On stabilisers: max 4,000 kg | 16.6m | 12.6m | zones (t): 0.6/0.8/1.0/1.3/1.5/1.8/2.0/2.5/3.0/3.6/4.0
+      // On tyres:       max 3,800 kg | 16.6m | 12.6m | zones (t): 0.3/0.5/0.7/1.0/1.5/2.0/2.7/3.8
       // JIB (optional attachment): separate load chart required — contact Dieci Australia ph 1300 888 479
       // WINCH/HOOK (optional attachment): separate load chart required — contact Dieci Australia
       // EWP MAN BASKET: pre-arrangement std. — AS1418.10 compliant — separate EWP chart from Dieci AU
       capacity: 4.0, // max 4,000 kg on stabilisers — confirmed spec
-      capacityOnTyres: 3.81, // max ~3,810 kg on tyres — from left chart zone label "3.81"
+      capacityOnTyres: 3.8, // max 3,800 kg on tyres — chart inner zone 3.8t
       liftHeight: 16.6, // max height (m) on stabilisers — confirmed spec
       liftHeightOnTyres: 15.0, // estimated max height on tyres (~15m, chart-read)
       maxReach: 12.6, // max horizontal extension (m) — confirmed spec
@@ -11129,7 +10438,7 @@ const MACHINES = {
         "Crab Steer",
       ],
       // ─────────────────────────────────────────────────────────────────────────────
-      // ON STABILISERS — FORKS — loadMatrix
+      // ON TYRES — FORKS — loadMatrix (default, conservative)
       // Source: Dieci Icarus 40.17 Brochure p.4 — RIGHT load chart (on stabilisers, forks)
       // 7 zones (t): 0.59, 0.81, 1.31, 1.81, 2.61, 3.61, 4.01 | Max H: 16.6m | Max reach: 12.6m
       // Boom angles: 20°→70° | 600mm fork load centre shown on chart
@@ -11137,94 +10446,19 @@ const MACHINES = {
       //    Always verify against Dieci Icarus 40.17 load plate before any lift.
       // ─────────────────────────────────────────────────────────────────────────────
       loadMatrix: [
-        // h=0  — zones from innermost (4000kg) to outermost (590kg)
-        { h: 0, r: 1.5, kg: 4000 },
-        { h: 0, r: 3.3, kg: 3610 },
-        { h: 0, r: 5.3, kg: 2610 },
-        { h: 0, r: 7.2, kg: 1810 },
-        { h: 0, r: 9.0, kg: 1310 },
-        { h: 0, r: 10.8, kg: 810 },
-        { h: 0, r: 12.6, kg: 590 },
-        // h=2
-        { h: 2, r: 1.5, kg: 4000 },
-        { h: 2, r: 3.3, kg: 3610 },
-        { h: 2, r: 5.3, kg: 2610 },
-        { h: 2, r: 7.2, kg: 1810 },
-        { h: 2, r: 9.0, kg: 1310 },
-        { h: 2, r: 10.8, kg: 810 },
-        { h: 2, r: 12.5, kg: 590 },
-        // h=4
-        { h: 4, r: 1.5, kg: 4000 },
-        { h: 4, r: 3.3, kg: 3610 },
-        { h: 4, r: 5.3, kg: 2610 },
-        { h: 4, r: 7.2, kg: 1810 },
-        { h: 4, r: 9.0, kg: 1310 },
-        { h: 4, r: 10.8, kg: 810 },
-        { h: 4, r: 12.5, kg: 590 },
-        // h=6
-        { h: 6, r: 1.5, kg: 4000 },
-        { h: 6, r: 3.2, kg: 3610 },
-        { h: 6, r: 5.2, kg: 2610 },
-        { h: 6, r: 7.1, kg: 1810 },
-        { h: 6, r: 9.0, kg: 1310 },
-        { h: 6, r: 10.7, kg: 810 },
-        { h: 6, r: 12.3, kg: 590 },
-        // h=8
-        { h: 8, r: 1.5, kg: 4000 },
-        { h: 8, r: 3.1, kg: 3610 },
-        { h: 8, r: 5.0, kg: 2610 },
-        { h: 8, r: 6.8, kg: 1810 },
-        { h: 8, r: 8.5, kg: 1310 },
-        { h: 8, r: 10.3, kg: 810 },
-        { h: 8, r: 11.7, kg: 590 },
-        // h=10
-        { h: 10, r: 1.4, kg: 4000 },
-        { h: 10, r: 2.9, kg: 3610 },
-        { h: 10, r: 4.7, kg: 2610 },
-        { h: 10, r: 6.4, kg: 1810 },
-        { h: 10, r: 8.0, kg: 1310 },
-        { h: 10, r: 9.5, kg: 810 },
-        { h: 10, r: 10.7, kg: 590 },
-        // h=12
-        { h: 12, r: 1.2, kg: 4000 },
-        { h: 12, r: 2.5, kg: 3610 },
-        { h: 12, r: 4.0, kg: 2610 },
-        { h: 12, r: 5.5, kg: 1810 },
-        { h: 12, r: 7.0, kg: 1310 },
-        { h: 12, r: 8.2, kg: 810 },
-        { h: 12, r: 9.0, kg: 590 },
-        // h=14
-        { h: 14, r: 0.8, kg: 4000 },
-        { h: 14, r: 1.8, kg: 3610 },
-        { h: 14, r: 3.0, kg: 2610 },
-        { h: 14, r: 4.2, kg: 1810 },
-        { h: 14, r: 5.5, kg: 1310 },
-        { h: 14, r: 6.4, kg: 810 },
-        { h: 14, r: 7.0, kg: 590 },
-        // h=15
-        { h: 15, r: 0.5, kg: 4000 },
-        { h: 15, r: 1.2, kg: 3610 },
-        { h: 15, r: 2.2, kg: 2610 },
-        { h: 15, r: 3.2, kg: 1810 },
-        { h: 15, r: 4.2, kg: 1310 },
-        { h: 15, r: 5.0, kg: 810 },
-        { h: 15, r: 5.5, kg: 590 },
-        // h=16
-        { h: 16, r: 0.5, kg: 3610 },
-        { h: 16, r: 1.1, kg: 2610 },
-        { h: 16, r: 1.7, kg: 1810 },
-        { h: 16, r: 2.3, kg: 1310 },
-        { h: 16, r: 2.8, kg: 810 },
-        { h: 16, r: 3.1, kg: 590 },
-        // h=16.6 — max height (confirmed spec)
-        { h: 16.6, r: 0.4, kg: 2610 },
-        { h: 16.6, r: 0.8, kg: 1810 },
-        { h: 16.6, r: 1.1, kg: 1310 },
-        { h: 16.6, r: 1.4, kg: 810 },
-        { h: 16.6, r: 1.6, kg: 590 },
+        { h: 0.0, r: 0.0, kg: 3800 }, { h: 0.0, r: 2.8, kg: 3800 }, { h: 0.0, r: 4.0, kg: 2700 }, { h: 0.0, r: 5.2, kg: 2000 }, { h: 0.0, r: 6.5, kg: 1500 }, { h: 0.0, r: 8.0, kg: 1000 }, { h: 0.0, r: 9.0, kg: 700 }, { h: 0.0, r: 10.0, kg: 500 }, { h: 0.0, r: 11.0, kg: 300 },
+        { h: 2.0, r: 0.0, kg: 3800 }, { h: 2.0, r: 2.8, kg: 3800 }, { h: 2.0, r: 4.0, kg: 2700 }, { h: 2.0, r: 5.2, kg: 2000 }, { h: 2.0, r: 6.5, kg: 1500 }, { h: 2.0, r: 8.0, kg: 1000 }, { h: 2.0, r: 9.0, kg: 700 }, { h: 2.0, r: 10.0, kg: 500 }, { h: 2.0, r: 11.0, kg: 300 }, { h: 2.0, r: 12.4, kg: 100 },
+        { h: 4.0, r: 0.0, kg: 3800 }, { h: 4.0, r: 2.8, kg: 3800 }, { h: 4.0, r: 4.0, kg: 2700 }, { h: 4.0, r: 5.2, kg: 2000 }, { h: 4.0, r: 6.5, kg: 1500 }, { h: 4.0, r: 8.0, kg: 1000 }, { h: 4.0, r: 9.0, kg: 700 }, { h: 4.0, r: 10.0, kg: 500 }, { h: 4.0, r: 11.0, kg: 300 }, { h: 4.0, r: 12.0, kg: 100 },
+        { h: 6.0, r: 0.0, kg: 2700 }, { h: 6.0, r: 4.0, kg: 2700 }, { h: 6.0, r: 5.2, kg: 2000 }, { h: 6.0, r: 6.5, kg: 1500 }, { h: 6.0, r: 8.0, kg: 1000 }, { h: 6.0, r: 9.0, kg: 700 }, { h: 6.0, r: 10.0, kg: 500 }, { h: 6.0, r: 11.0, kg: 300 },
+        { h: 8.0, r: 0.0, kg: 2000 }, { h: 8.0, r: 5.2, kg: 2000 }, { h: 8.0, r: 6.5, kg: 1500 }, { h: 8.0, r: 8.0, kg: 1000 }, { h: 8.0, r: 9.0, kg: 700 }, { h: 8.0, r: 10.0, kg: 500 },
+        { h: 10.0, r: 0.0, kg: 1500 }, { h: 10.0, r: 6.5, kg: 1500 }, { h: 10.0, r: 8.0, kg: 1000 }, { h: 10.0, r: 8.8, kg: 700 },
+        { h: 12.0, r: 0.0, kg: 1000 }, { h: 12.0, r: 7.0, kg: 1000 },
+        { h: 14.0, r: 0.0, kg: 500 }, { h: 14.0, r: 5.0, kg: 500 },
+        { h: 16.0, r: 0.0, kg: 300 }, { h: 16.0, r: 2.5, kg: 300 },
+        { h: 16.6, r: 0.0, kg: 300 }, { h: 16.6, r: 1.5, kg: 300 },
       ],
       // ─────────────────────────────────────────────────────────────────────────────
-      // ON TYRES — FORKS — loadMatrixTyres
+      // ON STABILISERS — FORKS — loadMatrixStabs
       // Source: Dieci Icarus 40.17 Brochure p.4 — LEFT load chart (on tyres, forks)
       // 6 zones (t): 0.71, 1.01, 1.61, 2.01, 2.71, 3.81 | Max H: ~15.0m | Max reach: ~9.0m
       // NOTE: Outriggers NOT deployed — significantly reduced envelope vs on-stabilisers chart.
@@ -11232,69 +10466,17 @@ const MACHINES = {
       // ⚠️ Zone boundary reach values chart-read from rasterized brochure image ±0.3m precision.
       //    Always verify against Dieci Icarus 40.17 load plate before any lift.
       // ─────────────────────────────────────────────────────────────────────────────
-      loadMatrixTyres: [
-        // h=0
-        { h: 0, r: 1.2, kg: 3810 },
-        { h: 0, r: 2.3, kg: 2710 },
-        { h: 0, r: 3.5, kg: 2010 },
-        { h: 0, r: 4.8, kg: 1610 },
-        { h: 0, r: 6.5, kg: 1010 },
-        { h: 0, r: 8.5, kg: 710 },
-        // h=2
-        { h: 2, r: 1.2, kg: 3810 },
-        { h: 2, r: 2.3, kg: 2710 },
-        { h: 2, r: 3.5, kg: 2010 },
-        { h: 2, r: 4.8, kg: 1610 },
-        { h: 2, r: 6.5, kg: 1010 },
-        { h: 2, r: 8.5, kg: 710 },
-        // h=4
-        { h: 4, r: 1.2, kg: 3810 },
-        { h: 4, r: 2.3, kg: 2710 },
-        { h: 4, r: 3.5, kg: 2010 },
-        { h: 4, r: 4.8, kg: 1610 },
-        { h: 4, r: 6.5, kg: 1010 },
-        { h: 4, r: 8.4, kg: 710 },
-        // h=6
-        { h: 6, r: 1.2, kg: 3810 },
-        { h: 6, r: 2.3, kg: 2710 },
-        { h: 6, r: 3.5, kg: 2010 },
-        { h: 6, r: 4.8, kg: 1610 },
-        { h: 6, r: 6.4, kg: 1010 },
-        { h: 6, r: 8.3, kg: 710 },
-        // h=8
-        { h: 8, r: 1.1, kg: 3810 },
-        { h: 8, r: 2.2, kg: 2710 },
-        { h: 8, r: 3.4, kg: 2010 },
-        { h: 8, r: 4.6, kg: 1610 },
-        { h: 8, r: 6.2, kg: 1010 },
-        { h: 8, r: 8.0, kg: 710 },
-        // h=10
-        { h: 10, r: 0.9, kg: 3810 },
-        { h: 10, r: 1.9, kg: 2710 },
-        { h: 10, r: 3.0, kg: 2010 },
-        { h: 10, r: 4.1, kg: 1610 },
-        { h: 10, r: 5.6, kg: 1010 },
-        { h: 10, r: 7.2, kg: 710 },
-        // h=12
-        { h: 12, r: 0.6, kg: 3810 },
-        { h: 12, r: 1.5, kg: 2710 },
-        { h: 12, r: 2.5, kg: 2010 },
-        { h: 12, r: 3.4, kg: 1610 },
-        { h: 12, r: 4.8, kg: 1010 },
-        { h: 12, r: 6.2, kg: 710 },
-        // h=13.5
-        { h: 13.5, r: 0.4, kg: 3810 },
-        { h: 13.5, r: 1.0, kg: 2710 },
-        { h: 13.5, r: 1.8, kg: 2010 },
-        { h: 13.5, r: 2.5, kg: 1610 },
-        { h: 13.5, r: 3.6, kg: 1010 },
-        { h: 13.5, r: 4.7, kg: 710 },
-        // h=15.0 — estimated max height on tyres (chart-read)
-        { h: 15, r: 0.4, kg: 2710 },
-        { h: 15, r: 0.8, kg: 2010 },
-        { h: 15, r: 1.2, kg: 1610 },
-        { h: 15, r: 1.8, kg: 1010 },
-        { h: 15, r: 2.3, kg: 710 },
+      loadMatrixStabs: [
+        { h: 0.0, r: 0.0, kg: 4000 }, { h: 0.0, r: 2.8, kg: 4000 }, { h: 0.0, r: 3.4, kg: 3600 }, { h: 0.0, r: 4.2, kg: 3000 }, { h: 0.0, r: 5.0, kg: 2500 }, { h: 0.0, r: 6.3, kg: 2000 }, { h: 0.0, r: 7.0, kg: 1800 }, { h: 0.0, r: 8.0, kg: 1500 }, { h: 0.0, r: 9.0, kg: 1300 }, { h: 0.0, r: 10.5, kg: 1000 }, { h: 0.0, r: 11.5, kg: 800 },
+        { h: 2.0, r: 0.0, kg: 4000 }, { h: 2.0, r: 2.8, kg: 4000 }, { h: 2.0, r: 3.4, kg: 3600 }, { h: 2.0, r: 4.2, kg: 3000 }, { h: 2.0, r: 5.0, kg: 2500 }, { h: 2.0, r: 6.3, kg: 2000 }, { h: 2.0, r: 7.0, kg: 1800 }, { h: 2.0, r: 8.0, kg: 1500 }, { h: 2.0, r: 9.0, kg: 1300 }, { h: 2.0, r: 10.5, kg: 1000 }, { h: 2.0, r: 11.5, kg: 800 }, { h: 2.0, r: 12.6, kg: 600 },
+        { h: 4.0, r: 0.0, kg: 4000 }, { h: 4.0, r: 2.8, kg: 4000 }, { h: 4.0, r: 3.4, kg: 3600 }, { h: 4.0, r: 4.2, kg: 3000 }, { h: 4.0, r: 5.0, kg: 2500 }, { h: 4.0, r: 6.3, kg: 2000 }, { h: 4.0, r: 7.0, kg: 1800 }, { h: 4.0, r: 8.0, kg: 1500 }, { h: 4.0, r: 9.0, kg: 1300 }, { h: 4.0, r: 10.5, kg: 1000 }, { h: 4.0, r: 11.5, kg: 800 }, { h: 4.0, r: 12.4, kg: 600 },
+        { h: 6.0, r: 0.0, kg: 3000 }, { h: 6.0, r: 4.2, kg: 3000 }, { h: 6.0, r: 5.0, kg: 2500 }, { h: 6.0, r: 6.3, kg: 2000 }, { h: 6.0, r: 7.0, kg: 1800 }, { h: 6.0, r: 8.0, kg: 1500 }, { h: 6.0, r: 9.0, kg: 1300 }, { h: 6.0, r: 10.5, kg: 1000 }, { h: 6.0, r: 11.5, kg: 800 },
+        { h: 8.0, r: 0.0, kg: 2500 }, { h: 8.0, r: 5.0, kg: 2500 }, { h: 8.0, r: 6.3, kg: 2000 }, { h: 8.0, r: 7.0, kg: 1800 }, { h: 8.0, r: 8.0, kg: 1500 }, { h: 8.0, r: 9.0, kg: 1300 }, { h: 8.0, r: 10.5, kg: 1000 },
+        { h: 10.0, r: 0.0, kg: 2000 }, { h: 10.0, r: 6.3, kg: 2000 }, { h: 10.0, r: 7.0, kg: 1800 }, { h: 10.0, r: 8.0, kg: 1500 }, { h: 10.0, r: 9.0, kg: 1300 }, { h: 10.0, r: 9.5, kg: 1000 },
+        { h: 12.0, r: 0.0, kg: 1500 }, { h: 12.0, r: 7.5, kg: 1500 },
+        { h: 14.0, r: 0.0, kg: 1000 }, { h: 14.0, r: 5.5, kg: 1000 },
+        { h: 16.0, r: 0.0, kg: 800 }, { h: 16.0, r: 3.0, kg: 800 },
+        { h: 16.6, r: 0.0, kg: 600 }, { h: 16.6, r: 1.5, kg: 600 },
       ],
       // ─────────────────────────────────────────────────────────────────────────────
       // EWP MAN BASKET — loadMatrixJib800
@@ -64511,7 +63693,6 @@ loadMatrixTyres: [
       filters: ["telehandler", "rough"],
     },
 
-
     // ── Manitou MLT Series – Agricultural Telehandlers ─────────────────────
     {
       id: "manitou-mlt625",
@@ -65086,7 +64267,6 @@ loadMatrixTyres: [
 
     // ── JCB Loadall Telehandlers – Extended Range ─────────────────────────
 
-
     {
       id: "jcb-520-50",
       brand: "JCB",
@@ -65527,214 +64707,6 @@ loadMatrixTyres: [
         { h: 13.8, r: 1.0, kg: 1700 },
       ],
       filters: ["telehandler", "rough"],
-    },
-
-    {
-      id: "jcb-540-170",
-      brand: "JCB",
-      emoji: "🏗️",
-      brandColor: "#F5D800",
-      name: "JCB 540-170 Loadall",
-      shortName: "JCB 540-170",
-      capacity: 4,
-      liftHeight: 11.57,
-      maxReach: 9.04,
-      engine: "JCB EcoMAX 93kW Stage V",
-      machineWeight: 13400,
-      machineWidth: 2500,
-      machineLength: 6900,
-      machineHeight: 2970,
-      terrain: "outdoor/rough",
-      maxSpeed: 35,
-      attachments: [
-        "Standard Forks",
-        "Jib",
-        "GP Bucket",
-        "Man Basket",
-        "Work Platform",
-        "Hook",
-      ],
-      bestFor:
-        "4T at 16.6m — 5–6 storey heavy construction reach, JCB high-reach flagship",
-      note: "JCB 540-170 Loadall — 4T, 16.6m lift, 13m reach. JCB EcoMAX 93kW Stage V. Combines heavy capacity with excellent height reach. Ideal for high-rise residential and commercial construction requiring both payload and height.",
-      tags: ["4T", "16.6m", "JCB Loadall", "High Reach", "6-Storey"],
-      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
-      // Source: JCB construction Loadalls brochure (2017+, p.15)
-      // Brochure publishes discrete labelled load chart zones —
-      // synthetic intermediate kg values are forbidden. The renderer
-      // shows brochure spec-table facts plus a 'confirm at working
-      // point with rental company' panel.
-      capacityAtFullHeight: 1300, // corrected to JCB brochure (stabilisers retracted)
-      capacityAtFullReach: 0,
-      // loadMatrix pixel-read from JCB Construction Loadall load chart
-      // (stabilisers retracted), anchored to brochure corner figures.
-      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
-      loadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 2, kg: 3500 },
-        { h: 0, r: 3, kg: 3000 },
-        { h: 0, r: 4, kg: 2500 },
-        { h: 0, r: 5, kg: 2000 },
-        { h: 0, r: 6, kg: 1500 },
-        { h: 0, r: 7, kg: 1000 },
-        { h: 0, r: 8, kg: 500 },
-        { h: 0, r: 9, kg: 150 },
-        { h: 0, r: 9.04, kg: 0 },
-        { h: 2, r: 0, kg: 4000 },
-        { h: 2, r: 2, kg: 3500 },
-        { h: 2, r: 3, kg: 3000 },
-        { h: 2, r: 4, kg: 2400 },
-        { h: 2, r: 5, kg: 1900 },
-        { h: 2, r: 6, kg: 1400 },
-        { h: 2, r: 7, kg: 950 },
-        { h: 2, r: 8, kg: 500 },
-        { h: 2, r: 9, kg: 150 },
-        { h: 4, r: 0, kg: 3800 },
-        { h: 4, r: 2, kg: 3200 },
-        { h: 4, r: 3, kg: 2700 },
-        { h: 4, r: 4, kg: 2200 },
-        { h: 4, r: 5, kg: 1700 },
-        { h: 4, r: 6, kg: 1200 },
-        { h: 4, r: 7, kg: 800 },
-        { h: 4, r: 8, kg: 400 },
-        { h: 5, r: 0, kg: 3500 },
-        { h: 5, r: 2, kg: 3000 },
-        { h: 5, r: 3, kg: 2500 },
-        { h: 5, r: 4, kg: 2000 },
-        { h: 5, r: 5, kg: 1500 },
-        { h: 5, r: 6, kg: 1100 },
-        { h: 5, r: 7, kg: 650 },
-        { h: 6, r: 0, kg: 3300 },
-        { h: 6, r: 2, kg: 2800 },
-        { h: 6, r: 3, kg: 2300 },
-        { h: 6, r: 4, kg: 1800 },
-        { h: 6, r: 5, kg: 1300 },
-        { h: 6, r: 6, kg: 900 },
-        { h: 6, r: 6.5, kg: 500 },
-        { h: 8, r: 0, kg: 2800 },
-        { h: 8, r: 2, kg: 2300 },
-        { h: 8, r: 3, kg: 1800 },
-        { h: 8, r: 4, kg: 1300 },
-        { h: 8, r: 5, kg: 800 },
-        { h: 10, r: 0, kg: 2000 },
-        { h: 10, r: 1, kg: 1700 },
-        { h: 10, r: 2, kg: 1300 },
-        { h: 10, r: 3, kg: 800 },
-        { h: 10, r: 4, kg: 400 },
-        { h: 11, r: 0, kg: 1500 },
-        { h: 11, r: 1, kg: 1300 },
-        { h: 11, r: 2, kg: 800 },
-        { h: 11.57, r: 0, kg: 1300 },
-        { h: 11.57, r: 2, kg: 800 },
-        { h: 11.57, r: 4.32, kg: 1300 },
-      ],
-      capacityAtFullHeightStabs: 2500,
-      capacityAtFullReachStabs: 800,
-      liftHeightStabs: 16.7,
-      maxReachStabs: 12.5,
-      reachAt1000kg: 5.76,
-      filters: ["telehandler", "rough", "heavy"],
-    },
-
-    {
-      id: "jcb-540-200",
-      brand: "JCB",
-      emoji: "🏗️",
-      brandColor: "#F5D800",
-      name: "JCB 540-200 Loadall",
-      shortName: "JCB 540-200",
-      capacity: 4,
-      liftHeight: 10.27,
-      maxReach: 9.63,
-      engine: "JCB EcoMAX 93kW Stage V",
-      machineWeight: 15000,
-      machineWidth: 2520,
-      machineLength: 7500,
-      machineHeight: 3050,
-      terrain: "outdoor/rough",
-      maxSpeed: 35,
-      attachments: [
-        "Standard Forks",
-        "Jib",
-        "GP Bucket",
-        "Man Basket",
-        "Work Platform",
-        "Hook",
-      ],
-      bestFor:
-        "4T at 19.7m — nearly 20m reach, JCB's tallest fixed telehandler",
-      note: "JCB 540-200 Loadall — 4T, 19.7m lift, 16.5m reach. JCB EcoMAX 93kW Stage V. JCB's tallest fixed telehandler. Exceptional reach for 7-storey construction. Very low total cost of ownership vs crane hire for repeated lifts at height.",
-      tags: ["4T", "19.7m", "JCB Loadall", "Tallest JCB", "7-Storey"],
-      // ── NO-INTERPOLATION POLICY (Assik directive) ───────────────
-      // Source: JCB construction Loadalls brochure (2017+, p.15)
-      // Brochure publishes discrete labelled load chart zones —
-      // synthetic intermediate kg values are forbidden. The renderer
-      // shows brochure spec-table facts plus a 'confirm at working
-      // point with rental company' panel.
-      capacityAtFullHeight: 500,
-      capacityAtFullReach: 0,
-      // loadMatrix pixel-read from JCB Construction Loadall load chart
-      // (stabilisers retracted), anchored to brochure corner figures.
-      // {h,r}->kg. Conservative zone reads; verify load plate before lift.
-      loadMatrix: [
-        { h: 0, r: 0, kg: 4000 },
-        { h: 0, r: 2, kg: 3000 },
-        { h: 0, r: 3, kg: 2500 },
-        { h: 0, r: 4, kg: 2000 },
-        { h: 0, r: 5, kg: 1500 },
-        { h: 0, r: 6, kg: 1000 },
-        { h: 0, r: 7, kg: 700 },
-        { h: 0, r: 8, kg: 450 },
-        { h: 0, r: 9, kg: 200 },
-        { h: 0, r: 9.63, kg: 0 },
-        { h: 2, r: 0, kg: 3500 },
-        { h: 2, r: 2, kg: 2800 },
-        { h: 2, r: 3, kg: 2300 },
-        { h: 2, r: 4, kg: 1800 },
-        { h: 2, r: 5, kg: 1400 },
-        { h: 2, r: 6, kg: 950 },
-        { h: 2, r: 7, kg: 650 },
-        { h: 2, r: 8, kg: 400 },
-        { h: 2, r: 9, kg: 200 },
-        { h: 4, r: 0, kg: 3000 },
-        { h: 4, r: 2, kg: 2500 },
-        { h: 4, r: 3, kg: 2000 },
-        { h: 4, r: 4, kg: 1600 },
-        { h: 4, r: 5, kg: 1200 },
-        { h: 4, r: 6, kg: 800 },
-        { h: 4, r: 7, kg: 550 },
-        { h: 4, r: 8, kg: 300 },
-        { h: 6, r: 0, kg: 2500 },
-        { h: 6, r: 2, kg: 2100 },
-        { h: 6, r: 3, kg: 1700 },
-        { h: 6, r: 4, kg: 1300 },
-        { h: 6, r: 5, kg: 950 },
-        { h: 6, r: 6, kg: 650 },
-        { h: 6, r: 7, kg: 350 },
-        { h: 8, r: 0, kg: 2000 },
-        { h: 8, r: 2, kg: 1600 },
-        { h: 8, r: 3, kg: 1300 },
-        { h: 8, r: 4, kg: 1000 },
-        { h: 8, r: 5, kg: 650 },
-        { h: 8, r: 6, kg: 350 },
-        { h: 9, r: 0, kg: 1400 },
-        { h: 9, r: 1, kg: 1200 },
-        { h: 9, r: 2, kg: 900 },
-        { h: 9, r: 3, kg: 550 },
-        { h: 9, r: 4, kg: 300 },
-        { h: 10, r: 0, kg: 800 },
-        { h: 10, r: 1, kg: 650 },
-        { h: 10, r: 2, kg: 400 },
-        { h: 10.27, r: 0, kg: 500 },
-        { h: 10.27, r: 3, kg: 350 },
-        { h: 10.27, r: 6.42, kg: 500 },
-      ],
-      capacityAtFullHeightStabs: 1500,
-      capacityAtFullReachStabs: 200,
-      liftHeightStabs: 20,
-      maxReachStabs: 15.9,
-      reachAt1000kg: 6.25,
-      filters: ["telehandler", "rough", "heavy"],
     },
 
     {
@@ -69806,7 +68778,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 850 / 950 / 1200 / 1400 / 1600 / 2000 kg. Max reach: 1.16 / 1.20 / 1.54 / 1.73 / 2.36 / 2.67 m. Boom angle range: 0° to 50°/55° max — boom rows A/B/C. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: Dieci Apollo Smart 20.4 brochure (Apollo Smart20.4_0525, Dieci Australia).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 850 / 950 / 1200 / 1400 / 1600 / 2000 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "2.0T capacity / 4.35m lift / 2.67m reach \u2014 Dieci Apollo Smart 20.4",
       note:
         "Dieci Apollo Smart 20.4 \u2014 2.0T max capacity, 4.35m max lift, 2.67m max forward reach. Kubota 50HP/37kW Stage V, 3-cyl 1,826cc, common-rail diesel, turbo @ 2,700rpm. 4300kg operating weight. Width 1929mm, length 3534mm, wheelbase 2250mm. Max speed 25km/h. Compact 2T construction telehandler — most compact in Dieci range. 3 steering modes (2WS / 4WS / crab). 4-in-1 proportional joystick with FNR. Hydrostatic single-speed transmission. Variable displacement pump. ROPS-FOPS cab with deadman sensor and operator presence detection. Load limiter. Patented tilting ballast system. 90° rotating radiator. Dry disc brake on rear axle. Manually-activated park brake. Source: Dieci Apollo Smart 20.4 brochure (Apollo Smart20.4_0525, Dieci Australia).",
@@ -69905,7 +68877,7 @@ loadMatrixTyres: [
         "Compact construction and agricultural sites, tight-access, indoor and rough terrain — YANMAR version",
       note: "Dieci Apollo 25.6 (YANMAR engine, European spec, 2007). 2.5T, 5.78m, 3.25m reach. YANMAR 4TNV98 52kW/71hp or 4TNV98T 62kW/85hp turbo — 3319 cm³, 4-cyl direct injection. 4,800kg unladen. Hydrostatic variable-delivery pump, 3-in-1 joystick. 80 l/min, 200 bar hydraulics. Front axle rigid, rear oscillating. Oil bath service brake on front axle. Negative parking brake. 129° fork swivel. 40% gradeability. ROPS-FOPS soundproof cab with heating. Anti-tipping block device. Self-locking front differential. Tyres: 12-16.5 (alt: 12.0/75-18). DISTINCT FROM Australian Kubota version (dieci-apollo-256): shorter reach 3.25m vs 3.35m, lighter 4800kg vs 5100kg, older engine.",
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 800 / 1000 / 1300 / 1700 / 2100 / 2500 kg. Max reach: 3.25 m at 0°. Max lift height: 5.78 m. Boom angle range: 0° to 50°/60°/66° max — boom rows A/B/C. Spec-table-confirmed envelope corners: capacity at max height on tyres = 1,700 kg (at h=5.78 m, r=0.67 m); capacity at max boom extension = 800 kg (at r=3.25 m). Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine's certified load plate. Source: Dieci Apollo 25.6 spec sheet AXE3095/UK-2/2007 v3 (YANMAR engine variant).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 800 / 1000 / 1300 / 1700 / 2100 / 2500 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       tags: [
         "2.5T",
         "5.78m",
@@ -70071,7 +69043,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 700 / 1000 / 1500 / 2000 / 2800 kg (with 2.8t at upper boom rows B/C as well). Max reach: 3.65 m max at 0°. Boom angle range: 0° to 50°/60°/64° max — boom rows A/B/C. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: Dieci Dedalus 28.7 brochure (AXB1340, Cod. AXE3073 06/2004 v2).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 700 / 1000 / 1500 / 2000 / 2800 kg (outer reach to inner). DIGITISED into loadMatrix below: reach boundaries read off the chart, kg values are the brochure tonne labels exactly (no interpolation). Capacity at height derated using only labelled tonne values; always confirm against the machine's certified load plate before lifting. Source: Dieci brochure (load-charts page).",
       bestFor: "2.8T capacity / 6.35m lift / 3.65m reach \u2014 Dieci Dedalus 28.7",
       note:
         "Dieci Dedalus 28.7 \u2014 2.8T max capacity, 6.35m max lift, 3.65m max forward reach. Iveco NEF F4GE0404A NA 60kW/82HP or F4GE0454A TC 74kW/102HP @ 2300rpm, 4-cyl 4485cc. 6000kg operating weight. Width 2000mm, length 3950mm, wheelbase 2800mm. Max speed 40km/h. Compact construction telehandler. 4 steering modes. Hydrostatic transmission with variable capacity pump. Electro-hydraulic reversing. Inching pedal. 2-speed power steering. Front self-locking axle (45% limited slip). Oil bath service brake on front axle. Negative parking brake. ROPS-FOPS soundproof cab with heating. Anti-tipping device. Source: Dieci Dedalus 28.7 brochure (AXB1340, Cod. AXE3073 06/2004 v2).",
@@ -70080,8 +69052,17 @@ loadMatrixTyres: [
       // Brochure-direct, no-interpolation policy: zone labels above only.
       // loadChartSparse=true makes getCapacityAtPoint return null for any (h,r).
       // ────────────────────────────────────────────────────────────────────
-      loadChartSparse: true,
-      loadMatrix: [],
+      loadChartSparse: false,
+      loadMatrix: [
+        { h: 0.0, r: 0.0, kg: 2800 }, { h: 0.0, r: 1.0, kg: 2800 }, { h: 0.0, r: 1.5, kg: 2000 }, { h: 0.0, r: 2.0, kg: 1500 }, { h: 0.0, r: 2.6, kg: 1000 }, { h: 0.0, r: 3.0, kg: 700 },
+        { h: 1.0, r: 0.0, kg: 2800 }, { h: 1.0, r: 1.0, kg: 2800 }, { h: 1.0, r: 1.5, kg: 2000 }, { h: 1.0, r: 2.0, kg: 1500 }, { h: 1.0, r: 2.6, kg: 1000 }, { h: 1.0, r: 3.5, kg: 700 },
+        { h: 2.0, r: 0.0, kg: 2800 }, { h: 2.0, r: 1.0, kg: 2800 }, { h: 2.0, r: 1.5, kg: 2000 }, { h: 2.0, r: 2.0, kg: 1500 }, { h: 2.0, r: 2.6, kg: 1000 }, { h: 2.0, r: 3.65, kg: 700 },
+        { h: 3.0, r: 0.0, kg: 2800 }, { h: 3.0, r: 1.0, kg: 2800 }, { h: 3.0, r: 1.5, kg: 2000 }, { h: 3.0, r: 2.0, kg: 1500 }, { h: 3.0, r: 2.6, kg: 1000 }, { h: 3.0, r: 3.5, kg: 700 },
+        { h: 4.0, r: 0.0, kg: 2800 }, { h: 4.0, r: 1.0, kg: 2800 }, { h: 4.0, r: 1.5, kg: 2000 }, { h: 4.0, r: 2.0, kg: 1500 }, { h: 4.0, r: 2.6, kg: 1000 }, { h: 4.0, r: 3.1, kg: 700 },
+        { h: 5.0, r: 0.0, kg: 2000 }, { h: 5.0, r: 1.5, kg: 2000 }, { h: 5.0, r: 2.0, kg: 1500 }, { h: 5.0, r: 2.4, kg: 1000 },
+        { h: 6.0, r: 0.0, kg: 2000 }, { h: 6.0, r: 1.3, kg: 2000 },
+        { h: 6.35, r: 0.0, kg: 2000 }, { h: 6.35, r: 0.8, kg: 2000 },
+      ],
       filters: ["telehandler", "rough"],
     },
     {
@@ -70099,6 +69080,7 @@ loadMatrixTyres: [
       capacity: 3.0,
       liftHeight: 8.7,
       maxReach: 5.8,
+        capacityAtFullReach: 350, // 0.35t outer zone at 5.80m max reach (chart-read)
       engine: "Kubota 98HP/73.4kW Stage IIIA/Tier 3 @ 2,600rpm, 4-cyl 3,769cc, mechanical injection",
       machineWeight: 6250,
       machineWidth: 2000,
@@ -70119,7 +69101,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 350 / 500 / 700 / 900 / 1200 / 1600 / 2200 / 2500 / 3000 kg. Max reach: 5.80 m max at 0°. Boom angle range: 10° to 50°/60°/70° max — boom rows A/B/C/D/E/F. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: Dieci Dedalus 30.7 / 30.9 TCL brochure (Dieci Australia).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 350 / 500 / 700 / 900 / 1200 / 1600 / 2200 / 2500 / 3000 kg (outer reach to inner). DIGITISED into loadMatrix below: reach boundaries read off the chart, kg values are the brochure tonne labels exactly (no interpolation). Capacity at height derated using only labelled tonne values; always confirm against the machine's certified load plate before lifting. Source: Dieci brochure (load-charts page).",
       bestFor: "3.0T capacity / 8.7m lift / 5.8m reach \u2014 Dieci Dedalus 30.9 TCL",
       note:
         "Dieci Dedalus 30.9 TCL \u2014 3.0T max capacity, 8.7m max lift, 5.8m max forward reach. Kubota 98HP/73.4kW Stage IIIA/Tier 3 @ 2,600rpm, 4-cyl 3,769cc, mechanical injection. 6250kg operating weight. Width 2000mm, length 4087mm, wheelbase 2800mm. Max speed 35km/h. Construction telehandler — extended-reach version of Dedalus 30.7. Same engine, transmission, hydraulics. Slightly heavier (6,250kg vs 6,100kg) and longer (4,087mm vs 3,990mm). 3 steering modes. 4-in-1 joystick with FNR. Reversible cooling fan. AS1418.19 / 10896.1 compliant. Load limiter device. Source: Dieci Dedalus 30.7 / 30.9 TCL brochure (Dieci Australia).",
@@ -70128,8 +69110,19 @@ loadMatrixTyres: [
       // Brochure-direct, no-interpolation policy: zone labels above only.
       // loadChartSparse=true makes getCapacityAtPoint return null for any (h,r).
       // ────────────────────────────────────────────────────────────────────
-      loadChartSparse: true,
-      loadMatrix: [],
+      loadChartSparse: false,
+      loadMatrix: [
+        { h: 0.0, r: 0.0, kg: 3000 }, { h: 0.0, r: 1.0, kg: 3000 }, { h: 0.0, r: 1.3, kg: 2500 }, { h: 0.0, r: 1.7, kg: 2200 }, { h: 0.0, r: 2.1, kg: 1600 }, { h: 0.0, r: 2.8, kg: 1200 }, { h: 0.0, r: 3.5, kg: 900 }, { h: 0.0, r: 4.2, kg: 700 }, { h: 0.0, r: 4.8, kg: 500 },
+        { h: 1.0, r: 0.0, kg: 3000 }, { h: 1.0, r: 1.0, kg: 3000 }, { h: 1.0, r: 1.3, kg: 2500 }, { h: 1.0, r: 1.7, kg: 2200 }, { h: 1.0, r: 2.1, kg: 1600 }, { h: 1.0, r: 2.8, kg: 1200 }, { h: 1.0, r: 3.5, kg: 900 }, { h: 1.0, r: 4.2, kg: 700 }, { h: 1.0, r: 4.8, kg: 500 }, { h: 1.0, r: 5.5, kg: 350 },
+        { h: 2.0, r: 0.0, kg: 3000 }, { h: 2.0, r: 1.0, kg: 3000 }, { h: 2.0, r: 1.3, kg: 2500 }, { h: 2.0, r: 1.7, kg: 2200 }, { h: 2.0, r: 2.1, kg: 1600 }, { h: 2.0, r: 2.8, kg: 1200 }, { h: 2.0, r: 3.5, kg: 900 }, { h: 2.0, r: 4.2, kg: 700 }, { h: 2.0, r: 4.8, kg: 500 }, { h: 2.0, r: 5.8, kg: 350 },
+        { h: 3.0, r: 0.0, kg: 3000 }, { h: 3.0, r: 1.0, kg: 3000 }, { h: 3.0, r: 1.3, kg: 2500 }, { h: 3.0, r: 1.7, kg: 2200 }, { h: 3.0, r: 2.1, kg: 1600 }, { h: 3.0, r: 2.8, kg: 1200 }, { h: 3.0, r: 3.5, kg: 900 }, { h: 3.0, r: 4.2, kg: 700 }, { h: 3.0, r: 4.8, kg: 500 }, { h: 3.0, r: 5.6, kg: 350 },
+        { h: 4.0, r: 0.0, kg: 3000 }, { h: 4.0, r: 1.0, kg: 3000 }, { h: 4.0, r: 1.3, kg: 2500 }, { h: 4.0, r: 1.7, kg: 2200 }, { h: 4.0, r: 2.1, kg: 1600 }, { h: 4.0, r: 2.8, kg: 1200 }, { h: 4.0, r: 3.5, kg: 900 }, { h: 4.0, r: 4.2, kg: 700 }, { h: 4.0, r: 4.8, kg: 500 }, { h: 4.0, r: 5.0, kg: 350 },
+        { h: 5.0, r: 0.0, kg: 2500 }, { h: 5.0, r: 1.3, kg: 2500 }, { h: 5.0, r: 1.7, kg: 2200 }, { h: 5.0, r: 2.1, kg: 1600 }, { h: 5.0, r: 2.8, kg: 1200 }, { h: 5.0, r: 3.5, kg: 900 }, { h: 5.0, r: 4.2, kg: 700 }, { h: 5.0, r: 4.3, kg: 500 },
+        { h: 6.0, r: 0.0, kg: 2200 }, { h: 6.0, r: 1.7, kg: 2200 }, { h: 6.0, r: 2.1, kg: 1600 }, { h: 6.0, r: 2.8, kg: 1200 }, { h: 6.0, r: 3.5, kg: 900 },
+        { h: 7.0, r: 0.0, kg: 1600 }, { h: 7.0, r: 2.1, kg: 1600 }, { h: 7.0, r: 2.5, kg: 1200 },
+        { h: 8.0, r: 0.0, kg: 1200 }, { h: 8.0, r: 1.4, kg: 1200 },
+        { h: 8.7, r: 0.0, kg: 900 }, { h: 8.7, r: 0.8, kg: 900 },
+      ],
       filters: ["telehandler", "rough"],
     },
     {
@@ -70168,7 +69161,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 1100 / 1400 / 1700 / 2200 / 2800 / 3500 / 3700 kg. Max reach: 4.00 m max at 0°. Boom angle range: 0° to 50°/60°/70° max — boom rows A/B/C/D. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 1100 / 1400 / 1700 / 2200 / 2800 / 3500 / 3700 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "3.7T capacity / 7.35m lift / 4.0m reach \u2014 Dieci Zeus 37.7",
       note:
         "Dieci Zeus 37.7 \u2014 3.7T max capacity, 7.35m max lift, 4.0m max forward reach. Iveco NEF TA 74kW/101HP or 93kW/127HP @ 2200rpm, 4-cyl 4485cc aftercooler turbo. 7100kg operating weight. Width 2220mm, length 4110mm, wheelbase 2600mm. Max speed 30km/h. Compact-reach high-capacity construction telehandler. Hydrostatic with variable displacement pump. Servo-controlled 2-speed gearbox. Electro-hydraulic inversion. 3-in-1 joystick. Self-locking front axle 45%. Oil-bath service brake on front axle with servo. Negative parking brake. Soundproof ROPS-FOPS cab. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
@@ -70319,7 +69312,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 400 / 600 / 850 / 1150 / 1600 / 2200 / 3000 / 3500 kg. Max reach: 6.50 m max at 0°. Boom angle range: 0° to 50°/60°/70° max — boom rows A through F. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 400 / 600 / 850 / 1150 / 1600 / 2200 / 3000 / 3500 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "3.5T capacity / 9.75m lift / 6.5m reach \u2014 Dieci Zeus 35.10",
       note:
         "Dieci Zeus 35.10 \u2014 3.5T max capacity, 9.75m max lift, 6.5m max forward reach. Iveco NEF TA 74kW/101HP or 93kW/127HP @ 2200rpm, 4-cyl 4485cc aftercooler turbo. 7700kg operating weight. Width 2220mm, length 4110mm, wheelbase 2600mm. Max speed 30km/h. Mid-reach construction telehandler. Hydrostatic with variable displacement pump. Servo-controlled 2-speed gearbox. Electro-hydraulic inversion. 3-in-1 joystick. Self-locking front axle 45%. Oil-bath service brake on front axle with servo. Negative parking brake. Soundproof ROPS-FOPS cab. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
@@ -70368,7 +69361,7 @@ loadMatrixTyres: [
       terrain: "rough",
       attachments: ["Forks", "Bucket", "Crane Jib", "Platform"],
       liftChart:
-        "ON TYRES (single load chart). Brochure publishes discrete labelled zones (outer to inner): 450 / 650 / 900 / 1200 / 1600 / 2200 / 3000 / 3800 kg. Max reach: 6.45 m max at 0°. Boom angle range: 0° to 50°/60°/70° max — boom rows A through F. Per Noyo no-interpolation policy, exact kg at any specific (height, reach) working point must be read directly from the brochure load chart or the machine\u2019s certified load plate. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
+        "Brochure LOAD CHARTS section publishes capacity zones labelled in TONNES along the contours: 450 / 650 / 900 / 1200 / 1600 / 2200 / 3000 / 3800 kg (outer reach to inner). Digitisation into a working loadMatrix is pending; until done, capacity at a specific (height, reach) point shows 'confirm at load plate'. Source: Dieci brochure (load-charts page).",
       bestFor: "3.8T capacity / 9.75m lift / 6.45m reach \u2014 Dieci Zeus 38.10",
       note:
         "Dieci Zeus 38.10 \u2014 3.8T max capacity, 9.75m max lift, 6.45m max forward reach. Iveco NEF TA 74kW/101HP or 93kW/127HP @ 2200rpm, 4-cyl 4485cc aftercooler turbo. 7900kg operating weight. Width 2220mm, length 4110mm, wheelbase 2600mm. Max speed 30km/h. Mid-reach construction telehandler — higher capacity than Zeus 35.10. Hydrostatic with variable displacement pump. Servo-controlled 2-speed gearbox. Electro-hydraulic inversion. 3-in-1 joystick. Self-locking front axle 45%. Oil-bath service brake on front axle with servo. Negative parking brake. Source: DieciZeus 35.10 multi-model brochure (covers Zeus 37.7 / 37.8 / 35.10 / 38.10 / 33.11).",
@@ -87983,16 +86976,25 @@ loadMatrixTyres: [
         "4WD Rough",
         "Heavy Duty",
       ],
-      // Envelope digitised from official Genie Z-80/60 brochure. Spec: platH
-      // 23.77m, maxR 18.29m, up-and-over 8.83m, below-ground reach 4.83m.
-      // Source: Genie Z-80/60 product specifications.
+      // Envelope RE-TRACED from the official Genie Z-80/60 "Range of motion"
+      // diagram (axis-calibrated against the chart's own ft/m gridlines).
+      // The previous curve collapsed reach far too aggressively with height
+      // (implied only ~10.4 m reach at 20 m, vs ~16 m measured off the chart)
+      // and excluded valid jobs. Reach holds at/near the published 18.29 m
+      // maximum across the low-mid band, tapering only in the upper third as
+      // the boom raises toward vertical. Anchors: ~18 m @16 m H, ~17 m @18 m H,
+      // ~16 m @20 m H. Apex kept conservative so reach is never over-reported
+      // near full height. maxR 18.29 m, platform 23.8 m, below-ground 4.83 m.
+      // Source: Genie Z-80/60 Range-of-motion diagram + Genie spec sheet.
       liftChart: [
-        { reach: 0, height: 23.77 },
-        { reach: 4, height: 23 },
-        { reach: 8, height: 21.5 },
-        { reach: 12, height: 19 },
-        { reach: 15, height: 16 },
-        { reach: 17, height: 12 },
+        { reach: 0, height: 23.8 },
+        { reach: 6, height: 23 },
+        { reach: 10, height: 22 },
+        { reach: 14, height: 21 },
+        { reach: 16, height: 20 },
+        { reach: 17, height: 18 },
+        { reach: 18, height: 16 },
+        { reach: 18.29, height: 13 },
         { reach: 18.29, height: 8 },
         { reach: 17.5, height: 4 },
         { reach: 16, height: 0 },
@@ -93535,6 +92537,31 @@ loadMatrixTyres: [
         "AU Brand",
         "Tallest Spider",
       ],
+      // Working envelope digitised from the Monitor Access 54T brochure
+      // (V1.0 250731, Config A full stabilisation), tracing the OUTER 136kg
+      // curve = max-reach boundary. Rounded DOWN for conservatism. Anchored
+      // to printed values: max outreach 21m @136kg (peak set to 20m), 18.5m
+      // reach at 45m height @400kg (so 136kg ≥ that), max platform 52.2m,
+      // below-ground reach. NOTE: this is the light-load (136kg / 1-person)
+      // envelope; at the full 400kg rated load reach is reduced (≈18.5m at
+      // 45m) — capacity is enforced separately by the SWL/occupancy gates.
+      // reach/height in metres.
+      liftChart: [
+        { reach: 5, height: 52.2 },
+        { reach: 11, height: 50 },
+        { reach: 18.5, height: 45 },
+        { reach: 19.5, height: 40 },
+        { reach: 20, height: 35 },
+        { reach: 20, height: 30 },
+        { reach: 20, height: 25 },
+        { reach: 20, height: 20 },
+        { reach: 20, height: 15 },
+        { reach: 20, height: 10 },
+        { reach: 19, height: 5 },
+        { reach: 17, height: 0 },
+        { reach: 12, height: -3 },
+        { reach: 4, height: -6 },
+      ],
       filters: [
         "boom",
         "articulating",
@@ -95316,7 +94343,7 @@ loadMatrixTyres: [
       machineLength: 6.75,
       machineHeight: 2.1,
       power: "Diesel",
-      swl: 320,
+      swl: 230, // corrected from 320 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA-series articulating booms — 2-person
       // platform standard. LECTURA datasheets: 'designed for 2 persons'
       // for HA20 RTJ, HA32 RTJ PRO, HA41 RTJ PRO. Haulotte Dual Reach
@@ -95324,10 +94351,6 @@ loadMatrixTyres: [
       // person. Haulotte HA32 PX serial plate: '230 kg / 2 persons + 70 kg'.
       maxOccupancy: 2,
       terrain: "outdoor rough",
-      xcBasket: {
-        swl: 454,
-        note: "Haulotte HC basket option available — upgrades platform from 320kg to 454kg. Ideal for 2 workers with heavy tools on the HA16 RTJ. Confirm HC basket availability with rental company.",
-      },
       bestFor:
         "Mid-height articulating access, multi-storey facades, up-and-over obstacles",
       note: "16m working height diesel articulating boom. 8m outreach. 4WD rough terrain. Ideal for 2-4 storey construction.",
@@ -95376,17 +94399,13 @@ loadMatrixTyres: [
       machineLength: 11.7,
       machineHeight: 3.0,
       power: "Diesel",
-      swl: 350,
+      swl: 250, // corrected from 350 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
       // 250 kg to 350 kg' (no 3-person uprate).
       maxOccupancy: 2,
       terrain: "outdoor rough",
-      xcBasket: {
-        swl: 454,
-        note: "Haulotte HC basket option available — upgrades platform from 350kg to 454kg at 29.8m. For heavy multi-person work on the HA32 RTJ PRO. Confirm availability with rental company.",
-      },
       bestFor:
         "High-rise construction, deep reach over large structures, 8-10 storey facades",
       note: "Haulotte HA32 RTJ PRO — industry-leading 21.6m outreach at 31.8m working height. Full working window. 4WD rough terrain.",
@@ -95764,7 +94783,7 @@ loadMatrixTyres: [
       shortName: "HA20 RTJ PRO",
       boomType: "articulating",
       platformHeight: 18.5,
-      workHeight: 20.65,
+      workHeight: 20.5,
       maxReach: 11.9,
       upOverHeight: 8.5,
       upOverReach: 9.5,
@@ -95773,7 +94792,7 @@ loadMatrixTyres: [
       machineLength: 8.6,
       machineHeight: 2.5,
       power: "Diesel",
-      swl: 320,
+      swl: 250, // corrected from 320 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
@@ -95822,7 +94841,7 @@ loadMatrixTyres: [
       shortName: "HA26 RTJ PRO",
       boomType: "articulating",
       platformHeight: 24.4,
-      workHeight: 25.8,
+      workHeight: 26.4,
       maxReach: 17.5,
       upOverHeight: 9.3,
       upOverReach: 17.2,
@@ -95831,7 +94850,7 @@ loadMatrixTyres: [
       machineLength: 11.8,
       machineHeight: 2.8,
       power: "Diesel",
-      swl: 350,
+      swl: 250, // corrected from 350 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
@@ -95879,7 +94898,7 @@ loadMatrixTyres: [
       shortName: "HA41 RTJ PRO",
       boomType: "articulating",
       platformHeight: 39.5,
-      workHeight: 40.3,
+      workHeight: 41.5,
       maxReach: 20.1,
       upOverHeight: 17.5,
       upOverReach: 26.2,
@@ -95888,7 +94907,7 @@ loadMatrixTyres: [
       machineLength: 13.1,
       machineHeight: 3.6,
       power: "Diesel",
-      swl: 350,
+      swl: 230, // corrected from 350 per Haulotte brochure (2-person rating)
       // Brochure-confirmed: Haulotte HA32/HA41/HA20 RTJ PRO with Extra Reach /
       // Dual Reach option — 350kg max load is for tools/material; LECTURA
       // datasheets explicit: 2 persons. Haulotte: 'increases load from
@@ -96218,6 +95237,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht67rtj-o",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -96264,6 +95289,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht67rtj-pro",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -96310,6 +95341,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht85rtj-o",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -96356,6 +95393,12 @@ loadMatrixTyres: [
     },
     {
       id: "haulotte-ht85rtj-pro",
+      // DISABLED 2026-06-09: platform/working heights were entered in FEET
+      // but stored as METRES (e.g. HT85 RTJ is ~26m working, not 82.1m; HT67
+      // RTJ ~22m, not 63.9m) — a ~3x over-claim and safety risk. Hidden from
+      // all matching until corrected from a Haulotte spec sheet. Re-enable by
+      // removing the disabled flag once the real metric specs are entered.
+      disabled: true,
       brand: "Haulotte",
       emoji: "📡",
       brandColor: "#E8001B",
@@ -98464,7 +97507,7 @@ loadMatrixTyres: [
       capacityUnrestricted: 340,
       bestFor:
         "World's tallest self-propelled boom — 180ft platform height. Oil & gas, shipyards, extreme industrial",
-      note: "Genie SX-180 Super Boom. 54.86m platform / 24.38m outreach. 340kg unrestricted capacity. Drive-enabled at full 180ft height. XChassis pivoting axles, 1-min extend/retract. 10ft rotating jib 60° horizontal / 135° vertical. 35% gradeability. Deutz TD2.9L4 Tier 4 74hp.",
+      note: "Genie SX-180 Super Boom. 54.86m platform / 24.38m outreach. 340kg unrestricted capacity. Drive-enabled at full 180ft height. XChassis pivoting axles, 1-min extend/retract. 10ft rotating jib 60° horizontal / 135° vertical. 35% gradeability. Deutz BF4L2011 turbo diesel 78hp/58kW (AU spec, AS 1418.10). Below-ground reach 0.61m. Transport length 13m (jib tucked).",
       upOverNote: null,
       tags: [
         "Telescopic",
@@ -99690,37 +98733,58 @@ loadMatrixTyres: [
       shortName: "2100SJ",
       boomType: "telescopic",
       platformHeight: 64.0,
-      workHeight: 66.0,
-      maxReach: 35.1,
-      machineWeight: 41730,
-      machineWidth: 2.5,
-      machineLength: 23.0,
-      machineHeight: 3.0,
+      workHeight: 65.83,
+      maxReach: 35.05,
+      machineWeight: 43545,
+      machineWidth: 2.49,
+      machineLength: 21.94,
+      machineHeight: 3.05,
       power: "Kubota V3800 115hp Diesel 4WD",
       swl: 349,
       // Brochure-confirmed: Snorkel 2100SJ Mega Boom official PDF
-      // brochure (snorkellifts.com): 349kg unrestricted /
-      // 454kg restricted = 2 occupants unrestricted, 3 restricted.
+      // brochure (Spec_2100SJ_2025, 07/2025 ANSI): 349kg (770lb)
+      // unrestricted / 454kg (1000lb) restricted. 2 occupants.
       maxOccupancy: 2,
       terrain: "outdoor rough",
-      insideTR: 3.0,
+      insideTR: 3.04,
       outsideTR: 0,
       gradeability: 35,
       bestFor:
-        "World's tallest boom lift — 66m working height and 35.1m outreach for extraordinary-height access tasks",
-      note: "2100SJ: 66.0m working height, 64.0m platform height. 35.1m outreach. 349kg unrestrained / 454kg restricted SWL. Kubota V3800 115hp diesel 4WD. 2.50m wide. 41,730kg. Jib 9.1m, 128° arc. 5 steering modes including crab steer. 35% gradeability. Tailswing 2.05m (retracted) / 0.7m (extended). Tyres 445/50-710 foam filled 24-ply. Inside TR 3.0m (axles retracted). Platform 2.4m×0.9m. Industry first — world's highest working boom lift.",
+        "World's tallest boom lift — 65.83m working height and 35.05m outreach for extraordinary-height access tasks",
+      note: "2100SJ: 65.83m (216ft) working height, 64.00m (210ft) platform height. 35.05m (115ft) max horizontal reach. 349kg (770lb) unrestricted / 454kg (1000lb) restricted SWL. Kubota V3800 115hp diesel 4WD. Overall 2.49m wide, 21.94m long; transport length 15.54m; stowed height 3.05m; ground clearance 0.355m. 43,545kg (96,000lb). Jib 1.98m (6'6\"), 128° arc (+73°/-55°). 5 steering modes including crab and lateral drive. 35% gradeability. Tailswing 2.05m (retracted) / 1.38m (extended). Tyres 445/50-710 foam-filled 24-ply. Inside TR 3.04m (axles retracted). Platform 2.44m×0.91m. Reach-at-height envelope digitised (conservative trace) from the official 2100SJ working-envelope graphic (Spec_2100SJ_2025, 07/2025 ANSI); values rounded down so they never over-claim — confirm exact lift envelope at load plate / operator manual. Industry first — world's highest working boom lift.",
       tags: [
         "Telescopic",
         "Diesel",
         "4WD",
         "66m Working Height",
         "64m Platform",
-        "35.1m Reach",
+        "35.05m Reach",
         "Mega Boom",
         "World Record",
         "Snorkel",
         "Kubota",
         "5 Steering Modes",
+      ],
+      // Working envelope digitised from the official Snorkel 2100SJ brochure
+      // working-envelope graphic (Spec_2100SJ_2025, 07/2025 ANSI). Outer
+      // (unrestricted) boundary traced against the diagram's ft gridlines,
+      // rounded DOWN for conservatism so reach-at-height never over-claims.
+      // Anchors: max horizontal reach 35.05m (115ft), max platform 64.0m
+      // (210ft), below-ground 0.61m. reach/height in metres.
+      liftChart: [
+        { reach: 20, height: 64.0 },
+        { reach: 23, height: 57.91 },
+        { reach: 24, height: 54.86 },
+        { reach: 26, height: 48.77 },
+        { reach: 27.5, height: 42.67 },
+        { reach: 29.5, height: 36.58 },
+        { reach: 31, height: 30.48 },
+        { reach: 32.5, height: 24.38 },
+        { reach: 33, height: 18.29 },
+        { reach: 34, height: 12.19 },
+        { reach: 35, height: 6.1 },
+        { reach: 35, height: 0 },
+        { reach: 33, height: -0.61 },
       ],
       filters: [
         "boom",
@@ -139018,7 +138082,7 @@ const ALL_MACHINES = [
   ...MACHINES.verticalMast,
   ...MACHINES.telehandler,
   ...MACHINES.scissor,
-  ...MACHINES.boom,
+  ...MACHINES.boom.filter((m) => !m.disabled),
   ...MACHINES.earthworks,
 ];
 
@@ -140936,6 +140000,33 @@ const SPEC_QS = {
       ],
     },
     {
+      id: "tele_power",
+      icon: "⚡",
+      text: "Any power source requirement?",
+      hint: "Diesel telehandlers are the norm for outdoor and rough-terrain sites. Electric (battery) models suit indoor, low-emission or noise-sensitive work. Pick 'No preference' to see every option.",
+      type: "options",
+      options: [
+        {
+          ico: "⚡",
+          lbl: "Electric",
+          sub: "Indoor, no fumes, quiet — battery / electric only",
+          val: "electric",
+        },
+        {
+          ico: "⛽",
+          lbl: "Diesel",
+          sub: "Outdoor / rough terrain — diesel (and hybrid)",
+          val: "diesel",
+        },
+        {
+          ico: "🔄",
+          lbl: "No preference",
+          sub: "Show me all power types",
+          val: "any_power",
+        },
+      ],
+    },
+    {
       id: "tele_rotation",
       icon: "🔄",
       text: "Do you need the machine to rotate at the lift point?",
@@ -141215,7 +140306,7 @@ const MACHINE_PHOTOS = {
     "https://www.jcb.com/~/media/images/products/telehandler/loadalls/541-70/jcb-541-70-telehandler.png",
   "jcb-560-80":
     "https://www.jcb.com/~/media/images/products/telehandler/loadalls/560-80/jcb-560-80-telehandler.png",
-  "jcb-540-170":
+  "jcb-540-170-const":
     "https://www.jcb.com/~/media/images/products/telehandler/loadalls/540-170/jcb-540-170-telehandler.png",
   "jcb-550-80agri":
     "https://www.jcb.com/~/media/images/products/telehandler/loadalls/550-80/jcb-550-80-telehandler.png",
@@ -141592,6 +140683,53 @@ function _sizeClosenessToAnchor(m, anchor) {
     ratios.push(Math.min(a.reach, b.reach) / Math.max(a.reach, b.reach));
   if (!ratios.length) return 0.5;
   return ratios.reduce((s, x) => s + x, 0) / ratios.length;
+}
+
+// Model-family key: brand + numeric model signature, ignoring power-variant
+// suffixes (N, DC, FE, IC, AC…). Treats sibling models that differ only by power
+// source — e.g. Genie Z-34/22 N and Z-34/22 DC — as ONE machine for dedup, so
+// they never appear twice (one sponsored + one organic, or two in organic).
+function modelFamilyKey(m) {
+  if (!m) return "";
+  const brand = (m.brand || "").toLowerCase().trim();
+  const src = (m.name || m.id || "").toString();
+  const nums = (src.match(/\d+/g) || []).join("-");
+  return brand + "|" + nums;
+}
+
+// ── Shared licence-class guard (Assik 08-Jun-2026) ───────────────────────────
+// Booms AND scissor lifts with platform height ≥11m require a WP High Risk Work
+// licence — a different, HIGHER operator licence than the Yellow Card a <11m
+// unit needs. So a ≥11m machine on a sub-11m job is not merely "one size up":
+// it changes the licence class. This helper enforces, in ONE place used by every
+// boom and scissor result path, the rule: on a sub-11m job, fill the slate from
+// same-class (<11m) machines first; only keep a ≥11m machine when the <11m pool
+// genuinely can't fill — and then show FEWER rather than cross the licence
+// boundary as filler. Centralising it stops the rule being missed in a parallel
+// branch — which is exactly how the up-and-over path slipped through before.
+function applySameLicenceClass(picks, qualifiedPool, reqHt, brandArg) {
+  const BOUNDARY = 11;
+  if (!Array.isArray(picks) || !(reqHt > 0) || reqHt >= BOUNDARY) return picks;
+  const ph = (m) => m.platformHeight || m.liftHeight || 0;
+  const sameClassPool = (qualifiedPool || []).filter((m) => ph(m) < BOUNDARY);
+  if (sameClassPool.length === 0) return picks; // nothing smaller exists — keep as-is
+  const origSameClass = picks.filter((m) => ph(m) < BOUNDARY);
+  const refill = diversePick(
+    sameClassPool,
+    Math.max(picks.length, 5),
+    2,
+    brandArg || null,
+  );
+  return refill.length >= origSameClass.length ? refill : picks;
+}
+
+// Is this machine a licence-class jump for the given sub-11m requirement?
+function crossesLicenceClass(machine, reqHt) {
+  return (
+    reqHt > 0 &&
+    reqHt < 11 &&
+    (machine.platformHeight || machine.liftHeight || 0) >= 11
+  );
 }
 
 function diversePick(sortedPool, total, maxPer, preferredBrand) {
@@ -142893,6 +142031,31 @@ function matchMachines(ans, type) {
       });
     }
 
+    // ── Power-source filter (tele_power) ─────────────────────────────────
+    // Telehandlers store power source in the free-text `engine` field.
+    // Owner directive: when the customer picks Electric or Diesel, HARD-filter
+    // to that source (electric→electric, diesel→diesel). Hybrid / bi-energy
+    // machines satisfy EITHER. "No preference" (any_power / unset) applies no
+    // filter. Telehandlers with NO engine info are shown only under
+    // "No preference" (we can't confirm their power source).
+    const telePwr = ans.tele_power;
+    if (telePwr === "electric" || telePwr === "diesel") {
+      pool = pool.filter((m) => {
+        const eng = (m.engine || m.power || "").toLowerCase();
+        if (!eng) return false; // unknown power — only surfaced via "No preference"
+        const elec = /electric|battery|li-?ion|lithium|pulseo|mains/.test(eng);
+        const combustion =
+          /diesel|petrol|lpg|dual.?fuel|kubota|perkins|deutz|yanmar|cummins|bobcat d\d|stage\s/.test(
+            eng,
+          );
+        const hybrid = /hybrid|bi.?energy/.test(eng) || (elec && combustion);
+        if (telePwr === "electric") return elec || hybrid;
+        // diesel: combustion + hybrid, plus engine-present-but-unclassified
+        // (telehandler default is diesel); exclude electric-only
+        return combustion || hybrid || !elec;
+      });
+    }
+
     // Score — now using actual capacity at working point
     pool = pool
       .map((m) => {
@@ -142934,6 +142097,21 @@ function matchMachines(ans, type) {
 
           // Attach actual working capacity to machine object for display
           m._actualKgAtPoint = actualKg;
+
+          // ── Proven-capacity ranking (Assik directive) ──────────────────
+          // A machine whose capacity is PROVEN at the exact working point from a
+          // digitised load chart must rank ABOVE any machine we can only show
+          // "confirm with the rental company" for. Previously a no-chart machine
+          // floated to the top on its rated capacity alone, pushing a genuinely
+          // proven-capable machine below it — misleading and unhelpful. We never
+          // lead with a machine whose working-point capacity we cannot display.
+          if (exactHt > 0 && exactReach > 0) {
+            if (actualKg !== null) {
+              score += 16; // capacity proven at the working point → surface it
+            } else if (m._capacityUnverified === true) {
+              score -= 26; // no load chart here → demote below all proven machines
+            }
+          }
         }
 
         // Height match — tightest fit above requirement is strongly rewarded; excess penalised
@@ -143438,13 +142616,25 @@ function matchMachines(ans, type) {
     const scissorUnder = scoredScissor.filter((m) => m._underSpec);
 
     const _sBPref = (ans.brand_pref || "any").toLowerCase();
-    const main = diversePick(
+    let main = diversePick(
       scissorQualified,
       5,
       1,
       _sBPref !== "any" ? _sBPref : null,
     );
-    const up = findNextUp(scissorQualified, main, (m) => m.liftHeight || 0);
+    // Licence-class guard (shared rule — see applySameLicenceClass). A scissor
+    // lift ≥11m platform needs the WP HRW licence, same boundary as booms — so
+    // on a sub-11m job, fill from same-class (<11m) scissors first and only
+    // cross the boundary if nothing smaller fits.
+    main = applySameLicenceClass(
+      main,
+      scissorQualified,
+      minHt,
+      _sBPref !== "any" ? _sBPref : null,
+    );
+    let up = findNextUp(scissorQualified, main, (m) => m.liftHeight || 0);
+    // Never append a licence-class-crossing scissor as the "next size up".
+    if (up && crossesLicenceClass(up, minHt)) up = null;
 
     // Size labels relative to BEST MATCH (main[0]), not raw requirement.
     // Machine #1 = best fit, no label. Each subsequent machine vs machine #1.
@@ -143751,6 +142941,38 @@ function matchMachines(ans, type) {
       if (needH <= 0) return maxR; // at ground level, reach = maxReach
       if (needH > platH) return 0; // can't reach that high
 
+      // ── Digitised working-envelope chart (most accurate) ─────────────────
+      // When an entry has a liftChart (an array of {reach,height} points
+      // tracing the OUTER / max-reach boundary from the manufacturer envelope),
+      // interpolate the real max reach at needH instead of the crude geometric
+      // estimate below. The geometric telescopic formula (reach falls linearly
+      // to 0 at platform height) badly UNDER-reads tall booms with long jibs —
+      // e.g. it gives a 64m boom ~13m reach at 40m when the real envelope is
+      // ~28m — wrongly excluding them. Charted booms use their real envelope.
+      const lc = m.liftChart;
+      if (Array.isArray(lc) && lc.length >= 2) {
+        const pts = lc
+          .filter(
+            (p) => p && typeof p.height === "number" && typeof p.reach === "number",
+          )
+          .slice()
+          .sort((a, b) => a.height - b.height);
+        if (pts.length >= 2) {
+          const lo = pts[0],
+            hi = pts[pts.length - 1];
+          if (needH <= lo.height) return lo.reach;
+          if (needH >= hi.height) return hi.reach;
+          for (let k = 0; k < pts.length - 1; k++) {
+            const a = pts[k],
+              b = pts[k + 1];
+            if (needH >= a.height && needH <= b.height && b.height !== a.height) {
+              const t = (needH - a.height) / (b.height - a.height);
+              return Math.round((a.reach + t * (b.reach - a.reach)) * 10) / 10;
+            }
+          }
+        }
+      }
+
       if (m.boomType === "telescopic") {
         // Linear: reach drops from maxR at 0 to 0 at platH
         return Math.round(maxR * (1 - needH / platH) * 10) / 10;
@@ -143826,18 +143048,22 @@ function matchMachines(ans, type) {
       });
     }
 
-    // Rough terrain: exclude pure electric AND all crawler/tracked/spider machines
-    // Spider lifts and compact crawlers are specialty machines — ONLY shown for "Very rough / crawler terrain"
+    // Rough terrain: exclude INDOOR-ONLY electric and all crawler/tracked/
+    // spider machines. Pure-electric booms ARE allowed when the catalogue rates
+    // them for outdoor use (e.g. terrain "indoor/outdoor firm") — excluding every
+    // electric machine was too strict and hid the outdoor electric knuckle booms
+    // brands actually offer for outdoor work (Assik 08-Jun-2026). Only indoor-only
+    // electric and spider/crawler specialty lifts stay excluded here.
     if (terr === "rough_boom") {
       pool = pool.filter((m) => {
         const p = (m.power || "").toLowerCase();
-        if (p === "electric") return false;
-        if (
+        const t = (m.terrain || "").toLowerCase();
+        const pureElectric =
           p.includes("electric") &&
           !p.includes("diesel") &&
-          !p.includes("hybrid")
-        )
-          return false;
+          !p.includes("hybrid");
+        // Pure-electric only allowed when it is outdoor-rated.
+        if (pureElectric && !t.includes("outdoor")) return false;
         // ALWAYS exclude tracked/crawler/spider lifts from standard rough terrain
         if (_isSpiderOrCrawler(m)) return false;
         return true;
@@ -143863,10 +143089,10 @@ function matchMachines(ans, type) {
     }
 
     // ── Towable / trailer-mount exclusion ─────────────────────────────────
-    // Towable booms require outrigger deployment and open-air setup. They are
-    // not appropriate for indoor jobs. Exclude them when the customer selected
-    // "Indoors" as the work location.
-    if (terr === "indoor_boom") {
+    // Towable booms require towing to site and outrigger setup on stable
+    // ground. They are not appropriate indoors, and for a self-propelled
+    // "rough terrain" access job they're the wrong tool — exclude from both.
+    if (terr === "indoor_boom" || terr === "rough_boom") {
       pool = pool.filter((m) => !_isTowableOrTrailer(m));
     }
 
@@ -144077,13 +143303,23 @@ function matchMachines(ans, type) {
         1,
         _bPref !== "any" ? _bPref : null,
       );
-      const results = [...main];
+      // Licence-class guard: drop ≥11m machines for a sub-11m job when same-
+      // class options exist (shared rule — see applySameLicenceClass).
+      const _mainSameClass = applySameLicenceClass(
+        main,
+        _poolForMain,
+        minHt,
+        _bPref !== "any" ? _bPref : null,
+      );
+      const results = [..._mainSameClass];
       // Only surface a "next size up" oversized machine when the qualified
       // pool was thin and we couldn't fill the slate. With 4+ same-class
       // options shown, an oversized warning machine is noise, not value.
-      if (main.length < 5) {
-        const up = findNextUp(_poolForMain, main, (m) => m.platformHeight || 0);
-        if (up)
+      if (results.length < 5) {
+        const up = findNextUp(_poolForMain, results, (m) => m.platformHeight || 0);
+        // Never let the "next size up" cross the licence-class boundary on a
+        // sub-11m job — that's a different operator licence, not a bigger machine.
+        if (up && !crossesLicenceClass(up, minHt))
           results.push({
             ...up,
             _overSpec: true,
@@ -144279,6 +143515,11 @@ function matchMachines(ans, type) {
         }
       }
 
+      // ── Licence-class guard (shared rule — see applySameLicenceClass) ────
+      // On a sub-11m job, fill from same-class (<11m) machines first; only
+      // cross the ≥11m WP HRW licence boundary if nothing smaller fits.
+      artPicks = applySameLicenceClass(artPicks, articulating, minHt, _bPrefArg);
+
       const merged = [];
       // Articulating machines — size labels relative to BEST MATCH (machine #1),
       // NOT relative to raw requirement. Same logic as telehandlers.
@@ -144353,10 +143594,14 @@ function matchMachines(ans, type) {
       // 28-Apr-2026). With a healthy qualified pool there's no value in
       // appending a bigger warning machine — same-size alternatives exist.
       const _slateTarget = _bPref2 !== "any" ? 6 : 5;
-      const up =
+      let up =
         merged.length > 0 && merged.length < _slateTarget
           ? findNextUp(qualifiedAll, merged, (m) => m.platformHeight || 0)
           : null;
+      // Never let the "next size up" cross the licence-class boundary on a
+      // sub-11m job — that's a different operator licence, not just a bigger
+      // machine. Better to show fewer results than push a higher licence class.
+      if (up && crossesLicenceClass(up, minHt)) up = null;
       if (up)
         merged.push({
           ...up,
@@ -146286,6 +145531,7 @@ function confirmPhotoAnswers() {
   step = 0;
   answers = { ...preAnswers };
   renderStep();
+  _noyoPushScreen("quiz"); // history entry so swipe-back returns to home, not Google
 }
 
 // ── Full wizard reset — called on every login to return to clean home page ──
@@ -146364,6 +145610,7 @@ function startFinder() {
   _pmConfirmedFields = {};
   _pmLiftType = null;
   renderStep();
+  _noyoPushScreen("quiz"); // history entry so swipe-back returns to home, not Google
 }
 
 function renderStep() {
@@ -146540,6 +145787,61 @@ function renderStep() {
   </div>`;
 
   card.innerHTML = html;
+  // iOS Safari fix: tall question cards (e.g. the People branch with image
+  // options) can be clipped by a flex vertical-centering ancestor with no way
+  // to scroll to them. Re-assert scrollability after layout (and again after
+  // option images load, which change height). Harmless on desktop / short cards.
+  _ensureQuizScrollable();
+  if (window.requestAnimationFrame) requestAnimationFrame(_ensureQuizScrollable);
+  setTimeout(_ensureQuizScrollable, 300);
+}
+
+// Self-correcting scroll guard for the finder quiz. Walks up from the question
+// card and neutralises the two iOS-Safari scroll traps without needing to know
+// index.html's exact CSS: (1) a column flex ancestor centring content that
+// overflows the viewport (switch to top-aligned so nothing is clipped), and
+// (2) an ancestor whose hidden overflow traps clipped content (allow scroll).
+// Only acts when content actually overflows, so short cards stay centred.
+function _ensureQuizScrollable() {
+  try {
+    const card = document.getElementById("q-card");
+    if (!card) return;
+    const vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    let el = card;
+    while (el && el !== document.body && el !== document.documentElement) {
+      const cs = window.getComputedStyle(el);
+      const overflows = el.scrollHeight > el.clientHeight + 1;
+      if (
+        cs.display.indexOf("flex") !== -1 &&
+        cs.flexDirection.indexOf("column") !== -1 &&
+        cs.justifyContent === "center" &&
+        (overflows || el.clientHeight >= vh - 1)
+      ) {
+        el.style.justifyContent = "flex-start";
+      }
+      if (
+        (cs.alignItems === "center") &&
+        cs.display.indexOf("flex") !== -1 &&
+        cs.flexDirection.indexOf("column") === -1 &&
+        overflows
+      ) {
+        // row flex centring a too-tall child — let it align to start
+        el.style.alignItems = "flex-start";
+      }
+      if (cs.overflowY === "hidden" && overflows) {
+        el.style.overflowY = "auto";
+        el.style.webkitOverflowScrolling = "touch";
+      }
+      el = el.parentElement;
+    }
+    // Guarantee the document itself can scroll on touch devices.
+    document.documentElement.style.webkitOverflowScrolling = "touch";
+    if (window.getComputedStyle(document.body).overflowY === "hidden") {
+      document.body.style.overflowY = "auto";
+    }
+  } catch (e) {
+    /* never let a layout guard break the quiz */
+  }
 }
 
 function saveInput(id, val) {
@@ -148720,6 +148022,9 @@ function _renderCards(matches, machineType, answers) {
   // Track exact machine IDs shown in sponsored slots so the same machine is not
   // rendered a second time in organic results.
   const _shownSponsoredMachineIds = new Set();
+  // Track model-FAMILIES shown in sponsored slots (e.g. Genie Z-34/22) so a
+  // sibling power-variant (the DC vs the N) doesn't reappear in organic.
+  const _shownSponsoredFamilies = new Set();
   let _spShownCount = 0; // Maximum 1 sponsored ad per results page
 
   _sponsoredForCat.forEach((ad, _spIdx) => {
@@ -148756,16 +148061,19 @@ function _renderCards(matches, machineType, answers) {
           ) || 0;
         // Indoor boom job — sponsored slot must not surface a towable. Towables
         // are outdoor-only and confuse the customer when the job is indoor.
-        const _spIsIndoorBoom =
+        // Towables are also wrong for a self-propelled rough-terrain access job,
+        // so exclude them from the sponsored slot on indoor AND rough terrain.
+        const _spNoTowableBoom =
           machineType === "boom" &&
           (answers.boom_terrain === "indoor_boom" ||
+            answers.boom_terrain === "rough_boom" ||
             answers.people_location === "indoor");
         _brandMatches = matches.filter((m) => {
           if (!m.brand || m.brand.toLowerCase() !== _spBrand.toLowerCase())
             return false;
           if (m._underSpec) return false;
           if (_isSpiderOrCrawler(m)) return false;
-          if (_spIsIndoorBoom && _isTowableOrTrailer(m)) return false;
+          if (_spNoTowableBoom && _isTowableOrTrailer(m)) return false;
           // Reject massively oversized — cap at 2.0x required height for booms
           // (2.5x was too generous — 17.5m for a 7m job)
           if (_reqHt1 > 0) {
@@ -148775,6 +148083,19 @@ function _renderCards(matches, machineType, answers) {
           }
           return true;
         });
+        if (_brandMatches.length) {
+          // ── Licence-class preference (boom): for a sub-11m job, the sponsored
+          // machine must not cross into the ≥11m WP HRW licence class when a
+          // same-class option exists. Restrict to <11m brand machines; if the
+          // organic slate has none, leave _brandMatches empty so Try 2 searches
+          // the full brand pool for a sub-11m machine instead of surfacing an
+          // oversized one here.
+          if ((machineType === "boom" || machineType === "scissor") && _reqHt1 > 0 && _reqHt1 < 11) {
+            _brandMatches = _brandMatches.filter(
+              (m) => (m.platformHeight || m.liftHeight || 0) < 11,
+            );
+          }
+        }
         if (_brandMatches.length) {
           // Sort by smallest excess over requirement (tight fit first)
           if (_reqHt1 > 0) {
@@ -148858,10 +148179,11 @@ function _renderCards(matches, machineType, answers) {
             return false;
           // Exclude true spider/outrigger lifts for boom (not wheeled tracked booms like Genie TraX)
           if (machineType === "boom" && _isSpiderOrCrawler(m)) return false;
-          // Indoor boom — no towables in sponsored slot
+          // Indoor or rough-terrain boom — no towables in sponsored slot
           if (
             machineType === "boom" &&
             (answers.boom_terrain === "indoor_boom" ||
+              answers.boom_terrain === "rough_boom" ||
               answers.people_location === "indoor") &&
             _isTowableOrTrailer(m)
           )
@@ -148908,6 +148230,17 @@ function _renderCards(matches, machineType, answers) {
             const mH = m.platformHeight || m.liftHeight || 0;
             return mH <= _reqHt * _spCap;
           });
+        }
+        // ── Licence-class preference (boom): on a sub-11m job, restrict to
+        // same-class (<11m) machines when the brand has any — so the sponsored
+        // slot never recommends a higher operator-licence machine while a
+        // right-sized one exists. Only keep ≥11m machines if there are no
+        // sub-11m options for this brand+power.
+        if ((machineType === "boom" || machineType === "scissor") && _reqHt > 0 && _reqHt < 11) {
+          const _sub11 = _qualifying.filter(
+            (m) => (m.platformHeight || m.liftHeight || 0) < 11,
+          );
+          if (_sub11.length) _qualifying = _sub11;
         }
         // Sort by closest platform height to requirement (tight fit preferred)
         if (_reqHt > 0) {
@@ -149023,6 +148356,43 @@ function _renderCards(matches, machineType, answers) {
         if (_adminPinned) _addCand(_adminPinned);
       }
 
+      // ── Sponsored oversize / licence-class guard on the candidate list ───────
+      // The walk below accepts the first candidate that passes a strict reach
+      // gate. The small same-class booms are reach-marginal at the working
+      // height, so without this the walk escalates all the way to a flagship
+      // (e.g. an 18m machine on an 8m job) just because it has reach to spare.
+      // On a sub-11m job — or when every organic result is sub-11m — drop any
+      // ≥11m (licence-class jump) or grossly oversized (>2x requirement)
+      // candidate so the sponsored slot can never out-size the organic slate.
+      if (machineType === "boom" || machineType === "scissor") {
+        const _spOrganicH = (matches || [])
+          .map((m) => m.platformHeight || m.liftHeight || 0)
+          .filter((h) => h > 0);
+        const _spRefH =
+          (parseFloat(
+            answers.boom_ht_m ||
+              answers.ppl_ht_m ||
+              answers.scis_ht_m ||
+              0,
+          ) || 0) || (_spOrganicH.length ? Math.min(..._spOrganicH) : 0);
+        const _spAllSub11 =
+          _spOrganicH.length > 0 && _spOrganicH.every((h) => h < 11);
+        if ((_spRefH > 0 && _spRefH < 11) || _spAllSub11) {
+          const _spSafe = _spCandidates.filter((m) => {
+            const h = m.platformHeight || m.liftHeight || 0;
+            if (h >= 11) return false; // licence-class jump
+            if (_spRefH > 0 && h > _spRefH * 2.0) return false; // gross oversize
+            return true;
+          });
+          _spCandidates.length = 0;
+          _spSafe.forEach((m) => _spCandidates.push(m));
+        }
+      }
+      // Organic-vetted IDs: machines already shown organically have passed the
+      // organic gating, so the stricter sponsored reach gate below is skipped
+      // for them (keeps the sponsored pick consistent with the organic slate).
+      const _spOrganicIds = new Set((matches || []).map((m) => m.id));
+
       // Try each candidate in turn. Each gate-failure inside the block below
       // throws _SPN_NEXT, which we catch to advance to the next candidate.
       // First candidate that passes ALL gates wins the slot.
@@ -149033,6 +148403,12 @@ function _renderCards(matches, machineType, answers) {
         spMachine = _spCandidates[_spCi];
         // Reset any cached per-machine values from prior candidate
         spMachine._reachAtReqHt = null;
+        // A machine already shown organically has passed the organic gating for
+        // THIS job (same people count, SWL, reach). The sponsored gates below use
+        // stricter/defaulted checks (e.g. booms default to 1-person occupancy when
+        // maxOccupancy is unset) that wrongly reject valid same-brand machines —
+        // so an organic-vetted machine bypasses those job-fit gates.
+        const _spIsOrganicVetted = _spOrganicIds.has(spMachine.id);
         try {
 
       // ── Capability gate: skip sponsored slot if machine can't do the job ──────────
@@ -149230,8 +148606,11 @@ function _renderCards(matches, machineType, answers) {
       // available (no envelope data) AND the customer is operating at high
       // platform-height utilization, skip the sponsored slot. Better an
       // empty sponsored slot than a misleading paid placement.
-      if (_spGateRe > 0) {
-        // Stage 1: brochure max reach must at least cover the requirement.
+      // Skip the strict sponsored reach gate for a machine already shown in the
+      // organic slate — organic has already vetted it for display, so re-judging
+      // it here (with a stricter calc) only causes the walk to escalate to an
+      // oversized machine. Pool-only candidates still face the full gate.
+      if (_spGateRe > 0 && !_spOrganicIds.has(spMachine.id)) {
         if (_spGateMaxR < _spGateRe) {
           if (window._noyoSpnDebug || (currentUser && currentUser.role === "admin")) {
             console.log(
@@ -149318,7 +148697,7 @@ function _renderCards(matches, machineType, answers) {
           (answers || {}).scis_swl_kg ||
           0,
         ) || 0;
-        if (_spBasketKgReq > 0 && (machineType === "boom" || machineType === "scissor" || machineType === "pushAround")) {
+        if (_spBasketKgReq > 0 && !_spIsOrganicVetted && (machineType === "boom" || machineType === "scissor" || machineType === "pushAround")) {
           const _spBasketKg = spMachine.swl || spMachine.capacity || 0;
           if (_spBasketKg > 0 && _spBasketKg < _spBasketKgReq) {
             _spStrictDbg(`platform SWL ${_spBasketKg} kg < required ${_spBasketKgReq} kg`);
@@ -149348,7 +148727,7 @@ function _renderCards(matches, machineType, answers) {
         } else {
           _spOccCount = 1;
         }
-        if (_spIsPeopleCat && _spTwoPersonReq && _spOccCount < 2) {
+        if (_spIsPeopleCat && _spTwoPersonReq && _spOccCount < 2 && !_spIsOrganicVetted) {
           _spStrictDbg(`maxOccupancy ${_spOccCount} < required 2+`);
           throw _SPN_NEXT;
         }
@@ -149483,10 +148862,14 @@ function _renderCards(matches, machineType, answers) {
       // ──────────────────────────────────────────────────────────────────
 
       // Track this brand so organic results can be deduplicated
-      if (spMachine.brand) _shownSponsoredBrands.add(spMachine.brand);
+      if (spMachine.brand)
+        _shownSponsoredBrands.add(spMachine.brand.toLowerCase());
       // Track the exact sponsored machine ID so it doesn't reappear as an organic
       // "Best Match" card (it would be a visual duplicate of the sponsored slot).
       if (spMachine.id) _shownSponsoredMachineIds.add(spMachine.id);
+      // Track the model FAMILY so a sibling power-variant (e.g. the DC when the N
+      // is sponsored) is also removed from organic — they are the same machine.
+      _shownSponsoredFamilies.add(modelFamilyKey(spMachine));
 
       // ── Sponsored cards get the same safety warnings as organic cards ─────
       // Otherwise a paid slot could show a machine with an undisclosed 1-person
@@ -149703,7 +149086,7 @@ function _renderCards(matches, machineType, answers) {
               ? `<div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
               : `<button id="sp-cart-btn-${_spIdx}"
             style="width:100%;background:linear-gradient(135deg,#F59E0B,#D97706);border:none;color:#fff;border-radius:10px;padding:.6rem .8rem;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer">
-            🛒 Add to Hire Cart
+            💬 Interested? Hire or buy — enquire
           </button>`
           }
         </div>
@@ -149767,6 +149150,24 @@ function _renderCards(matches, machineType, answers) {
   if (_shownSponsoredMachineIds.size > 0) {
     matches = matches.filter((m) => !_shownSponsoredMachineIds.has(m.id));
   }
+  // Remove any sibling power-variant of a sponsored machine (same model family,
+  // e.g. the Z-34/22 DC when the Z-34/22 N is in the sponsored slot).
+  if (_shownSponsoredFamilies.size > 0) {
+    matches = matches.filter(
+      (m) => !_shownSponsoredFamilies.has(modelFamilyKey(m)),
+    );
+  }
+  // Collapse sibling power-variants within the organic slate itself so the
+  // N and DC of the same model never both appear — keep the first (best-ranked).
+  {
+    const _seenFamily = new Set();
+    matches = matches.filter((m) => {
+      const k = modelFamilyKey(m);
+      if (_seenFamily.has(k)) return false;
+      _seenFamily.add(k);
+      return true;
+    });
+  }
 
   const _userBrandPref = (
     (answers || {}).tele_brand_pref ||
@@ -149782,16 +149183,16 @@ function _renderCards(matches, machineType, answers) {
       return mb === _userBrandPref || mb.includes(_userBrandPref) || _userBrandPref.includes(mb);
     });
   } else if (_shownSponsoredBrands.size > 0) {
-    // Policy B — variety: cap any sponsored brand at 1 in the organic slate
-    const _spBrandCounts = {};
+    // Policy B — a brand shown in the sponsored slot is NOT repeated in organic
+    // results at all (Assik: same brand shouldn't appear twice, even a sibling
+    // model like the Z-34/22 N vs DC). Remove every machine of a sponsored brand
+    // from the organic slate; the slate backfills from other brands.
     matches = matches.filter((m) => {
       const mb = (m.brand || "").toLowerCase();
       const isSpBrand = [..._shownSponsoredBrands].some(
         (sb) => mb.includes(sb.toLowerCase()) || sb.toLowerCase().includes(mb),
       );
-      if (!isSpBrand) return true; // non-sponsored brand: always show
-      _spBrandCounts[mb] = (_spBrandCounts[mb] || 0) + 1;
-      return _spBrandCounts[mb] <= 1; // sponsored brand: max 1 organic result
+      return !isSpBrand; // drop all machines of any sponsored brand
     });
   }
 
@@ -150976,7 +150377,7 @@ function _renderCards(matches, machineType, answers) {
         ${
           currentUser && (currentUser.role === "rental" || currentUser.role === "admin_rental")
             ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
-            : `<button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">🛒 Add to Hire Cart</button>${currentUser && currentUser.role === "lite" ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.72rem;font-weight:700;color:#38BDF8;text-align:center;margin-top:.3rem">ℹ️ Lite portal — contact a rental company directly to complete the hire</div>` : ""}`
+            : `<button style="flex:1;min-width:130px;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.65rem .8rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer" onclick="addToCartDirect('${m.id}','${(m.name || "").replace(/'/g, "\\'")}')">💬 Interested? Hire or buy — enquire</button>${currentUser && currentUser.role === "lite" ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.72rem;font-weight:700;color:#38BDF8;text-align:center;margin-top:.3rem">ℹ️ Lite portal — contact a rental company directly to complete the hire</div>` : ""}`
         }
       </div>
       </div>
@@ -163866,7 +163267,7 @@ function kymRender() {
           ? `<div style="margin-top:.7rem;background:#F1F5F9;border:1.5px solid #E2E8F0;border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#94A3B8;font-weight:700;text-align:center">🔒 Log in as a customer to add to hire enquiry</div>`
           : currentUser && currentUser.role === "lite"
             ? `<div style="margin-top:.7rem;background:rgba(14,165,233,.07);border:1.5px solid rgba(14,165,233,.25);border-radius:10px;padding:.5rem .8rem;font-size:.78rem;color:#38BDF8;font-weight:700;text-align:center">ℹ️ For information only — contact a rental company to hire</div>`
-            : `<button class="kym-add-btn" id="kym-cart-btn-${(m.id || "").replace(/[^a-z0-9]/gi, "-")}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name || "").replace(/'/g, "\\\\'")}','${catKey}',this)">🛒 Add to Quote</button>`
+            : `<button class="kym-add-btn" id="kym-cart-btn-${(m.id || "").replace(/[^a-z0-9]/gi, "-")}" style="margin-top:.7rem;width:100%" onclick="addToCartFromKYM('${m.id}','${(m.name || "").replace(/'/g, "\\\\'")}','${catKey}',this)">💬 Interested? Hire or buy — enquire</button>`
       }
     </div>`;
     })
@@ -168014,6 +167415,7 @@ function switchView(view, btn) {
       renderMyQuotes();
     }, 50);
   if (view === "my-details") setTimeout(renderMyDetails, 50);
+  if (view === "my-searches") setTimeout(renderMySearches, 50);
   if (view === "my-plan") setTimeout(renderMyPlanView, 50);
   if (view === "quote-requests")
     setTimeout(async () => {
@@ -168867,7 +168269,77 @@ function showView(view) {
       _kymUpdateCartBtn();
     }, 80);
   if (view === "home" || view === "finder") setTimeout(_kymUpdateCartBtn, 80);
+
+  // ── Browser history integration (iOS swipe-back / Android back) ──────────
+  // The app switches views in-place without navigating, so without a history
+  // entry the browser's back gesture leaves the site (e.g. back to Google).
+  // Push an entry per view change so back/swipe-back returns to the previous
+  // in-app view (and from home, leaves the site as expected). _noyoSuppressHistory
+  // guards against re-pushing while we're handling a popstate.
+  try {
+    if (!_noyoSuppressHistory) {
+      const _curView = history.state && history.state.noyoView;
+      if (_curView !== view) {
+        if (_curView) {
+          history.pushState({ noyoView: view }, "");
+        } else {
+          // First in-app navigation: replace the entry so back from home exits.
+          history.replaceState({ noyoView: view }, "");
+        }
+      }
+    }
+  } catch (e) {
+    /* history API unavailable — navigation still works, just no back support */
+  }
 }
+
+// Flag set while restoring a view from a popstate event, so showView doesn't
+// push a new history entry for a navigation the browser already performed.
+var _noyoSuppressHistory = false;
+// Push a logical screen onto history (used for finder sub-screens like the quiz
+// that don't go through showView). First navigation replaces the entry so that
+// back from the home screen still leaves the site.
+function _noyoPushScreen(name) {
+  try {
+    if (_noyoSuppressHistory) return;
+    const cur = history.state && history.state.noyoView;
+    if (cur === name) return;
+    if (cur) history.pushState({ noyoView: name }, "");
+    else history.replaceState({ noyoView: name }, "");
+  } catch (e) {
+    /* history unavailable */
+  }
+}
+function _noyoShowFinderHome() {
+  showView("finder");
+  const sh = document.getElementById("sec-hero");
+  const sq = document.getElementById("sec-quiz");
+  const sr = document.getElementById("sec-result");
+  if (sh) sh.style.display = "block";
+  if (sq) sq.style.display = "none";
+  if (sr) sr.style.display = "none";
+}
+window.addEventListener("popstate", function (e) {
+  const view = (e && e.state && e.state.noyoView) || "home";
+  _noyoSuppressHistory = true;
+  try {
+    if (view === "home" || view === "finder") {
+      _noyoShowFinderHome();
+    } else if (view === "quiz") {
+      // Coming forward into the quiz again — show the quiz sub-section.
+      showView("finder");
+      const sh = document.getElementById("sec-hero");
+      const sq = document.getElementById("sec-quiz");
+      if (sh) sh.style.display = "none";
+      if (sq) sq.style.display = "block";
+    } else {
+      showView(view);
+    }
+  } catch (err) {
+    /* ignore */
+  }
+  _noyoSuppressHistory = false;
+});
 
 // =====================================================================
 // LOGIN SYSTEM
@@ -170463,6 +169935,9 @@ function loginSuccess(user) {
     // Show My Quotes for customer
     const tabMQ = document.getElementById("tab-my-quotes-wrap");
     if (tabMQ) tabMQ.style.display = "inline-flex";
+    // Show My Searches for customer
+    const tabMS = document.getElementById("tab-my-searches-wrap");
+    if (tabMS) tabMS.style.display = "inline-flex";
     // Show navbar cart button for customers
     const navCartWrap = document.getElementById("nav-cart-btn-wrap");
     if (navCartWrap) navCartWrap.style.display = "block";
@@ -170797,6 +170272,21 @@ function adminTrackSearch(result) {
     hour: result.hour != null ? result.hour : new Date().getHours(),
   };
   adminData.searches.push(rec);
+  // ── Customer-facing search history (device-level, for the My Searches tab) ──
+  try {
+    var _mh = JSON.parse(localStorage.getItem("noyo_my_searches") || "[]");
+    _mh.unshift({
+      ts: rec.ts, machineType: rec.machineType, machineName: rec.machineName,
+      jobType: rec.jobType, height: rec.height, load: rec.load,
+      terrain: rec.terrain, power: rec.power, city: rec.city,
+      resultCount: rec.resultCount,
+    });
+    if (_mh.length > 60) _mh = _mh.slice(0, 60);
+    localStorage.setItem("noyo_my_searches", JSON.stringify(_mh));
+    if (typeof renderMySearches === "function" && document.getElementById("view-my-searches") && document.getElementById("view-my-searches").classList.contains("active")) {
+      try { renderMySearches(); } catch (e) {}
+    }
+  } catch (e) {}
   if (customerRegistry[user.email]) {
     customerRegistry[user.email].searchCount++;
     customerRegistry[user.email].lastSeen = now;
@@ -175764,6 +175254,7 @@ function amwReset() {
 const _LEGACY_CATEGORY_LABELS = {
   boom: "Boom Lifts (legacy — all power sources)",
   scissor: "Scissor Lifts (legacy — all power sources)",
+  forklift: "Forklifts (legacy — all power sources)",
 };
 function _spnCategoryLabel(catKey) {
   if (!catKey) return "All";
@@ -175816,7 +175307,22 @@ const SPONSORED_CATEGORIES = [
     emoji: "🔄",
     group: "Access",
   },
-  { key: "forklift", label: "Forklifts", emoji: "🍴", group: "Access" },
+  // ── Forklifts — split by power source for separate ad inventory ──
+  // Legacy `forklift` key is no longer offered in the dropdown but is still
+  // matched at render time (see _getSponsoredForCategory) so existing forklift
+  // ads keep running until their end date.
+  {
+    key: "forklift_electric",
+    label: "Forklifts — Electric",
+    emoji: "🔌",
+    group: "Access",
+  },
+  {
+    key: "forklift_engine",
+    label: "Forklifts — Diesel / Petrol / Gas",
+    emoji: "⛽",
+    group: "Access",
+  },
   {
     key: "material",
     label: "Material Lifts / Duct Lifters",
@@ -176023,8 +175529,16 @@ function _normalizeAdCategory(raw) {
     if (t.includes("diesel")) return "scissor_diesel";
     return "scissor";
   }
-  // Forklift family
-  if (t.includes("forklift") || t.includes("fork lift")) return "forklift";
+  // Forklift family (keep power split; tolerate label spellings)
+  if (t.includes("forklift") || t.includes("fork lift")) {
+    if (t.includes("electric")) return "forklift_electric";
+    if (
+      t.includes("diesel") || t.includes("petrol") ||
+      t.includes("gas") || t.includes("lpg") || t.includes("engine")
+    )
+      return "forklift_engine";
+    return "forklift";
+  }
   // Fall back to the cleaned single-token form (covers any other category
   // such as "material", "pusharound", earthmoving keys, etc.)
   return s;
@@ -176046,6 +175560,7 @@ function _getSponsoredForCategory(catKey) {
   if (catKey === "rotating") catKeys = ["rotating", "telehandler"];
   else if (catKey === "boom") catKeys = ["boom", "boom_electric", "boom_diesel"];
   else if (catKey === "scissor") catKeys = ["scissor", "scissor_electric", "scissor_diesel"];
+  else if (catKey === "forklift") catKeys = ["forklift", "forklift_electric", "forklift_engine"];
   else catKeys = [catKey];
   return _sponsoredAds.filter((a) => {
     if (!a.active) return false;
@@ -176199,7 +175714,7 @@ function _spnMachinesForCat(catKey) {
     return (MACHINES.telehandler || []).filter((m) => !m.isRotating);
   if (k === "rotating")
     return (MACHINES.telehandler || []).filter((m) => m.isRotating);
-  if (k === "boom") return MACHINES.boom || [];
+  if (k === "boom") return (MACHINES.boom || []).filter((m) => !m.disabled);
   if (k === "scissor") return MACHINES.scissor || [];
   if (k === "forklift") return MACHINES.forklift || [];
   if (k === "material") return MACHINES.material || [];
@@ -176564,7 +176079,7 @@ function spnGetMachinePool(catKey) {
     return (MACHINES.telehandler || []).filter((m) => !m.isRotating);
   if (k === "rotating")
     return (MACHINES.telehandler || []).filter((m) => m.isRotating);
-  if (k === "boom") return MACHINES.boom || [];
+  if (k === "boom") return (MACHINES.boom || []).filter((m) => !m.disabled);
   if (k === "scissor") return MACHINES.scissor || [];
   // Power-split sub-categories. Classification of the messy `power` string:
   //   electric bucket → contains "electric" or bare "hybrid" (hybrids run an
@@ -176579,6 +176094,8 @@ function spnGetMachinePool(catKey) {
   if (k === "boom_diesel") return (MACHINES.boom || []).filter(isDiesel);
   if (k === "scissor_electric") return (MACHINES.scissor || []).filter(isElectric);
   if (k === "scissor_diesel") return (MACHINES.scissor || []).filter(isDiesel);
+  if (k === "forklift_electric") return (MACHINES.forklift || []).filter(isElectric);
+  if (k === "forklift_engine") return (MACHINES.forklift || []).filter((m) => !isElectric(m));
   if (k === "forklift") return MACHINES.forklift || [];
   if (k === "material") return MACHINES.material || [];
   if (k === "pushAround") return MACHINES.pushAround || [];
@@ -177130,8 +176647,8 @@ function adminViewSpnReport(adId) {
           </div>
           <div style="background:#F5F3FF;border:1.5px solid #DDD6FE;border-radius:10px;padding:.6rem .7rem;text-align:center">
             <div style="font-size:1.4rem;font-weight:900;color:#7C3AED">${clicks.toLocaleString()}</div>
-            <div style="font-size:.7rem;color:#6D28D9;font-weight:700;margin-top:.1rem">🖱️ Clicks</div>
-            <div style="font-size:.68rem;color:#64748B">add-to-cart / engage</div>
+            <div style="font-size:.7rem;color:#6D28D9;font-weight:700;margin-top:.1rem">🖱️ Enquiry Clicks</div>
+            <div style="font-size:.68rem;color:#64748B">opened the enquiry</div>
           </div>
           <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:.6rem .7rem;text-align:center">
             <div style="font-size:1.4rem;font-weight:900;color:#15803D">${ctr}%</div>
@@ -177152,6 +176669,11 @@ function adminViewSpnReport(adId) {
             <div style="font-size:1.4rem;font-weight:900;color:#15803D">${daysElapsed > 0 && impr > 0 ? Math.round(impr / daysElapsed).toLocaleString() : "—"}</div>
             <div style="font-size:.7rem;color:#166534;font-weight:700;margin-top:.1rem">📈 Impr/Day</div>
             <div style="font-size:.68rem;color:#64748B">daily average</div>
+          </div>
+          <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.6rem .7rem;text-align:center">
+            <div style="font-size:1.4rem;font-weight:900;color:#0052CC" id="spn-enq-${adId}">…</div>
+            <div style="font-size:.7rem;color:#1E40AF;font-weight:700;margin-top:.1rem">📥 Enquiries</div>
+            <div style="font-size:.68rem;color:#64748B">leads from this ad</div>
           </div>
         </div>
 
@@ -177180,9 +176702,29 @@ function adminViewSpnReport(adId) {
       </div>
     </div>`;
   document.body.appendChild(modal);
+  try { _spnFillEnqCount(adId, ad.machineId); } catch (e) {}
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.remove();
   });
+}
+
+// Count enquiries whose machineId matches this ad's promoted machine, fill the
+// modal cell, and cache the number so the copyable report can reuse it.
+window._spnEnqCountByMachine = window._spnEnqCountByMachine || {};
+function _spnFillEnqCount(adId, machineId) {
+  const cell = document.getElementById("spn-enq-" + adId);
+  if (!machineId) { if (cell) cell.textContent = "—"; return; }
+  if (typeof _fbDb === "undefined" || !_fbDb) { if (cell) cell.textContent = "—"; return; }
+  _fbDb
+    .collection("enquiries")
+    .where("machineId", "==", machineId)
+    .get()
+    .then((snap) => {
+      const n = snap.size;
+      window._spnEnqCountByMachine[machineId] = n;
+      if (cell) cell.textContent = n.toLocaleString();
+    })
+    .catch(() => { if (cell) cell.textContent = "—"; });
 }
 
 function spnCopyReport(adId) {
@@ -177210,10 +176752,11 @@ Fee:           $${parseFloat(ad.fee || 0).toLocaleString("en-AU")}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 PERFORMANCE SUMMARY
 👁  Impressions:  ${impr.toLocaleString()}
-🖱️  Clicks:       ${clicks.toLocaleString()}
+🖱️  Enquiry clicks: ${clicks.toLocaleString()}
 📊  CTR:          ${ctr}%
 💰  CPM:          ${impr > 0 && ad.fee > 0 ? "$" + ((ad.fee / impr) * 1000).toFixed(2) : "—"}
 🎯  CPC:          ${clicks > 0 && ad.fee > 0 ? "$" + (ad.fee / clicks).toFixed(2) : "—"}
+📥  Enquiries:    ${window._spnEnqCountByMachine && window._spnEnqCountByMachine[ad.machineId] != null ? window._spnEnqCountByMachine[ad.machineId].toLocaleString() : "—"}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Report generated by Noyo | noyo.com.au`;
 
@@ -179464,6 +179007,7 @@ function showAdminSection(name, btn) {
   if (name === "mapintel") renderMapIntelDashboard();
   if (name === "livemap") renderLiveMap();
   if (name === "unlockaudit") renderAdminUnlockAudit();
+  if (name === "enquiries") renderAdminEnquiries();
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -187941,3 +187485,740 @@ window.addEventListener('load', () => {
     }
   }, 800);
 });
+
+
+// ════════════════════════════════════════════════════════════════════════
+//  NOYO ENQUIRY MODE  —  demand-capture patch (traffic-first phase)
+//  ----------------------------------------------------------------------
+//  Cart / checkout / quote-send is switched off. Every "add" action opens a
+//  soft two-path enquiry form (Hire / Buy) with per-machine attachment
+//  checkboxes. Before an enquiry can be SUBMITTED the customer must register
+//  or sign in (full name, email, password, physical address, city — no ABN).
+//  Auth uses the app's real Firebase Auth; the existing onAuthStateChanged
+//  listener sets up the session. Leads (with the customer's city attached)
+//  write to Firestore `enquiries` + a localStorage backup. An admin
+//  "Enquiries" section lists them with filters.
+//  To re-enable the cart later: delete this whole block + relabel buttons.
+// ════════════════════════════════════════════════════════════════════════
+(function () {
+  "use strict";
+
+  function _el(id) { return document.getElementById(id); }
+  function _esc(s) { return String(s == null ? "" : s).replace(/"/g, "&quot;"); }
+  function _isLoggedIn() {
+    if (typeof currentUser !== "undefined" && currentUser) return true;
+    if (typeof _fbAuth !== "undefined" && _fbAuth && _fbAuth.currentUser) return true;
+    return false;
+  }
+
+  var _pendingEnquiryRecord = null;
+
+  var NOYO_CITIES = [
+    "Sydney", "Newcastle", "Wollongong", "Central Coast", "Melbourne",
+    "Brisbane", "Gold Coast", "Perth", "Adelaide", "Canberra", "Other",
+  ];
+
+  // ── Resolve the machine's category key ────────────────────────────────
+  function _knownCats() {
+    return { forklift: 1, telehandler: 1, scissor: 1, boom: 1, material: 1,
+      dozer: 1, em_excavator: 1, em_bobcat: 1, em_grader: 1, em_compactor: 1,
+      em_dumper: 1, em_water_cart: 1, em_mulcher: 1, em_loader: 1 };
+  }
+  function _resolveCat(catHint, machine) {
+    var known = _knownCats();
+    if (catHint && known[catHint]) return catHint;
+    var m = machine || {};
+    if (m.catKey && known[m.catKey]) return m.catKey;
+    if (m.category && known[m.category]) return m.category;
+    var fl = m.filters || [];
+    for (var i = 0; i < fl.length; i++) if (known[fl[i]]) return fl[i];
+    if (fl.indexOf("forklift") >= 0) return "forklift";
+    if (fl.indexOf("telehandler") >= 0) return "telehandler";
+    if (fl.indexOf("boom") >= 0) return "boom";
+    if (fl.indexOf("scissor") >= 0) return "scissor";
+    if (fl.indexOf("excavator") >= 0) return "em_excavator";
+    return catHint || null;
+  }
+
+  // ── Per-machine attachment options (mirrors the result-card logic) ────
+  function _attachOptionsFor(machine, catKey) {
+    var m = machine || {};
+    if (catKey === "forklift") {
+      var tynes = (m.tyneOptions || ["1200mm"]).map(function (t) { return "Tyne " + t; });
+      var slips = m.slipperOptions || ["1800mm slipper", "2400mm slipper"];
+      return tynes.concat(slips).concat(["Jib Attachment", "Rotator", "Side Shift", "Fork Positioner"]);
+    }
+    if (catKey === "telehandler") {
+      var rot = m.isRotating || /rotat/i.test(m.name || "") || (m.filters || []).indexOf("rotating") >= 0;
+      return rot
+        ? ["Man Basket", "Winch", "Jib Attachment", "Rotator Hook", "Pallet Forks"]
+        : ["Jib Attachment", "Rotator", "Man Basket", "Pallet Forks", "Bucket", "Bale Grab"];
+    }
+    if (catKey === "boom")
+      return ["Standard Basket (230kg)", "XC Capacity Basket (320kg+)", "Power to Basket (230V outlet)", "Jib Extension", "Bi-Fuel"];
+    if (catKey === "em_excavator")
+      return ["Standard bucket (included)", "Rock breaker / hammer", "Auger / boring head", "Grab / grapple bucket", "Ripper", "Tilting bucket", "Quick hitch"];
+    if (catKey === "dozer" || (catKey || "").indexOf("em_") === 0) {
+      if (m.attachmentsAvailable && m.attachmentsAvailable.length)
+        return m.attachmentsAvailable.slice(0, 6).map(function (a) { return String(a).split("(")[0].trim(); });
+    }
+    if (m.attachments && m.attachments.length) return m.attachments.slice(0, 8);
+    return [];
+  }
+
+  function _renderAttachBox(options, preChecked) {
+    var box = _el("noyo-enq-attach-box"), wrap = _el("noyo-enq-attach-wrap");
+    if (!box || !wrap) return;
+    if (!options.length) { wrap.style.display = "none"; box.innerHTML = ""; return; }
+    wrap.style.display = "block";
+    var pre = {};
+    (preChecked || []).forEach(function (v) { pre[String(v).toLowerCase()] = 1; });
+    box.innerHTML = options.map(function (o) {
+      var checked = pre[String(o).toLowerCase()] ? " checked" : "";
+      return '<label style="display:flex;align-items:center;gap:.35rem;cursor:pointer;font-size:.83rem;color:#334155">' +
+        '<input type="checkbox" class="noyo-attach-cb" value="' + _esc(o) + '"' + checked +
+        ' style="accent-color:#0052CC"> ' + _esc(o) + "</label>";
+    }).join("");
+  }
+
+  // ── One-time modal + styles injection ─────────────────────────────────
+  function _ensureEnquiryModal() {
+    if (_el("noyo-enq-overlay")) return;
+
+    var css =
+      "#noyo-enq-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);z-index:99999;display:none;align-items:center;justify-content:center;padding:1rem;font-family:'Nunito',sans-serif}" +
+      "#noyo-enq-overlay.open{display:flex}" +
+      "#noyo-enq-card{background:#fff;border-radius:18px;max-width:480px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(15,23,42,.3);padding:1.4rem 1.4rem 1.2rem}" +
+      "#noyo-enq-card h3{margin:0 0 .2rem;color:#0F172A;font-size:1.15rem;font-weight:900}" +
+      "#noyo-enq-card .noyo-enq-sub{color:#64748B;font-size:.82rem;margin-bottom:1rem;line-height:1.45}" +
+      "#noyo-enq-card label.lbl{display:block;font-size:.78rem;font-weight:800;color:#334155;margin:.7rem 0 .25rem}" +
+      "#noyo-enq-card input.fld,#noyo-enq-card textarea,#noyo-enq-card select{width:100%;box-sizing:border-box;border:1.5px solid #E2E8F0;border-radius:10px;padding:.6rem .7rem;font-size:.9rem;font-family:inherit;color:#0F172A;background:#F8FAFC}" +
+      "#noyo-enq-card input.fld:focus,#noyo-enq-card textarea:focus,#noyo-enq-card select:focus{outline:none;border-color:#0052CC;background:#fff}" +
+      "#noyo-enq-card .noyo-enq-row{display:flex;gap:.6rem}#noyo-enq-card .noyo-enq-row>div{flex:1}" +
+      "#noyo-enq-card .noyo-enq-machine{background:linear-gradient(135deg,rgba(0,82,204,.07),rgba(0,82,204,.03));border:1.5px solid rgba(0,82,204,.18);border-radius:10px;padding:.55rem .75rem;font-size:.85rem;font-weight:800;color:#0052CC}" +
+      "#noyo-enq-card .noyo-enq-choose{display:flex;gap:.6rem;margin:.9rem 0 .2rem}" +
+      "#noyo-enq-card .noyo-enq-choose button{flex:1;border:1.5px solid #E2E8F0;background:#F8FAFC;border-radius:13px;padding:.85rem .5rem;font-size:.95rem;font-weight:900;color:#334155;cursor:pointer;font-family:inherit;line-height:1.2}" +
+      "#noyo-enq-card .noyo-enq-choose button small{display:block;font-size:.68rem;font-weight:700;color:#94A3B8;margin-top:.15rem}" +
+      "#noyo-enq-card .noyo-enq-choose button.sel{border-color:#0052CC;background:#0052CC;color:#fff}" +
+      "#noyo-enq-card .noyo-enq-choose button.sel small{color:rgba(255,255,255,.85)}" +
+      "#noyo-enq-attach-box{display:flex;flex-wrap:wrap;gap:.4rem .9rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:.6rem .7rem}" +
+      "#noyo-enq-send,#noyo-enq-auth-submit{width:100%;margin-top:1.1rem;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:11px;padding:.8rem;font-size:.95rem;font-weight:900;cursor:pointer;font-family:inherit}" +
+      "#noyo-enq-send:disabled,#noyo-enq-auth-submit:disabled{opacity:.55;cursor:default}" +
+      "#noyo-enq-close{position:absolute;top:.6rem;right:.8rem;background:none;border:none;font-size:1.4rem;color:#94A3B8;cursor:pointer;line-height:1}" +
+      "#noyo-enq-err,#noyo-enq-auth-err{color:#DC2626;font-size:.78rem;font-weight:700;margin-top:.5rem;min-height:1em}" +
+      ".noyo-enq-hidden{display:none}" +
+      "#noyo-enq-auth .noyo-auth-toggle{display:flex;gap:.4rem;margin-bottom:.3rem}" +
+      "#noyo-enq-auth .noyo-auth-toggle button{flex:1;border:1.5px solid #E2E8F0;background:#F8FAFC;border-radius:10px;padding:.5rem;font-size:.83rem;font-weight:800;color:#475569;cursor:pointer;font-family:inherit}" +
+      "#noyo-enq-auth .noyo-auth-toggle button.sel{border-color:#0052CC;background:#0052CC;color:#fff}";
+    var style = document.createElement("style");
+    style.textContent = css;
+    document.head.appendChild(style);
+
+    var cityOpts = NOYO_CITIES.map(function (c) { return '<option>' + c + "</option>"; }).join("");
+
+    var ov = document.createElement("div");
+    ov.id = "noyo-enq-overlay";
+    ov.innerHTML =
+      '<div id="noyo-enq-card" style="position:relative">' +
+      '<button id="noyo-enq-close" aria-label="Close">&times;</button>' +
+      "<h3>💬 Interested? We can help</h3>" +
+      '<div class="noyo-enq-sub">Tell us about the job and we\'ll help you sort the right machine. No obligation.</div>' +
+      '<div class="noyo-enq-machine" id="noyo-enq-machine">—</div>' +
+
+      // ── Enquiry form (intent + branches + contact) ──
+      '<div id="noyo-enq-form">' +
+      '<div class="noyo-enq-choose" id="noyo-enq-choose">' +
+      '<button type="button" data-intent="hire">🔧 Hire<small>Rent for a job</small></button>' +
+      '<button type="button" data-intent="buy">🏷️ Buy<small>Purchase a machine</small></button>' +
+      "</div>" +
+      '<div id="noyo-enq-hire" class="noyo-enq-hidden">' +
+      "<label class='lbl'>Site address (where the machine is needed) <span style='color:#EF4444'>*</span></label>" +
+      '<input id="noyo-enq-site" class="fld" type="text" placeholder="e.g. 12 George St, Parramatta NSW 2150">' +
+      '<div class="noyo-enq-row">' +
+      "<div><label class='lbl'>When do you need it? <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-date\" class=\"fld\" type=\"date\"></div>" +
+      '<div><label class="lbl">For how long?</label><input id="noyo-enq-duration" class="fld" type="text" placeholder="e.g. 3 days, 2 weeks"></div>' +
+      "</div>" +
+      '<div id="noyo-enq-attach-wrap" style="display:none">' +
+      '<label class="lbl">Attachments / accessories needed</label><div id="noyo-enq-attach-box"></div>' +
+      '<input id="noyo-enq-attach-other" class="fld" type="text" placeholder="Other attachment? Type it here" style="margin-top:.4rem">' +
+      "</div>" +
+      "<label class='lbl'>Delivery or pickup?</label>" +
+      '<select id="noyo-enq-delivery"><option value="">Select…</option><option>Delivery to site</option><option>I\'ll pick up</option><option>Not sure</option></select>' +
+      "</div>" +
+      '<div id="noyo-enq-buy" class="noyo-enq-hidden">' +
+      '<div class="noyo-enq-row">' +
+      '<div><label class="lbl">New or used?</label><select id="noyo-enq-condition"><option value="">Select…</option><option>New</option><option>Used</option><option>Either</option></select></div>' +
+      "<div><label class='lbl'>When would you like to buy? <span style='color:#EF4444'>*</span></label>" +
+      '<select id="noyo-enq-buywhen"><option value="">Select…</option><option>ASAP / ready now</option><option>Within 1–3 months</option><option>3–6 months</option><option>Just researching</option></select></div>' +
+      "</div>" +
+      '<div class="noyo-enq-row">' +
+      '<div><label class="lbl">Budget (optional)</label><input id="noyo-enq-budget" class="fld" type="text" placeholder="e.g. $40k–60k"></div>' +
+      '<div><label class="lbl">Finance needed?</label><select id="noyo-enq-finance"><option value="">Select…</option><option>Yes</option><option>No</option><option>Not sure</option></select></div>' +
+      "</div>" +
+      "<label class='lbl'>Delivery location (suburb / state)</label><input id=\"noyo-enq-buyloc\" class=\"fld\" type=\"text\" placeholder=\"e.g. Parramatta NSW\">" +
+      "</div>" +
+      // ── Member gate (appears after job details for non-members) ──
+      '<div id="noyo-enq-member" class="noyo-enq-hidden">' +
+      '<div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:12px;padding:.85rem .9rem;margin-top:.4rem">' +
+      '<div style="font-weight:900;color:#1D4ED8;font-size:.95rem;margin-bottom:.4rem">🔒 Are you a Noyo member?</div>' +
+      '<div style="font-size:.82rem;color:#475569;margin-bottom:.8rem;line-height:1.45">Members send enquiries in one click. Log in or register to continue.</div>' +
+      '<div style="display:flex;gap:.5rem">' +
+      '<button type="button" id="noyo-member-login" style="flex:1;border:1.5px solid #0052CC;background:#fff;color:#0052CC;border-radius:11px;padding:.7rem;font-weight:900;font-size:.9rem;cursor:pointer;font-family:inherit">Log in</button>' +
+      '<button type="button" id="noyo-member-register" style="flex:1;border:none;background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border-radius:11px;padding:.7rem;font-weight:900;font-size:.9rem;cursor:pointer;font-family:inherit">Register</button>' +
+      "</div></div></div>" +
+      '<div id="noyo-enq-contact" class="noyo-enq-hidden">' +
+      '<div class="noyo-enq-row">' +
+      "<div><label class='lbl'>Your name <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-name\" class=\"fld\" type=\"text\" autocomplete=\"name\" placeholder=\"Jane Smith\"></div>" +
+      '<div><label class="lbl">Phone (optional)</label><input id="noyo-enq-phone" class="fld" type="tel" autocomplete="tel" placeholder="04xx xxx xxx"></div>' +
+      "</div>" +
+      "<label class='lbl'>Company (optional)</label><input id=\"noyo-enq-company\" class=\"fld\" type=\"text\" autocomplete=\"organization\" placeholder=\"Company / business name\">" +
+      "<label class='lbl'>Email <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-email\" class=\"fld\" type=\"email\" autocomplete=\"email\" placeholder=\"you@company.com.au\">" +
+      "<label class='lbl'>Anything else? (optional)</label><textarea id=\"noyo-enq-msg\" rows=\"2\" placeholder=\"Site access, job details, anything we should know…\"></textarea>" +
+      '<div id="noyo-enq-err"></div>' +
+      '<button id="noyo-enq-send">Send enquiry</button>' +
+      "</div>" +
+      "</div>" + // end form
+
+      // ── Auth gate (register / sign in) ──
+      '<div id="noyo-enq-auth" class="noyo-enq-hidden">' +
+      '<div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:.6rem .8rem;font-size:.82rem;color:#1D4ED8;font-weight:700;margin-bottom:.8rem">🔒 One quick step — register or sign in to send your enquiry.</div>' +
+      '<div class="noyo-auth-toggle" id="noyo-auth-toggle">' +
+      '<button type="button" data-mode="register" class="sel">Register</button>' +
+      '<button type="button" data-mode="signin">Sign in</button>' +
+      "</div>" +
+      '<div id="noyo-auth-register">' +
+      "<label class='lbl'>Full name <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-name\" class=\"fld\" type=\"text\" autocomplete=\"name\">" +
+      "<label class='lbl'>Email <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-email\" class=\"fld\" type=\"email\" autocomplete=\"email\">" +
+      "<label class='lbl'>Choose a password <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-pass\" class=\"fld\" type=\"password\" autocomplete=\"new-password\" placeholder=\"At least 6 characters\">" +
+      "<label class='lbl'>Physical address <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-address\" class=\"fld\" type=\"text\" placeholder=\"Street, suburb\">" +
+      "<label class='lbl'>City <span style='color:#EF4444'>*</span></label><select id=\"noyo-auth-city\" class=\"fld\"><option value=\"\">Select your city…</option>" + cityOpts + "</select>" +
+      '<input id="noyo-auth-city-other" class="fld noyo-enq-hidden" type="text" placeholder="Type your city" style="margin-top:.4rem">' +
+      "</div>" +
+      '<div id="noyo-auth-signin" class="noyo-enq-hidden">' +
+      "<label class='lbl'>Email <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-si-email\" class=\"fld\" type=\"email\" autocomplete=\"email\">" +
+      "<label class='lbl'>Password <span style='color:#EF4444'>*</span></label><input id=\"noyo-auth-si-pass\" class=\"fld\" type=\"password\" autocomplete=\"current-password\">" +
+      "</div>" +
+      '<div id="noyo-enq-auth-err"></div>' +
+      '<button id="noyo-enq-auth-submit">Create account & send enquiry</button>' +
+      '<div style="text-align:center;margin-top:.6rem"><button id="noyo-enq-auth-back" style="background:none;border:none;color:#94A3B8;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit">← Back to enquiry</button></div>' +
+      "</div>" +
+
+      "</div>";
+    document.body.appendChild(ov);
+
+    // Intent choice
+    ov.querySelector("#noyo-enq-choose").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-intent]");
+      if (!b) return;
+      ov._intent = b.getAttribute("data-intent");
+      ov.querySelectorAll("#noyo-enq-choose button").forEach(function (x) { x.classList.toggle("sel", x === b); });
+      _el("noyo-enq-hire").classList.toggle("noyo-enq-hidden", ov._intent !== "hire");
+      _el("noyo-enq-buy").classList.toggle("noyo-enq-hidden", ov._intent !== "buy");
+      if (_isLoggedIn()) {
+        _el("noyo-enq-contact").classList.remove("noyo-enq-hidden");
+        _el("noyo-enq-member").classList.add("noyo-enq-hidden");
+      } else {
+        // Members-only: contact + Send stay hidden until they log in / register.
+        // The member gate appears once the job details are filled.
+        _el("noyo-enq-contact").classList.add("noyo-enq-hidden");
+      }
+      _el("noyo-enq-err").textContent = "";
+    });
+
+    // Reveal the member gate once job details are filled (non-members only)
+    ["noyo-enq-date", "noyo-enq-delivery", "noyo-enq-buywhen", "noyo-enq-buyloc"].forEach(function (id) {
+      var f = _el(id);
+      if (f) {
+        f.addEventListener("change", _maybeShowMemberGate);
+        f.addEventListener("input", _maybeShowMemberGate);
+      }
+    });
+    // Member gate buttons → auth
+    _el("noyo-member-login").addEventListener("click", function () { _openAuth("signin"); });
+    _el("noyo-member-register").addEventListener("click", function () { _openAuth("register"); });
+
+    // Auth mode toggle
+    ov.querySelector("#noyo-auth-toggle").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-mode]");
+      if (!b) return;
+      var mode = b.getAttribute("data-mode");
+      ov.querySelectorAll("#noyo-auth-toggle button").forEach(function (x) { x.classList.toggle("sel", x === b); });
+      _el("noyo-auth-register").classList.toggle("noyo-enq-hidden", mode !== "register");
+      _el("noyo-auth-signin").classList.toggle("noyo-enq-hidden", mode !== "signin");
+      _el("noyo-enq-auth-submit").textContent = mode === "register" ? "Create account & continue" : "Sign in & continue";
+      ov._authMode = mode;
+      _el("noyo-enq-auth-err").textContent = "";
+    });
+    ov._authMode = "register";
+
+    // City "Other" reveal
+    ov.querySelector("#noyo-auth-city").addEventListener("change", function () {
+      _el("noyo-auth-city-other").classList.toggle("noyo-enq-hidden", this.value !== "Other");
+    });
+
+    _el("noyo-enq-auth-back").addEventListener("click", function () {
+      _el("noyo-enq-auth").classList.add("noyo-enq-hidden");
+      _el("noyo-enq-form").classList.remove("noyo-enq-hidden");
+    });
+
+    ov.querySelector("#noyo-enq-close").addEventListener("click", _closeEnquiry);
+    ov.addEventListener("click", function (e) { if (e.target === ov) _closeEnquiry(); });
+    ov.querySelector("#noyo-enq-send").addEventListener("click", _submitEnquiry);
+    ov.querySelector("#noyo-enq-auth-submit").addEventListener("click", _submitAuth);
+  }
+
+  function _closeEnquiry() { var ov = _el("noyo-enq-overlay"); if (ov) ov.classList.remove("open"); }
+
+  // Show the "Are you a member?" gate once job details are filled (non-members).
+  function _maybeShowMemberGate() {
+    if (_isLoggedIn()) return;
+    var ov = _el("noyo-enq-overlay");
+    if (!ov || !ov._intent) return;
+    var m = _el("noyo-enq-member");
+    if (m) m.classList.remove("noyo-enq-hidden");
+  }
+
+  // Open the auth panel (from the member gate) in the chosen mode.
+  function _openAuth(mode) {
+    var ov = _el("noyo-enq-overlay");
+    ov._authMode = mode;
+    _el("noyo-enq-form").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-auth").classList.remove("noyo-enq-hidden");
+    _el("noyo-auth-register").classList.toggle("noyo-enq-hidden", mode !== "register");
+    _el("noyo-auth-signin").classList.toggle("noyo-enq-hidden", mode !== "signin");
+    ov.querySelectorAll("#noyo-auth-toggle button").forEach(function (b) {
+      b.classList.toggle("sel", b.getAttribute("data-mode") === mode);
+    });
+    _el("noyo-enq-auth-submit").textContent = mode === "register" ? "Create account & continue" : "Sign in & continue";
+    _el("noyo-enq-auth-err").textContent = "";
+    // Carry over any name/email already typed
+    var nm = _el("noyo-enq-name").value, em = _el("noyo-enq-email").value;
+    if (mode === "register") {
+      if (nm && !_el("noyo-auth-name").value) _el("noyo-auth-name").value = nm;
+      if (em && !_el("noyo-auth-email").value) _el("noyo-auth-email").value = em;
+    } else if (em && !_el("noyo-auth-si-email").value) {
+      _el("noyo-auth-si-email").value = em;
+    }
+  }
+
+  // After successful auth (login/register), return to the form so the member
+  // can complete and send — do NOT write the enquiry yet.
+  function _onAuthSuccessReturn(info) {
+    window._noyoAuthedCustomer = info || {};
+    _el("noyo-enq-auth").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-form").classList.remove("noyo-enq-hidden");
+    _el("noyo-enq-member").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-contact").classList.remove("noyo-enq-hidden");
+    if (info && info.name && !_el("noyo-enq-name").value) _el("noyo-enq-name").value = info.name;
+    if (info && info.email) _el("noyo-enq-email").value = info.email;
+    var btn = _el("noyo-enq-auth-submit");
+    if (btn) { btn.disabled = false; }
+    try { if (typeof showToast === "function") showToast("✓ Signed in — complete and send your enquiry", "#16A34A", 3500); } catch (e) {}
+  }
+
+  function _grabCardAttachments(machineId) {
+    var out = [];
+    try {
+      document.querySelectorAll('input[type=checkbox][data-mid="' + machineId + '"][data-opt="tyne"]:checked,input[type=checkbox][data-mid="' + machineId + '"][data-opt="attachment"]:checked')
+        .forEach(function (cb) { if (cb.value) out.push(cb.value); });
+    } catch (e) {}
+    return out;
+  }
+
+  // ── Public entry point ────────────────────────────────────────────────
+  function noyoEnquire(machineId, machineName, intentHint, catHint) {
+    _ensureEnquiryModal();
+    var ov = _el("noyo-enq-overlay");
+    ov._machineId = machineId || "";
+    ov._machineName = machineName || "";
+
+    var machine = null;
+    try { if (typeof ALL_MACHINES !== "undefined") machine = ALL_MACHINES.find(function (x) { return x.id === machineId; }) || null; } catch (e) {}
+    ov._catKey = _resolveCat(catHint, machine);
+    ov._cardAttach = _grabCardAttachments(machineId);
+
+    _el("noyo-enq-machine").textContent = "🏗️ " + (machineName || machineId || "Selected machine");
+    _el("noyo-enq-err").textContent = "";
+
+    // reset to form view
+    _el("noyo-enq-auth").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-form").classList.remove("noyo-enq-hidden");
+
+    ov._intent = null;
+    ov.querySelectorAll("#noyo-enq-choose button").forEach(function (x) { x.classList.remove("sel"); });
+    _el("noyo-enq-hire").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-buy").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-contact").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-member").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-attach-other").value = "";
+
+    _renderAttachBox(_attachOptionsFor(machine, ov._catKey), ov._cardAttach);
+
+    if (intentHint === "hire" || intentHint === "buy") {
+      var btn = ov.querySelector('#noyo-enq-choose button[data-intent="' + intentHint + '"]');
+      if (btn) btn.click();
+    }
+
+    try {
+      if (typeof currentUser !== "undefined" && currentUser) {
+        if (currentUser.email) _el("noyo-enq-email").value = currentUser.email;
+        if (currentUser.name) _el("noyo-enq-name").value = currentUser.name;
+      }
+    } catch (e) {}
+
+    ov.classList.add("open");
+  }
+
+  // ── Build the record from the form (after validation) ─────────────────
+  function _buildRecord() {
+    var ov = _el("noyo-enq-overlay");
+    var err = _el("noyo-enq-err");
+    var v = function (id) { var e = _el(id); return e ? (e.value || "").trim() : ""; };
+    var intent = ov._intent;
+    if (!intent) { err.textContent = "Please choose Hire or Buy."; return null; }
+    var name = v("noyo-enq-name"), email = v("noyo-enq-email");
+    if (!name) { err.textContent = "Please add your name."; return null; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Please add a valid email."; return null; }
+
+    var record = {
+      intent: intent, machineId: ov._machineId || "", machineName: ov._machineName || "",
+      machineCategory: ov._catKey || "", name: name, email: email,
+      phone: v("noyo-enq-phone"), company: v("noyo-enq-company"), message: v("noyo-enq-msg"),
+      searchId: (typeof window !== "undefined" && window._lastSearchId) || null,
+      jobRequirements: _safeJobReq(),
+      userAgent: (navigator && navigator.userAgent) || "", page: location && location.pathname,
+      status: "new", createdAtClient: new Date().toISOString(),
+    };
+    if (intent === "hire") {
+      var site = v("noyo-enq-site"), date = v("noyo-enq-date");
+      if (!site) { err.textContent = "Please add the site address."; return null; }
+      if (!date) { err.textContent = "Please tell us when you need it."; return null; }
+      var attach = [];
+      ov.querySelectorAll(".noyo-attach-cb:checked").forEach(function (cb) { attach.push(cb.value); });
+      var other = v("noyo-enq-attach-other"); if (other) attach.push(other);
+      record.siteAddress = site; record.neededDate = date; record.duration = v("noyo-enq-duration");
+      record.attachmentsNeeded = attach; record.deliveryPickup = v("noyo-enq-delivery");
+    } else {
+      var when = v("noyo-enq-buywhen");
+      if (!when) { err.textContent = "Please tell us when you'd like to buy."; return null; }
+      record.buyWhen = when; record.condition = v("noyo-enq-condition");
+      record.budget = v("noyo-enq-budget"); record.financeNeeded = v("noyo-enq-finance");
+      record.deliveryLocation = v("noyo-enq-buyloc");
+    }
+    err.textContent = "";
+    return record;
+  }
+
+  // ── Submit: validate, then gate on auth ───────────────────────────────
+  async function _submitEnquiry() {
+    var record = _buildRecord();
+    if (!record) return;
+    _localBackup(record); // pre-auth backup so the lead isn't lost if they bail
+
+    if (_isLoggedIn()) {
+      await _enrichAndWrite(record);
+    } else {
+      _pendingEnquiryRecord = record;
+      _el("noyo-enq-form").classList.add("noyo-enq-hidden");
+      _el("noyo-enq-auth").classList.remove("noyo-enq-hidden");
+      _el("noyo-auth-name").value = record.name || "";
+      _el("noyo-auth-email").value = record.email || "";
+    }
+  }
+
+  // ── Auth submit (register or sign in) then write enquiry ──────────────
+  async function _submitAuth() {
+    var ov = _el("noyo-enq-overlay");
+    var err = _el("noyo-enq-auth-err");
+    var v = function (id) { var e = _el(id); return e ? (e.value || "").trim() : ""; };
+    var btn = _el("noyo-enq-auth-submit");
+
+    if (typeof _fbAuth === "undefined" || !_fbAuth) {
+      err.textContent = "Sign-in is unavailable right now. Please try again shortly.";
+      return;
+    }
+    var mode = ov._authMode || "register";
+
+    if (mode === "register") {
+      var name = v("noyo-auth-name"), email = v("noyo-auth-email"), pass = v("noyo-auth-pass");
+      var address = v("noyo-auth-address");
+      var city = v("noyo-auth-city");
+      if (city === "Other") city = v("noyo-auth-city-other");
+      if (!name) { err.textContent = "Please enter your full name."; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = "Please enter a valid email."; return; }
+      if (pass.length < 6) { err.textContent = "Password must be at least 6 characters."; return; }
+      if (!address) { err.textContent = "Please enter your physical address."; return; }
+      if (!city) { err.textContent = "Please select your city."; return; }
+      err.textContent = ""; btn.disabled = true; btn.textContent = "Creating account…";
+      try {
+        var cred = await _fbAuth.createUserWithEmailAndPassword(email, pass);
+        var uid = cred.user.uid;
+        var userDoc = {
+          uid: uid, email: email, fullName: name, role: "customer", active: true,
+          address: address, city: city, source: "enquiry",
+          createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString(),
+        };
+        try { if (typeof _fbDb !== "undefined" && _fbDb) await _fbDb.collection("users").doc(uid).set(userDoc); } catch (e) {}
+        _onAuthSuccessReturn({ uid: uid, email: email, name: name, city: city, address: address });
+      } catch (e) {
+        btn.disabled = false; btn.textContent = "Create account & continue";
+        err.textContent = _authErr(e, "register");
+      }
+    } else {
+      var em = v("noyo-auth-si-email"), pw = v("noyo-auth-si-pass");
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { err.textContent = "Please enter a valid email."; return; }
+      if (!pw) { err.textContent = "Please enter your password."; return; }
+      err.textContent = ""; btn.disabled = true; btn.textContent = "Signing in…";
+      try {
+        var cred2 = await _fbAuth.signInWithEmailAndPassword(em, pw);
+        var uid2 = cred2.user.uid, prof = {};
+        try { if (typeof _fbDb !== "undefined" && _fbDb) { var s = await _fbDb.collection("users").doc(uid2).get(); if (s.exists) prof = s.data() || {}; } } catch (e) {}
+        _onAuthSuccessReturn({ uid: uid2, email: em, name: prof.fullName || "", city: prof.city || "", address: prof.address || "" });
+      } catch (e) {
+        btn.disabled = false; btn.textContent = "Sign in & continue";
+        err.textContent = _authErr(e, "signin");
+      }
+    }
+  }
+
+  function _authErr(e, mode) {
+    var c = (e && e.code) || "";
+    if (c === "auth/email-already-in-use") return "That email is already registered — switch to Sign in.";
+    if (c === "auth/weak-password") return "Password must be at least 6 characters.";
+    if (c === "auth/wrong-password" || c === "auth/invalid-credential") return "Incorrect email or password.";
+    if (c === "auth/user-not-found") return "No account with that email — switch to Register.";
+    if (c === "auth/invalid-email") return "Please enter a valid email.";
+    return (mode === "register" ? "Registration failed: " : "Sign-in failed: ") + ((e && e.message) || "please try again.");
+  }
+
+  // ── Enrich (logged-in path) then write ────────────────────────────────
+  async function _enrichAndWrite(record) {
+    try {
+      var ac = window._noyoAuthedCustomer || null;
+      var uid = (typeof currentUser !== "undefined" && currentUser && currentUser.uid) ||
+        (_fbAuth && _fbAuth.currentUser && _fbAuth.currentUser.uid) || (ac && ac.uid) || null;
+      record.uid = uid;
+      if (ac && ac.uid === uid) {
+        record.registeredEmail = ac.email || record.email;
+        record.customerCity = ac.city || "";
+        record.customerAddress = ac.address || "";
+      } else {
+        var prof = {};
+        if (uid && typeof _fbDb !== "undefined" && _fbDb) {
+          try { var s = await _fbDb.collection("users").doc(uid).get(); if (s.exists) prof = s.data() || {}; } catch (e) {}
+        }
+        record.registeredEmail = (typeof currentUser !== "undefined" && currentUser && currentUser.email) || prof.email || record.email;
+        record.customerCity = prof.city || (typeof currentUser !== "undefined" && currentUser && currentUser.city) || "";
+        record.customerAddress = prof.address || "";
+      }
+    } catch (e) {}
+    await _writeEnquiry(record);
+  }
+
+  // ── The actual Firestore write + finish ───────────────────────────────
+  async function _writeEnquiry(record) {
+    _localBackup(record);
+    var saved = false;
+    try {
+      if (typeof _fbDb !== "undefined" && _fbDb) {
+        var toSave = Object.assign({}, record);
+        if (typeof firebase !== "undefined" && firebase.firestore) toSave.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+        await _fbDb.collection("enquiries").add(toSave);
+        saved = true;
+      }
+    } catch (e) { console.warn("[Noyo] Enquiry Firestore write failed:", e && e.message); }
+    try { if (typeof _noyoTrack === "function") _noyoTrack({ enquiries: 1 }); } catch (e) {}
+    _pendingEnquiryRecord = null;
+    _closeEnquiry();
+    try {
+      if (typeof showToast === "function")
+        showToast((saved ? "✅ Enquiry sent" : "✅ Enquiry saved") + " — we'll be in touch shortly.", "#0052CC", 4000);
+      else alert("Thanks — your enquiry has been received. We'll be in touch shortly.");
+    } catch (e) {}
+  }
+
+  function _localBackup(record) {
+    try {
+      var stash = JSON.parse(localStorage.getItem("noyo_enquiries") || "[]");
+      stash.push(Object.assign({ _ts: Date.now() }, record));
+      localStorage.setItem("noyo_enquiries", JSON.stringify(stash));
+    } catch (e) {}
+  }
+  function _safeJobReq() {
+    try { return typeof getJobRequirements === "function" ? getJobRequirements() || {} : {}; } catch (e) { return {}; }
+  }
+
+  window.noyoEnquire = noyoEnquire;
+
+  // ── Override every add-to-cart entry point → open enquiry instead ─────
+  try { addToCartDirect = function (id, nm, machineType) { noyoEnquire(id, nm, null, machineType); }; } catch (e) {}
+  try { addToCartFromKYM = function (id, nm, catKey) { noyoEnquire(id, nm, null, catKey); }; } catch (e) {}
+  try {
+    addCurrentToCartFromModal = function () {
+      var m = (typeof currentModalMachine !== "undefined" && currentModalMachine) || {};
+      noyoEnquire(m.id, m.name, null, m.catKey || null);
+      if (typeof closeModal === "function") { try { closeModal(); } catch (e) {} }
+    };
+  } catch (e) {}
+  try { openSendQuotesModal = function () { noyoEnquire("", "", null, null); }; } catch (e) {}
+
+  console.log("[Noyo] Enquiry mode active — cart off, register-gated hire/buy capture on.");
+})();
+
+// ════════════════════════════════════════════════════════════════════════
+//  ADMIN — Enquiries section (lists Firestore `enquiries` with filters)
+// ════════════════════════════════════════════════════════════════════════
+var _adminEnquiriesCache = [];
+var _adminEnqFilter = { intent: "all", city: "", q: "" };
+
+window.renderAdminEnquiries = async function () {
+  var host = document.getElementById("admin-enq-table");
+  if (!host) return;
+  host.innerHTML = '<div style="color:#64748B;font-size:.85rem;padding:1rem">Loading enquiries…</div>';
+  try {
+    if (typeof _fbDb === "undefined" || !_fbDb) { host.innerHTML = '<div style="color:#DC2626;padding:1rem">Database unavailable.</div>'; return; }
+    var snap;
+    try {
+      snap = await _fbDb.collection("enquiries").orderBy("createdAt", "desc").limit(500).get();
+    } catch (e) {
+      snap = await _fbDb.collection("enquiries").limit(500).get(); // fallback if no index
+    }
+    _adminEnquiriesCache = [];
+    snap.forEach(function (doc) { _adminEnquiriesCache.push(Object.assign({ _id: doc.id }, doc.data())); });
+    _adminEnqPopulateCityFilter();
+    _adminEnqRenderTable();
+  } catch (e) {
+    host.innerHTML = '<div style="color:#DC2626;padding:1rem">Could not load enquiries: ' + ((e && e.message) || "error") + "</div>";
+  }
+};
+
+function _adminEnqPopulateCityFilter() {
+  var sel = document.getElementById("admin-enq-city");
+  if (!sel) return;
+  var cities = {};
+  _adminEnquiriesCache.forEach(function (e) { var c = e.customerCity || ""; if (c) cities[c] = 1; });
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">All cities</option>' +
+    Object.keys(cities).sort().map(function (c) { return '<option>' + c + "</option>"; }).join("");
+  sel.value = cur;
+}
+
+window.adminEnqSetIntent = function (intent, btn) {
+  _adminEnqFilter.intent = intent;
+  document.querySelectorAll(".admin-enq-chip").forEach(function (b) { b.classList.remove("active"); });
+  if (btn) btn.classList.add("active");
+  _adminEnqRenderTable();
+};
+window.adminEnqFilterChange = function () {
+  var c = document.getElementById("admin-enq-city"), q = document.getElementById("admin-enq-search");
+  _adminEnqFilter.city = c ? c.value : "";
+  _adminEnqFilter.q = q ? (q.value || "").toLowerCase().trim() : "";
+  _adminEnqRenderTable();
+};
+
+function _adminEnqFmtDate(e) {
+  try {
+    var d = e.createdAt && e.createdAt.toDate ? e.createdAt.toDate() : (e.createdAtClient ? new Date(e.createdAtClient) : null);
+    if (!d) return "—";
+    return d.toLocaleDateString("en-AU", { day: "2-digit", month: "short" }) + " " +
+      d.toLocaleTimeString("en-AU", { hour: "2-digit", minute: "2-digit" });
+  } catch (x) { return "—"; }
+}
+
+function _adminEnqRenderTable() {
+  var host = document.getElementById("admin-enq-table");
+  if (!host) return;
+  var f = _adminEnqFilter;
+  var rows = _adminEnquiriesCache.filter(function (e) {
+    if (f.intent !== "all" && (e.intent || "") !== f.intent) return false;
+    if (f.city && (e.customerCity || "") !== f.city) return false;
+    if (f.q) {
+      var hay = [e.name, e.company, e.email, e.machineName, e.customerCity, e.siteAddress].join(" ").toLowerCase();
+      if (hay.indexOf(f.q) < 0) return false;
+    }
+    return true;
+  });
+
+  var cnt = document.getElementById("admin-enq-count");
+  if (cnt) cnt.textContent = rows.length + " enquir" + (rows.length === 1 ? "y" : "ies");
+
+  if (!rows.length) { host.innerHTML = '<div style="color:#64748B;padding:1.2rem;text-align:center">No enquiries match these filters.</div>'; return; }
+
+  var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+  var body = rows.map(function (e) {
+    var isHire = e.intent === "hire";
+    var badge = isHire
+      ? '<span style="background:#EFF6FF;color:#1D4ED8;border-radius:6px;padding:.1rem .45rem;font-size:.72rem;font-weight:800">🔧 Hire</span>'
+      : '<span style="background:#FEF3C7;color:#92400E;border-radius:6px;padding:.1rem .45rem;font-size:.72rem;font-weight:800">🏷️ Buy</span>';
+    var details = isHire
+      ? [e.siteAddress, e.neededDate, e.duration, (e.attachmentsNeeded || []).join(", "), e.deliveryPickup].filter(Boolean).join(" · ")
+      : [e.condition, e.buyWhen, e.budget, e.financeNeeded ? "Finance: " + e.financeNeeded : "", e.deliveryLocation].filter(Boolean).join(" · ");
+    var contact = (e.email || "") + (e.phone ? " · " + e.phone : "");
+    return "<tr>" +
+      '<td style="white-space:nowrap;color:#64748B;font-size:.78rem">' + _adminEnqFmtDate(e) + "</td>" +
+      "<td>" + badge + "</td>" +
+      '<td style="font-weight:700">' + esc(e.machineName || "—") + (e.machineCategory ? '<div style="font-size:.72rem;color:#94A3B8">' + esc(e.machineCategory) + "</div>" : "") + "</td>" +
+      "<td>" + esc(e.name || "—") + (e.company ? '<div style="font-size:.72rem;color:#94A3B8">' + esc(e.company) + "</div>" : "") + "</td>" +
+      '<td style="font-size:.8rem">' + esc(contact) + "</td>" +
+      '<td style="font-weight:700;color:#0052CC">' + esc(e.customerCity || "—") + "</td>" +
+      '<td style="font-size:.79rem;color:#475569;max-width:280px">' + esc(details || "—") + (e.message ? '<div style="font-size:.74rem;color:#94A3B8;margin-top:.15rem">💬 ' + esc(e.message) + "</div>" : "") + "</td>" +
+      "</tr>";
+  }).join("");
+
+  host.innerHTML =
+    '<div class="admin-table-wrap"><table class="admin-table">' +
+    "<thead><tr><th>Date</th><th>Type</th><th>Machine</th><th>Customer</th><th>Contact</th><th>City</th><th>Details</th></tr></thead>" +
+    "<tbody>" + body + "</tbody></table></div>";
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  CUSTOMER — My Searches (device-level search history)
+// ════════════════════════════════════════════════════════════════════════
+window.renderMySearches = function () {
+  var host = document.getElementById("my-searches-list");
+  if (!host) return;
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem("noyo_my_searches") || "[]"); } catch (e) { list = []; }
+
+  if (!list.length) {
+    host.innerHTML =
+      '<div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:2rem 1.2rem;text-align:center;color:#64748B">' +
+      '<div style="font-size:2rem;margin-bottom:.5rem">🔍</div>' +
+      '<div style="font-weight:800;color:#0F172A;margin-bottom:.3rem">No searches yet</div>' +
+      '<div style="font-size:.88rem;margin-bottom:1rem">Find a machine and your searches will show up here.</div>' +
+      '<button onclick="switchView(\'finder\', document.querySelector(\'.nav-tab[data-view=finder]\'))" style="background:linear-gradient(135deg,#16A34A,#22C55E);border:none;color:#fff;border-radius:10px;padding:.6rem 1.2rem;font-family:\'Nunito\',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer">Start a search →</button>' +
+      "</div>";
+    return;
+  }
+
+  var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+  var fmtDate = function (ts) {
+    try {
+      var d = new Date(ts);
+      return d.toLocaleDateString("en-AU", { day: "2-digit", month: "short", year: "numeric" }) + " · " +
+        d.toLocaleTimeString("en-AU", { hour: "2-digit", minute: "2-digit" });
+    } catch (e) { return ""; }
+  };
+  var clean = function (x) { return x && x !== "—" ? x : ""; };
+
+  var rows = list.map(function (s) {
+    var specs = [
+      clean(s.machineType), clean(s.load) ? "⚖️ " + s.load : "", clean(s.height) ? "📏 " + s.height : "",
+      clean(s.terrain) ? "⛰️ " + s.terrain : "", clean(s.power) ? "🔌 " + s.power : "",
+      clean(s.city) ? "📍 " + s.city : "",
+    ].filter(Boolean).map(esc).join(" · ");
+    var count = (s.resultCount != null ? s.resultCount : 0);
+    return '<div style="background:#fff;border:1.5px solid #E2E8F0;border-radius:14px;padding:.9rem 1.1rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">' +
+      '<div style="flex:1;min-width:200px">' +
+      '<div style="font-weight:800;color:#0F172A;font-size:.96rem">' + esc(clean(s.machineName) || clean(s.machineType) || "Machine search") + "</div>" +
+      (specs ? '<div style="font-size:.8rem;color:#64748B;margin-top:.3rem;line-height:1.5">' + specs + "</div>" : "") +
+      '<div style="font-size:.74rem;color:#94A3B8;margin-top:.35rem">' + fmtDate(s.ts) + " · " + count + " result" + (count === 1 ? "" : "s") + "</div>" +
+      "</div>" +
+      '<button onclick="switchView(\'finder\', document.querySelector(\'.nav-tab[data-view=finder]\'))" style="background:rgba(0,82,204,.08);border:1.5px solid rgba(0,82,204,.2);color:#0052CC;border-radius:9px;padding:.5rem .85rem;font-family:\'Nunito\',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;white-space:nowrap">New search</button>' +
+      "</div>";
+  }).join("");
+
+  host.innerHTML =
+    '<div style="display:flex;justify-content:flex-end;margin-bottom:.2rem"><button onclick="if(confirm(\'Clear your search history on this device?\')){localStorage.removeItem(\'noyo_my_searches\');renderMySearches();}" style="background:none;border:none;color:#94A3B8;font-size:.78rem;font-weight:700;cursor:pointer;font-family:\'Nunito\',sans-serif;text-decoration:underline">Clear history</button></div>' +
+    rows;
+};
