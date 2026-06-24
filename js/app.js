@@ -150374,6 +150374,9 @@ function _renderCards(matches, machineType, answers) {
       })()}
       <div class="rec-tags">${(m.tags || []).map((t) => `<span class="rtag">${t}</span>`).join("")}</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .2rem">
+        <label style="flex-basis:100%;display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.8rem;font-weight:800;color:#475569;padding:.1rem 0 .4rem">
+          <input type="checkbox" class="noyo-compare-cb" data-mid="${m.id}" onclick="noyoToggleCompare('${m.id}', this)" style="width:17px;height:17px;accent-color:#0052CC;cursor:pointer"> ⚖️ Compare this machine
+        </label>
         ${
           currentUser && (currentUser.role === "rental" || currentUser.role === "admin_rental")
             ? `<div style="flex-basis:100%;background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
@@ -188222,3 +188225,173 @@ window.renderMySearches = function () {
     '<div style="display:flex;justify-content:flex-end;margin-bottom:.2rem"><button onclick="if(confirm(\'Clear your search history on this device?\')){localStorage.removeItem(\'noyo_my_searches\');renderMySearches();}" style="background:none;border:none;color:#94A3B8;font-size:.78rem;font-weight:700;cursor:pointer;font-family:\'Nunito\',sans-serif;text-decoration:underline">Clear history</button></div>' +
     rows;
 };
+
+// ════════════════════════════════════════════════════════════════════════
+//  NOYO COMPARE  —  tick up to 2 machines, see a side-by-side comparison
+//  Uses only real brochure fields stored on each machine. Any spec that
+//  neither machine has is hidden (no fabricated values, no empty rows).
+// ════════════════════════════════════════════════════════════════════════
+(function () {
+  "use strict";
+  var SEL = [];           // selected machine ids (max 2)
+  var MAX = 2;
+
+  function _m(id) {
+    try { return (typeof ALL_MACHINES !== "undefined") && ALL_MACHINES.find(function (x) { return x.id === id; }); }
+    catch (e) { return null; }
+  }
+  function _toast(msg, color) {
+    try { if (typeof showToast === "function") { showToast(msg, color || "#0052CC", 2600); return; } } catch (e) {}
+  }
+
+  window.noyoToggleCompare = function (id, cb) {
+    if (cb.checked) {
+      if (SEL.length >= MAX) {
+        cb.checked = false;
+        _toast("You can compare 2 at a time — untick one first.", "#F59E0B");
+        return;
+      }
+      if (SEL.indexOf(id) < 0) SEL.push(id);
+    } else {
+      SEL = SEL.filter(function (x) { return x !== id; });
+    }
+    _renderBar();
+  };
+
+  function _clearAll() {
+    SEL = [];
+    try { document.querySelectorAll(".noyo-compare-cb").forEach(function (c) { c.checked = false; }); } catch (e) {}
+    _renderBar();
+  }
+  window.noyoClearCompare = _clearAll;
+
+  function _ensureBar() {
+    if (document.getElementById("noyo-compare-bar")) return;
+    var style = document.createElement("style");
+    style.textContent =
+      "#noyo-compare-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:9998;" +
+      "background:#0F172A;color:#fff;border-radius:14px;box-shadow:0 12px 36px rgba(15,23,42,.35);" +
+      "display:none;align-items:center;gap:.9rem;padding:.7rem 1rem;font-family:'Nunito',sans-serif;max-width:94vw}" +
+      "#noyo-compare-bar.show{display:flex}" +
+      "#noyo-compare-bar .ncb-txt{font-size:.86rem;font-weight:800}" +
+      "#noyo-compare-bar button{font-family:inherit;font-weight:900;border-radius:10px;cursor:pointer;border:none;font-size:.85rem;padding:.55rem .9rem}" +
+      "#noyo-compare-go{background:linear-gradient(135deg,#16A34A,#22C55E);color:#fff}" +
+      "#noyo-compare-go:disabled{opacity:.45;cursor:default}" +
+      "#noyo-compare-clear{background:rgba(255,255,255,.14);color:#fff}";
+    document.head.appendChild(style);
+    var bar = document.createElement("div");
+    bar.id = "noyo-compare-bar";
+    bar.innerHTML =
+      '<span class="ncb-txt" id="noyo-compare-txt"></span>' +
+      '<button id="noyo-compare-go" onclick="noyoOpenCompare()">Compare →</button>' +
+      '<button id="noyo-compare-clear" onclick="noyoClearCompare()">Clear</button>';
+    document.body.appendChild(bar);
+  }
+
+  function _renderBar() {
+    _ensureBar();
+    var bar = document.getElementById("noyo-compare-bar");
+    var txt = document.getElementById("noyo-compare-txt");
+    var go = document.getElementById("noyo-compare-go");
+    if (!SEL.length) { bar.classList.remove("show"); return; }
+    bar.classList.add("show");
+    if (SEL.length === 1) { txt.textContent = "1 selected — pick 1 more to compare"; go.disabled = true; }
+    else { txt.textContent = "2 machines selected"; go.disabled = false; }
+  }
+
+  // ── Spec definitions (only rendered if ≥1 machine has the value) ──────
+  // dir: "hi" = higher is better, "lo" = lower is better, null = no winner
+  var SPECS = [
+    { k: "brand", label: "Brand", dir: null, fmt: function (v) { return v; } },
+    { k: "power", label: "Power", dir: null, fmt: function (v, m) { return v || m.powerSource; }, has: function (m) { return m.power || m.powerSource; } },
+    { k: "capacity", label: "Lift capacity", unit: "T", dir: "hi" },
+    { k: "swl", label: "Platform / basket SWL", unit: "kg", dir: "hi" },
+    { k: "liftHeight", label: "Lift height", unit: "m", dir: "hi" },
+    { k: "workingHeight", label: "Working height", unit: "m", dir: "hi" },
+    { k: "platformHeight", label: "Platform height", unit: "m", dir: "hi" },
+    { k: "maxReach", label: "Horizontal reach", unit: "m", dir: "hi" },
+    { k: "gradeability", label: "Gradeability", unit: "%", dir: "hi" },
+    { k: "machineWeight", label: "Machine weight", unit: "kg", dir: "lo" },
+    { k: "machineWidth", label: "Width", dir: "lo", fmt: function (v) { return (v / 1000).toFixed(2) + " m"; } },
+    { k: "machineLength", label: "Length", dir: "lo", fmt: function (v) { return (v / 1000).toFixed(2) + " m"; } },
+    { k: "stowedHeight", label: "Stowed height", unit: "m", dir: "lo" },
+    { k: "platformLength", label: "Platform length", unit: "m", dir: "hi" },
+    { k: "forkPocket", label: "Fork pocket", dir: null },
+    { k: "tiltSensorFB", label: "Tilt sensor (front/back)", unit: "°", dir: null },
+    { k: "tiltSensorSS", label: "Tilt sensor (side/side)", unit: "°", dir: null },
+    { k: "attachments", label: "Attachments available", dir: null, has: function (m) { return m.attachments && m.attachments.length; }, fmt: function (v) { return (v || []).join(", "); } },
+    { k: "bestFor", label: "Best for", dir: null },
+  ];
+
+  function _val(m, s) {
+    if (s.has) { if (!s.has(m)) return null; }
+    var raw = m[s.k];
+    if (s.k === "power") raw = m.power || m.powerSource;
+    if (s.k === "attachments") raw = m.attachments;
+    if (raw == null || raw === "" || (Array.isArray(raw) && !raw.length)) return null;
+    return raw;
+  }
+  function _disp(m, s) {
+    var raw = _val(m, s);
+    if (raw == null) return null;
+    var out = s.fmt ? s.fmt(raw, m) : raw;
+    if (s.unit && typeof raw === "number") out = raw + " " + s.unit;
+    return out;
+  }
+  function _num(m, s) { var raw = _val(m, s); return typeof raw === "number" ? raw : null; }
+
+  function _esc(v) { return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+  window.noyoOpenCompare = function () {
+    if (SEL.length !== 2) return;
+    var a = _m(SEL[0]), b = _m(SEL[1]);
+    if (!a || !b) { _toast("Couldn't load those machines.", "#DC2626"); return; }
+
+    var rows = SPECS.map(function (s) {
+      var da = _disp(a, s), db = _disp(b, s);
+      if (da == null && db == null) return "";       // hide empty rows
+      var na = _num(a, s), nb = _num(b, s), winA = false, winB = false;
+      if (s.dir && na != null && nb != null && na !== nb) {
+        if (s.dir === "hi") { winA = na > nb; winB = nb > na; }
+        else { winA = na < nb; winB = nb < na; }
+      }
+      var cell = function (txt, win) {
+        return '<td style="padding:.55rem .7rem;font-size:.82rem;border-top:1px solid #EEF2F7;' +
+          (win ? "background:#F0FDF4;font-weight:800;color:#15803D" : "color:#0F172A") + '">' +
+          (txt == null ? '<span style="color:#CBD5E1">—</span>' : _esc(txt)) + (win ? " ✓" : "") + "</td>";
+      };
+      return "<tr>" +
+        '<td style="padding:.55rem .7rem;font-size:.76rem;font-weight:800;color:#64748B;border-top:1px solid #EEF2F7;white-space:nowrap">' + s.label + "</td>" +
+        cell(da, winA) + cell(db, winB) + "</tr>";
+    }).join("");
+
+    var head = function (m) {
+      return '<th style="padding:.7rem;text-align:left;background:' + (m.brandColor || "#0052CC") + ';color:#fff;font-size:.9rem;font-weight:900;vertical-align:top;min-width:130px">' +
+        (m.emoji ? m.emoji + " " : "") + _esc(m.shortName || m.name) +
+        '<div style="font-size:.72rem;font-weight:700;opacity:.85;margin-top:.15rem">' + _esc(m.brand || "") + "</div></th>";
+    };
+
+    var ov = document.getElementById("noyo-compare-modal");
+    if (!ov) {
+      ov = document.createElement("div");
+      ov.id = "noyo-compare-modal";
+      ov.style.cssText = "position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:1rem;font-family:'Nunito',sans-serif";
+      ov.addEventListener("click", function (e) { if (e.target === ov) ov.remove(); });
+      document.body.appendChild(ov);
+    }
+    ov.innerHTML =
+      '<div style="background:#fff;border-radius:18px;max-width:620px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(15,23,42,.3);position:relative">' +
+      '<button onclick="document.getElementById(\'noyo-compare-modal\').remove()" style="position:absolute;top:.6rem;right:.8rem;background:none;border:none;font-size:1.5rem;color:#94A3B8;cursor:pointer;z-index:2">&times;</button>' +
+      '<div style="padding:1.2rem 1.3rem .6rem"><h3 style="margin:0;font-size:1.15rem;font-weight:900;color:#0F172A">⚖️ Compare machines</h3>' +
+      '<div style="font-size:.8rem;color:#64748B;margin-top:.2rem">Figures are from each manufacturer\'s brochure. ✓ marks the stronger spec; "—" means not published.</div></div>' +
+      '<div style="padding:0 1.3rem 1.3rem"><table style="width:100%;border-collapse:collapse;table-layout:fixed">' +
+      "<thead><tr><th style='width:34%'></th>" + head(a) + head(b) + "</tr></thead>" +
+      "<tbody>" + rows + "</tbody></table>" +
+      '<div style="display:flex;gap:.6rem;margin-top:1rem">' +
+      '<button onclick="document.getElementById(\'noyo-compare-modal\').remove();noyoEnquire(\'' + a.id + '\',\'' + _esc(a.name).replace(/'/g, "") + '\',null)" style="flex:1;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.7rem;font-weight:800;font-size:.85rem;cursor:pointer;font-family:inherit">Enquire: ' + _esc(a.shortName || a.name) + "</button>" +
+      '<button onclick="document.getElementById(\'noyo-compare-modal\').remove();noyoEnquire(\'' + b.id + '\',\'' + _esc(b.name).replace(/'/g, "") + '\',null)" style="flex:1;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.7rem;font-weight:800;font-size:.85rem;cursor:pointer;font-family:inherit">Enquire: ' + _esc(b.shortName || b.name) + "</button>" +
+      "</div></div></div>";
+  };
+
+  console.log("[Noyo] Compare ready — tick 2 machines to compare.");
+})();
