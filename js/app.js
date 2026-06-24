@@ -187657,6 +187657,15 @@ window.addEventListener('load', () => {
       "</div>" +
       "<label class='lbl'>Delivery location (suburb / state)</label><input id=\"noyo-enq-buyloc\" class=\"fld\" type=\"text\" placeholder=\"e.g. Parramatta NSW\">" +
       "</div>" +
+      // ── Member gate (appears after job details for non-members) ──
+      '<div id="noyo-enq-member" class="noyo-enq-hidden">' +
+      '<div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:12px;padding:.85rem .9rem;margin-top:.4rem">' +
+      '<div style="font-weight:900;color:#1D4ED8;font-size:.95rem;margin-bottom:.4rem">🔒 Are you a Noyo member?</div>' +
+      '<div style="font-size:.82rem;color:#475569;margin-bottom:.8rem;line-height:1.45">Members send enquiries in one click. Log in or register to continue.</div>' +
+      '<div style="display:flex;gap:.5rem">' +
+      '<button type="button" id="noyo-member-login" style="flex:1;border:1.5px solid #0052CC;background:#fff;color:#0052CC;border-radius:11px;padding:.7rem;font-weight:900;font-size:.9rem;cursor:pointer;font-family:inherit">Log in</button>' +
+      '<button type="button" id="noyo-member-register" style="flex:1;border:none;background:linear-gradient(135deg,#0052CC,#1a6fd4);color:#fff;border-radius:11px;padding:.7rem;font-weight:900;font-size:.9rem;cursor:pointer;font-family:inherit">Register</button>' +
+      "</div></div></div>" +
       '<div id="noyo-enq-contact" class="noyo-enq-hidden">' +
       '<div class="noyo-enq-row">' +
       "<div><label class='lbl'>Your name <span style='color:#EF4444'>*</span></label><input id=\"noyo-enq-name\" class=\"fld\" type=\"text\" autocomplete=\"name\" placeholder=\"Jane Smith\"></div>" +
@@ -187705,9 +187714,28 @@ window.addEventListener('load', () => {
       ov.querySelectorAll("#noyo-enq-choose button").forEach(function (x) { x.classList.toggle("sel", x === b); });
       _el("noyo-enq-hire").classList.toggle("noyo-enq-hidden", ov._intent !== "hire");
       _el("noyo-enq-buy").classList.toggle("noyo-enq-hidden", ov._intent !== "buy");
-      _el("noyo-enq-contact").classList.remove("noyo-enq-hidden");
+      if (_isLoggedIn()) {
+        _el("noyo-enq-contact").classList.remove("noyo-enq-hidden");
+        _el("noyo-enq-member").classList.add("noyo-enq-hidden");
+      } else {
+        // Members-only: contact + Send stay hidden until they log in / register.
+        // The member gate appears once the job details are filled.
+        _el("noyo-enq-contact").classList.add("noyo-enq-hidden");
+      }
       _el("noyo-enq-err").textContent = "";
     });
+
+    // Reveal the member gate once job details are filled (non-members only)
+    ["noyo-enq-date", "noyo-enq-delivery", "noyo-enq-buywhen", "noyo-enq-buyloc"].forEach(function (id) {
+      var f = _el(id);
+      if (f) {
+        f.addEventListener("change", _maybeShowMemberGate);
+        f.addEventListener("input", _maybeShowMemberGate);
+      }
+    });
+    // Member gate buttons → auth
+    _el("noyo-member-login").addEventListener("click", function () { _openAuth("signin"); });
+    _el("noyo-member-register").addEventListener("click", function () { _openAuth("register"); });
 
     // Auth mode toggle
     ov.querySelector("#noyo-auth-toggle").addEventListener("click", function (e) {
@@ -187717,7 +187745,7 @@ window.addEventListener('load', () => {
       ov.querySelectorAll("#noyo-auth-toggle button").forEach(function (x) { x.classList.toggle("sel", x === b); });
       _el("noyo-auth-register").classList.toggle("noyo-enq-hidden", mode !== "register");
       _el("noyo-auth-signin").classList.toggle("noyo-enq-hidden", mode !== "signin");
-      _el("noyo-enq-auth-submit").textContent = mode === "register" ? "Create account & send enquiry" : "Sign in & send enquiry";
+      _el("noyo-enq-auth-submit").textContent = mode === "register" ? "Create account & continue" : "Sign in & continue";
       ov._authMode = mode;
       _el("noyo-enq-auth-err").textContent = "";
     });
@@ -187740,6 +187768,53 @@ window.addEventListener('load', () => {
   }
 
   function _closeEnquiry() { var ov = _el("noyo-enq-overlay"); if (ov) ov.classList.remove("open"); }
+
+  // Show the "Are you a member?" gate once job details are filled (non-members).
+  function _maybeShowMemberGate() {
+    if (_isLoggedIn()) return;
+    var ov = _el("noyo-enq-overlay");
+    if (!ov || !ov._intent) return;
+    var m = _el("noyo-enq-member");
+    if (m) m.classList.remove("noyo-enq-hidden");
+  }
+
+  // Open the auth panel (from the member gate) in the chosen mode.
+  function _openAuth(mode) {
+    var ov = _el("noyo-enq-overlay");
+    ov._authMode = mode;
+    _el("noyo-enq-form").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-auth").classList.remove("noyo-enq-hidden");
+    _el("noyo-auth-register").classList.toggle("noyo-enq-hidden", mode !== "register");
+    _el("noyo-auth-signin").classList.toggle("noyo-enq-hidden", mode !== "signin");
+    ov.querySelectorAll("#noyo-auth-toggle button").forEach(function (b) {
+      b.classList.toggle("sel", b.getAttribute("data-mode") === mode);
+    });
+    _el("noyo-enq-auth-submit").textContent = mode === "register" ? "Create account & continue" : "Sign in & continue";
+    _el("noyo-enq-auth-err").textContent = "";
+    // Carry over any name/email already typed
+    var nm = _el("noyo-enq-name").value, em = _el("noyo-enq-email").value;
+    if (mode === "register") {
+      if (nm && !_el("noyo-auth-name").value) _el("noyo-auth-name").value = nm;
+      if (em && !_el("noyo-auth-email").value) _el("noyo-auth-email").value = em;
+    } else if (em && !_el("noyo-auth-si-email").value) {
+      _el("noyo-auth-si-email").value = em;
+    }
+  }
+
+  // After successful auth (login/register), return to the form so the member
+  // can complete and send — do NOT write the enquiry yet.
+  function _onAuthSuccessReturn(info) {
+    window._noyoAuthedCustomer = info || {};
+    _el("noyo-enq-auth").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-form").classList.remove("noyo-enq-hidden");
+    _el("noyo-enq-member").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-contact").classList.remove("noyo-enq-hidden");
+    if (info && info.name && !_el("noyo-enq-name").value) _el("noyo-enq-name").value = info.name;
+    if (info && info.email) _el("noyo-enq-email").value = info.email;
+    var btn = _el("noyo-enq-auth-submit");
+    if (btn) { btn.disabled = false; }
+    try { if (typeof showToast === "function") showToast("✓ Signed in — complete and send your enquiry", "#16A34A", 3500); } catch (e) {}
+  }
 
   function _grabCardAttachments(machineId) {
     var out = [];
@@ -187774,6 +187849,7 @@ window.addEventListener('load', () => {
     _el("noyo-enq-hire").classList.add("noyo-enq-hidden");
     _el("noyo-enq-buy").classList.add("noyo-enq-hidden");
     _el("noyo-enq-contact").classList.add("noyo-enq-hidden");
+    _el("noyo-enq-member").classList.add("noyo-enq-hidden");
     _el("noyo-enq-attach-other").value = "";
 
     _renderAttachBox(_attachOptionsFor(machine, ov._catKey), ov._cardAttach);
@@ -187883,12 +187959,9 @@ window.addEventListener('load', () => {
           createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString(),
         };
         try { if (typeof _fbDb !== "undefined" && _fbDb) await _fbDb.collection("users").doc(uid).set(userDoc); } catch (e) {}
-        var rec = _pendingEnquiryRecord || {};
-        rec.uid = uid; rec.registeredEmail = email; rec.customerCity = city; rec.customerAddress = address;
-        if (!rec.name) rec.name = name;
-        await _writeEnquiry(rec);
+        _onAuthSuccessReturn({ uid: uid, email: email, name: name, city: city, address: address });
       } catch (e) {
-        btn.disabled = false; btn.textContent = "Create account & send enquiry";
+        btn.disabled = false; btn.textContent = "Create account & continue";
         err.textContent = _authErr(e, "register");
       }
     } else {
@@ -187900,13 +187973,9 @@ window.addEventListener('load', () => {
         var cred2 = await _fbAuth.signInWithEmailAndPassword(em, pw);
         var uid2 = cred2.user.uid, prof = {};
         try { if (typeof _fbDb !== "undefined" && _fbDb) { var s = await _fbDb.collection("users").doc(uid2).get(); if (s.exists) prof = s.data() || {}; } } catch (e) {}
-        var rec2 = _pendingEnquiryRecord || {};
-        rec2.uid = uid2; rec2.registeredEmail = em;
-        rec2.customerCity = prof.city || ""; rec2.customerAddress = prof.address || "";
-        if (!rec2.name && prof.fullName) rec2.name = prof.fullName;
-        await _writeEnquiry(rec2);
+        _onAuthSuccessReturn({ uid: uid2, email: em, name: prof.fullName || "", city: prof.city || "", address: prof.address || "" });
       } catch (e) {
-        btn.disabled = false; btn.textContent = "Sign in & send enquiry";
+        btn.disabled = false; btn.textContent = "Sign in & continue";
         err.textContent = _authErr(e, "signin");
       }
     }
@@ -187925,16 +187994,23 @@ window.addEventListener('load', () => {
   // ── Enrich (logged-in path) then write ────────────────────────────────
   async function _enrichAndWrite(record) {
     try {
+      var ac = window._noyoAuthedCustomer || null;
       var uid = (typeof currentUser !== "undefined" && currentUser && currentUser.uid) ||
-        (_fbAuth && _fbAuth.currentUser && _fbAuth.currentUser.uid) || null;
+        (_fbAuth && _fbAuth.currentUser && _fbAuth.currentUser.uid) || (ac && ac.uid) || null;
       record.uid = uid;
-      var prof = {};
-      if (uid && typeof _fbDb !== "undefined" && _fbDb) {
-        try { var s = await _fbDb.collection("users").doc(uid).get(); if (s.exists) prof = s.data() || {}; } catch (e) {}
+      if (ac && ac.uid === uid) {
+        record.registeredEmail = ac.email || record.email;
+        record.customerCity = ac.city || "";
+        record.customerAddress = ac.address || "";
+      } else {
+        var prof = {};
+        if (uid && typeof _fbDb !== "undefined" && _fbDb) {
+          try { var s = await _fbDb.collection("users").doc(uid).get(); if (s.exists) prof = s.data() || {}; } catch (e) {}
+        }
+        record.registeredEmail = (typeof currentUser !== "undefined" && currentUser && currentUser.email) || prof.email || record.email;
+        record.customerCity = prof.city || (typeof currentUser !== "undefined" && currentUser && currentUser.city) || "";
+        record.customerAddress = prof.address || "";
       }
-      record.registeredEmail = (typeof currentUser !== "undefined" && currentUser && currentUser.email) || prof.email || record.email;
-      record.customerCity = prof.city || (typeof currentUser !== "undefined" && currentUser && currentUser.city) || "";
-      record.customerAddress = prof.address || "";
     } catch (e) {}
     await _writeEnquiry(record);
   }
