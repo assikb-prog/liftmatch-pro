@@ -149679,6 +149679,29 @@ function _renderCards(matches, machineType, answers) {
         return `<div class="lift-chart-note" style="${_tlBg}"><strong>📐 Machine Dimensions</strong> Weight: <strong>${(m.machineWeight / 1000).toFixed(1)}T</strong>${_tlWtSfx} &nbsp;|&nbsp; W: <strong>${(m.machineWidth / 1000).toFixed(2)}m</strong> &nbsp;|&nbsp; L: <strong>${(m.machineLength / 1000).toFixed(2)}m</strong> &nbsp;|&nbsp; H: <strong>${(m.machineHeight / 1000).toFixed(2)}m</strong>${m.maxSpeed ? ` &nbsp;|&nbsp; Speed: <strong>${m.maxSpeed}km/h</strong>` : ""}</div>`;
       })()}
       ${(() => {
+        // ── 🚚 Transport Dimensions (universal — every machine type) ──
+        if (!m.machineWeight && !m.machineWidth && !m.machineLength && !m.machineHeight) return "";
+        const _toM = (v) => (v == null || v === "" ? null : (Number(v) > 50 ? Number(v) / 1000 : Number(v)));
+        const _h = _toM(m.machineHeight), _w = _toM(m.machineWidth), _l = _toM(m.machineLength);
+        const _wt = m.machineWeight ? (m.machineWeight / 1000).toFixed(1) + "T" : null;
+        const _cell = (lbl, val) =>
+          val == null ? "" : `<div style="flex:1;min-width:64px;text-align:center;padding:.3rem .35rem"><div style="font-size:.58rem;font-weight:800;color:#9A3412;text-transform:uppercase;letter-spacing:.4px">${lbl}</div><div style="font-size:.95rem;font-weight:900;color:#7C2D12">${val}</div></div>`;
+        const _overW = _w && _w > 2.5;
+        const _hint = _overW
+          ? "⚠️ Over 2.5m wide — an over-dimension permit may be needed for road transport."
+          : "✅ Within the 2.5m standard road width — transports on a normal truck or float.";
+        return `<div style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:1.5px solid #FED7AA;border-radius:12px;padding:.55rem .65rem;margin:.5rem 0">
+          <div style="font-size:.7rem;font-weight:900;color:#9A3412;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.35rem">🚚 Transport Dimensions</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.25rem;background:#fff;border-radius:9px;padding:.2rem">
+            ${_cell("Stowed Height", _h ? _h.toFixed(2) + "m" : null)}
+            ${_cell("Width", _w ? _w.toFixed(2) + "m" : null)}
+            ${_cell("Length", _l ? _l.toFixed(2) + "m" : null)}
+            ${_cell("Weight", _wt)}
+          </div>
+          <div style="font-size:.67rem;color:#9A3412;margin-top:.4rem;line-height:1.4">${_hint}</div>
+        </div>`;
+      })()}
+      ${(() => {
         if (machineType !== "telehandler" || !m.isRotating) return "";
         return ""; // capacity breakdown now shown inline with working point
       })()}
@@ -188345,29 +188368,27 @@ window.renderMySearches = function () {
     var a = _m(SEL[0]), b = _m(SEL[1]);
     if (!a || !b) { _toast("Couldn't load those machines.", "#DC2626"); return; }
 
-    var rows = SPECS.map(function (s) {
-      var da = _disp(a, s), db = _disp(b, s);
-      if (da == null && db == null) return "";       // hide empty rows
-      var na = _num(a, s), nb = _num(b, s), winA = false, winB = false;
-      if (s.dir && na != null && nb != null && na !== nb) {
-        if (s.dir === "hi") { winA = na > nb; winB = nb > na; }
-        else { winA = na < nb; winB = nb < na; }
-      }
-      var cell = function (txt, win) {
-        return '<td style="padding:.55rem .7rem;font-size:.82rem;border-top:1px solid #EEF2F7;' +
-          (win ? "background:#F0FDF4;font-weight:800;color:#15803D" : "color:#0F172A") + '">' +
-          (txt == null ? '<span style="color:#CBD5E1">—</span>' : _esc(txt)) + (win ? " ✓" : "") + "</td>";
-      };
-      return "<tr>" +
-        '<td style="padding:.55rem .7rem;font-size:.76rem;font-weight:800;color:#64748B;border-top:1px solid #EEF2F7;white-space:nowrap">' + s.label + "</td>" +
-        cell(da, winA) + cell(db, winB) + "</tr>";
-    }).join("");
+    // Specs shown = any where at least one machine has a value (same order both cards)
+    var shown = SPECS.filter(function (s) { return _disp(a, s) != null || _disp(b, s) != null; });
 
-    var head = function (m) {
-      return '<th style="padding:.7rem;text-align:left;background:' + (m.brandColor || "#0052CC") + ';color:#fff;font-size:.9rem;font-weight:900;vertical-align:top;min-width:130px">' +
-        (m.emoji ? m.emoji + " " : "") + _esc(m.shortName || m.name) +
-        '<div style="font-size:.72rem;font-weight:700;opacity:.85;margin-top:.15rem">' + _esc(m.brand || "") + "</div></th>";
-    };
+    function card(m, other) {
+      var rows = shown.map(function (s) {
+        var dispM = _disp(m, s), nM = _num(m, s), nO = _num(other, s), win = false;
+        if (s.dir && nM != null && nO != null && nM !== nO) win = s.dir === "hi" ? nM > nO : nM < nO;
+        return '<div style="display:flex;justify-content:space-between;gap:.4rem;align-items:baseline;padding:.4rem .1rem;border-top:1px solid #F1F5F9">' +
+          '<span style="font-size:.66rem;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:.3px">' + s.label + "</span>" +
+          '<span style="font-size:.82rem;font-weight:' + (win ? "900" : "700") + ';color:' + (win ? "#15803D" : "#0F172A") + ';text-align:right">' +
+          (dispM == null ? '<span style="color:#CBD5E1">—</span>' : _esc(dispM)) + (win ? " ✓" : "") + "</span></div>";
+      }).join("");
+      var safeName = _esc(m.name).replace(/'/g, "");
+      return '<div style="flex:1;min-width:0;border:1.5px solid #E2E8F0;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column">' +
+        '<div style="background:' + (m.brandColor || "#0052CC") + ';color:#fff;padding:.6rem .7rem">' +
+        '<div style="font-size:.86rem;font-weight:900;line-height:1.2">' + (m.emoji ? m.emoji + " " : "") + _esc(m.shortName || m.name) + "</div>" +
+        '<div style="font-size:.68rem;font-weight:700;opacity:.85">' + _esc(m.brand || "") + "</div></div>" +
+        '<div style="padding:.3rem .7rem .5rem;flex:1">' + rows + "</div>" +
+        '<div style="padding:.2rem .7rem .7rem"><button onclick="document.getElementById(\'noyo-compare-modal\').remove();noyoEnquire(\'' + m.id + "','" + safeName + '\',null)" style="width:100%;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:9px;padding:.55rem;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit">Enquire →</button></div>' +
+        "</div>";
+    }
 
     var ov = document.getElementById("noyo-compare-modal");
     if (!ov) {
@@ -188378,17 +188399,12 @@ window.renderMySearches = function () {
       document.body.appendChild(ov);
     }
     ov.innerHTML =
-      '<div style="background:#fff;border-radius:18px;max-width:620px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(15,23,42,.3);position:relative">' +
-      '<button onclick="document.getElementById(\'noyo-compare-modal\').remove()" style="position:absolute;top:.6rem;right:.8rem;background:none;border:none;font-size:1.5rem;color:#94A3B8;cursor:pointer;z-index:2">&times;</button>' +
-      '<div style="padding:1.2rem 1.3rem .6rem"><h3 style="margin:0;font-size:1.15rem;font-weight:900;color:#0F172A">⚖️ Compare machines</h3>' +
-      '<div style="font-size:.8rem;color:#64748B;margin-top:.2rem">Figures are from each manufacturer\'s brochure. ✓ marks the stronger spec; "—" means not published.</div></div>' +
-      '<div style="padding:0 1.3rem 1.3rem"><table style="width:100%;border-collapse:collapse;table-layout:fixed">' +
-      "<thead><tr><th style='width:34%'></th>" + head(a) + head(b) + "</tr></thead>" +
-      "<tbody>" + rows + "</tbody></table>" +
-      '<div style="display:flex;gap:.6rem;margin-top:1rem">' +
-      '<button onclick="document.getElementById(\'noyo-compare-modal\').remove();noyoEnquire(\'' + a.id + '\',\'' + _esc(a.name).replace(/'/g, "") + '\',null)" style="flex:1;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.7rem;font-weight:800;font-size:.85rem;cursor:pointer;font-family:inherit">Enquire: ' + _esc(a.shortName || a.name) + "</button>" +
-      '<button onclick="document.getElementById(\'noyo-compare-modal\').remove();noyoEnquire(\'' + b.id + '\',\'' + _esc(b.name).replace(/'/g, "") + '\',null)" style="flex:1;background:linear-gradient(135deg,#0052CC,#1a6fd4);border:none;color:#fff;border-radius:10px;padding:.7rem;font-weight:800;font-size:.85rem;cursor:pointer;font-family:inherit">Enquire: ' + _esc(b.shortName || b.name) + "</button>" +
-      "</div></div></div>";
+      '<div style="background:#fff;border-radius:18px;max-width:600px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(15,23,42,.3);position:relative">' +
+      '<button onclick="document.getElementById(\'noyo-compare-modal\').remove()" style="position:absolute;top:.5rem;right:.7rem;background:none;border:none;font-size:1.5rem;color:#94A3B8;cursor:pointer;z-index:2">&times;</button>' +
+      '<div style="padding:1.1rem 1.2rem .4rem"><h3 style="margin:0;font-size:1.1rem;font-weight:900;color:#0F172A">⚖️ Compare machines</h3>' +
+      '<div style="font-size:.78rem;color:#64748B;margin-top:.2rem">Brochure figures. ✓ = stronger spec · "—" = not published.</div></div>' +
+      '<div style="display:flex;gap:.6rem;padding:.6rem 1.2rem 1.2rem">' + card(a, b) + card(b, a) + "</div>" +
+      "</div>";
   };
 
   console.log("[Noyo] Compare ready — tick 2 machines to compare.");
