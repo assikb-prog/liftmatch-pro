@@ -149090,6 +149090,9 @@ function _renderCards(matches, machineType, answers) {
         }
         <div style="font-size:.68rem;color:#94A3B8;margin-bottom:.5rem">ℹ️ Paid brand sponsorship. ${ad.sponsorCompany ? ad.sponsorCompany + " is an official brand partner." : "Sponsored by the machine manufacturer."} Organic results appear below.</div>
         <div style="padding-bottom:1rem">
+          <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.8rem;font-weight:800;color:#475569;padding:.1rem 0 .55rem">
+            <input type="checkbox" class="noyo-compare-cb" data-mid="${spMachine.id}" onclick="noyoToggleCompare('${spMachine.id}', this)" style="width:17px;height:17px;accent-color:#0052CC;cursor:pointer"> ⚖️ Compare this machine
+          </label>
           ${
             currentUser && (currentUser.role === "rental" || currentUser.role === "admin_rental")
               ? `<div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1.5px solid rgba(245,158,11,.3);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;font-weight:700;color:#92400E;text-align:center">🏢 Rental portal — preview only. Hire Cart is a customer feature.</div>`
@@ -150555,11 +150558,11 @@ function buildSpecBoxes(m, type, ans) {
     if (m.machineWeight)
       boxes += `<div class="spec-box"><div class="spec-box-lbl">Machine Weight</div><div class="spec-box-val">${(m.machineWeight / 1000).toFixed(1)}T</div></div>`;
     if (m.machineWidth)
-      boxes += `<div class="spec-box"><div class="spec-box-lbl">Width</div><div class="spec-box-val">${(m.machineWidth / 1000).toFixed(2)}m</div></div>`;
+      boxes += `<div class="spec-box"><div class="spec-box-lbl">Width</div><div class="spec-box-val">${(m.machineWidth > 20 ? m.machineWidth / 1000 : m.machineWidth).toFixed(2)}m</div></div>`;
     if (m.machineLength)
-      boxes += `<div class="spec-box"><div class="spec-box-lbl">Length</div><div class="spec-box-val">${(m.machineLength / 1000).toFixed(2)}m</div></div>`;
+      boxes += `<div class="spec-box"><div class="spec-box-lbl">Length</div><div class="spec-box-val">${(m.machineLength > 20 ? m.machineLength / 1000 : m.machineLength).toFixed(2)}m</div></div>`;
     if (m.machineHeight)
-      boxes += `<div class="spec-box"><div class="spec-box-lbl">Height (stowed)</div><div class="spec-box-val">${(m.machineHeight / 1000).toFixed(2)}m</div></div>`;
+      boxes += `<div class="spec-box"><div class="spec-box-lbl">Height (stowed)</div><div class="spec-box-val">${(m.machineHeight > 20 ? m.machineHeight / 1000 : m.machineHeight).toFixed(2)}m</div></div>`;
     if (m.maxSpeed)
       boxes += `<div class="spec-box"><div class="spec-box-lbl">Max Speed</div><div class="spec-box-val">${m.maxSpeed} km/h</div></div>`;
     if (m.engine)
@@ -151049,7 +151052,7 @@ function buildSpecBoxes(m, type, ans) {
   } else if (type === "pushAround") {
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Platform Height</div><div class="spec-box-val">${m.platformHeight}m</div></div>`;
     boxes += `<div class="spec-box"><div class="spec-box-lbl">Capacity</div><div class="spec-box-val">${m.capacity}kg</div></div>`;
-    boxes += `<div class="spec-box"><div class="spec-box-lbl">Width</div><div class="spec-box-val">${(m.machineWidth / 1000).toFixed(2)}m</div></div>`;
+    boxes += `<div class="spec-box"><div class="spec-box-lbl">Width</div><div class="spec-box-val">${(m.machineWidth > 20 ? m.machineWidth / 1000 : m.machineWidth).toFixed(2)}m</div></div>`;
     // Machine Weight — colour-coded against the customer's weight restriction (if any)
     {
       const _paWtLimit = parseFloat((ans || {}).ppl_weight_kg) || 0;
