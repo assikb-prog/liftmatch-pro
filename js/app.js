@@ -143244,7 +143244,16 @@ function matchMachines(ans, type) {
           else if ((m.power || "").includes("Electric")) score += 1;
         }
         if (pwr === "diesel_boom") {
-          if ((m.power || "").includes("Diesel")) score += 2;
+          // "Diesel" → diesel (and diesel-capable hybrids) rank as a TIER above
+          // electric-only machines, so the results fill with diesel first.
+          // Pure-electric booms only surface as a fallback when there aren't
+          // enough diesel/hybrid options to fill the list.
+          const p = (m.power || "").toLowerCase();
+          const dieselCapable =
+            p.includes("diesel") || p.includes("hybrid") ||
+            p.includes("dual") || p.includes("bi-energy") || p.includes("bi-fuel");
+          if (dieselCapable) score += 1000 + (p.includes("diesel") ? 2 : 0);
+          // pure electric: no bonus → ranks below every diesel/hybrid option
         }
 
         // Brand preference — big score boost if user has a preferred brand
