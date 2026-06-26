@@ -149659,7 +149659,7 @@ function _renderCards(matches, machineType, answers) {
           _bmWtLimit > 0
             ? ` <span style="font-weight:700;color:${_bmWtOk ? "#15803D" : "#B91C1C"}">${_bmIcon}(limit: ${(_bmWtLimit / 1000).toFixed(1)}T)</span>`
             : "";
-        return `<div class="lift-chart-note" style="${_bmBg}"><strong>⚖️ Machine Dimensions</strong> Weight: <strong>${(m.machineWeight / 1000).toFixed(1)}T</strong>${_bmWtSfx} &nbsp;|&nbsp; Width: <strong>${m.machineWidth}m</strong> &nbsp;|&nbsp; Length: <strong>${m.machineLength}m</strong> &nbsp;|&nbsp; Height (stowed): <strong>${m.machineHeight}m</strong></div>`;
+        return `<div class="lift-chart-note" style="${_bmBg}"><strong>🚚 Transport Dimensions</strong> Weight: <strong>${(m.machineWeight / 1000).toFixed(1)}T</strong>${_bmWtSfx} &nbsp;|&nbsp; Width: <strong>${m.machineWidth}m</strong> &nbsp;|&nbsp; Length: <strong>${m.machineLength}m</strong> &nbsp;|&nbsp; Height (stowed): <strong>${m.machineHeight}m</strong></div>`;
       })()}
       ${(() => {
         if (machineType !== "telehandler" || !m.machineWeight) return "";
@@ -149676,30 +149676,7 @@ function _renderCards(matches, machineType, answers) {
           _tlWtLimit > 0
             ? ` &nbsp;<span style="font-weight:700;color:${_tlWtOk ? "#15803D" : "#B91C1C"}">${_tlIcon}(limit: ${(_tlWtLimit / 1000).toFixed(1)}T)</span>`
             : "";
-        return `<div class="lift-chart-note" style="${_tlBg}"><strong>📐 Machine Dimensions</strong> Weight: <strong>${(m.machineWeight / 1000).toFixed(1)}T</strong>${_tlWtSfx} &nbsp;|&nbsp; W: <strong>${(m.machineWidth / 1000).toFixed(2)}m</strong> &nbsp;|&nbsp; L: <strong>${(m.machineLength / 1000).toFixed(2)}m</strong> &nbsp;|&nbsp; H: <strong>${(m.machineHeight / 1000).toFixed(2)}m</strong>${m.maxSpeed ? ` &nbsp;|&nbsp; Speed: <strong>${m.maxSpeed}km/h</strong>` : ""}</div>`;
-      })()}
-      ${(() => {
-        // ── 🚚 Transport Dimensions (universal — every machine type) ──
-        if (!m.machineWeight && !m.machineWidth && !m.machineLength && !m.machineHeight) return "";
-        const _toM = (v) => (v == null || v === "" ? null : (Number(v) > 50 ? Number(v) / 1000 : Number(v)));
-        const _h = _toM(m.machineHeight), _w = _toM(m.machineWidth), _l = _toM(m.machineLength);
-        const _wt = m.machineWeight ? (m.machineWeight / 1000).toFixed(1) + "T" : null;
-        const _cell = (lbl, val) =>
-          val == null ? "" : `<div style="flex:1;min-width:64px;text-align:center;padding:.3rem .35rem"><div style="font-size:.58rem;font-weight:800;color:#9A3412;text-transform:uppercase;letter-spacing:.4px">${lbl}</div><div style="font-size:.95rem;font-weight:900;color:#7C2D12">${val}</div></div>`;
-        const _overW = _w && _w > 2.5;
-        const _hint = _overW
-          ? "⚠️ Over 2.5m wide — an over-dimension permit may be needed for road transport."
-          : "✅ Within the 2.5m standard road width — transports on a normal truck or float.";
-        return `<div style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border:1.5px solid #FED7AA;border-radius:12px;padding:.55rem .65rem;margin:.5rem 0">
-          <div style="font-size:.7rem;font-weight:900;color:#9A3412;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.35rem">🚚 Transport Dimensions</div>
-          <div style="display:flex;flex-wrap:wrap;gap:.25rem;background:#fff;border-radius:9px;padding:.2rem">
-            ${_cell("Stowed Height", _h ? _h.toFixed(2) + "m" : null)}
-            ${_cell("Width", _w ? _w.toFixed(2) + "m" : null)}
-            ${_cell("Length", _l ? _l.toFixed(2) + "m" : null)}
-            ${_cell("Weight", _wt)}
-          </div>
-          <div style="font-size:.67rem;color:#9A3412;margin-top:.4rem;line-height:1.4">${_hint}</div>
-        </div>`;
+        return `<div class="lift-chart-note" style="${_tlBg}"><strong>🚚 Transport Dimensions</strong> Weight: <strong>${(m.machineWeight / 1000).toFixed(1)}T</strong>${_tlWtSfx} &nbsp;|&nbsp; W: <strong>${(m.machineWidth / 1000).toFixed(2)}m</strong> &nbsp;|&nbsp; L: <strong>${(m.machineLength / 1000).toFixed(2)}m</strong> &nbsp;|&nbsp; H: <strong>${(m.machineHeight / 1000).toFixed(2)}m</strong>${m.maxSpeed ? ` &nbsp;|&nbsp; Speed: <strong>${m.maxSpeed}km/h</strong>` : ""}</div>`;
       })()}
       ${(() => {
         if (machineType !== "telehandler" || !m.isRotating) return "";
@@ -188257,6 +188234,10 @@ window.renderMySearches = function () {
   var SEL = [];           // selected machine ids (max 2)
   var MAX = 2;
 
+  // Some entries store width/length in metres (2.5), others in mm (2550).
+  // Normalise to metres: anything over 50 is treated as millimetres.
+  function _cmpToM(v) { var n = Number(v); return n > 50 ? n / 1000 : n; }
+
   function _m(id) {
     try { return (typeof ALL_MACHINES !== "undefined") && ALL_MACHINES.find(function (x) { return x.id === id; }); }
     catch (e) { return null; }
@@ -188332,9 +188313,9 @@ window.renderMySearches = function () {
     { k: "platformHeight", label: "Platform height", unit: "m", dir: "hi" },
     { k: "maxReach", label: "Horizontal reach", unit: "m", dir: "hi" },
     { k: "gradeability", label: "Gradeability", unit: "%", dir: "hi" },
-    { k: "machineWeight", label: "Machine weight", unit: "kg", dir: "lo" },
-    { k: "machineWidth", label: "Width", dir: "lo", fmt: function (v) { return (v / 1000).toFixed(2) + " m"; } },
-    { k: "machineLength", label: "Length", dir: "lo", fmt: function (v) { return (v / 1000).toFixed(2) + " m"; } },
+    { k: "machineWeight", label: "Machine weight", dir: "lo", fmt: function (v) { return (v / 1000).toFixed(1) + " T"; } },
+    { k: "machineWidth", label: "Width", dir: "lo", norm: _cmpToM, fmt: function (v) { return _cmpToM(v).toFixed(2) + " m"; } },
+    { k: "machineLength", label: "Length", dir: "lo", norm: _cmpToM, fmt: function (v) { return _cmpToM(v).toFixed(2) + " m"; } },
     { k: "stowedHeight", label: "Stowed height", unit: "m", dir: "lo" },
     { k: "platformLength", label: "Platform length", unit: "m", dir: "hi" },
     { k: "forkPocket", label: "Fork pocket", dir: null },
@@ -188359,7 +188340,7 @@ window.renderMySearches = function () {
     if (s.unit && typeof raw === "number") out = raw + " " + s.unit;
     return out;
   }
-  function _num(m, s) { var raw = _val(m, s); return typeof raw === "number" ? raw : null; }
+  function _num(m, s) { var raw = _val(m, s); if (typeof raw !== "number") return null; return s.norm ? s.norm(raw) : raw; }
 
   function _esc(v) { return String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
