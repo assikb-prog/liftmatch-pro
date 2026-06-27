@@ -188040,6 +188040,8 @@ window.addEventListener('load', () => {
         saved = true;
       }
     } catch (e) { console.warn("[Noyo] Enquiry Firestore write failed:", e && e.message); }
+    // Queue the lead email via the Trigger Email extension (writes to `mail`)
+    try { await _sendEnquiryMail(record); } catch (e) { console.warn("[Noyo] Email queue failed:", e && e.message); }
     try { if (typeof _noyoTrack === "function") _noyoTrack({ enquiries: 1 }); } catch (e) {}
     _pendingEnquiryRecord = null;
     _closeEnquiry();
@@ -188050,8 +188052,62 @@ window.addEventListener('load', () => {
     } catch (e) {}
   }
 
-  function _localBackup(record) {
-    try {
+  // Write a formatted lead email into the `mail` collection. The installed
+  // "Trigger Email from Firestore" extension picks it up and sends it via
+  // Resend, FROM sales@noyo.com.au. Reply-to is set to the customer so a
+  // reply goes straight back to them.
+  async function _sendEnquiryMail(record) {
+    if (typeof _fbDb === "undefined" || !_fbDb) return;
+    var isHire = record.intent === "hire";
+    var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
+    var row = function (label, val) {
+      if (val == null || val === "" || (Array.isArray(val) && !val.length)) return "";
+      if (Array.isArray(val)) val = val.join(", ");
+      return "<tr><td style='padding:5px 12px;color:#64748b;font-weight:700;white-space:nowrap;vertical-align:top'>" + label + "</td><td style='padding:5px 12px;color:#0f172a'>" + esc(val) + "</td></tr>";
+    };
+    var rows =
+      row("Type", isHire ? "HIRE — rent for a job" : "BUY — purchase a machine") +
+      row("Machine", record.machineName) +
+      row("Category", record.machineCategory) +
+      (isHire
+        ? row("Site address", record.siteAddress) + row("When needed", record.neededDate) +
+          row("Duration", record.duration) + row("Delivery / pickup", record.deliveryPickup) +
+          row("Attachments", record.attachmentsNeeded)
+        : row("When buying", record.buyWhen) + row("Condition", record.condition) +
+          row("Budget", record.budget) + row("Finance needed", record.financeNeeded) +
+          row("Delivery location", record.deliveryLocation)) +
+      row("Name", record.name) + row("Email", record.email) + row("Phone", record.phone) +
+      row("Company", record.company) + row("City", record.customerCity) +
+      row("Account address", record.customerAddress) + row("Message", record.message);
+
+    var html =
+      "<div style='font-family:Arial,Helvetica,sans-serif;max-width:620px'>" +
+      "<h2 style='color:#0052CC;margin:0 0 4px'>New " + (isHire ? "hire" : "buy") + " enquiry</h2>" +
+      "<p style='color:#64748b;margin:0 0 14px;font-size:13px'>A customer just submitted an enquiry on Noyo.</p>" +
+      "<table style='border-collapse:collapse;width:100%;font-size:14px;border:1px solid #e2e8f0;border-radius:8px'>" + rows + "</table>" +
+      "<p style='color:#94a3b8;font-size:12px;margin-top:16px'>Reply to this email to respond directly to the customer.</p></div>";
+
+    var L = function (k, val) { return val ? k + ": " + (Array.isArray(val) ? val.join(", ") : val) + "\n" : ""; };
+    var text =
+      "NEW " + (isHire ? "HIRE" : "BUY") + " ENQUIRY\n\n" +
+      L("Machine", record.machineName) +
+      (isHire
+        ? L("Site", record.siteAddress) + L("When", record.neededDate) + L("Duration", record.duration) + L("Delivery", record.deliveryPickup) + L("Attachments", record.attachmentsNeeded)
+        : L("When buying", record.buyWhen) + L("Condition", record.condition) + L("Budget", record.budget) + L("Finance", record.financeNeeded) + L("Delivery", record.deliveryLocation)) +
+      "\n" + L("Name", record.name) + L("Email", record.email) + L("Phone", record.phone) + L("Company", record.company) + L("City", record.customerCity) + L("Message", record.message);
+
+    var subject = "New " + (isHire ? "hire" : "buy") + " enquiry — " + (record.machineName || "machine") + (record.customerCity ? " (" + record.customerCity + ")" : "");
+
+    var mailDoc = {
+      to: ["sales@noyo.com.au"],
+      message: { subject: subject, text: text, html: html },
+    };
+    if (record.email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(record.email)) mailDoc.replyTo = record.email;
+
+    await _fbDb.collection("mail").add(mailDoc);
+  }
+
+  function _localBackup(record) {    try {
       var stash = JSON.parse(localStorage.getItem("noyo_enquiries") || "[]");
       stash.push(Object.assign({ _ts: Date.now() }, record));
       localStorage.setItem("noyo_enquiries", JSON.stringify(stash));
