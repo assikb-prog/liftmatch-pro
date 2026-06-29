@@ -84536,6 +84536,7 @@ loadMatrixTyres: [
     {
       id: "nifty-td120t",
       brand: "Niftylift",
+      trackDrive: true,
       emoji: "💥",
       name: "Niftylift TD120T TrackDrive",
       shortName: "Niftylift TD120T",
@@ -84581,6 +84582,7 @@ loadMatrixTyres: [
     {
       id: "nifty-td150t",
       brand: "Niftylift",
+      trackDrive: true,
       emoji: "💥",
       name: "Niftylift TD150T TrackDrive",
       shortName: "Niftylift TD150T",
@@ -91046,6 +91048,48 @@ loadMatrixTyres: [
       filters: ["boom", "articulating", "indoor", "electric"],
     },
     {
+      id: "genie-z34-22ic",
+      brand: "Genie",
+      emoji: "🦾",
+      brandColor: "#FF6600",
+      // Source: Genie Z-34/22 IC brochure (12/22, AS 1418.10) — all values brochure-confirmed
+      name: "Genie Z-34/22 IC Diesel Articulating",
+      shortName: "Genie Z-34/22 IC",
+      boomType: "articulating",
+      platformHeight: 10.54,
+      workHeight: 12.54,
+      maxReach: 6.78,
+      upOverHeight: 4.6,
+      upOverReach: 6.78,
+      machineWeight: 4994,
+      machineWidth: 1.85,
+      machineLength: 5.66,
+      machineHeight: 2.06,
+      power: "Diesel",
+      swl: 227,
+      maxOccupancy: 2,
+      gradeability: 45,
+      tiltSensorFB: 2.5,
+      tiltSensorSS: 4.5,
+      terrain: "outdoor rough",
+      bestFor: "Industry-leading 34ft diesel articulating — most hired RT boom in Australia, 45% gradeability, zero tailswing, 6.78m reach",
+      note: "Genie Z-34/22 IC: 10.54m platform / 12.54m working height. 227kg SWL. 6.78m horizontal reach. 4.6m up-and-over clearance. Kubota D1105 18.5kW diesel, T4i/Stage V. 4WD hydrostatic. 45% gradeability. Zero tailswing. Foam-filled non-marking rough terrain tyres (10×16.5in). 4,994kg. 1.85m wide × 5.66m long × 2.06m stowed. 355° turntable, 1.22m jib (139° vertical rotation), 180° platform rotation. Drive speed 4.8km/h stowed / 1.1km/h raised. Self-levelling platform. SKU: Z34IC001U30015. Source: Genie Z-34/22 IC Brochure (12/22, AS 1418.10).",
+      upOverNote: "Up-and-over: 4.6m clearance at 6.78m reach. Market leader for construction site obstacle clearance.",
+      tags: [
+        "Articulating",
+        "10.54m Platform",
+        "12.54m Working Height",
+        "6.78m Reach",
+        "Diesel",
+        "4WD",
+        "Rough Terrain",
+        "Zero Tailswing",
+        "45% Gradeability",
+        "Market Leader",
+      ],
+      filters: ["boom", "articulating", "outdoor", "rough", "diesel"],
+    },
+        {
       id: "genie-z34-22n",
       brand: "Genie",
       emoji: "🦾",
@@ -92113,7 +92157,7 @@ loadMatrixTyres: [
       autolevelling: false,
       controls: "Proportional control with 3 joysticks",
       complianceStandards: "CE / ANSI / CSA / AS",
-      terrain: "outdoor",
+      terrain: "outdoor rough",
       safetyFeatures: [
         "Oscillating function",
         "7-in display screen",
@@ -99566,7 +99610,7 @@ loadMatrixTyres: [
       // platform standard at 227-272kg unrestricted single-capacity SWL.
       // Source: JLG official spec sheets and LECTURA datasheets.
       maxOccupancy: 2,
-      terrain: "indoor/outdoor",
+      terrain: "indoor/outdoor rough",
       bestFor:
         "Sites requiring low emission with outdoor terrain capability, green buildings",
       note: "Hybrid 34ft articulating: diesel for rough terrain, electric for clean zones. Best of both worlds.",
@@ -99575,6 +99619,7 @@ loadMatrixTyres: [
         "boom",
         "indoor",
         "outdoor",
+        "rough",
         "electric",
         "diesel",
         "articulating",
@@ -145650,6 +145695,18 @@ function matchMachines(ans, type) {
           else score -= 5;
         }
 
+        // ── Spider/track-drive exclusion ─────────────────────────────────────
+        // Track-drive (spider/crawler) machines are specialist access equipment —
+        // slow travel, stabiliser setup, trailer-mounted, not a drop-in substitute
+        // for a standard 4WD wheeled RT boom. Exclude them completely unless the
+        // user specifically chose crawler terrain OR entered a width restriction
+        // under 1.5m (indicating they need to get through a very tight gap).
+        if (m.trackDrive) {
+          const wantsCrawler = terr === "crawler_boom";
+          const wantsNarrow = (answers.restrict_max_width_m > 0 && answers.restrict_max_width_m < 1.5);
+          if (!wantsCrawler && !wantsNarrow) return null; // exclude entirely
+        }
+
         // Power
         if (pwr === "electric_boom") {
           const p = (m.power || "").toLowerCase();
@@ -145681,6 +145738,12 @@ function matchMachines(ans, type) {
           (m.brand || "").toLowerCase().includes(brandPref)
         )
           score += 12;
+
+        // Market leader bonus — Genie Z-34/22 IC is the single most-hired
+        // rough terrain articulating boom in the Australian market. When no
+        // brand preference is set, it should rank at or near the top of any
+        // diesel RT articulating search it qualifies for.
+        if (m.id === "genie-z34-22ic" && brandPref === "any") score += 8;
 
         return { ...m, score, _overSpec: false };
       })
