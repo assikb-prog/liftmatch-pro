@@ -7,7 +7,7 @@
 //  serving a cached old app.js. Bump the cache-buster version in index.html
 //  (the ?v=... on the app.js <script> tag) and redeploy, then hard-refresh.
 // ═══════════════════════════════════════════════════════════════════════
-window.NOYO_BUILD = "2026-06-29-debug3";
+window.NOYO_BUILD = "2026-06-29-liftchart-fix";
 
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
@@ -86172,15 +86172,7 @@ loadMatrixTyres: [
       tyres: "10-16.5 foam-filled non-marking",
       // liftChart pixel-read from LGMG AR11J working-range chart (AU-market).
       // Articulating: apex at min reach, max outreach mid-low. { reach (m), height (m) }.
-      liftChart: [
-        { reach: 0, height: 10.75 },
-        { reach: 2.0, height: 9.5 },
-        { reach: 4.0, height: 7.5 },
-        { reach: 6.0, height: 5.0 },
-        { reach: 6.78, height: 3.0 },
-        { reach: 6.0, height: 1.0 },
-        { reach: 4.5, height: 0 },
-      ],
+      // liftChart removed — outer envelope not suitable for reach-at-platform-height gate
       // Brochure-confirmed: LGMG AR11J brochure (henmac.com.au PDF, Australian
       // distributor): 'Max. Platform Occupancy: 2'. 270kg single-capacity
       // basket — sized for 2 operators + tools. AR16J = 230kg, same.
@@ -92125,15 +92117,7 @@ loadMatrixTyres: [
       hydraulicTank: 65,
       swl: 250,
       // liftChart pixel-read from Sinoboom working-range diagram. { reach (m), height (m) }.
-      liftChart: [
-        { reach: 0, height: 10.39 },
-        { reach: 2, height: 9.5 },
-        { reach: 3.5, height: 7.5 },
-        { reach: 5, height: 5.5 },
-        { reach: 5.75, height: 3.5 },
-        { reach: 5.5, height: 1.5 },
-        { reach: 4, height: 0 },
-      ],
+      // liftChart removed — outer envelope not suitable for reach-at-platform-height gate
       maxOccupancy: 2,
       driveSpeedLowered: 5.5,
       driveSpeedRaised: 1.1,
@@ -145769,19 +145753,7 @@ function matchMachines(ans, type) {
 
     // Separate qualified from undersized
     const qualifiedAll = scoredAll.filter((m) => !m._underSpec);
-    // DEBUG
-    if (terr === "rough_boom" && mode === "up_over") {
-      console.log("[Noyo Debug2] scoredAll count:", scoredAll.length);
-      console.log("[Noyo Debug2] qualifiedAll count:", qualifiedAll.length);
-      // Show ALL <11m machines that made it through scoring
-      const _dbg = qualifiedAll.filter(m => (m.platformHeight||0) < 11).map(m => m.brand+"/"+m.id+"/score="+m.score+"/reach="+m._reachAtReqHt);
-      console.log("[Noyo Debug2] <11m qualified:", _dbg);
-      // Specifically trace sinoboom and lgmg
-      const _pool_sb = pool.filter(m => m.id === "sinoboom-ab10j" || m.id === "lgmg-ar11j");
-      console.log("[Noyo Debug2] sinoboom/lgmg in pool:", _pool_sb.map(m => m.id+"/terrain="+m.terrain));
-      const _scored_sb = scoredAll.filter(m => m && (m.id === "sinoboom-ab10j" || m.id === "lgmg-ar11j"));
-      console.log("[Noyo Debug2] sinoboom/lgmg in scoredAll:", _scored_sb.map(m => m.id+"/score="+m.score+"/underSpec="+m._underSpec+"/reachClose="+m._reachClose+"/reach="+m._reachAtReqHt));
-    }
+
     const underSpecAll = scoredAll.filter((m) => m._underSpec);
 
     // ── Close-match gating (boom reach) ─────────────────────────────────
