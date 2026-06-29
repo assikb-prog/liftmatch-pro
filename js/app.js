@@ -7,7 +7,7 @@
 //  serving a cached old app.js. Bump the cache-buster version in index.html
 //  (the ?v=... on the app.js <script> tag) and redeploy, then hard-refresh.
 // ═══════════════════════════════════════════════════════════════════════
-window.NOYO_BUILD = "2026-06-09-photo-modal-scroll-fix";
+window.NOYO_BUILD = "2026-06-29-rt-boom-fix";
 
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
@@ -145790,10 +145790,6 @@ function matchMachines(ans, type) {
     const _fullyQualified = qualifiedAll.filter((m) => !m._reachClose);
     const _closeMatches = qualifiedAll.filter((m) => m._reachClose);
     const _poolForMain = _fullyQualified.length > 0 ? _fullyQualified : qualifiedAll;
-    // DEBUG — remove after fix confirmed
-    console.log("[Noyo Debug] terr="+terr+" pwr="+pwr+" minHt="+minHt+" minReach="+minReach);
-    console.log("[Noyo Debug] pool size="+pool.length+" scoredAll="+scoredAll.length+" qualifiedAll="+qualifiedAll.length+" _fullyQualified="+_fullyQualified.length);
-    console.log("[Noyo Debug] _poolForMain brands:", [...new Set(_poolForMain.map(m=>m.brand+"/"+m.id+"/score="+m.score))].slice(0,10));
     const _appendCloseToEnd = _fullyQualified.length > 0 && _closeMatches.length > 0;
 
     const _isCrawlerTerrainUp = terr === "crawler_boom";
