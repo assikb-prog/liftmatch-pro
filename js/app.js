@@ -143180,7 +143180,7 @@ function applySameLicenceClass(picks, qualifiedPool, reqHt, brandArg) {
   const refill = diversePick(
     sameClassPool,
     Math.max(picks.length, 5),
-    2,
+    1,
     brandArg || null,
   );
   return refill.length >= origSameClass.length ? refill : picks;
@@ -145688,7 +145688,7 @@ function matchMachines(ans, type) {
         }
         if (terr === "rough_boom") {
           if (m.terrain.includes("rough")) score += 3;
-          else score -= 1;
+          else return null; // hard-exclude non-rough machines from rough terrain search
         }
         if (terr === "crawler_boom") {
           if ((m.filters || []).includes("crawler")) score += 5;
@@ -145744,6 +145744,10 @@ function matchMachines(ans, type) {
         // brand preference is set, it should rank at or near the top of any
         // diesel RT articulating search it qualifies for.
         if (m.id === "genie-z34-22ic" && brandPref === "any") score += 8;
+
+        // Dingli brand boost — strong specs, competitive pricing, growing AU presence.
+        // Ensures Dingli surfaces prominently in searches where it qualifies.
+        if ((m.brand || "") === "Dingli" && brandPref === "any") score += 8;
 
         return { ...m, score, _overSpec: false };
       })
@@ -145802,20 +145806,45 @@ function matchMachines(ans, type) {
         _bPref !== "any" ? _bPref : null,
       );
       const results = [..._mainSameClass];
-      // Only surface a "next size up" oversized machine when the qualified
-      // pool was thin and we couldn't fill the slate. With 4+ same-class
-      // options shown, an oversized warning machine is noise, not value.
+      // 5th slot: when fewer than 5 results, look for an electric/hybrid rough terrain
+      // machine within the same licence class (never cross <11m/>11m boundary).
+      // Brand priority: Dingli > LGMG > any other brand not already shown.
+      // Two machines from the same brand are ONLY allowed here when no other
+      // brand has a qualifying electric/hybrid RT machine in this height class.
       if (results.length < 5) {
-        const up = findNextUp(_poolForMain, results, (m) => m.platformHeight || 0);
-        // Never let the "next size up" cross the licence-class boundary on a
-        // sub-11m job — that's a different operator licence, not a bigger machine.
-        if (up && !crossesLicenceClass(up, minHt))
-          results.push({
-            ...up,
-            _overSpec: true,
-            _overSpecMsg:
-              "⚠️ This machine exceeds your stated platform height. Check licensing, ground bearing capacity and site suitability before hiring.",
+        const existingIds = new Set(results.map((r) => r.id));
+        const existingBrands = new Set(results.map((r) => r.brand));
+        const _elecRTPool = _poolForMain
+          .filter((m) => {
+            if (existingIds.has(m.id)) return false;
+            if (crossesLicenceClass(m, minHt)) return false;
+            if (!(m.terrain || "").includes("rough")) return false;
+            const p = (m.power || "").toLowerCase();
+            return p.includes("electric") || p.includes("hybrid") || p.includes("bi-energy");
           });
+        // Brand priority order: Dingli, LGMG, then any brand not already shown, then same brand as last resort
+        const _brandOrder = ["Dingli", "LGMG"];
+        let _elecPick = null;
+        // 1. Try preferred brands first (new brand)
+        for (const preferBrand of _brandOrder) {
+          _elecPick = _elecRTPool.find((m) => m.brand === preferBrand && !existingBrands.has(m.brand));
+          if (_elecPick) break;
+        }
+        // 2. Try any brand not already shown
+        if (!_elecPick) {
+          _elecPick = _elecRTPool.find((m) => !existingBrands.has(m.brand));
+        }
+        // 3. Last resort — same brand allowed only when no other brand exists
+        if (!_elecPick) {
+          _elecPick = _elecRTPool.sort((a, b) => (b.score || 0) - (a.score || 0))[0] || null;
+        }
+        if (_elecPick) {
+          results.push({
+            ..._elecPick,
+            _electricRTNote: "⚡ Electric / Hybrid — Rough Terrain Capable. Same height class, no licence change. Shown as a low-emission alternative for sites that prefer reduced diesel use.",
+          });
+        }
+        // Never show a size-up that crosses the licence boundary
       }
       // underSpec machines excluded — machine must meet stated height requirement
       // ── BUG FIX (Assik 28-Apr-2026): when the user explicitly picked
@@ -151918,6 +151947,7 @@ function _renderCards(matches, machineType, answers) {
         </div>`;
       })()}
       ${rotatingLabel}
+      ${m._electricRTNote ? `<div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:2px solid #22C55E;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚡</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#14532D;margin-bottom:.25rem">⚡ ELECTRIC / HYBRID — ROUGH TERRAIN CAPABLE</div><div style="font-size:.82rem;color:#166534;line-height:1.55">${m._electricRTNote}</div></div></div>` : ""}
       ${isOverSpec ? `<div class="overspec-banner"><div class="overspec-banner-icon">${m._sizeLabel === "one_up" ? "⬆️" : m._sizeLabel === "two_up" ? "⬆️⬆️" : m._sizeLabel === "much_larger" ? "⬆️⬆️⬆️" : "⚠️"}</div><div><div class="overspec-banner-title">${m._sizeLabel === "one_up" ? "One Size Up" : m._sizeLabel === "two_up" ? "Two Sizes Up" : m._sizeLabel === "much_larger" ? "Much Larger Machine" : "Also Fits Your Job"}</div><div class="overspec-banner-text">${m._overSpecMsg}</div><div style="margin-top:.4rem;font-size:.76rem;font-weight:600;color:#92400E">📋 Check licensing requirements.</div></div></div>` : ""}
       ${m._altSwlWarning ? `<div style="background:linear-gradient(135deg,#FEF2F2,#FEE2E2);border:2px solid #EF4444;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(239,68,68,.15)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">⚠️</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#991B1B;margin-bottom:.35rem;letter-spacing:.2px">ONE-PERSON MACHINE — Cannot Lift Two People</div><div style="font-size:.82rem;color:#991B1B;line-height:1.6">${m._altSwlWarning}</div></div></div>` : ""}
       ${m._altDriveWarning ? `<div style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:2px solid #F59E0B;border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.8rem;display:flex;gap:.7rem;align-items:flex-start;box-shadow:0 2px 8px rgba(245,158,11,.12)"><div style="font-size:1.5rem;flex-shrink:0;line-height:1">🚗</div><div style="flex:1"><div style="font-weight:900;font-size:.92rem;color:#92400E;margin-bottom:.35rem;letter-spacing:.2px">PUSH-AROUND — Not Drive-at-Height Capable</div><div style="font-size:.82rem;color:#78350F;line-height:1.6">${m._altDriveWarning}</div></div></div>` : ""}
