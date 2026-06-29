@@ -145746,8 +145746,15 @@ function matchMachines(ans, type) {
         if (m.id === "genie-z34-22ic" && brandPref === "any") score += 8;
 
         // Dingli brand boost — strong specs, competitive pricing, growing AU presence.
-        // Ensures Dingli surfaces prominently in searches where it qualifies.
-        if ((m.brand || "") === "Dingli" && brandPref === "any") score += 8;
+        // Only boost when Dingli is in the same licence class as the requirement
+        // (both <11m OR both >=11m). This prevents Dingli 14m+ machines from
+        // monopolising diversePick slots for sub-11m searches.
+        if ((m.brand || "") === "Dingli" && brandPref === "any") {
+          const _dingli_ph = m.platformHeight || m.liftHeight || 0;
+          const _req_ph = minHt || 0;
+          const _sameLicence = (_dingli_ph < 11 && _req_ph < 11) || (_dingli_ph >= 11 && _req_ph >= 11);
+          if (_sameLicence) score += 8;
+        }
 
         return { ...m, score, _overSpec: false };
       })
@@ -145783,6 +145790,10 @@ function matchMachines(ans, type) {
     const _fullyQualified = qualifiedAll.filter((m) => !m._reachClose);
     const _closeMatches = qualifiedAll.filter((m) => m._reachClose);
     const _poolForMain = _fullyQualified.length > 0 ? _fullyQualified : qualifiedAll;
+    // DEBUG — remove after fix confirmed
+    console.log("[Noyo Debug] terr="+terr+" pwr="+pwr+" minHt="+minHt+" minReach="+minReach);
+    console.log("[Noyo Debug] pool size="+pool.length+" scoredAll="+scoredAll.length+" qualifiedAll="+qualifiedAll.length+" _fullyQualified="+_fullyQualified.length);
+    console.log("[Noyo Debug] _poolForMain brands:", [...new Set(_poolForMain.map(m=>m.brand+"/"+m.id+"/score="+m.score))].slice(0,10));
     const _appendCloseToEnd = _fullyQualified.length > 0 && _closeMatches.length > 0;
 
     const _isCrawlerTerrainUp = terr === "crawler_boom";
