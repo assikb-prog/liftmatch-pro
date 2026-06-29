@@ -80118,7 +80118,7 @@ loadMatrixTyres: [
       machineLength: 1.44,
       machineWidth: 0.76,
       machineHeight: 1.99,
-      machineWeight: None,
+      machineWeight: null,
       terrain: "indoor",
       power: "Electric (Oil-Free)",
       swl: 240,
@@ -144196,7 +144196,7 @@ function matchMachines(ans, type) {
           "⚠️ Above your stated load requirement. This machine has a higher rated capacity — verify load chart at your required lift height, licensing and suitability before hiring." +
           htNote,
       });
-    return window._noyoPickAndStore ? window._noyoPickAndStore(results) : results.slice(0, 5);
+    return results.slice(0, 5);
   }
 
   // ═══════════════════════════════════════════════════════
@@ -144743,7 +144743,7 @@ function matchMachines(ans, type) {
       return { ...m, _overSpec: false, _sizeLabel: null }; // equivalent
     });
 
-    return window._noyoPickAndStore ? window._noyoPickAndStore(results) : results.slice(0, 5);
+    return results.slice(0, 5);
   }
 
   // ═══════════════════════════════════════════════════════
@@ -145822,7 +145822,7 @@ function matchMachines(ans, type) {
           _existingIds.add(cm.id);
         }
       }
-      return window._noyoPickAndStore ? window._noyoPickAndStore(results) : results.slice(0, 5);
+      return results.slice(0, 5);
     } else {
       const _bPref2 = (ans.brand_pref || "any").toLowerCase();
       const _bPrefArg = _bPref2 !== "any" ? _bPref2 : null;
@@ -146049,7 +146049,7 @@ function matchMachines(ans, type) {
     }
   }
 
-  return window._noyoPickAndStore ? window._noyoPickAndStore(pool) : pool.slice(0, 5);
+  return pool.slice(0, 5);
 }
 
 // ── matchMaterial — material lifts ───────────────────────────────────────────
@@ -146808,7 +146808,7 @@ function matchMaterial(ans) {
 
   if (!pool.length)
     pool = [...MACHINES.material].sort((a, b) => b.capacity - a.capacity);
-  return window._noyoPickAndStore ? window._noyoPickAndStore(pool) : pool.slice(0, 5);
+  return pool.slice(0, 5);
 }
 
 // ── matchPushAround — vertical mast push-arounds AND self-propelled masts ────
@@ -146926,7 +146926,7 @@ function matchPushAround(ans) {
       .sort((a, b) => (a.platformHeight || 0) - (b.platformHeight || 0))
       .map((m) => ({ ...m, swl: m.swl || m.capacity || null }));
   }
-  return window._noyoPickAndStore ? window._noyoPickAndStore(pool) : pool.slice(0, 5);
+  return pool.slice(0, 5);
 }
 
 function determineMachineType(ans) {
@@ -149294,7 +149294,7 @@ function showResults() {
   _renderCards(matches, machineType, answers);
   showResultDisclaimer();
   // Render the "also available" carousel after the 5 cards
-  try { if (typeof window._noyoRenderCarousel === "function") window._noyoRenderCarousel(); } catch (e) {}
+
 
   // Track top machines shown in results
   try {
@@ -190868,106 +190868,4 @@ window.renderMySearches = function () {
   console.log("[Noyo] Compare ready — tick 2 machines to compare.");
 })();
 
-// ════════════════════════════════════════════════════════════════════════
-//  NOYO SESSION ROTATION
-//  Stores the full qualified pool per search and returns a session-stable
-//  shuffled slice for positions 2-5 (position 1 is always the best match).
-//  Session seed means the same person sees the same machines within a visit,
-//  but a different set next visit — giving all brands fair exposure over time.
-// ════════════════════════════════════════════════════════════════════════
-(function () {
-  "use strict";
 
-  // ── Session seed (stable per browser session) ───────────────────────
-  var _seed = parseInt(sessionStorage.getItem("noyo_rot_seed") || "0", 10);
-  if (!_seed) { _seed = Date.now() % 999983; sessionStorage.setItem("noyo_rot_seed", _seed); }
-
-  function _seededRand(i) {
-    // Simple deterministic pseudo-random from seed + index
-    var x = Math.sin(_seed + i + 1) * 43758.5453123;
-    return x - Math.floor(x);
-  }
-  function _sessionShuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(_seededRand(i) * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  // Called by each scorer's return point. Stores the full qualified pool
-  // globally, then returns a session-stable top-5 with position 0 anchored.
-  window._noyoPickAndStore = function (pool) {
-    if (!pool || !pool.length) { window._noyoQualifiedPool = []; return []; }
-    window._noyoQualifiedPool = pool;             // full qualified pool for carousel
-    if (pool.length <= 5) return pool;            // no need to rotate if ≤5
-    var anchor = pool[0];                         // always best match at position 0
-    var rest = _sessionShuffle(pool.slice(1));    // shuffle the rest with session seed
-    return [anchor].concat(rest.slice(0, 4));     // anchor + 4 rotated = top 5
-  };
-
-  // ── "Also available" carousel rendered below the 5 result cards ──────
-  window._noyoRenderCarousel = function () {
-    var existing = document.getElementById("noyo-also-avail");
-    if (existing) existing.remove();
-    var pool = window._noyoQualifiedPool || [];
-    var shown = pool.length > 0 ? Math.min(pool.length, 5) : 0;
-    var extra = pool.slice(shown);                // machines beyond position 5
-    var container = document.getElementById("rec-cards");
-    if (!container) return;
-
-    // ── "X machines qualify" counter ─────────────────────────────────
-    var counter = document.getElementById("noyo-qualify-count");
-    if (counter) counter.remove();
-    if (pool.length > 1) {
-      var ct = document.createElement("div");
-      ct.id = "noyo-qualify-count";
-      ct.style.cssText = "font-size:.78rem;font-weight:800;color:#0052CC;text-align:center;margin:.3rem 0 .6rem;letter-spacing:.1px";
-      ct.textContent = pool.length + " machine" + (pool.length === 1 ? "" : "s") + " in our database qualify for this job";
-      container.parentNode && container.parentNode.insertBefore(ct, container);
-    }
-
-    if (!extra.length) return;                    // nothing beyond the 5 shown
-
-    var wrap = document.createElement("div");
-    wrap.id = "noyo-also-avail";
-    wrap.style.cssText = "margin-top:1.2rem;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:16px;padding:.9rem 1rem";
-    var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); };
-
-    var chips = extra.map(function (m) {
-      var wh = m.workingHeight || m.liftHeight || m.capacity || "";
-      var unit = m.workingHeight ? "m wh" : m.liftHeight ? "m lift" : m.capacity ? "T" : "";
-      var safeName = esc(m.name || "").replace(/'/g, "");
-      var safeId = esc(m.id || "");
-      return '<button onclick="noyoEnquire(\'' + safeId + '\',\'' + safeName + '\',null)" ' +
-        'style="display:inline-flex;align-items:center;gap:.35rem;background:#fff;border:1.5px solid #E2E8F0;border-radius:10px;padding:.4rem .7rem;font-family:\'Nunito\',sans-serif;font-size:.76rem;font-weight:800;color:#0F172A;cursor:pointer;white-space:nowrap;transition:border-color .15s,box-shadow .15s" ' +
-        'onmouseover="this.style.borderColor=\'#0052CC\';this.style.boxShadow=\'0 2px 8px rgba(0,82,204,.15)\'" ' +
-        'onmouseout="this.style.borderColor=\'#E2E8F0\';this.style.boxShadow=\'none\'">' +
-        (m.emoji ? esc(m.emoji) + " " : "") +
-        '<span style="color:#0052CC">' + esc(m.brand || "") + "</span>" +
-        '<span>' + esc(m.shortName || (m.name || "").split(" ").slice(-2).join(" ")) + "</span>" +
-        (wh ? '<span style="color:#64748B;font-weight:700">' + wh + " " + unit + "</span>" : "") +
-        "</button>";
-    }).join(" ");
-
-    wrap.innerHTML =
-      '<div style="font-size:.72rem;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:.6px;margin-bottom:.6rem">' +
-      "⬇️ Also qualifies for this job (" + extra.length + " more" + (extra.length === 1 ? "" : "") + ")</div>" +
-      '<div style="display:flex;flex-wrap:wrap;gap:.4rem">' + chips + "</div>" +
-      '<div style="font-size:.68rem;color:#94A3B8;margin-top:.5rem">All machines shown meet your height, reach and terrain requirements. Click any to enquire.</div>';
-    container.parentNode && container.parentNode.insertBefore(wrap, container.nextSibling);
-  };
-
-  // Hook into the result render: after _renderCards, render the carousel
-  var _origRenderCards = window._renderCards;
-  if (typeof _renderCards === "function") {
-    var _prev = _renderCards;
-    window._renderCards = function (matches, machineType, answers) {
-      _prev(matches, machineType, answers);
-      try { window._noyoRenderCarousel(); } catch (e) {}
-    };
-  }
-
-  console.log("[Noyo] Session rotation ready — pool stored, carousel wired.");
-})();
