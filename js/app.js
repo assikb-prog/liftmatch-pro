@@ -164826,22 +164826,70 @@ var KYM_CAT_SYNONYMS = {
   "scissor lift": ["scissor"],
   scissorlift: ["scissor"],
   scissor: ["scissor"],
+  scissors: ["scissor"],
   slab: ["scissor"],
   "rough terrain scissor": ["scissor"],
   "electric scissor": ["scissor"],
   "diesel scissor": ["scissor"],
   "rt scissor": ["scissor"],
+  "slab scissor": ["scissor"],
+  "indoor scissor": ["scissor"],
+  "outdoor scissor": ["scissor"],
+  "rt slab": ["scissor"],
+  // ── Scissor abbreviations ─────────────────────────────────────────────
+  esl: ["scissor"],     // electric scissor lift
+  dsl: ["scissor"],     // diesel scissor lift
+  "electric sl": ["scissor"],
+  "diesel sl": ["scissor"],
+  // ── Common scissor feet shorthands ───────────────────────────────────
+  "19ft scissor": ["scissor"],
+  "19 ft scissor": ["scissor"],
+  "26ft scissor": ["scissor"],
+  "32ft scissor": ["scissor"],
+  "40ft scissor": ["scissor"],
+  "19ft electric": ["scissor"],
+  "19 feet electric": ["scissor"],
+  "19ft slab": ["scissor"],
   // ── Boom ─────────────────────────────────────────────────────────────────
   boom: ["boom"],
   cherry: ["boom"],
   "cherry picker": ["boom"],
   knuckle: ["boom"],
+  "knuckle boom": ["boom"],
   articulating: ["boom"],
   "articulated boom": ["boom"],
+  "articulated knuckle": ["boom"],
   "telescopic boom": ["boom"],
   "straight boom": ["boom"],
   "electric boom": ["boom"],
   "diesel boom": ["boom"],
+  "boom lift": ["boom"],
+  "aerial work platform": ["boom", "scissor"],
+  awp: ["boom", "scissor"],
+  ewp: ["boom", "scissor"],
+  // ── Boom abbreviations — trade shorthand ──────────────────────────────
+  dkb: ["boom"],        // diesel knuckle boom
+  ekb: ["boom"],        // electric knuckle boom
+  dab: ["boom"],        // diesel articulating boom
+  eab: ["boom"],        // electric articulating boom
+  dtb: ["boom"],        // diesel telescopic boom
+  etb: ["boom"],        // electric telescopic boom
+  "knuckle lift": ["boom"],
+  "knuckle boom lift": ["boom"],
+  "articulating boom lift": ["boom"],
+  // ── Common size shorthands (feet → boom size class) ───────────────────
+  // "34ft" "34 ft" "34feet" "34 feet" — 34ft = ~10.36m platform
+  "34ft": ["boom"],
+  "34 ft": ["boom"],
+  "34feet": ["boom"],
+  "45ft": ["boom"],
+  "45 ft": ["boom"],
+  "60ft": ["boom"],
+  "60 ft": ["boom"],
+  "80ft": ["boom"],
+  "80 ft": ["boom"],
+  "120ft": ["boom"],
+  "120 ft": ["boom"],
   // ── Material ─────────────────────────────────────────────────────────────
   "duct lift": ["material"],
   ductlift: ["material"],
@@ -164882,6 +164930,26 @@ function kymResolveCategories(query) {
       KYM_CAT_SYNONYMS[syn].forEach((c) => matched.add(c));
     }
   }
+
+  // ── Smart category inference from feet + electric/diesel ──────────────
+  // "19 feet electric" / "26ft electric" — no scissor keyword but clearly
+  // a scissor or small boom query. Infer from height range:
+  //   ≤35ft (10.67m) + electric → likely scissor (most slab scissors are 6-32ft)
+  //   >35ft + electric/diesel → likely boom
+  // Only applies when NO category was already resolved from synonyms
+  if (matched.size === 0) {
+    const hasFeet = /\d+\s*(?:ft|foot|feet)/i.test(lq) || /\d+\s*feet/i.test(lq);
+    const hasElec = ["electric", "battery", "esl"].some((t) => lq.includes(t));
+    const hasDiesel = lq.includes("diesel");
+    if (hasFeet && (hasElec || hasDiesel)) {
+      // Show BOTH boom and scissor unless user explicitly said one type.
+      // e.g. "34 feet diesel" → show diesel booms AND diesel scissors at that height.
+      // Only restrict to one category when they typed "boom", "scissor lift" etc.
+      matched.add("boom");
+      matched.add("scissor");
+    }
+  }
+
   return matched;
 }
 
@@ -164962,6 +165030,22 @@ function _kymParseNumerics(query) {
     result.height = v;
   }
 
+  // Bare integer in boom or scissor context interpreted as feet
+  // e.g. "34 diesel knuckle boom" → 34ft = 10.36m, "19 feet electric" → 5.79m
+  if (!result.height) {
+    const boomTerms = ["boom", "knuckle", "dkb", "ekb", "dab", "eab", "dtb", "etb", "articul", "telescop", "cherry"];
+    const scissorTerms = ["scissor", "slab", "esl", "dsl", "scissorlift"];
+    const hasBoomContext = boomTerms.some((t) => lq.includes(t));
+    const hasScissorContext = scissorTerms.some((t) => lq.includes(t));
+    if (hasBoomContext || hasScissorContext) {
+      const bareNum = lq.match(/\b(\d{2,3})\b/);
+      if (bareNum) {
+        const n = parseFloat(bareNum[1]);
+        if (n >= 6 && n <= 200) result.height = n * 0.3048;
+      }
+    }
+  }
+
   // Reach: "10m reach", "8m outreach"
   const reachMatch = lq.match(/(\d+(?:\.\d+)?)\s*m\s*(?:reach|outreach)/);
   if (reachMatch) result.reach = parseFloat(reachMatch[1]);
@@ -165009,8 +165093,24 @@ function kymMatchesQuery(m, catKey, query) {
       powerBag.includes("petrol") ||
       powerBag.includes("gas");
     if (queryWantsElectric && !isElectric) return false;
-    if (queryWantsDiesel && isElectric) return false;
+    if (queryWantsDiesel && isElectric && !isDiesel) return false; // allow bi-energy/hybrid
     if (queryWantsLPG && !isLPG) return false;
+  }
+
+  // ── Boom type intent: knuckle/articulating/telescopic ────────────────────
+  const KNUCKLE_TERMS = ["knuckle", "articulating", "articulated", "dkb", "ekb", "dab", "eab", "knuckle boom", "cherry picker"];
+  const TELE_TERMS = ["telescopic", "telescoping", "straight boom", "dtb", "etb", "straight arm"];
+  const queryWantsKnuckle = KNUCKLE_TERMS.some((t) => queryLower.includes(t));
+  const queryWantsTele = TELE_TERMS.some((t) => queryLower.includes(t));
+  if (catKey === "boom") {
+    if (queryWantsKnuckle && !queryWantsTele) {
+      // Must be articulating
+      if (m.boomType && m.boomType !== "articulating") return false;
+    }
+    if (queryWantsTele && !queryWantsKnuckle) {
+      // Must be telescopic
+      if (m.boomType && m.boomType !== "telescopic") return false;
+    }
   }
 
   // ── Rotating intent ─────────────────────────────────────────────────────
