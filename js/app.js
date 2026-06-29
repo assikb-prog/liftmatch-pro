@@ -7,7 +7,7 @@
 //  serving a cached old app.js. Bump the cache-buster version in index.html
 //  (the ?v=... on the app.js <script> tag) and redeploy, then hard-refresh.
 // ═══════════════════════════════════════════════════════════════════════
-window.NOYO_BUILD = "2026-06-29-debug2";
+window.NOYO_BUILD = "2026-06-29-debug3";
 
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
@@ -145773,8 +145773,14 @@ function matchMachines(ans, type) {
     if (terr === "rough_boom" && mode === "up_over") {
       console.log("[Noyo Debug2] scoredAll count:", scoredAll.length);
       console.log("[Noyo Debug2] qualifiedAll count:", qualifiedAll.length);
-      const _dbg = qualifiedAll.filter(m => (m.platformHeight||0) < 11).map(m => m.brand+"/"+m.id+"/score="+m.score);
+      // Show ALL <11m machines that made it through scoring
+      const _dbg = qualifiedAll.filter(m => (m.platformHeight||0) < 11).map(m => m.brand+"/"+m.id+"/score="+m.score+"/reach="+m._reachAtReqHt);
       console.log("[Noyo Debug2] <11m qualified:", _dbg);
+      // Specifically trace sinoboom and lgmg
+      const _pool_sb = pool.filter(m => m.id === "sinoboom-ab10j" || m.id === "lgmg-ar11j");
+      console.log("[Noyo Debug2] sinoboom/lgmg in pool:", _pool_sb.map(m => m.id+"/terrain="+m.terrain));
+      const _scored_sb = scoredAll.filter(m => m && (m.id === "sinoboom-ab10j" || m.id === "lgmg-ar11j"));
+      console.log("[Noyo Debug2] sinoboom/lgmg in scoredAll:", _scored_sb.map(m => m.id+"/score="+m.score+"/underSpec="+m._underSpec+"/reachClose="+m._reachClose+"/reach="+m._reachAtReqHt));
     }
     const underSpecAll = scoredAll.filter((m) => m._underSpec);
 
