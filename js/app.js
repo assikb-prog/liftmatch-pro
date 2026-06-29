@@ -7,7 +7,7 @@
 //  serving a cached old app.js. Bump the cache-buster version in index.html
 //  (the ?v=... on the app.js <script> tag) and redeploy, then hard-refresh.
 // ═══════════════════════════════════════════════════════════════════════
-window.NOYO_BUILD = "2026-06-29-rt-boom-fix-v2";
+window.NOYO_BUILD = "2026-06-29-debug2";
 
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
@@ -145769,6 +145769,13 @@ function matchMachines(ans, type) {
 
     // Separate qualified from undersized
     const qualifiedAll = scoredAll.filter((m) => !m._underSpec);
+    // DEBUG
+    if (terr === "rough_boom" && mode === "up_over") {
+      console.log("[Noyo Debug2] scoredAll count:", scoredAll.length);
+      console.log("[Noyo Debug2] qualifiedAll count:", qualifiedAll.length);
+      const _dbg = qualifiedAll.filter(m => (m.platformHeight||0) < 11).map(m => m.brand+"/"+m.id+"/score="+m.score);
+      console.log("[Noyo Debug2] <11m qualified:", _dbg);
+    }
     const underSpecAll = scoredAll.filter((m) => m._underSpec);
 
     // ── Close-match gating (boom reach) ─────────────────────────────────
