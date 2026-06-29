@@ -7,7 +7,7 @@
 //  serving a cached old app.js. Bump the cache-buster version in index.html
 //  (the ?v=... on the app.js <script> tag) and redeploy, then hard-refresh.
 // ═══════════════════════════════════════════════════════════════════════
-window.NOYO_BUILD = "2026-06-29-rt-boom-fix";
+window.NOYO_BUILD = "2026-06-29-rt-boom-fix-v2";
 
 const MACHINES = {
   // ═══════════════════════════════════════════════════════════════
@@ -145745,16 +145745,7 @@ function matchMachines(ans, type) {
         // diesel RT articulating search it qualifies for.
         if (m.id === "genie-z34-22ic" && brandPref === "any") score += 8;
 
-        // Dingli brand boost — strong specs, competitive pricing, growing AU presence.
-        // Only boost when Dingli is in the same licence class as the requirement
-        // (both <11m OR both >=11m). This prevents Dingli 14m+ machines from
-        // monopolising diversePick slots for sub-11m searches.
-        if ((m.brand || "") === "Dingli" && brandPref === "any") {
-          const _dingli_ph = m.platformHeight || m.liftHeight || 0;
-          const _req_ph = minHt || 0;
-          const _sameLicence = (_dingli_ph < 11 && _req_ph < 11) || (_dingli_ph >= 11 && _req_ph >= 11);
-          if (_sameLicence) score += 8;
-        }
+        // Dingli surfaces naturally via scoring — no artificial boost needed.
 
         return { ...m, score, _overSpec: false };
       })
