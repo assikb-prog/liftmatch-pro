@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# NOYO — Australia's machine-matching platform
+# Forklifts, scissor lifts, boom lifts, telehandlers & reach trucks
+
+Sitemap: https://noyo.com.au/sitemap.xml
