@@ -1187,6 +1187,17 @@ h1,h2,h3{ letter-spacing:-0.021em; }
     .home-opt-d{display:block;font-size:.76rem;color:#64748B;margin-top:2px;line-height:1.35}
     .home-secondary-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.4rem}
     .home-trust-line{font-size:.82rem;color:#64748B;margin-top:1rem;font-weight:600}
+    /* "what we cover" category pills in the hero */
+    .home-covers{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin:.2rem 0 1.1rem}
+    .home-covers .lbl{font-size:.82rem;font-weight:800;color:#cfe0f5;margin-right:.15rem}
+    .home-covers .chip{font-size:.82rem;font-weight:800;color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.32);border-radius:50px;padding:.3rem .85rem}
+    /* colour-differentiated Step-1 option cards */
+    .home-opt.people{background:#EFF6FF;border-color:#BFDBFE}
+    .home-opt.people:hover{border-color:#3B82F6;background:#fff;transform:translateY(-3px);box-shadow:0 12px 26px rgba(59,130,246,.22)}
+    .home-opt.materials{background:#FFF7ED;border-color:#FED7AA}
+    .home-opt.materials:hover{border-color:#F97316;background:#fff;transform:translateY(-3px);box-shadow:0 12px 26px rgba(249,115,22,.22)}
+    .home-opt.earth{background:#ECFDF5;border-color:#A7F3D0}
+    .home-opt.earth:hover{border-color:#10B981;background:#fff;transform:translateY(-3px);box-shadow:0 12px 26px rgba(16,185,129,.22)}
     @media(max-width:680px){
       .home-quiz-opts{grid-template-columns:1fr}
       .home-quiz-q{font-size:1.1rem}
@@ -1205,21 +1216,31 @@ h1,h2,h3{ letter-spacing:-0.021em; }
           <h1>Not sure which machine<br><em>to hire or buy?</em></h1>
           <p>Answer a few quick questions and we'll match you to the exact machine to hire or buy — with specs, tyne sizes, slipper options and lift charts. Start right here 👇</p>
 
+          <!-- ── What NOYO covers — visible at a glance ── -->
+          <div class="home-covers">
+            <span class="lbl">Hire or buy across:</span>
+            <span class="chip">Forklifts</span>
+            <span class="chip">Scissor Lifts</span>
+            <span class="chip">Boom Lifts</span>
+            <span class="chip">Telehandlers</span>
+            <span class="chip">Earth Works</span>
+          </div>
+
           <!-- ── Step 1 of the finder, embedded on the home page ── -->
           <div class="home-quiz-card">
             <div class="home-quiz-step">STEP 1 OF 3</div>
             <div class="home-quiz-q">🧑‍🤝‍🧑 Are you lifting people or materials?</div>
             <div class="home-quiz-sub">People includes everyone from single workers to full crews. Materials covers everything from duct sections to heavy pallets.</div>
             <div class="home-quiz-opts">
-              <button class="home-opt" onclick="noyoHeroStart('people')">
+              <button class="home-opt people" onclick="noyoHeroStart('people')">
                 <span class="home-opt-ico">👷</span>
                 <span><span class="home-opt-t">People</span><span class="home-opt-d">Workers need to reach height to do their job</span></span>
               </button>
-              <button class="home-opt" onclick="noyoHeroStart('materials')">
+              <button class="home-opt materials" onclick="noyoHeroStart('materials')">
                 <span class="home-opt-ico">📦</span>
                 <span><span class="home-opt-t">Materials</span><span class="home-opt-d">Lifting goods, ductwork, panels, pallets or construction loads</span></span>
               </button>
-              <button class="home-opt" onclick="noyoHeroStart('earthworks')">
+              <button class="home-opt earth" onclick="noyoHeroStart('earthworks')">
                 <span class="home-opt-ico">🚜</span>
                 <span><span class="home-opt-t">Earth Works</span><span class="home-opt-d">Excavation, earthmoving, clearing, compaction, cartage or dust suppression</span></span>
               </button>
@@ -1549,6 +1570,68 @@ h1,h2,h3{ letter-spacing:-0.021em; }
             <div style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:#0F172A;margin-bottom:.6rem">One enquiry, we do the rest</div>
             <div style="font-size:.92rem;color:#475569;line-height:1.6">Send one enquiry and we'll help you line up the right hire or purchase. We do the legwork — no phone tag, no chasing.</div>
           </div>
+
+        </div>
+      </div>
+
+      <!-- ── WHAT YOU CAN FIND — CATEGORY SHOWCASE ─────────────────── -->
+      <div style="margin-bottom:4rem">
+        <h3 style="font-family:'Fraunces',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#0F172A;text-align:center;margin:0 0 .5rem;letter-spacing:-.01em">
+          What can you find on NOYO?
+        </h3>
+        <p style="text-align:center;color:#64748B;font-size:1rem;margin:0 0 2.4rem;font-weight:600">From forklifts to earthworks — one place to match, hire or buy every machine for the job.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.1rem">
+
+          <!-- Forklifts -->
+          <button onclick="startFinder()" style="background:#fff;border:2px solid #E2E8F0;border-radius:18px;padding:1.6rem 1.2rem;text-align:center;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .22s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 30px rgba(15,23,42,.09)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="width:60px;height:60px;border-radius:50%;background:#FFF3EC;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="39" r="4"/><circle cx="25" cy="39" r="4"/><path d="M8 35 V22 H25 V35"/><path d="M31 35 V10"/><path d="M31 14 H39"/><path d="M31 33 H43"/><path d="M25 27 H31"/></svg></div>
+            <div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;color:#0F172A;margin-bottom:.3rem">Forklifts</div>
+            <div style="font-size:.85rem;color:#475569;line-height:1.5">Electric, diesel &amp; LPG — warehouse, yard, container &amp; reach trucks.</div>
+            <div style="margin-top:.7rem;font-size:.72rem;font-weight:800;color:#C2410C;text-transform:uppercase;letter-spacing:.5px">191 machines →</div>
+          </button>
+
+          <!-- Scissor Lifts -->
+          <button onclick="startFinder()" style="background:#fff;border:2px solid #E2E8F0;border-radius:18px;padding:1.6rem 1.2rem;text-align:center;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .22s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 30px rgba(15,23,42,.09)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="width:60px;height:60px;border-radius:50%;background:#FFF3EC;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11 H39"/><path d="M11 41 H37"/><path d="M15 11 L33 41"/><path d="M33 11 L15 41"/><path d="M14 26 H34"/><circle cx="16" cy="44" r="2.4"/><circle cx="32" cy="44" r="2.4"/></svg></div>
+            <div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;color:#0F172A;margin-bottom:.3rem">Scissor Lifts</div>
+            <div style="font-size:.85rem;color:#475569;line-height:1.5">Straight-up access — electric for indoors, diesel for rough terrain.</div>
+            <div style="margin-top:.7rem;font-size:.72rem;font-weight:800;color:#C2410C;text-transform:uppercase;letter-spacing:.5px">253 machines →</div>
+          </button>
+
+          <!-- Boom Lifts -->
+          <button onclick="startFinder()" style="background:#fff;border:2px solid #E2E8F0;border-radius:18px;padding:1.6rem 1.2rem;text-align:center;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .22s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 30px rgba(15,23,42,.09)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="width:60px;height:60px;border-radius:50%;background:#FFF3EC;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="39" r="4"/><circle cx="25" cy="39" r="4"/><path d="M8 35 H30"/><path d="M19 35 L30 20 L40 24"/><path d="M37 17 H46 V26 H37 Z"/></svg></div>
+            <div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;color:#0F172A;margin-bottom:.3rem">Boom Lifts</div>
+            <div style="font-size:.85rem;color:#475569;line-height:1.5">Cherry pickers &amp; EWPs — reach up, out and over obstacles.</div>
+            <div style="margin-top:.7rem;font-size:.72rem;font-weight:800;color:#C2410C;text-transform:uppercase;letter-spacing:.5px">342 machines →</div>
+          </button>
+
+          <!-- Telehandlers -->
+          <button onclick="startFinder()" style="background:#fff;border:2px solid #E2E8F0;border-radius:18px;padding:1.6rem 1.2rem;text-align:center;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .22s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 30px rgba(15,23,42,.09)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="width:60px;height:60px;border-radius:50%;background:#FFF3EC;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="39" r="4"/><circle cx="30" cy="39" r="4"/><path d="M7 35 V25 H18 V19 H25 V35"/><path d="M21 23 L43 11"/><path d="M43 11 L46 15"/></svg></div>
+            <div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;color:#0F172A;margin-bottom:.3rem">Telehandlers</div>
+            <div style="font-size:.85rem;color:#475569;line-height:1.5">Fixed &amp; rotating — lift and reach for construction and farming.</div>
+            <div style="margin-top:.7rem;font-size:.72rem;font-weight:800;color:#C2410C;text-transform:uppercase;letter-spacing:.5px">209 machines →</div>
+          </button>
+
+          <!-- Earthworks -->
+          <button onclick="startFinder()" style="background:#fff;border:2px solid #E2E8F0;border-radius:18px;padding:1.6rem 1.2rem;text-align:center;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .22s"
+            onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 30px rgba(15,23,42,.09)';this.style.borderColor='#FDBA74'"
+            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.borderColor='#E2E8F0'">
+            <div style="width:60px;height:60px;border-radius:50%;background:#FFF3EC;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 41 H26"/><circle cx="12" cy="41" r="2.6"/><circle cx="22" cy="41" r="2.6"/><path d="M12 36 H24 V29 H16 L12 36 Z"/><path d="M22 31 L33 22"/><path d="M33 22 L39 31"/><path d="M37 30 L43 33 L40 38"/></svg></div>
+            <div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:900;color:#0F172A;margin-bottom:.3rem">Earthworks</div>
+            <div style="font-size:.85rem;color:#475569;line-height:1.5">Excavation, earthmoving, clearing, compaction, cartage &amp; dust suppression.</div>
+            <div style="margin-top:.7rem;font-size:.72rem;font-weight:800;color:#C2410C;text-transform:uppercase;letter-spacing:.5px">Start a search →</div>
+          </button>
 
         </div>
       </div>
@@ -3725,7 +3808,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
   </div>
 </div>
 
-<script src="js/app.js?v=2026-08-10-sponsored-fix"></script>
+<script src="js/app.js?v=2026-08-10-showcase-noflag"></script>
 
   <!-- ── RATING MODAL ─────────────────────────────────── -->
   <div id="rating-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:1rem">
