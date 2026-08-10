@@ -1762,6 +1762,12 @@ h1,h2,h3{ letter-spacing:-0.021em; }
       </div>
       <!-- Orange Find My Machine button -->
       <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+        <!-- Back to previous screen (home) -->
+        <button onclick="noyoGoHome()"
+          style="background:#fff;border:2px solid #86EFAC;border-radius:50px;padding:.6rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;color:#14532D;cursor:pointer;white-space:nowrap;transition:all .2s;display:inline-flex;align-items:center;gap:.35rem"
+          onmouseover="this.style.background='#F0FDF4';this.style.borderColor='#16A34A'" onmouseout="this.style.background='#fff';this.style.borderColor='#86EFAC'">
+          ← Back
+        </button>
         <!-- Cart button — shows count, links to hire enquiry -->
         <button id="kym-cart-header-btn" onclick="openSendQuotesModal()"
           style="display:none;background:#0052CC;border:none;border-radius:50px;padding:.6rem 1.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 3px 10px rgba(0,82,204,.3)">
@@ -3813,7 +3819,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
   </div>
 </div>
 
-<script src="js/app.js?v=2026-08-10-chips-fix"></script>
+<script src="js/app.js?v=2026-08-10-back-btn"></script>
 
   <!-- ── RATING MODAL ─────────────────────────────────── -->
   <div id="rating-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:1rem">
@@ -3968,21 +3974,51 @@ document.addEventListener('click', function(event){
 });
 </script>
 
-<!-- ── HERO CATEGORY CHIPS — deploy-proof handler ─────────────────────────
-     Defines noyoBrowseCat here in index.html so the chips work even if the
-     newest js/app.js hasn't been re-uploaded yet. It drives the existing
-     Know-Your-Machines globals (_kymCat / kymOpen) that are already live. -->
+<!-- ── HERO CATEGORY CHIPS + HOME/BACK — deploy-proof handlers ────────────
+     Defined here in index.html so they work even if the newest js/app.js
+     hasn't been re-uploaded yet. They drive the existing Know-Your-Machines
+     globals (_kymCat / kymOpen / _noyoShowFinderHome) that are already live. -->
 <script>
+// Tag the landing page in history as "home" so the browser Back button (and
+// phone swipe-back) returns to the NOYO home page instead of leaving to Google.
+try{ if(!(history.state && history.state.noyoView)) history.replaceState({noyoView:'finder'},''); }catch(e){}
+
+// Return to the NOYO home page (hero + quiz Step 1), used by the "Home" button.
+window.noyoGoHome = function(){
+  try{
+    if(typeof _noyoShowFinderHome === 'function'){ _noyoShowFinderHome(); }
+    else if(typeof showView === 'function'){
+      showView('finder');
+      var sh=document.getElementById('sec-hero'), sq=document.getElementById('sec-quiz'), sr=document.getElementById('sec-result');
+      if(sh) sh.style.display='block'; if(sq) sq.style.display='none'; if(sr) sr.style.display='none';
+    }
+    try{ history.replaceState({noyoView:'finder'},''); }catch(_){}
+    window.scrollTo({top:0, behavior:'smooth'});
+  }catch(e){ console.error('noyoGoHome failed', e); }
+};
+
+// Open Know Your Machines filtered to a category (from the homepage chips).
 window.noyoBrowseCat = function(cat){
   try{
+    // make sure home is represented in history before we navigate away from it
+    try{ if(!(history.state && history.state.noyoView)) history.replaceState({noyoView:'finder'},''); }catch(_){}
     if(typeof _kymCat !== 'undefined')  { _kymCat  = cat; } else { window._kymCat  = cat; }
     if(typeof _kymBrand !== 'undefined'){ _kymBrand = ''; }  else { window._kymBrand = ''; }
     if(typeof _kymQuery !== 'undefined'){ _kymQuery = ''; }  else { window._kymQuery = ''; }
-    if(typeof kymOpen === 'function'){ kymOpen(); return; }
-    if(typeof showView === 'function'){ showView('know'); if(typeof kymRender==='function') setTimeout(kymRender,80); return; }
-    if(typeof startFinder === 'function'){ startFinder(); }
+    if(typeof kymOpen === 'function'){ kymOpen(); }
+    else if(typeof showView === 'function'){ showView('know'); if(typeof kymRender==='function') setTimeout(kymRender,80); }
+    else if(typeof startFinder === 'function'){ startFinder(); }
+    // push a "know" history entry so Back returns to home (not Google), even if
+    // the live app.js has no history integration of its own.
+    try{ if(!(history.state && history.state.noyoView==='know')) history.pushState({noyoView:'know'},''); }catch(_){}
   }catch(e){ console.error('noyoBrowseCat failed', e); }
 };
+
+// Safety net: if a Back/swipe lands on an untagged state, show home not Google.
+window.addEventListener('popstate', function(e){
+  var v = e && e.state && e.state.noyoView;
+  if(!v && typeof window.noyoGoHome === 'function'){ window.noyoGoHome(); }
+});
 </script>
 
 </body>
