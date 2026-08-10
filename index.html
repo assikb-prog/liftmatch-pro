@@ -3813,7 +3813,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
   </div>
 </div>
 
-<script src="js/app.js?v=2026-08-10-chips-clickable"></script>
+<script src="js/app.js?v=2026-08-10-chips-fix"></script>
 
   <!-- ── RATING MODAL ─────────────────────────────────── -->
   <div id="rating-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:1rem">
@@ -3966,6 +3966,23 @@ document.addEventListener('click', function(event){
     closeHeroLoginMenu();
   }
 });
+</script>
+
+<!-- ── HERO CATEGORY CHIPS — deploy-proof handler ─────────────────────────
+     Defines noyoBrowseCat here in index.html so the chips work even if the
+     newest js/app.js hasn't been re-uploaded yet. It drives the existing
+     Know-Your-Machines globals (_kymCat / kymOpen) that are already live. -->
+<script>
+window.noyoBrowseCat = function(cat){
+  try{
+    if(typeof _kymCat !== 'undefined')  { _kymCat  = cat; } else { window._kymCat  = cat; }
+    if(typeof _kymBrand !== 'undefined'){ _kymBrand = ''; }  else { window._kymBrand = ''; }
+    if(typeof _kymQuery !== 'undefined'){ _kymQuery = ''; }  else { window._kymQuery = ''; }
+    if(typeof kymOpen === 'function'){ kymOpen(); return; }
+    if(typeof showView === 'function'){ showView('know'); if(typeof kymRender==='function') setTimeout(kymRender,80); return; }
+    if(typeof startFinder === 'function'){ startFinder(); }
+  }catch(e){ console.error('noyoBrowseCat failed', e); }
+};
 </script>
 
 </body>
