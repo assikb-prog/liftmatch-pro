@@ -16,7 +16,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Noyo — Machine Finder</title>
+<!-- ═══ NOYO SEO META (added for Google visibility) ═══ -->
+<title>NOYO — Find the Right Forklift, Scissor Lift, Boom Lift or Telehandler | Australia</title>
+<meta name="description" content="NOYO helps you find the right machine in seconds. Compare 995+ forklifts, scissor lifts, boom lifts, telehandlers and reach trucks from 34 brands — Toyota, Genie, JLG, Haulotte, XCMG, JCB, SANY and more. Free machine matching for hire and sales across Australia.">
+<meta name="keywords" content="forklift hire, forklift sales, scissor lift hire, boom lift hire, telehandler hire, cherry picker hire, EWP hire, reach truck, access equipment, find my machine, forklift Australia, scissor lift Australia, boom lift Australia, Sydney, Melbourne, Brisbane, Perth, Adelaide, NOYO">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://noyo.com.au/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NOYO">
+<meta property="og:title" content="NOYO — Find the Right Machine in Seconds">
+<meta property="og:description" content="Answer a few quick questions and get matched to the ideal forklift, scissor lift, boom lift or telehandler. 995+ machines, 34 brands, hire or sale, Australia-wide.">
+<meta property="og:url" content="https://noyo.com.au/">
+<meta property="og:image" content="https://noyo.com.au/og-image.jpg">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NOYO — Find the Right Machine in Seconds">
+<meta name="twitter:description" content="Compare 995+ forklifts, scissor lifts, boom lifts & telehandlers from 34 brands. Free machine matching across Australia.">
+<meta name="twitter:image" content="https://noyo.com.au/og-image.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"NOYO","url":"https://noyo.com.au/","description":"Australia's machine-matching platform for forklifts, scissor lifts, boom lifts, telehandlers and reach trucks. Compare 995+ machines from 34 brands for hire or sale.","areaServed":"AU","knowsAbout":["Forklifts","Scissor Lifts","Boom Lifts","Telehandlers","Reach Trucks","Access Equipment","Material Handling","Elevated Work Platforms"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"NOYO","url":"https://noyo.com.au/","potentialAction":{"@type":"SearchAction","target":"https://noyo.com.au/?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+<!-- ═══ END NOYO SEO META ═══ -->
 <!-- Typography unified on the native system font (see #final-noyo-fix). No web-font download needed. -->
 
 <!-- ═══ FIREBASE SDK (compat mode — works with global function pattern) ═══ -->
@@ -1150,22 +1173,72 @@ h1,h2,h3{ letter-spacing:-0.021em; }
   </div>
 </div>
 
+  <style>
+    /* ── Home-page embedded quiz (Step 1) ── */
+    .home-quiz-card{background:#fff;border-radius:18px;box-shadow:0 16px 44px rgba(11,43,91,.18);padding:1.4rem 1.4rem 1.5rem;margin:1.2rem 0 1rem;max-width:640px;text-align:left}
+    .home-quiz-step{display:inline-block;background:#F26522;color:#fff;font-weight:900;font-size:.68rem;letter-spacing:.5px;padding:3px 10px;border-radius:50px;margin-bottom:.6rem}
+    .home-quiz-q{font-size:1.25rem;font-weight:900;color:#0B2B5B;margin-bottom:.35rem;line-height:1.25}
+    .home-quiz-sub{font-size:.9rem;color:#64748B;margin-bottom:1rem;line-height:1.5}
+    .home-quiz-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+    .home-opt{display:flex;gap:.6rem;align-items:flex-start;text-align:left;background:#F7F9FC;border:2px solid #E2E8F0;border-radius:12px;padding:.85rem .8rem;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s}
+    .home-opt:hover{border-color:#F26522;background:#fff;transform:translateY(-3px);box-shadow:0 12px 26px rgba(242,101,34,.18)}
+    .home-opt-ico{font-size:1.4rem;line-height:1;flex-shrink:0}
+    .home-opt-t{display:block;font-weight:900;color:#0B2B5B;font-size:.98rem}
+    .home-opt-d{display:block;font-size:.76rem;color:#64748B;margin-top:2px;line-height:1.35}
+    .home-secondary-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.4rem}
+    .home-trust-line{font-size:.82rem;color:#64748B;margin-top:1rem;font-weight:600}
+    @media(max-width:680px){
+      .home-quiz-opts{grid-template-columns:1fr}
+      .home-quiz-q{font-size:1.1rem}
+      .home-secondary-row{flex-direction:column}
+      .home-secondary-row button{width:100%}
+    }
+  </style>
+
   <div id="sec-hero">
     <div class="hero">
       <!-- Two-column grid: left = pitch/CTAs, right = login dropdown -->
       <div class="hero-grid">
 
-        <!-- ═══ LEFT COLUMN — pitch + primary CTAs ═══ -->
+        <!-- ═══ LEFT COLUMN — pitch + interactive quiz start ═══ -->
         <div class="hero-left">
           <h1>Not sure which machine<br><em>to hire?</em></h1>
-          <p>Answer a few questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts.</p>
-          <button class="start-btn" onclick="openPhotoModal()">Find My Machine →</button>
-          <button onclick="kymOpen()" style="margin-top:.8rem;background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(22,163,74,.35)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">🔎 Know Your Machines →</button>
-          <div id="home-cart-btn-wrap" style="display:block;margin-top:1.2rem">
+          <p>Answer a few quick questions and we'll match you to the exact machine to hire — with specs, tyne sizes, slipper options and lift charts. Start right here 👇</p>
+
+          <!-- ── Step 1 of the finder, embedded on the home page ── -->
+          <div class="home-quiz-card">
+            <div class="home-quiz-step">STEP 1 OF 3</div>
+            <div class="home-quiz-q">🧑‍🤝‍🧑 Are you lifting people or materials?</div>
+            <div class="home-quiz-sub">People includes everyone from single workers to full crews. Materials covers everything from duct sections to heavy pallets.</div>
+            <div class="home-quiz-opts">
+              <button class="home-opt" onclick="noyoHeroStart('people')">
+                <span class="home-opt-ico">👷</span>
+                <span><span class="home-opt-t">People</span><span class="home-opt-d">Workers need to reach height to do their job</span></span>
+              </button>
+              <button class="home-opt" onclick="noyoHeroStart('materials')">
+                <span class="home-opt-ico">📦</span>
+                <span><span class="home-opt-t">Materials</span><span class="home-opt-d">Lifting goods, ductwork, panels, pallets or construction loads</span></span>
+              </button>
+              <button class="home-opt" onclick="noyoHeroStart('earthworks')">
+                <span class="home-opt-ico">🚜</span>
+                <span><span class="home-opt-t">Earth Works</span><span class="home-opt-d">Excavation, earthmoving, clearing, compaction, cartage or dust suppression</span></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ── Kept unchanged: Know Your Machines (green) + Upload a Photo ── -->
+          <div class="home-secondary-row">
+            <button onclick="kymOpen()" class="home-kym-btn" style="background:linear-gradient(135deg,#16A34A,#22C55E);border:none;border-radius:50px;padding:.75rem 1.6rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(22,163,74,.35)" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">🔎 Know Your Machines →</button>
+            <button onclick="openPhotoModal()" class="home-photo-btn" style="background:#fff;border:2px dashed #B9C6DA;border-radius:50px;padding:.75rem 1.6rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#0B2B5B;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#F26522'" onmouseout="this.style.borderColor='#B9C6DA'">📷 Upload a Photo →</button>
+          </div>
+          <div class="home-trust-line">Free for customers, always · 995+ machines · Real load charts, never fabricated · Built in Australia 🇦🇺</div>
+
+          <!-- Cart button — kept in DOM (JS shows it only once the cart has items) -->
+          <div id="home-cart-btn-wrap" style="display:none;margin-top:1.2rem">
             <button onclick="if(window.quoteCart&&quoteCart.length>0)openSendQuotesModal()" id="home-cart-btn"
-              style="background:#FF6B35;border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:default;box-shadow:0 4px 20px rgba(255,107,53,.2);transition:all .2s;opacity:.45"
+              style="background:#FF6B35;border:none;border-radius:50px;padding:.75rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(255,107,53,.2);transition:all .2s;opacity:.45"
               onmouseover="if(window.quoteCart&&quoteCart.length>0)this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-              🛒 Your cart is empty — add machines to get quotes
+              🛒 <span id="home-cart-count">0</span> machines in cart — Send Hire Enquiry →
             </button>
           </div>
         </div>
@@ -3652,7 +3725,7 @@ h1,h2,h3{ letter-spacing:-0.021em; }
   </div>
 </div>
 
-<script src="js/app.js?v=2026-07-23-sany"></script>
+<script src="js/app.js?v=2026-08-09-home-quiz"></script>
 
   <!-- ── RATING MODAL ─────────────────────────────────── -->
   <div id="rating-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:1rem">
